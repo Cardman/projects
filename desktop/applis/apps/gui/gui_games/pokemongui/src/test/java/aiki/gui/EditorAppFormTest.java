@@ -387,8 +387,8 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         a_.getChangingBoostTypes().addEntry(NULL_REF,new TypeDamageBoost(T_1,Rate.one()));
         a_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,NULL_REF));
         a_.getImmuLowStatIfStatus().add(new StatisticStatus(Statistic.SPEED,S_1));
-        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,NULL_REF),1);
-        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,S_1),1);
+        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,NULL_REF),1L);
+        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,S_1),1L);
         a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,NULL_REF),1L);
         a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,T_1),1L);
         a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,NULL_REF),1L);
@@ -421,8 +421,8 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
         DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
         ItemForBattle i_ = Instances.newItemForBattle();
-        i_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_1),1);
-        i_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,NULL_REF),1);
+        i_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_1),1L);
+        i_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,NULL_REF),1L);
         i_.getEffectSending().add(Instances.newEffectWhileSendingSimple());
         i_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
         db_.getItems().addEntry(I_1,i_);

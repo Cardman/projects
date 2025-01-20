@@ -8,7 +8,7 @@ import code.util.StringMap;
 
 public abstract class HealingItem extends Item {
 
-    private StringMap<Integer> happiness;
+    private StringMap<Long> happiness;
     private boolean healingTeam;
 
     @Override
@@ -18,16 +18,16 @@ public abstract class HealingItem extends Item {
 
     protected final void validateHealingItem(DataBase _data) {
         DataInfoChecker.checkStringListContains(DataInfoChecker.itemsBall(_data).getKeys(),happiness.getKeys(),_data);
-        for (EntryCust<String, Integer> k : happiness.entryList()) {
+        for (EntryCust<String, Long> k : happiness.entryList()) {
             DataInfoChecker.checkPositiveOrZero(k.getValue(),_data);
         }
     }
 
-    public StringMap<Integer> getHappiness() {
+    public StringMap<Long> getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(StringMap<Integer> _happiness) {
+    public void setHappiness(StringMap<Long> _happiness) {
         happiness = _happiness;
     }
 

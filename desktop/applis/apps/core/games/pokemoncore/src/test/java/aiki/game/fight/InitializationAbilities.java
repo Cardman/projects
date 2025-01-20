@@ -445,7 +445,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getImmuStatus().addEntry(ZENITH,new StringList(VAMPIGRAINE,BRULURE,POISON_ST,POISON_GRAVE));
         _data.completeQuickMembers(FEUILLE_PETITE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getIncreasedPrio().addEntry(AUTRE,1);
+        ficheCapacite_.getIncreasedPrio().addEntry(AUTRE,1L);
         _data.completeQuickMembers(FARCEUR,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setRecoilDamageFoe(new Rate("1/8"));
@@ -587,7 +587,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.getImmuLowStat().add(Statistic.ATTACK);
         _data.completeQuickMembers(HYPER_CUTTER,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,PEUR),1);
+        ficheCapacite_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,PEUR),1L);
         _data.completeQuickMembers(IMPASSIBLE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getMultStatIfLowStat().addEntry(Statistic.ATTACK,2L);
@@ -714,8 +714,8 @@ final class InitializationAbilities extends EquallablePkUtil {
         ficheCapacite_.setReverseEffectsPowerMovesTypesGlobal(true);
         _data.completeQuickMembers(AURA_INVERSEE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getIncreasedPrioTypes().addEntry(VOL, 1);
-        ficheCapacite_.getIncreasedPrioTypes().addEntry(NORMAL, 1);
+        ficheCapacite_.getIncreasedPrioTypes().addEntry(VOL,1L);
+        ficheCapacite_.getIncreasedPrioTypes().addEntry(NORMAL,1L);
         _data.completeQuickMembers(AILES_BOURRASQUE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.setCopyMovesTypes(true);
@@ -895,7 +895,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         object_.setMultStat(new IdMap<Statistic,String>());
         object_.setMultVarBoost(Rate.zero());
         object_.setHealedHpRateBySwitch(Rate.zero());
-        object_.setIncreasedPrio(new StringMap<Integer>());
+        object_.setIncreasedPrio(new StringMap<Long>());
         object_.setMaxStatisticsIfCh(new IdList<Statistic>());
         object_.setSingleStatus(new MonteCarloString());
         object_.setForwardStatus(new StringMap<String>());
@@ -912,7 +912,7 @@ final class InitializationAbilities extends EquallablePkUtil {
         object_.setFailStatus(new StringMap<String>());
         object_.setHealHpWhileUsingBerry(Rate.zero());
         object_.setMultPowerMovesTypesGlobal(new StringMap<Rate>());
-        object_.setIncreasedPrioTypes(new StringMap<Integer>());
+        object_.setIncreasedPrioTypes(new StringMap<Long>());
         return object_;
     }
 

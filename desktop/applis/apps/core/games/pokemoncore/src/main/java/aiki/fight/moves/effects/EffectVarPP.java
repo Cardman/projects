@@ -6,7 +6,7 @@ import aiki.util.DataInfoChecker;
 
 public final class EffectVarPP extends Effect {
 
-    private int deletePp;
+    private long deletePp;
 
     @Override
     public void validate(DataBase _data) {
@@ -14,11 +14,11 @@ public final class EffectVarPP extends Effect {
         DataInfoChecker.checkPositive(deletePp,_data);
     }
 
-    public int getDeletePp() {
+    public long getDeletePp() {
         return deletePp;
     }
 
-    public void setDeletePp(int _deletePp) {
+    public void setDeletePp(long _deletePp) {
         deletePp = _deletePp;
     }
 }

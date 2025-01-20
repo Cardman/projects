@@ -11,7 +11,7 @@ import code.util.*;
 
 public final class ContentComponentModelEffectDamage {
 
-    private GeneComponentModelInt chRate;
+    private GeneComponentModelLong chRate;
     private AbsCustCheckBox constDamage;
     private AbsCustCheckBox randMax;
     private AbsCustCheckBox summingUserTeamOkFighter;
@@ -34,8 +34,8 @@ public final class ContentComponentModelEffectDamage {
         power = new GeneComponentModelSubscribeString(_core,_fac);
         selected_.add(power.geneEnum());
         power.addComplete();
-        chRate = new GeneComponentModelInt(_core);
-        selected_.add(chRate.geneInt());
+        chRate = new GeneComponentModelLong(_core);
+        selected_.add(chRate.geneLong());
         statisAtt = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
         selected_.add(statisAtt.geneEnum());
         statisDef = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
@@ -79,7 +79,7 @@ public final class ContentComponentModelEffectDamage {
     }
     void buildEntity(EffectDamage _edited) {
         _edited.setPower(power.tryRet());
-        _edited.setChRate(chRate.valueInt());
+        _edited.setChRate(chRate.valueLong());
         _edited.setConstDamage(constDamage.isSelected());
         _edited.setRandMax(randMax.isSelected());
         _edited.setSummingUserTeamOkFighter(summingUserTeamOkFighter.isSelected());
@@ -97,7 +97,7 @@ public final class ContentComponentModelEffectDamage {
     }
     void feedForm(EffectDamage _edited) {
         power.setupValue(_edited.getPower());
-        chRate.valueInt(_edited.getChRate());
+        chRate.valueLong(_edited.getChRate());
         constDamage.setSelected(_edited.getConstDamage());
         randMax.setSelected(_edited.getRandMax());
         summingUserTeamOkFighter.setSelected(_edited.getSummingUserTeamOkFighter());

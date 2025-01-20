@@ -17,13 +17,13 @@ public final class SortedFighterMoveActsComparator extends SortedFighterSpeedCom
         Fighter fighterOne_= getFight().getFighter(_fighterOne);
         Fighter fighterTwo_= getFight().getFighter(_fighterTwo);
         String moveOne_=fighterOne_.getFinalChosenMove();
-        int varPrioOne_= fighterOne_.varPrio(_fighterOne,moveOne_, getFight(), getData());
+        long varPrioOne_= fighterOne_.varPrio(_fighterOne,moveOne_, getFight(), getData());
         MoveData fAtt_= getData().getMove(moveOne_);
-        int prioOne_ = fAtt_.getPriority();
+        long prioOne_ = fAtt_.getPriority();
         String moveTwo_=fighterTwo_.getFinalChosenMove();
-        int varPrioTwo_=fighterTwo_.varPrio(_fighterTwo,moveTwo_, getFight(), getData());
+        long varPrioTwo_=fighterTwo_.varPrio(_fighterTwo,moveTwo_, getFight(), getData());
         fAtt_= getData().getMove(moveTwo_);
-        int prioTwo_ = fAtt_.getPriority();
+        long prioTwo_ = fAtt_.getPriority();
 
         prioOne_+=varPrioOne_;
         prioTwo_+=varPrioTwo_;

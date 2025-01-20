@@ -64,7 +64,7 @@ public final class PokemonData {
     private StringMap<Evolution> evolutions;
 
     /** DONE */
-    private int catchingRate;
+    private long catchingRate;
 
     /** DONE */
     private Rate height;
@@ -82,10 +82,10 @@ public final class PokemonData {
     private LgInt hatchingSteps;
 
     /** DONE */
-    private int happiness;
+    private long happiness;
 
     /***/
-    private int happinessHatch;
+    private long happinessHatch;
 
     public void validate(DataBase _data) {
         eggGroups.removeDuplicates();
@@ -350,11 +350,11 @@ public final class PokemonData {
         evolutions = _evolutions;
     }
 
-    public int getCatchingRate() {
+    public long getCatchingRate() {
         return catchingRate;
     }
 
-    public void setCatchingRate(int _catchingRate) {
+    public void setCatchingRate(long _catchingRate) {
         catchingRate = _catchingRate;
     }
 
@@ -398,19 +398,19 @@ public final class PokemonData {
         hatchingSteps = _hatchingSteps;
     }
 
-    public int getHappiness() {
+    public long getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(int _happiness) {
+    public void setHappiness(long _happiness) {
         happiness = _happiness;
     }
 
-    public int getHappinessHatch() {
+    public long getHappinessHatch() {
         return happinessHatch;
     }
 
-    public void setHappinessHatch(int _happinessHatch) {
+    public void setHappinessHatch(long _happinessHatch) {
         happinessHatch = _happinessHatch;
     }
 }

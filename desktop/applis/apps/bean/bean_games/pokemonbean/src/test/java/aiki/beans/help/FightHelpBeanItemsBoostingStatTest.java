@@ -240,7 +240,7 @@ public final class FightHelpBeanItemsBoostingStatTest extends InitDbFightHelp {
     private static FacadeGame dbSpec(Statistic _st) {
         FacadeGame f_ = facade();
         ItemForBattle t_ = Instances.newItemForBattle();
-        t_.getMultStatPokemonRank().addEntry(new StatisticPokemon(_st,NULL_REF),1);
+        t_.getMultStatPokemonRank().addEntry(new StatisticPokemon(_st,NULL_REF),1L);
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newBall());
         f_.getData().completeMembers(M_DAM_VAR, Instances.newItemForBattle());

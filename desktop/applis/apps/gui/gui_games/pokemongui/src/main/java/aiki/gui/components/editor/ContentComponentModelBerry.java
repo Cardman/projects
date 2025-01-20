@@ -22,7 +22,7 @@ public final class ContentComponentModelBerry {
     private GeneComponentModelRate healHpRate;
     private GeneComponentModelRate maxHpHealingHp;
     private GeneComponentModelRate maxHpHealingHpRate;
-    private GeneComponentModelInt healPp;
+    private GeneComponentModelLong healPp;
     private AbsCustCheckBox lawForAttackFirst;
     private AbsCustCheckBox withoutFail;
     private AbsPanel berryForm;
@@ -55,8 +55,8 @@ public final class ContentComponentModelBerry {
         berryForm.add(maxHpHealingHp.geneRate());
         maxHpHealingHpRate=new GeneComponentModelRate(_parent.getCompoFactory());
         berryForm.add(maxHpHealingHpRate.geneRate());
-        healPp=new GeneComponentModelInt(_parent.getCompoFactory());
-        berryForm.add(healPp.geneInt());
+        healPp=new GeneComponentModelLong(_parent.getCompoFactory());
+        berryForm.add(healPp.geneLong());
         lawForAttackFirst=compoFactory_.newCustCheckBox();
         berryForm.add(lawForAttackFirst);
         withoutFail=compoFactory_.newCustCheckBox();
@@ -79,7 +79,7 @@ public final class ContentComponentModelBerry {
         _item.setHealHpRate(healHpRate.valueRate());
         _item.setMaxHpHealingHp(maxHpHealingHp.valueRate());
         _item.setMaxHpHealingHpRate(maxHpHealingHpRate.valueRate());
-        _item.setHealPp(healPp.valueInt());
+        _item.setHealPp(healPp.valueLong());
         _item.setLawForAttackFirst(lawForAttackFirst.isSelected());
         _item.setWithoutFail(withoutFail.isSelected());
     }
@@ -95,7 +95,7 @@ public final class ContentComponentModelBerry {
         healHpRate.valueRate(_item.getHealHpRate());
         maxHpHealingHp.valueRate(_item.getMaxHpHealingHp());
         maxHpHealingHpRate.valueRate(_item.getMaxHpHealingHpRate());
-        healPp.valueInt(_item.getHealPp());
+        healPp.valueLong(_item.getHealPp());
         lawForAttackFirst.setSelected(_item.getLawForAttackFirst());
         withoutFail.setSelected(_item.getWithoutFail());
     }

@@ -106,7 +106,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         a_.getBonusStatRank().addEntry(Statistic.ACCURACY,1L);
         a_.getMultStatAlly().addEntry(Statistic.ACCURACY, Rate.one());
         a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),Rate.one());
-        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.ACCURACY,""),1);
+        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.ACCURACY,""),1L);
         a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.ACCURACY,""),1L);
         a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.ACCURACY,""),1L);
         a_.getMultStat().addEntry(Statistic.ACCURACY,"");
@@ -127,7 +127,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
     public void t15() {
         ItemForBattle a_ = Instances.newItemForBattle();
         a_.getBoostStatisTypes().addEntry("", new IdMap<Statistic,Long>());
-        a_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.ACCURACY,""),1);
+        a_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.ACCURACY,""),1L);
         a_.getWinEvFight().addEntry(Statistic.ACCURACY,1L);
         a_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
         a_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
@@ -473,7 +473,7 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         game_.getPlayer().setNickname("_");
         Team t_ = Instances.newTeam();
         Fighter f_ = Instances.newFighter();
-        f_.getStatusRelat().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),0);
+        f_.getStatusRelat().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),0L);
         f_.getIncrUserAccuracy().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),BoolVal.FALSE);
         f_.getEnabledMoves().addEntry("",new ActivityOfMove(""));
         f_.getTrappingMoves().addEntry(new MoveTeamPosition("",new TeamPosition(0,0)),new ActivityOfMove(""));

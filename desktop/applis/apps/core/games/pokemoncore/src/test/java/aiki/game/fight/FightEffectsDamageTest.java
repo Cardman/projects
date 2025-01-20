@@ -1904,7 +1904,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
-        fighter_.getNbUsesMoves().put(STOCKAGE, 1);
+        fighter_.getNbUsesMoves().put(STOCKAGE, 1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -1944,7 +1944,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
-        fighter_.getNbUsesMoves().put(STOCKAGE, 1);
+        fighter_.getNbUsesMoves().put(STOCKAGE, 1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
@@ -1991,7 +1991,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.affecterTypes(ELECTRIQUE);
         fighter_.setFirstChosenMoveTarget(move_, tc(KEY_FOE, POKEMON_TARGET_ZERO));
         fighter_.variationBoostStatistique(Statistic.CRITICAL_HIT,6L);
-        fighter_.getNbUsesMoves().put(STOCKAGE, 1);
+        fighter_.getNbUsesMoves().put(STOCKAGE, 1L);
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);

@@ -172,14 +172,14 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setStringMapInteger(StringMap<Integer> _object, String _fieldName, Document _document) {
+    public static Element setStringMapInteger(StringMap<Long> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        for (EntryCust<String, Integer> s: _object.entryList()) {
+        for (EntryCust<String, Long> s: _object.entryList()) {
             Element sub_ = setString(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setInteger(s.getValue(), ES, _document);
+            sub_ = setLong(s.getValue(), ES, _document);
             elt_.appendChild(sub_);
         }
         return elt_;

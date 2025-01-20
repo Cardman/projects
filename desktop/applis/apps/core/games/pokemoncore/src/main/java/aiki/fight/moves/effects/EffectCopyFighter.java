@@ -7,7 +7,7 @@ import aiki.util.DataInfoChecker;
 
 public final class EffectCopyFighter extends Effect {
 
-    private int ppForMoves;
+    private long ppForMoves;
 
     @Override
     public void validate(DataBase _data) {
@@ -17,11 +17,11 @@ public final class EffectCopyFighter extends Effect {
 
     }
 
-    public int getPpForMoves() {
+    public long getPpForMoves() {
         return ppForMoves;
     }
 
-    public void setPpForMoves(int _ppForMoves) {
+    public void setPpForMoves(long _ppForMoves) {
         ppForMoves = _ppForMoves;
     }
 }

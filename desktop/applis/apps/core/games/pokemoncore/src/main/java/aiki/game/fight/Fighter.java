@@ -110,7 +110,7 @@ public final class Fighter {
     private String currentAbility;
 
     /**The key set is not changed*/
-    private StringMap<Integer> status;
+    private StringMap<Long> status;
 
     /**The key set is not changed*/
     private MoveTeamPositionsShort statusRelat;
@@ -207,10 +207,10 @@ public final class Fighter {
     private MoveTeamPositionsBoolVal incrUserAccuracy;
 
     /**Never mind*/
-    private StringMap<Integer> nbUsesMoves;
+    private StringMap<Long> nbUsesMoves;
 
     /***/
-    private int nbPrepaRound;
+    private long nbPrepaRound;
 
     /**if disappeared then nbPrepaRound &gt; 0*/
     private boolean disappeared;
@@ -329,9 +329,9 @@ public final class Fighter {
                 continue;
             }
             if(StringUtil.contains(_pokemon.getStatus(), e)){
-                status.put(e, 1);
+                status.put(e, 1L);
             }else{
-                status.put(e, 0);
+                status.put(e, 0L);
             }
         }
     }
@@ -348,13 +348,13 @@ public final class Fighter {
             if (_import.getStatus(e).getStatusType() != StatusType.INDIVIDUEL) {
                 continue;
             }
-            status.put(e, 0);
+            status.put(e, 0L);
         }
     }
 
     void initCreature(Pokemon _pokemon) {
         statusRelat = new MoveTeamPositionsShort();
-        status = new StringMap<Integer>();
+        status = new StringMap<Long>();
         incrUserAccuracy = new MoveTeamPositionsBoolVal();
         trackingMoves = new MoveTeamPositionsAffectedMove();
         trappingMoves = new MoveTeamPositionsActivityOfMove();
@@ -461,9 +461,9 @@ public final class Fighter {
         attaques_.addAllElts(_import.getVarParamsMove(_import.cibleNbUtilisation()));
         attaques_.addAllElts(_import.getVarParamsMove(_import.lanceurNbUtilisation()));
         attaques_.removeDuplicates();
-        nbUsesMoves = new StringMap<Integer>();
+        nbUsesMoves = new StringMap<Long>();
         for(String e:attaques_){
-            nbUsesMoves.put(e, 0);
+            nbUsesMoves.put(e, 0L);
         }
         //(CIBLE|LANCEUR)_NB_UTILISATION
         wonExp = Rate.zero();
@@ -888,12 +888,12 @@ public final class Fighter {
         if (!StringUtil.equalsSet(status.getKeys(), statusSingle_) || !MoveTeamPosition.equalsSet(statusRelat.getKeys(), relMoves(_fighters, statusRelation_))) {
             return true;
         }
-        for (int s: status.values()) {
+        for (long s: status.values()) {
             if (s < 0) {
                 return true;
             }
         }
-        for (int s: statusRelat.values()) {
+        for (long s: statusRelat.values()) {
             if (s < 0) {
                 return true;
             }
@@ -1041,7 +1041,7 @@ public final class Fighter {
             if (statut_.getStatusType() == StatusType.INDIVIDUEL) {
                 continue;
             }
-            statusRelat.put(new MoveTeamPosition(c,_cbt), 0);
+            statusRelat.put(new MoveTeamPosition(c,_cbt), 0L);
         }
         for(String e:_import.getMovesActingMoveUses()){
             trackingMoves.put(new MoveTeamPosition(e,_cbt),new AffectedMove(DataBase.EMPTY_STRING,new ActivityOfMove()));
@@ -1254,7 +1254,7 @@ public final class Fighter {
 
     long maxPowerPointsMove(String _attaque, DataBase _import){
         for(String c:copiedMoves.getKeys()){
-            int pp_ = _import.ppCopiedMove(c);
+            long pp_ = _import.ppCopiedMove(c);
             if(StringUtil.quickEq(copiedMoves.getVal(c).getMove(),_attaque)){
                 return pp_;
             }
@@ -1297,7 +1297,7 @@ public final class Fighter {
             return var_;
         }
         Berry baie_=(Berry)objet_;
-        int var_=baie_.getHealPp();
+        long var_=baie_.getHealPp();
         if(currentMoves.getVal(_attaque).getCurrent()+var_>currentMoves.getVal(_attaque).getMax()){
             return currentMoves.getVal(_attaque).getLostPp();
         }
@@ -1310,7 +1310,7 @@ public final class Fighter {
     }
 
 
-    void usePowerPointsByMove(Difficulty _diff,String _attaque,int _var){
+    void usePowerPointsByMove(Difficulty _diff,String _attaque,long _var){
         for(String c:copiedMoves.getKeys()){
             CopiedMove pp_= copiedMoves.getVal(c);
             if(!StringUtil.quickEq(pp_.getMove(),_attaque)){
@@ -1455,12 +1455,12 @@ public final class Fighter {
 
 
     void affecterPseudoStatut(TeamPosition _combattant,String _pseudoStatut){
-        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),1);
+        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),1L);
     }
 
     /**public for tests*/
     public void affecterStatut(String _statut){
-        status.set(_statut,1);
+        status.set(_statut,1L);
     }
 
     void disableAllStatusByEnabledWeather(String _weather, DataBase _data) {
@@ -1514,19 +1514,19 @@ public final class Fighter {
     }
 
     void supprimerPseudoStatutCombattant(TeamPosition _combattant,String _pseudoStatut){
-        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),0);
+        statusRelat.set(new MoveTeamPosition(_pseudoStatut,_combattant),0L);
     }
 
     void supprimerPseudoStatut(String _pseudoStatut){
         for(MoveTeamPosition c:statusRelat.getKeys()){
             if(StringUtil.quickEq(c.getMove(),_pseudoStatut)){
-                statusRelat.put(c,0);
+                statusRelat.put(c,0L);
             }
         }
     }
 
     void supprimerStatut(String _statut){
-        status.set(_statut,0);
+        status.set(_statut,0L);
     }
 
     void affecterTypes(StringList _types){
@@ -1654,7 +1654,7 @@ public final class Fighter {
             supprimerStatut(c);
         }
         for(MoveTeamPosition c:statusRelat.getKeys()){
-            statusRelat.put(c,0);
+            statusRelat.put(c,0L);
         }
         for(String c:currentMoves.getKeys()){
             currentMoves.getVal(c).fullHeal();
@@ -1678,7 +1678,7 @@ public final class Fighter {
     }
 
     void apprendreAttaqueEcrasant(String _nouvelleAttaque,String _ancienneAttaque,DataBase _import){
-        int pp_=_import.ppCopiedMove(_ancienneAttaque);
+        long pp_=_import.ppCopiedMove(_ancienneAttaque);
         if (!StringUtil.contains(_import.getMovesCopyingTemp(), _ancienneAttaque)) {
             return;
         }
@@ -1701,7 +1701,7 @@ public final class Fighter {
         currentMoves.put(_nouvelleAttaque,new UsesOfMove(pp_));
     }
 
-    void transformer(Fighter _creature,int _pp){
+    void transformer(Fighter _creature,long _pp){
         currentName=_creature.getCurrentName();
         weight.affect(_creature.getWeight());
         height.affect(_creature.getHeight());
@@ -2275,8 +2275,8 @@ public final class Fighter {
         }
         return !StringUtil.quickEq(usedMoveLastRound, _move);
     }
-    int varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
-        int varPrio_=0;
+    long varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
+        long varPrio_=0;
         MoveData fAtt_=_data.getMove(_move);
         String categOne_ = _data.getCategory(fAtt_);
         AbilityData fCapac_=ficheCapaciteActuelle(_data);
@@ -2550,17 +2550,17 @@ public final class Fighter {
         currentAbility = _currentAbility;
     }
 
-    public int getStatusNbRoundShort(String _status) {
+    public long getStatusNbRoundShort(String _status) {
         return status.getVal(_status);
     }
 
-    public Integer getStatusNbRound(String _status) {
+    public Long getStatusNbRound(String _status) {
         return status.getVal(_status);
     }
 
     int getNbStatusByRounds(int _nbRounds) {
         int i_ = IndexConstants.SIZE_EMPTY;
-        for (EntryCust<String, Integer> e: status.entryList()) {
+        for (EntryCust<String, Long> e: status.entryList()) {
             if (NumberUtil.eq(e.getValue(), _nbRounds)) {
                 i_++;
             }
@@ -2568,7 +2568,7 @@ public final class Fighter {
         return i_;
     }
 
-    public StringMap<Integer> getStatus() {
+    public StringMap<Long> getStatus() {
         return status;
     }
 
@@ -2580,15 +2580,15 @@ public final class Fighter {
         return status.contains(_status);
     }
 
-    public void setStatus(StringMap<Integer> _status) {
+    public void setStatus(StringMap<Long> _status) {
         status = _status;
     }
 
-    public int getStatusRelatNbRoundShort(MoveTeamPosition _status) {
+    public long getStatusRelatNbRoundShort(MoveTeamPosition _status) {
         return statusRelat.getVal(_status);
     }
 
-    public Integer getStatusRelatNbRound(MoveTeamPosition _status) {
+    public Long getStatusRelatNbRound(MoveTeamPosition _status) {
         return statusRelat.getVal(_status);
     }
 
@@ -2603,8 +2603,8 @@ public final class Fighter {
     public CustList<MoveTeamPosition> getStatusRelatSet() {
         return statusRelat.getKeys();
     }
-    public Ints getStatusRelatValues() {
-        return new Ints(statusRelat.values());
+    public Longs getStatusRelatValues() {
+        return new Longs(statusRelat.values());
     }
 
     public void setStatusRelat(MoveTeamPositionsShort _statusRelat) {
@@ -2883,19 +2883,19 @@ public final class Fighter {
         incrUserAccuracy = _precisionAccrueLanceur;
     }
 
-    public StringMap<Integer> getNbUsesMoves() {
+    public StringMap<Long> getNbUsesMoves() {
         return nbUsesMoves;
     }
 
-    public void setNbUsesMoves(StringMap<Integer> _nbUsesMoves) {
+    public void setNbUsesMoves(StringMap<Long> _nbUsesMoves) {
         nbUsesMoves = _nbUsesMoves;
     }
 
-    public int getNbPrepaRound() {
+    public long getNbPrepaRound() {
         return nbPrepaRound;
     }
 
-    public void setNbPrepaRound(int _nbPrepaRound) {
+    public void setNbPrepaRound(long _nbPrepaRound) {
         nbPrepaRound = _nbPrepaRound;
     }
 

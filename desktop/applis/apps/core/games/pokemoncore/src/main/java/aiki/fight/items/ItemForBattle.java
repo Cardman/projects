@@ -22,7 +22,7 @@ public final class ItemForBattle extends Item {
     private boolean boostExp;
     private StringList immuStatus;
     private boolean immuLowStatis;
-    private StringMap<Integer> increasingMaxNbRoundTrap;
+    private StringMap<Long> increasingMaxNbRoundTrap;
     private boolean attacksSoon;
     private StringList synchroStatus;
     private StringMap<String> failStatus;
@@ -44,8 +44,8 @@ public final class ItemForBattle extends Item {
     private StatisticPokemons multStatPokemonRank;
 
     private IdMap<Statistic, String> multStat;
-    private StringMap<Integer> increasingMaxNbRoundGlobalMove;
-    private StringMap<Integer> increasingMaxNbRoundTeamMove;
+    private StringMap<Long> increasingMaxNbRoundGlobalMove;
+    private StringMap<Long> increasingMaxNbRoundTeamMove;
     private StringList immuMoves;
     private StringList hatching;
     private StringList immuTypes;
@@ -77,16 +77,16 @@ public final class ItemForBattle extends Item {
         if (!effectSending.isEmpty()) {
             effectSending.first().validate(_data);
         }
-        for (EntryCust<StatisticPokemon, Integer> e : multStatPokemonRank
+        for (EntryCust<StatisticPokemon, Long> e : multStatPokemonRank
                 .entryList()) {
             DataInfoChecker.checkStringListContains(_data.getPokedex().getKeys(),e.getKey().getPokemon(),_data);
         }
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatRank.getKeys(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
         DataInfoChecker.checkStringListContains(_data.getMovesEffectGlobal(),increasingMaxNbRoundGlobalMove.getKeys(),_data);
-        DataInfoChecker.checkPositiveOrZeroShorts(increasingMaxNbRoundGlobalMove.values(),_data);
+        DataInfoChecker.checkPositiveOrZeroLongs(increasingMaxNbRoundGlobalMove.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getMovesEffectTeam(),increasingMaxNbRoundTeamMove.getKeys(),_data);
-        DataInfoChecker.checkPositiveOrZeroShorts(increasingMaxNbRoundTeamMove.values(),_data);
+        DataInfoChecker.checkPositiveOrZeroLongs(increasingMaxNbRoundTeamMove.values(),_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),typesPk,_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),immuTypes,_data);
         DataInfoChecker.checkStringListContains(_data.getMoves().getKeys(),immuMoves,_data);
@@ -102,7 +102,7 @@ public final class ItemForBattle extends Item {
         DataInfoChecker.checkStringListContains(_data.getStatus().getKeys(),synchroStatus,_data);
         DataInfoChecker.checkStringListContains(synchroStatus,failStatus.getKeys(),_data);
         DataInfoChecker.checkStringListContains(_data.getTrappingMoves(),increasingMaxNbRoundTrap.getKeys(),_data);
-        DataInfoChecker.checkPositiveOrZeroShorts(increasingMaxNbRoundTrap.values(),_data);
+        DataInfoChecker.checkPositiveOrZeroLongs(increasingMaxNbRoundTrap.values(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBase(),winEvFight.getKeys(),_data);
         DataInfoChecker.checkPositiveOrZeroLongs(winEvFight.values(),_data);
         DataInfoChecker.checkPositiveOrZero(protectAgainstKo,_data);
@@ -198,12 +198,12 @@ public final class ItemForBattle extends Item {
         immuLowStatis = _immuLowStatis;
     }
 
-    public StringMap<Integer> getIncreasingMaxNbRoundTrap() {
+    public StringMap<Long> getIncreasingMaxNbRoundTrap() {
         return increasingMaxNbRoundTrap;
     }
 
     public void setIncreasingMaxNbRoundTrap(
-            StringMap<Integer> _increasingMaxNbRoundTrap) {
+            StringMap<Long> _increasingMaxNbRoundTrap) {
         increasingMaxNbRoundTrap = _increasingMaxNbRoundTrap;
     }
 
@@ -360,21 +360,21 @@ public final class ItemForBattle extends Item {
         multStat = _multStat;
     }
 
-    public StringMap<Integer> getIncreasingMaxNbRoundGlobalMove() {
+    public StringMap<Long> getIncreasingMaxNbRoundGlobalMove() {
         return increasingMaxNbRoundGlobalMove;
     }
 
     public void setIncreasingMaxNbRoundGlobalMove(
-            StringMap<Integer> _increasingMaxNbRoundGlobalMove) {
+            StringMap<Long> _increasingMaxNbRoundGlobalMove) {
         increasingMaxNbRoundGlobalMove = _increasingMaxNbRoundGlobalMove;
     }
 
-    public StringMap<Integer> getIncreasingMaxNbRoundTeamMove() {
+    public StringMap<Long> getIncreasingMaxNbRoundTeamMove() {
         return increasingMaxNbRoundTeamMove;
     }
 
     public void setIncreasingMaxNbRoundTeamMove(
-            StringMap<Integer> _increasingMaxNbRoundTeamMove) {
+            StringMap<Long> _increasingMaxNbRoundTeamMove) {
         increasingMaxNbRoundTeamMove = _increasingMaxNbRoundTeamMove;
     }
 

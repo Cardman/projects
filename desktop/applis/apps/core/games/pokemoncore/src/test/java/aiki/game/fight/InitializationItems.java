@@ -268,8 +268,8 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(NOEUD_DESTIN,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getIncreasingMaxNbRoundTeamMove().addEntry(PROTECTION,3);
-        objetAttachableCombat_.getIncreasingMaxNbRoundTeamMove().addEntry(MUR_LUMIERE,3);
+        objetAttachableCombat_.getIncreasingMaxNbRoundTeamMove().addEntry(PROTECTION,3L);
+        objetAttachableCombat_.getIncreasingMaxNbRoundTeamMove().addEntry(MUR_LUMIERE,3L);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(LUMARGILE,objetAttachableCombat_);
         soinPVStatut_ = defaultHealingHpStatus();
@@ -318,16 +318,16 @@ final class InitializationItems  extends EquallablePkUtil {
         //validate soinPV_.getHappiness().addEntry("HONOR_BALL",1);
         //validate soinPV_.getHappiness().addEntry("LUNE_BALL",1);
         //validate soinPV_.getHappiness().addEntry("SPEED_BALL",1);
-        soinPV_.getHappiness().addEntry(LUXE_BALL,2);
+        soinPV_.getHappiness().addEntry(LUXE_BALL,2L);
         //validate soinPV_.getHappiness().addEntry("SOIN_BALL",1);
-        soinPV_.getHappiness().addEntry(MASTER_BALL,1);
-        soinPV_.getHappiness().addEntry(POKE_BALL,1);
+        soinPV_.getHappiness().addEntry(MASTER_BALL,1L);
+        soinPV_.getHappiness().addEntry(POKE_BALL,1L);
         //validate soinPV_.getHappiness().addEntry("CHRONO_BALL",1);
-        soinPV_.getHappiness().addEntry(SUPER_BALL,1);
+        soinPV_.getHappiness().addEntry(SUPER_BALL,1L);
         //validate soinPV_.getHappiness().addEntry("RAPIDE_BALL",1);
         //validate soinPV_.getHappiness().addEntry("NIVEAU_BALL",1);
         //validate soinPV_.getHappiness().addEntry("SOMBRE_BALL",1);
-        soinPV_.getHappiness().addEntry(HYPER_BALL,1);
+        soinPV_.getHappiness().addEntry(HYPER_BALL,1L);
         //validate soinPV_.getHappiness().addEntry("MASSE_BALL",1);
         //validate soinPV_.getHappiness().addEntry("COMPET_BALL",1);
         //validate soinPV_.getHappiness().addEntry("LOVE_BALL",1);
@@ -343,7 +343,7 @@ final class InitializationItems  extends EquallablePkUtil {
         soinPV_ = defaultHealingHp();
         soinPV_.setPrice(4);
         soinPV_.setHp(new Rate(20));
-        soinPV_.getHappiness().addEntry(POKE_BALL,  2);
+        soinPV_.getHappiness().addEntry(POKE_BALL,  2L);
         _data.completeQuickMembers(HAPPY_POTION, soinPV_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
         objetAttachableCombat_.setPrice(1000);
@@ -431,7 +431,7 @@ final class InitializationItems  extends EquallablePkUtil {
         _data.completeQuickMembers(MUSCLE, boost_);
         boost_ = defaultBoost();
         boost_.setPrice(15);
-        boost_.getHappiness().addEntry(POKE_BALL,  2);
+        boost_.getHappiness().addEntry(POKE_BALL,  2L);
         boost_.getEvs().addEntry(Statistic.SPEED,3L);
         _data.completeQuickMembers(BOLT, boost_);
         baie_ = defaultBaie();
@@ -486,7 +486,7 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(CEINT_POUV,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.CRITICAL_HIT,CARAPUCE),2);
+        objetAttachableCombat_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.CRITICAL_HIT,CARAPUCE),2L);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(BATON,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
@@ -599,7 +599,7 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_ = defaultObjetAttachableCombat();
         //validate objetAttachableCombat_.getIncreasingMaxNbRoundTrap().addEntry("VORTEX_MAGMA",0);
         //validate objetAttachableCombat_.getIncreasingMaxNbRoundTrap().addEntry("CLAQUOIR",0);
-        objetAttachableCombat_.getIncreasingMaxNbRoundTrap().addEntry(SIPHON,0);
+        objetAttachableCombat_.getIncreasingMaxNbRoundTrap().addEntry(SIPHON,0L);
         //validate objetAttachableCombat_.getIncreasingMaxNbRoundTrap().addEntry("LIGOTAGE",0);
         //validate objetAttachableCombat_.getIncreasingMaxNbRoundTrap().addEntry("ETREINTE",0);
         //validate objetAttachableCombat_.getIncreasingMaxNbRoundTrap().addEntry("TOURBI_SABLE",0);
@@ -664,7 +664,7 @@ final class InitializationItems  extends EquallablePkUtil {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(HERBEBLANCHE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getIncreasingMaxNbRoundGlobalMove().addEntry(TEMPETESABLE,3);
+        objetAttachableCombat_.getIncreasingMaxNbRoundGlobalMove().addEntry(TEMPETESABLE,3L);
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(ROCHE_LISSE,objetAttachableCombat_);
     }
@@ -676,16 +676,16 @@ final class InitializationItems  extends EquallablePkUtil {
         //validate _boost.getHappiness().addEntry("HONOR_BALL",2);
         //validate _boost.getHappiness().addEntry("LUNE_BALL",2);
         //validate _boost.getHappiness().addEntry("SPEED_BALL",2);
-        _boost.getHappiness().addEntry(LUXE_BALL,6);
+        _boost.getHappiness().addEntry(LUXE_BALL,6L);
         //validate _boost.getHappiness().addEntry("SOIN_BALL",2);
-        _boost.getHappiness().addEntry(MASTER_BALL,2);
-        _boost.getHappiness().addEntry(POKE_BALL,2);
+        _boost.getHappiness().addEntry(MASTER_BALL,2L);
+        _boost.getHappiness().addEntry(POKE_BALL,2L);
         //validate _boost.getHappiness().addEntry("CHRONO_BALL",2);
-        _boost.getHappiness().addEntry(SUPER_BALL,2);
+        _boost.getHappiness().addEntry(SUPER_BALL,2L);
         //validate _boost.getHappiness().addEntry("RAPIDE_BALL",2);
         //validate _boost.getHappiness().addEntry("NIVEAU_BALL",2);
         //validate _boost.getHappiness().addEntry("SOMBRE_BALL",2);
-        _boost.getHappiness().addEntry(HYPER_BALL,2);
+        _boost.getHappiness().addEntry(HYPER_BALL,2L);
         //validate _boost.getHappiness().addEntry("MASSE_BALL",2);
         //validate _boost.getHappiness().addEntry("COMPET_BALL",2);
         //validate _boost.getHappiness().addEntry("LOVE_BALL",2);
@@ -703,7 +703,7 @@ final class InitializationItems  extends EquallablePkUtil {
         HealingHpStatus object_ = new HealingHpStatus();
         object_.setHealedHpRate(Rate.zero());
         object_.setStatus(new StringList());
-        object_.setHappiness(new StringMap<Integer>());
+        object_.setHappiness(new StringMap<Long>());
         return object_;
     }
 
@@ -729,7 +729,7 @@ final class InitializationItems  extends EquallablePkUtil {
         object_.setImmuMoves(new StringList());
         object_.setImmuWeather(new StringList());
         object_.setImmuStatus(new StringList());
-        object_.setIncreasingMaxNbRoundTrap(new StringMap<Integer>());
+        object_.setIncreasingMaxNbRoundTrap(new StringMap<Long>());
         object_.setSynchroStatus(new StringList());
         object_.setFailStatus(new StringMap<String>());
         object_.setProtectAgainstKo(Rate.zero());
@@ -748,8 +748,8 @@ final class InitializationItems  extends EquallablePkUtil {
         object_.setMultStatRank(new IdMap<Statistic,Long>());
         object_.setMultStatPokemonRank(new StatisticPokemons());
         object_.setMultStat(new IdMap<Statistic,String>());
-        object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Integer>());
-        object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Integer>());
+        object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Long>());
+        object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Long>());
         object_.setHatching(new StringList());
         object_.setImmuTypes(new StringList());
         object_.setBoostStatisTypes(new StringMap<IdMap<Statistic,Long>>());
@@ -774,7 +774,7 @@ final class InitializationItems  extends EquallablePkUtil {
     private static HealingHp defaultHealingHp() {
         HealingHp object_ = new HealingHp();
         object_.setHp(Rate.zero());
-        object_.setHappiness(new StringMap<Integer>());
+        object_.setHappiness(new StringMap<Long>());
         return object_;
     }
 
@@ -785,13 +785,13 @@ final class InitializationItems  extends EquallablePkUtil {
 
     private static HealingPp defaultHealingPp() {
         HealingPp object_ = new HealingPp();
-        object_.setHappiness(new StringMap<Integer>());
+        object_.setHappiness(new StringMap<Long>());
         return object_;
     }
 
     private static HealingItem defaultHealingItem() {
         HealingItem object_ = new HealingSimpleItem();
-        object_.setHappiness(new StringMap<Integer>());
+        object_.setHappiness(new StringMap<Long>());
         return object_;
     }
 
@@ -813,7 +813,7 @@ final class InitializationItems  extends EquallablePkUtil {
     private static HealingStatus defaultSoinStatut() {
         HealingStatus object_ = new HealingSimpleStatus();
         object_.setStatus(new StringList());
-        object_.setHappiness(new StringMap<Integer>());
+        object_.setHappiness(new StringMap<Long>());
         return object_;
     }
 
@@ -825,7 +825,7 @@ final class InitializationItems  extends EquallablePkUtil {
     private static Boost defaultBoost() {
         Boost object_ = new Boost();
         object_.setWinPp(Rate.zero());
-        object_.setHappiness(new StringMap<Integer>());
+        object_.setHappiness(new StringMap<Long>());
         object_.setEvs(new IdMap<Statistic,Long>());
         return object_;
     }

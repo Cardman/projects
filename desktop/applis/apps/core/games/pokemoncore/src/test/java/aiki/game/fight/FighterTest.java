@@ -5243,7 +5243,7 @@ public class FighterTest extends InitializationDataBase {
         partner_.initCreatureRelationsAutre(TeamPositionList.newList(tp(KEY_FOE, POKEMON_FIGHTER_ZERO)),data_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));

@@ -84,7 +84,7 @@ final class FightInitialization {
         _fight.getTemp().setSimulation(false);
         _fight.getTemp().setAcceptableChoices(false);
         _fight.setFightType(FightType.NOTHING);
-        _fight.setUsedItemsWhileRound(new StringMap<Integer>());
+        _fight.setUsedItemsWhileRound(new StringMap<Long>());
         _fight.setChoices(new IntMap<ChoiceOfEvolutionAndMoves>());
         _fight.setAllyChoice(new MoveTargets());
         _fight.setCaughtEvolutions(new StringList());

@@ -385,11 +385,11 @@ public final class EditorAbFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(A_1);
         tryClick(g_.getMultStatIfStatutRank().getCrud().getAdd());
         g_.getMultStatIfStatutRank().getCrud().getGenePair().getKey().setupValue(new StatisticStatus(Statistic.SPEED,S_1));
-        g_.getMultStatIfStatutRank().getCrud().getGenePair().getValue().setupValue(1);
+        g_.getMultStatIfStatutRank().getCrud().getGenePair().getValue().setupValue(1L);
         tryClick(g_.getMultStatIfStatutRank().getCrud().getValidAddEdit());
         tryClick(g_.getMultStatIfStatutRank().getCrud().getAdd());
         g_.getMultStatIfStatutRank().getCrud().getGenePair().getKey().setupValue(new StatisticStatus(Statistic.SPEED,S_2));
-        g_.getMultStatIfStatutRank().getCrud().getGenePair().getValue().setupValue(2);
+        g_.getMultStatIfStatutRank().getCrud().getGenePair().getValue().setupValue(2L);
         tryClick(g_.getMultStatIfStatutRank().getCrud().getValidAddEdit());
         tryClick(g_.getMultStatIfStatutRank().getCrud().getAllButtons().get(0));
         tryClick(g_.getMultStatIfStatutRank().getCrud().getCancel());

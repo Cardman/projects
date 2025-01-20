@@ -525,10 +525,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getWcByteMap(AbsMap<StatisticPokemon, Integer> _map) {
+    public static NatArrayStruct getWcByteMap(AbsMap<StatisticPokemon, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<StatisticPokemon, Integer> e:_map.entryList()) {
+        for (EntryCust<StatisticPokemon, Long> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -555,10 +555,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStatisticStatusByteMap(AbsMap<StatisticStatus, Integer> _map) {
+    public static NatArrayStruct getStatisticStatusByteMap(AbsMap<StatisticStatus, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<StatisticStatus, Integer> e:_map.entryList()) {
+        for (EntryCust<StatisticStatus, Long> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -929,16 +929,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrShort(AbsMap<String, Integer> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<String,Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaNbSt(e.getValue()));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getStrLong(AbsMap<String, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;

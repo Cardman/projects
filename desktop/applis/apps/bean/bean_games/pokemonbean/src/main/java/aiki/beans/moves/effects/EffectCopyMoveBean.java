@@ -10,7 +10,7 @@ import code.util.StringMap;
 
 
 public class EffectCopyMoveBean extends EffectBean {
-    private int copyingMoveForUser;
+    private long copyingMoveForUser;
     private boolean copyingMoveForUserDef;
     private StringList movesNotToBeCopied;
     private StringList movesTransforming;
@@ -98,7 +98,7 @@ public class EffectCopyMoveBean extends EffectBean {
         return displayName;
     }
 
-    public int getCopyingMoveForUser() {
+    public long getCopyingMoveForUser() {
         return copyingMoveForUser;
     }
 

@@ -2,7 +2,7 @@ package aiki.fight.util;
 
 import code.util.*;
 
-public final class StatisticPokemons extends AbsBasicMap<StatisticPokemon,Integer> {
+public final class StatisticPokemons extends AbsBasicMap<StatisticPokemon,Long> {
     public StatisticPokemons() {
     }
     public StatisticPokemons(CollCapacity _cap) {
@@ -15,8 +15,8 @@ public final class StatisticPokemons extends AbsBasicMap<StatisticPokemon,Intege
     }
 
     @Override
-    protected Integer def() {
-        return 0;
+    protected Long def() {
+        return 0L;
     }
 
 }

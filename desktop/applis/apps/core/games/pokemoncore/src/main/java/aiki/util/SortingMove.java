@@ -8,7 +8,7 @@ public final class SortingMove extends Sorting {
 
     private long pp;
 
-    private int priority;
+    private long priority;
 
     private TargetChoice targetChoice;
 
@@ -30,11 +30,11 @@ public final class SortingMove extends Sorting {
         pp = _pp;
     }
 
-    public int getPriority() {
+    public long getPriority() {
         return priority;
     }
 
-    public void setPriority(int _priority) {
+    public void setPriority(long _priority) {
         priority = _priority;
     }
 

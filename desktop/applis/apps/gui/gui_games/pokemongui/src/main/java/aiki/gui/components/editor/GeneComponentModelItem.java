@@ -10,7 +10,7 @@ import code.util.*;
 import code.util.core.*;
 
 public final class GeneComponentModelItem extends GeneComponentModelEntity<Item> implements ChangeableFormType {
-    private final GeneComponentModelInt price;
+    private final GeneComponentModelLong price;
     private GeneComponentModelSubscribeString catchingRate;
     private GeneComponentModelRate hp;
     private GeneComponentModelRate healedHpRate;
@@ -31,7 +31,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
 
     public GeneComponentModelItem(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_frame,_core, _facade, _sub);
-        price = new GeneComponentModelInt(_core);
+        price = new GeneComponentModelLong(_core);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -44,7 +44,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         page_.add(geneComponentModelSelectKey());
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
-        form_.add(price.geneInt());
+        form_.add(price.geneLong());
         ballForm = compoFactory_.newLineBox();
         catchingRate = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
         ballForm.add(catchingRate.geneEnum());
@@ -134,7 +134,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
 
     @Override
     public EditedCrudPair<String,Item> value() {
-        element.setPrice(price.valueInt());
+        element.setPrice(price.valueLong());
         if (element instanceof Ball) {
             ((Ball)element).setCatchingRate(catchingRate.tryRet());
         }
@@ -181,7 +181,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         updateSelector();
         Item item_ = ConverterCommonMapUtil.copyItem(_v.getValue());
         getFacade().getData().getItems().put(DataBase.EMPTY_STRING, item_);
-        price.valueInt(item_.getPrice());
+        price.valueLong(item_.getPrice());
         if (item_ instanceof Ball) {
             catchingRate.setupValue(((Ball)item_).getCatchingRate());
         }
@@ -242,7 +242,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         itemForBattleForm.display(_eff);
         repelForm.setVisible(StringUtil.quickEq(_eff, Item.REPEL));
     }
-    public GeneComponentModelInt getPrice() {
+    public GeneComponentModelLong getPrice() {
         return price;
     }
 

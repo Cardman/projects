@@ -14,7 +14,7 @@ public final class ContentComponentModelDualFight {
     private GeneComponentModelImgSelect miniFileName;
     private final ContentComponentModelSubscribePkTrainer ally = new ContentComponentModelSubscribePkTrainer();
     private final ContentComponentModelSubscribePkTrainer tempTrainer = new ContentComponentModelSubscribePkTrainer();
-    private GeneComponentModelInt reward;
+    private GeneComponentModelLong reward;
     private FormLevelGridLink secondPt;
     private NullablePoint selectSecond = new NullablePoint();
     private CrudGeneFormSimpleElementSub<String> names;
@@ -35,8 +35,8 @@ public final class ContentComponentModelDualFight {
         group_.addAllElts(trainer.getMaxiFileName().subs());
         group_.addAllElts(miniFileName.subs());
         _grid.subs(group_);
-        reward = new GeneComponentModelInt(_core);
-        selected_.add(reward.geneInt());
+        reward = new GeneComponentModelLong(_core);
+        selected_.add(reward.geneLong());
         selected_.add(ally.form(_core,_fac,_fact,_fr));
         selected_.add(tempTrainer.form(_core,_fac,_fact,_fr));
         selected_.add(secondPt.getForm());
@@ -66,7 +66,7 @@ public final class ContentComponentModelDualFight {
         TempTrainer tmp_ = new TempTrainer();
         tmp_.setImageMiniSecondTrainerFileName(miniFileName.getName().tryRet());
         tmp_.setTeam(tempTrainer.getWalk().getList());
-        tmp_.setReward(reward.valueInt());
+        tmp_.setReward(reward.valueLong());
         trainer.buildEntity(tmp_);
         edited.setFoeTrainer(tmp_);
         Ally ally_ = new Ally();
@@ -80,7 +80,7 @@ public final class ContentComponentModelDualFight {
         edited = ConverterCommonMapUtil.copyDualFight(_edited);
         miniFileName.updateValue(edited.getFoeTrainer().getImageMiniSecondTrainerFileName());
         tempTrainer.getWalk().setupValues(edited.getFoeTrainer().getTeam());
-        reward.valueInt(edited.getFoeTrainer().getReward());
+        reward.valueLong(edited.getFoeTrainer().getReward());
         trainer.feedForm(edited.getFoeTrainer());
         ally.getWalk().setupValues(edited.getAlly().getTeam());
         selectSecond = edited.getPt();

@@ -219,9 +219,9 @@ public abstract class InitDbAbilities extends InitDbConstr {
         a_.getMultStatIfCat().addEntry(new StatisticCategory(Statistic.SPEED,C_CAT),Rate.one());
         a_.getMultStatIfDamageCat().addEntry(new StatisticCategory(Statistic.SPEED,C_CAT),1L);
         a_.getMultStatIfDamgeType().addEntry(new StatisticType(Statistic.SPEED,T_TYPE1),1L);
-        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,S_STA_SIM),1);
-        a_.getIncreasedPrio().addEntry(C_CAT,1);
-        a_.getIncreasedPrioTypes().addEntry(T_TYPE1,1);
+        a_.getMultStatIfStatutRank().addEntry(new StatisticStatus(Statistic.SPEED,S_STA_SIM),1L);
+        a_.getIncreasedPrio().addEntry(C_CAT,1L);
+        a_.getIncreasedPrioTypes().addEntry(T_TYPE1,1L);
         a_.getChangingBoostTypes().addEntry(T_TYPE1,new TypeDamageBoost(T_TYPE2,Rate.one()));
         a_.getImmuStatusTypes().addEntry(T_TYPE1,new StringList(S_STA_SIM));
         a_.getMultPowerMovesTypesGlobal().addEntry(T_TYPE1,Rate.one());

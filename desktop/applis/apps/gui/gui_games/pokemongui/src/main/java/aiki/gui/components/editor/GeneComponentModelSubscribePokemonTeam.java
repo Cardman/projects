@@ -13,7 +13,7 @@ public final class GeneComponentModelSubscribePokemonTeam implements AbsGeneComp
     private final SubscribedTranslationList factory;
     private final AbsCommonFrame frame;
     private PokemonTeam team = Instances.newPokemonTeam();
-    private GeneComponentModelInt reward;
+    private GeneComponentModelLong reward;
     private final ContentComponentModelSubscribePkTrainer simple = new ContentComponentModelSubscribePkTrainer();
     public GeneComponentModelSubscribePokemonTeam(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         api = _core;
@@ -27,8 +27,8 @@ public final class GeneComponentModelSubscribePokemonTeam implements AbsGeneComp
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
         AbsPanel form_ = compoFactory_.newLineBox();
-        reward = new GeneComponentModelInt(api);
-        form_.add(reward.geneInt());
+        reward = new GeneComponentModelLong(api);
+        form_.add(reward.geneLong());
         form_.add(simple.form(api,facadeGame,factory,frame));
         sc_.setViewportView(form_);
         page_.add(sc_);
@@ -38,14 +38,14 @@ public final class GeneComponentModelSubscribePokemonTeam implements AbsGeneComp
     @Override
     public PokemonTeam tryRet() {
         team.setTeam(simple.getWalk().getList());
-        team.setReward(reward.valueInt());
+        team.setReward(reward.valueLong());
         return team;
     }
 
     @Override
     public void setupValue(PokemonTeam _value) {
         team = ConverterCommonMapUtil.copyPokemonTeam(_value);
-        reward.valueInt(team.getReward());
+        reward.valueLong(team.getReward());
         simple.getWalk().setupValues(team.getTeam());
     }
 

@@ -88,7 +88,7 @@ final class FightStatistic {
         }
     }
 
-    static long criticalHit(Fight _fight, TeamPosition _fighter, int _rate, DataBase _import) {
+    static long criticalHit(Fight _fight, TeamPosition _fighter, long _rate, DataBase _import) {
         Fighter creatureLanceur_ = _fight.getFighter(_fighter);
         long boostCc_=creatureLanceur_.getStatisBoost().getVal(Statistic.CRITICAL_HIT);
         boostCc_ += FightStatistic.bonusBoost(_fight,Statistic.CRITICAL_HIT, _fighter, _import);

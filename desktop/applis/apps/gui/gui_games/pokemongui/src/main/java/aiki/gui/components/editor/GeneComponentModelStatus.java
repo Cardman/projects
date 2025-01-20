@@ -26,7 +26,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
     private CrudGeneFormSimpleFormSub<Statistic, Rate> multStat;
     private GeneComponentModelSubscribeString fail;
     private final GeneComponentModelRate catchingRate;
-    private final GeneComponentModelInt incrementEndRound;
+    private final GeneComponentModelLong incrementEndRound;
     private AbsCustCheckBox disabledEffIfSwitch;
     private AbsCustCheckBox incrementingEndRound;
     private AbsCustCheckBox statusType;
@@ -39,7 +39,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         super(_frame,_core, _facade, _sub);
         power = new GeneComponentModelRate(_core);
         catchingRate = new GeneComponentModelRate(_core);
-        incrementEndRound = new GeneComponentModelInt(_core);
+        incrementEndRound = new GeneComponentModelLong(_core);
     }
     @Override
     public AbsCustComponent gene(int _select) {
@@ -87,7 +87,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         form_.add(fail.geneEnum());
         fail.addComplete();
         form_.add(catchingRate.geneRate());
-        form_.add(incrementEndRound.geneInt());
+        form_.add(incrementEndRound.geneLong());
         disabledEffIfSwitch = compoFactory_.newCustCheckBox();
         form_.add(disabledEffIfSwitch);
         incrementingEndRound = compoFactory_.newCustCheckBox();
@@ -126,7 +126,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         edited.setMultStat(ConverterCommonMapUtil.buildIdMapStatisticRate(multStat.getList()));
         edited.setFail(fail.tryRet());
         edited.setCatchingRate(catchingRate.valueRate());
-        edited.setIncrementEndRound(incrementEndRound.valueInt());
+        edited.setIncrementEndRound(incrementEndRound.valueLong());
         edited.setDisabledEffIfSwitch(disabledEffIfSwitch.isSelected());
         edited.setIncrementingEndRound(incrementingEndRound.isSelected());
         if (statusType.isSelected()) {
@@ -158,7 +158,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         effectsPartner.setupValues(status_.getEffectsPartner());
         multStat.setupValues(new MapToEntriesListUtil<Statistic,Rate>().build(status_.getMultStat()));
         catchingRate.valueRate(status_.getCatchingRate());
-        incrementEndRound.valueInt(status_.getIncrementEndRound());
+        incrementEndRound.valueLong(status_.getIncrementEndRound());
         fail.setupValue(status_.getFail());
         disabledEffIfSwitch.setSelected(status_.getDisabledEffIfSwitch());
         incrementingEndRound.setSelected(status_.getIncrementingEndRound());

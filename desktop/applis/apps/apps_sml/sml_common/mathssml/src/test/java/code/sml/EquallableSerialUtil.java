@@ -91,7 +91,7 @@ public abstract class EquallableSerialUtil {
         return DocumentReaderCoreUtil.getStringMapBoolean(DocumentWriterCoreUtil.setStringMapBoolean(_i,"_",f_));
     }
 
-    public static StringMap<Integer> saveStrMapInt(StringMap<Integer> _i) {
+    public static StringMap<Long> saveStrMapInt(StringMap<Long> _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getStringMapInteger(DocumentWriterCoreUtil.setStringMapInteger(_i,"_",f_));
     }

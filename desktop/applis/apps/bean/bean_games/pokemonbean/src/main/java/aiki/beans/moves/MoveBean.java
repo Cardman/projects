@@ -33,13 +33,13 @@ public class MoveBean extends CommonBean {
     private StringList types;
     private String category;
     private StringList boostedTypes;
-    private int priority;
+    private long priority;
     private String accuracy;
     private Ints effects;
-    private int nbPrepaRound;
+    private long nbPrepaRound;
     private boolean disappearBeforeUse;
     private DictionaryComparator<LgInt,Rate> repeatRoundLaw;
-    private int rankIncrementNbRound;
+    private long rankIncrementNbRound;
     private boolean rechargeRound;
     private boolean constUserChoice;
     private boolean secEffectIfNoDamage;
@@ -987,7 +987,7 @@ public class MoveBean extends CommonBean {
         return pp;
     }
 
-    public int getPriority() {
+    public long getPriority() {
         return priority;
     }
 
@@ -1007,7 +1007,7 @@ public class MoveBean extends CommonBean {
         return ignVarEvasTargetPos;
     }
 
-    public int getNbPrepaRound() {
+    public long getNbPrepaRound() {
         return nbPrepaRound;
     }
 
@@ -1067,7 +1067,7 @@ public class MoveBean extends CommonBean {
         return constUserChoice;
     }
 
-    public int getRankIncrementNbRound() {
+    public long getRankIncrementNbRound() {
         return rankIncrementNbRound;
     }
 

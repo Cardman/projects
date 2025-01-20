@@ -432,10 +432,10 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPosition, Integer> _map) {
+    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPosition, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, Integer> e:_map.entryList()) {
+        for (EntryCust<MoveTeamPosition, Long> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;

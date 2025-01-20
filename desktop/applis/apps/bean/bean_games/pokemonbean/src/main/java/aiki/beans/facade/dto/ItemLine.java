@@ -4,7 +4,7 @@ public final class ItemLine {
     private String displayName;
     private String name;
     private String descriptionClass;
-    private int price;
+    private long price;
 
     public String getDisplayName() {
         return displayName;
@@ -30,11 +30,11 @@ public final class ItemLine {
         descriptionClass = _descriptionClass;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int _price) {
+    public void setPrice(long _price) {
         price = _price;
     }
 }

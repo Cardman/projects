@@ -9,7 +9,7 @@ import code.maths.Rate;
 import code.util.*;
 
 public class EffectDamageBean extends EffectBean {
-    private int chRate;
+    private long chRate;
     private boolean constDamage;
     private NatStringTreeMap< Rate> damageLaw;
     private NatStringTreeMap< Rate> multDamageAgainst;
@@ -199,7 +199,7 @@ public class EffectDamageBean extends EffectBean {
         return multDamageAgainst;
     }
 
-    public int getChRate() {
+    public long getChRate() {
         return chRate;
     }
 

@@ -16,7 +16,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
     private final AbsCommonFrame frame;
     private CrudGeneFormSimpleElementSub<String> key;
     private GeneComponentModelRate multEvtRateSecEff;
-    private GeneComponentModelInt rankIncrementNbRound;
+    private GeneComponentModelLong rankIncrementNbRound;
     private CrudGeneFormMonteCarlo<Rate> repeatedRoundsLaw;
     private CrudGeneFormSimpleElementSub<EffectEndRoundFoe> effectEndRound;
     private CrudGeneFormSimpleElementSub<EffectTeam> teamMove;
@@ -36,8 +36,8 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
         AbsPanel form_ = api.getCompoFactory().newLineBox();
         multEvtRateSecEff = new GeneComponentModelRate(api);
         form_.add(multEvtRateSecEff.geneRate());
-        rankIncrementNbRound = new GeneComponentModelInt(api);
-        form_.add(rankIncrementNbRound.geneInt());
+        rankIncrementNbRound = new GeneComponentModelLong(api);
+        form_.add(rankIncrementNbRound.geneLong());
         repeatedRoundsLaw = ConverterCommonMapUtil.buildMcRate(frame,api);
         form_.add(repeatedRoundsLaw.getGroup());
         effectEndRound = new CrudGeneFormSimpleElementSub<EffectEndRoundFoe>(api,facadeGame,factory,frame);
@@ -55,7 +55,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
     public ListEffectCombo value() {
         EffectCombo edited_ = Instances.newEffectCombo();
         edited_.setMultEvtRateSecEff(multEvtRateSecEff.valueRate());
-        edited_.setRankIncrementNbRound(rankIncrementNbRound.valueInt());
+        edited_.setRankIncrementNbRound(rankIncrementNbRound.valueLong());
         edited_.setRepeatedRoundsLaw(ConverterCommonMapUtil.buildMonteCarloNumber(repeatedRoundsLaw.getList()));
         edited_.setEffectEndRound(effectEndRound.getList());
         edited_.setTeamMove(teamMove.getList());
@@ -66,7 +66,7 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
     public void value(ListEffectCombo _value) {
         EffectCombo combo_ = ConverterCommonMapUtil.copyEffectCombo(_value.getCombo());
         multEvtRateSecEff.valueRate(combo_.getMultEvtRateSecEff());
-        rankIncrementNbRound.valueInt(combo_.getRankIncrementNbRound());
+        rankIncrementNbRound.valueLong(combo_.getRankIncrementNbRound());
         repeatedRoundsLaw.setupValues(new MapToEntriesListUtil<Rate,LgInt>().build(combo_.getRepeatedRoundsLaw()));
         effectEndRound.setupValues(combo_.getEffectEndRound());
         teamMove.setupValues(combo_.getTeamMove());

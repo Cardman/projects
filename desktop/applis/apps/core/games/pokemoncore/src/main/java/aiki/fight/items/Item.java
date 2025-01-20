@@ -20,7 +20,7 @@ public abstract class Item {
     public static final String ITEM_FOR_BATTLE = "11";
     public static final String REPEL = "12";
     public static final String SELLING_ITEM = "13";
-    private int price;
+    private long price;
 
     /**
      * DataBase _data the zipped data base
@@ -33,11 +33,11 @@ public abstract class Item {
 
     public abstract String getItemType();
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int _price) {
+    public void setPrice(long _price) {
         price = _price;
     }
 

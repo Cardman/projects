@@ -99,8 +99,8 @@ public abstract class InitDbItem extends InitDbItems{
         h_.setHealingAllMovesPp(_healingAllMovesPp);
         h_.setHealingAllMovesFullpp(_healingAllMovesFullpp);
         h_.setHealedMovePp(_healedMovePp);
-        h_.getHappiness().addEntry(I_BALL,1);
-        h_.getHappiness().addEntry(I_BOOST,2);
+        h_.getHappiness().addEntry(I_BALL,1L);
+        h_.getHappiness().addEntry(I_BOOST,2L);
         return h_;
     }
 

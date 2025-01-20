@@ -6,7 +6,7 @@ public class SortingItem extends Sorting {
 
     private String itemClass;
 
-    private int price;
+    private long price;
 
     private LgInt number = LgInt.zero();
 
@@ -18,11 +18,11 @@ public class SortingItem extends Sorting {
         itemClass = _itemClass;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int _price) {
+    public void setPrice(long _price) {
         price = _price;
     }
 

@@ -7,7 +7,7 @@ import code.util.StringList;
 
 public final class EndRoundCommon {
     private boolean endRound;
-    private int endRoundRank;
+    private long endRoundRank;
     private StringList reasonsEndRound;
     private NatStringTreeMap<String> mapVarsFailEndRound;
     public void endRondElts(DataBase _data,EffectEndRound _eff, String _lg) {
@@ -28,7 +28,7 @@ public final class EndRoundCommon {
         return endRound;
     }
 
-    public int getEndRoundRank() {
+    public long getEndRoundRank() {
         return endRoundRank;
     }
 

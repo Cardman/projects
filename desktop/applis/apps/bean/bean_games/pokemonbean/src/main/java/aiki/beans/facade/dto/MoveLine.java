@@ -9,7 +9,7 @@ public class MoveLine {
     private boolean damageMove;
     private String category;
     private boolean direct;
-    private int priority;
+    private long priority;
     private String accuracy;
     private String power;
 
@@ -69,11 +69,11 @@ public class MoveLine {
         direct = _direct;
     }
 
-    public int getPriority() {
+    public long getPriority() {
         return priority;
     }
 
-    public void setPriority(int _priority) {
+    public void setPriority(long _priority) {
         priority = _priority;
     }
 

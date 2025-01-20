@@ -1457,7 +1457,7 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).setExpItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setLastUsedItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setUsedBallCatching(I_SAMPLE);
-        fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().setValue(0, 1);
+        fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().setValue(0, 1L);
         fight_.getUserTeam().getMembers().getValue(0).setChanged(true);
         fight_.getUserTeam().getMembers().getValue(0).setActed(true);
         fight_.getUserTeam().getMembers().getValue(0).setUsingItem(true);

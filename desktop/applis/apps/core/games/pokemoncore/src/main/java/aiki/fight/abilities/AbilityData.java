@@ -23,7 +23,7 @@ public final class AbilityData {
     private StringMap<String> chgtTypeByWeather;
     private boolean chgtTypeByDamage;
     private Rate recoilDamageFoe;
-    private int decreaseNecStepsHatch;
+    private long decreaseNecStepsHatch;
     private StringMap<Rate> divideStatusRound;
     private StringMap<Rate> healHpByWeather;
     private StringList ignAbility;
@@ -73,14 +73,14 @@ public final class AbilityData {
     private IdMap<Statistic, String> multStat;
     private boolean inflictingDamageInsteadOfSuffering;
     private Rate multVarBoost;
-    private int nbUsedPp;
+    private long nbUsedPp;
     private boolean nbHits;
     private boolean breakProtection;
     private boolean plate;
     private boolean healedStatusBySwitch;
     private Rate healedHpRateBySwitch;
-    private StringMap<Integer> increasedPrio;
-    private StringMap<Integer> increasedPrioTypes;
+    private StringMap<Long> increasedPrio;
+    private StringMap<Long> increasedPrioTypes;
     private IdList<Statistic> maxStatisticsIfCh;
     private MonteCarloString singleStatus;
     private boolean achievedDisappearedPk;
@@ -180,8 +180,8 @@ public final class AbilityData {
         }
         DataInfoChecker.checkStringListContains(_data.getAllCategories(),increasedPrio.getKeys(),_data);
         DataInfoChecker.checkStringListContains(_data.getTypes(),increasedPrioTypes.getKeys(),_data);
-        DataInfoChecker.checkPositiveShorts(increasedPrio.values(),_data);
-        DataInfoChecker.checkPositiveShorts(increasedPrioTypes.values(),_data);
+        DataInfoChecker.checkPositiveLongs(increasedPrio.values(),_data);
+        DataInfoChecker.checkPositiveLongs(increasedPrioTypes.values(),_data);
         DataInfoChecker.checkStringListContainsOrEmpty(_data.getTypes(), typeForMoves,_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStat.getKeys(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatAlly.getKeys(),_data);
@@ -199,7 +199,7 @@ public final class AbilityData {
         DataInfoChecker.checkPositiveLongs(boostStatRankEndRound.values(),_data);
         DataInfoChecker.checkPositiveLongs(multStatIfLowStat.values(),_data);
         DataInfoChecker.checkStatisticListContains(Statistic.getStatisticsWithBoost(),multStatIfLowStat.getKeys(),_data);
-        DataInfoChecker.checkPositiveShorts(multStatIfStatutRank.values(),_data);
+        DataInfoChecker.checkPositiveLongs(multStatIfStatutRank.values(),_data);
         DataInfoChecker.checkStatisticStatus(multStatIfStatutRank.getKeys(), _data);
         DataInfoChecker.checkPositiveLongs(multStatIfDamageCat.values(),_data);
         DataInfoChecker.checkStatisticCategory(_data.getCategories(), multStatIfDamageCat.getKeys(), _data);
@@ -286,11 +286,11 @@ public final class AbilityData {
         recoilDamageFoe = _recoilDamageFoe;
     }
 
-    public int getDecreaseNecStepsHatch() {
+    public long getDecreaseNecStepsHatch() {
         return decreaseNecStepsHatch;
     }
 
-    public void setDecreaseNecStepsHatch(int _decreaseNecStepsHatch) {
+    public void setDecreaseNecStepsHatch(long _decreaseNecStepsHatch) {
         decreaseNecStepsHatch = _decreaseNecStepsHatch;
     }
 
@@ -646,11 +646,11 @@ public final class AbilityData {
         multVarBoost = _multVarBoost;
     }
 
-    public int getNbUsedPp() {
+    public long getNbUsedPp() {
         return nbUsedPp;
     }
 
-    public void setNbUsedPp(int _nbUsedPp) {
+    public void setNbUsedPp(long _nbUsedPp) {
         nbUsedPp = _nbUsedPp;
     }
 
@@ -694,19 +694,19 @@ public final class AbilityData {
         healedHpRateBySwitch = _healedHpRateBySwitch;
     }
 
-    public StringMap<Integer> getIncreasedPrio() {
+    public StringMap<Long> getIncreasedPrio() {
         return increasedPrio;
     }
 
-    public void setIncreasedPrio(StringMap<Integer> _increasedPrio) {
+    public void setIncreasedPrio(StringMap<Long> _increasedPrio) {
         increasedPrio = _increasedPrio;
     }
 
-    public StringMap<Integer> getIncreasedPrioTypes() {
+    public StringMap<Long> getIncreasedPrioTypes() {
         return increasedPrioTypes;
     }
 
-    public void setIncreasedPrioTypes(StringMap<Integer> _increasedPrioTypes) {
+    public void setIncreasedPrioTypes(StringMap<Long> _increasedPrioTypes) {
         increasedPrioTypes = _increasedPrioTypes;
     }
 

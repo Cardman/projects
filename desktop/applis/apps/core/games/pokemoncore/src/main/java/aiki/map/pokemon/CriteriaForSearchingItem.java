@@ -34,7 +34,7 @@ public class CriteriaForSearchingItem extends CriteriaForSearching {
         return match(searchModeDescription, contentOfDescription, _description);
     }
 
-    public boolean matchPrice(int _price) {
+    public boolean matchPrice(long _price) {
         return CriteriaForSearching.match(minPrice, maxPrice, _price);
     }
 

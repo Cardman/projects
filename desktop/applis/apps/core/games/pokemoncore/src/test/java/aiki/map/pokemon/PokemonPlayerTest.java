@@ -770,7 +770,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(GRELOT);
         HealingHp healingObject_ = new HealingHp();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
         assertEq(2, pk_.pointBonheurGagnes(healingObject_,data_));
     }
     @Test
@@ -779,9 +779,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(GRELOT);
         HealingHp healingObject_ = new HealingHp();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
 
-        healingObject_.getHappiness().put(data_.getBallDef(),  3);
+        healingObject_.getHappiness().put(data_.getBallDef(),  3L);
         assertEq(6, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -791,7 +791,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(NULL_REF);
         HealingHp healingObject_ = new HealingHp();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
         assertEq(1, pk_.pointBonheurGagnes(healingObject_,data_));
     }
     @Test
@@ -800,9 +800,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(NULL_REF);
         HealingHp healingObject_ = new HealingHp();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
 
-        healingObject_.getHappiness().put(data_.getBallDef(),  3);
+        healingObject_.getHappiness().put(data_.getBallDef(),  3L);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -812,7 +812,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(GRELOT);
         Boost healingObject_ = new Boost();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
         assertEq(2, pk_.pointBonheurGagnes(healingObject_,data_));
     }
     @Test
@@ -821,9 +821,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(GRELOT);
         Boost healingObject_ = new Boost();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
 
-        healingObject_.getHappiness().put(data_.getBallDef(),  3);
+        healingObject_.getHappiness().put(data_.getBallDef(),  3L);
         assertEq(6, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -833,7 +833,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(NULL_REF);
         Boost healingObject_ = new Boost();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
         assertEq(1, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -843,9 +843,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(NULL_REF);
         Boost healingObject_ = new Boost();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
 
-        healingObject_.getHappiness().put(data_.getBallDef(),  3);
+        healingObject_.getHappiness().put(data_.getBallDef(),  3L);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -856,9 +856,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setItem(NULL_REF);
         pk_.setHappiness( 170);
         Boost healingObject_ = new Boost();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
 
-        healingObject_.getHappiness().put(data_.getBallDef(),  3);
+        healingObject_.getHappiness().put(data_.getBallDef(),  3L);
         assertEq(0, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -868,9 +868,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(BAIE_ENIGMA);
         Boost healingObject_ = new Boost();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
 
-        healingObject_.getHappiness().put(data_.getBallDef(),  3);
+        healingObject_.getHappiness().put(data_.getBallDef(),  3L);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 
@@ -880,9 +880,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_,  7);
         pk_.setItem(PT_DE_MIRE);
         Boost healingObject_ = new Boost();
-        healingObject_.setHappiness(new StringMap<Integer>());
+        healingObject_.setHappiness(new StringMap<Long>());
 
-        healingObject_.getHappiness().put(data_.getBallDef(),  3);
+        healingObject_.getHappiness().put(data_.getBallDef(),  3L);
         assertEq(3, pk_.pointBonheurGagnes(healingObject_,data_));
     }
 

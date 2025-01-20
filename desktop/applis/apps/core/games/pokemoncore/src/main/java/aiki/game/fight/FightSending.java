@@ -397,7 +397,7 @@ final class FightSending {
         Fighter fighter_ = _fight.getFighter(_t);
         for (MoveTeamPosition m: fighter_.getStatusRelatSet()) {
             if (TeamPosition.eq(m.getTeamPosition(), _cbtRetire)) {
-                int r_ = fighter_.getStatusRelatNbRoundShort(m);
+                long r_ = fighter_.getStatusRelatNbRoundShort(m);
                 fighter_.supprimerPseudoStatutCombattant(_cbtRetire, m.getMove());
                 _fight.addDisabledStatusRelMessage(m.getMove(), _t, _cbtRetire, r_, _import);
             }

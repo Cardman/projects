@@ -8,14 +8,14 @@ import code.util.*;
 import code.util.core.*;
 
 public final class ContentComponentModelHealingItem {
-    private CrudGeneFormSimpleFormSub<String,Integer> happiness;
+    private CrudGeneFormSimpleFormSub<String,Long> happiness;
     private AbsCustCheckBox healingTeam;
     private AbsPanel healingItemForm;
     AbsPanel form(GeneComponentModelItem _parent) {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         healingItemForm = compoFactory_.newLineBox();
-        happiness = new CrudGeneFormSimpleFormSub<String, Integer>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Integer>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
+        happiness = new CrudGeneFormSimpleFormSub<String, Long>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Long>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())));
         healingItemForm.add(happiness.getGroup());
         healingTeam=compoFactory_.newCustCheckBox();
         healingItemForm.add(healingTeam);
@@ -30,7 +30,7 @@ public final class ContentComponentModelHealingItem {
         _item.setHealingTeam(healingTeam.isSelected());
     }
     void feedForm(HealingItem _item) {
-        happiness.setupValues(new MapToEntriesListUtil<String,Integer>().build(_item.getHappiness()));
+        happiness.setupValues(new MapToEntriesListUtil<String,Long>().build(_item.getHappiness()));
         healingTeam.setSelected(_item.getHealingTeam());
     }
 

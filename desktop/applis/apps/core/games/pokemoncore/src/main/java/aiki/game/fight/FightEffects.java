@@ -628,7 +628,7 @@ final class FightEffects {
     static void effectCopyFighter(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectCopyFighter _effet,DataBase _import){
         Fighter creatureCible_=_fight.getFighter(_cible);
         Fighter creatureLanceur_=_fight.getFighter(_lanceur);
-        int pp_=_effet.getPpForMoves();
+        long pp_=_effet.getPpForMoves();
         creatureLanceur_.transformer(creatureCible_,pp_);
         _fight.addCopyFighterMessage(_lanceur, _cible, _import);
     }
@@ -2078,7 +2078,7 @@ final class FightEffects {
         for (String c: _equipeAdv.getNbUsesMoves().getKeys()) {
             if(StringUtil.contains(_effet.getDisableFoeTeamEffects(), c)){
                 //disable team foe moves sending
-                _equipeAdv.getNbUsesMoves().put(c, 0);
+                _equipeAdv.getNbUsesMoves().put(c, 0L);
                 _fight.addDisabledTeamUsesMoveMessage(Fight.foe(_combattant.getTeam()), c, _import);
             }
         }
@@ -2625,7 +2625,7 @@ final class FightEffects {
         //derniere attaque de la cible
         Fighter creatureCible_=_fight.getFighter(_cible);
         String attaque_=creatureCible_.getFirstChosenMove();
-        int var_=_effet.getDeletePp();
+        long var_=_effet.getDeletePp();
         creatureCible_.usePowerPointsByMove(_diff,attaque_,var_);
         _fight.addVarPpEffectMessage(attaque_, _cible, var_, _import);
         if (FightItems.canUseItsBerry(_fight,_cible, _import)) {

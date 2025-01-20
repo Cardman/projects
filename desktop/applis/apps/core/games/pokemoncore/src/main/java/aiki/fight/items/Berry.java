@@ -22,7 +22,7 @@ public final class Berry extends Item {
     private IdMap<Statistic, BoostHpRate> multStat;
 
     private boolean withoutFail;
-    private int healPp;
+    private long healPp;
 
     private Rate healHp;
 
@@ -132,11 +132,11 @@ public final class Berry extends Item {
         withoutFail = _withoutFail;
     }
 
-    public int getHealPp() {
+    public long getHealPp() {
         return healPp;
     }
 
-    public void setHealPp(int _healPp) {
+    public void setHealPp(long _healPp) {
         healPp = _healPp;
     }
 

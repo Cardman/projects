@@ -18,7 +18,7 @@ public class BerryBean extends ItemBean {
     private DictionaryComparator<String, EfficiencyRate> multFoesDamage;
     private DictionaryComparator<Statistic, BoostHpRate> multStat;
     private boolean withoutFail;
-    private int healPp;
+    private long healPp;
     private Rate healHp;
     private Rate maxHpHealingHp;
     private StringList healStatus;
@@ -129,7 +129,7 @@ public class BerryBean extends ItemBean {
         return withoutFail;
     }
 
-    public int getHealPp() {
+    public long getHealPp() {
         return healPp;
     }
 

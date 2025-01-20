@@ -161,8 +161,8 @@ public final class Instances {
         object_.setMultStat(new IdMap<Statistic,String>(cap_));
         object_.setMultVarBoost(Rate.zero());
         object_.setHealedHpRateBySwitch(Rate.zero());
-        object_.setIncreasedPrio(new StringMap<Integer>(cap_));
-        object_.setIncreasedPrioTypes(new StringMap<Integer>(cap_));
+        object_.setIncreasedPrio(new StringMap<Long>(cap_));
+        object_.setIncreasedPrioTypes(new StringMap<Long>(cap_));
         object_.setMaxStatisticsIfCh(new IdList<Statistic>(cap_));
         object_.setSingleStatus(new MonteCarloString(cap_));
         object_.setForwardStatus(new StringMap<String>(cap_));
@@ -227,7 +227,7 @@ public final class Instances {
         Boost object_ = new Boost();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setWinPp(Rate.zero());
-        object_.setHappiness(new StringMap<Integer>(cap_));
+        object_.setHappiness(new StringMap<Long>(cap_));
         object_.setEvs(new IdMap<Statistic,Long>(cap_));
         return object_;
     }
@@ -250,7 +250,7 @@ public final class Instances {
         HealingHp object_ = new HealingHp();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHp(Rate.zero());
-        object_.setHappiness(new StringMap<Integer>(cap_));
+        object_.setHappiness(new StringMap<Long>(cap_));
         return object_;
     }
 
@@ -259,21 +259,21 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setHealedHpRate(Rate.zero());
         object_.setStatus(new StringList(cap_));
-        object_.setHappiness(new StringMap<Integer>(cap_));
+        object_.setHappiness(new StringMap<Long>(cap_));
         return object_;
     }
 
     public static HealingPp newHealingPp() {
         HealingPp object_ = new HealingPp();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setHappiness(new StringMap<Integer>(cap_));
+        object_.setHappiness(new StringMap<Long>(cap_));
         return object_;
     }
 
     public static HealingSimpleItem newHealingSimpleItem() {
         HealingSimpleItem object_ = new HealingSimpleItem();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setHappiness(new StringMap<Integer>(cap_));
+        object_.setHappiness(new StringMap<Long>(cap_));
         return object_;
     }
 
@@ -281,7 +281,7 @@ public final class Instances {
         HealingSimpleStatus object_ = new HealingSimpleStatus();
         CollCapacity cap_ = new CollCapacity(0);
         object_.setStatus(new StringList(cap_));
-        object_.setHappiness(new StringMap<Integer>(cap_));
+        object_.setHappiness(new StringMap<Long>(cap_));
         return object_;
     }
 
@@ -290,7 +290,7 @@ public final class Instances {
         CollCapacity cap_ = new CollCapacity(0);
         object_.setTypesPk(new StringList(cap_));
         object_.setImmuStatus(new StringList(cap_));
-        object_.setIncreasingMaxNbRoundTrap(new StringMap<Integer>(cap_));
+        object_.setIncreasingMaxNbRoundTrap(new StringMap<Long>(cap_));
         object_.setSynchroStatus(new StringList(cap_));
         object_.setFailStatus(new StringMap<String>(cap_));
         object_.setProtectAgainstKo(Rate.zero());
@@ -309,8 +309,8 @@ public final class Instances {
         object_.setMultStatRank(new IdMap<Statistic,Long>(cap_));
         object_.setMultStatPokemonRank(new StatisticPokemons(cap_));
         object_.setMultStat(new IdMap<Statistic,String>(cap_));
-        object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Integer>(cap_));
-        object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Integer>(cap_));
+        object_.setIncreasingMaxNbRoundGlobalMove(new StringMap<Long>(cap_));
+        object_.setIncreasingMaxNbRoundTeamMove(new StringMap<Long>(cap_));
         object_.setImmuMoves(new StringList(cap_));
         object_.setHatching(new StringList(cap_));
         object_.setImmuTypes(new StringList(cap_));
@@ -1056,7 +1056,7 @@ public final class Instances {
         object_.setCatchingBalls(new CustList<CatchingBallFoeAction>());
         object_.setCurrentUser(new TeamPosition());
         object_.setState(FightState.RIEN);
-        object_.setUsedItemsWhileRound(new StringMap<Integer>(cap_));
+        object_.setUsedItemsWhileRound(new StringMap<Long>(cap_));
         object_.setFirstPositPlayerFighters(new IntMap<Integer>(cap_));
         object_.setFirstPositFoeFighters(new IntMap<Integer>(cap_));
         object_.setAllyChoice(new MoveTargets(cap_));
@@ -1087,7 +1087,7 @@ public final class Instances {
         object_.setExpItem(DataBase.EMPTY_STRING);
         object_.setAbility(DataBase.EMPTY_STRING);
         object_.setCurrentAbility(DataBase.EMPTY_STRING);
-        object_.setStatus(new StringMap<Integer>(cap_));
+        object_.setStatus(new StringMap<Long>(cap_));
         object_.setStatusRelat(new MoveTeamPositionsShort(cap_));
         object_.setNbRounds(LgInt.zero());
         object_.setTypes(new StringList(cap_));
@@ -1113,7 +1113,7 @@ public final class Instances {
         object_.setWonExpSinceLastLevel(Rate.zero());
         object_.setUsedBallCatching(DataBase.EMPTY_STRING);
         object_.setIncrUserAccuracy(new MoveTeamPositionsBoolVal(cap_));
-        object_.setNbUsesMoves(new StringMap<Integer>(cap_));
+        object_.setNbUsesMoves(new StringMap<Long>(cap_));
         object_.setTrackingMoves(new MoveTeamPositionsAffectedMove(cap_));
         object_.setTrappingMoves(new MoveTeamPositionsActivityOfMove(cap_));
         object_.setLastSufferedMove(DataBase.EMPTY_STRING);
@@ -1140,8 +1140,8 @@ public final class Instances {
         object_.setEnabledMoves(new StringMap<ActivityOfMove>(cap_));
         object_.setEnabledMovesWhileSendingFoe(new StringMap<BoolVal>(cap_));
         object_.setEnabledMovesWhileSendingFoeUses(new StringMap<LgInt>(cap_));
-        object_.setNbUsesMoves(new StringMap<Integer>(cap_));
-        object_.setNbUsesMovesRound(new StringMap<Integer>(cap_));
+        object_.setNbUsesMoves(new StringMap<Long>(cap_));
+        object_.setNbUsesMovesRound(new StringMap<Long>(cap_));
         object_.setHealAfter(new StringMap<IntMap<StacksOfUses>>(cap_));
         object_.setMovesAnticipation(new StringMap<IntMap<Anticipation>>(cap_));
         object_.setMembers(new IntMap<Fighter>(cap_));

@@ -120,9 +120,9 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
     }
     @Test
     public void t19() {
-        StringMap<Integer> inSingle_ = new StringMap<Integer>();
-        inSingle_.addEntry("1",1);
-        StringMap<Integer> ls_ = saveStrMapInt(inSingle_);
+        StringMap<Long> inSingle_ = new StringMap<Long>();
+        inSingle_.addEntry("1",1L);
+        StringMap<Long> ls_ = saveStrMapInt(inSingle_);
         assertEq(1,ls_.size());
         assertEq("1",ls_.getKey(0));
         assertEq(1,ls_.getValue(0));

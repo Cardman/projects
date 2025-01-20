@@ -22,13 +22,13 @@ public abstract class MoveData {
     private long pp;
     private StringList types;
     private StringList boostedTypes;
-    private int priority;
+    private long priority;
     private String accuracy;
     private CustList<Effect> effects;
-    private int nbPrepaRound;
+    private long nbPrepaRound;
     private boolean disappearBeforeUse;
     private MonteCarloNumber repeatRoundLaw;
-    private int rankIncrementNbRound;
+    private long rankIncrementNbRound;
     private boolean rechargeRound;
     private boolean constUserChoice;
     private boolean stoppableMoveSolo;
@@ -180,11 +180,11 @@ public abstract class MoveData {
         boostedTypes = _boostedTypes;
     }
 
-    public int getPriority() {
+    public long getPriority() {
         return priority;
     }
 
-    public void setPriority(int _priority) {
+    public void setPriority(long _priority) {
         priority = _priority;
     }
 
@@ -204,11 +204,11 @@ public abstract class MoveData {
         effects = _effects;
     }
 
-    public int getNbPrepaRound() {
+    public long getNbPrepaRound() {
         return nbPrepaRound;
     }
 
-    public void setNbPrepaRound(int _nbPrepaRound) {
+    public void setNbPrepaRound(long _nbPrepaRound) {
         nbPrepaRound = _nbPrepaRound;
     }
 
@@ -228,11 +228,11 @@ public abstract class MoveData {
         repeatRoundLaw = _repeatRoundLaw;
     }
 
-    public int getRankIncrementNbRound() {
+    public long getRankIncrementNbRound() {
         return rankIncrementNbRound;
     }
 
-    public void setRankIncrementNbRound(int _rankIncrementNbRound) {
+    public void setRankIncrementNbRound(long _rankIncrementNbRound) {
         rankIncrementNbRound = _rankIncrementNbRound;
     }
 

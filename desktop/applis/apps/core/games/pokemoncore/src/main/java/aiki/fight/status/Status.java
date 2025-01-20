@@ -19,7 +19,7 @@ public abstract class Status {
     private CustList<EffectEndRoundStatus> effectEndRound;
     private CustList<EffectPartnerStatus> effectsPartner;
     private boolean disabledEffIfSwitch;
-    private int incrementEndRound;
+    private long incrementEndRound;
     private boolean incrementingEndRound;
     private IdMap<Statistic, Rate> multStat;
     private String fail;
@@ -112,11 +112,11 @@ public abstract class Status {
         incrementingEndRound = _incrementingEndRound;
     }
 
-    public int getIncrementEndRound() {
+    public long getIncrementEndRound() {
         return incrementEndRound;
     }
 
-    public void setIncrementEndRound(int _incrementEndRound) {
+    public void setIncrementEndRound(long _incrementEndRound) {
         incrementEndRound = _incrementEndRound;
     }
 

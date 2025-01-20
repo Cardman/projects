@@ -145,20 +145,9 @@ public final class DataInfoChecker {
             _data.setError(true);
         }
     }
-    public static void checkPositiveShorts(CustList<Integer> _value, DataBase _data) {
-        for (int s : _value) {
-            checkPositive(s,_data);
-        }
-    }
     public static void checkPositiveLongs(CustList<Long> _value, DataBase _data) {
         for (long s : _value) {
             checkPositive(s,_data);
-        }
-    }
-
-    public static void checkPositiveOrZeroShorts(CustList<Integer> _value, DataBase _data) {
-        for (int s : _value) {
-            checkPositiveOrZero(s,_data);
         }
     }
 

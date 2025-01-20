@@ -11,7 +11,7 @@ public final class EffectCombo {
 
     private Rate multEvtRateSecEff;
     private MonteCarloNumber repeatedRoundsLaw;
-    private int rankIncrementNbRound;
+    private long rankIncrementNbRound;
     private CustList<EffectEndRoundFoe> effectEndRound;
     private CustList<EffectTeam> teamMove;
 
@@ -57,11 +57,11 @@ public final class EffectCombo {
         repeatedRoundsLaw = _repeatedRoundsLaw;
     }
 
-    public int getRankIncrementNbRound() {
+    public long getRankIncrementNbRound() {
         return rankIncrementNbRound;
     }
 
-    public void setRankIncrementNbRound(int _rankIncrementNbRound) {
+    public void setRankIncrementNbRound(long _rankIncrementNbRound) {
         rankIncrementNbRound = _rankIncrementNbRound;
     }
 

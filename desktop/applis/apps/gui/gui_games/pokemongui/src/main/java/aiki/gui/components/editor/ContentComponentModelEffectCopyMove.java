@@ -8,15 +8,15 @@ import code.util.*;
 
 public final class ContentComponentModelEffectCopyMove {
 
-    private GeneComponentModelInt copyingMoveForUser;
+    private GeneComponentModelLong copyingMoveForUser;
     private GeneComponentModelLsStrSub<String,StringList> movesNotToBeCopied;
     private AbsCustCheckBox copyingMoveForUserDef;
     private AbsPanel form;
 
     AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        copyingMoveForUser = new GeneComponentModelInt(_core);
-        selected_.add(copyingMoveForUser.geneInt());
+        copyingMoveForUser = new GeneComponentModelLong(_core);
+        selected_.add(copyingMoveForUser.geneLong());
         movesNotToBeCopied = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
         selected_.add(movesNotToBeCopied.geneEnum());
         copyingMoveForUserDef = _core.getCompoFactory().newCustCheckBox();
@@ -30,12 +30,12 @@ public final class ContentComponentModelEffectCopyMove {
     }
 
     void buildEntity(EffectCopyMove _edited) {
-        _edited.setCopyingMoveForUser(copyingMoveForUser.valueInt());
+        _edited.setCopyingMoveForUser(copyingMoveForUser.valueLong());
         _edited.setMovesNotToBeCopied(movesNotToBeCopied.tryRet());
         _edited.setCopyingMoveForUserDef(copyingMoveForUserDef.isSelected());
     }
     void feedForm(EffectCopyMove _edited) {
-        copyingMoveForUser.valueInt(_edited.getCopyingMoveForUser());
+        copyingMoveForUser.valueLong(_edited.getCopyingMoveForUser());
         movesNotToBeCopied.setupValue(_edited.getMovesNotToBeCopied());
         copyingMoveForUserDef.setSelected(_edited.getCopyingMoveForUserDef());
     }

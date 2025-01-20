@@ -2,7 +2,7 @@ package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectCopyFighter;
 
 public class EffectCopyFighterBean extends EffectBean {
-    private int ppForMoves;
+    private long ppForMoves;
 
     @Override
     public void beforeDisplaying() {
@@ -11,7 +11,7 @@ public class EffectCopyFighterBean extends EffectBean {
         ppForMoves = effect_.getPpForMoves();
     }
 
-    public int getPpForMoves() {
+    public long getPpForMoves() {
         return ppForMoves;
     }
 }

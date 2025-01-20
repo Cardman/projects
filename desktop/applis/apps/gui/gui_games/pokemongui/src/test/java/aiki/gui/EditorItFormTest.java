@@ -25,7 +25,7 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(I_1);
-        g_.getPrice().valueInt(10);
+        g_.getPrice().valueLong(10);
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getItems().size());
         assertEq(1,c_.getList().size());
@@ -41,11 +41,11 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(I_1);
-        g_.getPrice().valueInt(10);
+        g_.getPrice().valueLong(10);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
         GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGene();
-        assertEq(10,gSec_.getPrice().valueInt());
+        assertEq(10,gSec_.getPrice().valueLong());
     }
     @Test
     public void itForm3() {
@@ -56,11 +56,11 @@ public final class EditorItFormTest extends InitEditorPkForm {
         tryClick(c_.getAdd());
         GeneComponentModelItem g_ = (GeneComponentModelItem) c_.getGene();
         g_.getGeneComponentModelSelectKey().setupValue(I_1);
-        g_.getPrice().valueInt(10);
+        g_.getPrice().valueLong(10);
         tryClick(c_.getValidAddEdit());
         tryClick(c_.getAllButtons().get(0));
         GeneComponentModelItem gSec_ = (GeneComponentModelItem)c_.getGene();
-        gSec_.getPrice().valueInt(20);
+        gSec_.getPrice().valueLong(20);
         tryClick(c_.getValidAddEdit());
         assertEq(1,facade_.getData().getItems().size());
         assertEq(20, facade_.getData().getItems().getVal(I_1).getPrice());
@@ -275,11 +275,11 @@ public final class EditorItFormTest extends InitEditorPkForm {
         ConverterCommonMapUtil.trigger(((GeneComponentModelItem)cm_.getGene()).getEffectKind().getSelectUniq(),Item.ITEM_FOR_BATTLE);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getKey().setupValue(new StatisticPokemon(Statistic.SPEED,P_1));
-        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue(1);
+        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue(1L);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValidAddEdit());
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getAdd());
         ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getKey().setupValue(new StatisticPokemon(Statistic.SPEED,P_2));
-        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue(2);
+        ((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValue().setupValue(2L);
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getValidAddEdit());
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getAllButtons().get(0));
         tryClick(((GeneComponentModelItem)cm_.getGene()).getItemForBattleForm().getMultStatPokemonRank().getCrud().getCancel());

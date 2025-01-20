@@ -63,11 +63,11 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<String,String> buildCatsData(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedCategories().getVal(_language));
     }
-    public static DictionaryComparator<String,Integer> buildCatsShort(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Integer>(_data.getTranslatedCategories().getVal(_language));
+    public static DictionaryComparator<String,Long> buildCatsShort(DataBase _data, String _language) {
+        return new DictionaryComparator<String,Long>(_data.getTranslatedCategories().getVal(_language));
     }
-    public static DictionaryComparator<String,Integer> buildItemsShort(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Integer>(_data.getTranslatedItems().getVal(_language));
+    public static DictionaryComparator<String,Long> buildItemsShort(DataBase _data, String _language) {
+        return new DictionaryComparator<String,Long>(_data.getTranslatedItems().getVal(_language));
     }
 
     public static DictionaryComparator<String,Item> buildItemsData(DataBase _data, String _language) {
@@ -86,8 +86,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,MoveData>(_data.getTranslatedMoves().getVal(_language));
     }
 
-    public static DictionaryComparator<String,Integer> buildMovesShort(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Integer>(_data.getTranslatedMoves().getVal(_language));
+    public static DictionaryComparator<String,Long> buildMovesShort(DataBase _data, String _language) {
+        return new DictionaryComparator<String,Long>(_data.getTranslatedMoves().getVal(_language));
     }
 
     public static DictionaryComparator<String,String> buildMovesStr(DataBase _data, String _language) {
@@ -145,8 +145,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,IdList<Statistic>>(_data.getTranslatedTypes().getVal(_language));
     }
 
-    public static DictionaryComparator<String, Integer> buildTypesShort(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Integer>(_data.getTranslatedTypes().getVal(_language));
+    public static DictionaryComparator<String, Long> buildTypesShort(DataBase _data, String _language) {
+        return new DictionaryComparator<String,Long>(_data.getTranslatedTypes().getVal(_language));
     }
 
     public static DictionaryComparator<String, TypeDamageBoost> buildTypesTypeDamageBoost(DataBase _data, String _language) {
@@ -189,8 +189,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,String>(translated_);
     }
 
-    public static DictionaryComparator<MoveTeamPosition,Integer> buildMoveTeamPositionShort() {
-        return new DictionaryComparator<MoveTeamPosition, Integer>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPosition,Long> buildMoveTeamPositionShort() {
+        return new DictionaryComparator<MoveTeamPosition, Long>(new ComparatorMoveTeamPosition());
     }
 
     public static DictionaryComparator<MoveTeamPosition,String> buildMoveTeamPositionString() {
@@ -318,8 +318,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<StatisticType, Long>(new ComparatorStatisticType(_data, _lg));
     }
 
-    public static DictionaryComparator<StatisticStatus, Integer> buildStatisticStatus(DataBase _data, String _lg) {
-        return new DictionaryComparator<StatisticStatus, Integer>(new ComparatorStatusStatistic(_data, _lg));
+    public static DictionaryComparator<StatisticStatus, Long> buildStatisticStatus(DataBase _data, String _lg) {
+        return new DictionaryComparator<StatisticStatus, Long>(new ComparatorStatusStatistic(_data, _lg));
     }
 
     public static DictionaryComparator<WeatherType, Rate> buildWeatherType(DataBase _data, String _lg) {
@@ -338,7 +338,7 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<Integer, String>(new ComparatorPlaceNumber(_map));
     }
 
-    public static DictionaryComparator<StatisticPokemon, Integer> buildStatPk(DataBase _data, String _lg) {
-        return new DictionaryComparator<StatisticPokemon, Integer>(new ComparatorStatisticPokemon(_data, _lg));
+    public static DictionaryComparator<StatisticPokemon, Long> buildStatPk(DataBase _data, String _lg) {
+        return new DictionaryComparator<StatisticPokemon, Long>(new ComparatorStatisticPokemon(_data, _lg));
     }
 }

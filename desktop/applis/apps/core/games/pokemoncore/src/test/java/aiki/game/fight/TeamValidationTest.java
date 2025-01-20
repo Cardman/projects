@@ -264,7 +264,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMoves().put(CHARGE, 0);
+        team_.getNbUsesMoves().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -272,7 +272,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMoves().put(CHARGE, 0);
+        team_.getNbUsesMoves().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -280,7 +280,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMoves().put(CHARGE, 0);
+        team_.getNbUsesMoves().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -288,7 +288,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMoves().put(CHARGE, 0);
+        team_.getNbUsesMoves().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -296,7 +296,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMovesRound().put(CHARGE, 0);
+        team_.getNbUsesMovesRound().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -304,7 +304,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMovesRound().put(CHARGE, 0);
+        team_.getNbUsesMovesRound().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -312,7 +312,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMovesRound().put(CHARGE, 0);
+        team_.getNbUsesMovesRound().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -320,7 +320,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMovesRound().put(CHARGE, 0);
+        team_.getNbUsesMovesRound().put(CHARGE,0L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -576,7 +576,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMoves().put(CASSE, -1);
+        team_.getNbUsesMoves().put(CASSE,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -584,7 +584,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMoves().put(CASSE, -1);
+        team_.getNbUsesMoves().put(CASSE,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -592,7 +592,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMoves().put(CASSE, -1);
+        team_.getNbUsesMoves().put(CASSE,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -600,7 +600,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMoves().put(CASSE, -1);
+        team_.getNbUsesMoves().put(CASSE,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -608,7 +608,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMovesRound().put(AIRE_D_EAU, -1);
+        team_.getNbUsesMovesRound().put(AIRE_D_EAU,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -616,7 +616,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getNbUsesMovesRound().put(AIRE_D_EAU, -1);
+        team_.getNbUsesMovesRound().put(AIRE_D_EAU,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -624,7 +624,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMovesRound().put(AIRE_D_EAU, -1);
+        team_.getNbUsesMovesRound().put(AIRE_D_EAU,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test
@@ -632,7 +632,7 @@ public class TeamValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getNbUsesMovesRound().put(AIRE_D_EAU, -1);
+        team_.getNbUsesMovesRound().put(AIRE_D_EAU,-1L);
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
     @Test

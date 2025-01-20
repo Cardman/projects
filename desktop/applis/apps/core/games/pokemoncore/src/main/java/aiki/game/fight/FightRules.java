@@ -526,7 +526,7 @@ final class FightRules {
         boolean agit_ = false;
         if(!_baie.getMultStat().isEmpty()){
             for(Statistic c2_: _baie.getMultStat().getKeys()){
-                int varBase_= _baie.getMultStat().getVal(c2_).getBoost();
+                long varBase_= _baie.getMultStat().getVal(c2_).getBoost();
                 long var_= FightEffects.deltaBoostStatistic(_fight,Fight.toUserFighter(_c),c2_,varBase_, _import);
                 if(var_>0){
                     agit_=true;

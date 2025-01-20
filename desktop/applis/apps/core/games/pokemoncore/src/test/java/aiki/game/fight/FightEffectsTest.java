@@ -3932,7 +3932,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fight fight_ = effectBatonPass(diff_, data_);
         fight_.getFoeTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
-        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1);
+        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1L);
         TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), AMOUR);
@@ -3971,7 +3971,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fight fight_ = effectBatonPass(diff_, data_);
         fight_.getFoeTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
-        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1);
+        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1L);
         TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterPseudoStatut(tp(KEY_FOE, POKEMON_FIGHTER_ZERO), AMOUR);
@@ -4009,7 +4009,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fight fight_ = effectBatonPass(diff_, data_);
         fight_.getFoeTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
-        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1);
+        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1L);
         TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterStatut(GEL);
@@ -4041,7 +4041,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fight fight_ = effectBatonPass(diff_, data_);
         fight_.getFoeTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
-        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1);
+        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1L);
         TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterStatut(GEL);
@@ -4077,7 +4077,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fight fight_ = effectBatonPass(diff_, data_);
         fight_.getFoeTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
-        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1);
+        fight_.getFoeTeam().getNbUsesMoves().put(CASSE, 1L);
         TeamPosition teamPosition_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterStatut(GEL);
@@ -4113,7 +4113,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Fight fight_ = effectBatonPass(diff_, data_);
         fight_.getUserTeam().activerEffetEquipe(MUR_LUMIERE);
         fight_.getUserTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
-        fight_.getUserTeam().getNbUsesMoves().put(CASSE, 1);
+        fight_.getUserTeam().getNbUsesMoves().put(CASSE, 1L);
         TeamPosition teamPosition_ = tp(KEY_FOE, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(teamPosition_);
         fighter_.affecterStatut(GEL);
@@ -4422,7 +4422,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,  1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));
@@ -4492,7 +4492,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,  1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));
@@ -4553,7 +4553,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,  1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));
@@ -4607,7 +4607,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,  1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));
@@ -4662,7 +4662,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,  1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));
@@ -4728,7 +4728,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,  1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));
@@ -6468,7 +6468,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_.getStatisBoost().put(Statistic.ATTACK,  1L);
         fighter_.creerClone(new Rate("1/2"));
-        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1);
+        fighter_.getNbUsesMoves().put(BOUL_ARMURE, 1L);
         fighter_.getDamageSufferedCateg().put(PHYSIQUE, Rate.one());
         fighter_.getDamageSufferedCategRound().put(PHYSIQUE, Rate.one());
         fighter_.getDamageRateSufferedByType().getVal(ELECTRIQUE).affect(new Rate("2"));

@@ -20,9 +20,9 @@ public class EffectComboBean extends CommonBean {
 
     private Rate multEvtRateSecEff;
     private DictionaryComparator<LgInt,Rate> repeatedRoundsLaw;
-    private int rankIncrementNbRound;
+    private long rankIncrementNbRound;
     private boolean endRound;
-    private int endRoundRank;
+    private long endRoundRank;
     private StringList reasonsEndRound;
     private NatStringTreeMap<String> mapVarsFailEndRound;
     private DictionaryComparator<Statistic, Rate> multStatisticFoe;
@@ -92,7 +92,7 @@ public class EffectComboBean extends CommonBean {
         return endRound;
     }
 
-    public int getEndRoundRank() {
+    public long getEndRoundRank() {
         return endRoundRank;
     }
 
@@ -112,7 +112,7 @@ public class EffectComboBean extends CommonBean {
         return multStatisticFoe;
     }
 
-    public int getRankIncrementNbRound() {
+    public long getRankIncrementNbRound() {
         return rankIncrementNbRound;
     }
 

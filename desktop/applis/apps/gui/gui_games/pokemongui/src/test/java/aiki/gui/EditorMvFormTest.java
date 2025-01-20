@@ -975,7 +975,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
         ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_FOE);
         effForm_.getContentGroupEffectEndRound().getContentEffectEndRoundFoe().getInflictedRateHpTarget().valueRate(Rate.one());
-        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueInt(2);
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueLong(2);
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(effectsCrud(g_).getAllButtons().get(0));
         tryClick(effectsCrud(g_).getCancel());
@@ -1156,7 +1156,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(effectsCrud(g_).getAdd());
         GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
         ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_GLOBAL);
-        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueInt(2);
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueLong(2);
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(effectsCrud(g_).getAllButtons().get(0));
         tryClick(effectsCrud(g_).getCancel());
@@ -1175,7 +1175,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         tryClick(effectsCrud(g_).getAdd());
         GeneComponentModelEffect effForm_ = effects(effectsCrud(g_));
         ConverterCommonMapUtil.trigger(effForm_.getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_POSITION_TARGET);
-        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueInt(2);
+        effForm_.getContentGroupEffectEndRound().getContentEffectEndRound().getEndRoundRank().valueLong(2);
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(effectsCrud(g_).getAllButtons().get(0));
         tryClick(effectsCrud(g_).getCancel());
@@ -1630,7 +1630,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(effectsCrud(g_).getAdd());
         ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_VAR_PP);
-        effects(effectsCrud(g_)).getContentEffectVarPP().getDeletePp().valueInt(2);
+        effects(effectsCrud(g_)).getContentEffectVarPP().getDeletePp().valueLong(2);
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(effectsCrud(g_).getAllButtons().get(0));
         tryClick(effectsCrud(g_).getCancel());
@@ -1856,7 +1856,7 @@ public final class EditorMvFormTest extends InitEditorPkForm {
         g_.getGeneComponentModelSelectKey().setupValue(M_1);
         tryClick(effectsCrud(g_).getAdd());
         ConverterCommonMapUtil.trigger(effects(effectsCrud(g_)).getEffectKind(),MessagesEditorSelect.EFF_COPY_FIGHTER);
-        effects(effectsCrud(g_)).getContentEffectCopyFighter().getPpForMoves().valueInt(1);
+        effects(effectsCrud(g_)).getContentEffectCopyFighter().getPpForMoves().valueLong(1);
         tryClick(effectsCrud(g_).getValidAddEdit());
         tryClick(effectsCrud(g_).getAllButtons().get(0));
         tryClick(effectsCrud(g_).getCancel());

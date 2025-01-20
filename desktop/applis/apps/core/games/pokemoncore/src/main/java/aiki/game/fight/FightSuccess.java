@@ -476,7 +476,7 @@ final class FightSuccess {
         Fighter creature_ = _fight.getFighter(_lanceur);
         String attaqueLanceur_=creature_.getFinalChosenMove();
         MoveData fAtt_=_import.getMove(attaqueLanceur_);
-        int prepa_= fAtt_.getNbPrepaRound();
+        long prepa_= fAtt_.getNbPrepaRound();
         if(prepa_>creature_.getNbPrepaRound()){
             Item objet_ = FightItems.useItsObject(_fight, _lanceur, _import);
             if (!(objet_ instanceof ItemForBattle)) {

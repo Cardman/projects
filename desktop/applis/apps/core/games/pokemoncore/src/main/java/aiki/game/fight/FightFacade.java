@@ -62,7 +62,7 @@ public final class FightFacade {
         fight_.getTemp().setIssue(IssueSimulation.NOTHING);
         fight_.setFightType(FightType.NOTHING);
         fight_.setWinningMoney(Rate.zero());
-        fight_.setUsedItemsWhileRound(new StringMap<Integer>());
+        fight_.setUsedItemsWhileRound(new StringMap<Long>());
         fight_.setChoices(new IntMap<ChoiceOfEvolutionAndMoves>());
         fight_.setAllyChoice(new MoveTargets());
         fight_.setTeams(new IntMap<Team>());
@@ -455,7 +455,7 @@ public final class FightFacade {
         if (!_data.getItems().containsAllAsKeys(_fight.getUsedItemsWhileRound().getKeys())) {
             return true;
         }
-        for (Integer v: _fight.getUsedItemsWhileRound().values()) {
+        for (Long v: _fight.getUsedItemsWhileRound().values()) {
             if (v < 0) {
                 return true;
             }

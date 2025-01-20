@@ -3876,7 +3876,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.GIRL, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY,  1);
+        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY,1L);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3886,7 +3886,7 @@ public class FightValidationTest extends InitializationDataBase {
         Game game_ = newGameInFight(Sex.BOY, diff_, data_);
         Player player_ = game_.getPlayer();
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY,  1);
+        game_.getFight().getUsedItemsWhileRound().put(INVALID_DATA_KEY,1L);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3897,7 +3897,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         player_.getItem(BAIE_ORAN);
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN,  -1);
+        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN,-1L);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -3908,7 +3908,7 @@ public class FightValidationTest extends InitializationDataBase {
         Player player_ = game_.getPlayer();
         player_.getItem(BAIE_ORAN);
         //invalid data_
-        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN,  -1);
+        game_.getFight().getUsedItemsWhileRound().put(BAIE_ORAN,-1L);
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test

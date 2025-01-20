@@ -10,7 +10,7 @@ import code.util.core.*;
 
 public final class ContentComponentModelBoost {
     private CrudGeneFormSimpleFormSub<Statistic, Long> evs;
-    private CrudGeneFormSimpleFormSub<String,Integer> happiness;
+    private CrudGeneFormSimpleFormSub<String,Long> happiness;
     private GeneComponentModelRate winPp;
     private AbsPanel boostForm;
     AbsPanel form(GeneComponentModelItem _parent) {
@@ -19,8 +19,8 @@ public final class ContentComponentModelBoost {
         evs=new CrudGeneFormSimpleFormSub<Statistic,Long>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
         evs.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())));
         boostForm.add(evs.getGroup());
-        happiness = new CrudGeneFormSimpleFormSub<String, Integer>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Integer>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Integer>(new GeneComponentModelSubscribeInteger(_parent.getCompoFactory())));
+        happiness = new CrudGeneFormSimpleFormSub<String, Long>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
+        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Long>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())));
         boostForm.add(happiness.getGroup());
         winPp=new GeneComponentModelRate(_parent.getCompoFactory());
         boostForm.add(winPp.geneRate());
@@ -37,7 +37,7 @@ public final class ContentComponentModelBoost {
     }
     void feedForm(Boost _item) {
         evs.setupValues(new MapToEntriesListUtil<Statistic,Long>().build(_item.getEvs()));
-        happiness.setupValues(new MapToEntriesListUtil<String,Integer>().build(_item.getHappiness()));
+        happiness.setupValues(new MapToEntriesListUtil<String,Long>().build(_item.getHappiness()));
         winPp.valueRate(_item.getWinPp());
     }
 

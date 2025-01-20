@@ -47,7 +47,7 @@ public class PokemonBean extends CommonBean {
     private StringList possibleGenders;
     private StringList types;
     private StringList abilities;
-    private int catchingRate;
+    private long catchingRate;
     private StringList evolutions;
     private IdList<Statistic> statisticsEnum;
     private StringList statistics;
@@ -421,7 +421,7 @@ public class PokemonBean extends CommonBean {
         return abilities;
     }
 
-    public int getCatchingRate() {
+    public long getCatchingRate() {
         return catchingRate;
     }
 

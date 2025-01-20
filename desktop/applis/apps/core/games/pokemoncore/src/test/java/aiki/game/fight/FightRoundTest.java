@@ -4625,7 +4625,7 @@ public class FightRoundTest extends InitializationDataBase {
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String obj_ = BAIE_CERIZ;
-        fight_.getUsedItemsWhileRound().put(obj_,  1);
+        fight_.getUsedItemsWhileRound().put(obj_,1L);
         fighter_.setChosenHealingObject(obj_, data_);
         fighter_.setUsedBallCatching(LUXE_BALL);
         fighter_.setRemainedHp(Rate.one());
@@ -4654,7 +4654,7 @@ public class FightRoundTest extends InitializationDataBase {
         TeamPosition f_ = tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO);
         Fighter fighter_ = fight_.getFighter(f_);
         String obj_ = GRAND_RAPPEL;
-        fight_.getUsedItemsWhileRound().put(obj_,  1);
+        fight_.getUsedItemsWhileRound().put(obj_,1L);
         fighter_.setChosenHealingObject(obj_, data_);
         fighter_.setUsedBallCatching(LUXE_BALL);
         fighter_.setRemainedHp(Rate.one());

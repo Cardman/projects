@@ -5,15 +5,15 @@ import code.gui.*;
 
 public final class ContentComponentModelEffectEndRound {
     private GeneComponentModelSubscribeString failEndRound;
-    private GeneComponentModelInt endRoundRank;
+    private GeneComponentModelLong endRoundRank;
     private AbsPanel form;
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         failEndRound = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(failEndRound.geneEnum());
         failEndRound.addComplete();
-        endRoundRank = new GeneComponentModelInt(_core.getProgramInfos());
-        selected_.add(endRoundRank.geneInt());
+        endRoundRank = new GeneComponentModelLong(_core.getProgramInfos());
+        selected_.add(endRoundRank.geneLong());
         form = selected_;
         selected_.setVisible(false);
         return selected_;
@@ -23,18 +23,18 @@ public final class ContentComponentModelEffectEndRound {
     }
     void buildEntity(EffectEndRound _edited) {
         _edited.setFailEndRound(failEndRound.tryRet());
-        _edited.setEndRoundRank(endRoundRank.valueInt());
+        _edited.setEndRoundRank(endRoundRank.valueLong());
     }
     void feedForm(EffectEndRound _edited) {
         failEndRound.setupValue(_edited.getFailEndRound());
-        endRoundRank.valueInt(_edited.getEndRoundRank());
+        endRoundRank.valueLong(_edited.getEndRoundRank());
     }
 
     public GeneComponentModelSubscribeString getFailEndRound() {
         return failEndRound;
     }
 
-    public GeneComponentModelInt getEndRoundRank() {
+    public GeneComponentModelLong getEndRoundRank() {
         return endRoundRank;
     }
 }

@@ -6,7 +6,7 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class EffectEndRoundMoveBean extends EffectBean {
-    private int endRoundRank;
+    private long endRoundRank;
     private StringList reasonsEndRound;
     private NatStringTreeMap<String> mapVarsFailEndRound;
 
@@ -49,7 +49,7 @@ public class EffectEndRoundMoveBean extends EffectBean {
         return getReasons(effect_.getFailEndRound());
     }
 
-    public int getEndRoundRank() {
+    public long getEndRoundRank() {
         return endRoundRank;
     }
 

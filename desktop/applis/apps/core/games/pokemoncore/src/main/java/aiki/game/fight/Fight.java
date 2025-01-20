@@ -269,7 +269,7 @@ public final class Fight {
     private FightState state;
 
     /***/
-    private StringMap<Integer> usedItemsWhileRound;
+    private StringMap<Long> usedItemsWhileRound;
 
     /***/
 //    private boolean simulation;
@@ -609,11 +609,11 @@ public final class Fight {
         state = _state;
     }
 
-    public StringMap<Integer> getUsedItemsWhileRound() {
+    public StringMap<Long> getUsedItemsWhileRound() {
         return usedItemsWhileRound;
     }
 
-    public void setUsedItemsWhileRound(StringMap<Integer> _usedItemsWhileRound) {
+    public void setUsedItemsWhileRound(StringMap<Long> _usedItemsWhileRound) {
         usedItemsWhileRound = _usedItemsWhileRound;
     }
 
@@ -1496,7 +1496,7 @@ public final class Fight {
         addMessage(_import, DISABLED_STATUS_REL_OTHER, status_, getFighterName(_fighter, _import));
     }
 
-    void addDisabledStatusRelMessage(String _status, TeamPosition _fighter, TeamPosition _other, int _nbRound,DataBase _import) {
+    void addDisabledStatusRelMessage(String _status, TeamPosition _fighter, TeamPosition _other, long _nbRound,DataBase _import) {
         String status_ = _import.translateStatus(_status);
         if (_nbRound > 0) {
             addMessage(_import, DISABLED_STATUS_REL, status_, getFighterName(_fighter, _import), getFighterName(_other, _import));

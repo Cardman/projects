@@ -87,7 +87,7 @@ final class FightAbilities {
             Status statut_=_import.getStatus().getVal(c);
             if (statut_ instanceof StatusBeginRound) {
                 StatusBeginRound status_ = (StatusBeginRound) statut_;
-                int nbTour_ = _creatureCbt.getStatusNbRoundShort(c);
+                long nbTour_ = _creatureCbt.getStatusNbRoundShort(c);
                 MonteCarloNumber loi_ = status_.getLawForUsingAMoveNbRound();
                 Rate coeffDivision_ = _fCapac.getDivideStatusRound().getVal(c);
                 if (Rate.strLower(Rate.divide(loi_.maximum(), coeffDivision_), new Rate(nbTour_))) {

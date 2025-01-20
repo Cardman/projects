@@ -5,12 +5,12 @@ import code.gui.*;
 
 public final class ContentComponentModelEffectVarPP {
 
-    private GeneComponentModelInt deletePp;
+    private GeneComponentModelLong deletePp;
     private AbsPanel form;
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
-        deletePp = new GeneComponentModelInt(_core.getProgramInfos());
-        selected_.add(deletePp.geneInt());
+        deletePp = new GeneComponentModelLong(_core.getProgramInfos());
+        selected_.add(deletePp.geneLong());
         form = selected_;
         selected_.setVisible(false);
         return selected_;
@@ -19,13 +19,13 @@ public final class ContentComponentModelEffectVarPP {
         form.setVisible(_dis);
     }
     void buildEntity(EffectVarPP _edited) {
-        _edited.setDeletePp(deletePp.valueInt());
+        _edited.setDeletePp(deletePp.valueLong());
     }
     void feedForm(EffectVarPP _edited) {
-        deletePp.valueInt(_edited.getDeletePp());
+        deletePp.valueLong(_edited.getDeletePp());
     }
 
-    public GeneComponentModelInt getDeletePp() {
+    public GeneComponentModelLong getDeletePp() {
         return deletePp;
     }
 }

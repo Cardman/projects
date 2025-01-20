@@ -90,7 +90,7 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
         return _enum == _element;
     }
 
-    public boolean matchPrio(int _prio) {
+    public boolean matchPrio(long _prio) {
         return CriteriaForSearching.match(minPrio, maxPrio, _prio);
     }
 

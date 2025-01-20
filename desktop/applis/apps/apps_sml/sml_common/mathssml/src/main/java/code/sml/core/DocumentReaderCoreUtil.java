@@ -160,18 +160,18 @@ public final class DocumentReaderCoreUtil {
         return map_;
     }
 
-    public static StringMap<Integer> getStringMapInteger(Element _elt) {
+    public static StringMap<Long> getStringMapInteger(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        StringMap<Integer> map_ = new StringMap<Integer>(cap_);
+        StringMap<Long> map_ = new StringMap<Long>(cap_);
         StringList keys_ = new StringList(cap_);
-        Ints values_ = new Ints(cap_);
+        Longs values_ = new Longs(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getString(c));
             } else {
-                values_.add(getInteger(c));
+                values_.add(getLong(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());

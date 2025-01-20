@@ -1184,7 +1184,7 @@ final class FightEndRound {
         if(!_statut.getIncrementingEndRound()){
             return;
         }
-        int nbTour_=creature_.getStatusNbRoundShort(_nomStatut);
+        long nbTour_=creature_.getStatusNbRoundShort(_nomStatut);
         if(nbTour_ <= 0){
             return;
         }
@@ -1206,7 +1206,7 @@ final class FightEndRound {
             return;
         }
         Fighter creature_=_fight.getFighter(_combattant);
-        int nbRounds_ = creature_.getStatusNbRoundShort(name_);
+        long nbRounds_ = creature_.getStatusNbRoundShort(name_);
         if(nbRounds_ <= 0){
             return;
         }
@@ -1251,7 +1251,7 @@ final class FightEndRound {
         }
         EffectEndRoundStatus es_ = (EffectEndRoundStatus) er_;
         Fighter creature_=_fight.getFighter(_cible);
-        int nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(name_,_lanceur));
+        long nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(name_,_lanceur));
         if(nbTour_ <= 0){
             return;
         }
@@ -1275,7 +1275,7 @@ final class FightEndRound {
         }
     }
 
-    private static boolean resterActif(Fight _fight, DataBase _import, int _nbTour, MonteCarloNumber _loi, int _team, int _cst) {
+    private static boolean resterActif(Fight _fight, DataBase _import, long _nbTour, MonteCarloNumber _loi, int _team, int _cst) {
         MonteCarloBoolean loiSachant_= _loi.knowingGreater(new Rate(_nbTour));
         LgInt maxRd_ = _import.getMaxRd();
         boolean resterActif_;
@@ -1365,7 +1365,7 @@ final class FightEndRound {
         }else if(Rate.lowerEq(creatureLanceur_.getRemainingHp(),varPv_)){
             _fight.addEffectRecoil(_cible);
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
-            int nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
+            long nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
             _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
             FightKo.setKoMoveTeams(_fight,_lanceur,_diff,_import);
             _fight.addEffectRecoil(_lanceur);

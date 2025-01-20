@@ -12,7 +12,7 @@ import code.util.StringMap;
 public final class Boost extends Item {
 
     private Rate winPp;
-    private StringMap<Integer> happiness;
+    private StringMap<Long> happiness;
     private IdMap<Statistic,Long> evs;
 
     @Override
@@ -32,7 +32,7 @@ public final class Boost extends Item {
             DataInfoChecker.checkPositiveOrZero(s.getValue(),_data);
         }
         DataInfoChecker.checkStringListContains(DataInfoChecker.itemsBall(_data).getKeys(),happiness.getKeys(),_data);
-        for (EntryCust<String, Integer> k : happiness.entryList()) {
+        for (EntryCust<String, Long> k : happiness.entryList()) {
             DataInfoChecker.checkPositiveOrZero(k.getValue(),_data);
         }
     }
@@ -45,11 +45,11 @@ public final class Boost extends Item {
         winPp = _winPp;
     }
 
-    public StringMap<Integer> getHappiness() {
+    public StringMap<Long> getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(StringMap<Integer> _happiness) {
+    public void setHappiness(StringMap<Long> _happiness) {
         happiness = _happiness;
     }
 

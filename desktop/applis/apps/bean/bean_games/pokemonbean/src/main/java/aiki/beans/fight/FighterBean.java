@@ -36,8 +36,8 @@ public class FighterBean extends CommonFightBean {
     private String expItem;
     private String ability;
     private String currentAbility;
-    private NatStringTreeMap<Integer> status;
-    private DictionaryComparator<MoveTeamPosition,Integer> statusRelat;
+    private NatStringTreeMap<Long> status;
+    private DictionaryComparator<MoveTeamPosition,Long> statusRelat;
     private StringList types;
     private NatStringTreeMap<UsesOfMove> moves;
     private NatStringTreeMap<UsesOfMove> currentMoves;
@@ -58,8 +58,8 @@ public class FighterBean extends CommonFightBean {
     private long level;
     private long happiness;
     private DictionaryComparator<MoveTeamPosition,BoolVal> incrUserAccuracy;
-    private NatStringTreeMap<Integer> nbUsesMoves;
-    private int nbPrepaRound;
+    private NatStringTreeMap<Long> nbUsesMoves;
+    private long nbPrepaRound;
     private boolean needingToRecharge;
     private DictionaryComparator<MoveTeamPosition,AffectedMove> trackingMoves;
     private DictionaryComparator<MoveTeamPosition,ActivityOfMove> trappingMoves;
@@ -210,12 +210,12 @@ public class FighterBean extends CommonFightBean {
         relMoves(fighter_);
     }
 
-    private DictionaryComparator<MoveTeamPosition, Integer> statusRelat(Fighter _fighter) {
+    private DictionaryComparator<MoveTeamPosition, Long> statusRelat(Fighter _fighter) {
         FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        DictionaryComparator<MoveTeamPosition, Integer> statusRelat_ = DictionaryComparatorUtil.buildMoveTeamPositionShort();
+        DictionaryComparator<MoveTeamPosition, Long> statusRelat_ = DictionaryComparatorUtil.buildMoveTeamPositionShort();
         for (MoveTeamPosition m: _fighter.getStatusRelatSet()) {
             String move_ = translationsStatus_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
@@ -224,13 +224,13 @@ public class FighterBean extends CommonFightBean {
         return statusRelat_;
     }
 
-    private NatStringTreeMap<Integer> status(Fighter _fighter) {
+    private NatStringTreeMap<Long> status(Fighter _fighter) {
         FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        NatStringTreeMap<Integer> status_;
-        status_ = new NatStringTreeMap<Integer>();
+        NatStringTreeMap<Long> status_;
+        status_ = new NatStringTreeMap<Long>();
         for (String m: _fighter.getStatusSet()) {
             status_.put(translationsStatus_.getVal(m), _fighter.getStatusNbRound(m));
         }
@@ -319,8 +319,8 @@ public class FighterBean extends CommonFightBean {
             currentMoves_.put(translationsMoves_.getVal(m), _fighter.getCurrentMove(m));
         }
         currentMoves = currentMoves_;
-        NatStringTreeMap<Integer> nbUsesMoves_;
-        nbUsesMoves_ = new NatStringTreeMap<Integer>();
+        NatStringTreeMap<Long> nbUsesMoves_;
+        nbUsesMoves_ = new NatStringTreeMap<Long>();
         for (String m: _fighter.getNbUsesMoves().getKeys()) {
             nbUsesMoves_.put(translationsMoves_.getVal(m), _fighter.getNbUsesMoves().getVal(m));
         }
@@ -761,7 +761,7 @@ public class FighterBean extends CommonFightBean {
         return enabledMovesForAlly;
     }
 
-    public NatStringTreeMap<Integer> getNbUsesMoves() {
+    public NatStringTreeMap<Long> getNbUsesMoves() {
         return nbUsesMoves;
     }
 
@@ -785,7 +785,7 @@ public class FighterBean extends CommonFightBean {
         return usedMoveLastRound;
     }
 
-    public int getNbPrepaRound() {
+    public long getNbPrepaRound() {
         return nbPrepaRound;
     }
 
@@ -809,11 +809,11 @@ public class FighterBean extends CommonFightBean {
         return needingToRecharge;
     }
 
-    public NatStringTreeMap<Integer> getStatus() {
+    public NatStringTreeMap<Long> getStatus() {
         return status;
     }
 
-    public DictionaryComparator<MoveTeamPosition,Integer> getStatusRelat() {
+    public DictionaryComparator<MoveTeamPosition,Long> getStatusRelat() {
         return statusRelat;
     }
 

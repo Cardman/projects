@@ -1728,7 +1728,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DECREASE_NEC_STEPS_HATCH)) {
-            _object.setDecreaseNecStepsHatch(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setDecreaseNecStepsHatch(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DIVIDE_STATUS_ROUND)) {
@@ -1916,7 +1916,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_USED_PP)) {
-            _object.setNbUsedPp(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setNbUsedPp(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         getAbilityData2(_object, _fieldName, _element);
@@ -2121,7 +2121,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HEAL_PP)) {
-            _object.setHealPp(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setHealPp(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HEAL_HP)) {
@@ -2362,7 +2362,7 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getItem(Item _object, Element _element) {
-        _object.setPrice(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setPrice(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static void getItemForBattle(ItemForBattle _object, String _fieldName, Element _element) {
@@ -2589,7 +2589,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PRIORITY)) {
-            _object.setPriority(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setPriority(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_ACCURACY)) {
@@ -2601,7 +2601,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_PREPA_ROUND)) {
-            _object.setNbPrepaRound(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setNbPrepaRound(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DISAPPEAR_BEFORE_USE)) {
@@ -2613,7 +2613,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RANK_INCREMENT_NB_ROUND)) {
-            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RECHARGE_ROUND)) {
@@ -3007,7 +3007,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_RANK_INCREMENT_NB_ROUND)) {
-            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setRankIncrementNbRound(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_EFFECT_END_ROUND)) {
@@ -3027,7 +3027,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectCopyFighter(EffectCopyFighter _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_PP_FOR_MOVES)) {
-            _object.setPpForMoves(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setPpForMoves(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);
@@ -3035,7 +3035,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectCopyMove(EffectCopyMove _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_COPYING_MOVE_FOR_USER)) {
-            _object.setCopyingMoveForUser(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setCopyingMoveForUser(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_COPYING_MOVE_FOR_USER_DEF)) {
@@ -3075,7 +3075,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectDamage(EffectDamage _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CH_RATE)) {
-            _object.setChRate(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setChRate(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CONST_DAMAGE)) {
@@ -3236,7 +3236,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_END_ROUND_RANK)) {
-            _object.setEndRoundRank(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setEndRoundRank(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);
@@ -3864,7 +3864,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getEffectVarPP(EffectVarPP _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DELETE_PP)) {
-            _object.setDeletePp(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setDeletePp(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         getEffect(_object, _fieldName, _element);
@@ -3966,7 +3966,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_CATCHING_RATE)) {
-            _object.setCatchingRate(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setCatchingRate(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HEIGHT)) {
@@ -3994,10 +3994,10 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_HAPPINESS)) {
-            _object.setHappiness(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setHappiness(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
-        _object.setHappinessHatch(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setHappinessHatch(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static ExpType getExpType(Element _elt) {
@@ -4165,7 +4165,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INCREMENT_END_ROUND)) {
-            _object.setIncrementEndRound(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setIncrementEndRound(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_INCREMENTING_END_ROUND)) {
@@ -4739,7 +4739,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_PREPA_ROUND)) {
-            _object.setNbPrepaRound(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setNbPrepaRound(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_DISAPPEARED)) {
@@ -4925,11 +4925,11 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_KO_ROUND)) {
-            _object.setNbKoRound(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setNbKoRound(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_KO_PREVIOUS_ROUND)) {
-            _object.setNbKoPreviousRound(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setNbKoPreviousRound(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         _object.setSuccessfulMovesRound(DocumentReaderCoreUtil.getStringList(_element));
@@ -5631,7 +5631,7 @@ public final class DocumentReaderAikiCoreUtil {
 
     private static void getTrainerOneFight(TrainerOneFight _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_REWARD)) {
-            _object.setReward(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setReward(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_TEAM)) {
@@ -6080,7 +6080,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setTeam(getListPkTrainer(_element));
             return;
         }
-        _object.setReward(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setReward(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static UsablePokemon getUsablePokemon(Element _element) {
@@ -6775,12 +6775,12 @@ public final class DocumentReaderAikiCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StatisticPokemons map_ = new StatisticPokemons(cap_);
         CustList<StatisticPokemon> keys_ = new CustList<StatisticPokemon>(cap_);
-        CustList<Integer> values_ = new CustList<Integer>(cap_);
+        CustList<Long> values_ = new CustList<Long>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticPokemon(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getInteger(c));
+                values_.add(DocumentReaderCoreUtil.getLong(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6795,12 +6795,12 @@ public final class DocumentReaderAikiCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StatisticStatusList map_ = new StatisticStatusList(cap_);
         CustList<StatisticStatus> keys_ = new CustList<StatisticStatus>(cap_);
-        CustList<Integer> values_ = new CustList<Integer>(cap_);
+        CustList<Long> values_ = new CustList<Long>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getStatisticStatus(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getInteger(c));
+                values_.add(DocumentReaderCoreUtil.getLong(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());
@@ -6995,12 +6995,12 @@ public final class DocumentReaderAikiCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         MoveTeamPositionsShort map_ = new MoveTeamPositionsShort(cap_);
         CustList<MoveTeamPosition> keys_ = new CustList<MoveTeamPosition>(cap_);
-        CustList<Integer> values_ = new CustList<Integer>(cap_);
+        CustList<Long> values_ = new CustList<Long>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
                 keys_.add(getMoveTeamPosition(c));
             } else {
-                values_.add(DocumentReaderCoreUtil.getInteger(c));
+                values_.add(DocumentReaderCoreUtil.getLong(c));
             }
         }
         int min_ = NumberUtil.min(keys_.size(), values_.size());

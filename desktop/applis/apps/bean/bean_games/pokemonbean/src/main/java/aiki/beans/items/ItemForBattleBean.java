@@ -27,7 +27,7 @@ public class ItemForBattleBean extends ItemBean {
     private boolean boostExp;
     private StringList immuStatus;
     private boolean immuLowStatis;
-    private DictionaryComparator<String, Integer> increasingMaxNbRoundTrap;
+    private DictionaryComparator<String, Long> increasingMaxNbRoundTrap;
     private boolean attacksSoon;
     private StringList synchroStatus;
     private DictionaryComparator<String, String> failStatus;
@@ -46,10 +46,10 @@ public class ItemForBattleBean extends ItemBean {
     private Rate multDrainedHp;
     private Rate damageRecoil;
     private DictionaryComparator<Statistic, Long> multStatRank;
-    private DictionaryComparator<StatisticPokemon, Integer> multStatPokemonRank;
+    private DictionaryComparator<StatisticPokemon, Long> multStatPokemonRank;
     private DictionaryComparator<Statistic,String> multStat;
-    private DictionaryComparator<String, Integer> increasingMaxNbRoundGlobalMove;
-    private DictionaryComparator<String, Integer> increasingMaxNbRoundTeamMove;
+    private DictionaryComparator<String, Long> increasingMaxNbRoundGlobalMove;
+    private DictionaryComparator<String, Long> increasingMaxNbRoundTeamMove;
     private StringList immuMoves;
 //    private StringList hatching;
     private StringList immuTypes;
@@ -138,7 +138,7 @@ public class ItemForBattleBean extends ItemBean {
             multStatRank_.put(s, item_.getMultStatRank().getVal(s));
         }
         multStatRank = multStatRank_;
-        DictionaryComparator<StatisticPokemon, Integer> multStatPokemonRank_;
+        DictionaryComparator<StatisticPokemon, Long> multStatPokemonRank_;
         multStatPokemonRank_ = DictionaryComparatorUtil.buildStatPk(data_, getLanguage());
         for (StatisticPokemon s: item_.getMultStatPokemonRank().getKeys()) {
             multStatPokemonRank_.put(s, item_.getMultStatPokemonRank().getVal(s));
@@ -180,18 +180,18 @@ public class ItemForBattleBean extends ItemBean {
         }
         failStatus = failStatus_;
         increasingMaxNbRoundTrap = increasingMaxNbRoundTrap(item_);
-        DictionaryComparator<String, Integer> increasingMaxNbRoundGlobalMove_;
+        DictionaryComparator<String, Long> increasingMaxNbRoundGlobalMove_;
         increasingMaxNbRoundGlobalMove_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: item_.getIncreasingMaxNbRoundGlobalMove().getKeys()) {
-            int nb_ = item_.getIncreasingMaxNbRoundGlobalMove().getVal(m);
+            long nb_ = item_.getIncreasingMaxNbRoundGlobalMove().getVal(m);
             nb_ += data_.getMove(m).getRepeatRoundLaw().maximum().ll();
             increasingMaxNbRoundGlobalMove_.put(m, nb_);
         }
         increasingMaxNbRoundGlobalMove = increasingMaxNbRoundGlobalMove_;
-        DictionaryComparator<String, Integer> increasingMaxNbRoundTeamMove_;
+        DictionaryComparator<String, Long> increasingMaxNbRoundTeamMove_;
         increasingMaxNbRoundTeamMove_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: item_.getIncreasingMaxNbRoundTeamMove().getKeys()) {
-            int nb_ = item_.getIncreasingMaxNbRoundTeamMove().getVal(m);
+            long nb_ = item_.getIncreasingMaxNbRoundTeamMove().getVal(m);
             nb_ += data_.getMove(m).getRepeatRoundLaw().maximum().ll();
             increasingMaxNbRoundTeamMove_.put(m, nb_);
         }
@@ -236,12 +236,12 @@ public class ItemForBattleBean extends ItemBean {
         return boostStatisTypes_;
     }
 
-    private DictionaryComparator<String, Integer> increasingMaxNbRoundTrap(ItemForBattle _item) {
+    private DictionaryComparator<String, Long> increasingMaxNbRoundTrap(ItemForBattle _item) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, Integer> increasingMaxNbRoundTrap_;
+        DictionaryComparator<String, Long> increasingMaxNbRoundTrap_;
         increasingMaxNbRoundTrap_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: _item.getIncreasingMaxNbRoundTrap().getKeys()) {
-            int nb_ = _item.getIncreasingMaxNbRoundTrap().getVal(m);
+            long nb_ = _item.getIncreasingMaxNbRoundTrap().getVal(m);
             nb_+=bonusEffect(data_, m);
             increasingMaxNbRoundTrap_.put(m, nb_);
         }
@@ -556,7 +556,7 @@ public class ItemForBattleBean extends ItemBean {
         return multStatRank;
     }
 
-    public DictionaryComparator<StatisticPokemon,Integer> getMultStatPokemonRank() {
+    public DictionaryComparator<StatisticPokemon,Long> getMultStatPokemonRank() {
         return multStatPokemonRank;
     }
 
@@ -604,15 +604,15 @@ public class ItemForBattleBean extends ItemBean {
         return winEvFight;
     }
 
-    public DictionaryComparator<String,Integer> getIncreasingMaxNbRoundTrap() {
+    public DictionaryComparator<String,Long> getIncreasingMaxNbRoundTrap() {
         return increasingMaxNbRoundTrap;
     }
 
-    public DictionaryComparator<String,Integer> getIncreasingMaxNbRoundGlobalMove() {
+    public DictionaryComparator<String,Long> getIncreasingMaxNbRoundGlobalMove() {
         return increasingMaxNbRoundGlobalMove;
     }
 
-    public DictionaryComparator<String,Integer> getIncreasingMaxNbRoundTeamMove() {
+    public DictionaryComparator<String,Long> getIncreasingMaxNbRoundTeamMove() {
         return increasingMaxNbRoundTeamMove;
     }
 

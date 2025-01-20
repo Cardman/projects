@@ -6,7 +6,7 @@ import aiki.fight.moves.effects.enums.RelationType;
 public class EndRoundMainElements {
 
     private final EffectEndRound eff;
-    private int numberIncrement;
+    private long numberIncrement;
 
     private boolean incrementNumberOfRounds;
 
@@ -24,11 +24,11 @@ public class EndRoundMainElements {
         return eff;
     }
 
-    public int getNumberIncrement() {
+    public long getNumberIncrement() {
         return numberIncrement;
     }
 
-    public void setNumberIncrement(int _numberIncrement) {
+    public void setNumberIncrement(long _numberIncrement) {
         numberIncrement = _numberIncrement;
     }
 

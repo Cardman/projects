@@ -23,7 +23,7 @@ public class EffectEndRoundBean extends CommonBean {
     private String status;
     private String item;
     private StringList moves;
-    private int endRoundRank;
+    private long endRoundRank;
     private StringList reasonsEndRound;
     private NatStringTreeMap<String> mapVarsFailEndRound;
 
@@ -151,7 +151,7 @@ public class EffectEndRoundBean extends CommonBean {
         return moves;
     }
 
-    public int getEndRoundRank() {
+    public long getEndRoundRank() {
         return endRoundRank;
     }
 

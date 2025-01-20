@@ -13,9 +13,9 @@ import code.util.*;
 
 public final class GeneComponentModelMoveData extends GeneComponentModelEntity<MoveData> implements ChangeableFormType {
     private final GeneComponentModelLong pp;
-    private final GeneComponentModelInt priority;
-    private final GeneComponentModelInt nbPrepaRound;
-    private final GeneComponentModelInt rankIncrementNbRound;
+    private final GeneComponentModelLong priority;
+    private final GeneComponentModelLong nbPrepaRound;
+    private final GeneComponentModelLong rankIncrementNbRound;
     private GeneComponentModelLsStrSub<String,StringList> types;
     private GeneComponentModelLsStrSub<String,StringList> boostedTypes;
     private GeneComponentModelLsStrSub<String,StringList> achieveDisappearedPkUsingMove;
@@ -53,9 +53,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     public GeneComponentModelMoveData(AbsCommonFrame _frame, AbstractProgramInfos _core, FacadeGame _facade, SubscribedTranslationList _sub) {
         super(_frame,_core, _facade, _sub);
         pp = new GeneComponentModelLong(_core);
-        priority = new GeneComponentModelInt(_core);
-        nbPrepaRound = new GeneComponentModelInt(_core);
-        rankIncrementNbRound = new GeneComponentModelInt(_core);
+        priority = new GeneComponentModelLong(_core);
+        nbPrepaRound = new GeneComponentModelLong(_core);
+        rankIncrementNbRound = new GeneComponentModelLong(_core);
         typesByOwnedItem = new CrudGeneFormSimpleFormSub<String, String>(_core,_facade,_sub,_frame);
         typesByWeather = new CrudGeneFormSimpleFormSub<String, String>(_core,_facade,_sub,_frame);
         secEffectsByItem = new CrudGeneFormSimpleFormSub<String, Ints>(_core,_facade,_sub,_frame);
@@ -114,9 +114,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(damagingMove);
         form_.add(pp.geneLong());
-        form_.add(priority.geneInt());
-        form_.add(nbPrepaRound.geneInt());
-        form_.add(rankIncrementNbRound.geneInt());
+        form_.add(priority.geneLong());
+        form_.add(nbPrepaRound.geneLong());
+        form_.add(rankIncrementNbRound.geneLong());
         form_.add(types.geneEnum());
         form_.add(boostedTypes.geneEnum());
         form_.add(achieveDisappearedPkUsingMove.geneEnum());
@@ -167,9 +167,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
     public EditedCrudPair<String,MoveData> value() {
         MoveData ent_ = element;
         ent_.setPp(pp.valueLong());
-        ent_.setPriority(priority.valueInt());
-        ent_.setNbPrepaRound(nbPrepaRound.valueInt());
-        ent_.setRankIncrementNbRound(rankIncrementNbRound.valueInt());
+        ent_.setPriority(priority.valueLong());
+        ent_.setNbPrepaRound(nbPrepaRound.valueLong());
+        ent_.setRankIncrementNbRound(rankIncrementNbRound.valueLong());
         ent_.setTypes(types.tryRet());
         ent_.setBoostedTypes(boostedTypes.tryRet());
         ent_.setAchieveDisappearedPkUsingMove(new StringList(achieveDisappearedPkUsingMove.tryRet()));
@@ -217,9 +217,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         getFacade().getData().getMoves().put(DataBase.EMPTY_STRING, move_);
         element = move_;
         pp.valueLong(move_.getPp());
-        priority.valueInt(move_.getPriority());
-        nbPrepaRound.valueInt(move_.getNbPrepaRound());
-        rankIncrementNbRound.valueInt(move_.getRankIncrementNbRound());
+        priority.valueLong(move_.getPriority());
+        nbPrepaRound.valueLong(move_.getNbPrepaRound());
+        rankIncrementNbRound.valueLong(move_.getRankIncrementNbRound());
         types.setupValue(move_.getTypes());
         boostedTypes.setupValue(move_.getBoostedTypes());
         achieveDisappearedPkUsingMove.setupValue(move_.getAchieveDisappearedPkUsingMove());

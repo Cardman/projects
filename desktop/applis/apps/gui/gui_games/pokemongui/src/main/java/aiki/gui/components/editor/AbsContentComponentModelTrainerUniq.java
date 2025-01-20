@@ -9,7 +9,7 @@ import code.util.*;
 public abstract class AbsContentComponentModelTrainerUniq {
     private final ContentComponentModelTrainer trainerImg = new ContentComponentModelTrainer();
     private final ContentComponentModelSubscribePkTrainer trainer = new ContentComponentModelSubscribePkTrainer();
-    private GeneComponentModelInt reward;
+    private GeneComponentModelLong reward;
     protected AbsContentComponentModelTrainerUniq() {
     }
 
@@ -20,21 +20,21 @@ public abstract class AbsContentComponentModelTrainerUniq {
         group_.addAllElts(trainerImg.getMiniFileName().subs());
         group_.addAllElts(trainerImg.getMaxiFileName().subs());
         _grid.subs(group_);
-        reward = new GeneComponentModelInt(_core);
-        selected_.add(reward.geneInt());
+        reward = new GeneComponentModelLong(_core);
+        selected_.add(reward.geneLong());
         selected_.add(trainer.form(_core,_fac,_fact,_fr));
         return selected_;
     }
     void buildComEntity() {
         TrainerOneFight e_ = entity();
         e_.setTeam(trainer.getWalk().getList());
-        e_.setReward(reward.valueInt());
+        e_.setReward(reward.valueLong());
         trainerImg.buildEntity(e_);
     }
 
     void feedForm(TrainerOneFight _edited) {
         trainer.getWalk().setupValues(_edited.getTeam());
-        reward.valueInt(_edited.getReward());
+        reward.valueLong(_edited.getReward());
         trainerImg.feedForm(_edited);
     }
     protected abstract TrainerOneFight entity();

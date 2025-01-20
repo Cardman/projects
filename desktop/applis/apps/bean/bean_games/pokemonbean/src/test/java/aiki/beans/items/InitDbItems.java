@@ -278,8 +278,8 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static Boost boost() {
         Boost b_ = Instances.newBoost();
         b_.setWinPp(Rate.one());
-        b_.getHappiness().addEntry(I_BALL,1);
-        b_.getHappiness().addEntry(I_BOOST,2);
+        b_.getHappiness().addEntry(I_BALL,1L);
+        b_.getHappiness().addEntry(I_BOOST,2L);
         b_.getEvs().addEntry(Statistic.SPEED,1L);
         b_.setPrice(2);
         return b_;
@@ -333,12 +333,12 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.getWinEvFight().addEntry(Statistic.SPEED,1L);
         b_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         b_.getBoostStatisSuperEff().addEntry(Statistic.SPEED,1L);
-        b_.getIncreasingMaxNbRoundGlobalMove().addEntry(M_DAM,1);
-        b_.getIncreasingMaxNbRoundTeamMove().addEntry(M_DAM,1);
-        b_.getIncreasingMaxNbRoundTrap().addEntry(M_DAM,1);
+        b_.getIncreasingMaxNbRoundGlobalMove().addEntry(M_DAM,1L);
+        b_.getIncreasingMaxNbRoundTeamMove().addEntry(M_DAM,1L);
+        b_.getIncreasingMaxNbRoundTrap().addEntry(M_DAM,1L);
         b_.getBoostStatisTypes().addEntry(T_TYPE1,new IdMap<Statistic,Long>());
         b_.getBoostStatisTypes().getVal(T_TYPE1).addEntry(Statistic.SPEED,1L);
-        b_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_POKEMON),1);
+        b_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_POKEMON),1L);
         b_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE, _trueEff);
         b_.getLawForAttackFirst().addQuickEvent(BoolVal.FALSE, _falseEff);
         b_.getImmuMoves().add(M_DAM);

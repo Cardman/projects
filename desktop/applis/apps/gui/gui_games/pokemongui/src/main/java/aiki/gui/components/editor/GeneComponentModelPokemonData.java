@@ -15,11 +15,11 @@ import code.util.*;
 public final class GeneComponentModelPokemonData extends GeneComponentModelEntity<PokemonData> {
     private final GeneComponentModelRate weight;
     private final GeneComponentModelRate height;
-    private final GeneComponentModelInt catchingRate;
+    private final GeneComponentModelLong catchingRate;
     private final GeneComponentModelLong expRate;
     private final GeneComponentModelLgInt hatchingSteps;
-    private final GeneComponentModelInt happiness;
-    private final GeneComponentModelInt happinessHatch;
+    private final GeneComponentModelLong happiness;
+    private final GeneComponentModelLong happinessHatch;
     private GeneComponentModelLsStrSub<String,StringList> types;
     private GeneComponentModelLsStrSub<String,StringList> abilities;
     private GeneComponentModelLsStrSub<String,StringList> moveTutors;
@@ -39,12 +39,12 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         super(_fr,_core, _facade, _sub);
         weight = new GeneComponentModelRate(getCompoFactory());
         height = new GeneComponentModelRate(getCompoFactory());
-        catchingRate = new GeneComponentModelInt(getCompoFactory());
+        catchingRate = new GeneComponentModelLong(getCompoFactory());
         expRate = new GeneComponentModelLong(getCompoFactory());
         hatchingSteps = new GeneComponentModelLgInt(getCompoFactory());
         eggGroups = new CrudGeneFormSimpleElementSub<String>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
-        happiness = new GeneComponentModelInt(getCompoFactory());
-        happinessHatch = new GeneComponentModelInt(getCompoFactory());
+        happiness = new GeneComponentModelLong(getCompoFactory());
+        happinessHatch = new GeneComponentModelLong(getCompoFactory());
         levMoves = new CrudGeneFormSimpleElementSub<LevelMove>(getCompoFactory(),_facade,_sub,_fr);
         evolutions = new CrudGeneFormSimpleFormSub<String,Evolution>(_core,_facade,_sub,_fr);
     }
@@ -90,11 +90,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());
-        form_.add(catchingRate.geneInt());
+        form_.add(catchingRate.geneLong());
         form_.add(expRate.geneLong());
         form_.add(hatchingSteps.geneLgInt());
-        form_.add(happiness.geneInt());
-        form_.add(happinessHatch.geneInt());
+        form_.add(happiness.geneLong());
+        form_.add(happinessHatch.geneLong());
         eggGroups.initForm(new DisplayEntryCustSubElementString(),new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(getCompoFactory(),getFacade())));
         form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
@@ -126,11 +126,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         edited.setEvolutions(ConverterCommonMapUtil.buildStringMapEvolution(evolutions.getList()));
         edited.setTechnicalMoves(technicalMoves.tryRet());
         edited.setHiddenMoves(hiddenMoves.tryRet());
-        edited.setCatchingRate(catchingRate.valueInt());
+        edited.setCatchingRate(catchingRate.valueLong());
         edited.setExpRate(expRate.valueLong());
         edited.setHatchingSteps(hatchingSteps.valueLgInt());
-        edited.setHappiness(happiness.valueInt());
-        edited.setHappinessHatch(happinessHatch.valueInt());
+        edited.setHappiness(happiness.valueLong());
+        edited.setHappinessHatch(happinessHatch.valueLong());
         edited.setEggGroups(new StringList(eggGroups.getList()));
         return new EditedCrudPair<String, PokemonData>(getGeneComponentModelSelectKey().tryRet(),edited);
     }
@@ -158,11 +158,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         getEvolutions().setupValues(new MapToEntriesListUtil<String,Evolution>().build(_v.getEvolutions()));
         getTechnicalMoves().setupValue(_v.getTechnicalMoves());
         getHiddenMoves().setupValue(_v.getHiddenMoves());
-        getCatchingRate().valueInt(_v.getCatchingRate());
+        getCatchingRate().valueLong(_v.getCatchingRate());
         getExpRate().valueLong(_v.getCatchingRate());
         getHatchingSteps().valueLgInt(_v.getHatchingSteps());
-        getHappiness().valueInt(_v.getHappiness());
-        getHappinessHatch().valueInt(_v.getHappinessHatch());
+        getHappiness().valueLong(_v.getHappiness());
+        getHappinessHatch().valueLong(_v.getHappinessHatch());
         getEggGroups().setupValues(_v.getEggGroups());
     }
 
@@ -247,15 +247,15 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         return eggGroups;
     }
 
-    public GeneComponentModelInt getCatchingRate() {
+    public GeneComponentModelLong getCatchingRate() {
         return catchingRate;
     }
 
-    public GeneComponentModelInt getHappiness() {
+    public GeneComponentModelLong getHappiness() {
         return happiness;
     }
 
-    public GeneComponentModelInt getHappinessHatch() {
+    public GeneComponentModelLong getHappinessHatch() {
         return happinessHatch;
     }
 

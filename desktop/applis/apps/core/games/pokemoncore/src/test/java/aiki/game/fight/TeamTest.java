@@ -118,7 +118,7 @@ public class TeamTest extends InitializationDataBase {
         assertTrue(!activity_.isEnabled());
         assertTrue(activity_.isIncrementCount());
         assertEq(0, team_.getSuccessfulMovesRound().size());
-        StringMap<Integer> listUsesRound_ = team_.getNbUsesMovesRound();
+        StringMap<Long> listUsesRound_ = team_.getNbUsesMovesRound();
 //        assertEq(3, listUsesRound_.getKeys(0).size());
         assertEq(3, listUsesRound_.size());
         assertEq(0, listUsesRound_.getVal(AIRE_D_EAU));
@@ -1277,8 +1277,8 @@ public class TeamTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         team_.initEquipeUtilisateur(player_, diff_,  2, data_);
         team_.getSuccessfulMovesRound().add(CHARGE);
-        team_.getNbUsesMovesRound().put(AIRE_DE_FEU, 1);
-        team_.getNbUsesMovesRound().put(AIRE_D_EAU, 2);
+        team_.getNbUsesMovesRound().put(AIRE_DE_FEU,1L);
+        team_.getNbUsesMovesRound().put(AIRE_D_EAU,2L);
         team_.getMembers().getVal( 0).setSuccessfulMove(true);
         team_.clearSuccessfuleMovesRound();
         assertEq(0, team_.getSuccessfulMovesRound().size());
@@ -1544,8 +1544,8 @@ public class TeamTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         team_.initEquipeUtilisateur(player_, diff_,  2, data_);
         team_.getSuccessfulMovesRound().add(CHARGE);
-        team_.getNbUsesMovesRound().put(AIRE_DE_FEU, 1);
-        team_.getNbUsesMovesRound().put(AIRE_D_EAU, 2);
+        team_.getNbUsesMovesRound().put(AIRE_DE_FEU,1L);
+        team_.getNbUsesMovesRound().put(AIRE_D_EAU,2L);
         team_.setNbKoRound( 2);
         team_.setNbKoPreviousRound( 4);
         Fighter fighter_ = team_.getMembers().getVal( 0);

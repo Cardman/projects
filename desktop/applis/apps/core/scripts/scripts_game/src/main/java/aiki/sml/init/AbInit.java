@@ -280,8 +280,8 @@ return m9abilityData_;
 }
 static AbilityData m6(){
 AbilityData m10abilityData_ = Instances.newAbilityData();
-StringMap<Integer> m10stringMapShort_=new StringMap<Integer>(new CollCapacity(1));
-m10stringMapShort_.addEntry(I_VOL,1);
+StringMap<Long> m10stringMapShort_=new StringMap<Long>(new CollCapacity(1));
+m10stringMapShort_.addEntry(I_VOL,1L);
 m10abilityData_.setIncreasedPrioTypes(m10stringMapShort_);
 return m10abilityData_;
 }
@@ -818,8 +818,8 @@ return m60abilityData_;
 }
 static AbilityData m57(){
 AbilityData m61abilityData_ = Instances.newAbilityData();
-StringMap<Integer> m61stringMapShort_=new StringMap<Integer>(new CollCapacity(1));
-m61stringMapShort_.addEntry(I_AUTRE,1);
+StringMap<Long> m61stringMapShort_=new StringMap<Long>(new CollCapacity(1));
+m61stringMapShort_.addEntry(I_AUTRE,1L);
 m61abilityData_.setIncreasedPrio(m61stringMapShort_);
 return m61abilityData_;
 }
@@ -1125,7 +1125,7 @@ return m82abilityData_;
 static AbilityData m79(){
 AbilityData m83abilityData_ = Instances.newAbilityData();
 StatisticStatusList m83objectMapStatisticStatusByte_=new StatisticStatusList(new CollCapacity(1));
-m83objectMapStatisticStatusByte_.addEntry(new StatisticStatus(Statistic.SPEED,I_PEUR),1);
+m83objectMapStatisticStatusByte_.addEntry(new StatisticStatus(Statistic.SPEED,I_PEUR),1L);
 m83abilityData_.setMultStatIfStatutRank(m83objectMapStatisticStatusByte_);
 return m83abilityData_;
 }

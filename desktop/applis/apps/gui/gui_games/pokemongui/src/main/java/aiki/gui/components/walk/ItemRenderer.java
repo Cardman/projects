@@ -23,7 +23,7 @@ public class ItemRenderer implements AbsCustCellRenderGene<String> {
 
     private String displayName;
 
-    private int price;
+    private long price;
 
 //    private int maxWordWidth;
 //    private int maxNbWidth;

@@ -70,8 +70,8 @@ public class AbilityBean extends CommonBean {
     private StringList immuMove;
     private StringList immuStatusBeginRound;
     private StringList immuWeather;
-    private int decreaseNecStepsHatch;
-    private int nbUsedPp;
+    private long decreaseNecStepsHatch;
+    private long nbUsedPp;
     private DictionaryComparator<String, Rate> singleStatus;
     private IdList<Statistic> immuLowStat;
     private IdList<Statistic> maxStatisticsIfCh;
@@ -87,12 +87,12 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<Statistic, Rate> multStatAlly;
     private DictionaryComparator<StatisticCategory, Long> multStatIfDamageCat;
     private DictionaryComparator<StatisticCategory, Rate> multStatIfCat;
-    private DictionaryComparator<StatisticStatus, Integer> multStatIfStatutRank;
+    private DictionaryComparator<StatisticStatus, Long> multStatIfStatutRank;
     private DictionaryComparator<StatisticType, Long> multStatIfDamgeType;
     private DictionaryComparator<WeatherType, Rate> healHpByTypeIfWeather;
     private DictionaryComparator<String, TypeDamageBoost> changingBoostTypes;
-    private DictionaryComparator<String, Integer> increasedPrio;
-    private DictionaryComparator<String, Integer> increasedPrioTypes;
+    private DictionaryComparator<String, Long> increasedPrio;
+    private DictionaryComparator<String, Long> increasedPrioTypes;
     private DictionaryComparator<String, String> chgtTypeByWeather;
     private DictionaryComparator<String, String> failStatus;
     private DictionaryComparator<String, String> forwardStatus;
@@ -230,13 +230,13 @@ public class AbilityBean extends CommonBean {
         multStatIfKoFoe = multStatIfKoFoe(ability_);
         multStatIfLowStat = multStatIfLowStat(ability_);
         multStatAlly = multStatAlly(ability_);
-        DictionaryComparator<String, Integer> increasedPrio_;
+        DictionaryComparator<String, Long> increasedPrio_;
         increasedPrio_ = DictionaryComparatorUtil.buildCatsShort(data_,getLanguage());
         for (String c: ability_.getIncreasedPrio().getKeys()) {
             increasedPrio_.put(c, ability_.getIncreasedPrio().getVal(c));
         }
         increasedPrio = increasedPrio_;
-        DictionaryComparator<String, Integer> increasedPrioTypes_;
+        DictionaryComparator<String, Long> increasedPrioTypes_;
         increasedPrioTypes_ = DictionaryComparatorUtil.buildTypesShort(data_,getLanguage());
         for (String c: ability_.getIncreasedPrioTypes().getKeys()) {
             increasedPrioTypes_.put(c, ability_.getIncreasedPrioTypes().getVal(c));
@@ -305,7 +305,7 @@ public class AbilityBean extends CommonBean {
             multStatIfDamgeType_.put(w, ability_.getMultStatIfDamgeType().getVal(w));
         }
         multStatIfDamgeType = multStatIfDamgeType_;
-        DictionaryComparator<StatisticStatus, Integer> multStatIfStatutRank_;
+        DictionaryComparator<StatisticStatus, Long> multStatIfStatutRank_;
         multStatIfStatutRank_ = DictionaryComparatorUtil.buildStatisticStatus(data_, getLanguage());
         for (StatisticStatus w: ability_.getMultStatIfStatutRank().getKeys()) {
             multStatIfStatutRank_.put(w, ability_.getMultStatIfStatutRank().getVal(w));
@@ -1376,11 +1376,11 @@ public class AbilityBean extends CommonBean {
         return recoilDamageFoe;
     }
 
-    public int getDecreaseNecStepsHatch() {
+    public long getDecreaseNecStepsHatch() {
         return decreaseNecStepsHatch;
     }
 
-    public int getNbUsedPp() {
+    public long getNbUsedPp() {
         return nbUsedPp;
     }
 
@@ -1500,7 +1500,7 @@ public class AbilityBean extends CommonBean {
         return multStatIfCat;
     }
 
-    public DictionaryComparator<StatisticStatus,Integer> getMultStatIfStatutRank() {
+    public DictionaryComparator<StatisticStatus,Long> getMultStatIfStatutRank() {
         return multStatIfStatutRank;
     }
 
@@ -1532,11 +1532,11 @@ public class AbilityBean extends CommonBean {
         return multStatAlly;
     }
 
-    public DictionaryComparator<String,Integer> getIncreasedPrio() {
+    public DictionaryComparator<String,Long> getIncreasedPrio() {
         return increasedPrio;
     }
 
-    public DictionaryComparator<String,Integer> getIncreasedPrioTypes() {
+    public DictionaryComparator<String,Long> getIncreasedPrioTypes() {
         return increasedPrioTypes;
     }
 

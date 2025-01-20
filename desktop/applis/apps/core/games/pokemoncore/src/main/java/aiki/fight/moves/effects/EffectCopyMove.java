@@ -8,7 +8,7 @@ import code.util.StringList;
 
 public final class EffectCopyMove extends Effect {
 
-    private int copyingMoveForUser;
+    private long copyingMoveForUser;
     private boolean copyingMoveForUserDef;
     private StringList movesNotToBeCopied;
 
@@ -25,11 +25,11 @@ public final class EffectCopyMove extends Effect {
 
     }
 
-    public int getCopyingMoveForUser() {
+    public long getCopyingMoveForUser() {
         return copyingMoveForUser;
     }
 
-    public void setCopyingMoveForUser(int _copyingMoveForUser) {
+    public void setCopyingMoveForUser(long _copyingMoveForUser) {
         copyingMoveForUser = _copyingMoveForUser;
     }
 

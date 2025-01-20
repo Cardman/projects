@@ -8,7 +8,7 @@ import aiki.util.DataInfoChecker;
 public abstract class EffectEndRound extends Effect {
 
     private String failEndRound;
-    private int endRoundRank;
+    private long endRoundRank;
 
     @Override
     public void validate(DataBase _data) {
@@ -24,11 +24,11 @@ public abstract class EffectEndRound extends Effect {
         failEndRound = _failEndRound;
     }
 
-    public int getEndRoundRank() {
+    public long getEndRoundRank() {
         return endRoundRank;
     }
 
-    public void setEndRoundRank(int _endRoundRank) {
+    public void setEndRoundRank(long _endRoundRank) {
         endRoundRank = _endRoundRank;
     }
 

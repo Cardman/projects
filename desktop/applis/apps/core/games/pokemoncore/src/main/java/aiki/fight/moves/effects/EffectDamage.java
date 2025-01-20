@@ -15,7 +15,7 @@ import code.util.StringMap;
 
 public final class EffectDamage extends Effect {
 
-    private int chRate;
+    private long chRate;
 
     private boolean constDamage;
 
@@ -105,11 +105,11 @@ public final class EffectDamage extends Effect {
         }
     }
 
-    public int getChRate() {
+    public long getChRate() {
         return chRate;
     }
 
-    public void setChRate(int _chRate) {
+    public void setChRate(long _chRate) {
         chRate = _chRate;
     }
 

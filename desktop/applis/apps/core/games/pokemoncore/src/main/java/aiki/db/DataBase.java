@@ -933,8 +933,8 @@ public final class DataBase {
     }
 
     private void checkNbRounds() {
-        Ints incrementNbRound_ = new Ints();
-        Ints nonIncrementNbRound_ = new Ints();
+        Longs incrementNbRound_ = new Longs();
+        Longs nonIncrementNbRound_ = new Longs();
         for (EndRoundMainElements e : getEvtEndRound()) {
             if (e.isIncrementNumberOfRounds()) {
                 incrementNbRound_.add(e.getNumberIncrement());
@@ -945,7 +945,7 @@ public final class DataBase {
         if (nonIncrementNbRound_.hasDuplicates()) {
             setError(true);
         }
-        for (int e : incrementNbRound_) {
+        for (long e : incrementNbRound_) {
             if (nonIncrementNbRound_.contains(e)) {
                 setError(true);
             }
@@ -4585,10 +4585,10 @@ public final class DataBase {
         return EMPTY_STRING;
     }
 
-    public int ppCopiedMove(String _move) {
+    public long ppCopiedMove(String _move) {
         MoveData fAtt_ = getMove(_move);
         int nbEffets_ = fAtt_.nbEffets();
-        int pp_ = 0;
+        long pp_ = 0;
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffets_; i++) {
             Effect effet_ = fAtt_.getEffet(i);
             if (effet_ instanceof EffectCopyMove && ((EffectCopyMove) effet_).getCopyingMoveForUser() > 0) {
@@ -5385,9 +5385,9 @@ public final class DataBase {
         for (Item o: items.values()) {
             if (o instanceof ItemForBattle) {
                 ItemForBattle obj_ = (ItemForBattle) o;
-                ls_.add(new ChangeStringFieldMatchMapContains<Integer>(obj_.getIncreasingMaxNbRoundTrap()));
-                ls_.add(new ChangeStringFieldMatchMapContains<Integer>(obj_.getIncreasingMaxNbRoundGlobalMove()));
-                ls_.add(new ChangeStringFieldMatchMapContains<Integer>(obj_.getIncreasingMaxNbRoundTeamMove()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Long>(obj_.getIncreasingMaxNbRoundTrap()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Long>(obj_.getIncreasingMaxNbRoundGlobalMove()));
+                ls_.add(new ChangeStringFieldMatchMapContains<Long>(obj_.getIncreasingMaxNbRoundTeamMove()));
                 ls_.addAllElts(changeEnabledWeatherList(obj_.getEffectSending()));
             }
         }
@@ -5729,11 +5729,11 @@ public final class DataBase {
         CustList<ChangeStringFieldMatch> ls_ = new CustList<ChangeStringFieldMatch>();
         if (_o instanceof HealingItem) {
             HealingItem h_ = (HealingItem) _o;
-            ls_.add(new ChangeStringFieldMatchMapContains<Integer>(h_.getHappiness()));
+            ls_.add(new ChangeStringFieldMatchMapContains<Long>(h_.getHappiness()));
         }
         if (_o instanceof Boost) {
             Boost b_ = (Boost) _o;
-            ls_.add(new ChangeStringFieldMatchMapContains<Integer>(b_.getHappiness()));
+            ls_.add(new ChangeStringFieldMatchMapContains<Long>(b_.getHappiness()));
         }
         return ls_;
     }
@@ -6488,7 +6488,7 @@ public final class DataBase {
         for (StatisticCategory t: all_) {
             chg_.add(new ChangeStringFieldMatchDef(new ChangeStringFieldStatisticCategory(t)));
         }
-        chg_.add(new ChangeStringFieldMatchMapContains<Integer>(_a.getIncreasedPrio()));
+        chg_.add(new ChangeStringFieldMatchMapContains<Long>(_a.getIncreasedPrio()));
         return chg_;
     }
 

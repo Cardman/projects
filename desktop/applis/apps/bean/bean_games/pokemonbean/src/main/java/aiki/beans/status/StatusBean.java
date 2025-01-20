@@ -25,13 +25,13 @@ public class StatusBean extends CommonBean {
     private Rate catchingRate;
     private CustList<EffectPartnerStatus> effectsPartner;
     private boolean disabledEffIfSwitch;
-    private int incrementEndRound;
+    private long incrementEndRound;
     private boolean incrementingEndRound;
     private DictionaryComparator<Statistic, Rate> multStat;
     private StringList reasons;
     private NatStringTreeMap<String> mapVarsFail;
     private boolean endRound;
-    private int endRoundRank;
+    private long endRoundRank;
     private StringList reasonsEndRound;
     private NatStringTreeMap<String> mapVarsFailEndRound;
     private Rate rateForUsingAMove;
@@ -166,7 +166,7 @@ public class StatusBean extends CommonBean {
         return endRound;
     }
 
-    public int getEndRoundRank() {
+    public long getEndRoundRank() {
         return endRoundRank;
     }
 
@@ -194,7 +194,7 @@ public class StatusBean extends CommonBean {
         return disabledEffIfSwitch;
     }
 
-    public int getIncrementEndRound() {
+    public long getIncrementEndRound() {
         return incrementEndRound;
     }
 

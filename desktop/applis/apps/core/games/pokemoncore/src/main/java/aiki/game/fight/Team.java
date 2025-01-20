@@ -39,10 +39,10 @@ public final class Team {
     private StringMap<LgInt> enabledMovesWhileSendingFoeUses;
 
     /***/
-    private StringMap<Integer> nbUsesMoves;
+    private StringMap<Long> nbUsesMoves;
 
     /***/
-    private StringMap<Integer> nbUsesMovesRound;
+    private StringMap<Long> nbUsesMovesRound;
 
     /***/
 //    private Map<Pair<String,Integer>,Pair<Integer,Pair<Boolean,Boolean> > > healAfter;
@@ -59,10 +59,10 @@ public final class Team {
     private IntMap<Ints> playerFightersAgainstFoe;
 
     /***/
-    private int nbKoRound;
+    private long nbKoRound;
 
     /***/
-    private int nbKoPreviousRound;
+    private long nbKoPreviousRound;
 
     /***/
     private StringList successfulMovesRound;
@@ -95,15 +95,15 @@ public final class Team {
         attaques_.addAllElts(_import.getVarParamsMove(_import.equipeNbUtilisation()));
         attaques_.addAllElts(_import.getVarParamsMove(_import.equipeAdvNbUtilisation()));
         attaques_.removeDuplicates();
-        nbUsesMoves = new StringMap<Integer>();
+        nbUsesMoves = new StringMap<Long>();
         for(String e:attaques_){
-            nbUsesMoves.put(e,0);
+            nbUsesMoves.put(e,0L);
         }
         attaques_.clear();
         attaques_.addAllElts(_import.getVarParamsMove(_import.nbUtiliAttEqTour()));
-        nbUsesMovesRound = new StringMap<Integer>();
+        nbUsesMovesRound = new StringMap<Long>();
         for(String e:attaques_){
-            nbUsesMovesRound.put(e,0);
+            nbUsesMovesRound.put(e,0L);
         }
         members = new IntMap<Fighter>();
         healAfter = new StringMap<IntMap<StacksOfUses>>();
@@ -536,7 +536,7 @@ public final class Team {
     void clearSuccessfuleMovesRound(){
         successfulMovesRound.clear();
         for(String e:nbUsesMovesRound.getKeys()){
-            nbUsesMovesRound.put(e, 0);
+            nbUsesMovesRound.put(e, 0L);
         }
         for (Fighter f: members.values()) {
             f.setSuccessfulMove(false);
@@ -872,19 +872,19 @@ public final class Team {
         enabledMovesWhileSendingFoeUses = _enabledMovesWhileSendingFoeUses;
     }
 
-    public StringMap<Integer> getNbUsesMoves() {
+    public StringMap<Long> getNbUsesMoves() {
         return nbUsesMoves;
     }
 
-    public void setNbUsesMoves(StringMap<Integer> _nbUsesMoves) {
+    public void setNbUsesMoves(StringMap<Long> _nbUsesMoves) {
         nbUsesMoves = _nbUsesMoves;
     }
 
-    public StringMap<Integer> getNbUsesMovesRound() {
+    public StringMap<Long> getNbUsesMovesRound() {
         return nbUsesMovesRound;
     }
 
-    public void setNbUsesMovesRound(StringMap<Integer> _nbUsesMovesRound) {
+    public void setNbUsesMovesRound(StringMap<Long> _nbUsesMovesRound) {
         nbUsesMovesRound = _nbUsesMovesRound;
     }
 
@@ -961,19 +961,19 @@ public final class Team {
         playerFightersAgainstFoe = _playerFightersAgainstFoe;
     }
 
-    public int getNbKoRound() {
+    public long getNbKoRound() {
         return nbKoRound;
     }
 
-    public void setNbKoRound(int _nbKoRound) {
+    public void setNbKoRound(long _nbKoRound) {
         nbKoRound = _nbKoRound;
     }
 
-    public int getNbKoPreviousRound() {
+    public long getNbKoPreviousRound() {
         return nbKoPreviousRound;
     }
 
-    public void setNbKoPreviousRound(int _nbKoPreviousRound) {
+    public void setNbKoPreviousRound(long _nbKoPreviousRound) {
         nbKoPreviousRound = _nbKoPreviousRound;
     }
 

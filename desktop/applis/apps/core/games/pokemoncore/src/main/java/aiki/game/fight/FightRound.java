@@ -767,7 +767,7 @@ final class FightRound {
             return immuStatusBeginRound(_nomStatut, _import, _creature);
         }
         if (_creature.isSingleStatus(_nomStatut)) {
-            int nbTour_= _creature.getStatusNbRoundShort(_nomStatut);
+            long nbTour_= _creature.getStatusNbRoundShort(_nomStatut);
             MonteCarloBoolean loiModif_= lawNbRound_.knowingGreater(new Rate(nbTour_));
             String moveName_ = _creature.getFinalChosenMove();
             MoveData move_ = _import.getMove(moveName_);
@@ -792,7 +792,7 @@ final class FightRound {
             if (!StringUtil.quickEq(_nomStatut, s.getMove())) {
                 continue;
             }
-            int nbTour_= _creature.getStatusRelatNbRoundShort(s);
+            long nbTour_= _creature.getStatusRelatNbRoundShort(s);
             MonteCarloBoolean loiModif_= lawNbRound_.knowingGreater(new Rate(nbTour_));
             String moveName_ = _creature.getFinalChosenMove();
             MoveData move_ = _import.getMove(moveName_);
@@ -1174,13 +1174,13 @@ final class FightRound {
         if(creature_.isSuccessfulMove()){
             equipe_.addSuccessfulMoveRound(_throwerMove);
             if(equipe_.getNbUsesMoves().contains(_throwerMove)){
-                int nb_ = equipe_.getNbUsesMoves().getVal(_throwerMove);
+                long nb_ = equipe_.getNbUsesMoves().getVal(_throwerMove);
                 nb_++;
                 equipe_.getNbUsesMoves().put(_throwerMove,nb_);
                 _fight.addIncrTeamUsesMoveMessage(_lanceur.getTeam(), _throwerMove, _import);
             }
             if(equipe_.getNbUsesMovesRound().contains(_throwerMove)){
-                int nb_ = equipe_.getNbUsesMovesRound().getVal(_throwerMove);
+                long nb_ = equipe_.getNbUsesMovesRound().getVal(_throwerMove);
                 nb_++;
                 equipe_.getNbUsesMovesRound().put(_throwerMove,nb_);
                 _fight.addIncrTeamUsesMoveMessage(_lanceur.getTeam(), _throwerMove, _import);
@@ -1192,7 +1192,7 @@ final class FightRound {
         boostStatRankEndRound(_fight, _lanceur, _import, creature_);
         if(creature_.isSuccessfulMove()){
             if(creature_.getNbUsesMoves().contains(_throwerMove)){
-                int nb_ = creature_.getNbUsesMoves().getVal(_throwerMove);
+                long nb_ = creature_.getNbUsesMoves().getVal(_throwerMove);
                 nb_++;
                 creature_.getNbUsesMoves().put(_throwerMove,nb_);
             }
@@ -1325,7 +1325,7 @@ final class FightRound {
     }
 
     private static void roundThrowerHealingItem(Fight _fight, TeamPosition _lanceur, DataBase _import, Fighter _creatureLanceur, String _objet, String _attaque, HealingItem _soin) {
-        int coeff_=1;
+        long coeff_=1;
         if(_soin.getHappiness().contains(_creatureLanceur.getUsedBallCatching())){
             coeff_= _soin.getHappiness().getVal(_creatureLanceur.getUsedBallCatching());
         }
@@ -1382,7 +1382,7 @@ final class FightRound {
             }
         }
         for(Statistic c: _berry.getMultStat().getKeys()){
-            int varBase_ = _berry.getMultStat().getVal(c).getBoost();
+            long varBase_ = _berry.getMultStat().getVal(c).getBoost();
             long var_=FightEffects.deltaBoostStatistic(_fight, _lanceur,c,varBase_, _import);
             _creatureLanceur.variationBoostStatistique(c,var_);
             _fight.addStatisticMessage(_lanceur, c, var_, _import);
@@ -1421,11 +1421,11 @@ final class FightRound {
     private static void usedItemsWhileRound(Fight _fight, Fighter _creatureLanceur, String _objet) {
         if (_creatureLanceur.isBelongingToPlayer()) {
             if(_fight.getUsedItemsWhileRound().contains(_objet)){
-                int nb_ = _fight.getUsedItemsWhileRound().getVal(_objet);
+                long nb_ = _fight.getUsedItemsWhileRound().getVal(_objet);
                 nb_++;
                 _fight.getUsedItemsWhileRound().put(_objet,nb_);
             }else{
-                _fight.getUsedItemsWhileRound().put(_objet,1);
+                _fight.getUsedItemsWhileRound().put(_objet,1L);
             }
         }
     }

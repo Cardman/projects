@@ -15,7 +15,7 @@ public class TeamBean extends CommonFightBean {
     private DictionaryComparator<StringList,ActivityOfMove> enabledMovesByGroup;
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
     private NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses;
-    private NatStringTreeMap<Integer> nbUsesMoves;
+    private NatStringTreeMap<Long> nbUsesMoves;
     private NatStringTreeMap<IntTreeMap<StacksOfUses>> healAfter;
     private NatStringTreeMap<IntTreeMap<Anticipation>> movesAnticipation;
     private IntTreeMap<Ints > playerFightersAgainstFoe;
@@ -42,8 +42,8 @@ public class TeamBean extends CommonFightBean {
             enabledMovesWhileSendingFoeUses_.put(translationsMoves_.getVal(m), team_.getEnabledMovesWhileSendingFoeUses().getVal(m));
         }
         enabledMovesWhileSendingFoeUses = enabledMovesWhileSendingFoeUses_;
-        NatStringTreeMap<Integer> nbUsesMoves_;
-        nbUsesMoves_ = new NatStringTreeMap<Integer>();
+        NatStringTreeMap<Long> nbUsesMoves_;
+        nbUsesMoves_ = new NatStringTreeMap<Long>();
         for (String m: team_.getNbUsesMoves().getKeys()) {
             nbUsesMoves_.put(translationsMoves_.getVal(m), team_.getNbUsesMoves().getVal(m));
         }
@@ -204,7 +204,7 @@ public class TeamBean extends CommonFightBean {
         return enabledMovesWhileSendingFoeUses;
     }
 
-    public NatStringTreeMap<Integer> getNbUsesMoves() {
+    public NatStringTreeMap<Long> getNbUsesMoves() {
         return nbUsesMoves;
     }
 

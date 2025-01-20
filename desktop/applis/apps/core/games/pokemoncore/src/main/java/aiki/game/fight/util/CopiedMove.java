@@ -10,7 +10,7 @@ public final class CopiedMove implements Displayable {
 
     private String move;
 
-    private int pp;
+    private long pp;
 
     public CopiedMove(){
     }
@@ -18,10 +18,10 @@ public final class CopiedMove implements Displayable {
     public CopiedMove(String _str) {
         StringList list_ = StringUtil.splitChars(_str, SEPARATOR);
         move = list_.first();
-        pp = NumberUtil.parseInt(list_.last());
+        pp = NumberUtil.parseLongZero(list_.last());
     }
 
-    public CopiedMove(String _move, int _pp) {
+    public CopiedMove(String _move, long _pp) {
         setMove(_move);
         setPp(_pp);
     }
@@ -38,11 +38,11 @@ public final class CopiedMove implements Displayable {
         move = _move;
     }
 
-    public int getPp() {
+    public long getPp() {
         return pp;
     }
 
-    public void setPp(int _pp) {
+    public void setPp(long _pp) {
         pp = _pp;
     }
 

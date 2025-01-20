@@ -1669,8 +1669,8 @@ public final class Game {
         commentGame.addComment(fight.getComment());
         if (!_enableAnimation) {
             for(String c:fight.getUsedItemsWhileRound().getKeys()){
-                int quantite_=fight.getUsedItemsWhileRound().getVal(c);
-                for(int i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
+                long quantite_=fight.getUsedItemsWhileRound().getVal(c);
+                for(long i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
                     player.useInInventory(c);
                 }
             }
@@ -1694,8 +1694,8 @@ public final class Game {
         FightFacade.endRoundFightBasic(fight, difficulty, player, _import);
         commentGame.addComment(fight.getComment());
         for(String c:fight.getUsedItemsWhileRound().getKeys()){
-            int quantite_=fight.getUsedItemsWhileRound().getVal(c);
-            for(int i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
+            long quantite_=fight.getUsedItemsWhileRound().getVal(c);
+            for(long i = IndexConstants.FIRST_INDEX; i<quantite_; i++){
                 player.useInInventory(c);
             }
         }
