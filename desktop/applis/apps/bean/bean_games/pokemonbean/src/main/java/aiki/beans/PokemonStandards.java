@@ -899,16 +899,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrImg(CustList<ImgPkPlayer> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (ImgPkPlayer e: _map){
-            ImgPkPlayerStruct p_ = new ImgPkPlayerStruct(e);
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
     public static NatArrayStruct getStrRate(AbsMap<String, Rate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;

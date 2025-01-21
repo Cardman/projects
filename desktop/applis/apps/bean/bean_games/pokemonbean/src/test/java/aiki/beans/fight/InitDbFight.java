@@ -3,6 +3,8 @@ package aiki.beans.fight;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.InitDbBean;
 import aiki.beans.PkFight;
+import aiki.beans.facade.UsesOfMoveGetCurrent;
+import aiki.beans.facade.UsesOfMoveGetMax;
 import aiki.beans.facade.fight.*;
 import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
@@ -768,6 +770,13 @@ public abstract class InitDbFight extends InitDbBean {
         return BeanPokemonCommonTs.callLongs(new ActivityOfMoveIsIncrementCount(),_str,_args);
     }
 
+    public static NaSt callUsesOfMoveGetCurrent(NaSt _str, long... _args) {
+        return callLongs(new UsesOfMoveGetCurrent(),_str,_args);
+    }
+
+    public static NaSt callUsesOfMoveGetMax(NaSt _str, long... _args) {
+        return callLongs(new UsesOfMoveGetMax(),_str,_args);
+    }
     protected DataBase dbFighter() {
         DataBase data_ = dbBase();
         secondPk(data_);
@@ -1443,6 +1452,10 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).getPrivateMoves().setValue(0,new StringList(M_TEAM));
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setMove(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setPp( 3);
+        fight_.getUserTeam().getMembers().getValue(0).getMoves().getVal(CHARGE).setCurrent(5);
+        fight_.getUserTeam().getMembers().getValue(0).getMoves().getVal(CHARGE).setMax(6);
+        fight_.getUserTeam().getMembers().getValue(0).getMoves().getVal(CHARGE2).setCurrent(7);
+        fight_.getUserTeam().getMembers().getValue(0).getMoves().getVal(CHARGE2).setMax(8);
         fight_.getUserTeam().getMembers().getValue(0).getIncrUserAccuracy().setValue(0,BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getEnabledMovesForAlly().setValue(0, BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getAlreadyInvokedMovesRound().add(M_TEAM);

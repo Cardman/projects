@@ -390,7 +390,22 @@ public final class FighterBeanTest extends InitDbFight {
     public void moves6() {
         assertEq(CHARGE_TR,first(elt(callFighterBeanCurrentMovesGet(playerPath(0)),1)));
     }
-
+    @Test
+    public void moves7() {
+        assertEq(7,callUsesOfMoveGetCurrent(second(elt(callFighterBeanMovesGet(playerPath(0)),0))));
+    }
+    @Test
+    public void moves8() {
+        assertEq(8,callUsesOfMoveGetMax(second(elt(callFighterBeanMovesGet(playerPath(0)),0))));
+    }
+    @Test
+    public void moves9() {
+        assertEq(5,callUsesOfMoveGetCurrent(second(elt(callFighterBeanMovesGet(playerPath(0)),1))));
+    }
+    @Test
+    public void moves10() {
+        assertEq(6,callUsesOfMoveGetMax(second(elt(callFighterBeanMovesGet(playerPath(0)),1))));
+    }
     @Test
     public void nbUses1() {
         assertSizeEq(1,callFighterBeanNbUsesMovesGet(playerPath(0)));

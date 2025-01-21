@@ -1,7 +1,6 @@
 package aiki.beans.game;
 
 import aiki.beans.PokemonStandards;
-import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
@@ -11,8 +10,6 @@ public final class AikiBeansGameStd{
     public static final String TYPE_DIFFICULTY_COMMON_BEAN = "aiki.beans.DiCo";
     public static final String BEAN_DIFFICULTY_COMMON = "difficulty_common";
     public static final String TYPE_GAME_PROGRESSION_BEAN = "aiki.beans.game.GameProgressionBean";
-    public static final String TYPE_POKEMON_PLAYER_BEAN = "aiki.beans.game.PokemonPlayerBean";
-    public static final String TYPE_POKEMON_PLAYER_BEAN_2 = "_";
     private static final String CHANGE = "change";
     private static final String GET_REMAINING_OTHER_TRAINERS_PLACE_NAME = "getRemainingOtherTrainersPlaceName";
     private static final String GET_IMAGE_POKEMON_FULL = "getImagePokemonFull";
@@ -24,8 +21,6 @@ public final class AikiBeansGameStd{
     private static final String GET_KEY_POKEMON = "getKeyPokemon";
     private static final String GET_IMAGE_POKEMON_PARTIAL = "getImagePokemonPartial";
     private static final String GET_TR_POKEMON_PARTIAL = "getTrPokemonPartial";
-    private static final String GET_EVO = "getEvo";
-    private static final String GET_IMG = "getImg";
     private static final String D_WIN_POINTS_FIGHT = "winPointsFight";
     private static final String D_DIFF_WINNING_EXP_PTS_FIGHT = "diffWinningExpPtsFight";
     private static final String D_ALLOW_CATCHING_KO = "allowCatchingKo";
@@ -65,25 +60,6 @@ public final class AikiBeansGameStd{
     private static final String FULL_FAMILIES_BASE = "fullFamiliesBase";
     private static final String NOT_AT_ALL_FAMILIES_BASE = "notAtAllFamiliesBase";
     private static final String PARTIAL_FAMILIES_BASE_NOT_CAUGHT = "partialFamiliesBaseNotCaught";
-    private static final String NAME = "name";
-    private static final String IMAGE = "image";
-    private static final String EVOLUTIONS = "evolutions";
-    private static final String LEVEL = "level";
-    private static final String GENDER = "gender";
-    private static final String ABILITY = "ability";
-    private static final String USED_BALL_CATCHING = "usedBallCatching";
-    private static final String ITEM = "item";
-    private static final String REMAINING_HP = "remainingHp";
-    private static final String REMAINING_HP_PER_CENT = "remainingHpPerCent";
-    private static final String FULL_HP = "fullHp";
-    private static final String WON_EXP_SINCE_LAST_LEVEL = "wonExpSinceLastLevel";
-    private static final String NECESSARY_POINTS_NEXT_LEVEL = "necessaryPointsNextLevel";
-    private static final String HAPPINESS = "happiness";
-    private static final String NB_STEPS_TEAM_LEAD = "nbStepsTeamLead";
-    private static final String TYPES = "types";
-    private static final String STATUS = "status";
-    private static final String MOVES = "moves";
-    private static final String STATISTICS = "statistics";
     private AikiBeansGameStd(){}
 
     public static void buildDifficultyBean(PokemonStandards _std){
@@ -161,46 +137,6 @@ public final class AikiBeansGameStd{
         methods_.add( new SpecNatMethod("a", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROGALL_HTML)));
         methods_.add( new SpecNatMethod("g", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML)));
         _std.getStds().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
-    }
-    public static void buildPokemonPlayerBean(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, new CustList<SpecNatMethod>(), BeanNatCommonLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanNameGet(),null));
-        fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanImageGet(),null));
-        fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.TYPE_MAP, new PokemonPlayerBeanEvolutionsGet(),null));
-        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonPlayerBeanLevelGet(),null));
-        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanGenderGet(),null));
-        fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanAbilityGet(),null));
-        fields_.add(new StandardField(USED_BALL_CATCHING,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanUsedBallCatchingGet(),null));
-        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanItemGet(),null));
-        fields_.add(new StandardField(REMAINING_HP,BeanNatCommonLgNames.TYPE_RATE, new PokemonPlayerBeanRemainingHpGet(),null));
-        fields_.add(new StandardField(REMAINING_HP_PER_CENT,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanRemainingHpPerCentGet(),null));
-        fields_.add(new StandardField(FULL_HP,BeanNatCommonLgNames.TYPE_RATE, new PokemonPlayerBeanFullHpGet(),null));
-        fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanNicknameGet(),null));
-        fields_.add(new StandardField(WON_EXP_SINCE_LAST_LEVEL,BeanNatCommonLgNames.TYPE_RATE, new PokemonPlayerBeanWonExpSinceLastLevelGet(),null));
-        fields_.add(new StandardField(NECESSARY_POINTS_NEXT_LEVEL,BeanNatCommonLgNames.TYPE_RATE, new PokemonPlayerBeanNecessaryPointsNextLevelGet(),null));
-        fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonPlayerBeanHappinessGet(),null));
-        fields_.add(new StandardField(NB_STEPS_TEAM_LEAD, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonPlayerBeanNbStepsTeamLeadGet(),null));
-        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST, new PokemonPlayerBeanTypesGet(),null));
-        fields_.add(new StandardField(STATUS, BeanNatCommonLgNames.TYPE_LIST, new PokemonPlayerBeanStatusGet(),null));
-        fields_.add(new StandardField(MOVES, BeanNatCommonLgNames.TYPE_MAP, new PokemonPlayerBeanMovesGet(),null));
-        fields_.add(new StandardField(STATISTICS, BeanNatCommonLgNames.TYPE_LIST, new PokemonPlayerBeanStatisticsGet(),null));
-        _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN, type_);
-        CustList<StandardField> fieldsCompo_=new CustList<StandardField>();
-        SpecialNatClass typeCompo_ = new SpecialNatClass(fieldsCompo_, new CustList<SpecNatMethod>(), BeanNatCommonLgNames.TYPE_BEAN);
-        fieldsCompo_.add( new StandardField(GET_EVO,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanGetEvo(),null));
-        fieldsCompo_.add( new StandardField(GET_IMG,BeanNatCommonLgNames.STRING, new PokemonPlayerBeanGetEvoImg(),null));
-        _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN_2, typeCompo_);
-    }
-
-    public static NatArrayStruct getStPkPl(CustList<StatisticInfoPkPlayer> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (StatisticInfoPkPlayer s:_ls) {
-            arr_.set(j_,new StatisticInfoPkPlayerStruct(s));
-            j_++;
-        }
-        return arr_;
     }
 
     public static NatArrayStruct getTrPlNa(CustList<TrainerPlaceNames> _ls) {

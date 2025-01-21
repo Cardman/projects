@@ -5,11 +5,6 @@ import code.util.*;
 
 public final class PagesInit{
 private PagesInit(){}
-public static StringMap<Document> buildInd(){
-StringMap<Document> m_ = new StringMap<Document>();
-m_.addEntry(PkScriptPages.REN_ADD_WEB_PK_HTML_POKEMON_HTML,PagePkPokemon.build());
-return m_;
-}
 public static StringMap<Document> buildDiff(){
 StringMap<Document> m_ = new StringMap<Document>();
 m_.addEntry(PkScriptPages.WEB_GAME_HTML_DIFFICULTY_HTML,PageGameDifficulty.build());

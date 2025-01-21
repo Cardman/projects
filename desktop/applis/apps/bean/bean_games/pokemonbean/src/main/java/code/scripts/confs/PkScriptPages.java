@@ -161,7 +161,6 @@ public static final String MSG_MOVES="msg_moves";
 public static final String MSG_MULTIRELATION="msg_multirelation";
 public static final String MSG_PKDATA="msg_pkdata";
 public static final String MSG_POKEDEX="msg_pokedex";
-public static final String MSG_POKEMON="msg_pokemon";
 public static final String MSG_POKEMON_NPC="msg_pokemon_npc";
 public static final String MSG_POSITIONRELATION="msg_positionrelation";
 public static final String MSG_POSITIONTARGET="msg_positiontarget";
@@ -319,9 +318,7 @@ public static final String REN_ADD_WEB_HTML_INDEX_HTML="web/html/index.html";
 public static final String REN_ADD_WEB_HTML_STATUS_DATA_HTML="web/html/status/data.html";
 public static final String REN_ADD_WEB_HTML_STATUS_STATUS_HTML="web/html/status/status.html";
 public static final String REN_ADD_WEB_MESSAGES="web/messages";
-public static final String REN_ADD_WEB_PK_CSS_POKEMON_CSS="web_pk/css/pokemon.css";
 public static final String REN_ADD_WEB_PK_HTML_POKEMON_HTML="web_pk/html/pokemon.html";
-public static final String REN_ADD_WEB_PK_MESSAGES="web_pk/messages";
 public static final String REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS="web_prog/css/difficulty.css";
 public static final String REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.html";
 public static final String REN_ADD_WEB_PROG_HTML_GAMEPROGALL_HTML="web_prog/html/gameprogall.html";
@@ -689,15 +686,6 @@ public static final String DIFF_COMMON_HTML = "diff_common.html";
         _d.setMessagesFolder(REN_ADD_WEB_GAME_MESSAGES);
         StringList added_ = new StringList(new CollCapacity(1));
         added_.add(REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS);
-        _d.setAddedFiles(added_);
-    }
-    public static void initAnaDetPk(NatDualConfigurationContext _d){
-        StringMap<String> properties_ = new StringMap<String>(new CollCapacity(1));
-        properties_.addEntry(MSG_POKEMON,POKEMON);
-        _d.setProperties(properties_);
-        _d.setMessagesFolder(REN_ADD_WEB_PK_MESSAGES);
-        StringList added_ = new StringList(new CollCapacity(1));
-        added_.add(REN_ADD_WEB_PK_CSS_POKEMON_CSS);
         _d.setAddedFiles(added_);
     }
     public static void initAnaProg(NatDualConfigurationContext _d){

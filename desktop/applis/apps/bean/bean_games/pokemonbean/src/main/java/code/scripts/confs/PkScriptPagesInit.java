@@ -41,7 +41,6 @@ private static final String AIKI_BEANS_FIGHT_FIGHT_CALCULATION_BEAN="aiki.beans.
 private static final String AIKI_BEANS_FIGHT_TEAM_BEAN="aiki.beans.fight.TeamBean";
 private static final String AIKI_BEANS_GAME_DIFFICULTY_BEAN="aiki.beans.game.DifficultyBean";
 private static final String AIKI_BEANS_GAME_GAME_PROGRESSION_BEAN="aiki.beans.game.GameProgressionBean";
-private static final String AIKI_BEANS_GAME_POKEMON_PLAYER_BEAN="aiki.beans.game.PokemonPlayerBean";
 private static final String AIKI_BEANS_HELP_FIGHT_HELP_BEAN="aiki.beans.help.FightHelpBean";
 private static final String AIKI_BEANS_HELP_GENERAL_HELP_BEAN="aiki.beans.help.GeneralHelpBean";
 private static final String AIKI_BEANS_HELP_LANGS_BEAN="aiki.beans.help.LangsBean";
@@ -1148,13 +1147,6 @@ private static final String TEAM="team";
         NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
         NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
         _configuration.setBeansInfos(beans_);
-    }
-    public static void initConfDetPk(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(PkScriptPages.REN_ADD_WEB_PK_HTML_POKEMON_HTML);
-        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
-        NavBuilder.buildBeans(beans_,POKEMON,AIKI_BEANS_GAME_POKEMON_PLAYER_BEAN);
-        _configuration.setBeansInfos(beans_);
-        _configuration.setPrefix(PREF);
     }
     public static void initConfProg(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML);

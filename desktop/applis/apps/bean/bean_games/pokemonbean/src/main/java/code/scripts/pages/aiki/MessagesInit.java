@@ -12,14 +12,12 @@ private MessagesInit(){}
 public static TranslationsAppli en(){
 TranslationsAppli m = new TranslationsAppli();
 m.getMapping().addEntry(DIFFICULTY,AnaRendBlockHelp.file(MesGameDifficulty.en()));
-m.getMapping().addEntry(POKEMON,AnaRendBlockHelp.file(MesPkPokemon.en()));
 m.getMapping().addEntry(GAMEPROG,AnaRendBlockHelp.file(MesProgGameprog.en()));
 return m;
 }
 public static TranslationsAppli fr(){
 TranslationsAppli m = new TranslationsAppli();
 m.getMapping().addEntry(DIFFICULTY,AnaRendBlockHelp.file(MesGameDifficulty.fr()));
-m.getMapping().addEntry(POKEMON,AnaRendBlockHelp.file(MesPkPokemon.fr()));
 m.getMapping().addEntry(GAMEPROG,AnaRendBlockHelp.file(MesProgGameprog.fr()));
 return m;
 }

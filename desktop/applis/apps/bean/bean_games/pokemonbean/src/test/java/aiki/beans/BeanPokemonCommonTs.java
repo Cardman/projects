@@ -4,10 +4,12 @@ import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
+import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
+import code.util.ints.Countable;
 
 public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
@@ -147,8 +149,14 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static void assertSizeEq(int _exp, NaSt _result) {
         assertEq(_exp,(((NatArrayStruct)_result).getLength()));
     }
+    public static void assertSizeEq(int _exp, Countable _result) {
+        assertEq(_exp,_result.size());
+    }
     public static NaSt elt(NaSt _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static String elt(CustList<String> _arr, int _index) {
+        return _arr.get(_index);
     }
     public static NaSt first(NaSt _arr) {
         return ((PairStruct)_arr).getFirst();
