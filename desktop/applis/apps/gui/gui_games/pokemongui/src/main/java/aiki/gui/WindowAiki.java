@@ -177,8 +177,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final AbstractAtomicBooleanCore loadFlag;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedFightTask;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedPkTask;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedPkNetTask;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDiffTask;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedProgTask;
 //    private AbstractThread preparedDataWebThread;
@@ -1798,22 +1796,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void setPreparedFightTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedFightTask) {
         preparedFightTask = _preparedFightTask;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedPkTask() {
-        return preparedPkTask;
-    }
-
-    public void setPreparedPkTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedPkTask) {
-        preparedPkTask = _preparedPkTask;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedPkNetTask() {
-        return preparedPkNetTask;
-    }
-
-    public void setPreparedPkNetTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedPkTask) {
-        preparedPkNetTask = _preparedPkTask;
     }
 
     public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDiffTask() {

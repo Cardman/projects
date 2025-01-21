@@ -103,10 +103,10 @@ public abstract class EquallableAikiGuiUtil {
         fightTr(pr_);
         return window(pr_, fact_);
     }
-    public static void preparePkTask(WindowAiki _window) {
-        _window.getCore().getAikiFactory().submitNavPkTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
-        _window.setPreparedPkTask(_window.getCore().getAikiFactory().getTaskNavPkTask());
-    }
+//    public static void preparePkTask(WindowAiki _window) {
+//        _window.getCore().getAikiFactory().submitNavPkTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+//        _window.setPreparedPkTask(_window.getCore().getAikiFactory().getTaskNavPkTask());
+//    }
 
     public static void prepareFightTask(WindowAiki _window) {
 //        _window.getCore().getAikiFactory().setPreparedFightTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
@@ -363,6 +363,39 @@ public abstract class EquallableAikiGuiUtil {
         assertTrue(_tr.containsObj(_pag.getMinPossEvos()));
         assertTrue(_tr.containsObj(_pag.getSearchButton()));
         assertTrue(_tr.containsObj(_pag.getNewSearchButton()));
+    }
+
+    public static void checkCommonNot30(PaginatorPokemon _pag, IdList<AbsCustComponent> _tr) {
+        assertFalse(_tr.containsObj(_pag.getDelta()));
+        assertFalse(_tr.containsObj(_pag.getNbResults()));
+        assertFalse(_tr.containsObj(_pag.getCmpPossEvosPrio().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpPossEvosSorting().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpItemPrio().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpItemSorting().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpGenderPrio().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpGenderSorting().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpLevelPrio().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpLevelSorting().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpAbilityPrio().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpAbilitySorting().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpNamePrio().self()));
+        assertFalse(_tr.containsObj(_pag.getCmpNameSorting().self()));
+        assertFalse(_tr.containsObj(_pag.getName()));
+        assertFalse(_tr.containsObj(_pag.getAbility()));
+        assertFalse(_tr.containsObj(_pag.getMoves()));
+        assertFalse(_tr.containsObj(_pag.getItem()));
+        assertFalse(_tr.containsObj(_pag.getGender().self()));
+        assertFalse(_tr.containsObj(_pag.getWithItem().self()));
+        assertFalse(_tr.containsObj(_pag.getModeName().self()));
+        assertFalse(_tr.containsObj(_pag.getModeAbility().self()));
+        assertFalse(_tr.containsObj(_pag.getModeMoves().self()));
+        assertFalse(_tr.containsObj(_pag.getModeItem().self()));
+        assertFalse(_tr.containsObj(_pag.getMaxLevel()));
+        assertFalse(_tr.containsObj(_pag.getMinLevel()));
+        assertFalse(_tr.containsObj(_pag.getMaxPossEvos()));
+        assertFalse(_tr.containsObj(_pag.getMinPossEvos()));
+        assertFalse(_tr.containsObj(_pag.getSearchButton()));
+        assertFalse(_tr.containsObj(_pag.getNewSearchButton()));
     }
 
     public static void checkCommon28(PaginatorMove _pag, IdList<AbsCustComponent> _tr) {

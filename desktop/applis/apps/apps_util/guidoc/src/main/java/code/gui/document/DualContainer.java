@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import code.formathtml.render.MetaContainer;
+import code.formathtml.render.MetaSearchableLabel;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
 
@@ -18,6 +19,7 @@ public abstract class DualContainer extends DualComponent {
 
     public void add(DualComponent _dual) {
         getPage().getRefs().put(_dual.getComponent(), _dual);
+        tryAddRef(_dual);
         if (!getChildren().isEmpty()) {
             getChildren().last().setNextSibling(_dual);
         }
@@ -29,6 +31,11 @@ public abstract class DualContainer extends DualComponent {
             getPage().getAnims().add((DualAnimatedImage) _dual);
         }
         postAdd(_dual);
+    }
+    protected void tryAddRef(DualComponent _d) {
+        if (_d.getComponent() instanceof MetaSearchableLabel) {
+            getPage().getRefsSearch().put(((MetaSearchableLabel)_d.getComponent()).getContent(),_d);
+        }
     }
 
     public void addComponent(AbsCustComponent _component) {

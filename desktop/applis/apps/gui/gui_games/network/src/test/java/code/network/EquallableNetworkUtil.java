@@ -27,6 +27,7 @@ import cards.tarot.enumerations.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.*;
 import code.gui.*;
+import code.gui.document.MessagesPkPokemon;
 import code.gui.files.*;
 import code.gui.initialize.*;
 import code.maths.*;
@@ -35,6 +36,7 @@ import code.mock.*;
 import code.netw.*;
 import code.network.enums.*;
 import code.scripts.messages.cards.*;
+import code.scripts.pages.aiki.MessagesInit;
 import code.sml.*;
 import code.sml.util.*;
 import code.threads.*;
@@ -267,6 +269,11 @@ public abstract class EquallableNetworkUtil {
     }
     protected static WindowNetWork frameSingle(IntDataBaseStream _i) {
         MockProgramInfos pr_ = updateSingle(build());
+        update(pr_.getTranslations().getMapping().getVal(EN), MessagesPkPokemon.en());
+        update(pr_.getTranslations().getMapping().getVal(FR), MessagesPkPokemon.fr());
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(pr_.getTranslations().getMapping().getVal(EN)), MessagesRenderPkGameDetail.en());
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(pr_.getTranslations().getMapping().getVal(FR)), MessagesRenderPkGameDetail.fr());
+        pr_.setLanguage(EN);
         MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(pr_.getTranslations()));
         pr_.getSocketFactory().setOkServer(true);
@@ -276,10 +283,10 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
-        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
+//        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
-        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
+//        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
         w_.getAiki().setGameCheck(new MockGameChecker());
         w_.getAiki().getAikiFactory().setDataBaseStream(_i);
         tryClick(w_.getZipLoad());
@@ -300,6 +307,12 @@ public abstract class EquallableNetworkUtil {
         tryClick((AbsButton) tr_.get(0));
         return w_;
     }
+
+    private static void update(TranslationsLg _lg, TranslationsFile _file) {
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry(MessagesInit.POKEMON, _file);
+        _lg.getMapping().addEntry(MessagesInit.APP_BEAN, ta_);
+    }
     protected static WindowNetWork frameSingleMenu(IntDataBaseStream _i, AbsButton _mai) {
         MockProgramInfos pr_ = updateSingle(build());
         MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
@@ -311,10 +324,10 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(stream(pr_), pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,_mai,null));
         updateBase(pr_.currentLg());
-        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
+//        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
-        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
+//        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
         w_.getAiki().setGameCheck(new MockGameChecker());
         w_.getAiki().getAikiFactory().setDataBaseStream(_i);
         tryClick(w_.getFolderLoad());
@@ -348,10 +361,10 @@ public abstract class EquallableNetworkUtil {
 //        ai_.submit(new MockCallable<DataBase>(_db));
         WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), pr_, ai_, new IntArtCardGames(), new LanguagesButtonsPair(null,null,null));
         updateBase(pr_.currentLg());
-        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
+//        ai_.submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSampleNet(),nav())));
         w_.setVisible(true);
         w_.pack();
-        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
+//        w_.setPreparedPkNetTask(ai_.getTaskNavPkNetTask());
         w_.getAiki().setGameCheck(new MockGameChecker());
         w_.getAiki().getAikiFactory().setDataBaseStream(_i);
         tryClick(w_.getZipLoad());

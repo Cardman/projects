@@ -19,19 +19,14 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("o");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(4, segs_.firstValue().first().getBegin());
         assertEq(5, segs_.firstValue().first().getEnd());
         assertNotNull(f_.getLabel());
-    }
-
-    private static MetaDocument getMetaDocument(StringBuilder _doc) {
-        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
     }
 
     @Test
@@ -43,10 +38,10 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
         assertEq(2, segs_.firstValue().size());
         assertEq(4, segs_.firstValue().first().getBegin());
@@ -64,9 +59,9 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("a");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
         assertNull(f_.getLabel());
     }
@@ -79,10 +74,10 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(2, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(4, segs_.firstValue().first().getBegin());
@@ -101,10 +96,10 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(1, segs_.firstValue().first().getBegin());
@@ -120,11 +115,11 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("o");
         f_.next("o");
         f_.next("o");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
         assertNull(f_.getLabel());
     }
@@ -137,9 +132,9 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("loWorld");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(2, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(3, segs_.firstValue().first().getBegin());
@@ -158,9 +153,9 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("loWorldEvery");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(3, segs_.size());
         assertEq(1, segs_.firstValue().size());
         assertEq(3, segs_.firstValue().first().getBegin());
@@ -181,9 +176,9 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("loWorldEvery");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
         assertNull(f_.getLabel());
     }
@@ -197,9 +192,9 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(1, segs_.size());
         assertNotNull(f_.getLabel());
     }
@@ -212,11 +207,20 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         doc_.append("</body>\n");
         doc_.append("</html>");
         MetaDocument out_ = getMetaDocument(doc_);
-        FindNextElement f_ = new FindNextElement(out_);
+        FindNextElement f_ = find(out_);
         f_.next("loWorldEvery");
-        IdMap<MetaSearchableLabel, CustList<SegmentPart>> segs_ = f_.getSegments();
+        IdMap<MetaSearchableContent, CustList<SegmentPart>> segs_ = f_.getSegments();
         assertEq(0, segs_.size());
         assertNull(f_.getLabel());
+    }
+
+    private static MetaDocument getMetaDocument(StringBuilder _doc) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());
+    }
+
+    private FindNextElement find(MetaDocument _o) {
+        return new FindNextElement(_o.getTxtParts());
     }
 
 }

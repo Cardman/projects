@@ -20,11 +20,17 @@ import aiki.map.pokemon.PokemonPlayer;
 import code.gui.AbsButton;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsCustComponent;
+import code.gui.document.MessagesPkPokemon;
 import code.gui.events.AlwaysActionListenerAct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.mock.MockCallable;
 import code.mock.MockCustComponent;
+import code.mock.MockProgramInfos;
+import code.scripts.pages.aiki.MessagesInit;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -1163,7 +1169,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void consBoxPk() {
         WindowAiki window_ = newSelPkCons();
-        preparePkTask(window_);
+        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
+//        preparePkTask(window_);
         loadRomGamePksThreeTimes(window_);
         window_.getFacade().pkTr();
         tryClick(window_.getScenePanel().getSeeBoxes());
@@ -1175,8 +1184,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getDetailButton());
         assertTrue(sel_.getPkDetailContent().getContent().isVisible());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
-        assertEq(43, tr_.size());
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        assertEq(43, tr_.size() - scAcc_.size());
         checkCommon30(pag_, tr_);
+        checkCommonNot30(pag_, scAcc_);
         assertTrue(tr_.containsObj(pag_.getPages().self()));
         assertTrue(tr_.containsObj(pag_.getBegin()));
         assertTrue(tr_.containsObj(pag_.getPreviousDelta()));
@@ -1187,16 +1198,32 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertTrue(tr_.containsObj(sel_.getCancelButton()));
         assertTrue(tr_.containsObj(sel_.getPkDetailContent().getField()));
         assertTrue(tr_.containsObj(sel_.getPkDetailContent().getSearch()));
+        assertFalse(scAcc_.containsObj(pag_.getPages().self()));
+        assertFalse(scAcc_.containsObj(pag_.getBegin()));
+        assertFalse(scAcc_.containsObj(pag_.getPreviousDelta()));
+        assertFalse(scAcc_.containsObj(pag_.getNextDelta()));
+        assertFalse(scAcc_.containsObj(pag_.getEnd()));
+        assertFalse(scAcc_.containsObj(pag_.getDetailButton()));
+        assertFalse(scAcc_.containsObj(sel_.getOkButton()));
+        assertFalse(scAcc_.containsObj(sel_.getCancelButton()));
+        assertFalse(scAcc_.containsObj(sel_.getPkDetailContent().getField()));
+        assertFalse(scAcc_.containsObj(sel_.getPkDetailContent().getSearch()));
         assertEq(3,pag_.getResultsLabels().size());
         assertTrue(tr_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
         assertTrue(tr_.containsObj(pag_.getResultsLabels().get(1).getPaintableLabel()));
         assertTrue(tr_.containsObj(pag_.getResultsLabels().get(2).getPaintableLabel()));
+        assertFalse(scAcc_.containsObj(pag_.getResultsLabels().get(0).getPaintableLabel()));
+        assertFalse(scAcc_.containsObj(pag_.getResultsLabels().get(1).getPaintableLabel()));
+        assertFalse(scAcc_.containsObj(pag_.getResultsLabels().get(2).getPaintableLabel()));
     }
 
     @Test
     public void consHost1() {
         WindowAiki window_ = newHostCons();
-        preparePkTask(window_);
+        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
+//        preparePkTask(window_);
         loadRomGameOneHost(window_);
         tryClick(window_.getScenePanel().getHost());
         ConsultHosts sel_ = window_.getConsultHosts();
@@ -1205,16 +1232,24 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(2,tr_.size());
         tryClick((AbsButton) tr_.get(0));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
-        assertEq(4,tr2_.size());
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        assertEq(4,tr2_.size()- scAcc_.size());
         assertTrue(tr2_.containsAllObj(tr_));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getSearch()));
+        assertFalse(scAcc_.containsObj(tr_.get(0)));
+        assertFalse(scAcc_.containsObj(tr_.get(1)));
+        assertFalse(scAcc_.containsObj(sel_.getPkDetailContent().getField()));
+        assertFalse(scAcc_.containsObj(sel_.getPkDetailContent().getSearch()));
     }
 
     @Test
     public void consHost2() {
         WindowAiki window_ = newHostCons();
-        preparePkTask(window_);
+        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
+//        preparePkTask(window_);
         loadRomGameOneHost(window_);
         tryClick(window_.getScenePanel().getHost());
         ConsultHosts sel_ = window_.getConsultHosts();
@@ -1223,16 +1258,21 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(2,tr_.size());
         tryClick((AbsButton) tr_.get(1));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
-        assertEq(4,tr2_.size());
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        assertEq(4,tr2_.size()- scAcc_.size());
         assertTrue(tr2_.containsAllObj(tr_));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getSearch()));
+        assertFalse(scAcc_.containsObj(tr_.get(0)));
+        assertFalse(scAcc_.containsObj(tr_.get(1)));
+        assertFalse(scAcc_.containsObj(sel_.getPkDetailContent().getField()));
+        assertFalse(scAcc_.containsObj(sel_.getPkDetailContent().getSearch()));
     }
 
     @Test
     public void consHost3() {
         WindowAiki window_ = newHostCons();
-        preparePkTask(window_);
+//        preparePkTask(window_);
         loadRomGameHost(window_);
         tryClick(window_.getScenePanel().getHost());
         ConsultHosts sel_ = window_.getConsultHosts();
@@ -3336,23 +3376,33 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void teamManage6() {
         WindowAiki window_ = newProg();
-        preparePkTask(window_);
+        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
+//        preparePkTask(window_);
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
         window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getDetailPk());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
-        assertEq(3, tr_.size());
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        assertEq(3, tr_.size()-scAcc_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getHide()));
+        assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
+        assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
+        assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getHide()));
     }
 
     @Test
     public void teamManage7() {
         WindowAiki window_ = newProg();
-        preparePkTask(window_);
+        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
+//        preparePkTask(window_);
         loadRomGameManageTeam(window_);
         tryClick(window_.getScenePanel().getTeam());
         window_.getScenePanel().getTeamPan().getListe().select(0);
@@ -3421,6 +3471,37 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(window_.getScenePanel().getExitOptions());
         assertEq(0,((MockCustComponent)window_.getScenePanel().getPanelOptions()).getTreeAccessible().size());
     }
+
+    @Test
+    public void teamManage12() {
+        WindowAiki window_ = newProg();
+        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
+        loadRomGameItBaseTwoAbilities(window_);
+        tryClick(window_.getScenePanel().getTeam());
+        window_.getScenePanel().getTeamPan().getListe().select(0);
+        window_.getScenePanel().getTeamPan().getListe().events();
+        ((PokemonPlayer)window_.getFacade().getGame().getTeam().get(0)).setItem(SNOW);
+        ((PokemonPlayer)window_.getFacade().getGame().getTeam().get(0)).setUsedBallCatching(NULL_REF);
+        tryClick(window_.getScenePanel().getDetailPk());
+        IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        assertEq(3, tr_.size()-scAcc_.size());
+        assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
+        assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getHide()));
+        assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
+        assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
+        assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getHide()));
+        window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getField().setText("g");
+        tryClick(window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getSearch());
+        window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getField().setText("");
+        tryClick(window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getSearch());
+        window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getField().setText("#");
+        tryClick(window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getSearch());
+    }
+
     @Test
     public void selHealIt1() {
         WindowAiki window_ = newSelHealIt();
@@ -4740,4 +4821,11 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         compute(data_);
         return data_;
     }
+
+    private void update(TranslationsLg _lg, TranslationsFile _file) {
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry(MessagesInit.POKEMON, _file);
+        _lg.getMapping().addEntry(MessagesInit.APP_BEAN, ta_);
+    }
+
 }

@@ -30,6 +30,7 @@ public final class DualTable extends DualContainer {
             return;
         }
         getPage().getRefs().put(_dual.getComponent(), _dual);
+        tryAddRef(_dual);
         if (!getChildren().isEmpty()) {
             getChildren().last().setNextSibling(_dual);
         }

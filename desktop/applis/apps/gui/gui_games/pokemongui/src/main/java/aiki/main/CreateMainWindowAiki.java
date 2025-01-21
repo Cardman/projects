@@ -62,8 +62,6 @@ public final class CreateMainWindowAiki implements Runnable {
         window_.setVisible(true);
         window_.setPreparedDataWebTask(aikiFactory.getTaskNavData());
         window_.setPreparedFightTask(aikiFactory.getTaskNavFight());
-        window_.setPreparedPkTask(aikiFactory.getTaskNavPkTask());
-        window_.setPreparedPkNetTask(aikiFactory.getTaskNavPkNetTask());
         window_.setPreparedDiffTask(aikiFactory.getTaskNavDiff());
         window_.setPreparedProgTask(aikiFactory.getTaskNavProg());
         if (!withParam.isEmpty()) {

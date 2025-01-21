@@ -2,19 +2,15 @@ package aiki.gui.components.walk;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.walk.events.*;
-import aiki.gui.dialogs.*;
 import aiki.gui.listeners.*;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.*;
 import cards.facade.enumerations.GameEnum;
-import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
-import code.gui.document.RenderedPage;
+import code.gui.document.PkPlayerRender;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.files.MessagesGuiFct;
-import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -257,7 +253,8 @@ public class ScenePanelMulti {
 
 //    private boolean enabledClick = true;
 
-    private RenderedPage receivedPk;
+    private PkPlayerRender receivedPk;
+    //private final PkPlayerRender pkPlayerRender;
 
     private AbsPanel panelNetWork;
 
@@ -731,16 +728,19 @@ public class ScenePanelMulti {
         panelNetWork.add(teamPan.getContainer());
         AbsPanel group_ = compoFactory.newBorder();
         group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), MessagesGuiFct.BORDER_LAYOUT_NORTH);
-        AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
-        receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter(), window.getGuardRender());
+//        AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
+        AbsPanel componentView_ = compoFactory.newPageBox();
+        receivedPk = new PkPlayerRender(componentView_);
+//        receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter(), window.getGuardRender());
 //        receivedPk.setBase(GamesPk.baseEncode(window.getFrames().getTranslations()));
 //        receivedPk.setBase(facade.getData().getMessagesParse().getVal(MessagesPkGame.BASE_FILE));
 //        receivedPk.setBase(MessagesPkGame.getAppliTr(window.getFrames().currentLg()).getMapping().getVal(MessagesPkGame.BASE_FILE).getMapping().getVal(MessagesDataBaseConstants.BASE_KEY));
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
-        receivedPk.setFrame(window.getCommonFrame());
+//        receivedPk.setFrame(window.getCommonFrame());
 //        receivedPk.prepare();
-        scrollSession_.setPreferredSize(new MetaDimension(400, 300));
-        group_.add(scrollSession_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
+//        scrollSession_.setPreferredSize(new MetaDimension(400, 300));
+//        group_.add(scrollSession_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
+        group_.add(componentView_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
         readyCheck = window.getCompoFactory().newPlainButton(messages.getVal(MessagesRenderScenePanel.READY));
@@ -773,16 +773,17 @@ public class ScenePanelMulti {
 
     public void seeNetPokemonDetail() {
 //        AbstractThread thread_ = window.getPreparedPkNetThread();
-        AikiNatLgNamesNavigation task_ = window.getPreparedPkNetTask().attendreResultat();
+//        AikiNatLgNamesNavigation task_ = window.getPreparedPkNetTask().attendreResultat();
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
 //        if (receivedPk.isProcessing()) {
 //            return;
 //        }
-        task_.getBeanNatLgNames().setDataBase(facade);
+//        task_.getBeanNatLgNames().setDataBase(facade);
+        receivedPk.updateGui(window.getFrames(), facade);
 //        task_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
-        FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
+//        FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
     }
 
 //    public void interact() {
@@ -1792,5 +1793,9 @@ public class ScenePanelMulti {
             teamPan.getListe().setEnabled(true);
             readyCheck.setLineBorder(GuiConstants.BLACK);
         }
+    }
+
+    public PkPlayerRender getReceivedPk() {
+        return receivedPk;
     }
 }

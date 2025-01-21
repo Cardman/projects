@@ -11,10 +11,16 @@ public abstract class EquallableRenderAdvUtil {
     public static void assertNotNull(Node _value) {
         Assert.assertNotNull(_value);
     }
+    public static void assertNotNull(MetaSearchableContent _value) {
+        Assert.assertNotNull(_value);
+    }
     public static void assertNotNull(IntComponent _value) {
         Assert.assertNotNull(_value);
     }
     public static void assertNull(Node _value) {
+        Assert.assertNull(_value);
+    }
+    public static void assertNull(MetaSearchableContent _value) {
         Assert.assertNull(_value);
     }
     public static void assertNull(IntComponent _value) {

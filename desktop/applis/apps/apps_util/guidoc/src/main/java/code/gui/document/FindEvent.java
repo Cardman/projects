@@ -1,9 +1,6 @@
 package code.gui.document;
 
-import code.formathtml.render.FindNextElement;
-import code.formathtml.render.MetaDocument;
-import code.formathtml.render.MetaSearchableLabel;
-import code.formathtml.render.SegmentPart;
+import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
 import code.util.CustList;
@@ -24,7 +21,7 @@ public final class FindEvent implements AbsActionListener {
         page = _page;
     }
     public void setFinding(MetaDocument _document) {
-        finding = new FindNextElement(_document);
+        finding = new FindNextElement(_document.getTxtParts());
     }
     @Override
     public void action() {
@@ -41,7 +38,7 @@ public final class FindEvent implements AbsActionListener {
             return;
         }
         finding.next(text_);
-        MetaSearchableLabel lab_ = finding.getLabel();
+        MetaSearchableContent lab_ = finding.getLabel();
         if (lab_ == null) {
             for (DualLabel l: labels) {
                 l.clearSegments();
@@ -50,15 +47,15 @@ public final class FindEvent implements AbsActionListener {
             labels.clear();
             return;
         }
-        for (EntryCust<MetaSearchableLabel, CustList<SegmentPart>> l: finding.getSegments().entryList()) {
-            DualLabel l_ = (DualLabel) page.getRefs().getVal(l.getKey());
+        for (EntryCust<MetaSearchableContent, CustList<SegmentPart>> l: finding.getSegments().entryList()) {
+            DualLabel l_ = (DualLabel) page.getRefsSearch().getVal(l.getKey());
             for (SegmentPart s: l.getValue()) {
                 l_.addSegment(s);
             }
             DualComponent.paintLabel(l_);
             labels.add(l_);
         }
-        RenderedPage.scroll(lab_, page);
+        RenderedPage.scroll(page, page.getRefsSearch().getVal(lab_));
     }
 
     public CustList<DualLabel> getLabels() {

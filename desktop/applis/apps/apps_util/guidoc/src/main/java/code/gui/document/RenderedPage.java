@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
+import code.formathtml.render.MetaSearchableContent;
 import code.formathtml.render.MetaSearchableLabel;
 import code.gui.events.AbsActionListenerAct;
 import code.sml.WithPageInfos;
@@ -27,6 +28,7 @@ public final class RenderedPage implements ProcessingSession {
     private RendKeyWordsGroup keys;
     private NavigationCore navCore;
     private final IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
+    private final IdMap<MetaSearchableContent,DualComponent> refsSearch = new IdMap<MetaSearchableContent,DualComponent>();
     private FindEvent finding;
 
     private final AbstractAtomicBoolean processing;
@@ -180,7 +182,7 @@ public final class RenderedPage implements ProcessingSession {
         String ref_ = navCore.getReferenceScroll();
         if (!ref_.isEmpty()) {
             MetaSearchableLabel lab_ = _meta.getAnchorsRef().getVal(ref_);
-            scroll(lab_, this);
+            scroll(this, getRefs().getVal(lab_));
         }
         if (frame != null) {
             frame.pack();
@@ -188,8 +190,8 @@ public final class RenderedPage implements ProcessingSession {
         finish();
     }
 
-    static void scroll(MetaSearchableLabel _lab, RenderedPage _rend) {
-        DualComponent c_ = _rend.getRefs().getVal(_lab);
+    static void scroll(RenderedPage _rend, DualComponent _dual) {
+        DualComponent c_ = _dual;
         AbsScrollPane sc_ = _rend.getScroll();
         DualComponent r_ = _rend.getPage();
         int x_ = 0;
@@ -285,8 +287,12 @@ public final class RenderedPage implements ProcessingSession {
     void setPage(DualPanel _page) {
         page = _page;
     }
-    IdMap<MetaComponent, DualComponent> getRefs() {
+    public IdMap<MetaComponent, DualComponent> getRefs() {
         return refs;
+    }
+
+    public IdMap<MetaSearchableContent, DualComponent> getRefsSearch() {
+        return refsSearch;
     }
 
     public RendKeyWordsGroup getKeys() {

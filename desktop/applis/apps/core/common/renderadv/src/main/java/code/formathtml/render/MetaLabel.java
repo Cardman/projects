@@ -4,13 +4,9 @@ import code.sml.Element;
 
 public abstract class MetaLabel extends MetaLeaf {
 
-    private final String text;
-
     private final Element anchor;
 
-    private final int partGroup;
-
-    private final int rowGroup;
+    private final MetaSearchableContent content;
 
     protected MetaLabel(MetaContainer _parent) {
         this(_parent, -1, -1);
@@ -21,14 +17,12 @@ public abstract class MetaLabel extends MetaLeaf {
     }
     protected MetaLabel(MetaContainer _parent, String _text, String _title, Element _anchor, int _partGroup, int _rowGroup) {
         super(_parent, _title);
-        text = _text;
+        content = new MetaSearchableContent(_text,_partGroup,_rowGroup);
         anchor = _anchor;
-        partGroup = _partGroup;
-        rowGroup = _rowGroup;
     }
 
     public String getText() {
-        return text;
+        return getContent().getText();
     }
 
     public Element getAnchor() {
@@ -36,10 +30,14 @@ public abstract class MetaLabel extends MetaLeaf {
     }
 
     public int getPartGroup() {
-        return partGroup;
+        return getContent().getPartGroup();
     }
 
     public int getRowGroup() {
-        return rowGroup;
+        return getContent().getRowGroup();
+    }
+
+    public MetaSearchableContent getContent() {
+        return content;
     }
 }

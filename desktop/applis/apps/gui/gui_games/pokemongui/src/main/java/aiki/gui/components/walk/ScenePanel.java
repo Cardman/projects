@@ -1344,7 +1344,7 @@ public final class ScenePanel {
 
     public void seePokemonDetail() {
         window.getModal().set(true);
-        pkDetailContent.group(window,facade,window.getPreparedPkTask(),facade.getLanguage(), window.getCommonFrame(), window.getModal());
+        pkDetailContent.group(window,facade, window.getCommonFrame(), window.getModal());
         scrollPaneDetail.setViewportView(pkDetailContent.getContent());
         scrollPaneDetail.recalculateViewport();
         scrollPaneDetail.setSize(scrollPaneDetail.getPreferredSizeValue());

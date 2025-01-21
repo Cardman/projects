@@ -4,6 +4,7 @@ import aiki.db.*;
 import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
 import aiki.fight.util.*;
 import aiki.instances.*;
 import aiki.map.pokemon.enums.*;
@@ -55,16 +56,20 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         selectClient(server_, client_, socketClient_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(4, tr_.size());
+        assertEq(6, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(3, tr2_.size());
+        assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
     }
     @Test
     public void intro3() {
@@ -88,14 +93,18 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         client_.getScenePanel().getTeamPan().getListe().events();
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(3, tr_.size());
+        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(2, tr2_.size());
+        assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
     }
     @Test
     public void intro4() {
@@ -125,14 +134,18 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         readyClient(server_, client_, socketClient_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(3, tr_.size());
+        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(2, tr2_.size());
+        assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
     }
     @Test
     public void intro5() {
@@ -158,15 +171,19 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         applyTrade(server_, socketServ_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(3, tr_.size());
+        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(3, tr2_.size());
+        assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
     }
     @Test
     public void intro6() {
@@ -197,12 +214,16 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         loopClient(server_.getSockets(),client_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(2, tr_.size());
+        assertEq(4, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, tr2_.size());
+        assertEq(3, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
         tryClick(server_.getAiki().getGameSave());
         tryClick(client_.getAiki().getGameSave());
 
@@ -527,6 +548,15 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         db_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
         db_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         db_.getTranslatedGenders().addEntry(LANGUAGE,new IdMap<Gender, String>());
+        IdMap<Statistic, String> id_ = new IdMap<Statistic, String>();
+        id_.addEntry(Statistic.SPEED,"");
+        id_.addEntry(Statistic.ATTACK,"");
+        id_.addEntry(Statistic.DEFENSE,"");
+        id_.addEntry(Statistic.SPECIAL_ATTACK,"");
+        id_.addEntry(Statistic.SPECIAL_DEFENSE,"");
+        id_.addEntry(Statistic.HP,"");
+        db_.getTranslatedStatistics().addEntry(LANGUAGE, id_);
+        db_.getExpGrowth().addEntry(ExpType.P, "1");
         trsTypes_.put(ELECTRICK,"elec");
         db_ = withPk(withPk(db_,"P1",trsPk_),"P2",trsPk_);
         db_ = withMv(withMv(db_,"M1",trsMv_),"M2",trsMv_);
@@ -550,6 +580,15 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         db_.getTranslatedTypes().addEntry(LANGUAGE, trsTypes_);
         db_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
         db_.getTranslatedGenders().addEntry(LANGUAGE,new IdMap<Gender, String>());
+        IdMap<Statistic, String> id_ = new IdMap<Statistic, String>();
+        id_.addEntry(Statistic.SPEED,"");
+        id_.addEntry(Statistic.ATTACK,"");
+        id_.addEntry(Statistic.DEFENSE,"");
+        id_.addEntry(Statistic.SPECIAL_ATTACK,"");
+        id_.addEntry(Statistic.SPECIAL_DEFENSE,"");
+        id_.addEntry(Statistic.HP,"");
+        db_.getTranslatedStatistics().addEntry(LANGUAGE, id_);
+        db_.getExpGrowth().addEntry(ExpType.P, "1");
         trsTypes_.put(ELECTRICK,"elec");
         db_ = withPk(withPk(db_,"P1",trsPk_),"P2",trsPk_);
         db_ = withMv(withMv(db_,"M1",trsMv_),"M2",trsMv_);
@@ -579,6 +618,7 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         pk_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK, new StatBaseEv(1,1));
         pk_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE, new StatBaseEv(1,1));
         pk_.getStatistics().addEntry(Statistic.HP, new StatBaseEv(1,1));
+        pk_.getStatistics().addEntry(Statistic.SPEED, new StatBaseEv(1,1));
         _data.completeQuickMembers(_key, pk_);
         _data.getMiniPk().addEntry(_key,instance(new int[][]{new int[1]}));
         _data.getMaxiPkBack().addEntry(_key,instance(new int[][]{new int[1]}));

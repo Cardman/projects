@@ -2684,7 +2684,7 @@ public final class DocumentWriterAikiCoreUtil {
     private static void setHostPokemonDuo(HostPokemonDuo _object, Element _element, Document _document) {
         _element.appendChild(setPokemonPlayer(_object.getFirstPokemon(),FIELD_FIRST_POKEMON,_document));
         _element.appendChild(setPokemonPlayer(_object.getSecondPokemon(),FIELD_SECOND_POKEMON,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbSteps(),FIELD_NB_STEPS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getNbSteps(),FIELD_NB_STEPS,_document));
     }
 
     private static Element setNbFightCoords(NbFightCoords _object, String _fieldName, Document _document) {

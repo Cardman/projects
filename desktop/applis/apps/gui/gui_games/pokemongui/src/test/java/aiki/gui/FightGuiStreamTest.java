@@ -964,9 +964,9 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getDataWeb().getActionListeners().get(0).action();
         new LoadGame(window_,new ConcreteInteger()).run();
         new OpeningGame(window_,new ConcreteInteger()).run();
-        window_.getCore().getAikiFactory().submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),new NatNavigation())));
-        window_.setPreparedPkNetTask(window_.getPreparedPkNetTask());
-        window_.setPreparedPkNetTask(window_.getCore().getAikiFactory().getTaskNavPkNetTask());
+//        window_.getCore().getAikiFactory().submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),new NatNavigation())));
+//        window_.setPreparedPkNetTask(window_.getPreparedPkNetTask());
+//        window_.setPreparedPkNetTask(window_.getCore().getAikiFactory().getTaskNavPkNetTask());
         window_.setTileRender(new DefTileRender());
     }
     @Test

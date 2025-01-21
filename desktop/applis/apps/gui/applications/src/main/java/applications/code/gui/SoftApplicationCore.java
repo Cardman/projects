@@ -69,8 +69,8 @@ public abstract class SoftApplicationCore {
         _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
         _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesInit.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs),null));
         StringMap<TranslationsAppli> stds_ = _msg.byAppl(MessagesInit.APP_BEAN);
-        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
-        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
+//        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
+//        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
         _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(new DiffGameInit(), PagesInit.buildDiff(), stds_, builtOther_, new PkDiff(), _lgs),null));
         _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(new ProgGameInit(), PagesInit.buildProg(), stds_, builtOther_, new PkProg(), _lgs),null));
     }

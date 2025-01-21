@@ -1,23 +1,22 @@
 package code.formathtml.render;
 
-import code.util.CustList;
-import code.util.IdMap;
+import code.util.*;
 
 public final class FindNextElement {
 
     private final StringBuilder line = new StringBuilder();
-    private final CustList<MetaSearchableLabel> labels = new CustList<MetaSearchableLabel>();
+    private final CustList<MetaSearchableContent> labels = new CustList<MetaSearchableContent>();
+    private final IdList<MetaSearchableContent> allTxtParts;
     private int index;
-    private MetaSearchableLabel label;
-    private final MetaDocument document;
+    private MetaSearchableContent label;
     private boolean setup;
     private int row;
     private int group;
-    private IntComponent cur;
-    private final IdMap<MetaSearchableLabel, CustList<SegmentPart>> segments = new IdMap<MetaSearchableLabel, CustList<SegmentPart>>();
+    private MetaSearchableContent cur;
+    private final IdMap<MetaSearchableContent, CustList<SegmentPart>> segments = new IdMap<MetaSearchableContent, CustList<SegmentPart>>();
 
-    public FindNextElement(MetaDocument _document) {
-        document = _document;
+    public FindNextElement(IdList<MetaSearchableContent> _parts) {
+        allTxtParts = _parts;
     }
     /**
     public void next(String _text) {
@@ -61,38 +60,33 @@ public final class FindNextElement {
         }
     }*/
     public void next(String _text) {
-        row = 0;
-        group = 0;
-        cur = document.getRoot();
+        cur = first();
         if (label != null) {
-            row = label.getRowGroup();
-            group = label.getPartGroup();
             setResults(label, _text);
             if (setup) {
                 return;
             }
-            IntComponent next_ = getNextElement(label);
+            MetaSearchableContent next_ = next(label);
             if (exit(next_)) {
                 return;
             }
         }
         while (true) {
-            if (cur instanceof MetaSearchableLabel) {
-                MetaSearchableLabel l_ = (MetaSearchableLabel) cur;
-                labels.add(l_);
-                line.append(l_.getText());
-                setResults(l_, _text);
+            if (cur.getText() != null) {
+                labels.add(cur);
+                line.append(cur.getText());
+                setResults(cur, _text);
                 if (setup) {
                     return;
                 }
             }
-            IntComponent next_ = getNextElement(cur);
+            MetaSearchableContent next_ = next(cur);
             if (exit(next_)) {
                 return;
             }
         }
     }
-    private boolean exit(IntComponent _next) {
+    private boolean exit(MetaSearchableContent _next) {
         if (_next == null) {
             label = null;
             reset();
@@ -103,24 +97,24 @@ public final class FindNextElement {
         }
         return false;
     }
-    private boolean fetchedGroupRow(IntComponent _meta) {
-        if (_meta instanceof MetaSearchableLabel) {
-            MetaSearchableLabel l_ = (MetaSearchableLabel) _meta;
-            if (l_.getPartGroup() != group) {
-                group = l_.getPartGroup();
-                row = l_.getRowGroup();
-                reset();
-                return true;
-            }
-            if (l_.getRowGroup() != row) {
-                row = l_.getRowGroup();
-                reset();
-                return true;
-            }
+    private boolean fetchedGroupRow(MetaSearchableContent _meta) {
+        if (_meta.getText() == null) {
+            return false;
+        }
+        if (_meta.getPartGroup() != group) {
+            group = _meta.getPartGroup();
+            row = _meta.getRowGroup();
+            reset();
+            return true;
+        }
+        if (_meta.getRowGroup() != row) {
+            row = _meta.getRowGroup();
+            reset();
+            return true;
         }
         return false;
     }
-    private void setResults(MetaSearchableLabel _label, String _text) {
+    private void setResults(MetaSearchableContent _label, String _text) {
         int index_ = line.indexOf(_text, index);
         setup = false;
         if (index_ > -1) {
@@ -129,7 +123,7 @@ public final class FindNextElement {
             int relIndexEnd_ = 0;
             int len_ = labels.size();
             int lastIndex_ = 0;
-            for (MetaSearchableLabel l: labels) {
+            for (MetaSearchableContent l: labels) {
                 relIndexEnd_+= l.getText().length();
             }
             for (int i = 0; i < len_; i++) {
@@ -150,7 +144,7 @@ public final class FindNextElement {
             label = _label;
             int lenMinusOne_ = len_ - 1;
             if (beginLabel_ + 1 <= lenMinusOne_) {
-                MetaSearchableLabel l_ = labels.get(beginLabel_);
+                MetaSearchableContent l_ = labels.get(beginLabel_);
                 addSegment(l_, new SegmentPart(offset_, l_.getText().length()));
                 for (int i = beginLabel_ + 1; i < lenMinusOne_; i++) {
                     l_ = labels.get(i);
@@ -162,7 +156,7 @@ public final class FindNextElement {
             }
         }
     }
-    private void addSegment(MetaSearchableLabel _label, SegmentPart _seg) {
+    private void addSegment(MetaSearchableContent _label, SegmentPart _seg) {
         CustList<SegmentPart> segs_ = segments.getVal(_label);
         if (segs_ == null) {
             segs_ = new CustList<SegmentPart>(_seg);
@@ -177,33 +171,23 @@ public final class FindNextElement {
         segments.clear();
         index = 0;
     }
-    private IntComponent getNextElement(IntComponent _current) {
-        if (_current instanceof MetaContainer) {
-            MetaContainer cont_ = (MetaContainer) _current;
-            IntComponent ch_ = cont_.getFirstChildCompo();
-            if (ch_ != null) {
-                return ch_;
-            }
-        }
-        IntComponent current_ = _current;
-        while (true) {
-            IntComponent next_ = current_.getNextSibling();
-            if (next_ != null) {
-                return next_;
-            }
-            IntComponent par_ = current_.getParentCompo();
-            if (par_ == document.getRoot()) {
-                return null;
-            }
-            current_ = par_;
-        }
+
+    private MetaSearchableContent first() {
+        return allTxtParts.first();
     }
 
-    public IdMap<MetaSearchableLabel, CustList<SegmentPart>> getSegments() {
+    private MetaSearchableContent next(MetaSearchableContent _c) {
+        int ind_ = allTxtParts.indexOfObj(_c)+1;
+        if (!allTxtParts.isValidIndex(ind_)) {
+            return null;
+        }
+        return allTxtParts.get(ind_);
+    }
+    public IdMap<MetaSearchableContent, CustList<SegmentPart>> getSegments() {
         return segments;
     }
 
-    public MetaSearchableLabel getLabel() {
+    public MetaSearchableContent getLabel() {
         return label;
     }
 

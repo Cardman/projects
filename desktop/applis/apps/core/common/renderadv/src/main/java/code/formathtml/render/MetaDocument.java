@@ -50,6 +50,7 @@ public final class MetaDocument {
     private int delta;
     private final int tabWidth;
     private final IndexButtons indexesButtons = new IndexButtons();
+    private final IdList<MetaSearchableContent> txtParts = new IdList<MetaSearchableContent>();
 
     private MetaDocument(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter) {
         tabWidth = _document.getTabWidth();
@@ -63,6 +64,7 @@ public final class MetaDocument {
         tables = new CustList<MetaTable>();
         partGroup = 0;
         rowGroup = 0;
+        txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
 //        lis = new Ints();
 //        ordered = new CustList<BoolVal>();
         ElementList bodies_ = _document.getElementsByTagName(_rend.getKeyWordsTags().getKeyWordBody());
@@ -115,12 +117,14 @@ public final class MetaDocument {
             skipChildrenBuild = true;
             newLine_ = true;
             rowGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
         }
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordHr())) {
             skipChildrenBuild = true;
             newLine_ = true;
             rowGroup = 0;
             partGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
         }
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordStyle())) {
             //put all style tags
@@ -149,6 +153,7 @@ public final class MetaDocument {
             skipChildrenBuild = true;
             rowGroup = 0;
             partGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
         }
         form(_rend, _curr, styleLoc_, elt_, curPar_);
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordPar())) {
@@ -216,6 +221,7 @@ public final class MetaDocument {
             skipChildrenBuild = true;
             rowGroup = 0;
             partGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
             select(_rend, _styleLoc, _elt);
         }
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordInput())) {
@@ -227,6 +233,7 @@ public final class MetaDocument {
             long idForm_ = getParentFormNb();
             rowGroup = 0;
             partGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
             int rows_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrRows()),32);
             int cols_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrCols()),32);
             MetaInput input_ = new MetaTextArea(currentParent, NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrNi())), cols_, rows_, _elt.getTextContent(),idForm_);
@@ -272,6 +279,7 @@ public final class MetaDocument {
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordCaption())&&!tables.isEmpty()) {
             rowGroup = 0;
             partGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
             MetaTable table_ = tables.last();
             MetaContainer line_ = new MetaCaption(table_);
             line_.setStyle(_styleLoc);
@@ -283,6 +291,7 @@ public final class MetaDocument {
         if ((StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordTd()) || StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordTh()))&&!tables.isEmpty()) {
             rowGroup = 0;
             partGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
             MetaTable table_ = tables.last();
             MetaContainer bl_ = new MetaCell(table_);
             bl_.setStyle(_styleLoc);
@@ -330,6 +339,7 @@ public final class MetaDocument {
         String typeLiLast_ = info_.getTypeLi();
         rowGroup = 0;
         partGroup++;
+        txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
         MetaOrderedList list_ = info_.getContainer();
         MetaListItem bl_ = new MetaListItem(list_);
         MetaContainer line_ = new MetaLine(bl_);
@@ -449,6 +459,7 @@ public final class MetaDocument {
         }
         rowGroup = 0;
         partGroup++;
+        txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
     }
 
     private void select(RendKeyWordsGroup _rend, MetaStyle _styleLoc, Element _elt) {
@@ -670,6 +681,7 @@ public final class MetaDocument {
             linePre(_rend, _style, _real, nbLines_, i, strings_.get(i));
         }
         rowGroup--;
+        txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
     }
 
     private void linePre(RendKeyWordsGroup _rend, MetaStyle _style, String _real, int _nbLines, int _indLine, String _l) {
@@ -686,6 +698,7 @@ public final class MetaDocument {
         String text_ = line_.toString();
         label(_rend, _style, text_);
         rowGroup++;
+        txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
         if (_indLine + 1 < _nbLines) {
             MetaEndLine end_ = new MetaEndLine(currentParent);
             end_.setStyle(_style);
@@ -710,6 +723,7 @@ public final class MetaDocument {
         }
         label_.setStyle(_style);
         currentParent.appendChild(label_);
+        txtParts.add(label_.getContent());
     }
 
     private void adj(String _txt, StringBuilder _adjustedText) {
@@ -1128,6 +1142,7 @@ public final class MetaDocument {
         if (StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordTable())||StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordUl()) || StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordOl()) || StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordPar())||StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordMap()) || StringUtil.quickEq(_last, _rend.getKeyWordsTags().getKeyWordDiv())) {
             rowGroup = 0;
             partGroup++;
+            txtParts.add(new MetaSearchableContent(null,partGroup,rowGroup));
         }
         indentNb(line_);
     }
@@ -1159,5 +1174,9 @@ public final class MetaDocument {
     }
     public CustList<IntForm> getForms() {
         return forms;
+    }
+
+    public IdList<MetaSearchableContent> getTxtParts() {
+        return txtParts;
     }
 }

@@ -896,7 +896,7 @@ public final class Game {
                 continue;
             }
             HostPokemonDuo valeur_=hostedPk.getVal(c);
-            int nbSteps_ = valeur_.getNbSteps();
+            long nbSteps_ = valeur_.getNbSteps();
             if (nbSteps_<_d.getNbMaxSteps()) {
                 valeur_.setNbSteps(nbSteps_+1);
             }

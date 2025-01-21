@@ -4407,7 +4407,7 @@ public final class DocumentReaderAikiCoreUtil {
             _object.setSecondPokemon(getPokemonPlayer(_element));
             return;
         }
-        _object.setNbSteps(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setNbSteps(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static NbFightCoords getNbFightCoords(Element _elt) {

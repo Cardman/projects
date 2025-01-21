@@ -20,8 +20,6 @@ public final class AikiFactory {
     private final EnabledMenu generalHelp;
     private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavData;
     private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavFight;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavPkTask;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavPkNetTask;
     private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavDiff;
     private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavProg;
     private final AbstractBaseExecutorServiceParam<DataBase> geneDb;
@@ -66,18 +64,6 @@ public final class AikiFactory {
         n_.shutdown();
     }
 
-    public void submitNavPkTask(IntCallable<AikiNatLgNamesNavigation> _n) {
-        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
-        taskNavPkTask = n_.submitWrCallable(_n);
-        n_.shutdown();
-    }
-
-    public void submitNavPkNetTask(IntCallable<AikiNatLgNamesNavigation> _n) {
-        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
-        taskNavPkNetTask = n_.submitWrCallable(_n);
-        n_.shutdown();
-    }
-
     public void submitNavDiffTask(IntCallable<AikiNatLgNamesNavigation> _n) {
         AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
         taskNavDiff = n_.submitWrCallable(_n);
@@ -96,14 +82,6 @@ public final class AikiFactory {
 
     public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavFight() {
         return taskNavFight;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavPkTask() {
-        return taskNavPkTask;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavPkNetTask() {
-        return taskNavPkNetTask;
     }
 
     public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavDiff() {

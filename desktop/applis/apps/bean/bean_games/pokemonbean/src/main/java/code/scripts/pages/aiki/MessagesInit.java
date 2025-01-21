@@ -5,20 +5,22 @@ public final class MessagesInit{
 public static final String APP_BEAN_DATA = "pk_bean_data";
 public static final String APP_BEAN_FIGHT = "pk_bean_fight";
 public static final String APP_BEAN = "pk_bean";
-private static final String DIFFICULTY = "difficulty";
+public static final String DIFFICULTY = "difficulty";
+public static final String POKEMON = "pokemon";
+public static final String GAMEPROG = "gameprog";
 private MessagesInit(){}
 public static TranslationsAppli en(){
 TranslationsAppli m = new TranslationsAppli();
 m.getMapping().addEntry(DIFFICULTY,AnaRendBlockHelp.file(MesGameDifficulty.en()));
-m.getMapping().addEntry("pokemon",AnaRendBlockHelp.file(MesPkPokemon.en()));
-m.getMapping().addEntry("gameprog",AnaRendBlockHelp.file(MesProgGameprog.en()));
+m.getMapping().addEntry(POKEMON,AnaRendBlockHelp.file(MesPkPokemon.en()));
+m.getMapping().addEntry(GAMEPROG,AnaRendBlockHelp.file(MesProgGameprog.en()));
 return m;
 }
 public static TranslationsAppli fr(){
 TranslationsAppli m = new TranslationsAppli();
 m.getMapping().addEntry(DIFFICULTY,AnaRendBlockHelp.file(MesGameDifficulty.fr()));
-m.getMapping().addEntry("pokemon",AnaRendBlockHelp.file(MesPkPokemon.fr()));
-m.getMapping().addEntry("gameprog",AnaRendBlockHelp.file(MesProgGameprog.fr()));
+m.getMapping().addEntry(POKEMON,AnaRendBlockHelp.file(MesPkPokemon.fr()));
+m.getMapping().addEntry(GAMEPROG,AnaRendBlockHelp.file(MesProgGameprog.fr()));
 return m;
 }
 public static TranslationsAppli enFight(){

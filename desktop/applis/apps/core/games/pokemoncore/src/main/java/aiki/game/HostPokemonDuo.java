@@ -10,7 +10,7 @@ public final class HostPokemonDuo {
 
     private PokemonPlayer secondPokemon;
 
-    private int nbSteps;
+    private long nbSteps;
 
     public boolean validate(DataBase _data) {
         if (isFree()) {
@@ -48,11 +48,11 @@ public final class HostPokemonDuo {
         secondPokemon = _secondPokemon;
     }
 
-    public int getNbSteps() {
+    public long getNbSteps() {
         return nbSteps;
     }
 
-    public void setNbSteps(int _nbSteps) {
+    public void setNbSteps(long _nbSteps) {
         nbSteps = _nbSteps;
     }
 

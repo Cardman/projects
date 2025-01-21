@@ -35,7 +35,6 @@ public final class LaunchNetwork implements Runnable {
         WindowNetWork window_ = window;
         window_.setPrepare(cardFactories.getTaskNav());
 //        window_.setButtonClick(button);
-        window_.setPreparedPkNetTask(aikiFactory.getTaskNavPkNetTask());
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         window_.pack();
         window_.setVisible(true);
