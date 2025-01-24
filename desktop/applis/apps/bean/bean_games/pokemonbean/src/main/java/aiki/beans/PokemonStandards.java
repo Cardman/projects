@@ -4,6 +4,7 @@ import aiki.beans.facade.dto.*;
 import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
+import aiki.beans.fight.FighterAgainstFoes;
 import aiki.beans.game.*;
 import aiki.comparators.*;
 import aiki.facade.*;
@@ -656,11 +657,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getByteBytes(AbsMap<Integer, Ints> _map) {
+    public static NatArrayStruct getByteBytes(AbsMap<Integer, FighterAgainstFoes> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<Integer, Ints> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),getIntArray(e.getValue()));
+        for (EntryCust<Integer, FighterAgainstFoes> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),getIntArray(e.getValue().getFoes().getKeys()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -1071,10 +1072,20 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getIntArray(Ints _ls) {
+    public static NatArrayStruct getIntArray(CustList<Integer> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (Integer s:_ls) {
+            arr_.set(j_,new NaNbSt(s));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getIntArray(IntMap<String> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+        int j_ = 0;
+        for (Integer s:_ls.getKeys()) {
             arr_.set(j_,new NaNbSt(s));
             j_++;
         }

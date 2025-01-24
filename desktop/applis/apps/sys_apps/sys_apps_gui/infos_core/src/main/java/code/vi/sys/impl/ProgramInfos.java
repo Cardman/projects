@@ -162,7 +162,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
 
     private static TranslationsAppli complete(TranslationsAppli _a, TranslationsFile _f) {
-        _a.getMapping().addEntry(MessagesInit.POKEMON,_f);
+        _a.getMapping().addEntry(MessagesPkPokemon.POKEMON,_f);
         return _a;
     }
 

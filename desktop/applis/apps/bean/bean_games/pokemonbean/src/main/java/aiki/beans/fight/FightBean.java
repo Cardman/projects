@@ -1,19 +1,16 @@
 package aiki.beans.fight;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
-import code.util.core.BoolVal;
 
 public class FightBean extends CommonFightBean {
     private int mult;
-    private NatStringTreeMap<ActivityOfMove> enabledMoves;
-    private NatStringTreeMap<BoolVal> stillEnabledMoves;
+    private NatStringTreeMap<ActivityOfMoveStill> enabledMoves;
     private int nbFleeAttempt;
     private LgInt nbRounds;
     private Rate winningMoney;
@@ -29,22 +26,15 @@ public class FightBean extends CommonFightBean {
         nbRounds = fight_.getNbRounds();
         nbFleeAttempt = fight_.getNbFleeAttempt();
         winningMoney = fight_.getWinningMoney();
-        NatStringTreeMap<ActivityOfMove> enabledMoves_;
-        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
+        NatStringTreeMap<ActivityOfMoveStill> enabledMoves_;
+        enabledMoves_ = new NatStringTreeMap<ActivityOfMoveStill>();
         for (String m: fight_.getEnabledMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), fight_.getEnabledMoves().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(fight_.getEnabledMoves().getVal(m),fight_.getStillEnabledMoves().contains(m)));
         }
         enabledMoves = enabledMoves_;
-        NatStringTreeMap<BoolVal> stillEnabledMoves_;
-        stillEnabledMoves_ = new NatStringTreeMap<BoolVal>();
-        for (String m: fight_.getStillEnabledMoves().getKeys()) {
-            stillEnabledMoves_.put(translationsMoves_.getVal(m), fight_.getStillEnabledMoves().getVal(m));
-        }
-        stillEnabledMoves = stillEnabledMoves_;
     }
     public boolean isStillEnabled(int _index) {
-        String key_ = enabledMoves.getKey(_index);
-        return stillEnabledMoves.contains(key_);
+        return enabledMoves.getValue(_index).isStill();
     }
     public String clickPlayer() {
         getForms().put(NO_TEAM, Fight.CST_PLAYER);
@@ -71,7 +61,7 @@ public class FightBean extends CommonFightBean {
         return winningMoney;
     }
 
-    public NatStringTreeMap<ActivityOfMove> getEnabledMoves() {
+    public NatStringTreeMap<ActivityOfMoveStill> getEnabledMoves() {
         return enabledMoves;
     }
 }

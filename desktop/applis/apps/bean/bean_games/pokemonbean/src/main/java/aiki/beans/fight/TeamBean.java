@@ -13,13 +13,14 @@ import code.util.core.StringUtil;
 
 public class TeamBean extends CommonFightBean {
     private DictionaryComparator<StringList,ActivityOfMove> enabledMovesByGroup;
-    private NatStringTreeMap<ActivityOfMove> enabledMoves;
+    private NatStringTreeMap<ActivityOfMoveStill> enabledMoves;
     private NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses;
     private NatStringTreeMap<Long> nbUsesMoves;
     private NatStringTreeMap<IntTreeMap<StacksOfUses>> healAfter;
     private NatStringTreeMap<IntTreeMap<Anticipation>> movesAnticipation;
-    private IntTreeMap<Ints > playerFightersAgainstFoe;
+    private IntTreeMap<FighterAgainstFoes > playerFightersAgainstFoe;
     private boolean foeTeam;
+    private IntMap<String> members;
 
     @Override
     public void beforeDisplaying() {
@@ -28,12 +29,13 @@ public class TeamBean extends CommonFightBean {
         int noTeam_ = getForms().getValInt(NO_TEAM);
         foeTeam = noTeam_ == Fight.CST_FOE;
         Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
+        members = initMembers();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        NatStringTreeMap<ActivityOfMove> enabledMoves_;
-        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
+        NatStringTreeMap<ActivityOfMoveStill> enabledMoves_;
+        enabledMoves_ = new NatStringTreeMap<ActivityOfMoveStill>();
         for (String m: team_.getEnabledMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), team_.getEnabledMoves().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(team_.getEnabledMoves().getVal(m)));
         }
         enabledMoves = enabledMoves_;
         NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses_;
@@ -113,32 +115,41 @@ public class TeamBean extends CommonFightBean {
             movesAnticipation_.put(translationsMoves_.getVal(m), a_);
         }
         movesAnticipation = movesAnticipation_;
-        playerFightersAgainstFoe = new IntTreeMap<Ints >();
-        for (int p: team_.getPlayerFightersAgainstFoeSet()) {
+        playerFightersAgainstFoe = new IntTreeMap<FighterAgainstFoes >();
+        CustList<Integer> mem_ = team_.getPlayerFightersAgainstFoeSet();
+        int len_ = mem_.size();
+        for (int i = 0; i < len_; i++) {
             Ints numbers_ = new Ints();
-            numbers_.addAllElts(team_.getPlayerFightersAgainstFoeVal(p));
+            numbers_.addAllElts(team_.getPlayerFightersAgainstFoeVal(mem_.get(i)));
             numbers_.sort();
-            playerFightersAgainstFoe.put(p, numbers_);
+            playerFightersAgainstFoe.put(mem_.get(i), new FighterAgainstFoes(name(i, mem_.get(i), data_, team_),initMembers(data_,dataBaseFight_.getGame().getFight().getFoeTeam(),numbers_)));
         }
     }
-    public Ints getMembers() {
+    private IntMap<String> initMembers() {
         FacadeGame dataBaseFight_ = facade();
         int noTeam_ = getForms().getValInt(NO_TEAM);
-        return getMembers(dataBaseFight_, noTeam_);
+        DataBase data_ = dataBaseFight_.getData();
+        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
+        Ints mem_ = getMembers(dataBaseFight_, noTeam_);
+        return initMembers(data_, team_, mem_);
+    }
+
+    private IntMap<String> initMembers(DataBase _data, Team _team, Ints _mem) {
+        IntMap<String> members_ = new IntMap<String>();
+        int len_ = _mem.size();
+        for (int i = 0; i < len_; i++) {
+            members_.addEntry(_mem.get(i),name(i, _mem.get(i), _data, _team));
+        }
+        return members_;
+    }
+
+    public IntMap<String> getMembers() {
+        return members;
     }
     public String getTrPokemonLink(int _index) {
-        int index_ = getMembers().get(_index);
-        FacadeGame dataBaseFight_ = facade();
-        DataBase data_ = dataBaseFight_.getData();
-        int noTeam_ = getForms().getValInt(NO_TEAM);
-        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
-        Fighter fighter_ = team_.getMembers().getVal(index_);
-        int nb_ = number(team_, index_, _index, getMembers());
-        if (nb_ == IndexConstants.FIRST_INDEX) {
-            return data_.translatePokemon(fighter_.getName());
-        }
-        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return getMembers().getValue(_index);
     }
+
     public String clickFighter(int _index) {
         getForms().put(NO_FIGHTER, _index);
         return PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML;
@@ -156,43 +167,26 @@ public class TeamBean extends CommonFightBean {
         return !movesAnticipation.getValue(_indexOne).getValue(_indexTwo).isEnabled();
     }
     public String getPlayerFigtherAgainstFoe(int _index) {
-        int key_ = playerFightersAgainstFoe.getKey(_index);
-        return getDisplayName(key_, _index);
+        return playerFightersAgainstFoe.getValue(_index).getName();
     }
     public String getFoeFigtherAgainstFoe(int _indexOne, int _indexTwo) {
-        int key_ = playerFightersAgainstFoe.getValue(_indexOne).get(_indexTwo);
-        return getDisplayFoeName(key_, _indexTwo);
+        return playerFightersAgainstFoe.getValue(_indexOne).getFoes().getValue(_indexTwo);
     }
 
-    private String getDisplayName(int _indexOne, int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        DataBase data_ = dataBaseFight_.getData();
-        Team team_ = dataBaseFight_.getGame().getFight().getUserTeam();
-        Fighter fighter_ = team_.getMembers().getVal(_indexOne);
-        int nb_ = number(team_, _indexOne,_index, getMembers());
+    private String name(int _index, int _second, DataBase _data, Team _team) {
+        IntMap<Fighter> members_ = _team.getMembers();
+        Fighter fighter_ = members_.getVal(_second);
+        int nb_ = number(_team, _second, _index, members_.getKeys());
         if (nb_ == IndexConstants.FIRST_INDEX) {
-            return data_.translatePokemon(fighter_.getName());
+            return _data.translatePokemon(fighter_.getName());
         }
-        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return StringUtil.concat(_data.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
-
-    private String getDisplayFoeName(int _indexOne, int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        DataBase data_ = dataBaseFight_.getData();
-        Team team_ = dataBaseFight_.getGame().getFight().getFoeTeam();
-        Fighter fighter_ = team_.getMembers().getVal(_indexOne);
-        int nb_ = number(team_, _indexOne, _index, getMembers());
-        if (nb_ == IndexConstants.FIRST_INDEX) {
-            return data_.translatePokemon(fighter_.getName());
-        }
-        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
-    }
-
     public boolean getFoeTeam() {
         return foeTeam;
     }
 
-    public NatStringTreeMap<ActivityOfMove> getEnabledMoves() {
+    public NatStringTreeMap<ActivityOfMoveStill> getEnabledMoves() {
         return enabledMoves;
     }
 
@@ -216,7 +210,7 @@ public class TeamBean extends CommonFightBean {
         return movesAnticipation;
     }
 
-    public IntTreeMap<Ints> getPlayerFightersAgainstFoe() {
+    public IntTreeMap<FighterAgainstFoes> getPlayerFightersAgainstFoe() {
         return playerFightersAgainstFoe;
     }
 }

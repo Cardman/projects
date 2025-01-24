@@ -6,6 +6,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
+import code.util.CustList;
 import code.util.Ints;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -49,7 +50,7 @@ public abstract class CommonFightBean extends CommonBean {
         return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
-    protected static int number(Team _team, int _indexOne, int _index, Ints _members) {
+    protected static int number(Team _team, int _indexOne, int _index, CustList<Integer> _members) {
         Fighter fighter_ = _team.getMembers().getVal(_indexOne);
         int i_ = IndexConstants.FIRST_INDEX;
         int nb_ = IndexConstants.FIRST_INDEX;

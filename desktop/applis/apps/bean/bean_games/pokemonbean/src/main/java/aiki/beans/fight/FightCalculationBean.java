@@ -14,12 +14,12 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 
 public class FightCalculationBean extends CommonFightBean {
-    private DictionaryComparator<MoveTarget, MoveTarget> allyChoice;
-    private IntTreeMap<MoveTarget> foeChoices;
+    private DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> allyChoice;
+    private DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> foeChoices;
 
     private IntTreeMap<BoolVal> foeChoicesTargets;
     private CustList<KeyHypothesis> damage;
-    private TeamPositionList sortedFighters;
+    private ImgMovesListTeamPositionsList sortedFighters;
     private CustList<ImgMovesListTeamPositionsList> sortedFightersWildFight;
 
     @Override
@@ -27,9 +27,14 @@ public class FightCalculationBean extends CommonFightBean {
         FacadeGame dataBaseFight_ = facade();
         damageInit(dataBaseFight_);
         if (!dataBaseFight_.getGame().getFight().getFightType().isWild()) {
-            sortedFighters = dataBaseFight_.sortedFightersBeginRound();
+            sortedFighters = new ImgMovesListTeamPositionsList(new CustList<FighterImgPkNameMv>(),dataBaseFight_.sortedFightersBeginRound());
         } else {
-            sortedFighters = new TeamPositionList();
+            sortedFighters = new ImgMovesListTeamPositionsList(new CustList<FighterImgPkNameMv>(),new TeamPositionList());
+        }
+        for (TeamPosition t:sortedFighters.getTeamPositions()) {
+            FighterImgPkNameMv e_ = new FighterImgPkNameMv();
+            e_.setNameMvTr(getFighterAtPosition(dataBaseFight_, t));
+            sortedFighters.getKeyPks().add(e_);
         }
         if (dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFightersWildFight = convert();
@@ -40,24 +45,15 @@ public class FightCalculationBean extends CommonFightBean {
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Fight fight_ = dataBaseFight_.getGame().getFight();
-        DictionaryComparator<MoveTarget, MoveTarget> allyChoice_;
-        allyChoice_ = DictionaryComparatorUtil.buildMoveTarget();
+        DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> allyChoice_ = DictionaryComparatorUtil.buildMoveTarget();
         for (EntryCust<MoveTarget, MoveTarget> m: fight_.getAllyChoice().entryList()) {
-            String move_ = m.getKey().getMove();
-            if (!move_.isEmpty()) {
-                move_ = translationsMoves_.getVal(move_);
-            }
-            MoveTarget key_ = new MoveTarget(move_, m.getKey().getTarget());
-            move_ = m.getValue().getMove();
-            if (!move_.isEmpty()) {
-                move_ = translationsMoves_.getVal(move_);
-            }
-            MoveTarget value_ = new MoveTarget(move_, m.getValue().getTarget());
-            allyChoice_.put(key_, value_);
+            MoveTarget key_ = build(translationsMoves_, m.getKey());
+            MoveTarget value_ = build(translationsMoves_, m.getValue());
+            allyChoice_.put(new TrPkMoveTarget(key_,trPk(key_)), new TrPkMoveTarget(value_,trPk(value_)));
         }
         allyChoice = allyChoice_;
-        IntTreeMap<MoveTarget> foeChoices_;
-        foeChoices_ = new IntTreeMap<MoveTarget>();
+        DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> foeChoices_;
+        foeChoices_ = DictionaryComparatorUtil.buildMoveTarget();
         IntTreeMap<BoolVal> foeChoicesTargets_;
         foeChoicesTargets_ = new IntTreeMap<BoolVal>();
         for (int k: fight_.getFoeTeam().getMembers().getKeys()) {
@@ -72,11 +68,38 @@ public class FightCalculationBean extends CommonFightBean {
             } else {
                 value_ = new MoveTarget(translationsMoves_.getVal(move_),TargetCoords.def());
             }
-            foeChoices_.put(k, value_);
+            MoveTarget key_ = new MoveTarget(DataBase.EMPTY_STRING, TargetCoords.toFoeTarget(k));
+            foeChoices_.put(new TrPkMoveTarget(key_,trPk(key_),k), new TrPkMoveTarget(value_,trPk(value_)));
             foeChoicesTargets_.put(k, ComparatorBoolean.of(!f_.getChosenTargets().isEmpty()));
         }
         foeChoices = foeChoices_;
         foeChoicesTargets = foeChoicesTargets_;
+    }
+
+    private MoveTarget build(StringMap<String> _tr, MoveTarget _mt) {
+        String move_ = tr(_tr, _mt);
+        return new MoveTarget(move_, _mt.getTarget());
+    }
+
+    private String tr(StringMap<String> _tr, MoveTarget _mt) {
+        String move_ = _mt.getMove();
+        if (!move_.isEmpty()) {
+            move_ = _tr.getVal(move_);
+        }
+        return move_;
+    }
+
+    private String trPk(MoveTarget _e) {
+        FacadeGame dataBaseFight_ = facade();
+        Fight fight_ = dataBaseFight_.getGame().getFight();
+        String tr_;
+        if (_e.getTarget().getPosition() != Fighter.BACK) {
+            Fighter fighter_ = fight_.getFighter(fight_.getFighterKey(_e.getTarget()));
+            tr_ = dataBaseFight_.translatePokemon(fighter_.getName());
+        } else {
+            tr_ = DataBase.EMPTY_STRING;
+        }
+        return tr_;
     }
 
     private CustList<ImgMovesListTeamPositionsList> convert() {
@@ -93,7 +116,11 @@ public class FightCalculationBean extends CommonFightBean {
 //                cp_.setNumber(k.getNumber());
                 keys_.add(cp_);
             }
-            t_.add(new ImgMovesListTeamPositionsList(keys_,e.getTeamPositions()));
+            ImgMovesListTeamPositionsList elt_ = new ImgMovesListTeamPositionsList(keys_, e.getTeamPositions());
+            for (TeamPosition t:elt_.getTeamPositions()) {
+                elt_.getNamesPk().add(getFighterAtPosition(dataBaseFight_, t));
+            }
+            t_.add(elt_);
         }
         return t_;
     }
@@ -138,67 +165,43 @@ public class FightCalculationBean extends CommonFightBean {
     }
 
     public String getFighterWildFight(int _indexOne, int _indexTwo) {
-        TeamPosition f_ = sortedFightersWildFight.get(_indexOne).getTeamPositions().get(_indexTwo);
-        FacadeGame dataBaseFight_ = facade();
-        return getFighterAtPosition(dataBaseFight_, f_);
+        return sortedFightersWildFight.get(_indexOne).getNamesPk().get(_indexTwo);
     }
     public String getFighter(int _index) {
-        TeamPosition f_ = sortedFighters.get(_index);
-        FacadeGame dataBaseFight_ = facade();
-        return getFighterAtPosition(dataBaseFight_, f_);
+        return sortedFighters.getKeyPks().get(_index).getNameMvTr();
     }
     public boolean isFoeTargetChoiceTeam(int _index) {
-        return allyChoice.getKey(_index).getTarget().getTeam() == Fight.CST_FOE;
+        return allyChoice.getKey(_index).getMoveTarget().getTarget().getTeam() == Fight.CST_FOE;
     }
     public boolean isFoeTargetTeam(int _index) {
-        return allyChoice.getValue(_index).getTarget().getTeam() == Fight.CST_FOE;
+        return allyChoice.getValue(_index).getMoveTarget().getTarget().getTeam() == Fight.CST_FOE;
     }
     public boolean isBackTargetChoiceTeam(int _index) {
-        return allyChoice.getKey(_index).getTarget().getPosition() == Fighter.BACK;
+        return allyChoice.getKey(_index).getMoveTarget().getTarget().getPosition() == Fighter.BACK;
     }
     public boolean isBackTargetTeam(int _index) {
-        return allyChoice.getValue(_index).getTarget().getPosition() == Fighter.BACK;
+        return allyChoice.getValue(_index).getMoveTarget().getTarget().getPosition() == Fighter.BACK;
     }
     public String getTargetNameAllyChoiceCondition(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        Fight fight_ = dataBaseFight_.getGame().getFight();
-        MoveTarget mTarget_ = allyChoice.getKey(_index);
-        TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
-        Fighter fighter_ = fight_.getFighter(key_);
-        return dataBaseFight_.translatePokemon(fighter_.getName());
+        return allyChoice.getKey(_index).getTranslation();
     }
     public String getTargetNameAllyChoice(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        Fight fight_ = dataBaseFight_.getGame().getFight();
-        MoveTarget mTarget_ = allyChoice.getValue(_index);
-        TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
-        Fighter fighter_ = fight_.getFighter(key_);
-        return dataBaseFight_.translatePokemon(fighter_.getName());
+        return allyChoice.getValue(_index).getTranslation();
     }
     public boolean isChosenTarget(int _index) {
         return foeChoicesTargets.getValue(_index) == BoolVal.TRUE;
     }
     public String getTargetNameFoeChoice(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        Fight fight_ = dataBaseFight_.getGame().getFight();
-        MoveTarget mTarget_ = foeChoices.getVal(_index);
-        TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
-        Fighter fighter_ = fight_.getFighter(key_);
-        return dataBaseFight_.translatePokemon(fighter_.getName());
+        return foeChoices.getValue(_index).getTranslation();
     }
     public String getFoeFighterName(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        Fight fight_ = dataBaseFight_.getGame().getFight();
-        Team team_ = fight_.getFoeTeam();
-        int key_ = foeChoices.getKey(_index);
-        Fighter f_ = team_.refPartMembres(key_);
-        return dataBaseFight_.translatePokemon(f_.getName());
+        return foeChoices.getKey(_index).getTranslation();
     }
     public boolean isFoeTargetChTeam(int _index) {
-        return foeChoices.getValue(_index).getTarget().getTeam() == Fight.CST_FOE;
+        return foeChoices.getValue(_index).getMoveTarget().getTarget().getTeam() == Fight.CST_FOE;
     }
 
-    public TeamPositionList getSortedFighters() {
+    public ImgMovesListTeamPositionsList getSortedFighters() {
         return sortedFighters;
     }
 
@@ -210,11 +213,11 @@ public class FightCalculationBean extends CommonFightBean {
         return damage;
     }
 
-    public DictionaryComparator<MoveTarget,MoveTarget> getAllyChoice() {
+    public DictionaryComparator<TrPkMoveTarget,TrPkMoveTarget> getAllyChoice() {
         return allyChoice;
     }
 
-    public IntTreeMap<MoveTarget> getFoeChoices() {
+    public DictionaryComparator<TrPkMoveTarget,TrPkMoveTarget> getFoeChoices() {
         return foeChoices;
     }
 }

@@ -310,7 +310,7 @@ public abstract class EquallableNetworkUtil {
 
     private static void update(TranslationsLg _lg, TranslationsFile _file) {
         TranslationsAppli ta_ = new TranslationsAppli();
-        ta_.getMapping().addEntry(MessagesInit.POKEMON, _file);
+        ta_.getMapping().addEntry(MessagesPkPokemon.POKEMON, _file);
         _lg.getMapping().addEntry(MessagesInit.APP_BEAN, ta_);
     }
     protected static WindowNetWork frameSingleMenu(IntDataBaseStream _i, AbsButton _mai) {

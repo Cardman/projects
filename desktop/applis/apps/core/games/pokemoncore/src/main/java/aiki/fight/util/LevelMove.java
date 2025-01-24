@@ -21,7 +21,7 @@ public final class LevelMove implements Displayable {
         move = elements_.last();
     }
 
-    public LevelMove(int _level, String _move) {
+    public LevelMove(long _level, String _move) {
         level = _level;
         move = _move;
     }

@@ -3,6 +3,7 @@ package code.gui.document;
 import code.sml.util.*;
 
 public final class MessagesPkPokemon {
+    public static final String POKEMON = "pokemon";
     public static final String M_P_94_ABILITY="ability";
     public static final String M_P_94_EVOLUTIONS="evolutions";
     public static final String M_P_94_GENDER="gender";

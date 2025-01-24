@@ -28,8 +28,8 @@ public class FighterBean extends CommonFightBean {
     private String gender;
     private Rate weight;
     private Rate height;
-//    private String weightStr;
-//    private String heightStr;
+    private String weightStr;
+    private String heightStr;
     private String currentName;
     private String currentGender;
     private String item;
@@ -44,12 +44,12 @@ public class FighterBean extends CommonFightBean {
     private CustList<StatisticInfo> statistics;
     private Rate maxHp;
     private Rate remainingHp;
-//    private String remainingHpStr;
-//    private String remainingHpStrPerCent;
+    private String remainingHpStr;
+    private String remainingHpStrPerCent;
     private Rate clone;
-//    private String cloneStr;
+    private String cloneStr;
     private StringList protectedAgainstMoveTypes;
-    private NatStringTreeMap<ActivityOfMove> enabledMoves;
+    private NatStringTreeMap<ActivityOfMoveStill> enabledMoves;
     private NatStringTreeMap<BoolVal> enabledMovesForAlly;
     private NatStringTreeMap<MultPowerMoves> damageRateByType;
     private int groundPlace;
@@ -110,8 +110,8 @@ public class FighterBean extends CommonFightBean {
         currentGender = translationsGenders_.getVal(fighter_.getCurrentGender());
         weight = fighter_.getWeight();
         height = fighter_.getHeight();
-//        weightStr = weight.evaluate(2);
-//        heightStr = height.evaluate(2);
+        weightStr = weight.evaluate(2);
+        heightStr = height.evaluate(2);
         level = fighter_.getLevel();
         happiness = fighter_.getHappiness();
         if (fighter_.getItem().isEmpty()) {
@@ -143,10 +143,10 @@ public class FighterBean extends CommonFightBean {
         needingToRecharge = fighter_.isNeedingToRecharge();
         remainingHp = fighter_.getRemainingHp();
         maxHp = fighter_.pvMax();
-//        remainingHpStr = remainingHp.evaluate(2);
-//        remainingHpStrPerCent = Rate.multiply(Rate.divide(remainingHp, maxHp), new Rate(100)).evaluate(2);
+        remainingHpStr = remainingHp.evaluate(2);
+        remainingHpStrPerCent = Rate.multiply(Rate.divide(remainingHp, maxHp), new Rate(100)).evaluate(2);
         clone = fighter_.getClone();
-//        cloneStr = clone.evaluate(2);
+        cloneStr = clone.evaluate(2);
         types = new StringList();
         for (String t: fighter_.getTypes()) {
             types.add(translationsTypes_.getVal(t));
@@ -463,33 +463,33 @@ public class FighterBean extends CommonFightBean {
         }
     }
 
-    private NatStringTreeMap<ActivityOfMove> initEnabledMoves(Fighter _fighter) {
+    private NatStringTreeMap<ActivityOfMoveStill> initEnabledMoves(Fighter _fighter) {
         FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        NatStringTreeMap<ActivityOfMove> enabledMoves_;
-        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
+        NatStringTreeMap<ActivityOfMoveStill> enabledMoves_;
+        enabledMoves_ = new NatStringTreeMap<ActivityOfMoveStill>();
         for (String m: _fighter.getEnabledMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMoves().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(_fighter.getEnabledMoves().getVal(m)));
         }
         for (String m: _fighter.getEnabledMovesConstChoices().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesConstChoices().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(_fighter.getEnabledMovesConstChoices().getVal(m)));
         }
         for (String m: _fighter.getEnabledCounteringMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledCounteringMoves().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(_fighter.getEnabledCounteringMoves().getVal(m)));
         }
         for (String m: _fighter.getEnabledChangingTypesMoves().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledChangingTypesMoves().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(_fighter.getEnabledChangingTypesMoves().getVal(m)));
         }
         for (String m: _fighter.getEnabledMovesEndRound().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesEndRound().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(_fighter.getEnabledMovesEndRound().getVal(m)));
         }
         for (String m: _fighter.getEnabledMovesProt().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesProt().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(_fighter.getEnabledMovesProt().getVal(m)));
         }
         for (String m: _fighter.getEnabledMovesUnprot().getKeys()) {
-            enabledMoves_.put(translationsMoves_.getVal(m), _fighter.getEnabledMovesUnprot().getVal(m));
+            enabledMoves_.put(translationsMoves_.getVal(m), new ActivityOfMoveStill(_fighter.getEnabledMovesUnprot().getVal(m)));
         }
         return enabledMoves_;
     }
@@ -654,7 +654,7 @@ public class FighterBean extends CommonFightBean {
     }
 
     public String getWeightStr() {
-        return weight.evaluate(2);
+        return weightStr;
     }
 
     public Rate getHeight() {
@@ -662,7 +662,7 @@ public class FighterBean extends CommonFightBean {
     }
 
     public String getHeightStr() {
-        return height.evaluate(2);
+        return heightStr;
     }
 
     public Rate getRemainingHp() {
@@ -674,11 +674,11 @@ public class FighterBean extends CommonFightBean {
     }
 
     public String getRemainingHpStr() {
-        return remainingHp.evaluate(2);
+        return remainingHpStr;
     }
 
     public String getRemainingHpStrPerCent() {
-        return Rate.multiply(Rate.divide(remainingHp, maxHp), new Rate(100)).evaluate(2);
+        return remainingHpStrPerCent;
     }
 
     public Rate getClone() {
@@ -686,7 +686,7 @@ public class FighterBean extends CommonFightBean {
     }
 
     public String getCloneStr() {
-        return clone.evaluate(2);
+        return cloneStr;
     }
 
     public String getAbility() {
@@ -753,7 +753,7 @@ public class FighterBean extends CommonFightBean {
         return damageSufferedCateg;
     }
 
-    public NatStringTreeMap<ActivityOfMove> getEnabledMoves() {
+    public NatStringTreeMap<ActivityOfMoveStill> getEnabledMoves() {
         return enabledMoves;
     }
 

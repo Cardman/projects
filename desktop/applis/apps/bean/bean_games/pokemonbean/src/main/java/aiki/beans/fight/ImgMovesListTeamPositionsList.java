@@ -6,6 +6,7 @@ import code.util.CustList;
 public final class ImgMovesListTeamPositionsList {
     private final CustList<FighterImgPkNameMv> keyPks;
     private final TeamPositionList teamPositions;
+    private final CustList<String> namesPk = new CustList<String>();
 
     public ImgMovesListTeamPositionsList(CustList<FighterImgPkNameMv> _k,TeamPositionList _t) {
         this.keyPks = _k;
@@ -18,5 +19,9 @@ public final class ImgMovesListTeamPositionsList {
 
     public TeamPositionList getTeamPositions() {
         return teamPositions;
+    }
+
+    public CustList<String> getNamesPk() {
+        return namesPk;
     }
 }

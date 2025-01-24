@@ -1,14 +1,14 @@
 package aiki.beans.facade.comparators;
 
 import aiki.beans.fight.DuoTeamPosition;
-import aiki.game.fight.util.MoveTarget;
+import aiki.beans.fight.TrPkMoveTarget;
 import code.util.ints.Comparing;
 
-public final class ComparatorMoveTarget implements Comparing<MoveTarget> {
+public final class ComparatorMoveTarget implements Comparing<TrPkMoveTarget> {
 
     @Override
-    public int compare(MoveTarget _o1, MoveTarget _o2) {
-        return DuoTeamPosition.compare(new DuoTeamPosition(_o1),new DuoTeamPosition(_o2));
+    public int compare(TrPkMoveTarget _o1, TrPkMoveTarget _o2) {
+        return DuoTeamPosition.compare(new DuoTeamPosition(_o1.getMoveTarget()),new DuoTeamPosition(_o2.getMoveTarget()));
 //        int res_ = StringUtil.compareStrings(_o1.getMove(),_o2.getMove());
 //        if (res_ != 0) {
 //            return res_;

@@ -4824,7 +4824,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     private void update(TranslationsLg _lg, TranslationsFile _file) {
         TranslationsAppli ta_ = new TranslationsAppli();
-        ta_.getMapping().addEntry(MessagesInit.POKEMON, _file);
+        ta_.getMapping().addEntry(MessagesPkPokemon.POKEMON, _file);
         _lg.getMapping().addEntry(MessagesInit.APP_BEAN, ta_);
     }
 

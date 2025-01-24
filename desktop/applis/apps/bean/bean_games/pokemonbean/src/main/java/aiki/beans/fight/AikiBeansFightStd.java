@@ -9,7 +9,6 @@ import aiki.beans.facade.fight.SufferedDamageCategory;
 import aiki.game.fight.*;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.CopiedMove;
-import aiki.game.fight.util.MoveTarget;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
 import code.util.*;
@@ -303,22 +302,22 @@ public final class AikiBeansFightStd{
         _std.getStds().addEntry(TYPE_TEAM_BEAN, type_);
     }
 
-    public static NatArrayStruct getMvTars(AbsMap<MoveTarget, MoveTarget> _map) {
+    public static NatArrayStruct getMvTars(AbsMap<TrPkMoveTarget, TrPkMoveTarget> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTarget, MoveTarget> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTargetStruct(e.getKey()),new MoveTargetStruct(e.getValue()));
+        for (EntryCust<TrPkMoveTarget, TrPkMoveTarget> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTargetStruct(e.getKey().getMoveTarget()),new MoveTargetStruct(e.getValue().getMoveTarget()));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
 
-    public static NatArrayStruct getMvTar(AbsMap<Integer, MoveTarget> _map) {
+    public static NatArrayStruct getMvTar(AbsMap<TrPkMoveTarget, TrPkMoveTarget> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<Integer, MoveTarget> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new MoveTargetStruct(e.getValue()));
+        for (EntryCust<TrPkMoveTarget, TrPkMoveTarget> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey().getIndex()),new MoveTargetStruct(e.getValue().getMoveTarget()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -363,6 +362,10 @@ public final class AikiBeansFightStd{
     }
     public static NatArrayStruct getTeamPos(CustList<TeamPosition> _map) {
         int len_ = _map.size();
+        return PokemonStandards.arrId(len_);
+    }
+    public static NatArrayStruct getTeamPos(ImgMovesListTeamPositionsList _map) {
+        int len_ = _map.getTeamPositions().size();
         return PokemonStandards.arrId(len_);
     }
 
@@ -498,11 +501,11 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getActMove(AbsMap<String, ActivityOfMove> _map) {
+    public static NatArrayStruct getActMove(AbsMap<String, ActivityOfMoveStill> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, ActivityOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
+        for (EntryCust<String, ActivityOfMoveStill> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new ActivityOfMoveStruct(e.getValue().getActivity()));
             arr_.set(j_,p_);
             j_++;
         }

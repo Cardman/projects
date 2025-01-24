@@ -3,6 +3,7 @@ package aiki.comparators;
 import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.fight.FighterNameId;
 import aiki.beans.facade.fight.KeyHypothesis;
+import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
@@ -17,7 +18,6 @@ import aiki.fight.util.*;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.util.AffectedMove;
-import aiki.game.fight.util.MoveTarget;
 import aiki.map.DataMap;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
@@ -299,8 +299,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<Point, int[][]>(new ComparatorPoint());
     }
 
-    public static DictionaryComparator<MoveTarget, MoveTarget> buildMoveTarget() {
-        return new DictionaryComparator<MoveTarget, MoveTarget>(new ComparatorMoveTarget());
+    public static DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> buildMoveTarget() {
+        return new DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget>(new ComparatorMoveTarget());
     }
 
     public static DictionaryComparator<CategoryMult, Rate> buildCategoryMult() {

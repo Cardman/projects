@@ -38,6 +38,7 @@ public abstract class AbsBeanRender {
         AbsScrollPane scrollSession_ = _api.getCompoFactory().newAbsScrollPane();
         scrollSession_.setPreferredSize(new MetaDimension(400, 400));
         scrollSession_.setViewportView(build(_api,_facade));
+        scrollSession_.validate();
         setScrollPane(scrollSession_);
         container.add(scrollSession_);
         container.add(field);
@@ -90,13 +91,17 @@ public abstract class AbsBeanRender {
     }
 
     public void formatMessage(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
-        String txt_ = StringUtil.simpleStringsFormat(files(_api).getVal(_file).getMapping().getVal(_key), _values);
+        String txt_ = formatMessage(_api, _file, _key, _values);
         formatMessageDir(_api, _form, txt_);
     }
 
     public AbsTextPane formatMessage(AbstractProgramInfos _api, AbsPanel _form, AbsGridConstraints _cts, String _file, String _key, String... _values) {
-        String txt_ = StringUtil.simpleStringsFormat(files(_api).getVal(_file).getMapping().getVal(_key), _values);
+        String txt_ = formatMessage(_api, _file, _key, _values);
         return formatMessageDir(_api, _form, _cts, txt_);
+    }
+
+    public String formatMessage(AbstractProgramInfos _api, String _file, String _key, String... _values) {
+        return StringUtil.simpleStringsFormat(files(_api).getVal(_file).getMapping().getVal(_key), _values);
     }
 
     public void formatMessageDir(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
@@ -154,7 +159,7 @@ public abstract class AbsBeanRender {
             attSeg_.addBackground(GuiConstants.ORANGE);
             attSeg_.addForeground(_tp.getForegroundValue());
             attSeg_.addFontSize(_tp.getMetaFont().getRealSize());
-            _tp.setCharacterAttributes(s.getBegin(),s.getEnd(),attSeg_,false);
+            _tp.setCharacterAttributes(s.getBegin(),s.getEnd()-s.getBegin(),attSeg_,false);
         }
         AbsAttrSet attSeg_ = _api.getCompoFactory().newAttrSet();
         attSeg_.addFontFamily(copy_.getFontFamily());
@@ -169,9 +174,12 @@ public abstract class AbsBeanRender {
         int x_ = 0;
         int y_ = 0;
         while (c_ != null) {
-            x_ += c_.getXcoords();
-            y_ += c_.getYcoords();
-            c_ = _rend.getParents().getVal(c_);
+            AbsCustComponent par_ = _rend.getParents().getVal(c_);
+            if (par_ != null) {
+                x_ += c_.getXcoords();
+                y_ += c_.getYcoords();
+            }
+            c_ = par_;
         }
         sc_.setHorizontalValue(x_);
         sc_.setVerticalValue(y_);
