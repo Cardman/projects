@@ -61,15 +61,15 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getSearch()));
     }
     @Test
     public void intro3() {
@@ -97,14 +97,14 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getSearch()));
     }
     @Test
     public void intro4() {
@@ -138,14 +138,14 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getSearch()));
     }
     @Test
     public void intro5() {
@@ -175,15 +175,15 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getSearch()));
     }
     @Test
     public void intro6() {
@@ -217,13 +217,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertEq(4, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr_.containsObj(server_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
+        assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(3, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getField()));
-        assertTrue(tr2_.containsObj(client_.getScenePanel().getReceivedPk().getSearch()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
+        assertTrue(tr2_.containsObj(client_.getScenePanel().getSearch()));
         tryClick(server_.getAiki().getGameSave());
         tryClick(client_.getAiki().getGameSave());
 

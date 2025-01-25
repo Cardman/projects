@@ -1,8 +1,6 @@
 package code.gui.document;
 
 import aiki.facade.*;
-import aiki.gui.components.*;
-import aiki.sml.*;
 import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.images.*;
@@ -19,30 +17,11 @@ public abstract class AbsBeanRender {
     private int partGroup;
     private int rowGroup;
     private AbsScrollPane scrollPane;
-    private final AbsPanel container;
-    private AbsButton search;
-    private AbsTextField field;
 
-    protected AbsBeanRender(AbsPanel _c) {
-        this.container = _c;
-    }
-
-    public void updateGui(AbstractProgramInfos _api, FacadeGame _facade) {
-        getContainer().removeAll();
-        StringMap<String> messages_ = PkDetailContent.file(_api.currentLg());
-        search = _api.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
-        field = _api.getCompoFactory().newTextField(20);
-        FindBeanEvent find_ = new FindBeanEvent(field, this, _api);
-        search.addActionListener(find_);
-        find_.setFinding(this);
-        AbsScrollPane scrollSession_ = _api.getCompoFactory().newAbsScrollPane();
-        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
-        scrollSession_.setViewportView(build(_api,_facade));
-        scrollSession_.validate();
-        setScrollPane(scrollSession_);
-        container.add(scrollSession_);
-        container.add(field);
-        container.add(search);
+    public AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade, FindBeanEvent _find){
+        AbsCustComponent compo_ = build(_api, _facade);
+        _find.setFinding(this);
+        return compo_;
     }
     public abstract AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade);
 
@@ -62,18 +41,6 @@ public abstract class AbsBeanRender {
     protected void nextPart() {
         partGroup++;
         rowGroup = 0;
-    }
-
-    public AbsPanel getContainer() {
-        return container;
-    }
-
-    public AbsButton getSearch() {
-        return search;
-    }
-
-    public AbsTextField getField() {
-        return field;
     }
 
     public static void addImg(AbstractProgramInfos _api, AbsPanel _container, int[][] _img) {

@@ -9,6 +9,7 @@ import aiki.sml.*;
 import cards.facade.enumerations.GameEnum;
 import code.gui.*;
 import code.gui.document.PkPlayerRender;
+import code.gui.document.WrapBeanRender;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
@@ -253,7 +254,7 @@ public class ScenePanelMulti {
 
 //    private boolean enabledClick = true;
 
-    private PkPlayerRender receivedPk;
+    private WrapBeanRender receivedPk;
     //private final PkPlayerRender pkPlayerRender;
 
     private AbsPanel panelNetWork;
@@ -730,7 +731,7 @@ public class ScenePanelMulti {
         group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(MessagesRenderScenePanel.RECEIVED_POKEMON)), MessagesGuiFct.BORDER_LAYOUT_NORTH);
 //        AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         AbsPanel componentView_ = compoFactory.newPageBox();
-        receivedPk = new PkPlayerRender(componentView_);
+        receivedPk = new WrapBeanRender(componentView_);
 //        receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter(), window.getGuardRender());
 //        receivedPk.setBase(GamesPk.baseEncode(window.getFrames().getTranslations()));
 //        receivedPk.setBase(facade.getData().getMessagesParse().getVal(MessagesPkGame.BASE_FILE));
@@ -781,7 +782,7 @@ public class ScenePanelMulti {
 //            return;
 //        }
 //        task_.getBeanNatLgNames().setDataBase(facade);
-        receivedPk.updateGui(window.getFrames(), facade);
+        receivedPk.display(new PkPlayerRender(),window.getFrames(), facade);
 //        task_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
 //        FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
     }
@@ -1796,6 +1797,14 @@ public class ScenePanelMulti {
     }
 
     public PkPlayerRender getReceivedPk() {
-        return receivedPk;
+        return (PkPlayerRender) receivedPk.getCurrent();
+    }
+
+    public AbsButton getSearch() {
+        return receivedPk.getSearch();
+    }
+
+    public AbsTextField getField() {
+        return receivedPk.getField();
     }
 }

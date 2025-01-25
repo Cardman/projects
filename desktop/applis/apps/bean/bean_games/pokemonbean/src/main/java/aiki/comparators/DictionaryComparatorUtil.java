@@ -3,7 +3,7 @@ package aiki.comparators;
 import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.fight.FighterNameId;
 import aiki.beans.facade.fight.KeyHypothesis;
-import aiki.beans.fight.TrPkMoveTarget;
+import aiki.beans.fight.*;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
@@ -16,7 +16,6 @@ import aiki.fight.status.Status;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.util.*;
 import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.util.AffectedMove;
 import aiki.map.DataMap;
 import aiki.map.levels.enums.EnvironmentType;
@@ -185,24 +184,24 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,String>(translated_);
     }
 
-    public static DictionaryComparator<MoveTeamPosition,Long> buildMoveTeamPositionShort() {
-        return new DictionaryComparator<MoveTeamPosition, Long>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPositionFighterName,Long> buildMoveTeamPositionShort() {
+        return new DictionaryComparator<MoveTeamPositionFighterName, Long>(new ComparatorMoveTeamPosition());
     }
 
-    public static DictionaryComparator<MoveTeamPosition,String> buildMoveTeamPositionString() {
-        return new DictionaryComparator<MoveTeamPosition, String>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPositionFighterName,String> buildMoveTeamPositionString() {
+        return new DictionaryComparator<MoveTeamPositionFighterName, String>(new ComparatorMoveTeamPosition());
     }
 
-    public static DictionaryComparator<MoveTeamPosition, ActivityOfMove> buildMoveTeamPositionActivityOfMove() {
-        return new DictionaryComparator<MoveTeamPosition, ActivityOfMove>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPositionFighterName, ActivityOfMove> buildMoveTeamPositionActivityOfMove() {
+        return new DictionaryComparator<MoveTeamPositionFighterName, ActivityOfMove>(new ComparatorMoveTeamPosition());
     }
 
-    public static DictionaryComparator<MoveTeamPosition, AffectedMove> buildMoveTeamPositionAffectedMove() {
-        return new DictionaryComparator<MoveTeamPosition, AffectedMove>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPositionFighterName, AffectedMove> buildMoveTeamPositionAffectedMove() {
+        return new DictionaryComparator<MoveTeamPositionFighterName, AffectedMove>(new ComparatorMoveTeamPosition());
     }
 
-    public static DictionaryComparator<MoveTeamPosition, BoolVal> buildMoveTeamPositionBoolVal() {
-        return new DictionaryComparator<MoveTeamPosition, BoolVal>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPositionFighterName, BoolVal> buildMoveTeamPositionBoolVal() {
+        return new DictionaryComparator<MoveTeamPositionFighterName, BoolVal>(new ComparatorMoveTeamPosition());
     }
 
     public static DictionaryComparator<MiniMapCoords,int[][]> buildMiniMapImgs() {

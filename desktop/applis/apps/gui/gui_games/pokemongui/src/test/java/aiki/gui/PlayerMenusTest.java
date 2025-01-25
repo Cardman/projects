@@ -3494,12 +3494,12 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
         assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
         assertFalse(scAcc_.containsObj(window_.getScenePanel().getPkDetailContent().getHide()));
-        window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getField().setText("g");
-        tryClick(window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getSearch());
-        window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getField().setText("");
-        tryClick(window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getSearch());
-        window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getField().setText("#");
-        tryClick(window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getSearch());
+        window_.getScenePanel().getPkDetailContent().getField().setText("g");
+        tryClick(window_.getScenePanel().getPkDetailContent().getSearch());
+        window_.getScenePanel().getPkDetailContent().getField().setText("");
+        tryClick(window_.getScenePanel().getPkDetailContent().getSearch());
+        window_.getScenePanel().getPkDetailContent().getField().setText("#");
+        tryClick(window_.getScenePanel().getPkDetailContent().getSearch());
     }
 
     @Test

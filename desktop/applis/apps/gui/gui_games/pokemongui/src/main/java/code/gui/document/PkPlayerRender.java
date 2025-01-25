@@ -14,10 +14,6 @@ import code.util.core.StringUtil;
 public final class PkPlayerRender extends AbsBeanRender {
     private final PokemonPlayerBean bean = new PokemonPlayerBean();
 
-    public PkPlayerRender(AbsPanel _api) {
-        super(_api);
-    }
-
     @Override
     public AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade) {
         getMetaSearchableContents().clear();

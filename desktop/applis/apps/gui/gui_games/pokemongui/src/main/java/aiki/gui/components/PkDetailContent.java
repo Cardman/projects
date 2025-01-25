@@ -6,6 +6,7 @@ import aiki.gui.components.listeners.HidePkDetailContentEvent;
 import aiki.sml.*;
 import code.gui.*;
 import code.gui.document.PkPlayerRender;
+import code.gui.document.WrapBeanRender;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBooleanCore;
@@ -19,16 +20,16 @@ public final class PkDetailContent {
 //    private AbsButton search;
 //    private AbsTextField field;
     private AbsButton hide;
-    private final PkPlayerRender pkPlayerRender;
+    private final WrapBeanRender pkPlayerRender;
 
     public PkDetailContent(AbstractProgramInfos _frameFactory) {
         content = _frameFactory.getCompoFactory().newPageBox();
         content.setVisible(false);
-        pkPlayerRender = new PkPlayerRender(content);
+        pkPlayerRender = new WrapBeanRender(content);
     }
 
     public void group(WindowAiki _parent, FacadeGame _dataBase, Packable _p, AbstractAtomicBooleanCore _at) {
-        pkPlayerRender.updateGui(_parent.getFrames(), _dataBase);
+        pkPlayerRender.display(new PkPlayerRender(),_parent.getFrames(), _dataBase);
         StringMap<String> messages_ = file(_parent.getFrames().currentLg());
 ////        DialogHtmlData d_ = _parent.getDialogHtmlData();
 //        AikiNatLgNamesNavigation res_ = _pre.attendreResultat();
@@ -75,7 +76,7 @@ public final class PkDetailContent {
     }
 
     public PkPlayerRender getPkPlayerRender() {
-        return pkPlayerRender;
+        return (PkPlayerRender) pkPlayerRender.getCurrent();
     }
 
     public AbsButton getSearch() {

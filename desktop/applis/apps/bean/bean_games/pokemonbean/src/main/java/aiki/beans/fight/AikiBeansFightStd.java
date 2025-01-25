@@ -413,55 +413,55 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvTp(AbsMap<MoveTeamPosition, AffectedMove> _map) {
+    public static NatArrayStruct getWcMvTp(AbsMap<MoveTeamPositionFighterName, AffectedMove> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, AffectedMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new AffectedMoveStruct(e.getValue()));
+        for (EntryCust<MoveTeamPositionFighterName, AffectedMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()),new AffectedMoveStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvAm(AbsMap<MoveTeamPosition, ActivityOfMove> _map) {
+    public static NatArrayStruct getWcMvAm(AbsMap<MoveTeamPositionFighterName, ActivityOfMove> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, ActivityOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
+        for (EntryCust<MoveTeamPositionFighterName, ActivityOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()),new ActivityOfMoveStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPosition, Long> _map) {
+    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPositionFighterName, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, Long> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new NaNbSt(e.getValue()));
+        for (EntryCust<MoveTeamPositionFighterName, Long> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()),new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvTpBool(AbsMap<MoveTeamPosition, BoolVal> _map) {
+    public static NatArrayStruct getWcMvTpBool(AbsMap<MoveTeamPositionFighterName, BoolVal> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, BoolVal> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()), NaBoSt.of(e.getValue() == BoolVal.TRUE));
+        for (EntryCust<MoveTeamPositionFighterName, BoolVal> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()), NaBoSt.of(e.getValue() == BoolVal.TRUE));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
 
-    public static NatArrayStruct getMvTpStr(AbsMap<MoveTeamPosition, String> _map) {
+    public static NatArrayStruct getMvTpStr(AbsMap<MoveTeamPositionFighterName, String> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPosition, String> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new NaStSt(e.getValue()));
+        for (EntryCust<MoveTeamPositionFighterName, String> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()),new NaStSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }

@@ -37,7 +37,7 @@ public class FighterBean extends CommonFightBean {
     private String ability;
     private String currentAbility;
     private NatStringTreeMap<Long> status;
-    private DictionaryComparator<MoveTeamPosition,Long> statusRelat;
+    private DictionaryComparator<MoveTeamPositionFighterName,Long> statusRelat;
     private StringList types;
     private NatStringTreeMap<UsesOfMove> moves;
     private NatStringTreeMap<UsesOfMove> currentMoves;
@@ -57,16 +57,16 @@ public class FighterBean extends CommonFightBean {
     private Rate necessaryPointsNextLevel;
     private long level;
     private long happiness;
-    private DictionaryComparator<MoveTeamPosition,BoolVal> incrUserAccuracy;
+    private DictionaryComparator<MoveTeamPositionFighterName,BoolVal> incrUserAccuracy;
     private NatStringTreeMap<Long> nbUsesMoves;
     private long nbPrepaRound;
     private boolean needingToRecharge;
-    private DictionaryComparator<MoveTeamPosition,AffectedMove> trackingMoves;
-    private DictionaryComparator<MoveTeamPosition,ActivityOfMove> trappingMoves;
+    private DictionaryComparator<MoveTeamPositionFighterName,AffectedMove> trackingMoves;
+    private DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMove> trappingMoves;
     private NatStringTreeMap<SufferedDamageCategory> damageSufferedCateg;
     private NatStringTreeMap<CopiedMove> copiedMoves;
     private LgInt nbRepeatingSuccessfulMoves;
-    private DictionaryComparator<MoveTeamPosition,String> privateMoves;
+    private DictionaryComparator<MoveTeamPositionFighterName,String> privateMoves;
     private boolean belongingToPlayer;
     private String lastUsedItem;
     private LgInt nbRounds;
@@ -210,16 +210,16 @@ public class FighterBean extends CommonFightBean {
         relMoves(fighter_);
     }
 
-    private DictionaryComparator<MoveTeamPosition, Long> statusRelat(Fighter _fighter) {
+    private DictionaryComparator<MoveTeamPositionFighterName, Long> statusRelat(Fighter _fighter) {
         FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        DictionaryComparator<MoveTeamPosition, Long> statusRelat_ = DictionaryComparatorUtil.buildMoveTeamPositionShort();
+        DictionaryComparator<MoveTeamPositionFighterName, Long> statusRelat_ = DictionaryComparatorUtil.buildMoveTeamPositionShort();
         for (MoveTeamPosition m: _fighter.getStatusRelatSet()) {
             String move_ = translationsStatus_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            statusRelat_.put(m_, _fighter.getStatusRelatNbRound(m));
+            statusRelat_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), _fighter.getStatusRelatNbRound(m));
         }
         return statusRelat_;
     }
@@ -332,7 +332,7 @@ public class FighterBean extends CommonFightBean {
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        DictionaryComparator<MoveTeamPosition,String> privateMoves_;
+        DictionaryComparator<MoveTeamPositionFighterName,String> privateMoves_;
 //        privateMoves_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -356,10 +356,10 @@ public class FighterBean extends CommonFightBean {
             movesPr_.sort();
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            privateMoves_.put(m_, StringUtil.join(movesPr_, MOVES_SEPARATOR));
+            privateMoves_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), StringUtil.join(movesPr_, MOVES_SEPARATOR));
         }
         privateMoves = privateMoves_;
-        DictionaryComparator<MoveTeamPosition,ActivityOfMove> trappingMoves_;
+        DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMove> trappingMoves_;
 //        trappingMoves_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -380,10 +380,10 @@ public class FighterBean extends CommonFightBean {
             activity_ = new ActivityOfMove(_fighter.getTrappingMoves().getVal(m));
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            trappingMoves_.put(m_, activity_);
+            trappingMoves_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), activity_);
         }
         trappingMoves = trappingMoves_;
-        DictionaryComparator<MoveTeamPosition,AffectedMove> trackingMoves_;
+        DictionaryComparator<MoveTeamPositionFighterName,AffectedMove> trackingMoves_;
 //        trackingMoves_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -409,10 +409,10 @@ public class FighterBean extends CommonFightBean {
                 affectedMoveTr_ = translationsMoves_.getVal(affectedMove_);
             }
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            trackingMoves_.put(m_, new AffectedMove(affectedMoveTr_, activity_));
+            trackingMoves_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), new AffectedMove(affectedMoveTr_, activity_));
         }
         trackingMoves = trackingMoves_;
-        DictionaryComparator<MoveTeamPosition,BoolVal> incrUserAccuracy_;
+        DictionaryComparator<MoveTeamPositionFighterName,BoolVal> incrUserAccuracy_;
 //        incrUserAccuracy_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -431,7 +431,7 @@ public class FighterBean extends CommonFightBean {
         for (MoveTeamPosition m: _fighter.getIncrUserAccuracy().getKeys()) {
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            incrUserAccuracy_.put(m_, _fighter.getIncrUserAccuracy().getVal(m));
+            incrUserAccuracy_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), _fighter.getIncrUserAccuracy().getVal(m));
         }
         incrUserAccuracy = incrUserAccuracy_;
     }
@@ -545,52 +545,42 @@ public class FighterBean extends CommonFightBean {
         return fighter_.getGroundPlaceSubst() == Fighter.BACK;
     }
     public boolean isFoeStatusRelatTeam(int _index) {
-        MoveTeamPosition mt_ = statusRelat.getKey(_index);
+        MoveTeamPosition mt_ = statusRelat.getKey(_index).getMoveTeamPosition();
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getStatusRelatTeam(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        MoveTeamPosition mt_ = statusRelat.getKey(_index);
-        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
+        return statusRelat.getKey(_index).getName();
     }
     public boolean isEnabled(int _index) {
         return statusRelat.getValue(_index) > 0;
     }
     public boolean isFoePrivateMovesTeam(int _index) {
-        MoveTeamPosition mt_ = privateMoves.getKey(_index);
+        MoveTeamPosition mt_ = privateMoves.getKey(_index).getMoveTeamPosition();
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrPrivateMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        MoveTeamPosition mt_ = privateMoves.getKey(_index);
-        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
+        return privateMoves.getKey(_index).getName();
     }
     public boolean isFoeTrappingMovesTeam(int _index) {
-        MoveTeamPosition mt_ = trappingMoves.getKey(_index);
+        MoveTeamPosition mt_ = trappingMoves.getKey(_index).getMoveTeamPosition();
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrTrappingMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        MoveTeamPosition mt_ = trappingMoves.getKey(_index);
-        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
+        return trappingMoves.getKey(_index).getName();
     }
     public boolean isFoeTrackingMovesTeam(int _index) {
-        MoveTeamPosition mt_ = trackingMoves.getKey(_index);
+        MoveTeamPosition mt_ = trackingMoves.getKey(_index).getMoveTeamPosition();
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrTrackingMovesTeam(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        MoveTeamPosition mt_ = trackingMoves.getKey(_index);
-        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
+        return trackingMoves.getKey(_index).getName();
     }
     public boolean isFoeIncrUserAccuracyTeam(int _index) {
-        MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index);
+        MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index).getMoveTeamPosition();
         return mt_.getTeamPosition().getTeam() == Fight.CST_FOE;
     }
     public String getIncrUserAccuracyTeam(int _index) {
-        FacadeGame dataBaseFight_ = facade();
-        MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index);
-        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
+        return incrUserAccuracy.getKey(_index).getName();
     }
 
     public String getName() {
@@ -813,23 +803,23 @@ public class FighterBean extends CommonFightBean {
         return status;
     }
 
-    public DictionaryComparator<MoveTeamPosition,Long> getStatusRelat() {
+    public DictionaryComparator<MoveTeamPositionFighterName,Long> getStatusRelat() {
         return statusRelat;
     }
 
-    public DictionaryComparator<MoveTeamPosition,String> getPrivateMoves() {
+    public DictionaryComparator<MoveTeamPositionFighterName,String> getPrivateMoves() {
         return privateMoves;
     }
 
-    public DictionaryComparator<MoveTeamPosition,ActivityOfMove> getTrappingMoves() {
+    public DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMove> getTrappingMoves() {
         return trappingMoves;
     }
 
-    public DictionaryComparator<MoveTeamPosition,AffectedMove> getTrackingMoves() {
+    public DictionaryComparator<MoveTeamPositionFighterName,AffectedMove> getTrackingMoves() {
         return trackingMoves;
     }
 
-    public DictionaryComparator<MoveTeamPosition,BoolVal> getIncrUserAccuracy() {
+    public DictionaryComparator<MoveTeamPositionFighterName,BoolVal> getIncrUserAccuracy() {
         return incrUserAccuracy;
     }
 }
