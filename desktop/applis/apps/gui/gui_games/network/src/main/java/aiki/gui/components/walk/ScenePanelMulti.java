@@ -782,7 +782,9 @@ public class ScenePanelMulti {
 //            return;
 //        }
 //        task_.getBeanNatLgNames().setDataBase(facade);
-        receivedPk.display(new PkPlayerRender(),window.getFrames(), facade);
+        PkPlayerRender ren_ = new PkPlayerRender();
+        receivedPk.getRenders().addEntry("",ren_);
+        receivedPk.display(ren_,window.getFrames(), facade, window.getCommonFrame());
 //        task_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
 //        FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), task_.getBeanNatLgNames(), receivedPk);
     }

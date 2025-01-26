@@ -37,11 +37,15 @@ public class FightBean extends CommonFightBean {
         return enabledMoves.getValue(_index).isStill();
     }
     public String clickPlayer() {
-        getForms().put(NO_TEAM, Fight.CST_PLAYER);
-        return PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML;
+        return click(Fight.CST_PLAYER);
     }
+
     public String clickFoe() {
-        getForms().put(NO_TEAM, Fight.CST_FOE);
+        return click(Fight.CST_FOE);
+    }
+
+    public String click(int _c) {
+        getForms().put(NO_TEAM, _c);
         return PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML;
     }
 

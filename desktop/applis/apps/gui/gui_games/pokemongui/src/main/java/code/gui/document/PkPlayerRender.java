@@ -9,24 +9,17 @@ import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
 public final class PkPlayerRender extends AbsBeanRender {
     private final PokemonPlayerBean bean = new PokemonPlayerBean();
 
     @Override
-    public AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade) {
-        getMetaSearchableContents().clear();
-        getParents().clear();
-        getRefsSearch().clear();
-        bean.setDataBase(_facade);
-        bean.setForms(new StringMapObject());
-        bean.setLanguage(_facade.getLanguage());
-        bean.beforeDisplaying();
-        setPartGroup(0);
-        setRowGroup(0);
+    public AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade, StringMapObject _form) {
+        init(bean,_facade, _form);
         AbsPanel form_ = _api.getCompoFactory().newPageBox();
         form_.setBackground(GuiConstants.WHITE);
+        form_.setTitledBorder(StringUtil.simpleStringsFormat(file(_api).getVal(MessagesPkPokemon.M_P_94_TITLE),bean.getName()));
         AbsPanel line_ = _api.getCompoFactory().newPageBox();
         formatMessage(_api, line_,MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_NAME, bean.getName());
         addImg(_api, line_, bean.getImage());
@@ -69,55 +62,25 @@ public final class PkPlayerRender extends AbsBeanRender {
         DisplayingBeanCountable.display(this,_api,form_,MessagesPkPokemon.POKEMON,bean.getMoves(),MessagesPkPokemon.M_P_94_MOVES);
         AbsPanel tableMove_ = _api.getCompoFactory().newGrid();
         headerCol(_api, tableMove_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_MOVES_KEY);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         headerCol(_api, tableMove_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_MOVES_CUR_PP);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         headerCol(_api, tableMove_, remainder(_api), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_MOVES_MAX_PP);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-        for (EntryCust<String, UsesOfMove> e:bean.getMoves().entryList()) {
-            formatMessageDir(_api,tableMove_,_api.getCompoFactory().newGridCts(),e.getKey());
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-            formatMessageDir(_api,tableMove_,_api.getCompoFactory().newGridCts(),Long.toString(e.getValue().getCurrent()));
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-            formatMessageDir(_api,tableMove_,remainder(_api),Long.toString(e.getValue().getMax()));
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-        }
+        new BeanDisplayMap<String,UsesOfMove>(new BeanDisplayString(),new BeanDisplayUsesOfMove()).display(this,_api,tableMove_,bean.getMoves(),3);
         feedParents(form_,tableMove_);
         nextPart();
         DisplayingBeanCountable.display(this,_api,form_,MessagesPkPokemon.POKEMON,bean.getStatistics(),MessagesPkPokemon.M_P_94_STATISTICS);
         AbsPanel tableStat_ = _api.getCompoFactory().newGrid();
         headerCol(_api, tableStat_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_STATISTICS_KEY);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         headerCol(_api, tableStat_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_STATISTICS_EV);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         headerCol(_api, tableStat_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_STATISTICS_IV);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         headerCol(_api, tableStat_, remainder(_api), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_STATISTICS_RATE);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         for (StatisticInfoPkPlayer e:bean.getStatistics()) {
             formatMessageDir(_api,tableStat_,_api.getCompoFactory().newGridCts(),e.getName());
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
             formatMessageDir(_api,tableStat_,_api.getCompoFactory().newGridCts(),Long.toString(e.getEv()));
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
             formatMessageDir(_api,tableStat_,_api.getCompoFactory().newGridCts(),Long.toString(e.getIv()));
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
             formatMessageDir(_api,tableStat_,remainder(_api),e.getRate().toNumberString());
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         }
         feedParents(form_,tableStat_);
-        form_.setTitledBorder(StringUtil.simpleStringsFormat(file(_api).getVal(MessagesPkPokemon.M_P_94_TITLE),bean.getName()));
         return form_;
-    }
-
-    public void headerCol(AbstractProgramInfos _api, AbsPanel _tableStat, AbsGridConstraints _cts, String _file, String _key) {
-        AbsTextPane th_ = formatMessage(_api, _tableStat, _cts, _file, _key);
-        th_.setBackground(GuiConstants.YELLOW);
-    }
-
-    private AbsGridConstraints remainder(AbstractProgramInfos _api) {
-        AbsGridConstraints cts_ = _api.getCompoFactory().newGridCts();
-        cts_.gridwidth(GuiConstants.REMAINDER);
-        return cts_;
     }
 
 

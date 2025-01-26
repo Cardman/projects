@@ -113,6 +113,7 @@ public abstract class EquallableAikiGuiUtil {
 //        _window.setPreparedFightTask(_window.getCore().getAikiFactory().getPreparedFightTask());
         _window.getCore().getAikiFactory().submitNavFight(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
         _window.setPreparedFightTask(_window.getCore().getAikiFactory().getTaskNavFight());
+        _window.getPreparedFightTask();
     }
 
     public static void prepareDiffTask(WindowAiki _window) {
@@ -273,6 +274,11 @@ public abstract class EquallableAikiGuiUtil {
         tryClick(_m.getPaintableLabel());
     }
     public static void tryClick(AbsPaintableLabel _m) {
+        assertTrue(_m.isVisible());
+        assertTrue(_m.isEnabled());
+        _m.getMouseListenersRel().get(0).mouseReleased(null, null, null);
+    }
+    public static void tryClick(AbsTextPane _m) {
         assertTrue(_m.isVisible());
         assertTrue(_m.isEnabled());
         _m.getMouseListenersRel().get(0).mouseReleased(null, null, null);

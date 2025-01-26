@@ -28,7 +28,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
-import code.util.core.BoolVal;
 import code.util.ints.Comparing;
 
 public final class DictionaryComparatorUtil {
@@ -192,16 +191,16 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<MoveTeamPositionFighterName, String>(new ComparatorMoveTeamPosition());
     }
 
-    public static DictionaryComparator<MoveTeamPositionFighterName, ActivityOfMove> buildMoveTeamPositionActivityOfMove() {
-        return new DictionaryComparator<MoveTeamPositionFighterName, ActivityOfMove>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPositionFighterName, ActivityOfMoveStill> buildMoveTeamPositionActivityOfMove() {
+        return new DictionaryComparator<MoveTeamPositionFighterName, ActivityOfMoveStill>(new ComparatorMoveTeamPosition());
     }
 
     public static DictionaryComparator<MoveTeamPositionFighterName, AffectedMove> buildMoveTeamPositionAffectedMove() {
         return new DictionaryComparator<MoveTeamPositionFighterName, AffectedMove>(new ComparatorMoveTeamPosition());
     }
 
-    public static DictionaryComparator<MoveTeamPositionFighterName, BoolVal> buildMoveTeamPositionBoolVal() {
-        return new DictionaryComparator<MoveTeamPositionFighterName, BoolVal>(new ComparatorMoveTeamPosition());
+    public static DictionaryComparator<MoveTeamPositionFighterName, Integer> buildMoveTeamPositionBoolVal() {
+        return new DictionaryComparator<MoveTeamPositionFighterName, Integer>(new ComparatorMoveTeamPosition());
     }
 
     public static DictionaryComparator<MiniMapCoords,int[][]> buildMiniMapImgs() {

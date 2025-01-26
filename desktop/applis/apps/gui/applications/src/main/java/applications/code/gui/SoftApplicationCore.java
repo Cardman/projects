@@ -16,6 +16,7 @@ import code.gui.AbsButton;
 import code.gui.EnabledMenu;
 import code.gui.InterpretedFile;
 import code.gui.LanguagesButtonsPair;
+import code.gui.document.MessagesPkBean;
 import code.gui.files.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
@@ -67,7 +68,7 @@ public abstract class SoftApplicationCore {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl(), GamesPk.baseEncode(_msg), _msg.byAppl(MessagesDataBaseConstants.SC_APP)));
         StringMap<String> builtOther_ = CssInit.ms();
         _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
-        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesInit.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs),null));
+        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesPkBean.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs),null));
         StringMap<TranslationsAppli> stds_ = _msg.byAppl(MessagesInit.APP_BEAN);
 //        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
 //        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));

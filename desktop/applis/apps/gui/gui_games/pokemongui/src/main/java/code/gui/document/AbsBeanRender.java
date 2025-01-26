@@ -1,6 +1,9 @@
 package code.gui.document;
 
+import aiki.beans.*;
+import aiki.beans.fight.*;
 import aiki.facade.*;
+import aiki.game.fight.*;
 import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.images.*;
@@ -17,17 +20,28 @@ public abstract class AbsBeanRender {
     private int partGroup;
     private int rowGroup;
     private AbsScrollPane scrollPane;
+    private StringMap<AbsBeanRender> renders;
+    private FindBeanEvent event;
+    private AbstractProgramInfos factory;
+    private FacadeGame facade;
+    private AbsCommonFrame frame;
+    private final IdList<AbsTextPane> anchors = new IdList<AbsTextPane>();
 
-    public AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade, FindBeanEvent _find){
-        AbsCustComponent compo_ = build(_api, _facade);
+    public AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade, FindBeanEvent _find, StringMapObject _form){
+        anchors.clear();
+        AbsCustComponent compo_ = build(_api, _facade, _form);
         _find.setFinding(this);
         return compo_;
     }
-    public abstract AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade);
+    public abstract AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade, StringMapObject _form);
 
-    protected void displayStringList(AbstractProgramInfos _api, AbsPanel _form, String _file, StringList _list, String _key) {
+    protected void displayStringList(AbstractProgramInfos _api, AbsPanel _form, String _file, CustList<String> _list, String _key) {
         getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         DisplayingBeanCountable.display(this, _api, _form, _file, _list, _key);
+        displayStringList(_api, _form, _list);
+    }
+
+    protected void displayStringList(AbstractProgramInfos _api, AbsPanel _form, CustList<String> _list) {
         for (String i: _list) {
             nextPart();
             AbsPanel lineType_ = _api.getCompoFactory().newLineBox();
@@ -36,6 +50,18 @@ public abstract class AbsBeanRender {
             feedParents(_form,lineType_);
             getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         }
+    }
+
+    protected void init(CommonBean _common, FacadeGame _facade, StringMapObject _form) {
+        getMetaSearchableContents().clear();
+        getParents().clear();
+        getRefsSearch().clear();
+        setPartGroup(0);
+        setRowGroup(0);
+        _common.setDataBase(_facade);
+        _common.setForms(_form);
+        _common.setLanguage(_facade.getLanguage());
+        _common.beforeDisplaying();
     }
 
     protected void nextPart() {
@@ -57,9 +83,18 @@ public abstract class AbsBeanRender {
         img_.dispose();
     }
 
-    public void formatMessage(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
+    public AbsTextPane formatMessageAnc(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
+        AbsTextPane tx_ = formatMessage(_api, _form, _file, _key, _values);
+        AbsAttrSet att_ = _api.getCompoFactory().newAttrSet();
+        att_.addUnderline(true);
+        att_.addForeground(GuiConstants.BLUE);
+        tx_.setCharacterAttributes(0,tx_.getText().length(), att_, false);
+        anchors.add(tx_);
+        return tx_;
+    }
+    public AbsTextPane formatMessage(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
         String txt_ = formatMessage(_api, _file, _key, _values);
-        formatMessageDir(_api, _form, txt_);
+        return formatMessageDir(_api, _form, txt_);
     }
 
     public AbsTextPane formatMessage(AbstractProgramInfos _api, AbsPanel _form, AbsGridConstraints _cts, String _file, String _key, String... _values) {
@@ -71,10 +106,21 @@ public abstract class AbsBeanRender {
         return StringUtil.simpleStringsFormat(files(_api).getVal(_file).getMapping().getVal(_key), _values);
     }
 
-    public void formatMessageDir(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
+    public AbsTextPane formatMessageDirAnc(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
+        AbsTextPane tx_ = formatMessageDir(_api, _form, _txt);
+        AbsAttrSet att_ = _api.getCompoFactory().newAttrSet();
+        att_.addUnderline(true);
+        att_.addForeground(GuiConstants.BLUE);
+        tx_.setCharacterAttributes(0,tx_.getText().length(), att_, false);
+        anchors.add(tx_);
+        return tx_;
+    }
+
+    public AbsTextPane formatMessageDir(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
         AbsTextPane ch_ = message(_api, _txt);
         feedParents(_form, ch_);
         hierarchy(_txt, ch_);
+        return ch_;
     }
 
     public AbsTextPane formatMessageDir(AbstractProgramInfos _api, AbsPanel _form, AbsGridConstraints _cts, String _txt) {
@@ -82,6 +128,7 @@ public abstract class AbsBeanRender {
         ch_.setLineBorder(GuiConstants.BLACK);
         feedParents(_form, _cts, ch_);
         hierarchy(_txt, ch_);
+        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         return ch_;
     }
 
@@ -155,6 +202,67 @@ public abstract class AbsBeanRender {
         return _api.currentLg().getMapping().getVal(MessagesInit.APP_BEAN).getMapping();
     }
 
+    public static StringMap<TranslationsFile> filesFight(AbstractProgramInfos _api) {
+        return _api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_FIGHT).getMapping();
+    }
+    public void displayTrPkMoveTarget(AbstractProgramInfos _api, AbsPanel _container, boolean _key, String _file, TrPkMoveTarget _value) {
+        formatMessageDir(_api,_container,_api.getCompoFactory().newGridCts(),_value.getMoveTarget().getMove());
+        if (_value.getMoveTarget().getTarget().getTeam() == Fight.CST_FOE) {
+            formatMessage(_api,_container,_api.getCompoFactory().newGridCts(),_file,MessagesFightFight.M_P_90_ALLY_CHOICES_FOE);
+        } else {
+            formatMessage(_api,_container,_api.getCompoFactory().newGridCts(),_file,MessagesFightFight.M_P_90_ALLY_CHOICES_PLAYER);
+        }
+        AbsGridConstraints gr_;
+        if (_key) {
+            gr_ = _api.getCompoFactory().newGridCts();
+        } else {
+            gr_ = remainder(_api);
+        }
+        if (_value.getMoveTarget().getTarget().getPosition() != Fighter.BACK) {
+            formatMessageDir(_api,_container,_api.getCompoFactory().newGridCts(),Long.toString(_value.getMoveTarget().getTarget().getPosition()));
+            formatMessageDir(_api,_container,gr_,_value.getTranslation());
+        } else {
+            formatMessage(_api,_container,_api.getCompoFactory().newGridCts(),_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
+            formatMessage(_api,_container,gr_,_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
+        }
+    }
+    public void displayActivityOfMoveEnabled(AbstractProgramInfos _api, AbsPanel _container, AbsGridConstraints _cts, String _file, ActivityOfMove _value, String _one, String _two) {
+        if (_value.isEnabled()) {
+            formatMessage(_api,_container,_cts,_file,_one);
+        } else {
+            formatMessage(_api,_container,_cts,_file,_two);
+        }
+    }
+    public void displayActivityOfMoveNbRound(AbstractProgramInfos _api, AbsPanel _container, AbsGridConstraints _cts, String _file, ActivityOfMove _value, String _key) {
+        if (_value.isIncrementCount()) {
+            formatMessageDir(_api,_container,_cts,Long.toString(_value.getNbTurn()));
+        } else {
+            formatMessage(_api,_container,_cts,_file,_key);
+        }
+    }
+    public void headerCol(AbstractProgramInfos _api, AbsPanel _tableStat, AbsGridConstraints _cts, String _file, String _key) {
+        AbsTextPane th_ = formatMessage(_api, _tableStat, _cts, _file, _key);
+        th_.setBackground(GuiConstants.YELLOW);
+    }
+
+    protected static AbsGridConstraints remainder(AbstractProgramInfos _api) {
+        AbsGridConstraints cts_ = _api.getCompoFactory().newGridCts();
+        cts_.gridwidth(GuiConstants.REMAINDER);
+        return cts_;
+    }
+
+    protected static AbsGridConstraints remainder(AbstractProgramInfos _api, int _index, int _count) {
+        AbsGridConstraints cts_ = _api.getCompoFactory().newGridCts();
+        if (_index+1 == _count) {
+            cts_.gridwidth(GuiConstants.REMAINDER);
+        }
+        return cts_;
+    }
+
+    public IdList<AbsTextPane> getAnchors() {
+        return anchors;
+    }
+
     public int getRowGroup() {
         return rowGroup;
     }
@@ -177,6 +285,46 @@ public abstract class AbsBeanRender {
 
     public void setScrollPane(AbsScrollPane _s) {
         this.scrollPane = _s;
+    }
+
+    public StringMap<AbsBeanRender> getRenders() {
+        return renders;
+    }
+
+    public void setRenders(StringMap<AbsBeanRender> _r) {
+        this.renders = _r;
+    }
+
+    public FindBeanEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(FindBeanEvent _e) {
+        this.event = _e;
+    }
+
+    public AbstractProgramInfos getFactory() {
+        return factory;
+    }
+
+    public void setFactory(AbstractProgramInfos _f) {
+        this.factory = _f;
+    }
+
+    public FacadeGame getFacade() {
+        return facade;
+    }
+
+    public void setFacade(FacadeGame _f) {
+        this.facade = _f;
+    }
+
+    public AbsCommonFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(AbsCommonFrame _f) {
+        this.frame = _f;
     }
 
     public IdList<MetaSearchableContent> getMetaSearchableContents() {

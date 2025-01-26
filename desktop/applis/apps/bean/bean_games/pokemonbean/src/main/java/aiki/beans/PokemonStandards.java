@@ -1011,11 +1011,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrBool(AbsMap<String, BoolVal> _map) {
+    public static NatArrayStruct getStrBool(AbsMap<String, Integer> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<String,BoolVal> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),NaBoSt.of(e.getValue() == BoolVal.TRUE));
+        for (EntryCust<String,Integer> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),NaBoSt.of(CommonBean.toBool(e.getValue())));
             arr_.set(i_,p_);
             i_++;
         }

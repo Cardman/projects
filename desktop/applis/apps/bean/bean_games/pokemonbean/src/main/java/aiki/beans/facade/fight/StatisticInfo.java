@@ -1,4 +1,5 @@
 package aiki.beans.facade.fight;
+import aiki.beans.CommonBean;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
 
@@ -16,13 +17,21 @@ public final class StatisticInfo {
         statistic = _statistic;
     }
 
-    public boolean isBoost() {
-        return isBoost(statistic);
+    public int boost() {
+        return CommonBean.toInt(isBoost(statistic));
     }
 
-    public boolean isBase() {
-        return isBase(statistic);
+    public int base() {
+        return CommonBean.toInt(isBase(statistic));
     }
+//
+//    public boolean isBoost() {
+//        return isBoost(statistic);
+//    }
+//
+//    public boolean isBase() {
+//        return isBase(statistic);
+//    }
 
     public static boolean isBoost(Statistic _st) {
         return _st == Statistic.ATTACK || _st == Statistic.DEFENSE||

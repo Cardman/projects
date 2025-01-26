@@ -17,7 +17,6 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
-import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public class FighterBean extends CommonFightBean {
@@ -50,39 +49,39 @@ public class FighterBean extends CommonFightBean {
     private String cloneStr;
     private StringList protectedAgainstMoveTypes;
     private NatStringTreeMap<ActivityOfMoveStill> enabledMoves;
-    private NatStringTreeMap<BoolVal> enabledMovesForAlly;
+    private NatStringTreeMap<Integer> enabledMovesForAlly;
     private NatStringTreeMap<MultPowerMoves> damageRateByType;
     private int groundPlace;
     private Rate wonExpSinceLastLevel;
     private Rate necessaryPointsNextLevel;
     private long level;
     private long happiness;
-    private DictionaryComparator<MoveTeamPositionFighterName,BoolVal> incrUserAccuracy;
+    private DictionaryComparator<MoveTeamPositionFighterName,Integer> incrUserAccuracy;
     private NatStringTreeMap<Long> nbUsesMoves;
     private long nbPrepaRound;
-    private boolean needingToRecharge;
+    private int needingToRecharge;
     private DictionaryComparator<MoveTeamPositionFighterName,AffectedMove> trackingMoves;
-    private DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMove> trappingMoves;
+    private DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMoveStill> trappingMoves;
     private NatStringTreeMap<SufferedDamageCategory> damageSufferedCateg;
     private NatStringTreeMap<CopiedMove> copiedMoves;
     private LgInt nbRepeatingSuccessfulMoves;
     private DictionaryComparator<MoveTeamPositionFighterName,String> privateMoves;
-    private boolean belongingToPlayer;
+    private int belongingToPlayer;
     private String lastUsedItem;
     private LgInt nbRounds;
-    private boolean acted;
+    private int acted;
     private int groundPlaceSubst;
     private String usedBallCatching;
-    private boolean disappeared;
+    private int disappeared;
     private String lastSufferedMove;
     private StringList lastSufferedMoveTypes;
     private String lastUsedMove;
     private String usedMoveLastRound;
     private StringList alreadyInvokedMovesRound;
     private String lastSuccessfulMove;
-    private boolean usingItem;
-    private boolean successfulMove;
-    private boolean changed;
+    private int usingItem;
+    private int successfulMove;
+    private int changed;
 
     @Override
     public void beforeDisplaying() {
@@ -104,7 +103,7 @@ public class FighterBean extends CommonFightBean {
         keyName = fighter_.getName();
         name = translationsPokemon_.getVal(fighter_.getName());
         currentName = translationsPokemon_.getVal(fighter_.getCurrentName());
-        belongingToPlayer = fighter_.isBelongingToPlayer();
+        belongingToPlayer = toInt(fighter_.isBelongingToPlayer());
         nickname = fighter_.getNickname();
         gender = translationsGenders_.getVal(fighter_.getGender());
         currentGender = translationsGenders_.getVal(fighter_.getCurrentGender());
@@ -130,7 +129,7 @@ public class FighterBean extends CommonFightBean {
             lastUsedItem = translationsItems_.getVal(fighter_.getLastUsedItem());
         }
         nbRounds = fighter_.getNbRounds();
-        acted = fighter_.isActed();
+        acted = toInt(fighter_.isActed());
         ability = translationsAbilities_.getVal(fighter_.getAbility());
         if (fighter_.getCurrentAbility().isEmpty()) {
             currentAbility = DataBase.EMPTY_STRING;
@@ -140,7 +139,7 @@ public class FighterBean extends CommonFightBean {
         wonExpSinceLastLevel = fighter_.getWonExpSinceLastLevel();
         necessaryPointsNextLevel = numberNecessaryPointsForGrowingLevel();
         nbPrepaRound = fighter_.getNbPrepaRound();
-        needingToRecharge = fighter_.isNeedingToRecharge();
+        needingToRecharge = toInt(fighter_.isNeedingToRecharge());
         remainingHp = fighter_.getRemainingHp();
         maxHp = fighter_.pvMax();
         remainingHpStr = remainingHp.evaluate(2);
@@ -184,9 +183,9 @@ public class FighterBean extends CommonFightBean {
         copiedMoves = copiedMoves(fighter_);
         groundPlace = fighter_.getGroundPlace();
         groundPlaceSubst = fighter_.getGroundPlaceSubst();
-        disappeared = fighter_.isDisappeared();
+        disappeared = toInt(fighter_.isDisappeared());
         pastMove(fighter_);
-        successfulMove = fighter_.isSuccessfulMove();
+        successfulMove = toInt(fighter_.isSuccessfulMove());
         StringList lastSufferedMoveTypes_ = new StringList();
         for (String t: fighter_.getLastSufferedMoveTypes()) {
             lastSufferedMoveTypes_.add(translationsTypes_.getVal(t));
@@ -194,8 +193,8 @@ public class FighterBean extends CommonFightBean {
         lastSufferedMoveTypes_.sort();
         lastSufferedMoveTypes = lastSufferedMoveTypes_;
         alreadyInvokedMovesRound = alreadyInvokedMovesRound(fighter_);
-        usingItem = fighter_.isUsingItem();
-        changed = fighter_.isChanged();
+        usingItem = toInt(fighter_.isUsingItem());
+        changed = toInt(fighter_.isChanged());
         NatStringTreeMap<MultPowerMoves> damageRateByType_;
         damageRateByType_ = new NatStringTreeMap<MultPowerMoves>();
         for (String c: data_.getTypes()) {
@@ -275,15 +274,15 @@ public class FighterBean extends CommonFightBean {
         return copiedMoves_;
     }
 
-    private NatStringTreeMap<BoolVal> enabledMovesForAll(Fighter _fighter) {
+    private NatStringTreeMap<Integer> enabledMovesForAll(Fighter _fighter) {
         FacadeGame dataBaseFight_ = facade();
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        NatStringTreeMap<BoolVal> enabledMovesForAlly_;
-        enabledMovesForAlly_ = new NatStringTreeMap<BoolVal>();
+        NatStringTreeMap<Integer> enabledMovesForAlly_;
+        enabledMovesForAlly_ = new NatStringTreeMap<Integer>();
         for (String c: _fighter.getEnabledMovesForAlly().getKeys()) {
-            enabledMovesForAlly_.put(translationsMoves_.getVal(c), _fighter.getEnabledMovesForAlly().getVal(c));
+            enabledMovesForAlly_.put(translationsMoves_.getVal(c),toInt(_fighter.getEnabledMovesForAlly().getVal(c)));
         }
         return enabledMovesForAlly_;
     }
@@ -359,7 +358,7 @@ public class FighterBean extends CommonFightBean {
             privateMoves_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), StringUtil.join(movesPr_, MOVES_SEPARATOR));
         }
         privateMoves = privateMoves_;
-        DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMove> trappingMoves_;
+        DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMoveStill> trappingMoves_;
 //        trappingMoves_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -380,7 +379,7 @@ public class FighterBean extends CommonFightBean {
             activity_ = new ActivityOfMove(_fighter.getTrappingMoves().getVal(m));
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            trappingMoves_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), activity_);
+            trappingMoves_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), new ActivityOfMoveStill(activity_));
         }
         trappingMoves = trappingMoves_;
         DictionaryComparator<MoveTeamPositionFighterName,AffectedMove> trackingMoves_;
@@ -412,7 +411,7 @@ public class FighterBean extends CommonFightBean {
             trackingMoves_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), new AffectedMove(affectedMoveTr_, activity_));
         }
         trackingMoves = trackingMoves_;
-        DictionaryComparator<MoveTeamPositionFighterName,BoolVal> incrUserAccuracy_;
+        DictionaryComparator<MoveTeamPositionFighterName,Integer> incrUserAccuracy_;
 //        incrUserAccuracy_ = new TreeMap<new>(new NaturalComparator<MoveTeamPosition>(){
 //            @Override
 //            public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {
@@ -431,7 +430,7 @@ public class FighterBean extends CommonFightBean {
         for (MoveTeamPosition m: _fighter.getIncrUserAccuracy().getKeys()) {
             String move_ = translationsMoves_.getVal(m.getMove());
             MoveTeamPosition m_ = new MoveTeamPosition(move_, m.getTeamPosition());
-            incrUserAccuracy_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), _fighter.getIncrUserAccuracy().getVal(m));
+            incrUserAccuracy_.put(new MoveTeamPositionFighterName(m_,getFighterAtPosition(dataBaseFight_,m_.getTeamPosition())), toInt(_fighter.getIncrUserAccuracy().getVal(m)));
         }
         incrUserAccuracy = incrUserAccuracy_;
     }
@@ -515,6 +514,8 @@ public class FighterBean extends CommonFightBean {
                 stat_.setStatisBase(_fighter.getStatisBase().getVal(s));
                 stat_.setEv(_fighter.getEv().getVal(s));
                 stat_.setIv(_fighter.getIv().getVal(s));
+            } else {
+                stat_.setStatisBase(Rate.zero());
             }
             stat_.setDisplayStatistic(translationsStatistics_.getVal(s));
             statistics_.add(stat_);
@@ -587,7 +588,7 @@ public class FighterBean extends CommonFightBean {
         return name;
     }
 
-    public boolean getChanged() {
+    public int getChanged() {
         return changed;
     }
 
@@ -603,7 +604,7 @@ public class FighterBean extends CommonFightBean {
         return usedBallCatching;
     }
 
-    public boolean getBelongingToPlayer() {
+    public int getBelongingToPlayer() {
         return belongingToPlayer;
     }
 
@@ -687,7 +688,7 @@ public class FighterBean extends CommonFightBean {
         return currentAbility;
     }
 
-    public boolean getActed() {
+    public int getActed() {
         return acted;
     }
 
@@ -703,7 +704,7 @@ public class FighterBean extends CommonFightBean {
         return expItem;
     }
 
-    public boolean getUsingItem() {
+    public int getUsingItem() {
         return usingItem;
     }
 
@@ -747,7 +748,7 @@ public class FighterBean extends CommonFightBean {
         return enabledMoves;
     }
 
-    public NatStringTreeMap<BoolVal> getEnabledMovesForAlly() {
+    public NatStringTreeMap<Integer> getEnabledMovesForAlly() {
         return enabledMovesForAlly;
     }
 
@@ -759,7 +760,7 @@ public class FighterBean extends CommonFightBean {
         return nbRepeatingSuccessfulMoves;
     }
 
-    public boolean getSuccessfulMove() {
+    public int getSuccessfulMove() {
         return successfulMove;
     }
 
@@ -791,11 +792,11 @@ public class FighterBean extends CommonFightBean {
         return lastSufferedMoveTypes;
     }
 
-    public boolean getDisappeared() {
+    public int getDisappeared() {
         return disappeared;
     }
 
-    public boolean getNeedingToRecharge() {
+    public int getNeedingToRecharge() {
         return needingToRecharge;
     }
 
@@ -811,7 +812,7 @@ public class FighterBean extends CommonFightBean {
         return privateMoves;
     }
 
-    public DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMove> getTrappingMoves() {
+    public DictionaryComparator<MoveTeamPositionFighterName,ActivityOfMoveStill> getTrappingMoves() {
         return trappingMoves;
     }
 
@@ -819,7 +820,7 @@ public class FighterBean extends CommonFightBean {
         return trackingMoves;
     }
 
-    public DictionaryComparator<MoveTeamPositionFighterName,BoolVal> getIncrUserAccuracy() {
+    public DictionaryComparator<MoveTeamPositionFighterName,Integer> getIncrUserAccuracy() {
         return incrUserAccuracy;
     }
 }

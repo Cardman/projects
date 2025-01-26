@@ -12,12 +12,12 @@ import aiki.gui.WindowAiki;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.gui.*;
-import code.gui.document.NatRenderAction;
-import code.gui.document.RenderedPage;
+import code.gui.document.*;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.confs.PkScriptPages;
 import code.threads.AbstractFutureParam;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
@@ -37,6 +37,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     private final ProgressingWebDialog dialog;
     private final EnabledMenu menuItem;
     private final WindowAiki window;
+    private final WrapBeanRender wrapBeanRender;
 
     public FrameHtmlData(WindowAiki _parent, EnabledMenu _m) {
         super(_parent.getFrames());
@@ -55,6 +56,7 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         session.setFrame(getCommonFrame());
         session.setDialog(getDialog());
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
+        wrapBeanRender = new WrapBeanRender(panel_);
         AbsPlainLabel area_ = _parent.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
         search = _parent.getCompoFactory().newPlainButton();
@@ -73,6 +75,12 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         pack();
         menuItem = _m;
         menuItem.setEnabled(false);
+    }
+    public void initFightBeans() {
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,new FightBeanRender());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,new FightCalculationBeanRender());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,new TeamBeanRender());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,new FighterBeanRender());
     }
     public void setDialogIcon(AbsCommonFrame _group) {
         setIconImage(_group.getImageIconFrame());
@@ -114,6 +122,13 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         menuItem.setEnabled(true);
     }
 
+    public void initSession(FacadeGame _dataBase) {
+        wrapBeanRender.display(wrapBeanRender.getRenders().firstValue(),getFrames(),_dataBase,getCommonFrame());
+        setVisible(true);
+        menuItem.setEnabled(false);
+        search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
+    }
+
     public void initSessionLg(FacadeGame _dataBase, AbstractFutureParam<AikiNatLgNamesNavigation> _pre, String _lg) {
         AikiNatLgNamesNavigation res_ = _pre.attendreResultat();
         initSessionLg(_dataBase, res_, _lg);
@@ -144,6 +159,10 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 
     public RenderedPage getSession() {
         return session;
+    }
+
+    public WrapBeanRender getWrapBeanRender() {
+        return wrapBeanRender;
     }
 
 //    public void setBattle(Battle _battle) {

@@ -16,6 +16,8 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class CommonBean extends Bean implements WithFacade,WithForms {
+    public static final int FALSE_VALUE = 0;
+    public static final int TRUE_VALUE = 1;
     public static final String GET_IMAGE = "getImage";
     public static final String CLICK_NAME = "clickName";
     public static final String GET_NAME = "getName";
@@ -132,6 +134,21 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     private FacadeGame dataBase;
 //    private String baseEncode;
 
+    public static int toInt(BoolVal _b) {
+        if (_b == BoolVal.TRUE) {
+            return TRUE_VALUE;
+        }
+        return FALSE_VALUE;
+    }
+    public static int toInt(boolean _b) {
+        if (_b) {
+            return TRUE_VALUE;
+        }
+        return FALSE_VALUE;
+    }
+    public static boolean toBool(int _i) {
+        return _i == TRUE_VALUE;
+    }
     public static Rate rateTrue(MonteCarloBoolean _law) {
         if (_law.isZero()) {
             return Rate.zero();

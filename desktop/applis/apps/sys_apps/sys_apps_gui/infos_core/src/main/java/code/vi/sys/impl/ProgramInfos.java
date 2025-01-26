@@ -21,6 +21,7 @@ import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.formathtml.util.DefaultBeanAliases;
 import code.gui.*;
+import code.gui.document.MessagesPkBean;
 import code.gui.document.MessagesPkPokemon;
 import code.gui.files.*;
 import code.gui.initialize.*;
@@ -147,8 +148,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN,complete(MessagesInit.fr(),MessagesPkPokemon.fr()));
         en_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.enData());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
-        en_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.enFight());
-        fr_.getMapping().addEntry(MessagesInit.APP_BEAN_FIGHT,MessagesInit.frFight());
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
         en_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,MessagesTrs.enPart());
         fr_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,MessagesTrs.frPart());
         MessagesApplications.tr(MessagesApplications.initAppliTr(en_));

@@ -1,5 +1,6 @@
 package aiki.beans.fight;
 
+import aiki.beans.CommonBean;
 import aiki.beans.FighterNamePkNameMvStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.fight.KeyHypothesis;
@@ -12,7 +13,6 @@ import aiki.game.fight.util.CopiedMove;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
 import code.util.*;
-import code.util.core.BoolVal;
 
 public final class AikiBeansFightStd{
     public static final String TYPE_COMMON_FIGHT_BEAN = "aiki.beans.fight.CommonFightBean";
@@ -364,10 +364,6 @@ public final class AikiBeansFightStd{
         int len_ = _map.size();
         return PokemonStandards.arrId(len_);
     }
-    public static NatArrayStruct getTeamPos(ImgMovesListTeamPositionsList _map) {
-        int len_ = _map.getTeamPositions().size();
-        return PokemonStandards.arrId(len_);
-    }
 
     public static NatArrayStruct getBigByAn(AbsMap<String, IntTreeMap<Anticipation>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
@@ -424,11 +420,11 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvAm(AbsMap<MoveTeamPositionFighterName, ActivityOfMove> _map) {
+    public static NatArrayStruct getWcMvAm(AbsMap<MoveTeamPositionFighterName, ActivityOfMoveStill> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPositionFighterName, ActivityOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()),new ActivityOfMoveStruct(e.getValue()));
+        for (EntryCust<MoveTeamPositionFighterName, ActivityOfMoveStill> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()),new ActivityOfMoveStruct(e.getValue().getActivity()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -446,11 +442,11 @@ public final class AikiBeansFightStd{
         return arr_;
     }
 
-    public static NatArrayStruct getWcMvTpBool(AbsMap<MoveTeamPositionFighterName, BoolVal> _map) {
+    public static NatArrayStruct getWcMvTpBool(AbsMap<MoveTeamPositionFighterName, Integer> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<MoveTeamPositionFighterName, BoolVal> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()), NaBoSt.of(e.getValue() == BoolVal.TRUE));
+        for (EntryCust<MoveTeamPositionFighterName, Integer> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey().getMoveTeamPosition()), NaBoSt.of(e.getValue() == CommonBean.TRUE_VALUE));
             arr_.set(j_,p_);
             j_++;
         }

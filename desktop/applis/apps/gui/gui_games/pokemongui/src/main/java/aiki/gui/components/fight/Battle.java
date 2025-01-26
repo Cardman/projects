@@ -15,7 +15,6 @@ import aiki.gui.components.checks.CheckBox;
 import aiki.gui.components.fight.events.*;
 import aiki.gui.listeners.*;
 import aiki.gui.threads.*;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.PkNonModalEvent;
 import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderBattle;
@@ -36,7 +35,6 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.sml.util.*;
-import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -238,6 +236,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         super(_window.getFrames());
         frontBattle = _frontBattle;
         renderDataFight = new FrameHtmlData(_window, _window.getDataBattle());
+        renderDataFight.initFightBeans();
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        setContentPane(splitter);
@@ -1141,7 +1140,7 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //            return;
 //        }
 //        AbstractThread fightThread_ = window.getPreparedFightThread();
-        AbstractFutureParam<AikiNatLgNamesNavigation> fightTask_ = window.getPreparedFightTask();
+//        AbstractFutureParam<AikiNatLgNamesNavigation> fightTask_ = window.getPreparedFightTask();
 //        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
 //            return;
 //        }
@@ -1159,7 +1158,8 @@ public class Battle extends GroupFrame implements AbsChildFrame {
 //        FrameHtmlData dialog_ = new FrameHtmlData(window, window.getDataBattle());
         renderDataFight.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
 //        dialog_.setTitle(messages.getVal(TITLE));
-        renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
+//        renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
+        renderDataFight.initSession(facade);
         renderDataFight.pack();
 //        dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
 //        htmlDialogs.add(dialog_);
@@ -1188,8 +1188,9 @@ public class Battle extends GroupFrame implements AbsChildFrame {
         if (facade.isChangeToFightScene()) {
             renderDataFight.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
 //        dialog_.setTitle(messages.getVal(TITLE));
-            AbstractFutureParam<AikiNatLgNamesNavigation> fightTask_ = window.getPreparedFightTask();
-            renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
+//            AbstractFutureParam<AikiNatLgNamesNavigation> fightTask_ = window.getPreparedFightTask();
+//            renderDataFight.initSessionLg(facade,fightTask_,facade.getLanguage());
+            renderDataFight.initSession(facade);
             renderDataFight.pack();
 //            if (!htmlDialogs.isEmpty()) {
 //                if (htmlDialogs.first().getCommonFrame().isVisible()) {

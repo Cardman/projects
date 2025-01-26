@@ -29,7 +29,9 @@ public final class PkDetailContent {
     }
 
     public void group(WindowAiki _parent, FacadeGame _dataBase, Packable _p, AbstractAtomicBooleanCore _at) {
-        pkPlayerRender.display(new PkPlayerRender(),_parent.getFrames(), _dataBase);
+        PkPlayerRender ren_ = new PkPlayerRender();
+        pkPlayerRender.getRenders().addEntry("",ren_);
+        pkPlayerRender.display(ren_,_parent.getFrames(), _dataBase, _parent.getCommonFrame());
         StringMap<String> messages_ = file(_parent.getFrames().currentLg());
 ////        DialogHtmlData d_ = _parent.getDialogHtmlData();
 //        AikiNatLgNamesNavigation res_ = _pre.attendreResultat();

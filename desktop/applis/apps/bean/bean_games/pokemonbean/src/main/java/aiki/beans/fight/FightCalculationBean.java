@@ -19,22 +19,22 @@ public class FightCalculationBean extends CommonFightBean {
 
     private IntTreeMap<BoolVal> foeChoicesTargets;
     private CustList<KeyHypothesis> damage;
-    private ImgMovesListTeamPositionsList sortedFighters;
+    private StringList sortedFighters;
     private CustList<ImgMovesListTeamPositionsList> sortedFightersWildFight;
 
     @Override
     public void beforeDisplaying() {
         FacadeGame dataBaseFight_ = facade();
         damageInit(dataBaseFight_);
+        sortedFighters = new StringList();
+        TeamPositionList tl_;
         if (!dataBaseFight_.getGame().getFight().getFightType().isWild()) {
-            sortedFighters = new ImgMovesListTeamPositionsList(new CustList<FighterImgPkNameMv>(),dataBaseFight_.sortedFightersBeginRound());
+            tl_ = dataBaseFight_.sortedFightersBeginRound();
         } else {
-            sortedFighters = new ImgMovesListTeamPositionsList(new CustList<FighterImgPkNameMv>(),new TeamPositionList());
+            tl_ = new TeamPositionList();
         }
-        for (TeamPosition t:sortedFighters.getTeamPositions()) {
-            FighterImgPkNameMv e_ = new FighterImgPkNameMv();
-            e_.setNameMvTr(getFighterAtPosition(dataBaseFight_, t));
-            sortedFighters.getKeyPks().add(e_);
+        for (TeamPosition t:tl_) {
+            sortedFighters.add(getFighterAtPosition(dataBaseFight_, t));
         }
         if (dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFightersWildFight = convert();
@@ -168,7 +168,7 @@ public class FightCalculationBean extends CommonFightBean {
         return sortedFightersWildFight.get(_indexOne).getNamesPk().get(_indexTwo);
     }
     public String getFighter(int _index) {
-        return sortedFighters.getKeyPks().get(_index).getNameMvTr();
+        return sortedFighters.get(_index);
     }
     public boolean isFoeTargetChoiceTeam(int _index) {
         return allyChoice.getKey(_index).getMoveTarget().getTarget().getTeam() == Fight.CST_FOE;
@@ -201,7 +201,7 @@ public class FightCalculationBean extends CommonFightBean {
         return foeChoices.getValue(_index).getMoveTarget().getTarget().getTeam() == Fight.CST_FOE;
     }
 
-    public ImgMovesListTeamPositionsList getSortedFighters() {
+    public StringList getSortedFighters() {
         return sortedFighters;
     }
 

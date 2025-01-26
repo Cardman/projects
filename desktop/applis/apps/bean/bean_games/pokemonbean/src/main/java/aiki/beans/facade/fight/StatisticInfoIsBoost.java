@@ -1,12 +1,11 @@
 package aiki.beans.facade.fight;
 
-import aiki.beans.fight.StatisticInfoStruct;
-import code.bean.nat.*;
-import code.bean.nat.*;
+import aiki.beans.*;
+import aiki.beans.fight.*;
 import code.bean.nat.*;
 public class StatisticInfoIsBoost implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return NaBoSt.of(( ((StatisticInfoStruct) _instance).getStatisticInfo()).isBoost());
+        return NaBoSt.of(CommonBean.toBool(( ((StatisticInfoStruct) _instance).getStatisticInfo()).boost()));
     }
 }
