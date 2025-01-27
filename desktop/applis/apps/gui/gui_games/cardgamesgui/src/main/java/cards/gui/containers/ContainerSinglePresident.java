@@ -85,9 +85,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public void load() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         window().changeMenuSimuEnabled(false);
@@ -95,15 +95,15 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        getPaused().set(PAUSE_ALIVE);
         window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getPause().setEnabled(false);
+        getConsulting().setEnabled(false);
         setChangerPileFin(false);
 //        setaJoueCarte(false);
         GamePresident partie_=partiePresident();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         getOwner().setTitle(GameEnum.PRESIDENT.toString(lg_));
         placerPresident();
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        getHelpGame().setEnabled(false);
         if (!partie_.keepPlayingCurrentGame()) {
             finPartiePresident();
             pack();
@@ -113,7 +113,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             discardPhase();
             return;
         }
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+        getHelpGame().setEnabled(true);
         if (partie_.availableSwitchingCards()) {
             fetchLooser(partie_);
             fetchWinner(partie_);
@@ -243,9 +243,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     public void placerBoutonsAvantJeuUtilisateurPresident() {
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+        getHelpGame().setEnabled(true);
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        getConsulting().setEnabled(true);
 //        setRaisonCourante(EMPTY);
         afficherMainUtilisateurPresident(true);
         getPanneauBoutonsJeu().removeAll();
@@ -265,8 +265,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
+        getOwner().getTricksHands().setEnabled(true);
+        getOwner().getTeams().setEnabled(true);
     }
 
 //    public void placerBoutonsFinPliUtilisateurPresident() {
@@ -283,12 +283,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public void editerPresident(GamePresident _partie) {
         //desactiver le menu Partie/aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        getHelpGame().setEnabled(false);
 //        setPasse(false);
 //        getPaused().set(PAUSE_ALIVE);
         window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+        getPause().setEnabled(false);
 //        setaJoueCarte(false);
 //        setPartieSauvegardee(false);
         getPar().jouerPresident(_partie);
@@ -301,11 +301,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     private void placerPresident() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        getConsulting().setEnabled(true);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         window().changeMenuSimuEnabled(false);
@@ -391,14 +391,14 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getNoPlay().setVisible(true);
         getNoPlay().setEnabled(false);
         pack();
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+        getHelpGame().setEnabled(true);
         thread(new AnimationCardPresident(this));
     }
 
     private void discardPhase() {
         GamePresident partie_ = partiePresident();
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
-        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        getOwner().getTricksHands().setEnabled(true);
+        getConsulting().setEnabled(true);
         getReceivedCards().supprimerCartes();
         getReceivedCards().ajouterCartes(partie_.getSwitchedCards().get(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
         updateCardsInPanelPresidentReceived();
@@ -413,11 +413,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
     @Override
     public void modify() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), getReglesPresident().getNbStacks());
         if(nb_==0||!getPar().enCoursDePartiePresident()) {
@@ -493,9 +493,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Activer le menu Partie/Pause
 //        MenuItemUtils.setEnabledMenu(getPause(),true);
         //Desactiver le sous-menu conseil
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
+        getConsulting().setEnabled(false);
+        getOwner().getTricksHands().setEnabled(false);
+        getOwner().getTeams().setEnabled(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(_played,lg_),RETURN_LINE));
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
@@ -524,10 +524,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void finPartiePresident() {
         getPane().removeAll();
         /*Descativer aide au jeu*/
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getHelpGame().setEnabled(false);
+        getOwner().getTricksHands().setEnabled(false);
+        getOwner().getTeams().setEnabled(false);
+        getConsulting().setEnabled(false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
 
         if(isChangerPileFin()) {

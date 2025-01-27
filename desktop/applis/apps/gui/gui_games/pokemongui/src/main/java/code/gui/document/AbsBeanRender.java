@@ -8,10 +8,10 @@ import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
-import code.scripts.pages.aiki.*;
 import code.sml.util.*;
 import code.util.*;
 import code.util.core.*;
+import code.util.ints.Countable;
 
 public abstract class AbsBeanRender {
     private final IdMap<MetaSearchableContent,AbsTextPane> refsSearch = new IdMap<MetaSearchableContent,AbsTextPane>();
@@ -37,7 +37,7 @@ public abstract class AbsBeanRender {
 
     protected void displayStringList(AbstractProgramInfos _api, AbsPanel _form, String _file, CustList<String> _list, String _key) {
         getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-        DisplayingBeanCountable.display(this, _api, _form, _file, _list, _key);
+        display(_api, _form, _file, _list, _key);
         displayStringList(_api, _form, _list);
     }
 
@@ -85,12 +85,49 @@ public abstract class AbsBeanRender {
 
     public AbsTextPane formatMessageAnc(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
         AbsTextPane tx_ = formatMessage(_api, _form, _file, _key, _values);
-        AbsAttrSet att_ = _api.getCompoFactory().newAttrSet();
-        att_.addUnderline(true);
-        att_.addForeground(GuiConstants.BLUE);
-        tx_.setCharacterAttributes(0,tx_.getText().length(), att_, false);
+        anchor(_api, tx_);
         anchors.add(tx_);
         return tx_;
+    }
+    public void display(AbstractProgramInfos _api, AbsPanel _container, String _file, Countable _ls, String _key) {
+        if (!_ls.isEmpty()) {
+            formatMessage(_api,_container,_file,_key);
+            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        }
+    }
+    public void headerCols(AbstractProgramInfos _api, AbsPanel _container, String _file, Countable _ls, String... _cols) {
+        if (!_ls.isEmpty()) {
+            for (int i = 0; i < _cols.length; i++) {
+                String h_ = _cols[i];
+                if (i + 1 < _cols.length) {
+                    headerCol(_api, _container, _api.getCompoFactory().newGridCts(), _file, h_);
+                } else {
+                    headerCol(_api, _container, AbsBeanRender.remainder(_api), _file, h_);
+                }
+            }
+        }
+    }
+    public void displayEmpty(AbstractProgramInfos _api, AbsPanel _container, String _file, String _value, String _key) {
+        if (_value.isEmpty()) {
+            formatMessage(_api,_container,_file,_key);
+        }
+    }
+    public void displayNotEmpty(AbstractProgramInfos _api, AbsPanel _container, String _file, String _value, String _key) {
+        if (!_value.isEmpty()) {
+            formatMessage(_api,_container,_file,_key,_value);
+        }
+    }
+    public void displayBoolFull(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _one, String _two) {
+        if (_value == CommonBean.TRUE_VALUE) {
+            formatMessage(_api,_container,_file,_one);
+        } else {
+            formatMessage(_api,_container,_file,_two);
+        }
+    }
+    public void displayBoolTrue(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _key) {
+        if (_value == CommonBean.TRUE_VALUE) {
+            formatMessage(_api,_container,_file,_key);
+        }
     }
     public AbsTextPane formatMessage(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
         String txt_ = formatMessage(_api, _file, _key, _values);
@@ -103,17 +140,22 @@ public abstract class AbsBeanRender {
     }
 
     public String formatMessage(AbstractProgramInfos _api, String _file, String _key, String... _values) {
-        return StringUtil.simpleStringsFormat(files(_api).getVal(_file).getMapping().getVal(_key), _values);
+        return StringUtil.simpleStringsFormat(files(_api, appName()).getVal(_file).getMapping().getVal(_key), _values);
     }
+    public abstract String appName();
 
     public AbsTextPane formatMessageDirAnc(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
         AbsTextPane tx_ = formatMessageDir(_api, _form, _txt);
+        anchor(_api, tx_);
+        anchors.add(tx_);
+        return tx_;
+    }
+
+    private void anchor(AbstractProgramInfos _api, AbsTextPane _tx) {
         AbsAttrSet att_ = _api.getCompoFactory().newAttrSet();
         att_.addUnderline(true);
         att_.addForeground(GuiConstants.BLUE);
-        tx_.setCharacterAttributes(0,tx_.getText().length(), att_, false);
-        anchors.add(tx_);
-        return tx_;
+        _tx.setCharacterAttributes(0, _tx.getText().length(), att_, false);
     }
 
     public AbsTextPane formatMessageDir(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
@@ -198,12 +240,12 @@ public abstract class AbsBeanRender {
         sc_.setHorizontalValue(x_);
         sc_.setVerticalValue(y_);
     }
-    public static StringMap<TranslationsFile> files(AbstractProgramInfos _api) {
-        return _api.currentLg().getMapping().getVal(MessagesInit.APP_BEAN).getMapping();
+    public static StringMap<TranslationsFile> files(AbstractProgramInfos _api, String _name) {
+        return _api.currentLg().getMapping().getVal(_name).getMapping();
     }
 
     public static StringMap<TranslationsFile> filesFight(AbstractProgramInfos _api) {
-        return _api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_FIGHT).getMapping();
+        return files(_api, MessagesPkBean.APP_BEAN_FIGHT);
     }
     public void displayTrPkMoveTarget(AbstractProgramInfos _api, AbsPanel _container, boolean _key, String _file, TrPkMoveTarget _value) {
         formatMessageDir(_api,_container,_api.getCompoFactory().newGridCts(),_value.getMoveTarget().getMove());

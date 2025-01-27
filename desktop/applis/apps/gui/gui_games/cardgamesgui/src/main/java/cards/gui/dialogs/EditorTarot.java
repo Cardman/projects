@@ -276,7 +276,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     public void playGame() {
         window.getCore().setContainerGame(new ContainerSingleTarot(window));
         ((ContainerSingleTarot) window.getCore().getContainerGame()).editerTarot(partie);
-        MenuItemUtils.setEnabledMenu(window.getChange(),true);
+        window.getChange().setEnabled(true);
     }
     public static GameTarot getPartie(EditorTarot _dialog) {
         _dialog.getAbsDialog().setVisible(true);

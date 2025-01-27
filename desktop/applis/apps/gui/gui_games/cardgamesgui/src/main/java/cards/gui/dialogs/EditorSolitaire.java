@@ -11,7 +11,6 @@ import cards.solitaire.*;
 import cards.solitaire.sml.DocumentReaderSolitaireUtil;
 import code.gui.AbsPanel;
 import code.gui.EnabledMenu;
-import code.gui.MenuItemUtils;
 import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesEditorCards;
@@ -263,7 +262,7 @@ public final class EditorSolitaire extends DialogHelpCards implements SetterSele
         window.getCore().setContainerGame(cont_);
         cont_.setSolitaireType(type.getSolitaireType());
         cont_.editerSolitaire(partie);
-        MenuItemUtils.setEnabledMenu(window.getChange(),true);
+        window.getChange().setEnabled(true);
     }
 
     public static AbsDealSolitaire getPartie(EditorSolitaire _dialog) {

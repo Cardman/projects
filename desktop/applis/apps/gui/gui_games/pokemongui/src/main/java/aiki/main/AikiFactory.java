@@ -29,7 +29,6 @@ public final class AikiFactory {
     private IntConfPkStream confPkStream;
     public AikiFactory(AbstractProgramInfos _p, AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> _n, AbstractBaseExecutorServiceParam<DataBase> _g) {
         generalHelp = _p.getCompoFactory().newMenuItem();
-        MenuItemUtils.setEnabledMenu(generalHelp,false);
         navigation = _n;
         _n.shutdown();
         geneDb = _g;

@@ -3,7 +3,6 @@ package code.gui.document;
 import code.sml.util.*;
 
 public final class MessagesFightTeam {
-    public static final String TEAM = "team";
     public static final String M_P_92_ENBALED_MOVES="enbaled_moves";
     public static final String M_P_92_ENBALED_MOVES_ENABLED="enbaled_moves_enabled";
     public static final String M_P_92_ENBALED_MOVES_ENABLED_N="enbaled_moves_enabled_n";

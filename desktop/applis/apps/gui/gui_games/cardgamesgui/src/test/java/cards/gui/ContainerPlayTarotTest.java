@@ -5878,7 +5878,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = new ContainerSingleTarot(wc_);
         wc_.getCore().setContainerGame(cst_);
         cst_.editerTarot(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return cst_;
     }
 
@@ -5889,7 +5889,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = new ContainerSingleTarot(wc_);
         wc_.getCore().setContainerGame(cst_);
         cst_.editerTarot(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return cst_;
     }
 
@@ -5959,7 +5959,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         tryClick(wc_.getSingleModeButton());
         tryClick(wc_.getSoloGames().getVal(GameEnum.TAROT));
         ContainerSingleTarot cst_ = (ContainerSingleTarot) wc_.getCore().getContainerGame();
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return cst_;
     }
 

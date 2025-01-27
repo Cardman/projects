@@ -235,7 +235,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
         wc_.getCore().setContainerGame(csb_);
         csb_.editerBelote(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 
@@ -245,7 +245,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = new ContainerSinglePresident(wc_);
         wc_.getCore().setContainerGame(csp_);
         csp_.editerPresident(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csp_;
     }
 
@@ -255,7 +255,7 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = new ContainerSingleTarot(wc_);
         wc_.getCore().setContainerGame(cst_);
         cst_.editerTarot(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return cst_;
     }
 

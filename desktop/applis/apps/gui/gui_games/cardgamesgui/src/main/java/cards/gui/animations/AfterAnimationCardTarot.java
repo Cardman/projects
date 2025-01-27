@@ -1,7 +1,6 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
-import code.gui.MenuItemUtils;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -19,7 +18,7 @@ public final class AfterAnimationCardTarot implements Runnable {
     @Override
     public void run() {
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(container.getPause(),false);
+        container.getPause().setEnabled(false);
         if(kindExit == ContainerGame.USER_INSTANT) {
 //            container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurTarot();

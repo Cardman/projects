@@ -8,6 +8,7 @@ import aiki.game.*;
 import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -28,7 +29,7 @@ public final class PkPlayerRender extends AbsBeanRender {
         getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         AbsPanel formEvosLine_ = _api.getCompoFactory().newLineBox();
         AbsPanel formEvos_ = _api.getCompoFactory().newPageBox();
-        DisplayingBeanCountable.display(this,_api,formEvos_,MessagesPkPokemon.POKEMON,bean.getEvolutions(),MessagesPkPokemon.M_P_94_EVOLUTIONS);
+        display(_api,formEvos_,MessagesPkPokemon.POKEMON,bean.getEvolutions(),MessagesPkPokemon.M_P_94_EVOLUTIONS);
         for (ImgPkPlayer i:bean.getEvolutions()) {
             nextPart();
             AbsPanel lineEvo_ = _api.getCompoFactory().newLineBox();
@@ -45,9 +46,9 @@ public final class PkPlayerRender extends AbsBeanRender {
         formatMessage(_api, lineInfo_,MessagesPkPokemon.POKEMON,MessagesPkPokemon.M_P_94_LEVEL,Long.toString(bean.getLevel()));
         formatMessage(_api, lineInfo_,MessagesPkPokemon.POKEMON,MessagesPkPokemon.M_P_94_GENDER,bean.getGender());
         formatMessage(_api, lineInfo_,MessagesPkPokemon.POKEMON,MessagesPkPokemon.M_P_94_ABILITY,bean.getAbility());
-        DisplayingBeanCountable.displayNotEmpty(this,_api,lineInfo_,MessagesPkPokemon.POKEMON,bean.getUsedBallCatching(),MessagesPkPokemon.M_P_94_USED_BALL_CATCHING);
-        DisplayingBeanCountable.displayNotEmpty(this,_api,lineInfo_,MessagesPkPokemon.POKEMON,bean.getItem(),MessagesPkPokemon.M_P_94_ITEM);
-        DisplayingBeanCountable.displayEmpty(this,_api,lineInfo_,MessagesPkPokemon.POKEMON,bean.getItem(),MessagesPkPokemon.M_P_94_ITEM_NO);
+        displayNotEmpty(_api,lineInfo_,MessagesPkPokemon.POKEMON,bean.getUsedBallCatching(),MessagesPkPokemon.M_P_94_USED_BALL_CATCHING);
+        displayNotEmpty(_api,lineInfo_,MessagesPkPokemon.POKEMON,bean.getItem(),MessagesPkPokemon.M_P_94_ITEM);
+        displayEmpty(_api,lineInfo_,MessagesPkPokemon.POKEMON,bean.getItem(),MessagesPkPokemon.M_P_94_ITEM_NO);
         formatMessage(_api, lineInfo_,MessagesPkPokemon.POKEMON,MessagesPkPokemon.M_P_94_HP,bean.getRemainingHp().toNumberString(),bean.getRemainingHpPerCent(),bean.getFullHp().toNumberString());
         formatMessage(_api, lineInfo_,MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_NICKNAME,bean.getNickname());
         formatMessage(_api, lineInfo_,MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_WON_EXP_LAST_LEVEL,bean.getWonExpSinceLastLevel().toNumberString());
@@ -59,7 +60,7 @@ public final class PkPlayerRender extends AbsBeanRender {
         displayStringList(_api, form_,MessagesPkPokemon.POKEMON, bean.getTypes(), MessagesPkPokemon.M_P_94_TYPES);
         displayStringList(_api, form_,MessagesPkPokemon.POKEMON, bean.getStatus(), MessagesPkPokemon.M_P_94_STATUS);
         nextPart();
-        DisplayingBeanCountable.display(this,_api,form_,MessagesPkPokemon.POKEMON,bean.getMoves(),MessagesPkPokemon.M_P_94_MOVES);
+        display(_api,form_,MessagesPkPokemon.POKEMON,bean.getMoves(),MessagesPkPokemon.M_P_94_MOVES);
         AbsPanel tableMove_ = _api.getCompoFactory().newGrid();
         headerCol(_api, tableMove_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_MOVES_KEY);
         headerCol(_api, tableMove_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_MOVES_CUR_PP);
@@ -67,7 +68,7 @@ public final class PkPlayerRender extends AbsBeanRender {
         new BeanDisplayMap<String,UsesOfMove>(new BeanDisplayString(),new BeanDisplayUsesOfMove()).display(this,_api,tableMove_,bean.getMoves(),3);
         feedParents(form_,tableMove_);
         nextPart();
-        DisplayingBeanCountable.display(this,_api,form_,MessagesPkPokemon.POKEMON,bean.getStatistics(),MessagesPkPokemon.M_P_94_STATISTICS);
+        display(_api,form_,MessagesPkPokemon.POKEMON,bean.getStatistics(),MessagesPkPokemon.M_P_94_STATISTICS);
         AbsPanel tableStat_ = _api.getCompoFactory().newGrid();
         headerCol(_api, tableStat_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_STATISTICS_KEY);
         headerCol(_api, tableStat_, _api.getCompoFactory().newGridCts(), MessagesPkPokemon.POKEMON, MessagesPkPokemon.M_P_94_STATISTICS_EV);
@@ -85,8 +86,11 @@ public final class PkPlayerRender extends AbsBeanRender {
 
 
     public static StringMap<String> file(AbstractProgramInfos _api) {
-        return files(_api).getVal(MessagesPkPokemon.POKEMON).getMapping();
+        return files(_api, MessagesInit.APP_BEAN).getVal(MessagesPkPokemon.POKEMON).getMapping();
     }
 
-
+    @Override
+    public String appName() {
+        return MessagesInit.APP_BEAN;
+    }
 }

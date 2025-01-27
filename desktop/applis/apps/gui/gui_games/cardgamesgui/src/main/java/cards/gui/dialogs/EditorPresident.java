@@ -15,7 +15,6 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import code.gui.AbsPanel;
 import code.gui.EnabledMenu;
-import code.gui.MenuItemUtils;
 import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
@@ -266,7 +265,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     public void playGame() {
         window.getCore().setContainerGame(new ContainerSinglePresident(window));
         ((ContainerSinglePresident) window.getCore().getContainerGame()).editerPresident(partie);
-        MenuItemUtils.setEnabledMenu(window.getChange(),true);
+        window.getChange().setEnabled(true);
     }
 
     public static GamePresident getPartie(EditorPresident _dialog) {

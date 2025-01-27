@@ -285,7 +285,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     public void playGame() {
         window.getCore().setContainerGame(new ContainerSingleBelote(window));
         ((ContainerSingleBelote) window.getCore().getContainerGame()).editerBelote(partie);
-        MenuItemUtils.setEnabledMenu(window.getChange(),true);
+        window.getChange().setEnabled(true);
     }
 
     public EditorCards getEditorCards() {

@@ -4523,7 +4523,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
         wc_.getCore().setContainerGame(csb_);
         csb_.editerBelote(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 
@@ -4532,7 +4532,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
         wc_.getCore().setContainerGame(csb_);
         csb_.editerBelote(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
     private ContainerSingleBelote editBeloteOtherDisplay(RulesBelote _rules, DealBelote _deal, MockGameBelote _mock) {
@@ -4542,7 +4542,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = new ContainerSingleBelote(wc_);
         wc_.getCore().setContainerGame(csb_);
         csb_.editerBelote(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 
@@ -4597,7 +4597,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(wc_.getSingleModeButton());
         tryClick(wc_.getSoloGames().getVal(GameEnum.BELOTE));
         ContainerSingleBelote csb_ = (ContainerSingleBelote) wc_.getCore().getContainerGame();
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 
@@ -4613,7 +4613,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(wc_.getSingleModeButton());
         tryClick(wc_.getSoloGames().getVal(GameEnum.BELOTE));
         ContainerSingleBelote csb_ = (ContainerSingleBelote) wc_.getCore().getContainerGame();
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
     private ContainerSingleBelote modifyBeloteDir(RulesBelote _rules, MockGameBelote _mock) {
@@ -4624,7 +4624,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
         wc_.getCommonFrame().setVisible(true);
         ContainerSingleBelote csb_ = (ContainerSingleBelote) wc_.getCore().getContainerGame();
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 

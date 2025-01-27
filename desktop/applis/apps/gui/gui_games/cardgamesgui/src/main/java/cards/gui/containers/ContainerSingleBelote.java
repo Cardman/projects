@@ -116,9 +116,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public void load() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         window().changeMenuSimuEnabled(false);
@@ -126,7 +126,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         window().getPausingCardsAnims().alive(this);
 //        getPaused().set(PAUSE_ALIVE);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+        getPause().setEnabled(false);
         setChangerPileFin(false);
 //        setaJoueCarte(false);
         GameBelote partie_=partieBelote();
@@ -135,9 +135,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         placerBelote();
 //        pack();
         StringList pseudos_=pseudosBelote();
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        getHelpGame().setEnabled(false);
         //Desactiver les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
         for(BidBeloteSuit b: partie_.tousContrats()) {
             String pseudo_ = pseudos_.get(player_);
@@ -175,7 +175,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 ////            }
 ////            return;
 //        }
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+        getHelpGame().setEnabled(true);
         if (partie_.getRegles().getDealing().getDiscarded() > 0) {
             if (partie_.getTricks().isEmpty()) {
                 variant();
@@ -244,11 +244,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     private void variant() {
         GameBelote partie_=partieBelote();
         if (!partie_.keepBidding() && partie_.getPreneur() == DealBelote.NUMERO_UTILISATEUR) {
-            MenuItemUtils.setEnabledMenu(getConsulting(),false);
+            getConsulting().setEnabled(false);
             boolean existCard_ = userHasDiscarded();
             if (!partie_.getPliEnCours().estVide()) {
                 setTakerCardsDiscard(takerDiscard(partie_));
-                MenuItemUtils.setEnabledMenu(getConsulting(),false);
+                getConsulting().setEnabled(false);
                 TrickBelote ecart_= partie_.getPliEnCours();
 //                setChien(ecart_.getCartes(),true);
                 getPanneauBoutonsJeu().add(getValidateDiscard());
@@ -482,7 +482,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         partie_.ajouterCartesUtilisateur();
         setTakerCardsDiscard(takerDiscard(partie_));
-        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        getConsulting().setEnabled(true);
         tapisBelote().retirerCartes();
         new ContainerSingleWithDiscardUtil<CardBelote>(this).updateCardsInPanels(true);
 //        afficherMainUtilisateurBeloteChien();
@@ -516,7 +516,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     @Override
     public void discard(CardBelote _t) {
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         GameBelote partie_=partieBelote();
         partie_.ajouterUneCarteDansPliEnCoursPreneur(getOwner().baseWindow().getIa().getBelote().discard(_t));
     }
@@ -526,7 +526,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         CardBelote r_ = getOwner().baseWindow().getIa().getBelote().restore(_t);
         partie_.invaliderAjoutCarteEcart(r_);
-        MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide());
+        getConsulting().setEnabled(partie_.getPliEnCours().estVide());
     }
 
     @Override
@@ -542,7 +542,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getValidateDiscard().setEnabled(_chienFait);
 //        boolean slam_ = _chienFait;// && partie_.getContrat() != BidBelote.SLAM;
         getSlamButton().setEnabled(_chienFait);
-        MenuItemUtils.setEnabledMenu(getConsulting(),partie_.getPliEnCours().estVide()||_chienFait);
+        getConsulting().setEnabled(partie_.getPliEnCours().estVide()||_chienFait);
     }
 
     //    private void addButtonKeepPlayingDealBelote(AbsPanel _panneau,String _texte) {
@@ -614,13 +614,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     public void placerBoutonsAvantJeuUtilisateurBelote() {
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),true);
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+        getConsulting().setEnabled(true);
+        getHelpGame().setEnabled(true);
 //        setRaisonCourante(EMPTY);
         GameBelote partie_=partieBelote();
         afficherMainUtilisateurBelote(true);
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),true);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),true);
+        getOwner().getTricksHands().setEnabled(true);
+        getOwner().getTeams().setEnabled(true);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         AbsCustCheckBox belReb_ = getBeloteRebelote();
         belReb_.setSelected(false);
@@ -642,8 +642,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public void placerBoutonsFinPliUtilisateurBelote() {
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+        getConsulting().setEnabled(false);
+        getHelpGame().setEnabled(true);
         GameBelote partie_=partieBelote();
         if(!partie_.keepPlayingCurrentGame()) {
             addButtonEndDealBelote(file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
@@ -654,12 +654,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public void editerBelote(GameBelote _partie) {
         //desactiver le menu Partie/aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        getHelpGame().setEnabled(false);
 //        setPasse(false);
 //        getPaused().set(PAUSE_ALIVE);
         window().getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+        getPause().setEnabled(false);
 //        setaJoueCarte(false);
 //        setPartieSauvegardee(false);
         getPar().jouerBelote(_partie);
@@ -671,11 +671,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     private void placerBelote() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        getConsulting().setEnabled(true);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         window().changeMenuSimuEnabled(false);
@@ -772,11 +772,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     @Override
     public void modify() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
         long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames(), nbStacks(getReglesBelote()));
         if(nb_==0||!getPar().enCoursDePartieBelote()) {
@@ -808,9 +808,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     private void changeEnable() {
         //Activer le sous-menu conseil
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         //Activer le sous-menu aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),true);
+        getHelpGame().setEnabled(true);
     }
 
     private void firstTrickBack() {
@@ -859,8 +859,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Activer le menu Partie/Pause
 //        MenuItemUtils.setEnabledMenu(getPause(),true);
         //Desactiver le sous-menu conseil
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
+        getConsulting().setEnabled(false);
+        getOwner().getTricksHands().setEnabled(false);
         GameBelote partie_=partieBelote();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         if(partie_.premierTour()) {
@@ -913,10 +913,10 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public void finPartieBelote() {
         getPane().removeAll();
         /*Descativer aide au jeu*/
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getHelpGame().setEnabled(false);
+        getOwner().getTricksHands().setEnabled(false);
+        getOwner().getTeams().setEnabled(false);
+        getConsulting().setEnabled(false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();

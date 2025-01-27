@@ -274,9 +274,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         battle = new FrontBattle(this, core.getFacade());
         battle.addMouseListener(new PkNonModalEvent(modal),new FrontClickEvent(battle));
         initMenuBar();
-        MenuItemUtils.setEnabledMenu(core.getGameLoad(),false);
-        MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
-        MenuItemUtils.setEnabledMenu(dataGame,false);
+        core.getGameLoad().setEnabled(false);
+        core.getGameSave().setEnabled(false);
+        dataWeb.setEnabled(false);
+        dataBattle.setEnabled(false);
+        newGame.setEnabled(false);
+        difficulty.setEnabled(false);
         battle.setVisibleFrontBattle(false);
         mainPanel_.add(battle.getPaintableLabel());
         mainPanel_.add(scenePanel.getComponent());
@@ -579,7 +582,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         core.getFacade().newGame(_txt, getChosenSex());
         drawGame();
         savedGame = false;
-        MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
+        core.getGameSave().setEnabled(true);
         loadingConf.setLastSavedGame(DataBase.EMPTY_STRING);
     }
 
@@ -692,9 +695,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void afterLoadZip() {
-        MenuItemUtils.setEnabledMenu(dataGame,true);
-        MenuItemUtils.setEnabledMenu(core.getGameLoad(),true);
-        MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
+        dataWeb.setEnabled(true);
+        newGame.setEnabled(true);
+        core.getGameLoad().setEnabled(true);
+        core.getGameSave().setEnabled(false);
 //        if (exporting != null && exporting.isAlive()) {
 //            return;
 //        }
@@ -711,7 +715,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void afterLoadGame() {
-        MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
+        core.getGameSave().setEnabled(true);
         drawGame();
         savedGame = true;
     }
@@ -734,11 +738,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (battle != null) {
 //            mainPanel.remove(battle);
 //        }
-        MenuItemUtils.setEnabledMenu(difficulty,true);
+        difficulty.setEnabled(true);
         battle.setVisibleFrontBattle(false);
         scenePanel.getComponent().setVisible(true);
         inBattle = false;
-        MenuItemUtils.setEnabledMenu(dataBattle,false);
+        dataBattle.setEnabled(false);
         scenePanel.drawGameWalking(_setPreferredSize);
     }
 
@@ -819,14 +823,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         dataWeb.setAccelerator(GuiConstants.VK_F1,0);
         dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this));
         dataGame.addMenuItem(dataWeb);
-        MenuItemUtils.setEnabledMenu(dataBattle,false);
+        dataBattle.setEnabled(false);
         dataBattle.setAccelerator(GuiConstants.VK_F2,0);
         dataBattle.addActionListener(new PkNonModalEvent(modal),new ShowDataFightEvent(this));
         dataGame.addMenuItem(dataBattle);
         newGame.addActionListener(new PkNonModalEvent(modal),new ProponeNewGameEvent(this));
         newGame.setAccelerator(GuiConstants.VK_N, GuiConstants.CTRL_DOWN_MASK);
         dataGame.addMenuItem(newGame);
-        MenuItemUtils.setEnabledMenu(difficulty,false);
+        difficulty.setEnabled(false);
         difficulty.addActionListener(new PkNonModalEvent(modal),new ManageDifficultyEvent(this));
         difficulty.setAccelerator(GuiConstants.VK_F3,0);
         dataGame.addMenuItem(difficulty);
@@ -956,7 +960,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         Game game_ = _w.common().getGameCheck().checkGame(db_,_w.facade().getSexList(), _w.common().getAikiFactory().getGamePkStream().load(_fileName, _w.facade().getSexList()));
         if (game_ != null) {
             _w.facade().load(game_);
-            MenuItemUtils.setEnabledMenu(_w.common().getGameSave(),true);
+            _w.common().getGameSave().setEnabled(true);
             _w.reset();
 //            if (battle != null) {
 //                battle.resetWindows();
@@ -1251,6 +1255,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            f.pack();
 //        }
         battle.closeWindows();
+        dataBattle.setEnabled(inBattle);
     }
 //
 //    public void exitFromTrading() {
@@ -1470,7 +1475,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        return DataBase.EMPTY_STRING;
 //    }
     public void setFight(boolean _animate) {
-        MenuItemUtils.setEnabledMenu(difficulty,false);
+        difficulty.setEnabled(false);
         core.getFacade().setChangeToFightScene(false);
 //        enabledMove = false;
         battle.setVisibleFrontBattle(true);
@@ -1484,7 +1489,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         }
 //        mainPanel.add(battle, CustList.FIRST_INDEX);
         inBattle = true;
-        MenuItemUtils.setEnabledMenu(dataBattle,true);
+        dataBattle.setEnabled(true);
         pack();
         if (loadingConf.isEnableAnimation() && _animate) {
             disableBasicFight();
@@ -1508,7 +1513,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void interact() {
-        MenuItemUtils.setEnabledMenu(difficulty,true);
+        difficulty.setEnabled(true);
         scenePanel.interact();
     }
 
@@ -1685,7 +1690,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void disableBasicFight() {
-        MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
+        core.getGameSave().setEnabled(false);
         disableCom();
     }
 
@@ -1698,7 +1703,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     public void reenableBasicFight() {
-        MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
+        core.getGameSave().setEnabled(true);
         reenCom();
     }
 
@@ -1707,10 +1712,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     private void en(boolean _b) {
-        MenuItemUtils.setEnabledMenu(newGame,_b);
-        MenuItemUtils.setEnabledMenu(params,_b);
-        MenuItemUtils.setEnabledMenu(core.getZipLoad(),_b);
-        MenuItemUtils.setEnabledMenu(core.getGameLoad(),_b);
+        newGame.setEnabled(_b);
+        params.setEnabled(_b);
+        core.getZipLoad().setEnabled(_b);
+        core.getGameLoad().setEnabled(_b);
     }
 
     public ProgressingDialog getDialog() {

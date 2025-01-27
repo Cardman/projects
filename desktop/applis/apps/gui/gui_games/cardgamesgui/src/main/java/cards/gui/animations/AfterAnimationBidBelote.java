@@ -4,7 +4,6 @@ import cards.belote.GameBelote;
 import cards.consts.Role;
 import cards.facade.IntArtCardGames;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.MenuItemUtils;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.util.Bytes;
 
@@ -43,8 +42,8 @@ public final class AfterAnimationBidBelote implements Runnable {
     }
     public static void buttons(ContainerSingleBelote _container) {
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(_container.getPause(),false);
-        MenuItemUtils.setEnabledMenu(_container.getConsulting(),false);
+        _container.getPause().setEnabled(false);
+        _container.getConsulting().setEnabled(false);
         GameBelote gameBelote_=_container.partieBelote();
         _container.clearBids();
         if(gameBelote_.keepBidding()) {
@@ -55,7 +54,7 @@ public final class AfterAnimationBidBelote implements Runnable {
                 _container.thread(new AnimationBidBelote(_container));
             } else {
                 //Activer les conseils
-                MenuItemUtils.setEnabledMenu(_container.getConsulting(),true);
+                _container.getConsulting().setEnabled(true);
                 _container.bidButtons();
 //                _container.setThreadAnime(false);
                 _container.window().changeStreamsMenusEnabled(true);
@@ -68,7 +67,7 @@ public final class AfterAnimationBidBelote implements Runnable {
                 _container.pack();
                 return;
             }
-            MenuItemUtils.setEnabledMenu(_container.getOwner().getTeams(),true);
+            _container.getOwner().getTeams().setEnabled(true);
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
             Bytes partenaires_ = gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur());
             if (!partenaires_.isEmpty()) {
@@ -79,7 +78,7 @@ public final class AfterAnimationBidBelote implements Runnable {
             _container.window().changeStreamsMenusEnabled(true);
             _container.pack();
         } else {
-            MenuItemUtils.setEnabledMenu(_container.getOwner().getTeams(),true);
+            _container.getOwner().getTeams().setEnabled(true);
             _container.addButtonEndDealBelote(_container.file().getVal(MessagesGuiCards.MAIN_END_DEAL), true);
 //            _container.setThreadAnime(false);
             _container.window().changeStreamsMenusEnabled(true);

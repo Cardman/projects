@@ -1,7 +1,6 @@
 package cards.gui.animations;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.GamePresident;
-import code.gui.MenuItemUtils;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -18,7 +17,7 @@ public final class AfterAnimationCardPresident implements Runnable {
     public void run() {
         GamePresident currentGame_=container.partiePresident();
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(container.getPause(),false);
+        container.getPause().setEnabled(false);
         if (currentGame_.keepPlayingCurrentGame()) {
 //            container.setThreadAnime(false);
             container.placerBoutonsAvantJeuUtilisateurPresident();

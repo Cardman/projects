@@ -6,7 +6,6 @@ import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.PlayingDog;
-import code.gui.MenuItemUtils;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.util.core.BoolVal;
 
@@ -25,13 +24,13 @@ public final class AfterAnimationBidTarot implements Runnable {
     public void run() {
         GameTarot gameTarot_=container.partieTarot();
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(container.getPause(),false);
+        container.getPause().setEnabled(false);
         container.getPanneauBoutonsJeu().removeAll();
         container.getBids().clear();
 //        TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if(gameTarot_.keepBidding()) {
             //Activer les conseils
-            MenuItemUtils.setEnabledMenu(container.getConsulting(),true);
+            container.getConsulting().setEnabled(true);
 //            container.setCanBid(true);
 //            for(BidTarot b:gameTarot_.allowedBids()) {
 //                container.ajouterBoutonContratTarot(Games.toString(b,lg_),b,b.estDemandable(gameTarot_.getContrat()));

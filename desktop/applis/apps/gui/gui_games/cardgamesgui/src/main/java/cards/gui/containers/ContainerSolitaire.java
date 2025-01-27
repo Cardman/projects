@@ -30,9 +30,9 @@ public final class ContainerSolitaire extends ContainerSingleImpl {
     public void load() {
         setSolitaireType(partieSolitaire().type());
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         win.changeMenuSimuEnabled(false);
@@ -40,8 +40,8 @@ public final class ContainerSolitaire extends ContainerSingleImpl {
 //        getPaused().set(PAUSE_ALIVE);
 //        win.getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getPause().setEnabled(false);
+        getConsulting().setEnabled(false);
 //        setChangerPileFin(false);
 //        setaJoueCarte(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -51,22 +51,22 @@ public final class ContainerSolitaire extends ContainerSingleImpl {
 
     public void modify() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         getPar().jouerSolitaire(getOwner().baseWindow().getFirstDealSolitaire().deal(this, getSolitaireType()));
         placerSolitaire();
     }
     public void editerSolitaire(AbsDealSolitaire _partie) {
         //desactiver le menu Partie/aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        getHelpGame().setEnabled(false);
 //        setPasse(false);
 //        getPaused().set(PAUSE_ALIVE);
 //        win.getPausingCardsAnims().alive(this);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+        getPause().setEnabled(false);
 //        setaJoueCarte(false);
 //        setPartieSauvegardee(false);
         getPar().jouerSolitaire(_partie);
@@ -78,11 +78,11 @@ public final class ContainerSolitaire extends ContainerSingleImpl {
     }
     private void placerSolitaire() {
         //Activer le menu Fichier/Sauvegarder
-        MenuItemUtils.setEnabledMenu(getSave(),true);
+        getSave().setEnabled(true);
         //Activer le menu Fichier/Changer de mode
-        MenuItemUtils.setEnabledMenu(getChange(),true);
+        getChange().setEnabled(true);
         //Activer les conseils
-        MenuItemUtils.setEnabledMenu(getConsulting(),true);
+        getConsulting().setEnabled(true);
         //Desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(getDemo(),false);
         win.changeMenuSimuEnabled(false);
@@ -156,10 +156,10 @@ public final class ContainerSolitaire extends ContainerSingleImpl {
     public void finPartieSolitaire() {
         getPane().removeAll();
         /*Descativer aide au jeu*/
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getHelpGame().setEnabled(false);
+        getOwner().getTricksHands().setEnabled(false);
+        getOwner().getTeams().setEnabled(false);
+        getConsulting().setEnabled(false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
 //        setThreadAnime(false);

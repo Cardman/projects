@@ -1,12 +1,11 @@
 package aiki.gui.threads;
-import code.gui.EnabledMenu;
-import code.gui.MenuItemUtils;
+import code.gui.*;
 
 public final class ChangeEnabledDifficulty implements Runnable {
 
-    private EnabledMenu difficulty;
+    private final EnabledMenu difficulty;
 
-    private boolean enabled;
+    private final boolean enabled;
 
     public ChangeEnabledDifficulty(EnabledMenu _difficulty, boolean _enabled) {
         difficulty = _difficulty;
@@ -15,6 +14,6 @@ public final class ChangeEnabledDifficulty implements Runnable {
 
     @Override
     public void run() {
-        MenuItemUtils.setEnabledMenu(difficulty,enabled);
+        difficulty.setEnabled(enabled);
     }
 }

@@ -3,7 +3,6 @@ package code.gui.document;
 import code.sml.util.*;
 
 public final class MessagesFightFight {
-    public static final String FIGHT = "fight";
     public static final String M_P_90_ALLY_CHOICES="ally_choices";
     public static final String M_P_90_ALLY_CHOICES_FOE="ally_choices_foe";
     public static final String M_P_90_ALLY_CHOICES_KEY="ally_choices_key";

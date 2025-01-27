@@ -5,7 +5,6 @@ import cards.belote.GameBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.containers.ContainerSingleImpl;
-import code.gui.MenuItemUtils;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -24,7 +23,7 @@ public final class AnimationCardBelote implements Runnable {
     @Override
     public void run() {
 //        container.setThreadAnime(true);
-        MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
+        container.getConsulting().setEnabled(false);
         GameBelote partie_=container.partieBelote();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         if (partie_.pliEnCoursEstVide() && !container.getParametres().getAttentePlisClic()) {

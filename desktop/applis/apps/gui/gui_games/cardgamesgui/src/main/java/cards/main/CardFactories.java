@@ -24,7 +24,6 @@ public final class CardFactories {
     private final StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> taskNav = new StringMap<AbstractFutureParam<CardNatLgNamesNavigation>>();
     public CardFactories(AbstractProgramInfos _p, AbstractBaseExecutorServiceParam<CardNatLgNamesNavigation> _n, AbstractBaseExecutorServiceParam<HelpIndexesTree> _h) {
         generalHelp = _p.getCompoFactory().newMenuItem();
-        MenuItemUtils.setEnabledMenu(generalHelp,false);
         navigation = _n;
         help = _h;
         _n.shutdown();

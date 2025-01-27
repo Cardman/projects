@@ -343,7 +343,7 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         ContainerSolitaire csb_ = new ContainerSolitaire(wc_);
         wc_.getCore().setContainerGame(csb_);
         csb_.editerSolitaire(_deal);
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 
@@ -352,7 +352,7 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         ContainerSolitaire csb_ = new ContainerSolitaire(wc_);
         wc_.getCore().setContainerGame(csb_);
         csb_.editerSolitaire(_deal);
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
     private ContainerSolitaire editSolitaireOtherDisplay(AbsDealSolitaire _deal) {
@@ -361,7 +361,7 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         ContainerSolitaire csb_ = new ContainerSolitaire(wc_);
         wc_.getCore().setContainerGame(csb_);
         csb_.editerSolitaire(_deal);
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 
@@ -398,7 +398,7 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         tryClick(wc_.getSingleModeButton());
         tryClick(wc_.getSoloGames().getVal(_solo));
         ContainerSolitaire csb_ = (ContainerSolitaire) wc_.getCore().getContainerGame();
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 
@@ -407,7 +407,7 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         wc_.baseWindow().getFacadeCards().getParametres().setWaitTrickClick(false);
         wc_.getCommonFrame().setVisible(true);
         ContainerSolitaire csb_ = (ContainerSolitaire) wc_.getCore().getContainerGame();
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csb_;
     }
 

@@ -985,8 +985,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void en(boolean _b) {
 //        MenuItemUtils.setEnabledMenu(newGame,_b);
 //        MenuItemUtils.setEnabledMenu(params,_b);
-        MenuItemUtils.setEnabledMenu(aiki.getZipLoad(),_b);
-        MenuItemUtils.setEnabledMenu(aiki.getGameLoad(),_b);
+        aiki.getZipLoad().setEnabled(_b);
+        aiki.getGameLoad().setEnabled(_b);
     }
 //    public String getTooManyString() {
 //        return messages.getVal(TOO_MANY);
@@ -1087,9 +1087,9 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public void menuPrincipal() {
 //        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
-        MenuItemUtils.setEnabledMenu(getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getTeams(),false);
-        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
+        getTricksHands().setEnabled(false);
+        getTeams().setEnabled(false);
+        getMultiStop().setEnabled(false);
         netg.setContainerGame(noGame());
 //        MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
@@ -2611,8 +2611,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public void afterLoadZip() {
 //        MenuItemUtils.setEnabledMenu(dataGame,true);
-        MenuItemUtils.setEnabledMenu(aiki.getGameLoad(),true);
-        MenuItemUtils.setEnabledMenu(aiki.getGameSave(),false);
+        aiki.getGameLoad().setEnabled(true);
+        aiki.getGameSave().setEnabled(false);
 //        if (exporting != null && exporting.isAlive()) {
 //            return;
 //        }

@@ -1888,7 +1888,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = new ContainerSinglePresident(wc_);
         wc_.getCore().setContainerGame(csp_);
         csp_.editerPresident(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csp_;
     }
 
@@ -1899,7 +1899,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         ContainerSinglePresident csp_ = new ContainerSinglePresident(wc_);
         wc_.getCore().setContainerGame(csp_);
         csp_.editerPresident(edited(_deal, _rules));
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csp_;
     }
 
@@ -1975,7 +1975,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClick(wc_.getSingleModeButton());
         tryClick(wc_.getSoloGames().getVal(GameEnum.PRESIDENT));
         ContainerSinglePresident csp_ = (ContainerSinglePresident) wc_.getCore().getContainerGame();
-        MenuItemUtils.setEnabledMenu(wc_.getChange(),true);
+        wc_.getChange().setEnabled(true);
         return csp_;
     }
     private DealPresident mix(int _d) {

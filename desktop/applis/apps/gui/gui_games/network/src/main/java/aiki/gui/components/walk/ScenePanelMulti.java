@@ -693,9 +693,9 @@ public class ScenePanelMulti {
 
     //called while connection to a server succeeds.
     public void setNetworkPanel() {
-        MenuItemUtils.setEnabledMenu(window.getFolderLoad(),false);
-        MenuItemUtils.setEnabledMenu(window.getZipLoad(),false);
-        MenuItemUtils.setEnabledMenu(window.getGameLoad(),false);
+        window.getFolderLoad().setEnabled(false);
+        window.getZipLoad().setEnabled(false);
+        window.getGameLoad().setEnabled(false);
 //        MenuItemUtils.setEnabledMenu(window.getNewGame(),false);
         facade.openMenu();
         panelMenu.setVisible(false);

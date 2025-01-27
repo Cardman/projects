@@ -3,12 +3,12 @@ package code.gui.document;
 import code.sml.util.*;
 
 public final class MessagesFightFighter {
-    public static final String FIGHTER = "fighter";
     public static final String M_P_91_ABILITY="ability";
     public static final String M_P_91_ACTED="acted";
     public static final String M_P_91_ACTED_NO="acted_no";
     public static final String M_P_91_BELONG_PLAYER="belong_player";
     public static final String M_P_91_BELONG_PLAYER_NO="belong_player_no";
+    public static final String M_P_91_CHANGED="changed";
     public static final String M_P_91_CLONE="clone";
     public static final String M_P_91_COPIED_MOVES="copied_moves";
     public static final String M_P_91_COPIED_MOVES_NEW="copied_moves_new";
@@ -183,6 +183,7 @@ public final class MessagesFightFighter {
         e_.add(M_P_91_ACTED_NO,"The fighter has not acted.");
         e_.add(M_P_91_BELONG_PLAYER,"This fighter belongs to you.");
         e_.add(M_P_91_BELONG_PLAYER_NO,"This fighter does not belong to you.");
+        e_.add(M_P_91_CHANGED,"The fighter has changed form.");
         e_.add(M_P_91_CLONE,"The remaining health points of the clone of the fighter are {0} being about {1}.");
         e_.add(M_P_91_COPIED_MOVES,"The following moves are copied:");
         e_.add(M_P_91_COPIED_MOVES_NEW,"New move");
@@ -340,6 +341,7 @@ public final class MessagesFightFighter {
         f_.add(M_P_91_ACTED_NO,"Le combattant n''a pas joué.");
         f_.add(M_P_91_BELONG_PLAYER,"Ce combattant vous appartient");
         f_.add(M_P_91_BELONG_PLAYER_NO,"Ce combattant ne vous appartient pas");
+        f_.add(M_P_91_CHANGED,"Le combattant a changé de forme.");
         f_.add(M_P_91_CLONE,"Les points de vie restants du clone du combattant valent {0} soit environ {1}.");
         f_.add(M_P_91_COPIED_MOVES,"Les attaques suivantes sont copiées:");
         f_.add(M_P_91_COPIED_MOVES_NEW,"Nouvelle attaque");

@@ -7,7 +7,6 @@ import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.containers.ContainerSingleImpl;
-import code.gui.MenuItemUtils;
 import code.sml.util.TranslationsLg;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -28,7 +27,7 @@ public final class AnimationBidBelote implements Runnable {
     public void run() {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
 //        container.setThreadAnime(true);
-        MenuItemUtils.setEnabledMenu(container.getConsulting(),false);
+        container.getConsulting().setEnabled(false);
         GameBelote partie_=container.partieBelote();
         if (partie_.playerHavingToBid() == DealBelote.NUMERO_UTILISATEUR) {
             BidBeloteSuit contrat_=container.getOwner().baseWindow().getIa().getBelote().strategieContratUser(container.getContratUtilisateurBelote());

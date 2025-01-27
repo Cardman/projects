@@ -2,7 +2,6 @@ package cards.gui.animations;
 
 import cards.gui.containers.ContainerSin;
 import cards.gui.containers.ContainerSingleImpl;
-import code.gui.MenuItemUtils;
 
 /**Thread safe class*/
 public final class ChangingPause implements Runnable {
@@ -17,6 +16,6 @@ public final class ChangingPause implements Runnable {
     public void run() {
         container.setState(CardAnimState.PAUSE);
         container.getAnimated().set(ContainerSingleImpl.PAUSE_ALIVE);
-        MenuItemUtils.setEnabledMenu(container.window().getPause(),true);
+        container.window().getPause().setEnabled(true);
     }
 }

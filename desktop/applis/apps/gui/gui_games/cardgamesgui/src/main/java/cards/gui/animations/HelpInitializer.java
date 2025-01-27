@@ -6,7 +6,6 @@ import cards.gui.dialogs.help.HelpIndexesTree;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.EnabledMenu;
-import code.gui.MenuItemUtils;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
 import code.scripts.confs.HelpScriptPagesImgs;
@@ -107,7 +106,7 @@ public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
             }
 //            trees_.addEntry(l.getKey(),tree_);
 //        }
-        MenuItemUtils.setEnabledMenu(generalHelp,true);
+        generalHelp.setEnabled(true);
         return tree_;
     }
 

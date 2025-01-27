@@ -36,6 +36,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     public void initGame() {
         WindowAiki window_ = newGame();
         window_.getFacade().setData(coreDataBase());
+        window_.getNewGame().setEnabled(true);
         tryClick(window_.getNewGame());
         DialogHeros dial_ = window_.getDialogHeros();
         IdList<AbsCustComponent> tree_ = ((MockCustComponent) dial_.getFrame().getPane()).getTreeAccessible();
@@ -48,6 +49,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     public void chooseGame() {
         WindowAiki window_ = newGame();
         window_.getFacade().setData(coreDataBase());
+        window_.getNewGame().setEnabled(true);
         tryClick(window_.getNewGame());
         DialogHeros dial_ = window_.getDialogHeros();
         dial_.getNickname().setText("__");
@@ -79,6 +81,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     public void reChooseHeros() {
         WindowAiki window_ = newGame();
         window_.getFacade().setData(coreDataBase());
+        window_.getNewGame().setEnabled(true);
         tryClick(window_.getNewGame());
         DialogHeros dial_ = window_.getDialogHeros();
         dial_.getNickname().setText("__");
@@ -95,6 +98,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     public void cancelHeros() {
         WindowAiki window_ = newGame();
         window_.getFacade().setData(coreDataBase());
+        window_.getNewGame().setEnabled(true);
         tryClick(window_.getNewGame());
         DialogHeros dial_ = window_.getDialogHeros();
         dial_.getFrame().getWindowListenersDef().get(0).windowClosing();
@@ -178,7 +182,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         window_.getFacade().setChangeToFightScene(true);
 //        window_.getBattle().resetWindows();
         assertFalse(window_.getModal().get());
-        AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages(new DataGameInit(), new StringMap<Document>(), new StringMap<TranslationsAppli>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList()), window_.getFrames().getCompoFactory().newMenuItem("")).call();
+        AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages(new DataGameInit(), new StringMap<Document>(), new StringMap<TranslationsAppli>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList())).call();
         res_.getNavigation().setLanguage("");
         assertEq("",res_.getNavigation().getLanguage());
         new WalkNicknameAutoCompleteListener(new MockTextField(""),window_.getFacade()).changedUpdate(0,0);

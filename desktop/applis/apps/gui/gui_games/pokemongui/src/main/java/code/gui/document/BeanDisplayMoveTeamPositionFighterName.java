@@ -23,9 +23,9 @@ public final class BeanDisplayMoveTeamPositionFighterName implements BeanDisplay
     }
     private void team(AbsBeanRender _rend, AbstractProgramInfos _api, AbsPanel _line, AbsGridConstraints _cts, int _value, String _foe, String _player) {
         if (_value == Fight.CST_FOE) {
-            _rend.formatMessage(_api, _line,_cts,MessagesFightFighter.FIGHTER, _foe);
+            _rend.formatMessage(_api, _line,_cts, MessagesPkBean.FIGHTER, _foe);
         } else {
-            _rend.formatMessage(_api, _line,_cts,MessagesFightFighter.FIGHTER, _player);
+            _rend.formatMessage(_api, _line,_cts, MessagesPkBean.FIGHTER, _player);
         }
     }
 }

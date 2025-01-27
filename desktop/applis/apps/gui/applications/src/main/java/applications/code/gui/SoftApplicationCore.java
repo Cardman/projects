@@ -67,13 +67,13 @@ public abstract class SoftApplicationCore {
     private static void aiki(AikiFactory _af, StringList _lgs, Translations _msg, StringMap<String> _dis, AbstractGenerator _gene) {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl(), GamesPk.baseEncode(_msg), _msg.byAppl(MessagesDataBaseConstants.SC_APP)));
         StringMap<String> builtOther_ = CssInit.ms();
-        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs),_af.getGeneralHelp()));
-        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesPkBean.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs),null));
+        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs)));
+        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesPkBean.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs)));
         StringMap<TranslationsAppli> stds_ = _msg.byAppl(MessagesInit.APP_BEAN);
 //        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
 //        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
-        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(new DiffGameInit(), PagesInit.buildDiff(), stds_, builtOther_, new PkDiff(), _lgs),null));
-        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(new ProgGameInit(), PagesInit.buildProg(), stds_, builtOther_, new PkProg(), _lgs),null));
+        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(new DiffGameInit(), PagesInit.buildDiff(), stds_, builtOther_, new PkDiff(), _lgs)));
+        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(new ProgGameInit(), PagesInit.buildProg(), stds_, builtOther_, new PkProg(), _lgs)));
     }
 
     private static void belote(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {

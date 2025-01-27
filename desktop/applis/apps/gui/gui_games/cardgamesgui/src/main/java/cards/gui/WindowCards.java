@@ -300,7 +300,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         /*Parametre de lancement*/
         core = new WindowCardsCore(this,_nicknames, _list,_ia,modal,_pair.getLgMenu());
         initMenus();
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMenusMessages().getVal(MessagesGuiCards.CST_WELCOME), pseudo()));
         editorBelote = new EditorBelote(_list, editGames.getVal(GameEnum.BELOTE));
         editorPresident = new EditorPresident(_list, editGames.getVal(GameEnum.PRESIDENT));
@@ -320,12 +320,16 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         if(core.getFacadeCards().getParametres().getLancement().isEmpty()) {
             menuPrincipal();
         } else {
-            MenuItemUtils.setEnabledMenu(getTricksHands(),false);
-            MenuItemUtils.setEnabledMenu(getTeams(),false);
+            getTricksHands().setEnabled(false);
+            getTeams().setEnabled(false);
 //            MenuItemUtils.setEnabledMenu(getMultiStop(),false);
-            MenuItemUtils.setEnabledMenu(getLoad(),true);
-            MenuItemUtils.setEnabledMenu(getEdit(),true);
-            MenuItemUtils.setEnabledMenu(getTraining(),true);
+            getLoad().setEnabled(true);
+            for (EnabledMenu m: getEditGames().values()) {
+                m.setEnabled(true);
+            }
+            for (EnabledMenu m: getTrainingTarot().values()) {
+                m.setEnabled(true);
+            }
             beginGame(core.getFacadeCards().getParametres().getLancement().first());
 //            if(core.getFacadeCards().getParametres().getLancement().first()==GameEnum.BELOTE) {
 //                core.setContainerGame(new ContainerSingleBelote(this));
@@ -934,17 +938,17 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    }
     public void menuSoloGames() {
         core.setContainerGame(noGame());
-        MenuItemUtils.setEnabledMenu(change,false);
+        change.setEnabled(false);
         //Activer le menu Partie/Demo
         changeMenuSimuEnabled(true);
 //        MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        MenuItemUtils.setEnabledMenu(getTeams(),false);
+        getHelpGame().setEnabled(false);
+        getTeams().setEnabled(false);
         //desactiver le menu Partie/conseil
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
+        getPause().setEnabled(false);
         core.getContainerGame().setChangerPileFin(false);
         core.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
@@ -963,8 +967,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //            goHelpMenu = getCompoFactory().newPlainLabel(getMenusMessages().getVal(MessagesGuiCards.CST_GO_HELP_MENU));
 //        }
         container_.add(goHelpMenu);
-        MenuItemUtils.setEnabledMenu(getSave(),false);
-        MenuItemUtils.setEnabledMenu(getChange(),false);
+        getSave().setEnabled(false);
+        getChange().setEnabled(false);
         container_.add(core.getClock().getComponent());
         container_.add(lastSavedGameDate);
         setContentPane(container_);
@@ -981,24 +985,28 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public void menuPrincipal() {
 //        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
-        MenuItemUtils.setEnabledMenu(getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(getTeams(),false);
+        getTricksHands().setEnabled(false);
+        getTeams().setEnabled(false);
         core.setContainerGame(noGame());
-        MenuItemUtils.setEnabledMenu(change,false);
+        change.setEnabled(false);
         //Activer le menu Partie/Demo
         changeMenuSimuEnabled(true);
 //        MenuItemUtils.setEnabledMenu(getDemo(),true);
         //desactiver le menu Partie/aide au jeu
-        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
+        getHelpGame().setEnabled(false);
         //desactiver le menu Partie/conseil
-        MenuItemUtils.setEnabledMenu(getConsulting(),false);
+        getConsulting().setEnabled(false);
         //Desactiver le menu Partie/Pause
-        MenuItemUtils.setEnabledMenu(getPause(),false);
-        MenuItemUtils.setEnabledMenu(getLoad(),true);
-        MenuItemUtils.setEnabledMenu(getEdit(),true);
-        MenuItemUtils.setEnabledMenu(getTraining(),true);
+        getPause().setEnabled(false);
+        getLoad().setEnabled(true);
+        for (EnabledMenu m: getTrainingTarot().values()) {
+            m.setEnabled(true);
+        }
+        for (EnabledMenu m: getEditGames().values()) {
+            m.setEnabled(true);
+        }
         for (EnabledMenu m: getRulesGames().values()) {
-            MenuItemUtils.setEnabledMenu(m,true);
+            m.setEnabled(true);
         }
         core.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getFrames().currentLg()));
@@ -1020,8 +1028,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         pane_.add(core.getClock().getComponent());
         pane_.add(lastSavedGameDate);
         setContentPane(pane_);
-        MenuItemUtils.setEnabledMenu(getSave(),false);
-        MenuItemUtils.setEnabledMenu(getChange(),false);
+        getSave().setEnabled(false);
+        getChange().setEnabled(false);
     }
 //    private void initMessageName() {
 ////        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
@@ -1079,7 +1087,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
     }
 
     public void changeMode(EnabledMenu _change) {
-        MenuItemUtils.setEnabledMenu(_change,false);
+        _change.setEnabled(false);
         _change.addActionListener(new CardsNonModalEvent(this),new ChangeGameEvent(this));
         _change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
     }
@@ -1146,7 +1154,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             containerGame_.load();
             partieSauvegardee=false;
             core.setContainerGame(containerGame_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             return;
         }
         if (_g.enCoursDePartiePresident()) {
@@ -1155,7 +1163,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             containerGame_.load();
             partieSauvegardee=false;
             core.setContainerGame(containerGame_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             return;
         }
         if (_g.enCoursDePartieTarot()) {
@@ -1164,7 +1172,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             containerGame_.load();
             partieSauvegardee=false;
             core.setContainerGame(containerGame_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             return;
         }
         if (_g.enCoursDePartieSolitaire()) {
@@ -1173,7 +1181,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
             containerGame_.load();
             partieSauvegardee=false;
             core.setContainerGame(containerGame_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             return;
         }
         erreurDeChargement(_nomFichier, _g.getErrorFile());
@@ -1573,7 +1581,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //        }
         ContainerSingleTarot cst_ = new ContainerSingleTarot(this);
         core.setContainerGame(cst_);
-        MenuItemUtils.setEnabledMenu(change,true);
+        change.setEnabled(true);
         cst_.jouerDonneEntrainement(_ct);
     }
 
@@ -1818,25 +1826,25 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         if(_jeuBouton==GameEnum.BELOTE) {
             ContainerSingleBelote b_ = new ContainerSingleBelote(this);
             core.setContainerGame(b_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             b_.setReglesBelote(getReglesBelote());
             b_.modify();
         } else if(_jeuBouton==GameEnum.PRESIDENT) {
             ContainerSinglePresident p_ = new ContainerSinglePresident(this);
             core.setContainerGame(p_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             p_.setReglesPresident(getReglesPresident());
             p_.modify();
         } else if(_jeuBouton==GameEnum.TAROT){
             ContainerSingleTarot t_ = new ContainerSingleTarot(this);
             core.setContainerGame(t_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             t_.modify();
         } else {
             ContainerSolitaire t_ = new ContainerSolitaire(this);
             t_.setSolitaireType(_jeuBouton.getSolitaireType());
             core.setContainerGame(t_);
-            MenuItemUtils.setEnabledMenu(change,true);
+            change.setEnabled(true);
             t_.modify();
         }
         /*if (single) {
@@ -2050,10 +2058,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         return teams;
     }
 
-    public EnabledMenu getEdit() {
-        return edit;
-    }
-
     public IdMap<GameEnum,EnabledMenu> getEditGames() {
         return editGames;
     }
@@ -2064,10 +2068,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 
     public IdMap<GameEnum,EnabledMenu> getDemoGames() {
         return demoGames;
-    }
-
-    public EnabledMenu getTraining() {
-        return training;
     }
 
     public IdMap<ChoiceTarot,EnabledMenu> getTrainingTarot() {

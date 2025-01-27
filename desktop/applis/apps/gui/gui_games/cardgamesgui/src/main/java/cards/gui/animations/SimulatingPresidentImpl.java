@@ -172,7 +172,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container.getPane().removeAll();
 //        container.setArretDemo(false);
         //desactiver le menu Partie/aide au jeu
-        MenuItemUtils.setEnabledMenu(container.getHelpGame(),false);
+        container.getHelpGame().setEnabled(false);
         //desactiver le menu Partie/Demo
 //        MenuItemUtils.setEnabledMenu(container.getDemo(),false);
         container.window().changeMenuSimuEnabled(false);

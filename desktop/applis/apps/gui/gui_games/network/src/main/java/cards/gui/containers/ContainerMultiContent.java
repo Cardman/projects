@@ -189,10 +189,10 @@ public final class ContainerMultiContent {
         _res.setGeneralCards(_cards);
     }
     public void chgEnabledMenuEndGame(){
-        MenuItemUtils.setEnabledMenu(window().getMultiStop(),true);
+        window().getMultiStop().setEnabled(true);
 //        MenuItemUtils.setEnabledMenu(getHelpGame(),false);
-        MenuItemUtils.setEnabledMenu(window().getTricksHands(),false);
-        MenuItemUtils.setEnabledMenu(window().getTeams(),false);
+        window().getTricksHands().setEnabled(false);
+        window().getTeams().setEnabled(false);
     }
 
     public ByteTreeMap<String> nicknames(CustList<String> _bots) {
