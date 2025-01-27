@@ -35,107 +35,107 @@ public final class FightCalculationBeanTest extends InitDbFight {
     }
     @Test
     public void tmp1() {
-        assertEq(0,callKeyHypothesisGetNumberPlayer(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0)));
+        assertEq(0,callKeyHypothesisGetNumberPlayer(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0)));
     }
     @Test
     public void tmp2() {
-        assertEq(0,callKeyHypothesisGetNumberTarget(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0)));
+        assertEq(0,callKeyHypothesisGetNumberTarget(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0)));
     }
     @Test
     public void playerName1() {
-        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
     }
     @Test
     public void playerName2() {
-        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
     }
     @Test
     public void playerName3() {
-        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
+        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
     }
     @Test
     public void playerName4() {
-        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
+        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetPlayerPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
     }
     @Test
     public void moveName1() {
-        assertEq(CHARGE_TR2,callKeyHypothesisGetMove(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertEq(CHARGE_TR2,callKeyHypothesisGetMove(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
     }
     @Test
     public void moveName2() {
-        assertEq(CHARGE_TR2,callKeyHypothesisGetMove(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertEq(CHARGE_TR2,callKeyHypothesisGetMove(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
     }
     @Test
     public void moveName3() {
-        assertEq(CHARGE_TR,callKeyHypothesisGetMove(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
+        assertEq(CHARGE_TR,callKeyHypothesisGetMove(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
     }
     @Test
     public void moveName4() {
-        assertEq(CHARGE_TR,callKeyHypothesisGetMove(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
+        assertEq(CHARGE_TR,callKeyHypothesisGetMove(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
     }
     @Test
     public void targetName1() {
-        assertEq(PIKA_2_TR +" "+0,callKeyHypothesisGetTargetPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertEq(PIKA_2_TR +" "+0,callKeyHypothesisGetTargetPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
     }
     @Test
     public void targetName2() {
-        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetTargetPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetTargetPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
     }
     @Test
     public void targetName3() {
-        assertEq(PIKA_2_TR +" "+0,callKeyHypothesisGetTargetPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
+        assertEq(PIKA_2_TR +" "+0,callKeyHypothesisGetTargetPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
     }
     @Test
     public void targetName4() {
-        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetTargetPokemon(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
+        assertEq(PIKACHU_TR+" "+0,callKeyHypothesisGetTargetPokemon(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
     }
     @Test
     public void targetTeam1() {
-        assertFalse(callKeyHypothesisIsBelongsToUser(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertFalse(callKeyHypothesisIsBelongsToUser(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
     }
     @Test
     public void targetTeam2() {
-        assertTrue(callKeyHypothesisIsBelongsToUser(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertTrue(callKeyHypothesisIsBelongsToUser(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
     }
     @Test
     public void targetTeam3() {
-        assertFalse(callKeyHypothesisIsBelongsToUser(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
+        assertFalse(callKeyHypothesisIsBelongsToUser(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
     }
     @Test
     public void targetTeam4() {
-        assertTrue(callKeyHypothesisIsBelongsToUser(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
+        assertTrue(callKeyHypothesisIsBelongsToUser(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
     }
     @Test
     public void dam1() {
-        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamage(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamage(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
     }
     @Test
     public void dam2() {
-        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamage(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamage(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
     }
     @Test
     public void dam3() {
-        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamage(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
+        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamage(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
     }
     @Test
     public void dam4() {
-        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamage(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
+        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamage(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
     }
     @Test
     public void damSec1() {
-        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamageSecond(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamageSecond(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
     }
     @Test
     public void damSec2() {
-        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamageSecond(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamageSecond(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
     }
     @Test
     public void damSec3() {
-        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamageSecond(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
+        assertEq(Rate.newRate("653/50"),callKeyHypothesisGetDamageSecond(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),2)));
     }
     @Test
     public void damSec4() {
-        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamageSecond(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
+        assertEq(Rate.newRate("1399/100"),callKeyHypothesisGetDamageSecond(eltKeyHypothesis(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),3)));
     }
     @Test
     public void getFoeChoices1() {
@@ -143,51 +143,51 @@ public final class FightCalculationBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeChoices2() {
-        assertEq(0,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0)));
+        assertEq(0,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0)));
     }
     @Test
     public void getFoeChoices3() {
-        assertEq(M_TEAM_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0))));
+        assertEq(M_TEAM_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0))));
     }
     @Test
     public void getFoeChoices4() {
-        assertEq(Fighter.BACK, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0))));
+        assertEq(Fighter.BACK, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0))));
     }
     @Test
     public void getFoeChoices5() {
-        assertEq(1,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),1)));
+        assertEq(1,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),1)));
     }
     @Test
     public void getFoeChoices6() {
-        assertEq(M_TEAM_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),1))));
+        assertEq(M_TEAM_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),1))));
     }
     @Test
     public void getFoeChoices7() {
-        assertEq(Fighter.BACK, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),1))));
+        assertEq(Fighter.BACK, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),1))));
     }
     @Test
     public void getFoeChoices8() {
-        assertEq(2,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),2)));
+        assertEq(2,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),2)));
     }
     @Test
     public void getFoeChoices9() {
-        assertEq(M_TEAM_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),2))));
+        assertEq(M_TEAM_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),2))));
     }
     @Test
     public void getFoeChoices10() {
-        assertEq(Fighter.BACK, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),2))));
+        assertEq(Fighter.BACK, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),2))));
     }
     @Test
     public void getFoeChoices11() {
-        assertEq(3,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),3)));
+        assertEq(3,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),3)));
     }
     @Test
     public void getFoeChoices12() {
-        assertEq(M_TEAM_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),3))));
+        assertEq(M_TEAM_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),3))));
     }
     @Test
     public void getFoeChoices13() {
-        assertEq(Fighter.BACK, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),3))));
+        assertEq(Fighter.BACK, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),3))));
     }
     @Test
     public void getFoeChoices14() {
@@ -195,51 +195,51 @@ public final class FightCalculationBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeChoices15() {
-        assertEq(0,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),0)));
+        assertEq(0,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),0)));
     }
     @Test
     public void getFoeChoices16() {
-        assertEq(ECLAIR_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),0))));
+        assertEq(ECLAIR_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),0))));
     }
     @Test
     public void getFoeChoices17() {
-        assertEq(0, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),0))));
+        assertEq(0, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),0))));
     }
     @Test
     public void getFoeChoices18() {
-        assertEq(1,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),1)));
+        assertEq(1,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),1)));
     }
     @Test
     public void getFoeChoices19() {
-        assertEq(ECLAIR_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),1))));
+        assertEq(ECLAIR_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),1))));
     }
     @Test
     public void getFoeChoices20() {
-        assertEq(1, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),1))));
+        assertEq(1, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),1))));
     }
     @Test
     public void getFoeChoices21() {
-        assertEq(2,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),2)));
+        assertEq(2,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),2)));
     }
     @Test
     public void getFoeChoices22() {
-        assertEq(ECLAIR_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),2))));
+        assertEq(ECLAIR_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),2))));
     }
     @Test
     public void getFoeChoices23() {
-        assertEq(2, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),2))));
+        assertEq(2, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),2))));
     }
     @Test
     public void getFoeChoices24() {
-        assertEq(3,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),3)));
+        assertEq(3,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),3)));
     }
     @Test
     public void getFoeChoices25() {
-        assertEq(ECLAIR_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),3))));
+        assertEq(ECLAIR_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),3))));
     }
     @Test
     public void getFoeChoices26() {
-        assertEq(3, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),3))));
+        assertEq(3, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation2(dbBaseCalc()))),3))));
     }
     @Test
     public void getFoeChoices27() {
@@ -247,51 +247,51 @@ public final class FightCalculationBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeChoices28() {
-        assertEq(0,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),0)));
+        assertEq(0,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),0)));
     }
     @Test
     public void getFoeChoices29() {
-        assertEq(M_ROQUE_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),0))));
+        assertEq(M_ROQUE_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),0))));
     }
     @Test
     public void getFoeChoices30() {
-        assertEq(1, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),0))));
+        assertEq(1, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),0))));
     }
     @Test
     public void getFoeChoices31() {
-        assertEq(1,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),1)));
+        assertEq(1,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),1)));
     }
     @Test
     public void getFoeChoices32() {
-        assertEq(M_ROQUE_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),1))));
+        assertEq(M_ROQUE_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),1))));
     }
     @Test
     public void getFoeChoices33() {
-        assertEq(0, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),1))));
+        assertEq(0, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),1))));
     }
     @Test
     public void getFoeChoices34() {
-        assertEq(2,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),2)));
+        assertEq(2,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),2)));
     }
     @Test
     public void getFoeChoices35() {
-        assertEq(M_ROQUE_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),2))));
+        assertEq(M_ROQUE_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),2))));
     }
     @Test
     public void getFoeChoices36() {
-        assertEq(1, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),2))));
+        assertEq(1, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),2))));
     }
     @Test
     public void getFoeChoices37() {
-        assertEq(3,first(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),3)));
+        assertEq(3,firstTargetIndex(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),3)));
     }
     @Test
     public void getFoeChoices38() {
-        assertEq(M_ROQUE_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),3))));
+        assertEq(M_ROQUE_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),3))));
     }
     @Test
     public void getFoeChoices39() {
-        assertEq(2, callMoveTargetGetTarget(second(elt(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),3))));
+        assertEq(2, callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanFoeChoicesGet(beanFightCalculation(facadeCalculation6(dbBaseCalcRoque()))),3))));
     }
 
     @Test
@@ -348,19 +348,19 @@ public final class FightCalculationBeanTest extends InitDbFight {
     }
     @Test
     public void getAllyChoice2() {
-        assertEq(CHARGE_TR2,callMoveTargetGetMove(first(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
+        assertEq(CHARGE_TR2,callMoveTargetGetMove(firstTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
     }
     @Test
     public void getAllyChoice3() {
-        assertEq(ECLAIR_TR,callMoveTargetGetMove(second(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
+        assertEq(ECLAIR_TR,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
     }
     @Test
     public void getAllyChoice4() {
-        assertEq(0,callMoveTargetGetTarget(first(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
+        assertEq(0,callMoveTargetGetTarget(firstTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
     }
     @Test
     public void getAllyChoice5() {
-        assertEq(0,callMoveTargetGetTarget(second(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
+        assertEq(0,callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation3(dbBaseCalc()))),0))));
     }
     @Test
     public void getAllyChoice6() {
@@ -368,19 +368,19 @@ public final class FightCalculationBeanTest extends InitDbFight {
     }
     @Test
     public void getAllyChoice7() {
-        assertEq(NULL_REF,callMoveTargetGetMove(first(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
+        assertEq(NULL_REF,callMoveTargetGetMove(firstTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
     }
     @Test
     public void getAllyChoice8() {
-        assertEq(NULL_REF,callMoveTargetGetMove(second(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
+        assertEq(NULL_REF,callMoveTargetGetMove(secondTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
     }
     @Test
     public void getAllyChoice9() {
-        assertEq(Fighter.BACK,callMoveTargetGetTarget(first(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
+        assertEq(Fighter.BACK,callMoveTargetGetTarget(firstTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
     }
     @Test
     public void getAllyChoice10() {
-        assertEq(Fighter.BACK,callMoveTargetGetTarget(second(elt(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
+        assertEq(Fighter.BACK,callMoveTargetGetTarget(secondTarget(eltTarget(callFightCalculationBeanAllyChoiceGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))),0))));
     }
     @Test
     public void issFoeTargetChoiceTeam1() {
@@ -429,19 +429,19 @@ public final class FightCalculationBeanTest extends InitDbFight {
 
     @Test
     public void sortedFightersWild2() {
-        assertEq(ECLAIR_TR, callFighterNamePkNameMvNameMvGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
+        assertEq(ECLAIR_TR, callFighterNamePkNameMvNameMvGet(eltFighterImg(firstImg(eltImg(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
     }
     @Test
     public void sortedFightersWild3() {
-        assertSizeEq(1, second(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
+        assertSizeEq(1, secondImg(eltImg(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)));
     }
     @Test
     public void sortedFightersWild4() {
-        assertEq(CHARGE_TR, callFighterNamePkNameMvNameMvGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
+        assertEq(CHARGE_TR, callFighterNamePkNameMvNameMvGet(eltFighterImg(firstImg(eltImg(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
     }
     @Test
     public void sortedFightersWild5() {
-        assertSizeEq(1, second(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
+        assertSizeEq(1, secondImg(eltImg(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)));
     }
     @Test
     public void sortedFightersWild6() {
@@ -454,12 +454,12 @@ public final class FightCalculationBeanTest extends InitDbFight {
 
     @Test
     public void sortedFightersWild8() {
-        assertEq(one(IMG_MAX_RAI), callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
+        assertEq(one(IMG_MAX_RAI), callFighterNamePkNameMvNamePkGet(eltFighterImg(firstImg(eltImg(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),0)),0)));
     }
 
     @Test
     public void sortedFightersWild9() {
-        assertEq(one(IMG_MAX_RAI), callFighterNamePkNameMvNamePkGet(elt(first(elt(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
+        assertEq(one(IMG_MAX_RAI), callFighterNamePkNameMvNamePkGet(eltFighterImg(firstImg(eltImg(callFightCalculationBeanSortedFightersWildFightGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))),1)),0)));
     }
 
     @Test

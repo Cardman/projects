@@ -176,7 +176,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedFightTask;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDiffTask;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedProgTask;
 //    private AbstractThread preparedDataWebThread;
@@ -1793,14 +1792,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void setPreparedDataWebTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
         preparedDataWebTask = _preparedDataWebTask;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedFightTask() {
-        return preparedFightTask;
-    }
-
-    public void setPreparedFightTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedFightTask) {
-        preparedFightTask = _preparedFightTask;
     }
 
     public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDiffTask() {

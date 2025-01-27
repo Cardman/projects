@@ -20,20 +20,6 @@ m.getMapping().addEntry(DIFFICULTY,AnaRendBlockHelp.file(MesGameDifficulty.fr())
 m.getMapping().addEntry(GAMEPROG,AnaRendBlockHelp.file(MesProgGameprog.fr()));
 return m;
 }
-public static TranslationsAppli enFight(){
-TranslationsAppli m = new TranslationsAppli();
-m.getMapping().addEntry("fight",AnaRendBlockHelp.file(MesFightFight.en()));
-m.getMapping().addEntry("fighter",AnaRendBlockHelp.file(MesFightFighter.en()));
-m.getMapping().addEntry("team",AnaRendBlockHelp.file(MesFightTeam.en()));
-return m;
-}
-public static TranslationsAppli frFight(){
-TranslationsAppli m = new TranslationsAppli();
-m.getMapping().addEntry("fight",AnaRendBlockHelp.file(MesFightFight.fr()));
-m.getMapping().addEntry("fighter",AnaRendBlockHelp.file(MesFightFighter.fr()));
-m.getMapping().addEntry("team",AnaRendBlockHelp.file(MesFightTeam.fr()));
-return m;
-}
 public static TranslationsAppli enData(){
 TranslationsAppli m = new TranslationsAppli();
 m.getMapping().addEntry("ability/abilities",AnaRendBlockHelp.file(MesDataAbilityAbilities.en()));

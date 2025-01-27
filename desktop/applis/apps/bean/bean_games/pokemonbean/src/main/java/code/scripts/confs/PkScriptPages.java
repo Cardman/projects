@@ -137,9 +137,7 @@ public static final String MSG_EVOTEAM="msg_evoteam";
 public static final String MSG_EVOTYPE="msg_evotype";
 public static final String MSG_EVO_ITEM="msg_evo_item";
 public static final String MSG_EVO_STONE="msg_evo_stone";
-public static final String MSG_FIGHT="msg_fight";
-public static final String MSG_FIGHTER="msg_fighter";
-public static final String MSG_FOE="msg_foe";
+    public static final String MSG_FOE="msg_foe";
 public static final String MSG_FOSSIL="msg_fossil";
 public static final String MSG_GENERALHELP="msg_generalhelp";
 public static final String MSG_HEALINGHP="msg_healinghp";
@@ -202,10 +200,7 @@ public static final String REN_ADD_WEB_CSS_MOVES_CSS="web/css/moves.css";
 //public static final String REN_ADD_WEB_CSS_OBJETS_CSS="web/css/objets.css";
 public static final String REN_ADD_WEB_CSS_POKEDEX_CSS="web/css/pokedex.css";
 public static final String REN_ADD_WEB_CSS_SIMULATION_CSS="web/css/simulation.css";
-//public static final String REN_ADD_WEB_CSS_STATUTS_CSS="web/css/statuts.css";
-public static final String REN_ADD_WEB_FIGHT_CSS_FIGHT_CSS="web_fight/css/fight.css";
-public static final String REN_ADD_WEB_FIGHT_MESSAGES="web_fight/messages";
-public static final String REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS="web_game/css/difficulty.css";
+    public static final String REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS="web_game/css/difficulty.css";
 public static final String REN_ADD_WEB_GAME_MESSAGES="web_game/messages";
 public static final String REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML="web/html/ability/abilities.html";
 public static final String REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML="web/html/ability/ability.html";
@@ -660,25 +655,7 @@ public static final String DIFF_COMMON_HTML = "diff_common.html";
 //        rend_.add(REN_ADD_WEB_HTML_STATUS_STATUS_HTML);
 //        _d.setRenderFiles(rend_);
     }
-    public static void initAnaFight(NatDualConfigurationContext _d){
-        StringMap<String> properties_ = new StringMap<String>(new CollCapacity(3));
-        properties_.addEntry(MSG_FIGHTER,FIGHTER);
-        properties_.addEntry(MSG_FIGHT,FIGHT);
-        properties_.addEntry(MSG_TEAM,TEAM);
-        _d.setProperties(properties_);
-        _d.setMessagesFolder(REN_ADD_WEB_FIGHT_MESSAGES);
-        StringList added_ = new StringList(new CollCapacity(4));
-        added_.add(REN_ADD_WEB_FIGHT_CSS_FIGHT_CSS);
-//        added_.add(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTDETAIL_HTML);
-//        added_.add(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML);
-//        added_.add(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML);
-        _d.setAddedFiles(added_);
-//        StringList rend_ = new StringList(new CollCapacity(3));
-//        rend_.add(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTDETAIL_HTML);
-//        rend_.add(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML);
-//        rend_.add(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML);
-//        _d.setRenderFiles(rend_);
-    }
+
     public static void initAnaDiff(NatDualConfigurationContext _d){
         StringMap<String> properties_ = new StringMap<String>(new CollCapacity(1));
         properties_.addEntry(MSG_DIFFICULTY,DIFFICULTY);

@@ -4,7 +4,6 @@ import aiki.beans.facade.dto.*;
 import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
-import aiki.beans.fight.FighterAgainstFoes;
 import aiki.beans.game.*;
 import aiki.comparators.*;
 import aiki.facade.*;
@@ -39,15 +38,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     public static final String EMPTY_STRING = "";
 
-    public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
-    public static final String TYPE_MOVE_TARGET = "aiki.game.fight.util.MoveTarget";
-    public static final String TYPE_TARGET_COORDS = "aiki.game.fight.TargetCoords";
-    public static final String TYPE_USES_OF_MOVE = "aiki.game.UsesOfMove";
-    public static final String TYPE_COPIED_MOVE = "aiki.game.fight.util.CopiedMove";
-    public static final String TYPE_MOVE_TEAM_POSITION = "aiki.game.fight.MoveTeamPosition";
-    public static final String TYPE_AFFECTED_MOVE = "aiki.game.fight.util.AffectedMove";
-    public static final String TYPE_STACKS_OF_USES = "aiki.game.fight.StacksOfUses";
-    public static final String TYPE_ANTICIPATION = "aiki.game.fight.Anticipation";
     public static final String TYPE_TYPE_DAMAGE_BOOST = "aiki.fight.util.TypeDamageBoost";
     public static final String TYPE_EFFICIENCY_RATE = "aiki.fight.util.EfficiencyRate";
     public static final String TYPE_BOOST_HP_RATE = "aiki.fight.util.BoostHpRate";
@@ -657,16 +647,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getByteBytes(AbsMap<Integer, FighterAgainstFoes> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<Integer, FighterAgainstFoes> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),getIntArray(e.getValue().getFoes().getKeys()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
     public static NatArrayStruct getStrInts(AbsMap<String, Ints> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -910,16 +890,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrLgInt(AbsMap<String, LgInt> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<String,LgInt> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new LgSt(e.getValue()));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
 
     public static NatArrayStruct getStrLong(AbsMap<String, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
@@ -1011,16 +981,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrBool(AbsMap<String, Integer> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<String,Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),NaBoSt.of(CommonBean.toBool(e.getValue())));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
 
     public static NatArrayStruct getIntInt(AbsMap<Integer, Integer> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
@@ -1076,16 +1036,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (Integer s:_ls) {
-            arr_.set(j_,new NaNbSt(s));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getIntArray(IntMap<String> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (Integer s:_ls.getKeys()) {
             arr_.set(j_,new NaNbSt(s));
             j_++;
         }

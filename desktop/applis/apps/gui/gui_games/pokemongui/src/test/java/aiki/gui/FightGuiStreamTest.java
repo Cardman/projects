@@ -831,7 +831,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame7() {
         WindowAiki window_ = newGame();
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
-        prepareFightTask(window_);
+//        prepareFightTask(window_);
         window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
         ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
@@ -945,7 +945,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuGame9() {
         WindowAiki window_ = newGame();
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
-        prepareFightTask(window_);
+//        prepareFightTask(window_);
         window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
         ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
@@ -1120,7 +1120,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         WindowAiki window_ = newGame();
         updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
-        prepareFightTask(window_);
+//        prepareFightTask(window_);
         prepareWebTask(window_);
         window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
@@ -1141,7 +1141,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     @Test
     public void menuRomOpened2() {
         WindowAiki window_ = newGame();
-        prepareFightTask(window_);
+//        prepareFightTask(window_);
         prepareWebTask(window_);
         window_.getRenderDataWeb().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());

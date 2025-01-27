@@ -108,13 +108,13 @@ public abstract class EquallableAikiGuiUtil {
 //        _window.setPreparedPkTask(_window.getCore().getAikiFactory().getTaskNavPkTask());
 //    }
 
-    public static void prepareFightTask(WindowAiki _window) {
-//        _window.getCore().getAikiFactory().setPreparedFightTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
-//        _window.setPreparedFightTask(_window.getCore().getAikiFactory().getPreparedFightTask());
-        _window.getCore().getAikiFactory().submitNavFight(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
-        _window.setPreparedFightTask(_window.getCore().getAikiFactory().getTaskNavFight());
-        _window.getPreparedFightTask();
-    }
+//    public static void prepareFightTask(WindowAiki _window) {
+////        _window.getCore().getAikiFactory().setPreparedFightTask(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav()));
+////        _window.setPreparedFightTask(_window.getCore().getAikiFactory().getPreparedFightTask());
+//        _window.getCore().getAikiFactory().submitNavFight(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+//        _window.setPreparedFightTask(_window.getCore().getAikiFactory().getTaskNavFight());
+//        _window.getPreparedFightTask();
+//    }
 
     public static void prepareDiffTask(WindowAiki _window) {
         _window.getCore().getAikiFactory().submitNavDiffTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));

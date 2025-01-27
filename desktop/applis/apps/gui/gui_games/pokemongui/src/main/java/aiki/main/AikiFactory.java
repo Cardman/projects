@@ -19,7 +19,6 @@ public final class AikiFactory {
     private final AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> navigation;
     private final EnabledMenu generalHelp;
     private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavData;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavFight;
     private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavDiff;
     private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavProg;
     private final AbstractBaseExecutorServiceParam<DataBase> geneDb;
@@ -57,12 +56,6 @@ public final class AikiFactory {
         n_.shutdown();
     }
 
-    public void submitNavFight(IntCallable<AikiNatLgNamesNavigation> _n) {
-        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
-        taskNavFight = n_.submitWrCallable(_n);
-        n_.shutdown();
-    }
-
     public void submitNavDiffTask(IntCallable<AikiNatLgNamesNavigation> _n) {
         AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
         taskNavDiff = n_.submitWrCallable(_n);
@@ -77,10 +70,6 @@ public final class AikiFactory {
 
     public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavData() {
         return taskNavData;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavFight() {
-        return taskNavFight;
     }
 
     public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavDiff() {

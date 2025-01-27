@@ -1,9 +1,9 @@
 package aiki.beans.fight;
 
-import aiki.beans.PkFight;
+import aiki.beans.CommonBean;
+import aiki.beans.StringMapObject;
 import aiki.facade.FacadeGame;
-import code.bean.nat.*;
-import code.bean.nat.*;
+import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -123,21 +123,21 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void enAlly3() {
-        assertEq(M_ALLY_TR,first(elt(callFighterBeanEnabledMovesForAllyGet(playerPath(0)),0)));
+        assertEq(M_ALLY_TR,firstStringInt(eltStringInt(callFighterBeanEnabledMovesForAllyGet(playerPath(0)),0)));
     }
 
     @Test
     public void enAlly4() {
-        assertEq(M_ALLY_TR,first(elt(callFighterBeanEnabledMovesForAllyGet(foePath(0)),0)));
+        assertEq(M_ALLY_TR,firstStringInt(eltStringInt(callFighterBeanEnabledMovesForAllyGet(foePath(0)),0)));
     }
     @Test
     public void enAlly5() {
-        assertTrue(second(elt(callFighterBeanEnabledMovesForAllyGet(playerPath(0)),0)));
+        assertTrue(secondStringInt(eltStringInt(callFighterBeanEnabledMovesForAllyGet(playerPath(0)),0)));
     }
 
     @Test
     public void enAlly6() {
-        assertFalse(second(elt(callFighterBeanEnabledMovesForAllyGet(foePath(0)),0)));
+        assertFalse(secondStringInt(eltStringInt(callFighterBeanEnabledMovesForAllyGet(foePath(0)),0)));
     }
     @Test
     public void enAcc1() {
@@ -150,21 +150,21 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void enAcc3() {
-        assertEq(M_ACC_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanIncrUserAccuracyGet(playerPath(0)),0))));
+        assertEq(M_ACC_TR,callMoveTeamPositionGetMove(firstActivityInt(eltIntAcc(callFighterBeanIncrUserAccuracyGet(playerPath(0)),0))));
     }
 
     @Test
     public void enAcc4() {
-        assertEq(M_ACC_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanIncrUserAccuracyGet(foePath(0)),8))));
+        assertEq(M_ACC_TR,callMoveTeamPositionGetMove(firstActivityInt(eltIntAcc(callFighterBeanIncrUserAccuracyGet(foePath(0)),8))));
     }
     @Test
     public void enAcc5() {
-        assertTrue(second(elt(callFighterBeanIncrUserAccuracyGet(playerPath(0)),8)));
+        assertTrue(secondActivityInt(eltIntAcc(callFighterBeanIncrUserAccuracyGet(playerPath(0)),8)));
     }
 
     @Test
     public void enAcc6() {
-        assertFalse(second(elt(callFighterBeanIncrUserAccuracyGet(foePath(0)),0)));
+        assertFalse(secondActivityInt(eltIntAcc(callFighterBeanIncrUserAccuracyGet(foePath(0)),0)));
     }
 
     @Test
@@ -374,37 +374,37 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void moves3() {
-        assertEq(CHARGE_TR2,first(elt(callFighterBeanMovesGet(playerPath(0)),0)));
+        assertEq(CHARGE_TR2,firstUsesOfMove(eltUsesOfMove(callFighterBeanMovesGet(playerPath(0)),0)));
     }
 
     @Test
     public void moves4() {
-        assertEq(CHARGE_TR2,first(elt(callFighterBeanCurrentMovesGet(playerPath(0)),0)));
+        assertEq(CHARGE_TR2,firstUsesOfMove(eltUsesOfMove(callFighterBeanCurrentMovesGet(playerPath(0)),0)));
     }
     @Test
     public void moves5() {
-        assertEq(CHARGE_TR,first(elt(callFighterBeanMovesGet(playerPath(0)),1)));
+        assertEq(CHARGE_TR,firstUsesOfMove(eltUsesOfMove(callFighterBeanMovesGet(playerPath(0)),1)));
     }
 
     @Test
     public void moves6() {
-        assertEq(CHARGE_TR,first(elt(callFighterBeanCurrentMovesGet(playerPath(0)),1)));
+        assertEq(CHARGE_TR,firstUsesOfMove(eltUsesOfMove(callFighterBeanCurrentMovesGet(playerPath(0)),1)));
     }
     @Test
     public void moves7() {
-        assertEq(7,callUsesOfMoveGetCurrent(second(elt(callFighterBeanMovesGet(playerPath(0)),0))));
+        assertEq(7,callUsesOfMoveGetCurrent(secondUsesOfMove(eltUsesOfMove(callFighterBeanMovesGet(playerPath(0)),0))));
     }
     @Test
     public void moves8() {
-        assertEq(8,callUsesOfMoveGetMax(second(elt(callFighterBeanMovesGet(playerPath(0)),0))));
+        assertEq(8,callUsesOfMoveGetMax(secondUsesOfMove(eltUsesOfMove(callFighterBeanMovesGet(playerPath(0)),0))));
     }
     @Test
     public void moves9() {
-        assertEq(5,callUsesOfMoveGetCurrent(second(elt(callFighterBeanMovesGet(playerPath(0)),1))));
+        assertEq(5,callUsesOfMoveGetCurrent(secondUsesOfMove(eltUsesOfMove(callFighterBeanMovesGet(playerPath(0)),1))));
     }
     @Test
     public void moves10() {
-        assertEq(6,callUsesOfMoveGetMax(second(elt(callFighterBeanMovesGet(playerPath(0)),1))));
+        assertEq(6,callUsesOfMoveGetMax(secondUsesOfMove(eltUsesOfMove(callFighterBeanMovesGet(playerPath(0)),1))));
     }
     @Test
     public void nbUses1() {
@@ -412,11 +412,11 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void nbUses2() {
-        assertEq(M_NB_FIGHTER_TR,first(elt(callFighterBeanNbUsesMovesGet(playerPath(0)),0)));
+        assertEq(M_NB_FIGHTER_TR,firstStrNb(eltStrNb(callFighterBeanNbUsesMovesGet(playerPath(0)),0)));
     }
     @Test
     public void nbUses3() {
-        assertEq(0,second(elt(callFighterBeanNbUsesMovesGet(playerPath(0)),0)));
+        assertEq(0,secondStrNb(eltStrNb(callFighterBeanNbUsesMovesGet(playerPath(0)),0)));
     }
 
     @Test
@@ -425,11 +425,11 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void status2() {
-        assertEq(S_SIMPLE_TR,first(elt(callFighterBeanStatusGet(playerPath(0)),0)));
+        assertEq(S_SIMPLE_TR,firstStrNb(eltStrNb(callFighterBeanStatusGet(playerPath(0)),0)));
     }
     @Test
     public void status3() {
-        assertEq(0,second(elt(callFighterBeanStatusGet(playerPath(0)),0)));
+        assertEq(0,secondStrNb(eltStrNb(callFighterBeanStatusGet(playerPath(0)),0)));
     }
 
     @Test
@@ -438,31 +438,31 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void enMoves2() {
-        assertEq(M_COUNTER_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),0)));
+        assertEq(M_COUNTER_TR,firstActivityOfMove(eltActivityOfMove(callFighterBeanEnabledMovesGet(playerPath(0)),0)));
     }
     @Test
     public void enMoves3() {
-        assertEq(M_CST_CHOICE_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),1)));
+        assertEq(M_CST_CHOICE_TR,firstActivityOfMove(eltActivityOfMove(callFighterBeanEnabledMovesGet(playerPath(0)),1)));
     }
     @Test
     public void enMoves4() {
-        assertEq(M_END_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),2)));
+        assertEq(M_END_TR,firstActivityOfMove(eltActivityOfMove(callFighterBeanEnabledMovesGet(playerPath(0)),2)));
     }
     @Test
     public void enMoves5() {
-        assertEq(M_PROT_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),3)));
+        assertEq(M_PROT_TR,firstActivityOfMove(eltActivityOfMove(callFighterBeanEnabledMovesGet(playerPath(0)),3)));
     }
     @Test
     public void enMoves6() {
-        assertEq(M_SWITCH_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),4)));
+        assertEq(M_SWITCH_TR,firstActivityOfMove(eltActivityOfMove(callFighterBeanEnabledMovesGet(playerPath(0)),4)));
     }
     @Test
     public void enMoves7() {
-        assertEq(M_TEAM_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),5)));
+        assertEq(M_TEAM_TR,firstActivityOfMove(eltActivityOfMove(callFighterBeanEnabledMovesGet(playerPath(0)),5)));
     }
     @Test
     public void enMoves8() {
-        assertEq(M_UNPROT_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),6)));
+        assertEq(M_UNPROT_TR,firstActivityOfMove(eltActivityOfMove(callFighterBeanEnabledMovesGet(playerPath(0)),6)));
     }
     @Test
     public void stRel1() {
@@ -470,11 +470,11 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void stRel2() {
-        assertEq(S_RELATION_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanStatusRelatGet(playerPath(0)),0))));
+        assertEq(S_RELATION_TR,callMoveTeamPositionGetMove(firstActivityLong(eltLong(callFighterBeanStatusRelatGet(playerPath(0)),0))));
     }
     @Test
     public void stRel3() {
-        assertEq(1,second(elt(callFighterBeanStatusRelatGet(playerPath(0)),8)));
+        assertEq(1,secondActivityLong(eltLong(callFighterBeanStatusRelatGet(playerPath(0)),8)));
     }
     @Test
     public void pr1() {
@@ -482,11 +482,11 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void pr2() {
-        assertEq(M_CST_CHOICE_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanPrivateMovesGet(playerPath(0)),0))));
+        assertEq(M_CST_CHOICE_TR,callMoveTeamPositionGetMove(firstActivityString(eltString(callFighterBeanPrivateMovesGet(playerPath(0)),0))));
     }
     @Test
     public void pr3() {
-        assertEq(M_TEAM_TR,second(elt(callFighterBeanPrivateMovesGet(playerPath(0)),8)));
+        assertEq(M_TEAM_TR,secondActivityString(eltString(callFighterBeanPrivateMovesGet(playerPath(0)),8)));
     }
     @Test
     public void trapp1() {
@@ -494,7 +494,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void trapp2() {
-        assertEq(M_TRACK_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanTrappingMovesGet(playerPath(0)),0))));
+        assertEq(M_TRACK_TR,callMoveTeamPositionGetMove(firstActivityOfMoveStill(eltActivityOfMoveStill(callFighterBeanTrappingMovesGet(playerPath(0)),0))));
     }
     @Test
     public void track1() {
@@ -502,15 +502,15 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void track2() {
-        assertEq(M_USE_ACTION_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanTrckingMovesGet(playerPath(0)),0))));
+        assertEq(M_USE_ACTION_TR,callMoveTeamPositionGetMove(firstAffectedMove(eltAffectedMove(callFighterBeanTrckingMovesGet(playerPath(0)),0))));
     }
     @Test
     public void track3() {
-        assertEq(M_TEAM_TR,callAffectedMoveGetMove(second(elt(callFighterBeanTrckingMovesGet(playerPath(0)),8))));
+        assertEq(M_TEAM_TR,callAffectedMoveGetMove(secondAffectedMove(eltAffectedMove(callFighterBeanTrckingMovesGet(playerPath(0)),8))));
     }
     @Test
     public void track4() {
-        assertTrue(callActivityOfMoveIsEnabled(callAffectedMoveGetActivity(second(elt(callFighterBeanTrckingMovesGet(playerPath(0)),8)))));
+        assertTrue(callActivityOfMoveIsEnabled(callAffectedMoveGetActivity(secondAffectedMove(eltAffectedMove(callFighterBeanTrckingMovesGet(playerPath(0)),8)))));
     }
     @Test
     public void cpMoves1() {
@@ -518,15 +518,15 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void cpMoves2() {
-        assertEq(M_COPY_TR,first(elt(callFighterBeanCopiedMovesGet(playerPath(0)),0)));
+        assertEq(M_COPY_TR,firstCopiedMove(eltCopiedMove(callFighterBeanCopiedMovesGet(playerPath(0)),0)));
     }
     @Test
     public void cpMoves3() {
-        assertEq(M_TEAM_TR,callCopiedMoveGetMove(second(elt(callFighterBeanCopiedMovesGet(playerPath(0)),0))));
+        assertEq(M_TEAM_TR,callCopiedMoveGetMove(secondCopiedMove(eltCopiedMove(callFighterBeanCopiedMovesGet(playerPath(0)),0))));
     }
     @Test
     public void cpMoves4() {
-        assertEq(3,callCopiedMoveGetPp(second(elt(callFighterBeanCopiedMovesGet(playerPath(0)),0))));
+        assertEq(3,callCopiedMoveGetPp(secondCopiedMove(eltCopiedMove(callFighterBeanCopiedMovesGet(playerPath(0)),0))));
     }
     @Test
     public void multMoves1() {
@@ -534,15 +534,15 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void multMoves2() {
-        assertEq(ELECTRICK_TR,first(elt(callFighterBeanDamageRateByTypeGet(playerPath(0)),0)));
+        assertEq(ELECTRICK_TR,firstMultPowerMoves(eltMultPowerMoves(callFighterBeanDamageRateByTypeGet(playerPath(0)),0)));
     }
     @Test
     public void multMoves3() {
-        assertEq(Rate.one(),callMultPowerMovesGetMultInflicted(second(elt(callFighterBeanDamageRateByTypeGet(playerPath(0)),0))));
+        assertEq(Rate.one(),callMultPowerMovesGetMultInflicted(secondMultPowerMoves(eltMultPowerMoves(callFighterBeanDamageRateByTypeGet(playerPath(0)),0))));
     }
     @Test
     public void multMoves4() {
-        assertEq(Rate.one(),callMultPowerMovesGetMultSuffering(second(elt(callFighterBeanDamageRateByTypeGet(playerPath(0)),0))));
+        assertEq(Rate.one(),callMultPowerMovesGetMultSuffering(secondMultPowerMoves(eltMultPowerMoves(callFighterBeanDamageRateByTypeGet(playerPath(0)),0))));
     }
     @Test
     public void sufCat1() {
@@ -550,15 +550,15 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void sufCat2() {
-        assertEq(SPEC_TR,first(elt(callFighterBeanDamageSufferedCategGet(playerPath(0)),0)));
+        assertEq(SPEC_TR,firstSufferedDamageCategory(eltSufferedDamageCategory(callFighterBeanDamageSufferedCategGet(playerPath(0)),0)));
     }
     @Test
     public void sufCat3() {
-        assertEq(Rate.zero(),callSufferedDamageCategoryGetRound(second(elt(callFighterBeanDamageSufferedCategGet(playerPath(0)),0))));
+        assertEq(Rate.zero(),callSufferedDamageCategoryGetRound(secondSufferedDamageCategory(eltSufferedDamageCategory(callFighterBeanDamageSufferedCategGet(playerPath(0)),0))));
     }
     @Test
     public void sufCat4() {
-        assertEq(Rate.zero(),callSufferedDamageCategoryGetUsing(second(elt(callFighterBeanDamageSufferedCategGet(playerPath(0)),0))));
+        assertEq(Rate.zero(),callSufferedDamageCategoryGetUsing(secondSufferedDamageCategory(eltSufferedDamageCategory(callFighterBeanDamageSufferedCategGet(playerPath(0)),0))));
     }
     @Test
     public void stats1() {
@@ -566,127 +566,127 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void stats2() {
-        assertEq(SPEED_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+        assertEq(SPEED_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
     public void stats3() {
-        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+        assertTrue(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
     public void stats4() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
     public void stats5() {
-        assertFalse(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),7)));
+        assertFalse(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),7)));
     }
     @Test
     public void stats6() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),7)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),7)));
     }
     @Test
     public void stats7() {
-        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),6)));
+        assertTrue(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),6)));
     }
     @Test
     public void stats8() {
-        assertFalse(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),6)));
+        assertFalse(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),6)));
     }
     @Test
     public void stats9() {
-        assertEq(CRIT_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),7)));
+        assertEq(CRIT_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),7)));
     }
     @Test
     public void stats10() {
-        assertEq(HP_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),6)));
+        assertEq(HP_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),6)));
     }
     @Test
     public void stats11() {
-        assertEq(0,callStatisticInfoGetEv(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+        assertEq(0,callStatisticInfoGetEv(eltStat(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
     public void stats12() {
-        assertEq(31,callStatisticInfoGetIv(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+        assertEq(31,callStatisticInfoGetIv(eltStat(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
     public void stats13() {
-        assertEq(0,callStatisticInfoGetStatisBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+        assertEq(0,callStatisticInfoGetStatisBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
     public void stats14() {
-        assertEq(Rate.one(),callStatisticInfoGetStatisBase(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+        assertEq(Rate.one(),callStatisticInfoGetStatisBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
     public void stats15() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),0)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),0)));
     }
     @Test
     public void stats16() {
-        assertFalse(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),0)));
+        assertFalse(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),0)));
     }
     @Test
     public void stats17() {
-        assertEq(ACC_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),0)));
+        assertEq(ACC_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),0)));
     }
     @Test
     public void stats18() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),1)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),1)));
     }
     @Test
     public void stats19() {
-        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),1)));
+        assertTrue(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),1)));
     }
     @Test
     public void stats20() {
-        assertEq(ATT_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),1)));
+        assertEq(ATT_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),1)));
     }
     @Test
     public void stats21() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),2)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),2)));
     }
     @Test
     public void stats22() {
-        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),2)));
+        assertTrue(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),2)));
     }
     @Test
     public void stats23() {
-        assertEq(SPE_DEF_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),2)));
+        assertEq(SPE_DEF_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),2)));
     }
     @Test
     public void stats24() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),3)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),3)));
     }
     @Test
     public void stats25() {
-        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),3)));
+        assertTrue(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),3)));
     }
     @Test
     public void stats26() {
-        assertEq(SPE_ATT_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),3)));
+        assertEq(SPE_ATT_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),3)));
     }
     @Test
     public void stats27() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),4)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),4)));
     }
     @Test
     public void stats28() {
-        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),4)));
+        assertTrue(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),4)));
     }
     @Test
     public void stats29() {
-        assertEq(DEF_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),4)));
+        assertEq(DEF_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),4)));
     }
     @Test
     public void stats30() {
-        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),5)));
+        assertTrue(callStatisticInfoIsBoost(eltStat(callFighterBeanStatisticsGet(playerPath(0)),5)));
     }
     @Test
     public void stats31() {
-        assertFalse(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),5)));
+        assertFalse(callStatisticInfoIsBase(eltStat(callFighterBeanStatisticsGet(playerPath(0)),5)));
     }
     @Test
     public void stats32() {
-        assertEq(EVA_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),5)));
+        assertEq(EVA_TR,callStatisticInfoGetDisplayStatistic(eltStat(callFighterBeanStatisticsGet(playerPath(0)),5)));
     }
     @Test
     public void isFoeIncr1() {
@@ -808,20 +808,21 @@ public final class FighterBeanTest extends InitDbFight {
     public void getFoeSt() {
         assertEq(PIKACHU_TR, callFighterBeanGetStatusRelatTeam(playerPath(0),0));
     }
-    private NaSt foePath(long..._args) {
-        return beanFighter(clickFoeCaller(),_args);
+    private FighterBean foePath(int..._args) {
+        return beanFighter(Fight.CST_FOE,_args);
     }
 
-    private NaSt playerPath(long..._args) {
-        return beanFighter(clickPlayerCaller(),_args);
+    private FighterBean playerPath(int..._args) {
+        return beanFighter(Fight.CST_PLAYER,_args);
     }
 
-    private NaSt beanFighter(NatCaller _caller,long..._args) {
+    private FighterBean beanFighter(int _caller,int..._args) {
         FacadeGame facade_ = facadeFighters(dbFighter());
-        PkFight stds_ = new PkFight();
-        NaSt bFighter_ = beanFighter(stds_,EN, facade_);
-        NaSt bTeam_ = beanTeam(stds_,_caller,facade_);
-        transit(stds_, clickTeamFighterCaller(),bTeam_,bFighter_,_args);
+        FighterBean bFighter_ = new FighterBean();
+        update(facade_, bFighter_);
+        TeamBean bTeam_ = beanTeam(_caller,facade_);
+        bTeam_.clickFighter(_args[0]);
+        forms(bTeam_, bFighter_);
         return bFighter_;
     }
 }

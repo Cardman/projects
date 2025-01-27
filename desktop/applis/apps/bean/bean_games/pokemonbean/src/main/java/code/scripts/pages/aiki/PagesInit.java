@@ -11,14 +11,6 @@ m_.addEntry(PkScriptPages.WEB_GAME_HTML_DIFFICULTY_HTML,PageGameDifficulty.build
 m_.addEntry(PkScriptPages.DIFF_COMMON_HTML,PageDifficultyCommon.build());
 return m_;
 }
-public static StringMap<Document> buildFight(){
-StringMap<Document> m_ = new StringMap<Document>();
-m_.addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,PageFightFight.build());
-m_.addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,PageFightFightdetail.build());
-m_.addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,PageFightFighter.build());
-m_.addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,PageFightTeam.build());
-return m_;
-}
 public static StringMap<Document> buildProg(){
 StringMap<Document> m_ = new StringMap<Document>();
 m_.addEntry(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML,PageProgGameprog.build());

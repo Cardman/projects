@@ -36,13 +36,6 @@ public class FightBean extends CommonFightBean {
     public boolean isStillEnabled(int _index) {
         return enabledMoves.getValue(_index).isStill();
     }
-    public String clickPlayer() {
-        return click(Fight.CST_PLAYER);
-    }
-
-    public String clickFoe() {
-        return click(Fight.CST_FOE);
-    }
 
     public String click(int _c) {
         getForms().put(NO_TEAM, _c);

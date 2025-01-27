@@ -43,17 +43,11 @@ public abstract class EquallablePkBeanUtil {
     public static void assertEq(Coords _expected, Coords _result) {
         Assert.assertTrue(_expected.eq(_result));
     }
-    public static void assertEq(double _expected, double _result) {
-        Assert.assertEquals(Double.toString(_expected),Double.toString(_result));
-    }
 
     public static void assertEq(long _expected, long _result) {
         Assert.assertEquals(_expected, _result);
     }
 
-    public static void assertEq(int _expected, int _result) {
-        Assert.assertEquals(_expected, _result);
-    }
     public static void assertEq(char _expected, char _result) {
         Assert.assertEquals(_expected, _result);
     }

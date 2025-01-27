@@ -1,10 +1,8 @@
 package aiki.beans.fight;
 
-import aiki.beans.PkFight;
 import aiki.db.DataBase;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
-import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
@@ -29,67 +27,67 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void members3() {
-        assertEq(0,elt(callTeamBeanGetMembers(playerPath()),0));
+        assertEq(0,eltInt(callTeamBeanGetMembers(playerPath()),0));
     }
     @Test
     public void members4() {
-        assertEq(0,elt(callTeamBeanGetMembers(foePath()),0));
+        assertEq(0,eltInt(callTeamBeanGetMembers(foePath()),0));
     }
     @Test
     public void members5() {
-        assertEq(1,elt(callTeamBeanGetMembers(playerPath()),1));
+        assertEq(1,eltInt(callTeamBeanGetMembers(playerPath()),1));
     }
     @Test
     public void members6() {
-        assertEq(1,elt(callTeamBeanGetMembers(foePath()),1));
+        assertEq(1,eltInt(callTeamBeanGetMembers(foePath()),1));
     }
     @Test
     public void members7() {
-        assertEq(2,elt(callTeamBeanGetMembers(playerPath()),2));
+        assertEq(2,eltInt(callTeamBeanGetMembers(playerPath()),2));
     }
     @Test
     public void members8() {
-        assertEq(2,elt(callTeamBeanGetMembers(foePath()),2));
+        assertEq(2,eltInt(callTeamBeanGetMembers(foePath()),2));
     }
     @Test
     public void members9() {
-        assertEq(3,elt(callTeamBeanGetMembers(playerPath()),3));
+        assertEq(3,eltInt(callTeamBeanGetMembers(playerPath()),3));
     }
     @Test
     public void members10() {
-        assertEq(3,elt(callTeamBeanGetMembers(foePath()),3));
+        assertEq(3,eltInt(callTeamBeanGetMembers(foePath()),3));
     }
     @Test
     public void members11() {
-        assertEq(4,elt(callTeamBeanGetMembers(playerPath()),4));
+        assertEq(4,eltInt(callTeamBeanGetMembers(playerPath()),4));
     }
     @Test
     public void members12() {
-        assertEq(4,elt(callTeamBeanGetMembers(foePath()),4));
+        assertEq(4,eltInt(callTeamBeanGetMembers(foePath()),4));
     }
     @Test
     public void members13() {
-        assertEq(5,elt(callTeamBeanGetMembers(playerPath()),5));
+        assertEq(5,eltInt(callTeamBeanGetMembers(playerPath()),5));
     }
     @Test
     public void members14() {
-        assertEq(5,elt(callTeamBeanGetMembers(foePath()),5));
+        assertEq(5,eltInt(callTeamBeanGetMembers(foePath()),5));
     }
     @Test
     public void members15() {
-        assertEq(6,elt(callTeamBeanGetMembers(playerPath()),6));
+        assertEq(6,eltInt(callTeamBeanGetMembers(playerPath()),6));
     }
     @Test
     public void members16() {
-        assertEq(6,elt(callTeamBeanGetMembers(foePath()),6));
+        assertEq(6,eltInt(callTeamBeanGetMembers(foePath()),6));
     }
     @Test
     public void members17() {
-        assertEq(7,elt(callTeamBeanGetMembers(playerPath()),7));
+        assertEq(7,eltInt(callTeamBeanGetMembers(playerPath()),7));
     }
     @Test
     public void members18() {
-        assertEq(7,elt(callTeamBeanGetMembers(foePath()),7));
+        assertEq(7,eltInt(callTeamBeanGetMembers(foePath()),7));
     }
     @Test
     public void trLink1() {
@@ -165,131 +163,131 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void againstFoe3() {
-        assertEq(0,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)));
+        assertEq(0,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)));
     }
     @Test
     public void againstFoe4() {
-        assertEq(1,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)));
+        assertEq(1,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)));
     }
     @Test
     public void againstFoe5() {
-        assertEq(2,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)));
+        assertEq(2,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)));
     }
     @Test
     public void againstFoe6() {
-        assertEq(3,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)));
+        assertEq(3,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)));
     }
     @Test
     public void againstFoe7() {
-        assertEq(4,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),4)));
+        assertEq(4,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),4)));
     }
     @Test
     public void againstFoe8() {
-        assertEq(5,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),5)));
+        assertEq(5,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),5)));
     }
     @Test
     public void againstFoe9() {
-        assertEq(6,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),6)));
+        assertEq(6,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),6)));
     }
     @Test
     public void againstFoe10() {
-        assertEq(7,first(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),7)));
+        assertEq(7,firstFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),7)));
     }
     @Test
     public void againstFoe11() {
-        assertSizeEq(4,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)));
+        assertSizeEq(4,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)));
     }
     @Test
     public void againstFoe12() {
-        assertSizeEq(4,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)));
+        assertSizeEq(4,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)));
     }
     @Test
     public void againstFoe13() {
-        assertSizeEq(4,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)));
+        assertSizeEq(4,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)));
     }
     @Test
     public void againstFoe14() {
-        assertSizeEq(4,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)));
+        assertSizeEq(4,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)));
     }
     @Test
     public void againstFoe15() {
-        assertSizeEq(0,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),4)));
+        assertSizeEq(0,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),4)));
     }
     @Test
     public void againstFoe16() {
-        assertSizeEq(0,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),5)));
+        assertSizeEq(0,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),5)));
     }
     @Test
     public void againstFoe17() {
-        assertSizeEq(0,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),6)));
+        assertSizeEq(0,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),6)));
     }
     @Test
     public void againstFoe18() {
-        assertSizeEq(0,second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),7)));
+        assertSizeEq(0,secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),7)));
     }
     @Test
     public void againstFoe19() {
-        assertEq(0,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),0));
+        assertEq(0,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),0));
     }
     @Test
     public void againstFoe20() {
-        assertEq(0,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),0));
+        assertEq(0,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),0));
     }
     @Test
     public void againstFoe21() {
-        assertEq(0,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),0));
+        assertEq(0,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),0));
     }
     @Test
     public void againstFoe22() {
-        assertEq(0,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),0));
+        assertEq(0,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),0));
     }
     @Test
     public void againstFoe23() {
-        assertEq(1,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),1));
+        assertEq(1,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),1));
     }
     @Test
     public void againstFoe24() {
-        assertEq(1,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),1));
+        assertEq(1,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),1));
     }
     @Test
     public void againstFoe25() {
-        assertEq(1,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),1));
+        assertEq(1,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),1));
     }
     @Test
     public void againstFoe26() {
-        assertEq(1,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),1));
+        assertEq(1,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),1));
     }
     @Test
     public void againstFoe27() {
-        assertEq(2,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),2));
+        assertEq(2,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),2));
     }
     @Test
     public void againstFoe28() {
-        assertEq(2,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),2));
+        assertEq(2,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),2));
     }
     @Test
     public void againstFoe29() {
-        assertEq(2,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),2));
+        assertEq(2,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),2));
     }
     @Test
     public void againstFoe30() {
-        assertEq(2,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),2));
+        assertEq(2,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),2));
     }
     @Test
     public void againstFoe31() {
-        assertEq(3,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),3));
+        assertEq(3,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),0)),3));
     }
     @Test
     public void againstFoe32() {
-        assertEq(3,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),3));
+        assertEq(3,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),1)),3));
     }
     @Test
     public void againstFoe33() {
-        assertEq(3,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),3));
+        assertEq(3,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),2)),3));
     }
     @Test
     public void againstFoe34() {
-        assertEq(3,elt(second(elt(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),3));
+        assertEq(3,eltIntFighterAgainstFoes(secondFighterAgainstFoes(eltFighterAgainstFoes(callTeamBeanPlayerFightersAgainstFoeGet(playerPath()),3)),3));
     }
     @Test
     public void pkPlName1() {
@@ -393,7 +391,7 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void enMoves2() {
-        assertEq(M_TEAM_TR,first(elt(callTeamBeanEnabledMovesGet(playerPath()),0)));
+        assertEq(M_TEAM_TR,firstActivityOfMove(eltActivityOfMove(callTeamBeanEnabledMovesGet(playerPath()),0)));
     }
     @Test
     public void enMovesGr1() {
@@ -401,15 +399,15 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void enMovesGr2() {
-        assertSizeEq(2,first(elt(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)));
+        assertSizeEq(2,firstActivityOfMove2(eltActivityOfMove2(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)));
     }
     @Test
     public void enMovesGr3() {
-        assertEq(M_TEAM_TR,elt(first(elt(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)),0));
+        assertEq(M_TEAM_TR,elt(firstActivityOfMove2(eltActivityOfMove2(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)),0));
     }
     @Test
     public void enMovesGr4() {
-        assertEq(M_TEAM_SEND_TR,elt(first(elt(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)),1));
+        assertEq(M_TEAM_SEND_TR,elt(firstActivityOfMove2(eltActivityOfMove2(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)),1));
     }
     @Test
     public void getKey() {
@@ -421,11 +419,11 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void nbUses2() {
-        assertEq(M_USE_TR,first(elt(callTeamBeanNbUsesMovesGet(playerPath()),0)));
+        assertEq(M_USE_TR,firstStrNb(eltStrNb(callTeamBeanNbUsesMovesGet(playerPath()),0)));
     }
     @Test
     public void nbUses3() {
-        assertEq(0,second(elt(callTeamBeanNbUsesMovesGet(playerPath()),0)));
+        assertEq(0,secondStrNb(eltStrNb(callTeamBeanNbUsesMovesGet(playerPath()),0)));
     }
     @Test
     public void sendFoe1() {
@@ -433,11 +431,11 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void sendFoe2() {
-        assertEq(M_TEAM_SEND_TR,first(elt(callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()),0)));
+        assertEq(M_TEAM_SEND_TR,firstLgInt(eltLgInt(callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()),0)));
     }
     @Test
     public void sendFoe3() {
-        assertEq(LgInt.zero(),second(elt(callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()),0)));
+        assertEq(LgInt.zero(),secondLgInt(eltLgInt(callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()),0)));
     }
     @Test
     public void heal1() {
@@ -449,51 +447,51 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void heal3() {
-        assertEq(M_STACK_TR,first(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)));
+        assertEq(M_STACK_TR,firstHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)));
     }
     @Test
     public void heal4() {
-        assertEq(M_STACK_TR,first(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)));
+        assertEq(M_STACK_TR,firstHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(foePath()),0)));
     }
     @Test
     public void heal5() {
-        assertSizeEq(4,second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)));
+        assertSizeEq(4,secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)));
     }
     @Test
     public void heal6() {
-        assertSizeEq(4,second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)));
+        assertSizeEq(4,secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(foePath()),0)));
     }
     @Test
     public void heal7() {
-        assertEq(0,first(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0)));
+        assertEq(0,firstHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0)));
     }
     @Test
     public void heal8() {
-        assertEq(0,first(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0)));
+        assertEq(0,firstHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0)));
     }
     @Test
     public void heal9() {
-        assertEq(1,callStacksOfUsesGetNbRounds(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
+        assertEq(1,callStacksOfUsesGetNbRounds(secondHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
     }
     @Test
     public void heal10() {
-        assertEq(0,callStacksOfUsesGetNbRounds(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
+        assertEq(0,callStacksOfUsesGetNbRounds(secondHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
     }
     @Test
     public void heal11() {
-        assertTrue(callStacksOfUsesIsFirstStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
+        assertTrue(callStacksOfUsesIsFirstStacked(secondHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
     }
     @Test
     public void heal12() {
-        assertFalse(callStacksOfUsesIsFirstStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
+        assertFalse(callStacksOfUsesIsFirstStacked(secondHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
     }
     @Test
     public void heal13() {
-        assertTrue(callStacksOfUsesIsLastStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
+        assertTrue(callStacksOfUsesIsLastStacked(secondHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
     }
     @Test
     public void heal14() {
-        assertFalse(callStacksOfUsesIsLastStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
+        assertFalse(callStacksOfUsesIsLastStacked(secondHeal2(eltHeal2(secondHeal(eltHeal(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
     }
     @Test
     public void ant1() {
@@ -505,59 +503,59 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void ant3() {
-        assertEq(M_ANT_TR,first(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)));
+        assertEq(M_ANT_TR,firstAnt(eltAnt(callTeamBeanMovesAnticipationGet(playerPath()),0)));
     }
     @Test
     public void ant4() {
-        assertEq(M_ANT_TR,first(elt(callTeamBeanMovesAnticipationGet(foePath()),0)));
+        assertEq(M_ANT_TR,firstAnt(eltAnt(callTeamBeanMovesAnticipationGet(foePath()),0)));
     }
     @Test
     public void ant5() {
-        assertSizeEq(4,second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)));
+        assertSizeEq(4,secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(playerPath()),0)));
     }
     @Test
     public void ant6() {
-        assertSizeEq(4,second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)));
+        assertSizeEq(4,secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(foePath()),0)));
     }
     @Test
     public void ant7() {
-        assertEq(0,first(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0)));
+        assertEq(0,firstAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0)));
     }
     @Test
     public void ant8() {
-        assertEq(0,first(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0)));
+        assertEq(0,firstAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(foePath()),0)),0)));
     }
     @Test
     public void ant9() {
-        assertEq(1,callAnticipationGetNbRounds(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+        assertEq(1,callAnticipationGetNbRounds(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
     }
     @Test
     public void ant10() {
-        assertEq(0,callAnticipationGetNbRounds(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+        assertEq(0,callAnticipationGetNbRounds(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
     }
     @Test
     public void ant11() {
-        assertTrue(callAnticipationIsIncrementing(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+        assertTrue(callAnticipationIsIncrementing(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
     }
     @Test
     public void ant12() {
-        assertFalse(callAnticipationIsIncrementing(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+        assertFalse(callAnticipationIsIncrementing(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
     }
     @Test
     public void ant13() {
-        assertEq(Fighter.BACK,callAnticipationGetTargetPositionValue(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+        assertEq(Fighter.BACK,callAnticipationGetTargetPositionValue(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
     }
     @Test
     public void ant14() {
-        assertEq(0,callAnticipationGetTargetPositionValue(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+        assertEq(0,callAnticipationGetTargetPositionValue(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
     }
     @Test
     public void ant15() {
-        assertEq(Rate.one(),callAnticipationGetDamage(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+        assertEq(Rate.one(),callAnticipationGetDamage(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
     }
     @Test
     public void ant16() {
-        assertEq(Rate.zero(),callAnticipationGetDamage(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+        assertEq(Rate.zero(),callAnticipationGetDamage(secondAnt2(eltAnt2(secondAnt(eltAnt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
     }
     @Test
     public void ant17() {
@@ -586,23 +584,18 @@ public final class TeamBeanTest extends InitDbFight {
 
     @Test
     public void clickFighter() {
-        NaSt fBean_ = playerPath();
+        TeamBean fBean_ = playerPath();
         assertEq(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,navigateTeamFighter(fBean_,1));
-        assertTrue(forms(fBean_).contains(NO_TEAM));
-        assertTrue(forms(fBean_).contains(NO_FIGHTER));
-        assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
-        assertEq(1,forms(fBean_).getValInt(NO_FIGHTER));
+        assertTrue(fBean_.getForms().contains(NO_TEAM));
+        assertTrue(fBean_.getForms().contains(NO_FIGHTER));
+        assertEq(Fight.CST_PLAYER,fBean_.getForms().getValInt(NO_TEAM));
+        assertEq(1,fBean_.getForms().getValInt(NO_FIGHTER));
     }
-    private NaSt foePath() {
-        return beanTeam(clickFoeCaller());
-    }
-
-    private NaSt playerPath() {
-        return beanTeam(clickPlayerCaller());
+    private TeamBean foePath() {
+        return beanTeam(Fight.CST_FOE);
     }
 
-    private NaSt beanTeam(NatCaller _caller) {
-        PkFight stds_ = new PkFight();
-        return beanTeam(stds_,_caller);
+    private TeamBean playerPath() {
+        return beanTeam(Fight.CST_PLAYER);
     }
 }
