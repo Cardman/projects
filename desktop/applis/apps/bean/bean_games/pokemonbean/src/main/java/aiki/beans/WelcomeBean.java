@@ -1,49 +1,18 @@
 package aiki.beans;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
-import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.status.Status;
-import aiki.fight.util.LevelMove;
-import aiki.game.fight.FightSimulation;
 import code.scripts.confs.PkScriptPages;
-import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public class WelcomeBean extends CommonBean {
 
-    private final StringList moves = new StringList();
-
     @Override
     public void beforeDisplaying() {
-        if (moves.isEmpty()) {
-            StringList learntMoves_ = new StringList();
-//            StringList notLearntMoves_ = new StringList();
-            DataBase data_ = getDataBase();
-            for (EntryCust<String, PokemonData> p: data_.getPokedex().entryList()) {
-                PokemonData pkData_ = p.getValue();
-                for (LevelMove l: pkData_.getLevMoves()) {
-                    learntMoves_.add(l.getMove());
-                }
-                for (String m: pkData_.getMoveTutors()) {
-                    learntMoves_.add(m);
-                }
-                for (Integer hm_: pkData_.getHiddenMoves()) {
-                    learntMoves_.add(StringUtil.nullToEmpty(data_.getHm().getVal(hm_)));
-                }
-                for (Integer tm_: pkData_.getTechnicalMoves()) {
-                    learntMoves_.add(StringUtil.nullToEmpty(data_.getTm().getVal(tm_)));
-                }
-            }
-            learntMoves_.removeDuplicates();
-            StringMap<MoveData> moveData_ = FightSimulation.expand(learntMoves_,data_);
-            getForms().putMoves(CST_LEARNT_MOVES, moveData_);
-            moves.addAllElts(data_.getMoves().getKeys());
-        }
+        getForms().putMoves(CST_LEARNT_MOVES,getDataBase().getView());
     }
 
     public String seeAllMoves() {

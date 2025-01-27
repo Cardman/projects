@@ -17,6 +17,7 @@ import aiki.fight.pokemon.evolution.*;
 import aiki.fight.status.*;
 import aiki.fight.util.*;
 import aiki.game.fight.CheckNumericStringsFight;
+import aiki.game.fight.FightSimulation;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
@@ -437,6 +438,7 @@ public final class DataBase {
     private StringMap<String> displayLanguages = new StringMap<String>();
     private String language = "";
     private final AbstractGenerator generator;
+    private StringMap<MoveData> view;
 
     public DataBase(AbstractGenerator _generator) {
         this.generator = _generator;
@@ -449,6 +451,7 @@ public final class DataBase {
         defaultEggGroup="";
         defCategory="";
         ballDef="";
+        view=new StringMap<MoveData>();
     }
 
     public static StringMap<String> basicTranslationItemsType(DataBase _data) {
@@ -669,8 +672,21 @@ public final class DataBase {
         validateFour(_loading,_perCentLoading);
         validateFive(_loading,_perCentLoading,_sexListInt);
         validateSix(_loading,_perCentLoading);
-
+        setView(computeLearn());
     }
+
+    public StringMap<MoveData> computeLearn() {
+        StringList learntMoves_ = new StringList();
+        for (EntryCust<String, PokemonData> p: getPokedex().entryList()) {
+            PokemonData pkData_ = p.getValue();
+            for (String m: pkData_.getMoveTutors()) {
+                learntMoves_.add(m);
+            }
+        }
+        learntMoves_.removeDuplicates();
+        return FightSimulation.expand(learntMoves_, this);
+    }
+
     public void validateOne(AbstractAtomicIntegerCoreAdd _perCentLoading) {
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
@@ -736,14 +752,14 @@ public final class DataBase {
         for (PokemonData pk_ : pokedex.values()) {
             for (int hm_ : pk_.getHiddenMoves()) {
                 String move_ = hm.getVal(hm_);
-                pk_.getMoveTutors().add(move_);
+                pk_.getMoveTutors().add(StringUtil.nullToEmpty(move_));
             }
             for (int hm_ : pk_.getTechnicalMoves()) {
                 String move_ = tm.getVal(hm_);
-                pk_.getMoveTutors().add(move_);
+                pk_.getMoveTutors().add(StringUtil.nullToEmpty(move_));
             }
             for (LevelMove l : pk_.getLevMoves()) {
-                pk_.getMoveTutors().add(l.getMove());
+                pk_.getMoveTutors().add(StringUtil.nullToEmpty(l.getMove()));
             }
             pk_.getMoveTutors().removeDuplicates();
         }
@@ -7304,4 +7320,11 @@ public final class DataBase {
         return generator;
     }
 
+    public StringMap<MoveData> getView() {
+        return view;
+    }
+
+    public void setView(StringMap<MoveData> _v) {
+        this.view = _v;
+    }
 }

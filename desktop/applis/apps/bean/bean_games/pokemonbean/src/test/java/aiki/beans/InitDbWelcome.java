@@ -41,6 +41,8 @@ public abstract class InitDbWelcome extends InitDbConstr {
     }
     public static NaSt beanWelcome(FacadeGame _dataBase) {
         PkData pk_ = pkDataByFacade(_dataBase);
+        pk_.getDataBase().getData().completeMoveTutors();
+        pk_.getDataBase().getData().setView(pk_.getDataBase().getData().computeLearn());
         return pk_.beanWelcomeBean(EN);
     }
     public static NaSt callWelcomeBeanClickAbilities(NaSt _str, long... _args) {

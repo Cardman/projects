@@ -1108,6 +1108,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return Gender.getGenderByName(_env);
     }
 
+    public FacadeGame getDataBase() {
+        return dataBase;
+    }
+
     public void setDataBase(FacadeGame _dataBase){
         dataBase = _dataBase;
     }

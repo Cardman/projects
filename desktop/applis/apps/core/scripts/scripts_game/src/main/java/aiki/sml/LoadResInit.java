@@ -37,6 +37,7 @@ public final class LoadResInit {
         _d.sortEndRound();
 //        _perCentLoading.addPercent(delta_);
         _d.completeMoveTutors();
+        _d.setView(_d.computeLearn());
         _d.getMap().initializeLinks();
         _d.getMap().initInteractiveElements();
         _d.getMap().initializeTree();

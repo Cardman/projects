@@ -1372,6 +1372,9 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq(1,MessagesDataBaseConstants.trDiffWinPts(tr(DataBase.DEF_FACILE,"")).size());
         assertEq(1,MessagesDataBaseConstants.trBooleans(tr(DataBase.DEF_SEL_BOOL_YES_AND_NO,"")).size());
         assertEq(1,MessagesDataBaseConstants.trGenders(tr(DataBase.DEF_GENDER_NO_GENDER,"")).size());
+        data_.completeMoveTutors();
+        data_.setView(data_.computeLearn());
+        assertFalse(data_.getView().isEmpty());
     }
 
     @Test

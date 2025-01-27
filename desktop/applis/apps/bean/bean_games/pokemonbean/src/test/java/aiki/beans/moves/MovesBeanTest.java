@@ -163,7 +163,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search2() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        NaSt bean_ = dispAllMovesTutors(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -177,7 +177,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search3() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        NaSt bean_ = dispAllMovesTutors(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));

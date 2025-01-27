@@ -181,9 +181,26 @@ public abstract class InitDbMoves extends InitDbConstr {
         return dispAllMoves(pk_);
     }
 
+    protected static NaSt dispAllMovesTutors(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        return dispAllMoveslMovesTutors(pk_);
+    }
+
     private static NaSt dispAllMoves(PkData _pk) {
         StringMap<NaSt> all_ = beanToMoves(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        NaSt moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
+        return moves_;
+    }
+
+
+    private static NaSt dispAllMoveslMovesTutors(PkData _pk) {
+        StringMap<NaSt> all_ = beanToMoves(_pk);
+        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        _pk.getDataBase().getData().completeMoveTutors();
+        _pk.getDataBase().getData().setView(_pk.getDataBase().getData().computeLearn());
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
