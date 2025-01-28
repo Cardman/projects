@@ -23,7 +23,11 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
         assertEq(NULL_REF,callGeneralHelpBeanGetTmPrice(1));
     }
     @Test
-    public void getMapWidth() {
+    public void getMapWidth1() {
+        assertEq(1,callGeneralHelpBeanGetMapWidthLight());
+    }
+    @Test
+    public void getMapWidth2() {
         assertEq(2,callGeneralHelpBeanGetMapWidth());
     }
     @Test

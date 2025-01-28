@@ -186,6 +186,10 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetLevel(),with());
     }
 
+    public static NaSt callGeneralHelpBeanGetMapWidthLight() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetMapWidth(),withLight());
+    }
+
     public static NaSt callGeneralHelpBeanGetMapWidth() {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetMapWidth(),with());
     }
@@ -304,15 +308,26 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     protected static NaSt with() {
         return str(I_BALL);
     }
+    protected static NaSt withLight() {
+        return strLight(I_BALL);
+    }
     protected static NaSt without() {
         return str(NULL_REF);
     }
     protected static NaSt str(String _it) {
-        PkData pk_ = pkDataByFacade(db(_it));
+        return bean(db(_it));
+    }
+    protected static NaSt strLight(String _it) {
+        return bean(dbLight(_it));
+    }
+
+    private static PokemonBeanStruct bean(FacadeGame _db) {
+        PkData pk_ = pkDataByFacade(_db);
         PokemonBeanStruct bean_ = pk_.beanGeneralHelpBean(EN);
         beforeDisplaying(bean_);
         return bean_;
     }
+
     protected static FacadeGame db(String _it) {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(P_POK_00,pkOne());
@@ -330,6 +345,32 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         facade_.getData().getTypes().add(T_TYPE1);
         trsCore(facade_);
         facade_.getData().setMap(dm(_it));
+        facade_.getData().getMiniMap().addEntry("0",instance(two(IMG_MINI0)));
+        facade_.getData().getMiniMap().addEntry("1",instance(two(IMG_MINI1)));
+        facade_.getData().getMiniMap().addEntry("2",instance(two(IMG_MINI2)));
+        facade_.getData().getMiniMap().addEntry("3",instance(two(IMG_MINI3)));
+        facade_.getData().getMiniMap().addEntry("4",instance(two(IMG_MINI4)));
+        facade_.getData().getTypesImages().addEntry(T_TYPE1,instance(two(IMG_MINI5)));
+        facade_.getData().getTypesColors().addEntry(T_TYPE1,"5;6;7");
+        return facade_;
+    }
+    protected static FacadeGame dbLight(String _it) {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(P_POK_00,pkOne());
+        facade_.getData().completeMembers(P_POK_01,pkTwo());
+        facade_.getData().completeMembers(M_POK_00,Instances.newDamagingMoveData());
+        facade_.getData().completeMembers(M_POK_01,Instances.newDamagingMoveData());
+        facade_.getData().completeMembers(M_POK_02,Instances.newDamagingMoveData());
+        facade_.getData().completeMembers(M_POK_03,Instances.newDamagingMoveData());
+        facade_.getData().completeMembers(I_BALL,Instances.newBall());
+        facade_.getData().completeMembers(A_ABILITY,Instances.newAbilityData());
+        facade_.getData().getHm().addEntry(1,M_POK_00);
+        facade_.getData().getTm().addEntry(2,M_POK_02);
+        facade_.getData().getTm().addEntry(3,M_POK_03);
+        facade_.getData().getTmPrice().addEntry(2,LgInt.one());
+        facade_.getData().getTypes().add(T_TYPE1);
+        trsCore(facade_);
+        facade_.getData().setMap(dmLight(_it));
         facade_.getData().getMiniMap().addEntry("0",instance(two(IMG_MINI0)));
         facade_.getData().getMiniMap().addEntry("1",instance(two(IMG_MINI1)));
         facade_.getData().getMiniMap().addEntry("2",instance(two(IMG_MINI2)));
@@ -432,7 +473,24 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         map_.setSideLength(1);
         return map_;
     }
-
+    protected static DataMap dmLight(String _it) {
+        DataMap map_ = Instances.newDataMap();
+        Road r_ = Instances.newRoad();
+        r_.setName(ROAD);
+        map_.getPlaces().add(r_);
+        City ci_ = Instances.newCity();
+        ci_.setName(CITY);
+        map_.getPlaces().add(ci_);
+        Cave ca_ = Instances.newCave();
+        ca_.setName(CAVE);
+        map_.getPlaces().add(ca_);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,0),tm("0", -1));
+        map_.setUnlockedCity("4");
+        map_.setFirstPokemon(wp(_it));
+        map_.setBegin(newCoords(0,0,0,0));
+        map_.setSideLength(1);
+        return map_;
+    }
     private static TileMiniMap tm(String _file, int _pl) {
         TileMiniMap t_ = Instances.newTileMiniMap();
         t_.setFile(_file);

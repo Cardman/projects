@@ -42,6 +42,7 @@ public class GeneralHelpBean extends CommonBean {
     private StringList tm = new StringList();
     private StringList hm = new StringList();
     private StringList types = new StringList();
+    private int mapWidth;
 
     @Override
     public void beforeDisplaying() {
@@ -80,17 +81,18 @@ public class GeneralHelpBean extends CommonBean {
         hm.sortElts(new TrMovesComparator(data_));
         types = new StringList(data_.getTypes());
         types.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
+        int w_ = 0;
+        int y_ = miniMap.getKey(w_).getYcoords();
+        while (miniMap.isValidIndex(w_) && miniMap.getKey(w_).getYcoords() != y_+1) {
+            w_++;
+        }
+        mapWidth = w_;
     }
     public int[][] getMiniMapImage(int _index) {
         return miniMap.getValue(_index);
     }
     public int getMapWidth() {
-        int w_ = 0;
-        int y_ = miniMap.getKey(w_).getYcoords();
-        while (miniMap.getKey(w_).getYcoords() != y_+1) {
-            w_++;
-        }
-        return w_;
+        return mapWidth;
     }
 //    public boolean isFirstRow(int _index) {
 //        if (_index == 0) {
