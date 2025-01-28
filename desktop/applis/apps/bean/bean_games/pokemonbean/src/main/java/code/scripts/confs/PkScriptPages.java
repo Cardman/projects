@@ -23,8 +23,7 @@ public static final String ENDROUND_STATUSRELATION="endround/statusrelation";
 public static final String ENDROUND_TEAM="endround/team";
 public static final String FIGHT="fight";
 public static final String FIGHTER="fighter";
-public static final String GAMEPROG="gameprog";
-public static final String GENERAL_GENERAL="general/general";
+    public static final String GENERAL_GENERAL="general/general";
 public static final String INDEX="index";
 public static final String ITEMS_BALL="items/ball";
 public static final String ITEMS_BERRY="items/berry";
@@ -162,8 +161,7 @@ public static final String MSG_POKEDEX="msg_pokedex";
 public static final String MSG_POKEMON_NPC="msg_pokemon_npc";
 public static final String MSG_POSITIONRELATION="msg_positionrelation";
 public static final String MSG_POSITIONTARGET="msg_positiontarget";
-public static final String MSG_PROG="msg_prog";
-public static final String MSG_REPEL="msg_repel";
+    public static final String MSG_REPEL="msg_repel";
 public static final String MSG_SIMULATION="msg_simulation";
 public static final String MSG_SINGLERELATION="msg_singlerelation";
 public static final String MSG_SOLUTION="msg_solution";
@@ -319,7 +317,6 @@ public static final String REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/ga
 public static final String REN_ADD_WEB_PROG_HTML_GAMEPROGALL_HTML="web_prog/html/gameprogall.html";
 public static final String REN_ADD_WEB_PROG_HTML_GAMEPROGNOTATALL_HTML="web_prog/html/gameprognotatall.html";
 public static final String REN_ADD_WEB_PROG_HTML_GAMEPROGPART_HTML="web_prog/html/gameprogpart.html";
-public static final String REN_ADD_WEB_PROG_MESSAGES="web_prog/messages";
 public static final String WEB_FIGHT_HTML_FIGHTER_HTML="web_fight/html/fighter.html";
 public static final String WEB_FIGHT_HTML_TEAM_HTML="web_fight/html/team.html";
 public static final String WEB_FIGHT_HTML_FIGHT_HTML="web_fight/html/fight.html";
@@ -664,22 +661,5 @@ public static final String DIFF_COMMON_HTML = "diff_common.html";
         StringList added_ = new StringList(new CollCapacity(1));
         added_.add(REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS);
         _d.setAddedFiles(added_);
-    }
-    public static void initAnaProg(NatDualConfigurationContext _d){
-        StringMap<String> properties_ = new StringMap<String>(new CollCapacity(1));
-        properties_.addEntry(MSG_PROG,GAMEPROG);
-        _d.setProperties(properties_);
-        _d.setMessagesFolder(REN_ADD_WEB_PROG_MESSAGES);
-        StringList added_ = new StringList(new CollCapacity(4));
-        added_.add(REN_ADD_WEB_PROG_CSS_DIFFICULTY_CSS);
-//        added_.add(REN_ADD_WEB_PROG_HTML_GAMEPROGALL_HTML);
-//        added_.add(REN_ADD_WEB_PROG_HTML_GAMEPROGNOTATALL_HTML);
-//        added_.add(REN_ADD_WEB_PROG_HTML_GAMEPROGPART_HTML);
-        _d.setAddedFiles(added_);
-//        StringList rend_ = new StringList(new CollCapacity(3));
-//        rend_.add(REN_ADD_WEB_PROG_HTML_GAMEPROGALL_HTML);
-//        rend_.add(REN_ADD_WEB_PROG_HTML_GAMEPROGNOTATALL_HTML);
-//        rend_.add(REN_ADD_WEB_PROG_HTML_GAMEPROGPART_HTML);
-//        _d.setRenderFiles(rend_);
     }
 }

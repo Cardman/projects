@@ -2,7 +2,9 @@ package code.gui.document;
 
 import aiki.beans.*;
 import aiki.beans.fight.*;
+import aiki.beans.game.ImgPkPlayer;
 import aiki.facade.*;
+import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.*;
 import code.formathtml.render.*;
 import code.gui.*;
@@ -52,6 +54,23 @@ public abstract class AbsBeanRender {
         }
     }
 
+    protected void displayTrainerPlaceNamesList(AbstractProgramInfos _api, AbsPanel _form, String _file, CustList<TrainerPlaceNames> _list, String _key) {
+        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        display(_api, _form, _file, _list, _key);
+        displayTrainerPlaceNamesList(_api, _form, _list);
+    }
+
+    protected void displayTrainerPlaceNamesList(AbstractProgramInfos _api, AbsPanel _form, CustList<TrainerPlaceNames> _list) {
+        for (TrainerPlaceNames i: _list) {
+            nextPart();
+            AbsPanel lineType_ = _api.getCompoFactory().newLineBox();
+            paintMetaLabelDisk(_api,lineType_);
+            formatMessageDir(_api,lineType_,i.getTrainer()+" - "+i.getPlace());
+            feedParents(_form,lineType_);
+            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        }
+    }
+
     protected void init(CommonBean _common, FacadeGame _facade, StringMapObject _form) {
         getMetaSearchableContents().clear();
         getParents().clear();
@@ -89,6 +108,26 @@ public abstract class AbsBeanRender {
         anchors.add(tx_);
         return tx_;
     }
+
+    public AbsPanel buildPkList(AbstractProgramInfos _api, String _file, String _key, CustList<ImgPkPlayer> _list) {
+        AbsPanel formEvos_ = _api.getCompoFactory().newPageBox();
+        display(_api,formEvos_, _file, _list, _key);
+        return buildPkList(_api, _list, formEvos_);
+    }
+
+    public AbsPanel buildPkList(AbstractProgramInfos _api, CustList<ImgPkPlayer> _list, AbsPanel _formEvos) {
+        for (ImgPkPlayer i: _list) {
+            nextPart();
+            AbsPanel lineEvo_ = _api.getCompoFactory().newLineBox();
+            paintMetaLabelDisk(_api,lineEvo_);
+            addImg(_api,lineEvo_,i.getImage());
+            formatMessageDir(_api,lineEvo_,i.getKey().getTranslation());
+            feedParents(_formEvos,lineEvo_);
+            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        }
+        return _formEvos;
+    }
+
     public void display(AbstractProgramInfos _api, AbsPanel _container, String _file, Countable _ls, String _key) {
         if (!_ls.isEmpty()) {
             formatMessage(_api,_container,_file,_key);
@@ -124,9 +163,20 @@ public abstract class AbsBeanRender {
             formatMessage(_api,_container,_file,_two);
         }
     }
-    public void displayBoolTrue(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _key) {
-        if (_value == CommonBean.TRUE_VALUE) {
-            formatMessage(_api,_container,_file,_key);
+    public void displayBoolFalse(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _key, String... _values) {
+        displayBool(_api,_container,_file,_value,CommonBean.FALSE_VALUE,_key,_values);
+    }
+    public void displayBoolTrue(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _key, String... _values) {
+        displayBool(_api,_container,_file,_value,CommonBean.TRUE_VALUE,_key,_values);
+    }
+    public void displayBool(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, int _car, String _key, String... _values) {
+        if (_value == _car) {
+            formatMessage(_api,_container,_file,_key,_values);
+        }
+    }
+    public void displayBool(AbstractProgramInfos _api, AbsPanel _container, int _value, int _car, int[][] _key) {
+        if (_value == _car) {
+            addImg(_api,_container,_key);
         }
     }
     public AbsTextPane formatMessage(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {

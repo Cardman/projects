@@ -14,20 +14,23 @@ import aiki.gui.dialogs.*;
 import aiki.instances.Instances;
 import aiki.main.AikiFactory;
 import aiki.main.AikiNatLgNamesNavigation;
+import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
+import aiki.map.places.Road;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import code.gui.AbsButton;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsCustComponent;
+import code.gui.document.MessagesPkBean;
 import code.gui.document.MessagesPkPokemon;
+import code.gui.document.MessagesProgGameprog;
 import code.gui.events.AlwaysActionListenerAct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.mock.MockCallable;
 import code.mock.MockCustComponent;
 import code.mock.MockProgramInfos;
-import code.scripts.pages.aiki.MessagesInit;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
@@ -40,13 +43,33 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void progress() {
         WindowAiki window_ = newProg();
-        window_.getCore().getAikiFactory().submitNavProgTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
-        window_.setPreparedProgTask(window_.getCore().getAikiFactory().getTaskNavProg());
+        TranslationsAppli en_ = new TranslationsAppli();
+        en_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.en());
+        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, en_);
+        TranslationsAppli fr_ = new TranslationsAppli();
+        fr_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.fr());
+        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, fr_);
+//        window_.getCore().getAikiFactory().submitNavProgTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+//        window_.setPreparedProgTask(window_.getCore().getAikiFactory().getTaskNavProg());
         loadRomGame(window_);
         tryClick(window_.getScenePanel().getGame());
         assertTrue(window_.getDialogGameProgess().getAbsDialog().isVisible());
     }
-
+    @Test
+    public void progressEvo() {
+        WindowAiki window_ = newProg();
+        TranslationsAppli en_ = new TranslationsAppli();
+        en_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.en());
+        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, en_);
+        TranslationsAppli fr_ = new TranslationsAppli();
+        fr_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.fr());
+        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, fr_);
+//        window_.getCore().getAikiFactory().submitNavProgTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+//        window_.setPreparedProgTask(window_.getCore().getAikiFactory().getTaskNavProg());
+        loadRomGameIt(window_);
+        tryClick(window_.getScenePanel().getGame());
+        assertTrue(window_.getDialogGameProgess().getAbsDialog().isVisible());
+    }
     @Test
     public void selEgg1() {
         WindowAiki window_ = newSelEgg();
@@ -4432,7 +4455,12 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         loadRom(_window, coreDataBase());
         loadGame(_window, build(_window.getFacade()));
     }
-
+    private static void loadRomGameIt(WindowAiki _window) {
+        loadRom(_window, coreDataBaseItTr());
+        loadGame(_window, build(_window.getFacade()));
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(SNOW);
+        _window.getFacade().getGame().getPlayer().getInventory().getItem(HUILE);
+    }
     private static void loadRomGameHost(WindowAiki _window) {
         loadRom(_window, coreDataBaseCity(newGerantPokemon(GeranceType.HOST)));
         loadGame(_window, build(_window.getFacade()));
@@ -4478,6 +4506,37 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
         initBegin(data_);
         data_.getMap().addPlace(withBlocks(Instances.newRoad()));
+        data_.getTm().addEntry(2,ECLAIR);
+        data_.getTm().addEntry(3,ECLAIR_4);
+        data_.getTmPrice().addEntry(2,new LgInt("1"));
+        data_.getTmPrice().addEntry(3,new LgInt("2"));
+        compute(data_);
+        return data_;
+    }
+
+    private static DataBase coreDataBaseItTr() {
+        StringMap<String> trsIt_ = new StringMap<String>();
+        StringMap<String> trsDesc_ = new StringMap<String>();
+        StringMap<String> trsPk_ = new StringMap<String>();
+        DataBase init_ = coreDataBaseIt(trsIt_, trsPk_);
+        init_.getTranslatedClassesDescriptions().addEntry(LANGUAGE, trsDesc_);
+        withPk(init_, RAICHU, trsPk_, RAICHU_TR);
+        EvolutionStoneSimple ev_ = Instances.newEvolutionStoneSimple();
+        ev_.setStone(SNOW);
+        init_.getPokedex().getVal(PIKACHU).getEvolutions().addEntry(RAICHU, ev_);
+        init_.getPokedex().getVal(PIKACHU).setBaseEvo(PIKACHU);
+        init_.getPokedex().getVal(RAICHU).setBaseEvo(PIKACHU);
+        EvolvingStone evo_ = Instances.newEvolvingStone();
+        HealingPp it_ = Instances.newHealingPp();
+        it_.setHealedMovePp(5);
+        DataBase data_ = withIt(withIt(init_, SNOW, trsIt_, "gel", evo_,trsDesc_,"eve"), HUILE, trsIt_, "jama", it_, trsDesc_, "velo");
+        initBegin(data_);
+        Road road_ = Instances.newRoad();
+        data_.getMap().addPlace(withBlocks(road_));
+        road_.addDualFight(newCoords(0,0,0,0),Instances.newDualFight());
+        TrainerMultiFights tmf_ = Instances.newTrainerMultiFights();
+        tmf_.getTeamsRewards().add(Instances.newPokemonTeam());
+        road_.getLevelRoad().getCharacters().addEntry(newPoint(1,1), tmf_);
         data_.getTm().addEntry(2,ECLAIR);
         data_.getTm().addEntry(3,ECLAIR_4);
         data_.getTmPrice().addEntry(2,new LgInt("1"));
@@ -4824,8 +4883,8 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
 
     private void update(TranslationsLg _lg, TranslationsFile _file) {
         TranslationsAppli ta_ = new TranslationsAppli();
-        ta_.getMapping().addEntry(MessagesPkPokemon.POKEMON, _file);
-        _lg.getMapping().addEntry(MessagesInit.APP_BEAN, ta_);
+        ta_.getMapping().addEntry(MessagesPkBean.POKEMON, _file);
+        _lg.getMapping().addEntry(MessagesPkBean.APP_BEAN, ta_);
     }
 
 }

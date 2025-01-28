@@ -24,8 +24,7 @@ private static final String AIKI_BEANS_EFFECTS_COMBOS_BEAN="aiki.beans.effects.C
 private static final String AIKI_BEANS_EFFECTS_EFFECT_COMBO_BEAN="aiki.beans.effects.EffectComboBean";
 private static final String AIKI_BEANS_EFFECTS_EFFECT_WHILE_SENDING_BEAN="aiki.beans.effects.EffectWhileSendingBean";
     private static final String AIKI_BEANS_GAME_DIFFICULTY_BEAN="aiki.beans.game.DifficultyBean";
-private static final String AIKI_BEANS_GAME_GAME_PROGRESSION_BEAN="aiki.beans.game.GameProgressionBean";
-private static final String AIKI_BEANS_HELP_FIGHT_HELP_BEAN="aiki.beans.help.FightHelpBean";
+    private static final String AIKI_BEANS_HELP_FIGHT_HELP_BEAN="aiki.beans.help.FightHelpBean";
 private static final String AIKI_BEANS_HELP_GENERAL_HELP_BEAN="aiki.beans.help.GeneralHelpBean";
 private static final String AIKI_BEANS_HELP_LANGS_BEAN="aiki.beans.help.LangsBean";
 private static final String AIKI_BEANS_ITEMS_BALL_BEAN="aiki.beans.items.BallBean";
@@ -527,7 +526,6 @@ private static final String POKEMON="pokemon";
 //private static final String POKEMON_EDIT="pokemon_edit";
 //private static final String POKEMON_SET="pokemon_set";
 private static final String PREF="c";
-private static final String PROGRESSING="progressing";
 private static final String REPEL="repel";
 private static final String SELECTABILITY="selectability";
 private static final String SELECTITEM="selectitem";
@@ -1112,12 +1110,5 @@ private static final String STATUS_SET="status_set";
         NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
         NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
         _configuration.setBeansInfos(beans_);
-    }
-    public static void initConfProg(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML);
-        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
-        NavBuilder.buildBeans(beans_,PROGRESSING,AIKI_BEANS_GAME_GAME_PROGRESSION_BEAN);
-        _configuration.setBeansInfos(beans_);
-        _configuration.setPrefix(PREF);
     }
 }

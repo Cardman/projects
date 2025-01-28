@@ -2,6 +2,17 @@ package aiki.beans;
 
 import aiki.beans.facade.simulation.enums.*;
 import aiki.facade.*;
+import aiki.facade.enums.*;
+import aiki.fight.enums.Statistic;
+import aiki.fight.moves.enums.TargetChoice;
+import aiki.instances.Instances;
+import aiki.map.levels.enums.*;
+import aiki.map.places.Place;
+import aiki.map.pokemon.WildPk;
+import aiki.map.pokemon.enums.*;
+import aiki.map.util.MiniMapCoords;
+import aiki.map.util.MiniMapCoordsList;
+import aiki.map.util.TileMiniMap;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
@@ -119,6 +130,44 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
     public void init() {
         FacadeGame f_ = facade();
+        f_.getData().initializeMembers();
+        f_.getData().getTranslatedEnvironment().addEntry(EN,new IdMap<EnvironmentType, String>());
+        f_.getData().getTranslatedEnvironment().addEntry(FR,new IdMap<EnvironmentType, String>());
+        f_.getData().getTranslatedBooleans().addEntry(EN,new IdMap<SelectedBoolean, String>());
+        f_.getData().getTranslatedBooleans().addEntry(FR,new IdMap<SelectedBoolean, String>());
+        f_.getData().getTranslatedGenders().addEntry(EN,new IdMap<Gender, String>());
+        f_.getData().getTranslatedGenders().addEntry(FR,new IdMap<Gender, String>());
+        f_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic, String>());
+        f_.getData().getTranslatedStatistics().addEntry(FR,new IdMap<Statistic, String>());
+        f_.getData().getTranslatedTargets().addEntry(EN,new IdMap<TargetChoice, String>());
+        f_.getData().getTranslatedTargets().addEntry(FR,new IdMap<TargetChoice, String>());
+        f_.getData().getTranslatedFctMath().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedFctMath().addEntry(FR,new StringMap<String>());
+        f_.getMap().setMiniMap(new MiniMapCoordsList());
+        f_.getMap().setUnlockedCity("__");
+        f_.getMap().getMiniMap().addEntry(new MiniMapCoords(0,0), tile());
+        f_.getMap().getMiniMap().addEntry(new MiniMapCoords(0,1), tile());
+        f_.getMap().getMiniMap().addEntry(new MiniMapCoords(1,0), tile());
+        f_.getMap().getMiniMap().addEntry(new MiniMapCoords(1,1), tile());
+        f_.getMap().setPlaces(new CustList<Place>());
+        f_.getMap().addPlace(Instances.newRoad());
+        f_.getMap().setBegin(newCoords(0,0,0,0));
+        f_.getData().getMiniMap().addEntry("_",instance(1));
+        f_.getData().getMiniMap().addEntry("__",instance(1));
+        f_.getData().completeMembers("___",Instances.newPokemonData());
+        f_.getData().getMaxiPkFront().addEntry("___",instance(1));
+        WildPk wi_ = Instances.newWildPk();
+        wi_.setName("___");
+        wi_.setAbility("____");
+        f_.getMap().setFirstPokemon(wi_);
+        f_.getData().getTranslatedPokemon().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedPokemon().addEntry(FR,new StringMap<String>());
+        f_.getData().getTranslatedPokemon().getVal(EN).addEntry("___","___");
+        f_.getData().getTranslatedPokemon().getVal(FR).addEntry("___","___");
+        f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedAbilities().addEntry(FR,new StringMap<String>());
+        f_.getData().getTranslatedAbilities().getVal(EN).addEntry("____","____");
+        f_.getData().getTranslatedAbilities().getVal(FR).addEntry("____","____");
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
         builtMessages_.addEntry(EN,MessagesInit.enData());
         builtMessages_.addEntry(FR,MessagesInit.frData());
@@ -130,6 +179,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         pk_.setDataBase(f_);
         pk_.initializeRendSessionDoc(nav_);
         assertFalse(nav_.getHtmlText().isEmpty());
+        goToPage(pk_,nav_,0);
         NatRendStackCallAdv r_ = new NatRendStackCallAdv();
         NatImportingPageForm l_ = new NatImportingPageForm();
         NatRendReadWrite rend_ = new NatRendReadWrite();
@@ -223,4 +273,16 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertEq(1,a_.size());
         assertEq("__",a_.get(0));
     }
+
+    private TileMiniMap tile() {
+        TileMiniMap tile_ = Instances.newTileMiniMap();
+        tile_.setFile("_");
+        return tile_;
+    }
+
+    private void goToPage(PkData _pk, NatNavigation _nav, int _nb) {
+        _pk.getNatPage().setUrl(_nb);
+        _pk.execute(false, _nav);
+    }
+
 }

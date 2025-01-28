@@ -177,7 +177,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final AbstractAtomicBooleanCore loadFlag;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDiffTask;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedProgTask;
 //    private AbstractThread preparedDataWebThread;
 //    private AbstractThread preparedFightThread;
 //    private AbstractThread preparedPkThread;
@@ -1155,7 +1154,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogGameProgess.setGameProgress(this, messages.getVal(MessagesRenderWindowPk.GAME_PROGRESS), core.getFacade(),getPreparedProgTask());
+        DialogGameProgess.setGameProgress(this, messages.getVal(MessagesRenderWindowPk.GAME_PROGRESS), core.getFacade());
     }
 
 //    private void reinitWebData() {
@@ -1800,14 +1799,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void setPreparedDiffTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDiffTask) {
         preparedDiffTask = _preparedDiffTask;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedProgTask() {
-        return preparedProgTask;
-    }
-
-    public void setPreparedProgTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedProgTask) {
-        preparedProgTask = _preparedProgTask;
     }
 
     public IntTileRender getTileRender() {

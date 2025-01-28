@@ -15,6 +15,8 @@ import aiki.sml.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
+import code.gui.document.MessagesPkBean;
+import code.gui.document.MessagesProgGameprog;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;

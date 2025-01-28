@@ -1,135 +1,166 @@
 package aiki.beans.game;
 
 import aiki.beans.*;
+import aiki.comparators.DictionaryComparator;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
+import aiki.fight.pokemon.TrainerPlaceNames;
 import code.bean.nat.*;
+import code.maths.LgInt;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
 
 public abstract class InitDbGameProgressionBean extends InitDbBean {
-    public static NaSt callGameProgressionBeanGetKeyPokemon(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetKeyPokemon(),_str,_args);
+    public static StringList callGameProgressionBeanGetKeyPokemon(GameProgressionBean _str, int... _args) {
+        return _str.getKeyPokemon(_args[0],_args[1]);
     }
 
-    public static NaSt callGameProgressionBeanGetImagePokemonFull(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetImagePokemonFull(),_str,_args);
+    public static int[][] callGameProgressionBeanGetImagePokemonFull(GameProgressionBean _str, int... _args) {
+        return _str.getImagePokemonFull(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetTrPokemonFull(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetTrPokemonFull(),_str,_args);
+    public static String callGameProgressionBeanGetTrPokemonFull(GameProgressionBean _str, int... _args) {
+        return _str.getTrPokemonFull(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetImagePokemonNotAll(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetImagePokemonNotAll(),_str,_args);
+    public static int[][] callGameProgressionBeanGetImagePokemonNotAll(GameProgressionBean _str, int... _args) {
+        return _str.getImagePokemonNotAll(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetTrPokemonNotAll(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetTrPokemonNotAll(),_str,_args);
+    public static String callGameProgressionBeanGetTrPokemonNotAll(GameProgressionBean _str, int... _args) {
+        return _str.getTrPokemonNotAll(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetImagePokemonPartialNot(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetImagePokemonPartialNot(),_str,_args);
+    public static int[][]  callGameProgressionBeanGetImagePokemonPartialNot(GameProgressionBean _str, int... _args) {
+        return _str.getImagePokemonPartialNot(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetTrPokemonPartialNot(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetTrPokemonPartialNot(),_str,_args);
+    public static String callGameProgressionBeanGetTrPokemonPartialNot(GameProgressionBean _str, int... _args) {
+        return _str.getTrPokemonPartialNot(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetImagePokemonPartial(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetImagePokemonPartial(),_str,_args);
+    public static int[][] callGameProgressionBeanGetImagePokemonPartial(GameProgressionBean _str, int... _args) {
+        return _str.getImagePokemonPartial(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetTrPokemonPartial(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetTrPokemonPartial(),_str,_args);
+    public static String callGameProgressionBeanGetTrPokemonPartial(GameProgressionBean _str, int... _args) {
+        return _str.getTrPokemonPartial(_args[0],_args[1],_args[2]);
     }
 
-    public static NaSt callGameProgressionBeanGetRemainingOtherTrainersPlaceName(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanGetRemainingOtherTrainersPlaceName(),_str,_args);
+    public static String callGameProgressionBeanGetRemainingOtherTrainersPlaceName(GameProgressionBean _str, int... _args) {
+        return _str.getRemainingOtherTrainersPlaceName(_args[0]);
     }
 
-    public static NaSt callGameProgressionBeanRemainingOtherTrainerPlacesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanRemainingOtherTrainerPlacesGet(),_str,_args);
+    public static DictionaryComparator<Integer,PlaceNamePk> callGameProgressionBeanRemainingOtherTrainerPlacesGet(GameProgressionBean _str, int... _args) {
+        return _str.getRemainingOtherTrainerPlaces();
+    }
+    public static EntryCust<Integer,PlaceNamePk> eltPlaceNamePk(DictionaryComparator<Integer,PlaceNamePk> _ls, int _i) {
+        return _ls.getEntry(_i);
+    }
+    public static int firstPlaceNamePk(EntryCust<Integer,PlaceNamePk> _ls) {
+        return _ls.getKey();
+    }
+    public static int secondPlaceNamePk(EntryCust<Integer,PlaceNamePk> _ls) {
+        return _ls.getValue().getIndex();
+    }
+    public static CustList<TrainerPlaceNames> callGameProgressionBeanBeatenImportantTrainersGet(GameProgressionBean _str, int... _args) {
+        return _str.getBeatenImportantTrainers();
     }
 
-    public static NaSt callGameProgressionBeanBeatenImportantTrainersGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanBeatenImportantTrainersGet(),_str,_args);
+    public static CustList<TrainerPlaceNames> callGameProgressionBeanUnBeatenImportantTrainersGet(GameProgressionBean _str, int... _args) {
+        return _str.getUnBeatenImportantTrainers();
+
+    }
+    public static TrainerPlaceNames eltTr(CustList<TrainerPlaceNames> _ls, int _i) {
+        return _ls.get(_i);
+    }
+    public static NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> callGameProgressionBeanFullFamiliesBaseGet(GameProgressionBean _str, int... _args) {
+        return _str.getFullFamiliesBase();
     }
 
-    public static NaSt callGameProgressionBeanUnBeatenImportantTrainersGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanUnBeatenImportantTrainersGet(),_str,_args);
+    public static NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> callGameProgressionBeanNotAtAllFamiliesBaseGet(GameProgressionBean _str, int... _args) {
+        return _str.getNotAtAllFamiliesBase();
     }
 
-    public static NaSt callGameProgressionBeanFullFamiliesBaseGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanFullFamiliesBaseGet(),_str,_args);
+    public static NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(GameProgressionBean _str, int... _args) {
+        return _str.getPartialFamiliesBaseNotCaught();
+    }
+    public static EntryCust<String,CustList<CustList<ImgPkPlayer>>> eltFam(NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> _ls, int _i) {
+        return _ls.getEntry(_i);
+    }
+    public static String firstFam(EntryCust<String,CustList<CustList<ImgPkPlayer>>> _ls) {
+        return _ls.getKey();
+    }
+    public static CustList<CustList<ImgPkPlayer>> secondFam(EntryCust<String,CustList<CustList<ImgPkPlayer>>> _ls) {
+        return _ls.getValue();
+    }
+    public static StringList eltFam2(CustList<CustList<ImgPkPlayer>> _ls, int _i) {
+        return GameProgressionBean.map(_ls.get(_i));
+    }
+    public static StringList callGameProgressionBeanUnVisitedPlacesGet(GameProgressionBean _str, int... _args) {
+        return _str.getUnVisitedPlaces();
     }
 
-    public static NaSt callGameProgressionBeanNotAtAllFamiliesBaseGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanNotAtAllFamiliesBaseGet(),_str,_args);
+    public static StringList callGameProgressionBeanVisitedPlacesGet(GameProgressionBean _str, int... _args) {
+        return _str.getVisitedPlaces();
     }
 
-    public static NaSt callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanPartialFamiliesBaseNotCaughtGet(),_str,_args);
+    public static long callGameProgressionBeanNbRemainingNotMaxLevelGet(GameProgressionBean _str, int... _args) {
+        return _str.getNbRemainingNotMaxLevel();
     }
 
-    public static NaSt callGameProgressionBeanUnVisitedPlacesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanUnVisitedPlacesGet(),_str,_args);
+    public static long callGameProgressionBeanNbRemainingNotMaxHappinessGet(GameProgressionBean _str, int... _args) {
+        return _str.getNbRemainingNotMaxHappiness();
     }
 
-    public static NaSt callGameProgressionBeanVisitedPlacesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanVisitedPlacesGet(),_str,_args);
+    public static long callGameProgressionBeanNbRemainingEggsGet(GameProgressionBean _str, int... _args) {
+        return _str.getNbRemainingEggs();
     }
 
-    public static NaSt callGameProgressionBeanNbRemainingNotMaxLevelGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanNbRemainingNotMaxLevelGet(),_str,_args);
+    public static LgInt callGameProgressionBeanMoneyGet(GameProgressionBean _str, int... _args) {
+        return _str.getMoney();
     }
 
-    public static NaSt callGameProgressionBeanNbRemainingNotMaxHappinessGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanNbRemainingNotMaxHappinessGet(),_str,_args);
+    public static long callGameProgressionBeanRemainStepsRepelGet(GameProgressionBean _str, int... _args) {
+        return _str.getRemainStepsRepel();
     }
 
-    public static NaSt callGameProgressionBeanNbRemainingEggsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanNbRemainingEggsGet(),_str,_args);
+    public static int[][] callGameProgressionBeanEndGameImageGet(GameProgressionBean _str, int... _args) {
+        return _str.getEndGameImage();
     }
 
-    public static NaSt callGameProgressionBeanMoneyGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanMoneyGet(),_str,_args);
+    public static boolean callGameProgressionBeanFinishedGameGet(GameProgressionBean _str, int... _args) {
+        return CommonBean.toBool(_str.getFinishedGame());
     }
 
-    public static NaSt callGameProgressionBeanRemainStepsRepelGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanRemainStepsRepelGet(),_str,_args);
+    public static int[][] callGameProgressionBeanHeroImageOppositeSexGet(GameProgressionBean _str, int... _args) {
+        return _str.getHeroImageOppositeSex();
     }
 
-    public static NaSt callGameProgressionBeanEndGameImageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanEndGameImageGet(),_str,_args);
+    public static int[][] callGameProgressionBeanHeroImageGet(GameProgressionBean _str, int... _args) {
+        return _str.getHeroImage();
     }
 
-    public static NaSt callGameProgressionBeanFinishedGameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanFinishedGameGet(),_str,_args);
+    public static String callGameProgressionBeanNicknameGet(GameProgressionBean _str, int... _args) {
+        return _str.getNickname();
     }
 
-    public static NaSt callGameProgressionBeanHeroImageOppositeSexGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanHeroImageOppositeSexGet(),_str,_args);
+    public static GameProgressionBean beanProg(String _language, FacadeGame _dataBase) {
+        GameProgressionBean b_ = new GameProgressionBean();
+        b_.setForms(new StringMapObject());
+        b_.setDataBase(_dataBase);
+        b_.setLanguage(_language);
+        b_.beforeDisplaying();
+        return b_;
     }
 
-    public static NaSt callGameProgressionBeanHeroImageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanHeroImageGet(),_str,_args);
+    public static String callTrainerPlaceNamesGetPlace(TrainerPlaceNames _str, int... _args) {
+        return _str.getPlace();
     }
 
-    public static NaSt callGameProgressionBeanNicknameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GameProgressionBeanNicknameGet(),_str,_args);
-    }
-
-    public static NaSt beanProg(String _language, FacadeGame _dataBase) {
-        PkProg stds_ = new PkProg();
-        stds_.setDataBase(_dataBase);
-//        stds_.setBaseEncode(BASE);
-        return stds_.initProg(_language);
-    }
-
-    public static NaSt callTrainerPlaceNamesGetPlace(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerPlaceNamesGetPlace(),_str,_args);
-    }
-
-    public static NaSt callTrainerPlaceNamesGetTrainer(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerPlaceNamesGetTrainer(),_str,_args);
+    public static String callTrainerPlaceNamesGetTrainer(TrainerPlaceNames _str, int... _args) {
+        return _str.getTrainer();
     }
 }

@@ -51,7 +51,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     public static final String TYPE_LEVEL_MOVE = "aiki.fight.util.LevelMove";
     public static final String TYPE_POKEMON_PLAYER = "aiki.map.pokemon.PokemonPlayer";
     public static final String TYPE_EFFECT_PARTNER_STATUS = "aiki.fight.status.effects.EffectPartnerStatus";
-    public static final String TYPE_TRAINER_PLACE_NAMES = "aiki.fight.pokemon.TrainerPlaceNames";
     public static final String TYPE_EFFECT_WHILE_SENDING = "aiki.fight.effects.EffectWhileSending";
     public static final String TYPE_ALLY = "aiki.map.characters.Ally";
     public static final String TYPE_TEMP_TRAINER = "aiki.map.characters.TempTrainer";
@@ -607,16 +606,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrListStrList(AbsMap<String, CustList<StringList>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, CustList<StringList>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getStrList(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
     public static NatArrayStruct getShStrList(AbsMap<Long, StringList> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -982,16 +971,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getIntInt(AbsMap<Integer, Integer> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<Integer, Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaNbSt(e.getValue()));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
     public static NatArrayStruct getStrStrList(AbsMap<String, StringList> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;

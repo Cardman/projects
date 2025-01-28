@@ -10,26 +10,23 @@ import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.Game;
 import aiki.game.GameProgression;
-import aiki.map.DataMap;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.LgInt;
-import code.util.CustList;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
+import code.util.*;
 
 public class GameProgressionBean extends CommonSingleBean {
     private int[][] heroImage;
     private int[][] heroImageOppositeSex;
     private String nickname;
-    private boolean finishedGame;
+    private int finishedGame;
     private int[][] endGameImage;
-    private NatStringTreeMap<CustList<StringList>> notAtAllFamiliesBase;
-    private NatStringTreeMap<CustList<StringList>> partialFamiliesBaseNotCaught;
-    private NatStringTreeMap<CustList<StringList>> partialFamiliesBaseCaught;
-    private NatStringTreeMap<CustList<StringList>> fullFamiliesBase;
+    private NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> notAtAllFamiliesBase;
+    private NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> partialFamiliesBaseNotCaught;
+    private NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> partialFamiliesBaseCaught;
+    private NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> fullFamiliesBase;
     private CustList<TrainerPlaceNames> beatenImportantTrainers;
     private CustList<TrainerPlaceNames> unBeatenImportantTrainers;
-    private DictionaryComparator<Integer,Integer> remainingOtherTrainerPlaces;
+    private DictionaryComparator<Integer,PlaceNamePk> remainingOtherTrainerPlaces;
     private StringList visitedPlaces;
     private StringList unVisitedPlaces;
     private LgInt money;
@@ -44,7 +41,7 @@ public class GameProgressionBean extends CommonSingleBean {
         heroImage = getFrontChosenHeros();
         heroImageOppositeSex = getFrontChosenHerosOppositeSex();
         GameProgression progression_ = facade_.getGameProgression();
-        finishedGame = progression_.isFinishedGame();
+        finishedGame = toInt(progression_.isFinishedGame());
         endGameImage = facade_.getData().getEndGameImage().getImage();
         nickname = progression_.getNickname();
         notAtAllFamiliesBaseInit(facade_, progression_);
@@ -56,7 +53,9 @@ public class GameProgressionBean extends CommonSingleBean {
         beatenImportantTrainers = progression_.getBeatenImportantTrainers();
         beatenImportantTrainers.sortElts(new ComparatorTrainerPlaceNames());
         remainingOtherTrainerPlaces = DictionaryComparatorUtil.buildPlaces(facade_.getMap());
-        remainingOtherTrainerPlaces.putAllMap(progression_.getRemainingOtherTrainerPlaces());
+        for (EntryCust<Integer,Integer> e: progression_.getRemainingOtherTrainerPlaces().entryList()) {
+            remainingOtherTrainerPlaces.put(e.getKey(),new PlaceNamePk(e.getValue(),facade_.getMap().getPlace(e.getKey()).getName()));
+        }
         visitedPlaces = progression_.getVisitedPlaces();
         visitedPlaces.sort();
         unVisitedPlaces = progression_.getUnVisitedPlaces();
@@ -88,126 +87,116 @@ public class GameProgressionBean extends CommonSingleBean {
                 i_).getImage();
     }
     private void fullFamiliesBaseInit(FacadeGame _facade, GameProgression _progression) {
-        fullFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
+        fullFamiliesBase = new NatStringTreeMap<CustList<CustList<ImgPkPlayer>>>();
+        StringMap<String> pks_ = _facade.getData().getTranslatedPokemon().getVal(getLanguage());
         for (String b: _progression.getFullFamiliesBase().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
+            CustList<CustList<ImgPkPlayer>> lists_ = new CustList<CustList<ImgPkPlayer>>();
             for (StringList l: _progression.getFullFamiliesBase().getVal(b)) {
-                StringList list_ = new StringList();
+                NatStringTreeMap<ImgPkPlayer> list_ = new NatStringTreeMap<ImgPkPlayer>();
                 for (String e: l) {
-                    list_.add(e);
+                    String tr_ = pks_.getVal(e);
+                    list_.put(tr_,new ImgPkPlayer(e,tr_,_facade.getData().getMaxiPkFront().getVal(e).getImage()));
                 }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
-                lists_.add(list_);
+                lists_.add(list_.values());
             }
             fullFamiliesBase.put(_facade.translatePokemon(b), lists_);
         }
     }
 
     private void partialFamiliesBaseNotCaughtInit(FacadeGame _facade, GameProgression _progression) {
-        partialFamiliesBaseNotCaught = new NatStringTreeMap<CustList<StringList>>();
+        partialFamiliesBaseNotCaught = new NatStringTreeMap<CustList<CustList<ImgPkPlayer>>>();
+        StringMap<String> pks_ = _facade.getData().getTranslatedPokemon().getVal(getLanguage());
         for (String b: _progression.getPartialFamiliesBaseNotCaught().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
+            CustList<CustList<ImgPkPlayer>> lists_ = new CustList<CustList<ImgPkPlayer>>();
             for (StringList l: _progression.getPartialFamiliesBaseNotCaught().getVal(b)) {
-                StringList list_ = new StringList();
+                NatStringTreeMap<ImgPkPlayer> list_ = new NatStringTreeMap<ImgPkPlayer>();
                 for (String e: l) {
-                    list_.add(e);
+                    String tr_ = pks_.getVal(e);
+                    list_.put(tr_,new ImgPkPlayer(e,tr_,_facade.getData().getMaxiPkFront().getVal(e).getImage()));
                 }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
-                lists_.add(list_);
+                lists_.add(list_.values());
             }
             partialFamiliesBaseNotCaught.put(_facade.translatePokemon(b), lists_);
         }
     }
 
     private void partialFamiliesBaseCaughtInit(FacadeGame _facade, GameProgression _progression) {
-        partialFamiliesBaseCaught = new NatStringTreeMap<CustList<StringList>>();
+        partialFamiliesBaseCaught = new NatStringTreeMap<CustList<CustList<ImgPkPlayer>>>();
+        StringMap<String> pks_ = _facade.getData().getTranslatedPokemon().getVal(getLanguage());
         for (String b: _progression.getPartialFamiliesBaseCaught().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
+            CustList<CustList<ImgPkPlayer>> lists_ = new CustList<CustList<ImgPkPlayer>>();
             for (StringList l: _progression.getPartialFamiliesBaseCaught().getVal(b)) {
-                StringList list_ = new StringList();
+                NatStringTreeMap<ImgPkPlayer> list_ = new NatStringTreeMap<ImgPkPlayer>();
                 for (String e: l) {
-                    list_.add(e);
+                    String tr_ = pks_.getVal(e);
+                    list_.put(tr_,new ImgPkPlayer(e,tr_,_facade.getData().getMaxiPkFront().getVal(e).getImage()));
                 }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
-                lists_.add(list_);
+                lists_.add(list_.values());
             }
             partialFamiliesBaseCaught.put(_facade.translatePokemon(b), lists_);
         }
     }
 
     private void notAtAllFamiliesBaseInit(FacadeGame _facade, GameProgression _progression) {
-        notAtAllFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
+        notAtAllFamiliesBase = new NatStringTreeMap<CustList<CustList<ImgPkPlayer>>>();
+        StringMap<String> pks_ = _facade.getData().getTranslatedPokemon().getVal(getLanguage());
         for (String b: _progression.getNotAtAllFamiliesBase().getKeys()) {
-            CustList<StringList> lists_ = new CustList<StringList>();
+            CustList<CustList<ImgPkPlayer>> lists_ = new CustList<CustList<ImgPkPlayer>>();
             for (StringList l: _progression.getNotAtAllFamiliesBase().getVal(b)) {
-                StringList list_ = new StringList();
+                NatStringTreeMap<ImgPkPlayer> list_ = new NatStringTreeMap<ImgPkPlayer>();
                 for (String e: l) {
-                    list_.add(e);
+                    String tr_ = pks_.getVal(e);
+                    list_.put(tr_,new ImgPkPlayer(e,tr_,_facade.getData().getMaxiPkFront().getVal(e).getImage()));
                 }
-                list_.sortElts(DictionaryComparatorUtil.cmpPokemon(_facade.getData(),getLanguage()));
-                lists_.add(list_);
+                lists_.add(list_.values());
             }
             notAtAllFamiliesBase.put(_facade.translatePokemon(b), lists_);
         }
     }
     public String getRemainingOtherTrainersPlaceName(int _index) {
-        FacadeGame facade_ = facade();
-        int key_ = remainingOtherTrainerPlaces.getKey(_index);
-        DataMap dataMap_ = facade_.getMap();
-        return dataMap_.getPlace(key_).getName();
+        return remainingOtherTrainerPlaces.getValue(_index).getName();
     }
     public String getTrPokemonNotAll(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getTrPokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
+        return notAtAllFamiliesBase.getValue(_key).get(_indexList).get(_indexElt).getKey().getTranslation();
     }
     public int[][] getImagePokemonNotAll(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getImagePokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
+        return notAtAllFamiliesBase.getValue(_key).get(_indexList).get(_indexElt).getImage();
     }
     public String getTrPokemonPartialNot(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getTrPokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
+        return partialFamiliesBaseNotCaught.getValue(_key).get(_indexList).get(_indexElt).getKey().getTranslation();
     }
     public int[][] getImagePokemonPartialNot(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getImagePokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
+        return partialFamiliesBaseNotCaught.getValue(_key).get(_indexList).get(_indexElt).getImage();
     }
     public String getTrPokemonPartial(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getTrPokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
+        return partialFamiliesBaseCaught.getValue(_key).get(_indexList).get(_indexElt).getKey().getTranslation();
     }
     public int[][] getImagePokemonPartial(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getImagePokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
+        return partialFamiliesBaseCaught.getValue(_key).get(_indexList).get(_indexElt).getImage();
     }
     public String getTrPokemonFull(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getTrPokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
+        return fullFamiliesBase.getValue(_key).get(_indexList).get(_indexElt).getKey().getTranslation();
     }
     public int[][] getImagePokemonFull(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = facade();
-        return getImagePokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
+        return fullFamiliesBase.getValue(_key).get(_indexList).get(_indexElt).getImage();
     }
     public StringList getKeyPokemon(int _key, int _indexList) {
-        CustList<StringList> values_ = partialFamiliesBaseCaught.getValue(_key);
-        return values_.get(_indexList);
+        return map(getPartialFamiliesBaseCaught().getValue(_key).get(_indexList));
     }
 
-    private static String getTrPokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
-        CustList<StringList> values_ = _treeMap.getValue(_key);
-        StringList value_ = values_.get(_indexList);
-        String pkName_ = value_.get(_indexElt);
-        return _facade.translatePokemon(pkName_);
+    public NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> getPartialFamiliesBaseCaught() {
+        return partialFamiliesBaseCaught;
     }
 
-    private int[][] getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
-        CustList<StringList> values_ = _treeMap.getValue(_key);
-        StringList value_ = values_.get(_indexList);
-        String pkName_ = value_.get(_indexElt);
-        return _facade.getData().getMaxiPkFront().getVal(pkName_).getImage();
+    public static StringList map(CustList<ImgPkPlayer> _values) {
+        StringList map_ = new StringList();
+        for (ImgPkPlayer e: _values) {
+            map_.add(e.getKey().getKey());
+        }
+        return map_;
     }
 
-    public boolean getFinishedGame() {
+    public int getFinishedGame() {
         return finishedGame;
     }
 
@@ -235,7 +224,7 @@ public class GameProgressionBean extends CommonSingleBean {
         return beatenImportantTrainers;
     }
 
-    public DictionaryComparator<Integer,Integer> getRemainingOtherTrainerPlaces() {
+    public DictionaryComparator<Integer,PlaceNamePk> getRemainingOtherTrainerPlaces() {
         return remainingOtherTrainerPlaces;
     }
 
@@ -267,15 +256,15 @@ public class GameProgressionBean extends CommonSingleBean {
         return money;
     }
 
-    public NatStringTreeMap<CustList<StringList>> getFullFamiliesBase() {
+    public NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> getFullFamiliesBase() {
         return fullFamiliesBase;
     }
 
-    public NatStringTreeMap<CustList<StringList>> getNotAtAllFamiliesBase() {
+    public NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> getNotAtAllFamiliesBase() {
         return notAtAllFamiliesBase;
     }
 
-    public NatStringTreeMap<CustList<StringList>> getPartialFamiliesBaseNotCaught() {
+    public NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> getPartialFamiliesBaseNotCaught() {
         return partialFamiliesBaseNotCaught;
     }
 }

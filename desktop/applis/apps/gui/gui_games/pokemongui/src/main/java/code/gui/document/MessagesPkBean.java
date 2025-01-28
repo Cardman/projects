@@ -3,10 +3,13 @@ package code.gui.document;
 import code.sml.util.*;
 
 public final class MessagesPkBean {
+    public static final String APP_BEAN = "pk_bean";
     public static final String APP_BEAN_FIGHT = "pk_bean_fight";
     public static final String FIGHT = "fight";
     public static final String FIGHTER = "fighter";
     public static final String TEAM = "team";
+    public static final String POKEMON = "pokemon";
+    public static final String GAMEPROG = "gameprog";
 
     private MessagesPkBean() {
 

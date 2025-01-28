@@ -4,6 +4,7 @@ import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.fight.FighterNameId;
 import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.beans.fight.*;
+import aiki.beans.game.PlaceNamePk;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
@@ -324,8 +325,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<StringList, ActivityOfMove>(new ComparatorStringList(_data, _lg, true));
     }
 
-    public static DictionaryComparator<Integer, Integer> buildPlaces(DataMap _map) {
-        return new DictionaryComparator<Integer, Integer>(new ComparatorPlaceNumber(_map));
+    public static DictionaryComparator<Integer, PlaceNamePk> buildPlaces(DataMap _map) {
+        return new DictionaryComparator<Integer, PlaceNamePk>(new ComparatorPlaceNumber(_map));
     }
 
     public static DictionaryComparator<Integer, String> buildStringPlaces(DataMap _map) {

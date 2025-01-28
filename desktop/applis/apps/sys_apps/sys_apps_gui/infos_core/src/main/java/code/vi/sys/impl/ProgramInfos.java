@@ -23,6 +23,7 @@ import code.formathtml.util.DefaultBeanAliases;
 import code.gui.*;
 import code.gui.document.MessagesPkBean;
 import code.gui.document.MessagesPkPokemon;
+import code.gui.document.MessagesProgGameprog;
 import code.gui.files.*;
 import code.gui.initialize.*;
 import code.minirts.MessagesRts;
@@ -144,8 +145,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.frTarot());
         en_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.en());
         fr_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.fr());
-        en_.getMapping().addEntry(MessagesInit.APP_BEAN,complete(MessagesInit.en(),MessagesPkPokemon.en()));
-        fr_.getMapping().addEntry(MessagesInit.APP_BEAN,complete(MessagesInit.fr(),MessagesPkPokemon.fr()));
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN,completeProg(complete(MessagesInit.en(),MessagesPkPokemon.en()),MessagesProgGameprog.en()));
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN,completeProg(complete(MessagesInit.fr(),MessagesPkPokemon.fr()),MessagesProgGameprog.fr()));
         en_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.enData());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
@@ -163,7 +164,12 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
 
     private static TranslationsAppli complete(TranslationsAppli _a, TranslationsFile _f) {
-        _a.getMapping().addEntry(MessagesPkPokemon.POKEMON,_f);
+        _a.getMapping().addEntry(MessagesPkBean.POKEMON,_f);
+        return _a;
+    }
+
+    private static TranslationsAppli completeProg(TranslationsAppli _a, TranslationsFile _f) {
+        _a.getMapping().addEntry(MessagesPkBean.GAMEPROG,_f);
         return _a;
     }
 

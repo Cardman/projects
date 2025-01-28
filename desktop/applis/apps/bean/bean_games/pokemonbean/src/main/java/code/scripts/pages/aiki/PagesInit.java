@@ -11,14 +11,6 @@ m_.addEntry(PkScriptPages.WEB_GAME_HTML_DIFFICULTY_HTML,PageGameDifficulty.build
 m_.addEntry(PkScriptPages.DIFF_COMMON_HTML,PageDifficultyCommon.build());
 return m_;
 }
-public static StringMap<Document> buildProg(){
-StringMap<Document> m_ = new StringMap<Document>();
-m_.addEntry(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROG_HTML,PageProgGameprog.build());
-m_.addEntry(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROGALL_HTML,PageProgGameprogall.build());
-m_.addEntry(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROGNOTATALL_HTML,PageProgGameprognotatall.build());
-m_.addEntry(PkScriptPages.REN_ADD_WEB_PROG_HTML_GAMEPROGPART_HTML,PageProgGameprogpart.build());
-return m_;
-}
 public static StringMap<Document> build(){
 StringMap<Document> m_ = new StringMap<Document>();
 m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,PageDataAbilityAbilities.build());

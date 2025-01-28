@@ -27,6 +27,7 @@ import cards.tarot.enumerations.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.*;
 import code.gui.*;
+import code.gui.document.MessagesPkBean;
 import code.gui.document.MessagesPkPokemon;
 import code.gui.files.*;
 import code.gui.initialize.*;
@@ -310,8 +311,8 @@ public abstract class EquallableNetworkUtil {
 
     private static void update(TranslationsLg _lg, TranslationsFile _file) {
         TranslationsAppli ta_ = new TranslationsAppli();
-        ta_.getMapping().addEntry(MessagesPkPokemon.POKEMON, _file);
-        _lg.getMapping().addEntry(MessagesInit.APP_BEAN, ta_);
+        ta_.getMapping().addEntry(MessagesPkBean.POKEMON, _file);
+        _lg.getMapping().addEntry(MessagesPkBean.APP_BEAN, ta_);
     }
     protected static WindowNetWork frameSingleMenu(IntDataBaseStream _i, AbsButton _mai) {
         MockProgramInfos pr_ = updateSingle(build());
