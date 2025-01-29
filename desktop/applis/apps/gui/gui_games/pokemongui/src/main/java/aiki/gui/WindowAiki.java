@@ -374,6 +374,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            dataBattle.setEnabled(inBattle);
 //        }
         battle.getRenderDataFight().closeWindow();
+        dialogGameProgess.getAbsDialog().setVisible(false);
+        dialogDifficulty.getAbsDialog().setVisible(false);
         getModal().set(false);
         dataBattle.setEnabled(isInBattle());
         ecrireCoordonnees();
