@@ -176,7 +176,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDiffTask;
 //    private AbstractThread preparedDataWebThread;
 //    private AbstractThread preparedFightThread;
 //    private AbstractThread preparedPkThread;
@@ -1055,7 +1054,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogDifficulty.setDialogDifficulty(this, messages.getVal(MessagesRenderWindowPk.TITLE_DIFFICULTY), core.getFacade(), getPreparedDiffTask());
+        DialogDifficulty.setDialogDifficulty(this, messages.getVal(MessagesRenderWindowPk.TITLE_DIFFICULTY), core.getFacade());
     }
 
 //    @Override
@@ -1793,14 +1792,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void setPreparedDataWebTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
         preparedDataWebTask = _preparedDataWebTask;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDiffTask() {
-        return preparedDiffTask;
-    }
-
-    public void setPreparedDiffTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDiffTask) {
-        preparedDiffTask = _preparedDiffTask;
     }
 
     public IntTileRender getTileRender() {

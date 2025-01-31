@@ -21,9 +21,7 @@ import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.formathtml.util.DefaultBeanAliases;
 import code.gui.*;
-import code.gui.document.MessagesPkBean;
-import code.gui.document.MessagesPkPokemon;
-import code.gui.document.MessagesProgGameprog;
+import code.gui.document.*;
 import code.gui.files.*;
 import code.gui.initialize.*;
 import code.minirts.MessagesRts;
@@ -36,10 +34,7 @@ import code.scripts.pages.cards.HelpCards;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.MessTarotPage;
-import code.sml.util.Translations;
-import code.sml.util.TranslationsAppli;
-import code.sml.util.TranslationsFile;
-import code.sml.util.TranslationsLg;
+import code.sml.util.*;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
@@ -145,8 +140,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.frTarot());
         en_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.en());
         fr_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.fr());
-        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN,completeProg(complete(MessagesInit.en(),MessagesPkPokemon.en()),MessagesProgGameprog.en()));
-        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN,completeProg(complete(MessagesInit.fr(),MessagesPkPokemon.fr()),MessagesProgGameprog.fr()));
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN,MessagesPkBean.en());
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN,MessagesPkBean.fr());
         en_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.enData());
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
@@ -161,16 +156,6 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         MessagesConverter.sys(MessagesConverter.initAppliFilesTr(_pr.getTranslations()));
         MessagesSongs.sys(MessagesSongs.initAppliFilesTr(_pr.getTranslations()));
         MessagesApplications.sys(MessagesApplications.initAppliFilesTr(_pr.getTranslations()));
-    }
-
-    private static TranslationsAppli complete(TranslationsAppli _a, TranslationsFile _f) {
-        _a.getMapping().addEntry(MessagesPkBean.POKEMON,_f);
-        return _a;
-    }
-
-    private static TranslationsAppli completeProg(TranslationsAppli _a, TranslationsFile _f) {
-        _a.getMapping().addEntry(MessagesPkBean.GAMEPROG,_f);
-        return _a;
     }
 
     public static WithAppFactories build(AbstractProgramInfos _p, String _tmpApp) {

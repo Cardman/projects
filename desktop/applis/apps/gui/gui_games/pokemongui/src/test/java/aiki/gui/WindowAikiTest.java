@@ -1,6 +1,9 @@
 package aiki.gui;
 
 import aiki.beans.DataGameInit;
+import aiki.game.Game;
+import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.gui.components.walk.events.WalkNicknameAutoCompleteListener;
 import aiki.gui.dialogs.*;
 import aiki.gui.listeners.DefTaskEnabled;
@@ -12,14 +15,16 @@ import aiki.main.PkNonModalEvent;
 import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
 import aiki.sml.MessagesRenderPkSoftParams;
+import aiki.util.LawNumber;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.gui.*;
-import code.gui.document.NatRenderAction;
-import code.gui.document.RenderedPage;
-import code.gui.document.ThreadRefresh;
+import code.gui.document.*;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.images.AbstractImage;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.mock.*;
 import code.sml.*;
 import code.sml.util.Translations;
@@ -201,14 +206,90 @@ public final class WindowAikiTest extends InitDbGuiAiki {
     }
 
     @Test
-    public void diff() {
+    public void diff1() {
         WindowAiki window_ = newFight();
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
-        window_.getFacade().setGame(Instances.newGame());
-        prepareDiffTask(window_);
+        Game game_ = Instances.newGame();
+        game_.getDifficulty().setEndFightIfOneTeamKo(false);
+        game_.getDifficulty().setEnabledClosing(false);
+        game_.getDifficulty().setStillPossibleFlee(false);
+        game_.getDifficulty().setRandomWildFight(false);
+        game_.getDifficulty().setRestoredMovesEndFight(false);
+        game_.getDifficulty().setAllowedSwitchPlacesEndRound(false);
+        game_.getDifficulty().setAllowCatchingKo(false);
+        game_.getDifficulty().setSkipLearningMovesWhileNotGrowingLevel(false);
+        window_.getFacade().setGame(game_);
+        window_.getFacade().getData().initializeMembers();
+        window_.getFacade().getData().getTranslatedDiffWinPts().addEntry(window_.getFrames().getLanguage(),new IdMap<DifficultyWinPointsFight, String>());
+        window_.getFacade().getData().getTranslatedDiffWinPts().getVal(window_.getFrames().getLanguage()).addEntry(game_.getDifficulty().getDiffWinningExpPtsFight(),"");
+        window_.getFacade().getData().getTranslatedDiffModelLaw().addEntry(window_.getFrames().getLanguage(),new IdMap<DifficultyModelLaw, String>());
+        window_.getFacade().getData().getTranslatedDiffModelLaw().getVal(window_.getFrames().getLanguage()).put(game_.getDifficulty().getDamageRateLawFoe(),"");
+        window_.getFacade().getData().getTranslatedDiffModelLaw().getVal(window_.getFrames().getLanguage()).put(game_.getDifficulty().getDamageRatePlayer(),"");
+        MonteCarloNumber lawOne_ = new MonteCarloNumber();
+        lawOne_.addQuickEvent(Rate.one(), LgInt.one());
+        window_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne_,0));
+        MonteCarloNumber lawTwo_ = new MonteCarloNumber();
+        lawTwo_.addQuickEvent(Rate.one(),LgInt.one());
+        window_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawTwo_,0));
+//        prepareDiffTask(window_);
+        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
         window_.getDifficulty().setEnabled(true);
         tryClick(window_.getDifficulty());
         assertTrue(window_.getDialogDifficulty().getAbsDialog().isVisible());
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getEnabledClosing().setSelected(true);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getAllowCatchingKo().setSelected(true);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getAllowedSwitchPlacesEndRound().setSelected(true);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getEndFightIfOneTeamKo().setSelected(true);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getRandomWildFight().setSelected(true);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getRestoredMovesEndFight().setSelected(true);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getSkipLearningMovesWhileNotGrowingLevel().setSelected(true);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getStillPossibleFlee().setSelected(true);
+        tryClick(window_.getDialogDifficulty().getDifficultyBeanRender().getUpdateValues());
+        window_.getDialogDifficulty().getAbsDialog().getWindowListenersDef().get(0).windowClosing();
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void diff2() {
+        WindowAiki window_ = newFight();
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
+        Game game_ = Instances.newGame();
+        game_.getDifficulty().setEndFightIfOneTeamKo(true);
+        game_.getDifficulty().setEnabledClosing(true);
+        game_.getDifficulty().setStillPossibleFlee(true);
+        game_.getDifficulty().setRandomWildFight(true);
+        game_.getDifficulty().setRestoredMovesEndFight(true);
+        game_.getDifficulty().setAllowedSwitchPlacesEndRound(true);
+        game_.getDifficulty().setAllowCatchingKo(true);
+        game_.getDifficulty().setSkipLearningMovesWhileNotGrowingLevel(true);
+        window_.getFacade().setGame(game_);
+        window_.getFacade().getData().initializeMembers();
+        window_.getFacade().getData().getTranslatedDiffWinPts().addEntry(window_.getFrames().getLanguage(),new IdMap<DifficultyWinPointsFight, String>());
+        window_.getFacade().getData().getTranslatedDiffWinPts().getVal(window_.getFrames().getLanguage()).addEntry(game_.getDifficulty().getDiffWinningExpPtsFight(),"");
+        window_.getFacade().getData().getTranslatedDiffModelLaw().addEntry(window_.getFrames().getLanguage(),new IdMap<DifficultyModelLaw, String>());
+        window_.getFacade().getData().getTranslatedDiffModelLaw().getVal(window_.getFrames().getLanguage()).put(game_.getDifficulty().getDamageRateLawFoe(),"");
+        window_.getFacade().getData().getTranslatedDiffModelLaw().getVal(window_.getFrames().getLanguage()).put(game_.getDifficulty().getDamageRatePlayer(),"");
+        MonteCarloNumber lawOne_ = new MonteCarloNumber();
+        lawOne_.addQuickEvent(Rate.one(), LgInt.one());
+        window_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne_,0));
+        MonteCarloNumber lawTwo_ = new MonteCarloNumber();
+        lawTwo_.addQuickEvent(Rate.one(),LgInt.one());
+        window_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawTwo_,0));
+//        prepareDiffTask(window_);
+        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
+        window_.getDifficulty().setEnabled(true);
+        tryClick(window_.getDifficulty());
+        assertTrue(window_.getDialogDifficulty().getAbsDialog().isVisible());
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getEnabledClosing().setSelected(false);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getAllowCatchingKo().setSelected(false);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getAllowedSwitchPlacesEndRound().setSelected(false);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getEndFightIfOneTeamKo().setSelected(false);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getRandomWildFight().setSelected(false);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getRestoredMovesEndFight().setSelected(false);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getSkipLearningMovesWhileNotGrowingLevel().setSelected(false);
+        window_.getDialogDifficulty().getDifficultyBeanRender().getForm().getStillPossibleFlee().setSelected(false);
+        tryClick(window_.getDialogDifficulty().getDifficultyBeanRender().getUpdateValues());
         window_.getDialogDifficulty().getAbsDialog().getWindowListenersDef().get(0).windowClosing();
         assertTrue(window_.getCommonFrame().isVisible());
     }

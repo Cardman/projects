@@ -13,10 +13,8 @@ import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.document.*;
-import code.gui.events.AbsActionListenerAct;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.confs.PkScriptPages;
 import code.threads.AbstractFutureParam;
 
@@ -96,21 +94,21 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         _stds.initializeRendSessionDoc(n_);
         _cur.setupText();
     }
-
-    public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
-        AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
-        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
-//        r_.setBase(GamesPk.baseEncode(_pr.getTranslations()));
-        NatNavigation n_ = _prepared.getNavigation();
-        n_.setLanguage(_lg);
-        coreInfos(r_, n_);
-        r_.getNavCore().setLanguage(_lg);
-        r_.setStandards(_stds);
-        r_.setRenderAction(new NatRenderAction(_stds,n_));
-        _stds.initializeRendSessionDoc(n_);
-        r_.setupText();
-        return r_;
-    }
+//
+//    public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
+//        AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
+//        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
+////        r_.setBase(GamesPk.baseEncode(_pr.getTranslations()));
+//        NatNavigation n_ = _prepared.getNavigation();
+//        n_.setLanguage(_lg);
+//        coreInfos(r_, n_);
+//        r_.getNavCore().setLanguage(_lg);
+//        r_.setStandards(_stds);
+//        r_.setRenderAction(new NatRenderAction(_stds,n_));
+//        _stds.initializeRendSessionDoc(n_);
+//        r_.setupText();
+//        return r_;
+//    }
 
     public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
         _cur.setNavCore(_n.getBean());

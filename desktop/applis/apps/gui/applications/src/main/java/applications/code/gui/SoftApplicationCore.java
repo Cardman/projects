@@ -16,7 +16,6 @@ import code.gui.AbsButton;
 import code.gui.EnabledMenu;
 import code.gui.InterpretedFile;
 import code.gui.LanguagesButtonsPair;
-import code.gui.document.MessagesPkBean;
 import code.gui.files.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
@@ -69,10 +68,10 @@ public abstract class SoftApplicationCore {
         StringMap<String> builtOther_ = CssInit.ms();
         _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs)));
 //        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesPkBean.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs)));
-        StringMap<TranslationsAppli> stds_ = _msg.byAppl(MessagesPkBean.APP_BEAN);
+//        StringMap<TranslationsAppli> stds_ = _msg.byAppl(MessagesPkBean.APP_BEAN);
 //        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
 //        _af.submitNavPkNetTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));
-        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(new DiffGameInit(), PagesInit.buildDiff(), stds_, builtOther_, new PkDiff(), _lgs)));
+//        _af.submitNavDiffTask(new DataWebInit(new PreparedRenderedPages(new DiffGameInit(), PagesInit.buildDiff(), stds_, builtOther_, new PkDiff(), _lgs)));
 //        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(new ProgGameInit(), PagesInit.buildProg(), stds_, builtOther_, new PkProg(), _lgs)));
     }
 

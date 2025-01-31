@@ -4,11 +4,16 @@ import code.gui.*;
 import code.gui.events.*;
 import code.util.*;
 
-public abstract class BeanAnchorEvent implements AbsMouseListenerIntRel {
+public abstract class BeanAnchorEvent implements AbsMouseListenerIntRel, AbsActionListener {
     private final StringMap<AbsBeanRender> renders;
 
     protected BeanAnchorEvent(StringMap<AbsBeanRender> _r) {
         this.renders = _r;
+    }
+
+    @Override
+    public void action() {
+        action(renders);
     }
 
     @Override
