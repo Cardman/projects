@@ -54,10 +54,10 @@ public final class DifficultyBeanForm {
         skipLearningMovesWhileNotGrowingLevel = check(_rend, _panel, _api, _common.getSkipLearningMovesWhileNotGrowingLevel());
         _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_PLAYER);
         damageRatePlayer = select(_rend, _panel, _api, _common.getDamageRates(), _common.getDamageRatePlayer());
-        tableView(_rend, _api, _file, _common.getDamageRatePlayerTable());
+        _panel.add(tableView(_rend, _api, _file, _common.getDamageRatePlayerTable()));
         _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_FOE);
         damageRateLawFoe = select(_rend, _panel, _api, _common.getDamageRates(), _common.getDamageRateLawFoe());
-        tableView(_rend, _api, _file, _common.getDamageRateFoeTable());
+        _panel.add(tableView(_rend, _api, _file, _common.getDamageRateFoeTable()));
     }
 
     public void update(DifficultyCommon _common) {
@@ -77,11 +77,12 @@ public final class DifficultyBeanForm {
         _common.setDamageRatePlayer(damageRatePlayer.tryRet());
         _common.setDamageRateLawFoe(damageRateLawFoe.tryRet());
     }
-    private void tableView(AbsBeanRender _rend, AbstractProgramInfos _api, String _file, DictionaryComparator<Rate, Rate> _info) {
+    private AbsPanel tableView(AbsBeanRender _rend, AbstractProgramInfos _api, String _file, DictionaryComparator<Rate, Rate> _info) {
         AbsPanel grid_ = _api.getCompoFactory().newGrid();
         _rend.headerCols(_api,grid_, _file, _info,MessagesGameDifficulty.M_P_93_RATE_DAMAGE_EV,MessagesGameDifficulty.M_P_93_RATE_DAMAGE);
         new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).display(_rend, _api,grid_, _info, 2);
         _rend.nextPart();
+        return grid_;
     }
 
     private AbsCustCheckBox check(AbsBeanRender _rend, AbsPanel _panel, AbstractProgramInfos _api, boolean _value) {
