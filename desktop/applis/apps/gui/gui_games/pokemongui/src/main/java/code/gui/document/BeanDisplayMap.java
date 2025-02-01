@@ -1,7 +1,5 @@
 package code.gui.document;
 
-import code.gui.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public final class BeanDisplayMap<K,V> {
@@ -12,10 +10,10 @@ public final class BeanDisplayMap<K,V> {
         this.displayKey = _k;
         this.displayValue = _v;
     }
-    public void display(AbsBeanRender _rend, AbstractProgramInfos _api, AbsPanel _form, AbsMap<K,V> _info, int _nbCols) {
+    public void display(AbsBeanRender _rend, AbsMap<K, V> _info) {
         for (EntryCust<K,V> e: _info.entryList()) {
-            int count_ = displayKey.display(_rend, _api, _form, e.getKey(), 0, _nbCols);
-            displayValue.display(_rend,_api,_form,e.getValue(),count_,_nbCols);
+            int count_ = displayKey.display(_rend, e.getKey(), 0);
+            displayValue.display(_rend, e.getValue(),count_);
         }
     }
 }

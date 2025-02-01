@@ -77,8 +77,8 @@ public final class PkDetailContent {
         return content;
     }
 
-    public PkPlayerRender getPkPlayerRender() {
-        return (PkPlayerRender) pkPlayerRender.getCurrent();
+    public AbsScrollPane getScrollPane(){
+        return pkPlayerRender.getCurrent().getBuilder().getScrollPane();
     }
 
     public AbsButton getSearch() {

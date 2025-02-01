@@ -1,8 +1,6 @@
 package code.gui.document;
 
 import aiki.beans.fight.*;
-import code.gui.*;
-import code.gui.initialize.*;
 
 public final class BeanDisplayActivityOfMoveStill implements BeanDisplay<ActivityOfMoveStill> {
 
@@ -17,9 +15,9 @@ public final class BeanDisplayActivityOfMoveStill implements BeanDisplay<Activit
     }
 
     @Override
-    public int display(AbsBeanRender _rend, AbstractProgramInfos _api, AbsPanel _form, ActivityOfMoveStill _info, int _index, int _count) {
-        _rend.displayActivityOfMoveEnabled(_api,_form,AbsBeanRender.remainder(_api,_index,_count), MessagesPkBean.FIGHTER,_info.getActivity(),valueTrue,valueFalse);
-        _rend.displayActivityOfMoveNbRound(_api,_form,AbsBeanRender.remainder(_api,_index+1,_count), MessagesPkBean.FIGHTER,_info.getActivity(),other);
+    public int display(AbsBeanRender _rend, ActivityOfMoveStill _info, int _index) {
+        _rend.displayActivityOfMoveEnabled(MessagesPkBean.FIGHTER,_info.getActivity(),valueTrue,valueFalse);
+        _rend.displayActivityOfMoveNbRound(MessagesPkBean.FIGHTER,_info.getActivity(),other);
         return 2;
     }
 }

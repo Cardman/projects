@@ -2,24 +2,24 @@ package code.gui.document;
 
 import code.gui.*;
 import code.gui.events.*;
-import code.util.*;
 
-public abstract class BeanAnchorEvent implements AbsMouseListenerIntRel, AbsActionListener {
-    private final StringMap<AbsBeanRender> renders;
+public final class BeanAnchorEvent implements AbsMouseListenerIntRel, AbsActionListener {
+    private final BeanBuilderHelper helper;
+    private final IntBeanAction action;
 
-    protected BeanAnchorEvent(StringMap<AbsBeanRender> _r) {
-        this.renders = _r;
+    public BeanAnchorEvent(BeanBuilderHelper _h, IntBeanAction _n) {
+        this.helper = _h;
+        this.action = _n;
     }
 
     @Override
     public void action() {
-        action(renders);
+        helper.build(action.actionBean(),action.getBean().getForms());
     }
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        action(renders);
+        helper.build(action.actionBean(),action.getBean().getForms());
     }
 
-    protected abstract void action(StringMap<AbsBeanRender> _r);
 }

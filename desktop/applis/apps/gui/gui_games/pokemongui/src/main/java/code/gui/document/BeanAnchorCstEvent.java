@@ -1,22 +1,22 @@
 package code.gui.document;
 
 import aiki.beans.*;
-import code.util.*;
 
-public final class BeanAnchorCstEvent extends BeanAnchorEvent{
+public final class BeanAnchorCstEvent implements IntBeanAction{
     private final String constant;
-    private final StringMapObject formBase;
-    public BeanAnchorCstEvent(String _cst, StringMap<AbsBeanRender> _r, StringMapObject _form) {
-        super(_r);
+    private final CommonBean bean;
+    public BeanAnchorCstEvent(String _cst, CommonBean _b) {
         constant = _cst;
-        formBase = _form;
+        bean = _b;
     }
 
     @Override
-    protected void action(StringMap<AbsBeanRender> _r) {
-        AbsBeanRender target_ = _r.getVal(constant);
-        target_.getScrollPane().setViewportView(target_.build(target_.getFactory(),target_.getFacade(),target_.getEvent(), formBase));
-        target_.getScrollPane().validate();
-        target_.getFrame().pack();
+    public String actionBean() {
+        return constant;
+    }
+
+    @Override
+    public CommonBean getBean() {
+        return bean;
     }
 }

@@ -1207,7 +1207,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getDetailButton());
         assertTrue(sel_.getPkDetailContent().getContent().isVisible());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getScrollPane()).getTreeAccessible();
         assertEq(43, tr_.size() - scAcc_.size());
         checkCommon30(pag_, tr_);
         checkCommonNot30(pag_, scAcc_);
@@ -1255,7 +1255,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(2,tr_.size());
         tryClick((AbsButton) tr_.get(0));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getScrollPane()).getTreeAccessible();
         assertEq(4,tr2_.size()- scAcc_.size());
         assertTrue(tr2_.containsAllObj(tr_));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
@@ -1281,7 +1281,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(2,tr_.size());
         tryClick((AbsButton) tr_.get(1));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getScrollPane()).getTreeAccessible();
         assertEq(4,tr2_.size()- scAcc_.size());
         assertTrue(tr2_.containsAllObj(tr_));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
@@ -3409,7 +3409,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getDetailPk());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getScrollPane()).getTreeAccessible();
         assertEq(3, tr_.size()-scAcc_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
@@ -3509,7 +3509,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         ((PokemonPlayer)window_.getFacade().getGame().getTeam().get(0)).setUsedBallCatching(NULL_REF);
         tryClick(window_.getScenePanel().getDetailPk());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getPkPlayerRender().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getScrollPane()).getTreeAccessible();
         assertEq(3, tr_.size()-scAcc_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));

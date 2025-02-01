@@ -1,8 +1,6 @@
 package code.gui.document;
 
 import aiki.beans.CommonBean;
-import code.gui.*;
-import code.gui.initialize.*;
 
 public final class BeanDisplayBool implements BeanDisplay<Integer> {
 
@@ -15,11 +13,11 @@ public final class BeanDisplayBool implements BeanDisplay<Integer> {
     }
 
     @Override
-    public int display(AbsBeanRender _rend, AbstractProgramInfos _api, AbsPanel _form, Integer _info, int _index, int _count) {
+    public int display(AbsBeanRender _rend, Integer _info, int _index) {
         if (_info == CommonBean.TRUE_VALUE) {
-            _rend.formatMessageDir(_api,_form,AbsBeanRender.remainder(_api,_index,_count),valueTrue);
+            _rend.formatMessageDirCts(valueTrue);
         } else {
-            _rend.formatMessageDir(_api,_form,AbsBeanRender.remainder(_api,_index,_count),valueFalse);
+            _rend.formatMessageDirCts(valueFalse);
         }
         return 1;
     }

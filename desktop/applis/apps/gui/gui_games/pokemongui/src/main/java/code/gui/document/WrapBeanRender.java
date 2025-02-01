@@ -26,23 +26,25 @@ public final class WrapBeanRender {
         StringMap<String> messages_ = PkDetailContent.file(_api.currentLg());
         search = _api.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
         field = _api.getCompoFactory().newTextField(20);
-        FindBeanEvent find_ = new FindBeanEvent(field, _rend, _api);
+        FindBeanEvent find_ = new FindBeanEvent(field, _api);
         search.addActionListener(find_);
         AbsScrollPane scrollSession_ = _api.getCompoFactory().newAbsScrollPane();
         scrollSession_.setPreferredSize(new MetaDimension(400, 400));
-        scrollSession_.setViewportView(_rend.build(_api,_facade,find_, new StringMapObject()));
+        BeanBuilderHelper bu_ = new BeanBuilderHelper(_api, find_);
+        bu_.setRenders(renders);
+        _rend.build(_facade, new StringMapObject(), bu_);
+        find_.setFinding(bu_);
+        scrollSession_.setViewportView(_rend.getBuilder().getStack().last());
+        _rend.getBuilder().getStack().removeQuicklyLast();
         scrollSession_.validate();
-        _rend.setScrollPane(scrollSession_);
+        bu_.setScrollPane(scrollSession_);
+        bu_.setFrame(_fr);
         container.add(scrollSession_);
         container.add(field);
         container.add(search);
         for (AbsBeanRender r: renders.values()) {
             r.setRenders(renders);
-            r.setScrollPane(scrollSession_);
-            r.setEvent(find_);
             r.setFacade(_facade);
-            r.setFactory(_api);
-            r.setFrame(_fr);
         }
     }
 

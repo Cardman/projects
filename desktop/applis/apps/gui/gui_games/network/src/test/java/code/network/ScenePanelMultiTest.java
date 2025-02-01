@@ -56,7 +56,7 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         selectClient(server_, client_, socketClient_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(6, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(6, tr_.size()-((MockCustComponent) server_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
@@ -64,7 +64,7 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
@@ -93,14 +93,14 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         client_.getScenePanel().getTeamPan().getListe().events();
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
@@ -134,14 +134,14 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         readyClient(server_, client_, socketClient_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(4, tr2_.size()-((MockCustComponent) client_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
@@ -171,14 +171,14 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         applyTrade(server_, socketServ_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(5, tr_.size()-((MockCustComponent) server_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getReadyCheck()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(5, tr2_.size()-((MockCustComponent) client_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getTeamPan().getListe().getGlobal()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getReadyCheck()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
@@ -214,13 +214,13 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         loopClient(server_.getSockets(),client_);
 
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(4, tr_.size()-((MockCustComponent) server_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(4, tr_.size()-((MockCustComponent) server_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr_.containsObj(server_.getScenePanel().getExitTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getApplyTrade()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getField()));
         assertTrue(tr_.containsObj(server_.getScenePanel().getSearch()));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(3, tr2_.size()-((MockCustComponent) client_.getScenePanel().getReceivedPk().getScrollPane()).getTreeAccessible().size());
+        assertEq(3, tr2_.size()-((MockCustComponent) client_.getScenePanel().getScrollPane()).getTreeAccessible().size());
         assertTrue(tr2_.containsObj(client_.getScenePanel().getExitTrade()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getField()));
         assertTrue(tr2_.containsObj(client_.getScenePanel().getSearch()));

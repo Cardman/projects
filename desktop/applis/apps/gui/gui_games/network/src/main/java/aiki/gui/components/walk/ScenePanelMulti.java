@@ -1798,8 +1798,8 @@ public class ScenePanelMulti {
         }
     }
 
-    public PkPlayerRender getReceivedPk() {
-        return (PkPlayerRender) receivedPk.getCurrent();
+    public AbsScrollPane getScrollPane(){
+        return receivedPk.getCurrent().getBuilder().getScrollPane();
     }
 
     public AbsButton getSearch() {

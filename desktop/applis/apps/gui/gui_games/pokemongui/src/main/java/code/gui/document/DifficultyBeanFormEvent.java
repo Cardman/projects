@@ -1,16 +1,25 @@
 package code.gui.document;
 
-import code.util.*;
+import aiki.beans.*;
+import aiki.beans.game.*;
 
-public final class DifficultyBeanFormEvent extends BeanAnchorEvent {
-    private final DifficultyBeanRender bean;
-    public DifficultyBeanFormEvent(StringMap<AbsBeanRender> _r, DifficultyBeanRender _b) {
-        super(_r);
+public final class DifficultyBeanFormEvent implements IntBeanAction {
+    private final DifficultyBean bean;
+    private final DifficultyBeanForm form;
+    public DifficultyBeanFormEvent(DifficultyBean _b, DifficultyBeanForm _f) {
         this.bean = _b;
+        this.form = _f;
     }
 
     @Override
-    protected void action(StringMap<AbsBeanRender> _r) {
-        bean.apply();
+    public String actionBean() {
+        form.update(bean.getDifficultyCommon());
+        bean.change();
+        return "";
+    }
+
+    @Override
+    public CommonBean getBean() {
+        return bean;
     }
 }

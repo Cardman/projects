@@ -2,381 +2,261 @@ package code.gui.document;
 
 import aiki.beans.*;
 import aiki.beans.fight.*;
-import aiki.beans.game.ImgPkPlayer;
+import aiki.beans.game.*;
 import aiki.facade.*;
-import aiki.fight.pokemon.TrainerPlaceNames;
+import aiki.fight.pokemon.*;
 import aiki.game.fight.*;
 import code.formathtml.render.*;
 import code.gui.*;
-import code.gui.images.*;
-import code.gui.initialize.*;
 import code.sml.util.*;
 import code.util.*;
 import code.util.core.*;
-import code.util.ints.Countable;
+import code.util.ints.*;
 
-public abstract class AbsBeanRender {
-    private final IdMap<MetaSearchableContent,AbsTextPane> refsSearch = new IdMap<MetaSearchableContent,AbsTextPane>();
-    private final IdList<MetaSearchableContent> metaSearchableContents = new IdList<MetaSearchableContent>();
-    private final IdMap<AbsCustComponent,AbsCustComponent> parents = new IdMap<AbsCustComponent,AbsCustComponent>();
-    private int partGroup;
-    private int rowGroup;
-    private AbsScrollPane scrollPane;
+public abstract class AbsBeanRender implements BeanRenderWithAppName{
     private StringMap<AbsBeanRender> renders;
-    private FindBeanEvent event;
-    private AbstractProgramInfos factory;
     private FacadeGame facade;
-    private AbsCommonFrame frame;
-    private final IdList<AbsTextPane> anchors = new IdList<AbsTextPane>();
+    private BeanBuilderHelper builder;
 
-    public AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade, FindBeanEvent _find, StringMapObject _form){
-        anchors.clear();
-        AbsCustComponent compo_ = build(_api, _facade, _form);
-        _find.setFinding(this);
-        return compo_;
+    public void build(FacadeGame _facade, StringMapObject _form, BeanBuilderHelper _bu){
+        builder = _bu;
+        _bu.clearAnchors();
+        build(_facade, _form);
     }
-    public abstract AbsCustComponent build(AbstractProgramInfos _api, FacadeGame _facade, StringMapObject _form);
+    public abstract void build(FacadeGame _facade, StringMapObject _form);
 
-    protected void displayStringList(AbstractProgramInfos _api, AbsPanel _form, String _file, CustList<String> _list, String _key) {
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-        display(_api, _form, _file, _list, _key);
-        displayStringList(_api, _form, _list);
+    protected void displayStringList(String _file, CustList<String> _list, String _key) {
+        builder.breakLine();
+        display(_file, _list, _key);
+        displayStringList(_list);
     }
 
-    protected void displayStringList(AbstractProgramInfos _api, AbsPanel _form, CustList<String> _list) {
+    protected void displayStringList(CustList<String> _list) {
         for (String i: _list) {
             nextPart();
-            AbsPanel lineType_ = _api.getCompoFactory().newLineBox();
-            paintMetaLabelDisk(_api,lineType_);
-            formatMessageDir(_api,lineType_,i);
-            feedParents(_form,lineType_);
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+            builder.initLine();
+            paintMetaLabelDisk();
+            builder.formatMessageDir(i);
+            builder.feedParents();
+            builder.breakLine();
         }
     }
 
-    protected void displayTrainerPlaceNamesList(AbstractProgramInfos _api, AbsPanel _form, String _file, CustList<TrainerPlaceNames> _list, String _key) {
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-        display(_api, _form, _file, _list, _key);
-        displayTrainerPlaceNamesList(_api, _form, _list);
+    protected void displayTrainerPlaceNamesList(String _file, CustList<TrainerPlaceNames> _list, String _key) {
+        builder.getMetaSearchableContents().add(new MetaSearchableContent(null, builder.getPartGroup(), builder.getRowGroup()));
+        display(_file, _list, _key);
+        displayTrainerPlaceNamesList(_list);
     }
 
-    protected void displayTrainerPlaceNamesList(AbstractProgramInfos _api, AbsPanel _form, CustList<TrainerPlaceNames> _list) {
+    protected void displayTrainerPlaceNamesList(CustList<TrainerPlaceNames> _list) {
         for (TrainerPlaceNames i: _list) {
             nextPart();
-            AbsPanel lineType_ = _api.getCompoFactory().newLineBox();
-            paintMetaLabelDisk(_api,lineType_);
-            formatMessageDir(_api,lineType_,i.getTrainer()+" - "+i.getPlace());
-            feedParents(_form,lineType_);
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+            builder.initLine();
+            paintMetaLabelDisk();
+            builder.formatMessageDir(i.getTrainer()+" - "+i.getPlace());
+            builder.feedParents();
+            builder.breakLine();
         }
     }
 
     protected void init(CommonBean _common, FacadeGame _facade, StringMapObject _form) {
-        getMetaSearchableContents().clear();
-        getParents().clear();
-        getRefsSearch().clear();
-        setPartGroup(0);
-        setRowGroup(0);
+        builder.getMetaSearchableContents().clear();
+        builder.getParents().clear();
+        builder.getRefsSearch().clear();
+        builder.setPartGroup(0);
+        builder.setRowGroup(0);
         _common.setDataBase(_facade);
         _common.setForms(_form);
         _common.setLanguage(_facade.getLanguage());
         _common.beforeDisplaying();
     }
 
+    public TranslationsFile file(String _file) {
+        return builder.file(this,_file);
+    }
+
     protected void nextPart() {
-        partGroup++;
-        rowGroup = 0;
+        builder.nextPart();
     }
 
-    public static void addImg(AbstractProgramInfos _api, AbsPanel _container, int[][] _img) {
-        _container.add(_api.getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(_api.getImageFactory(), _img)));
+    public void addImg(int[][] _img) {
+        builder.addImg(_img);
     }
 
-    public static void paintMetaLabelDisk(AbstractProgramInfos _api, AbsPanel _container) {
-        AbstractImage img_ = _api.getImageFactory().newImageArgb(16, 16);
-        img_.setColor(GuiConstants.WHITE);
-        img_.fillRect(0, 0, 16, 16);
-        img_.setColor(GuiConstants.BLACK);
-        img_.fillOval(0, 0, 16, 16);
-        _container.add(_api.getCompoFactory().newPreparedLabel(img_));
-        img_.dispose();
+    public void paintMetaLabelDisk() {
+        builder.paintMetaLabelDisk();
     }
 
-    public AbsTextPane formatMessageAnc(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
-        AbsTextPane tx_ = formatMessage(_api, _form, _file, _key, _values);
-        anchor(_api, tx_);
-        anchors.add(tx_);
-        return tx_;
+    public void formatMessageAnc(IntBeanAction _e,String _file, String _key, String... _values) {
+        builder.formatMessageAnc(this,_e,_file,_key,_values);
     }
 
-    public AbsPanel buildPkList(AbstractProgramInfos _api, String _file, String _key, CustList<ImgPkPlayer> _list) {
-        AbsPanel formEvos_ = _api.getCompoFactory().newPageBox();
-        display(_api,formEvos_, _file, _list, _key);
-        return buildPkList(_api, _list, formEvos_);
+    public void buildPkList(String _file, String _key, CustList<ImgPkPlayer> _list) {
+        builder.initPage();
+        display(_file, _list, _key);
+        buildPkList(_list);
     }
 
-    public AbsPanel buildPkList(AbstractProgramInfos _api, CustList<ImgPkPlayer> _list, AbsPanel _formEvos) {
+    public void buildPkList(CustList<ImgPkPlayer> _list) {
         for (ImgPkPlayer i: _list) {
             nextPart();
-            AbsPanel lineEvo_ = _api.getCompoFactory().newLineBox();
-            paintMetaLabelDisk(_api,lineEvo_);
-            addImg(_api,lineEvo_,i.getImage());
-            formatMessageDir(_api,lineEvo_,i.getKey().getTranslation());
-            feedParents(_formEvos,lineEvo_);
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+            initLine();
+            paintMetaLabelDisk();
+            builder.addImg(i.getImage());
+            builder.formatMessageDir(i.getKey().getTranslation());
+            builder.feedParents();
+            builder.breakLine();
         }
-        return _formEvos;
+    }
+    public void setBackground(int _color) {
+        builder.setBackground(_color);
+    }
+    public void setTitledBorder(String _title){
+        builder.setTitledBorder(_title);
+    }
+    public void initLine() {
+        builder.initLine();
     }
 
-    public void display(AbstractProgramInfos _api, AbsPanel _container, String _file, Countable _ls, String _key) {
+    public void initGrid() {
+        builder.initGrid();
+    }
+
+    public void initPage() {
+        builder.initPage();
+    }
+
+    public void display(String _file, Countable _ls, String _key) {
         if (!_ls.isEmpty()) {
-            formatMessage(_api,_container,_file,_key);
-            getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+            builder.formatMessage(this,_file,_key);
+            builder.breakLine();
         }
     }
-    public void headerCols(AbstractProgramInfos _api, AbsPanel _container, String _file, Countable _ls, String... _cols) {
+    public void headerCols(String _file, Countable _ls, String... _cols) {
         if (!_ls.isEmpty()) {
-            for (int i = 0; i < _cols.length; i++) {
-                String h_ = _cols[i];
-                if (i + 1 < _cols.length) {
-                    headerCol(_api, _container, _api.getCompoFactory().newGridCts(), _file, h_);
-                } else {
-                    headerCol(_api, _container, AbsBeanRender.remainder(_api), _file, h_);
-                }
+            builder.setColCount(_cols.length);
+            for (String h_ : _cols) {
+                headerCol(_file, h_);
             }
         }
     }
-    public void displayEmpty(AbstractProgramInfos _api, AbsPanel _container, String _file, String _value, String _key) {
+    public void displayEmpty(String _file, String _value, String _key) {
         if (_value.isEmpty()) {
-            formatMessage(_api,_container,_file,_key);
+            formatMessage(_file,_key);
         }
     }
-    public void displayNotEmpty(AbstractProgramInfos _api, AbsPanel _container, String _file, String _value, String _key) {
+    public void displayNotEmpty(String _file, String _value, String _key) {
         if (!_value.isEmpty()) {
-            formatMessage(_api,_container,_file,_key,_value);
+            formatMessage(_file,_key,_value);
         }
     }
-    public void displayBoolFull(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _one, String _two) {
+    public void displayBoolFull(String _file, int _value, String _one, String _two) {
         if (_value == CommonBean.TRUE_VALUE) {
-            formatMessage(_api,_container,_file,_one);
+            formatMessage(_file,_one);
         } else {
-            formatMessage(_api,_container,_file,_two);
+            formatMessage(_file,_two);
         }
     }
-    public void displayBoolFalse(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _key, String... _values) {
-        displayBool(_api,_container,_file,_value,CommonBean.FALSE_VALUE,_key,_values);
+    public void displayBoolFalse(String _file, int _value, String _key, String... _values) {
+        displayBool(_file,_value,CommonBean.FALSE_VALUE,_key,_values);
     }
-    public void displayBoolTrue(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, String _key, String... _values) {
-        displayBool(_api,_container,_file,_value,CommonBean.TRUE_VALUE,_key,_values);
+    public void displayBoolTrue(String _file, int _value, String _key, String... _values) {
+        displayBool(_file,_value,CommonBean.TRUE_VALUE,_key,_values);
     }
-    public void displayBool(AbstractProgramInfos _api, AbsPanel _container, String _file, int _value, int _car, String _key, String... _values) {
+    public void displayBool(String _file, int _value, int _car, String _key, String... _values) {
         if (_value == _car) {
-            formatMessage(_api,_container,_file,_key,_values);
+            formatMessage(_file,_key,_values);
         }
     }
-    public void displayBool(AbstractProgramInfos _api, AbsPanel _container, int _value, int _car, int[][] _key) {
+    public void displayBool(int _value, int _car, int[][] _key) {
         if (_value == _car) {
-            addImg(_api,_container,_key);
+            addImg(_key);
         }
     }
-    public AbsTextPane formatMessage(AbstractProgramInfos _api, AbsPanel _form, String _file, String _key, String... _values) {
-        String txt_ = formatMessage(_api, _file, _key, _values);
-        return formatMessageDir(_api, _form, txt_);
+    public void formatMessage(String _file, String _key, String... _values) {
+        String txt_ = builder.formatMessageRend(this,_file, _key, _values);
+        builder.formatMessageDir(txt_);
     }
 
-    public AbsTextPane formatMessage(AbstractProgramInfos _api, AbsPanel _form, AbsGridConstraints _cts, String _file, String _key, String... _values) {
-        String txt_ = formatMessage(_api, _file, _key, _values);
-        return formatMessageDir(_api, _form, _cts, txt_);
+    public void formatMessageCts(String _file, String _key, String... _values) {
+        String txt_ = builder.formatMessageRend(this, _file, _key, _values);
+        builder.formatMessageDirCts(txt_);
     }
 
-    public String formatMessage(AbstractProgramInfos _api, String _file, String _key, String... _values) {
-        return StringUtil.simpleStringsFormat(files(_api, appName()).getVal(_file).getMapping().getVal(_key), _values);
-    }
-    public abstract String appName();
-
-    public AbsTextPane formatMessageDirAnc(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
-        AbsTextPane tx_ = formatMessageDir(_api, _form, _txt);
-        anchor(_api, tx_);
-        anchors.add(tx_);
-        return tx_;
+    public String formatMessageRend(String _file, String _key, String... _values) {
+        return StringUtil.simpleStringsFormat(builder.file(this,_file).getMapping().getVal(_key), _values);
     }
 
-    private void anchor(AbstractProgramInfos _api, AbsTextPane _tx) {
-        AbsAttrSet att_ = _api.getCompoFactory().newAttrSet();
-        att_.addUnderline(true);
-        att_.addForeground(GuiConstants.BLUE);
-        _tx.setCharacterAttributes(0, _tx.getText().length(), att_, false);
+    public void formatMessageDirAnc(String _txt, BeanAnchorToFighterEvent _b) {
+        builder.formatMessageDirAnc(_txt, _b);
     }
 
-    public AbsTextPane formatMessageDir(AbstractProgramInfos _api, AbsPanel _form, String _txt) {
-        AbsTextPane ch_ = message(_api, _txt);
-        feedParents(_form, ch_);
-        hierarchy(_txt, ch_);
-        return ch_;
+    public void formatMessageDir(String _txt) {
+        AbsTextPane ch_ = builder.message(_txt);
+        builder.feedParent(ch_);
+        builder.hierarchy(_txt, ch_);
     }
 
-    public AbsTextPane formatMessageDir(AbstractProgramInfos _api, AbsPanel _form, AbsGridConstraints _cts, String _txt) {
-        AbsTextPane ch_ = message(_api, _txt);
+    public void formatMessageDirCts(String _txt) {
+        AbsTextPane ch_ = builder.message(_txt);
         ch_.setLineBorder(GuiConstants.BLACK);
-        feedParents(_form, _cts, ch_);
-        hierarchy(_txt, ch_);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-        return ch_;
+        builder.feedParentCts(ch_);
+        builder.hierarchy(_txt, ch_);
+        builder.breakLine();
     }
 
-    protected void feedParents(AbsPanel _form, AbsGridConstraints _cts, AbsCustComponent _ch) {
-        _form.add(_ch, _cts);
-        getParents().addEntry(_ch, _form);
+    public void feedParentsCts() {
+        builder.feedParentsCts();
     }
 
-    protected void feedParents(AbsPanel _form, AbsCustComponent _ch) {
-        _form.add(_ch);
-        getParents().addEntry(_ch, _form);
+    public void feedParents() {
+        builder.feedParents();
     }
 
-    private void hierarchy(String _txt, AbsTextPane _ch) {
-        MetaSearchableContent s_ = new MetaSearchableContent(_txt, partGroup, rowGroup);
-        metaSearchableContents.add(s_);
-        getRefsSearch().addEntry(s_,_ch);
+    public void feedParent(AbsCustComponent _ch) {
+        builder.feedParent(_ch);
     }
 
-    public static AbsTextPane message(AbstractProgramInfos _api, String _txt) {
-        AbsTextPane tp_ = _api.getCompoFactory().newTextPane();
-        tp_.setBackground(GuiConstants.WHITE);
-        tp_.setForeground(GuiConstants.BLACK);
-        tp_.setText(_txt);
-        tp_.setEditable(false);
-        return tp_;
-    }
-
-    public static void paint(AbstractProgramInfos _api, AbsTextPane _tp, CustList<SegmentPart> _segs) {
-        String text_ = _tp.getText();
-        _tp.setCharacterAttributes(0,text_.length(),_api.getCompoFactory().newAttrSet(), true);
-        MetaFont copy_ = _tp.getMetaFont();
-        AbsAttrSet att_ = _api.getCompoFactory().newAttrSet();
-        att_.addFontFamily(copy_.getFontFamily());
-        att_.addFontSize(_tp.getMetaFont().getRealSize());
-        att_.addBackground(_tp.getBackgroundValue());
-        att_.addForeground(_tp.getForegroundValue());
-        _tp.setCharacterAttributes(0,text_.length(),att_,false);
-        for (SegmentPart s: _segs) {
-            AbsAttrSet attSeg_ = _api.getCompoFactory().newAttrSet();
-            attSeg_.addFontFamily(copy_.getFontFamily());
-            attSeg_.addBackground(GuiConstants.ORANGE);
-            attSeg_.addForeground(_tp.getForegroundValue());
-            attSeg_.addFontSize(_tp.getMetaFont().getRealSize());
-            _tp.setCharacterAttributes(s.getBegin(),s.getEnd()-s.getBegin(),attSeg_,false);
-        }
-        AbsAttrSet attSeg_ = _api.getCompoFactory().newAttrSet();
-        attSeg_.addFontFamily(copy_.getFontFamily());
-        attSeg_.addForeground(_tp.getForegroundValue());
-        attSeg_.addFontSize(_tp.getMetaFont().getRealSize());
-        _tp.setCharacterAttributes(0,text_.length(),attSeg_,false);
-    }
-
-    public static void scroll(AbsBeanRender _rend, AbsCustComponent _dual) {
-        AbsCustComponent c_ = _dual;
-        AbsScrollPane sc_ = _rend.getScrollPane();
-        int x_ = 0;
-        int y_ = 0;
-        while (c_ != null) {
-            AbsCustComponent par_ = _rend.getParents().getVal(c_);
-            if (par_ != null) {
-                x_ += c_.getXcoords();
-                y_ += c_.getYcoords();
-            }
-            c_ = par_;
-        }
-        sc_.setHorizontalValue(x_);
-        sc_.setVerticalValue(y_);
-    }
-    public static StringMap<TranslationsFile> files(AbstractProgramInfos _api, String _name) {
-        return _api.currentLg().getMapping().getVal(_name).getMapping();
-    }
-
-    public static StringMap<TranslationsFile> filesFight(AbstractProgramInfos _api) {
-        return files(_api, MessagesPkBean.APP_BEAN_FIGHT);
-    }
-    public void displayTrPkMoveTarget(AbstractProgramInfos _api, AbsPanel _container, boolean _key, String _file, TrPkMoveTarget _value) {
-        formatMessageDir(_api,_container,_api.getCompoFactory().newGridCts(),_value.getMoveTarget().getMove());
+    public void displayTrPkMoveTarget(String _file, TrPkMoveTarget _value) {
+        formatMessageDirCts(_value.getMoveTarget().getMove());
         if (_value.getMoveTarget().getTarget().getTeam() == Fight.CST_FOE) {
-            formatMessage(_api,_container,_api.getCompoFactory().newGridCts(),_file,MessagesFightFight.M_P_90_ALLY_CHOICES_FOE);
+            formatMessageCts(_file,MessagesFightFight.M_P_90_ALLY_CHOICES_FOE);
         } else {
-            formatMessage(_api,_container,_api.getCompoFactory().newGridCts(),_file,MessagesFightFight.M_P_90_ALLY_CHOICES_PLAYER);
-        }
-        AbsGridConstraints gr_;
-        if (_key) {
-            gr_ = _api.getCompoFactory().newGridCts();
-        } else {
-            gr_ = remainder(_api);
+            formatMessageCts(_file,MessagesFightFight.M_P_90_ALLY_CHOICES_PLAYER);
         }
         if (_value.getMoveTarget().getTarget().getPosition() != Fighter.BACK) {
-            formatMessageDir(_api,_container,_api.getCompoFactory().newGridCts(),Long.toString(_value.getMoveTarget().getTarget().getPosition()));
-            formatMessageDir(_api,_container,gr_,_value.getTranslation());
+            formatMessageDirCts(Long.toString(_value.getMoveTarget().getTarget().getPosition()));
+            formatMessageDirCts(_value.getTranslation());
         } else {
-            formatMessage(_api,_container,_api.getCompoFactory().newGridCts(),_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
-            formatMessage(_api,_container,gr_,_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
+            formatMessageCts(_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
+            formatMessageCts(_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
         }
     }
-    public void displayActivityOfMoveEnabled(AbstractProgramInfos _api, AbsPanel _container, AbsGridConstraints _cts, String _file, ActivityOfMove _value, String _one, String _two) {
+
+    public void displayActivityOfMoveEnabled(String _file, ActivityOfMove _value, String _one, String _two) {
         if (_value.isEnabled()) {
-            formatMessage(_api,_container,_cts,_file,_one);
+            formatMessageCts(_file,_one);
         } else {
-            formatMessage(_api,_container,_cts,_file,_two);
+            formatMessageCts(_file,_two);
         }
     }
-    public void displayActivityOfMoveNbRound(AbstractProgramInfos _api, AbsPanel _container, AbsGridConstraints _cts, String _file, ActivityOfMove _value, String _key) {
+    public void displayActivityOfMoveNbRound(String _file, ActivityOfMove _value, String _key) {
         if (_value.isIncrementCount()) {
-            formatMessageDir(_api,_container,_cts,Long.toString(_value.getNbTurn()));
+            formatMessageDirCts(Long.toString(_value.getNbTurn()));
         } else {
-            formatMessage(_api,_container,_cts,_file,_key);
+            formatMessageCts(_file,_key);
         }
     }
-    public void headerCol(AbstractProgramInfos _api, AbsPanel _tableStat, AbsGridConstraints _cts, String _file, String _key) {
-        AbsTextPane th_ = formatMessage(_api, _tableStat, _cts, _file, _key);
-        th_.setBackground(GuiConstants.YELLOW);
+    public void headerCol(String _file, String _key) {
+        String txt_ = builder.formatMessageRend(this, _file, _key);
+        builder.formatMessageDirCts(txt_,GuiConstants.YELLOW);
+    }
+    public void breakLine() {
+        builder.breakLine();
     }
 
-    protected static AbsGridConstraints remainder(AbstractProgramInfos _api) {
-        AbsGridConstraints cts_ = _api.getCompoFactory().newGridCts();
-        cts_.gridwidth(GuiConstants.REMAINDER);
-        return cts_;
-    }
-
-    protected static AbsGridConstraints remainder(AbstractProgramInfos _api, int _index, int _count) {
-        AbsGridConstraints cts_ = _api.getCompoFactory().newGridCts();
-        if (_index+1 == _count) {
-            cts_.gridwidth(GuiConstants.REMAINDER);
-        }
-        return cts_;
-    }
-
-    public IdList<AbsTextPane> getAnchors() {
-        return anchors;
-    }
-
-    public int getRowGroup() {
-        return rowGroup;
-    }
-
-    public void setRowGroup(int _r) {
-        this.rowGroup = _r;
-    }
-
-    public int getPartGroup() {
-        return partGroup;
-    }
-
-    public void setPartGroup(int _p) {
-        this.partGroup = _p;
-    }
-
-    public AbsScrollPane getScrollPane() {
-        return scrollPane;
-    }
-
-    public void setScrollPane(AbsScrollPane _s) {
-        this.scrollPane = _s;
+    public BeanBuilderHelper getBuilder() {
+        return builder;
     }
 
     public StringMap<AbsBeanRender> getRenders() {
@@ -387,48 +267,12 @@ public abstract class AbsBeanRender {
         this.renders = _r;
     }
 
-    public FindBeanEvent getEvent() {
-        return event;
-    }
-
-    public void setEvent(FindBeanEvent _e) {
-        this.event = _e;
-    }
-
-    public AbstractProgramInfos getFactory() {
-        return factory;
-    }
-
-    public void setFactory(AbstractProgramInfos _f) {
-        this.factory = _f;
-    }
-
     public FacadeGame getFacade() {
         return facade;
     }
 
     public void setFacade(FacadeGame _f) {
         this.facade = _f;
-    }
-
-    public AbsCommonFrame getFrame() {
-        return frame;
-    }
-
-    public void setFrame(AbsCommonFrame _f) {
-        this.frame = _f;
-    }
-
-    public IdList<MetaSearchableContent> getMetaSearchableContents() {
-        return metaSearchableContents;
-    }
-
-    public IdMap<AbsCustComponent, AbsCustComponent> getParents() {
-        return parents;
-    }
-
-    public IdMap<MetaSearchableContent, AbsTextPane> getRefsSearch() {
-        return refsSearch;
     }
 
 }

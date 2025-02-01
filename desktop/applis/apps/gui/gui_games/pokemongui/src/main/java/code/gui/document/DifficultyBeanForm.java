@@ -25,39 +25,41 @@ public final class DifficultyBeanForm {
     private GeneComponentModelElt<String> damageRatePlayer;
     private GeneComponentModelElt<String> damageRateLawFoe;
 
-    public void displayDiff(AbsBeanRender _rend, AbsPanel _panel, DifficultyCommon _common, AbstractProgramInfos _api, String _file) {
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_WIN_PTS);
-        winPointsFight = select(_rend, _panel, _api, _common.getWinPointsFight(), _common.getDiffWinningExpPtsFight());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_ALLOW_CATCHING_KO);
-        allowCatchingKo = check(_rend, _panel, _api, _common.getAllowCatchingKo());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_ALLOW_SWITCH_PLACES);
-        allowedSwitchPlacesEndRound = check(_rend, _panel, _api, _common.getAllowedSwitchPlacesEndRound());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_WIN_TRAINER_EXP);
-        winTrainerExp = rate(_rend,_panel,_api,_common.getWinTrainerExp());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_WINNING_EXP_PTS_FIGHT);
-        rateWinningExpPtsFight = rate(_rend,_panel,_api,_common.getRateWinningExpPtsFight());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_END_FIGHT);
-        endFightIfOneTeamKo = check(_rend,_panel,_api,_common.getEndFightIfOneTeamKo());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_IV_PLAYER);
-        ivPlayer = iv(_rend, _panel, _api, _common.getIvPlayer());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_IV_FOE);
-        ivFoe = iv(_rend, _panel, _api, _common.getIvFoe());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_RESTORED_MOVES);
-        restoredMovesEndFight = check(_rend, _panel, _api, _common.getRestoredMovesEndFight());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_CLOSING);
-        enabledClosing = check(_rend, _panel, _api, _common.getEnabledClosing());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_RANDOM_WILD);
-        randomWildFight = check(_rend, _panel, _api, _common.getRandomWildFight());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_FLEE);
-        stillPossibleFlee = check(_rend, _panel, _api, _common.getStillPossibleFlee());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_SKIP_LEARN);
-        skipLearningMovesWhileNotGrowingLevel = check(_rend, _panel, _api, _common.getSkipLearningMovesWhileNotGrowingLevel());
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_PLAYER);
-        damageRatePlayer = select(_rend, _panel, _api, _common.getDamageRates(), _common.getDamageRatePlayer());
-        _panel.add(tableView(_rend, _api, _file, _common.getDamageRatePlayerTable()));
-        _rend.formatMessage(_api,_panel,_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_FOE);
-        damageRateLawFoe = select(_rend, _panel, _api, _common.getDamageRates(), _common.getDamageRateLawFoe());
-        _panel.add(tableView(_rend, _api, _file, _common.getDamageRateFoeTable()));
+    public void displayDiff(AbsBeanRender _rend, DifficultyCommon _common, AbstractProgramInfos _api, String _file) {
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_WIN_PTS);
+        winPointsFight = select(_rend, _api, _common.getWinPointsFight(), _common.getDiffWinningExpPtsFight());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_ALLOW_CATCHING_KO);
+        allowCatchingKo = check(_rend, _api, _common.getAllowCatchingKo());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_ALLOW_SWITCH_PLACES);
+        allowedSwitchPlacesEndRound = check(_rend, _api, _common.getAllowedSwitchPlacesEndRound());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_WIN_TRAINER_EXP);
+        winTrainerExp = rate(_rend, _api,_common.getWinTrainerExp());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_WINNING_EXP_PTS_FIGHT);
+        rateWinningExpPtsFight = rate(_rend, _api,_common.getRateWinningExpPtsFight());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_END_FIGHT);
+        endFightIfOneTeamKo = check(_rend, _api,_common.getEndFightIfOneTeamKo());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_IV_PLAYER);
+        ivPlayer = iv(_rend, _api, _common.getIvPlayer());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_IV_FOE);
+        ivFoe = iv(_rend, _api, _common.getIvFoe());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RESTORED_MOVES);
+        restoredMovesEndFight = check(_rend, _api, _common.getRestoredMovesEndFight());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_CLOSING);
+        enabledClosing = check(_rend, _api, _common.getEnabledClosing());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RANDOM_WILD);
+        randomWildFight = check(_rend, _api, _common.getRandomWildFight());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_FLEE);
+        stillPossibleFlee = check(_rend, _api, _common.getStillPossibleFlee());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_SKIP_LEARN);
+        skipLearningMovesWhileNotGrowingLevel = check(_rend, _api, _common.getSkipLearningMovesWhileNotGrowingLevel());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_PLAYER);
+        damageRatePlayer = select(_rend, _api, _common.getDamageRates(), _common.getDamageRatePlayer());
+        tableView(_rend, _file, _common.getDamageRatePlayerTable());
+        _rend.feedParents();
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_FOE);
+        damageRateLawFoe = select(_rend, _api, _common.getDamageRates(), _common.getDamageRateLawFoe());
+        tableView(_rend, _file, _common.getDamageRateFoeTable());
+        _rend.feedParents();
     }
 
     public void update(DifficultyCommon _common) {
@@ -77,39 +79,38 @@ public final class DifficultyBeanForm {
         _common.setDamageRatePlayer(damageRatePlayer.tryRet());
         _common.setDamageRateLawFoe(damageRateLawFoe.tryRet());
     }
-    private AbsPanel tableView(AbsBeanRender _rend, AbstractProgramInfos _api, String _file, DictionaryComparator<Rate, Rate> _info) {
-        AbsPanel grid_ = _api.getCompoFactory().newGrid();
-        _rend.headerCols(_api,grid_, _file, _info,MessagesGameDifficulty.M_P_93_RATE_DAMAGE_EV,MessagesGameDifficulty.M_P_93_RATE_DAMAGE);
-        new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).display(_rend, _api,grid_, _info, 2);
+    private void tableView(AbsBeanRender _rend, String _file, DictionaryComparator<Rate, Rate> _info) {
+        _rend.initGrid();
+        _rend.headerCols(_file, _info,MessagesGameDifficulty.M_P_93_RATE_DAMAGE_EV,MessagesGameDifficulty.M_P_93_RATE_DAMAGE);
+        new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).display(_rend, _info);
         _rend.nextPart();
-        return grid_;
     }
 
-    private AbsCustCheckBox check(AbsBeanRender _rend, AbsPanel _panel, AbstractProgramInfos _api, boolean _value) {
+    private AbsCustCheckBox check(AbsBeanRender _rend, AbstractProgramInfos _api, boolean _value) {
         AbsCustCheckBox check_ = _api.getCompoFactory().newCustCheckBox("", _value);
-        _rend.feedParents(_panel,check_);
+        _rend.feedParent(check_);
         _rend.nextPart();
         return check_;
     }
 
-    private GeneComponentModelRate rate(AbsBeanRender _rend, AbsPanel _panel, AbstractProgramInfos _api, Rate _value) {
+    private GeneComponentModelRate rate(AbsBeanRender _rend, AbstractProgramInfos _api, Rate _value) {
         GeneComponentModelRate rate_ = new GeneComponentModelRate(_api);
-        _rend.feedParents(_panel,rate_.geneRate(_value));
+        _rend.feedParent(rate_.geneRate(_value));
         _rend.nextPart();
         return rate_;
     }
 
-    private GeneComponentModelLong iv(AbsBeanRender _rend, AbsPanel _panel, AbstractProgramInfos _api, long _value) {
+    private GeneComponentModelLong iv(AbsBeanRender _rend, AbstractProgramInfos _api, long _value) {
         GeneComponentModelLong ivPlayer_ = new GeneComponentModelLong(_api);
         ivPlayer_.geneLong().setValue(_value);
-        _rend.feedParents(_panel,ivPlayer_.getTextLong());
+        _rend.feedParent(ivPlayer_.getTextLong());
         _rend.nextPart();
         return ivPlayer_;
     }
 
-    private GeneComponentModelElt<String> select(AbsBeanRender _rend, AbsPanel _panel, AbstractProgramInfos _api, StringMap<String> _map, String _v) {
+    private GeneComponentModelElt<String> select(AbsBeanRender _rend, AbstractProgramInfos _api, StringMap<String> _map, String _v) {
         GeneComponentModelElt<String> sel_ = new GeneComponentModelElt<String>(_api, _map,new EmptyDefValue());
-        _rend.feedParents(_panel,sel_.geneEnum());
+        _rend.feedParent(sel_.geneEnum());
         sel_.setupValue(_v);
         _rend.nextPart();
         return sel_;
