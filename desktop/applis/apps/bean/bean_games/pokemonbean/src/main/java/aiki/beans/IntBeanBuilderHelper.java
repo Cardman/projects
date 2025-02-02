@@ -65,6 +65,10 @@ public abstract class IntBeanBuilderHelper {
     public abstract void breakLine();
     public abstract void paintMetaLabelDisk();
     public abstract void addImg(int[][] _img);
+
+    public void build(IntBeanAction _action) {
+        build(_action.actionBean(), _action.getBean().getForms());
+    }
     public abstract void build(String _dest, StringMapObject _form);
 
     public IntBeanChgSubmit button(String _txt) {

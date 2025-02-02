@@ -23,7 +23,7 @@ import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public class FighterBean extends CommonFightBean {
+public final class FighterBean extends CommonFightBean {
     private String name;
 
     private String keyName;
@@ -89,7 +89,7 @@ public class FighterBean extends CommonFightBean {
 
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
-        init(this,getFacade(),_form);
+        init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFighter.M_P_91_TITLE)));
         initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_FIGHT);

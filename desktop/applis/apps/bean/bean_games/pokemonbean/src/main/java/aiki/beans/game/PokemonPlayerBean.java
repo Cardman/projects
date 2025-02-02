@@ -44,7 +44,7 @@ public final class PokemonPlayerBean extends CommonSingleBean implements BeanRen
     }
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
-        init(this,getFacade(),_form);
+        init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesPkPokemon.M_P_94_TITLE),getName()));
         initPage();
         formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NAME, getName());

@@ -835,7 +835,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
 //        prepareFightTask(window_);
         window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
-        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
+//        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());
@@ -949,7 +949,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
 //        prepareFightTask(window_);
         window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
-        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
+//        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().getTranslations());
         updateBase(window_.getFrames().currentLg());

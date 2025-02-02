@@ -19,7 +19,7 @@ import code.scripts.pages.aiki.MessagesPkBean;
 import code.scripts.pages.aiki.MessagesProgGameprog;
 import code.util.*;
 
-public class GameProgressionBean extends CommonSingleBean implements BeanRenderWithAppName {
+public final class GameProgressionBean extends CommonSingleBean implements BeanRenderWithAppName {
     private int[][] heroImage;
     private int[][] heroImageOppositeSex;
     private String nickname;
@@ -45,7 +45,7 @@ public class GameProgressionBean extends CommonSingleBean implements BeanRenderW
     }
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
-        init(this,getFacade(),_form);
+        init(_facade,_form);
         setTitledBorder(file().getVal(MessagesProgGameprog.M_P_95_TITLE));
         initPage();
         displayBool(getFinishedGame(), CommonBean.TRUE_VALUE,getHeroImage());

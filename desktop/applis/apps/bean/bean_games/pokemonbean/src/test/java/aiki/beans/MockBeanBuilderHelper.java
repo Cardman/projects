@@ -69,6 +69,7 @@ public final class MockBeanBuilderHelper extends IntBeanBuilderHelper {
     @Override
     public void build(String _dest, StringMapObject _form) {
         BeanRenderWithAppName target_ = getRenders().getVal(_dest);
+        clearAnchors();
         initPage();
         target_.setBuilder(this);
         target_.build(target_.getFacade(), _form);

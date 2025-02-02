@@ -248,7 +248,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     public static String navigateDiffChange(DifficultyBean _str, long... _args) {
         _str.getBuilder().getRenders().addEntry("",_str);
         IntBeanAction intAct_ = ((AbsBeanChgSubmit) _str.getUpdateValues()).getEvts().get(0);
-        _str.getBuilder().build(intAct_.actionBean(),intAct_.getBean().getForms());
+        _str.getBuilder().build(intAct_);
         return "";
 //        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
     }

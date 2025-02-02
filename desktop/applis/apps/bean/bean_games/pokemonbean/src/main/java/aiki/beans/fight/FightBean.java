@@ -14,7 +14,7 @@ import code.util.NatStringTreeMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class FightBean extends CommonFightBean {
+public final class FightBean extends CommonFightBean {
     private int mult;
     private NatStringTreeMap<ActivityOfMoveStill> enabledMoves;
     private int nbFleeAttempt;
@@ -23,7 +23,7 @@ public class FightBean extends CommonFightBean {
 
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
-        init(this,getFacade(),_form);
+        init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_FIGHT)));
         initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);

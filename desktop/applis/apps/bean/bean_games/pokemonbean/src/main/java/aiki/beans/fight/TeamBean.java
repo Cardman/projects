@@ -14,7 +14,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class TeamBean extends CommonFightBean {
+public final class TeamBean extends CommonFightBean {
     private DictionaryComparator<StringList,ActivityOfMove> enabledMovesByGroup;
     private NatStringTreeMap<ActivityOfMoveStill> enabledMoves;
     private NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses;
@@ -27,7 +27,7 @@ public class TeamBean extends CommonFightBean {
 
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
-        init(this,getFacade(),_form);
+        init(_facade,_form);
         if (getFoeTeam()) {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightTeam.M_P_92_TITLE_FOE)));
         } else {

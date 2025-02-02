@@ -233,8 +233,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         lawTwo_.addQuickEvent(Rate.one(),LgInt.one());
         window_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawTwo_,0));
 //        prepareDiffTask(window_);
-        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
-        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
         window_.getDifficulty().setEnabled(true);
         tryClick(window_.getDifficulty());
         assertTrue(window_.getDialogDifficulty().getAbsDialog().isVisible());
@@ -277,8 +277,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         lawTwo_.addQuickEvent(Rate.one(),LgInt.one());
         window_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawTwo_,0));
 //        prepareDiffTask(window_);
-        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
-        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
         window_.getDifficulty().setEnabled(true);
         tryClick(window_.getDifficulty());
         assertTrue(window_.getDialogDifficulty().getAbsDialog().isVisible());

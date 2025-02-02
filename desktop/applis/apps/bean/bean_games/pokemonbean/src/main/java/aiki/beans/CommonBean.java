@@ -365,11 +365,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         }
     }
 
-    protected void init(CommonBean _common, FacadeGame _facade, StringMapObject _form) {
-        _common.setDataBase(_facade);
-        _common.setForms(_form);
-        _common.setLanguage(_facade.getLanguage());
-        _common.beforeDisplaying();
+    protected void init(FacadeGame _facade, StringMapObject _form) {
+        setDataBase(_facade);
+        setForms(_form);
+        setLanguage(_facade.getLanguage());
+        beforeDisplaying();
     }
 
     public TranslationsFile file(String _file) {

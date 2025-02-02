@@ -288,7 +288,7 @@ public abstract class EquallableAikiGuiUtil {
     }
     public static void tryClick(IntBeanBuilderHelper _m, int _index) {
         IntBeanAction act_ = _m.getAnchors().get(_index);
-        _m.build(act_.actionBean(),act_.getBean().getForms());
+        _m.build(act_);
     }
     public static void tryClick(AbsPaintableLabel _m,int _x, int _y) {
         assertTrue(_m.isVisible());

@@ -23,17 +23,12 @@ import code.gui.AbsCommonFrame;
 import code.gui.AbsCustComponent;
 import code.gui.AbsScrollPane;
 import code.gui.document.BeanBuilderHelper;
-import code.scripts.pages.aiki.MessagesPkBean;
-import code.scripts.pages.aiki.MessagesPkPokemon;
-import code.scripts.pages.aiki.MessagesProgGameprog;
+import code.scripts.pages.aiki.*;
 import code.gui.events.AlwaysActionListenerAct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.mock.MockCustComponent;
 import code.mock.MockProgramInfos;
-import code.sml.util.TranslationsAppli;
-import code.sml.util.TranslationsFile;
-import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -43,12 +38,13 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void progress() {
         WindowAiki window_ = newProg();
-        TranslationsAppli en_ = new TranslationsAppli();
-        en_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.en());
-        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, en_);
-        TranslationsAppli fr_ = new TranslationsAppli();
-        fr_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.fr());
-        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, fr_);
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        TranslationsAppli en_ = new TranslationsAppli();
+//        en_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.en());
+//        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, en_);
+//        TranslationsAppli fr_ = new TranslationsAppli();
+//        fr_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.fr());
+//        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, fr_);
 //        window_.getCore().getAikiFactory().submitNavProgTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
 //        window_.setPreparedProgTask(window_.getCore().getAikiFactory().getTaskNavProg());
         loadRomGame(window_);
@@ -58,12 +54,13 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void progressEvo() {
         WindowAiki window_ = newProg();
-        TranslationsAppli en_ = new TranslationsAppli();
-        en_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.en());
-        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, en_);
-        TranslationsAppli fr_ = new TranslationsAppli();
-        fr_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.fr());
-        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, fr_);
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        TranslationsAppli en_ = new TranslationsAppli();
+//        en_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.en());
+//        ((MockProgramInfos)window_.getFrames()).getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPkBean.APP_BEAN, en_);
+//        TranslationsAppli fr_ = new TranslationsAppli();
+//        fr_.getMapping().addEntry(MessagesPkBean.GAMEPROG, MessagesProgGameprog.fr());
+//        ((MockProgramInfos)window_.getFrames()).lg(FR).getMapping().addEntry(MessagesPkBean.APP_BEAN, fr_);
 //        window_.getCore().getAikiFactory().submitNavProgTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
 //        window_.setPreparedProgTask(window_.getCore().getAikiFactory().getTaskNavProg());
         loadRomGameIt(window_);
@@ -1192,8 +1189,9 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void consBoxPk() {
         WindowAiki window_ = newSelPkCons();
-        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
-        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+//        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
         ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
 //        preparePkTask(window_);
         loadRomGamePksThreeTimes(window_);
@@ -1243,8 +1241,9 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void consHost1() {
         WindowAiki window_ = newHostCons();
-        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
-        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+//        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
         ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
 //        preparePkTask(window_);
         loadRomGameOneHost(window_);
@@ -1269,8 +1268,9 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void consHost2() {
         WindowAiki window_ = newHostCons();
-        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
-        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+//        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
         ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
 //        preparePkTask(window_);
         loadRomGameOneHost(window_);
@@ -3399,8 +3399,9 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void teamManage6() {
         WindowAiki window_ = newProg();
-        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
-        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+//        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
         ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
 //        preparePkTask(window_);
         loadRomGameManageTeam(window_);
@@ -3422,8 +3423,9 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void teamManage7() {
         WindowAiki window_ = newProg();
-        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
-        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+//        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
         ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
 //        preparePkTask(window_);
         loadRomGameManageTeam(window_);
@@ -3498,8 +3500,9 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
     @Test
     public void teamManage12() {
         WindowAiki window_ = newProg();
-        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
-        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+//        update(window_.getFrames().currentLg(), MessagesPkPokemon.en());
+//        update(((MockProgramInfos)window_.getFrames()).lg(FR), MessagesPkPokemon.fr());
         ((MockProgramInfos)window_.getFrames()).setLanguage(EN);
         loadRomGameItBaseTwoAbilities(window_);
         tryClick(window_.getScenePanel().getTeam());
@@ -4879,12 +4882,6 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         data_.getTmPrice().addEntry(3,new LgInt("2"));
         compute(data_);
         return data_;
-    }
-
-    private void update(TranslationsLg _lg, TranslationsFile _file) {
-        TranslationsAppli ta_ = new TranslationsAppli();
-        ta_.getMapping().addEntry(MessagesPkBean.POKEMON, _file);
-        _lg.getMapping().addEntry(MessagesPkBean.APP_BEAN, ta_);
     }
 
     private AbsScrollPane scroll(PkDetailContent _det) {

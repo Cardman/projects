@@ -20,7 +20,7 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
-public class FightCalculationBean extends CommonFightBean {
+public final class FightCalculationBean extends CommonFightBean {
     private DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> allyChoice;
     private DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> foeChoices;
 
@@ -31,7 +31,7 @@ public class FightCalculationBean extends CommonFightBean {
 
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
-        init(this,getFacade(),_form);
+        init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_DETAIL_FIGHT)));
         initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_FIGHT);

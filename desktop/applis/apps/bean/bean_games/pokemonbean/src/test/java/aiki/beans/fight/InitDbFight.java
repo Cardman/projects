@@ -309,9 +309,8 @@ public abstract class InitDbFight extends InitDbBean {
         bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,fightBean_);
         bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,b_);
         fightBean_.build(_fac,new StringMapObject());
-        String act_ = bu_.getAnchors().get(1).actionBean();
-        CommonBean from_ = bu_.getAnchors().get(1).getBean();
-        bu_.build(act_,from_.getForms());
+        IntBeanAction anc_ = bu_.getAnchors().get(1);
+        bu_.build(anc_);
         return b_;
     }
 
@@ -335,11 +334,8 @@ public abstract class InitDbFight extends InitDbBean {
         bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,bFigtht_);
         bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,bTeam_);
         bFigtht_.build(_facade,bFigtht_.getForms());
-        String act_ = bFigtht_.getBuilder().getAnchors().get(2 + _caller).actionBean();
-        CommonBean bean_ = bFigtht_.getBuilder().getAnchors().get(2 + _caller).getBean();
-        setFormsBy(bTeam_, bFigtht_);
-        bFigtht_.getBuilder().clearAnchors();
-        bFigtht_.getBuilder().build(act_,bean_.getForms());
+        IntBeanAction anc_ = bFigtht_.getBuilder().getAnchors().get(2 + _caller);
+        bFigtht_.getBuilder().build(anc_);
         return bTeam_;
     }
 

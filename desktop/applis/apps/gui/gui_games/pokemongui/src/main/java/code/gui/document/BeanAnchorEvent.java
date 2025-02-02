@@ -25,6 +25,6 @@ public final class BeanAnchorEvent implements AbsMouseListenerIntRel, AbsActionL
     }
 
     public void build() {
-        helper.build(action.actionBean(), action.getBean().getForms());
+        helper.build(action);
     }
 }

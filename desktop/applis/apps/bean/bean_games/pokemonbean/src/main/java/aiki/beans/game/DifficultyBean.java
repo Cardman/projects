@@ -7,7 +7,7 @@ import aiki.game.params.Difficulty;
 import code.scripts.pages.aiki.MessagesGameDifficulty;
 import code.scripts.pages.aiki.MessagesPkBean;
 
-public class DifficultyBean extends CommonSingleBean implements WithDifficultyCommon, BeanRenderWithAppName {
+public final class DifficultyBean extends CommonSingleBean implements WithDifficultyCommon, BeanRenderWithAppName {
     private final DifficultyCommon difficultyCommon = new DifficultyCommon();
     private final DifficultyBeanForm form = new DifficultyBeanForm();
     private IntBeanChgSubmit updateValues;
@@ -18,7 +18,7 @@ public class DifficultyBean extends CommonSingleBean implements WithDifficultyCo
 
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
-        init(this,getFacade(),_form);
+        init(_facade,_form);
         setTitledBorder(formatMessageRend(MessagesPkBean.DIFFICULTY, MessagesGameDifficulty.M_P_93_TITLE));
         form.displayDiff(getBuilder().getGenInput(), this, getDifficultyCommon(), MessagesPkBean.DIFFICULTY);
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.DIFFICULTY,MessagesGameDifficulty.M_P_93_OK));
