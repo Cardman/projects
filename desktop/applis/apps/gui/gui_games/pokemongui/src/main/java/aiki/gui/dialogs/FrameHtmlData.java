@@ -4,6 +4,7 @@ package aiki.gui.dialogs;
 
 
 import aiki.beans.BeanNatCommonLgNamesForm;
+import aiki.beans.fight.*;
 import aiki.facade.FacadeGame;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.VideoLoading;
@@ -75,10 +76,10 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         menuItem.setEnabled(false);
     }
     public void initFightBeans() {
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,new FightBeanRender());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,new FightCalculationBeanRender());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,new TeamBeanRender());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,new FighterBeanRender());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,new FightBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,new FightCalculationBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,new TeamBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,new FighterBean());
     }
     public void setDialogIcon(AbsCommonFrame _group) {
         setIconImage(_group.getImageIconFrame());

@@ -50,6 +50,10 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 import code.util.core.BoolVal;
 
@@ -133,6 +137,17 @@ public abstract class InitDbFight extends InitDbBean {
         b_.setDataBase(_dataBase);
         b_.setForms(new StringMapObject());
         b_.setLanguage(_language);
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT, MessagesPkBean.enFight());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT, MessagesPkBean.frFight());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_dataBase);
+        b_.setBuilder(bu_);
         return b_;
     }
 
@@ -271,19 +286,41 @@ public abstract class InitDbFight extends InitDbBean {
         return _ls.get(_v);
     }
     public FightCalculationBean beanFightCalculation(FacadeGame _fac) {
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT, MessagesPkBean.enFight());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT, MessagesPkBean.frFight());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_fac);
+        FightBean fightBean_ = new FightBean();
+        fightBean_.setBuilder(bu_);
+        fightBean_.setDataBase(_fac);
+        fightBean_.setLanguage(EN);
+        fightBean_.setForms(new StringMapObject());
         FightCalculationBean b_ = new FightCalculationBean();
         b_.setDataBase(_fac);
         b_.setForms(new StringMapObject());
         b_.setLanguage(EN);
-        b_.beforeDisplaying();
+        b_.setBuilder(bu_);
+        bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,fightBean_);
+        bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,b_);
+        fightBean_.build(_fac,new StringMapObject());
+        String act_ = bu_.getAnchors().get(1).actionBean();
+        CommonBean from_ = bu_.getAnchors().get(1).getBean();
+        bu_.build(act_,from_.getForms());
         return b_;
     }
 
-    public static TeamBean beanTeam(String _language, FacadeGame _dataBase) {
+    public static TeamBean beanTeam(String _language, FacadeGame _dataBase, FightBean _f) {
         TeamBean b_ = new TeamBean();
         b_.setDataBase(_dataBase);
         b_.setForms(new StringMapObject());
         b_.setLanguage(_language);
+        b_.setBuilder(_f.getBuilder());
         return b_;
     }
 
@@ -294,9 +331,15 @@ public abstract class InitDbFight extends InitDbBean {
 
     protected TeamBean beanTeam(int _caller, FacadeGame _facade) {
         FightBean bFigtht_ = beanFight(EN, _facade);
-        TeamBean bTeam_ = beanTeam(EN, _facade);
-        bFigtht_.click(_caller);
-        forms(bFigtht_,bTeam_);
+        TeamBean bTeam_ = beanTeam(EN, _facade,bFigtht_);
+        bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,bFigtht_);
+        bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,bTeam_);
+        bFigtht_.build(_facade,bFigtht_.getForms());
+        String act_ = bFigtht_.getBuilder().getAnchors().get(2 + _caller).actionBean();
+        CommonBean bean_ = bFigtht_.getBuilder().getAnchors().get(2 + _caller).getBean();
+        setFormsBy(bTeam_, bFigtht_);
+        bFigtht_.getBuilder().clearAnchors();
+        bFigtht_.getBuilder().build(act_,bean_.getForms());
         return bTeam_;
     }
 
@@ -957,10 +1000,6 @@ public abstract class InitDbFight extends InitDbBean {
         _bean.setLanguage(EN);
     }
 
-    protected static void forms(CommonBean _first, CommonBean _second) {
-        setFormsBy(_second, _first);
-        _second.beforeDisplaying();
-    }
     protected DataBase dbFighter() {
         DataBase data_ = dbBase();
         secondPk(data_);

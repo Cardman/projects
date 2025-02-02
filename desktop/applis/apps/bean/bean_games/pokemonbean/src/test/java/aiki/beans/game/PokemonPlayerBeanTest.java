@@ -1,5 +1,6 @@
 package aiki.beans.game;
 
+import aiki.beans.MockBeanBuilderHelper;
 import aiki.beans.StringMapObject;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -15,6 +16,9 @@ import aiki.instances.Instances;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -435,7 +439,18 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         b_.setDataBase(_fac);
         b_.setForms(new StringMapObject());
         b_.setLanguage(EN);
-        b_.beforeDisplaying();
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_fac);
+        b_.setBuilder(bu_);
+        b_.build(_fac,b_.getForms());
         return b_;
     }
 

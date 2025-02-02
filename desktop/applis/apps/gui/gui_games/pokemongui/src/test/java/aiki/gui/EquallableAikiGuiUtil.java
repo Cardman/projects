@@ -1,5 +1,7 @@
 package aiki.gui;
 
+import aiki.beans.IntBeanAction;
+import aiki.beans.IntBeanBuilderHelper;
 import aiki.db.DataBase;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.MessagesDataBaseConstants;
@@ -16,7 +18,7 @@ import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
 import code.gui.document.DefBeanChgSubmit;
-import code.gui.document.IntBeanChgSubmit;
+import aiki.beans.IntBeanChgSubmit;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
@@ -284,10 +286,9 @@ public abstract class EquallableAikiGuiUtil {
         assertTrue(_m.isEnabled());
         _m.getMouseListenersRel().get(0).mouseReleased(null, null, null);
     }
-    public static void tryClick(AbsTextPane _m) {
-        assertTrue(_m.isVisible());
-        assertTrue(_m.isEnabled());
-        _m.getMouseListenersRel().get(0).mouseReleased(null, null, null);
+    public static void tryClick(IntBeanBuilderHelper _m, int _index) {
+        IntBeanAction act_ = _m.getAnchors().get(_index);
+        _m.build(act_.actionBean(),act_.getBean().getForms());
     }
     public static void tryClick(AbsPaintableLabel _m,int _x, int _y) {
         assertTrue(_m.isVisible());

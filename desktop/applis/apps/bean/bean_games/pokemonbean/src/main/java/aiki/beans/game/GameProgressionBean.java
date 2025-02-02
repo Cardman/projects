@@ -1,6 +1,9 @@
 package aiki.beans.game;
 
+import aiki.beans.BeanRenderWithAppName;
+import aiki.beans.CommonBean;
 import aiki.beans.CommonSingleBean;
+import aiki.beans.StringMapObject;
 import aiki.comparators.ComparatorTrainerPlaceNames;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -12,9 +15,11 @@ import aiki.game.Game;
 import aiki.game.GameProgression;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.LgInt;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.MessagesProgGameprog;
 import code.util.*;
 
-public class GameProgressionBean extends CommonSingleBean {
+public class GameProgressionBean extends CommonSingleBean implements BeanRenderWithAppName {
     private int[][] heroImage;
     private int[][] heroImageOppositeSex;
     private String nickname;
@@ -35,6 +40,104 @@ public class GameProgressionBean extends CommonSingleBean {
     private int nbRemainingNotMaxLevel;
     private int nbRemainingNotMaxHappiness;
 
+    public GameProgressionBean() {
+        setAppName(MessagesPkBean.APP_BEAN);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(this,getFacade(),_form);
+        setTitledBorder(file().getVal(MessagesProgGameprog.M_P_95_TITLE));
+        initPage();
+        displayBool(getFinishedGame(), CommonBean.TRUE_VALUE,getHeroImage());
+        displayBool(getFinishedGame(),CommonBean.TRUE_VALUE,getHeroImageOppositeSex());
+        displayBool(getFinishedGame(),CommonBean.TRUE_VALUE,getEndGameImage());
+        displayBoolFalse(MessagesPkBean.GAMEPROG,getFinishedGame(),MessagesProgGameprog.M_P_95_NICKNAME,getNickname());
+        displayBool(getFinishedGame(),CommonBean.FALSE_VALUE,getHeroImage());
+        feedParents();
+        nextPart();
+        build(getNotAtAllFamiliesBase(),file().getVal(MessagesProgGameprog.M_P_95_TITLENOTATALL));
+        feedParents();
+        nextPart();
+        buildPart(file().getVal(MessagesProgGameprog.M_P_95_TITLEPART));
+        feedParents();
+        nextPart();
+        build(getFullFamiliesBase(),file().getVal(MessagesProgGameprog.M_P_95_TITLEFULL));
+        feedParents();
+        nextPart();
+        displayTrainerPlaceNamesList(MessagesPkBean.GAMEPROG,getUnBeatenImportantTrainers(),MessagesProgGameprog.M_P_95_UNBEATTRAINER);
+        nextPart();
+        displayTrainerPlaceNamesList(MessagesPkBean.GAMEPROG,getBeatenImportantTrainers(),MessagesProgGameprog.M_P_95_BEATTRAINER);
+        nextPart();
+        display(MessagesPkBean.GAMEPROG,getRemainingOtherTrainerPlaces(),MessagesProgGameprog.M_P_95_OTHERTRAINERS);
+        initGrid();
+        headerCols(MessagesPkBean.GAMEPROG,getRemainingOtherTrainerPlaces(),MessagesProgGameprog.M_P_95_OTHERTRAINERSPLACE,MessagesProgGameprog.M_P_95_OTHERTRAINERSNUMBER);
+        for (EntryCust<Integer,PlaceNamePk> e: getRemainingOtherTrainerPlaces().entryList()) {
+            formatMessageDirCts(e.getValue().getName());
+            formatMessageDirCts(Long.toString(e.getValue().getIndex()));
+        }
+        feedParents();
+        nextPart();
+        displayStringList(MessagesPkBean.GAMEPROG,getUnVisitedPlaces(),MessagesProgGameprog.M_P_95_UNVISITPLACE);
+        nextPart();
+        displayStringList(MessagesPkBean.GAMEPROG,getVisitedPlaces(),MessagesProgGameprog.M_P_95_VISITPLACE);
+        nextPart();
+        initPage();
+        formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NBREMPKLEVEL,Long.toString(getNbRemainingNotMaxLevel()));
+        formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NBREMPKHAPPINESS,Long.toString(getNbRemainingNotMaxHappiness()));
+        formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NBREMEGG,Long.toString(getNbRemainingEggs()));
+        formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_REPEL,Long.toString(getRemainStepsRepel()));
+        formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_MONEY,getMoney().toNumberString());
+        feedParents();
+    }
+    private void build(NatStringTreeMap<CustList<CustList<ImgPkPlayer>>> _groups, String _title) {
+        initPage();
+        setTitledBorder(_title);
+        for (EntryCust<String,CustList<CustList<ImgPkPlayer>>> e: _groups.entryList()) {
+            initLine();
+            formatMessageDir(e.getKey());
+            nextPart();
+            for (CustList<ImgPkPlayer> s:e.getValue()) {
+                initPage();
+                buildPkList(s);
+                feedParents();
+            }
+            feedParents();
+        }
+    }
+
+    private void buildPart(String _title) {
+        initPage();
+        setTitledBorder(_title);
+        int len_ = getPartialFamiliesBaseNotCaught().size();
+        for (int i = 0; i < len_; i++) {
+            EntryCust<String, CustList<CustList<ImgPkPlayer>>> e_ = getPartialFamiliesBaseNotCaught().getEntry(i);
+            initLine();
+            formatMessageDir(e_.getKey());
+            initGrid();
+            int s_ = e_.getValue().size();
+            getBuilder().setColCount(s_+1);
+            formatMessageCts(MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_NOTCAUGHTPKCAUGHTNOTPART);
+            nextPart();
+            for (int j = 0; j < s_; j++) {
+                initPage();
+                buildPkList(e_.getValue().get(j));
+                feedParentsCts();
+            }
+            formatMessageCts(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NOTCAUGHTPKCAUGHTPART);
+            nextPart();
+            for (int j = 0; j < s_; j++) {
+                initPage();
+                buildPkList(getPartialFamiliesBaseCaught().getValue(i).get(j));
+                feedParentsCts();
+            }
+            feedParents();
+            feedParents();
+        }
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.GAMEPROG).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         FacadeGame facade_ = facade();

@@ -1,17 +1,21 @@
 package aiki.beans.fight;
 
+import aiki.beans.*;
 import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class CommonFightBean extends CommonBean {
+public abstract class CommonFightBean extends CommonBean implements BeanRenderWithAppName {
 
     protected static final String NO_FIGHTER = "no_fighter";
     protected static final String NO_TEAM = "no_team";
@@ -19,6 +23,13 @@ public abstract class CommonFightBean extends CommonBean {
     protected static final String MOVES_SEPARATOR = ";";
     protected static final String SPACE = " ";
 
+    protected CommonFightBean() {
+        setAppName(MessagesPkBean.APP_BEAN_FIGHT);
+    }
+
+    public StringMap<TranslationsFile> filesFight() {
+        return getBuilder().files(getAppName());
+    }
     public FacadeGame facade() {
         return db();
     }

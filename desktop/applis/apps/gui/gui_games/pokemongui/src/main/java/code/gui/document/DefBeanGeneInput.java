@@ -1,5 +1,6 @@
 package code.gui.document;
 
+import aiki.beans.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;

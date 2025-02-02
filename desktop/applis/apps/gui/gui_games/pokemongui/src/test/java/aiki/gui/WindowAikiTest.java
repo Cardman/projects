@@ -26,6 +26,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.mock.*;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.*;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;

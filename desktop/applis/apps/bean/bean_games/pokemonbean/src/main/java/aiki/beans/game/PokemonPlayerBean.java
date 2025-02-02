@@ -1,8 +1,9 @@
 package aiki.beans.game;
 
-import aiki.beans.CommonSingleBean;
+import aiki.beans.*;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
+import aiki.beans.fight.BeanDisplayUsesOfMove;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -11,9 +12,12 @@ import aiki.game.fight.FightFacade;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.MessagesPkPokemon;
 import code.util.*;
+import code.util.core.StringUtil;
 
-public final class PokemonPlayerBean extends CommonSingleBean {
+public final class PokemonPlayerBean extends CommonSingleBean implements BeanRenderWithAppName {
     private String name;
     private int[][] image;
     private long level;
@@ -35,6 +39,63 @@ public final class PokemonPlayerBean extends CommonSingleBean {
     private long nbStepsTeamLead;
     private CustList<ImgPkPlayer> evolutions;
 
+    public PokemonPlayerBean() {
+        setAppName(MessagesPkBean.APP_BEAN);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(this,getFacade(),_form);
+        setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesPkPokemon.M_P_94_TITLE),getName()));
+        initPage();
+        formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NAME, getName());
+        addImg(getImage());
+        feedParents();
+        nextPart();
+        breakLine();
+        initLine();
+        buildPkList(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_EVOLUTIONS, getEvolutions());
+        feedParents();
+        feedParents();
+        nextPart();
+        initPage();
+        formatMessage(MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_LEVEL,Long.toString(getLevel()));
+        formatMessage(MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_GENDER,getGender());
+        formatMessage(MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_ABILITY,getAbility());
+        displayNotEmpty(MessagesPkBean.POKEMON,getUsedBallCatching(),MessagesPkPokemon.M_P_94_USED_BALL_CATCHING);
+        displayNotEmpty(MessagesPkBean.POKEMON,getItem(),MessagesPkPokemon.M_P_94_ITEM);
+        displayEmpty(MessagesPkBean.POKEMON,getItem(),MessagesPkPokemon.M_P_94_ITEM_NO);
+        formatMessage(MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_HP,getRemainingHp().toNumberString(),getRemainingHpPerCent(),getFullHp().toNumberString());
+        formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NICKNAME,getNickname());
+        formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_WON_EXP_LAST_LEVEL,getWonExpSinceLastLevel().toNumberString());
+        formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NECESSARY_PTS,getNecessaryPointsNextLevel().toNumberString());
+        formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_HAPPINESS,Long.toString(getHappiness()));
+        formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NB_STEPS,Long.toString(getNbStepsTeamLead()));
+        feedParents();
+        nextPart();
+        displayStringList(MessagesPkBean.POKEMON, getTypes(), MessagesPkPokemon.M_P_94_TYPES);
+        displayStringList(MessagesPkBean.POKEMON, getStatus(), MessagesPkPokemon.M_P_94_STATUS);
+        nextPart();
+        display(MessagesPkBean.POKEMON,getMoves(),MessagesPkPokemon.M_P_94_MOVES);
+        initGrid();
+        headerCols(MessagesPkBean.POKEMON,getMoves(), MessagesPkPokemon.M_P_94_MOVES_KEY, MessagesPkPokemon.M_P_94_MOVES_CUR_PP, MessagesPkPokemon.M_P_94_MOVES_MAX_PP);
+        new BeanDisplayMap<String,UsesOfMove>(new BeanDisplayString(),new BeanDisplayUsesOfMove()).display(this, getMoves());
+        feedParents();
+        nextPart();
+        display(MessagesPkBean.POKEMON,getStatistics(),MessagesPkPokemon.M_P_94_STATISTICS);
+        initGrid();
+        headerCols(MessagesPkBean.POKEMON,getStatistics(), MessagesPkPokemon.M_P_94_STATISTICS_KEY, MessagesPkPokemon.M_P_94_STATISTICS_EV, MessagesPkPokemon.M_P_94_STATISTICS_IV, MessagesPkPokemon.M_P_94_STATISTICS_RATE);
+        for (StatisticInfoPkPlayer e:getStatistics()) {
+            formatMessageDirCts(e.getName());
+            formatMessageDirCts(Long.toString(e.getEv()));
+            formatMessageDirCts(Long.toString(e.getIv()));
+            formatMessageDirCts(e.getRate().toNumberString());
+        }
+        feedParents();
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.POKEMON).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         FacadeGame facadeGame_ = facade();

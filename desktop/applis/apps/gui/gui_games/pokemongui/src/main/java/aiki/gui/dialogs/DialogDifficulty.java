@@ -1,12 +1,12 @@
 package aiki.gui.dialogs;
 
 
+import aiki.beans.game.DifficultyBean;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ClosingDialogDifficulty;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
-import code.gui.document.DifficultyBeanRender;
 import code.gui.document.WrapBeanRender;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -21,7 +21,7 @@ public final class DialogDifficulty {
     private WindowAiki window;
 
     private FacadeGame facade;
-    private DifficultyBeanRender difficultyBeanRender;
+    private DifficultyBean difficultyBeanRender;
 
     public DialogDifficulty(AbstractProgramInfos _frameFactory) {
         absDialog = _frameFactory.getFrameFactory().newCommonFrame();
@@ -50,7 +50,7 @@ public final class DialogDifficulty {
 //        session_.setFrame(absDialog);
         AbsPanel panel_ = window.getCompoFactory().newPageBox();
         WrapBeanRender wr_ = new WrapBeanRender(panel_);
-        difficultyBeanRender = new DifficultyBeanRender();
+        difficultyBeanRender = new DifficultyBean();
         wr_.getRenders().addEntry("",difficultyBeanRender);
         wr_.display(wr_.getRenders().firstValue(), _window.getFrames(), _facade,absDialog);
 //        AbsPlainLabel area_ = window.getCompoFactory().newPlainLabel(TEXT);
@@ -94,7 +94,7 @@ public final class DialogDifficulty {
         return absDialog;
     }
 
-    public DifficultyBeanRender getDifficultyBeanRender() {
+    public DifficultyBean getDifficultyBeanRender() {
         return difficultyBeanRender;
     }
 }

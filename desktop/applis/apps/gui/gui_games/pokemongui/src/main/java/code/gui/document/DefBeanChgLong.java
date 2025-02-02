@@ -1,8 +1,9 @@
 package code.gui.document;
 
+import aiki.beans.*;
 import code.gui.*;
 
-public final class DefBeanChgLong implements IntBeanChgLong{
+public final class DefBeanChgLong extends BeanChgLong {
     private final GeneComponentModelLong spinner;
     public DefBeanChgLong(GeneComponentModelLong _c) {
         spinner = _c;

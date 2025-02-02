@@ -440,7 +440,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        return Instances.newPokemonPlayer();
 //    }
 
-    protected PokemonBeanStruct bean(CommonBean _bean, String _lg) {
+    public PokemonBeanStruct bean(CommonBean _bean, String _lg) {
         _bean.setDataBase(dataBase);
 //        _bean.setBaseEncode(baseEncode);
         _bean.setForms(new StringMapObject());

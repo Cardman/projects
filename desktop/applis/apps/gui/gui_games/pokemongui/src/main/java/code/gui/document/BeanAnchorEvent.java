@@ -1,5 +1,7 @@
 package code.gui.document;
 
+import aiki.beans.IntBeanAction;
+import aiki.beans.IntBeanBuilderHelper;
 import code.gui.*;
 import code.gui.events.*;
 
@@ -14,12 +16,15 @@ public final class BeanAnchorEvent implements AbsMouseListenerIntRel, AbsActionL
 
     @Override
     public void action() {
-        helper.build(action.actionBean(),action.getBean().getForms());
+        mouseReleased(null,null,null);
     }
 
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        helper.build(action.actionBean(),action.getBean().getForms());
+        build();
     }
 
+    public void build() {
+        helper.build(action.actionBean(), action.getBean().getForms());
+    }
 }

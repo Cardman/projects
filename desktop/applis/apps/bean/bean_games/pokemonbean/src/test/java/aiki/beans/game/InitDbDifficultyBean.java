@@ -1,16 +1,15 @@
 package aiki.beans.game;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.InitDbBean;
-import aiki.beans.PkDiff;
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.bean.nat.*;
 //import code.formathtml.Configuration;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPagesInit;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 
 public abstract class InitDbDifficultyBean extends InitDbBean {
     public static String navigateDiffChange(NaSt _str, long... _args) {
@@ -93,6 +92,54 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
 
     public static NaSt callDifficultyBeanAllowCatchingKoSet(NaSt _str, boolean _args) {
         return callBool(new DifficultyCommonBeanAllowCatchingKoSet(),inner(_str),_args);
+    }
+
+    public static DifficultyBean callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setSkipLearningMovesWhileNotGrowingLevel(_args);
+        _str.getForm().getSkipLearningMovesWhileNotGrowingLevel().setSelected(_args);
+        return _str;
+    }
+
+    public static DifficultyBean callDifficultyBeanStillPossibleFleeSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setStillPossibleFlee(_args);
+        _str.getForm().getStillPossibleFlee().setSelected(_args);
+        return _str;
+    }
+
+    public static DifficultyBean callDifficultyBeanRandomWildFightSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setRandomWildFight(_args);
+        _str.getForm().getRandomWildFight().setSelected(_args);
+        return _str;
+    }
+
+    public static DifficultyBean callDifficultyBeanEnabledClosingSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setEnabledClosing(_args);
+        _str.getForm().getEnabledClosing().setSelected(_args);
+        return _str;
+    }
+
+    public static DifficultyBean callDifficultyBeanRestoredMovesEndFightSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setRestoredMovesEndFight(_args);
+        _str.getForm().getRestoredMovesEndFight().setSelected(_args);
+        return _str;
+    }
+
+    public static DifficultyBean callDifficultyBeanAllowedSwitchPlacesEndRoundSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setAllowedSwitchPlacesEndRound(_args);
+        _str.getForm().getAllowedSwitchPlacesEndRound().setSelected(_args);
+        return _str;
+    }
+
+    public static DifficultyBean callDifficultyBeanEndFightIfOneTeamKoSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setEndFightIfOneTeamKo(_args);
+        _str.getForm().getEndFightIfOneTeamKo().setSelected(_args);
+        return _str;
+    }
+
+    public static DifficultyBean callDifficultyBeanAllowCatchingKoSet(DifficultyBean _str, boolean _args) {
+        inner(_str).setAllowCatchingKo(_args);
+        _str.getForm().getAllowCatchingKo().setSelected(_args);
+        return _str;
     }
 
     public static NaSt callDifficultyBeanDamageRatePlayerTableGet(NaSt _str, long... _args) {
@@ -186,9 +233,50 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return new PokemonBeanStruct(b_);
     }
 
+    private static DifficultyCommonBean inner(DifficultyBean _str) {
+        DifficultyCommonBean b_ = new DifficultyCommonBean();
+        b_.setOwner(_str.getDifficultyCommon());
+        b_.beforeDisplaying();
+        return b_;
+    }
+
     public static NaSt beanDiff(String _language, FacadeGame _dataBase) {
         PkDiff stds_ = new PkDiff();
         stds_.setDataBase(_dataBase);
         return stds_.beanDiff(_language);
+    }
+    public static String navigateDiffChange(DifficultyBean _str, long... _args) {
+        _str.getBuilder().getRenders().addEntry("",_str);
+        IntBeanAction intAct_ = ((AbsBeanChgSubmit) _str.getUpdateValues()).getEvts().get(0);
+        _str.getBuilder().build(intAct_.actionBean(),intAct_.getBean().getForms());
+        return "";
+//        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
+    }
+    public static DifficultyBean callChange(DifficultyBean _str, String _args) {
+//        inner(_str).setDiffWinningExpPtsFight(_args);
+        _str.getForm().getWinPointsFight().setupValue(_args);
+        return _str;
+    }
+    public static DifficultyBean beanDiffDis(String _language, FacadeGame _dataBase) {
+        _dataBase.setLanguage(_language);
+        PkDiff stds_ = new PkDiff();
+        stds_.setDataBase(_dataBase);
+        DifficultyBean b_ = new DifficultyBean();
+        b_.setDataBase(_dataBase);
+        b_.setForms(new StringMapObject());
+        b_.setLanguage(_language);
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_dataBase);
+        b_.setBuilder(bu_);
+        b_.build(_dataBase,b_.getForms());
+        return b_;
     }
 }

@@ -6,6 +6,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class FighterBeanTest extends InitDbFight {
@@ -821,8 +822,15 @@ public final class FighterBeanTest extends InitDbFight {
         FighterBean bFighter_ = new FighterBean();
         update(facade_, bFighter_);
         TeamBean bTeam_ = beanTeam(_caller,facade_);
-        bTeam_.clickFighter(_args[0]);
-        forms(bTeam_, bFighter_);
+        bTeam_.getBuilder().setRenders(bTeam_.getBuilder().getRenders());
+        bTeam_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,bFighter_);
+        bFighter_.setBuilder(bTeam_.getBuilder());
+        CommonBean from_ = bTeam_.getBuilder().getAnchors().get(_args[0] + 2).getBean();
+        assertSame(from_,bTeam_);
+        String dest_ = bTeam_.getBuilder().getAnchors().get(_args[0] + 2).actionBean();
+        setFormsBy(bFighter_, bTeam_);
+        bTeam_.getBuilder().clearAnchors();
+        bTeam_.getBuilder().build(dest_,from_.getForms());
         return bFighter_;
     }
 }

@@ -1,6 +1,7 @@
 package aiki.gui.dialogs;
 
 
+import aiki.beans.game.*;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import code.gui.*;
@@ -39,7 +40,7 @@ public final class DialogGameProgess {
 //        session_.setFrame(absDialog);
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();
         wrapBeanRender = new WrapBeanRender(panel_);
-        wrapBeanRender.getRenders().addEntry("",new GameProgressionBeanRender());
+        wrapBeanRender.getRenders().addEntry("",new GameProgressionBean());
         wrapBeanRender.display(getWrapBeanRender().getRenders().firstValue(), _window.getFrames(), _facade,absDialog);
 //        AbsPlainLabel area_ = _window.getCompoFactory().newPlainLabel(TEXT);
 //        AbsTextField field_;

@@ -490,6 +490,93 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         assertEq(DifficultyWinPointsFight.FACILE.getWinName(),diff(fac_).getDiffWinningExpPtsFight().getWinName());
     }
     @Test
+    public void heart() {
+        FacadeGame fac_ = fac();
+        assertEq("",navigateDiffChange(callChange(beanDiffDis(EN, fac_),DifficultyWinPointsFight.FACILE.getWinName())));
+        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),diff(fac_).getDiffWinningExpPtsFight().getWinName());
+    }
+
+    @Test
+    public void setAllowCatchingKo_1() {
+        assertTrue(result(callDifficultyBeanAllowCatchingKoSet(beanDiffDis(EN, fac()),true)).getAllowCatchingKo());
+    }
+
+    @Test
+    public void setAllowCatchingKo_2() {
+        assertFalse(result(callDifficultyBeanAllowCatchingKoSet(beanDiffDis(EN, fac()),false)).getAllowCatchingKo());
+    }
+
+    @Test
+    public void setEndFightIfOneTeamKo_1() {
+        assertTrue(result(callDifficultyBeanEndFightIfOneTeamKoSet(beanDiffDis(EN, fac()),true)).getEndFightIfOneTeamKo());
+    }
+
+    @Test
+    public void setEndFightIfOneTeamKo_2() {
+        assertFalse(result(callDifficultyBeanEndFightIfOneTeamKoSet(beanDiffDis(EN, fac()),false)).getEndFightIfOneTeamKo());
+    }
+
+    @Test
+    public void setAllowedSwitchPlacesEndRound_1() {
+        assertTrue(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(beanDiffDis(EN, fac()),true)).getAllowedSwitchPlacesEndRound());
+    }
+
+    @Test
+    public void setAllowedSwitchPlacesEndRound_2() {
+        assertFalse(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(beanDiffDis(EN, fac()),false)).getAllowedSwitchPlacesEndRound());
+    }
+
+    @Test
+    public void setRestoredMovesEndFight_1() {
+        assertTrue(result(callDifficultyBeanRestoredMovesEndFightSet(beanDiffDis(EN, fac()),true)).getRestoredMovesEndFight());
+    }
+
+    @Test
+    public void setRestoredMovesEndFight_2() {
+        assertFalse(result(callDifficultyBeanRestoredMovesEndFightSet(beanDiffDis(EN, fac()),false)).getRestoredMovesEndFight());
+    }
+
+    @Test
+    public void setEnabledClosing_1() {
+        assertTrue(result(callDifficultyBeanEnabledClosingSet(beanDiffDis(EN, fac()),true)).getEnabledClosing());
+    }
+
+    @Test
+    public void setEnabledClosing_2() {
+        assertFalse(result(callDifficultyBeanEnabledClosingSet(beanDiffDis(EN, fac()),false)).getEnabledClosing());
+    }
+
+    @Test
+    public void setRandomWildFight_1() {
+        assertTrue(result(callDifficultyBeanRandomWildFightSet(beanDiffDis(EN, fac()),true)).getRandomWildFight());
+    }
+
+    @Test
+    public void setRandomWildFight_2() {
+        assertFalse(result(callDifficultyBeanRandomWildFightSet(beanDiffDis(EN, fac()),false)).getRandomWildFight());
+    }
+
+    @Test
+    public void setStillPossibleFlee_1() {
+        assertTrue(result(callDifficultyBeanStillPossibleFleeSet(beanDiffDis(EN, fac()),true)).getStillPossibleFlee());
+    }
+
+    @Test
+    public void setStillPossibleFlee_2() {
+        assertFalse(result(callDifficultyBeanStillPossibleFleeSet(beanDiffDis(EN, fac()),false)).getStillPossibleFlee());
+    }
+
+    @Test
+    public void setSkipLearningMovesWhileNotGrowingLevel_1() {
+        assertTrue(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(beanDiffDis(EN, fac()),true)).getSkipLearningMovesWhileNotGrowingLevel());
+    }
+
+    @Test
+    public void setSkipLearningMovesWhileNotGrowingLevel_2() {
+        assertFalse(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(beanDiffDis(EN, fac()),false)).getSkipLearningMovesWhileNotGrowingLevel());
+    }
+
+    @Test
     public void init() {
         FacadeGame fac_ = facTr();
         diff(fac_).setDiffWinningExpPtsFight(DifficultyWinPointsFight.FACILE);
@@ -597,6 +684,10 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
 
     private DifficultyCommon result(NaSt _str) {
         return ((DifficultyCommonBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon();
+    }
+
+    private DifficultyCommon result(DifficultyBean _str) {
+        return _str.getDifficultyCommon();
     }
     private Rate rt() {
         return Rate.newRate("2");

@@ -13,13 +13,13 @@ public final class WrapBeanRender {
     private final AbsPanel container;
     private AbsButton search;
     private AbsTextField field;
-    private AbsBeanRender current;
-    private final StringMap<AbsBeanRender> renders = new StringMap<AbsBeanRender>();
+    private BeanRenderWithAppName current;
+    private final StringMap<BeanRenderWithAppName> renders = new StringMap<BeanRenderWithAppName>();
 
     public WrapBeanRender(AbsPanel _c) {
         this.container = _c;
     }
-    public void display(AbsBeanRender _rend, AbstractProgramInfos _api, FacadeGame _facade, AbsCommonFrame _fr) {
+    public void display(BeanRenderWithAppName _rend, AbstractProgramInfos _api, FacadeGame _facade, AbsCommonFrame _fr) {
         current = _rend;
         getContainer().removeAll();
         StringMap<String> messages_ = PkDetailContent.file(_api.currentLg());
@@ -30,19 +30,29 @@ public final class WrapBeanRender {
         AbsScrollPane scrollSession_ = _api.getCompoFactory().newAbsScrollPane();
         scrollSession_.setPreferredSize(new MetaDimension(400, 400));
         BeanBuilderHelper bu_ = new BeanBuilderHelper(_api, find_);
+        bu_.setFacade(_facade);
+        bu_.setTranslations(_api.getTranslations());
         bu_.setRenders(renders);
-        _rend.build(_facade, new StringMapObject(), bu_);
+        bu_.initPage();
+        bu_.setBackgroundBody();
+        _rend.setFacade(_facade);
+        _rend.setLanguage(_facade.getLanguage());
+        _rend.setBuilder(bu_);
+        _rend.build(_facade, new StringMapObject());
         find_.setFinding(bu_);
         scrollSession_.setViewportView(bu_.getStack().last());
         bu_.getStack().removeQuicklyLast();
+        bu_.getGridLast().removeQuicklyLast();
         scrollSession_.validate();
         bu_.setScrollPane(scrollSession_);
         bu_.setFrame(_fr);
         container.add(scrollSession_);
         container.add(field);
         container.add(search);
-        for (AbsBeanRender r: renders.values()) {
+        for (BeanRenderWithAppName r: renders.values()) {
+            r.setLanguage(_facade.getLanguage());
             r.setFacade(_facade);
+            r.setBuilder(bu_);
         }
     }
 
@@ -58,11 +68,11 @@ public final class WrapBeanRender {
         return search;
     }
 
-    public AbsBeanRender getCurrent() {
+    public BeanRenderWithAppName getCurrent() {
         return current;
     }
 
-    public StringMap<AbsBeanRender> getRenders() {
+    public StringMap<BeanRenderWithAppName> getRenders() {
         return renders;
     }
 }

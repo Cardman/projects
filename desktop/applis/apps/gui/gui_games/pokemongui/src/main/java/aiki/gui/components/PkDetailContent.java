@@ -1,12 +1,12 @@
 package aiki.gui.components;
 
+import aiki.beans.game.PokemonPlayerBean;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.listeners.HidePkDetailContentEvent;
 import aiki.sml.*;
 import code.gui.*;
-import code.gui.document.IntBeanBuilderHelper;
-import code.gui.document.PkPlayerRender;
+import aiki.beans.IntBeanBuilderHelper;
 import code.gui.document.WrapBeanRender;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.TranslationsLg;
@@ -30,7 +30,7 @@ public final class PkDetailContent {
     }
 
     public void group(WindowAiki _parent, FacadeGame _dataBase, Packable _p, AbstractAtomicBooleanCore _at) {
-        PkPlayerRender ren_ = new PkPlayerRender();
+        PokemonPlayerBean ren_ = new PokemonPlayerBean();
         pkPlayerRender.getRenders().addEntry("",ren_);
         pkPlayerRender.display(ren_,_parent.getFrames(), _dataBase, _parent.getCommonFrame());
         StringMap<String> messages_ = file(_parent.getFrames().currentLg());

@@ -1,5 +1,6 @@
 package aiki.gui.components.walk;
 
+import aiki.beans.game.PokemonPlayerBean;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.listeners.*;
@@ -8,8 +9,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.*;
 import cards.facade.enumerations.GameEnum;
 import code.gui.*;
-import code.gui.document.IntBeanBuilderHelper;
-import code.gui.document.PkPlayerRender;
+import aiki.beans.IntBeanBuilderHelper;
 import code.gui.document.WrapBeanRender;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.files.MessagesGuiFct;
@@ -783,7 +783,7 @@ public class ScenePanelMulti {
 //            return;
 //        }
 //        task_.getBeanNatLgNames().setDataBase(facade);
-        PkPlayerRender ren_ = new PkPlayerRender();
+        PokemonPlayerBean ren_ = new PokemonPlayerBean();
         receivedPk.getRenders().addEntry("",ren_);
         receivedPk.display(ren_,window.getFrames(), facade, window.getCommonFrame());
 //        task_.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));

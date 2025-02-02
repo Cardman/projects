@@ -97,7 +97,7 @@ public final class FightBeanTest extends InitDbFight {
 
     private FightBean dis(FacadeGame _facade) {
         FightBean b_ = beanFight(EN, _facade);
-        b_.beforeDisplaying();
+        b_.build(_facade,b_.getForms());
         return b_;
     }
 }

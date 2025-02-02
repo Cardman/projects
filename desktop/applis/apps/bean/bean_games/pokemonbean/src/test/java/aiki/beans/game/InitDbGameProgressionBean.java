@@ -7,6 +7,10 @@ import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import code.bean.nat.*;
 import code.maths.LgInt;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.MessagesProgGameprog;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatStringTreeMap;
@@ -152,7 +156,18 @@ public abstract class InitDbGameProgressionBean extends InitDbBean {
         b_.setForms(new StringMapObject());
         b_.setDataBase(_dataBase);
         b_.setLanguage(_language);
-        b_.beforeDisplaying();
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.en());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN, MessagesPkBean.fr());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_dataBase);
+        b_.setBuilder(bu_);
+        b_.build(_dataBase,b_.getForms());
         return b_;
     }
 

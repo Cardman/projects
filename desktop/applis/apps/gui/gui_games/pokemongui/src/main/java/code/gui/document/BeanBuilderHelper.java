@@ -1,39 +1,28 @@
 package code.gui.document;
 
-import aiki.beans.DifficultyCommon;
-import aiki.beans.StringMapObject;
-import code.formathtml.render.MetaSearchableContent;
+import aiki.beans.*;
+import code.formathtml.render.*;
 import code.gui.*;
-import code.gui.images.AbstractImage;
-import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.*;
 import code.gui.initialize.*;
-import code.sml.util.TranslationsFile;
+import code.sml.util.*;
 import code.util.*;
-import code.util.core.StringUtil;
 
-public final class BeanBuilderHelper implements IntBeanBuilderHelper {
+public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     private AbsScrollPane scrollPane;
     private final AbstractProgramInfos api;
     private final FindBeanEvent finder;
     private final IdMap<MetaSearchableContent,AbsTextPane> refsSearch = new IdMap<MetaSearchableContent,AbsTextPane>();
     private final IdList<MetaSearchableContent> metaSearchableContents = new IdList<MetaSearchableContent>();
     private final CustList<AbsPanel> stack = new CustList<AbsPanel>();
-    private final IdList<AbsTextPane> anchors = new IdList<AbsTextPane>();
-    private StringMap<AbsBeanRender> renders = new StringMap<AbsBeanRender>();
-    private int partGroup;
-    private int rowGroup;
     private AbsCommonFrame frame;
     private final IdMap<AbsCustComponent,AbsCustComponent> parents = new IdMap<AbsCustComponent,AbsCustComponent>();
-    private int colCount;
-    private int colIndex;
-    private final IntBeanGeneInput genInput;
     public BeanBuilderHelper(AbstractProgramInfos _a, FindBeanEvent _f) {
         this.api = _a;
         this.finder = _f;
-        genInput = new DefBeanGeneInput(this,_a);
+        setGenInput(new DefBeanGeneInput(this,_a));
     }
 
-    @Override
     public void reset() {
         getMetaSearchableContents().clear();
         getParents().clear();
@@ -42,22 +31,25 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         setRowGroup(0);
     }
 
-    public void clearAnchors() {
-        anchors.clear();
-    }
-
+    @Override
     public void initLine() {
+        super.initLine();
         stack.add(api.getCompoFactory().newLineBox());
     }
 
+    @Override
     public void initPage() {
+        super.initPage();
         stack.add(api.getCompoFactory().newPageBox());
     }
 
+    @Override
     public void initGrid() {
+        super.initGrid();
         stack.add(api.getCompoFactory().newGrid());
     }
 
+    @Override
     public void feedParentsCts() {
         AbsPanel current_ = stack.get(stack.size()-2);
         AbsPanel ch_ = stack.last();
@@ -65,6 +57,7 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         getParents().addEntry(ch_, current_);
         stack.removeQuicklyLast();
         incColIndex();
+        super.feedParentsCts();
     }
     public void setBackgroundBody() {
         stack.last().setBackground(GuiConstants.WHITE);
@@ -72,12 +65,14 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
     public void setTitledBorder(String _title){
         stack.last().setTitledBorder(_title);
     }
+    @Override
     public void feedParents() {
         AbsPanel current_ = stack.get(stack.size()-2);
         AbsPanel ch_ = stack.last();
         current_.add(ch_);
         getParents().addEntry(ch_, current_);
         stack.removeQuicklyLast();
+        super.feedParents();
     }
 
     public void feedParentCts(AbsCustComponent _ch) {
@@ -93,31 +88,14 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         getParents().addEntry(_ch, current_);
     }
 
-    public void formatMessageAnc(BeanRenderWithAppName _with,IntBeanAction _e,String _file, String _key, String... _values) {
-        String txt_ = formatMessageRend(_with,_file, _key, _values);
-        formatMessageDir(txt_,_e);
-    }
-
     private void evt(IntBeanAction _e, AbsTextPane _tx) {
-        anchor(_tx);
+        anchor(api, _tx);
+        getAnchors().add(_e);
         _tx.addMouseListener(new BeanAnchorEvent(this, _e));
     }
 
-    public void formatMessage(BeanRenderWithAppName _with,String _file, String _key, String... _values) {
-        String txt_ = formatMessageRend(_with,_file, _key, _values);
-        formatMessageDir(txt_);
-    }
-
-    public String formatMessageRend(BeanRenderWithAppName _with,String _file, String _key, String... _values) {
-        return StringUtil.simpleStringsFormat(file(_with, _file).getMapping().getVal(_key), _values);
-    }
-
-    public TranslationsFile file(BeanRenderWithAppName _with, String _file) {
-        return files(_with).getVal(_file);
-    }
-
-    public  StringMap<TranslationsFile> files(BeanRenderWithAppName _with) {
-        return files(api, _with.appName());
+    public StringMap<TranslationsFile> files(String _with) {
+        return files(api, _with);
     }
     public static StringMap<TranslationsFile> files(AbstractProgramInfos _api, String _name) {
         return _api.currentLg().getMapping().getVal(_name).getMapping();
@@ -127,6 +105,8 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         feedParent(ch_);
         hierarchy(_txt, ch_);
     }
+
+    @Override
     public void formatMessageDir(String _txt, IntBeanAction _e) {
         AbsTextPane ch_ = message(_txt);
         feedParent(ch_);
@@ -175,13 +155,8 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         stack.last().add(api.getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(api.getImageFactory(), _img)));
     }
 
-    public void nextPart() {
-        partGroup++;
-        rowGroup = 0;
-    }
-
     public void hierarchy(String _txt, AbsTextPane _ch) {
-        MetaSearchableContent s_ = new MetaSearchableContent(_txt, partGroup, rowGroup);
+        MetaSearchableContent s_ = new MetaSearchableContent(_txt, getPartGroup(), getRowGroup());
         metaSearchableContents.add(s_);
         getRefsSearch().addEntry(s_,_ch);
     }
@@ -191,13 +166,19 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
     }
 
     public void build(String _dest, StringMapObject _form) {
-        AbsBeanRender target_ = getRenders().getVal(_dest);
-        target_.build(target_.getFacade(), _form, this);
+        BeanRenderWithAppName target_ = getRenders().getVal(_dest);
+        clearAnchors();
+        reset();
+        initPage();
+        setBackgroundBody();
+        target_.setBuilder(this);
+        target_.build(target_.getFacade(), _form);
         getFinder().setFinding(this);
         getScrollPane().setViewportView(stack.last());
         getScrollPane().validate();
         getFrame().pack();
         stack.removeQuicklyLast();
+        getGridLast().removeQuicklyLast();
     }
 
     public FindBeanEvent getFinder() {
@@ -205,18 +186,9 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
     }
 
 
-    public void formatMessageDirAnc(String _txt, IntBeanAction _b) {
-        formatMessageDir(_txt,_b);
-    }
-
-    public void anchor(AbsTextPane _tx) {
-        anchor(api,_tx);
-        anchors.add(_tx);
-    }
-
     private AbsGridConstraints cts() {
         AbsGridConstraints cts_ = api.getCompoFactory().newGridCts();
-        if (colIndex +1 == getColCount()) {
+        if (getColIndex() +1 == getColCount()) {
             cts_.gridwidth(GuiConstants.REMAINDER);
         }
         return cts_;
@@ -228,29 +200,7 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         att_.addForeground(GuiConstants.BLUE);
         _tx.setCharacterAttributes(0, _tx.getText().length(), att_, false);
     }
-    public void displayDiff(DifficultyBeanForm _form,AbsBeanRender _rend, DifficultyCommon _common, String _file) {
-        _form.displayDiff(genInput,_rend,_common, _file);
-    }
 
-    public void incColIndex() {
-        colIndex=(colIndex + 1) % colCount;
-    }
-
-    public IdList<AbsTextPane> getAnchors() {
-        return anchors;
-    }
-
-    public StringMap<AbsBeanRender> getRenders() {
-        return renders;
-    }
-
-    public void setRenders(StringMap<AbsBeanRender> _r) {
-        this.renders = _r;
-    }
-
-    public IntBeanChgSubmit button(String _txt) {
-        return genInput.newSubmit(_txt);
-    }
     public IdList<MetaSearchableContent> getMetaSearchableContents() {
         return metaSearchableContents;
     }
@@ -263,21 +213,6 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         return refsSearch;
     }
 
-    public int getPartGroup() {
-        return partGroup;
-    }
-
-    public void setPartGroup(int _p) {
-        this.partGroup = _p;
-    }
-
-    public int getRowGroup() {
-        return rowGroup;
-    }
-
-    public void setRowGroup(int _r) {
-        this.rowGroup = _r;
-    }
 
     public AbsScrollPane getScrollPane() {
         return scrollPane;
@@ -295,11 +230,4 @@ public final class BeanBuilderHelper implements IntBeanBuilderHelper {
         this.frame = _f;
     }
 
-    public int getColCount() {
-        return colCount;
-    }
-
-    public void setColCount(int _c) {
-        this.colCount = _c;
-    }
 }
