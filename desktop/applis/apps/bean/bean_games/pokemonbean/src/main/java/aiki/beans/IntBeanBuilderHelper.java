@@ -9,8 +9,8 @@ public abstract class IntBeanBuilderHelper {
     private StringMap<BeanRenderWithAppName> renders = new StringMap<BeanRenderWithAppName>();
     private int partGroup;
     private int rowGroup;
-    private int colCount;
-    private int colIndex;
+    private final Ints colCount = new Ints();
+    private final Ints colIndex = new Ints();
     private IntBeanGeneInput genInput;
     private final CustList<BoolVal> gridLast = new CustList<BoolVal>();
     private FacadeGame facade;
@@ -24,21 +24,35 @@ public abstract class IntBeanBuilderHelper {
     }
 
     public void initLine(){
-        getGridLast().add(BoolVal.FALSE);
+        incr(BoolVal.FALSE);
     }
+
     public void initPage(){
-        getGridLast().add(BoolVal.FALSE);
+        incr(BoolVal.FALSE);
     }
     public void initGrid(){
-        getGridLast().add(BoolVal.TRUE);
+        incr(BoolVal.TRUE);
+    }
+
+    private void incr(BoolVal _b) {
+        getGridLast().add(_b);
+        colCount.add(0);
+        colIndex.add(0);
     }
     public void feedParentsCts(){
-        getGridLast().removeQuicklyLast();
+        decr();
     }
-    public abstract void setTitledBorder(String _title);
     public void feedParents(){
-        getGridLast().removeQuicklyLast();
+        decr();
     }
+
+    public void decr() {
+        getGridLast().removeQuicklyLast();
+        colCount.removeQuicklyLast();
+        colIndex.removeQuicklyLast();
+    }
+
+    public abstract void setTitledBorder(String _title);
 
     public void formatMessageAnc(String _with,IntBeanAction _e,String _file, String _key, String... _values) {
         String txt_ = formatMessageRend(_with,_file, _key, _values);
@@ -57,7 +71,9 @@ public abstract class IntBeanBuilderHelper {
     public TranslationsFile file(String _with, String _file) {
         return files(_with).getVal(_file);
     }
-    public abstract StringMap<TranslationsFile> files(String _with);
+    public StringMap<TranslationsFile> files(String _with) {
+        return getTranslations().getMapping().getVal(getFacade().getLanguage()).getMapping().getVal(_with).getMapping();
+    }
     public abstract void formatMessageDir(String _txt);
     public abstract void formatMessageDir(String _txt, IntBeanAction _e);
     public abstract void formatMessageDirCtsHeader(String _txt);
@@ -88,14 +104,18 @@ public abstract class IntBeanBuilderHelper {
     }
 
     public void incColIndex() {
-        colIndex=(getColIndex() + 1) % colCount;
+        colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % colCount());
     }
 
     public CustList<BoolVal> getGridLast() {
         return gridLast;
     }
 
-    public int getColIndex() {
+    public int colIndex() {
+        return getColIndex().last();
+    }
+
+    public Ints getColIndex() {
         return colIndex;
     }
 
@@ -121,12 +141,16 @@ public abstract class IntBeanBuilderHelper {
     public void setRowGroup(int _r) {
         this.rowGroup = _r;
     }
-    public int getColCount() {
+    public int colCount() {
+        return getColCount().last();
+    }
+
+    public Ints getColCount() {
         return colCount;
     }
 
-    public void setColCount(int _c) {
-        this.colCount = _c;
+    public void colCount(int _c) {
+        colCount.set(colCount.getLastIndex(),_c);
     }
 
     public FacadeGame getFacade() {

@@ -5,7 +5,6 @@ import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
-import code.sml.util.*;
 import code.util.*;
 
 public final class BeanBuilderHelper extends IntBeanBuilderHelper {
@@ -35,29 +34,33 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     public void initLine() {
         super.initLine();
         stack.add(api.getCompoFactory().newLineBox());
+        setBackgroundBody();
     }
 
     @Override
     public void initPage() {
         super.initPage();
         stack.add(api.getCompoFactory().newPageBox());
+        setBackgroundBody();
     }
 
     @Override
     public void initGrid() {
         super.initGrid();
         stack.add(api.getCompoFactory().newGrid());
+        setBackgroundBody();
     }
 
     @Override
     public void feedParentsCts() {
         AbsPanel current_ = stack.get(stack.size()-2);
         AbsPanel ch_ = stack.last();
+        ch_.setLineBorder(GuiConstants.BLACK);
+        super.feedParentsCts();
         current_.add(ch_, cts());
         getParents().addEntry(ch_, current_);
         stack.removeQuicklyLast();
         incColIndex();
-        super.feedParentsCts();
     }
     public void setBackgroundBody() {
         stack.last().setBackground(GuiConstants.WHITE);
@@ -94,12 +97,6 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         _tx.addMouseListener(new BeanAnchorEvent(this, _e));
     }
 
-    public StringMap<TranslationsFile> files(String _with) {
-        return files(api, _with);
-    }
-    public static StringMap<TranslationsFile> files(AbstractProgramInfos _api, String _name) {
-        return _api.currentLg().getMapping().getVal(_name).getMapping();
-    }
     public void formatMessageDir(String _txt) {
         AbsTextPane ch_ = message(_txt);
         feedParent(ch_);
@@ -178,7 +175,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         getScrollPane().validate();
         getFrame().pack();
         stack.removeQuicklyLast();
-        getGridLast().removeQuicklyLast();
+        decr();
     }
 
     public FindBeanEvent getFinder() {
@@ -188,7 +185,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     private AbsGridConstraints cts() {
         AbsGridConstraints cts_ = api.getCompoFactory().newGridCts();
-        if (getColIndex() +1 == getColCount()) {
+        if (colIndex() +1 == colCount()) {
             cts_.gridwidth(GuiConstants.REMAINDER);
         }
         return cts_;

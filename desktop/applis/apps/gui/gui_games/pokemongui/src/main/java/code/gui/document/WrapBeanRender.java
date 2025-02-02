@@ -42,7 +42,7 @@ public final class WrapBeanRender {
         find_.setFinding(bu_);
         scrollSession_.setViewportView(bu_.getStack().last());
         bu_.getStack().removeQuicklyLast();
-        bu_.getGridLast().removeQuicklyLast();
+        bu_.decr();
         scrollSession_.validate();
         bu_.setScrollPane(scrollSession_);
         bu_.setFrame(_fr);

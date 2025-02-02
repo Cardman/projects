@@ -433,7 +433,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
     public void headerCols(String _file, Countable _ls, String... _cols) {
         if (!_ls.isEmpty()) {
-            builder.setColCount(_cols.length);
+            builder.colCount(_cols.length);
             for (String h_ : _cols) {
                 headerCol(_file, h_);
             }

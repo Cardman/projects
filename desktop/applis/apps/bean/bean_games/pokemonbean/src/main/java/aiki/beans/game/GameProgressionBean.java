@@ -95,12 +95,16 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
         for (EntryCust<String,CustList<CustList<ImgPkPlayer>>> e: _groups.entryList()) {
             initLine();
             formatMessageDir(e.getKey());
+            initGrid();
+            int s_ = e.getValue().size();
+            getBuilder().colCount(s_);
             nextPart();
             for (CustList<ImgPkPlayer> s:e.getValue()) {
                 initPage();
                 buildPkList(s);
-                feedParents();
+                feedParentsCts();
             }
+            feedParents();
             feedParents();
         }
     }
@@ -115,7 +119,7 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
             formatMessageDir(e_.getKey());
             initGrid();
             int s_ = e_.getValue().size();
-            getBuilder().setColCount(s_+1);
+            getBuilder().colCount(s_+1);
             formatMessageCts(MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_NOTCAUGHTPKCAUGHTNOTPART);
             nextPart();
             for (int j = 0; j < s_; j++) {
