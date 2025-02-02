@@ -5,7 +5,6 @@ import aiki.beans.facade.game.dto.*;
 import aiki.beans.game.*;
 import aiki.facade.*;
 import aiki.game.*;
-import code.gui.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -16,7 +15,7 @@ public final class PkPlayerRender extends AbsBeanRender {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(bean,_facade, _form);
         initPage();
-        setBackground(GuiConstants.WHITE);
+        setBackgroundBody();
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesPkPokemon.M_P_94_TITLE),bean.getName()));
         initPage();
         formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NAME, bean.getName());

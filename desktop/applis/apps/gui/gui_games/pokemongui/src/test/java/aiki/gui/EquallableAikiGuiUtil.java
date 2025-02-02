@@ -15,8 +15,8 @@ import aiki.sml.*;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
-import code.gui.document.MessagesPkBean;
-import code.gui.document.MessagesProgGameprog;
+import code.gui.document.DefBeanChgSubmit;
+import code.gui.document.IntBeanChgSubmit;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
@@ -266,6 +266,10 @@ public abstract class EquallableAikiGuiUtil {
 
     public static void checkNoAnim(MockThreadFactory _thFact) {
         assertEq(0, _thFact.getAllThreads().size());
+    }
+
+    public static void tryClick(IntBeanChgSubmit _m) {
+        tryClick(((DefBeanChgSubmit) _m).getButton());
     }
     public static void tryClick(AbsButton _m) {
         assertTrue(_m.isVisible());

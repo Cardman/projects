@@ -3,7 +3,6 @@ package code.gui.document;
 import aiki.beans.*;
 import aiki.beans.game.*;
 import aiki.facade.*;
-import code.gui.*;
 import code.util.*;
 
 public final class GameProgressionBeanRender extends AbsBeanRender {
@@ -12,7 +11,7 @@ public final class GameProgressionBeanRender extends AbsBeanRender {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(bean,_facade, _form);
         initPage();
-        setBackground(GuiConstants.WHITE);
+        setBackgroundBody();
         setTitledBorder(file().getVal(MessagesProgGameprog.M_P_95_TITLE));
         initPage();
         displayBool(bean.getFinishedGame(),CommonBean.TRUE_VALUE,bean.getHeroImage());

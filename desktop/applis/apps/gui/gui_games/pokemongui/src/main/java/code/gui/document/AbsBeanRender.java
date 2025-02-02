@@ -6,19 +6,16 @@ import aiki.beans.game.*;
 import aiki.facade.*;
 import aiki.fight.pokemon.*;
 import aiki.game.fight.*;
-import code.formathtml.render.*;
-import code.gui.*;
 import code.sml.util.*;
 import code.util.*;
 import code.util.core.*;
 import code.util.ints.*;
 
 public abstract class AbsBeanRender implements BeanRenderWithAppName{
-    private StringMap<AbsBeanRender> renders;
     private FacadeGame facade;
-    private BeanBuilderHelper builder;
+    private IntBeanBuilderHelper builder;
 
-    public void build(FacadeGame _facade, StringMapObject _form, BeanBuilderHelper _bu){
+    public void build(FacadeGame _facade, StringMapObject _form, IntBeanBuilderHelper _bu){
         builder = _bu;
         _bu.clearAnchors();
         build(_facade, _form);
@@ -43,7 +40,7 @@ public abstract class AbsBeanRender implements BeanRenderWithAppName{
     }
 
     protected void displayTrainerPlaceNamesList(String _file, CustList<TrainerPlaceNames> _list, String _key) {
-        builder.getMetaSearchableContents().add(new MetaSearchableContent(null, builder.getPartGroup(), builder.getRowGroup()));
+        builder.breakLine();
         display(_file, _list, _key);
         displayTrainerPlaceNamesList(_list);
     }
@@ -60,11 +57,7 @@ public abstract class AbsBeanRender implements BeanRenderWithAppName{
     }
 
     protected void init(CommonBean _common, FacadeGame _facade, StringMapObject _form) {
-        builder.getMetaSearchableContents().clear();
-        builder.getParents().clear();
-        builder.getRefsSearch().clear();
-        builder.setPartGroup(0);
-        builder.setRowGroup(0);
+        builder.reset();
         _common.setDataBase(_facade);
         _common.setForms(_form);
         _common.setLanguage(_facade.getLanguage());
@@ -108,8 +101,8 @@ public abstract class AbsBeanRender implements BeanRenderWithAppName{
             builder.breakLine();
         }
     }
-    public void setBackground(int _color) {
-        builder.setBackground(_color);
+    public void setBackgroundBody() {
+        builder.setBackgroundBody();
     }
     public void setTitledBorder(String _title){
         builder.setTitledBorder(_title);
@@ -187,22 +180,16 @@ public abstract class AbsBeanRender implements BeanRenderWithAppName{
         return StringUtil.simpleStringsFormat(builder.file(this,_file).getMapping().getVal(_key), _values);
     }
 
-    public void formatMessageDirAnc(String _txt, BeanAnchorToFighterEvent _b) {
+    public void formatMessageDirAnc(String _txt, IntBeanAction _b) {
         builder.formatMessageDirAnc(_txt, _b);
     }
 
     public void formatMessageDir(String _txt) {
-        AbsTextPane ch_ = builder.message(_txt);
-        builder.feedParent(ch_);
-        builder.hierarchy(_txt, ch_);
+        builder.formatMessageDir(_txt);
     }
 
     public void formatMessageDirCts(String _txt) {
-        AbsTextPane ch_ = builder.message(_txt);
-        ch_.setLineBorder(GuiConstants.BLACK);
-        builder.feedParentCts(ch_);
-        builder.hierarchy(_txt, ch_);
-        builder.breakLine();
+        builder.formatMessageDirCts(_txt);
     }
 
     public void feedParentsCts() {
@@ -211,10 +198,6 @@ public abstract class AbsBeanRender implements BeanRenderWithAppName{
 
     public void feedParents() {
         builder.feedParents();
-    }
-
-    public void feedParent(AbsCustComponent _ch) {
-        builder.feedParent(_ch);
     }
 
     public void displayTrPkMoveTarget(String _file, TrPkMoveTarget _value) {
@@ -249,22 +232,14 @@ public abstract class AbsBeanRender implements BeanRenderWithAppName{
     }
     public void headerCol(String _file, String _key) {
         String txt_ = builder.formatMessageRend(this, _file, _key);
-        builder.formatMessageDirCts(txt_,GuiConstants.YELLOW);
+        builder.formatMessageDirCtsHeader(txt_);
     }
     public void breakLine() {
         builder.breakLine();
     }
 
-    public BeanBuilderHelper getBuilder() {
+    public IntBeanBuilderHelper getBuilder() {
         return builder;
-    }
-
-    public StringMap<AbsBeanRender> getRenders() {
-        return renders;
-    }
-
-    public void setRenders(StringMap<AbsBeanRender> _r) {
-        this.renders = _r;
     }
 
     public FacadeGame getFacade() {

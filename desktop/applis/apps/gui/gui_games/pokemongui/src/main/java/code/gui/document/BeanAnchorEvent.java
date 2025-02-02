@@ -4,10 +4,10 @@ import code.gui.*;
 import code.gui.events.*;
 
 public final class BeanAnchorEvent implements AbsMouseListenerIntRel, AbsActionListener {
-    private final BeanBuilderHelper helper;
+    private final IntBeanBuilderHelper helper;
     private final IntBeanAction action;
 
-    public BeanAnchorEvent(BeanBuilderHelper _h, IntBeanAction _n) {
+    public BeanAnchorEvent(IntBeanBuilderHelper _h, IntBeanAction _n) {
         this.helper = _h;
         this.action = _n;
     }

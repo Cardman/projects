@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.beans.fight.*;
 import aiki.facade.*;
 import aiki.game.fight.*;
-import code.gui.*;
 import code.scripts.confs.*;
 import code.util.*;
 import code.util.core.*;
@@ -15,7 +14,7 @@ public final class FightBeanRender extends AbsFightBeanRender {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(bean,_facade, _form);
         initPage();
-        setBackground(GuiConstants.WHITE);
+        setBackgroundBody();
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_FIGHT)));
         initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,bean),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);

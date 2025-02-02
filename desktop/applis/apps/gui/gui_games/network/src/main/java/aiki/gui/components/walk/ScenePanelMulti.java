@@ -8,6 +8,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.*;
 import cards.facade.enumerations.GameEnum;
 import code.gui.*;
+import code.gui.document.IntBeanBuilderHelper;
 import code.gui.document.PkPlayerRender;
 import code.gui.document.WrapBeanRender;
 import code.gui.events.AlwaysActionListenerAct;
@@ -1798,8 +1799,8 @@ public class ScenePanelMulti {
         }
     }
 
-    public AbsScrollPane getScrollPane(){
-        return receivedPk.getCurrent().getBuilder().getScrollPane();
+    public IntBeanBuilderHelper getScrollPane(){
+        return receivedPk.getCurrent().getBuilder();
     }
 
     public AbsButton getSearch() {

@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.beans.fight.*;
 import aiki.facade.*;
 import aiki.game.fight.*;
-import code.gui.*;
 import code.maths.LgInt;
 import code.scripts.confs.*;
 import code.util.*;
@@ -18,7 +17,7 @@ public final class TeamBeanRender extends AbsFightBeanRender {
         sm_.putAllMap(_form);
         init(bean,_facade, sm_);
         initPage();
-        setBackground(GuiConstants.WHITE);
+        setBackgroundBody();
         if (bean.getFoeTeam()) {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightTeam.M_P_92_TITLE_FOE)));
         } else {

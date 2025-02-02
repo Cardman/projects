@@ -5,6 +5,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.listeners.HidePkDetailContentEvent;
 import aiki.sml.*;
 import code.gui.*;
+import code.gui.document.IntBeanBuilderHelper;
 import code.gui.document.PkPlayerRender;
 import code.gui.document.WrapBeanRender;
 import code.gui.initialize.AbstractProgramInfos;
@@ -77,8 +78,8 @@ public final class PkDetailContent {
         return content;
     }
 
-    public AbsScrollPane getScrollPane(){
-        return pkPlayerRender.getCurrent().getBuilder().getScrollPane();
+    public IntBeanBuilderHelper getScrollPane(){
+        return pkPlayerRender.getCurrent().getBuilder();
     }
 
     public AbsButton getSearch() {

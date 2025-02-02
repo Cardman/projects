@@ -13,7 +13,6 @@ import aiki.gui.components.walk.TeamPanel;
 import aiki.gui.dialogs.*;
 import aiki.instances.Instances;
 import aiki.main.AikiFactory;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.places.Road;
@@ -22,13 +21,14 @@ import aiki.map.pokemon.PokemonPlayer;
 import code.gui.AbsButton;
 import code.gui.AbsCommonFrame;
 import code.gui.AbsCustComponent;
+import code.gui.AbsScrollPane;
+import code.gui.document.BeanBuilderHelper;
 import code.gui.document.MessagesPkBean;
 import code.gui.document.MessagesPkPokemon;
 import code.gui.document.MessagesProgGameprog;
 import code.gui.events.AlwaysActionListenerAct;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.mock.MockCallable;
 import code.mock.MockCustComponent;
 import code.mock.MockProgramInfos;
 import code.sml.util.TranslationsAppli;
@@ -1207,7 +1207,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         tryClick(pag_.getDetailButton());
         assertTrue(sel_.getPkDetailContent().getContent().isVisible());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) sel_.getSelectDial().getPane()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) scroll(sel_.getPkDetailContent())).getTreeAccessible();
         assertEq(43, tr_.size() - scAcc_.size());
         checkCommon30(pag_, tr_);
         checkCommonNot30(pag_, scAcc_);
@@ -1255,7 +1255,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(2,tr_.size());
         tryClick((AbsButton) tr_.get(0));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) scroll(sel_.getPkDetailContent())).getTreeAccessible();
         assertEq(4,tr2_.size()- scAcc_.size());
         assertTrue(tr2_.containsAllObj(tr_));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
@@ -1281,7 +1281,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         assertEq(2,tr_.size());
         tryClick((AbsButton) tr_.get(1));
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) pag_.getPane()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) sel_.getPkDetailContent().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) scroll(sel_.getPkDetailContent())).getTreeAccessible();
         assertEq(4,tr2_.size()- scAcc_.size());
         assertTrue(tr2_.containsAllObj(tr_));
         assertTrue(tr2_.containsObj(sel_.getPkDetailContent().getField()));
@@ -3409,7 +3409,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         window_.getScenePanel().getTeamPan().getListe().events();
         tryClick(window_.getScenePanel().getDetailPk());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) scroll(window_.getScenePanel().getPkDetailContent())).getTreeAccessible();
         assertEq(3, tr_.size()-scAcc_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
@@ -3509,7 +3509,7 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         ((PokemonPlayer)window_.getFacade().getGame().getTeam().get(0)).setUsedBallCatching(NULL_REF);
         tryClick(window_.getScenePanel().getDetailPk());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getContent()).getTreeAccessible();
-        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) window_.getScenePanel().getPkDetailContent().getScrollPane()).getTreeAccessible();
+        IdList<AbsCustComponent> scAcc_ = ((MockCustComponent) scroll(window_.getScenePanel().getPkDetailContent())).getTreeAccessible();
         assertEq(3, tr_.size()-scAcc_.size());
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getSearch()));
         assertTrue(tr_.containsObj(window_.getScenePanel().getPkDetailContent().getField()));
@@ -4885,6 +4885,10 @@ public final class PlayerMenusTest extends InitDbGuiAiki {
         TranslationsAppli ta_ = new TranslationsAppli();
         ta_.getMapping().addEntry(MessagesPkBean.POKEMON, _file);
         _lg.getMapping().addEntry(MessagesPkBean.APP_BEAN, ta_);
+    }
+
+    private AbsScrollPane scroll(PkDetailContent _det) {
+        return ((BeanBuilderHelper)_det.getScrollPane()).getScrollPane();
     }
 
 }

@@ -21,7 +21,6 @@ public final class WrapBeanRender {
     }
     public void display(AbsBeanRender _rend, AbstractProgramInfos _api, FacadeGame _facade, AbsCommonFrame _fr) {
         current = _rend;
-        _rend.setRenders(renders);
         getContainer().removeAll();
         StringMap<String> messages_ = PkDetailContent.file(_api.currentLg());
         search = _api.getCompoFactory().newPlainButton(messages_.getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
@@ -34,8 +33,8 @@ public final class WrapBeanRender {
         bu_.setRenders(renders);
         _rend.build(_facade, new StringMapObject(), bu_);
         find_.setFinding(bu_);
-        scrollSession_.setViewportView(_rend.getBuilder().getStack().last());
-        _rend.getBuilder().getStack().removeQuicklyLast();
+        scrollSession_.setViewportView(bu_.getStack().last());
+        bu_.getStack().removeQuicklyLast();
         scrollSession_.validate();
         bu_.setScrollPane(scrollSession_);
         bu_.setFrame(_fr);
@@ -43,7 +42,6 @@ public final class WrapBeanRender {
         container.add(field);
         container.add(search);
         for (AbsBeanRender r: renders.values()) {
-            r.setRenders(renders);
             r.setFacade(_facade);
         }
     }
