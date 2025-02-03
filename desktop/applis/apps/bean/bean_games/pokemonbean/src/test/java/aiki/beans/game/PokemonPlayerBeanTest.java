@@ -1,7 +1,6 @@
 package aiki.beans.game;
 
-import aiki.beans.MockBeanBuilderHelper;
-import aiki.beans.StringMapObject;
+import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;

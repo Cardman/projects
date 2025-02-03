@@ -12,7 +12,6 @@ public abstract class IntBeanBuilderHelper {
     private final Ints colCount = new Ints();
     private final Ints colIndex = new Ints();
     private IntBeanGeneInput genInput;
-    private final CustList<BoolVal> gridLast = new CustList<BoolVal>();
     private FacadeGame facade;
     private Translations translations;
     private final IdList<IntBeanAction> anchors = new IdList<IntBeanAction>();
@@ -24,18 +23,17 @@ public abstract class IntBeanBuilderHelper {
     }
 
     public void initLine(){
-        incr(BoolVal.FALSE);
+        incr();
     }
 
     public void initPage(){
-        incr(BoolVal.FALSE);
+        incr();
     }
     public void initGrid(){
-        incr(BoolVal.TRUE);
+        incr();
     }
 
-    private void incr(BoolVal _b) {
-        getGridLast().add(_b);
+    private void incr() {
         colCount.add(0);
         colIndex.add(0);
     }
@@ -47,7 +45,6 @@ public abstract class IntBeanBuilderHelper {
     }
 
     public void decr() {
-        getGridLast().removeQuicklyLast();
         colCount.removeQuicklyLast();
         colIndex.removeQuicklyLast();
     }
@@ -85,7 +82,14 @@ public abstract class IntBeanBuilderHelper {
     public void build(IntBeanAction _action) {
         build(_action.actionBean(), _action.getBean().getForms());
     }
-    public abstract void build(String _dest, StringMapObject _form);
+    public void build(String _dest, StringMapObject _form) {
+        BeanRenderWithAppName target_ = getRenders().getVal(_dest);
+        clearAnchors();
+        initPage();
+        target_.setBuilder(this);
+        target_.build(target_.getFacade(), _form);
+        decr();
+    }
 
     public IntBeanChgSubmit button(String _txt) {
         return getGenInput().newSubmit(_txt);
@@ -105,10 +109,6 @@ public abstract class IntBeanBuilderHelper {
 
     public void incColIndex() {
         colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % colCount());
-    }
-
-    public CustList<BoolVal> getGridLast() {
-        return gridLast;
     }
 
     public int colIndex() {

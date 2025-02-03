@@ -262,7 +262,19 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         n_.setAnim(new CustList<int[][]>());
         n_.copy();
         assertEq(0,NaImgSt.tryGet(null).length);
-
+        WelcomeBean w2_ = new WelcomeBean();
+        MockBeanBuilderHelper tmp_ = new MockBeanBuilderHelper();
+        tmp_.setFacade(f_);
+        w2_.setBuilder(tmp_);
+        Translations trs_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.enData());
+        trs_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.frData());
+        trs_.getMapping().addEntry(FR, fr_);
+        w2_.getBuilder().setTranslations(trs_);
+        w2_.build(f_,new StringMapObject());
     }
     @Test
     public void alt() {

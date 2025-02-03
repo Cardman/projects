@@ -1,15 +1,53 @@
 package aiki.beans;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
+import aiki.facade.*;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.status.Status;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.StringMap;
 
-public class WelcomeBean extends CommonBean {
+public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
 
+    public WelcomeBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade,_form);
+        initPage();
+        setTitledBorder(file().getVal(MessagesDataIndex.M_P_15_TITLE));
+        element(MessagesDataIndex.M_P_15_GENERAL);
+        element(MessagesDataIndex.M_P_15_ROUND);
+        element(MessagesDataIndex.M_P_15_POKEDEX);
+        element(MessagesDataIndex.M_P_15_ITEMS);
+        element(MessagesDataIndex.M_P_15_MOVES);
+        element(MessagesDataIndex.M_P_15_ABILITIES);
+        element(MessagesDataIndex.M_P_15_STATUS);
+        element(MessagesDataIndex.M_P_15_COMBOS);
+        element(MessagesDataIndex.M_P_15_ENDROUND);
+        element(MessagesDataIndex.M_P_15_MAP);
+        element(MessagesDataIndex.M_P_15_SOLUTION);
+        element(MessagesDataIndex.M_P_15_SIMULATION);
+        element(MessagesDataIndex.M_P_15_LANGS);
+        feedParents();
+    }
+
+    private void element(String _key) {
+        nextPart();
+        initLine();
+        paintMetaLabelDisk();
+        formatMessage(MessagesPkBean.INDEX, _key);
+        feedParents();
+        breakLine();
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.INDEX).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         getForms().putMoves(CST_LEARNT_MOVES,getDataBase().getView());
