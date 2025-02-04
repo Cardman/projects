@@ -37,6 +37,7 @@ import code.gui.images.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.maths.litteral.*;
+import code.maths.litteralcom.MatVariableInfo;
 import code.maths.montecarlo.*;
 import code.sml.util.*;
 import code.stream.*;
@@ -437,6 +438,9 @@ public final class ConverterCommonMapUtil {
         for (EntryCust<String, AbilityData> m: _db.getAbilities().entryList()) {
             addTr(_db.getTranslatedAbilities(),m.getKey());
             addTr(_db, m.getValue());
+            patchDataVariable(_db,m.getValue().getMultDamage());
+            patchDataVariable(_db,m.getValue().getMultPower());
+            patchInfos(_db, m.getValue().getMultStat(), m.getValue().getFailStatus(),m.getValue().getEffectSending(),m.getValue().getEffectEndRound());
         }
         for (EntryCust<String, MoveData> m: _db.getMoves().entryList()) {
             addTr(_db.getTranslatedMoves(),m.getKey());
@@ -449,13 +453,18 @@ public final class ConverterCommonMapUtil {
             addTrsDefValue(_db.getTranslatedItems(),_db.getTranslatedTypes(),m.getValue().getTypesByOwnedItem());
             addTrsDefValue(_db.getTranslatedMoves(),_db.getTranslatedTypes(),m.getValue().getTypesByWeather());
             addTrsEff(_db, m.getValue().getEffects());
+            patchDataVariable(_db,m.getValue().getAccuracy());
             if (m.getValue() instanceof DamagingMoveData) {
                 ((DamagingMoveData)m.getValue()).setCategory(addTr(_db.getTranslatedCategories(),((DamagingMoveData)m.getValue()).getCategory()));
+            }
+            for (Effect e: m.getValue().getEffects()) {
+                patchExpEffect(e,_db);
             }
         }
         for (EntryCust<String, Item> m: _db.getItems().entryList()) {
             addTr(_db.getTranslatedItems(),m.getKey());
             addTr(_db,m.getValue());
+            patchItemExp(_db, m.getValue());
         }
         addTrImg(_db.getMiniItems(), _db.getTranslatedItems());
         for (EntryCust<String, PokemonData> m: _db.getPokedex().entryList()) {
@@ -473,6 +482,7 @@ public final class ConverterCommonMapUtil {
         addTrImg(_db.getMaxiPkBack(), _db.getTranslatedPokemon());
         for (EntryCust<String, Status> m: _db.getStatus().entryList()) {
             addTr(_db.getTranslatedStatus(),m.getKey());
+            patchStatus(_db, m.getValue());
         }
         addTrImg(_db.getAnimStatus(), _db.getTranslatedStatus());
         for (String m: _db.getTypesColors().getKeys()) {
@@ -484,8 +494,9 @@ public final class ConverterCommonMapUtil {
             for (Effect e: c.getCombo().getTeamMove()) {
                 addTrsEff(_db,e);
             }
-            for (Effect e: c.getCombo().getEffectEndRound()) {
+            for (EffectEndRoundFoe e: c.getCombo().getEffectEndRound()) {
                 addTrsEff(_db,e);
+                patchEndRoundData(_db, e);
             }
         }
         addTrMap(_db);
@@ -498,6 +509,134 @@ public final class ConverterCommonMapUtil {
         addTrsMap(_db.getTranslatedTypes());
     }
 
+    private static void patchStatus(DataBase _db, Status _status) {
+        for (EffectEndRoundStatus e: _status.getEffectEndRound()) {
+            patchEndRoundData(_db, e);
+        }
+    }
+
+    private static void patchExpEffect(Effect _e, DataBase _db) {
+        patchDataVariable(_db,_e.getFail());
+        if (_e instanceof EffectDamage) {
+            EffectDamage eff_ = (EffectDamage) _e;
+            patchDataVariable(_db,eff_.getPower());
+            for (EntryCust<String, LgInt> s: eff_.getDamageLaw().getLaw().entryList()) {
+                patchDataVariable(_db,s.getKey());
+            }
+        }
+        if (_e instanceof EffectTeamWhileSendFoe) {
+            EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _e;
+            patchDataVariable(_db,eff_.getDamageRateAgainstFoe());
+            patchDataVariable(_db,eff_.getFailSending());
+        }
+        if (_e instanceof EffectCommonStatistics) {
+            EffectCommonStatistics eff_ = (EffectCommonStatistics) _e;
+            patchInfosStatis(_db,eff_.getCommonValue());
+        }
+        if (_e instanceof EffectStatistic) {
+            EffectStatistic eff_ = (EffectStatistic) _e;
+            patchInfosStatis(_db,eff_.getLocalFailStatis());
+            patchInfosStatis(_db,eff_.getLocalFailSwapBoostStatis());
+        }
+        if (_e instanceof EffectStatus) {
+            EffectStatus eff_ = (EffectStatus) _e;
+            patchInfosStatus(_db,eff_.getLocalFailStatus());
+        }
+        if (_e instanceof EffectFullHpRate) {
+            EffectFullHpRate eff_ = (EffectFullHpRate) _e;
+            patchDataVariable(_db,eff_.getRestoredHp());
+        }
+        if (_e instanceof EffectEndRound) {
+            EffectEndRound eff_ = (EffectEndRound) _e;
+            patchDataVariable(_db,eff_.getFailEndRound());
+        }
+    }
+    private static void patchItemExp(DataBase _db, Item _it) {
+        if (_it instanceof ItemForBattle) {
+            patchDataVariable(_db,((ItemForBattle) _it).getMultDamage());
+            patchDataVariable(_db,((ItemForBattle) _it).getMultPower());
+            patchInfos(_db, ((ItemForBattle) _it).getMultStat(), ((ItemForBattle) _it).getFailStatus(),((ItemForBattle) _it).getEffectSending(),((ItemForBattle) _it).getEffectEndRound());
+        }
+        if (_it instanceof Ball) {
+            patchDataVariable(_db,((Ball) _it).getCatchingRate());
+        }
+    }
+
+    private static void patchInfos(DataBase _db, IdMap<Statistic, String> _multStat, StringMap<String> _failStatus, CustList<EffectWhileSendingWithStatistic> _send, CustList<EffectEndRound> _ls) {
+        patchInfosStatis(_db, _multStat);
+        patchInfosStatus(_db, _failStatus);
+        patchEndRound(_ls,_db);
+        patchExpSend(_send,_db);
+    }
+
+    private static void patchInfosStatus(DataBase _db, StringMap<String> _failStatus) {
+        for (EntryCust<String, String> e: _failStatus.entryList()) {
+            patchDataVariable(_db,e.getValue());
+        }
+    }
+
+
+    private static void patchExpSend(CustList<EffectWhileSendingWithStatistic> _ls, DataBase _db) {
+        if (!_ls.isEmpty()) {
+            EffectWhileSendingWithStatistic e_ = _ls.first();
+            if (!e_.isWithEffect()) {
+                return;
+            }
+            patchExpSend(e_, _db);
+        }
+    }
+
+    private static void patchExpSend(EffectWhileSendingWithStatistic _e, DataBase _db) {
+        EffectStatistic eff_ = _e.getEffect();
+        patchDataVariable(_db,eff_.getFail());
+        patchInfosStatis(_db,eff_.getLocalFailStatis());
+        patchInfosStatis(_db,eff_.getLocalFailSwapBoostStatis());
+    }
+
+    private static void patchInfosStatis(DataBase _db, IdMap<Statistic, String> _multStat) {
+        for (EntryCust<Statistic, String> e: _multStat.entryList()) {
+            patchDataVariable(_db,e.getValue());
+        }
+    }
+    private static void patchEndRound(CustList<EffectEndRound> _ls, DataBase _abs) {
+        if (!_ls.isEmpty()) {
+            EffectEndRound e_ = _ls.first();
+            patchEndRoundData(_abs, e_);
+        }
+    }
+
+    public static void patchEndRoundData(DataBase _db, EffectEndRound _e) {
+        patchDataVariable(_db,_e.getFail());
+        patchDataVariable(_db,_e.getFailEndRound());
+    }
+
+    private static void patchDataVariable(DataBase _db, String _text) {
+        MbDelimiters dels_ = MathResolver.checkSyntax(_text, new ErrorStatus());
+        patchIds(_db, dels_, _db.getTranslatedMoves(), _db.movesPart());
+        patchIds(_db, dels_, _db.getTranslatedTypes(), _db.typesPart());
+        patchIds(_db, dels_, _db.getTranslatedCategories(), _db.categoriesPart());
+        patchIds(_db, dels_, _db.getTranslatedStatus(), _db.statusPart());
+    }
+
+    private static void patchIds(DataBase _db, MbDelimiters _dels, StringMap<StringMap<String>> _trs, StringList _mids) {
+        StringList moves_ = new StringList();
+        all(_db, _dels, moves_, _mids);
+        addTrs(_trs,moves_);
+    }
+
+    private static void all(DataBase _db, MbDelimiters _dels, StringList _ids, StringList _mids) {
+        for (MatVariableInfo v: _dels.getVariables()) {
+            append(_mids,v.getName(), _db.prefixedVar(), _ids);
+        }
+    }
+
+    private static void append(StringList _mids, String _text, String _prefix, StringList _ids) {
+        for (String m: _mids) {
+            if (_text.startsWith(_prefix +m)) {
+                _ids.add(_text.substring((_prefix +m).length()));
+            }
+        }
+    }
     private static void addTrMap(DataBase _db) {
         DataMap map_ = _db.getMap();
         WildPk f_ = map_.getFirstPokemon();
@@ -1021,7 +1160,7 @@ public final class ConverterCommonMapUtil {
         addTrs(_db.getTranslatedStatus(),_i.getImmuStatus());
         new IntListConvertId<Long>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTrap());
         addTrs(_db.getTranslatedStatus(),_i.getSynchroStatus());
-        new IntListConvertId<String>().addTrs(_db.getTranslatedMoves(),_i.getFailStatus());
+        new IntListConvertId<String>().addTrs(_db.getTranslatedStatus(),_i.getFailStatus());
         addTrs(_db.getTranslatedPokemon(),_i.getMultStatPokemonRank());
         new IntListConvertId<Long>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundGlobalMove());
         new IntListConvertId<Long>().addTrs(_db.getTranslatedMoves(),_i.getIncreasingMaxNbRoundTeamMove());
