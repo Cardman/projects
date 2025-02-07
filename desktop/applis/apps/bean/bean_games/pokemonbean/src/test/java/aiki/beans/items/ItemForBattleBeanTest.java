@@ -1,11 +1,12 @@
 package aiki.beans.items;
 
+import aiki.beans.TranslatedKey;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.MessagesDataBaseConstants;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
-import code.util.StringList;
+import code.util.*;
 import org.junit.Test;
 
 public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
@@ -19,14 +20,14 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void initTypesPkAbilities1() {
-        StringList ls_ = ItemForBattleBean.initTypesPkAbilities(feedDbAbility(false).getData());
+        CustList<TranslatedKey> ls_ = ItemForBattleBean.initTypesPkAbilities(feedDbAbility(false).getData(),EN);
         assertEq(0,ls_.size());
     }
     @Test
     public void initTypesPkAbilities2() {
-        StringList ls_ = ItemForBattleBean.initTypesPkAbilities(feedDbAbility(true).getData());
+        CustList<TranslatedKey> ls_ = ItemForBattleBean.initTypesPkAbilities(feedDbAbility(true).getData(),EN);
         assertEq(1,ls_.size());
-        assertEq(A_ABILITY,ls_.get(0));
+        assertEq(A_ABILITY,ls_.get(0).getKey());
     }
     @Test
     public void determinated1() {

@@ -593,6 +593,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     protected static FacadeGame feedDbAbility(boolean _plate) {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(A_ABILITY, abilityPlate(_plate));
+        facade_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
         facade_.getData().completeVariables();
         return facade_;
     }

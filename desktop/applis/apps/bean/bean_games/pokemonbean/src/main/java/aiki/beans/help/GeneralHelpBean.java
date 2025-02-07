@@ -1,21 +1,19 @@
 package aiki.beans.help;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
+import aiki.beans.map.elements.TranslatedPkElements;
+import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
-import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.fight.pokemon.PokemonData;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsTile;
 import aiki.map.util.MiniMapCoordsTileInts;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
-import code.util.AbsMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public class GeneralHelpBean extends CommonBean {
@@ -25,7 +23,7 @@ public class GeneralHelpBean extends CommonBean {
     private int[][] unlockedCity;
     private String begin;
 
-    private Pokemon firstPokemon;
+    private TranslatedPkElements firstPokemon;
     private long nbMaxTeam;
     private long minLevel;
     private long maxLevel;
@@ -39,8 +37,8 @@ public class GeneralHelpBean extends CommonBean {
     private long nbMaxSteps;
     private StringList pokemonDefaultEggGroup = new StringList();
     private Rate defaultMoney;
-    private StringList tm = new StringList();
-    private StringList hm = new StringList();
+    private CustList<TranslatedKey> tm = new CustList<TranslatedKey>();
+    private CustList<TranslatedKey> hm = new CustList<TranslatedKey>();
     private StringList types = new StringList();
     private int mapWidth;
 
@@ -49,7 +47,7 @@ public class GeneralHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         miniMap = data_.getMap().getImages(data_);
         begin = data_.getMap().getPlace(data_.getMap().getBegin().getNumberPlace()).getName();
-        firstPokemon = data_.getMap().getFirstPokemon();
+        firstPokemon = new TranslatedPkElements(data_,data_.getMap().getFirstPokemon(),getLanguage());
         namesPlaces = DictionaryComparatorUtil.buildMiniMapCoords();
         for (MiniMapCoords m: miniMap.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
@@ -75,10 +73,8 @@ public class GeneralHelpBean extends CommonBean {
         }
         pokemonDefaultEggGroup.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         defaultMoney = data_.getDefaultMoney();
-        tm = new StringList(data_.getTm().values());
-        tm.sortElts(new TrMovesComparator(data_));
-        hm = new StringList(data_.getHm().values());
-        hm.sortElts(new TrMovesComparator(data_));
+        tm = build(data_.getTm());
+        hm = build(data_.getHm());
         types = new StringList(data_.getTypes());
         types.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         int w_ = 0;
@@ -87,6 +83,14 @@ public class GeneralHelpBean extends CommonBean {
             w_++;
         }
         mapWidth = w_;
+    }
+    private CustList<TranslatedKey> build(IntMap< String> _map) {
+        CustList<TranslatedKey> moves_ = new CustList<TranslatedKey>();
+        for (String v: _map.values()) {
+            moves_.add(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),v));
+        }
+        moves_.sortElts(new ComparingTranslatedKey());
+        return moves_;
     }
     public int[][] getMiniMapImage(int _index) {
         return miniMap.getValue(_index);
@@ -114,56 +118,55 @@ public class GeneralHelpBean extends CommonBean {
         return tryRedirectPk(pk_);
     }
     public int[][] getImage() {
-        DataBase data_ = getDataBase();
-        String name_ = firstPokemon.getName();
-        return data_.getMaxiPkFront().getVal(name_).getImage();
+        return firstPokemon.getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsPokemon_;
-        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String name_ = firstPokemon.getName();
-        return translationsPokemon_.getVal(name_);
+        return firstPokemon.getName().getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsPokemon_;
+//        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        String name_ = firstPokemon.getName();
+//        return translationsPokemon_.getVal(name_);
     }
     public String clickName() {
-        String name_ = firstPokemon.getName();
-        return tryRedirectPk(name_);
+        return tryRedirect(firstPokemon.getName());
     }
     public long getLevel() {
         return firstPokemon.getLevel();
     }
     public String getGender() {
-        DataBase data_ = getDataBase();
-        AbsMap<Gender,String> translationsGenders_;
-        translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
-        Gender gender_ = firstPokemon.getGender();
-        return translationsGenders_.getVal(gender_);
+        return firstPokemon.getGender().getTranslation();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Gender,String> translationsGenders_;
+//        translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
+//        Gender gender_ = firstPokemon.getGender();
+//        return translationsGenders_.getVal(gender_);
     }
     public String getAbility() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsAbilities_;
-        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        String ability_ = firstPokemon.getAbility();
-        return translationsAbilities_.getVal(ability_);
+        return firstPokemon.getAbility().getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsAbilities_;
+//        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+//        String ability_ = firstPokemon.getAbility();
+//        return translationsAbilities_.getVal(ability_);
     }
     public String clickAbility() {
-        String ability_ = firstPokemon.getAbility();
-        return tryRedirectAb(ability_);
+        return tryRedirect(firstPokemon.getAbility());
     }
     public boolean firstPokemonHasItem() {
-        return !firstPokemon.getItem().isEmpty();
+        return !firstPokemon.getItem().getKey().isEmpty();
     }
     public String getItem() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsItems_;
-        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = firstPokemon.getItem();
-        return translationsItems_.getVal(item_);
+        return firstPokemon.getItem().getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsItems_;
+//        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
+//        String item_ = firstPokemon.getItem();
+//        return translationsItems_.getVal(item_);
     }
     public String clickItem() {
-        String item_ = firstPokemon.getItem();
-        return tryRedirectIt(item_);
+        return tryRedirect(firstPokemon.getItem());
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -209,40 +212,40 @@ public class GeneralHelpBean extends CommonBean {
 //        return CST_ITEM;
     }
     public String getMoveFirstPk(int _moveIndex) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getMovesAtLevelFirstPk().get(_moveIndex);
-        return translationsMoves_.getVal(move_);
+        return getMovesAtLevelFirstPk().get(_moveIndex).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String move_ = getMovesAtLevelFirstPk().get(_moveIndex);
+//        return translationsMoves_.getVal(move_);
     }
     public String clickMoveFirstPk(int _moveIndex) {
-        String move_ = getMovesAtLevelFirstPk().get(_moveIndex);
-        return tryRedirectMv(move_);
+        return tryRedirect(getMovesAtLevelFirstPk().get(_moveIndex));
     }
-    public StringList getMovesAtLevelFirstPk() {
-        DataBase data_ = getDataBase();
-        StringList moves_ = data_.getPokemon(firstPokemon.getName()).getMovesAtLevel(firstPokemon.getLevel(), data_.getNbMaxMoves());
-        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return moves_;
+    public CustList<TranslatedKey> getMovesAtLevelFirstPk() {
+        return firstPokemon.getMoves();
+//        DataBase data_ = getDataBase();
+//        StringList moves_ = data_.getPokemon(firstPokemon.getName()).getMovesAtLevel(firstPokemon.getLevel(), data_.getNbMaxMoves());
+//        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+//        return moves_;
     }
     public String clickTm(int _moveIndex) {
-        String move_ = tm.get(_moveIndex);
-        return tryRedirectMv(move_);
+        return tryRedirect(tm.get(_moveIndex));
     }
     public String clickHm(int _moveIndex) {
-        String move_ = hm.get(_moveIndex);
-        return tryRedirectMv(move_);
+        return tryRedirect(hm.get(_moveIndex));
     }
     public String getTrTm(int _moveIndex) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = tm.get(_moveIndex);
-        return translationsMoves_.getVal(move_);
+        return tm.get(_moveIndex).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String move_ = tm.get(_moveIndex);
+//        return translationsMoves_.getVal(move_);
     }
     public String getTmPrice(int _moveIndex) {
         DataBase data_ = getDataBase();
-        String move_ = tm.get(_moveIndex);
+        String move_ = tm.get(_moveIndex).getKey();
 //        short key_ = data_.getTm().getKeys(move_).first();
         int key_ = data_.getTmByMove(move_).first();
         if (data_.getTmPrice().contains(key_)) {
@@ -251,11 +254,12 @@ public class GeneralHelpBean extends CommonBean {
         return DataBase.EMPTY_STRING;
     }
     public String getTrHm(int _moveIndex) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = hm.get(_moveIndex);
-        return translationsMoves_.getVal(move_);
+        return hm.get(_moveIndex).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String move_ = hm.get(_moveIndex);
+//        return translationsMoves_.getVal(move_);
     }
     public String getTrType(int _index) {
         DataBase data_ = getDataBase();
@@ -346,11 +350,11 @@ public class GeneralHelpBean extends CommonBean {
         return defaultMoney;
     }
 
-    public StringList getTm() {
+    public CustList<TranslatedKey> getTm() {
         return tm;
     }
 
-    public StringList getHm() {
+    public CustList<TranslatedKey> getHm() {
         return hm;
     }
 

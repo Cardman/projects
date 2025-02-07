@@ -14,7 +14,7 @@ public final class EndRoundCommon {
         if (_eff != null) {
             endRound = true;
             endRoundRank = _eff.getEndRoundRank();
-            reasonsEndRound =  CommonBean.getFormattedReasons(_data, CommonBean.getReasons(_eff.getFailEndRound()), _lg);
+            reasonsEndRound =  CommonBean.getFormattedReasons(_data, _eff.getFailEndRound(), _lg);
             mapVarsFailEndRound =  CommonBean.getMapVarsFail(_data, _eff.getFailEndRound(), _lg);
         } else {
             endRound = false;

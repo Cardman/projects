@@ -1,45 +1,38 @@
 package aiki.beans.endround;
 
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
-import code.maths.Rate;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.fight.moves.effects.*;
+import code.maths.*;
 
 public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
-    private DictionaryComparator<String,Rate> damageByStatus;
+    private DictionaryComparator<TranslatedKey,Rate> damageByStatus;
 
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
         DataBase data_ = getDataBase();
         EffectEndRoundMultiRelation effect_ = (EffectEndRoundMultiRelation) getEffect();
-        DictionaryComparator<String,Rate> damageByStatus_;
-        damageByStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey,Rate> damageByStatus_;
+        damageByStatus_ = DictionaryComparatorUtil.buildStatusRate();
         for (String s: effect_.getDamageByStatus().getKeys()) {
-            damageByStatus_.put(s, effect_.getDamageByStatus().getVal(s));
+            damageByStatus_.put(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s), effect_.getDamageByStatus().getVal(s));
         }
         damageByStatus = damageByStatus_;
     }
     public String getTrDamageStatus(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_;
-        translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(damageByStatus.getKey(_index));
+        return damageByStatus.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_;
+//        translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translatedStatus_.getVal(damageByStatus.getKey(_index));
     }
     public String clickDamageStatus(int _indexOne,int _indexTwo) {
-        EffectEndRoundMultiRelation effect_ = (EffectEndRoundMultiRelation) getEffect(_indexOne);
-        DataBase data_ = getDataBase();
-        DictionaryComparator<String,Rate> multDamageStatus_;
-        multDamageStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
-        for (String s: effect_.getDamageByStatus().getKeys()) {
-            multDamageStatus_.put(s, effect_.getDamageByStatus().getVal(s));
-        }
-        return tryRedirectSt(multDamageStatus_.getKey(_indexTwo));
+        return tryRedirect(((EffectEndRoundMultiRelationBean)getForms().getCurrentBeanEnd().get(_indexOne)).damageByStatus.getKey(_indexTwo));
     }
 
-    public DictionaryComparator<String,Rate> getDamageByStatus() {
+    public DictionaryComparator<TranslatedKey,Rate> getDamageByStatus() {
         return damageByStatus;
     }
 }

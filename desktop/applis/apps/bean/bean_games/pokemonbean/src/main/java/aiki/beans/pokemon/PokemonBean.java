@@ -1,6 +1,7 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -46,12 +47,12 @@ public class PokemonBean extends CommonBean {
     private Rate height;
     private StringList possibleGenders;
     private StringList types;
-    private StringList abilities;
+    private CustList<TranslatedKey> abilities;
     private long catchingRate;
     private StringList evolutions;
     private IdList<Statistic> statisticsEnum;
     private StringList statistics;
-    private String evoBase;
+    private TranslatedKey evoBase;
     private String expEvo;
     private long expRate;
     private CustList<LevelMove> levMoves;
@@ -114,12 +115,16 @@ public class PokemonBean extends CommonBean {
             types.add(translationsTypes_.getVal(t));
         }
         types.sort();
-        abilities = new StringList(pk_.getAbilities());
-        abilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+        abilities = new CustList<TranslatedKey>();
+        for (String a:pk_.getAbilities()) {
+            abilities.add(buildAb(translatedAbilities_,a));
+        }
+        abilities.sortElts(DictionaryComparatorUtil.cmpAbilities());
         catchingRate = pk_.getCatchingRate();
         evolutions = new StringList(pk_.getEvolutions().getKeys());
         evolutions.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        evoBase = translationsPokemon_.getVal(pk_.getBaseEvo());
+        evoBase = buildPk(translationsPokemon_,pk_.getBaseEvo());
         expEvo = data_.getFormula(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
         mapVars = new NatStringTreeMap<String>();
@@ -269,16 +274,18 @@ public class PokemonBean extends CommonBean {
         return evolutions.get(_index);
     }
     public String getTrAbility(int _index) {
-        DataBase data_ = getDataBase();
-        return data_.translateAbility(abilities.get(_index));
+        return abilities.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        return data_.translateAbility(abilities.get(_index));
     }
     public String clickAbility(int _index) {
-        return tryRedirectAb(abilities.get(_index));
+        return tryRedirect(abilities.get(_index));
     }
     public String clickBase() {
-        DataBase data_ = getDataBase();
-        PokemonData pk_ = data_.getPokemon(name);
-        return tryRedirectPk(pk_.getBaseEvo());
+        return tryRedirect(evoBase);
+//        DataBase data_ = getDataBase();
+//        PokemonData pk_ = data_.getPokemon(name);
+//        return tryRedirectPk(pk_.getBaseEvo());
     }
     public long getBase(int _index) {
         DataBase data_ = getDataBase();
@@ -417,7 +424,7 @@ public class PokemonBean extends CommonBean {
         return types;
     }
 
-    public StringList getAbilities() {
+    public CustList<TranslatedKey> getAbilities() {
         return abilities;
     }
 
@@ -434,7 +441,7 @@ public class PokemonBean extends CommonBean {
     }
 
     public String getEvoBase() {
-        return evoBase;
+        return evoBase.getTranslation();
     }
 
     public String getExpEvo() {

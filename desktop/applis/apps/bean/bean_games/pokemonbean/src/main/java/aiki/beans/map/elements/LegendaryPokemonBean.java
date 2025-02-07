@@ -1,69 +1,66 @@
 package aiki.beans.map.elements;
 
-import aiki.beans.CommonBean;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.map.pokemon.WildPk;
-import aiki.map.pokemon.enums.Gender;
-import code.util.AbsMap;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.map.pokemon.*;
+import code.util.*;
 
 public class LegendaryPokemonBean extends CommonBean {
-    private WildPk pokemon;
+    private TranslatedPkElements pokemon;
 
     @Override
     public void beforeDisplaying() {
-        pokemon = getForms().getValPk(CST_LEG_PK);
+        pokemon = new TranslatedPkElements(getDataBase(),getForms().getValPk(CST_LEG_PK),getLanguage());
     }
     public int[][] getImage() {
-        DataBase data_ = getDataBase();
-        String name_ = pokemon.getName();
-        return data_.getMaxiPkFront().getVal(name_).getImage();
+        return pokemon.getImage();
+//        DataBase data_ = getDataBase();
+//        String name_ = pokemon.getName();
+//        return data_.getMaxiPkFront().getVal(name_).getImage();
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
     public String getName() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsPokemon_;
-        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String name_ = pokemon.getName();
-        return translationsPokemon_.getVal(name_);
+        return pokemon.getName().getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsPokemon_;
+//        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        String name_ = pokemon.getName();
+//        return translationsPokemon_.getVal(name_);
     }
     public String clickName() {
-        String name_ = pokemon.getName();
-        return tryRedirectPk(name_);
+        return tryRedirect(pokemon.getName());
     }
     public long getLevel() {
         return pokemon.getLevel();
     }
     public String getGender() {
-        DataBase data_ = getDataBase();
-        AbsMap<Gender,String> translationsGenders_;
-        translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
-        Gender gender_ = pokemon.getGender();
-        return translationsGenders_.getVal(gender_);
+        return pokemon.getGender().getTranslation();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Gender,String> translationsGenders_;
+//        translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
+//        Gender gender_ = pokemon.getGender();
+//        return translationsGenders_.getVal(gender_);
     }
     public String getAbility() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsAbilities_;
-        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        String ability_ = pokemon.getAbility();
-        return translationsAbilities_.getVal(ability_);
+        return pokemon.getAbility().getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsAbilities_;
+//        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+//        String ability_ = pokemon.getAbility();
+//        return translationsAbilities_.getVal(ability_);
     }
     public String clickAbility() {
-        String ability_ = pokemon.getAbility();
-        return tryRedirectAb(ability_);
+        return tryRedirect(pokemon.getAbility());
     }
     public String getItem() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsItems_;
-        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = pokemon.getItem();
-        return translationsItems_.getVal(item_);
+        return pokemon.getItem().getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsItems_;
+//        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
+//        String item_ = pokemon.getItem();
+//        return translationsItems_.getVal(item_);
     }
     public String clickItem() {
-        String item_ = pokemon.getItem();
-        return tryRedirectIt(item_);
+        return tryRedirect(pokemon.getItem());
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -109,24 +106,25 @@ public class LegendaryPokemonBean extends CommonBean {
 //        return CST_ITEM;
     }
     public String getMove(int _moveIndex) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getMovesAtLevel().get(_moveIndex);
-        return translationsMoves_.getVal(move_);
+        return getMovesAtLevel().get(_moveIndex).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String move_ = getMovesAtLevel().get(_moveIndex);
+//        return translationsMoves_.getVal(move_);
     }
     public String clickMove(int _moveIndex) {
-        String move_ = getMovesAtLevel().get(_moveIndex);
-        return tryRedirectMv(move_);
+        return tryRedirect(getMovesAtLevel().get(_moveIndex));
     }
-    public StringList getMovesAtLevel() {
-        DataBase data_ = getDataBase();
-        StringList moves_ = data_.getPokemon(pokemon.getName()).getMovesAtLevel(pokemon.getLevel(), data_.getNbMaxMoves());
-        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return moves_;
+    public CustList<TranslatedKey> getMovesAtLevel() {
+        return pokemon.getMoves();
+//        DataBase data_ = getDataBase();
+//        StringList moves_ = data_.getPokemon(pokemon.getName()).getMovesAtLevel(pokemon.getLevel(), data_.getNbMaxMoves());
+//        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+//        return moves_;
     }
 
-    public WildPk getPokemon() {
-        return pokemon;
+    public Pokemon getPokemon() {
+        return pokemon.getTrained();
     }
 }

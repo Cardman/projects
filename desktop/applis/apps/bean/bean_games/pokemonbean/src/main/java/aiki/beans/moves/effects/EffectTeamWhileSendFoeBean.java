@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -9,7 +10,7 @@ import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import code.util.*;
 
 public class EffectTeamWhileSendFoeBean extends EffectBean {
-    private LongTreeMap< String> statusByNbUses;
+    private LongTreeMap< TranslatedKey> statusByNbUses;
     private StringList deletedByFoeTypes;
     private String damageRateAgainstFoe;
     private DictionaryComparator<Statistic,Long> statistics;
@@ -35,13 +36,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         }
         deletedByFoeTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         deletedByFoeTypes = deletedByFoeTypes_;
-        LongTreeMap< String> statusByNbUses_;
-        statusByNbUses_ = new LongTreeMap< String>();
-        for (Long s: effect_.getStatusByNbUses().getKeys()) {
-            String status_ = effect_.getStatusByNbUses().getVal(s);
-            statusByNbUses_.put(s, status_);
-        }
-        statusByNbUses = statusByNbUses_;
+        statusByNbUses = statusByNbUses(effect_.getStatusByNbUses());
 //        Map<String,String> locHtml_ = new Map<>();
 //        locHtml_.put(EAMP, E_AMP);
 //        locHtml_.put(EGT, E_GT);
@@ -59,7 +54,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
 ////            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            reasonsSending_.add(formula_);
 //        }
-        reasonsSending = CommonBean.getFormattedReasons(data_, getFailSendingReasons(), getLanguage());
+        reasonsSending = CommonBean.getFormattedReasons(data_, effect_.getFailSending(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailSending(),getLanguage());
         NatStringTreeMap<String> mapVarsFailSending_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
@@ -84,6 +79,17 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         }
         mapVarsDamageSentFoe = mapVarsDamageSentFoe_;
     }
+
+    private LongTreeMap<TranslatedKey> statusByNbUses(LongMap<String> _st) {
+        LongTreeMap< TranslatedKey> statusByNbUses_;
+        statusByNbUses_ = new LongTreeMap< TranslatedKey>();
+        for (Long s: _st.getKeys()) {
+            String status_ = _st.getVal(s);
+            statusByNbUses_.put(s, buildSt(getDataBase().getTranslatedStatus().getVal(getLanguage()),status_));
+        }
+        return statusByNbUses_;
+    }
+
     public String getTranslatedStatistic(int _index) {
         Statistic st_ = getSortedStatistics().get(_index);
         DataBase data_ = getDataBase();
@@ -104,26 +110,10 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return translatedTypes_.getVal(type_);
     }
     public String clickStatus(int _indexEffect, int _index) {
-        LongTreeMap< String> statusByNbUses_;
-        statusByNbUses_ = new LongTreeMap< String>();
-        EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect(_indexEffect);
-        for (Long s: effect_.getStatusByNbUses().getKeys()) {
-            String status_ = effect_.getStatusByNbUses().getVal(s);
-            statusByNbUses_.put(s, status_);
-        }
-        String status_ = statusByNbUses_.getValue(_index);
-        return tryRedirectSt(status_);
+        return tryRedirect(((EffectTeamWhileSendFoeBean)getForms().getCurrentBean().get(_indexEffect)).statusByNbUses.getValue(_index));
     }
     public String getTranslatedStatus(int _index) {
-        String status_ = statusByNbUses.getValue(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(status_);
-    }
-
-    private StringList getFailSendingReasons() {
-        EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect();
-        return getReasons(effect_.getFailSending());
+        return statusByNbUses.getValue(_index).getTranslation();
     }
 
     public String getDamageRateAgainstFoe() {
@@ -138,7 +128,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return statistics;
     }
 
-    public LongTreeMap<String> getStatusByNbUses() {
+    public LongTreeMap<TranslatedKey> getStatusByNbUses() {
         return statusByNbUses;
     }
 

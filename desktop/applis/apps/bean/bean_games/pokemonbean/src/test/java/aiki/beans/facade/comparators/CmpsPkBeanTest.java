@@ -1,5 +1,7 @@
 package aiki.beans.facade.comparators;
 
+import aiki.beans.abilities.AbilityBean;
+import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.solution.dto.WildPokemonDto;
 import aiki.beans.help.LanguageElementStringKey;
@@ -301,21 +303,21 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
         ComparatorStatusStatistic c_ = new ComparatorStatusStatistic(f_.getData(),EN);
-        CustList<StatisticStatus> lists_ = new CustList<StatisticStatus>();
-        lists_.add(new StatisticStatus(Statistic.SPEED,M_DAM));
-        lists_.add(new StatisticStatus(Statistic.ACCURACY,M_DAM));
-        lists_.add(new StatisticStatus(Statistic.SPEED,M_DAM_BAD));
-        lists_.add(new StatisticStatus(Statistic.ACCURACY,M_DAM_BAD));
+        CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
+        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.SPEED,M_DAM),EN));
+        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.ACCURACY,M_DAM),EN));
+        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.SPEED,M_DAM_BAD),EN));
+        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.ACCURACY,M_DAM_BAD),EN));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
-        assertEq(M_DAM_BAD,lists_.get(0).getStatus());
-        assertSame(Statistic.SPEED,lists_.get(0).getStatistic());
-        assertEq(M_DAM_BAD,lists_.get(1).getStatus());
-        assertSame(Statistic.ACCURACY,lists_.get(1).getStatistic());
-        assertEq(M_DAM,lists_.get(2).getStatus());
-        assertSame(Statistic.SPEED,lists_.get(2).getStatistic());
-        assertEq(M_DAM,lists_.get(3).getStatus());
-        assertSame(Statistic.ACCURACY,lists_.get(3).getStatistic());
+        assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(0).getFirst().getKey()));
+        assertEq(M_DAM_BAD,lists_.get(1).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(1).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(2).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(2).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(3).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(3).getFirst().getKey()));
     }
     @Test
     public void cmp15() {
@@ -385,21 +387,21 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
         ComparatorWeatherType c_ = new ComparatorWeatherType(f_.getData(),EN);
-        CustList<WeatherType> lists_ = new CustList<WeatherType>();
-        lists_.add(new WeatherType(M_DAM_BAD,M_DAM));
-        lists_.add(new WeatherType(M_DAM,M_DAM));
-        lists_.add(new WeatherType(M_DAM_BAD,M_DAM_BAD));
-        lists_.add(new WeatherType(M_DAM,M_DAM_BAD));
+        CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
+        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM_BAD, M_DAM),EN));
+        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM,M_DAM),EN));
+        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM_BAD,M_DAM_BAD),EN));
+        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM,M_DAM_BAD),EN));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
-        assertEq(M_DAM_BAD,lists_.get(0).getWeather());
-        assertEq(M_DAM_BAD,lists_.get(0).getType());
-        assertEq(M_DAM_BAD,lists_.get(1).getWeather());
-        assertEq(M_DAM,lists_.get(1).getType());
-        assertEq(M_DAM,lists_.get(2).getWeather());
-        assertEq(M_DAM_BAD,lists_.get(2).getType());
-        assertEq(M_DAM,lists_.get(3).getWeather());
-        assertEq(M_DAM,lists_.get(3).getType());
+        assertEq(M_DAM_BAD,lists_.get(0).getFirst().getKey());
+        assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
+        assertEq(M_DAM_BAD,lists_.get(1).getFirst().getKey());
+        assertEq(M_DAM,lists_.get(1).getSecond().getKey());
+        assertEq(M_DAM,lists_.get(2).getFirst().getKey());
+        assertEq(M_DAM_BAD,lists_.get(2).getSecond().getKey());
+        assertEq(M_DAM,lists_.get(3).getFirst().getKey());
+        assertEq(M_DAM,lists_.get(3).getSecond().getKey());
     }
     @Test
     public void cmp18() {

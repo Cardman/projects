@@ -65,7 +65,7 @@ public class StatusBean extends CommonBean {
                 incrementingDamageByRounds = ((EffectEndRoundSingleStatus)effect_).isIncrementingDamageByRounds();
             }
             endRoundRank = effect_.getEndRoundRank();
-            reasonsEndRound = getFormattedReasons(data_, getReasons(effect_.getFailEndRound()), getLanguage());
+            reasonsEndRound = getFormattedReasons(data_, effect_.getFailEndRound(), getLanguage());
             mapVarsFailEndRound = getMapVarsFail(data_, effect_.getFailEndRound(), getLanguage());
         } else {
             endRound = false;
@@ -79,7 +79,7 @@ public class StatusBean extends CommonBean {
         disabledEffIfSwitch = status_.getDisabledEffIfSwitch();
         incrementEndRound = status_.getIncrementEndRound();
         incrementingEndRound = status_.getIncrementingEndRound();
-        reasons = getFormattedReasons(data_, getReasons(status_.getFail()), getLanguage());
+        reasons = getFormattedReasons(data_, status_.getFail(), getLanguage());
         mapVarsFail = getMapVarsFail(data_, status_.getFail(), getLanguage());
         AbsMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());

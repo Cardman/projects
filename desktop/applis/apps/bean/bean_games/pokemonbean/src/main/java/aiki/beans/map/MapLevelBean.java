@@ -190,8 +190,7 @@ public class MapLevelBean extends AbsLevelBean {
         }
         DataBase data_ = getDataBase();
         if (l_.getItems().contains(pt_)) {
-            String item_ = l_.getItems().getVal(pt_);
-            return tryRedirectIt(item_);
+            return tryRedirect(buildIt(data_,data_.getTranslatedItems().getVal(getLanguage()),l_.getItems().getVal(pt_)));
 //                if (it_ instanceof Ball) {
 //                    return CST_BALL;
 //                }
@@ -237,12 +236,10 @@ public class MapLevelBean extends AbsLevelBean {
 //                return CST_ITEM;
         }
         if (l_.getTm().contains(pt_)) {
-            Integer tm_ = l_.getTm().getVal(pt_);
-            return tryRedirectMv(data_.getTm().getVal(tm_));
+            return tryRedirect(buildMv(data_.getTranslatedMoves().getVal(getLanguage()),data_.getTm().getVal(l_.getTm().getVal(pt_))));
         }
         if (l_.getHm().contains(pt_)) {
-            Integer tm_ = l_.getHm().getVal(pt_);
-            return tryRedirectMv(data_.getHm().getVal(tm_));
+            return tryRedirect(buildMv(data_.getTranslatedMoves().getVal(getLanguage()),data_.getHm().getVal(l_.getHm().getVal(pt_))));
         }
         if (l_.getCharacters().contains(pt_)) {
             CharacterInRoadCave char_ = l_.getCharacters().getVal(pt_);

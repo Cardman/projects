@@ -1,11 +1,12 @@
 package aiki.beans.facade.comparators;
+import aiki.beans.abilities.*;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.fight.util.*;
 import code.util.*;
 import code.util.ints.*;
 
-public final class ComparatorWeatherType implements Comparing<WeatherType> {
+public final class ComparatorWeatherType implements Comparing<TranslatedKeyPair> {
 
     private final AbsMap<String,String> moves;
     private final AbsMap<String,String> types;
@@ -20,8 +21,8 @@ public final class ComparatorWeatherType implements Comparing<WeatherType> {
     }
 
     @Override
-    public int compare(WeatherType _o1, WeatherType _o2) {
-        return comparePairs(_o1, _o2, moves, types);
+    public int compare(TranslatedKeyPair _o1, TranslatedKeyPair _o2) {
+        return comparePairs(new WeatherType(_o1.getFirst().getKey(),_o1.getSecond().getKey()), new WeatherType(_o2.getFirst().getKey(),_o2.getSecond().getKey()), moves, types);
     }
 
     public static int comparePairs(WeatherType _o1, WeatherType _o2, AbsMap<String,String> _moves, AbsMap<String,String> _types) {

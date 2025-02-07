@@ -1,11 +1,10 @@
 package aiki.beans.moves.effects;
-import aiki.beans.CommonBean;
-import aiki.db.DataBase;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.enums.TargetChoice;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.moves.enums.*;
+import code.util.*;
 
 public class EffectBean extends CommonBean {
 
@@ -21,7 +20,7 @@ public class EffectBean extends CommonBean {
         DataBase data_ = getDataBase();
         MoveData move_ = data_.getMove(move);
         effect = move_.getEffects().get(index);
-        reasons = getFormattedReasons(data_, getFailReasons(), getLanguage());
+        reasons = getFormattedReasons(data_, effect.getFail(), getLanguage());
         mapVarsFail = getMapVarsFail(data_, effect.getFail(), getLanguage());
         needSuccessFirstEffect = effect.getRequiredSuccessfulEffects().containsObj(move_.indexOfPrimaryEffect());
     }
@@ -30,18 +29,8 @@ public class EffectBean extends CommonBean {
         return effect;
     }
 
-    protected Effect getEffect(int _indexEffect) {
-        DataBase data_ = getDataBase();
-        MoveData move_ = data_.getMove(getMove());
-        return move_.getEffet(_indexEffect);
-    }
-
     public String getMove() {
         return move;
-    }
-
-    private StringList getFailReasons() {
-        return getReasons(effect.getFail());
     }
 
     public boolean isAdjAdv() {

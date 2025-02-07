@@ -1,21 +1,18 @@
 package aiki.beans.moves.effects;
 
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.effects.EffectTeam;
-import aiki.fight.util.CategoryMult;
-import code.maths.Rate;
-import code.util.AbsMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.fight.enums.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.util.*;
+import code.maths.*;
+import code.util.*;
 
 public class EffectTeamBean extends EffectBean {
     private boolean forbiddingHealing;
-    private StringList forbiddenBoost;
-    private StringList unusableMoves;
+    private CustList<TranslatedKey> forbiddenBoost;
+    private CustList<TranslatedKey> unusableMoves;
     private StringList cancelChgtStatFoeTeam;
     private StringList cancelChgtStatTeam;
     private DictionaryComparator<CategoryMult, Rate> multDamage;
@@ -23,9 +20,9 @@ public class EffectTeamBean extends EffectBean {
     private NatStringTreeMap< Rate> multStatisticFoe;
     private StringList protectAgainstLowStat;
     private boolean protectAgainstCh;
-    private StringList protectAgainstStatus;
-    private StringList disableFoeTeamEffects;
-    private StringList disableFoeTeamStatus;
+    private CustList<TranslatedKey> protectAgainstStatus;
+    private CustList<TranslatedKey> disableFoeTeamEffects;
+    private CustList<TranslatedKey> disableFoeTeamStatus;
     private long defaultBoost;
 
     @Override
@@ -38,12 +35,12 @@ public class EffectTeamBean extends EffectBean {
         forbiddingHealing = effect_.getForbiddingHealing();
         protectAgainstCh = effect_.getProtectAgainstCh();
         defaultBoost = data_.getDefaultBoost();
-        StringList forbiddenBoost_;
-        forbiddenBoost_ = new StringList();
+        CustList<TranslatedKey> forbiddenBoost_;
+        forbiddenBoost_ = new CustList<TranslatedKey>();
         for (Statistic s: effect_.getForbiddenBoost()) {
-            forbiddenBoost_.add(translatedStatistics_.getVal(s));
+            forbiddenBoost_.add(buildSi(translatedStatistics_,s));
         }
-        forbiddenBoost_.sort();
+        forbiddenBoost_.sortElts(new ComparingTranslatedKey());
         forbiddenBoost = forbiddenBoost_;
         StringList cancelChgtStatFoeTeam_;
         cancelChgtStatFoeTeam_ = new StringList();
@@ -87,102 +84,52 @@ public class EffectTeamBean extends EffectBean {
             multDamage_.put(cat_, effect_.getMultDamage().getVal(c));
         }
         multDamage = multDamage_;
-        protectAgainstStatus = getProtectAgainstStatus(effect_);
-        unusableMoves = unusableMoves(effect_);
-        disableFoeTeamEffects = disableFoeTeamEffects(effect_);
-        disableFoeTeamStatus = disableFoeTeamStatus(effect_);
-    }
-
-    private StringList unusableMoves(EffectTeam _effect) {
-        DataBase data_ = getDataBase();
-        StringList unusableMoves_;
-        unusableMoves_ = new StringList();
-        for (String m: _effect.getUnusableMoves()) {
-            unusableMoves_.add(m);
-        }
-        unusableMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return unusableMoves_;
-    }
-
-    private StringList disableFoeTeamEffects(EffectTeam _effect) {
-        DataBase data_ = getDataBase();
-        StringList disableFoeTeamEffects_;
-        disableFoeTeamEffects_ = new StringList();
-        for (String m: _effect.getDisableFoeTeamEffects()) {
-            disableFoeTeamEffects_.add(m);
-        }
-        disableFoeTeamEffects_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return disableFoeTeamEffects_;
-    }
-
-    private StringList disableFoeTeamStatus(EffectTeam _effect) {
-        DataBase data_ = getDataBase();
-        StringList disableFoeTeamStatus_;
-        disableFoeTeamStatus_ = new StringList();
-        for (String m: _effect.getDisableFoeTeamStatus()) {
-            disableFoeTeamStatus_.add(m);
-        }
-        disableFoeTeamStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        return disableFoeTeamStatus_;
+        protectAgainstStatus = listTrStringsSt(effect_.getProtectAgainstStatus(),getDataBase(),getLanguage());
+        unusableMoves = listTrStringsMv(effect_.getUnusableMoves(),getDataBase(),getLanguage());
+        disableFoeTeamEffects = listTrStringsMv(effect_.getDisableFoeTeamEffects(),getDataBase(),getLanguage());
+        disableFoeTeamStatus = listTrStringsSt(effect_.getDisableFoeTeamStatus(),getDataBase(),getLanguage());
     }
 
     public String clickStatus(int _indexEffect, int _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        String st_ = getProtectAgainstStatus(effect_).get(_index);
-        return tryRedirectSt(st_);
+        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).protectAgainstStatus.get(_index));
     }
 
-    private StringList getProtectAgainstStatus(EffectTeam _effect) {
-        DataBase data_ = getDataBase();
-        StringList protectAgainstStatus_;
-        protectAgainstStatus_ = new StringList();
-        for (String s: _effect.getProtectAgainstStatus()) {
-            protectAgainstStatus_.add(s);
-        }
-        protectAgainstStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        return protectAgainstStatus_;
-    }
     public String getTrStatus(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String st_ = protectAgainstStatus.get(_index);
-        return translatedStatus_.getVal(st_);
+        return protectAgainstStatus.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        String st_ = protectAgainstStatus.get(_index);
+//        return translatedStatus_.getVal(st_);
     }
     public String clickUnusableMove(int _indexEffect, int _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        StringList unusableMoves_ = unusableMoves(effect_);
-        String st_ = unusableMoves_.get(_index);
-        return tryRedirectMv(st_);
+        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).unusableMoves.get(_index));
     }
     public String getTrUnusableMove(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = unusableMoves.get(_index);
-        return translatedMoves_.getVal(st_);
+        return unusableMoves.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String st_ = unusableMoves.get(_index);
+//        return translatedMoves_.getVal(st_);
     }
     public String clickDisableFoeTeamEffects(int _indexEffect, int _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        StringList disableFoeTeamEffects_ = disableFoeTeamEffects(effect_);
-        String st_ = disableFoeTeamEffects_.get(_index);
-        return tryRedirectMv(st_);
+        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).disableFoeTeamEffects.get(_index));
     }
     public String getTrDisableFoeTeamEffects(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = disableFoeTeamEffects.get(_index);
-        return translatedMoves_.getVal(st_);
+        return disableFoeTeamEffects.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String st_ = disableFoeTeamEffects.get(_index);
+//        return translatedMoves_.getVal(st_);
     }
     public String clickDisableFoeTeamStatus(int _indexEffect, int _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        StringList disableFoeTeamStatus_ = disableFoeTeamStatus(effect_);
-        String st_ = disableFoeTeamStatus_.get(_index);
-        return tryRedirectSt(st_);
+        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).disableFoeTeamStatus.get(_index));
     }
     public String getTrDisableFoeTeamStatus(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String st_ = disableFoeTeamStatus.get(_index);
-        return translatedMoves_.getVal(st_);
+        return disableFoeTeamStatus.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        String st_ = disableFoeTeamStatus.get(_index);
+//        return translatedMoves_.getVal(st_);
     }
 
     public boolean getForbiddingHealing() {
@@ -193,7 +140,7 @@ public class EffectTeamBean extends EffectBean {
         return protectAgainstCh;
     }
 
-    public StringList getForbiddenBoost() {
+    public CustList<TranslatedKey> getForbiddenBoost() {
         return forbiddenBoost;
     }
 
@@ -213,7 +160,7 @@ public class EffectTeamBean extends EffectBean {
         return protectAgainstLowStat;
     }
 
-    public StringList getProtectAgainstStatus() {
+    public CustList<TranslatedKey> getProtectAgainstStatus() {
         return protectAgainstStatus;
     }
 
@@ -229,15 +176,15 @@ public class EffectTeamBean extends EffectBean {
         return multDamage;
     }
 
-    public StringList getUnusableMoves() {
+    public CustList<TranslatedKey> getUnusableMoves() {
         return unusableMoves;
     }
 
-    public StringList getDisableFoeTeamEffects() {
+    public CustList<TranslatedKey> getDisableFoeTeamEffects() {
         return disableFoeTeamEffects;
     }
 
-    public StringList getDisableFoeTeamStatus() {
+    public CustList<TranslatedKey> getDisableFoeTeamStatus() {
         return disableFoeTeamStatus;
     }
 }

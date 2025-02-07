@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.beans.facade.comparators.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.util.*;
@@ -38,6 +37,6 @@ public final class DisplayEntryCustSubElementStatisticStatusElt implements Displ
 
     @Override
     public Comparing<StatisticStatus> buildCmp() {
-        return new ComparatorStatusStatistic(types,stats);
+        return new ComparingStatisticStatus(stats, types);
     }
 }

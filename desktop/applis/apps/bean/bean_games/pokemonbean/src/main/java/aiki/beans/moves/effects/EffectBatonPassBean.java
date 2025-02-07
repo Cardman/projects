@@ -1,12 +1,11 @@
 package aiki.beans.moves.effects;
 
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import code.util.*;
 
 public class EffectBatonPassBean extends EffectBean {
-    private StringList moves;
+    private CustList<TranslatedKey> moves;
 
     @Override
     public void beforeDisplaying() {
@@ -20,21 +19,21 @@ public class EffectBatonPassBean extends EffectBean {
         moves_.addAllElts(data_.getMovesEffectUnprot());
         moves_.addAllElts(data_.getTrappingMoves());
         moves_.removeDuplicates();
-        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        moves = moves_;
+//        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        moves = listTrStringsMv(moves_,data_,getLanguage());
     }
     public String getTrMove(int _index) {
-        String move_ = moves.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(move_);
+        return moves.get(_index).getTranslation();
+//        String move_ = moves.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(move_);
     }
     public String clickMove(int _index) {
-        String move_ = moves.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(moves.get(_index));
     }
 
-    public StringList getMoves() {
+    public CustList<TranslatedKey> getMoves() {
         return moves;
     }
 }

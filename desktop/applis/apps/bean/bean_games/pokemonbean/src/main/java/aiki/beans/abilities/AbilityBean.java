@@ -2,8 +2,10 @@ package aiki.beans.abilities;
 
 import aiki.beans.CommonBean;
 import aiki.beans.EndRoundCommon;
+import aiki.beans.TranslatedKey;
 import aiki.beans.facade.comparators.ComparatorStatusStatistic;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
+import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -25,7 +27,7 @@ public class AbilityBean extends CommonBean {
     private String displayName;
     private boolean achievedDisappearedPk;
     private boolean breakProtection;
-    private StringList breakProtectionMoves;
+    private CustList<TranslatedKey> breakProtectionMoves;
     private boolean cancelSecEffectOther;
     private boolean cancelSecEffectOwner;
     private boolean chgtTypeByDamage;
@@ -39,14 +41,14 @@ public class AbilityBean extends CommonBean {
     private boolean immuDamageRecoil;
     private boolean immuDamageTrappingMoves;
     private boolean immuRechargeRound;
-    private StringList immuRechargeRoundMoves;
+    private CustList<TranslatedKey> immuRechargeRoundMoves;
     private boolean immuSufferedDamageLowEff;
     private boolean inflictingDamageInsteadOfSuffering;
     private boolean mumy;
     private boolean nbHits;
     private boolean plate;
     private boolean reverseEffectsPowerMovesTypesGlobal;
-    private StringList reverseEffectsPowerMovesTypesGlobalAbilities;
+    private CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities;
     private boolean slowing;
     private boolean takeItemByDamagingMove;
     private String multDamage;
@@ -63,19 +65,19 @@ public class AbilityBean extends CommonBean {
     private Rate multSufferedDamageSuperEff;
     private Rate multVarBoost;
     private Rate recoilDamageFoe;
-    private StringList ignAbility;
-    private StringList ignFoeTeamMove;
-    private StringList immuAbility;
-    private StringList immuAllyFromMoves;
-    private StringList immuMove;
-    private StringList immuStatusBeginRound;
-    private StringList immuWeather;
+    private CustList<TranslatedKey> ignAbility;
+    private CustList<TranslatedKey> ignFoeTeamMove;
+    private CustList<TranslatedKey> immuAbility;
+    private CustList<TranslatedKey> immuAllyFromMoves;
+    private CustList<TranslatedKey> immuMove;
+    private CustList<TranslatedKey> immuStatusBeginRound;
+    private CustList<TranslatedKey> immuWeather;
     private long decreaseNecStepsHatch;
     private long nbUsedPp;
-    private DictionaryComparator<String, Rate> singleStatus;
+    private DictionaryComparator<TranslatedKey, Rate> singleStatus;
     private IdList<Statistic> immuLowStat;
     private IdList<Statistic> maxStatisticsIfCh;
-    private CustList<StatisticStatus> immuLowStatIfStatus;
+    private CustList<TranslatedKeyPair> immuLowStatIfStatus;
     private CustList<TypesDuo> breakFoeImmune;
     private DictionaryComparator<Statistic, Long> bonusStatRank;
     private DictionaryComparator<Statistic, Long> boostStatRankEndRound;
@@ -87,23 +89,23 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<Statistic, Rate> multStatAlly;
     private DictionaryComparator<StatisticCategory, Long> multStatIfDamageCat;
     private DictionaryComparator<StatisticCategory, Rate> multStatIfCat;
-    private DictionaryComparator<StatisticStatus, Long> multStatIfStatutRank;
+    private DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank;
     private DictionaryComparator<StatisticType, Long> multStatIfDamgeType;
-    private DictionaryComparator<WeatherType, Rate> healHpByTypeIfWeather;
+    private DictionaryComparator<TranslatedKeyPair, Rate> healHpByTypeIfWeather;
     private DictionaryComparator<String, TypeDamageBoost> changingBoostTypes;
     private DictionaryComparator<String, Long> increasedPrio;
     private DictionaryComparator<String, Long> increasedPrioTypes;
-    private DictionaryComparator<String, String> chgtTypeByWeather;
-    private DictionaryComparator<String, String> failStatus;
-    private DictionaryComparator<String, String> forwardStatus;
-    private DictionaryComparator<String, Rate> divideStatusRound;
-    private DictionaryComparator<String, Rate> healHpByWeather;
+    private DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByWeather;
+    private DictionaryComparator<TranslatedKey, String> failStatus;
+    private DictionaryComparator<TranslatedKey, TranslatedKey> forwardStatus;
+    private DictionaryComparator<TranslatedKey, Rate> divideStatusRound;
+    private DictionaryComparator<TranslatedKey, Rate> healHpByWeather;
     private DictionaryComparator<String, Rate> multDamageFoe;
     private DictionaryComparator<String, Rate> multPowerMovesTypesGlobal;
     private DictionaryComparator<String,IdList<Statistic>> immuLowStatisTypes;
-    private DictionaryComparator<String, StringList> immuMoveTypesByWeather;
-    private DictionaryComparator<String, StringList> immuStatus;
-    private DictionaryComparator<String, StringList> immuStatusTypes;
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather;
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus;
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes;
     private final EndRoundCommon endRoundCommon = new EndRoundCommon();
 //    private boolean endRound;
 //    private int endRoundRank;
@@ -135,8 +137,7 @@ public class AbilityBean extends CommonBean {
         breakProtectionMoves_.addAllElts(data_.getMovesProtAgainstMultiTarget());
         breakProtectionMoves_.addAllElts(data_.getMovesProtSingleTarget());
         breakProtectionMoves_.removeDuplicates();
-        breakProtectionMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        breakProtectionMoves = breakProtectionMoves_;
+        breakProtectionMoves = listTrStringsMv(breakProtectionMoves_,data_,getLanguage());
         cancelSecEffectOther = ability_.isCancelSecEffectOther();
         cancelSecEffectOwner = ability_.isCancelSecEffectOwner();
         chgtTypeByDamage = ability_.isChgtTypeByDamage();
@@ -150,7 +151,7 @@ public class AbilityBean extends CommonBean {
         immuDamageRecoil = ability_.isImmuDamageRecoil();
         immuDamageTrappingMoves = ability_.isImmuDamageTrappingMoves();
         immuRechargeRound = ability_.isImmuRechargeRound();
-        immuRechargeRoundMoves = immuRechargeRoundMoves();
+        immuRechargeRoundMoves = listTrStringsMv(immuRechargeRoundMoves(data_),data_,getLanguage());
         immuSufferedDamageLowEff = ability_.isImmuSufferedDamageLowEff();
         inflictingDamageInsteadOfSuffering = ability_.isInflictingDamageInsteadOfSuffering();
         mumy = ability_.isMumy();
@@ -186,13 +187,13 @@ public class AbilityBean extends CommonBean {
 //        multDamage = StringList.replace(multDamage, loc_);
 //        multDamage = multDamage.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        multDamage = multDamage.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        immuMove = immuMoves(ability_);
-        immuAllyFromMoves = immuAllyFromMoves(ability_);
-        immuWeather = immuWeather(ability_);
+        immuMove = listTrStringsMv(ability_.getImmuMove(),data_,getLanguage());
+        immuAllyFromMoves = listTrStringsMv(ability_.getImmuAllyFromMoves(),data_,getLanguage());
+        immuWeather = listTrStringsMv(ability_.getImmuWeather(),data_,getLanguage());
         ignAbility = ignAbility(ability_);
         immuAbility = immuAbility(ability_);
-        ignFoeTeamMove = ignFoeTeamMove(ability_);
-        immuStatusBeginRound = immuStatusBeginRound(ability_);
+        ignFoeTeamMove = listTrStringsMv(ability_.getIgnFoeTeamMove(),data_,getLanguage());
+        immuStatusBeginRound = listTrStringsSt(ability_.getImmuStatusBeginRound(),data_,getLanguage());
         tpForMoves(ability_);
         singleStatus = singleStatus(ability_);
         immuLowStat = immuLowStat(ability_);
@@ -212,14 +213,14 @@ public class AbilityBean extends CommonBean {
         }
         multStat = multStat_;
         forwardStatus = forwardStatus(ability_);
-        DictionaryComparator<String, String> failStatus_;
-        failStatus_ = DictionaryComparatorUtil.buildStatusStr(data_,getLanguage());
+        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+        DictionaryComparator<TranslatedKey, String> failStatus_ = DictionaryComparatorUtil.buildStatusStrOnly();
         for (String s: ability_.getFailStatus().getKeys()) {
             String fail_ = ability_.getFailStatus().getVal(s);
             String formula_ = data_.getFormula(fail_, getLanguage());
 //            formula_ = quoteBraces(formula_);
             mapVars_.putAllMap(data_.getDescriptions(fail_, getLanguage()));
-            failStatus_.put(s, formula_);
+            failStatus_.put(buildSt(translatedStatus_,s), formula_);
         }
         failStatus = failStatus_;
         breakFoeImmune = breakFoeImmune(ability_);
@@ -236,34 +237,36 @@ public class AbilityBean extends CommonBean {
             increasedPrio_.put(c, ability_.getIncreasedPrio().getVal(c));
         }
         increasedPrio = increasedPrio_;
+        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         DictionaryComparator<String, Long> increasedPrioTypes_;
         increasedPrioTypes_ = DictionaryComparatorUtil.buildTypesShort(data_,getLanguage());
         for (String c: ability_.getIncreasedPrioTypes().getKeys()) {
             increasedPrioTypes_.put(c, ability_.getIncreasedPrioTypes().getVal(c));
         }
         increasedPrioTypes = increasedPrioTypes_;
-        DictionaryComparator<String, String> chgtTypeByWeather_;
-        chgtTypeByWeather_ = DictionaryComparatorUtil.buildMovesStr(data_,getLanguage());
+        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByWeather_;
+        chgtTypeByWeather_ = DictionaryComparatorUtil.buildMovesStr();
         for (String c: ability_.getChgtTypeByWeather().getKeys()) {
-            chgtTypeByWeather_.put(c, ability_.getChgtTypeByWeather().getVal(c));
+            chgtTypeByWeather_.put(buildMv(translatedMoves_,c), build(translatedTypes_,ability_.getChgtTypeByWeather().getVal(c)));
         }
         chgtTypeByWeather = chgtTypeByWeather_;
-        DictionaryComparator<String, Rate> divideStatusRound_;
-        divideStatusRound_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Rate> divideStatusRound_;
+        divideStatusRound_ = DictionaryComparatorUtil.buildStatusRate();
         for (String c: ability_.getDivideStatusRound().getKeys()) {
-            divideStatusRound_.put(c, ability_.getDivideStatusRound().getVal(c));
+            divideStatusRound_.put(buildSt(translatedStatus_,c), ability_.getDivideStatusRound().getVal(c));
         }
         divideStatusRound = divideStatusRound_;
-        DictionaryComparator<String, Rate> healHpByWeather_;
-        healHpByWeather_ = DictionaryComparatorUtil.buildMovesRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Rate> healHpByWeather_;
+        healHpByWeather_ = DictionaryComparatorUtil.buildMovesRate();
         for (String c: ability_.getHealHpByWeather().getKeys()) {
-            healHpByWeather_.put(c, ability_.getHealHpByWeather().getVal(c));
+            healHpByWeather_.put(buildMv(translatedMoves_,c), ability_.getHealHpByWeather().getVal(c));
         }
         healHpByWeather = healHpByWeather_;
-        DictionaryComparator<WeatherType, Rate> healHpByTypeIfWeather_;
+        DictionaryComparator<TranslatedKeyPair, Rate> healHpByTypeIfWeather_;
         healHpByTypeIfWeather_ = DictionaryComparatorUtil.buildWeatherType(data_, getLanguage());
         for (WeatherType w: ability_.getHealHpByTypeIfWeather().getKeys()) {
-            healHpByTypeIfWeather_.put(w, ability_.getHealHpByTypeIfWeather().getVal(w));
+            healHpByTypeIfWeather_.put(buildPair(data_, w, getLanguage()), ability_.getHealHpByTypeIfWeather().getVal(w));
         }
         healHpByTypeIfWeather = healHpByTypeIfWeather_;
         DictionaryComparator<String, TypeDamageBoost> changingBoostTypes_;
@@ -305,10 +308,10 @@ public class AbilityBean extends CommonBean {
             multStatIfDamgeType_.put(w, ability_.getMultStatIfDamgeType().getVal(w));
         }
         multStatIfDamgeType = multStatIfDamgeType_;
-        DictionaryComparator<StatisticStatus, Long> multStatIfStatutRank_;
+        DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank_;
         multStatIfStatutRank_ = DictionaryComparatorUtil.buildStatisticStatus(data_, getLanguage());
         for (StatisticStatus w: ability_.getMultStatIfStatutRank().getKeys()) {
-            multStatIfStatutRank_.put(w, ability_.getMultStatIfStatutRank().getVal(w));
+            multStatIfStatutRank_.put(buildPair(data_, w, getLanguage()), ability_.getMultStatIfStatutRank().getVal(w));
         }
         multStatIfStatutRank = multStatIfStatutRank_;
         DictionaryComparator<String, Rate> multDamageFoe_;
@@ -326,6 +329,14 @@ public class AbilityBean extends CommonBean {
         mapVars_.putAllMap(data_.getDescriptions(ability_.getMultPower(), getLanguage()));
         mapVars_.putAllMap(data_.getDescriptions(ability_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
+    }
+
+    public static TranslatedKeyPair buildPair(DataBase _data, StatisticStatus _w, String _lg) {
+        return new TranslatedKeyPair(buildSi(_data.getTranslatedStatistics().getVal(_lg), _w.getStatistic()), buildSt(_data.getTranslatedStatus().getVal(_lg), _w.getStatus()));
+    }
+
+    public static TranslatedKeyPair buildPair(DataBase _data, WeatherType _w, String _lg) {
+        return new TranslatedKeyPair(buildMv(_data.getTranslatedMoves().getVal(_lg), _w.getWeather()), build(_data.getTranslatedTypes().getVal(_lg), _w.getType()));
     }
 
     private DictionaryComparator<Statistic, Rate> multStatAlly(AbilityData _ability) {
@@ -422,12 +433,12 @@ public class AbilityBean extends CommonBean {
         return breakFoeImmune_;
     }
 
-    private DictionaryComparator<String, String> forwardStatus(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<String, String> forwardStatus_;
-        forwardStatus_ = DictionaryComparatorUtil.buildStatusStr(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, TranslatedKey> forwardStatus(AbilityData _ability) {
+        StringMap<String> translatedStatus_ = getDataBase().getTranslatedStatus().getVal(getLanguage());
+        DictionaryComparator<TranslatedKey, TranslatedKey> forwardStatus_;
+        forwardStatus_ = DictionaryComparatorUtil.buildStatusStr();
         for (String s: _ability.getForwardStatus().getKeys()) {
-            forwardStatus_.put(s, _ability.getForwardStatus().getVal(s));
+            forwardStatus_.put(buildSt(translatedStatus_,s), buildSt(translatedStatus_, _ability.getForwardStatus().getVal(s)));
         }
         return forwardStatus_;
     }
@@ -445,52 +456,58 @@ public class AbilityBean extends CommonBean {
         return immuLowStatisTypes_;
     }
 
-    private CustList<StatisticStatus> immuLowStatIfStatus(AbilityData _ability) {
+    private CustList<TranslatedKeyPair> immuLowStatIfStatus(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        CustList<StatisticStatus> immuLowStatIfStatus_;
-        immuLowStatIfStatus_ = new CustList<StatisticStatus>();
+        CustList<TranslatedKeyPair> immuLowStatIfStatus_;
+        immuLowStatIfStatus_ = new CustList<TranslatedKeyPair>();
         for (StatisticStatus s: _ability.getImmuLowStatIfStatus()) {
-            immuLowStatIfStatus_.add(new StatisticStatus(s.getStatistic(),s.getStatus()));
+            immuLowStatIfStatus_.add(buildPair(data_,new StatisticStatus(s.getStatistic(),s.getStatus()),getLanguage()));
         }
         immuLowStatIfStatus_.sortElts(new ComparatorStatusStatistic(data_, getLanguage()));
         return immuLowStatIfStatus_;
     }
 
-    private DictionaryComparator<String, StringList> immuStatusTypes(AbilityData _ability) {
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, StringList> immuStatusTypes_;
-        immuStatusTypes_ = DictionaryComparatorUtil.buildTypesStrList(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes_;
+        immuStatusTypes_ = DictionaryComparatorUtil.buildTypesStrList();
         for (String t: _ability.getImmuStatusTypes().getKeys()) {
-            immuStatusTypes_.put(t, new StringList(_ability.getImmuStatusTypes().getVal(t)));
-        }
-        for (StringList v: immuStatusTypes_.values()) {
-            v.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+            for (String s: _ability.getImmuStatusTypes().getVal(t)) {
+                sub_.add(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s));
+            }
+            sub_.sortElts(new ComparingTranslatedKey());
+            immuStatusTypes_.put(build(data_.getTranslatedTypes().getVal(getLanguage()),t), sub_);
         }
         return immuStatusTypes_;
     }
 
-    private DictionaryComparator<String, StringList> immuStatus(AbilityData _ability) {
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, StringList> immuStatus_;
-        immuStatus_ = DictionaryComparatorUtil.buildMovesStrList(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus_;
+        immuStatus_ = DictionaryComparatorUtil.buildMovesStrList();
         for (String t: _ability.getImmuStatus().getKeys()) {
-            immuStatus_.put(t, new StringList(_ability.getImmuStatus().getVal(t)));
-        }
-        for (StringList v: immuStatus_.values()) {
-            v.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+            for (String s: _ability.getImmuStatus().getVal(t)) {
+                sub_.add(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s));
+            }
+            sub_.sortElts(new ComparingTranslatedKey());
+            immuStatus_.put(buildMv(data_.getTranslatedMoves().getVal(getLanguage()),t), sub_);
         }
         return immuStatus_;
     }
 
-    private DictionaryComparator<String, StringList> immuMoveTypesByWeather(AbilityData _ability) {
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, StringList> immuMoveTypesByWeather_;
-        immuMoveTypesByWeather_ = DictionaryComparatorUtil.buildMovesStrList(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather_;
+        immuMoveTypesByWeather_ = DictionaryComparatorUtil.buildMovesStrList();
         for (String t: _ability.getImmuMoveTypesByWeather().getKeys()) {
-            immuMoveTypesByWeather_.put(t, new StringList(_ability.getImmuMoveTypesByWeather().getVal(t)));
-        }
-        for (StringList v: immuMoveTypesByWeather_.values()) {
-            v.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
+            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+            for (String s: _ability.getImmuMoveTypesByWeather().getVal(t)) {
+                sub_.add(build(data_.getTranslatedTypes().getVal(getLanguage()),s));
+            }
+            sub_.sortElts(new ComparingTranslatedKey());
+            immuMoveTypesByWeather_.put(buildMv(data_.getTranslatedMoves().getVal(getLanguage()),t), sub_);
         }
         return immuMoveTypesByWeather_;
     }
@@ -517,12 +534,12 @@ public class AbilityBean extends CommonBean {
         return immuLowStat_;
     }
 
-    private DictionaryComparator<String, Rate> singleStatus(AbilityData _ability) {
+    private DictionaryComparator<TranslatedKey, Rate> singleStatus(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, Rate> singleStatus_;
-        singleStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Rate> singleStatus_;
+        singleStatus_ = DictionaryComparatorUtil.buildStatusRate();
         for (String s: _ability.getSingleStatus().eventsDiff()) {
-            singleStatus_.put(s, _ability.getSingleStatus().normalizedRate(s));
+            singleStatus_.put(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s), _ability.getSingleStatus().normalizedRate(s));
         }
         return singleStatus_;
     }
@@ -538,59 +555,28 @@ public class AbilityBean extends CommonBean {
         }
     }
 
-    private StringList immuStatusBeginRound(AbilityData _ability) {
+    private CustList<TranslatedKey> immuAbility(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        StringList immuStatusBeginRound_;
-        immuStatusBeginRound_ = new StringList();
-        for (String m: _ability.getImmuStatusBeginRound()) {
-            immuStatusBeginRound_.add(m);
-        }
-        immuStatusBeginRound_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        return immuStatusBeginRound_;
-    }
-
-    private StringList ignFoeTeamMove(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        StringList ignFoeTeamMove_;
-        ignFoeTeamMove_ = new StringList();
-        for (String m: _ability.getIgnFoeTeamMove()) {
-            ignFoeTeamMove_.add(m);
-        }
-        ignFoeTeamMove_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return ignFoeTeamMove_;
-    }
-
-    private StringList immuAbility(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        StringList immuAbility_;
-        immuAbility_ = new StringList();
+        CustList<TranslatedKey> immuAbility_;
+        immuAbility_ = new CustList<TranslatedKey>();
+        StringMap<String> trAbs_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (String m: _ability.getImmuAbility()) {
-            immuAbility_.add(m);
+            immuAbility_.add(buildAb(trAbs_,m));
         }
-        immuAbility_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        immuAbility_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return immuAbility_;
     }
 
-    private StringList ignAbility(AbilityData _ability) {
+    private CustList<TranslatedKey> ignAbility(AbilityData _ability) {
         DataBase data_ = getDataBase();
-        StringList ignAbility_;
-        ignAbility_ = new StringList();
+        CustList<TranslatedKey> ignAbility_;
+        ignAbility_ = new CustList<TranslatedKey>();
+        StringMap<String> trAbs_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (String m: _ability.getIgnAbility()) {
-            ignAbility_.add(m);
+            ignAbility_.add(buildAb(trAbs_,m));
         }
-        ignAbility_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        ignAbility_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return ignAbility_;
-    }
-
-    private StringList immuWeather(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        StringList immuWeather_;
-        immuWeather_ = new StringList();
-        for (String m: _ability.getImmuWeather()) {
-            immuWeather_.add(m);
-        }
-        immuWeather_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return immuWeather_;
     }
 
     private void endRondElts(AbilityData _ability) {
@@ -615,52 +601,24 @@ public class AbilityBean extends CommonBean {
         return endRoundCommon;
     }
 
-    private StringList immuAllyFromMoves(AbilityData _ability) {
+    private CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities() {
         DataBase data_ = getDataBase();
-        StringList immuAllyFromMoves_;
-        immuAllyFromMoves_ = new StringList();
-        for (String m: _ability.getImmuAllyFromMoves()) {
-            immuAllyFromMoves_.add(m);
-        }
-        immuAllyFromMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return immuAllyFromMoves_;
-    }
-
-    private StringList immuMoves(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        StringList immuMoves_;
-        immuMoves_ = new StringList();
-        for (String m: _ability.getImmuMove()) {
-            immuMoves_.add(m);
-        }
-        immuMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return immuMoves_;
-    }
-
-    private StringList reverseEffectsPowerMovesTypesGlobalAbilities() {
-        DataBase data_ = getDataBase();
-        StringList reverseEffectsPowerMovesTypesGlobalAbilities_ = reverseEffects(data_);
-        reverseEffectsPowerMovesTypesGlobalAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities_ = reverseEffects(data_,getLanguage());
+        reverseEffectsPowerMovesTypesGlobalAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return reverseEffectsPowerMovesTypesGlobalAbilities_;
     }
 
-    static StringList reverseEffects(DataBase _data) {
-        StringList reverseEffectsPowerMovesTypesGlobalAbilities_;
-        reverseEffectsPowerMovesTypesGlobalAbilities_ = new StringList();
+    static CustList<TranslatedKey> reverseEffects(DataBase _data, String _language) {
+        StringMap<String> trAb_ = _data.getTranslatedAbilities().getVal(_language);
+        CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities_;
+        reverseEffectsPowerMovesTypesGlobalAbilities_ = new CustList<TranslatedKey>();
         for (String a: _data.getAbilities().getKeys()) {
             AbilityData ab_ = _data.getAbility(a);
             if (!ab_.getMultPowerMovesTypesGlobal().isEmpty()) {
-                reverseEffectsPowerMovesTypesGlobalAbilities_.add(a);
+                reverseEffectsPowerMovesTypesGlobalAbilities_.add(buildAb(trAb_,a));
             }
         }
         return reverseEffectsPowerMovesTypesGlobalAbilities_;
-    }
-
-    private StringList immuRechargeRoundMoves() {
-        DataBase data_ = getDataBase();
-        StringList immuRechargeRoundMoves_ = immuRechargeRoundMoves(data_);
-        immuRechargeRoundMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return immuRechargeRoundMoves_;
     }
 
     static StringList immuRechargeRoundMoves(DataBase _data) {
@@ -711,123 +669,132 @@ public class AbilityBean extends CommonBean {
         return nbUsedPp > 0;
     }
     public String getTrImmuMove(int _index) {
-        String type_ = immuMove.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(type_);
+        return immuMove.get(_index).getTranslation();
+//        String type_ = immuMove.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(type_);
     }
     public String clickIndex() {
         getForms().safeAbilities(CST_ABILITIES_SET);
         return PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML;
     }
     public String clickImmuMove(int _index) {
-        String type_ = immuMove.get(_index);
-        return tryRedirectMv(type_);
+        return tryRedirect(immuMove.get(_index));
     }
     public String getTrImmuAllyFromMoves(int _index) {
-        String type_ = immuAllyFromMoves.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(type_);
+        return immuAllyFromMoves.get(_index).getTranslation();
+//        String type_ = immuAllyFromMoves.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(type_);
     }
     public String clickImmuAllyFromMoves(int _index) {
-        return tryRedirectMv(immuAllyFromMoves.get(_index));
+        return tryRedirect(immuAllyFromMoves.get(_index));
     }
     public String getTrWeather(int _index) {
-        return getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(immuWeather.get(_index));
+        return immuWeather.get(_index).getTranslation();
+//        return getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(immuWeather.get(_index));
     }
     public String clickWeather(int _index) {
-        return tryRedirectMv(immuWeather.get(_index));
+        return tryRedirect(immuWeather.get(_index));
     }
     public String getTrIgnAbility(int _index) {
-        String type_ = ignAbility.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(type_);
+        return ignAbility.get(_index).getTranslation();
+//        String type_ = ignAbility.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+//        return translatedAbilities_.getVal(type_);
     }
     public String clickIgnAbility(int _index) {
-        String type_ = ignAbility.get(_index);
-        return tryRedirectAb(type_);
+//        String type_ = ignAbility.get(_index).getKey();
+//        ignAbility.get(_index).getRedirect().manage();
+        return tryRedirect(ignAbility.get(_index));
+//        return tryRedirectAb(type_);
     }
     public String getTrIgnFoeTeamMove(int _index) {
-        String type_ = ignFoeTeamMove.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(type_);
+        return ignFoeTeamMove.get(_index).getTranslation();
+//        String type_ = ignFoeTeamMove.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(type_);
     }
     public String clickIgnFoeTeamMove(int _index) {
-        String type_ = ignFoeTeamMove.get(_index);
-        return tryRedirectMv(type_);
+        return tryRedirect(ignFoeTeamMove.get(_index));
     }
     public String getTrImmuAbility(int _index) {
-        String type_ = immuAbility.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(type_);
+        return immuAbility.get(_index).getTranslation();
+//        String type_ = immuAbility.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+//        return translatedAbilities_.getVal(type_);
     }
     public String clickImmuAbility(int _index) {
-        String type_ = immuAbility.get(_index);
-        return tryRedirectAb(type_);
+        return tryRedirect(immuAbility.get(_index));
+//        String type_ = immuAbility.get(_index).getKey();
+//        return tryRedirectAb(type_);
     }
     public String getTrImmuStatusBeginRound(int _index) {
-        String type_ = immuStatusBeginRound.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(type_);
+        return immuStatusBeginRound.get(_index).getTranslation();
+//        String type_ = immuStatusBeginRound.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translatedStatus_.getVal(type_);
     }
     public String clickImmuStatusBeginRound(int _index) {
-        String type_ = immuStatusBeginRound.get(_index);
-        return tryRedirectSt(type_);
+        return tryRedirect(immuStatusBeginRound.get(_index));
     }
     public boolean isStatus(int _index) {
-        return !singleStatus.getKey(_index).isEmpty();
+        return !singleStatus.getKey(_index).getKey().isEmpty();
     }
     public String getTrSingleStatus(int _index) {
-        String type_ = singleStatus.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(type_);
+        return singleStatus.getKey(_index).getTranslation();
+//        String type_ = singleStatus.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translatedStatus_.getVal(type_);
     }
     public String clickSingleStatus(int _index) {
-        String type_ = singleStatus.getKey(_index);
-        return tryRedirectSt(type_);
+        return tryRedirect(singleStatus.getKey(_index));
     }
     public AbilityData getAbility() {
         DataBase data_ = getDataBase();
         return data_.getAbility(name);
     }
     public String getTrBreakProtectionMoves(int _index) {
-        String move_ = breakProtectionMoves.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(move_);
+        return breakProtectionMoves.get(_index).getTranslation();
+//        String move_ = breakProtectionMoves.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(move_);
     }
     public String clickBreakProtectionMoves(int _index) {
-        String move_ = breakProtectionMoves.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(breakProtectionMoves.get(_index));
     }
     public String getTrImmuRechargeRoundMoves(int _index) {
-        String move_ = immuRechargeRoundMoves.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(move_);
+        return immuRechargeRoundMoves.get(_index).getTranslation();
+//        String move_ = immuRechargeRoundMoves.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(move_);
     }
     public String clickImmuRechargeRoundMoves(int _index) {
-        String move_ = immuRechargeRoundMoves.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(immuRechargeRoundMoves.get(_index));
     }
     public String getTrReversePowerTypesAbilities(int _index) {
-        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsAbilities_;
-        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translationsAbilities_.getVal(move_);
+        return reverseEffectsPowerMovesTypesGlobalAbilities.get(_index).getTranslation();
+//        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsAbilities_;
+//        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+//        return translationsAbilities_.getVal(move_);
     }
     public String clickReversePowerTypesAbilities(int _index) {
-        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index);
-        return tryRedirectAb(move_);
+        return tryRedirect(reverseEffectsPowerMovesTypesGlobalAbilities.get(_index));
+//        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index).getKey();
+//        return tryRedirectAb(move_);
     }
     public String getTrMultStat(int _index) {
         Statistic type_ = multStat.getKey(_index);
@@ -848,186 +815,188 @@ public class AbilityBean extends CommonBean {
         return translatedStatistics_.getVal(type_);
     }
     public boolean isMoveByWeather(int _index) {
-        return !immuMoveTypesByWeather.getKey(_index).isEmpty();
+        return !immuMoveTypesByWeather.getKey(_index).getKey().isEmpty();
     }
     public String getTrImmuMoveByWeather(int _index) {
-        String move_ = immuMoveTypesByWeather.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(move_);
+        return immuMoveTypesByWeather.getKey(_index).getTranslation();
+//        String move_ = immuMoveTypesByWeather.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(move_);
     }
     public String clickImmuMoveByWeather(int _index) {
-        String move_ = immuMoveTypesByWeather.getKey(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(immuMoveTypesByWeather.getKey(_index));
     }
     public String getTrImmuTypeByWeather(int _indexOne, int _indexTwo) {
-        String move_ = immuMoveTypesByWeather.getValue(_indexOne).get(_indexTwo);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(move_);
+        return immuMoveTypesByWeather.getValue(_indexOne).get(_indexTwo).getTranslation();
+//        String move_ = immuMoveTypesByWeather.getValue(_indexOne).get(_indexTwo);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(move_);
     }
     public boolean isMoveByStatus(int _index) {
-        return !immuStatus.getKey(_index).isEmpty();
+        return !immuStatus.getKey(_index).getKey().isEmpty();
     }
     public String getTrImmuStatusWeather(int _index) {
-        String move_ = immuStatus.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(move_);
+        return immuStatus.getKey(_index).getTranslation();
+//        String move_ = immuStatus.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(move_);
     }
     public String clickImmuStatusWeather(int _index) {
-        String move_ = immuStatus.getKey(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(immuStatus.getKey(_index));
     }
     public String getTrImmuStatus(int _indexOne, int _indexTwo) {
-        String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(move_);
+        return immuStatus.getValue(_indexOne).get(_indexTwo).getTranslation();
+//        String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(move_);
     }
     public String clickImmuStatus(int _indexOne, int _indexTwo) {
-        String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
-        return tryRedirectSt(move_);
+        return tryRedirect(immuStatus.getValue(_indexOne).get(_indexTwo));
     }
     public String getTrImmuStatusTypes(int _index) {
-        String move_ = immuStatusTypes.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(move_);
+        return immuStatusTypes.getKey(_index).getTranslation();
+//        String move_ = immuStatusTypes.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(move_);
     }
     public String getTrImmuStatusValue(int _indexOne, int _indexTwo) {
-        String move_ = immuStatusTypes.getValue(_indexOne).get(_indexTwo);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(move_);
+        return immuStatusTypes.getValue(_indexOne).get(_indexTwo).getTranslation();
+//        String move_ = immuStatusTypes.getValue(_indexOne).get(_indexTwo);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(move_);
     }
     public String clickImmuStatusTypes(int _indexOne, int _indexTwo) {
-        String move_ = immuStatusTypes.getValue(_indexOne).get(_indexTwo);
-        return tryRedirectSt(move_);
+        return tryRedirect(immuStatusTypes.getValue(_indexOne).get(_indexTwo));
     }
     public String getTrForwardStatusKey(int _index) {
-        String status_ = forwardStatus.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return forwardStatus.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String clickForwardStatusKey(int _index) {
-        String status_ = forwardStatus.getKey(_index);
-        return tryRedirectSt(status_);
+        return tryRedirect(forwardStatus.getKey(_index));
     }
     public String getTrForwardStatusValue(int _index) {
-        String status_ = forwardStatus.getValue(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return forwardStatus.getValue(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String clickForwardStatusValue(int _index) {
-        String status_ = forwardStatus.getValue(_index);
-        return tryRedirectSt(status_);
+        return tryRedirect(forwardStatus.getValue(_index));
     }
     public String getTrFailStatus(int _index) {
-        String status_ = failStatus.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return failStatus.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String clickFailStatus(int _index) {
-        String status_ = failStatus.getKey(_index);
-        return tryRedirectSt(status_);
+        return tryRedirect(failStatus.getKey(_index));
     }
     public String getTrImmuLowStatIfStatusKey(int _index) {
-        String status_ = immuLowStatIfStatus.get(_index).getStatus();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return immuLowStatIfStatus.get(_index).getSecond().getTranslation();
+//        String status_ = immuLowStatIfStatus.get(_index).getStatus();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String clickImmuLowStatIfStatusKey(int _index) {
-        String status_ = immuLowStatIfStatus.get(_index).getStatus();
-        return tryRedirectSt(status_);
+        return tryRedirect(immuLowStatIfStatus.get(_index).getSecond());
     }
     public String getTrImmuLowStatIfStatusValue(int _index) {
-        Statistic status_ = immuLowStatIfStatus.get(_index).getStatistic();
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(status_);
+        return immuLowStatIfStatus.get(_index).getFirst().getTranslation();
+//        Statistic status_ = immuLowStatIfStatus.get(_index).getStatistic();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(status_);
     }
     public boolean isChgtTypeByWeather(int _index) {
-        return !chgtTypeByWeather.getKey(_index).isEmpty();
+        return !chgtTypeByWeather.getKey(_index).getKey().isEmpty();
     }
     public String getTrChgtTypeByWeatherKey(int _index) {
-        String status_ = chgtTypeByWeather.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(status_);
+        return chgtTypeByWeather.getKey(_index).getTranslation();
+//        String status_ = chgtTypeByWeather.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(status_);
     }
     public String clickChgtTypeByWeatherKey(int _index) {
-        String status_ = chgtTypeByWeather.getKey(_index);
-        return tryRedirectMv(status_);
+        return tryRedirect(chgtTypeByWeather.getKey(_index));
     }
     public String getTrChgtTypeByWeatherValue(int _index) {
-        String status_ = chgtTypeByWeather.getValue(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(status_);
+        return chgtTypeByWeather.getValue(_index).getTranslation();
+//        String status_ = chgtTypeByWeather.getValue(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(status_);
     }
     public String getTrDivideStatusRoundKey(int _index) {
-        String status_ = divideStatusRound.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return divideStatusRound.getKey(_index).getTranslation();
+//        String status_ = divideStatusRound.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String clickDivideStatusRoundKey(int _index) {
-        String status_ = divideStatusRound.getKey(_index);
-        return tryRedirectSt(status_);
+        return tryRedirect(divideStatusRound.getKey(_index));
     }
     public boolean isHealHpByWeather(int _index) {
-        return !healHpByWeather.getKey(_index).isEmpty();
+        return !healHpByWeather.getKey(_index).getKey().isEmpty();
     }
     public String getTrHealHpByWeatherKey(int _index) {
-        String status_ = healHpByWeather.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(status_);
+        return healHpByWeather.getKey(_index).getTranslation();
+//        String status_ = healHpByWeather.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(status_);
     }
     public String clickHealHpByWeatherKey(int _index) {
-        String status_ = healHpByWeather.getKey(_index);
-        return tryRedirectMv(status_);
+        return tryRedirect(healHpByWeather.getKey(_index));
     }
     public boolean isHealHpByTypeIfWeather(int _index) {
-        return !healHpByTypeIfWeather.getKey(_index).getWeather().isEmpty();
+        return !healHpByTypeIfWeather.getKey(_index).getFirst().getKey().isEmpty();
     }
     public String getTrHealHpByTypeIfWeatherKey(int _index) {
-        String status_ = healHpByTypeIfWeather.getKey(_index).getWeather();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(status_);
+        return healHpByTypeIfWeather.getKey(_index).getFirst().getTranslation();
+//        String status_ = healHpByTypeIfWeather.getKey(_index).getWeather();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(status_);
     }
     public String clickHealHpByTypeIfWeatherKey(int _index) {
-        String status_ = healHpByTypeIfWeather.getKey(_index).getWeather();
-        return tryRedirectMv(status_);
+        return tryRedirect(healHpByTypeIfWeather.getKey(_index).getFirst());
     }
     public String getTrHealHpByTypeIfWeatherKeySec(int _index) {
-        String status_ = healHpByTypeIfWeather.getKey(_index).getType();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(status_);
+        return healHpByTypeIfWeather.getKey(_index).getSecond().getTranslation();
+//        String status_ = healHpByTypeIfWeather.getKey(_index).getType();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(status_);
     }
     public String getTrMultStatIfDamageCatKey(int _index) {
         Statistic status_ = multStatIfDamageCat.getKey(_index).getStatistic();
@@ -1072,22 +1041,23 @@ public class AbilityBean extends CommonBean {
         return translationsTypes_.getVal(status_);
     }
     public String getTrMultStatIfStatutRank(int _index) {
-        Statistic status_ = multStatIfStatutRank.getKey(_index).getStatistic();
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(status_);
+        return multStatIfStatutRank.getKey(_index).getFirst().getTranslation();
+//        Statistic status_ = multStatIfStatutRank.getKey(_index).getStatistic();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(status_);
     }
     public String getTrMultStatIfStatutRankSec(int _index) {
-        String status_ = multStatIfStatutRank.getKey(_index).getStatus();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return multStatIfStatutRank.getKey(_index).getSecond().getTranslation();
+//        String status_ = multStatIfStatutRank.getKey(_index).getStatus();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String clickMultStatIfStatutRankSec(int _index) {
-        String status_ = multStatIfStatutRank.getKey(_index).getStatus();
-        return tryRedirectSt(status_);
+        return tryRedirect(multStatIfStatutRank.getKey(_index).getSecond());
     }
     public String getTrMultPowerMovesTypesGlobalKey(int _index) {
         String status_ = multPowerMovesTypesGlobal.getKey(_index);
@@ -1236,7 +1206,7 @@ public class AbilityBean extends CommonBean {
         return breakProtection;
     }
 
-    public StringList getBreakProtectionMoves() {
+    public CustList<TranslatedKey> getBreakProtectionMoves() {
         return breakProtectionMoves;
     }
 
@@ -1252,7 +1222,7 @@ public class AbilityBean extends CommonBean {
         return chgtTypeByDamage;
     }
 
-    public DictionaryComparator<String,String> getChgtTypeByWeather() {
+    public DictionaryComparator<TranslatedKey,TranslatedKey> getChgtTypeByWeather() {
         return chgtTypeByWeather;
     }
 
@@ -1296,7 +1266,7 @@ public class AbilityBean extends CommonBean {
         return immuRechargeRound;
     }
 
-    public StringList getImmuRechargeRoundMoves() {
+    public CustList<TranslatedKey> getImmuRechargeRoundMoves() {
         return immuRechargeRoundMoves;
     }
 
@@ -1324,7 +1294,7 @@ public class AbilityBean extends CommonBean {
         return reverseEffectsPowerMovesTypesGlobal;
     }
 
-    public StringList getReverseEffectsPowerMovesTypesGlobalAbilities() {
+    public CustList<TranslatedKey> getReverseEffectsPowerMovesTypesGlobalAbilities() {
         return reverseEffectsPowerMovesTypesGlobalAbilities;
     }
 
@@ -1384,31 +1354,31 @@ public class AbilityBean extends CommonBean {
         return nbUsedPp;
     }
 
-    public StringList getImmuMove() {
+    public CustList<TranslatedKey> getImmuMove() {
         return immuMove;
     }
 
-    public StringList getImmuAllyFromMoves() {
+    public CustList<TranslatedKey> getImmuAllyFromMoves() {
         return immuAllyFromMoves;
     }
 
-    public StringList getImmuWeather() {
+    public CustList<TranslatedKey> getImmuWeather() {
         return immuWeather;
     }
 
-    public StringList getIgnAbility() {
+    public CustList<TranslatedKey> getIgnAbility() {
         return ignAbility;
     }
 
-    public StringList getIgnFoeTeamMove() {
+    public CustList<TranslatedKey> getIgnFoeTeamMove() {
         return ignFoeTeamMove;
     }
 
-    public StringList getImmuAbility() {
+    public CustList<TranslatedKey> getImmuAbility() {
         return immuAbility;
     }
 
-    public StringList getImmuStatusBeginRound() {
+    public CustList<TranslatedKey> getImmuStatusBeginRound() {
         return immuStatusBeginRound;
     }
 
@@ -1428,11 +1398,11 @@ public class AbilityBean extends CommonBean {
         return multDamage;
     }
 
-    public DictionaryComparator<String,Rate> getHealHpByWeather() {
+    public DictionaryComparator<TranslatedKey,Rate> getHealHpByWeather() {
         return healHpByWeather;
     }
 
-    public DictionaryComparator<WeatherType,Rate> getHealHpByTypeIfWeather() {
+    public DictionaryComparator<TranslatedKeyPair,Rate> getHealHpByTypeIfWeather() {
         return healHpByTypeIfWeather;
     }
 
@@ -1440,7 +1410,7 @@ public class AbilityBean extends CommonBean {
         return immuLowStat;
     }
 
-    public CustList<StatisticStatus> getImmuLowStatIfStatus() {
+    public CustList<TranslatedKeyPair> getImmuLowStatIfStatus() {
         return immuLowStatIfStatus;
     }
 
@@ -1452,27 +1422,27 @@ public class AbilityBean extends CommonBean {
         return maxStatisticsIfCh;
     }
 
-    public DictionaryComparator<String,Rate> getSingleStatus() {
+    public DictionaryComparator<TranslatedKey,Rate> getSingleStatus() {
         return singleStatus;
     }
 
-    public DictionaryComparator<String,StringList> getImmuMoveTypesByWeather() {
+    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuMoveTypesByWeather() {
         return immuMoveTypesByWeather;
     }
 
-    public DictionaryComparator<String,StringList> getImmuStatus() {
+    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuStatus() {
         return immuStatus;
     }
 
-    public DictionaryComparator<String,StringList> getImmuStatusTypes() {
+    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuStatusTypes() {
         return immuStatusTypes;
     }
 
-    public DictionaryComparator<String,Rate> getDivideStatusRound() {
+    public DictionaryComparator<TranslatedKey,Rate> getDivideStatusRound() {
         return divideStatusRound;
     }
 
-    public DictionaryComparator<String,String> getForwardStatus() {
+    public DictionaryComparator<TranslatedKey,TranslatedKey> getForwardStatus() {
         return forwardStatus;
     }
 
@@ -1500,7 +1470,7 @@ public class AbilityBean extends CommonBean {
         return multStatIfCat;
     }
 
-    public DictionaryComparator<StatisticStatus,Long> getMultStatIfStatutRank() {
+    public DictionaryComparator<TranslatedKeyPair,Long> getMultStatIfStatutRank() {
         return multStatIfStatutRank;
     }
 
@@ -1548,7 +1518,7 @@ public class AbilityBean extends CommonBean {
         return multPowerMovesTypesGlobal;
     }
 
-    public DictionaryComparator<String,String> getFailStatus() {
+    public DictionaryComparator<TranslatedKey,String> getFailStatus() {
         return failStatus;
     }
 

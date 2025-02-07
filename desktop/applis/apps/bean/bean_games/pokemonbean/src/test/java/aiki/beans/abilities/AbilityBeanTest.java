@@ -1,5 +1,6 @@
 package aiki.beans.abilities;
 
+import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
@@ -10,9 +11,9 @@ import org.junit.Test;
 public final class AbilityBeanTest extends InitDbAbility {
     @Test
     public void reverseEffects() {
-        StringList ls_ = AbilityBean.reverseEffects(feedDbAbility().getData());
+        CustList<TranslatedKey> ls_ = AbilityBean.reverseEffects(feedDbAbility().getData(),EN);
         assertEq(1,ls_.size());
-        assertEq(A_ABILITY,ls_.get(0));
+        assertEq(A_ABILITY,ls_.get(0).getKey());
     }
     @Test
     public void immuRechargeRoundMoves1() {

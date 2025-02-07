@@ -46,6 +46,7 @@ public abstract class WithFilterBean extends CommonBean {
     private AbsMap<String,AbilityData> sortedAbilities = new StringMap<AbilityData>();
     private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private final CustList<ItemLine> items = new CustList<ItemLine>();
+    private final CustList<TranslatedKey> itemsTr = new CustList<TranslatedKey>();
 
     public static AbsMap<String,Item> sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
         AbsMap<String,Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData(_data,_language);
@@ -260,6 +261,7 @@ public abstract class WithFilterBean extends CommonBean {
     protected void itemInit(AbsMap<String,Item> _sortedItems) {
         DataBase data_ = getDataBase();
         getItems().clear();
+        getItemsTr().clear();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translationsClasses_;
@@ -275,6 +277,7 @@ public abstract class WithFilterBean extends CommonBean {
             item_.setPrice(i_.getPrice());
             item_.setDescriptionClass(class_);
             getItems().add(item_);
+            getItemsTr().add(buildIt(data_,translationsItems_,i.getKey()));
         }
         escapeInputs();
     }
@@ -464,4 +467,7 @@ public abstract class WithFilterBean extends CommonBean {
         return items;
     }
 
+    public CustList<TranslatedKey> getItemsTr() {
+        return itemsTr;
+    }
 }

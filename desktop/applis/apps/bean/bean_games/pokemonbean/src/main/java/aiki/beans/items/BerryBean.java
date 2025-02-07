@@ -1,16 +1,13 @@
 package aiki.beans.items;
 
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.enums.Statistic;
-import aiki.fight.items.Berry;
-import aiki.fight.util.BoostHpRate;
-import aiki.fight.util.EfficiencyRate;
-import code.maths.Rate;
-import code.util.AbsMap;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.util.*;
+import code.maths.*;
+import code.util.*;
 
 public class BerryBean extends ItemBean {
     private Rate healHpBySuperEffMove;
@@ -21,7 +18,7 @@ public class BerryBean extends ItemBean {
     private long healPp;
     private Rate healHp;
     private Rate maxHpHealingHp;
-    private StringList healStatus;
+    private CustList<TranslatedKey> healStatus;
     private Rate healHpRate;
     private Rate maxHpHealingHpRate;
     private DictionaryComparator<String, Rate> damageRateRecoilFoe;
@@ -59,13 +56,7 @@ public class BerryBean extends ItemBean {
             multStat_.put(s, item_.getMultStat().getVal(s));
         }
         multStat = multStat_;
-        StringList healStatus_;
-        healStatus_ = new StringList();
-        for (String s: item_.getHealStatus()) {
-            healStatus_.add(s);
-        }
-        healStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        healStatus = healStatus_;
+        healStatus = listTrStringsSt(item_.getHealStatus(),data_,getLanguage());
         DictionaryComparator<String, Rate> damageRateRecoilFoe_;
         damageRateRecoilFoe_ = DictionaryComparatorUtil.buildCatsRate(data_,getLanguage());
         for (String s: item_.getDamageRateRecoilFoe().getKeys()) {
@@ -101,14 +92,14 @@ public class BerryBean extends ItemBean {
         return translatedStatistics_.getVal(type_);
     }
     public String getTrStatus(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String status_ = healStatus.get(_index);
-        return translatedStatus_.getVal(status_);
+        return healStatus.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        String status_ = healStatus.get(_index);
+//        return translatedStatus_.getVal(status_);
     }
     public String clickStatus(int _index) {
-        String status_ = healStatus.get(_index);
-        return tryRedirectSt(status_);
+        return tryRedirect(healStatus.get(_index));
     }
     public String getTrCategRecoil(int _index) {
         DataBase data_ = getDataBase();
@@ -157,7 +148,7 @@ public class BerryBean extends ItemBean {
         return multStat;
     }
 
-    public StringList getHealStatus() {
+    public CustList<TranslatedKey> getHealStatus() {
         return healStatus;
     }
 

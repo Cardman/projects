@@ -1,8 +1,7 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.PokemonStandards;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
+import aiki.beans.*;
+import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
@@ -11,13 +10,11 @@ import aiki.fight.moves.effects.EffectSwitchTypes;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.map.levels.enums.EnvironmentType;
-import code.util.AbsMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public class EffectSwitchTypesBean extends EffectBean {
-    private DictionaryComparator<String, String> chgtTypeByEnv;
-    private StringList globalMoves;
+    private DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByEnv;
+    private CustList<TranslatedKey> globalMoves;
 
     private ConstValuesType constValuesType;
 
@@ -30,19 +27,19 @@ public class EffectSwitchTypesBean extends EffectBean {
         super.beforeDisplaying();
         EffectSwitchTypes effect_ = (EffectSwitchTypes) getEffect();
         DataBase data_ = getDataBase();
+        AbsMap<EnvironmentType,String> translatedEnv_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        DictionaryComparator<String, String> chgtTypeByEnv_;
-        chgtTypeByEnv_ = DictionaryComparatorUtil.buildEnvStr(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByEnv_;
+        chgtTypeByEnv_ = DictionaryComparatorUtil.buildEnvStr();
         for (EnvironmentType env_: effect_.getChgtTypeByEnv().getKeys()) {
             String type_;
             type_ = effect_.getChgtTypeByEnv().getVal(env_);
-            chgtTypeByEnv_.put(env_.getEnvName(), translatedTypes_.getVal(type_));
+            chgtTypeByEnv_.put(buildEnv(translatedEnv_,env_), build(translatedTypes_,type_));
         }
         chgtTypeByEnv = chgtTypeByEnv_;
         StringList globalMoves_ = globalMoves(data_);
         globalMoves_.removeDuplicates();
-        globalMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        globalMoves = globalMoves_;
+        globalMoves = listTrStringsMv(globalMoves_,data_,getLanguage());
         constValuesType = effect_.getConstValuesType();
         exchangeTypes = effect_.getExchangeTypes();
         StringList constTypes_;
@@ -84,20 +81,21 @@ public class EffectSwitchTypesBean extends EffectBean {
         return constValuesType == ConstValuesType.LANCEUR_ATTAQUES_TYPES;
     }
     public String getTrEnv(int _index) {
-        EnvironmentType env_ = PokemonStandards.getEnvByName(chgtTypeByEnv.getKey(_index));
-        DataBase data_ = getDataBase();
-        AbsMap<EnvironmentType,String> translatedTypes_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-        return translatedTypes_.getVal(env_);
+        return chgtTypeByEnv.getKey(_index).getTranslation();
+//        EnvironmentType env_ = PokemonStandards.getEnvByName(chgtTypeByEnv.getKey(_index));
+//        DataBase data_ = getDataBase();
+//        AbsMap<EnvironmentType,String> translatedTypes_ = data_.getTranslatedEnvironment().getVal(getLanguage());
+//        return translatedTypes_.getVal(env_);
     }
     public String getTrGlobalMoveFctEnv(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = globalMoves.get(_index);
-        return translatedMoves_.getVal(st_);
+        return globalMoves.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String st_ = globalMoves.get(_index);
+//        return translatedMoves_.getVal(st_);
     }
     public String clickGlobalMoveFctEnv(int _index) {
-        String st_ = globalMoves.get(_index);
-        return tryRedirectMv(st_);
+        return tryRedirect(globalMoves.get(_index));
     }
     public boolean giveToTarget() {
         return exchangeTypes == ExchangeType.GIVE_TO_TARGET;
@@ -124,11 +122,11 @@ public class EffectSwitchTypesBean extends EffectBean {
         return translatedTypes_.getVal(type_);
     }
 
-    public DictionaryComparator<String,String> getChgtTypeByEnv() {
+    public DictionaryComparator<TranslatedKey,TranslatedKey> getChgtTypeByEnv() {
         return chgtTypeByEnv;
     }
 
-    public StringList getGlobalMoves() {
+    public CustList<TranslatedKey> getGlobalMoves() {
         return globalMoves;
     }
 

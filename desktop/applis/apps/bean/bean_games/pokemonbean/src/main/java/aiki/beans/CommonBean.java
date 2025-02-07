@@ -2,12 +2,16 @@ package aiki.beans;
 
 import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.game.ImgPkPlayer;
+import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
+import aiki.map.levels.enums.*;
+import aiki.map.pokemon.enums.*;
 import aiki.util.Coords;
 import code.bean.Bean;
 import code.bean.nat.StringMapObjectBase;
@@ -16,10 +20,7 @@ import code.maths.montecarlo.MonteCarloBoolean;
 import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesFightFight;
 import code.sml.util.TranslationsFile;
-import code.util.CustList;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -180,7 +181,87 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
 //        }
     }
+    protected NatStringTreeMap<Rate> map(StringMap<Rate> _input, StringMap<String> _translated) {
+        NatStringTreeMap< Rate> multDamageTypesMoves_;
+        multDamageTypesMoves_ = new NatStringTreeMap< Rate>();
+        for (String m: _input.getKeys()) {
+            multDamageTypesMoves_.put(_translated.getVal(m), _input.getVal(m));
+        }
+        return multDamageTypesMoves_;
+    }
 
+    protected static CustList<TranslatedKey> listTrStringsAb(StringList _input, DataBase _db, String _lg) {
+        CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
+        for (String s: _input) {
+            res_.add(buildAb(_db.getTranslatedAbilities().getVal(_lg),s));
+        }
+        res_.sortElts(new ComparingTranslatedKey());
+        return res_;
+    }
+
+    protected static CustList<TranslatedKey> listTrStringsIt(StringList _input, DataBase _db, String _lg) {
+        CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
+        for (String s: _input) {
+            res_.add(buildIt(_db,_db.getTranslatedItems().getVal(_lg),s));
+        }
+        res_.sortElts(new ComparingTranslatedKey());
+        return res_;
+    }
+
+    protected static CustList<TranslatedKey> listTrStringsMv(StringList _input, DataBase _db, String _lg) {
+        CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
+        for (String s: _input) {
+            res_.add(buildMv(_db.getTranslatedMoves().getVal(_lg),s));
+        }
+        res_.sortElts(new ComparingTranslatedKey());
+        return res_;
+    }
+
+    protected static CustList<TranslatedKey> listTrStringsSt(StringList _input, DataBase _db, String _lg) {
+        CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
+        for (String s: _input) {
+            res_.add(buildSt(_db.getTranslatedStatus().getVal(_lg),s));
+        }
+        res_.sortElts(new ComparingTranslatedKey());
+        return res_;
+    }
+
+    protected static CustList<TranslatedKey> listTrStringsTy(StringList _input, DataBase _db, String _lg) {
+        CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
+        for (String s: _input) {
+            res_.add(build(_db.getTranslatedTypes().getVal(_lg),s));
+        }
+        res_.sortElts(new ComparingTranslatedKey());
+        return res_;
+    }
+
+    public static TranslatedKey build(AbsMap<String,String> _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)));
+    }
+    public static TranslatedKey buildAb(AbsMap<String,String> _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectAb(_k,""), PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML, CST_ABILITY);
+    }
+    public static TranslatedKey buildIt(DataBase _db,AbsMap<String,String> _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectIt(_k,"",_db.getItem(_k)), "", CST_ITEM);
+    }
+    public static TranslatedKey buildMv(AbsMap<String,String> _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectMv(_k,""), PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML, CST_MOVE);
+    }
+    public static TranslatedKey buildPk(AbsMap<String,String> _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectPk(_k,""), PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, CST_PK);
+    }
+    public static TranslatedKey buildSt(AbsMap<String,String> _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectSt(_k,""), PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML, CST_STATUS);
+    }
+    public static TranslatedKey buildEnv(AbsMap<EnvironmentType,String> _tr, EnvironmentType _k) {
+        return new TranslatedKey(_k.getEnvName(),StringUtil.nullToEmpty(_tr.getVal(_k)));
+    }
+    public static TranslatedKey buildSi(AbsMap<Statistic,String> _tr, Statistic _k) {
+        return new TranslatedKey(_k.getStatName(),StringUtil.nullToEmpty(_tr.getVal(_k)));
+    }
+    public static TranslatedKey buildGender(AbsMap<Gender,String> _tr, Gender _k) {
+        return new TranslatedKey(_k.getGenderName(),StringUtil.nullToEmpty(_tr.getVal(_k)));
+    }
     public DataBase getDataBase() {
         return db().getData();
     }
@@ -227,6 +308,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         map_.put(CST_LEFT_BRACE, StringUtil.concat(CST_QUOTED_LEFT_BRACE, CST_QUOTE));
         map_.put(CST_RIGHT_BRACE, StringUtil.concat(CST_QUOTE, CST_QUOTED_RIGHT_BRACE));
         return StringUtil.formatBasic(_string, map_, false);
+    }
+    protected static StringList getFormattedReasons(DataBase _data, String _reasons, String _language) {
+        return getFormattedReasons(_data,getReasons(_reasons),_language);
     }
     protected static StringList getFormattedReasons(DataBase _data, StringList _reasons, String _language) {
 //      Map<String,String> locHtml_ = new Map<>();
@@ -291,6 +375,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             return _str;
         }
         return DataBase.EMPTY_STRING;
+    }
+    protected String tryRedirect(TranslatedKey _tk) {
+        return AbsRedirect.tryRedirect(this,_tk.getRedirect(),_tk.getKeyForm(),_tk.getDest());
     }
     protected String tryRedirectAb(String _name) {
         return tryRedirectAb(CST_ABILITY,_name, PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,"");

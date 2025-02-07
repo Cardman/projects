@@ -39,7 +39,7 @@ public class EffectComboBean extends CommonBean {
             endRound = true;
             EffectEndRound effect_ = e_.getEffectEndRound().first();
             endRoundRank = effect_.getEndRoundRank();
-            reasonsEndRound = getFormattedReasons(data_, getReasons(effect_.getFailEndRound()), getLanguage());
+            reasonsEndRound = getFormattedReasons(data_, effect_.getFailEndRound(), getLanguage());
             mapVarsFailEndRound = getMapVarsFail(data_, effect_.getFailEndRound(), getLanguage());
         } else {
             endRound = false;

@@ -1,21 +1,17 @@
 package aiki.beans.moves.effects;
 
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectBatonPass;
-import aiki.fight.moves.effects.EffectClone;
-import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
-import code.maths.Rate;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import code.maths.*;
+import code.util.*;
 
 public class EffectCloneBean extends EffectBean {
     private Rate hpRateClone;
-    private StringList movesEndRound;
-    private StringList movesBatonPass;
-    private StringList movesSending;
+    private CustList<TranslatedKey> movesEndRound;
+    private CustList<TranslatedKey> movesBatonPass;
+    private CustList<TranslatedKey> movesSending;
 
     @Override
     public void beforeDisplaying() {
@@ -28,16 +24,13 @@ public class EffectCloneBean extends EffectBean {
         movesEndRound_.addAllElts(data_.getMovesAnticipation());
         movesEndRound_.addAllElts(data_.getTrappingMoves());
         movesEndRound_.removeDuplicates();
-        movesEndRound_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesEndRound = movesEndRound_;
+        movesEndRound = listTrStringsMv(movesEndRound_,data_,getLanguage());
         StringList movesBatonPass_ = movesBatonPass(data_);
         movesBatonPass_.removeDuplicates();
-        movesBatonPass_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesBatonPass = movesBatonPass_;
+        movesBatonPass = listTrStringsMv(movesBatonPass_,data_,getLanguage());
         StringList movesSending_ = movesSending(data_);
         movesSending_.removeDuplicates();
-        movesSending_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesSending = movesSending_;
+        movesSending = listTrStringsMv(movesSending_,data_,getLanguage());
     }
 
     public static StringList movesSending(DataBase _data) {
@@ -74,49 +67,49 @@ public class EffectCloneBean extends EffectBean {
     }
 
     public String clickMoveEndRound(int _index) {
-        String move_ = movesEndRound.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(movesEndRound.get(_index));
     }
     public String getTrMovesEndRound(int _index) {
-        String move_ = movesEndRound.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(move_);
+        return movesEndRound.get(_index).getTranslation();
+//        String move_ = movesEndRound.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(move_);
     }
     public String clickMoveBatonPass(int _index) {
-        String move_ = movesBatonPass.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(movesBatonPass.get(_index));
     }
     public String getTrMovesBatonPass(int _index) {
-        String move_ = movesBatonPass.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(move_);
+        return movesBatonPass.get(_index).getTranslation();
+//        String move_ = movesBatonPass.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(move_);
     }
     public String clickMoveSending(int _index) {
-        String move_ = movesSending.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(movesSending.get(_index));
     }
     public String getTrMovesSending(int _index) {
-        String move_ = movesSending.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(move_);
+        return movesSending.get(_index).getTranslation();
+//        String move_ = movesSending.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(move_);
     }
 
     public Rate getHpRateClone() {
         return hpRateClone;
     }
 
-    public StringList getMovesEndRound() {
+    public CustList<TranslatedKey> getMovesEndRound() {
         return movesEndRound;
     }
 
-    public StringList getMovesBatonPass() {
+    public CustList<TranslatedKey> getMovesBatonPass() {
         return movesBatonPass;
     }
 
-    public StringList getMovesSending() {
+    public CustList<TranslatedKey> getMovesSending() {
         return movesSending;
     }
 }

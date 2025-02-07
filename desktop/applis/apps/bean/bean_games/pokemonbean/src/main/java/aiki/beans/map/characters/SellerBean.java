@@ -1,36 +1,37 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.map.characters.Seller;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public class SellerBean extends CommonBean {
 
     private Seller seller;
+    private CustList<TranslatedKey> items;
 
     @Override
     public void beforeDisplaying() {
         seller = (Seller) getForms().getValPers(CST_PERSON);
+        items = listTrStringsIt(seller.getItems(),getDataBase(),getLanguage());
     }
     public String getItem(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsItems_;
-        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = getItems().get(_index);
-        return translationsItems_.getVal(item_);
+        return items.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsItems_;
+//        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
+//        String item_ = getItems().get(_index);
+//        return translationsItems_.getVal(item_);
     }
-    public StringList getItems() {
-        DataBase data_ = getDataBase();
-        StringList items_ = new StringList(seller.getItems());
-        items_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        return items_;
+    public CustList<TranslatedKey> getItems() {
+        return items;
     }
     public String clickItem(int _index) {
-        String item_ = getItems().get(_index);
-        return tryRedirectIt(item_);
+        return tryRedirect(items.get(_index));
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }

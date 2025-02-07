@@ -1,4 +1,5 @@
 package aiki.beans.facade.comparators;
+import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.fight.enums.*;
@@ -6,7 +7,7 @@ import aiki.fight.util.*;
 import code.util.*;
 import code.util.ints.*;
 
-public final class ComparatorStatusStatistic implements Comparing<StatisticStatus> {
+public final class ComparatorStatusStatistic implements Comparing<TranslatedKeyPair> {
 
     private final AbsMap<String,String> status;
     private final AbsMap<Statistic,String> statis;
@@ -21,8 +22,12 @@ public final class ComparatorStatusStatistic implements Comparing<StatisticStatu
     }
 
     @Override
-    public int compare(StatisticStatus _o1, StatisticStatus _o2) {
-        return comparePairs(_o1, _o2, status, statis);
+    public int compare(TranslatedKeyPair _o1, TranslatedKeyPair _o2) {
+        return comparePairs(convert(_o1), convert(_o2), status, statis);
+    }
+
+    private StatisticStatus convert(TranslatedKeyPair _o) {
+        return new StatisticStatus(Statistic.getStatisticByName(_o.getFirst().getKey()), _o.getSecond().getKey());
     }
 
     public static int comparePairs(StatisticStatus _o1, StatisticStatus _o2, AbsMap<String,String> _status, AbsMap<Statistic, String> _stats) {

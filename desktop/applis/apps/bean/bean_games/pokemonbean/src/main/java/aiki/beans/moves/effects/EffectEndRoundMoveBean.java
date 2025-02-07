@@ -33,7 +33,7 @@ public class EffectEndRoundMoveBean extends EffectBean {
 ////            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            reasons_.add(formula_);
 //        }
-        reasonsEndRound = CommonBean.getFormattedReasons(data_, getFailEndRoundReasons(), getLanguage());
+        reasonsEndRound = CommonBean.getFormattedReasons(data_, effect_.getFailEndRound(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
         NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
@@ -42,11 +42,6 @@ public class EffectEndRoundMoveBean extends EffectBean {
             mapVarsFail_.put(k, mapVars_.getVal(k));
         }
         mapVarsFailEndRound = mapVarsFail_;
-    }
-
-    private StringList getFailEndRoundReasons() {
-        EffectEndRound effect_ = (EffectEndRound) getEffect();
-        return getReasons(effect_.getFailEndRound());
     }
 
     public long getEndRoundRank() {

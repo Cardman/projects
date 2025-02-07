@@ -30,7 +30,7 @@ public class StatusSetBean extends WithFilterBean {
         }
         getForms().putStatus(CST_STATUS_SET, sortedAbilities_);
         if (sortedAbilities_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            return tryRedirectSt(sortedAbilities_.firstKey());
+            return tryRedirect(buildSt(new StringMap<String>(),sortedAbilities_.firstKey()));
         }
 //        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         return PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;

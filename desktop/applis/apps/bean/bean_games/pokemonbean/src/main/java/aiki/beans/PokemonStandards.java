@@ -1,10 +1,12 @@
 package aiki.beans;
 
+import aiki.beans.abilities.*;
 import aiki.beans.facade.dto.*;
 import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.game.*;
+import aiki.beans.map.elements.*;
 import aiki.comparators.*;
 import aiki.facade.*;
 import aiki.facade.enums.*;
@@ -14,22 +16,19 @@ import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
 import aiki.game.params.enums.*;
 import aiki.map.levels.*;
-import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.bean.nat.*;
-import code.bean.nat.analyze.NatConfigurationCore;
+import code.bean.nat.analyze.*;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.exec.variables.*;
 import code.bean.nat.fwd.*;
 import code.maths.*;
-import code.sml.HtmlPageInt;
-import code.sml.NavigationCore;
-import code.sml.SetupableAnalyzingDoc;
+import code.sml.*;
 import code.util.*;
 import code.util.core.*;
 public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesForm {
@@ -545,10 +544,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStatisticStatusByteMap(AbsMap<StatisticStatus, Long> _map) {
+    public static NatArrayStruct getStatisticStatusByteMap(AbsMap<TranslatedKeyPair, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<StatisticStatus, Long> e:_map.entryList()) {
+        for (EntryCust<TranslatedKeyPair, Long> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -586,10 +585,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getWeatherTypeRateMap(AbsMap<WeatherType, Rate> _map) {
+    public static NatArrayStruct getWeatherTypeRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<WeatherType, Rate> e:_map.entryList()) {
+        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -636,11 +635,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrInts(AbsMap<String, Ints> _map) {
+    public static NatArrayStruct getStrInts(AbsMap<TranslatedKey, Ints> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, Ints> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getIntArray(e.getValue()));
+        for (EntryCust<TranslatedKey, Ints> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),getIntArray(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -777,11 +776,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getPkTrainerArray(CustList<PkTrainer> _ls) {
+    public static NatArrayStruct getPkTrainerArray(CustList<TranslatedPkElements> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
-        for (PkTrainer s:_ls) {
-            arr_.set(j_,new PkStruct(s));
+        for (TranslatedPkElements s:_ls) {
+            arr_.set(j_,new PkStruct(s.getTrained()));
             j_++;
         }
         return arr_;
@@ -869,6 +868,65 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
+    public static NatArrayStruct getStrStr(DictionaryComparator<TranslatedKey, TranslatedKey> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<TranslatedKey,TranslatedKey> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue().getTranslation())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getStrStrKey(DictionaryComparator<TranslatedKey, TranslatedKey> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<TranslatedKey,TranslatedKey> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getStrStrOnly(DictionaryComparator<TranslatedKey, String> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<TranslatedKey,String> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getStrStr(NatStringTreeMap<String> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<String,String> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getKeys(CustList<TranslatedKey> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (TranslatedKey e: _map){
+            arr_.set(i_,new NaStSt(e.getKey()));
+            i_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getValues(CustList<TranslatedKey> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (TranslatedKey e: _map){
+            arr_.set(i_,new NaStSt(e.getTranslation()));
+            i_++;
+        }
+        return arr_;
+    }
     public static NatArrayStruct getStrRate(AbsMap<String, Rate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
@@ -880,6 +938,26 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
+    public static NatArrayStruct getStrRate(DictionaryComparator<TranslatedKey, Rate> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<TranslatedKey,Rate> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getStrLong(DictionaryComparator<TranslatedKey, Long> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<TranslatedKey,Long> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaNbSt(e.getValue()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
     public static NatArrayStruct getStrLong(AbsMap<String, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
@@ -930,11 +1008,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getLongStr(AbsMap<Long, String> _map) {
+    public static NatArrayStruct getLongStr(AbsMap<Long, TranslatedKey> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<Long,String> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
+        for (EntryCust<Long,TranslatedKey> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey())));
             arr_.set(i_,p_);
             i_++;
         }
@@ -971,11 +1049,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getStrStrList(AbsMap<String, StringList> _map) {
+    public static NatArrayStruct getStrStrList(DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<String,StringList> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),getStringArray(e.getValue()));
+        for (EntryCust<TranslatedKey,CustList<TranslatedKey>> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),getKeys(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
@@ -1029,9 +1107,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     }
     public static DifficultyWinPointsFight getDiffWonPtsByName(String _env) {
         return DifficultyWinPointsFight.getDiffWonPtsByName(_env);
-    }
-    public static EnvironmentType getEnvByName(String _env) {
-        return EnvironmentType.getEnvByName(_env);
     }
     public static Gender getGenderByName(String _env) {
         return Gender.getGenderByName(_env);

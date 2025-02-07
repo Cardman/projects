@@ -1,9 +1,12 @@
 package code.bean.nat;
 
-import code.maths.Rate;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.core.BoolVal;
+import aiki.beans.*;
+import aiki.beans.endround.*;
+import aiki.beans.moves.effects.*;
+import aiki.fight.moves.effects.*;
+import code.maths.*;
+import code.util.*;
+import code.util.core.*;
 
 public class StringMapObjectBase {
     private final StringMap<Rate> mapRate = new StringMap<Rate>();
@@ -13,6 +16,11 @@ public class StringMapObjectBase {
     private final StringMap<StringList> mapStringList = new StringMap<StringList>();
     private final StringMap<BoolVal> mapBoolean = new StringMap<BoolVal>();
     private final StringMap<NaSt> beansOthers = new StringMap<NaSt>();
+    private final CustList<TranslatedKey> evts = new CustList<TranslatedKey>();
+    private final CustList<CustList<TranslatedKey>> evtsGroups = new CustList<CustList<TranslatedKey>>();
+    private final CustList<Effect> current = new CustList<Effect>();
+    private CustList<EffectBean> currentBean = new CustList<EffectBean>();
+    private CustList<EffectEndRoundBean> currentBeanEnd = new CustList<EffectEndRoundBean>();
 
     public static BoolVal to(boolean _v) {
         if (_v) {
@@ -42,6 +50,16 @@ public class StringMapObjectBase {
         mapStringList.putAllMap(_m.mapStringList);
         mapBoolean.putAllMap(_m.mapBoolean);
         beansOthers.putAllMap(_m.beansOthers);
+        getEvts().clear();
+        getEvtsGroups().clear();
+        getEvts().addAllElts(_m.getEvts());
+        getEvtsGroups().addAllElts(_m.getEvtsGroups());
+        getCurrent().clear();
+        getCurrent().addAllElts(_m.getCurrent());
+        getCurrentBean().clear();
+        getCurrentBean().addAllElts(_m.getCurrentBean());
+        getCurrentBeanEnd().clear();
+        getCurrentBeanEnd().addAllElts(_m.getCurrentBeanEnd());
     }
     public void removeKeyBase(String _key) {
         mapRate.removeKey(_key);
@@ -121,4 +139,31 @@ public class StringMapObjectBase {
         return beansOthers;
     }
 
+    public CustList<TranslatedKey> getEvts() {
+        return evts;
+    }
+
+    public CustList<CustList<TranslatedKey>> getEvtsGroups() {
+        return evtsGroups;
+    }
+
+    public CustList<Effect> getCurrent() {
+        return current;
+    }
+
+    public CustList<EffectBean> getCurrentBean() {
+        return currentBean;
+    }
+
+    public void setCurrentBean(CustList<EffectBean> _c) {
+        this.currentBean = _c;
+    }
+
+    public CustList<EffectEndRoundBean> getCurrentBeanEnd() {
+        return currentBeanEnd;
+    }
+
+    public void setCurrentBeanEnd(CustList<EffectEndRoundBean> _c) {
+        this.currentBeanEnd = _c;
+    }
 }

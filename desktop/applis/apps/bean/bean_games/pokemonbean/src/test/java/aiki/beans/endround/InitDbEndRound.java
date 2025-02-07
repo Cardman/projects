@@ -389,6 +389,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         StringMap<String> mapping_ = mappingToEndRound();
         NaSt pkbean_ = transitToAllPks(all_);
         NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
+        setFormsBy(pk_,evobean_,pkbean_);
         callEffectEndRoundBeanIndexSet(evobean_,_index);
         beforeDisplaying(evobean_);
         return evobean_;

@@ -56,7 +56,7 @@ public class EffectCounterAttackBean extends EffectBean {
 ////            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            reasonsProtect_.add(formula_);
 //        }
-        reasonsProtect = CommonBean.getFormattedReasons(data_, getFailProtectReasons(), getLanguage());
+        reasonsProtect = CommonBean.getFormattedReasons(data_, effect_.getProtectFail(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getProtectFail(),getLanguage());
         NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap< String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
@@ -75,7 +75,7 @@ public class EffectCounterAttackBean extends EffectBean {
 ////            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            reasonsCounter_.add(formula_);
 //        }
-        reasonsCounter = CommonBean.getFormattedReasons(data_, getFailCounterReasons(), getLanguage());
+        reasonsCounter = CommonBean.getFormattedReasons(data_, effect_.getCounterFail(), getLanguage());
         mapVars_ = data_.getDescriptions(effect_.getCounterFail(),getLanguage());
         desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
@@ -99,16 +99,6 @@ public class EffectCounterAttackBean extends EffectBean {
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         Statistic st_ = droppedStatDirectMove.getKey(_index);
         return translatedStatistics_.getVal(st_);
-    }
-
-    private StringList getFailProtectReasons() {
-        EffectCounterAttack effect_ = (EffectCounterAttack) getEffect();
-        return getReasons(effect_.getProtectFail());
-    }
-
-    private StringList getFailCounterReasons() {
-        EffectCounterAttack effect_ = (EffectCounterAttack) getEffect();
-        return getReasons(effect_.getCounterFail());
     }
 
     public DictionaryComparator<String,Rate> getSufferingDamageTypes() {

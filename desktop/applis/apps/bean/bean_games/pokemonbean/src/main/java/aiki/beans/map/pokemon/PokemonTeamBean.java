@@ -1,6 +1,7 @@
 package aiki.beans.map.pokemon;
 
 import aiki.beans.AbsPkTeamBean;
+import aiki.beans.map.elements.TranslatedPkElements;
 import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.TrainerOneFight;
@@ -54,7 +55,7 @@ public class PokemonTeamBean extends AbsPkTeamBean {
 //        return translationsPokemon_.getVal(name_);
 //    }
     public String clickName(int _noFight,int _index) {
-        CustList<PkTrainer> list_ = list(_noFight);
+        CustList<TranslatedPkElements> list_ = list(_noFight);
         return clickName(list_,_index);
 //        PkTrainer pk_;
 //        pk_ = list_.get(_index);
@@ -63,19 +64,19 @@ public class PokemonTeamBean extends AbsPkTeamBean {
 //        return CST_POKEMON;
     }
 
-    private CustList<PkTrainer> list(int _noFight) {
+    private CustList<TranslatedPkElements> list(int _noFight) {
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
         } else {
             list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight).getTeam();
         }
-        return list_;
+        return retrieveTeam(list_);
     }
 
     public int[][] getImage(int _index) {
 //        DataBase data_ = getDataBase();
-        CustList<PkTrainer> list_ = list(noFight);
+        CustList<TranslatedPkElements> list_ = list(noFight);
         return getImage(list_,_index);
 //        PkTrainer pk_;
 //        pk_ = list_.get(_index);
@@ -93,7 +94,7 @@ public class PokemonTeamBean extends AbsPkTeamBean {
 //        return translationsAbilities_.getVal(ability_);
 //    }
     public String clickAbility(int _noFight,int _index) {
-        CustList<PkTrainer> list_ = list(_noFight);
+        CustList<TranslatedPkElements> list_ = list(_noFight);
         return clickAbility(list_,_index);
 //        PkTrainer pk_;
 //        pk_ = list_.get(_index);
@@ -112,7 +113,7 @@ public class PokemonTeamBean extends AbsPkTeamBean {
 //    }
     public String clickItem(int _noFight,int _index) {
 //        DataBase data_ = getDataBase();
-        CustList<PkTrainer> list_ = list(_noFight);
+        CustList<TranslatedPkElements> list_ = list(_noFight);
         return clickItem(list_,_index);
 //        PkTrainer pk_;
 //        pk_ = list_.get(_index);
@@ -175,7 +176,7 @@ public class PokemonTeamBean extends AbsPkTeamBean {
 //    }
     public String clickMove(int _noFight,int _index, int _moveIndex) {
 //        DataBase data_ = getDataBase();
-        CustList<PkTrainer> list_ = list(_noFight);
+        CustList<TranslatedPkElements> list_ = list(_noFight);
         return clickMove(list_,_index,_moveIndex);
 //        PkTrainer pk_;
 //        pk_ = list_.get(_index);

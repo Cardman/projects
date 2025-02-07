@@ -1,21 +1,19 @@
 package aiki.beans.endround;
 
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectEndRoundPositionTargetRelation;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import code.util.*;
 
 public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
 
-    private StringList movesSameCategory;
+    private CustList<TranslatedKey> movesSameCategory;
 
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        movesSameCategory = moves();
+        movesSameCategory = listTrStringsMv(moves(),getDataBase(),getLanguage());
     }
 
     private StringList moves() {
@@ -31,23 +29,22 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
             }
         }
         moves_.removeDuplicates();
-        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return moves_;
     }
 
-    public StringList getMovesSameCategory() {
+    public CustList<TranslatedKey> getMovesSameCategory() {
         return movesSameCategory;
     }
 
     public String getTrTargetRelationMove(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_;
-        translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesSameCategory.get(_index));
+        return movesSameCategory.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_;
+//        translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(movesSameCategory.get(_index));
     }
 
     public String clickTargetRelationMove(int _index) {
-        StringList moves_ = moves();
-        return tryRedirectMv(moves_.get(_index));
+        return tryRedirect(movesSameCategory.get(_index));
     }
 }

@@ -1,17 +1,15 @@
 package aiki.beans.items;
 
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.items.HealingHpStatus;
-import aiki.fight.items.HealingStatus;
-import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.fight.items.*;
+import code.maths.*;
+import code.scripts.confs.*;
+import code.util.*;
 
 public class HealingStatusBean extends HealingItemBean {
     static final String HEALING_STATUS_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
-    private StringList status;
+    private CustList<TranslatedKey> status;
     private boolean healingKo;
     private Rate healedHpRate;
     @Override
@@ -20,13 +18,7 @@ public class HealingStatusBean extends HealingItemBean {
         DataBase data_ = getDataBase();
         HealingStatus item_ = (HealingStatus) getItem();
         healingKo = item_.getHealingKo();
-        StringList status_;
-        status_ = new StringList();
-        for (String s: item_.getStatus()) {
-            status_.add(s);
-        }
-        status_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        status = status_;
+        status = listTrStringsSt(item_.getStatus(),data_,getLanguage());
         if (item_ instanceof HealingHpStatus) {
             healedHpRate = ((HealingHpStatus)item_).getHealedHpRate();
         } else {
@@ -39,21 +31,21 @@ public class HealingStatusBean extends HealingItemBean {
     }
 
     public String getTrStatus(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String status_ = status.get(_index);
-        return translatedStatus_.getVal(status_);
+        return status.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        String status_ = status.get(_index);
+//        return translatedStatus_.getVal(status_);
     }
     public String clickStatus(int _index) {
-        String status_ = status.get(_index);
-        return tryRedirectSt(status_);
+        return tryRedirect(status.get(_index));
     }
 
     public boolean getHealingKo() {
         return healingKo;
     }
 
-    public StringList getStatus() {
+    public CustList<TranslatedKey> getStatus() {
         return status;
     }
 }

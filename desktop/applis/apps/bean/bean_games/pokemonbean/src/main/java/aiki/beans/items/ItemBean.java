@@ -1,6 +1,7 @@
 package aiki.beans.items;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -12,7 +13,7 @@ import code.util.StringMap;
 public abstract class ItemBean extends CommonBean {
     static final String ITEM_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEM_HTML;
 
-    private DictionaryComparator<String, Long> happiness;
+    private DictionaryComparator<TranslatedKey, Long> happiness;
     private String name;
     private String displayName;
     private long price;
@@ -35,25 +36,26 @@ public abstract class ItemBean extends CommonBean {
 
     public void initHappiness(StringMap<Long> _map) {
         DataBase data_ = getDataBase();
-        DictionaryComparator<String, Long> happiness_;
-        happiness_ = DictionaryComparatorUtil.buildItemsShort(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Long> happiness_;
+        happiness_ = DictionaryComparatorUtil.buildItemsShort();
         for (String i: _map.getKeys()) {
-            happiness_.put(i, _map.getVal(i));
+            happiness_.put(buildIt(data_,data_.getTranslatedItems().getVal(getLanguage()),i), _map.getVal(i));
         }
         happiness = happiness_;
     }
 
     public boolean isBall(int _index) {
-        return getDataBase().getItem(happiness.getKey(_index)) instanceof Ball;
+        return getDataBase().getItem(happiness.getKey(_index).getKey()) instanceof Ball;
     }
     public String getTrHappiness(int _index) {
-        return getDataBase().getTranslatedItems().getVal(getLanguage()).getVal(happiness.getKey(_index));
+        return happiness.getKey(_index).getTranslation();
+//        return getDataBase().getTranslatedItems().getVal(getLanguage()).getVal(happiness.getKey(_index));
     }
     public String clickHappiness(int _index) {
-        return tryRedirectIt(happiness.getKey(_index));
+        return tryRedirect(happiness.getKey(_index));
     }
 
-    public DictionaryComparator<String,Long> getHappiness() {
+    public DictionaryComparator<TranslatedKey,Long> getHappiness() {
         return happiness;
     }
 

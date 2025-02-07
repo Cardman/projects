@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -9,7 +10,7 @@ import code.util.StringMap;
 
 public class EffectSwitchMoveTypesBean extends EffectBean {
     private StringList replacingTypes;
-    private DictionaryComparator<String,String> changeTypes;
+    private DictionaryComparator<TranslatedKey,TranslatedKey> changeTypes;
 
     @Override
     public void beforeDisplaying() {
@@ -24,10 +25,10 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
         }
         replacingTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         replacingTypes = replacingTypes_;
-        DictionaryComparator<String,String> changeTypes_;
-        changeTypes_ = DictionaryComparatorUtil.buildTypesStr(data_,getLanguage());
+        DictionaryComparator<TranslatedKey,TranslatedKey> changeTypes_;
+        changeTypes_ = DictionaryComparatorUtil.buildTypesStr();
         for (String t: effect_.getChangeTypes().getKeys()) {
-            changeTypes_.put(t, translatedTypes_.getVal(effect_.getChangeTypes().getVal(t)));
+            changeTypes_.put(build(translatedTypes_,t), build(translatedTypes_,effect_.getChangeTypes().getVal(t)));
         }
         changeTypes = changeTypes_;
     }
@@ -38,17 +39,18 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
         return translatedTypes_.getVal(st_);
     }
     public String getTrChangedTypes(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String st_ = changeTypes.getKey(_index);
-        return translatedTypes_.getVal(st_);
+        return changeTypes.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        String st_ = changeTypes.getKey(_index);
+//        return translatedTypes_.getVal(st_);
     }
 
     public StringList getReplacingTypes() {
         return replacingTypes;
     }
 
-    public DictionaryComparator<String,String> getChangeTypes() {
+    public DictionaryComparator<TranslatedKey,TranslatedKey> getChangeTypes() {
         return changeTypes;
     }
 }

@@ -1,12 +1,10 @@
 package aiki.beans.abilities;
 
-import aiki.beans.PokemonBeanStruct;
-import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class AbilityBeanForwardStatusGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getStrStr(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getForwardStatus());
+        return PokemonStandards.getStrStrKey(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getForwardStatus());
     }
 }

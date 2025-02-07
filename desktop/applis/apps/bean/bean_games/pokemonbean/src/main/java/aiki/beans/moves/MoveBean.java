@@ -1,7 +1,8 @@
 package aiki.beans.moves;
 
-import aiki.beans.CommonBean;
+import aiki.beans.*;
 import aiki.beans.WithFilterBean;
+import aiki.beans.moves.effects.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -43,22 +44,22 @@ public class MoveBean extends CommonBean {
     private boolean rechargeRound;
     private boolean constUserChoice;
     private boolean secEffectIfNoDamage;
-    private DictionaryComparator<String, Ints> secEffectsByItem;
+    private DictionaryComparator<TranslatedKey, Ints> secEffectsByItem;
     private boolean ignVarAccurUserNeg;
     private boolean ignVarEvasTargetPos;
-    private StringList achieveDisappearedPkUsingMove;
+    private CustList<TranslatedKey> achieveDisappearedPkUsingMove;
 
     private SwitchType switchType;
-    private DictionaryComparator<String,String> typesByOwnedItems;
-    private DictionaryComparator<String,String> typesByWeathers;
+    private DictionaryComparator<TranslatedKey,TranslatedKey> typesByOwnedItems;
+    private DictionaryComparator<TranslatedKey,TranslatedKey> typesByWeathers;
     private TargetChoice targetChoice;
-    private StringList deletedStatus;
-    private StringList requiredStatus;
-    private StringList abilities;
-    private StringList items;
+    private CustList<TranslatedKey> deletedStatus;
+    private CustList<TranslatedKey> requiredStatus;
+    private CustList<TranslatedKey> abilities;
+    private CustList<TranslatedKey> items;
     private NatStringTreeMap<String> mapVarsAccuracy;
     private boolean cannotKo;
-    private StringList affectedByMoves;
+    private CustList<TranslatedKey> affectedByMoves;
     private LongTreeMap<StringList> movesLevelLearntByPokemon;
     private StringList movesTmLearntByPokemon;
     private StringList movesHmLearntByPokemon;
@@ -92,13 +93,13 @@ public class MoveBean extends CommonBean {
         nbPrepaRound = moveData_.getNbPrepaRound();
         disappearBeforeUse = moveData_.getDisappearBeforeUse();
         targetChoice = moveData_.getTargetChoice();
-        achieveDisappearedPkUsingMove = achieveDisappearedPkUsingMove(moveData_);
+        achieveDisappearedPkUsingMove = listTrStringsMv(moveData_.getAchieveDisappearedPkUsingMove(),data_,getLanguage());
         abilities = abilities();
         items = items();
         if (moveData_ instanceof DamagingMoveData) {
             cannotKo = ((DamagingMoveData)moveData_).getCannotKo();
         }
-        affectedByMoves = affectedByMoves(moveData_);
+        affectedByMoves = listTrStringsMv(affectedByMoves(moveData_),data_,getLanguage());
         Ints effects_ = new Ints();
         int nbEffects_ = moveData_.nbEffets();
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
@@ -111,24 +112,13 @@ public class MoveBean extends CommonBean {
         constUserChoice = moveData_.getConstUserChoice();
         switchType = moveData_.getSwitchType();
         secEffectIfNoDamage = moveData_.getSecEffectIfNoDamage();
-        StringList deletedStatus_;
-        deletedStatus_ = new StringList();
-        for (String s: moveData_.getDeletedStatus()) {
-            deletedStatus_.add(s);
-        }
-        deletedStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        deletedStatus = deletedStatus_;
-        StringList requiredStatus_;
-        requiredStatus_ = new StringList();
-        for (String s: moveData_.getRequiredStatus()) {
-            requiredStatus_.add(s);
-        }
-        requiredStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        requiredStatus = requiredStatus_;
-        DictionaryComparator<String, Ints> secEffectsByItem_;
-        secEffectsByItem_ = DictionaryComparatorUtil.buildItemsLs(data_,getLanguage());
+        deletedStatus = listTrStringsSt(moveData_.getDeletedStatus(),data_,getLanguage());
+        requiredStatus = listTrStringsSt(moveData_.getRequiredStatus(),data_,getLanguage());
+        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
+        DictionaryComparator<TranslatedKey, Ints> secEffectsByItem_;
+        secEffectsByItem_ = DictionaryComparatorUtil.buildItemsLs();
         for (EntryCust<String, Ints> s: moveData_.getSecEffectsByItem().entryList()) {
-            secEffectsByItem_.put(s.getKey(), getValidEffects(moveData_, s.getValue()));
+            secEffectsByItem_.put(buildIt(getDataBase(),translatedItems_, s.getKey()), getValidEffects(moveData_, s.getValue()));
         }
         secEffectsByItem = secEffectsByItem_;
         movesLevelLearntByPokemon = movesLevelLearntByPokemon();
@@ -160,6 +150,8 @@ public class MoveBean extends CommonBean {
         }
         movesMtLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
+        getForms().getCurrent().clear();
+        getForms().getCurrent().addAllElts(moveData_.getEffects());
     }
 
     static Ints getValidEffects(MoveData _move, Ints _ls) {
@@ -243,7 +235,6 @@ public class MoveBean extends CommonBean {
         if (_moveData instanceof StatusMoveData) {
             statMove((StatusMoveData) _moveData, affectedByMoves_);
         }
-        affectedByMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         affectedByMoves_.removeDuplicates();
         return affectedByMoves_;
     }
@@ -277,9 +268,10 @@ public class MoveBean extends CommonBean {
         }
     }
 
-    private StringList items() {
+    private CustList<TranslatedKey> items() {
         DataBase data_ = getDataBase();
-        StringList items_ = new StringList();
+        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
+        CustList<TranslatedKey> items_ = new CustList<TranslatedKey>();
         for (String a: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(a);
             if (!(it_ instanceof ItemForBattle)) {
@@ -287,34 +279,25 @@ public class MoveBean extends CommonBean {
             }
             ItemForBattle itBattle_ = (ItemForBattle) it_;
             if (StringUtil.contains(itBattle_.getImmuMoves(), name)) {
-                items_.add(a);
+                items_.add(buildIt(getDataBase(),translatedItems_,a));
             }
         }
-        items_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        items_.sortElts(DictionaryComparatorUtil.cmpItems());
         return items_;
     }
 
-    private StringList abilities() {
+    private CustList<TranslatedKey> abilities() {
         DataBase data_ = getDataBase();
-        StringList abilities_ = new StringList();
+        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+        CustList<TranslatedKey> abilities_ = new CustList<TranslatedKey>();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
             if (StringUtil.contains(ab_.getImmuMove(), name)) {
-                abilities_.add(a);
+                abilities_.add(buildAb(translatedAbilities_,a));
             }
         }
-        abilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        abilities_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return abilities_;
-    }
-
-    private StringList achieveDisappearedPkUsingMove(MoveData _moveData) {
-        DataBase data_ = getDataBase();
-        StringList achieveDisappearedPkUsingMove_ = new StringList();
-        for (String m: _moveData.getAchieveDisappearedPkUsingMove()) {
-            achieveDisappearedPkUsingMove_.add(m);
-        }
-        achieveDisappearedPkUsingMove_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return achieveDisappearedPkUsingMove_;
     }
 
     private NatStringTreeMap<String> mapVarsAccuracy(MoveData _moveData) {
@@ -331,9 +314,11 @@ public class MoveBean extends CommonBean {
 
     private void withDef(MoveData _moveData) {
         DataBase data_ = getDataBase();
+        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        DictionaryComparator<String,String> typesByOwnedItems_;
-        typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
+        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+        DictionaryComparator<TranslatedKey, TranslatedKey> typesByOwnedItems_;
+        typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr();
         boolean hasDefault_ = false;
         for (String k: _moveData.getTypesByOwnedItem().getKeys()) {
             //ItemTypeLine line_ = new ItemTypeLine();
@@ -354,7 +339,7 @@ public class MoveBean extends CommonBean {
 //            }
             String type_ = _moveData.getTypesByOwnedItem().getVal(k);
             //line_.setType(translatedTypes_.getVal(type_));
-            typesByOwnedItems_.put(k, translatedTypes_.getVal(type_));
+            typesByOwnedItems_.put(buildIt(getDataBase(),translatedItems_, k), build(translatedTypes_, type_));
             //typesByOwnedItem_.add(line_);
         }
         //typesByOwnedItem = typesByOwnedItem_;
@@ -362,8 +347,8 @@ public class MoveBean extends CommonBean {
 
 //        CustList<WeatherTypeLine> typesByWeather_;
 //        typesByWeather_ = new CustList<>();
-        DictionaryComparator<String,String> typesByWeathers_;
-        typesByWeathers_ = DictionaryComparatorUtil.buildMovesStr(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, TranslatedKey> typesByWeathers_;
+        typesByWeathers_ = DictionaryComparatorUtil.buildMovesStr();
         for (String k: _moveData.getTypesByWeather().getKeys()) {
             //WeatherTypeLine line_ = new WeatherTypeLine();
 //            if (translatedMoves_.contains(k)) {
@@ -383,7 +368,7 @@ public class MoveBean extends CommonBean {
             String type_ = _moveData.getTypesByWeather().getVal(k);
             //line_.setType(translatedTypes_.getVal(type_));
             //typesByWeather_.add(line_);
-            typesByWeathers_.put(k, translatedTypes_.getVal(type_));
+            typesByWeathers_.put(buildMv(translatedMoves_, k), build(translatedTypes_, type_));
         }
         //typesByWeather = typesByWeather_;
         typesByWeathers = typesByWeathers_;
@@ -515,49 +500,48 @@ public class MoveBean extends CommonBean {
         return switchType == SwitchType.LANCEUR;
     }
     public String getTrAchieveDisappearedPkUsingMove(int _index) {
-        String move_ = achieveDisappearedPkUsingMove.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(move_);
+        return achieveDisappearedPkUsingMove.get(_index).getTranslation();
+//        String move_ = achieveDisappearedPkUsingMove.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(move_);
     }
     public String clickAchieveDisappearedPkUsingMove(int _index) {
-        String move_ = achieveDisappearedPkUsingMove.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(achieveDisappearedPkUsingMove.get(_index));
     }
     public String clickRequiredStatus(int _index) {
-        String key_ = getRequiredStatusKey(_index);
-        return tryRedirectSt(key_);
+        return tryRedirect(requiredStatus.get(_index));
     }
     public String getRequiredStatus(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String key_ = getRequiredStatusKey(_index);
-        return translatedStatus_.getVal(key_);
+        return requiredStatus.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        String key_ = getRequiredStatusKey(_index);
+//        return translatedStatus_.getVal(key_);
     }
-
-    private String getRequiredStatusKey(int _index) {
-        return requiredStatus.get(_index);
-    }
+//
+//    private String getRequiredStatusKey(int _index) {
+//        return requiredStatus.get(_index);
+//    }
     public String clickDeletedStatus(int _index) {
-        String key_ = getDeletedStatusKey(_index);
-        return tryRedirectSt(key_);
+        return tryRedirect(deletedStatus.get(_index));
     }
     public String getDeletedStatus(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String key_ = getDeletedStatusKey(_index);
-        return translatedStatus_.getVal(key_);
+        return deletedStatus.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+//        String key_ = getDeletedStatusKey(_index);
+//        return translatedStatus_.getVal(key_);
     }
 
-    private String getDeletedStatusKey(int _index) {
-        return deletedStatus.get(_index);
-    }
+//    private String getDeletedStatusKey(int _index) {
+//        return deletedStatus.get(_index);
+//    }
     public boolean isItem(int _index) {
-        return !typesByOwnedItems.getKey(_index).isEmpty();
+        return !typesByOwnedItems.getKey(_index).getKey().isEmpty();
     }
     public String clickTypesByOwnedItems(int _index) {
-        String item_ = typesByOwnedItems.getKey(_index);
-        return tryRedirectIt(item_);
+        return tryRedirect(typesByOwnedItems.getKey(_index));
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -603,27 +587,28 @@ public class MoveBean extends CommonBean {
 //        return CST_ITEM;
     }
     public String getTrTypesByOwnedItems(int _index) {
-        String item_ = typesByOwnedItems.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(item_);
+        return typesByOwnedItems.getKey(_index).getTranslation();
+//        String item_ = typesByOwnedItems.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
+//        return translatedItems_.getVal(item_);
     }
     public boolean isWeather(int _index) {
-        return !typesByWeathers.getKey(_index).isEmpty();
+        return !typesByWeathers.getKey(_index).getKey().isEmpty();
     }
     public String clickTypesByWeathers(int _index) {
-        String item_ = typesByWeathers.getKey(_index);
-        return tryRedirectMv(item_);
+        return tryRedirect(typesByWeathers.getKey(_index));
     }
     public String getTrTypesByWeathers(int _index) {
-        String item_ = typesByWeathers.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(item_);
+        return typesByWeathers.getKey(_index).getTranslation();
+//        String item_ = typesByWeathers.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(item_);
     }
     public String clickItemSecEffect(int _index) {
-        String item_ = getItemSecEffect(_index);
-        return tryRedirectIt(item_);
+//        String item_ = getItemSecEffect(_index).getKey();
+        return tryRedirect(getItemSecEffect(_index));
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -669,28 +654,25 @@ public class MoveBean extends CommonBean {
 //        return CST_ITEM;
     }
     public String translateItemSecEffect(int _index) {
-        String it_ = getItemSecEffect(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(it_);
+        return getItemSecEffect(_index).getTranslation();
     }
 
-    private String getItemSecEffect(int _index) {
+    private TranslatedKey getItemSecEffect(int _index) {
         return secEffectsByItem.getKey(_index);
     }
     public String clickAbility(int _index) {
-        String key_ = abilities.get(_index);
-        return tryRedirectAb(key_);
+        return tryRedirect(abilities.get(_index));
     }
     public String getTrAbility(int _index) {
-        String ab_ = abilities.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(ab_);
+        return abilities.get(_index).getTranslation();
+//        String ab_ = abilities.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+//        return translatedAbilities_.getVal(ab_);
     }
     public String clickItem(int _index) {
-        String key_ = items.get(_index);
-        return tryRedirectIt(key_);
+//        String key_ = items.get(_index);
+        return tryRedirect(items.get(_index));
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -736,20 +718,21 @@ public class MoveBean extends CommonBean {
 //        return CST_ITEM;
     }
     public String getTrItem(int _index) {
-        String ab_ = items.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedAbilities_.getVal(ab_);
+        return items.get(_index).getTranslation();
+//        String ab_ = items.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedAbilities_ = data_.getTranslatedItems().getVal(getLanguage());
+//        return translatedAbilities_.getVal(ab_);
     }
     public String clickMove(int _index) {
-        String key_ = affectedByMoves.get(_index);
-        return tryRedirectMv(key_);
+        return tryRedirect(affectedByMoves.get(_index));
     }
     public String getTrMove(int _index) {
-        String ab_ = affectedByMoves.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedAbilities_.getVal(ab_);
+        return affectedByMoves.get(_index).getTranslation();
+//        String ab_ = affectedByMoves.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedAbilities_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedAbilities_.getVal(ab_);
     }
     public String clickPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
@@ -971,11 +954,11 @@ public class MoveBean extends CommonBean {
         return types;
     }
 
-    public DictionaryComparator<String,String> getTypesByOwnedItems() {
+    public DictionaryComparator<TranslatedKey,TranslatedKey> getTypesByOwnedItems() {
         return typesByOwnedItems;
     }
 
-    public DictionaryComparator<String,String> getTypesByWeathers() {
+    public DictionaryComparator<TranslatedKey,TranslatedKey> getTypesByWeathers() {
         return typesByWeathers;
     }
 
@@ -1015,23 +998,23 @@ public class MoveBean extends CommonBean {
         return disappearBeforeUse;
     }
 
-    public StringList getDeletedStatus() {
+    public CustList<TranslatedKey> getDeletedStatus() {
         return deletedStatus;
     }
 
-    public StringList getRequiredStatus() {
+    public CustList<TranslatedKey> getRequiredStatus() {
         return requiredStatus;
     }
 
-    public StringList getAchieveDisappearedPkUsingMove() {
+    public CustList<TranslatedKey> getAchieveDisappearedPkUsingMove() {
         return achieveDisappearedPkUsingMove;
     }
 
-    public StringList getAbilities() {
+    public CustList<TranslatedKey> getAbilities() {
         return abilities;
     }
 
-    public StringList getItems() {
+    public CustList<TranslatedKey> getItems() {
         return items;
     }
 
@@ -1039,16 +1022,151 @@ public class MoveBean extends CommonBean {
         return cannotKo;
     }
 
-    public StringList getAffectedByMoves() {
+    public CustList<TranslatedKey> getAffectedByMoves() {
         return affectedByMoves;
     }
 
-    public DictionaryComparator<String,Ints> getSecEffectsByItem() {
+    public DictionaryComparator<TranslatedKey,Ints> getSecEffectsByItem() {
         return secEffectsByItem;
     }
 
     public Ints getEffects() {
+        DataBase data_ = getDataBase();
+        MoveData moveData_ = data_.getMove(name);
+        CustList<EffectBean> curr_ = getForms().getCurrentBean();
+        curr_.clear();
+        CustList<Effect> effs_ = moveData_.getEffects();
+        int len_ = effs_.size();
+        for (int i = 0; i < len_; i++) {
+            buildOne(curr_, effs_, i);
+            buildTwo(curr_, effs_, i);
+            buildThree(curr_, effs_, i);
+        }
         return effects;
+    }
+
+    private void buildOne(CustList<EffectBean> _curr, CustList<Effect> _effs, int _i) {
+        Effect e_ = _effs.get(_i);
+        if (e_ instanceof EffectDamage) {
+            build(_curr, _i, new EffectDamageBean());
+        }
+        if (e_ instanceof EffectDamageRate) {
+            build(_curr, _i, new EffectDamageRateBean());
+        }
+        if (e_ instanceof EffectStatistic) {
+            build(_curr, _i, new EffectStatisticBean());
+        }
+        if (e_ instanceof EffectStatus) {
+            build(_curr, _i, new EffectStatusBean());
+        }
+        if (e_ instanceof EffectTeam) {
+            build(_curr, _i, new EffectTeamBean());
+        }
+        if (e_ instanceof EffectGlobal) {
+            build(_curr, _i, new EffectGlobalBean());
+        }
+        if (e_ instanceof EffectEndRound) {
+            build(_curr, _i, new EffectEndRoundMoveBean());
+        }
+        if (e_ instanceof EffectTeamWhileSendFoe) {
+            build(_curr, _i, new EffectTeamWhileSendFoeBean());
+        }
+        if (e_ instanceof EffectCopyMove) {
+            build(_curr, _i, new EffectCopyMoveBean());
+        }
+        if (e_ instanceof EffectFullHpRate) {
+            build(_curr, _i, new EffectFullHpRateBean());
+        }
+        if (e_ instanceof EffectInvoke) {
+            build(_curr, _i, new EffectInvokeBean());
+        }
+        if (e_ instanceof EffectSwitchTypes) {
+            build(_curr, _i, new EffectSwitchTypesBean());
+        }
+        if (e_ instanceof EffectSwitchMoveTypes) {
+            build(_curr, _i, new EffectSwitchMoveTypesBean());
+        }
+    }
+
+    private void buildTwo(CustList<EffectBean> _curr, CustList<Effect> _effs, int _i) {
+        Effect e_ = _effs.get(_i);
+        if (e_ instanceof EffectCounterAttack) {
+            build(_curr, _i, new EffectCounterAttackBean());
+        }
+        if (e_ instanceof EffectProtection) {
+            build(_curr, _i, new EffectProtectionBean());
+        }
+        if (e_ instanceof EffectAccuracy) {
+            build(_curr, _i, new EffectBean());
+        }
+        if (e_ instanceof EffectCopyFighter) {
+            build(_curr, _i, new EffectCopyFighterBean());
+        }
+        if (e_ instanceof EffectProtectFromTypes) {
+            build(_curr, _i, new EffectProtectFromTypesBean());
+        }
+        if (e_ instanceof EffectUnprotectFromTypes) {
+            build(_curr, _i, new EffectUnprotectFromTypesBean());
+        }
+        if (e_ instanceof EffectAlly) {
+            build(_curr, _i, new EffectAllyBean());
+        }
+        if (e_ instanceof EffectBatonPass) {
+            build(_curr, _i, new EffectBatonPassBean());
+        }
+        if (e_ instanceof EffectClone) {
+            build(_curr, _i, new EffectCloneBean());
+        }
+        if (e_ instanceof EffectCommonStatistics) {
+            build(_curr, _i, new EffectCommonStatisticsBean());
+        }
+    }
+    private void buildThree(CustList<EffectBean> _curr, CustList<Effect> _effs, int _i) {
+        Effect e_ = _effs.get(_i);
+        if (e_ instanceof EffectOrder) {
+            build(_curr, _i, new EffectOrderBean());
+        }
+        if (e_ instanceof EffectRestriction) {
+            build(_curr, _i, new EffectRestrictionBean());
+        }
+        if (e_ instanceof EffectSwitchAbilities) {
+            build(_curr, _i, new EffectSwitchAbilitiesBean());
+        }
+        if (e_ instanceof EffectSwitchItems) {
+            build(_curr, _i, new EffectSwitchItemsBean());
+        }
+        if (e_ instanceof EffectSwitchPointView) {
+            build(_curr, _i, new EffectSwitchPointViewBean());
+        }
+        if (e_ instanceof EffectRemainedHpRate) {
+            build(_curr, _i, new EffectRemainedHpRateBean());
+        }
+        if (e_ instanceof EffectMultUsedMovePower || e_ instanceof EffectMultSufferedMovePower) {
+            build(_curr, _i, new EffectMultMovePowerBean());
+        }
+        if (e_ instanceof EffectSwitchPosition) {
+            build(_curr, _i, new EffectBean());
+        }
+        if (e_ instanceof EffectVarPP) {
+            build(_curr, _i, new EffectVarPPBean());
+        }
+        if (e_ instanceof EffectWinMoney) {
+            build(_curr, _i, new EffectWinMoneyBean());
+        }
+    }
+
+    private void build(CustList<EffectBean> _feed,int _i, EffectBean _b) {
+        _b.setAppName(getAppName());
+        _b.setDataBase(db());
+        _b.setForms(new StringMapObject());
+        _b.getForms().putAllMap(getForms());
+        _b.getForms().setCurrentBean(_feed);
+        _b.setLanguage(getLanguage());
+        _b.setBuilder(getBuilder());
+        _b.setMove(name);
+        _b.setIndex(_i);
+        _b.beforeDisplaying();
+        _feed.add(_b);
     }
 
     public boolean getSecEffectIfNoDamage() {

@@ -5,6 +5,7 @@ import aiki.db.DataBase;
 import aiki.fight.items.*;
 import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
+import code.util.StringMap;
 
 public class ItemsBean extends WithFilterBean {
 
@@ -64,7 +65,7 @@ public class ItemsBean extends WithFilterBean {
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
 //            getForms().put(CST_ITEM, sortedItems_.firstKey());
 //            Item it_ = sortedItems_.firstValue();
-            return tryRedirectIt(sortedItems_.firstKey());
+            return tryRedirect(buildIt(getDataBase(),new StringMap<String>(),sortedItems_.firstKey()));
 //            return switchItem(it_);
         }
         return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
@@ -119,8 +120,7 @@ public class ItemsBean extends WithFilterBean {
 
     public String clickLink(int _index) {
 //        DataBase data_ = getDataBase();
-        String item_ = getItems().get(_index).getName();
-        return tryRedirectIt(item_);
+        return tryRedirect(getItemsTr().get(_index));
 //        getForms().put(CST_ITEM, item_);
 //        Item it_ = data_.getItem(item_);
 //        return switchItem(it_);

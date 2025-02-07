@@ -1,21 +1,18 @@
 package aiki.beans.moves.effects;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectCopyFighter;
-import aiki.fight.moves.effects.EffectCopyMove;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import code.util.*;
 
 
 public class EffectCopyMoveBean extends EffectBean {
     private long copyingMoveForUser;
     private boolean copyingMoveForUserDef;
-    private StringList movesNotToBeCopied;
-    private StringList movesTransforming;
+    private CustList<TranslatedKey> movesNotToBeCopied;
+    private CustList<TranslatedKey> movesTransforming;
     private String displayName;
-    private String defaultMove;
+    private TranslatedKey defaultMove;
 
     @Override
     public void beforeDisplaying() {
@@ -25,12 +22,10 @@ public class EffectCopyMoveBean extends EffectBean {
         copyingMoveForUserDef = effect_.getCopyingMoveForUserDef();
         DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        movesNotToBeCopied = movesNotToBeCopied(effect_);
+        movesNotToBeCopied = listTrStringsMv(effect_.getMovesNotToBeCopied(),data_,getLanguage());
         displayName = translatedMoves_.getVal(getMove());
-        defaultMove = data_.getDefMove();
-        StringList movesTransforming_ = movesTransforming(data_);
-        movesTransforming_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesTransforming = movesTransforming_;
+        defaultMove = buildMv(translatedMoves_,data_.getDefMove());
+        movesTransforming = listTrStringsMv(movesTransforming(data_),data_,getLanguage());
     }
 
     public static StringList movesTransforming(DataBase _data) {
@@ -47,51 +42,38 @@ public class EffectCopyMoveBean extends EffectBean {
         }
         return movesTransforming_;
     }
-    private StringList movesNotToBeCopied(int _eff) {
-        EffectCopyMove effect_ = (EffectCopyMove) getEffect(_eff);
-        return movesNotToBeCopied(effect_);
-    }
-
-    private StringList movesNotToBeCopied(EffectCopyMove _eff) {
-        StringList movesNotToBeCopied_;
-        movesNotToBeCopied_ = new StringList();
-        for (String m: _eff.getMovesNotToBeCopied()) {
-            movesNotToBeCopied_.add(m);
-        }
-        DataBase data_ = getDataBase();
-        movesNotToBeCopied_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return movesNotToBeCopied_;
-    }
 
     public boolean copyMoveForUser() {
         return copyingMoveForUser > 0;
     }
     public String clickMove(int _eff, int _index) {
-        return tryRedirectMv(movesNotToBeCopied(_eff).get(_index));
+        return tryRedirect(((EffectCopyMoveBean)getForms().getCurrentBean().get(_eff)).movesNotToBeCopied.get(_index));
     }
     public String getTrMove(int _index) {
-        String move_ = movesNotToBeCopied.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(move_);
+        return movesNotToBeCopied.get(_index).getTranslation();
+//        String move_ = movesNotToBeCopied.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(move_);
     }
     public String clickMoveTrans(int _index) {
-        String move_ = movesTransforming.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(movesTransforming.get(_index));
     }
     public String getTrMoveTrans(int _index) {
-        String move_ = movesTransforming.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(move_);
+        return movesTransforming.get(_index).getTranslation();
+//        String move_ = movesTransforming.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(move_);
     }
     public String clickDefaultMove() {
-        return tryRedirectMv(defaultMove);
+        return tryRedirect(defaultMove);
     }
     public String getTrDefaultMove() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(defaultMove);
+        return defaultMove.getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(defaultMove);
     }
 
     public String getDisplayName() {
@@ -106,11 +88,11 @@ public class EffectCopyMoveBean extends EffectBean {
         return copyingMoveForUserDef;
     }
 
-    public StringList getMovesTransforming() {
+    public CustList<TranslatedKey> getMovesTransforming() {
         return movesTransforming;
     }
 
-    public StringList getMovesNotToBeCopied() {
+    public CustList<TranslatedKey> getMovesNotToBeCopied() {
         return movesNotToBeCopied;
     }
 }

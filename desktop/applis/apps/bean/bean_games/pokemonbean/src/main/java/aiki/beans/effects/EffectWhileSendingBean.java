@@ -1,21 +1,17 @@
 package aiki.beans.effects;
 
-import aiki.beans.CommonBean;
-import aiki.beans.EffectStatisticCommon;
-import aiki.db.DataBase;
-import aiki.fight.effects.EffectWhileSendingWithStatistic;
-import aiki.fight.moves.effects.EffectStatistic;
-import aiki.instances.Instances;
-import code.maths.Rate;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.fight.effects.*;
+import aiki.fight.moves.effects.*;
+import aiki.instances.*;
+import code.maths.*;
+import code.util.*;
 
 public class EffectWhileSendingBean extends CommonBean {
     private EffectWhileSendingWithStatistic effect;
     private final EffectStatisticCommon effectStatisticCommon = new EffectStatisticCommon();
     private boolean disableWeather;
-    private String enabledWeather;
+    private TranslatedKey enabledWeather;
     private boolean copyingAbility;
     private boolean statistic;
     private Rate multWeight;
@@ -27,13 +23,13 @@ public class EffectWhileSendingBean extends CommonBean {
         EffectWhileSendingWithStatistic effectSend_ = patch(effect);
         disableWeather = effectSend_.getDisableWeather();
         copyingAbility = effectSend_.getCopyingAbility();
-        enabledWeather = effectSend_.getEnabledWeather();
+        enabledWeather = buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),effectSend_.getEnabledWeather());
         multWeight = effectSend_.getMultWeight();
         EffectStatistic effect_ = effectSend_.getEffect();
         statistic = effectSend_.isWithEffect();
         effectStatisticCommon.init(getDataBase(),getLanguage(),effect_, statistic);
         if (statistic) {
-            reasons = getFormattedReasons(getDataBase(), getReasons(effect_.getFail()), getLanguage());
+            reasons = getFormattedReasons(getDataBase(), effect_.getFail(), getLanguage());
             mapVarsFail = getMapVarsFail(getDataBase(), effect_.getFail(), getLanguage());
         } else {
             reasons = new StringList();
@@ -47,12 +43,13 @@ public class EffectWhileSendingBean extends CommonBean {
         return _eff;
     }
     public String getTrWeather() {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(enabledWeather);
+        return enabledWeather.getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translatedMoves_.getVal(enabledWeather);
     }
     public String clickWeather() {
-        return tryRedirectMv(enabledWeather);
+        return tryRedirect(enabledWeather);
     }
 
     public EffectStatisticCommon getEffectStatisticCommon() {
@@ -68,7 +65,7 @@ public class EffectWhileSendingBean extends CommonBean {
     }
 
     public String getEnabledWeather() {
-        return enabledWeather;
+        return enabledWeather.getKey();
     }
 
     public boolean getCopyingAbility() {
