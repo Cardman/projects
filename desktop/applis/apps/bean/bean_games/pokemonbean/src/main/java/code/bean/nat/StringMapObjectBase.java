@@ -1,6 +1,7 @@
 package code.bean.nat;
 
 import aiki.beans.*;
+import aiki.beans.effects.EffectComboBean;
 import aiki.beans.endround.*;
 import aiki.beans.moves.effects.*;
 import aiki.beans.pokemon.evolutions.EvolutionBean;
@@ -23,6 +24,7 @@ public class StringMapObjectBase {
     private CustList<EffectBean> currentBean = new CustList<EffectBean>();
     private CustList<EffectEndRoundBean> currentBeanEnd = new CustList<EffectEndRoundBean>();
     private CustList<EvolutionBean> currentBeanEvo = new CustList<EvolutionBean>();
+    private CustList<EffectComboBean> currentComboBean = new CustList<EffectComboBean>();
 
     public static BoolVal to(boolean _v) {
         if (_v) {
@@ -64,6 +66,8 @@ public class StringMapObjectBase {
         getCurrentBeanEnd().addAllElts(_m.getCurrentBeanEnd());
         getCurrentBeanEvo().clear();
         getCurrentBeanEvo().addAllElts(_m.getCurrentBeanEvo());
+        getCurrentComboBean().clear();
+        getCurrentComboBean().addAllElts(_m.getCurrentComboBean());
     }
     public void removeKeyBase(String _key) {
         mapRate.removeKey(_key);
@@ -177,5 +181,13 @@ public class StringMapObjectBase {
 
     public void setCurrentBeanEvo(CustList<EvolutionBean> _c) {
         this.currentBeanEvo = _c;
+    }
+
+    public CustList<EffectComboBean> getCurrentComboBean() {
+        return currentComboBean;
+    }
+
+    public void setCurrentComboBean(CustList<EffectComboBean> _c) {
+        this.currentComboBean = _c;
     }
 }

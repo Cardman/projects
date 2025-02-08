@@ -20,4 +20,7 @@ public final class ComboDto {
         return combos.getKey(_index);
     }
 
+    public int size() {
+        return combos.size();
+    }
 }

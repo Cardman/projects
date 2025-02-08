@@ -1,6 +1,7 @@
 package aiki.beans.effects;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -10,13 +11,14 @@ import aiki.fight.moves.effects.EffectEndRound;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.AbsMap;
+import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class EffectComboBean extends CommonBean {
     private ComboDto combos;
     private int index;
-    private StringList moves;
+    private CustList<TranslatedKey> moves;
 
     private Rate multEvtRateSecEff;
     private DictionaryComparator<LgInt,Rate> repeatedRoundsLaw;
@@ -30,10 +32,7 @@ public class EffectComboBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
-        moves = new StringList();
-        for (String m: combos.getKey(index)) {
-            moves.add(data_.translateMove(m));
-        }
+        moves = listTrStringsMv(combos.getKey(index),data_,getLanguage());
         EffectCombo e_ = combos.getValue(index);
         if (!e_.getEffectEndRound().isEmpty()) {
             endRound = true;
@@ -72,11 +71,10 @@ public class EffectComboBean extends CommonBean {
         return translatedStatistics_.getVal(stat_);
     }
     public String clickMove(int _indexOne, int _indexTwo) {
-        StringList moves_ = combos.getKey(_indexOne);
-        return tryRedirectMv(moves_.get(_indexTwo));
+        return tryRedirect(getForms().getCurrentComboBean().get(_indexOne).moves.get(_indexTwo));
     }
 
-    public StringList getMoves() {
+    public CustList<TranslatedKey> getMoves() {
         return moves;
     }
 

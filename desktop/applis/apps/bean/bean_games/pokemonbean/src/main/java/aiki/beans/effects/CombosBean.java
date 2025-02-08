@@ -17,8 +17,22 @@ public class CombosBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         combos = new ComboDto(getLocCombos());
+        CustList<EffectComboBean> combo_ = getForms().getCurrentComboBean();
+        combo_.clear();
+        int len_ = combos.size();
+        for (int i = 0; i < len_; i++) {
+            build(combo_,i,new EffectComboBean());
+        }
     }
 
+    private void build(CustList<EffectComboBean> _feed, int _i, EffectComboBean _b) {
+        fwd(_b);
+        _b.setCombos(combos);
+        _b.setIndex(_i);
+        _b.beforeDisplaying();
+        _b.getForms().setCurrentComboBean(_feed);
+        _feed.add(_b);
+    }
     private DictionaryComparatorCombos getLocCombos() {
         DataBase data_ = getDataBase();
         DictionaryComparatorCombos combos_;

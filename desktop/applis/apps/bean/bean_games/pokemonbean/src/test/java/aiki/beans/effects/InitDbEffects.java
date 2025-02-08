@@ -62,6 +62,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         callCombosBeanComboGet(combos_);
         fwdComboDto(combo_,combos_);
         callEffectComboBeanIndexSet(combo_,_ind);
+        setFormsBy(pk_,combo_,combos_);
         beforeDisplaying(combo_);
         return combo_;
     }
