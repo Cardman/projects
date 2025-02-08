@@ -31,9 +31,9 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<TeamCrud> mapTeamCrud = new StringMap<TeamCrud>();
     private final StringMap<Gender> mapGender = new StringMap<Gender>();
     private final StringMap<PokemonPlayerDto> mapPokemonPlayerDto = new StringMap<PokemonPlayerDto>();
-    private final StringMap<AbsMap<String,MoveData>> mapMoves = new StringMap<AbsMap<String,MoveData>>();
+    private final StringMap<AbsMap<TranslatedKey,MoveData>> mapMoves = new StringMap<AbsMap<TranslatedKey,MoveData>>();
     private final StringMap<AbsMap<TranslatedKey,PokemonData>> mapPokedex = new StringMap<AbsMap<TranslatedKey,PokemonData>>();
-    private final StringMap<AbsMap<String,Item>> mapItems = new StringMap<AbsMap<String,Item>>();
+    private final StringMap<AbsMap<TranslatedKey,Item>> mapItems = new StringMap<AbsMap<TranslatedKey,Item>>();
     private final StringMap<AbsMap<TranslatedKey,AbilityData>> mapAbilities = new StringMap<AbsMap<TranslatedKey,AbilityData>>();
     private final StringMap<AbsMap<TranslatedKey,Status>> mapStatus = new StringMap<AbsMap<TranslatedKey,Status>>();
 
@@ -55,10 +55,10 @@ public final class StringMapObject extends StringMapObjectBase {
 
     public void safeMoves(String _key) {
         if (!contains(_key)) {
-            putMoves(_key, new StringMap<MoveData>());
+            putMoves(_key, DictionaryComparatorUtil.buildMovesData());
         }
     }
-    public void putMoves(String _key, AbsMap<String,MoveData> _v) {
+    public void putMoves(String _key, AbsMap<TranslatedKey,MoveData> _v) {
         mapMoves.put(_key, _v);
     }
 
@@ -82,10 +82,10 @@ public final class StringMapObject extends StringMapObjectBase {
 
     public void safeItems(String _key) {
         if (!contains(_key)) {
-            putItems(_key, new StringMap<Item>());
+            putItems(_key, DictionaryComparatorUtil.buildItemsData());
         }
     }
-    public void putItems(String _key, AbsMap<String,Item> _v) {
+    public void putItems(String _key, AbsMap<TranslatedKey,Item> _v) {
         mapItems.put(_key, _v);
     }
 
@@ -145,7 +145,7 @@ public final class StringMapObject extends StringMapObjectBase {
     public PokemonPlayerDto getVal(String _key) {
         return mapPokemonPlayerDto.getVal(_key);
     }
-    public AbsMap<String,MoveData> getValMoveData(String _key) {
+    public AbsMap<TranslatedKey,MoveData> getValMoveData(String _key) {
         return mapMoves.getVal(_key);
     }
     public AbsMap<TranslatedKey,PokemonData> getValPokemonData(String _key) {
@@ -154,7 +154,7 @@ public final class StringMapObject extends StringMapObjectBase {
     public AbsMap<TranslatedKey,AbilityData> getValAbilityData(String _key) {
         return mapAbilities.getVal(_key);
     }
-    public AbsMap<String,Item> getValItemData(String _key) {
+    public AbsMap<TranslatedKey,Item> getValItemData(String _key) {
         return mapItems.getVal(_key);
     }
     public AbsMap<TranslatedKey,Status> getValStatusData(String _key) {

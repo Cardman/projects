@@ -48,8 +48,8 @@ public abstract class WithFilterBean extends CommonBean {
     private final CustList<ItemLine> items = new CustList<ItemLine>();
     private final CustList<TranslatedKey> itemsTr = new CustList<TranslatedKey>();
 
-    public static AbsMap<String,Item> sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
-        AbsMap<String,Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData(_data,_language);
+    public static AbsMap<TranslatedKey,Item> sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
+        DictionaryComparator<TranslatedKey, Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData();
         StringMap<String> translationsItems_;
         translationsItems_ = _data.getTranslatedItems().getVal(_language);
         StringMap<String> translationsClasses_;
@@ -59,7 +59,7 @@ public abstract class WithFilterBean extends CommonBean {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 if (StringUtil.match(display_, _typedName) && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.put(i.getKey(),i.getValue());
+                    sortedItems_.put(buildIt(_data,translationsItems_,i.getKey()),i.getValue());
                 }
             }
         } else {
@@ -68,7 +68,7 @@ public abstract class WithFilterBean extends CommonBean {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 if (StringUtil.match(display_, _typedName) && i.getValue().getPrice() == int_ && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.put(i.getKey(),i.getValue());
+                    sortedItems_.put(buildIt(_data,translationsItems_,i.getKey()),i.getValue());
                 }
             }
         }
@@ -155,16 +155,16 @@ public abstract class WithFilterBean extends CommonBean {
 //        pokedex_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         return pokedex_;
     }
-    protected AbsMap<String,MoveData> movesAmong(StringMap<MoveData> _m) {
+    protected AbsMap<TranslatedKey,MoveData> movesAmong(StringMap<MoveData> _m) {
         DataBase data_ = getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        DictionaryComparator<String,MoveData> moves_;
+        DictionaryComparator<TranslatedKey,MoveData> moves_;
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        moves_ = DictionaryComparatorUtil.buildMovesData(data_,getLanguage());
-        AbsMap<String,MoveData> learntMoves_ = getForms().getValMoveData(CST_LEARNT_MOVES);
-        CustList<String> list_ = learntMoves_.getKeys();
+        moves_ = DictionaryComparatorUtil.buildMovesData();
+        AbsMap<TranslatedKey, MoveData> learntMoves_ = getForms().getValMoveData(CST_LEARNT_MOVES);
+        CustList<String> list_ = keys(learntMoves_.getKeys());
         for (EntryCust<String, MoveData> k: _m.entryList()) {
             String displayName_ = translationsMoves_.getVal(k.getKey());
             if (!StringUtil.match(displayName_, getTypedName())) {
@@ -172,13 +172,20 @@ public abstract class WithFilterBean extends CommonBean {
             }
             MoveData moveData_ = k.getValue();
             if (CriteriaForSearching.match(PokemonStandards.getBoolByName(getLearnt()), StringUtil.contains(list_, k.getKey()))&&atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory(), getDataBase().getCategory(moveData_))) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
-                moves_.put(k.getKey(),k.getValue());
+                moves_.put(buildMv(translationsMoves_,k.getKey()),k.getValue());
             }
         }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         return moves_;
     }
 
+    public static StringList keys(CustList<TranslatedKey> _keys) {
+        StringList o_ = new StringList();
+        for (TranslatedKey e:_keys) {
+            o_.add(e.getKey());
+        }
+        return o_;
+    }
     private boolean excludeByAccuracy(MoveData _move) {
         if (Rate.isValid(getMinAccuracy())) {
             String accuraryStr_ = _move.getAccuracy();
@@ -256,31 +263,29 @@ public abstract class WithFilterBean extends CommonBean {
         return PokedexBean.atLeastMatchType(_translationsTypes,getWholeWord(),getTypedType(),_types);
     }
 
-    protected void itemInit(AbsMap<String,Item> _sortedItems) {
+    protected void itemInit(AbsMap<TranslatedKey,Item> _sortedItems) {
         DataBase data_ = getDataBase();
         getItems().clear();
         getItemsTr().clear();
-        StringMap<String> translationsItems_;
-        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translationsClasses_;
         translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
-        for (EntryCust<String, Item> i: _sortedItems.entryList()) {
+        for (EntryCust<TranslatedKey, Item> i: _sortedItems.entryList()) {
             Item i_ = i.getValue();
 //            String class_ = translationsClasses_.getVal(i_.getClass().getName());
             String class_ = translationsClasses_.getVal(i_.getItemType());
 //            class_ = XmlParser.transformSpecialChars(class_);
             ItemLine item_ = new ItemLine();
-            item_.setName(i.getKey());
-            item_.setDisplayName(translationsItems_.getVal(i.getKey()));
+            item_.setName(i.getKey().getKey());
+            item_.setDisplayName(i.getKey().getTranslation());
             item_.setPrice(i_.getPrice());
             item_.setDescriptionClass(class_);
             getItems().add(item_);
-            getItemsTr().add(buildIt(data_,translationsItems_,i.getKey()));
+            getItemsTr().add(i.getKey());
         }
         escapeInputs();
     }
 
-    protected AbsMap<String,Item> sortedItems(DataBase _data) {
+    protected AbsMap<TranslatedKey,Item> sortedItems(DataBase _data) {
         return sortedItems(_data,getTypedPrice(),getTypedName(),getTypedClass(),getLanguage());
     }
     public String getTrSortedAbility(int _index) {

@@ -2,7 +2,6 @@ package aiki.beans;
 import aiki.beans.facade.simulation.enums.*;
 import aiki.comparators.*;
 import aiki.facade.*;
-import aiki.fight.items.*;
 import aiki.fight.moves.*;
 import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
@@ -48,21 +47,25 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
     }
     @Override
     public void beforeDisplaying() {
-        getForms().putMoves(CST_LEARNT_MOVES,getDataBase().getView());
+        DictionaryComparator<TranslatedKey, MoveData> data_ = DictionaryComparatorUtil.buildMovesData();
+        for (EntryCust<String,MoveData> e: getDataBase().getView().entryList()) {
+            data_.addEntry(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),e.getKey()),e.getValue());
+        }
+        getForms().putMoves(CST_LEARNT_MOVES,data_);
     }
 
     public String seeAllMoves() {
-        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_SET, DictionaryComparatorUtil.buildMovesData());
         getForms().removeKey(CST_LEARNT);
         return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
     public String seeLearntMoves() {
-        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_SET, DictionaryComparatorUtil.buildMovesData());
         getForms().put(CST_LEARNT, true);
         return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
     public String seeNotLearntMoves() {
-        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_SET, DictionaryComparatorUtil.buildMovesData());
         getForms().put(CST_LEARNT, false);
         return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
@@ -75,7 +78,7 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
         return PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
     }
     public String clickItems() {
-        getForms().putItems(CST_ITEMS_SET, new StringMap<Item>());
+        getForms().putItems(CST_ITEMS_SET, DictionaryComparatorUtil.buildItemsData());
         return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
     }
     public String clickPokedex() {

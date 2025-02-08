@@ -1,9 +1,10 @@
 package aiki.beans.items;
 
+import aiki.beans.*;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
-import code.util.CustList;
-import code.util.core.StringUtil;
+import code.scripts.confs.*;
+import code.util.*;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class ItemsBeanTest extends InitDbItems {
@@ -46,7 +47,7 @@ public final class ItemsBeanTest extends InitDbItems {
         NaSt bean_ = dispAllItems(feedDb());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(14,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BALL));
         assertTrue(StringUtil.contains(keys_,I_BOOST));
@@ -68,7 +69,7 @@ public final class ItemsBeanTest extends InitDbItems {
         NaSt bean_ = dispAllItems(feedDb());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(14,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BALL));
         assertTrue(StringUtil.contains(keys_,I_BOOST));
@@ -91,7 +92,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,"*HEAL*");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(5,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_HEAL));
         assertTrue(StringUtil.contains(keys_,I_HEAL_HP));
@@ -105,7 +106,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedClassSet(bean_,"*HEAL*");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(5,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_HEAL));
         assertTrue(StringUtil.contains(keys_,I_HEAL_HP));
@@ -120,7 +121,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,"*B*");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(3,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BALL));
         assertTrue(StringUtil.contains(keys_,I_BERRY));
@@ -133,7 +134,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedClassSet(bean_,"*B*L*");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(2,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BALL));
         assertTrue(StringUtil.contains(keys_,I_ITEMBATTLE));
@@ -144,7 +145,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedPriceSet(bean_,"1");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(3,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BALL));
         assertTrue(StringUtil.contains(keys_,I_BERRY));
@@ -156,7 +157,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_BALL);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(0,keys_.size());
     }
     @Test
@@ -165,7 +166,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_BALL_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BALL));
         assertEq(I_BALL,getValItemId(bean_));
@@ -176,7 +177,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_BERRY_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BERRY));
         assertEq(I_BERRY,getValItemId(bean_));
@@ -187,7 +188,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_BOOST_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_BOOST));
         assertEq(I_BOOST,getValItemId(bean_));
@@ -198,7 +199,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_EVO_ITEM_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_EVO_ITEM));
         assertEq(I_EVO_ITEM,getValItemId(bean_));
@@ -209,7 +210,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_EVO_STONE_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_EVO_STONE));
         assertEq(I_EVO_STONE,getValItemId(bean_));
@@ -220,7 +221,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_FOSSIL_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_FOSSIL));
         assertEq(I_FOSSIL,getValItemId(bean_));
@@ -231,7 +232,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_HEAL_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGITEM_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_HEAL));
         assertEq(I_HEAL,getValItemId(bean_));
@@ -242,7 +243,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_HEAL_HP_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHP_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_HEAL_HP));
         assertEq(I_HEAL_HP,getValItemId(bean_));
@@ -253,7 +254,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_HEAL_PP_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_HEAL_PP));
         assertEq(I_HEAL_PP,getValItemId(bean_));
@@ -264,7 +265,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_HEAL_HP_STATUS_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_HEAL_HP_STATUS));
         assertEq(I_HEAL_HP_STATUS,getValItemId(bean_));
@@ -275,7 +276,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_HEAL_STATUS_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_HEAL_STATUS));
         assertEq(I_HEAL_STATUS,getValItemId(bean_));
@@ -286,7 +287,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_ITEMBATTLE_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_ITEMBATTLE));
         assertEq(I_ITEMBATTLE,getValItemId(bean_));
@@ -297,7 +298,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_REPEL_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_REPEL_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_REPEL));
         assertEq(I_REPEL,getValItemId(bean_));
@@ -308,7 +309,7 @@ public final class ItemsBeanTest extends InitDbItems {
         callItemsBeanTypedNameSet(bean_,I_SELLING_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(1,keys_.size());
         assertTrue(StringUtil.contains(keys_,I_SELLING));
         assertEq(I_SELLING,getValItemId(bean_));
@@ -319,7 +320,7 @@ public final class ItemsBeanTest extends InitDbItems {
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         beforeDisplaying(bean_);
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
-        CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(14,keys_.size());
         assertEq(I_BALL_TR,callItemLineDisplayNameGet(elt(callItemsBeanItemsGet(bean_),0)));
         assertEq(CI_BALL_TR,callItemLineDescriptionClassGet(elt(callItemsBeanItemsGet(bean_),0)));

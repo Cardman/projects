@@ -68,8 +68,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String,Item> buildItemsData(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Item>(_data.getTranslatedItems().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,Item> buildItemsData() {
+        return new DictionaryComparator<TranslatedKey,Item>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<String,String> buildItemsStr(DataBase _data, String _language) {
@@ -84,8 +84,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,Ints>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String,MoveData> buildMovesData(DataBase _data, String _language) {
-        return new DictionaryComparator<String,MoveData>(_data.getTranslatedMoves().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,MoveData> buildMovesData() {
+        return new DictionaryComparator<TranslatedKey,MoveData>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<TranslatedKey,Long> buildMovesShort() {

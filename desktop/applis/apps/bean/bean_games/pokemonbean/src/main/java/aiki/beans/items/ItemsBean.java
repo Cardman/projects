@@ -1,17 +1,16 @@
 package aiki.beans.items;
 
-import aiki.beans.WithFilterBean;
-import aiki.db.DataBase;
+import aiki.beans.*;
+import aiki.db.*;
 import aiki.fight.items.*;
-import code.scripts.confs.PkScriptPages;
-import code.util.AbsMap;
-import code.util.StringMap;
+import code.scripts.confs.*;
+import code.util.*;
 
 public class ItemsBean extends WithFilterBean {
 
     @Override
     public void beforeDisplaying() {
-        AbsMap<String, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET);
+        AbsMap<TranslatedKey, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET);
         itemInit(sortedItems_);
     }
 
@@ -22,7 +21,7 @@ public class ItemsBean extends WithFilterBean {
 //        } else {
 //            price_ = null;
 //        }
-        AbsMap<String,Item> sortedItems_ = sortedItems(getDataBase());
+        AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems(getDataBase());
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsItems_;
 //        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -65,7 +64,7 @@ public class ItemsBean extends WithFilterBean {
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
 //            getForms().put(CST_ITEM, sortedItems_.firstKey());
 //            Item it_ = sortedItems_.firstValue();
-            return tryRedirect(buildIt(getDataBase(),new StringMap<String>(),sortedItems_.firstKey()));
+            return tryRedirect(sortedItems_.firstKey());
 //            return switchItem(it_);
         }
         return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;

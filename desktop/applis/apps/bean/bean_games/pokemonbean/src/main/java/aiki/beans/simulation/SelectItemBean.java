@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import aiki.beans.TranslatedKey;
 import aiki.beans.WithFilterBean;
 import aiki.db.DataBase;
 import aiki.fight.items.Item;
@@ -17,7 +18,7 @@ public class SelectItemBean extends WithFilterBean {
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsItems_;
 //        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        AbsMap<String, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET_EDIT);
+        AbsMap<TranslatedKey, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET_EDIT);
         itemInit(sortedItems_);
 //        getItems().clear();
 //        StringMap<String> translationsClasses_;
@@ -44,10 +45,10 @@ public class SelectItemBean extends WithFilterBean {
         return redirect();
     }
     public String search() {
-        AbsMap<String, Item> sortedItems_ = sortedItems(getDataBase());
+        AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems(getDataBase());
         getForms().putItems(CST_ITEMS_SET_EDIT, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            item = sortedItems_.firstKey();
+            item = sortedItems_.firstKey().getKey();
             getForms().put(CST_ITEM_EDIT, item);
             return redirect();
         }

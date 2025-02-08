@@ -1,9 +1,11 @@
 package aiki.beans.simulation;
 
+import aiki.beans.TranslatedKey;
 import aiki.beans.WithFilterBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.moves.MovesBean;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.game.fight.FightSimulation;
@@ -20,8 +22,6 @@ public class EditPokemonMovesBean extends WithFilterBean {
     public void beforeDisplaying() {
         player = getForms().getValBool(CST_IS_POKEMON_PLAYER_MOVES);
         DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
@@ -29,7 +29,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         moves.clear();
-        for (EntryCust<String, MoveData> k: getForms().getValMoveData(CST_MOVES_EDIT_SET).entryList()) {
+        for (EntryCust<TranslatedKey, MoveData> k: getForms().getValMoveData(CST_MOVES_EDIT_SET).entryList()) {
             MoveData moveData_ = k.getValue();
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(k);
@@ -51,12 +51,12 @@ public class EditPokemonMovesBean extends WithFilterBean {
 //            line_.setPriority(moveData_.getPriority());
 //            line_.setSelected(false);
 //            moves.add(line_);
-            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k.getKey(),moveData_,getDataBase()));
+            moves.add(MovesBean.buildLine(translationsTypes_,translationsCategories_,k.getKey(),moveData_,getDataBase()));
         }
         moves.sortElts(new ComparatorMoves());
     }
     public String cancel() {
-        getForms().putMoves(CST_MOVES_EDIT_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
         return redirect();
     }
     public String addMoves() {
@@ -76,7 +76,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         DataBase data_ = getDataBase();
 //        StringMap<String> translationsMoves_;
 //        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        AbsMap<String,MoveData> moves_;
+        AbsMap<TranslatedKey, MoveData> moves_;
 //        StringMap<String> translationsTypes_;
 //        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
 //        moves_ = new StringList();

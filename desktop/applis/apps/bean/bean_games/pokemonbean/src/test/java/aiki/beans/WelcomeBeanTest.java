@@ -33,7 +33,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     public void display1() {
         NaSt bean_ = beanWelcome(feedDb());
         displaying(bean_);
-        CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
         assertEq(2,keys_.size());
         assertTrue(StringUtil.contains(keys_,M_DAM));
         assertTrue(StringUtil.contains(keys_,M_STA));
@@ -42,7 +42,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     public void display2() {
         NaSt bean_ = beanWelcome(feedDbBase());
         displaying(bean_);
-        CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
         assertEq(2,keys_.size());
         assertTrue(StringUtil.contains(keys_,M_DAM));
         assertTrue(StringUtil.contains(keys_,M_STA));
@@ -55,7 +55,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertFalse(forms(bean_).contains(CST_LEARNT));
         assertEq(0,forms(bean_).getValMoveData(CST_MOVES_SET).size());
         assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
-        CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
         assertEq(2,keys_.size());
         assertTrue(StringUtil.contains(keys_,M_DAM));
         assertTrue(StringUtil.contains(keys_,M_STA));
@@ -73,7 +73,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertTrue(forms(bean_).getValBool(CST_LEARNT));
         assertTrue(forms(bean_).getValMoveData(CST_MOVES_SET).isEmpty());
         assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
-        CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
         assertEq(2,keys_.size());
         assertTrue(StringUtil.contains(keys_,M_DAM));
         assertTrue(StringUtil.contains(keys_,M_STA));
@@ -87,7 +87,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertFalse(forms(bean_).getValBool(CST_LEARNT));
         assertTrue(forms(bean_).getValMoveData(CST_MOVES_SET).isEmpty());
         assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
-        CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
         assertEq(2,keys_.size());
         assertTrue(StringUtil.contains(keys_,M_DAM));
         assertTrue(StringUtil.contains(keys_,M_STA));

@@ -7,7 +7,6 @@ import aiki.beans.facade.simulation.enums.*;
 import aiki.beans.moves.*;
 import aiki.comparators.*;
 import aiki.db.*;
-import aiki.fight.items.*;
 import aiki.fight.moves.*;
 import aiki.map.pokemon.enums.*;
 import code.scripts.confs.*;
@@ -64,7 +63,7 @@ public class EditTrainerPokemonBean extends CommonBean {
 //            }
 //            line_.setPriority(moveData_.getPriority());
 //            line_.setSelected(false);
-            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,getDataBase()));
+            moves.add(MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,k),moveData_,getDataBase()));
         }
         moves.sortElts(new ComparatorMoves());
 //        Map<SelectedBoolean,String> translatedBooleans_;
@@ -96,7 +95,7 @@ public class EditTrainerPokemonBean extends CommonBean {
     }
     public String chooseItem() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
-        getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
+        getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String chooseName() {
@@ -105,7 +104,7 @@ public class EditTrainerPokemonBean extends CommonBean {
     }
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
-        getForms().putMoves(CST_MOVES_EDIT_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
     public String deleteMoves() {

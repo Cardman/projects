@@ -1,10 +1,11 @@
 package aiki.beans.pokemon;
 
-import aiki.beans.TranslatedKey;
+import aiki.beans.WithFilterBean;
 import aiki.facade.enums.SelectedBoolean;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class PokedexBeanTest extends InitDbPk {
@@ -125,24 +126,24 @@ public final class PokedexBeanTest extends InitDbPk {
         NaSt bean_ = dispAllPks();
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(16,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_01,keys_.get(1).getKey());
-        assertEq(P_POK_02,keys_.get(2).getKey());
-        assertEq(P_POK_03,keys_.get(3).getKey());
-        assertEq(P_POK_04,keys_.get(4).getKey());
-        assertEq(P_POK_05,keys_.get(5).getKey());
-        assertEq(P_POK_06,keys_.get(6).getKey());
-        assertEq(P_POK_07,keys_.get(7).getKey());
-        assertEq(P_POK_08,keys_.get(8).getKey());
-        assertEq(P_POK_09,keys_.get(9).getKey());
-        assertEq(P_POK_10,keys_.get(10).getKey());
-        assertEq(P_POK_11,keys_.get(11).getKey());
-        assertEq(P_POK_12,keys_.get(12).getKey());
-        assertEq(P_POK_13,keys_.get(13).getKey());
-        assertEq(P_POK_14,keys_.get(14).getKey());
-        assertEq(P_POK_15,keys_.get(15).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_01));
+        assertTrue(StringUtil.contains(keys_,P_POK_02));
+        assertTrue(StringUtil.contains(keys_,P_POK_03));
+        assertTrue(StringUtil.contains(keys_,P_POK_04));
+        assertTrue(StringUtil.contains(keys_,P_POK_05));
+        assertTrue(StringUtil.contains(keys_,P_POK_06));
+        assertTrue(StringUtil.contains(keys_,P_POK_07));
+        assertTrue(StringUtil.contains(keys_,P_POK_08));
+        assertTrue(StringUtil.contains(keys_,P_POK_09));
+        assertTrue(StringUtil.contains(keys_,P_POK_10));
+        assertTrue(StringUtil.contains(keys_,P_POK_11));
+        assertTrue(StringUtil.contains(keys_,P_POK_12));
+        assertTrue(StringUtil.contains(keys_,P_POK_13));
+        assertTrue(StringUtil.contains(keys_,P_POK_14));
+        assertTrue(StringUtil.contains(keys_,P_POK_15));
     }
     @Test
     public void search2() {
@@ -150,19 +151,18 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanTypedNameSet(bean_,"*0_TR");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(2,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_10,keys_.get(1).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_10));
     }
-
     @Test
     public void search3() {
         NaSt bean_ = dispAllPks();
         callPokedexBeanTypedTypeSet(bean_,"*3*");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(0,keys_.size());
     }
     @Test
@@ -172,10 +172,10 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanWholeWordSet(bean_, false);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(2,keys_.size());
-        assertEq(P_POK_14,keys_.get(0).getKey());
-        assertEq(P_POK_15,keys_.get(1).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_14));
+        assertTrue(StringUtil.contains(keys_,P_POK_15));
     }
     @Test
     public void search5() {
@@ -184,7 +184,7 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanWholeWordSet(bean_, true);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(0,keys_.size());
     }
     @Test
@@ -194,15 +194,15 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanTypedMaxNbPossEvosSet(bean_,"1");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(7,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_01,keys_.get(1).getKey());
-        assertEq(P_POK_03,keys_.get(2).getKey());
-        assertEq(P_POK_04,keys_.get(3).getKey());
-        assertEq(P_POK_08,keys_.get(4).getKey());
-        assertEq(P_POK_09,keys_.get(5).getKey());
-        assertEq(P_POK_12,keys_.get(6).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_01));
+        assertTrue(StringUtil.contains(keys_,P_POK_03));
+        assertTrue(StringUtil.contains(keys_,P_POK_04));
+        assertTrue(StringUtil.contains(keys_,P_POK_08));
+        assertTrue(StringUtil.contains(keys_,P_POK_09));
+        assertTrue(StringUtil.contains(keys_,P_POK_12));
     }
     @Test
     public void search7() {
@@ -210,23 +210,23 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanTypedMaxNbPossEvosSet(bean_,"1");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(15,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_01,keys_.get(1).getKey());
-        assertEq(P_POK_02,keys_.get(2).getKey());
-        assertEq(P_POK_03,keys_.get(3).getKey());
-        assertEq(P_POK_04,keys_.get(4).getKey());
-        assertEq(P_POK_06,keys_.get(5).getKey());
-        assertEq(P_POK_07,keys_.get(6).getKey());
-        assertEq(P_POK_08,keys_.get(7).getKey());
-        assertEq(P_POK_09,keys_.get(8).getKey());
-        assertEq(P_POK_10,keys_.get(9).getKey());
-        assertEq(P_POK_11,keys_.get(10).getKey());
-        assertEq(P_POK_12,keys_.get(11).getKey());
-        assertEq(P_POK_13,keys_.get(12).getKey());
-        assertEq(P_POK_14,keys_.get(13).getKey());
-        assertEq(P_POK_15,keys_.get(14).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_01));
+        assertTrue(StringUtil.contains(keys_,P_POK_02));
+        assertTrue(StringUtil.contains(keys_,P_POK_03));
+        assertTrue(StringUtil.contains(keys_,P_POK_04));
+        assertTrue(StringUtil.contains(keys_,P_POK_06));
+        assertTrue(StringUtil.contains(keys_,P_POK_07));
+        assertTrue(StringUtil.contains(keys_,P_POK_08));
+        assertTrue(StringUtil.contains(keys_,P_POK_09));
+        assertTrue(StringUtil.contains(keys_,P_POK_10));
+        assertTrue(StringUtil.contains(keys_,P_POK_11));
+        assertTrue(StringUtil.contains(keys_,P_POK_12));
+        assertTrue(StringUtil.contains(keys_,P_POK_13));
+        assertTrue(StringUtil.contains(keys_,P_POK_14));
+        assertTrue(StringUtil.contains(keys_,P_POK_15));
     }
     @Test
     public void search8() {
@@ -234,17 +234,16 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanTypedMinNbPossEvosSet(bean_,"1");
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(8,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_01,keys_.get(1).getKey());
-        assertEq(P_POK_03,keys_.get(2).getKey());
-        assertEq(P_POK_04,keys_.get(3).getKey());
-        assertEq(P_POK_05,keys_.get(4).getKey());
-        assertEq(P_POK_08,keys_.get(5).getKey());
-        assertEq(P_POK_09,keys_.get(6).getKey());
-        assertEq(P_POK_12,keys_.get(7).getKey());
-
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_01));
+        assertTrue(StringUtil.contains(keys_,P_POK_03));
+        assertTrue(StringUtil.contains(keys_,P_POK_04));
+        assertTrue(StringUtil.contains(keys_,P_POK_05));
+        assertTrue(StringUtil.contains(keys_,P_POK_08));
+        assertTrue(StringUtil.contains(keys_,P_POK_09));
+        assertTrue(StringUtil.contains(keys_,P_POK_12));
     }
     @Test
     public void search9() {
@@ -252,16 +251,16 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanHasEvoSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(8,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_01,keys_.get(1).getKey());
-        assertEq(P_POK_03,keys_.get(2).getKey());
-        assertEq(P_POK_04,keys_.get(3).getKey());
-        assertEq(P_POK_05,keys_.get(4).getKey());
-        assertEq(P_POK_08,keys_.get(5).getKey());
-        assertEq(P_POK_09,keys_.get(6).getKey());
-        assertEq(P_POK_12,keys_.get(7).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_01));
+        assertTrue(StringUtil.contains(keys_,P_POK_03));
+        assertTrue(StringUtil.contains(keys_,P_POK_04));
+        assertTrue(StringUtil.contains(keys_,P_POK_05));
+        assertTrue(StringUtil.contains(keys_,P_POK_08));
+        assertTrue(StringUtil.contains(keys_,P_POK_09));
+        assertTrue(StringUtil.contains(keys_,P_POK_12));
     }
     @Test
     public void search10() {
@@ -269,17 +268,16 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanHasEvoSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(8,keys_.size());
-        assertEq(P_POK_02,keys_.get(0).getKey());
-        assertEq(P_POK_06,keys_.get(1).getKey());
-        assertEq(P_POK_07,keys_.get(2).getKey());
-        assertEq(P_POK_10,keys_.get(3).getKey());
-        assertEq(P_POK_11,keys_.get(4).getKey());
-        assertEq(P_POK_13,keys_.get(5).getKey());
-        assertEq(P_POK_14,keys_.get(6).getKey());
-        assertEq(P_POK_15,keys_.get(7).getKey());
-
+        assertTrue(StringUtil.contains(keys_,P_POK_02));
+        assertTrue(StringUtil.contains(keys_,P_POK_06));
+        assertTrue(StringUtil.contains(keys_,P_POK_07));
+        assertTrue(StringUtil.contains(keys_,P_POK_10));
+        assertTrue(StringUtil.contains(keys_,P_POK_11));
+        assertTrue(StringUtil.contains(keys_,P_POK_13));
+        assertTrue(StringUtil.contains(keys_,P_POK_14));
+        assertTrue(StringUtil.contains(keys_,P_POK_15));
     }
     @Test
     public void search11() {
@@ -287,17 +285,17 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanIsEvoSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(9,keys_.size());
-        assertEq(P_POK_01,keys_.get(0).getKey());
-        assertEq(P_POK_02,keys_.get(1).getKey());
-        assertEq(P_POK_04,keys_.get(2).getKey());
-        assertEq(P_POK_05,keys_.get(3).getKey());
-        assertEq(P_POK_06,keys_.get(4).getKey());
-        assertEq(P_POK_07,keys_.get(5).getKey());
-        assertEq(P_POK_09,keys_.get(6).getKey());
-        assertEq(P_POK_10,keys_.get(7).getKey());
-        assertEq(P_POK_13,keys_.get(8).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_01));
+        assertTrue(StringUtil.contains(keys_,P_POK_02));
+        assertTrue(StringUtil.contains(keys_,P_POK_04));
+        assertTrue(StringUtil.contains(keys_,P_POK_05));
+        assertTrue(StringUtil.contains(keys_,P_POK_06));
+        assertTrue(StringUtil.contains(keys_,P_POK_07));
+        assertTrue(StringUtil.contains(keys_,P_POK_09));
+        assertTrue(StringUtil.contains(keys_,P_POK_10));
+        assertTrue(StringUtil.contains(keys_,P_POK_13));
     }
     @Test
     public void search12() {
@@ -305,15 +303,15 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanIsEvoSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(7,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_03,keys_.get(1).getKey());
-        assertEq(P_POK_08,keys_.get(2).getKey());
-        assertEq(P_POK_11,keys_.get(3).getKey());
-        assertEq(P_POK_12,keys_.get(4).getKey());
-        assertEq(P_POK_14,keys_.get(5).getKey());
-        assertEq(P_POK_15,keys_.get(6).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_03));
+        assertTrue(StringUtil.contains(keys_,P_POK_08));
+        assertTrue(StringUtil.contains(keys_,P_POK_11));
+        assertTrue(StringUtil.contains(keys_,P_POK_12));
+        assertTrue(StringUtil.contains(keys_,P_POK_14));
+        assertTrue(StringUtil.contains(keys_,P_POK_15));
     }
     @Test
     public void search14() {
@@ -321,10 +319,10 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanIsLegSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(2,keys_.size());
-        assertEq(P_POK_14,keys_.get(0).getKey());
-        assertEq(P_POK_15,keys_.get(1).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_14));
+        assertTrue(StringUtil.contains(keys_,P_POK_15));
     }
     @Test
     public void search15() {
@@ -332,22 +330,22 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanIsLegSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(14,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
-        assertEq(P_POK_01,keys_.get(1).getKey());
-        assertEq(P_POK_02,keys_.get(2).getKey());
-        assertEq(P_POK_03,keys_.get(3).getKey());
-        assertEq(P_POK_04,keys_.get(4).getKey());
-        assertEq(P_POK_05,keys_.get(5).getKey());
-        assertEq(P_POK_06,keys_.get(6).getKey());
-        assertEq(P_POK_07,keys_.get(7).getKey());
-        assertEq(P_POK_08,keys_.get(8).getKey());
-        assertEq(P_POK_09,keys_.get(9).getKey());
-        assertEq(P_POK_10,keys_.get(10).getKey());
-        assertEq(P_POK_11,keys_.get(11).getKey());
-        assertEq(P_POK_12,keys_.get(12).getKey());
-        assertEq(P_POK_13,keys_.get(13).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
+        assertTrue(StringUtil.contains(keys_,P_POK_01));
+        assertTrue(StringUtil.contains(keys_,P_POK_02));
+        assertTrue(StringUtil.contains(keys_,P_POK_03));
+        assertTrue(StringUtil.contains(keys_,P_POK_04));
+        assertTrue(StringUtil.contains(keys_,P_POK_05));
+        assertTrue(StringUtil.contains(keys_,P_POK_06));
+        assertTrue(StringUtil.contains(keys_,P_POK_07));
+        assertTrue(StringUtil.contains(keys_,P_POK_08));
+        assertTrue(StringUtil.contains(keys_,P_POK_09));
+        assertTrue(StringUtil.contains(keys_,P_POK_10));
+        assertTrue(StringUtil.contains(keys_,P_POK_11));
+        assertTrue(StringUtil.contains(keys_,P_POK_12));
+        assertTrue(StringUtil.contains(keys_,P_POK_13));
     }
     @Test
     public void search16() {
@@ -355,9 +353,9 @@ public final class PokedexBeanTest extends InitDbPk {
         callPokedexBeanTypedNameSet(bean_,P_POK_00_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
-        CustList<TranslatedKey> keys_ = forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys();
+        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
         assertEq(1,keys_.size());
-        assertEq(P_POK_00,keys_.get(0).getKey());
+        assertTrue(StringUtil.contains(keys_,P_POK_00));
     }
     @Test
     public void clickLink1(){

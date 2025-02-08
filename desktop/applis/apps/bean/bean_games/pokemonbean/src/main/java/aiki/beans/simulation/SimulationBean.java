@@ -18,7 +18,6 @@ import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
-import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.*;
@@ -173,7 +172,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         for (String k: _moves) {
             MoveData moveData_ = data_.getMoves().getVal(k);
             RadioLineMove line_ = new RadioLineMove();
-            MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_,getDataBase());
+            MovesBean.line(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,k),moveData_,line_,getDataBase());
             movesSet.add(line_);
         }
         int i_ = IndexConstants.FIRST_INDEX;
@@ -209,7 +208,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             info_ = simulation.getAvailableMoves().getVal(selectedPk);
             for (String k : info_.getMoves().getKeys()) {
                 MoveData moveData_ = data_.getMoves().getVal(k);
-                SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,getDataBase());
+                SelectLineMove line_ = MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,k),moveData_,getDataBase());
 //                    line_.setName(k);
 //                    line_.setDisplayName(translationsMoves_.getVal(k));
 //                    StringList types_ = new StringList();
@@ -608,7 +607,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, true);
-            getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
+            getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
             getForms().put(CST_POKEMON_INDEX_EDIT, selectedFoePk);
             getForms().put(CST_POKEMON_NAME_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getName());
             getForms().put(CST_POKEMON_LEVEL_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getLevel());
@@ -684,7 +683,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, false);
-            getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
+            getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
             getForms().put(CST_POKEMON_INDEX_EDIT, selectedAllyPk);
             getForms().put(CST_POKEMON_NAME_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getName());
             getForms().put(CST_POKEMON_LEVEL_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getLevel());
@@ -720,7 +719,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         getForms().put(CST_POKEMON_MOVES_EDIT, moves_);
         getForms().put(CST_POKEMON_ABILITY_EDIT, pk_.getAbility());
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
-        getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
+        getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public void validateFoeChoiceFree() {
@@ -788,7 +787,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.EDIT) {
-            getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
+            getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
             getForms().put(CST_POKEMON_INDEX_EDIT, selectedPk);
             getForms().put(CST_POKEMON_NAME_EDIT, team.get(selectedPk).getPokemon().getName());
             getForms().put(CST_POKEMON_LEVEL_EDIT, team.get(selectedPk).getPokemon().getLevel());
@@ -1269,7 +1268,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         for (String m: selectedMoves_.getKeys()) {
             MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_,getDataBase());
+            SelectLineMove line_ = MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,m),moveData_,getDataBase());
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(m);
 //            line_.setDisplayName(data_.translateMove(m));

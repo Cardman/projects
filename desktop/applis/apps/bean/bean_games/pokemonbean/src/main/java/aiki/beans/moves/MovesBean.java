@@ -20,8 +20,6 @@ public class MovesBean extends WithFilterBean {
         bools();
         DataBase data_ = getDataBase();
         moves.clear();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         DictionaryComparator<String,String> sort_ = DictionaryComparatorUtil.buildCatsData(data_,getLanguage());
@@ -29,10 +27,10 @@ public class MovesBean extends WithFilterBean {
         sort_.putAllMap(translationsCategories_);
         categories.putAllMap(sort_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
-        AbsMap<String,MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
-        for (EntryCust<String, MoveData> k: moves_.entryList()) {
+        AbsMap<TranslatedKey, MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
+        for (EntryCust<TranslatedKey, MoveData> k: moves_.entryList()) {
             MoveData moveData_ = k.getValue();
-            MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), moveData_,getDataBase());
+            MoveLine line_ = buildLine(translationsTypes_, translationsCategories_, k.getKey(), moveData_,getDataBase());
             moves.add(line_);
         }
 //        if (!getForms().contains(CST_LEARNT)) {
@@ -62,15 +60,15 @@ public class MovesBean extends WithFilterBean {
 
     }
 
-    public static SelectLineMove buildLine(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData, DataBase _dataBase) {
+    public static SelectLineMove buildLine(StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, TranslatedKey _k, MoveData _moveData, DataBase _dataBase) {
         SelectLineMove line_ = new SelectLineMove();
-        line(_translationsMoves, _translationsTypes, _translationsCategories, _k, _moveData, line_, _dataBase);
+        line(_translationsTypes, _translationsCategories, _k, _moveData, line_, _dataBase);
         return line_;
     }
 
-    public static void line(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData, MoveLine _line, DataBase _dataBase) {
-        _line.setTranslatedKey(buildMv(_translationsMoves,_k));
-        _line.setDisplayName(_translationsMoves.getVal(_k));
+    public static void line(StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, TranslatedKey _k, MoveData _moveData, MoveLine _line, DataBase _dataBase) {
+        _line.setTranslatedKey(_k);
+        _line.setDisplayName(_k.getTranslation());
         StringList types_ = new StringList();
         for (String t: _moveData.getTypes()) {
             types_.add(_translationsTypes.getVal(t));
@@ -91,7 +89,7 @@ public class MovesBean extends WithFilterBean {
         DataBase data_ = getDataBase();
 //        StringMap<String> translationsMoves_;
 //        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        AbsMap<String,MoveData> moves_;
+        AbsMap<TranslatedKey, MoveData> moves_;
 //        StringMap<String> translationsTypes_;
 //        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         moves_ = movesAmong(data_.getMoves());
@@ -108,8 +106,7 @@ public class MovesBean extends WithFilterBean {
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         getForms().putMoves(CST_MOVES_SET, moves_);
         if (moves_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(CST_MOVE, moves_.firstKey());
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML;
+            return tryRedirect(moves_.firstKey());
         }
         return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
