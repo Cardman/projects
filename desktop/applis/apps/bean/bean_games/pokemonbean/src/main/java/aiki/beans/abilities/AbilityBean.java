@@ -114,7 +114,7 @@ public class AbilityBean extends CommonBean {
     private boolean sending;
     private NatStringTreeMap<String> mapVars;
     private final Rate defEff = Rate.one();
-    private final StringList pokemon = new StringList();
+    private final CustList<TranslatedKey> pokemon = new CustList<TranslatedKey>();
 
     @Override
     public void beforeDisplaying() {
@@ -636,8 +636,7 @@ public class AbilityBean extends CommonBean {
     private void pkLearn() {
         DataBase data_ = getDataBase();
         pokemon.clear();
-        pokemon.addAllElts(pkLearn(data_,name));
-        pokemon.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+        pokemon.addAllElts(listTrStringsPk(pkLearn(data_,name),data_,getLanguage()));
     }
     static CustList<String> pkLearn(DataBase _db, String _name) {
         CustList<String> ls_ = new CustList<String>();
@@ -1179,15 +1178,15 @@ public class AbilityBean extends CommonBean {
         return translationsTypes_.getVal(move_);
     }
     public String getTrPokemon(int _index) {
-        String pk_ = pokemon.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsPokemons_;
-        translationsPokemons_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        return translationsPokemons_.getVal(pk_);
+        return pokemon.get(_index).getTranslation();
+//        String pk_ = pokemon.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsPokemons_;
+//        translationsPokemons_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        return translationsPokemons_.getVal(pk_);
     }
     public String clickPokemon(int _index) {
-        String pk_ = pokemon.get(_index);
-        return tryRedirectPk(pk_);
+        return tryRedirect(pokemon.get(_index));
     }
 
     public String getDisplayName() {
@@ -1530,7 +1529,7 @@ public class AbilityBean extends CommonBean {
         return healedHpRateBySwitch;
     }
 
-    public StringList getPokemon() {
+    public CustList<TranslatedKey> getPokemon() {
         return pokemon;
     }
 }

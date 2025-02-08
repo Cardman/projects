@@ -1,14 +1,12 @@
 package aiki.beans.pokemon.evolutions;
 
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.evolution.EvolutionTeam;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.fight.pokemon.evolution.*;
+import code.util.*;
 
 public class EvolutionTeamBean extends EvolutionBean {
-    private String other;
+    private TranslatedKey other;
 
     @Override
     public void beforeDisplaying() {
@@ -17,18 +15,13 @@ public class EvolutionTeamBean extends EvolutionBean {
         StringMap<String> translationsPokemon_;
         DataBase data_ = getDataBase();
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        other = translationsPokemon_.getVal(evo_.getPokemon());
+        other = buildPk(translationsPokemon_,evo_.getPokemon());
     }
     public String clickTeam(int _index) {
-        DataBase data_ = getDataBase();
-        PokemonData pk_ = data_.getPokemon(getBase());
-        StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
-        evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        EvolutionTeam evo_ = (EvolutionTeam) pk_.getEvolutions().getVal(evolutions_.get(_index));
-        return tryRedirectPk(evo_.getPokemon());
+        return tryRedirect(((EvolutionTeamBean)getForms().getCurrentBeanEvo().get(_index)).other);
     }
 
     public String getOther() {
-        return other;
+        return other.getTranslation();
     }
 }

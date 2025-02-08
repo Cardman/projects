@@ -466,6 +466,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         callEvolutionBeanBaseSet(evobean_,toStr(callPokemonBeanNameGet(pkbean_)));
         callEvolutionBeanIndexSet(evobean_,_evo);
         callEvolutionBeanNameSet(evobean_,toStr(elt(callPokemonBeanEvolutionsGet(pkbean_),_evo)));
+        setFormsBy(pk_,evobean_,pkbean_);
         beforeDisplaying(evobean_);
         return evobean_;
     }

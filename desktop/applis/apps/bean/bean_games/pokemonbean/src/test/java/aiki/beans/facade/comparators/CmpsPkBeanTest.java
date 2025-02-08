@@ -5,6 +5,7 @@ import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.solution.dto.WildPokemonDto;
 import aiki.beans.help.LanguageElementStringKey;
+import aiki.beans.items.ItemForBattleBean;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.*;
@@ -359,21 +360,21 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
         ComparatorStatisticPokemon c_ = new ComparatorStatisticPokemon(f_.getData(),EN);
-        CustList<StatisticPokemon> lists_ = new CustList<StatisticPokemon>();
-        lists_.add(new StatisticPokemon(Statistic.SPEED,M_DAM));
-        lists_.add(new StatisticPokemon(Statistic.ACCURACY,M_DAM));
-        lists_.add(new StatisticPokemon(Statistic.SPEED,M_DAM_BAD));
-        lists_.add(new StatisticPokemon(Statistic.ACCURACY,M_DAM_BAD));
+        CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
+        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.SPEED,M_DAM),EN));
+        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.ACCURACY,M_DAM),EN));
+        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.SPEED,M_DAM_BAD),EN));
+        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.ACCURACY,M_DAM_BAD),EN));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
-        assertEq(M_DAM_BAD,lists_.get(0).getPokemon());
-        assertSame(Statistic.SPEED,lists_.get(0).getStatistic());
-        assertEq(M_DAM,lists_.get(1).getPokemon());
-        assertSame(Statistic.SPEED,lists_.get(1).getStatistic());
-        assertEq(M_DAM_BAD,lists_.get(2).getPokemon());
-        assertSame(Statistic.ACCURACY,lists_.get(2).getStatistic());
-        assertEq(M_DAM,lists_.get(3).getPokemon());
-        assertSame(Statistic.ACCURACY,lists_.get(3).getStatistic());
+        assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(0).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(1).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(1).getFirst().getKey()));
+        assertEq(M_DAM_BAD,lists_.get(2).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(2).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(3).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(3).getFirst().getKey()));
     }
     @Test
     public void cmp17() {

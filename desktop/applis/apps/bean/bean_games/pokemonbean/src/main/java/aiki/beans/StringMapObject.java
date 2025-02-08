@@ -3,6 +3,7 @@ package aiki.beans;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
@@ -34,7 +35,7 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<AbsMap<String,PokemonData>> mapPokedex = new StringMap<AbsMap<String,PokemonData>>();
     private final StringMap<AbsMap<String,Item>> mapItems = new StringMap<AbsMap<String,Item>>();
     private final StringMap<AbsMap<String,AbilityData>> mapAbilities = new StringMap<AbsMap<String,AbilityData>>();
-    private final StringMap<AbsMap<String,Status>> mapStatus = new StringMap<AbsMap<String,Status>>();
+    private final StringMap<AbsMap<TranslatedKey,Status>> mapStatus = new StringMap<AbsMap<TranslatedKey,Status>>();
 
     public void put(String _key, AbsAreaApparition _v) {
         getBeansOthers().put(_key,new AreaApparitionStruct(_v));
@@ -90,10 +91,10 @@ public final class StringMapObject extends StringMapObjectBase {
 
     public void safeStatus(String _key) {
         if (!contains(_key)) {
-            putStatus(_key, new StringMap<Status>());
+            putStatus(_key, DictionaryComparatorUtil.buildStatusData());
         }
     }
-    public void putStatus(String _key, AbsMap<String,Status> _v) {
+    public void putStatus(String _key, AbsMap<TranslatedKey,Status> _v) {
         mapStatus.put(_key, _v);
     }
     public void put(String _key, Person _v) {
@@ -156,7 +157,7 @@ public final class StringMapObject extends StringMapObjectBase {
     public AbsMap<String,Item> getValItemData(String _key) {
         return mapItems.getVal(_key);
     }
-    public AbsMap<String,Status> getValStatusData(String _key) {
+    public AbsMap<TranslatedKey,Status> getValStatusData(String _key) {
         return mapStatus.getVal(_key);
     }
     public TeamCrud getValTeamCrud(String _key) {

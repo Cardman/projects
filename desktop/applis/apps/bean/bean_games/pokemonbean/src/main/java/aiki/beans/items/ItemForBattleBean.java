@@ -1,20 +1,17 @@
 package aiki.beans.items;
 
-import aiki.beans.EndRoundCommon;
-import aiki.beans.TranslatedKey;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSendingWithStatistic;
-import aiki.fight.enums.Statistic;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.util.StatisticPokemon;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloBoolean;
+import aiki.beans.*;
+import aiki.beans.abilities.*;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.fight.abilities.*;
+import aiki.fight.effects.*;
+import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.util.*;
+import code.maths.*;
+import code.maths.montecarlo.*;
 import code.scripts.confs.*;
 import code.util.*;
 
@@ -47,7 +44,7 @@ public class ItemForBattleBean extends ItemBean {
     private Rate multDrainedHp;
     private Rate damageRecoil;
     private DictionaryComparator<Statistic, Long> multStatRank;
-    private DictionaryComparator<StatisticPokemon, Long> multStatPokemonRank;
+    private DictionaryComparator<TranslatedKeyPair, Long> multStatPokemonRank;
     private DictionaryComparator<Statistic,String> multStat;
     private DictionaryComparator<TranslatedKey, Long> increasingMaxNbRoundGlobalMove;
     private DictionaryComparator<TranslatedKey, Long> increasingMaxNbRoundTeamMove;
@@ -128,10 +125,10 @@ public class ItemForBattleBean extends ItemBean {
             multStatRank_.put(s, item_.getMultStatRank().getVal(s));
         }
         multStatRank = multStatRank_;
-        DictionaryComparator<StatisticPokemon, Long> multStatPokemonRank_;
+        DictionaryComparator<TranslatedKeyPair, Long> multStatPokemonRank_;
         multStatPokemonRank_ = DictionaryComparatorUtil.buildStatPk(data_, getLanguage());
         for (StatisticPokemon s: item_.getMultStatPokemonRank().getKeys()) {
-            multStatPokemonRank_.put(s, item_.getMultStatPokemonRank().getVal(s));
+            multStatPokemonRank_.put(buildPair(data_,s,getLanguage()), item_.getMultStatPokemonRank().getVal(s));
         }
         multStatPokemonRank = multStatPokemonRank_;
         NatStringTreeMap<String> mapVars_;
@@ -185,6 +182,9 @@ public class ItemForBattleBean extends ItemBean {
         lawForAttackFirst = item_.getLawForAttackFirst();
     }
 
+    public static TranslatedKeyPair buildPair(DataBase _data, StatisticPokemon _w, String _lg) {
+        return new TranslatedKeyPair(buildSi(_data.getTranslatedStatistics().getVal(_lg), _w.getStatistic()), buildPk(_data.getTranslatedPokemon().getVal(_lg), _w.getPokemon()));
+    }
     private DictionaryComparator<TranslatedKey, Long> increasingMaxNbRoundTrapRepeat(StringMap<Long> _map) {
         DataBase data_ = getDataBase();
         DictionaryComparator<TranslatedKey, Long> out_;
@@ -349,20 +349,23 @@ public class ItemForBattleBean extends ItemBean {
         return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatPkRank(int _index) {
-        Statistic type_ = multStatPokemonRank.getKey(_index).getStatistic();
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(type_);
+        return multStatPokemonRank.getKey(_index).getFirst().getTranslation();
+//        Statistic type_ = multStatPokemonRank.getKey(_index).getStatistic();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(type_);
     }
     public String getTrMultStatPk(int _index) {
-        String type_ = multStatPokemonRank.getKey(_index).getPokemon();
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        return translatedPokemon_.getVal(type_);
+        return multStatPokemonRank.getKey(_index).getSecond().getTranslation();
+//        String type_ = multStatPokemonRank.getKey(_index).getPokemon();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        return translatedPokemon_.getVal(type_);
     }
     public String clickMultStatPk(int _index) {
-        String type_ = multStatPokemonRank.getKey(_index).getPokemon();
-        return tryRedirectPk(type_);
+        return tryRedirect(multStatPokemonRank.getKey(_index).getSecond());
+//        String type_ = multStatPokemonRank.getKey(_index).getPokemon();
+//        return tryRedirectPk(type_);
     }
     public String getTrMultStatisTypes(int _index) {
         String type_ = boostStatisTypes.getKey(_index);
@@ -534,7 +537,7 @@ public class ItemForBattleBean extends ItemBean {
         return multStatRank;
     }
 
-    public DictionaryComparator<StatisticPokemon,Long> getMultStatPokemonRank() {
+    public DictionaryComparator<TranslatedKeyPair,Long> getMultStatPokemonRank() {
         return multStatPokemonRank;
     }
 

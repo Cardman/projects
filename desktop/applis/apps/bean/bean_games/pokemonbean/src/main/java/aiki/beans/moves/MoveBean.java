@@ -3,6 +3,7 @@ package aiki.beans.moves;
 import aiki.beans.*;
 import aiki.beans.WithFilterBean;
 import aiki.beans.moves.effects.*;
+import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -60,10 +61,10 @@ public class MoveBean extends CommonBean {
     private NatStringTreeMap<String> mapVarsAccuracy;
     private boolean cannotKo;
     private CustList<TranslatedKey> affectedByMoves;
-    private LongTreeMap<StringList> movesLevelLearntByPokemon;
-    private StringList movesTmLearntByPokemon;
-    private StringList movesHmLearntByPokemon;
-    private StringList movesMtLearntByPokemon;
+    private LongTreeMap<CustList<TranslatedKey>> movesLevelLearntByPokemon;
+    private CustList<TranslatedKey> movesTmLearntByPokemon;
+    private CustList<TranslatedKey> movesHmLearntByPokemon;
+    private CustList<TranslatedKey> movesMtLearntByPokemon;
 
     @Override
     public void beforeDisplaying() {
@@ -123,8 +124,8 @@ public class MoveBean extends CommonBean {
         secEffectsByItem = secEffectsByItem_;
         movesLevelLearntByPokemon = movesLevelLearntByPokemon();
         movesTmLearntByPokemon = movesTmLearntByPokemon();
-        StringList movesHmLearntByPokemon_;
-        movesHmLearntByPokemon_ = new StringList();
+        CustList<TranslatedKey> movesHmLearntByPokemon_;
+        movesHmLearntByPokemon_ = new CustList<TranslatedKey>();
         Ints hms_ = data_.getHmByMove(name_);
 //        if (Map.<Short>hasString(data_.getHm(), name_))
         if (!hms_.isEmpty()) {
@@ -134,21 +135,21 @@ public class MoveBean extends CommonBean {
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 if (pkData_.getHiddenMoves().containsObj(tm_)) {
-                    movesHmLearntByPokemon_.add(p);
+                    movesHmLearntByPokemon_.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
                 }
             }
-            movesHmLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+            movesHmLearntByPokemon_.sortElts(new ComparingTranslatedKey());
         }
         movesHmLearntByPokemon = movesHmLearntByPokemon_;
-        StringList movesMtLearntByPokemon_;
-        movesMtLearntByPokemon_ = new StringList();
+        CustList<TranslatedKey> movesMtLearntByPokemon_;
+        movesMtLearntByPokemon_ = new CustList<TranslatedKey>();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             if (StringUtil.contains(pkData_.getMoveTutors(), name_)) {
-                movesMtLearntByPokemon_.add(p);
+                movesMtLearntByPokemon_.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
             }
         }
-        movesMtLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+        movesMtLearntByPokemon_.sortElts(new ComparingTranslatedKey());
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
         getForms().getCurrent().clear();
         getForms().getCurrent().addAllElts(moveData_.getEffects());
@@ -167,10 +168,10 @@ public class MoveBean extends CommonBean {
         return no_;
     }
 
-    private StringList movesTmLearntByPokemon() {
+    private CustList<TranslatedKey> movesTmLearntByPokemon() {
         DataBase data_ = getDataBase();
-        StringList movesTmLearntByPokemon_;
-        movesTmLearntByPokemon_ = new StringList();
+        CustList<TranslatedKey> movesTmLearntByPokemon_;
+        movesTmLearntByPokemon_ = new CustList<TranslatedKey>();
         Ints tms_ = data_.getTmByMove(name);
 //        if (Map.<Short>hasString(data_.getTm(), name_))
         if (!tms_.isEmpty()) {
@@ -180,18 +181,18 @@ public class MoveBean extends CommonBean {
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 if (pkData_.getTechnicalMoves().containsObj(tm_)) {
-                    movesTmLearntByPokemon_.add(p);
+                    movesTmLearntByPokemon_.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
                 }
             }
-            movesTmLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+            movesTmLearntByPokemon_.sortElts(new ComparingTranslatedKey());
         }
         return movesTmLearntByPokemon_;
     }
 
-    private LongTreeMap<StringList> movesLevelLearntByPokemon() {
+    private LongTreeMap<CustList<TranslatedKey>> movesLevelLearntByPokemon() {
         DataBase data_ = getDataBase();
-        LongTreeMap<StringList> movesLevelLearntByPokemon_;
-        movesLevelLearntByPokemon_ = new LongTreeMap<StringList>();
+        LongTreeMap<CustList<TranslatedKey>> movesLevelLearntByPokemon_;
+        movesLevelLearntByPokemon_ = new LongTreeMap<CustList<TranslatedKey>>();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             for (LevelMove l: pkData_.getLevMoves()) {
@@ -199,14 +200,14 @@ public class MoveBean extends CommonBean {
                     continue;
                 }
                 if (!movesLevelLearntByPokemon_.contains(l.getLevel())) {
-                    movesLevelLearntByPokemon_.put(l.getLevel(), new StringList(p));
+                    movesLevelLearntByPokemon_.put(l.getLevel(), new CustList<TranslatedKey>(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p)));
                 } else {
-                    movesLevelLearntByPokemon_.getVal(l.getLevel()).add(p);
+                    movesLevelLearntByPokemon_.getVal(l.getLevel()).add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
                 }
             }
         }
-        for (StringList v: movesLevelLearntByPokemon_.values()) {
-            v.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+        for (CustList<TranslatedKey> v: movesLevelLearntByPokemon_.values()) {
+            v.sortElts(new ComparingTranslatedKey());
         }
         return movesLevelLearntByPokemon_;
     }
@@ -735,46 +736,45 @@ public class MoveBean extends CommonBean {
 //        return translatedAbilities_.getVal(ab_);
     }
     public String clickPokemon(int _indexLevel, int _indexPk) {
-        StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
-        String pk_ = pks_.get(_indexPk);
-        return tryRedirectPk(pk_);
+        return tryRedirect(movesLevelLearntByPokemon.getValue(_indexLevel).get(_indexPk));
     }
     public String getTrPokemon(int _indexLevel, int _indexPk) {
-        StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = pks_.get(_indexPk);
-        return translatedPokemon_.getVal(pk_);
+        return movesLevelLearntByPokemon.getValue(_indexLevel).get(_indexPk).getTranslation();
+//        StringList pks_ = ;
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        String pk_ = pks_.get(_indexPk);
+//        return translatedPokemon_.getVal(pk_);
     }
     public String clickPokemonTm(int _indexPk) {
-        String pk_ = movesTmLearntByPokemon.get(_indexPk);
-        return tryRedirectPk(pk_);
+        return tryRedirect(movesTmLearntByPokemon.get(_indexPk));
     }
     public String getTrPokemonTm(int _indexPk) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = movesTmLearntByPokemon.get(_indexPk);
-        return translatedPokemon_.getVal(pk_);
+        return movesTmLearntByPokemon.get(_indexPk).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        String pk_ = movesTmLearntByPokemon.get(_indexPk);
+//        return translatedPokemon_.getVal(pk_);
     }
     public String clickPokemonHm(int _indexPk) {
-        String pk_ = movesHmLearntByPokemon.get(_indexPk);
-        return tryRedirectPk(pk_);
+        return tryRedirect(movesHmLearntByPokemon.get(_indexPk));
     }
     public String getTrPokemonHm(int _indexPk) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = movesHmLearntByPokemon.get(_indexPk);
-        return translatedPokemon_.getVal(pk_);
+        return movesHmLearntByPokemon.get(_indexPk).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        String pk_ = movesHmLearntByPokemon.get(_indexPk);
+//        return translatedPokemon_.getVal(pk_);
     }
     public String clickPokemonMt(int _indexPk) {
-        String pk_ = movesMtLearntByPokemon.get(_indexPk);
-        return tryRedirectPk(pk_);
+        return tryRedirect(movesMtLearntByPokemon.get(_indexPk));
     }
     public String getTrPokemonMt(int _indexPk) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = movesMtLearntByPokemon.get(_indexPk);
-        return translatedPokemon_.getVal(pk_);
+        return movesMtLearntByPokemon.get(_indexPk).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        String pk_ = movesMtLearntByPokemon.get(_indexPk);
+//        return translatedPokemon_.getVal(pk_);
     }
     public boolean canBeLearnt() {
         if (!movesLevelLearntByPokemon.isEmpty()) {
@@ -1156,16 +1156,11 @@ public class MoveBean extends CommonBean {
     }
 
     private void build(CustList<EffectBean> _feed,int _i, EffectBean _b) {
-        _b.setAppName(getAppName());
-        _b.setDataBase(db());
-        _b.setForms(new StringMapObject());
-        _b.getForms().putAllMap(getForms());
-        _b.getForms().setCurrentBean(_feed);
-        _b.setLanguage(getLanguage());
-        _b.setBuilder(getBuilder());
+        fwd(_b);
         _b.setMove(name);
         _b.setIndex(_i);
         _b.beforeDisplaying();
+        _b.getForms().setCurrentBean(_feed);
         _feed.add(_b);
     }
 
@@ -1193,19 +1188,19 @@ public class MoveBean extends CommonBean {
         return repeatRoundLaw;
     }
 
-    public LongTreeMap<StringList> getMovesLevelLearntByPokemon() {
+    public LongTreeMap<CustList<TranslatedKey>> getMovesLevelLearntByPokemon() {
         return movesLevelLearntByPokemon;
     }
 
-    public StringList getMovesTmLearntByPokemon() {
+    public CustList<TranslatedKey> getMovesTmLearntByPokemon() {
         return movesTmLearntByPokemon;
     }
 
-    public StringList getMovesHmLearntByPokemon() {
+    public CustList<TranslatedKey> getMovesHmLearntByPokemon() {
         return movesHmLearntByPokemon;
     }
 
-    public StringList getMovesMtLearntByPokemon() {
+    public CustList<TranslatedKey> getMovesMtLearntByPokemon() {
         return movesMtLearntByPokemon;
     }
 }

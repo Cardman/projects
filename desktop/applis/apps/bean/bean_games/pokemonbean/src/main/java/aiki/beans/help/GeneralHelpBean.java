@@ -35,7 +35,7 @@ public class GeneralHelpBean extends CommonBean {
     private long nbNecStepsIncrHappiness;
     private long nbMaxStepsSameEvoBase;
     private long nbMaxSteps;
-    private StringList pokemonDefaultEggGroup = new StringList();
+    private CustList<TranslatedKey> pokemonDefaultEggGroup = new CustList<TranslatedKey>();
     private Rate defaultMoney;
     private CustList<TranslatedKey> tm = new CustList<TranslatedKey>();
     private CustList<TranslatedKey> hm = new CustList<TranslatedKey>();
@@ -64,14 +64,14 @@ public class GeneralHelpBean extends CommonBean {
         nbNecStepsIncrHappiness = data_.getNbNecStepsIncrHappiness();
         nbMaxStepsSameEvoBase = data_.getNbMaxStepsSameEvoBase();
         nbMaxSteps = data_.getNbMaxSteps();
-        pokemonDefaultEggGroup = new StringList();
+        pokemonDefaultEggGroup = new CustList<TranslatedKey>();
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             if (StringUtil.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
-                pokemonDefaultEggGroup.add(p);
+                pokemonDefaultEggGroup.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
             }
         }
-        pokemonDefaultEggGroup.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+        pokemonDefaultEggGroup.sortElts(new ComparingTranslatedKey());
         defaultMoney = data_.getDefaultMoney();
         tm = build(data_.getTm());
         hm = build(data_.getHm());
@@ -109,13 +109,13 @@ public class GeneralHelpBean extends CommonBean {
         return namesPlaces.getValue(_index);
     }
     public String getTrPokemon(int _index) {
-        DataBase data_ = getDataBase();
-        String pk_ = pokemonDefaultEggGroup.get(_index);
-        return data_.translatePokemon(pk_);
+        return pokemonDefaultEggGroup.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        String pk_ = pokemonDefaultEggGroup.get(_index);
+//        return data_.translatePokemon(pk_);
     }
     public String clickPokemon(int _index) {
-        String pk_ = pokemonDefaultEggGroup.get(_index);
-        return tryRedirectPk(pk_);
+        return tryRedirect(pokemonDefaultEggGroup.get(_index));
     }
     public int[][] getImage() {
         return firstPokemon.getImage();
@@ -342,7 +342,7 @@ public class GeneralHelpBean extends CommonBean {
         return nbMaxSteps;
     }
 
-    public StringList getPokemonDefaultEggGroup() {
+    public CustList<TranslatedKey> getPokemonDefaultEggGroup() {
         return pokemonDefaultEggGroup;
     }
 

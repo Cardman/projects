@@ -114,8 +114,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,String>(_data.getTranslatedPokemon().getVal(_language));
     }
 
-    public static DictionaryComparator<String,Status> buildStatusData(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Status>(_data.getTranslatedStatus().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,Status> buildStatusData() {
+        return new DictionaryComparator<TranslatedKey,Status>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<String,StatusBeginRoundAutoDamage> buildStatusAutoData(DataBase _data, String _language) {
@@ -301,9 +301,6 @@ public final class DictionaryComparatorUtil {
     public static Comparing<String> cmpMoves(DataBase _data, String _language) {
         return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedMoves().getVal(_language));
     }
-    public static Comparing<String> cmpPokemon(DataBase _data, String _language) {
-        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedPokemon().getVal(_language));
-    }
 
     public static Comparing<String> cmpStatus(DataBase _data, String _language) {
         return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedStatus().getVal(_language));
@@ -352,7 +349,7 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<Integer, String>(new ComparatorPlaceNumber(_map));
     }
 
-    public static DictionaryComparator<StatisticPokemon, Long> buildStatPk(DataBase _data, String _lg) {
-        return new DictionaryComparator<StatisticPokemon, Long>(new ComparatorStatisticPokemon(_data, _lg));
+    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatPk(DataBase _data, String _lg) {
+        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorStatisticPokemon(_data, _lg));
     }
 }

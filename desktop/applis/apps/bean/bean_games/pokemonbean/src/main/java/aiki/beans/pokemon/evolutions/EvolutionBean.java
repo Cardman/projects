@@ -1,12 +1,9 @@
 package aiki.beans.pokemon.evolutions;
 
-import aiki.beans.CommonBean;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.evolution.Evolution;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.fight.pokemon.evolution.*;
+import code.util.*;
 
 public class EvolutionBean extends CommonBean {
     private String displayBase;
@@ -14,7 +11,7 @@ public class EvolutionBean extends CommonBean {
 
     private Evolution evo;
     private String displayName;
-    private String name;
+    private TranslatedKey name;
     private int index;
 
     @Override
@@ -22,20 +19,16 @@ public class EvolutionBean extends CommonBean {
         DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        evo = data_.getPokemon(base).getEvolutions().getVal(name);
-        displayBase = translationsPokemon_.getVal(base);
-        displayName = translationsPokemon_.getVal(name);
+        evo = data_.getPokemon(getBase()).getEvolutions().getVal(name.getKey());
+        displayBase = translationsPokemon_.getVal(getBase());
+        displayName = name.getTranslation();
     }
 
     protected Evolution getEvo() {
         return evo;
     }
     public String clickEvo(int _index) {
-        DataBase data_ = getDataBase();
-        PokemonData pk_ = data_.getPokemon(base);
-        StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
-        evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        return tryRedirectPk(evolutions_.get(_index));
+        return tryRedirect(getForms().getCurrentBeanEvo().get(_index).name);
     }
 
     public String getBase() {
@@ -51,7 +44,7 @@ public class EvolutionBean extends CommonBean {
     }
 
     public void setName(String _name) {
-        name = _name;
+        name = buildPk(getDataBase().getTranslatedPokemon().getVal(getLanguage()),_name);
     }
 
     public void setBase(String _base) {

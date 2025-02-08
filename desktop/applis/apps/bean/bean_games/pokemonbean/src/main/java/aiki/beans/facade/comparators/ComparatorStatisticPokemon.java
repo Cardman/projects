@@ -1,4 +1,5 @@
 package aiki.beans.facade.comparators;
+import aiki.beans.abilities.*;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.fight.enums.*;
@@ -6,7 +7,7 @@ import aiki.fight.util.*;
 import code.util.*;
 import code.util.ints.*;
 
-public final class ComparatorStatisticPokemon implements Comparing<StatisticPokemon> {
+public final class ComparatorStatisticPokemon implements Comparing<TranslatedKeyPair> {
 
     private final AbsMap<Statistic, String> val;
     private final AbsMap<String, String> pk;
@@ -21,10 +22,13 @@ public final class ComparatorStatisticPokemon implements Comparing<StatisticPoke
     }
 
     @Override
-    public int compare(StatisticPokemon _o1, StatisticPokemon _o2) {
-        return comparePairs(_o1, _o2, val, pk);
+    public int compare(TranslatedKeyPair _o1, TranslatedKeyPair _o2) {
+        return comparePairs(convert(_o1), convert(_o2), val, pk);
     }
 
+    private StatisticPokemon convert(TranslatedKeyPair _o) {
+        return new StatisticPokemon(Statistic.getStatisticByName(_o.getFirst().getKey()), _o.getSecond().getKey());
+    }
     public static int comparePairs(StatisticPokemon _o1, StatisticPokemon _o2, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
         int res_ = ComparatorTrStrings.compareStatistic(_stats, _o1.getStatistic(), _o2.getStatistic());
         if (res_ != 0) {

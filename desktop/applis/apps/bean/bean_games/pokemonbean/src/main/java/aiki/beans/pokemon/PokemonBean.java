@@ -3,6 +3,7 @@ package aiki.beans.pokemon;
 import aiki.beans.CommonBean;
 import aiki.beans.TranslatedKey;
 import aiki.beans.facade.map.dto.PlaceIndex;
+import aiki.beans.pokemon.evolutions.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -49,18 +50,18 @@ public class PokemonBean extends CommonBean {
     private StringList types;
     private CustList<TranslatedKey> abilities;
     private long catchingRate;
-    private StringList evolutions;
+    private CustList<TranslatedKey> evolutions;
     private IdList<Statistic> statisticsEnum;
     private StringList statistics;
     private TranslatedKey evoBase;
     private String expEvo;
     private long expRate;
-    private CustList<LevelMove> levMoves;
-    private IntTreeMap< String> technicalMoves;
-    private IntTreeMap< String> hiddenMoves;
-    private StringList moveTutors;
+    private CustList<LevelMoveTranslatedKey> levMoves;
+    private IntTreeMap< TranslatedKey> technicalMoves;
+    private IntTreeMap< TranslatedKey> hiddenMoves;
+    private CustList<TranslatedKey> moveTutors;
     private LgInt hatchingSteps;
-    private StringList eggGroupsPk;
+    private CustList<TranslatedKey> eggGroupsPk;
     private NatStringTreeMap<String> mapVars;
     private CustList<PlaceIndex> places;
     private MiniMapCoordsTileInts images;
@@ -115,15 +116,16 @@ public class PokemonBean extends CommonBean {
             types.add(translationsTypes_.getVal(t));
         }
         types.sort();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        abilities = new CustList<TranslatedKey>();
-        for (String a:pk_.getAbilities()) {
-            abilities.add(buildAb(translatedAbilities_,a));
-        }
-        abilities.sortElts(DictionaryComparatorUtil.cmpAbilities());
+        abilities = listTrStringsAb(pk_.getAbilities(),data_,getLanguage());
         catchingRate = pk_.getCatchingRate();
-        evolutions = new StringList(pk_.getEvolutions().getKeys());
-        evolutions.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+        evolutions = listTrStringsPk(pk_.getEvolutions().getKeys(),data_,getLanguage());
+        CustList<EvolutionBean> evoBean_ = getForms().getCurrentBeanEvo();
+        evoBean_.clear();
+        int len_ = evolutions.size();
+        for (int i = 0; i < len_; i++) {
+            TranslatedKey tk_ = evolutions.get(i);
+            build(evoBean_,pk_.getEvolutions(),i,tk_.getKey());
+        }
         evoBase = buildPk(translationsPokemon_,pk_.getBaseEvo());
         expEvo = data_.getFormula(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
@@ -144,31 +146,59 @@ public class PokemonBean extends CommonBean {
         }
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        levMoves = new CustList<LevelMove>();
+        levMoves = new CustList<LevelMoveTranslatedKey>();
         for (LevelMove l: pk_.getLevMoves()) {
-            LevelMove l_ = new LevelMove();
-            l_.setMove(translationsMoves_.getVal(l.getMove()));
-            l_.setLevel(l.getLevel());
-            levMoves.add(l_);
+            levMoves.add(new LevelMoveTranslatedKey(buildMv(translationsMoves_,l.getMove()),l.getLevel()));
         }
-        technicalMoves = new IntTreeMap< String>();
+        technicalMoves = new IntTreeMap< TranslatedKey>();
         for (Integer s: pk_.getTechnicalMoves()) {
-            technicalMoves.put(s, translationsMoves_.getVal(data_.getTm().getVal(s)));
+            technicalMoves.put(s, buildMv(translationsMoves_,data_.getTm().getVal(s)));
         }
-        hiddenMoves = new IntTreeMap< String>();
+        hiddenMoves = new IntTreeMap< TranslatedKey>();
         for (Integer s: pk_.getHiddenMoves()) {
-            hiddenMoves.put(s, translationsMoves_.getVal(data_.getHm().getVal(s)));
+            hiddenMoves.put(s, buildMv(translationsMoves_,data_.getHm().getVal(s)));
         }
-        moveTutors = new StringList(pk_.getMoveTutors());
-        moveTutors.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        moveTutors = listTrStringsMv(pk_.getMoveTutors(),data_,getLanguage());
         //eggGroups = new StringList();
         initEggGroup(pk_);
         hatchingSteps = pk_.getHatchingSteps();
     }
 
+    private void build(CustList<EvolutionBean> _curr, StringMap<Evolution> _effs, int _i, String _n) {
+        Evolution evo_ = _effs.getVal(_n);
+        if (evo_ instanceof EvolutionLevelGender) {
+            build(_curr, _i, new EvolutionLevelGenderBean(),_n);
+        } else if (evo_ instanceof EvolutionLevel) {
+            build(_curr, _i, new EvolutionLevelBean(),_n);
+        } else if (evo_ instanceof EvolutionHappiness) {
+            build(_curr, _i, new EvolutionHappinessBean(),_n);
+        } else if (evo_ instanceof EvolutionMove) {
+            build(_curr, _i, new EvolutionMoveBean(),_n);
+        } else if (evo_ instanceof EvolutionItem) {
+            build(_curr, _i, new EvolutionItemBean(),_n);
+        } else if (evo_ instanceof EvolutionStoneGender) {
+            build(_curr, _i, new EvolutionStoneGenderBean(),_n);
+        } else  if (evo_ instanceof EvolutionStone) {
+            build(_curr, _i, new EvolutionStoneBean(),_n);
+        } else  if (evo_ instanceof EvolutionMoveType) {
+            build(_curr, _i, new EvolutionMoveTypeBean(),_n);
+        } else {
+            build(_curr, _i, new EvolutionTeamBean(),_n);
+        }
+    }
+    private void build(CustList<EvolutionBean> _feed,int _i, EvolutionBean _b, String _n) {
+        fwd(_b);
+        _b.setIndex(_i);
+        _b.setBase(name);
+        _b.setName(_n);
+        _b.beforeDisplaying();
+        _b.getForms().setCurrentBeanEvo(_feed);
+        _feed.add(_b);
+    }
     private void initEggGroup(PokemonData _pk) {
         DataBase data_ = getDataBase();
-        eggGroupsPk = new StringList();
+        //CustList<TranslatedKey>
+        StringList eggGroups_ = new StringList();
         //Map<String,String> translationsEggs_;
         //translationsEggs_ = data_.getTranslatedEggs().getVal(getLanguage());
         for (String e: _pk.getEggGroups()) {
@@ -176,20 +206,20 @@ public class PokemonBean extends CommonBean {
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 if (StringUtil.contains(pkData_.getEggGroups(), e)) {
-                    eggGroupsPk.add(p);
+                    eggGroups_.add(p);
                 }
             }
         }
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             if (StringUtil.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
-                eggGroupsPk.add(p);
+                eggGroups_.add(p);
             }
         }
         //eggGroups.sort();
         //eggGroups.removeDuplicates();
-        eggGroupsPk.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        eggGroupsPk.removeDuplicates();
+        eggGroups_.removeDuplicates();
+        eggGroupsPk = listTrStringsPk(eggGroups_,data_,getLanguage());
     }
 
     public int[][] getMiniMapImage(int _index) {
@@ -242,7 +272,7 @@ public class PokemonBean extends CommonBean {
     public String getPage(int _index) {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
-        Evolution evo_ = pk_.getEvolutions().getVal(getEvo(_index));
+        Evolution evo_ = pk_.getEvolutions().getVal(evolutions.get(_index).getKey());
         if (evo_ instanceof EvolutionLevelGender) {
             return PAGE_LEVELGENDER;
         }
@@ -270,9 +300,6 @@ public class PokemonBean extends CommonBean {
         return PAGE_TEAM;
     }
 
-    private String getEvo(int _index) {
-        return evolutions.get(_index);
-    }
     public String getTrAbility(int _index) {
         return abilities.get(_index).getTranslation();
 //        DataBase data_ = getDataBase();
@@ -302,40 +329,33 @@ public class PokemonBean extends CommonBean {
         return statEv_.getEv();
     }
     public String clickMove(int _index) {
-        DataBase data_ = getDataBase();
-        PokemonData pk_ = data_.getPokemon(name);
-        String move_ = pk_.getLevMoves().get(_index).getMove();
-        return tryRedirectMv(move_);
+        return tryRedirect(levMoves.get(_index).getMove());
     }
     public String clickTechnicalMove(int _index) {
-        DataBase data_ = getDataBase();
-        String move_ = data_.getTm().getVal(technicalMoves.getKey(_index));
-        return tryRedirectMv(move_);
+        return tryRedirect(technicalMoves.getValue(_index));
     }
     public String clickHiddenMove(int _index) {
-        DataBase data_ = getDataBase();
-        String move_ = data_.getHm().getVal(hiddenMoves.getKey(_index));
-        return tryRedirectMv(move_);
+        return tryRedirect(hiddenMoves.getValue(_index));
     }
     public String getMoveTutor(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(moveTutors.get(_index));
+        return moveTutors.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        return translationsMoves_.getVal(moveTutors.get(_index));
     }
     public String clickMoveTutors(int _index) {
-        String move_ = moveTutors.get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(moveTutors.get(_index));
     }
     public String getEggPk(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsPokemon_;
-        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        return translationsPokemon_.getVal(eggGroupsPk.get(_index));
+        return eggGroupsPk.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsPokemon_;
+//        translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        return translationsPokemon_.getVal(eggGroupsPk.get(_index));
     }
     public String clickEggPk(int _index) {
-        String pk_ = eggGroupsPk.get(_index);
-        return tryRedirectPk(pk_);
+        return tryRedirect(eggGroupsPk.get(_index));
     }
     public boolean isAppearingAnyWhere() {
         int nbPlaces_ = places.size();
@@ -432,7 +452,7 @@ public class PokemonBean extends CommonBean {
         return catchingRate;
     }
 
-    public StringList getEvolutions() {
+    public CustList<TranslatedKey> getEvolutions() {
         return evolutions;
     }
 
@@ -460,23 +480,23 @@ public class PokemonBean extends CommonBean {
         return statistics;
     }
 
-    public CustList<LevelMove> getLevMoves() {
+    public CustList<LevelMoveTranslatedKey> getLevMoves() {
         return levMoves;
     }
 
-    public IntTreeMap<String> getTechnicalMoves() {
+    public IntTreeMap<TranslatedKey> getTechnicalMoves() {
         return technicalMoves;
     }
 
-    public IntTreeMap<String> getHiddenMoves() {
+    public IntTreeMap<TranslatedKey> getHiddenMoves() {
         return hiddenMoves;
     }
 
-    public StringList getMoveTutors() {
+    public CustList<TranslatedKey> getMoveTutors() {
         return moveTutors;
     }
 
-    public StringList getEggGroupsPk() {
+    public CustList<TranslatedKey> getEggGroupsPk() {
         return eggGroupsPk;
     }
 

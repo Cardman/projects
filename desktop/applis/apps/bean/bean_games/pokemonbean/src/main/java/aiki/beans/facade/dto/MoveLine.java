@@ -1,9 +1,10 @@
 package aiki.beans.facade.dto;
+import aiki.beans.*;
 import code.util.StringList;
 
 public class MoveLine {
     private String displayName;
-    private String name;
+    private TranslatedKey translatedKey;
     private long pp;
     private StringList types;
     private boolean damageMove;
@@ -22,11 +23,15 @@ public class MoveLine {
     }
 
     public String getName() {
-        return name;
+        return getTranslatedKey().getKey();
     }
 
-    public void setName(String _name) {
-        name = _name;
+    public TranslatedKey getTranslatedKey() {
+        return translatedKey;
+    }
+
+    public void setTranslatedKey(TranslatedKey _name) {
+        translatedKey = _name;
     }
 
     public long getPp() {

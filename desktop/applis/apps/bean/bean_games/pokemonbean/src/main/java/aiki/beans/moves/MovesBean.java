@@ -1,20 +1,18 @@
 package aiki.beans.moves;
 
-import aiki.beans.WithFilterBean;
-import aiki.beans.facade.dto.MoveLine;
-import aiki.beans.facade.simulation.dto.SelectLineMove;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.MoveData;
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.*;
+import aiki.beans.facade.dto.*;
+import aiki.beans.facade.simulation.dto.*;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.fight.moves.*;
+import code.scripts.confs.*;
 import code.util.*;
 
 public class MovesBean extends WithFilterBean {
 //    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
-    private final StringList sortedMoves = new StringList();
+    private final CustList<TranslatedKey> sortedMoves = new CustList<TranslatedKey>();
     private final StringMap<String> categories = new StringMap<String>();
 
     @Override
@@ -58,7 +56,7 @@ public class MovesBean extends WithFilterBean {
 //        }
         sortedMoves.clear();
         for (MoveLine l: moves) {
-            sortedMoves.add(l.getName());
+            sortedMoves.add(l.getTranslatedKey());
         }
         escapeInputs();
 
@@ -71,7 +69,7 @@ public class MovesBean extends WithFilterBean {
     }
 
     public static void line(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData, MoveLine _line, DataBase _dataBase) {
-        _line.setName(_k);
+        _line.setTranslatedKey(buildMv(_translationsMoves,_k));
         _line.setDisplayName(_translationsMoves.getVal(_k));
         StringList types_ = new StringList();
         for (String t: _moveData.getTypes()) {
@@ -149,7 +147,7 @@ public class MovesBean extends WithFilterBean {
 //        return false;
 //    }
     public String clickLink(int _number) {
-        return tryRedirectMv(moves.get(_number).getName());
+        return tryRedirect(moves.get(_number).getTranslatedKey());
     }
 
     public StringMap<String> getCategories() {

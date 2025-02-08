@@ -147,6 +147,15 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     private String appName = "";
 //    private String baseEncode;
 
+    protected void fwd(CommonBean _b) {
+        _b.setAppName(getAppName());
+        _b.setDataBase(db());
+        _b.setForms(new StringMapObject());
+        _b.getForms().putAllMap(getForms());
+        _b.setLanguage(getLanguage());
+        _b.setBuilder(getBuilder());
+    }
+
     public static int toInt(BoolVal _b) {
         if (_b == BoolVal.TRUE) {
             return TRUE_VALUE;
@@ -190,7 +199,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return multDamageTypesMoves_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsAb(StringList _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsAb(CustList<String> _input, DataBase _db, String _lg) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
             res_.add(buildAb(_db.getTranslatedAbilities().getVal(_lg),s));
@@ -199,7 +208,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsIt(StringList _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsIt(CustList<String> _input, DataBase _db, String _lg) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
             res_.add(buildIt(_db,_db.getTranslatedItems().getVal(_lg),s));
@@ -208,7 +217,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsMv(StringList _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsMv(CustList<String> _input, DataBase _db, String _lg) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
             res_.add(buildMv(_db.getTranslatedMoves().getVal(_lg),s));
@@ -217,7 +226,16 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsSt(StringList _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsPk(CustList<String> _input, DataBase _db, String _lg) {
+        CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
+        for (String s: _input) {
+            res_.add(buildPk(_db.getTranslatedPokemon().getVal(_lg),s));
+        }
+        res_.sortElts(new ComparingTranslatedKey());
+        return res_;
+    }
+
+    protected static CustList<TranslatedKey> listTrStringsSt(CustList<String> _input, DataBase _db, String _lg) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
             res_.add(buildSt(_db.getTranslatedStatus().getVal(_lg),s));
@@ -226,7 +244,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsTy(StringList _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsTy(CustList<String> _input, DataBase _db, String _lg) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
             res_.add(build(_db.getTranslatedTypes().getVal(_lg),s));
@@ -396,12 +414,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
     protected String tryRedirectMv(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectMv(_name,_def),_key,_target);
-    }
-    protected String tryRedirectPk(String _name) {
-        return tryRedirectPk(CST_PK,_name, PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,"");
-    }
-    protected String tryRedirectPk(String _key, String _name, String _target, String _def) {
-        return AbsRedirect.tryRedirect(this,new RedirectPk(_name,_def),_key,_target);
     }
     protected String tryRedirectSt(String _name) {
         return tryRedirectSt(CST_STATUS,_name, PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,"");

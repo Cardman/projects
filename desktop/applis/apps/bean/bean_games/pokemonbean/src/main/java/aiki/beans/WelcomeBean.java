@@ -1,14 +1,14 @@
 package aiki.beans;
-import aiki.beans.facade.simulation.enums.SimulationSteps;
+import aiki.beans.facade.simulation.enums.*;
+import aiki.comparators.*;
 import aiki.facade.*;
-import aiki.fight.abilities.AbilityData;
-import aiki.fight.items.Item;
-import aiki.fight.moves.MoveData;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.status.Status;
-import code.scripts.confs.PkScriptPages;
+import aiki.fight.abilities.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
+import aiki.fight.pokemon.*;
+import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
-import code.util.StringMap;
+import code.util.*;
 
 public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
 
@@ -73,7 +73,7 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
         return PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML;
     }
     public String clickStatus() {
-        getForms().putStatus(CST_STATUS_SET, new StringMap<Status>());
+        getForms().putStatus(CST_STATUS_SET, DictionaryComparatorUtil.buildStatusData());
         return PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
     }
     public String clickItems() {
