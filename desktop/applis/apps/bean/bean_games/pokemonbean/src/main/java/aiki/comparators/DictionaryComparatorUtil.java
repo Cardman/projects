@@ -51,9 +51,6 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<Statistic, BoostHpRate> buildStatisBoostHpRate(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,BoostHpRate>(_data.getTranslatedStatistics().getVal(_language));
     }
-    public static DictionaryComparator<String,AbilityData> buildAbilitiesData(DataBase _data, String _language) {
-        return new DictionaryComparator<String,AbilityData>(_data.getTranslatedAbilities().getVal(_language));
-    }
     public static DictionaryComparator<String,String> buildAbilities(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedAbilities().getVal(_language));
     }
@@ -106,8 +103,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,Rate>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String,PokemonData> buildPkData(DataBase _data, String _language) {
-        return new DictionaryComparator<String,PokemonData>(_data.getTranslatedPokemon().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,PokemonData> buildPkData() {
+        return new DictionaryComparator<TranslatedKey,PokemonData>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<String,String> buildPkStr(DataBase _data, String _language) {
@@ -116,6 +113,10 @@ public final class DictionaryComparatorUtil {
 
     public static DictionaryComparator<TranslatedKey,Status> buildStatusData() {
         return new DictionaryComparator<TranslatedKey,Status>(new ComparingTranslatedKey());
+    }
+
+    public static DictionaryComparator<TranslatedKey,AbilityData> buildAbilitiesData() {
+        return new DictionaryComparator<TranslatedKey,AbilityData>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<String,StatusBeginRoundAutoDamage> buildStatusAutoData(DataBase _data, String _language) {

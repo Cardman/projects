@@ -1,18 +1,16 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
-import aiki.beans.PokemonStandards;
-import aiki.beans.facade.comparators.ComparatorMoves;
-import aiki.beans.facade.simulation.dto.SelectLineMove;
-import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.beans.moves.MovesBean;
-import aiki.db.DataBase;
-import aiki.fight.abilities.AbilityData;
-import aiki.fight.items.Item;
-import aiki.fight.moves.MoveData;
-import aiki.fight.pokemon.PokemonData;
-import aiki.map.pokemon.enums.Gender;
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.*;
+import aiki.beans.facade.comparators.*;
+import aiki.beans.facade.simulation.dto.*;
+import aiki.beans.facade.simulation.enums.*;
+import aiki.beans.moves.*;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
+import aiki.map.pokemon.enums.*;
+import code.scripts.confs.*;
 import code.util.*;
 
 public class EditTrainerPokemonBean extends CommonBean {
@@ -93,7 +91,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String chooseAbility() {
-        getForms().putAbilities(CST_ABILITIES_SET, new StringMap<AbilityData>());
+        getForms().putAbilities(CST_ABILITIES_SET, DictionaryComparatorUtil.buildAbilitiesData());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML;
     }
     public String chooseItem() {
@@ -102,7 +100,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String chooseName() {
-        getForms().putPokedex(CST_POKEMON_SET, new StringMap<PokemonData>());
+        getForms().putPokedex(CST_POKEMON_SET, DictionaryComparatorUtil.buildPkData());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML;
     }
     public String addMoves() {

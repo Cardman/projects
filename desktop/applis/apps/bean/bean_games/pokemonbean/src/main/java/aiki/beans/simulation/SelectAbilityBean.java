@@ -1,7 +1,7 @@
 package aiki.beans.simulation;
 
-import aiki.beans.abilities.AbilitySearchBean;
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.abilities.*;
+import code.scripts.confs.*;
 
 public class SelectAbilityBean extends AbilitySearchBean {
 
@@ -13,7 +13,7 @@ public class SelectAbilityBean extends AbilitySearchBean {
     }
 
     public String clickAbility(int _index) {
-        getForms().put(CST_POKEMON_ABILITY_EDIT, getSortedAbilities().get(_index));
+        getForms().put(CST_POKEMON_ABILITY_EDIT, sortedAbilitiesGet().get(_index).getKey());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 

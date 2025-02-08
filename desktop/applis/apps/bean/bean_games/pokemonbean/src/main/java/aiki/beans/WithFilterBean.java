@@ -43,7 +43,7 @@ public abstract class WithFilterBean extends CommonBean {
     private String minAccuracy = DataBase.EMPTY_STRING;
     private String maxAccuracy = DataBase.EMPTY_STRING;
     private DictionaryComparator<String,String> booleans;
-    private AbsMap<String,AbilityData> sortedAbilities = new StringMap<AbilityData>();
+    private AbsMap<TranslatedKey,AbilityData> sortedAbilities = DictionaryComparatorUtil.buildAbilitiesData();
     private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private final CustList<ItemLine> items = new CustList<ItemLine>();
     private final CustList<TranslatedKey> itemsTr = new CustList<TranslatedKey>();
@@ -86,18 +86,16 @@ public abstract class WithFilterBean extends CommonBean {
         }
     }
 
-    protected void setupPokedex(AbsMap<String,PokemonData> _pokedex) {
+    protected void setupPokedex(AbsMap<TranslatedKey,PokemonData> _pokedex) {
         DataBase data_ = getDataBase();
         getPokedex().clear();
-        StringMap<String> translationsPk_;
-        translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        for (EntryCust<String, PokemonData> k: _pokedex.entryList()) {
+        for (EntryCust<TranslatedKey, PokemonData> k: _pokedex.entryList()) {
             PokemonData pkData_ = k.getValue();
             PokemonLine line_ = new PokemonLine();
-            line_.setName(k.getKey());
-            line_.setDisplayName(translationsPk_.getVal(k.getKey()));
+            line_.setKey(k.getKey());
+            line_.setDisplayName(k.getKey().getTranslation());
             StringList types_ = new StringList();
             for (String t: pkData_.getTypes()) {
                 types_.add(translationsTypes_.getVal(t));
@@ -128,22 +126,22 @@ public abstract class WithFilterBean extends CommonBean {
     }
 
     protected String search(String _k, String _pk, String _mono, String _multi) {
-        AbsMap<String,PokemonData> pokedex_ = pokedex();
+        AbsMap<TranslatedKey,PokemonData> pokedex_ = pokedex();
         getForms().putPokedex(_k, pokedex_);
         if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(_pk,pokedex_.firstKey());
+            getForms().put(_pk,pokedex_.firstKey().getKey());
             return _mono;
         }
         return _multi;
     }
 
-    protected AbsMap<String,PokemonData> pokedex() {
+    protected AbsMap<TranslatedKey,PokemonData> pokedex() {
         DataBase data_ = getDataBase();
         StringMap<String> translationsPk_;
         translationsPk_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        DictionaryComparator<String, PokemonData> pokedex_ = DictionaryComparatorUtil.buildPkData(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, PokemonData> pokedex_ = DictionaryComparatorUtil.buildPkData();
         for (EntryCust<String, PokemonData> k: data_.getPokedex().entryList()) {
             String displayName_ = translationsPk_.getVal(k.getKey());
             if (!StringUtil.match(displayName_, getTypedName())) {
@@ -151,7 +149,7 @@ public abstract class WithFilterBean extends CommonBean {
             }
             PokemonData pkData_ = k.getValue();
             if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos())) && (getTypedMaxNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getHasEvo()), !pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsEvo()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsLeg()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
-                pokedex_.put(k.getKey(),k.getValue());
+                pokedex_.put(buildPk(translationsPk_,k.getKey()),k.getValue());
             }
         }
 //        pokedex_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
@@ -229,25 +227,25 @@ public abstract class WithFilterBean extends CommonBean {
     }
 
     protected String searchAbility(String _k, String _mono, String _multi) {
-        AbsMap<String,AbilityData> sortedAbilities_ = sortedAbilities();
+        AbsMap<TranslatedKey,AbilityData> sortedAbilities_ = sortedAbilities();
         getForms().putAbilities(CST_ABILITIES_SET, sortedAbilities_);
         if (sortedAbilities_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(_k, sortedAbilities_.firstKey());
+            getForms().put(_k, sortedAbilities_.firstKey().getKey());
             return _mono;
         }
         return _multi;
     }
 
-    protected AbsMap<String,AbilityData> sortedAbilities() {
-        DictionaryComparator<String,AbilityData> sortedAbilities_;
+    protected AbsMap<TranslatedKey,AbilityData> sortedAbilities() {
+        DictionaryComparator<TranslatedKey,AbilityData> sortedAbilities_;
         DataBase data_ = getDataBase();
-        sortedAbilities_ = DictionaryComparatorUtil.buildAbilitiesData(data_,getLanguage());
+        sortedAbilities_ = DictionaryComparatorUtil.buildAbilitiesData();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (EntryCust<String, AbilityData> i: data_.getAbilities().entryList()) {
             String ab_ = translationsAbilities_.getVal(i.getKey());
             if (StringUtil.match(ab_, getTypedAbility())) {
-                sortedAbilities_.put(i.getKey(),i.getValue());
+                sortedAbilities_.put(buildAb(translationsAbilities_,i.getKey()),i.getValue());
             }
         }
 //        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
@@ -286,11 +284,12 @@ public abstract class WithFilterBean extends CommonBean {
         return sortedItems(_data,getTypedPrice(),getTypedName(),getTypedClass(),getLanguage());
     }
     public String getTrSortedAbility(int _index) {
-        String ability_ = sortedAbilities.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsAbilities_;
-        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translationsAbilities_.getVal(ability_);
+        return sortedAbilities.getKey(_index).getTranslation();
+//        String ability_ = sortedAbilities.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsAbilities_;
+//        translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
+//        return translationsAbilities_.getVal(ability_);
     }
 
     public int[][] getMiniImagePk(int _number) {
@@ -444,11 +443,11 @@ public abstract class WithFilterBean extends CommonBean {
         return maxPower;
     }
 
-    public CustList<String> getSortedAbilities() {
+    public CustList<TranslatedKey> sortedAbilitiesGet() {
         return sortedAbilities.getKeys();
     }
 
-    public void setSortedAbilities(AbsMap<String,AbilityData> _ab) {
+    public void setSortedAbilities(AbsMap<TranslatedKey,AbilityData> _ab) {
         this.sortedAbilities = _ab;
     }
 

@@ -1,23 +1,25 @@
 package aiki.beans.map.characters;
 
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.map.characters.DealerItem;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.map.characters.*;
+import code.util.*;
 
 public class DealerBean extends CommonBean {
 
-    private DealerItem dealer;
     private CustList<TranslatedKey> itemsDealer;
+    private CustList<TranslatedKey> allTmDealer;
 
     @Override
     public void beforeDisplaying() {
-        dealer = (DealerItem) getForms().getValPers(CST_PERSON);
-        itemsDealer = listTrStringsIt(dealer.getItems(),getDataBase(),getLanguage());
+        DealerItem dealer_ = (DealerItem) getForms().getValPers(CST_PERSON);
+        itemsDealer = listTrStringsIt(dealer_.getItems(),getDataBase(),getLanguage());
+        DataBase data_ = getDataBase();
+        StringList moves_ = new StringList();
+        for (Integer s: dealer_.getTechnicalMoves()) {
+            moves_.add(data_.getTm().getVal(s));
+        }
+        allTmDealer = listTrStringsMv(moves_,data_,getLanguage());
     }
     public String getItem(int _index) {
         return itemsDealer.get(_index).getTranslation();
@@ -77,23 +79,28 @@ public class DealerBean extends CommonBean {
 //        return CST_ITEM;
     }
     public String getTmDealer(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getAllTmDealer().get(_index);
-        return translationsMoves_.getVal(move_);
+        return allTmDealer.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String move_ = getAllTmDealer().get(_index);
+//        return translationsMoves_.getVal(move_);
     }
-    public StringList getAllTmDealer() {
-        DataBase data_ = getDataBase();
-        StringList moves_ = new StringList();
-        for (Integer s: dealer.getTechnicalMoves()) {
-            moves_.add(data_.getTm().getVal(s));
-        }
-        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return moves_;
+
+    public CustList<TranslatedKey> getAllTmDealer() {
+        return allTmDealer;
     }
+
+    //    public StringList getAllTmDealer() {
+//        DataBase data_ = getDataBase();
+//        StringList moves_ = new StringList();
+//        for (Integer s: dealer.getTechnicalMoves()) {
+//            moves_.add(data_.getTm().getVal(s));
+//        }
+//        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+//        return moves_;
+//    }
     public String clickTm(int _index) {
-        String move_ = getAllTmDealer().get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(allTmDealer.get(_index));
     }
 }

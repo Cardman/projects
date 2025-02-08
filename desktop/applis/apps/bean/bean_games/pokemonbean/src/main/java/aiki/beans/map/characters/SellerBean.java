@@ -1,23 +1,25 @@
 package aiki.beans.map.characters;
 
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.map.characters.Seller;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.*;
+import aiki.db.*;
+import aiki.map.characters.*;
+import code.util.*;
 
 public class SellerBean extends CommonBean {
 
-    private Seller seller;
     private CustList<TranslatedKey> items;
+    private CustList<TranslatedKey> allTm;
 
     @Override
     public void beforeDisplaying() {
-        seller = (Seller) getForms().getValPers(CST_PERSON);
-        items = listTrStringsIt(seller.getItems(),getDataBase(),getLanguage());
+        Seller seller_ = (Seller) getForms().getValPers(CST_PERSON);
+        items = listTrStringsIt(seller_.getItems(),getDataBase(),getLanguage());
+        DataBase data_ = getDataBase();
+        StringList moves_ = new StringList();
+        for (Integer s: seller_.getTm()) {
+            moves_.add(data_.getTm().getVal(s));
+        }
+        allTm = listTrStringsMv(moves_,data_,getLanguage());
     }
     public String getItem(int _index) {
         return items.get(_index).getTranslation();
@@ -77,23 +79,26 @@ public class SellerBean extends CommonBean {
 //        return CST_ITEM;
     }
     public String getTm(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getAllTm().get(_index);
-        return translationsMoves_.getVal(move_);
+        return allTm.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        String move_ = getAllTm().get(_index);
+//        return translationsMoves_.getVal(move_);
     }
-    public StringList getAllTm() {
-        DataBase data_ = getDataBase();
-        StringList moves_ = new StringList();
-        for (Integer s: seller.getTm()) {
-            moves_.add(data_.getTm().getVal(s));
-        }
-        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        return moves_;
+    public CustList<TranslatedKey> getAllTm() {
+        return allTm;
     }
+//    public StringList getAllTm() {
+//        DataBase data_ = getDataBase();
+//        StringList moves_ = new StringList();
+//        for (Integer s: seller.getTm()) {
+//            moves_.add(data_.getTm().getVal(s));
+//        }
+//        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+//        return moves_;
+//    }
     public String clickTm(int _index) {
-        String move_ = getAllTm().get(_index);
-        return tryRedirectMv(move_);
+        return tryRedirect(allTm.get(_index));
     }
 }

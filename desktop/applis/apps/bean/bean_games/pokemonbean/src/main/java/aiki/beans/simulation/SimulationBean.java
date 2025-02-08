@@ -20,7 +20,6 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
-import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.*;
 import aiki.game.fight.util.AvailableMovesInfos;
@@ -820,7 +819,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         return selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.REMOVE);
     }
     public String add() {
-        getForms().putPokedex(CST_POKEMON_SET_SIMU, new StringMap<PokemonData>());
+        getForms().putPokedex(CST_POKEMON_SET_SIMU, DictionaryComparatorUtil.buildPkData());
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
     public int[][] getImage(int _index) {

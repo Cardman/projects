@@ -1,12 +1,10 @@
 package aiki.beans.simulation;
 
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class SelectAbilityBeanSortedAbilitiesGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return BeanNatCommonLgNames.getStringArray(( (SelectAbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getSortedAbilities());
+        return PokemonStandards.getKeys(( (SelectAbilityBean) ((PokemonBeanStruct)_instance).getInstance()).sortedAbilitiesGet());
     }
 }

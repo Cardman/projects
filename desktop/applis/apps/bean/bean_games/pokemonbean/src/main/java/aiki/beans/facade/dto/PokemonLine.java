@@ -1,9 +1,10 @@
 package aiki.beans.facade.dto;
+import aiki.beans.TranslatedKey;
 import code.util.StringList;
 
 public final class PokemonLine {
     private String displayName;
-    private String name;
+    private TranslatedKey key;
     private StringList types;
     private int evolutions;
 
@@ -15,11 +16,15 @@ public final class PokemonLine {
         displayName = _displayName;
     }
     public String getName() {
-        return name;
+        return getKey().getKey();
     }
 
-    public void setName(String _name) {
-        name = _name;
+    public TranslatedKey getKey() {
+        return key;
+    }
+
+    public void setKey(TranslatedKey _k) {
+        this.key = _k;
     }
 
     public StringList getTypes() {

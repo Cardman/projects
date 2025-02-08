@@ -37,7 +37,6 @@ public class PokedexBean extends WithFilterBean {
     }
 
     public String clickLink(int _number) {
-        getForms().put(CST_PK, getPokedex().get(_number).getName());
-        return PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML;
+        return tryRedirect(getPokedex().get(_number).getKey());
     }
 }

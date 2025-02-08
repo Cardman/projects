@@ -1,9 +1,9 @@
 package aiki.beans.abilities;
 
+import aiki.beans.*;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
-import code.util.CustList;
-import code.util.core.StringUtil;
+import code.scripts.confs.*;
+import code.util.*;
 import org.junit.Test;
 
 public final class AbilitiesBeanTest extends InitDbAbilities {
@@ -26,10 +26,10 @@ public final class AbilitiesBeanTest extends InitDbAbilities {
         NaSt bean_ = dispAllAbilities(feedDb());
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML, navigateAbilitiesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ABILITIES_SET));
-        CustList<String> keys_ = forms(bean_).getValAbilityData(CST_ABILITIES_SET).getKeys();
+        CustList<TranslatedKey> keys_ = forms(bean_).getValAbilityData(CST_ABILITIES_SET).getKeys();
         assertEq(2,keys_.size());
-        assertTrue(StringUtil.contains(keys_,A_ABILITY));
-        assertTrue(StringUtil.contains(keys_,A_ABILITY2));
+        assertEq(A_ABILITY,keys_.get(0).getKey());
+        assertEq(A_ABILITY2,keys_.get(1).getKey());
     }
     @Test
     public void search2() {
@@ -37,9 +37,9 @@ public final class AbilitiesBeanTest extends InitDbAbilities {
         callAbilitiesBeanTypedAbilitySet(bean_,A_ABILITY_TR);
         assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML, navigateAbilitiesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ABILITIES_SET));
-        CustList<String> keys_ = forms(bean_).getValAbilityData(CST_ABILITIES_SET).getKeys();
+        CustList<TranslatedKey> keys_ = forms(bean_).getValAbilityData(CST_ABILITIES_SET).getKeys();
         assertEq(1,keys_.size());
-        assertTrue(StringUtil.contains(keys_,A_ABILITY));
+        assertEq(A_ABILITY,keys_.get(0).getKey());
     }
     @Test
     public void clickLink() {

@@ -2,10 +2,8 @@ package aiki.beans;
 import aiki.beans.facade.simulation.enums.*;
 import aiki.comparators.*;
 import aiki.facade.*;
-import aiki.fight.abilities.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
-import aiki.fight.pokemon.*;
 import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
@@ -69,7 +67,7 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
         return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
     public String clickAbilities() {
-        getForms().putAbilities(CST_ABILITIES_SET, new StringMap<AbilityData>());
+        getForms().putAbilities(CST_ABILITIES_SET, DictionaryComparatorUtil.buildAbilitiesData());
         return PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML;
     }
     public String clickStatus() {
@@ -81,7 +79,7 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
         return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
     }
     public String clickPokedex() {
-        getForms().putPokedex(CST_POKEMON_SET, new StringMap<PokemonData>());
+        getForms().putPokedex(CST_POKEMON_SET, DictionaryComparatorUtil.buildPkData());
         return PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML;
     }
     public String clickSimulation() {
