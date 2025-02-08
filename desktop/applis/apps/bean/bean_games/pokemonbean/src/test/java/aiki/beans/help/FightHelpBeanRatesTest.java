@@ -30,6 +30,7 @@ public final class FightHelpBeanRatesTest extends InitDbFightHelp {
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         f_.getData().setCombos(Instances.newCombos());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedDiffWinPts().addEntry(EN,new IdMap<DifficultyWinPointsFight,String>());
         f_.getData().getTranslatedDiffWinPts().getVal(EN).addEntry(DifficultyWinPointsFight.FACILE,"U");
         return f_;

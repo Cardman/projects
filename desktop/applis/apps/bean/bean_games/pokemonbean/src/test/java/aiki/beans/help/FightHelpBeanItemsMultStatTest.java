@@ -110,6 +110,8 @@ public final class FightHelpBeanItemsMultStatTest extends InitDbFightHelp {
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_STA,M_STA_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().setCombos(Instances.newCombos());
         return f_;
     }

@@ -30,6 +30,7 @@ public final class FightHelpBeanBoostsTest extends InitDbFightHelp {
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().setRateBoost(VAR_PREFIX+ MessagesDataBaseConstants.DEF_BOOST+"+1");
         StringMap<String> litteral_ = new StringMap<String>();
         litteral_.addEntry(MessagesDataBaseConstants.DEF_BOOST, StringUtil.concat("_",TAB,"b",TAB,"_"));

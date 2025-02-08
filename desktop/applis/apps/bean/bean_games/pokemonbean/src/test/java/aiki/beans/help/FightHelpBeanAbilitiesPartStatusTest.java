@@ -48,6 +48,7 @@ public final class FightHelpBeanAbilitiesPartStatusTest extends InitDbFightHelp 
         t_.getImmuStatusTypes().addEntry(NULL_REF,new StringList());
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedAbilities().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedAbilities().getVal(EN).addEntry(M_STA,M_STA_TR);

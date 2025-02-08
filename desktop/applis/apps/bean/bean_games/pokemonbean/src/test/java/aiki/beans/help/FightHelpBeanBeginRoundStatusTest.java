@@ -90,6 +90,7 @@ public final class FightHelpBeanBeginRoundStatusTest extends InitDbFightHelp {
         s_.setStatusType(StatusType.RELATION_UNIQUE);
         f_.getData().completeMembers(M_STA, s_);
         f_.getData().completeMembers(M_DAM_VAR, simple(StatusType.INDIVIDUEL));
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
@@ -107,6 +108,7 @@ public final class FightHelpBeanBeginRoundStatusTest extends InitDbFightHelp {
         s_.setStatusType(StatusType.RELATION_UNIQUE);
         f_.getData().completeMembers(M_STA, s_);
         f_.getData().completeMembers(M_DAM_VAR, simple(StatusType.INDIVIDUEL));
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
@@ -124,6 +126,7 @@ public final class FightHelpBeanBeginRoundStatusTest extends InitDbFightHelp {
         s_.setStatusType(StatusType.RELATION_UNIQUE);
         f_.getData().completeMembers(M_STA, s_);
         f_.getData().completeMembers(M_DAM_VAR, simple(StatusType.INDIVIDUEL));
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
@@ -141,6 +144,7 @@ public final class FightHelpBeanBeginRoundStatusTest extends InitDbFightHelp {
         s_.setStatusType(StatusType.RELATION_UNIQUE);
         f_.getData().completeMembers(M_STA, s_);
         f_.getData().completeMembers(M_DAM_VAR, simple(StatusType.INDIVIDUEL));
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);

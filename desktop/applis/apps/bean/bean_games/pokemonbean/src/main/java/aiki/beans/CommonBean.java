@@ -397,30 +397,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected String tryRedirect(TranslatedKey _tk) {
         return AbsRedirect.tryRedirect(this,_tk.getRedirect(),_tk.getKeyForm(),_tk.getDest());
     }
-    protected String tryRedirectAb(String _name) {
-        return tryRedirectAb(CST_ABILITY,_name, PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,"");
-    }
-    protected String tryRedirectAb(String _key, String _name, String _target, String _def) {
-        return AbsRedirect.tryRedirect(this,new RedirectAb(_name,_def),_key,_target);
-    }
-    protected String tryRedirectIt(String _name) {
-        return tryRedirectIt(CST_ITEM,_name,"","");
-    }
-    protected String tryRedirectIt(String _key, String _name, String _target, String _def) {
-        return AbsRedirect.tryRedirect(this,new RedirectIt(_name,_def,getDataBase().getItem(_name)),_key,_target);
-    }
-    protected String tryRedirectMv(String _name) {
-        return tryRedirectMv(CST_MOVE,_name, PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,"");
-    }
-    protected String tryRedirectMv(String _key, String _name, String _target, String _def) {
-        return AbsRedirect.tryRedirect(this,new RedirectMv(_name,_def),_key,_target);
-    }
-    protected String tryRedirectSt(String _name) {
-        return tryRedirectSt(CST_STATUS,_name, PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,"");
-    }
-    protected String tryRedirectSt(String _key, String _name, String _target, String _def) {
-        return AbsRedirect.tryRedirect(this,new RedirectSt(_name,_def),_key,_target);
-    }
 
     public StringMapObjectBase getBaseForms() {
         return baseForms;

@@ -57,6 +57,7 @@ public final class FightHelpBeanBerryUserTest extends InitDbFightHelp {
         f_.getData().completeMembers(M_STA, Instances.newBall());
         f_.getData().completeMembers(M_DAM_VAR, Instances.newBerry());
         f_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_STA,M_STA_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
@@ -69,6 +70,7 @@ public final class FightHelpBeanBerryUserTest extends InitDbFightHelp {
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newBall());
         f_.getData().completeMembers(M_DAM_VAR, Instances.newBerry());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_STA,M_STA_TR);

@@ -21,6 +21,7 @@ public final class FightHelpBeanVarRatesTest extends InitDbFightHelp {
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE,VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);

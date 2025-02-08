@@ -119,8 +119,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,AbilityData>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String,StatusBeginRoundAutoDamage> buildStatusAutoData(DataBase _data, String _language) {
-        return new DictionaryComparator<String,StatusBeginRoundAutoDamage>(_data.getTranslatedStatus().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,StatusBeginRoundAutoDamage> buildStatusAutoData() {
+        return new DictionaryComparator<TranslatedKey,StatusBeginRoundAutoDamage>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<TranslatedKey,Rate> buildStatusRate() {
@@ -287,24 +287,14 @@ public final class DictionaryComparatorUtil {
     public static Comparing<Statistic> cmpStatistic(DataBase _data, String _language) {
         return new ComparatorTrWrapper<Statistic>().wrap(_data.getTranslatedStatistics().getVal(_language));
     }
-    public static Comparing<String> cmpAbilities(DataBase _data, String _language) {
-        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedAbilities().getVal(_language));
-    }
     public static Comparing<TranslatedKey> cmpAbilities() {
         return new ComparingTranslatedKey();
-    }
-    public static Comparing<String> cmpItems(DataBase _data, String _language) {
-        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedItems().getVal(_language));
     }
     public static Comparing<TranslatedKey> cmpItems() {
         return new ComparingTranslatedKey();
     }
     public static Comparing<String> cmpMoves(DataBase _data, String _language) {
         return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedMoves().getVal(_language));
-    }
-
-    public static Comparing<String> cmpStatus(DataBase _data, String _language) {
-        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedStatus().getVal(_language));
     }
 
     public static Comparing<String> cmpTypes(DataBase _data, String _language) {

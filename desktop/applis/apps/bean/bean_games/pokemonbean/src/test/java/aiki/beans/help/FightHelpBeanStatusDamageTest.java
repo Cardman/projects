@@ -60,6 +60,7 @@ public final class FightHelpBeanStatusDamageTest extends InitDbFightHelp {
         u_.setStatusType(StatusType.RELATION_UNIQUE);
         f_.getData().completeMembers(M_DAM_VAR, u_);
         f_.getData().completeMembers(M_DAM_BAD, Instances.newStatusBeginRoundSimple());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);

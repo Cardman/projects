@@ -64,6 +64,7 @@ public final class FightHelpBeanItemsSentBeginOtherTest extends InitDbFightHelp 
         w_.getEffectSending().add(e3_);
         f_.getData().completeMembers(M_WEA, w_);
         f_.getData().setCombos(Instances.newCombos());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_STA,M_STA_TR);

@@ -60,6 +60,7 @@ public final class FightHelpBeanItemsSentBeginWeatherTest extends InitDbFightHel
         f_.getData().completeMembers(M_DAM, i_);
         f_.getData().completeMembers(M_WEA, Instances.newItemForBattle());
         f_.getData().setCombos(Instances.newCombos());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_STA,M_STA_TR);

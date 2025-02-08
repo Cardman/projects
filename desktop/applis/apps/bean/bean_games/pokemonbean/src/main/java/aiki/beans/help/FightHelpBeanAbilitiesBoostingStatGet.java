@@ -1,12 +1,12 @@
 package aiki.beans.help;
 
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.*;
 import code.bean.nat.*;
 public class FightHelpBeanAbilitiesBoostingStatGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return BeanNatCommonLgNames.getStringArray(( (FightHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getAbilitiesBoostingStat());
+        return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getAbilitiesBoostingStat());
     }
 }

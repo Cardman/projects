@@ -1,19 +1,20 @@
 package aiki.beans.help;
 
+import aiki.beans.TranslatedKey;
 import aiki.facade.FacadeGame;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
-import code.util.StringList;
+import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
 public final class FightHelpBeanTypesTest extends InitDbFightHelp {
     @Test
     public void movesTypesDefWeatherInitTest() {
-        StringList ls_ = FightHelpBean.typesInit(db().getData(),EN);
+        CustList<TranslatedKey> ls_ = FightHelpBean.typesInit(db().getData(),EN);
         assertEq(2,ls_.size());
-        assertEq(T_TYPE1_TR,ls_.get(0));
-        assertEq(T_TYPE2_TR,ls_.get(1));
+        assertEq(T_TYPE1_TR,ls_.get(0).getTranslation());
+        assertEq(T_TYPE2_TR,ls_.get(1).getTranslation());
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();

@@ -1,6 +1,6 @@
 package aiki.beans.help;
 
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
 import code.bean.nat.*;

@@ -51,6 +51,7 @@ public final class FightHelpBeanAbilitiesAchieveTargetTest extends InitDbFightHe
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedAbilities().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedAbilities().getVal(EN).addEntry(M_STA,M_STA_TR);
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         return f_;
     }
 }
