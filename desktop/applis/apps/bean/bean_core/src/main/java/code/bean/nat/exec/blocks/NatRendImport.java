@@ -14,13 +14,10 @@ public final class NatRendImport extends NatParentBlock {
 
     private final CustList<NatExecOperationNode> textPart;
 
-    private final BeanNatCommonLgNames natImpLgNames;
-
     private final CustList<CustList<NatExecOperationNode>> fields;
     private final AbstractNatBlockBuilder bu;
-    public NatRendImport(CustList<NatExecOperationNode> _textPart, BeanNatCommonLgNames _natImpLgNames, CustList<CustList<NatExecOperationNode>> _f, AbstractNatBlockBuilder _builder) {
+    public NatRendImport(CustList<NatExecOperationNode> _textPart, CustList<CustList<NatExecOperationNode>> _f, AbstractNatBlockBuilder _builder) {
         this.textPart = _textPart;
-        natImpLgNames = _natImpLgNames;
         fields = _f;
         bu = _builder;
     }
@@ -33,11 +30,11 @@ public final class NatRendImport extends NatParentBlock {
             return;
         }
         String pageName_ = BeanNatCommonLgNames.processString(BeanNatCommonLgNames.getAllArgs(textPart,_rendStack).lastValue().getArgument());
-        NatDocumentBlock val_ = natImpLgNames.getRenders().getVal(pageName_);
+        NatDocumentBlock val_ = _rendStack.getCurrent().getRenders().getVal(pageName_);
         String beanName_ = val_.getBeanName();
-        NaSt newBean_ = natImpLgNames.getBeansStruct().getVal(beanName_);
+        NaSt newBean_ = _rendStack.getCurrent().getBeansStruct().getVal(beanName_);
         NaSt mainBean_ = _rendStack.getMainBean();
-        natImpLgNames.setBeanForms(mainBean_,
+        _rendStack.getCurrent().setBeanForms(mainBean_,
                 newBean_);
         for (CustList<NatExecOperationNode> l:fields) {
             ip_.setInternGlobal(newBean_);

@@ -439,6 +439,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             builder.breakLine();
         }
     }
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+    }
 
     protected void init(FacadeGame _facade, StringMapObject _form) {
         setDataBase(_facade);

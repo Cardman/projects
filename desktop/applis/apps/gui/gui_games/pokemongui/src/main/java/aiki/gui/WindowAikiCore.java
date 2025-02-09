@@ -48,7 +48,7 @@ public final class WindowAikiCore {
         api = _list;
         lastSavedGameDate = _list.getCompoFactory().newPlainLabel("");
         setTileRender(new DefTileRender());
-        facade = new FacadeGame();
+        facade = _fact.getFacade();
         facade.setLanguages(_list.getLanguages());
         facade.setDisplayLanguages(_list.getDisplayLanguages());
         facade.setSimplyLanguage(_list.getLanguage());

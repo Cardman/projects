@@ -163,6 +163,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     }
     public void initializeRendSessionDoc(NatNavigation _nav) {
         NatRendStackCall rendStackCall_ = newNatRendStackCall();
+        rendStackCall_.setCurrent(this);
         initializeRendSessionDoc(_nav, rendStackCall_);
     }
     public void initializeRendSessionDoc(NatNavigation _nav, NatRendStackCall _rendStackCall) {

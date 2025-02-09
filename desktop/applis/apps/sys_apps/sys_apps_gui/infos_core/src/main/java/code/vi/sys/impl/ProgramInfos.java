@@ -146,6 +146,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
         fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.enData());
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.frData());
         en_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,MessagesTrs.enPart());
         fr_.getMapping().addEntry(MessagesDataBaseConstants.SC_APP,MessagesTrs.frPart());
         MessagesApplications.tr(MessagesApplications.initAppliTr(en_));

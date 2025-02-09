@@ -13,6 +13,7 @@ public final class MessagesPkBean {
     public static final String POKEMON = "pokemon";
     public static final String GAMEPROG = "gameprog";
     public static final String DIFFICULTY = "difficulty";
+    public static final String SIMULATION = "simulation/simulation";
     private MessagesPkBean() {
 
     }

@@ -2,8 +2,10 @@ package aiki.beans.simulation;
 
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.db.DataBase;
+import aiki.facade.*;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.game.fight.Fighter;
+import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
@@ -1716,6 +1718,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void exit() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,quit());
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,quit());
+    }
+    @Test
+    public void heart() {
+        assertEq("",navigateDiffChange(callChange(beanDiffDis(EN),DifficultyWinPointsFight.FACILE.getWinName())));
     }
 }

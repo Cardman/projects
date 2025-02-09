@@ -1,8 +1,6 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
-import aiki.beans.DifficultyCommon;
-import aiki.beans.WithDifficultyCommon;
+import aiki.beans.*;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorRadioLineMoves;
 import aiki.beans.facade.dto.KeptMovesAfterFight;
@@ -13,10 +11,12 @@ import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.beans.game.*;
 import aiki.beans.moves.MovesBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.game.UsesOfMove;
@@ -42,13 +42,14 @@ import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class SimulationBean extends CommonBean  implements WithDifficultyCommon {
+public class SimulationBean extends CommonBean  implements WithDifficultyCommon, BeanRenderWithAppName {
     private final DifficultyCommon difficultyCommon = new DifficultyCommon();
     private CustList<PlaceIndex> places = new CustList<PlaceIndex>();
 
@@ -108,9 +109,41 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     private int stepNumber;
     private boolean ok;
     private boolean displayIfError;
+    private final DifficultyBeanForm form = new DifficultyBeanForm();
+    private IntBeanChgLong nbTeamsField;
+    private IntBeanChgSubmit updateValues;
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        SimulationSteps simu_ = getForms().getValSimStep(CST_SIMULATION_STATE);
+        if (simu_ == SimulationSteps.DIFF) {
+            form.displayDiff(getBuilder().getGenInput(), this, getDifficultyCommon(), MessagesPkBean.DIFFICULTY);
+            formatMessage(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_FREE_TEAMS);
+            nbTeamsField = getBuilder().getGenInput().newLong();
+            getNbTeamsField().valueLong(0);
+            updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON));
+            getUpdateValues().addEvt(new SimulationBeanValidDiffFormEvent(this, form));
+        }
+    }
+
+    public DifficultyBeanForm getForm() {
+        return form;
+    }
+
+    public IntBeanChgSubmit getUpdateValues() {
+        return updateValues;
+    }
+
+    public IntBeanChgLong getNbTeamsField() {
+        return nbTeamsField;
+    }
 
     @Override
     public void beforeDisplaying() {
+        if (!getForms().contains(CST_SIMULATION_STATE)) {
+            getForms().put(CST_SIMULATION_STATE,SimulationSteps.DIFF);
+        }
         SimulationSteps simu_ = getForms().getValSimStep(CST_SIMULATION_STATE);
         if (simu_ == SimulationSteps.DIFF) {
 
@@ -1407,7 +1440,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         getForms().removeKey(CST_COORDS);
         stepNumber = 0;
         ok = true;
-        return PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML;
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
 

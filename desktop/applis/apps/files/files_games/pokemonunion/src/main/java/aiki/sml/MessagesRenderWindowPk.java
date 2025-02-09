@@ -26,6 +26,7 @@ public final class MessagesRenderWindowPk {
     public static final String TITLE_DIFFICULTY = "20";
     public static final String TITLE_WEB = "21";
     public static final String ZIP_LOAD = "22";
+    public static final String SIMULATION = "23";
     private MessagesRenderWindowPk() {
     }
     public static TranslationsFile en(){
@@ -53,6 +54,7 @@ public final class MessagesRenderWindowPk {
         e_.add(TITLE_DIFFICULTY,"Difficulty");
         e_.add(TITLE_WEB,"Data for the current loaded archive");
         e_.add(ZIP_LOAD,"Load zipped game");
+        e_.add(SIMULATION,"Simulation of fights");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -80,6 +82,7 @@ public final class MessagesRenderWindowPk {
         f_.add(TITLE_DIFFICULTY,"Difficulté");
         f_.add(TITLE_WEB,"Données pour l'archive chargée courante");
         f_.add(ZIP_LOAD,"Charger un jeu archivé");
+        f_.add(SIMULATION,"Simulation de combats");
         return f_;
     }
 }

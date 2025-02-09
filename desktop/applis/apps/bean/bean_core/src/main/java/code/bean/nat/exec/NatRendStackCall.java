@@ -14,6 +14,7 @@ public class NatRendStackCall {
 
     private NaSt mainBean;
 
+    private BeanNatCommonLgNames current;
     public void init() {
         document = null;
     }
@@ -61,4 +62,11 @@ public class NatRendStackCall {
         return getLastPage().getInternGlobal();
     }
 
+    public BeanNatCommonLgNames getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(BeanNatCommonLgNames _c) {
+        this.current = _c;
+    }
 }

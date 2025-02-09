@@ -5,6 +5,7 @@ import aiki.beans.db.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.simulation.enums.*;
 import aiki.beans.game.*;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.facade.enums.*;
@@ -33,6 +34,12 @@ import code.bean.nat.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesDataSimulation;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 
 public abstract class InitDbSimulation extends InitDbConstr {
@@ -1646,12 +1653,51 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         return init(pk_, all_, mappingToSimu());
     }
-
+    public static SimulationBean beanDiffDis(String _language) {
+        FacadeGame fac_ = db();
+        fac_.setLanguage(_language);
+        PkDiff stds_ = new PkDiff();
+        stds_.setDataBase(fac_);
+        SimulationBean b_ = new SimulationBean();
+        b_.setDataBase(fac_);
+        b_.setForms(new StringMapObject());
+        b_.setLanguage(_language);
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.en());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.fr());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(fac_);
+        b_.setBuilder(bu_);
+        b_.setAppName(MessagesPkBean.APP_BEAN_DATA);
+        b_.build(fac_,b_.getForms());
+        return b_;
+    }
+    public static SimulationBean callChange(SimulationBean _str, String _args) {
+//        inner(_str).setDiffWinningExpPtsFight(_args);
+        _str.getForm().getWinPointsFight().setupValue(_args);
+        return _str;
+    }
+    public static String navigateDiffChange(SimulationBean _str, long... _args) {
+        _str.getBuilder().getRenders().addEntry("",_str);
+        IntBeanAction intAct_ = ((AbsBeanChgSubmit) _str.getUpdateValues()).getEvts().get(0);
+        _str.getBuilder().build(intAct_);
+        return "";
+//        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
+    }
     private static NaSt init(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
         NaSt from_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         NaSt dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
         beforeDisplaying(from_);
-        NaSt simu_ = transitSimu(_pk, _all, _mapping, new WelcomeBeanClickSimulation(), from_);
+        NaSt simu_ = transitSimu(_pk, _all, _mapping, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML), from_);
         callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
         beforeDisplaying(dCom_);
         return simu_;
@@ -3424,7 +3470,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
         String url_ = navigateData(_caller, _first, _args);
         NaSt dest_ = _all.getVal(_mapping.getVal(url_));
         setFormsBy(_stds,dest_,_first);
-        beforeDisplaying(dest_);
+        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.en());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.fr());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_stds.getDataBase());
+        s_.setBuilder(bu_);
+        s_.setAppName(MessagesPkBean.APP_BEAN_DATA);
+        s_.build(_stds.getDataBase(), s_.getForms());
+//        beforeDisplaying(dest_);
         return dest_;
     }
     protected static Rate integration() {

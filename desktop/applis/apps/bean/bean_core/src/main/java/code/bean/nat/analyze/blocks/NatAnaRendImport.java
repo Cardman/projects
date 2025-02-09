@@ -1,6 +1,5 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.*;
 import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
@@ -14,12 +13,9 @@ public final class NatAnaRendImport extends NatAnaRendParentBlock implements Nat
 
     private NatOperationNode roots;
 
-    private final BeanNatCommonLgNames natImpLgNames;
-
     private final CustList<NatOperationNode> fields = new CustList<NatOperationNode>();
-    public NatAnaRendImport(Element _elt, BeanNatCommonLgNames _natImpLgNames) {
+    public NatAnaRendImport(Element _elt) {
         elt = _elt;
-        natImpLgNames = _natImpLgNames;
     }
 
     @Override
@@ -43,10 +39,6 @@ public final class NatAnaRendImport extends NatAnaRendParentBlock implements Nat
 
     public CustList<NatOperationNode> getFields() {
         return fields;
-    }
-
-    public BeanNatCommonLgNames getNatImpLgNames() {
-        return natImpLgNames;
     }
 
     public NatOperationNode getRoots() {

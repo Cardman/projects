@@ -2831,6 +2831,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static String getSampleRes(NatConfigurationCore _conf, NatDocumentBlock _rendDocumentBlock, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
+        _rendStackCall.setCurrent(_stds);
         return getRes(_conf,_rendDocumentBlock, _stds, _rendStackCall);
     }
 
@@ -2844,6 +2845,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static String getRes(NatConfigurationCore _conf, NatDocumentBlock _doc, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
+        _rendStackCall.setCurrent(_stds);
         return _stds.getRes(_doc, _conf, _rendStackCall,new NatImportingPage());
     }
 

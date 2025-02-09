@@ -7,6 +7,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -23,7 +24,7 @@ public abstract class InitDbWelcome extends InitDbConstr {
         return navigateData(new WelcomeBeanClickPokedex(),_str);
     }
     public static String navigateSimulation(NaSt _str) {
-        return navigateData(new WelcomeBeanClickSimulation(),_str);
+        return navigateData(new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str);
     }
     public static String navigateStatus(NaSt _str) {
         return navigateData(new WelcomeBeanClickStatus(),_str);
@@ -58,7 +59,7 @@ public abstract class InitDbWelcome extends InitDbConstr {
     }
 
     public static NaSt callWelcomeBeanClickSimulation(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickSimulation(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str,_args);
     }
 
     public static NaSt callWelcomeBeanClickStatus(NaSt _str, long... _args) {

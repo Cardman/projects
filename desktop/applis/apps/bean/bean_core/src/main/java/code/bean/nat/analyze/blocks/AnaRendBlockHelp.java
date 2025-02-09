@@ -193,7 +193,7 @@ public final class AnaRendBlockHelp {
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordMessage()))) {
             return new NatAnaRendMessage(_elt);
         }
-        return input(_prefix, _rendKeyWords, _elt, _builder,_caller);
+        return input(_prefix, _rendKeyWords, _elt, _builder);
     }
 
     private static NatAnaRendParentBlock collection(RendKeyWordsGroup _rendKeyWords, BeanNatCommonLgNames _caller, Element _elt) {
@@ -214,10 +214,10 @@ public final class AnaRendBlockHelp {
         );
     }
 
-    private static NatAnaRendBlock input(String _prefix, RendKeyWordsGroup _rendKeyWords, Element _elt, AbstractNatBlockBuilder _builder, BeanNatCommonLgNames _caller) {
+    private static NatAnaRendBlock input(String _prefix, RendKeyWordsGroup _rendKeyWords, Element _elt, AbstractNatBlockBuilder _builder) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordImport()))) {
-            return new NatAnaRendImport(_elt, _caller);
+            return new NatAnaRendImport(_elt);
         }
         return _builder.defBlock(_prefix, _rendKeyWords, _elt);
     }

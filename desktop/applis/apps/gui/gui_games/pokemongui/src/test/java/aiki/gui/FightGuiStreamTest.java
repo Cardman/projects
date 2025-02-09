@@ -1,6 +1,7 @@
 package aiki.gui;
 
 import aiki.beans.BeanRenderWithAppName;
+import aiki.beans.PkData;
 import aiki.db.*;
 import aiki.facade.enums.*;
 import aiki.fight.enums.*;
@@ -1119,7 +1120,14 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     }
     @Test
     public void menuRomOpened1() {
-        WindowAiki window_ = newGame();
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        prepareWebTask(fact_);
+        fact_.submitNavDataSimu(new PokemonStandardsSample());
+        gameTr(pr_);
+        WindowAiki window_ = window(pr_, fact_);
+        window_.setPreparedDataWebTask(fact_.getTaskNavData());
+        window_.setPreparedDataWebTaskSimu(fact_.getTaskNavDataSimu());
         updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
 //        prepareFightTask(window_);
@@ -1146,6 +1154,49 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
 //        prepareFightTask(window_);
         prepareWebTask(window_);
         window_.getRenderDataWeb().getCommonFrame().setVisible(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
+        assertTrue(window_.getCommonFrame().isVisible());
+    }
+    @Test
+    public void menuRomOpened3() {
+        MockProgramInfos pr_ = buildListLgs();
+        AikiFactory fact_ = pkFact(pr_);
+        prepareWebTask(fact_);
+        fact_.submitNavDataSimu(new PokemonStandardsSample());
+        gameTr(pr_);
+        WindowAiki window_ = window(pr_, fact_);
+        window_.setPreparedDataWebTask(fact_.getTaskNavData());
+        window_.setPreparedDataWebTaskSimu(fact_.getTaskNavDataSimu());
+        updateBase(window_.getFrames().getTranslations());
+        MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
+//        prepareFightTask(window_);
+        prepareWebTask(window_);
+        prepareWebTaskReal(window_);
+        window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
+        window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
+        updateBase(window_.getFrames().currentLg());
+        tryClick(window_.getCore().getZipLoad());
+        assertTrue(window_.getCommonFrame().isVisible());
+        window_.getCore().getAikiFactory().getTaskNavDataSimu().attendreResultat();
+//        window_.setPreparedDataWebTask(window_.getCore().getAikiFactory().getTaskNav());
+        window_.getRenderDataWebSimu().getSession().setNavCore(new NavigationCore());
+        window_.getDataWebSimu().getActionListeners().get(0).action();
+//        window_.getDataWeb().getActionListeners().get(0).action();
+        new LoadGame(window_,new ConcreteInteger()).run();
+        new OpeningGame(window_,new ConcreteInteger()).run();
+//        window_.getCore().getAikiFactory().submitNavPkNetTask(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),new NatNavigation())));
+//        window_.setPreparedPkNetTask(window_.getPreparedPkNetTask());
+//        window_.setPreparedPkNetTask(window_.getCore().getAikiFactory().getTaskNavPkNetTask());
+        window_.setTileRender(new DefTileRender());
+    }
+    @Test
+    public void menuRomOpened4() {
+        WindowAiki window_ = newGame();
+//        prepareFightTask(window_);
+        prepareWebTask(window_);
+        window_.getRenderDataWebSimu().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());

@@ -139,7 +139,7 @@ public final class NatRendForwardInfos {
             NatAnaRendImport f_ = (NatAnaRendImport) _current;
             CustList<NatExecOperationNode> part_ = NatRendForwardInfos.getExecutableNodes(f_.getRoots());
             CustList<CustList<NatExecOperationNode>> fs_ = NatRendForwardInfos.toExecPartExt(f_.getFields());
-            return new NatRendImport(part_, f_.getNatImpLgNames(), fs_,_builder);
+            return new NatRendImport(part_, fs_,_builder);
         }
         return _builder.toExec(_current);
     }

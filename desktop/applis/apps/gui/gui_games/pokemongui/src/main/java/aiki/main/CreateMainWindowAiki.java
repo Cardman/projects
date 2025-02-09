@@ -60,7 +60,6 @@ public final class CreateMainWindowAiki implements Runnable {
 //        prog_.run();
         window_.pack();
         window_.setVisible(true);
-        window_.setPreparedDataWebTask(aikiFactory.getTaskNavData());
         if (!withParam.isEmpty()) {
             window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, StreamFolderFile.getCurrentPath(list.getFileCoreStream()), withParam));
         } else {

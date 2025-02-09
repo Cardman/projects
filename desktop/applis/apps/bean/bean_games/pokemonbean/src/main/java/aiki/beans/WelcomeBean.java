@@ -47,6 +47,7 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
     }
     @Override
     public void beforeDisplaying() {
+        getForms().put(CST_SIMULATION_STATE, SimulationSteps.DIFF);
         DictionaryComparator<TranslatedKey, MoveData> data_ = DictionaryComparatorUtil.buildMovesData();
         for (EntryCust<String,MoveData> e: getDataBase().getView().entryList()) {
             data_.addEntry(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),e.getKey()),e.getValue());
@@ -84,9 +85,5 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
     public String clickPokedex() {
         getForms().putPokedex(CST_POKEMON_SET, DictionaryComparatorUtil.buildPkData());
         return PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML;
-    }
-    public String clickSimulation() {
-        getForms().put(CST_SIMULATION_STATE, SimulationSteps.DIFF);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 }

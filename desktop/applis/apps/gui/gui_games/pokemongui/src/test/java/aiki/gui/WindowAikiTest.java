@@ -173,6 +173,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         prepareWebTask(window_);
         window_.getCore().getAikiFactory().getTaskNavData().attendreResultat();
         window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
+        window_.getRenderDataWebSimu().getSession().setNavCore(new NavigationCore());
         window_.getBattle().getRenderDataFight().getSession().setNavCore(new NavigationCore());
         coreDataBaseFish(window_);
         tryClick(window_.getScenePanel().getTeam());

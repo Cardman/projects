@@ -150,6 +150,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     }
     public void processRendFormRequest(NatNavigation _nav) {
         NatRendStackCallAdv st_ = new NatRendStackCallAdv();
+        st_.setCurrent(this);
         st_.clearPages();
         st_.setDocument(_nav.getDocument());
         NatImportingPageAbs ip_ = new NatImportingPageForm();
@@ -333,6 +334,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     public void processRendAnchorRequest(NatNavigation _nav) {
         NatRendStackCall rendStackCall_ = new NatRendStackCallAdv();
+        rendStackCall_.setCurrent(this);
         processRendAnchorRequest(_nav, rendStackCall_);
     }
     public void processRendAnchorRequest(NatNavigation _nav, NatRendStackCall _rendStack) {

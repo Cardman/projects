@@ -140,6 +140,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private EnabledMenu dataGame;
 
     private final EnabledMenu dataWeb;
+    private final EnabledMenu dataWebSimu;
 
     private final EnabledMenu dataBattle;
 
@@ -176,6 +177,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //    private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
     private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
+    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTaskSimu;
 //    private AbstractThread preparedDataWebThread;
 //    private AbstractThread preparedFightThread;
 //    private AbstractThread preparedPkThread;
@@ -220,6 +222,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private AbsTaskEnabled taskEnabled;
     private final DialogHeros dialogHeros = new DialogHeros(getFrames(),this);
     private final FrameHtmlData renderDataWeb;
+    private final FrameHtmlData renderDataWebSimu;
     private final AbsActionListenerAct guardRender;
     private final LanguagesButtonsPair mainButton;
     public WindowAiki(AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _pair, AbstractImage _icon) {
@@ -229,6 +232,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
         dataWeb = _fact.getGeneralHelp();
+        dataWebSimu = _fact.getGeneralHelpSimu();
         fileSaveFrame = new FileSaveFrame(_list, modal);
 //        fileOpenFrame = new FileOpenFrame(_list, modal);
         fileOpenRomFrame = new FileOpenFrame(_list, modal);
@@ -237,6 +241,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         core = new WindowAikiCore(_fact,_list, resultFile);
         renderDataWeb = new FrameHtmlData(this, dataWeb);
+        renderDataWebSimu = new FrameHtmlData(this, dataWebSimu);
         GuiBaseUtil.choose(this, _list);
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list, this);
@@ -270,10 +275,13 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         difficulty = getCompoFactory().newMenuItem();
         battle = new FrontBattle(this, core.getFacade());
         battle.addMouseListener(new PkNonModalEvent(modal),new FrontClickEvent(battle));
+        setPreparedDataWebTaskSimu(_fact.getTaskNavDataSimu());
+        setPreparedDataWebTask(_fact.getTaskNavData());
         initMenuBar();
         core.getGameLoad().setEnabled(false);
         core.getGameSave().setEnabled(false);
         dataWeb.setEnabled(false);
+        dataWebSimu.setEnabled(false);
         dataBattle.setEnabled(false);
         newGame.setEnabled(false);
         difficulty.setEnabled(false);
@@ -364,6 +372,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //            dataWeb.setEnabled(true);
 //        }
         renderDataWeb.closeWindow();
+        renderDataWebSimu.closeWindow();
         getConsultHosts().getAbsDialog().setVisible(false);
         battle.getBattle().closeWindow();
         scenePanel.getPkDetailContent().getContent().setVisible(false);
@@ -511,6 +520,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         newGame.setText(messages.getVal(MessagesRenderWindowPk.NEW_GAME));
         //dataGame.setText(messages.getVal(NEW_GAME));
         dataWeb.setText(messages.getVal(MessagesRenderWindowPk.DATA_WEB));
+        dataWebSimu.setText(messages.getVal(MessagesRenderWindowPk.SIMULATION));
         dataBattle.setText(messages.getVal(MessagesRenderWindowPk.TITLE_BATTLE));
         difficulty.setText(messages.getVal(MessagesRenderWindowPk.CST_DIFFICULTY));
 //        lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
@@ -695,6 +705,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void afterLoadZip() {
         dataWeb.setEnabled(true);
+        dataWebSimu.setEnabled(true);
         newGame.setEnabled(true);
         core.getGameLoad().setEnabled(true);
         core.getGameSave().setEnabled(false);
@@ -820,8 +831,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        });
 //        dataWeb = getCompoFactory().newMenuItem();
         dataWeb.setAccelerator(GuiConstants.VK_F1,0);
-        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this));
+        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWeb(), getPreparedDataWebTask()));
         dataGame.addMenuItem(dataWeb);
+        dataWebSimu.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWebSimu(), getPreparedDataWebTaskSimu()));
+        dataGame.addMenuItem(dataWebSimu);
         dataBattle.setEnabled(false);
         dataBattle.setAccelerator(GuiConstants.VK_F2,0);
         dataBattle.addActionListener(new PkNonModalEvent(modal),new ShowDataFightEvent(this));
@@ -1094,6 +1107,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
         renderDataWeb.refresh();
         renderDataWeb.pack();
+        renderDataWebSimu.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
+        renderDataWebSimu.refresh();
+        renderDataWebSimu.pack();
 //        for (FrameHtmlData f: htmlDialogs) {
 //            f.setTitle(messages.getVal(TITLE_WEB));
 //            if (!f.getCommonFrame().isVisible()) {
@@ -1114,7 +1130,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     //EDT (mouse event, key event, ...) can not happen at the same time
-    public void showDataWeb() {
+    public void showDataWeb(FrameHtmlData _renderDataWeb, AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
 //        if (preparedDataWebThread == null || preparedDataWebThread.isAlive() || preparedDataWebTask == null) {
 //            return;
 //        }
@@ -1135,17 +1151,21 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        session_ = new RenderedPage(getCompoFactory().newAbsScrollPane(), getFrames(),new FixCharacterCaseConverter());
 //        session_.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
 //        FrameHtmlData dialog_ = new FrameHtmlData(this, dataWeb);
-        renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
+        _renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
 //        dialog_.setTitle(messages.getVal(TITLE_WEB));
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
-        renderDataWeb.initSessionLg(core.getFacade(),getPreparedDataWebTask(),core.getFacade().getLanguage());
-        renderDataWeb.pack();
+        _renderDataWeb.initSessionLg(core.getFacade(), _preparedDataWebTask,core.getFacade().getLanguage());
+        _renderDataWeb.pack();
 //        dialog_.initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
 //        htmlDialogs.add(dialog_);
     }
 
     public EnabledMenu getDataWeb() {
         return dataWeb;
+    }
+
+    public EnabledMenu getDataWebSimu() {
+        return dataWebSimu;
     }
 
     public void showGameProgressing() {
@@ -1177,7 +1197,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         if (battle.openedHtmlFrames()) {
             return true;
         }
-        return renderDataWeb.getCommonFrame().isVisible();
+        return renderDataWeb.getCommonFrame().isVisible() || renderDataWebSimu.getCommonFrame().isVisible();
 //        if (htmlDialogs.isEmpty()) {
 //            return false;
 //        }
@@ -1186,6 +1206,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public FrameHtmlData getRenderDataWeb() {
         return renderDataWeb;
+    }
+
+    public FrameHtmlData getRenderDataWebSimu() {
+        return renderDataWebSimu;
     }
 
     private void ecrireCoordonnees() {
@@ -1792,6 +1816,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public void setPreparedDataWebTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
         preparedDataWebTask = _preparedDataWebTask;
+    }
+
+    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDataWebTaskSimu() {
+        return preparedDataWebTaskSimu;
+    }
+
+    public void setPreparedDataWebTaskSimu(AbstractFutureParam<AikiNatLgNamesNavigation> _p) {
+        this.preparedDataWebTaskSimu = _p;
     }
 
     public IntTileRender getTileRender() {

@@ -1,7 +1,6 @@
 package aiki.gui;
 
-import aiki.beans.IntBeanAction;
-import aiki.beans.IntBeanBuilderHelper;
+import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.db.MessagesDataBaseConstants;
@@ -18,7 +17,6 @@ import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
 import code.gui.document.DefBeanChgSubmit;
-import aiki.beans.IntBeanChgSubmit;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
@@ -26,8 +24,7 @@ import code.mock.*;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractThread;
-import code.util.IdList;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
@@ -128,6 +125,14 @@ public abstract class EquallableAikiGuiUtil {
     public static void prepareWebTask(WindowAiki _window) {
         _window.getCore().getAikiFactory().submitNavData(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
         _window.setPreparedDataWebTask(_window.getCore().getAikiFactory().getTaskNavData());
+    }
+    public static void prepareWebTask(AikiFactory _window) {
+        _window.submitNavData(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+    }
+
+    public static void prepareWebTaskReal(WindowAiki _window) {
+        _window.getCore().getAikiFactory().submitNavDataSimu(new PokemonStandardsSample());
+        _window.setPreparedDataWebTaskSimu(_window.getCore().getAikiFactory().getTaskNavDataSimu());
     }
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
