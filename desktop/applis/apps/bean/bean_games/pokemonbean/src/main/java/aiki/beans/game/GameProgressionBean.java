@@ -54,33 +54,19 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
         displayBoolFalse(MessagesPkBean.GAMEPROG,getFinishedGame(),MessagesProgGameprog.M_P_95_NICKNAME,getNickname());
         displayBool(getFinishedGame(),CommonBean.FALSE_VALUE,getHeroImage());
         feedParents();
-        nextPart();
         build(getNotAtAllFamiliesBase(),file().getVal(MessagesProgGameprog.M_P_95_TITLENOTATALL));
-        feedParents();
-        nextPart();
         buildPart(file().getVal(MessagesProgGameprog.M_P_95_TITLEPART));
-        feedParents();
-        nextPart();
         build(getFullFamiliesBase(),file().getVal(MessagesProgGameprog.M_P_95_TITLEFULL));
-        feedParents();
-        nextPart();
         displayTrainerPlaceNamesList(MessagesPkBean.GAMEPROG,getUnBeatenImportantTrainers(),MessagesProgGameprog.M_P_95_UNBEATTRAINER);
-        nextPart();
         displayTrainerPlaceNamesList(MessagesPkBean.GAMEPROG,getBeatenImportantTrainers(),MessagesProgGameprog.M_P_95_BEATTRAINER);
-        nextPart();
-        display(MessagesPkBean.GAMEPROG,getRemainingOtherTrainerPlaces(),MessagesProgGameprog.M_P_95_OTHERTRAINERS);
-        initGrid();
-        headerCols(MessagesPkBean.GAMEPROG,getRemainingOtherTrainerPlaces(),MessagesProgGameprog.M_P_95_OTHERTRAINERSPLACE,MessagesProgGameprog.M_P_95_OTHERTRAINERSNUMBER);
+        displayHead(getRemainingOtherTrainerPlaces(),MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_OTHERTRAINERS,MessagesProgGameprog.M_P_95_OTHERTRAINERSPLACE,MessagesProgGameprog.M_P_95_OTHERTRAINERSNUMBER);
         for (EntryCust<Integer,PlaceNamePk> e: getRemainingOtherTrainerPlaces().entryList()) {
             formatMessageDirCts(e.getValue().getName());
             formatMessageDirCts(Long.toString(e.getValue().getIndex()));
         }
         feedParents();
-        nextPart();
         displayStringList(MessagesPkBean.GAMEPROG,getUnVisitedPlaces(),MessagesProgGameprog.M_P_95_UNVISITPLACE);
-        nextPart();
         displayStringList(MessagesPkBean.GAMEPROG,getVisitedPlaces(),MessagesProgGameprog.M_P_95_VISITPLACE);
-        nextPart();
         initPage();
         formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NBREMPKLEVEL,Long.toString(getNbRemainingNotMaxLevel()));
         formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NBREMPKHAPPINESS,Long.toString(getNbRemainingNotMaxHappiness()));
@@ -98,7 +84,6 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
             initGrid();
             int s_ = e.getValue().size();
             getBuilder().colCount(s_);
-            nextPart();
             for (CustList<ImgPkPlayer> s:e.getValue()) {
                 initPage();
                 buildPkList(s);
@@ -107,6 +92,7 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
             feedParents();
             feedParents();
         }
+        feedParents();
     }
 
     private void buildPart(String _title) {
@@ -121,14 +107,12 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
             int s_ = e_.getValue().size();
             getBuilder().colCount(s_+1);
             formatMessageCts(MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_NOTCAUGHTPKCAUGHTNOTPART);
-            nextPart();
             for (int j = 0; j < s_; j++) {
                 initPage();
                 buildPkList(e_.getValue().get(j));
                 feedParentsCts();
             }
             formatMessageCts(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NOTCAUGHTPKCAUGHTPART);
-            nextPart();
             for (int j = 0; j < s_; j++) {
                 initPage();
                 buildPkList(getPartialFamiliesBaseCaught().getValue(i).get(j));
@@ -137,6 +121,7 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
             feedParents();
             feedParents();
         }
+        feedParents();
     }
 
     public StringMap<String> file() {

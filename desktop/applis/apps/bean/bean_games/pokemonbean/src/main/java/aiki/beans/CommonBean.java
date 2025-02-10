@@ -394,7 +394,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         }
         return DataBase.EMPTY_STRING;
     }
-    protected String tryRedirect(TranslatedKey _tk) {
+    public String tryRedirect(TranslatedKey _tk) {
         return AbsRedirect.tryRedirect(this,_tk.getRedirect(),_tk.getKeyForm(),_tk.getDest());
     }
 
@@ -407,36 +407,25 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     protected void displayStringList(String _file, CustList<String> _list, String _key) {
-        builder.breakLine();
         display(_file, _list, _key);
         displayStringList(_list);
     }
 
     protected void displayStringList(CustList<String> _list) {
-        for (String i: _list) {
-            nextPart();
-            builder.initLine();
-            paintMetaLabelDisk();
-            builder.formatMessageDir(i);
-            builder.feedParents();
-            builder.breakLine();
-        }
+        new BeanDisplayList<String>(new BeanDisplayString()).display(this,_list);
     }
 
     protected void displayTrainerPlaceNamesList(String _file, CustList<TrainerPlaceNames> _list, String _key) {
-        builder.breakLine();
         display(_file, _list, _key);
         displayTrainerPlaceNamesList(_list);
     }
 
     protected void displayTrainerPlaceNamesList(CustList<TrainerPlaceNames> _list) {
         for (TrainerPlaceNames i: _list) {
-            nextPart();
             builder.initLine();
             paintMetaLabelDisk();
             builder.formatMessageDir(i.getTrainer()+" - "+i.getPlace());
             builder.feedParents();
-            builder.breakLine();
         }
     }
     public void build(FacadeGame _facade, StringMapObject _form) {
@@ -468,6 +457,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 
     public void formatMessageAnc(IntBeanAction _e,String _file, String _key, String... _values) {
         builder.formatMessageAnc(getAppName(),_e,_file,_key,_values);
+        nextPart();
     }
 
     public void buildPkList(String _file, String _key, CustList<ImgPkPlayer> _list) {
@@ -477,15 +467,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public void buildPkList(CustList<ImgPkPlayer> _list) {
-        for (ImgPkPlayer i: _list) {
-            nextPart();
-            initLine();
-            paintMetaLabelDisk();
-            builder.addImg(i.getImage());
-            builder.formatMessageDir(i.getKey().getTranslation());
-            builder.feedParents();
-            builder.breakLine();
-        }
+        new BeanDisplayList<ImgPkPlayer>(new BeanDisplayImgPkPlayer()).display(this,_list);
     }
 
     public void setTitledBorder(String _title){
@@ -503,10 +485,16 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         builder.initPage();
     }
 
+    public void displayHead(Countable _info, String _file, String _keyTitle, String... _cols) {
+        display(_file, _info, _keyTitle);
+        initGrid();
+        headerCols(_file, _info, _cols);
+    }
+
     public void display(String _file, Countable _ls, String _key) {
-        if (!_ls.isEmpty()) {
+        if (!_ls.isEmpty() && !_key.isEmpty()) {
             builder.formatMessage(getAppName(),_file,_key);
-            builder.breakLine();
+            builder.breakNext();
         }
     }
     public void headerCols(String _file, Countable _ls, String... _cols) {
@@ -558,6 +546,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public void formatMessageCts(String _file, String _key, String... _values) {
         String txt_ = builder.formatMessageRend(getAppName(), _file, _key, _values);
         builder.formatMessageDirCts(txt_);
+        builder.nextPart();
     }
 
     public String formatMessageRend(String _file, String _key, String... _values) {
@@ -617,9 +606,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public void headerCol(String _file, String _key) {
         String txt_ = builder.formatMessageRend(getAppName(), _file, _key);
         builder.formatMessageDirCtsHeader(txt_);
-    }
-    public void breakLine() {
-        builder.breakLine();
     }
     public IntBeanBuilderHelper getBuilder() {
         return builder;

@@ -54,11 +54,9 @@ public final class DifficultyBeanForm {
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_PLAYER);
         damageRatePlayer = select(_genInput,_rend, _common.getDamageRates(), _common.getDamageRatePlayer());
         tableView(_rend, _file, _common.getDamageRatePlayerTable());
-        _rend.feedParents();
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_FOE);
         damageRateLawFoe = select(_genInput,_rend, _common.getDamageRates(), _common.getDamageRateLawFoe());
         tableView(_rend, _file, _common.getDamageRateFoeTable());
-        _rend.feedParents();
     }
 
     public void update(DifficultyCommon _common) {
@@ -79,10 +77,7 @@ public final class DifficultyBeanForm {
         _common.setDamageRateLawFoe(damageRateLawFoe.tryRet());
     }
     private void tableView(CommonBean _rend, String _file, DictionaryComparator<Rate, Rate> _info) {
-        _rend.initGrid();
-        _rend.headerCols(_file, _info,MessagesGameDifficulty.M_P_93_RATE_DAMAGE_EV,MessagesGameDifficulty.M_P_93_RATE_DAMAGE);
-        new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).display(_rend, _info);
-        _rend.nextPart();
+        new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(_rend, _info,_file,"",MessagesGameDifficulty.M_P_93_RATE_DAMAGE_EV,MessagesGameDifficulty.M_P_93_RATE_DAMAGE);
     }
 
     private IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, boolean _value) {

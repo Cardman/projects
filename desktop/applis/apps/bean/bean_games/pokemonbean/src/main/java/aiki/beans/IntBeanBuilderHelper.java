@@ -36,6 +36,7 @@ public abstract class IntBeanBuilderHelper {
     private void incr() {
         colCount.add(0);
         colIndex.add(0);
+        breakNext();
     }
     public void feedParentsCts(){
         decr();
@@ -47,6 +48,12 @@ public abstract class IntBeanBuilderHelper {
     public void decr() {
         colCount.removeQuicklyLast();
         colIndex.removeQuicklyLast();
+        breakNext();
+    }
+
+    public void breakNext() {
+        breakLine();
+        nextPart();
     }
 
     public abstract void setTitledBorder(String _title);

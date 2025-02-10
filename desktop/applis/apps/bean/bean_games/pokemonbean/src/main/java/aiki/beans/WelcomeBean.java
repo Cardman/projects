@@ -28,18 +28,15 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
         element(MessagesDataIndex.M_P_15_ENDROUND);
         element(MessagesDataIndex.M_P_15_MAP);
         element(MessagesDataIndex.M_P_15_SOLUTION);
-        element(MessagesDataIndex.M_P_15_SIMULATION);
         element(MessagesDataIndex.M_P_15_LANGS);
         feedParents();
     }
 
     private void element(String _key) {
-        nextPart();
         initLine();
         paintMetaLabelDisk();
         formatMessage(MessagesPkBean.INDEX, _key);
         feedParents();
-        breakLine();
     }
 
     public StringMap<String> file() {

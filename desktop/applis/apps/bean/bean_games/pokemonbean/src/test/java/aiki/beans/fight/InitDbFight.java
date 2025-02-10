@@ -2,6 +2,7 @@ package aiki.beans.fight;
 
 import aiki.beans.*;
 import aiki.beans.facade.fight.*;
+import aiki.beans.game.ImgPkPlayer;
 import aiki.comparators.DictionaryComparator;
 import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
@@ -163,21 +164,21 @@ public abstract class InitDbFight extends InitDbBean {
     public static ImgMovesListTeamPositionsList eltImg(CustList<ImgMovesListTeamPositionsList> _ls, int _v) {
         return _ls.get(_v);
     }
-    public static FighterImgPkNameMv eltFighterImg(CustList<FighterImgPkNameMv> _ls, int _v) {
+    public static ImgPkPlayer eltFighterImg(CustList<ImgPkPlayer> _ls, int _v) {
         return _ls.get(_v);
     }
-    public static CustList<FighterImgPkNameMv> firstImg(ImgMovesListTeamPositionsList _e) {
+    public static CustList<ImgPkPlayer> firstImg(ImgMovesListTeamPositionsList _e) {
         return _e.getKeyPks();
     }
     public static TeamPositionList secondImg(ImgMovesListTeamPositionsList _e) {
         return _e.getTeamPositions();
     }
-    public static String callFighterNamePkNameMvNameMvGet(FighterImgPkNameMv _str, int... _args) {
-        return _str.getNameMvTr();
+    public static String callFighterNamePkNameMvNameMvGet(ImgPkPlayer _str, int... _args) {
+        return _str.getKey().getTranslation();
     }
 
-    public static int[][] callFighterNamePkNameMvNamePkGet(FighterImgPkNameMv _str, int... _args) {
-        return _str.getImagePk();
+    public static int[][] callFighterNamePkNameMvNamePkGet(ImgPkPlayer _str, int... _args) {
+        return _str.getImage();
     }
 
     public static StringList callFightCalculationBeanSortedFightersGet(FightCalculationBean _str, int... _args) {

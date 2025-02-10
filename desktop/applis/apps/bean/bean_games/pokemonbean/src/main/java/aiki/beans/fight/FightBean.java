@@ -27,22 +27,15 @@ public final class FightBean extends CommonFightBean {
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_FIGHT)));
         initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
-        nextPart();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_GO_DETAIL);
-        nextPart();
         formatMessageAnc(new BeanAnchorToTeamEvent(Fight.CST_PLAYER,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_YOURS);
-        nextPart();
         formatMessageAnc(new BeanAnchorToTeamEvent(Fight.CST_FOE,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOES);
-        nextPart();
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_MULT,Long.toString(getMult()));
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_NB_ROUNDS,getNbRounds().toNumberString());
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_NB_FLEE_ATTEMPTS,Long.toString(getNbFleeAttempt()));
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_WIN_MONEY,getWinningMoney().toNumberString());
         feedParents();
-        nextPart();
-        display(MessagesPkBean.FIGHT,getEnabledMoves(),MessagesFightFight.M_P_90_ENBALED_MOVES);
-        initGrid();
-        headerCols(MessagesPkBean.FIGHT,getEnabledMoves(), MessagesFightFight.M_P_90_ENBALED_MOVES_KEY, MessagesFightFight.M_P_90_ENBALED_MOVES_STILL, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED, MessagesFightFight.M_P_90_ENBALED_MOVES_NB_ROUND);
+        displayHead(getEnabledMoves(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ENBALED_MOVES, MessagesFightFight.M_P_90_ENBALED_MOVES_KEY, MessagesFightFight.M_P_90_ENBALED_MOVES_STILL, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED, MessagesFightFight.M_P_90_ENBALED_MOVES_NB_ROUND);
         int len_ = getEnabledMoves().size();
         for (int i = 0; i < len_; i++) {
             formatMessageDirCts(getEnabledMoves().getKey(i));

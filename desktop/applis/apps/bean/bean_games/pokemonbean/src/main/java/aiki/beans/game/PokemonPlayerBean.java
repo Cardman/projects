@@ -50,13 +50,10 @@ public final class PokemonPlayerBean extends CommonSingleBean implements BeanRen
         formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NAME, getName());
         addImg(getImage());
         feedParents();
-        nextPart();
-        breakLine();
         initLine();
         buildPkList(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_EVOLUTIONS, getEvolutions());
         feedParents();
         feedParents();
-        nextPart();
         initPage();
         formatMessage(MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_LEVEL,Long.toString(getLevel()));
         formatMessage(MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_GENDER,getGender());
@@ -71,19 +68,10 @@ public final class PokemonPlayerBean extends CommonSingleBean implements BeanRen
         formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_HAPPINESS,Long.toString(getHappiness()));
         formatMessage(MessagesPkBean.POKEMON, MessagesPkPokemon.M_P_94_NB_STEPS,Long.toString(getNbStepsTeamLead()));
         feedParents();
-        nextPart();
         displayStringList(MessagesPkBean.POKEMON, getTypes(), MessagesPkPokemon.M_P_94_TYPES);
         displayStringList(MessagesPkBean.POKEMON, getStatus(), MessagesPkPokemon.M_P_94_STATUS);
-        nextPart();
-        display(MessagesPkBean.POKEMON,getMoves(),MessagesPkPokemon.M_P_94_MOVES);
-        initGrid();
-        headerCols(MessagesPkBean.POKEMON,getMoves(), MessagesPkPokemon.M_P_94_MOVES_KEY, MessagesPkPokemon.M_P_94_MOVES_CUR_PP, MessagesPkPokemon.M_P_94_MOVES_MAX_PP);
-        new BeanDisplayMap<String,UsesOfMove>(new BeanDisplayString(),new BeanDisplayUsesOfMove()).display(this, getMoves());
-        feedParents();
-        nextPart();
-        display(MessagesPkBean.POKEMON,getStatistics(),MessagesPkPokemon.M_P_94_STATISTICS);
-        initGrid();
-        headerCols(MessagesPkBean.POKEMON,getStatistics(), MessagesPkPokemon.M_P_94_STATISTICS_KEY, MessagesPkPokemon.M_P_94_STATISTICS_EV, MessagesPkPokemon.M_P_94_STATISTICS_IV, MessagesPkPokemon.M_P_94_STATISTICS_RATE);
+        new BeanDisplayMap<String,UsesOfMove>(new BeanDisplayString(),new BeanDisplayUsesOfMove()).displayGrid(this, getMoves(),MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_MOVES, MessagesPkPokemon.M_P_94_MOVES_KEY, MessagesPkPokemon.M_P_94_MOVES_CUR_PP, MessagesPkPokemon.M_P_94_MOVES_MAX_PP);
+        displayHead(getStatistics(),MessagesPkBean.POKEMON,MessagesPkPokemon.M_P_94_STATISTICS, MessagesPkPokemon.M_P_94_STATISTICS_KEY, MessagesPkPokemon.M_P_94_STATISTICS_EV, MessagesPkPokemon.M_P_94_STATISTICS_IV, MessagesPkPokemon.M_P_94_STATISTICS_RATE);
         for (StatisticInfoPkPlayer e:getStatistics()) {
             formatMessageDirCts(e.getName());
             formatMessageDirCts(Long.toString(e.getEv()));
