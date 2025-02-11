@@ -43,9 +43,9 @@ public final class DifficultyBeanForm {
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_IV_FOE);
         ivFoe = iv(_genInput, _rend, _common.getIvFoe());
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_BASE);
-        rateWinMoneyBase = rate(_genInput, _rend, _common.getWinTrainerExp());
+        rateWinMoneyBase = rate(_genInput, _rend, _common.getRateWinMoneyBase());
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_LOOSE);
-        rateLooseMoneyWin = rate(_genInput, _rend, _common.getWinTrainerExp());
+        rateLooseMoneyWin = rate(_genInput, _rend, _common.getRateLooseMoneyWin());
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RESTORED_MOVES);
         restoredMovesEndFight = check(_genInput,_rend, _common.getRestoredMovesEndFight());
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_CLOSING);
