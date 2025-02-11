@@ -562,11 +562,15 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public void formatMessageDirCts(String _txt) {
-        builder.formatMessageDirCts(_txt);
+        formatMessageDirCts(new TranslatedKey(_txt,_txt));
     }
 
     public void formatMessageDirCts(TranslatedKey _txt) {
-        builder.formatMessageDirCts(_txt.getTranslation(),new EntityClickFormEvent(this,_txt));
+        if (_txt.getRedirect() != null) {
+            builder.formatMessageDirCts(_txt.getTranslation(),new EntityClickFormEvent(this,_txt));
+        } else {
+            builder.formatMessageDirCts(_txt.getTranslation());
+        }
     }
 
     public void feedParentsCts() {
