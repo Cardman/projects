@@ -20,18 +20,16 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    protected static final char NAV_SEP='.';
 
     public static void transit(PokemonStandards _stds, NatCaller _caller, NaSt _first, NaSt _second, long... _args) {
-        callLongs(_caller, _first, _args);
         setFormsBy(_stds,_second,_first);
+        callLongs(_caller, _first, _args);
         beforeDisplaying(_second);
     }
 
     public static void transit(PokemonStandards _stds, IntBeanAction _caller, NaSt _first, NaSt _second) {
         CommonBean s_ = (CommonBean) ((BeanStruct) _second).getBean();
         IntBeanBuilderHelper bu_ = s_.getBuilder();
-        bu_.build(_caller);
-        s_.build(_stds.getDataBase(), s_.getForms());
         setFormsBy(_stds,_second,_first);
-        beforeDisplaying(_second);
+        bu_.build(_caller);
     }
 
     public static StringMapObject forms(NaSt _str) {
