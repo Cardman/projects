@@ -181,7 +181,6 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return _caller.actionBean();
 //    }
     public static String navigateData(IntBeanAction _caller, NaSt _str) {
-        _caller.getBean();
         return _caller.actionBean();
     }
     public static NaSt callEffectWhileSendingBeanEffectSet(NaSt _str, NaSt _args) {
