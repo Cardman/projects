@@ -2,13 +2,12 @@ package aiki.beans.game;
 
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 public final class AikiBeansGameStd{
-    public static final String TYPE_DIFFICULTY_BEAN = "aiki.beans.game.DifficultyBean";
+//    public static final String TYPE_DIFFICULTY_BEAN = "aiki.beans.game.DifficultyBean";
     public static final String TYPE_DIFFICULTY_COMMON_BEAN = "aiki.beans.DiCo";
     public static final String BEAN_DIFFICULTY_COMMON = "difficulty_common";
-    private static final String CHANGE = "change";
+//    private static final String CHANGE = "change";
     private static final String D_WIN_POINTS_FIGHT = "winPointsFight";
     private static final String D_DIFF_WINNING_EXP_PTS_FIGHT = "diffWinningExpPtsFight";
     private static final String D_ALLOW_CATCHING_KO = "allowCatchingKo";
@@ -32,16 +31,16 @@ public final class AikiBeansGameStd{
     private static final String D_DAMAGE_RATE_FOE_TABLE = "damageRateFoeTable";
 
     private AikiBeansGameStd(){}
-
-    public static void buildDifficultyBean(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.DIFF_COMMON_HTML),null));
-        fields_.add(new StandardField("c", TYPE_DIFFICULTY_COMMON_BEAN, new DifficultyBeanComGet(),null));
-        methods_.add( new SpecNatMethod(CHANGE, BeanNatCommonLgNames.VOID, new DifficultyBeanChange()));
-        _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
-    }
+//
+//    public static void buildDifficultyBean(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
+//        fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.DIFF_COMMON_HTML),null));
+//        fields_.add(new StandardField("c", TYPE_DIFFICULTY_COMMON_BEAN, new DifficultyBeanComGet(),null));
+//        methods_.add( new SpecNatMethod(CHANGE, BeanNatCommonLgNames.VOID, new DifficultyBeanChange()));
+//        _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
+//    }
 
     public static void buildDifficultyCommonBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();

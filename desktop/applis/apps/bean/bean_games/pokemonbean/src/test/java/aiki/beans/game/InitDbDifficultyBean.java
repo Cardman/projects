@@ -1,30 +1,29 @@
 package aiki.beans.game;
 
 import aiki.beans.*;
+import aiki.beans.simulation.SimulationBean;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
-import code.bean.nat.analyze.NatConfigurationCore;
 //import code.formathtml.Configuration;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPagesInit;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsLg;
 
 public abstract class InitDbDifficultyBean extends InitDbBean {
-    public static String navigateDiffChange(NaSt _str, long... _args) {
-        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
-    }
+//    public static String navigateDiffChange(NaSt _str, long... _args) {
+//        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
+//    }
+//
+//    public static NaSt callChange(NaSt _str, String _args) {
+//        callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),inner(_str),_args);
+//        return _str;
+//    }
 
-    public static NaSt callChange(NaSt _str, String _args) {
-        callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),inner(_str),_args);
-        return _str;
-    }
-
-    public static String navigateDiff(NatCaller _caller, String _concat, NaSt _str, long... _args) {
-        PkScriptPagesInit.initConfDiff(new NatConfigurationCore());
-        return navigate(_caller, _concat,_str,_args);
-    }
+//    public static String navigateDiff(NatCaller _caller, String _concat, NaSt _str, long... _args) {
+//        PkScriptPagesInit.initConfDiff(new NatConfigurationCore());
+//        return navigate(_caller, _concat,_str,_args);
+//    }
 
     public static NaSt callDifficultyBeanDamageRateLawFoeSet(NaSt _str, String _args) {
         return callString(new DifficultyCommonBeanDamageRateLawFoeSet(),inner(_str),_args);
@@ -228,22 +227,50 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
 
     private static NaSt inner(NaSt _str) {
         DifficultyCommonBean b_ = new DifficultyCommonBean();
-        b_.setOwner(((DifficultyBean)((PokemonBeanStruct)_str).getInstance()).getDifficultyCommon());
+        b_.setOwner(((SimulationBean)((PokemonBeanStruct)_str).getInstance()));
         b_.beforeDisplaying();
         return new PokemonBeanStruct(b_);
     }
-
-    private static DifficultyCommonBean inner(DifficultyBean _str) {
-        DifficultyCommonBean b_ = new DifficultyCommonBean();
-        b_.setOwner(_str.getDifficultyCommon());
-        b_.beforeDisplaying();
-        return b_;
+//
+    private static DifficultyCommon inner(DifficultyBean _str) {
+//        DifficultyCommonBean b_ = new DifficultyCommonBean();
+//        b_.setOwner(_str.getDifficultyCommon());
+//        b_.beforeDisplaying();
+        return _str.getDifficultyCommon();
     }
 
     public static NaSt beanDiff(String _language, FacadeGame _dataBase) {
-        PkDiff stds_ = new PkDiff();
+        PkData stds_ = new PkData();
         stds_.setDataBase(_dataBase);
-        return stds_.beanDiff(_language);
+        return stds_.beanSimulationBean(_language);
+    }
+
+    public static NaSt beanSimu(String _language, FacadeGame _dataBase) {
+        PkData stds_ = new PkData();
+        stds_.setDataBase(_dataBase);
+        SimulationBean si_ = new SimulationBean();
+//        si_.getDifficultyCommon().
+        PokemonBeanStruct b_ = stds_.bean(si_, _language);
+        si_.beforeDisplaying();
+        si_.getDifficultyCommon().setRateWinningExpPtsFight(_dataBase.getGame().getDifficulty().getRateWinningExpPtsFight());
+        si_.getDifficultyCommon().setWinTrainerExp(_dataBase.getGame().getDifficulty().getWinTrainerExp());
+        si_.getDifficultyCommon().setRateWinMoneyBase(_dataBase.getGame().getDifficulty().getRateWinMoneyBase());
+        si_.getDifficultyCommon().setRateLooseMoneyWin(_dataBase.getGame().getDifficulty().getRateLooseMoneyWin());
+        si_.getDifficultyCommon().setDiffWinningExpPtsFight(_dataBase.getGame().getDifficulty().getDiffWinningExpPtsFight().getWinName());
+        si_.getDifficultyCommon().setDamageRatePlayer(_dataBase.getGame().getDifficulty().getDamageRatePlayer().getModelName());
+        si_.getDifficultyCommon().setDamageRateLawFoe(_dataBase.getGame().getDifficulty().getDamageRateLawFoe().getModelName());
+        si_.getDifficultyCommon().setEnabledClosing(_dataBase.getGame().getDifficulty().getEnabledClosing());
+        si_.getDifficultyCommon().setAllowCatchingKo(_dataBase.getGame().getDifficulty().getAllowCatchingKo());
+        si_.getDifficultyCommon().setAllowedSwitchPlacesEndRound(_dataBase.getGame().getDifficulty().getAllowedSwitchPlacesEndRound());
+        si_.getDifficultyCommon().setSkipLearningMovesWhileNotGrowingLevel(_dataBase.getGame().getDifficulty().isSkipLearningMovesWhileNotGrowingLevel());
+        si_.getDifficultyCommon().setStillPossibleFlee(_dataBase.getGame().getDifficulty().getStillPossibleFlee());
+        si_.getDifficultyCommon().setRandomWildFight(_dataBase.getGame().getDifficulty().getRandomWildFight());
+        si_.getDifficultyCommon().setEndFightIfOneTeamKo(_dataBase.getGame().getDifficulty().getEndFightIfOneTeamKo());
+        si_.getDifficultyCommon().setRestoredMovesEndFight(_dataBase.getGame().getDifficulty().getRestoredMovesEndFight());
+        si_.getDifficultyCommon().setIvPlayer(_dataBase.getGame().getDifficulty().getIvPlayer());
+        si_.getDifficultyCommon().setIvFoe(_dataBase.getGame().getDifficulty().getIvFoe());
+        si_.getDifficultyCommon().init(_dataBase.getData(),EN,_dataBase.getGame().getDifficulty());
+        return b_;
     }
     public static String navigateDiffChange(DifficultyBean _str, long... _args) {
         _str.getBuilder().getRenders().addEntry("",_str);
@@ -259,8 +286,6 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
     public static DifficultyBean beanDiffDis(String _language, FacadeGame _dataBase) {
         _dataBase.setLanguage(_language);
-        PkDiff stds_ = new PkDiff();
-        stds_.setDataBase(_dataBase);
         DifficultyBean b_ = new DifficultyBean();
         b_.setDataBase(_dataBase);
         b_.setForms(new StringMapObject());

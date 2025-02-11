@@ -652,14 +652,14 @@ public static final String DIFF_COMMON_HTML = "diff_common.html";
 //        rend_.add(REN_ADD_WEB_HTML_STATUS_STATUS_HTML);
 //        _d.setRenderFiles(rend_);
     }
-
-    public static void initAnaDiff(NatDualConfigurationContext _d){
-        StringMap<String> properties_ = new StringMap<String>(new CollCapacity(1));
-        properties_.addEntry(MSG_DIFFICULTY,DIFFICULTY);
-        _d.setProperties(properties_);
-        _d.setMessagesFolder(REN_ADD_WEB_GAME_MESSAGES);
-        StringList added_ = new StringList(new CollCapacity(1));
-        added_.add(REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS);
-        _d.setAddedFiles(added_);
-    }
+//
+//    public static void initAnaDiff(NatDualConfigurationContext _d){
+//        StringMap<String> properties_ = new StringMap<String>(new CollCapacity(1));
+//        properties_.addEntry(MSG_DIFFICULTY,DIFFICULTY);
+//        _d.setProperties(properties_);
+//        _d.setMessagesFolder(REN_ADD_WEB_GAME_MESSAGES);
+//        StringList added_ = new StringList(new CollCapacity(1));
+//        added_.add(REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS);
+//        _d.setAddedFiles(added_);
+//    }
 }

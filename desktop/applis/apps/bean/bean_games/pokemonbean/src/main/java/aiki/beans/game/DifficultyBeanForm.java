@@ -16,6 +16,8 @@ public final class DifficultyBeanForm {
     private IntBeanChgBool endFightIfOneTeamKo;
     private IntBeanChgLong ivPlayer;
     private IntBeanChgLong ivFoe;
+    private IntBeanChgRate rateWinMoneyBase;
+    private IntBeanChgRate rateLooseMoneyWin;
     private IntBeanChgBool restoredMovesEndFight;
     private IntBeanChgBool enabledClosing;
     private IntBeanChgBool randomWildFight;
@@ -23,7 +25,6 @@ public final class DifficultyBeanForm {
     private IntBeanChgBool skipLearningMovesWhileNotGrowingLevel;
     private IntBeanChgString damageRatePlayer;
     private IntBeanChgString damageRateLawFoe;
-
     public void displayDiff(IntBeanGeneInput _genInput, CommonBean _rend, DifficultyCommon _common, String _file) {
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_WIN_PTS);
         winPointsFight = select(_genInput,_rend, _common.getWinPointsFight(), _common.getDiffWinningExpPtsFight());
@@ -41,6 +42,10 @@ public final class DifficultyBeanForm {
         ivPlayer = iv(_genInput, _rend, _common.getIvPlayer());
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_IV_FOE);
         ivFoe = iv(_genInput, _rend, _common.getIvFoe());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_BASE);
+        rateWinMoneyBase = rate(_genInput, _rend, _common.getWinTrainerExp());
+        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_LOOSE);
+        rateLooseMoneyWin = rate(_genInput, _rend, _common.getWinTrainerExp());
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RESTORED_MOVES);
         restoredMovesEndFight = check(_genInput,_rend, _common.getRestoredMovesEndFight());
         _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_CLOSING);
@@ -68,6 +73,8 @@ public final class DifficultyBeanForm {
         _common.setEndFightIfOneTeamKo(endFightIfOneTeamKo.isSelected());
         _common.setIvPlayer(ivPlayer.valueLong());
         _common.setIvFoe(ivFoe.valueLong());
+        _common.setRateWinMoneyBase(rateWinMoneyBase.valueRate());
+        _common.setRateLooseMoneyWin(rateLooseMoneyWin.valueRate());
         _common.setRestoredMovesEndFight(restoredMovesEndFight.isSelected());
         _common.setEnabledClosing(enabledClosing.isSelected());
         _common.setRandomWildFight(randomWildFight.isSelected());
@@ -142,5 +149,37 @@ public final class DifficultyBeanForm {
 
     public IntBeanChgBool getSkipLearningMovesWhileNotGrowingLevel() {
         return skipLearningMovesWhileNotGrowingLevel;
+    }
+
+    public IntBeanChgLong getIvFoe() {
+        return ivFoe;
+    }
+
+    public IntBeanChgLong getIvPlayer() {
+        return ivPlayer;
+    }
+
+    public IntBeanChgRate getRateWinMoneyBase() {
+        return rateWinMoneyBase;
+    }
+
+    public IntBeanChgRate getRateLooseMoneyWin() {
+        return rateLooseMoneyWin;
+    }
+
+    public IntBeanChgRate getRateWinningExpPtsFight() {
+        return rateWinningExpPtsFight;
+    }
+
+    public IntBeanChgRate getWinTrainerExp() {
+        return winTrainerExp;
+    }
+
+    public IntBeanChgString getDamageRateLawFoe() {
+        return damageRateLawFoe;
+    }
+
+    public IntBeanChgString getDamageRatePlayer() {
+        return damageRatePlayer;
     }
 }

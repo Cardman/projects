@@ -7,16 +7,6 @@ public static final String APP_BEAN_FIGHT = "pk_bean_fight";
 public static final String APP_BEAN = "pk_bean";
 public static final String DIFFICULTY = "difficulty";
 private MessagesInit(){}
-public static TranslationsAppli en(){
-TranslationsAppli m = new TranslationsAppli();
-m.getMapping().addEntry(DIFFICULTY,AnaRendBlockHelp.file(MesGameDifficulty.en()));
-return m;
-}
-public static TranslationsAppli fr(){
-TranslationsAppli m = new TranslationsAppli();
-m.getMapping().addEntry(DIFFICULTY,AnaRendBlockHelp.file(MesGameDifficulty.fr()));
-return m;
-}
 public static TranslationsAppli enData(){
 TranslationsAppli m = new TranslationsAppli();
 m.getMapping().addEntry("ability/abilities",AnaRendBlockHelp.file(MesDataAbilityAbilities.en()));

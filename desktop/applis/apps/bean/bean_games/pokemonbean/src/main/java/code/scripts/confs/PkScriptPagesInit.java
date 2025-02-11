@@ -23,7 +23,7 @@ private static final String AIKI_BEANS_ABILITIES_ABILITY_BEAN="aiki.beans.abilit
 private static final String AIKI_BEANS_EFFECTS_COMBOS_BEAN="aiki.beans.effects.CombosBean";
 private static final String AIKI_BEANS_EFFECTS_EFFECT_COMBO_BEAN="aiki.beans.effects.EffectComboBean";
 private static final String AIKI_BEANS_EFFECTS_EFFECT_WHILE_SENDING_BEAN="aiki.beans.effects.EffectWhileSendingBean";
-    private static final String AIKI_BEANS_GAME_DIFFICULTY_BEAN="aiki.beans.game.DifficultyBean";
+//    private static final String AIKI_BEANS_GAME_DIFFICULTY_BEAN="aiki.beans.game.DifficultyBean";
     private static final String AIKI_BEANS_HELP_FIGHT_HELP_BEAN="aiki.beans.help.FightHelpBean";
 private static final String AIKI_BEANS_HELP_GENERAL_HELP_BEAN="aiki.beans.help.GeneralHelpBean";
 private static final String AIKI_BEANS_HELP_LANGS_BEAN="aiki.beans.help.LangsBean";
@@ -121,7 +121,7 @@ private static final String BOOST="boost";
 //private static final String COMBO="combo";
 private static final String COMBOS="combos";
 //private static final String DEALER="dealer";
-private static final String DIFFICULTY="difficulty";
+//private static final String DIFFICULTY="difficulty";
 //private static final String DUAL="dual";
 private static final String EDITPOKEMON="editpokemon";
 private static final String EDITPOKEMONMOVES="editpokemonmoves";
@@ -1103,12 +1103,12 @@ private static final String STATUS_SET="status_set";
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_TM_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_HM_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
     }
-    public static void initConfDiff(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(PkScriptPages.WEB_GAME_HTML_DIFFICULTY_HTML);
-        _configuration.setPrefix(PREF);
-        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(2));
-        NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
-        NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
-        _configuration.setBeansInfos(beans_);
-    }
+//    public static void initConfDiff(NatConfigurationCore _configuration){
+//        _configuration.setFirstUrl(PkScriptPages.WEB_GAME_HTML_DIFFICULTY_HTML);
+//        _configuration.setPrefix(PREF);
+//        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(2));
+//        NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
+//        NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
+//        _configuration.setBeansInfos(beans_);
+//    }
 }

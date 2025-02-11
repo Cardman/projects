@@ -1656,8 +1656,6 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static SimulationBean beanDiffDis(String _language) {
         FacadeGame fac_ = db();
         fac_.setLanguage(_language);
-        PkDiff stds_ = new PkDiff();
-        stds_.setDataBase(fac_);
         SimulationBean b_ = new SimulationBean();
         b_.setDataBase(fac_);
         b_.setForms(new StringMapObject());
@@ -3454,7 +3452,26 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     private static NaSt simu(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, int _nbTeam) {
         NaSt simu_ = init(_nbTeam, _pk, _all, _mapping);
-        transitSimu(_pk,_all,_mapping, new SimulationBeanValidateDiffChoice(), simu_);
+        SimulationBean si_ = ((SimulationBean) ((PokemonBeanStruct)simu_).getBean());
+        si_.getForm().getRateWinningExpPtsFight().valueRate(si_.getDifficultyCommon().getRateWinningExpPtsFight());
+        si_.getForm().getWinTrainerExp().valueRate(si_.getDifficultyCommon().getWinTrainerExp());
+        si_.getForm().getRateWinMoneyBase().valueRate(si_.getDifficultyCommon().getRateWinMoneyBase());
+        si_.getForm().getRateLooseMoneyWin().valueRate(si_.getDifficultyCommon().getRateLooseMoneyWin());
+        si_.getForm().getWinPointsFight().setupValue(si_.getDifficultyCommon().getDiffWinningExpPtsFight());
+        si_.getForm().getDamageRatePlayer().setupValue(si_.getDifficultyCommon().getDamageRatePlayer());
+        si_.getForm().getDamageRateLawFoe().setupValue(si_.getDifficultyCommon().getDamageRateLawFoe());
+        si_.getForm().getEnabledClosing().setSelected(si_.getDifficultyCommon().getEnabledClosing());
+        si_.getForm().getAllowCatchingKo().setSelected(si_.getDifficultyCommon().getAllowCatchingKo());
+        si_.getForm().getAllowedSwitchPlacesEndRound().setSelected(si_.getDifficultyCommon().getAllowedSwitchPlacesEndRound());
+        si_.getForm().getSkipLearningMovesWhileNotGrowingLevel().setSelected(si_.getDifficultyCommon().getSkipLearningMovesWhileNotGrowingLevel());
+        si_.getForm().getStillPossibleFlee().setSelected(si_.getDifficultyCommon().getStillPossibleFlee());
+        si_.getForm().getRandomWildFight().setSelected(si_.getDifficultyCommon().getRandomWildFight());
+        si_.getForm().getEndFightIfOneTeamKo().setSelected(si_.getDifficultyCommon().getEndFightIfOneTeamKo());
+        si_.getForm().getRestoredMovesEndFight().setSelected(si_.getDifficultyCommon().getRestoredMovesEndFight());
+        si_.getForm().getIvPlayer().valueLong(si_.getDifficultyCommon().getIvPlayer());
+        si_.getForm().getIvFoe().valueLong(si_.getDifficultyCommon().getIvFoe());
+        si_.getNbTeamsField().valueLong(si_.getNbTeams());
+        transitSimu(_pk,_all,_mapping, new SimulationBeanValidateDiffChoice(si_,si_.getForm()), simu_);
         return simu_;
     }
 
@@ -3491,6 +3508,32 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        beforeDisplaying(dest_);
         return dest_;
     }
+
+    public static NaSt transitSimu(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, IntBeanAction _caller, NaSt _first) {
+        String url_ = _caller.actionBean();
+        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
+        setFormsBy(_stds,dest_,_first);
+        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.en());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.fr());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_stds.getDataBase());
+        s_.setBuilder(bu_);
+        s_.setAppName(MessagesPkBean.APP_BEAN_DATA);
+        s_.build(_stds.getDataBase(), s_.getForms());
+//        beforeDisplaying(dest_);
+        return dest_;
+    }
     protected static Rate integration() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
@@ -3498,8 +3541,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt simu_ = init(pk_, all_, mapping_);
         callSimulationBeanNbTeamsSet(simu_, 2);
         callRate(new DifficultyCommonBeanWinTrainerExpSet(),all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON),Rate.newRate("5/7"));
-        NaSt result_ = callDifficultyBeanComGet(transitSimu(pk_,all_,mapping_, new SimulationBeanValidateDiffChoice(), simu_));
-        return ((DifficultyCommonStruct)result_).getDifficultyCommon().getWinTrainerExp();
+        NaSt result_ = callDifficultyBeanComGet(transitSimu(pk_,all_,mapping_, new SimulationBeanValidateDiffChoice(), simu_, new long[0]));
+        return ((SimulationBean)((PokemonBeanStruct)result_).getBean()).getDifficultyCommon().getWinTrainerExp();
     }
 
     public static NaSt transitSimuRem(PokemonStandards _stds, NatCaller _caller, NaSt _first, long... _args) {
