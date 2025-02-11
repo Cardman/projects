@@ -87,29 +87,36 @@ public final class DifficultyBeanForm {
         new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(_rend, _info,_file,"",MessagesGameDifficulty.M_P_93_RATE_DAMAGE_EV,MessagesGameDifficulty.M_P_93_RATE_DAMAGE);
     }
 
-    private IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, boolean _value) {
+    public static IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, boolean _value) {
         IntBeanChgBool check_ = _genInput.newBool();
         check_.setSelected(_value);
         _rend.nextPart();
         return check_;
     }
 
-    private IntBeanChgRate rate(IntBeanGeneInput _genInput, CommonBean _rend, Rate _value) {
+    public static IntBeanChgRate rate(IntBeanGeneInput _genInput, CommonBean _rend, Rate _value) {
         IntBeanChgRate rate_ = _genInput.newRate();
         rate_.valueRate(_value);
         _rend.nextPart();
         return rate_;
     }
 
-    private IntBeanChgLong iv(IntBeanGeneInput _genInput, CommonBean _rend, long _value) {
+    public static IntBeanChgLong iv(IntBeanGeneInput _genInput, CommonBean _rend, long _value) {
         IntBeanChgLong ivPlayer_ = _genInput.newLong();
         ivPlayer_.valueLong(_value);
         _rend.nextPart();
         return ivPlayer_;
     }
 
-    private IntBeanChgString select(IntBeanGeneInput _genInput, CommonBean _rend, StringMap<String> _map, String _v) {
+    public static IntBeanChgString select(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<String,String> _map, String _v) {
         IntBeanChgString sel_ = _genInput.newString(_map);
+        sel_.setupValue(_v);
+        _rend.nextPart();
+        return sel_;
+    }
+
+    public static IntBeanChgString txt(IntBeanGeneInput _genInput, CommonBean _rend, String _v) {
+        IntBeanChgString sel_ = _genInput.newText();
         sel_.setupValue(_v);
         _rend.nextPart();
         return sel_;

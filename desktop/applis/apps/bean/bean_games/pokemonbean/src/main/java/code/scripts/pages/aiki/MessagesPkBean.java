@@ -9,6 +9,7 @@ public final class MessagesPkBean {
     public static final String FIGHT = "fight";
     public static final String FIGHTER = "fighter";
     public static final String INDEX = "index";
+    public static final String POKEDEX = "pokemon/pokedex";
     public static final String TEAM = "team";
     public static final String POKEMON = "pokemon";
     public static final String GAMEPROG = "gameprog";
@@ -48,11 +49,13 @@ public final class MessagesPkBean {
     public static TranslationsAppli enData(){
         TranslationsAppli m = new TranslationsAppli();
         m.getMapping().addEntry(INDEX,MessagesDataIndex.en());
+        m.getMapping().addEntry(POKEDEX,MessagesDataPokemonPokedex.en());
         return m;
     }
     public static TranslationsAppli frData(){
         TranslationsAppli m = new TranslationsAppli();
         m.getMapping().addEntry(INDEX,MessagesDataIndex.fr());
+        m.getMapping().addEntry(POKEDEX,MessagesDataPokemonPokedex.fr());
         return m;
     }
 }

@@ -19,7 +19,12 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     }
 
     @Override
-    public IntBeanChgString newString(StringMap<String> _map) {
+    public IntBeanChgString newString(AbsMap<String,String> _map) {
+        return new BeanChgString();
+    }
+
+    @Override
+    public IntBeanChgString newText() {
         return new BeanChgString();
     }
 

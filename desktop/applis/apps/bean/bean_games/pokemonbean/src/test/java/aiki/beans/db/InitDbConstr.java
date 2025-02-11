@@ -6,7 +6,6 @@ import aiki.beans.facade.map.dto.PlaceIndexGetPlace;
 import aiki.beans.facade.map.dto.PlaceIndexIndexGet;
 import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
 import aiki.db.DataBase;
-import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -31,12 +30,13 @@ import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.bean.nat.*;
 //import code.formathtml.Configuration;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.scripts.confs.PkScriptPagesInit;
+import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
+import code.sml.util.*;
 import code.util.*;
 
 public abstract class InitDbConstr extends InitDbBean {
@@ -613,5 +613,24 @@ public abstract class InitDbConstr extends InitDbBean {
 
     public static NaSt callPlaceIndexIndexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PlaceIndexIndexGet(),_str,_args);
+    }
+    protected static WelcomeBean beanWelcomeBean(PkData _pk,String _lg) {
+        WelcomeBean b_ = new WelcomeBean();
+        _pk.bean(b_, _lg);
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_pk.getDataBase());
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,b_);
+        b_.setBuilder(bu_);
+        return b_;
     }
 }

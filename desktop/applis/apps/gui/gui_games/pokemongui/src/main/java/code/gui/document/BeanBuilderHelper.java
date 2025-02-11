@@ -127,6 +127,16 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
     }
 
+    @Override
+    public void formatMessageDirCts(String _txt, IntBeanAction _e) {
+        AbsTextPane ch_ = message(_txt);
+        ch_.setLineBorder(GuiConstants.BLACK);
+        feedParentCts(ch_);
+        hierarchy(_txt, ch_);
+        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        evt(_e, ch_);
+    }
+
     public AbsTextPane message(String _txt) {
         AbsTextPane tp_ = api.getCompoFactory().newTextPane();
         tp_.setBackground(GuiConstants.WHITE);

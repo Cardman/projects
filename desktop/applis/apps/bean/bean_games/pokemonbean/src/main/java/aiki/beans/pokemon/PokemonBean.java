@@ -1,5 +1,6 @@
 package aiki.beans.pokemon;
 
+import aiki.beans.*;
 import aiki.beans.CommonBean;
 import aiki.beans.TranslatedKey;
 import aiki.beans.facade.map.dto.PlaceIndex;
@@ -29,7 +30,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class PokemonBean extends CommonBean {
+public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
 
     private static final String PAGE_LEVELGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVELGENDER_HTML;
     private static final String PAGE_LEVEL = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVEL_HTML;

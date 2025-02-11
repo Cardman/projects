@@ -82,6 +82,7 @@ public abstract class IntBeanBuilderHelper {
     public abstract void formatMessageDir(String _txt, IntBeanAction _e);
     public abstract void formatMessageDirCtsHeader(String _txt);
     public abstract void formatMessageDirCts(String _txt);
+    public abstract void formatMessageDirCts(String _txt, IntBeanAction _e);
     public abstract void breakLine();
     public abstract void paintMetaLabelDisk();
     public abstract void addImg(int[][] _img);

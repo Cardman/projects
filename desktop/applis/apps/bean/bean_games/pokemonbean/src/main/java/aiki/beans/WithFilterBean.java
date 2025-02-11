@@ -25,19 +25,26 @@ import code.util.core.StringUtil;
 public abstract class WithFilterBean extends CommonBean {
     private String typedAbility = DataBase.EMPTY_STRING;
     private String typedName = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedNameForm;
     private String typedPrice = DataBase.EMPTY_STRING;
 
     private String typedClass = DataBase.EMPTY_STRING;
     private String typedType = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedTypeForm;
     private String typedStatus = DataBase.EMPTY_STRING;
     private String typedCategory = DataBase.EMPTY_STRING;
     private boolean wholeWord;
+    private IntBeanChgBool wholeWordForm;
     private String hasEvo = SelectedBoolean.YES_AND_NO.getBoolName();
     private String isEvo = SelectedBoolean.YES_AND_NO.getBoolName();
+    private IntBeanChgString isEvoForm;
     private String isLeg = SelectedBoolean.YES_AND_NO.getBoolName();
+    private IntBeanChgString isLegForm;
     private String learnt = SelectedBoolean.YES_AND_NO.getBoolName();
     private String typedMinNbPossEvos = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedMinNbPossEvosForm;
     private String typedMaxNbPossEvos = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedMaxNbPossEvosForm;
     private String minPower = DataBase.EMPTY_STRING;
     private String maxPower = DataBase.EMPTY_STRING;
     private String minAccuracy = DataBase.EMPTY_STRING;
@@ -320,6 +327,14 @@ public abstract class WithFilterBean extends CommonBean {
         return typedName;
     }
 
+    public IntBeanChgString getTypedNameForm() {
+        return typedNameForm;
+    }
+
+    public void setTypedNameForm(IntBeanChgString _t) {
+        this.typedNameForm = _t;
+    }
+
     public void setTypedPrice(String _typedPrice) {
         typedPrice = _typedPrice;
     }
@@ -344,6 +359,14 @@ public abstract class WithFilterBean extends CommonBean {
         return typedType;
     }
 
+    public IntBeanChgString getTypedTypeForm() {
+        return typedTypeForm;
+    }
+
+    public void setTypedTypeForm(IntBeanChgString _t) {
+        this.typedTypeForm = _t;
+    }
+
     public void setTypedStatus(String _typedStatus) {
         typedStatus = _typedStatus;
     }
@@ -360,6 +383,14 @@ public abstract class WithFilterBean extends CommonBean {
         return wholeWord;
     }
 
+    public IntBeanChgBool getWholeWordForm() {
+        return wholeWordForm;
+    }
+
+    public void setWholeWordForm(IntBeanChgBool _w) {
+        this.wholeWordForm = _w;
+    }
+
     public void setTypedMinNbPossEvos(String _typedMinNbPossEvos) {
         typedMinNbPossEvos = _typedMinNbPossEvos;
     }
@@ -368,12 +399,28 @@ public abstract class WithFilterBean extends CommonBean {
         return typedMinNbPossEvos;
     }
 
+    public IntBeanChgString getTypedMinNbPossEvosForm() {
+        return typedMinNbPossEvosForm;
+    }
+
+    public void setTypedMinNbPossEvosForm(IntBeanChgString _t) {
+        this.typedMinNbPossEvosForm = _t;
+    }
+
     public void setTypedMaxNbPossEvos(String _typedMaxNbPossEvos) {
         typedMaxNbPossEvos = _typedMaxNbPossEvos;
     }
 
     public String getTypedMaxNbPossEvos() {
         return typedMaxNbPossEvos;
+    }
+
+    public IntBeanChgString getTypedMaxNbPossEvosForm() {
+        return typedMaxNbPossEvosForm;
+    }
+
+    public void setTypedMaxNbPossEvosForm(IntBeanChgString _t) {
+        this.typedMaxNbPossEvosForm = _t;
     }
 
     public DictionaryComparator<String,String> getBooleans() {
@@ -408,12 +455,28 @@ public abstract class WithFilterBean extends CommonBean {
         isEvo = _isEvo;
     }
 
+    public IntBeanChgString getIsLegForm() {
+        return isLegForm;
+    }
+
+    public void setIsLegForm(IntBeanChgString _i) {
+        this.isLegForm = _i;
+    }
+
     public String getIsLeg() {
         return isLeg;
     }
 
     public void setIsLeg(String _isLeg) {
         isLeg = _isLeg;
+    }
+
+    public IntBeanChgString getIsEvoForm() {
+        return isEvoForm;
+    }
+
+    public void setIsEvoForm(IntBeanChgString _i) {
+        this.isEvoForm = _i;
     }
 
     public void setMinAccuracy(String _minAccuracy) {

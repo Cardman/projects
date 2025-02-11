@@ -472,7 +472,11 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
     public static StringMap<NaSt> beanToPkOne(PkData _pk) {
         StringMap<NaSt> map_ = beanToPk(_pk);
-        map_.addEntry(AikiBeansPokemonStd.BEAN_PK,_pk.beanPokemonBean(EN));
+        PokemonBean pkBean_ = new PokemonBean();
+        PokemonBeanStruct b_ = _pk.bean(pkBean_, EN);
+        pkBean_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,pkBean_);
+        map_.addEntry(AikiBeansPokemonStd.BEAN_PK, b_);
         map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_HAPPY,_pk.beanEvolutionHappinessBean(EN));
         map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_ITEM,_pk.beanEvolutionItemBean(EN));
         map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_LEVEL,_pk.beanEvolutionLevelBean(EN));

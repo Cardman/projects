@@ -1,6 +1,9 @@
 package aiki.gui;
 
+import aiki.beans.BeanAnchorCstEvent;
 import aiki.beans.DataGameInit;
+import aiki.beans.IntBeanChgString;
+import aiki.beans.pokemon.PokedexBean;
 import aiki.game.Game;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -204,6 +207,12 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         rend_.setNavCore(nav_);
         new ThreadRefresh(rend_).run();
         new NatRenderAction(new PokemonStandardsSample(),new NatNavigation()).execute(false,d_.getDocumentElement());
+        BeanBuilderHelper h_ = new BeanBuilderHelper(window_.getFrames(), new FindBeanEvent(window_.getFrames().getCompoFactory().newTextField(),window_.getFrames()));
+        h_.initGrid();
+        h_.colCount(1);
+        IntBeanChgString txt_ = new DefBeanGeneInput(h_, window_.getFrames()).newText();
+        txt_.setupValue(txt_.tryRet());
+        h_.formatMessageDirCts("",new BeanAnchorCstEvent("",new PokedexBean()));
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 

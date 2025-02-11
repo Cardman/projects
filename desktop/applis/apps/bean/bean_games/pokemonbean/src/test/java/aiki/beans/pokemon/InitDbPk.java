@@ -29,6 +29,8 @@ import aiki.map.util.TileMiniMap;
 import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -247,14 +249,14 @@ public abstract class InitDbPk extends InitDbConstr {
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
-        transit(_pk,new WelcomeBeanClickPokedex(),welcome_,moves_);
+        transit(_pk,new WelcomeBeanClickPokedex(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
 
     protected static NaSt dispAllPksSearch() {
         PkData pk_ = pkDataByFacade(feedDb());
         NaSt moves_ = dispAllPks(pk_);
-        transit(pk_,new PokedexBeanSearch(),moves_,moves_);
+        transit(pk_,new PokedexBeanSearch((PokedexBean) ((PokemonBeanStruct) moves_).getBean()),moves_,moves_);
         return moves_;
     }
 
@@ -263,18 +265,25 @@ public abstract class InitDbPk extends InitDbConstr {
         beforeDisplaying(welcome_);
         NaSt pks_ = _all.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
         NaSt pk_ = _all.getVal(AikiBeansPokemonStd.BEAN_PK);
-        transit(_pk,new WelcomeBeanClickPokedex(),welcome_,pks_);
-        transit(_pk,new PokedexBeanSearch(),pks_,pks_);
-        transit(_pk,new PokedexBeanClickLink(),pks_,pk_,_index);
+        transit(_pk,new WelcomeBeanClickPokedex(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,pks_);
+        transit(_pk,new PokedexBeanSearch(((PokedexBean) ((PokemonBeanStruct)pks_).getBean())),pks_,pks_);
+        transit(_pk,new EntityClickFormEvent(((PokedexBean) ((PokemonBeanStruct)pks_).getBean()),((PokedexBean) ((PokemonBeanStruct)pks_).getBean()).getPokedex().get(_index).getKey()),pks_,pk_);
         return pk_;
     }
     protected static String navigatePkSearch(NaSt _moves) {
-        return navigateData(new PokedexBeanSearch(), _moves);
+        return navigateData(new PokedexBeanSearch((PokedexBean) ((PokemonBeanStruct) _moves).getBean()), _moves);
     }
     public static StringMap<NaSt> beanToPk(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
-        map_.addEntry(AikiBeansPokemonStd.BEAN_POKEDEX,_pk.beanPokedexBean(EN));
+        WelcomeBean w_ = beanWelcomeBean(_pk, EN);
+        map_.addEntry(AikiBeansStd.BEAN_WELCOME,new PokemonBeanStruct(w_));
+        PokedexBean pkDex_ = new PokedexBean();
+        w_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
+        w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
+        pkDex_.setBuilder(w_.getBuilder());
+        _pk.bean(pkDex_, EN);
+        w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,pkDex_);
+        map_.addEntry(AikiBeansPokemonStd.BEAN_POKEDEX, new PokemonBeanStruct(pkDex_));
         return map_;
     }
     public static StringMap<String> mappingToPk() {

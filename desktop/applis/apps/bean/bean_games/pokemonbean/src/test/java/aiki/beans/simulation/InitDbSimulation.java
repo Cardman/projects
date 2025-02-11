@@ -1685,7 +1685,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return _str;
     }
     public static String navigateDiffChange(SimulationBean _str, long... _args) {
-        _str.getBuilder().getRenders().addEntry("",_str);
+        _str.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,_str);
         IntBeanAction intAct_ = ((AbsBeanChgSubmit) _str.getUpdateValues()).getEvts().get(0);
         _str.getBuilder().build(intAct_);
         return "";

@@ -7,7 +7,7 @@ import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
+public final class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
 
     public WelcomeBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -19,7 +19,7 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
         setTitledBorder(file().getVal(MessagesDataIndex.M_P_15_TITLE));
         element(MessagesDataIndex.M_P_15_GENERAL);
         element(MessagesDataIndex.M_P_15_ROUND);
-        element(MessagesDataIndex.M_P_15_POKEDEX);
+        elementAnchor(MessagesDataIndex.M_P_15_POKEDEX,new WelcomeBeanClickPokedex(this));
         element(MessagesDataIndex.M_P_15_ITEMS);
         element(MessagesDataIndex.M_P_15_MOVES);
         element(MessagesDataIndex.M_P_15_ABILITIES);
@@ -36,6 +36,13 @@ public class WelcomeBean extends CommonBean implements BeanRenderWithAppName {
         initLine();
         paintMetaLabelDisk();
         formatMessage(MessagesPkBean.INDEX, _key);
+        feedParents();
+    }
+
+    private void elementAnchor(String _key, IntBeanAction _ac) {
+        initLine();
+        paintMetaLabelDisk();
+        formatMessageAnc(_ac,MessagesPkBean.INDEX, _key);
         feedParents();
     }
 

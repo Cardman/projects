@@ -41,10 +41,18 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
     }
 
     @Override
-    public IntBeanChgString newString(StringMap<String> _map) {
+    public IntBeanChgString newString(AbsMap<String,String> _map) {
         GeneComponentModelElt<String> sel_ = new GeneComponentModelElt<String>(api, _map,new EmptyDefValue());
         AbsCustComponent ch_ = sel_.geneEnum();
         DefBeanChgString chg_ = new DefBeanChgString(sel_);
+        helper.feedParent(ch_);
+        return chg_;
+    }
+
+    @Override
+    public IntBeanChgString newText() {
+        AbsTextField ch_ = api.getCompoFactory().newTextField();
+        DefBeanChgTxt chg_ = new DefBeanChgTxt(ch_);
         helper.feedParent(ch_);
         return chg_;
     }

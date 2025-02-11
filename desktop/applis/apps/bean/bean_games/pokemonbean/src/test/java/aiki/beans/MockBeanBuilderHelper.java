@@ -47,6 +47,12 @@ public final class MockBeanBuilderHelper extends IntBeanBuilderHelper {
     public void formatMessageDir(String _txt, IntBeanAction _e){
         getAnchors().add(_e);
     }
+
+    @Override
+    public void formatMessageDirCts(String _txt, IntBeanAction _e) {
+        getAnchors().add(_e);
+    }
+
     @Override
     public void addImg(int[][] _img) {
         setPartGroup(getPartGroup());
