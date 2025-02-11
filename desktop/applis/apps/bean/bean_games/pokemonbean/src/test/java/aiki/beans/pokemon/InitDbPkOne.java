@@ -5,6 +5,8 @@ import aiki.beans.pokemon.evolutions.*;
 import aiki.util.Coords;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.StringMap;
 
 public abstract class InitDbPkOne extends InitDbPk {
@@ -144,7 +146,7 @@ public abstract class InitDbPkOne extends InitDbPk {
 
     public static String callPokemonBeanClickPokedex() {
         NaSt bean_ = dispPkOne(0);
-        String value_ = navigateData(new PokemonBeanClickPokedex(), bean_);
+        String value_ = navigateData(new PokemonBeanClickPokedex(((PokemonBean) ((PokemonBeanStruct)bean_).getBean())),bean_);
         assertFalse(containsPlaceLevelId(bean_));
         return value_;
     }
@@ -472,6 +474,8 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
     public static StringMap<NaSt> beanToPkOne(PkData _pk) {
         StringMap<NaSt> map_ = beanToPk(_pk);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
         PokemonBean pkBean_ = new PokemonBean();
         PokemonBeanStruct b_ = _pk.bean(pkBean_, EN);
         pkBean_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());

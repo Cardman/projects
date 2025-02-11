@@ -1,12 +1,30 @@
 package aiki.beans.pokemon;
 
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import code.bean.nat.*;
-import code.bean.nat.*;
-import code.bean.nat.*;
-public class PokemonBeanClickPokedex implements NatCaller{
+public final class PokemonBeanClickPokedex implements NatCaller, IntBeanAction {
+    private final PokemonBean bean;
+
+    public PokemonBeanClickPokedex() {
+        this(null);
+    }
+
+    public PokemonBeanClickPokedex(PokemonBean _p) {
+        bean = _p;
+    }
+
+    @Override
+    public String actionBean() {
+        return ((NaStSt)re(new PokemonBeanStruct(bean),new NaSt[0])).getInstance();
+    }
+
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
         return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_instance).getInstance()).clickPokedex());
+    }
+
+    @Override
+    public CommonBean getBean() {
+        return bean;
     }
 }

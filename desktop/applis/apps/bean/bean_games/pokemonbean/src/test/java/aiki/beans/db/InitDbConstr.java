@@ -176,7 +176,14 @@ public abstract class InitDbConstr extends InitDbBean {
         PkScriptPagesInit.initConfData(new NatConfigurationCore());
         return navigate(_caller, "", _str, _args);
     }
-
+//    public static String navigateData(IntBeanAction _caller, NaSt _str) {
+//        PkScriptPagesInit.initConfData(new NatConfigurationCore());
+//        return _caller.actionBean();
+//    }
+    public static String navigateData(IntBeanAction _caller, NaSt _str) {
+        _caller.getBean();
+        return _caller.actionBean();
+    }
     public static NaSt callEffectWhileSendingBeanEffectSet(NaSt _str, NaSt _args) {
         return BeanPokemonCommonTs.callStruct(new EffectWhileSendingBeanEffectSet(),_str,_args);
     }

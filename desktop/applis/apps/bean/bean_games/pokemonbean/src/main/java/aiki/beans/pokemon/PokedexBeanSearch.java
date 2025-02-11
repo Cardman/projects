@@ -18,6 +18,7 @@ public final class PokedexBeanSearch implements NatCaller, IntBeanAction {
         bean.setWholeWord(bean.getWholeWordForm().isSelected());
         bean.setTypedMinNbPossEvos(bean.getTypedMinNbPossEvosForm().tryRet());
         bean.setTypedMaxNbPossEvos(bean.getTypedMaxNbPossEvosForm().tryRet());
+        bean.setHasEvo(bean.getHasEvoForm().tryRet());
         bean.setIsEvo(bean.getIsEvoForm().tryRet());
         bean.setIsLeg(bean.getIsLegForm().tryRet());
         return ((NaStSt)re(new PokemonBeanStruct(bean),new NaSt[0])).getInstance();

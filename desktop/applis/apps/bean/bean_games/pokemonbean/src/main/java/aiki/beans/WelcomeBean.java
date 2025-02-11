@@ -15,8 +15,8 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade,_form);
-        initPage();
         setTitledBorder(file().getVal(MessagesDataIndex.M_P_15_TITLE));
+        initPage();
         element(MessagesDataIndex.M_P_15_GENERAL);
         element(MessagesDataIndex.M_P_15_ROUND);
         elementAnchor(MessagesDataIndex.M_P_15_POKEDEX,new WelcomeBeanClickPokedex(this));

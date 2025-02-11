@@ -36,6 +36,7 @@ public abstract class WithFilterBean extends CommonBean {
     private boolean wholeWord;
     private IntBeanChgBool wholeWordForm;
     private String hasEvo = SelectedBoolean.YES_AND_NO.getBoolName();
+    private IntBeanChgString hasEvoForm;
     private String isEvo = SelectedBoolean.YES_AND_NO.getBoolName();
     private IntBeanChgString isEvoForm;
     private String isLeg = SelectedBoolean.YES_AND_NO.getBoolName();
@@ -437,6 +438,14 @@ public abstract class WithFilterBean extends CommonBean {
 
     public void setHasEvo(String _hasEvo) {
         hasEvo = _hasEvo;
+    }
+
+    public IntBeanChgString getHasEvoForm() {
+        return hasEvoForm;
+    }
+
+    public void setHasEvoForm(IntBeanChgString _h) {
+        this.hasEvoForm = _h;
     }
 
     public String getLearnt() {

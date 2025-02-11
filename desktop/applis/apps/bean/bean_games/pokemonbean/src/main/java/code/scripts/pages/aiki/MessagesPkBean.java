@@ -10,6 +10,7 @@ public final class MessagesPkBean {
     public static final String FIGHTER = "fighter";
     public static final String INDEX = "index";
     public static final String POKEDEX = "pokemon/pokedex";
+    public static final String PK_DATA = "pokemon/data";
     public static final String TEAM = "team";
     public static final String POKEMON = "pokemon";
     public static final String GAMEPROG = "gameprog";
@@ -50,12 +51,14 @@ public final class MessagesPkBean {
         TranslationsAppli m = new TranslationsAppli();
         m.getMapping().addEntry(INDEX,MessagesDataIndex.en());
         m.getMapping().addEntry(POKEDEX,MessagesDataPokemonPokedex.en());
+        m.getMapping().addEntry(PK_DATA,MessagesDataPokemonData.en());
         return m;
     }
     public static TranslationsAppli frData(){
         TranslationsAppli m = new TranslationsAppli();
         m.getMapping().addEntry(INDEX,MessagesDataIndex.fr());
         m.getMapping().addEntry(POKEDEX,MessagesDataPokemonPokedex.fr());
+        m.getMapping().addEntry(PK_DATA,MessagesDataPokemonData.fr());
         return m;
     }
 }

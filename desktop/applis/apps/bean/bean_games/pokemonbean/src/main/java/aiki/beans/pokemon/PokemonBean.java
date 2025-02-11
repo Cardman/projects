@@ -8,6 +8,7 @@ import aiki.beans.pokemon.evolutions.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.*;
@@ -26,6 +27,7 @@ import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -71,6 +73,20 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
 
     private Ints placesAppears;
 
+    public PokemonBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataPokemonData.M_P_72_TITLE),getDisplayName()));
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_GENERAL);
+        formatMessageAnc(new PokemonBeanClickPokedex(this),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_POKEDEX);
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.PK_DATA).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();

@@ -18,6 +18,7 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataPokemonPokedex.M_P_82_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
         initPage();
         initLine();
@@ -36,6 +37,10 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_NB_EVOS);
         setTypedMinNbPossEvosForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMinNbPossEvos()));
         setTypedMaxNbPossEvosForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMaxNbPossEvos()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_HAS_EVO);
+        setHasEvoForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getHasEvo()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_IS_EVO);
@@ -60,6 +65,9 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
         }
         feedParents();
         feedParents();
+    }
+    public StringMap<String> file() {
+        return file(MessagesPkBean.POKEDEX).getMapping();
     }
 
     public IntBeanChgSubmit getUpdateValues() {
