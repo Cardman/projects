@@ -108,7 +108,17 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         mapVarsInit(mapVars);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_PTS_EXP,displayName,Long.toString(expRate));
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_TITLE);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS,displayName);
         new BeanDisplayList<StringStatBaseEv>(new BeanDisplayStatBaseEv()).displayGrid(this,statistics,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_TITLE,MessagesDataPokemonData.M_P_72_STATISTICS_KEY,MessagesDataPokemonData.M_P_72_STATISTICS_VALUE,MessagesDataPokemonData.M_P_72_STATISTICS_EV);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_MOVES,displayName);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_LEVEL_MOVES,displayName);
+        new BeanDisplayList<LevelMoveTranslatedKey>(new BeanDisplayLevelMove()).displayGrid(this,levMoves,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_MOVES_LEVELS,MessagesDataPokemonData.M_P_72_LEVEL,MessagesDataPokemonData.M_P_72_MOVE);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_TECHNICAL_MOVES,displayName);
+        new BeanDisplayMap<Integer,TranslatedKey>(new BeanDisplayInt(),new BeanDisplayTranslatedKey()).displayGrid(this,technicalMoves,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_TM_TITLE,MessagesDataPokemonData.M_P_72_TM_NUMBER,MessagesDataPokemonData.M_P_72_TM_MOVE);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HIDDEN_MOVES,displayName);
+        new BeanDisplayMap<Integer,TranslatedKey>(new BeanDisplayInt(),new BeanDisplayTranslatedKey()).displayGrid(this,hiddenMoves,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HM_TITLE,MessagesDataPokemonData.M_P_72_HM_NUMBER,MessagesDataPokemonData.M_P_72_HM_MOVE);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_MOVE_TUTORS,displayName);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,moveTutors);
     }
 
     private void evo(EvolutionBean _sub) {
