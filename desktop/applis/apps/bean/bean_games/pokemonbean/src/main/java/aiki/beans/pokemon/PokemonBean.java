@@ -119,6 +119,21 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         new BeanDisplayMap<Integer,TranslatedKey>(new BeanDisplayInt(),new BeanDisplayTranslatedKey()).displayGrid(this,hiddenMoves,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HM_TITLE,MessagesDataPokemonData.M_P_72_HM_NUMBER,MessagesDataPokemonData.M_P_72_HM_MOVE);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_MOVE_TUTORS,displayName);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,moveTutors);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EGG_GROUPS);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,eggGroupsPk,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EGG_GROUPS_PK,displayName);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HATCHING,displayName,hatchingSteps.toNumberString());
+        if (!isAppearingAnyWhere()) {
+            return;
+        }
+        initPlacesLevelList();
+        initGrid();
+        getBuilder().colCount(getMapWidth());
+        DictionaryComparator<MiniMapCoords, int[][]> dic_ = getImages();
+        int dLen_ = dic_.size();
+        for (int i = 0; i < dLen_; i++) {
+            getBuilder().addImgCts(getMiniMapImage(i),namesPlaces.getValue(i));
+        }
+        feedParents();
     }
 
     private void evo(EvolutionBean _sub) {
@@ -167,6 +182,39 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
 
     public StringMap<String> file() {
         return file(MessagesPkBean.PK_DATA).getMapping();
+    }
+    public void initPlacesLevelList() {
+        initPage();
+        int len_ = places.size();
+        for (int i = 0; i < len_; i++) {
+            if (!isAppearingPlace(i)) {
+                continue;
+            }
+            initLine();
+            paintMetaLabelDisk();
+            formatMessageDir(places.get(i).getPlace().getName());
+            if (isMultiLayer(places,i)) {
+                initPage();
+                CustList<Level> layers_ = layers(places, i);
+                int lCount_ = layers_.size();
+                for (int j = 0; j < lCount_; j++) {
+                    if (isAppearing(i,j)) {
+                        initLine();
+                        paintMetaLabelDisk();
+                        getBuilder().formatMessageDir(Long.toString(j),new MapBeanClickLevelBeanAction(this,i,j));
+                        feedParents();
+                    }
+                }
+                feedParents();
+            } else {
+                initLine();
+                paintMetaLabelDisk();
+                formatMessageAnc(new MapBeanClickLevelBeanAction(this,i,0),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_GOLEVEL);
+                feedParents();
+            }
+            feedParents();
+        }
+        feedParents();
     }
     @Override
     public void beforeDisplaying() {
@@ -344,12 +392,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         return namesPlaces.getValue(_index);
     }
     public int getMapWidth() {
-        int w_ = 0;
-        int y_ = images.getKey(w_).getYcoords();
-        while (images.getKey(w_).getYcoords() != y_+1) {
-            w_++;
-        }
-        return w_;
+        return width(images);
     }
 //    public boolean isFirstRow(int _index) {
 //        if (_index == 0) {

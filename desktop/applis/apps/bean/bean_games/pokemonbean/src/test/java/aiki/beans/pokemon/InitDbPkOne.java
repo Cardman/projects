@@ -92,7 +92,10 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickLevel(NaSt _str) {
-        return navigateData(new PokemonBeanClickLevel(),_str,2,1);
+        PokemonBean pk_ = new PokemonBean();
+        pk_.setForms(new StringMapObject());
+        navigateData(new PokemonBeanClickLevel(),new PokemonBeanStruct(pk_),2,1);
+        return navigateData(new MapBeanClickLevelBeanAction((CommonBean) ((PokemonBeanStruct)_str).getBean(),2,1),_str);
     }
 
     public static Coords callPokemonBeanClickLevelId() {

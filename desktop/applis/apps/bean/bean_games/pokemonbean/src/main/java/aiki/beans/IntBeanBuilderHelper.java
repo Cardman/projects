@@ -86,6 +86,7 @@ public abstract class IntBeanBuilderHelper {
     public abstract void breakLine();
     public abstract void paintMetaLabelDisk();
     public abstract void addImg(int[][] _img);
+    public abstract void addImgCts(int[][] _img, String _tip);
 
     public void build(IntBeanAction _action) {
         build(_action.actionBean(), _action.getBean().getForms());

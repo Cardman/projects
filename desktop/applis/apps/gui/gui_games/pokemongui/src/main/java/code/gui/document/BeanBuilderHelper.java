@@ -162,6 +162,14 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         stack.last().add(api.getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(api.getImageFactory(), _img)));
     }
 
+    @Override
+    public void addImgCts(int[][] _img, String _tip) {
+        AbsPreparedLabel lab_ = api.getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(api.getImageFactory(), _img));
+        lab_.setToolTipText(_tip);
+        stack.last().add(lab_, cts());
+        incColIndex();
+    }
+
     public void hierarchy(String _txt, AbsTextPane _ch) {
         MetaSearchableContent s_ = new MetaSearchableContent(_txt, getPartGroup(), getRowGroup());
         metaSearchableContents.add(s_);

@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.game.ImgPkPlayer;
 import aiki.comparators.*;
@@ -10,8 +11,11 @@ import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
+import aiki.map.levels.Level;
 import aiki.map.levels.enums.*;
+import aiki.map.places.Place;
 import aiki.map.pokemon.enums.*;
+import aiki.map.util.MiniMapCoordsTileInts;
 import aiki.util.Coords;
 import code.bean.Bean;
 import code.bean.nat.StringMapObjectBase;
@@ -197,6 +201,22 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             formatMessageDir(e.getKey()+" : "+e.getValue());
             feedParents();
         }
+    }
+
+    public static int width(MiniMapCoordsTileInts _miniMap) {
+        int w_ = 0;
+        int y_ = _miniMap.getKey(w_).getYcoords();
+        while (_miniMap.isValidIndex(w_) && _miniMap.getKey(w_).getYcoords() != y_+1) {
+            w_++;
+        }
+        return w_;
+    }
+    public boolean isMultiLayer(CustList<PlaceIndex> _pls,int _index) {
+        return layers(_pls,_index).size() > IndexConstants.SECOND_INDEX;
+    }
+    public CustList<Level> layers(CustList<PlaceIndex> _pls,int _index) {
+        Place pl_ = _pls.get(_index).getPlace();
+        return pl_.getLevelsList();
     }
     protected NatStringTreeMap<Rate> map(StringMap<Rate> _input, StringMap<String> _translated) {
         NatStringTreeMap< Rate> multDamageTypesMoves_;

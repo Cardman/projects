@@ -77,12 +77,7 @@ public class GeneralHelpBean extends CommonBean {
         hm = build(data_.getHm());
         types = new StringList(data_.getTypes());
         types.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
-        int w_ = 0;
-        int y_ = miniMap.getKey(w_).getYcoords();
-        while (miniMap.isValidIndex(w_) && miniMap.getKey(w_).getYcoords() != y_+1) {
-            w_++;
-        }
-        mapWidth = w_;
+        mapWidth = width(miniMap);
     }
     private CustList<TranslatedKey> build(IntMap< String> _map) {
         CustList<TranslatedKey> moves_ = new CustList<TranslatedKey>();
