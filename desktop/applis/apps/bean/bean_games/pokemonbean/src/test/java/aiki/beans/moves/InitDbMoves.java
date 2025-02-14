@@ -171,7 +171,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
+        transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         transit(_pk,new MovesBeanSearch(),moves_,moves_);
         return displayMoveLine(_all, _index,_mapping);
     }
@@ -191,7 +191,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
+        transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
 
@@ -203,7 +203,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         _pk.getDataBase().getData().setView(_pk.getDataBase().getData().computeLearn());
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
+        transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
 
@@ -300,8 +300,13 @@ public abstract class InitDbMoves extends InitDbConstr {
 //    }
     public static StringMap<NaSt> beanToMoves(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
-        map_.addEntry(AikiBeansMovesStd.BEAN_MOVES,_pk.beanMovesBean(EN));
+        WelcomeBean w_ = beanWelcomeBean(_pk, EN);
+        map_.addEntry(AikiBeansStd.BEAN_WELCOME, new PokemonBeanStruct(w_));
+        MovesBean moves_ = new MovesBean();
+        _pk.bean(moves_, EN);
+        moves_.setBuilder(w_.getBuilder());
+        map_.addEntry(AikiBeansMovesStd.BEAN_MOVES, new PokemonBeanStruct(moves_));
+        w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,moves_);
 //        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE_LINE,_pk.beanMoveLineBean(EN));
         return map_;
     }

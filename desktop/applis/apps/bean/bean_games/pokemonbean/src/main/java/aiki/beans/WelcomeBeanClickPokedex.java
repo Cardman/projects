@@ -15,7 +15,7 @@ public final class WelcomeBeanClickPokedex implements NatCaller, IntBeanAction{
 
     @Override
     public String actionBean() {
-        return ((NaStSt)(re(new PokemonBeanStruct(bean),new NaSt[0]))).getInstance();
+        return ((NaStSt)(re(new PokemonBeanStruct(getBean()),new NaSt[0]))).getInstance();
     }
 
     @Override

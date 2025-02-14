@@ -30,7 +30,7 @@ public abstract class InitDbWelcome extends InitDbConstr {
         return navigateData(new WelcomeBeanClickStatus(),_str);
     }
     public static String navigateAllMoves(NaSt _str) {
-        return navigateData(new WelcomeBeanSeeAllMoves(),_str);
+        return navigateData(new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);
     }
 
     public static String navigateLearntMoves(NaSt _str) {

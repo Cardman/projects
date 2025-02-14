@@ -21,7 +21,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         element(MessagesDataIndex.M_P_15_ROUND);
         elementAnchor(MessagesDataIndex.M_P_15_POKEDEX,new WelcomeBeanClickPokedex(this));
         element(MessagesDataIndex.M_P_15_ITEMS);
-        element(MessagesDataIndex.M_P_15_MOVES);
+        elementAnchor(MessagesDataIndex.M_P_15_MOVES,new WelcomeBeanSeeAllMoves(this));
         element(MessagesDataIndex.M_P_15_ABILITIES);
         element(MessagesDataIndex.M_P_15_STATUS);
         element(MessagesDataIndex.M_P_15_COMBOS);
@@ -32,7 +32,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         feedParents();
     }
 
-    private void element(String _key) {
+    public void element(String _key) {
         initLine();
         paintMetaLabelDisk();
         formatMessage(MessagesPkBean.INDEX, _key);

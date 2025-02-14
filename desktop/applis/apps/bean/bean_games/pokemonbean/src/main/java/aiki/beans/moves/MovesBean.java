@@ -9,7 +9,7 @@ import aiki.fight.moves.*;
 import code.scripts.confs.*;
 import code.util.*;
 
-public class MovesBean extends WithFilterBean {
+public class MovesBean extends WithFilterBean implements BeanRenderWithAppName {
 //    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
     private final CustList<TranslatedKey> sortedMoves = new CustList<TranslatedKey>();
