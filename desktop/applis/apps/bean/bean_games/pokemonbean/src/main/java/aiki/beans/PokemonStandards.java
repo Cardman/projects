@@ -8,6 +8,7 @@ import aiki.beans.facade.solution.dto.*;
 import aiki.beans.game.*;
 import aiki.beans.map.elements.*;
 import aiki.beans.pokemon.LevelMoveTranslatedKey;
+import aiki.beans.pokemon.StringStatBaseEv;
 import aiki.comparators.*;
 import aiki.facade.*;
 import aiki.facade.enums.*;
@@ -61,10 +62,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //    public static final String TYPE_FULL_POSITIVE_RATE_VALIDATOR = "aiki.beans.validators.PositiveRateValidator";
 //    public static final String TYPE_FULL_SHORT_VALIDATOR = "aiki.beans.validators.ShortValidator";
 //    public static final String TYPE_FULL_UNSELECTED_RADIO = "aiki.beans.validators.UnselectedRadio";
-    public static final String TYPE_RATE_VALIDATOR = "RateValidator";
-    public static final String TYPE_POSITIVE_RATE_VALIDATOR = "PositiveRateValidator";
-    public static final String TYPE_SHORT_VALIDATOR = "ShortValidator";
-    public static final String TYPE_UNSELECTED_RADIO = "UnselectedRadio";
+//    public static final String TYPE_RATE_VALIDATOR = "RateValidator";
+//    public static final String TYPE_POSITIVE_RATE_VALIDATOR = "PositiveRateValidator";
+//    public static final String TYPE_SHORT_VALIDATOR = "ShortValidator";
+//    public static final String TYPE_UNSELECTED_RADIO = "UnselectedRadio";
     private static final String IS_ZERO = "isZero";
     private static final String IS_ZERO_OR_GT = "isZeroOrGt";
     private static final String ABS_NB = "absNb";
@@ -89,10 +90,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         buildAddon();
         buildRate(this);
         buildLgInt(this);
-        buildRateValidator(this);
-        buildPositiveRateValidator(this);
-        buildShortValidator(this);
-        buildUnselectedRadio(this);
+//        buildRateValidator(this);
+//        buildPositiveRateValidator(this);
+//        buildShortValidator(this);
+//        buildUnselectedRadio(this);
     }
     protected abstract void buildAddon();
     private static void buildRate(PokemonStandards _std){
@@ -110,30 +111,30 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_LG_INT, type_);
     }
-    private static void buildRateValidator(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
-        _std.getStds().addEntry(TYPE_RATE_VALIDATOR, type_);
-    }
-    private static void buildPositiveRateValidator(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
-        _std.getStds().addEntry(TYPE_POSITIVE_RATE_VALIDATOR, type_);
-    }
-    private static void buildShortValidator(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
-        _std.getStds().addEntry(TYPE_SHORT_VALIDATOR, type_);
-    }
-    private static void buildUnselectedRadio(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
-        _std.getStds().addEntry(TYPE_UNSELECTED_RADIO, type_);
-    }
+//    private static void buildRateValidator(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
+//        _std.getStds().addEntry(TYPE_RATE_VALIDATOR, type_);
+//    }
+//    private static void buildPositiveRateValidator(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
+//        _std.getStds().addEntry(TYPE_POSITIVE_RATE_VALIDATOR, type_);
+//    }
+//    private static void buildShortValidator(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
+//        _std.getStds().addEntry(TYPE_SHORT_VALIDATOR, type_);
+//    }
+//    private static void buildUnselectedRadio(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
+//        _std.getStds().addEntry(TYPE_UNSELECTED_RADIO, type_);
+//    }
 
     @Override
     public HtmlPageInt getPage() {
@@ -720,6 +721,15 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         int j_ = 0;
         for (TypesDuo s:_ls) {
             arr_.set(j_,new TypesDuoStruct(s));
+            j_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getStatistic(CustList<StringStatBaseEv> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (StringStatBaseEv e:_map) {
+            arr_.set(j_,new NaStSt(e.getName().getTranslation()));
             j_++;
         }
         return arr_;

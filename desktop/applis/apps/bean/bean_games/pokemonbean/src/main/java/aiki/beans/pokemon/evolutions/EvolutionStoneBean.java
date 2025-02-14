@@ -21,7 +21,7 @@ public class EvolutionStoneBean extends EvolutionBean {
         return tryRedirect(((EvolutionStoneBean)getForms().getCurrentBeanEvo().get(_index)).stone);
     }
 
-    public String getStone() {
-        return stone.getTranslation();
+    public TranslatedKey getStone() {
+        return stone;
     }
 }

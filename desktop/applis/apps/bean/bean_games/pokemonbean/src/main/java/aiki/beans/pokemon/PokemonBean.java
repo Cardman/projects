@@ -5,6 +5,7 @@ import aiki.beans.CommonBean;
 import aiki.beans.TranslatedKey;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.pokemon.evolutions.*;
+import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -13,7 +14,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.LevelMove;
-import aiki.fight.util.StatBaseEv;
 import aiki.map.levels.AbsAreaApparition;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelWithWildPokemon;
@@ -32,7 +32,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
+public final class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
 
     private static final String PAGE_LEVELGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVELGENDER_HTML;
     private static final String PAGE_LEVEL = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVEL_HTML;
@@ -49,13 +49,13 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
     private String displayName;
     private Rate weight;
     private Rate height;
-    private StringList possibleGenders;
-    private StringList types;
+    private CustList<TranslatedKey> possibleGenders;
+    private CustList<TranslatedKey> types;
     private CustList<TranslatedKey> abilities;
     private long catchingRate;
     private CustList<TranslatedKey> evolutions;
-    private IdList<Statistic> statisticsEnum;
-    private StringList statistics;
+//    private IdList<Statistic> statisticsEnum;
+    private CustList<StringStatBaseEv> statistics;
     private TranslatedKey evoBase;
     private String expEvo;
     private long expRate;
@@ -72,6 +72,7 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
     private DictionaryComparator<MiniMapCoords, String> namesPlaces;
 
     private Ints placesAppears;
+    private CustList<EvolutionBean> beans;
 
     public PokemonBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -79,9 +80,79 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
-        setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataPokemonData.M_P_72_TITLE),getDisplayName()));
+        setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataPokemonData.M_P_72_TITLE),displayName));
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_GENERAL);
         formatMessageAnc(new PokemonBeanClickPokedex(this),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_POKEDEX);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_NAME,displayName);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_BACK);
+        addImg(getBackImage());
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_FRONT);
+        addImg(getFrontImage());
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_WEIGHT,displayName,weight.toNumberString(),roundWeight());
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HEIGHT,displayName,height.toNumberString(),roundHeight());
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,possibleGenders,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_GENDERS,displayName);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,types,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_TYPES,displayName);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilities,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_ABILITIES,displayName);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_CATCHINGRATE,displayName,Long.toString(catchingRate));
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_TREE);
+        displayHeadParam(evolutions,new String[]{displayName},MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EVOLUTIONS_TITLE,MessagesDataPokemonData.M_P_72_EVOLUTIONS_KEY,MessagesDataPokemonData.M_P_72_GET_EVO);
+        int len_ = beans.size();
+        for (int i = 0; i < len_; i++) {
+            evo(beans.get(i));
+        }
+        feedParents();
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_BASE,displayName);
+        formatMessageDir(evoBase);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EXP);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EXP_GROWTH,displayName,expEvo);
+        mapVarsInit(mapVars);
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_PTS_EXP,displayName,Long.toString(expRate));
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_TITLE);
+        new BeanDisplayList<StringStatBaseEv>(new BeanDisplayStatBaseEv()).displayGrid(this,statistics,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_TITLE,MessagesDataPokemonData.M_P_72_STATISTICS_KEY,MessagesDataPokemonData.M_P_72_STATISTICS_VALUE,MessagesDataPokemonData.M_P_72_STATISTICS_EV);
+    }
+
+    private void evo(EvolutionBean _sub) {
+        formatMessageDirCts(_sub.getName());
+        if (_sub instanceof EvolutionLevelGenderBean) {
+            formatMessageCts(MessagesPkBean.EVO_LEVEL_GENDER,MessagesDataEvolutionsEvolevelgender.M_P_76_GENDER, _sub.getDisplayBase(),Long.toString(((EvolutionLevelGenderBean) _sub).getLevel()),((EvolutionLevelGenderBean) _sub).getGender());
+        } else if (_sub instanceof EvolutionLevelBean) {
+            formatMessageCts(MessagesPkBean.EVO_LEVEL,MessagesDataEvolutionsEvolevel.M_P_75_LEVEL, _sub.getDisplayBase(),Long.toString(((EvolutionLevelBean) _sub).getLevel()));
+        } else if (_sub instanceof EvolutionHappinessBean) {
+            formatMessageCts(MessagesPkBean.EVO_HAPPINESS,MessagesDataEvolutionsEvohappiness.M_P_73_HAPPY, _sub.getDisplayBase(),Long.toString(((EvolutionHappinessBean) _sub).getMin()));
+        } else if (_sub instanceof EvolutionMoveBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_MOVE,MessagesDataEvolutionsEvomove.M_P_77_MOVE, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionMoveBean) _sub).getMove());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionItemBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_ITEM,MessagesDataEvolutionsEvoitem.M_P_74_ITEM, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionItemBean) _sub).getItem());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionStoneGenderBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_STONE_GENDER,MessagesDataEvolutionsEvostonegender.M_P_79_STONE_GENDER, _sub.getDisplayBase(),((EvolutionStoneGenderBean) _sub).getGender());
+            formatMessageDir(((EvolutionStoneGenderBean) _sub).getStone());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionStoneBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_STONE,MessagesDataEvolutionsEvostone.M_P_78_STONE, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionStoneBean) _sub).getStone());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionMoveTypeBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_TYPE,MessagesDataEvolutionsEvotype.M_P_81_TYPE, _sub.getDisplayBase(),((EvolutionMoveTypeBean)_sub).getType());
+            feedParentsCts();
+        } else {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_TEAM,MessagesDataEvolutionsEvoteam.M_P_80_TEAM, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionTeamBean) _sub).getOther());
+            feedParentsCts();
+        }
+    }
+
+    public CustList<EvolutionBean> getBeans() {
+        return beans;
     }
 
     public StringMap<String> file() {
@@ -120,24 +191,25 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
         displayName = translationsPokemon_.getVal(name);
         weight = pk_.getWeight();
         height = pk_.getHeight();
-        possibleGenders = new StringList();
+        possibleGenders = new CustList<TranslatedKey>();
         AbsMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         for (Gender g: pk_.getGenderRep().getPossibleGenders()) {
-            possibleGenders.add(translationsGenders_.getVal(g));
+            possibleGenders.add(buildGender(translationsGenders_,g));
         }
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        types = new StringList();
+        types = new CustList<TranslatedKey>();
         for (String t: pk_.getTypes()) {
-            types.add(translationsTypes_.getVal(t));
+            types.add(build(translationsTypes_,t));
         }
-        types.sort();
+        types.sortElts(new ComparingTranslatedKey());
         abilities = listTrStringsAb(pk_.getAbilities(),data_,getLanguage());
         catchingRate = pk_.getCatchingRate();
         evolutions = listTrStringsPk(pk_.getEvolutions().getKeys(),data_,getLanguage());
         CustList<EvolutionBean> evoBean_ = getForms().getCurrentBeanEvo();
         evoBean_.clear();
+        beans = evoBean_;
         int len_ = evolutions.size();
         for (int i = 0; i < len_; i++) {
             TranslatedKey tk_ = evolutions.get(i);
@@ -155,11 +227,11 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
         expRate = pk_.getExpRate();
         AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        statisticsEnum = new IdList<Statistic>();
-        statistics = new StringList();
+//        statisticsEnum = new IdList<Statistic>();
+        statistics = new CustList<StringStatBaseEv>();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            statisticsEnum.add(s);
-            statistics.add(translationsStatistics_.getVal(s));
+//            statisticsEnum.add(s);
+            statistics.add(new StringStatBaseEv(buildSi(translationsStatistics_,s),pk_.getStatistics().getVal(s)));
         }
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -332,18 +404,20 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
 //        return tryRedirectPk(pk_.getBaseEvo());
     }
     public long getBase(int _index) {
-        DataBase data_ = getDataBase();
-        PokemonData pk_ = data_.getPokemon(name);
-        Statistic stat_ = statisticsEnum.get(_index);
-        StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
-        return statEv_.getBase();
+        return statistics.get(_index).getStat().getBase();
+//        DataBase data_ = getDataBase();
+//        PokemonData pk_ = data_.getPokemon(name);
+//        Statistic stat_ = statisticsEnum.get(_index);
+//        StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
+//        return statEv_.getBase();
     }
     public long getEv(int _index) {
-        DataBase data_ = getDataBase();
-        PokemonData pk_ = data_.getPokemon(name);
-        Statistic stat_ = statisticsEnum.get(_index);
-        StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
-        return statEv_.getEv();
+        return statistics.get(_index).getStat().getEv();
+//        DataBase data_ = getDataBase();
+//        PokemonData pk_ = data_.getPokemon(name);
+//        Statistic stat_ = statisticsEnum.get(_index);
+//        StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
+//        return statEv_.getEv();
     }
     public String clickMove(int _index) {
         return tryRedirect(levMoves.get(_index).getMove());
@@ -453,11 +527,11 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
         return height;
     }
 
-    public StringList getPossibleGenders() {
+    public CustList<TranslatedKey> getPossibleGenders() {
         return possibleGenders;
     }
 
-    public StringList getTypes() {
+    public CustList<TranslatedKey> getTypes() {
         return types;
     }
 
@@ -493,7 +567,7 @@ public class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
         return expRate;
     }
 
-    public StringList getStatistics() {
+    public CustList<StringStatBaseEv> getStatistics() {
         return statistics;
     }
 

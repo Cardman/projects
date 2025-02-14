@@ -190,6 +190,14 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
 //        }
     }
+    protected void mapVarsInit(AbsMap<String,String> _m) {
+        for (EntryCust<String,String> e: _m.entryList()) {
+            initLine();
+            paintMetaLabelDisk();
+            formatMessageDir(e.getKey()+" : "+e.getValue());
+            feedParents();
+        }
+    }
     protected NatStringTreeMap<Rate> map(StringMap<Rate> _input, StringMap<String> _translated) {
         NatStringTreeMap< Rate> multDamageTypesMoves_;
         multDamageTypesMoves_ = new NatStringTreeMap< Rate>();
@@ -491,9 +499,15 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         headerCols(_file, _info, _cols);
     }
 
-    public void display(String _file, Countable _ls, String _key) {
+    public void displayHeadParam(Countable _info, String[] _values, String _file, String _keyTitle, String... _cols) {
+        display(_file, _info, _keyTitle,_values);
+        initGrid();
+        headerCols(_file, _info, _cols);
+    }
+
+    public void display(String _file, Countable _ls, String _key, String... _values) {
         if (!_ls.isEmpty() && !_key.isEmpty()) {
-            builder.formatMessage(getAppName(),_file,_key);
+            builder.formatMessage(getAppName(),_file,_key,_values);
             builder.breakNext();
         }
     }
@@ -570,6 +584,14 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             builder.formatMessageDirCts(_txt.getTranslation(),new EntityClickFormEvent(this,_txt));
         } else {
             builder.formatMessageDirCts(_txt.getTranslation());
+        }
+    }
+
+    public void formatMessageDir(TranslatedKey _txt) {
+        if (_txt.getRedirect() != null) {
+            builder.formatMessageDir(_txt.getTranslation(),new EntityClickFormEvent(this,_txt));
+        } else {
+            builder.formatMessageDir(_txt.getTranslation());
         }
     }
 

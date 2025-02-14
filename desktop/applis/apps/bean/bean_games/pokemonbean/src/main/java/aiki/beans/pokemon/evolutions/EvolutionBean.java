@@ -27,6 +27,11 @@ public class EvolutionBean extends CommonBean {
     protected Evolution getEvo() {
         return evo;
     }
+
+    public TranslatedKey getName() {
+        return name;
+    }
+
     public String clickEvo(int _index) {
         return tryRedirect(getForms().getCurrentBeanEvo().get(_index).name);
     }

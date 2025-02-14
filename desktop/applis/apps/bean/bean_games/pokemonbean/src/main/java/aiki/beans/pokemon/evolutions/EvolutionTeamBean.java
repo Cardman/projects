@@ -21,7 +21,7 @@ public class EvolutionTeamBean extends EvolutionBean {
         return tryRedirect(((EvolutionTeamBean)getForms().getCurrentBeanEvo().get(_index)).other);
     }
 
-    public String getOther() {
-        return other.getTranslation();
+    public TranslatedKey getOther() {
+        return other;
     }
 }

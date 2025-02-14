@@ -54,7 +54,7 @@ public final class MessagesDataPokemonData {
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
         e_.add(M_P_72_ABILITIES,"The possible abilities for {0} are:");
-        e_.add(M_P_72_BACK,"Back");
+        e_.add(M_P_72_BACK,"Back:");
         e_.add(M_P_72_BASE,"{0} has for base of evolution:");
         e_.add(M_P_72_CATCHINGRATE,"The catching rate of {0} is {1}.");
         e_.add(M_P_72_EGG,"Egg groups");
@@ -65,7 +65,7 @@ public final class MessagesDataPokemonData {
         e_.add(M_P_72_EVOLUTIONS_TITLE,"Evolutions");
         e_.add(M_P_72_EXP,"Experience");
         e_.add(M_P_72_EXP_GROWTH,"{0} has for courb of full experience from the first level {1}.");
-        e_.add(M_P_72_FRONT,"Front");
+        e_.add(M_P_72_FRONT,"Front:");
         e_.add(M_P_72_GENDERS,"The possible genders of {0} are the following:");
         e_.add(M_P_72_GENERAL,"General");
         e_.add(M_P_72_GET_EVO,"How get");
@@ -86,7 +86,7 @@ public final class MessagesDataPokemonData {
         e_.add(M_P_72_POKEDEX,"Pokedex");
         e_.add(M_P_72_PTS_EXP,"{0} has for base of experience points by being a wild pokemon: {1}.");
         e_.add(M_P_72_STATISTICS,"The base values of statistics of {0} and the ev of statistics are the following:");
-        e_.add(M_P_72_STATISTICS_EV,"Given Ev by a for {0}");
+        e_.add(M_P_72_STATISTICS_EV,"Given Ev");
         e_.add(M_P_72_STATISTICS_KEY,"Statistic");
         e_.add(M_P_72_STATISTICS_TITLE,"Statistics");
         e_.add(M_P_72_STATISTICS_VALUE,"Base value");
@@ -104,7 +104,7 @@ public final class MessagesDataPokemonData {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_72_ABILITIES,"Les capacités possibles pour {0} sont:");
-        f_.add(M_P_72_BACK,"Dos");
+        f_.add(M_P_72_BACK,"Dos:");
         f_.add(M_P_72_BASE,"{0} a pour base d''évolution:");
         f_.add(M_P_72_CATCHINGRATE,"Le taux de capture de {0} est de {1}.");
         f_.add(M_P_72_EGG,"Groupes d''oeuf");
@@ -115,7 +115,7 @@ public final class MessagesDataPokemonData {
         f_.add(M_P_72_EVOLUTIONS_TITLE,"Evolutions");
         f_.add(M_P_72_EXP,"Expérience");
         f_.add(M_P_72_EXP_GROWTH,"{0} a pour courbe d''expérience totale depuis le premier niveau {1}.");
-        f_.add(M_P_72_FRONT,"Face");
+        f_.add(M_P_72_FRONT,"Face:");
         f_.add(M_P_72_GENDERS,"Les genres possibles de {0} sont les suivants:");
         f_.add(M_P_72_GENERAL,"Général");
         f_.add(M_P_72_GET_EVO,"Comment obtenir");
@@ -136,7 +136,7 @@ public final class MessagesDataPokemonData {
         f_.add(M_P_72_POKEDEX,"Pokedex");
         f_.add(M_P_72_PTS_EXP,"{0} a pour base de points d''expérience en tant que pokémon sauvage: {1}.");
         f_.add(M_P_72_STATISTICS,"Les valeurs de base des statistiques de {0} ainsi que les ev des statistiques sont les suivantes:");
-        f_.add(M_P_72_STATISTICS_EV,"Ev donnés par un {0} adverse");
+        f_.add(M_P_72_STATISTICS_EV,"Ev donnés");
         f_.add(M_P_72_STATISTICS_KEY,"Statistique");
         f_.add(M_P_72_STATISTICS_TITLE,"Statistiques");
         f_.add(M_P_72_STATISTICS_VALUE,"Valeur de base");

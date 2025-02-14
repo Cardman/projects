@@ -21,7 +21,7 @@ public class EvolutionMoveBean extends EvolutionBean {
         return tryRedirect(((EvolutionMoveBean)getForms().getCurrentBeanEvo().get(_index)).move);
     }
 
-    public String getMove() {
-        return move.getTranslation();
+    public TranslatedKey getMove() {
+        return move;
     }
 }

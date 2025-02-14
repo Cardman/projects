@@ -11,6 +11,15 @@ public final class MessagesPkBean {
     public static final String INDEX = "index";
     public static final String POKEDEX = "pokemon/pokedex";
     public static final String PK_DATA = "pokemon/data";
+    public static final String EVO_HAPPINESS="pokemon/evolutions/evohappiness";
+    public static final String EVO_ITEM="pokemon/evolutions/evoitem";
+    public static final String EVO_LEVEL="pokemon/evolutions/evolevel";
+    public static final String EVO_LEVEL_GENDER="pokemon/evolutions/evolevelgender";
+    public static final String EVO_MOVE="pokemon/evolutions/evomove";
+    public static final String EVO_STONE="pokemon/evolutions/evostone";
+    public static final String EVO_STONE_GENDER="pokemon/evolutions/evostonegender";
+    public static final String EVO_TEAM="pokemon/evolutions/evoteam";
+    public static final String EVO_TYPE="pokemon/evolutions/evotype";
     public static final String TEAM = "team";
     public static final String POKEMON = "pokemon";
     public static final String GAMEPROG = "gameprog";
@@ -52,6 +61,15 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(INDEX,MessagesDataIndex.en());
         m.getMapping().addEntry(POKEDEX,MessagesDataPokemonPokedex.en());
         m.getMapping().addEntry(PK_DATA,MessagesDataPokemonData.en());
+        m.getMapping().addEntry(EVO_HAPPINESS,MessagesDataEvolutionsEvohappiness.en());
+        m.getMapping().addEntry(EVO_ITEM,MessagesDataEvolutionsEvoitem.en());
+        m.getMapping().addEntry(EVO_LEVEL,MessagesDataEvolutionsEvolevel.en());
+        m.getMapping().addEntry(EVO_LEVEL_GENDER,MessagesDataEvolutionsEvolevelgender.en());
+        m.getMapping().addEntry(EVO_MOVE,MessagesDataEvolutionsEvomove.en());
+        m.getMapping().addEntry(EVO_STONE,MessagesDataEvolutionsEvostone.en());
+        m.getMapping().addEntry(EVO_STONE_GENDER,MessagesDataEvolutionsEvostonegender.en());
+        m.getMapping().addEntry(EVO_TEAM,MessagesDataEvolutionsEvoteam.en());
+        m.getMapping().addEntry(EVO_TYPE,MessagesDataEvolutionsEvotype.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -59,6 +77,15 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(INDEX,MessagesDataIndex.fr());
         m.getMapping().addEntry(POKEDEX,MessagesDataPokemonPokedex.fr());
         m.getMapping().addEntry(PK_DATA,MessagesDataPokemonData.fr());
+        m.getMapping().addEntry(EVO_HAPPINESS,MessagesDataEvolutionsEvohappiness.fr());
+        m.getMapping().addEntry(EVO_ITEM,MessagesDataEvolutionsEvoitem.fr());
+        m.getMapping().addEntry(EVO_LEVEL,MessagesDataEvolutionsEvolevel.fr());
+        m.getMapping().addEntry(EVO_LEVEL_GENDER,MessagesDataEvolutionsEvolevelgender.fr());
+        m.getMapping().addEntry(EVO_MOVE,MessagesDataEvolutionsEvomove.fr());
+        m.getMapping().addEntry(EVO_STONE,MessagesDataEvolutionsEvostone.fr());
+        m.getMapping().addEntry(EVO_STONE_GENDER,MessagesDataEvolutionsEvostonegender.fr());
+        m.getMapping().addEntry(EVO_TEAM,MessagesDataEvolutionsEvoteam.fr());
+        m.getMapping().addEntry(EVO_TYPE,MessagesDataEvolutionsEvotype.fr());
         return m;
     }
 }

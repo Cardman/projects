@@ -21,7 +21,7 @@ public class EvolutionItemBean extends EvolutionBean {
         return tryRedirect(((EvolutionItemBean)getForms().getCurrentBeanEvo().get(_index)).item);
     }
 
-    public String getItem() {
-        return item.getTranslation();
+    public TranslatedKey getItem() {
+        return item;
     }
 }
