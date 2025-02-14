@@ -123,6 +123,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,eggGroupsPk,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EGG_GROUPS_PK,displayName);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HATCHING,displayName,hatchingSteps.toNumberString());
         if (!isAppearingAnyWhere()) {
+            formatMessageAnc(new PokemonBeanClickPokedex(this),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_POKEDEX);
             return;
         }
         initPlacesLevelList();
@@ -134,6 +135,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
             getBuilder().addImgCts(getMiniMapImage(i),namesPlaces.getValue(i));
         }
         feedParents();
+        formatMessageAnc(new PokemonBeanClickPokedex(this),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_POKEDEX);
     }
 
     private void evo(EvolutionBean _sub) {
