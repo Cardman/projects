@@ -24,13 +24,13 @@ public class EffectCloneBean extends EffectBean {
         movesEndRound_.addAllElts(data_.getMovesAnticipation());
         movesEndRound_.addAllElts(data_.getTrappingMoves());
         movesEndRound_.removeDuplicates();
-        movesEndRound = listTrStringsMv(movesEndRound_,data_,getLanguage());
+        movesEndRound = listTrStringsMv(movesEndRound_,getFacade());
         StringList movesBatonPass_ = movesBatonPass(data_);
         movesBatonPass_.removeDuplicates();
-        movesBatonPass = listTrStringsMv(movesBatonPass_,data_,getLanguage());
+        movesBatonPass = listTrStringsMv(movesBatonPass_,getFacade());
         StringList movesSending_ = movesSending(data_);
         movesSending_.removeDuplicates();
-        movesSending = listTrStringsMv(movesSending_,data_,getLanguage());
+        movesSending = listTrStringsMv(movesSending_,getFacade());
     }
 
     public static StringList movesSending(DataBase _data) {

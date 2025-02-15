@@ -14,7 +14,7 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
         super.beforeDisplaying();
         EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect();
         exchangeAbility = effect_.getExchangeAbility();
-        constAbility = buildAb(getDataBase().getTranslatedAbilities().getVal(getLanguage()),effect_.getConstAbility());
+        constAbility = buildAb(getFacade(),effect_.getConstAbility());
     }
     public boolean giveToTarget() {
         return exchangeAbility == ExchangeType.GIVE_TO_TARGET;

@@ -17,7 +17,6 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
         super.beforeDisplaying();
         EffectSwitchMoveTypes effect_ = (EffectSwitchMoveTypes) getEffect();
         DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringList replacingTypes_;
         replacingTypes_ = new StringList();
         for (String t: effect_.getReplacingTypes()) {
@@ -28,7 +27,7 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
         DictionaryComparator<TranslatedKey,TranslatedKey> changeTypes_;
         changeTypes_ = DictionaryComparatorUtil.buildTypesStr();
         for (String t: effect_.getChangeTypes().getKeys()) {
-            changeTypes_.put(build(translatedTypes_,t), build(translatedTypes_,effect_.getChangeTypes().getVal(t)));
+            changeTypes_.put(buildTy(getFacade(),t), buildTy(getFacade(),effect_.getChangeTypes().getVal(t)));
         }
         changeTypes = changeTypes_;
     }

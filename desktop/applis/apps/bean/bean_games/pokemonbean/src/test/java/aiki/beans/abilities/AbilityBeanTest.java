@@ -2,6 +2,7 @@ package aiki.beans.abilities;
 
 import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
+import aiki.facade.FacadeGame;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
@@ -11,7 +12,9 @@ import org.junit.Test;
 public final class AbilityBeanTest extends InitDbAbility {
     @Test
     public void reverseEffects() {
-        CustList<TranslatedKey> ls_ = AbilityBean.reverseEffects(feedDbAbility().getData(),EN);
+        FacadeGame f_ = feedDbAbility();
+        f_.updateTrs();
+        CustList<TranslatedKey> ls_ = AbilityBean.reverseEffects(f_);
         assertEq(1,ls_.size());
         assertEq(A_ABILITY,ls_.get(0).getKey());
     }

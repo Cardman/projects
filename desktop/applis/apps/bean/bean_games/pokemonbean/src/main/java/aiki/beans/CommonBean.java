@@ -227,86 +227,86 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return multDamageTypesMoves_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsAb(CustList<String> _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsAb(CustList<String> _input, FacadeGame _db) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
-            res_.add(buildAb(_db.getTranslatedAbilities().getVal(_lg),s));
+            res_.add(buildAb(_db,s));
         }
         res_.sortElts(new ComparingTranslatedKey());
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsIt(CustList<String> _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsIt(CustList<String> _input, FacadeGame _db) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
-            res_.add(buildIt(_db,_db.getTranslatedItems().getVal(_lg),s));
+            res_.add(buildIt(_db, s));
         }
         res_.sortElts(new ComparingTranslatedKey());
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsMv(CustList<String> _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsMv(CustList<String> _input, FacadeGame _db) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
-            res_.add(buildMv(_db.getTranslatedMoves().getVal(_lg),s));
+            res_.add(buildMv(_db,s));
         }
         res_.sortElts(new ComparingTranslatedKey());
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsPk(CustList<String> _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsPk(CustList<String> _input, FacadeGame _db) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
-            res_.add(buildPk(_db.getTranslatedPokemon().getVal(_lg),s));
+            res_.add(buildPk(_db,s));
         }
         res_.sortElts(new ComparingTranslatedKey());
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsSt(CustList<String> _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsSt(CustList<String> _input, FacadeGame _db) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
-            res_.add(buildSt(_db.getTranslatedStatus().getVal(_lg),s));
+            res_.add(buildSt(_db,s));
         }
         res_.sortElts(new ComparingTranslatedKey());
         return res_;
     }
 
-    protected static CustList<TranslatedKey> listTrStringsTy(CustList<String> _input, DataBase _db, String _lg) {
+    protected static CustList<TranslatedKey> listTrStringsTy(CustList<String> _input, FacadeGame _db) {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
-            res_.add(build(_db.getTranslatedTypes().getVal(_lg),s));
+            res_.add(buildTy(_db,s));
         }
         res_.sortElts(new ComparingTranslatedKey());
         return res_;
     }
 
-    public static TranslatedKey build(AbsMap<String,String> _tr, String _k) {
-        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)));
+    public static TranslatedKey buildTy(FacadeGame _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getTranslatedTypes().getVal(_k)));
     }
-    public static TranslatedKey buildAb(AbsMap<String,String> _tr, String _k) {
-        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectAb(_k,""), PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML, CST_ABILITY);
+    public static TranslatedKey buildAb(FacadeGame _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getTranslatedAbilities().getVal(_k)),new RedirectAb(_k,""), PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML, CST_ABILITY);
     }
-    public static TranslatedKey buildIt(DataBase _db,AbsMap<String,String> _tr, String _k) {
-        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectIt(_k,"",_db.getItem(_k)), "", CST_ITEM);
+    public static TranslatedKey buildIt(FacadeGame _db, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_db.getTranslatedItems().getVal(_k)),new RedirectIt(_k,"",_db.getData().getItem(_k)), "", CST_ITEM);
     }
-    public static TranslatedKey buildMv(AbsMap<String,String> _tr, String _k) {
-        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectMv(_k,""), PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML, CST_MOVE);
+    public static TranslatedKey buildMv(FacadeGame _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getTranslatedMoves().getVal(_k)),new RedirectMv(_k,""), PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML, CST_MOVE);
     }
-    public static TranslatedKey buildPk(AbsMap<String,String> _tr, String _k) {
-        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectPk(_k,""), PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, CST_PK);
+    public static TranslatedKey buildPk(FacadeGame _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getTranslatedPokemon().getVal(_k)),new RedirectPk(_k,""), PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, CST_PK);
     }
-    public static TranslatedKey buildSt(AbsMap<String,String> _tr, String _k) {
-        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getVal(_k)),new RedirectSt(_k,""), PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML, CST_STATUS);
+    public static TranslatedKey buildSt(FacadeGame _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getTranslatedStatus().getVal(_k)),new RedirectSt(_k,""), PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML, CST_STATUS);
     }
-    public static TranslatedKey buildEnv(AbsMap<EnvironmentType,String> _tr, EnvironmentType _k) {
-        return new TranslatedKey(_k.getEnvName(),StringUtil.nullToEmpty(_tr.getVal(_k)));
+    public static TranslatedKey buildEnv(FacadeGame _tr, EnvironmentType _k) {
+        return new TranslatedKey(_k.getEnvName(),StringUtil.nullToEmpty(_tr.getTranslatedEnvironment().getVal(_k)));
     }
-    public static TranslatedKey buildSi(AbsMap<Statistic,String> _tr, Statistic _k) {
-        return new TranslatedKey(_k.getStatName(),StringUtil.nullToEmpty(_tr.getVal(_k)));
+    public static TranslatedKey buildSi(FacadeGame _tr, Statistic _k) {
+        return new TranslatedKey(_k.getStatName(),StringUtil.nullToEmpty(_tr.getTranslatedStatistics().getVal(_k)));
     }
-    public static TranslatedKey buildGender(AbsMap<Gender,String> _tr, Gender _k) {
-        return new TranslatedKey(_k.getGenderName(),StringUtil.nullToEmpty(_tr.getVal(_k)));
+    public static TranslatedKey buildGender(FacadeGame _tr, Gender _k) {
+        return new TranslatedKey(_k.getGenderName(),StringUtil.nullToEmpty(_tr.getTranslatedGenders().getVal(_k)));
     }
     public DataBase getDataBase() {
         return db().getData();

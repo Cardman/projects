@@ -45,7 +45,7 @@ public class SelectItemBean extends WithFilterBean {
         return redirect();
     }
     public String search() {
-        AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems(getDataBase());
+        AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems();
         getForms().putItems(CST_ITEMS_SET_EDIT, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             item = sortedItems_.firstKey().getKey();

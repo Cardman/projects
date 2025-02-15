@@ -24,11 +24,11 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         recoilDamage = effect_.getRecoilDamage();
         healHp = effect_.getHealHp();
         DataBase data_ = getDataBase();
-        userStatusEndRound = buildSt(data_.getTranslatedStatus().getVal(getLanguage()),effect_.getUserStatusEndRound());
+        userStatusEndRound = buildSt(getFacade(),effect_.getUserStatusEndRound());
         DictionaryComparator<TranslatedKey,Rate> multDamageStatus_;
         multDamageStatus_ = DictionaryComparatorUtil.buildStatusRate();
         for (String s: effect_.getMultDamageStatus().getKeys()) {
-            multDamageStatus_.put(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s), effect_.getMultDamageStatus().getVal(s));
+            multDamageStatus_.put(buildSt(getFacade(),s), effect_.getMultDamageStatus().getVal(s));
         }
         multDamageStatus = multDamageStatus_;
         DictionaryComparator<String,Rate> healHpByOwnerTypes_;

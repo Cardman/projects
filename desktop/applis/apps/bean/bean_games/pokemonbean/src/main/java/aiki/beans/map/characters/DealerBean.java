@@ -13,13 +13,13 @@ public class DealerBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DealerItem dealer_ = (DealerItem) getForms().getValPers(CST_PERSON);
-        itemsDealer = listTrStringsIt(dealer_.getItems(),getDataBase(),getLanguage());
+        itemsDealer = listTrStringsIt(dealer_.getItems(),getFacade());
         DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
         for (Integer s: dealer_.getTechnicalMoves()) {
             moves_.add(data_.getTm().getVal(s));
         }
-        allTmDealer = listTrStringsMv(moves_,data_,getLanguage());
+        allTmDealer = listTrStringsMv(moves_,getFacade());
     }
     public String getItem(int _index) {
         return itemsDealer.get(_index).getTranslation();

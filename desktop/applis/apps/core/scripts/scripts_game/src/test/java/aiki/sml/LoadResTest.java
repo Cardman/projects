@@ -13,6 +13,7 @@ public final class LoadResTest extends EquallableAikiScriptsUtil {
     @Test
     public void load(){
         FacadeGame facade_ = new FacadeGame();
+        facade_.setSimplyLanguage("");
         facade_.setLanguages(indexesAll());
         facade_.setDisplayLanguages(new StringMap<String>());
         StringMap<TranslationsAppli> apps_ = new StringMap<TranslationsAppli>();

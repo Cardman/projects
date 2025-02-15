@@ -54,7 +54,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.DIFF);
         DictionaryComparator<TranslatedKey, MoveData> data_ = DictionaryComparatorUtil.buildMovesData();
         for (EntryCust<String,MoveData> e: getDataBase().getView().entryList()) {
-            data_.addEntry(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),e.getKey()),e.getValue());
+            data_.addEntry(buildMv(getFacade(),e.getKey()),e.getValue());
         }
         getForms().putMoves(CST_LEARNT_MOVES,data_);
     }

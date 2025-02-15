@@ -1,7 +1,6 @@
 package aiki.beans;
 
 import aiki.beans.map.elements.*;
-import aiki.db.*;
 import aiki.map.pokemon.*;
 import code.util.*;
 
@@ -13,11 +12,10 @@ public abstract class AbsPkTeamBean extends CommonBean {
     }
 
     protected CustList<TranslatedPkElements> retrieveTeam(CustList<PkTrainer> _l) {
-        DataBase data_ = getDataBase();
         CustList<TranslatedPkElements> team_;
         team_ = new CustList<TranslatedPkElements>();
         for (PkTrainer p: _l) {
-            team_.add(new TranslatedPkElements(data_,p,getLanguage()));
+            team_.add(new TranslatedPkElements(getFacade(),p));
         }
         return team_;
     }

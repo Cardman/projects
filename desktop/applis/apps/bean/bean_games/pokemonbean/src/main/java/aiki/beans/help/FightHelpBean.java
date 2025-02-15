@@ -8,6 +8,7 @@ import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
@@ -205,7 +206,7 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         wonHappinessPointsLevel = data_.getWonHappinessByGrowLevel();
         happinessPoints = data_.getHappinessEvo();
-        defaultMove = buildMv(data_.getTranslatedMoves().getVal(getLanguage()),data_.getDefMove());
+        defaultMove = buildMv(getFacade(),data_.getDefMove());
         defaultBoostValue = data_.getDefaultBoost();
         strongMove = data_.getStrongMovePower();
 //        StringMap<String> replace_ = new StringMap<String>();
@@ -226,7 +227,7 @@ public class FightHelpBean extends CommonBean {
         initBoosts(minBoost_, maxBoost_);
         initSendingMembers();
         initPrivateMoves();
-        movesHealingSubstitute = listTrStringsMv(data_.getMovesFullHeal(),data_,getLanguage());
+        movesHealingSubstitute = listTrStringsMv(data_.getMovesFullHeal(),getFacade());
         initSubstitutingMoves();
         initSpeedElements();
         initSwitchingMembers();
@@ -240,7 +241,7 @@ public class FightHelpBean extends CommonBean {
         initProtectingMembers();
         initEffMoves();
         initAbilitiesPartStatis();
-        movesTeam = listTrStringsMv(data_.getMovesEffectTeam(),data_,getLanguage());
+        movesTeam = listTrStringsMv(data_.getMovesEffectTeam(),getFacade());
         initAbilitiesRateStatis();
         initStatisticsImmuElements();
         initStatusElements();
@@ -253,11 +254,11 @@ public class FightHelpBean extends CommonBean {
         initAccuracyEvasinessElements();
         initStatisticsCalculationElements();
         initTypeDef();
-        movesTypesDefWeather = listTrStringsMv(movesTypesDefWeatherInit(data_),data_,getLanguage());
-        abilitiesTypeDefMoves = listTrStringsAb(abilitiesTypeDefMovesInit(data_),data_,getLanguage());
-        abilitiesChangeTypeMoves = listTrStringsAb(abilitiesChangeTypeMovesInit(data_),data_,getLanguage());
+        movesTypesDefWeather = listTrStringsMv(movesTypesDefWeatherInit(data_),getFacade());
+        abilitiesTypeDefMoves = listTrStringsAb(abilitiesTypeDefMovesInit(data_),getFacade());
+        abilitiesChangeTypeMoves = listTrStringsAb(abilitiesChangeTypeMovesInit(data_),getFacade());
         initMovesEffectSwitchMoveTypes();
-        abilitiesBreakImmu = listTrStringsAb(abilitiesBreakImmuInit(data_),data_,getLanguage());
+        abilitiesBreakImmu = listTrStringsAb(abilitiesBreakImmuInit(data_),getFacade());
         initCriticalHitElements();
         //getMultEvtRateCh
         //getMultDamageCh
@@ -271,7 +272,7 @@ public class FightHelpBean extends CommonBean {
 //            }
 //        });
         efficiency = efficiencyInit(data_,getLanguage());
-        types = typesInit(data_,getLanguage());
+        types = typesInit(getFacade());
         initFormulaElements();
     }
     static StringList movesTypesDefWeatherInit(DataBase _db) {
@@ -325,13 +326,13 @@ public class FightHelpBean extends CommonBean {
         }
         return efficiency_;
     }
-    static CustList<TranslatedKey> typesInit(DataBase _db, String _lg) {
+    static CustList<TranslatedKey> typesInit(FacadeGame _db) {
         StringList types_ = new StringList();
-        for (TypesDuo t: _db.getTableTypes().getKeys()) {
+        for (TypesDuo t: _db.getData().getTableTypes().getKeys()) {
             types_.add(t.getDamageType());
         }
         types_.removeDuplicates();
-        return listTrStringsTy(types_,_db,_lg);
+        return listTrStringsTy(types_,_db);
     }
     static StringList movesTypesDefItemInit(DataBase _db) {
         StringList movesTypesDefItem_ = new StringList();
@@ -366,13 +367,13 @@ public class FightHelpBean extends CommonBean {
 
     private void initTypeDef() {
         DataBase data_ = getDataBase();
-        movesTypesDefItem = listTrStringsMv(movesTypesDefItemInit(data_),data_,getLanguage());
-        itemsTypesDef = listTrStringsIt(itemsTypesDefInit(WithFilterBean.keys(movesTypesDefItem),data_),data_,getLanguage());
+        movesTypesDefItem = listTrStringsMv(movesTypesDefItemInit(data_),getFacade());
+        itemsTypesDef = listTrStringsIt(itemsTypesDefInit(WithFilterBean.keys(movesTypesDefItem),data_),getFacade());
     }
 
     private void initAbilitiesRateStatis() {
         DataBase data_ = getDataBase();
-        abilitiesRateStatis = listTrStringsAb(abilitiesRateStatisInit(data_),data_,getLanguage());
+        abilitiesRateStatis = listTrStringsAb(abilitiesRateStatisInit(data_),getFacade());
     }
 
     static StringList abilitiesPartStatisInit(DataBase _db) {
@@ -387,12 +388,12 @@ public class FightHelpBean extends CommonBean {
     }
     private void initAbilitiesPartStatis() {
         DataBase data_ = getDataBase();
-        abilitiesPartStatis = listTrStringsAb(abilitiesPartStatisInit(data_),data_,getLanguage());
+        abilitiesPartStatis = listTrStringsAb(abilitiesPartStatisInit(data_),getFacade());
     }
 
     private void initEffMoves() {
         DataBase data_ = getDataBase();
-        effMoves = listTrStringsMv(effMovesInit(data_),data_,getLanguage());
+        effMoves = listTrStringsMv(effMovesInit(data_),getFacade());
     }
     static StringList effMovesInit(DataBase _db) {
         StringList effMoves_ = new StringList();
@@ -407,7 +408,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initPressureAbilities() {
         DataBase data_ = getDataBase();
-        pressureAbilities = listTrStringsAb(pressureAbilitiesInit(data_),data_,getLanguage());
+        pressureAbilities = listTrStringsAb(pressureAbilitiesInit(data_),getFacade());
     }
     static StringList pressureAbilitiesInit(DataBase _db) {
         StringList pressureAbilities_ = new StringList();
@@ -422,7 +423,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesSecEffItems() {
         DataBase data_ = getDataBase();
-        movesSecEffItems = listTrStringsMv(movesSecEffItemsInit(data_),data_,getLanguage());
+        movesSecEffItems = listTrStringsMv(movesSecEffItemsInit(data_),getFacade());
     }
     static StringList movesSecEffItemsInit(DataBase _db) {
         StringList movesSecEffItems_ = new StringList();
@@ -437,7 +438,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initBeginRoundStatusFoe() {
         DataBase data_ = getDataBase();
-        beginRoundStatusFoe = listTrStringsSt(beginRoundStatusFoeInit(data_),data_,getLanguage());
+        beginRoundStatusFoe = listTrStringsSt(beginRoundStatusFoeInit(data_),getFacade());
     }
     static StringList beginRoundStatusFoeInit(DataBase _db) {
         StringList beginRoundStatusFoe_ = new StringList();
@@ -452,7 +453,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initCopyMoveTypesAb() {
         DataBase data_ = getDataBase();
-        copyMoveTypesAb = listTrStringsAb(copyMoveTypesAbInit(data_),data_,getLanguage());
+        copyMoveTypesAb = listTrStringsAb(copyMoveTypesAbInit(data_),getFacade());
     }
     static StringList copyMoveTypesAbInit(DataBase _db) {
         StringList copyMoveTypesAb_ = new StringList();
@@ -467,7 +468,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initSubstitutingMoves() {
         DataBase data_ = getDataBase();
-        substitutingMoves = listTrStringsMv(substitutingMovesInit(data_),data_,getLanguage());
+        substitutingMoves = listTrStringsMv(substitutingMovesInit(data_),getFacade());
     }
     static StringList substitutingMovesInit(DataBase _db) {
         StringList substitutingMoves_ = new StringList();
@@ -482,8 +483,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesEffectSwitchMoveTypes() {
         DataBase data_ = getDataBase();
-        movesTypeDefMoves = listTrStringsMv(movesTypeDefMovesInit(data_),data_,getLanguage());
-        movesChangeTypeMoves = listTrStringsMv(movesChangeTypeMovesInit(data_),data_,getLanguage());
+        movesTypeDefMoves = listTrStringsMv(movesTypeDefMovesInit(data_),getFacade());
+        movesChangeTypeMoves = listTrStringsMv(movesChangeTypeMovesInit(data_),getFacade());
     }
     static StringList movesTypeDefMovesInit(DataBase _db) {
         StringList movesTypeDefMoves_ = new StringList();
@@ -514,7 +515,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initPrivateMoves() {
         DataBase data_ = getDataBase();
-        privatingMoves = listTrStringsMv(privatingMovesInit(data_),data_,getLanguage());
+        privatingMoves = listTrStringsMv(privatingMovesInit(data_),getFacade());
     }
     static StringList privatingMovesInit(DataBase _db) {
         StringList privatingMoves_ = new StringList();
@@ -532,9 +533,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initAccuracyEvasinessElements() {
         DataBase data_ = getDataBase();
-        movesIgnAcc = listTrStringsMv(movesIgnAccInit(data_),data_,getLanguage());
-        movesIgnEva = listTrStringsMv(movesIgnEvaInit(data_),data_,getLanguage());
-        movesGlobalAcc = listTrStringsMv(movesGlobalAccInit(data_),data_,getLanguage());
+        movesIgnAcc = listTrStringsMv(movesIgnAccInit(data_),getFacade());
+        movesIgnEva = listTrStringsMv(movesIgnEvaInit(data_),getFacade());
+        movesGlobalAcc = listTrStringsMv(movesGlobalAccInit(data_),getFacade());
     }
     static StringList movesIgnAccInit(DataBase _db) {
         StringList movesIgnAcc_ = new StringList();
@@ -572,11 +573,11 @@ public class FightHelpBean extends CommonBean {
 
     private void initStatusElements() {
         DataBase data_ = getDataBase();
-        successfulStatus = listTrStringsSt(successfulStatusInit(data_),data_,getLanguage());
+        successfulStatus = listTrStringsSt(successfulStatusInit(data_),getFacade());
         initGlobalMovesStatus();
-        abilitiesPartStatus = listTrStringsAb(abilitiesPartStatusInit(data_),data_,getLanguage());
-        abilitiesFighterStatus = listTrStringsAb(abilitiesFighterStatusInit(data_),data_,getLanguage());
-        itemsFighterStatus = listTrStringsIt(itemsFighterStatusInit(data_),data_,getLanguage());
+        abilitiesPartStatus = listTrStringsAb(abilitiesPartStatusInit(data_),getFacade());
+        abilitiesFighterStatus = listTrStringsAb(abilitiesFighterStatusInit(data_),getFacade());
+        itemsFighterStatus = listTrStringsIt(itemsFighterStatusInit(data_),getFacade());
     }
     static StringList successfulStatusInit(DataBase _db) {
         StringList successfulStatus_ = new StringList();
@@ -621,7 +622,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initGlobalMovesStatus() {
         DataBase data_ = getDataBase();
-        globalMovesStatus = listTrStringsMv(globalMovesStatusInit(data_),data_,getLanguage());
+        globalMovesStatus = listTrStringsMv(globalMovesStatusInit(data_),getFacade());
     }
     static StringList globalMovesStatusInit(DataBase _db) {
         StringList globalMovesStatus_ = new StringList();
@@ -638,10 +639,10 @@ public class FightHelpBean extends CommonBean {
 
     private void initCriticalHitElements() {
         DataBase data_ = getDataBase();
-        abilitiesImmuCh = listTrStringsAb(abilitiesImmuChInit(data_),data_,getLanguage());
+        abilitiesImmuCh = listTrStringsAb(abilitiesImmuChInit(data_),getFacade());
         initMovesBoostCh();
-        abilitesMultEvtCh = listTrStringsAb(abilitesMultEvtChInit(data_),data_,getLanguage());
-        abilitesMultRateCh = listTrStringsAb(abilitesMultRateChInit(data_),data_,getLanguage());
+        abilitesMultEvtCh = listTrStringsAb(abilitesMultEvtChInit(data_),getFacade());
+        abilitesMultRateCh = listTrStringsAb(abilitesMultRateChInit(data_),getFacade());
     }
     static StringList abilitiesImmuChInit(DataBase _db) {
         StringList abilitiesImmuCh_ = new StringList();
@@ -676,7 +677,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesBoostCh() {
         DataBase data_ = getDataBase();
-        movesBoostCh = listTrStringsMv(movesBoostChInit(data_),data_,getLanguage());
+        movesBoostCh = listTrStringsMv(movesBoostChInit(data_),getFacade());
     }
     static StringList movesBoostChInit(DataBase _db) {
         StringList movesBoostCh_ = new StringList();
@@ -694,13 +695,13 @@ public class FightHelpBean extends CommonBean {
 
     private void initStatisticsCalculationElements() {
         DataBase data_ = getDataBase();
-        abilitiesBoostingStat = listTrStringsAb(abilitiesBoostingStatInit(data_),data_,getLanguage());
+        abilitiesBoostingStat = listTrStringsAb(abilitiesBoostingStatInit(data_),getFacade());
         initItemsBoostingStat();
         initAbItMultStat();
         initMultStatTeamGlobal();
-        abilitiesAllyMultStat = listTrStringsAb(abilitiesAllyMultStatInit(data_),data_,getLanguage());
-        statusMultStat = listTrStringsSt(statusMultStatInit(data_),data_,getLanguage());
-        abilitiesImmuMultStat = listTrStringsAb(abilitiesImmuMultStatInit(data_),data_,getLanguage());
+        abilitiesAllyMultStat = listTrStringsAb(abilitiesAllyMultStatInit(data_),getFacade());
+        statusMultStat = listTrStringsSt(statusMultStatInit(data_),getFacade());
+        abilitiesImmuMultStat = listTrStringsAb(abilitiesImmuMultStatInit(data_),getFacade());
         initComboMultStat();
 //        comboMultStat.sort(new NaturalComparator<StringList>(){
 //            public int compare(StringList _key1, StringList _key2) {
@@ -789,8 +790,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initAbItMultStat() {
         DataBase data_ = getDataBase();
-        abilitiesMultStat = listTrStringsAb(abilitiesMultStatInit(data_),data_,getLanguage());
-        itemsMultStat = listTrStringsIt(itemsMultStatInit(data_),data_,getLanguage());
+        abilitiesMultStat = listTrStringsAb(abilitiesMultStatInit(data_),getFacade());
+        itemsMultStat = listTrStringsIt(itemsMultStatInit(data_),getFacade());
     }
     static StringList abilitiesMultStatInit(DataBase _db) {
         StringList abilitiesMultStat_ = new StringList();
@@ -815,7 +816,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMultStatTeamGlobal() {
         DataBase data_ = getDataBase();
-        movesGlobalMultStat = listTrStringsMv(movesGlobalMultStatInit(data_),data_,getLanguage());
+        movesGlobalMultStat = listTrStringsMv(movesGlobalMultStatInit(data_),getFacade());
         initMultStatTeam();
     }
     static StringList movesGlobalMultStatInit(DataBase _db) {
@@ -834,8 +835,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initMultStatTeam() {
         DataBase data_ = getDataBase();
-        movesTeamMultStat = listTrStringsMv(movesTeamMultStatInit(data_),data_,getLanguage());
-        movesFoeTeamMultStat = listTrStringsMv(movesFoeTeamMultStatInit(data_),data_,getLanguage());
+        movesTeamMultStat = listTrStringsMv(movesTeamMultStatInit(data_),getFacade());
+        movesFoeTeamMultStat = listTrStringsMv(movesFoeTeamMultStatInit(data_),getFacade());
     }
     static StringList movesTeamMultStatInit(DataBase _db) {
         StringList movesTeamMultStat_ = new StringList();
@@ -902,7 +903,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initItemsBoostingStat() {
         DataBase data_ = getDataBase();
-        itemsBoostingStat = listTrStringsIt(itemsBoostingStatInit(data_),data_,getLanguage());
+        itemsBoostingStat = listTrStringsIt(itemsBoostingStatInit(data_),getFacade());
     }
     static StringList itemsBoostingStatInit(DataBase _db) {
         StringList itemsBoostingStat_ = new StringList();
@@ -924,17 +925,17 @@ public class FightHelpBean extends CommonBean {
     private void initSuccessEffectsElements() {
         DataBase data_ = getDataBase();
         initItemsCancelImmu();
-        movesProtectingTypes = listTrStringsMv(data_.getMovesEffectProt(),data_,getLanguage());
-        movesUnprotectingTypes = listTrStringsMv(data_.getMovesEffectUnprot(),data_,getLanguage());
+        movesProtectingTypes = listTrStringsMv(data_.getMovesEffectProt(),getFacade());
+        movesUnprotectingTypes = listTrStringsMv(data_.getMovesEffectUnprot(),getFacade());
         initMovesBrImmu();
         initImmuTypes();
         initAbilitiesImmu();
         initItImmu();
-        abilitiesImmuSecEffOther = listTrStringsAb(abilitiesImmuSecEffOtherInit(data_),data_,getLanguage());
-        abilitiesImmuSecEffOwner = listTrStringsAb(abilitiesImmuSecEffOwnerInit(data_),data_,getLanguage());
-        abilitiesAchieveTarget = listTrStringsAb(abilitiesAchieveTargetInit(data_),data_,getLanguage());
-        abilitiesBreakProtectMoves = listTrStringsAb(abilitiesBreakProtectMovesInit(data_),data_,getLanguage());
-        movesProtecting = listTrStringsMv(initProt(data_),data_,getLanguage());
+        abilitiesImmuSecEffOther = listTrStringsAb(abilitiesImmuSecEffOtherInit(data_),getFacade());
+        abilitiesImmuSecEffOwner = listTrStringsAb(abilitiesImmuSecEffOwnerInit(data_),getFacade());
+        abilitiesAchieveTarget = listTrStringsAb(abilitiesAchieveTargetInit(data_),getFacade());
+        abilitiesBreakProtectMoves = listTrStringsAb(abilitiesBreakProtectMovesInit(data_),getFacade());
+        movesProtecting = listTrStringsMv(initProt(data_),getFacade());
     }
     private static StringList initProt(DataBase _db) {
         StringList movesProtecting_ = new StringList();
@@ -990,7 +991,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initItemsCancelImmu() {
         DataBase data_ = getDataBase();
-        itemsCancelImmu = listTrStringsIt(itemsCancelImmuInit(data_),data_,getLanguage());
+        itemsCancelImmu = listTrStringsIt(itemsCancelImmuInit(data_),getFacade());
     }
     static StringList itemsCancelImmuInit(DataBase _db) {
         StringList itemsCancelImmu_ = new StringList();
@@ -1005,9 +1006,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initAbilitiesImmu() {
         DataBase data_ = getDataBase();
-        abilitiesImmuAllies = listTrStringsAb(abilitiesImmuAlliesInit(data_),data_,getLanguage());
-        abilitiesImmuAlliesDam = listTrStringsAb(abilitiesImmuAlliesDamInit(data_),data_,getLanguage());
-        abilitiesImmu = listTrStringsAb(abilitiesImmuInit(data_),data_,getLanguage());
+        abilitiesImmuAllies = listTrStringsAb(abilitiesImmuAlliesInit(data_),getFacade());
+        abilitiesImmuAlliesDam = listTrStringsAb(abilitiesImmuAlliesDamInit(data_),getFacade());
+        abilitiesImmu = listTrStringsAb(abilitiesImmuInit(data_),getFacade());
     }
     static StringList abilitiesImmuAlliesInit(DataBase _db) {
         StringList abilitiesImmuAllies_ = new StringList();
@@ -1042,7 +1043,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initItImmu() {
         DataBase data_ = getDataBase();
-        itemsImmu = listTrStringsIt(itemsImmuInit(data_),data_,getLanguage());
+        itemsImmu = listTrStringsIt(itemsImmuInit(data_),getFacade());
     }
     static StringList itemsImmuInit(DataBase _db) {
         StringList itemsImmu_ = new StringList();
@@ -1063,8 +1064,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initImmuTypes() {
         DataBase data_ = getDataBase();
-        abilitiesImmuTypes = listTrStringsAb(abilitiesImmuTypesInit(data_),data_,getLanguage());
-        itemsImmuTypes = listTrStringsIt(itemsImmuTypesInit(data_),data_,getLanguage());
+        abilitiesImmuTypes = listTrStringsAb(abilitiesImmuTypesInit(data_),getFacade());
+        itemsImmuTypes = listTrStringsIt(itemsImmuTypesInit(data_),getFacade());
     }
     static StringList abilitiesImmuTypesInit(DataBase _db) {
         StringList abilitiesImmuTypes_ = new StringList();
@@ -1089,9 +1090,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesBrImmu() {
         DataBase data_ = getDataBase();
-        movesGlobalBreakImmu = listTrStringsMv(movesGlobalBreakImmuInit(data_),data_,getLanguage());
-        movesGlobalBreakImmuAb = listTrStringsMv(movesGlobalBreakImmuAbInit(data_),data_,getLanguage());
-        abilitiesBreakable = listTrStringsAb(abilitiesBreakableInit(WithFilterBean.keys(movesGlobalBreakImmuAb),data_),data_,getLanguage());
+        movesGlobalBreakImmu = listTrStringsMv(movesGlobalBreakImmuInit(data_),getFacade());
+        movesGlobalBreakImmuAb = listTrStringsMv(movesGlobalBreakImmuAbInit(data_),getFacade());
+        abilitiesBreakable = listTrStringsAb(abilitiesBreakableInit(WithFilterBean.keys(movesGlobalBreakImmuAb),data_),getFacade());
     }
     static StringList movesGlobalBreakImmuInit(DataBase _db) {
         StringList movesGlobalBreakImmu_ = new StringList();
@@ -1136,10 +1137,10 @@ public class FightHelpBean extends CommonBean {
     private void initDamageCalculationElements() {
         DataBase data_ = getDataBase();
         initMovesUserAllyDamage();
-        abilitiesTargetDamage = listTrStringsAb(abilitiesTargetDamageInit(data_),data_,getLanguage());
+        abilitiesTargetDamage = listTrStringsAb(abilitiesTargetDamageInit(data_),getFacade());
         initMovesTargetTeamDamage();
-        abilitiesUserIgnTargetTeam = listTrStringsAb(abilitiesUserIgnTargetTeamInit(data_),data_,getLanguage());
-        abilitiesGlobal = listTrStringsAb(abilitiesGlobalInit(data_),data_,getLanguage());
+        abilitiesUserIgnTargetTeam = listTrStringsAb(abilitiesUserIgnTargetTeamInit(data_),getFacade());
+        abilitiesGlobal = listTrStringsAb(abilitiesGlobalInit(data_),getFacade());
         initMovesGlobal();
         initDamageDefElement();
         initAbilitiesUserDamage();
@@ -1177,12 +1178,12 @@ public class FightHelpBean extends CommonBean {
     }
     private void initDamageDefElement() {
         DataBase data_ = getDataBase();
-        itemsUserDamage = listTrStringsIt(itemsUserDamageInit(data_),data_,getLanguage());
-        abilitiesUserDamage = listTrStringsAb(abilitiesUserDamageInit(data_),data_,getLanguage());
+        itemsUserDamage = listTrStringsIt(itemsUserDamageInit(data_),getFacade());
+        abilitiesUserDamage = listTrStringsAb(abilitiesUserDamageInit(data_),getFacade());
         initMovesInvokDamage();
-        itemsTargetDamage = listTrStringsIt(itemsTargetDamageInit(data_),data_,getLanguage());
+        itemsTargetDamage = listTrStringsIt(itemsTargetDamageInit(data_),getFacade());
         initMovesGlobalPrepaDamage();
-        statusDamage = listTrStringsSt(statusDamageInit(data_),data_,getLanguage());
+        statusDamage = listTrStringsSt(statusDamageInit(data_),getFacade());
     }
     static StringList itemsUserDamageInit(DataBase _db) {
         StringList itemsUserDamage_ = new StringList();
@@ -1227,7 +1228,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesUserAllyDamage() {
         DataBase data_ = getDataBase();
-        movesUserAllyDamage = listTrStringsMv(movesUserAllyDamageInit(data_),data_,getLanguage());
+        movesUserAllyDamage = listTrStringsMv(movesUserAllyDamageInit(data_),getFacade());
     }
     static StringList movesUserAllyDamageInit(DataBase _db) {
         StringList movesUserAllyDamage_ = new StringList();
@@ -1245,7 +1246,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesTargetTeamDamage() {
         DataBase data_ = getDataBase();
-        movesTargetTeamDamage = listTrStringsMv(movesTargetTeamDamageInit(data_),data_,getLanguage());
+        movesTargetTeamDamage = listTrStringsMv(movesTargetTeamDamageInit(data_),getFacade());
     }
     static StringList movesTargetTeamDamageInit(DataBase _db) {
         StringList movesTargetTeamDamage_ = new StringList();
@@ -1263,7 +1264,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesGlobal() {
         DataBase data_ = getDataBase();
-        movesGlobal = listTrStringsMv(movesGlobalInit(data_),data_,getLanguage());
+        movesGlobal = listTrStringsMv(movesGlobalInit(data_),getFacade());
     }
     static StringList movesGlobalInit(DataBase _db) {
         StringList movesGlobal_ = new StringList();
@@ -1281,7 +1282,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesInvokDamage() {
         DataBase data_ = getDataBase();
-        movesInvokDamage = listTrStringsMv(movesInvokDamageInit(data_),data_,getLanguage());
+        movesInvokDamage = listTrStringsMv(movesInvokDamageInit(data_),getFacade());
     }
     static StringList movesInvokDamageInit(DataBase _db) {
         StringList movesInvokDamage_ = new StringList();
@@ -1299,7 +1300,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesGlobalPrepaDamage() {
         DataBase data_ = getDataBase();
-        movesGlobalPrepaDamage = listTrStringsMv(movesGlobalPrepaDamageInit(data_),data_,getLanguage());
+        movesGlobalPrepaDamage = listTrStringsMv(movesGlobalPrepaDamageInit(data_),getFacade());
     }
     static StringList movesGlobalPrepaDamageInit(DataBase _db) {
         StringList movesGlobalPrepaDamage_ = new StringList();
@@ -1317,8 +1318,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initAbilitiesUserDamage() {
         DataBase data_ = getDataBase();
-        abilitiesUserTargetDamage = listTrStringsAb(abilitiesUserTargetDamageInit(data_),data_,getLanguage());
-        abilitiesUserStabDamage = listTrStringsAb(abilitiesUserStabDamageInit(data_),data_,getLanguage());
+        abilitiesUserTargetDamage = listTrStringsAb(abilitiesUserTargetDamageInit(data_),getFacade());
+        abilitiesUserStabDamage = listTrStringsAb(abilitiesUserStabDamageInit(data_),getFacade());
     }
     static StringList abilitiesUserTargetDamageInit(DataBase _db) {
         StringList abilitiesUserTargetDamage_ = new StringList();
@@ -1343,8 +1344,8 @@ public class FightHelpBean extends CommonBean {
 
     private void movesIgn() {
         DataBase data_ = getDataBase();
-        movesIgnLowAtt = listTrStringsMv(movesIgnLowAttInit(data_),data_,getLanguage());
-        movesIgnIncDef = listTrStringsMv(movesIgnIncDefInit(data_),data_,getLanguage());
+        movesIgnLowAtt = listTrStringsMv(movesIgnLowAttInit(data_),getFacade());
+        movesIgnIncDef = listTrStringsMv(movesIgnIncDefInit(data_),getFacade());
     }
     static StringList movesIgnLowAttInit(DataBase _db) {
         StringList movesIgnLowAtt_ = new StringList();
@@ -1375,10 +1376,10 @@ public class FightHelpBean extends CommonBean {
 
     private void initPowerElements() {
         DataBase data_ = getDataBase();
-        damagingMoves = listTrStringsMv(damagingMovesInit(data_),data_,getLanguage());
-        itemsUserPower = listTrStringsIt(itemsUserPowerInit(data_),data_,getLanguage());
+        damagingMoves = listTrStringsMv(damagingMovesInit(data_),getFacade());
+        itemsUserPower = listTrStringsIt(itemsUserPowerInit(data_),getFacade());
         initMovePowerUserTarget();
-        abilitiesUserPower = listTrStringsAb(abilitiesUserPowerInit(data_),data_,getLanguage());
+        abilitiesUserPower = listTrStringsAb(abilitiesUserPowerInit(data_),getFacade());
     }
     static StringList damagingMovesInit(DataBase _db) {
         StringList damagingMoves_ = new StringList();
@@ -1415,8 +1416,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovePowerUserTarget() {
         DataBase data_ = getDataBase();
-        movesUserPower = listTrStringsMv(movesUserPowerInit(data_),data_,getLanguage());
-        movesTargetPower = listTrStringsMv(movesTargetPowerInit(data_),data_,getLanguage());
+        movesUserPower = listTrStringsMv(movesUserPowerInit(data_),getFacade());
+        movesTargetPower = listTrStringsMv(movesTargetPowerInit(data_),getFacade());
     }
     static StringList movesUserPowerInit(DataBase _db) {
         StringList movesUserPower_ = new StringList();
@@ -1447,14 +1448,14 @@ public class FightHelpBean extends CommonBean {
 
     private void initWhileDamageElements() {
         DataBase data_ = getDataBase();
-        movesProtAgainstKo = listTrStringsMv(data_.getMovesProtSingleTargetAgainstKo(),data_,getLanguage());
+        movesProtAgainstKo = listTrStringsMv(data_.getMovesProtSingleTargetAgainstKo(),getFacade());
         initItemsProtAgainstKo();
-        movesCannotKo = listTrStringsMv(movesCannotKoInit(data_),data_,getLanguage());
+        movesCannotKo = listTrStringsMv(movesCannotKoInit(data_),getFacade());
         minHpNotKo = data_.getMinHp();
-        itemsAbs = listTrStringsIt(itemsAbsInit(data_),data_,getLanguage());
+        itemsAbs = listTrStringsIt(itemsAbsInit(data_),getFacade());
         initWhileDamageAbilities();
         initRecoilMembers();
-        abilitiesKoTarget = listTrStringsAb(abilitiesKoTargetInit(data_),data_,getLanguage());
+        abilitiesKoTarget = listTrStringsAb(abilitiesKoTargetInit(data_),getFacade());
         initMovesKoTarget();
     }
     static StringList movesCannotKoInit(DataBase _db) {
@@ -1490,7 +1491,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initMovesKoTarget() {
         DataBase data_ = getDataBase();
-        movesKoTarget = listTrStringsMv(movesKoTargetInit(data_),data_,getLanguage());
+        movesKoTarget = listTrStringsMv(movesKoTargetInit(data_),getFacade());
     }
     static StringList movesKoTargetInit(DataBase _db) {
         StringList movesKoTarget_ = new StringList();
@@ -1507,7 +1508,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initItemsProtAgainstKo() {
         DataBase data_ = getDataBase();
-        itemsProtAgainstKo = listTrStringsIt(itemsProtAgainstKoInit(data_),data_,getLanguage());
+        itemsProtAgainstKo = listTrStringsIt(itemsProtAgainstKoInit(data_),getFacade());
     }
     static StringList itemsProtAgainstKoInit(DataBase _db) {
         StringList itemsProtAgainstKo_ = new StringList();
@@ -1522,13 +1523,13 @@ public class FightHelpBean extends CommonBean {
 
     private void initWhileDamageAbilities() {
         DataBase data_ = getDataBase();
-        abilitiesRevAbs = listTrStringsAb(abilitiesRevAbsInit(data_),data_,getLanguage());
+        abilitiesRevAbs = listTrStringsAb(abilitiesRevAbsInit(data_),getFacade());
         initAbilitiesDamageStatis();
         initAbilitiesChangingTypesDamage();
-        abilitiesTakingItem = listTrStringsAb(abilitiesTakingItemInit(data_),data_,getLanguage());
-        abilitiesStatisVarUser = listTrStringsAb(abilitiesStatisVarUserInit(data_),data_,getLanguage());
-        abilitiesStatus = listTrStringsAb(abilitiesStatusInit(data_),data_,getLanguage());
-        abilitiesCopyAb = listTrStringsAb(abilitiesCopyAbInit(data_),data_,getLanguage());
+        abilitiesTakingItem = listTrStringsAb(abilitiesTakingItemInit(data_),getFacade());
+        abilitiesStatisVarUser = listTrStringsAb(abilitiesStatisVarUserInit(data_),getFacade());
+        abilitiesStatus = listTrStringsAb(abilitiesStatusInit(data_),getFacade());
+        abilitiesCopyAb = listTrStringsAb(abilitiesCopyAbInit(data_),getFacade());
     }
     static StringList abilitiesRevAbsInit(DataBase _db) {
         StringList abilitiesRevAbs_ = new StringList();
@@ -1583,7 +1584,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initAbilitiesChangingTypesDamage() {
         DataBase data_ = getDataBase();
-        abilitiesChangingTypesDamage = listTrStringsAb(abilitiesChangingTypesDamageInit(data_),data_,getLanguage());
+        abilitiesChangingTypesDamage = listTrStringsAb(abilitiesChangingTypesDamageInit(data_),getFacade());
     }
     static StringList abilitiesChangingTypesDamageInit(DataBase _db) {
         StringList abilitiesChangingTypesDamage_ = new StringList();
@@ -1598,7 +1599,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initAbilitiesDamageStatis() {
         DataBase data_ = getDataBase();
-        abilitiesDamageStatis = listTrStringsAb(abilitiesDamageStatisInit(data_),data_,getLanguage());
+        abilitiesDamageStatis = listTrStringsAb(abilitiesDamageStatisInit(data_),getFacade());
     }
     static StringList abilitiesDamageStatisInit(DataBase _db) {
         StringList abilitiesDamageStatis_ = new StringList();
@@ -1613,9 +1614,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initEndRoundUserMembers() {
         DataBase data_ = getDataBase();
-        abilitiesEndRound = listTrStringsAb(abilitiesEndRoundInit(data_),data_,getLanguage());
-        berryEndRound = listTrStringsIt(berryEndRoundInit(data_),data_,getLanguage());
-        movesChangingAttOrder = listTrStringsMv(movesChangingAttOrderInit(data_),data_,getLanguage());
+        abilitiesEndRound = listTrStringsAb(abilitiesEndRoundInit(data_),getFacade());
+        berryEndRound = listTrStringsIt(berryEndRoundInit(data_),getFacade());
+        movesChangingAttOrder = listTrStringsMv(movesChangingAttOrderInit(data_),getFacade());
     }
     static StringList abilitiesEndRoundInit(DataBase _db) {
         StringList abilitiesEndRound_ = new StringList();
@@ -1652,8 +1653,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initBerryEndEffectMembers() {
         DataBase data_ = getDataBase();
-        berryUser = listTrStringsIt(berryUserInit(data_),data_,getLanguage());
-        berryTarget = listTrStringsIt(berryTargetInit(data_),data_,getLanguage());
+        berryUser = listTrStringsIt(berryUserInit(data_),getFacade());
+        berryTarget = listTrStringsIt(berryTargetInit(data_),getFacade());
     }
     static StringList berryUserInit(DataBase _db) {
         StringList berryUser_ = new StringList();
@@ -1679,8 +1680,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initRecoilMembers() {
         DataBase data_ = getDataBase();
-        recoilItems = listTrStringsIt(recoilItemsInit(data_),data_,getLanguage());
-        recoilAbilities = listTrStringsAb(recoilAbilitiesInit(data_),data_,getLanguage());
+        recoilItems = listTrStringsIt(recoilItemsInit(data_),getFacade());
+        recoilAbilities = listTrStringsAb(recoilAbilitiesInit(data_),getFacade());
     }
     static StringList recoilItemsInit(DataBase _db) {
         StringList recoilItems_ = new StringList();
@@ -1711,9 +1712,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initStatisticsImmuElements() {
         DataBase data_ = getDataBase();
-        abilitiesFighterStatis = listTrStringsAb(abilitiesFighterStatisInit(data_),data_,getLanguage());
-        itemsFighterStatis = listTrStringsIt(itemsFighterStatisInit(data_),data_,getLanguage());
-        abilitiesFighterStatisVar = listTrStringsAb(abilitiesFighterStatisVarInit(data_),data_,getLanguage());
+        abilitiesFighterStatis = listTrStringsAb(abilitiesFighterStatisInit(data_),getFacade());
+        itemsFighterStatis = listTrStringsIt(itemsFighterStatisInit(data_),getFacade());
+        abilitiesFighterStatisVar = listTrStringsAb(abilitiesFighterStatisVarInit(data_),getFacade());
     }
     static StringList abilitiesFighterStatisInit(DataBase _db) {
         StringList abilitiesFighterStatis_ = new StringList();
@@ -1748,9 +1749,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initProtectingMembers() {
         DataBase data_ = getDataBase();
-        protectItems = listTrStringsIt(protectItemsInit(data_),data_,getLanguage());
-        protectAbilities = listTrStringsAb(protectAbilitiesInit(data_),data_,getLanguage());
-        protectMoves = listTrStringsMv(data_.getMovesCountering(),data_,getLanguage());
+        protectItems = listTrStringsIt(protectItemsInit(data_),getFacade());
+        protectAbilities = listTrStringsAb(protectAbilitiesInit(data_),getFacade());
+        protectMoves = listTrStringsMv(data_.getMovesCountering(),getFacade());
     }
     static StringList protectItemsInit(DataBase _db) {
         StringList protectItems_ = new StringList();
@@ -1775,10 +1776,10 @@ public class FightHelpBean extends CommonBean {
 
     private void initInvokingMembers() {
         DataBase data_ = getDataBase();
-        movesInvoking = listTrStringsMv(data_.getMovesInvoking(),data_,getLanguage());
-        movesThieving = listTrStringsMv(movesThievingInit(data_),data_,getLanguage());
-        movesAttracting = listTrStringsMv(movesAttractingInit(data_),data_,getLanguage());
-        movesMirror = listTrStringsMv(movesMirrorInit(data_),data_,getLanguage());
+        movesInvoking = listTrStringsMv(data_.getMovesInvoking(),getFacade());
+        movesThieving = listTrStringsMv(movesThievingInit(data_),getFacade());
+        movesAttracting = listTrStringsMv(movesAttractingInit(data_),getFacade());
+        movesMirror = listTrStringsMv(movesMirrorInit(data_),getFacade());
     }
     static StringList movesThievingInit(DataBase _db) {
         StringList movesThieving_ = new StringList();
@@ -1834,11 +1835,11 @@ public class FightHelpBean extends CommonBean {
 
     private void initBeginRoundPreparingMembers() {
         DataBase data_ = getDataBase();
-        prepaRoundMoves = listTrStringsMv(prepaRoundMovesInit(data_),data_,getLanguage());
-        disappearingRoundMoves = listTrStringsMv(disappearingRoundMovesInit(data_),data_,getLanguage());
-        rechargeMoves = listTrStringsMv(rechargeMovesInit(data_),data_,getLanguage());
-        speedPreparingItems = listTrStringsIt(speedPreparingItemsInit(data_),data_,getLanguage());
-        immuRecharging = listTrStringsAb(immuRechargingInit(data_),data_,getLanguage());
+        prepaRoundMoves = listTrStringsMv(prepaRoundMovesInit(data_),getFacade());
+        disappearingRoundMoves = listTrStringsMv(disappearingRoundMovesInit(data_),getFacade());
+        rechargeMoves = listTrStringsMv(rechargeMovesInit(data_),getFacade());
+        speedPreparingItems = listTrStringsIt(speedPreparingItemsInit(data_),getFacade());
+        immuRecharging = listTrStringsAb(immuRechargingInit(data_),getFacade());
     }
     static StringList prepaRoundMovesInit(DataBase _db) {
         StringList prepaRoundMoves_ = new StringList();
@@ -1897,10 +1898,10 @@ public class FightHelpBean extends CommonBean {
 
     private void initBeginRoundStatusMembers() {
         DataBase data_ = getDataBase();
-        beginRoundStatus = listTrStringsSt(beginRoundStatusInit(data_),data_,getLanguage());
-        deleteStatusMove = listTrStringsMv(deleteStatusMoveInit(data_),data_,getLanguage());
-        immuStatusAbility = listTrStringsAb(immuStatusAbilityInit(data_),data_,getLanguage());
-        autoDamage = autoDamageInit(data_,getLanguage());
+        beginRoundStatus = listTrStringsSt(beginRoundStatusInit(data_),getFacade());
+        deleteStatusMove = listTrStringsMv(deleteStatusMoveInit(data_),getFacade());
+        immuStatusAbility = listTrStringsAb(immuStatusAbilityInit(data_),getFacade());
+        autoDamage = autoDamageInit(getFacade());
         damgeFormula = data_.getFormula(data_.getDamageFormula(), getLanguage());
         mapVar = new NatStringTreeMap<String>();
         mapVar.putAllMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
@@ -1947,12 +1948,12 @@ public class FightHelpBean extends CommonBean {
         }
         return immuStatusAbility_;
     }
-    static AbsMap<TranslatedKey,StatusBeginRoundAutoDamage> autoDamageInit(DataBase _db, String _lg) {
+    static AbsMap<TranslatedKey,StatusBeginRoundAutoDamage> autoDamageInit(FacadeGame _db) {
         AbsMap<TranslatedKey,StatusBeginRoundAutoDamage> autoDamage_ = DictionaryComparatorUtil.buildStatusAutoData();
-        for (String s: _db.getStatus().getKeys()) {
-            Status st_ = _db.getStatus(s);
+        for (String s: _db.getData().getStatus().getKeys()) {
+            Status st_ = _db.getData().getStatus(s);
             if (st_ instanceof StatusBeginRoundAutoDamage) {
-                autoDamage_.addEntry(buildSt(_db.getTranslatedStatus().getVal(_lg),s), (StatusBeginRoundAutoDamage) st_);
+                autoDamage_.addEntry(buildSt(_db,s), (StatusBeginRoundAutoDamage) st_);
             }
         }
         return autoDamage_;
@@ -1960,9 +1961,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initSwitchingMembers() {
         DataBase data_ = getDataBase();
-        abilitiesSwitch = listTrStringsAb(abilitiesSwitchInit(data_),data_,getLanguage());
-        deletedStatusSwitch = listTrStringsSt(deletedStatusSwitchInit(data_),data_,getLanguage());
-        entryHazard = listTrStringsMv(data_.getMovesEffectWhileSending(),data_,getLanguage());
+        abilitiesSwitch = listTrStringsAb(abilitiesSwitchInit(data_),getFacade());
+        deletedStatusSwitch = listTrStringsSt(deletedStatusSwitchInit(data_),getFacade());
+        entryHazard = listTrStringsMv(data_.getMovesEffectWhileSending(),getFacade());
     }
     static StringList abilitiesSwitchInit(DataBase _db) {
         StringList abilitiesSwitch_ = new StringList();
@@ -1994,9 +1995,9 @@ public class FightHelpBean extends CommonBean {
 
     private void initSpeedElements() {
         DataBase data_ = getDataBase();
-        abilitiesPrio = listTrStringsAb(abilitiesPrioInit(data_),data_,getLanguage());
-        slowAbilities = listTrStringsAb(slowAbilitiesInit(data_),data_,getLanguage());
-        slowItems = listTrStringsIt(slowItemsInit(data_),data_,getLanguage());
+        abilitiesPrio = listTrStringsAb(abilitiesPrioInit(data_),getFacade());
+        slowAbilities = listTrStringsAb(slowAbilitiesInit(data_),getFacade());
+        slowItems = listTrStringsIt(slowItemsInit(data_),getFacade());
         initReverseSpeedMoves();
         initItSpeed();
     }
@@ -2033,8 +2034,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initItSpeed() {
         DataBase data_ = getDataBase();
-        berrySpeed = listTrStringsIt(berrySpeedInit(data_),data_,getLanguage());
-        itemSpeed = listTrStringsIt(itemSpeedInit(data_),data_,getLanguage());
+        berrySpeed = listTrStringsIt(berrySpeedInit(data_),getFacade());
+        itemSpeed = listTrStringsIt(itemSpeedInit(data_),getFacade());
     }
     static StringList berrySpeedInit(DataBase _db) {
         StringList berrySpeed_ = new StringList();
@@ -2059,7 +2060,7 @@ public class FightHelpBean extends CommonBean {
 
     private void initReverseSpeedMoves() {
         DataBase data_ = getDataBase();
-        reverseSpeedMoves = listTrStringsMv(reverseSpeedMovesInit(data_),data_,getLanguage());
+        reverseSpeedMoves = listTrStringsMv(reverseSpeedMovesInit(data_),getFacade());
     }
     static StringList reverseSpeedMovesInit(DataBase _db) {
         StringList reverseSpeedMoves_ = new StringList();
@@ -2079,7 +2080,7 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         initSendingAbilities();
         initSendingItems();
-        changingTypesAbilities = listTrStringsAb(changingTypesAbilitiesInit(data_),data_,getLanguage());
+        changingTypesAbilities = listTrStringsAb(changingTypesAbilitiesInit(data_),getFacade());
     }
     static StringList changingTypesAbilitiesInit(DataBase _db) {
         StringList changingTypesAbilities_ = new StringList();
@@ -2094,8 +2095,8 @@ public class FightHelpBean extends CommonBean {
 
     private void initSendingItems() {
         DataBase data_ = getDataBase();
-        itemsSentBeginWeather = listTrStringsIt(itemsSentBeginWeatherInit(data_),data_,getLanguage());
-        itemsSentBeginOther = listTrStringsIt(itemsSentBeginOtherInit(data_),data_,getLanguage());
+        itemsSentBeginWeather = listTrStringsIt(itemsSentBeginWeatherInit(data_),getFacade());
+        itemsSentBeginOther = listTrStringsIt(itemsSentBeginOtherInit(data_),getFacade());
     }
     static StringList itemsSentBeginWeatherInit(DataBase _db) {
         StringList itemsSentBeginWeather_ = new StringList();
@@ -2135,10 +2136,10 @@ public class FightHelpBean extends CommonBean {
         StringList copyAbilities_ = new StringList();
         StringMap<AbilityData> s_ = abilitiesSentStatisInit(data_);
         feed(s_,copyAbilities_,abilitiesSentBeginOther_,abilitiesSentBeginWeather_);
-        abilitiesSentBeginWeather = listTrStringsAb(abilitiesSentBeginWeather_,data_,getLanguage());
-        abilitiesSentBeginOther = listTrStringsAb(abilitiesSentBeginOther_,data_,getLanguage());
-        copyAbilities = listTrStringsAb(copyAbilities_,data_,getLanguage());
-        abilitiesSentStatis = listTrStringsAb(s_.getKeys(),data_,getLanguage());
+        abilitiesSentBeginWeather = listTrStringsAb(abilitiesSentBeginWeather_,getFacade());
+        abilitiesSentBeginOther = listTrStringsAb(abilitiesSentBeginOther_,getFacade());
+        copyAbilities = listTrStringsAb(copyAbilities_,getFacade());
+        abilitiesSentStatis = listTrStringsAb(s_.getKeys(),getFacade());
     }
     static StringMap<AbilityData> abilitiesSentStatisInit(DataBase _db) {
         StringMap<AbilityData> abilitiesSentStatis_ = new StringMap<AbilityData>();

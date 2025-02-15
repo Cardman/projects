@@ -10,7 +10,7 @@ public class FossilBean extends ItemBean {
     public void beforeDisplaying() {
         beforeDisplayingItem();
         Fossil item_ = (Fossil) getItem();
-        pokemon = buildPk(getDataBase().getTranslatedPokemon().getVal(getLanguage()),item_.getPokemon());
+        pokemon = buildPk(getFacade(),item_.getPokemon());
         level = item_.getLevel();
     }
     public String getTrPokemon() {

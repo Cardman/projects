@@ -41,8 +41,8 @@ public class EffectGlobalBean extends EffectBean {
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         multEffectLovingAlly = effect_.getMultEffectLovingAlly();
-        preventStatus = listTrStringsSt(effect_.getPreventStatus(), data_,getLanguage());
-        immuneTypes = listTrStringsTy(effect_.getImmuneTypes(), data_,getLanguage());
+        preventStatus = listTrStringsSt(effect_.getPreventStatus(), getFacade());
+        immuneTypes = listTrStringsTy(effect_.getImmuneTypes(), getFacade());
 //        TreeMap<TypesDuo, Rate> efficiencyMoves_;
 //        efficiencyMoves_ = new TreeMap<new>(new NaturalComparator<TypesDuo>() {
 //            @Override
@@ -63,10 +63,10 @@ public class EffectGlobalBean extends EffectBean {
             efficiencyMoves_.put(t_, effect_.getEfficiencyMoves().getVal(t));
         }
         efficiencyMoves = efficiencyMoves_;
-        disableImmuAgainstTypes = listTrStringsTy(effect_.getDisableImmuAgainstTypes(), data_,getLanguage());
-        cancelProtectingAbilities = listTrStringsAb(effect_.getCancelProtectingAbilities(), data_,getLanguage());
-        unusableMoves = listTrStringsMv(effect_.getUnusableMoves(), getDataBase(), getLanguage());
-        cancelEffects = listTrStringsMv(effect_.getCancelEffects(), getDataBase(), getLanguage());
+        disableImmuAgainstTypes = listTrStringsTy(effect_.getDisableImmuAgainstTypes(), getFacade());
+        cancelProtectingAbilities = listTrStringsAb(effect_.getCancelProtectingAbilities(), getFacade());
+        unusableMoves = listTrStringsMv(effect_.getUnusableMoves(), getFacade());
+        cancelEffects = listTrStringsMv(effect_.getCancelEffects(), getFacade());
         multPowerMoves = multPowerMoves(effect_);
         multDamageTypesMoves = map(effect_.getMultDamageTypesMoves(), translatedTypes_);
         StringList cancelChgtStat_;
@@ -76,15 +76,15 @@ public class EffectGlobalBean extends EffectBean {
         }
         cancelChgtStat_.sort();
         cancelChgtStat = cancelChgtStat_;
-        invokedMoveTerrain = buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()), effect_.getInvokedMoveTerrain());
-        invokingMoves = listTrStringsMv(invokingMoves(data_),data_,getLanguage());
+        invokedMoveTerrain = buildMv(getFacade(), effect_.getInvokedMoveTerrain());
+        invokingMoves = listTrStringsMv(invokingMoves(data_),getFacade());
         StringList changedTypesTerrain_;
         changedTypesTerrain_ = new StringList();
         for (String s: effect_.getChangedTypesTerrain()) {
             changedTypesTerrain_.add(translatedTypes_.getVal(s));
         }
         changedTypesTerrain = changedTypesTerrain_;
-        invokingMovesChangingTypes = listTrStringsMv(invokingMovesChangingTypes(data_),data_,getLanguage());
+        invokingMovesChangingTypes = listTrStringsMv(invokingMovesChangingTypes(data_),getFacade());
         DictionaryComparator<StatisticType, Rate> multStatIfContainsType_;
 //        multStatIfContainsType_ = new TreeMap<new>(new NaturalComparator<Pair<String,String>>() {
 //            @Override
@@ -106,14 +106,14 @@ public class EffectGlobalBean extends EffectBean {
         }
         multStatIfContainsType = multStatIfContainsType_;
         multDamagePrepaRound = map(effect_.getMultDamagePrepaRound(), translatedTypes_);
-        movesUsedByTargetedFighters = listTrStringsMv(effect_.getMovesUsedByTargetedFighters(), getDataBase(), getLanguage());
+        movesUsedByTargetedFighters = listTrStringsMv(effect_.getMovesUsedByTargetedFighters(), getFacade());
     }
 
     private DictionaryComparator<TranslatedKey, Rate> multPowerMoves(EffectGlobal _eff) {
         DictionaryComparator<TranslatedKey, Rate> multPowerMoves_;
         multPowerMoves_ = DictionaryComparatorUtil.buildMovesRate();
         for (String m: _eff.getMultPowerMoves().getKeys()) {
-            multPowerMoves_.put(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),m), _eff.getMultPowerMoves().getVal(m));
+            multPowerMoves_.put(buildMv(getFacade(),m), _eff.getMultPowerMoves().getVal(m));
         }
         return multPowerMoves_;
     }

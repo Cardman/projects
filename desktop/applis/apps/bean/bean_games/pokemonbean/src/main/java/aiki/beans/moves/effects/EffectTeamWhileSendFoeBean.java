@@ -85,7 +85,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         statusByNbUses_ = new LongTreeMap< TranslatedKey>();
         for (Long s: _st.getKeys()) {
             String status_ = _st.getVal(s);
-            statusByNbUses_.put(s, buildSt(getDataBase().getTranslatedStatus().getVal(getLanguage()),status_));
+            statusByNbUses_.put(s, buildSt(getFacade(),status_));
         }
         return statusByNbUses_;
     }

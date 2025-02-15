@@ -304,6 +304,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         DataBase db_ = new DataBase(_list.getGenerator());
         MessagesDataBaseConstants.initEmpty(db_);
         core.getFacade().setData(db_);
+        core.getFacade().updateTrs();
         initMessages();
         setTitle(messages.getVal(MessagesRenderWindowPk.TITLE));
     }

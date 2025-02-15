@@ -19,7 +19,7 @@ public class AreaBean extends CommonBean {
     private CustList<TranslatedPkElements> pks(CustList<WildPk> _in) {
         CustList<TranslatedPkElements> out_ = new CustList<TranslatedPkElements>();
         for (WildPk w: _in) {
-            out_.add(new TranslatedPkElements(getDataBase(),w,getLanguage()));
+            out_.add(new TranslatedPkElements(getFacade(),w));
         }
         return out_;
     }

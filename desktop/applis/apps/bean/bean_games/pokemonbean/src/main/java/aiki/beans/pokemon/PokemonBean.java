@@ -252,21 +252,17 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         weight = pk_.getWeight();
         height = pk_.getHeight();
         possibleGenders = new CustList<TranslatedKey>();
-        AbsMap<Gender,String> translationsGenders_;
-        translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         for (Gender g: pk_.getGenderRep().getPossibleGenders()) {
-            possibleGenders.add(buildGender(translationsGenders_,g));
+            possibleGenders.add(buildGender(getFacade(),g));
         }
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         types = new CustList<TranslatedKey>();
         for (String t: pk_.getTypes()) {
-            types.add(build(translationsTypes_,t));
+            types.add(buildTy(getFacade(),t));
         }
         types.sortElts(new ComparingTranslatedKey());
-        abilities = listTrStringsAb(pk_.getAbilities(),data_,getLanguage());
+        abilities = listTrStringsAb(pk_.getAbilities(),getFacade());
         catchingRate = pk_.getCatchingRate();
-        evolutions = listTrStringsPk(pk_.getEvolutions().getKeys(),data_,getLanguage());
+        evolutions = listTrStringsPk(pk_.getEvolutions().getKeys(),getFacade());
         CustList<EvolutionBean> evoBean_ = getForms().getCurrentBeanEvo();
         evoBean_.clear();
         beans = evoBean_;
@@ -275,7 +271,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
             TranslatedKey tk_ = evolutions.get(i);
             build(evoBean_,pk_.getEvolutions(),i,tk_.getKey());
         }
-        evoBase = buildPk(translationsPokemon_,pk_.getBaseEvo());
+        evoBase = buildPk(getFacade(),pk_.getBaseEvo());
         expEvo = data_.getFormula(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
         mapVars = new NatStringTreeMap<String>();
@@ -285,29 +281,25 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
             mapVars.put(k, mapVars_.getVal(k));
         }
         expRate = pk_.getExpRate();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
 //        statisticsEnum = new IdList<Statistic>();
         statistics = new CustList<StringStatBaseEv>();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
 //            statisticsEnum.add(s);
-            statistics.add(new StringStatBaseEv(buildSi(translationsStatistics_,s),pk_.getStatistics().getVal(s)));
+            statistics.add(new StringStatBaseEv(buildSi(getFacade(),s),pk_.getStatistics().getVal(s)));
         }
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         levMoves = new CustList<LevelMoveTranslatedKey>();
         for (LevelMove l: pk_.getLevMoves()) {
-            levMoves.add(new LevelMoveTranslatedKey(buildMv(translationsMoves_,l.getMove()),l.getLevel()));
+            levMoves.add(new LevelMoveTranslatedKey(buildMv(getFacade(),l.getMove()),l.getLevel()));
         }
         technicalMoves = new IntTreeMap< TranslatedKey>();
         for (Integer s: pk_.getTechnicalMoves()) {
-            technicalMoves.put(s, buildMv(translationsMoves_,data_.getTm().getVal(s)));
+            technicalMoves.put(s, buildMv(getFacade(),data_.getTm().getVal(s)));
         }
         hiddenMoves = new IntTreeMap< TranslatedKey>();
         for (Integer s: pk_.getHiddenMoves()) {
-            hiddenMoves.put(s, buildMv(translationsMoves_,data_.getHm().getVal(s)));
+            hiddenMoves.put(s, buildMv(getFacade(),data_.getHm().getVal(s)));
         }
-        moveTutors = listTrStringsMv(pk_.getMoveTutors(),data_,getLanguage());
+        moveTutors = listTrStringsMv(pk_.getMoveTutors(),getFacade());
         //eggGroups = new StringList();
         initEggGroup(pk_);
         hatchingSteps = pk_.getHatchingSteps();
@@ -368,7 +360,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         //eggGroups.sort();
         //eggGroups.removeDuplicates();
         eggGroups_.removeDuplicates();
-        eggGroupsPk = listTrStringsPk(eggGroups_,data_,getLanguage());
+        eggGroupsPk = listTrStringsPk(eggGroups_,getFacade());
     }
 
     public int[][] getMiniMapImage(int _index) {

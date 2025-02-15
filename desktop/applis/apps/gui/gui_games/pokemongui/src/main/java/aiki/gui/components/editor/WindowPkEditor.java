@@ -125,6 +125,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     public WindowPkEditor(AbstractProgramInfos _list) {
         super(_list);
         facade.setData(ConverterCommonMapUtil.newData(_list,facade));
+        facade.updateTrs();
         subscriptions = new SubscribedTranslationList(_list, facade);
         IdList<SubscribedTranslation> subsTm_ = new IdList<SubscribedTranslation>();
         AbsCommonFrame frTm_ = _list.getFrameFactory().newCommonFrame();
@@ -272,6 +273,7 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     }
     public void dataBase(DataBase _db) {
         facade.setData(_db);
+        facade.updateTrs();
         formDataMap.displayFirstPk();
         getCommonFrame().pack();
     }

@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.beans.abilities.*;
 import aiki.comparators.*;
 import aiki.db.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.abilities.*;
 import aiki.fight.effects.*;
 import aiki.fight.enums.*;
@@ -110,9 +111,8 @@ public class ItemForBattleBean extends ItemBean {
         }
         immuTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         immuTypes = immuTypes_;
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        immuStatus = listTrStringsSt(item_.getImmuStatus(),data_,getLanguage());
-        synchroStatus = listTrStringsSt(item_.getSynchroStatus(),data_,getLanguage());
+        immuStatus = listTrStringsSt(item_.getImmuStatus(),getFacade());
+        synchroStatus = listTrStringsSt(item_.getSynchroStatus(),getFacade());
         DictionaryComparator<Statistic, Long> winEvFight_;
         winEvFight_ = DictionaryComparatorUtil.buildStatisShort(data_,getLanguage());
         for (Statistic s: item_.getWinEvFight().getKeys()) {
@@ -128,7 +128,7 @@ public class ItemForBattleBean extends ItemBean {
         DictionaryComparator<TranslatedKeyPair, Long> multStatPokemonRank_;
         multStatPokemonRank_ = DictionaryComparatorUtil.buildStatPk(data_, getLanguage());
         for (StatisticPokemon s: item_.getMultStatPokemonRank().getKeys()) {
-            multStatPokemonRank_.put(buildPair(data_,s,getLanguage()), item_.getMultStatPokemonRank().getVal(s));
+            multStatPokemonRank_.put(buildPair(getFacade(),s), item_.getMultStatPokemonRank().getVal(s));
         }
         multStatPokemonRank = multStatPokemonRank_;
         NatStringTreeMap<String> mapVars_;
@@ -163,14 +163,14 @@ public class ItemForBattleBean extends ItemBean {
 //            formula_ = formula_.replace(ELT, E_LT);
 //            formula_ = formula_.replace(EGT, E_GT);
             mapVars_.putAllMap(data_.getDescriptions(item_.getFailStatus().getVal(s), getLanguage()));
-            failStatus_.put(buildSt(translatedStatus_,s), formula_);
+            failStatus_.put(buildSt(getFacade(),s), formula_);
         }
         failStatus = failStatus_;
         increasingMaxNbRoundTrap = increasingMaxNbRoundTrap(item_.getIncreasingMaxNbRoundTrap());
         increasingMaxNbRoundGlobalMove = increasingMaxNbRoundTrapRepeat(item_.getIncreasingMaxNbRoundGlobalMove());
         increasingMaxNbRoundTeamMove = increasingMaxNbRoundTrapRepeat(item_.getIncreasingMaxNbRoundTeamMove());
-        immuMoves = listTrStringsMv(item_.getImmuMoves(),data_,getLanguage());
-        immuWeather = listTrStringsMv(item_.getImmuWeather(),data_,getLanguage());
+        immuMoves = listTrStringsMv(item_.getImmuMoves(),getFacade());
+        immuWeather = listTrStringsMv(item_.getImmuWeather(),getFacade());
         mapVars_.putAllMap(data_.getDescriptions(item_.getMultPower(), getLanguage()));
         mapVars_.putAllMap(data_.getDescriptions(item_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
@@ -182,8 +182,8 @@ public class ItemForBattleBean extends ItemBean {
         lawForAttackFirst = item_.getLawForAttackFirst();
     }
 
-    public static TranslatedKeyPair buildPair(DataBase _data, StatisticPokemon _w, String _lg) {
-        return new TranslatedKeyPair(buildSi(_data.getTranslatedStatistics().getVal(_lg), _w.getStatistic()), buildPk(_data.getTranslatedPokemon().getVal(_lg), _w.getPokemon()));
+    public static TranslatedKeyPair buildPair(FacadeGame _data, StatisticPokemon _w) {
+        return new TranslatedKeyPair(buildSi(_data, _w.getStatistic()), buildPk(_data, _w.getPokemon()));
     }
     private DictionaryComparator<TranslatedKey, Long> increasingMaxNbRoundTrapRepeat(StringMap<Long> _map) {
         DataBase data_ = getDataBase();
@@ -192,7 +192,7 @@ public class ItemForBattleBean extends ItemBean {
         for (String m: _map.getKeys()) {
             long nb_ = _map.getVal(m);
             nb_ += data_.getMove(m).getRepeatRoundLaw().maximum().ll();
-            out_.put(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),m), nb_);
+            out_.put(buildMv(getFacade(),m), nb_);
         }
         return out_;
     }
@@ -219,7 +219,7 @@ public class ItemForBattleBean extends ItemBean {
         for (String m: _map.getKeys()) {
             long nb_ = _map.getVal(m);
             nb_+=bonusEffect(data_, m);
-            out_.put(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),m), nb_);
+            out_.put(buildMv(getFacade(),m), nb_);
         }
         return out_;
     }
@@ -237,19 +237,17 @@ public class ItemForBattleBean extends ItemBean {
     }
 
     private CustList<TranslatedKey> typesPkAbilities() {
-        DataBase data_ = getDataBase();
-        CustList<TranslatedKey> typesPkAbilities_ = initTypesPkAbilities(data_,getLanguage());
+        CustList<TranslatedKey> typesPkAbilities_ = initTypesPkAbilities(getFacade());
         typesPkAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return typesPkAbilities_;
     }
 
-    public static CustList<TranslatedKey> initTypesPkAbilities(DataBase _data, String _language) {
-        StringMap<String> trAb_ = _data.getTranslatedAbilities().getVal(_language);
+    public static CustList<TranslatedKey> initTypesPkAbilities(FacadeGame _data) {
         CustList<TranslatedKey> typesPkAbilities_;
         typesPkAbilities_ = new CustList<TranslatedKey>();
-        for (EntryCust<String, AbilityData> ability_: _data.getAbilities().entryList()) {
+        for (EntryCust<String, AbilityData> ability_: _data.getData().getAbilities().entryList()) {
             if (ability_.getValue().isPlate()) {
-                typesPkAbilities_.add(buildAb(trAb_,ability_.getKey()));
+                typesPkAbilities_.add(buildAb(_data,ability_.getKey()));
             }
         }
         return typesPkAbilities_;

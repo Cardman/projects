@@ -27,19 +27,17 @@ public class EffectSwitchTypesBean extends EffectBean {
         super.beforeDisplaying();
         EffectSwitchTypes effect_ = (EffectSwitchTypes) getEffect();
         DataBase data_ = getDataBase();
-        AbsMap<EnvironmentType,String> translatedEnv_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByEnv_;
         chgtTypeByEnv_ = DictionaryComparatorUtil.buildEnvStr();
         for (EnvironmentType env_: effect_.getChgtTypeByEnv().getKeys()) {
             String type_;
             type_ = effect_.getChgtTypeByEnv().getVal(env_);
-            chgtTypeByEnv_.put(buildEnv(translatedEnv_,env_), build(translatedTypes_,type_));
+            chgtTypeByEnv_.put(buildEnv(getFacade(),env_), buildTy(getFacade(),type_));
         }
         chgtTypeByEnv = chgtTypeByEnv_;
         StringList globalMoves_ = globalMoves(data_);
         globalMoves_.removeDuplicates();
-        globalMoves = listTrStringsMv(globalMoves_,data_,getLanguage());
+        globalMoves = listTrStringsMv(globalMoves_,getFacade());
         constValuesType = effect_.getConstValuesType();
         exchangeTypes = effect_.getExchangeTypes();
         StringList constTypes_;

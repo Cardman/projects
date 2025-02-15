@@ -24,6 +24,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,true);
         CustList<StringList> lists_ = new CustList<StringList>();
         lists_.add(new StringList(M_DAM_VAR,M_DAM));
@@ -44,6 +45,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,false);
         CustList<StringList> lists_ = new CustList<StringList>();
         lists_.add(new StringList(M_DAM_VAR,M_DAM));
@@ -64,6 +66,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,true);
         CustList<StringList> lists_ = new CustList<StringList>();
         lists_.add(new StringList(M_DAM_VAR,M_DAM));
@@ -89,6 +92,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,false);
         CustList<StringList> lists_ = new CustList<StringList>();
         lists_.add(new StringList(M_DAM_VAR,M_DAM));
@@ -114,6 +118,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,false);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
@@ -132,6 +137,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,false);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
@@ -150,6 +156,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,false);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
@@ -168,6 +175,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,false);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
@@ -186,6 +194,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,true);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
@@ -204,6 +213,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,true);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
@@ -222,6 +232,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,true);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
@@ -240,6 +251,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,true);
         CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
         lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
@@ -303,12 +315,13 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ACCURACY,M_DAM_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
-        ComparatorStatusStatistic c_ = new ComparatorStatusStatistic(f_.getData(),EN);
+        f_.updateTrs();
+        ComparatorStatusStatistic c_ = new ComparatorStatusStatistic(f_);
         CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
-        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.SPEED,M_DAM),EN));
-        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.ACCURACY,M_DAM),EN));
-        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.SPEED,M_DAM_BAD),EN));
-        lists_.add(AbilityBean.buildPair(f_.getData(),new StatisticStatus(Statistic.ACCURACY,M_DAM_BAD),EN));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.SPEED,M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.ACCURACY,M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.SPEED,M_DAM_BAD)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.ACCURACY,M_DAM_BAD)));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
         assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
@@ -331,6 +344,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ACCURACY,M_DAM_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorStatisticType c_ = new ComparatorStatisticType(f_.getData(),EN);
         CustList<StatisticType> lists_ = new CustList<StatisticType>();
         lists_.add(new StatisticType(Statistic.SPEED,M_DAM));
@@ -359,12 +373,13 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ACCURACY,M_DAM_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorStatisticPokemon c_ = new ComparatorStatisticPokemon(f_.getData(),EN);
         CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
-        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.SPEED,M_DAM),EN));
-        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.ACCURACY,M_DAM),EN));
-        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.SPEED,M_DAM_BAD),EN));
-        lists_.add(ItemForBattleBean.buildPair(f_.getData(),new StatisticPokemon(Statistic.ACCURACY,M_DAM_BAD),EN));
+        lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.SPEED,M_DAM)));
+        lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.ACCURACY,M_DAM)));
+        lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.SPEED,M_DAM_BAD)));
+        lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.ACCURACY,M_DAM_BAD)));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
         assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
@@ -387,12 +402,13 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        ComparatorWeatherType c_ = new ComparatorWeatherType(f_.getData(),EN);
+        f_.updateTrs();
+        ComparatorWeatherType c_ = new ComparatorWeatherType(f_);
         CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
-        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM_BAD, M_DAM),EN));
-        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM,M_DAM),EN));
-        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM_BAD,M_DAM_BAD),EN));
-        lists_.add(AbilityBean.buildPair(f_.getData(),new WeatherType(M_DAM,M_DAM_BAD),EN));
+        lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM_BAD, M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM,M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM_BAD,M_DAM_BAD)));
+        lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM,M_DAM_BAD)));
         lists_.sortElts(c_);
         assertEq(4,lists_.size());
         assertEq(M_DAM_BAD,lists_.get(0).getFirst().getKey());
@@ -415,6 +431,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ACCURACY,M_DAM_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
+        f_.updateTrs();
         ComparatorStatisticCategory c_ = new ComparatorStatisticCategory(f_.getData(),EN);
         CustList<StatisticCategory> lists_ = new CustList<StatisticCategory>();
         lists_.add(new StatisticCategory(Statistic.SPEED,M_DAM));

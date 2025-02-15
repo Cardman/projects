@@ -38,7 +38,7 @@ public class EffectTeamBean extends EffectBean {
         CustList<TranslatedKey> forbiddenBoost_;
         forbiddenBoost_ = new CustList<TranslatedKey>();
         for (Statistic s: effect_.getForbiddenBoost()) {
-            forbiddenBoost_.add(buildSi(translatedStatistics_,s));
+            forbiddenBoost_.add(buildSi(getFacade(),s));
         }
         forbiddenBoost_.sortElts(new ComparingTranslatedKey());
         forbiddenBoost = forbiddenBoost_;
@@ -84,10 +84,10 @@ public class EffectTeamBean extends EffectBean {
             multDamage_.put(cat_, effect_.getMultDamage().getVal(c));
         }
         multDamage = multDamage_;
-        protectAgainstStatus = listTrStringsSt(effect_.getProtectAgainstStatus(),getDataBase(),getLanguage());
-        unusableMoves = listTrStringsMv(effect_.getUnusableMoves(),getDataBase(),getLanguage());
-        disableFoeTeamEffects = listTrStringsMv(effect_.getDisableFoeTeamEffects(),getDataBase(),getLanguage());
-        disableFoeTeamStatus = listTrStringsSt(effect_.getDisableFoeTeamStatus(),getDataBase(),getLanguage());
+        protectAgainstStatus = listTrStringsSt(effect_.getProtectAgainstStatus(),getFacade());
+        unusableMoves = listTrStringsMv(effect_.getUnusableMoves(),getFacade());
+        disableFoeTeamEffects = listTrStringsMv(effect_.getDisableFoeTeamEffects(),getFacade());
+        disableFoeTeamStatus = listTrStringsSt(effect_.getDisableFoeTeamStatus(),getFacade());
     }
 
     public String clickStatus(int _indexEffect, int _index) {

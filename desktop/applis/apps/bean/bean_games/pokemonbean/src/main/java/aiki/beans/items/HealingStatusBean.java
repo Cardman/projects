@@ -1,7 +1,6 @@
 package aiki.beans.items;
 
 import aiki.beans.*;
-import aiki.db.*;
 import aiki.fight.items.*;
 import code.maths.*;
 import code.scripts.confs.*;
@@ -15,10 +14,9 @@ public class HealingStatusBean extends HealingItemBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        DataBase data_ = getDataBase();
         HealingStatus item_ = (HealingStatus) getItem();
         healingKo = item_.getHealingKo();
-        status = listTrStringsSt(item_.getStatus(),data_,getLanguage());
+        status = listTrStringsSt(item_.getStatus(),getFacade());
         if (item_ instanceof HealingHpStatus) {
             healedHpRate = ((HealingHpStatus)item_).getHealedHpRate();
         } else {

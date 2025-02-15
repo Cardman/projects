@@ -11,7 +11,7 @@ import org.junit.Test;
 public final class FightHelpBeanTypesTest extends InitDbFightHelp {
     @Test
     public void movesTypesDefWeatherInitTest() {
-        CustList<TranslatedKey> ls_ = FightHelpBean.typesInit(db().getData(),EN);
+        CustList<TranslatedKey> ls_ = FightHelpBean.typesInit(db());
         assertEq(2,ls_.size());
         assertEq(T_TYPE1_TR,ls_.get(0).getTranslation());
         assertEq(T_TYPE2_TR,ls_.get(1).getTranslation());
@@ -21,6 +21,7 @@ public final class FightHelpBeanTypesTest extends InitDbFightHelp {
         f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE1,T_TYPE1_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE2,T_TYPE2_TR);
+        f_.updateTrs();
         f_.getData().getTableTypes().addEntry(new TypesDuo(T_TYPE1,T_TYPE1), Rate.newRate("2"));
         f_.getData().getTableTypes().addEntry(new TypesDuo(T_TYPE2,T_TYPE2), Rate.newRate("3"));
         f_.getData().getTableTypes().addEntry(new TypesDuo(T_TYPE2,T_TYPE1), Rate.newRate("4"));

@@ -94,13 +94,13 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         nbPrepaRound = moveData_.getNbPrepaRound();
         disappearBeforeUse = moveData_.getDisappearBeforeUse();
         targetChoice = moveData_.getTargetChoice();
-        achieveDisappearedPkUsingMove = listTrStringsMv(moveData_.getAchieveDisappearedPkUsingMove(),data_,getLanguage());
+        achieveDisappearedPkUsingMove = listTrStringsMv(moveData_.getAchieveDisappearedPkUsingMove(),getFacade());
         abilities = abilities();
         items = items();
         if (moveData_ instanceof DamagingMoveData) {
             cannotKo = ((DamagingMoveData)moveData_).getCannotKo();
         }
-        affectedByMoves = listTrStringsMv(affectedByMoves(moveData_),data_,getLanguage());
+        affectedByMoves = listTrStringsMv(affectedByMoves(moveData_),getFacade());
         Ints effects_ = new Ints();
         int nbEffects_ = moveData_.nbEffets();
         for (int i = IndexConstants.FIRST_INDEX; i < nbEffects_; i++) {
@@ -113,13 +113,12 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         constUserChoice = moveData_.getConstUserChoice();
         switchType = moveData_.getSwitchType();
         secEffectIfNoDamage = moveData_.getSecEffectIfNoDamage();
-        deletedStatus = listTrStringsSt(moveData_.getDeletedStatus(),data_,getLanguage());
-        requiredStatus = listTrStringsSt(moveData_.getRequiredStatus(),data_,getLanguage());
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
+        deletedStatus = listTrStringsSt(moveData_.getDeletedStatus(),getFacade());
+        requiredStatus = listTrStringsSt(moveData_.getRequiredStatus(),getFacade());
         DictionaryComparator<TranslatedKey, Ints> secEffectsByItem_;
         secEffectsByItem_ = DictionaryComparatorUtil.buildItemsLs();
         for (EntryCust<String, Ints> s: moveData_.getSecEffectsByItem().entryList()) {
-            secEffectsByItem_.put(buildIt(getDataBase(),translatedItems_, s.getKey()), getValidEffects(moveData_, s.getValue()));
+            secEffectsByItem_.put(buildIt(getFacade(), s.getKey()), getValidEffects(moveData_, s.getValue()));
         }
         secEffectsByItem = secEffectsByItem_;
         movesLevelLearntByPokemon = movesLevelLearntByPokemon();
@@ -135,7 +134,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 if (pkData_.getHiddenMoves().containsObj(tm_)) {
-                    movesHmLearntByPokemon_.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
+                    movesHmLearntByPokemon_.add(buildPk(getFacade(),p));
                 }
             }
             movesHmLearntByPokemon_.sortElts(new ComparingTranslatedKey());
@@ -146,7 +145,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             if (StringUtil.contains(pkData_.getMoveTutors(), name_)) {
-                movesMtLearntByPokemon_.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
+                movesMtLearntByPokemon_.add(buildPk(getFacade(),p));
             }
         }
         movesMtLearntByPokemon_.sortElts(new ComparingTranslatedKey());
@@ -181,7 +180,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
             for (String p: data_.getPokedex().getKeys()) {
                 PokemonData pkData_ = data_.getPokemon(p);
                 if (pkData_.getTechnicalMoves().containsObj(tm_)) {
-                    movesTmLearntByPokemon_.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
+                    movesTmLearntByPokemon_.add(buildPk(getFacade(),p));
                 }
             }
             movesTmLearntByPokemon_.sortElts(new ComparingTranslatedKey());
@@ -200,9 +199,9 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
                     continue;
                 }
                 if (!movesLevelLearntByPokemon_.contains(l.getLevel())) {
-                    movesLevelLearntByPokemon_.put(l.getLevel(), new CustList<TranslatedKey>(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p)));
+                    movesLevelLearntByPokemon_.put(l.getLevel(), new CustList<TranslatedKey>(buildPk(getFacade(),p)));
                 } else {
-                    movesLevelLearntByPokemon_.getVal(l.getLevel()).add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
+                    movesLevelLearntByPokemon_.getVal(l.getLevel()).add(buildPk(getFacade(),p));
                 }
             }
         }
@@ -271,7 +270,6 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
 
     private CustList<TranslatedKey> items() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         CustList<TranslatedKey> items_ = new CustList<TranslatedKey>();
         for (String a: data_.getItems().getKeys()) {
             Item it_ = data_.getItem(a);
@@ -280,7 +278,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
             }
             ItemForBattle itBattle_ = (ItemForBattle) it_;
             if (StringUtil.contains(itBattle_.getImmuMoves(), name)) {
-                items_.add(buildIt(getDataBase(),translatedItems_,a));
+                items_.add(buildIt(getFacade(), a));
             }
         }
         items_.sortElts(DictionaryComparatorUtil.cmpItems());
@@ -289,12 +287,11 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
 
     private CustList<TranslatedKey> abilities() {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         CustList<TranslatedKey> abilities_ = new CustList<TranslatedKey>();
         for (String a: data_.getAbilities().getKeys()) {
             AbilityData ab_ = data_.getAbility(a);
             if (StringUtil.contains(ab_.getImmuMove(), name)) {
-                abilities_.add(buildAb(translatedAbilities_,a));
+                abilities_.add(buildAb(getFacade(),a));
             }
         }
         abilities_.sortElts(DictionaryComparatorUtil.cmpAbilities());
@@ -315,9 +312,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
 
     private void withDef(MoveData _moveData) {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         DictionaryComparator<TranslatedKey, TranslatedKey> typesByOwnedItems_;
         typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr();
         boolean hasDefault_ = false;
@@ -340,7 +335,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
 //            }
             String type_ = _moveData.getTypesByOwnedItem().getVal(k);
             //line_.setType(translatedTypes_.getVal(type_));
-            typesByOwnedItems_.put(buildIt(getDataBase(),translatedItems_, k), build(translatedTypes_, type_));
+            typesByOwnedItems_.put(buildIt(getFacade(), k), buildTy(getFacade(), type_));
             //typesByOwnedItem_.add(line_);
         }
         //typesByOwnedItem = typesByOwnedItem_;
@@ -369,7 +364,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
             String type_ = _moveData.getTypesByWeather().getVal(k);
             //line_.setType(translatedTypes_.getVal(type_));
             //typesByWeather_.add(line_);
-            typesByWeathers_.put(buildMv(translatedMoves_, k), build(translatedTypes_, type_));
+            typesByWeathers_.put(buildMv(getFacade(), k), buildTy(getFacade(), type_));
         }
         //typesByWeather = typesByWeather_;
         typesByWeathers = typesByWeathers_;

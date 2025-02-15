@@ -1,7 +1,7 @@
 package aiki.beans.facade.comparators;
 import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.comparators.*;
-import aiki.db.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import code.util.*;
@@ -12,8 +12,8 @@ public final class ComparatorStatusStatistic implements Comparing<TranslatedKeyP
     private final AbsMap<String,String> status;
     private final AbsMap<Statistic,String> statis;
 
-    public ComparatorStatusStatistic(DataBase _data, String _language) {
-        this(_data.getTranslatedStatus().getVal(_language),_data.getTranslatedStatistics().getVal(_language));
+    public ComparatorStatusStatistic(FacadeGame _data) {
+        this(_data.getTranslatedStatus(),_data.getTranslatedStatistics());
     }
 
     public ComparatorStatusStatistic(AbsMap<String,String> _u, AbsMap<Statistic,String> _i) {

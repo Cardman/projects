@@ -75,9 +75,27 @@ public final class FacadeGameTradeTest extends InitializationDataBase {
     public void messageFacade() {
         FacadeGame facadeGame_ = initTests();
         DataBase data_ = facadeGame_.getData();
-        FacadeGame.postLoad(new FacadeGame(),data_);
+        FacadeGame n_ = new FacadeGame();
+        n_.setSimplyLanguage("");
+        FacadeGame.postLoad(n_,data_);
         FacadeGame.postLoad(facadeGame_,data_);
         assertEq(DataBase.EMPTY_STRING,facadeGame_.getZipName());
+        facadeGame_.getTranslatedAbilities();
+        facadeGame_.getTranslatedDiffModelLaw();
+        facadeGame_.getTranslatedCategories();
+        facadeGame_.getTranslatedClassesDescriptions();
+        facadeGame_.getTranslatedDiffWinPts();
+        facadeGame_.getTranslatedDiffModelLaw();
+        facadeGame_.getTranslatedItems();
+        facadeGame_.getTranslatedMoves();
+        facadeGame_.getTranslatedPokemon();
+        facadeGame_.getTranslatedStatistics();
+        facadeGame_.getTranslatedStatus();
+        facadeGame_.getTranslatedTargets();
+        facadeGame_.getTranslatedTypes();
+        facadeGame_.getTranslatedBooleans();
+        facadeGame_.getTranslatedEnvironment();
+        facadeGame_.getTranslatedGenders();
     }
     private static PokemonPlayer newPokemonPlayer(String _name, String _ability, Gender _gender, String _item) {
         PokemonPlayer sent_ = new PokemonPlayer();

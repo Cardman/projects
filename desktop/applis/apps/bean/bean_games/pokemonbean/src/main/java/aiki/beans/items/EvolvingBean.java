@@ -24,7 +24,7 @@ public abstract class EvolvingBean extends ItemBean{
     public void pk(StringList _p) {
         _p.removeDuplicates();
 //        _p.sortElts(DictionaryComparatorUtil.cmpPokemon(getDataBase(),getLanguage()));
-        setPokemon(listTrStringsPk(_p,getDataBase(),getLanguage()));
+        setPokemon(listTrStringsPk(_p,getFacade()));
     }
     public void setPokemon(CustList<TranslatedKey> _p) {
         this.pokemon = _p;

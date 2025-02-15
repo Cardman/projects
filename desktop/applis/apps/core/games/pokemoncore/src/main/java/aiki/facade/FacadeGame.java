@@ -21,6 +21,7 @@ import aiki.game.enums.InterfaceType;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.UsefulValueLaw;
+import aiki.game.params.enums.*;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
@@ -103,6 +104,23 @@ public final class FacadeGame {
     private String zipName = DataBase.EMPTY_STRING;
 
     private SexListInt sexList;
+    private StringMap<String> translatedCategories;
+
+    private IdMap<EnvironmentType, String> translatedEnvironment;
+
+    private IdMap<SelectedBoolean, String> translatedBooleans;
+    private IdMap<DifficultyWinPointsFight, String> translatedDiffWinPts;
+    private IdMap<DifficultyModelLaw, String> translatedDiffModelLaw;
+    private IdMap<Gender, String> translatedGenders;
+    private IdMap<Statistic, String> translatedStatistics;
+    private IdMap<TargetChoice, String> translatedTargets;
+    private StringMap<String> translatedTypes;
+    private StringMap<String> translatedPokemon;
+    private StringMap<String> translatedMoves;
+    private StringMap<String> translatedItems;
+    private StringMap<String> translatedAbilities;
+    private StringMap<String> translatedStatus;
+    private StringMap<String> translatedClassesDescriptions;
 
     public FacadeGame() {
         setSexList(new SexListImpl());
@@ -114,8 +132,26 @@ public final class FacadeGame {
         }
         _data.setLanguage(_f.getLanguage());
         _f.setData(_data);
+        _f.updateTrs();
         _f.setLoadedData(true);
         _f.setZipName(DataBase.EMPTY_STRING);
+    }
+    public void updateTrs() {
+        translatedCategories = data.getTranslatedCategories().getVal(language);
+        translatedEnvironment = data.getTranslatedEnvironment().getVal(language);
+        translatedBooleans = data.getTranslatedBooleans().getVal(language);
+        translatedDiffWinPts = data.getTranslatedDiffWinPts().getVal(language);
+        translatedDiffModelLaw = data.getTranslatedDiffModelLaw().getVal(language);
+        translatedGenders = data.getTranslatedGenders().getVal(language);
+        translatedStatistics = data.getTranslatedStatistics().getVal(language);
+        translatedTargets = data.getTranslatedTargets().getVal(language);
+        translatedTypes = data.getTranslatedTypes().getVal(language);
+        translatedPokemon = data.getTranslatedPokemon().getVal(language);
+        translatedMoves = data.getTranslatedMoves().getVal(language);
+        translatedItems = data.getTranslatedItems().getVal(language);
+        translatedAbilities = data.getTranslatedAbilities().getVal(language);
+        translatedStatus = data.getTranslatedStatus().getVal(language);
+        translatedClassesDescriptions = data.getTranslatedClassesDescriptions().getVal(language);
     }
     // New game option
     public void newGame(String _pseudo, Sex _sexeHeros) {
@@ -2781,5 +2817,65 @@ public final class FacadeGame {
 
     public void setSexList(SexListInt _i) {
         this.sexList = _i;
+    }
+
+    public StringMap<String> getTranslatedCategories() {
+        return translatedCategories;
+    }
+
+    public IdMap<EnvironmentType, String> getTranslatedEnvironment() {
+        return translatedEnvironment;
+    }
+
+    public IdMap<SelectedBoolean, String> getTranslatedBooleans() {
+        return translatedBooleans;
+    }
+
+    public IdMap<DifficultyWinPointsFight, String> getTranslatedDiffWinPts() {
+        return translatedDiffWinPts;
+    }
+
+    public IdMap<DifficultyModelLaw, String> getTranslatedDiffModelLaw() {
+        return translatedDiffModelLaw;
+    }
+
+    public IdMap<Gender, String> getTranslatedGenders() {
+        return translatedGenders;
+    }
+
+    public IdMap<Statistic, String> getTranslatedStatistics() {
+        return translatedStatistics;
+    }
+
+    public IdMap<TargetChoice, String> getTranslatedTargets() {
+        return translatedTargets;
+    }
+
+    public StringMap<String> getTranslatedTypes() {
+        return translatedTypes;
+    }
+
+    public StringMap<String> getTranslatedPokemon() {
+        return translatedPokemon;
+    }
+
+    public StringMap<String> getTranslatedMoves() {
+        return translatedMoves;
+    }
+
+    public StringMap<String> getTranslatedItems() {
+        return translatedItems;
+    }
+
+    public StringMap<String> getTranslatedAbilities() {
+        return translatedAbilities;
+    }
+
+    public StringMap<String> getTranslatedStatus() {
+        return translatedStatus;
+    }
+
+    public StringMap<String> getTranslatedClassesDescriptions() {
+        return translatedClassesDescriptions;
     }
 }

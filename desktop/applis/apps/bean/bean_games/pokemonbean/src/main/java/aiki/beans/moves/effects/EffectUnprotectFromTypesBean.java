@@ -45,7 +45,7 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
         }
         disableImmuAgainstTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         disableImmuAgainstTypes = disableImmuAgainstTypes_;
-        disableImmuFromMoves = listTrStringsMv(effect_.getDisableImmuFromMoves(),data_,getLanguage());
+        disableImmuFromMoves = listTrStringsMv(effect_.getDisableImmuFromMoves(),getFacade());
         StringList attackTargetWithTypes_;
         attackTargetWithTypes_ = new StringList();
         for (String type_: effect_.getAttackTargetWithTypes()) {

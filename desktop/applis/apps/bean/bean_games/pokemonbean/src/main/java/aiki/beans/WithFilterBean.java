@@ -7,6 +7,7 @@ import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.CriteriaForSearching;
+import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
@@ -54,27 +55,27 @@ public abstract class WithFilterBean extends CommonBean {
         learnt.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
     }
 
-    public static AbsMap<TranslatedKey,Item> sortedItems(DataBase _data, String _typedPrice, IntBeanChgString _typedName, String _typedClass, String _language) {
+    public static AbsMap<TranslatedKey,Item> sortedItems(FacadeGame _data, String _typedPrice, IntBeanChgString _typedName, String _typedClass) {
         DictionaryComparator<TranslatedKey, Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData();
         StringMap<String> translationsItems_;
-        translationsItems_ = _data.getTranslatedItems().getVal(_language);
+        translationsItems_ = _data.getTranslatedItems();
         StringMap<String> translationsClasses_;
-        translationsClasses_ = _data.getTranslatedClassesDescriptions().getVal(_language);
+        translationsClasses_ = _data.getTranslatedClassesDescriptions();
         if (_typedPrice.isEmpty()) {
-            for (EntryCust<String, Item> i: _data.getItems().entryList()) {
+            for (EntryCust<String, Item> i: _data.getData().getItems().entryList()) {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 if (StringUtil.match(display_, _typedName.tryRet()) && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.put(buildIt(_data,translationsItems_,i.getKey()),i.getValue());
+                    sortedItems_.put(buildIt(_data, i.getKey()),i.getValue());
                 }
             }
         } else {
             long int_ = NumberUtil.parseLongZero(_typedPrice);
-            for (EntryCust<String, Item> i: _data.getItems().entryList()) {
+            for (EntryCust<String, Item> i: _data.getData().getItems().entryList()) {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 if (StringUtil.match(display_, _typedName.tryRet()) && i.getValue().getPrice() == int_ && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.put(buildIt(_data,translationsItems_,i.getKey()),i.getValue());
+                    sortedItems_.put(buildIt(_data, i.getKey()),i.getValue());
                 }
             }
         }
@@ -155,7 +156,7 @@ public abstract class WithFilterBean extends CommonBean {
             }
             PokemonData pkData_ = k.getValue();
             if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos().tryRet())) && (getTypedMaxNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos().tryRet())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getHasEvo().tryRet()), !pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsEvo().tryRet()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsLeg().tryRet()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
-                pokedex_.put(buildPk(translationsPk_,k.getKey()),k.getValue());
+                pokedex_.put(buildPk(getFacade(),k.getKey()),k.getValue());
             }
         }
 //        pokedex_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
@@ -178,7 +179,7 @@ public abstract class WithFilterBean extends CommonBean {
             }
             MoveData moveData_ = k.getValue();
             if (CriteriaForSearching.match(PokemonStandards.getBoolByName(getLearnt().tryRet()), StringUtil.contains(list_, k.getKey()))&&atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory().tryRet(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory().tryRet(), getDataBase().getCategory(moveData_))) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
-                moves_.put(buildMv(translationsMoves_,k.getKey()),k.getValue());
+                moves_.put(buildMv(getFacade(),k.getKey()),k.getValue());
             }
         }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
@@ -258,7 +259,7 @@ public abstract class WithFilterBean extends CommonBean {
         for (EntryCust<String, AbilityData> i: data_.getAbilities().entryList()) {
             String ab_ = translationsAbilities_.getVal(i.getKey());
             if (StringUtil.match(ab_, getTypedAbility())) {
-                sortedAbilities_.put(buildAb(translationsAbilities_,i.getKey()),i.getValue());
+                sortedAbilities_.put(buildAb(getFacade(),i.getKey()),i.getValue());
             }
         }
 //        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
@@ -291,8 +292,8 @@ public abstract class WithFilterBean extends CommonBean {
 //        escapeInputs();
     }
 
-    protected AbsMap<TranslatedKey,Item> sortedItems(DataBase _data) {
-        return sortedItems(_data,getTypedPrice(),getTypedName(),getTypedClass(),getLanguage());
+    protected AbsMap<TranslatedKey,Item> sortedItems() {
+        return sortedItems(getFacade(),getTypedPrice(),getTypedName(),getTypedClass());
     }
     public String getTrSortedAbility(int _index) {
         return sortedAbilities.getKey(_index).getTranslation();

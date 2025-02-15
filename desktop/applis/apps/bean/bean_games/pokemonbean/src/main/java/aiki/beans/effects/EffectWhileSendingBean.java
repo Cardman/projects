@@ -23,7 +23,7 @@ public class EffectWhileSendingBean extends CommonBean {
         EffectWhileSendingWithStatistic effectSend_ = patch(effect);
         disableWeather = effectSend_.getDisableWeather();
         copyingAbility = effectSend_.getCopyingAbility();
-        enabledWeather = buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),effectSend_.getEnabledWeather());
+        enabledWeather = buildMv(getFacade(),effectSend_.getEnabledWeather());
         multWeight = effectSend_.getMultWeight();
         EffectStatistic effect_ = effectSend_.getEffect();
         statistic = effectSend_.isWithEffect();

@@ -2,7 +2,6 @@ package aiki.beans.endround;
 
 import aiki.beans.*;
 import aiki.comparators.*;
-import aiki.db.*;
 import aiki.fight.moves.effects.*;
 import code.maths.*;
 
@@ -12,12 +11,11 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        DataBase data_ = getDataBase();
         EffectEndRoundMultiRelation effect_ = (EffectEndRoundMultiRelation) getEffect();
         DictionaryComparator<TranslatedKey,Rate> damageByStatus_;
         damageByStatus_ = DictionaryComparatorUtil.buildStatusRate();
         for (String s: effect_.getDamageByStatus().getKeys()) {
-            damageByStatus_.put(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s), effect_.getDamageByStatus().getVal(s));
+            damageByStatus_.put(buildSt(getFacade(),s), effect_.getDamageByStatus().getVal(s));
         }
         damageByStatus = damageByStatus_;
     }

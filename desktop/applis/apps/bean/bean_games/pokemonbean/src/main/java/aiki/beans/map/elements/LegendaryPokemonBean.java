@@ -9,7 +9,7 @@ public class LegendaryPokemonBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        pokemon = new TranslatedPkElements(getDataBase(),getForms().getValPk(CST_LEG_PK),getLanguage());
+        pokemon = new TranslatedPkElements(getFacade(),getForms().getValPk(CST_LEG_PK));
     }
     public int[][] getImage() {
         return pokemon.getImage();

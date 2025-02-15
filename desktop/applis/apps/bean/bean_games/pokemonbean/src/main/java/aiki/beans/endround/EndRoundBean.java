@@ -2,6 +2,7 @@ package aiki.beans.endround;
 
 import aiki.beans.*;
 import aiki.db.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
@@ -29,15 +30,11 @@ public class EndRoundBean extends CommonBean {
         DataBase data_ = getDataBase();
         evts = data_.getEvtEndRound();
         getForms().getEvts().clear();
-        StringMap<String> trMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringMap<String> trAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        StringMap<String> trItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringMap<String> trStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         CustList<EffectEndRoundBean> res_ = new CustList<EffectEndRoundBean>();
         getForms().setCurrentBeanEnd(res_);
         for (EndRoundMainElements e: evts) {
             getForms().getEvtsGroups().add(new CustList<TranslatedKey>());
-            feedEvts(data_, trMoves_, trAbilities_, trItems_, trStatus_, e);
+            feedEvts(getFacade(), e);
         }
         int len_ = evts.size();
         for (int i = 0; i < len_; i++) {
@@ -45,21 +42,21 @@ public class EndRoundBean extends CommonBean {
         }
     }
 
-    private void feedEvts(DataBase _data, StringMap<String> _trMoves, StringMap<String> _trAbilities, StringMap<String> _trItems, StringMap<String> _trStatus, EndRoundMainElements _e) {
+    private void feedEvts(FacadeGame _data, EndRoundMainElements _e) {
         if (_e.getEndRoundType() == EndTurnType.ATTAQUE) {
-            getForms().getEvts().add(buildMv(_trMoves, _e.getElement()));
+            getForms().getEvts().add(buildMv(_data, _e.getElement()));
         } else if (_e.getEndRoundType() == EndTurnType.CAPACITE) {
-            getForms().getEvts().add(buildAb(_trAbilities, _e.getElement()));
+            getForms().getEvts().add(buildAb(_data, _e.getElement()));
         } else if (_e.getEndRoundType() == EndTurnType.OBJET) {
-            getForms().getEvts().add(buildIt(_data, _trItems, _e.getElement()));
+            getForms().getEvts().add(buildIt(_data, _e.getElement()));
         } else if (_e.getEndRoundType() == EndTurnType.STATUT) {
-            getForms().getEvts().add(buildSt(_trStatus, _e.getElement()));
+            getForms().getEvts().add(buildSt(_data, _e.getElement()));
         } else {
             StringList moves_ = StringUtil.splitStrings(_e.getElement(), DataBase.SEPARATOR_MOVES);
             for (String m: moves_) {
-                getForms().getEvtsGroups().last().add(buildMv(_trMoves,m));
+                getForms().getEvtsGroups().last().add(buildMv(_data,m));
             }
-            getForms().getEvts().add(build(new StringMap<String>(),""));
+            getForms().getEvts().add(buildTy(_data,""));
         }
     }
 

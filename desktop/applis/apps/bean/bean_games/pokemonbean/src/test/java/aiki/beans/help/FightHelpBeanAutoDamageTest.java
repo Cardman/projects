@@ -1,7 +1,6 @@
 package aiki.beans.help;
 
 import aiki.beans.TranslatedKey;
-import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
@@ -21,17 +20,19 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
 
     @Test
     public void movesTypesDefWeatherInitTest() {
-        DataBase d_ = db().getData();
-        AbsMap<TranslatedKey, StatusBeginRoundAutoDamage> map_ = FightHelpBean.autoDamageInit(d_, EN);
+        FacadeGame d_ = db();
+        d_.updateTrs();
+        AbsMap<TranslatedKey, StatusBeginRoundAutoDamage> map_ = FightHelpBean.autoDamageInit(d_);
         assertEq(1,map_.size());
         assertEq(M_DAM,map_.getKey(0).getKey());
     }
 
     @Test
     public void movesTypesDefWeatherInit02Test() {
-        DataBase d_ = db().getData();
-        AbsMap<TranslatedKey, StatusBeginRoundAutoDamage> map_ = FightHelpBean.autoDamageInit(d_, EN);
-        NatStringTreeMap<String> vars_ = FightHelpBean.mapAutoDamageInit(d_, EN,map_);
+        FacadeGame d_ = db();
+        d_.updateTrs();
+        AbsMap<TranslatedKey, StatusBeginRoundAutoDamage> map_ = FightHelpBean.autoDamageInit(d_);
+        NatStringTreeMap<String> vars_ = FightHelpBean.mapAutoDamageInit(d_.getData(), EN,map_);
         assertEq(1,vars_.size());
         assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,vars_.getKey(0));
         assertEq(TIME,vars_.getValue(0));

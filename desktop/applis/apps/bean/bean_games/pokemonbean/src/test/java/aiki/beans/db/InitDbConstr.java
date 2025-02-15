@@ -203,6 +203,7 @@ public abstract class InitDbConstr extends InitDbBean {
         fac_.setZipName("");
         fac_.setData(data_);
         fac_.setLanguage(EN);
+        fac_.updateTrs();
         fac_.getData().setCombos(Instances.newCombos());
         return fac_;
     }
@@ -368,6 +369,7 @@ public abstract class InitDbConstr extends InitDbBean {
     public static PkData pkDataByFacade(FacadeGame _dataBase) {
         PkData pk_ = new PkData();
         pk_.setDataBase(_dataBase);
+        _dataBase.updateTrs();
 //        pk_.setBaseEncode(BASE);
         return pk_;
     }

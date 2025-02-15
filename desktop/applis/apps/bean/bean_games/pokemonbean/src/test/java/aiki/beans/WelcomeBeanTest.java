@@ -170,6 +170,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         f_.getData().getTranslatedAbilities().getVal(FR).addEntry("____","____");
         f_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().addEntry(FR,new StringMap<String>());
+        f_.updateTrs();
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
         builtMessages_.addEntry(EN,MessagesInit.enData());
         builtMessages_.addEntry(FR,MessagesInit.frData());

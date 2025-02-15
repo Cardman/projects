@@ -21,9 +21,9 @@ public class TrainerBean extends CommonBean {
         name = data_.getMap().getTrainerName(getForms().getValCoords(CST_COORDS));
         if (trainer instanceof GymLeader) {
             GymLeader gym_ = (GymLeader) trainer;
-            move = buildMv(data_.getTranslatedMoves().getVal(getLanguage()),data_.getTm().getVal(gym_.getTm()));
+            move = buildMv(getFacade(),data_.getTm().getVal(gym_.getTm()));
         } else {
-            move = buildMv(new StringMap<String>(),DataBase.EMPTY_STRING);
+            move = buildMv(getFacade(),DataBase.EMPTY_STRING);
         }
         image = data_.getTrainer(trainer.getImageMaxiFileName());
         imageMini = data_.getPerson(trainer.getImageMiniFileName());

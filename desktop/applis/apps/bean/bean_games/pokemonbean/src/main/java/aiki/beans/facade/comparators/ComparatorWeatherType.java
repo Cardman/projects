@@ -1,7 +1,7 @@
 package aiki.beans.facade.comparators;
 import aiki.beans.abilities.*;
 import aiki.comparators.*;
-import aiki.db.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.util.*;
 import code.util.*;
 import code.util.ints.*;
@@ -11,8 +11,8 @@ public final class ComparatorWeatherType implements Comparing<TranslatedKeyPair>
     private final AbsMap<String,String> moves;
     private final AbsMap<String,String> types;
 
-    public ComparatorWeatherType(DataBase _data, String _language) {
-        this(_data.getTranslatedMoves().getVal(_language),_data.getTranslatedTypes().getVal(_language));
+    public ComparatorWeatherType(FacadeGame _data) {
+        this(_data.getTranslatedMoves(),_data.getTranslatedTypes());
     }
 
     public ComparatorWeatherType(AbsMap<String,String> _m, AbsMap<String,String> _t) {

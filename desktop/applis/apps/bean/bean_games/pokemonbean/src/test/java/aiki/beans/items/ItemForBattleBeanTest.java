@@ -3,6 +3,7 @@ package aiki.beans.items;
 import aiki.beans.TranslatedKey;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.MessagesDataBaseConstants;
+import aiki.facade.FacadeGame;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
@@ -20,12 +21,14 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void initTypesPkAbilities1() {
-        CustList<TranslatedKey> ls_ = ItemForBattleBean.initTypesPkAbilities(feedDbAbility(false).getData(),EN);
+        CustList<TranslatedKey> ls_ = ItemForBattleBean.initTypesPkAbilities(feedDbAbility(false));
         assertEq(0,ls_.size());
     }
     @Test
     public void initTypesPkAbilities2() {
-        CustList<TranslatedKey> ls_ = ItemForBattleBean.initTypesPkAbilities(feedDbAbility(true).getData(),EN);
+        FacadeGame f_ = feedDbAbility(true);
+        f_.updateTrs();
+        CustList<TranslatedKey> ls_ = ItemForBattleBean.initTypesPkAbilities(f_);
         assertEq(1,ls_.size());
         assertEq(A_ABILITY,ls_.get(0).getKey());
     }

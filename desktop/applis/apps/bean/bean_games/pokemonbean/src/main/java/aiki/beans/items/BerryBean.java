@@ -56,7 +56,7 @@ public class BerryBean extends ItemBean {
             multStat_.put(s, item_.getMultStat().getVal(s));
         }
         multStat = multStat_;
-        healStatus = listTrStringsSt(item_.getHealStatus(),data_,getLanguage());
+        healStatus = listTrStringsSt(item_.getHealStatus(),getFacade());
         DictionaryComparator<String, Rate> damageRateRecoilFoe_;
         damageRateRecoilFoe_ = DictionaryComparatorUtil.buildCatsRate(data_,getLanguage());
         for (String s: item_.getDamageRateRecoilFoe().getKeys()) {

@@ -83,6 +83,7 @@ public final class GamesPk {
             _data.setMessages(old_);
         }
         _f.setData(_data);
+        _f.updateTrs();
         _p.set(100);
         _f.setLoadedData(true);
     }

@@ -47,7 +47,7 @@ public class GeneralHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
         miniMap = data_.getMap().getImages(data_);
         begin = data_.getMap().getPlace(data_.getMap().getBegin().getNumberPlace()).getName();
-        firstPokemon = new TranslatedPkElements(data_,data_.getMap().getFirstPokemon(),getLanguage());
+        firstPokemon = new TranslatedPkElements(getFacade(),data_.getMap().getFirstPokemon());
         namesPlaces = DictionaryComparatorUtil.buildMiniMapCoords();
         for (MiniMapCoords m: miniMap.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
@@ -68,7 +68,7 @@ public class GeneralHelpBean extends CommonBean {
         for (String p: data_.getPokedex().getKeys()) {
             PokemonData pkData_ = data_.getPokemon(p);
             if (StringUtil.contains(pkData_.getEggGroups(), data_.getDefaultEggGroup())) {
-                pokemonDefaultEggGroup.add(buildPk(data_.getTranslatedPokemon().getVal(getLanguage()),p));
+                pokemonDefaultEggGroup.add(buildPk(getFacade(),p));
             }
         }
         pokemonDefaultEggGroup.sortElts(new ComparingTranslatedKey());
@@ -82,7 +82,7 @@ public class GeneralHelpBean extends CommonBean {
     private CustList<TranslatedKey> build(IntMap< String> _map) {
         CustList<TranslatedKey> moves_ = new CustList<TranslatedKey>();
         for (String v: _map.values()) {
-            moves_.add(buildMv(getDataBase().getTranslatedMoves().getVal(getLanguage()),v));
+            moves_.add(buildMv(getFacade(),v));
         }
         moves_.sortElts(new ComparingTranslatedKey());
         return moves_;

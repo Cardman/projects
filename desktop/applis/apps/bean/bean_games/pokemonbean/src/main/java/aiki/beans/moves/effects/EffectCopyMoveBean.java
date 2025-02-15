@@ -22,10 +22,10 @@ public class EffectCopyMoveBean extends EffectBean {
         copyingMoveForUserDef = effect_.getCopyingMoveForUserDef();
         DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        movesNotToBeCopied = listTrStringsMv(effect_.getMovesNotToBeCopied(),data_,getLanguage());
+        movesNotToBeCopied = listTrStringsMv(effect_.getMovesNotToBeCopied(),getFacade());
         displayName = translatedMoves_.getVal(getMove());
-        defaultMove = buildMv(translatedMoves_,data_.getDefMove());
-        movesTransforming = listTrStringsMv(movesTransforming(data_),data_,getLanguage());
+        defaultMove = buildMv(getFacade(),data_.getDefMove());
+        movesTransforming = listTrStringsMv(movesTransforming(data_),getFacade());
     }
 
     public static StringList movesTransforming(DataBase _data) {

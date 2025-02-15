@@ -21,7 +21,7 @@ public class ItemsBean extends WithFilterBean {
 //        } else {
 //            price_ = null;
 //        }
-        AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems(getDataBase());
+        AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems();
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsItems_;
 //        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());

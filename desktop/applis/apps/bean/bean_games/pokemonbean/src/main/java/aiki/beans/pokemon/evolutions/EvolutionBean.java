@@ -49,7 +49,7 @@ public class EvolutionBean extends CommonBean {
     }
 
     public void setName(String _name) {
-        name = buildPk(getDataBase().getTranslatedPokemon().getVal(getLanguage()),_name);
+        name = buildPk(getFacade(),_name);
     }
 
     public void setBase(String _base) {

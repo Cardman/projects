@@ -9,6 +9,7 @@ import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
@@ -137,7 +138,7 @@ public class AbilityBean extends CommonBean {
         breakProtectionMoves_.addAllElts(data_.getMovesProtAgainstMultiTarget());
         breakProtectionMoves_.addAllElts(data_.getMovesProtSingleTarget());
         breakProtectionMoves_.removeDuplicates();
-        breakProtectionMoves = listTrStringsMv(breakProtectionMoves_,data_,getLanguage());
+        breakProtectionMoves = listTrStringsMv(breakProtectionMoves_,getFacade());
         cancelSecEffectOther = ability_.isCancelSecEffectOther();
         cancelSecEffectOwner = ability_.isCancelSecEffectOwner();
         chgtTypeByDamage = ability_.isChgtTypeByDamage();
@@ -151,7 +152,7 @@ public class AbilityBean extends CommonBean {
         immuDamageRecoil = ability_.isImmuDamageRecoil();
         immuDamageTrappingMoves = ability_.isImmuDamageTrappingMoves();
         immuRechargeRound = ability_.isImmuRechargeRound();
-        immuRechargeRoundMoves = listTrStringsMv(immuRechargeRoundMoves(data_),data_,getLanguage());
+        immuRechargeRoundMoves = listTrStringsMv(immuRechargeRoundMoves(data_),getFacade());
         immuSufferedDamageLowEff = ability_.isImmuSufferedDamageLowEff();
         inflictingDamageInsteadOfSuffering = ability_.isInflictingDamageInsteadOfSuffering();
         mumy = ability_.isMumy();
@@ -187,13 +188,13 @@ public class AbilityBean extends CommonBean {
 //        multDamage = StringList.replace(multDamage, loc_);
 //        multDamage = multDamage.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        multDamage = multDamage.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        immuMove = listTrStringsMv(ability_.getImmuMove(),data_,getLanguage());
-        immuAllyFromMoves = listTrStringsMv(ability_.getImmuAllyFromMoves(),data_,getLanguage());
-        immuWeather = listTrStringsMv(ability_.getImmuWeather(),data_,getLanguage());
+        immuMove = listTrStringsMv(ability_.getImmuMove(),getFacade());
+        immuAllyFromMoves = listTrStringsMv(ability_.getImmuAllyFromMoves(),getFacade());
+        immuWeather = listTrStringsMv(ability_.getImmuWeather(),getFacade());
         ignAbility = ignAbility(ability_);
         immuAbility = immuAbility(ability_);
-        ignFoeTeamMove = listTrStringsMv(ability_.getIgnFoeTeamMove(),data_,getLanguage());
-        immuStatusBeginRound = listTrStringsSt(ability_.getImmuStatusBeginRound(),data_,getLanguage());
+        ignFoeTeamMove = listTrStringsMv(ability_.getIgnFoeTeamMove(),getFacade());
+        immuStatusBeginRound = listTrStringsSt(ability_.getImmuStatusBeginRound(),getFacade());
         tpForMoves(ability_);
         singleStatus = singleStatus(ability_);
         immuLowStat = immuLowStat(ability_);
@@ -213,14 +214,13 @@ public class AbilityBean extends CommonBean {
         }
         multStat = multStat_;
         forwardStatus = forwardStatus(ability_);
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         DictionaryComparator<TranslatedKey, String> failStatus_ = DictionaryComparatorUtil.buildStatusStrOnly();
         for (String s: ability_.getFailStatus().getKeys()) {
             String fail_ = ability_.getFailStatus().getVal(s);
             String formula_ = data_.getFormula(fail_, getLanguage());
 //            formula_ = quoteBraces(formula_);
             mapVars_.putAllMap(data_.getDescriptions(fail_, getLanguage()));
-            failStatus_.put(buildSt(translatedStatus_,s), formula_);
+            failStatus_.put(buildSt(getFacade(),s), formula_);
         }
         failStatus = failStatus_;
         breakFoeImmune = breakFoeImmune(ability_);
@@ -237,36 +237,34 @@ public class AbilityBean extends CommonBean {
             increasedPrio_.put(c, ability_.getIncreasedPrio().getVal(c));
         }
         increasedPrio = increasedPrio_;
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         DictionaryComparator<String, Long> increasedPrioTypes_;
         increasedPrioTypes_ = DictionaryComparatorUtil.buildTypesShort(data_,getLanguage());
         for (String c: ability_.getIncreasedPrioTypes().getKeys()) {
             increasedPrioTypes_.put(c, ability_.getIncreasedPrioTypes().getVal(c));
         }
         increasedPrioTypes = increasedPrioTypes_;
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByWeather_;
         chgtTypeByWeather_ = DictionaryComparatorUtil.buildMovesStr();
         for (String c: ability_.getChgtTypeByWeather().getKeys()) {
-            chgtTypeByWeather_.put(buildMv(translatedMoves_,c), build(translatedTypes_,ability_.getChgtTypeByWeather().getVal(c)));
+            chgtTypeByWeather_.put(buildMv(getFacade(),c), buildTy(getFacade(),ability_.getChgtTypeByWeather().getVal(c)));
         }
         chgtTypeByWeather = chgtTypeByWeather_;
         DictionaryComparator<TranslatedKey, Rate> divideStatusRound_;
         divideStatusRound_ = DictionaryComparatorUtil.buildStatusRate();
         for (String c: ability_.getDivideStatusRound().getKeys()) {
-            divideStatusRound_.put(buildSt(translatedStatus_,c), ability_.getDivideStatusRound().getVal(c));
+            divideStatusRound_.put(buildSt(getFacade(),c), ability_.getDivideStatusRound().getVal(c));
         }
         divideStatusRound = divideStatusRound_;
         DictionaryComparator<TranslatedKey, Rate> healHpByWeather_;
         healHpByWeather_ = DictionaryComparatorUtil.buildMovesRate();
         for (String c: ability_.getHealHpByWeather().getKeys()) {
-            healHpByWeather_.put(buildMv(translatedMoves_,c), ability_.getHealHpByWeather().getVal(c));
+            healHpByWeather_.put(buildMv(getFacade(),c), ability_.getHealHpByWeather().getVal(c));
         }
         healHpByWeather = healHpByWeather_;
         DictionaryComparator<TranslatedKeyPair, Rate> healHpByTypeIfWeather_;
-        healHpByTypeIfWeather_ = DictionaryComparatorUtil.buildWeatherType(data_, getLanguage());
+        healHpByTypeIfWeather_ = DictionaryComparatorUtil.buildWeatherType(getFacade());
         for (WeatherType w: ability_.getHealHpByTypeIfWeather().getKeys()) {
-            healHpByTypeIfWeather_.put(buildPair(data_, w, getLanguage()), ability_.getHealHpByTypeIfWeather().getVal(w));
+            healHpByTypeIfWeather_.put(buildPair(getFacade(), w), ability_.getHealHpByTypeIfWeather().getVal(w));
         }
         healHpByTypeIfWeather = healHpByTypeIfWeather_;
         DictionaryComparator<String, TypeDamageBoost> changingBoostTypes_;
@@ -309,9 +307,9 @@ public class AbilityBean extends CommonBean {
         }
         multStatIfDamgeType = multStatIfDamgeType_;
         DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank_;
-        multStatIfStatutRank_ = DictionaryComparatorUtil.buildStatisticStatus(data_, getLanguage());
+        multStatIfStatutRank_ = DictionaryComparatorUtil.buildStatisticStatus(getFacade());
         for (StatisticStatus w: ability_.getMultStatIfStatutRank().getKeys()) {
-            multStatIfStatutRank_.put(buildPair(data_, w, getLanguage()), ability_.getMultStatIfStatutRank().getVal(w));
+            multStatIfStatutRank_.put(buildPair(getFacade(), w), ability_.getMultStatIfStatutRank().getVal(w));
         }
         multStatIfStatutRank = multStatIfStatutRank_;
         DictionaryComparator<String, Rate> multDamageFoe_;
@@ -331,12 +329,12 @@ public class AbilityBean extends CommonBean {
         mapVars = mapVars_;
     }
 
-    public static TranslatedKeyPair buildPair(DataBase _data, StatisticStatus _w, String _lg) {
-        return new TranslatedKeyPair(buildSi(_data.getTranslatedStatistics().getVal(_lg), _w.getStatistic()), buildSt(_data.getTranslatedStatus().getVal(_lg), _w.getStatus()));
+    public static TranslatedKeyPair buildPair(FacadeGame _data, StatisticStatus _w) {
+        return new TranslatedKeyPair(buildSi(_data, _w.getStatistic()), buildSt(_data, _w.getStatus()));
     }
 
-    public static TranslatedKeyPair buildPair(DataBase _data, WeatherType _w, String _lg) {
-        return new TranslatedKeyPair(buildMv(_data.getTranslatedMoves().getVal(_lg), _w.getWeather()), build(_data.getTranslatedTypes().getVal(_lg), _w.getType()));
+    public static TranslatedKeyPair buildPair(FacadeGame _data, WeatherType _w) {
+        return new TranslatedKeyPair(buildMv(_data, _w.getWeather()), buildTy(_data, _w.getType()));
     }
 
     private DictionaryComparator<Statistic, Rate> multStatAlly(AbilityData _ability) {
@@ -434,11 +432,10 @@ public class AbilityBean extends CommonBean {
     }
 
     private DictionaryComparator<TranslatedKey, TranslatedKey> forwardStatus(AbilityData _ability) {
-        StringMap<String> translatedStatus_ = getDataBase().getTranslatedStatus().getVal(getLanguage());
         DictionaryComparator<TranslatedKey, TranslatedKey> forwardStatus_;
         forwardStatus_ = DictionaryComparatorUtil.buildStatusStr();
         for (String s: _ability.getForwardStatus().getKeys()) {
-            forwardStatus_.put(buildSt(translatedStatus_,s), buildSt(translatedStatus_, _ability.getForwardStatus().getVal(s)));
+            forwardStatus_.put(buildSt(getFacade(),s), buildSt(getFacade(), _ability.getForwardStatus().getVal(s)));
         }
         return forwardStatus_;
     }
@@ -457,57 +454,53 @@ public class AbilityBean extends CommonBean {
     }
 
     private CustList<TranslatedKeyPair> immuLowStatIfStatus(AbilityData _ability) {
-        DataBase data_ = getDataBase();
         CustList<TranslatedKeyPair> immuLowStatIfStatus_;
         immuLowStatIfStatus_ = new CustList<TranslatedKeyPair>();
         for (StatisticStatus s: _ability.getImmuLowStatIfStatus()) {
-            immuLowStatIfStatus_.add(buildPair(data_,new StatisticStatus(s.getStatistic(),s.getStatus()),getLanguage()));
+            immuLowStatIfStatus_.add(buildPair(getFacade(),new StatisticStatus(s.getStatistic(),s.getStatus())));
         }
-        immuLowStatIfStatus_.sortElts(new ComparatorStatusStatistic(data_, getLanguage()));
+        immuLowStatIfStatus_.sortElts(new ComparatorStatusStatistic(getFacade()));
         return immuLowStatIfStatus_;
     }
 
     private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes(AbilityData _ability) {
-        DataBase data_ = getDataBase();
         DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes_;
         immuStatusTypes_ = DictionaryComparatorUtil.buildTypesStrList();
         for (String t: _ability.getImmuStatusTypes().getKeys()) {
             CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
             for (String s: _ability.getImmuStatusTypes().getVal(t)) {
-                sub_.add(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s));
+                sub_.add(buildSt(getFacade(),s));
             }
             sub_.sortElts(new ComparingTranslatedKey());
-            immuStatusTypes_.put(build(data_.getTranslatedTypes().getVal(getLanguage()),t), sub_);
+            immuStatusTypes_.put(buildTy(getFacade(),t), sub_);
         }
         return immuStatusTypes_;
     }
 
     private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus(AbilityData _ability) {
-        DataBase data_ = getDataBase();
         DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus_;
         immuStatus_ = DictionaryComparatorUtil.buildMovesStrList();
         for (String t: _ability.getImmuStatus().getKeys()) {
             CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
             for (String s: _ability.getImmuStatus().getVal(t)) {
-                sub_.add(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s));
+                sub_.add(buildSt(getFacade(),s));
             }
             sub_.sortElts(new ComparingTranslatedKey());
-            immuStatus_.put(buildMv(data_.getTranslatedMoves().getVal(getLanguage()),t), sub_);
+            immuStatus_.put(buildMv(getFacade(),t), sub_);
         }
         return immuStatus_;
     }
 
     private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather(AbilityData _ability) {
-        DataBase data_ = getDataBase();
         DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather_;
         immuMoveTypesByWeather_ = DictionaryComparatorUtil.buildMovesStrList();
         for (String t: _ability.getImmuMoveTypesByWeather().getKeys()) {
             CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
             for (String s: _ability.getImmuMoveTypesByWeather().getVal(t)) {
-                sub_.add(build(data_.getTranslatedTypes().getVal(getLanguage()),s));
+                sub_.add(buildTy(getFacade(),s));
             }
             sub_.sortElts(new ComparingTranslatedKey());
-            immuMoveTypesByWeather_.put(buildMv(data_.getTranslatedMoves().getVal(getLanguage()),t), sub_);
+            immuMoveTypesByWeather_.put(buildMv(getFacade(),t), sub_);
         }
         return immuMoveTypesByWeather_;
     }
@@ -535,11 +528,10 @@ public class AbilityBean extends CommonBean {
     }
 
     private DictionaryComparator<TranslatedKey, Rate> singleStatus(AbilityData _ability) {
-        DataBase data_ = getDataBase();
         DictionaryComparator<TranslatedKey, Rate> singleStatus_;
         singleStatus_ = DictionaryComparatorUtil.buildStatusRate();
         for (String s: _ability.getSingleStatus().eventsDiff()) {
-            singleStatus_.put(buildSt(data_.getTranslatedStatus().getVal(getLanguage()),s), _ability.getSingleStatus().normalizedRate(s));
+            singleStatus_.put(buildSt(getFacade(),s), _ability.getSingleStatus().normalizedRate(s));
         }
         return singleStatus_;
     }
@@ -556,24 +548,20 @@ public class AbilityBean extends CommonBean {
     }
 
     private CustList<TranslatedKey> immuAbility(AbilityData _ability) {
-        DataBase data_ = getDataBase();
         CustList<TranslatedKey> immuAbility_;
         immuAbility_ = new CustList<TranslatedKey>();
-        StringMap<String> trAbs_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (String m: _ability.getImmuAbility()) {
-            immuAbility_.add(buildAb(trAbs_,m));
+            immuAbility_.add(buildAb(getFacade(),m));
         }
         immuAbility_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return immuAbility_;
     }
 
     private CustList<TranslatedKey> ignAbility(AbilityData _ability) {
-        DataBase data_ = getDataBase();
         CustList<TranslatedKey> ignAbility_;
         ignAbility_ = new CustList<TranslatedKey>();
-        StringMap<String> trAbs_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (String m: _ability.getIgnAbility()) {
-            ignAbility_.add(buildAb(trAbs_,m));
+            ignAbility_.add(buildAb(getFacade(),m));
         }
         ignAbility_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return ignAbility_;
@@ -602,20 +590,18 @@ public class AbilityBean extends CommonBean {
     }
 
     private CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities() {
-        DataBase data_ = getDataBase();
-        CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities_ = reverseEffects(data_,getLanguage());
+        CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities_ = reverseEffects(getFacade());
         reverseEffectsPowerMovesTypesGlobalAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities());
         return reverseEffectsPowerMovesTypesGlobalAbilities_;
     }
 
-    static CustList<TranslatedKey> reverseEffects(DataBase _data, String _language) {
-        StringMap<String> trAb_ = _data.getTranslatedAbilities().getVal(_language);
+    static CustList<TranslatedKey> reverseEffects(FacadeGame _data) {
         CustList<TranslatedKey> reverseEffectsPowerMovesTypesGlobalAbilities_;
         reverseEffectsPowerMovesTypesGlobalAbilities_ = new CustList<TranslatedKey>();
-        for (String a: _data.getAbilities().getKeys()) {
-            AbilityData ab_ = _data.getAbility(a);
+        for (String a: _data.getData().getAbilities().getKeys()) {
+            AbilityData ab_ = _data.getData().getAbility(a);
             if (!ab_.getMultPowerMovesTypesGlobal().isEmpty()) {
-                reverseEffectsPowerMovesTypesGlobalAbilities_.add(buildAb(trAb_,a));
+                reverseEffectsPowerMovesTypesGlobalAbilities_.add(buildAb(_data,a));
             }
         }
         return reverseEffectsPowerMovesTypesGlobalAbilities_;
@@ -636,7 +622,7 @@ public class AbilityBean extends CommonBean {
     private void pkLearn() {
         DataBase data_ = getDataBase();
         pokemon.clear();
-        pokemon.addAllElts(listTrStringsPk(pkLearn(data_,name),data_,getLanguage()));
+        pokemon.addAllElts(listTrStringsPk(pkLearn(data_,name),getFacade()));
     }
     static CustList<String> pkLearn(DataBase _db, String _name) {
         CustList<String> ls_ = new CustList<String>();

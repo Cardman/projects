@@ -20,7 +20,7 @@ public class EffectBatonPassBean extends EffectBean {
         moves_.addAllElts(data_.getTrappingMoves());
         moves_.removeDuplicates();
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        moves = listTrStringsMv(moves_,data_,getLanguage());
+        moves = listTrStringsMv(moves_,getFacade());
     }
     public String getTrMove(int _index) {
         return moves.get(_index).getTranslation();

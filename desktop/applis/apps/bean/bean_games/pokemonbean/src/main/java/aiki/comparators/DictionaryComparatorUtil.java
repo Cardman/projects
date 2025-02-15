@@ -9,6 +9,7 @@ import aiki.beans.fight.*;
 import aiki.beans.game.PlaceNamePk;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -320,12 +321,12 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<StatisticType, Long>(new ComparatorStatisticType(_data, _lg));
     }
 
-    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatisticStatus(DataBase _data, String _lg) {
-        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorStatusStatistic(_data, _lg));
+    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatisticStatus(FacadeGame _data) {
+        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorStatusStatistic(_data));
     }
 
-    public static DictionaryComparator<TranslatedKeyPair, Rate> buildWeatherType(DataBase _data, String _lg) {
-        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorWeatherType(_data, _lg));
+    public static DictionaryComparator<TranslatedKeyPair, Rate> buildWeatherType(FacadeGame _data) {
+        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorWeatherType(_data));
     }
 
     public static DictionaryComparator<StringList, ActivityOfMove> buildActivities(DataBase _data, String _lg) {

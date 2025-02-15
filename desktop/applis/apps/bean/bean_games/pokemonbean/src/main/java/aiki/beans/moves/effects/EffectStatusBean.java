@@ -26,7 +26,7 @@ public class EffectStatusBean extends EffectBean {
         DictionaryComparator<TranslatedKey, Rate> lawStatus_;
         lawStatus_ = DictionaryComparatorUtil.buildStatusRate();
         for (String s: effect_.getLawStatus().eventsDiff()) {
-            lawStatus_.put(buildSt(getDataBase().getTranslatedStatus().getVal(getLanguage()),s), effect_.getLawStatus().normalizedRate(s));
+            lawStatus_.put(buildSt(getFacade(),s), effect_.getLawStatus().normalizedRate(s));
         }
         lawStatus = lawStatus_;
 //        Map<String,String> loc_ = new Map<>();
@@ -46,7 +46,7 @@ public class EffectStatusBean extends EffectBean {
         }
         mapVarsStatus = mapVarsStatus_;
         localFailStatus = localFailStatus_;
-        deletedStatus = listTrStringsSt(effect_.getDeletedStatus(),data_,getLanguage());
+        deletedStatus = listTrStringsSt(effect_.getDeletedStatus(),getFacade());
         koUserHealSubst = effect_.getKoUserHealSubst();
         statusFromUser = effect_.getStatusFromUser();
     }

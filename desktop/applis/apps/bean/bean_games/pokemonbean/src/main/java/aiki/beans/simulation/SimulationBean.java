@@ -196,8 +196,6 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon,
 
     private void moveSetInit(StringList _moves) {
         DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
@@ -205,7 +203,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon,
         for (String k: _moves) {
             MoveData moveData_ = data_.getMoves().getVal(k);
             RadioLineMove line_ = new RadioLineMove();
-            MovesBean.line(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,k),moveData_,line_,getDataBase());
+            MovesBean.line(translationsTypes_,translationsCategories_,buildMv(getFacade(),k),moveData_,line_,getDataBase());
             movesSet.add(line_);
         }
         int i_ = IndexConstants.FIRST_INDEX;
@@ -231,8 +229,6 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon,
             }
             //keptMoves
             keptMoves.clear();
-            StringMap<String> translationsMoves_;
-            translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
             StringMap<String> translationsTypes_;
             translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
             StringMap<String> translationsCategories_;
@@ -241,7 +237,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon,
             info_ = simulation.getAvailableMoves().getVal(selectedPk);
             for (String k : info_.getMoves().getKeys()) {
                 MoveData moveData_ = data_.getMoves().getVal(k);
-                SelectLineMove line_ = MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,k),moveData_,getDataBase());
+                SelectLineMove line_ = MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(getFacade(),k),moveData_,getDataBase());
 //                    line_.setName(k);
 //                    line_.setDisplayName(translationsMoves_.getVal(k));
 //                    StringList types_ = new StringList();
@@ -1295,13 +1291,11 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon,
         keptMovesAfterFight.clear();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         for (String m: selectedMoves_.getKeys()) {
             MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,m),moveData_,getDataBase());
+            SelectLineMove line_ = MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(getFacade(),m),moveData_,getDataBase());
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(m);
 //            line_.setDisplayName(data_.translateMove(m));

@@ -35,11 +35,10 @@ public abstract class ItemBean extends CommonBean {
     }
 
     public void initHappiness(StringMap<Long> _map) {
-        DataBase data_ = getDataBase();
         DictionaryComparator<TranslatedKey, Long> happiness_;
         happiness_ = DictionaryComparatorUtil.buildItemsShort();
         for (String i: _map.getKeys()) {
-            happiness_.put(buildIt(data_,data_.getTranslatedItems().getVal(getLanguage()),i), _map.getVal(i));
+            happiness_.put(buildIt(getFacade(), i), _map.getVal(i));
         }
         happiness = happiness_;
     }

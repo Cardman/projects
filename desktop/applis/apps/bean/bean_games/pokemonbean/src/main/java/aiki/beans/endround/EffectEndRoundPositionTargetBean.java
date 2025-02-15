@@ -13,7 +13,7 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
-        movesSameCategory = listTrStringsMv(moves(),getDataBase(),getLanguage());
+        movesSameCategory = listTrStringsMv(moves(),getFacade());
     }
 
     private StringList moves() {

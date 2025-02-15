@@ -13,13 +13,13 @@ public class SellerBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         Seller seller_ = (Seller) getForms().getValPers(CST_PERSON);
-        items = listTrStringsIt(seller_.getItems(),getDataBase(),getLanguage());
+        items = listTrStringsIt(seller_.getItems(),getFacade());
         DataBase data_ = getDataBase();
         StringList moves_ = new StringList();
         for (Integer s: seller_.getTm()) {
             moves_.add(data_.getTm().getVal(s));
         }
-        allTm = listTrStringsMv(moves_,data_,getLanguage());
+        allTm = listTrStringsMv(moves_,getFacade());
     }
     public String getItem(int _index) {
         return items.get(_index).getTranslation();

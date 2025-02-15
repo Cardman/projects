@@ -26,7 +26,7 @@ public class StatusSetBean extends WithFilterBean {
         for (EntryCust<String, Status> i: data_.getStatus().entryList()) {
             String displayName_ = translationsStatus_.getVal(i.getKey());
             if (StringUtil.match(displayName_, getTypedStatus())) {
-                sortedAbilities_.put(buildSt(translationsStatus_,i.getKey()),i.getValue());
+                sortedAbilities_.put(buildSt(getFacade(),i.getKey()),i.getValue());
             }
         }
         getForms().putStatus(CST_STATUS_SET, sortedAbilities_);

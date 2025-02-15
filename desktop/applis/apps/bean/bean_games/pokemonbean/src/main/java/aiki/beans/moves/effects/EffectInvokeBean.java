@@ -10,10 +10,8 @@ import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
-import code.util.AbsMap;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
 public class EffectInvokeBean extends EffectBean {
     private DictionaryComparator<TranslatedKey, TranslatedKey> moveFctEnv;
@@ -33,17 +31,15 @@ public class EffectInvokeBean extends EffectBean {
         super.beforeDisplaying();
         DataBase data_ = getDataBase();
         EffectInvoke effect_ = (EffectInvoke) getEffect();
-        AbsMap<EnvironmentType,String> translatedEnv_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         DictionaryComparator<TranslatedKey, TranslatedKey> moveFctEnv_;
         moveFctEnv_ = DictionaryComparatorUtil.buildEnvStr();
         for (EnvironmentType e: effect_.getMoveFctEnv().getKeys()) {
-            moveFctEnv_.put(buildEnv(translatedEnv_,e), buildMv(translatedMoves_,effect_.getMoveFctEnv().getVal(e)));
+            moveFctEnv_.put(buildEnv(getFacade(),e), buildMv(getFacade(),effect_.getMoveFctEnv().getVal(e)));
         }
         moveFctEnv = moveFctEnv_;
         StringList globalMoves_ = globalMoves(data_);
         globalMoves_.removeDuplicates();
-        globalMoves = listTrStringsMv(globalMoves_,data_,getLanguage());
+        globalMoves = listTrStringsMv(globalMoves_,getFacade());
         invokingMoveButUser = effect_.getInvokingMoveButUser();
         invokingSufferedMove = effect_.getInvokingSufferedMove();
         invokingTargetChosenMove = effect_.getInvokingTargetChosenMove();
@@ -51,19 +47,16 @@ public class EffectInvokeBean extends EffectBean {
         invokingAllyMove = effect_.getInvokingAllyMove();
         invokingTargetSuccesfulMove = effect_.getInvokingTargetSuccesfulMove();
         rateInvokationMove = effect_.getRateInvokationMove();
-        movesNotToBeInvoked = listTrStringsMv(effect_.getMovesNotToBeInvoked(),data_,getLanguage());
+        movesNotToBeInvoked = listTrStringsMv(effect_.getMovesNotToBeInvoked(),getFacade());
         invokingMoveByUserTypes = invokingMoveByUserTypes(effect_);
     }
 
     private DictionaryComparator<TranslatedKey, TranslatedKey> invokingMoveByUserTypes(Effect _eff) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         EffectInvoke effect_ = (EffectInvoke) _eff;
         DictionaryComparator<TranslatedKey, TranslatedKey> invokingMoveByUserTypes_;
         invokingMoveByUserTypes_ = DictionaryComparatorUtil.buildTypesStr();
         for (String e: effect_.getInvokingMoveByUserTypes().getKeys()) {
-            invokingMoveByUserTypes_.put(build(translatedTypes_,e), buildMv(translatedMoves_,effect_.getInvokingMoveByUserTypes().getVal(e)));
+            invokingMoveByUserTypes_.put(buildTy(getFacade(),e), buildMv(getFacade(),effect_.getInvokingMoveByUserTypes().getVal(e)));
         }
         return invokingMoveByUserTypes_;
     }

@@ -58,8 +58,6 @@ public class EditPokemonBean extends CommonBean {
         remainingHp = getForms().getValRate(CST_POKEMON_HP);
         StringList currentMoves_ = getForms().getValList(CST_POKEMON_MOVES_EDIT);
         moves.clear();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
@@ -83,7 +81,7 @@ public class EditPokemonBean extends CommonBean {
 //            }
 //            line_.setPriority(moveData_.getPriority());
 //            line_.setSelected(false);
-            moves.add(MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(translationsMoves_,k),moveData_,getDataBase()));
+            moves.add(MovesBean.buildLine(translationsTypes_,translationsCategories_,buildMv(getFacade(),k),moveData_,getDataBase()));
         }
         moves.sortElts(new ComparatorMoves());
     }
