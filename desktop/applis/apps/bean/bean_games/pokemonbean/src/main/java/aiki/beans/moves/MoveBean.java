@@ -92,6 +92,17 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
             new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_OTHER_ITEM),new BeanDisplayTranslatedKey()).displayGrid(this,typesByOwnedItems,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES,MessagesDataMovesData.M_P_35_ITEM,MessagesDataMovesData.M_P_35_TYPE_TITLE);
             new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_OTHER_WEATHER),new BeanDisplayTranslatedKey()).displayGrid(this,typesByWeathers,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES,MessagesDataMovesData.M_P_35_WEATHER,MessagesDataMovesData.M_P_35_TYPE_TITLE);
         }
+        if (isDamagingMove()) {
+            displayBoolFull(MessagesPkBean.MV_DATA,isDamagingDirectMove(),MessagesDataMovesData.M_P_35_CAT_DIRECT_TRUE,MessagesDataMovesData.M_P_35_CAT_DIRECT_FALSE,category.getTranslation());
+        } else {
+            formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_CAT_STATUS);
+        }
+        formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_PP_TITLE);
+        formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_PP,Long.toString(pp));
+        displayIntDef(MessagesPkBean.MV_DATA,priority,MessagesDataMovesData.M_P_35_PRIORITY_ZERO,MessagesDataMovesData.M_P_35_PRIORITY);
+        formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TARGETS_TITLE);
+        target(targetChoice,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TARGETS_ADJ_ADV,MessagesDataMovesData.M_P_35_TARGETS_ADJ_MULT,MessagesDataMovesData.M_P_35_TARGETS_ADJ_UNIQ,MessagesDataMovesData.M_P_35_TARGETS_ALLIE,MessagesDataMovesData.M_P_35_TARGETS_ALLIES,MessagesDataMovesData.M_P_35_TARGETS_ANY_FOE,MessagesDataMovesData.M_P_35_TARGETS_AUTRE_UNIQ,MessagesDataMovesData.M_P_35_TARGETS_GLOBALE,MessagesDataMovesData.M_P_35_TARGETS_LANCEUR,MessagesDataMovesData.M_P_35_TARGETS_PSEUDO_GLOBALE,MessagesDataMovesData.M_P_35_TARGETS_TOUS_ADV,MessagesDataMovesData.M_P_35_TARGETS_UNIQUE_IMPORTE);
+        target(targetChoice,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ADJ_ADV,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ADJ_MULT,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ADJ_UNIQ,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ALLIE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ALLIES,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ANY_FOE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_AUTRE_UNIQ,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_GLOBALE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_LANCEUR,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_PSEUDO_GLOBALE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_TOUS_ADV,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_UNIQUE_IMPORTE);
     }
 
     public StringMap<String> file() {
@@ -468,10 +479,10 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         MoveData moveData_ = data_.getMove(name);
         return moveData_ instanceof DamagingMoveData;
     }
-    public boolean isDamagingDirectMove() {
+    public int isDamagingDirectMove() {
         DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name);
-        return WithFilterBean.direct(moveData_);
+        return toInt(WithFilterBean.direct(moveData_));
     }
     public boolean isZeroPriority() {
         return priority == 0;

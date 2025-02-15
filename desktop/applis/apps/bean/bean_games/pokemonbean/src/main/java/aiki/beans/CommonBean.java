@@ -7,6 +7,7 @@ import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
+import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
@@ -556,6 +557,60 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             formatMessage(_file,_one);
         } else {
             formatMessage(_file,_two);
+        }
+    }
+
+    public void displayBoolFull(String _file, int _value, String _one, String _two, String... _values) {
+        if (_value == CommonBean.TRUE_VALUE) {
+            formatMessage(_file,_one,_values);
+        } else {
+            formatMessage(_file,_two,_values);
+        }
+    }
+
+    public void displayIntDef(String _file, long _value, String _one, String _two) {
+        if (_value == 0) {
+            formatMessage(_file,_one);
+        } else {
+            formatMessage(_file,_two,Long.toString(_value));
+        }
+    }
+    public void target(TargetChoice _target, String _file, String... _poss) {
+        if (_target == TargetChoice.ADJ_ADV) {
+            formatMessage(_file,_poss[0]);
+        }
+        if (_target == TargetChoice.ADJ_MULT) {
+            formatMessage(_file,_poss[1]);
+        }
+        if (_target == TargetChoice.ADJ_UNIQ) {
+            formatMessage(_file,_poss[2]);
+        }
+        if (_target == TargetChoice.ALLIE) {
+            formatMessage(_file,_poss[3]);
+        }
+        if (_target == TargetChoice.ALLIES) {
+            formatMessage(_file,_poss[4]);
+        }
+        if (_target == TargetChoice.ANY_FOE) {
+            formatMessage(_file,_poss[5]);
+        }
+        if (_target == TargetChoice.AUTRE_UNIQ) {
+            formatMessage(_file,_poss[6]);
+        }
+        if (_target == TargetChoice.GLOBALE) {
+            formatMessage(_file,_poss[7]);
+        }
+        if (_target == TargetChoice.LANCEUR) {
+            formatMessage(_file,_poss[8]);
+        }
+        if (_target == TargetChoice.PSEUDO_GLOBALE) {
+            formatMessage(_file,_poss[9]);
+        }
+        if (_target == TargetChoice.TOUS_ADV) {
+            formatMessage(_file,_poss[10]);
+        }
+        if (_target == TargetChoice.UNIQUE_IMPORTE) {
+            formatMessage(_file,_poss[11]);
         }
     }
     public void displayBoolFalse(String _file, int _value, String _key, String... _values) {
