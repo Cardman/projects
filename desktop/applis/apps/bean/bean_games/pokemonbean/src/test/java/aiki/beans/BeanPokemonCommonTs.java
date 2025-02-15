@@ -166,6 +166,33 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static NaSt elt(NaSt _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
     }
+    public static NaSt eltStrTr(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static NaSt eltStrKey(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static NaSt eltVar(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static NaSt firstVar(NaSt _arr) {
+        return ((PairStruct)_arr).getFirst();
+    }
+    public static NaSt secondVar(NaSt _arr) {
+        return ((PairStruct)_arr).getSecond();
+    }
+    public static NaSt eltIdMove(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static NaSt firstIdMove(NaSt _arr) {
+        return ((PairStruct)_arr).getFirst();
+    }
+    public static NaSt secondIdMove(NaSt _arr) {
+        return ((PairStruct)_arr).getSecond();
+    }
+    public static NaSt eltPlInd(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
     public static String elt(CustList<String> _arr, int _index) {
         return _arr.get(_index);
     }

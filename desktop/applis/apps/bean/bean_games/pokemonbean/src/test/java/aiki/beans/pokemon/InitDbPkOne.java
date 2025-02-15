@@ -457,6 +457,17 @@ public abstract class InitDbPkOne extends InitDbPk {
     public static NaSt callEvolutionBeanIndexSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EvolutionBeanIndexSet(),_str,_args);
     }
+
+    public static NaSt eltLvMv(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+
+    public static NaSt eltImg(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static NaSt secondImg(NaSt _arr) {
+        return ((PairStruct)_arr).getSecond();
+    }
     protected static NaSt dispPkOne(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToPkOne(pk_);

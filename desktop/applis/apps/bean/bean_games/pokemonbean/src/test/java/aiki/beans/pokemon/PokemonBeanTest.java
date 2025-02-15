@@ -95,19 +95,19 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getImages2() {
-        assertEq(miniMap(IMG_0),second(elt(callPokemonBeanImagesGet(),0)));
+        assertEq(miniMap(IMG_0),secondImg(eltImg(callPokemonBeanImagesGet(),0)));
     }
     @Test
     public void getImages3() {
-        assertEq(miniMap(IMG_2),second(elt(callPokemonBeanImagesGet(),1)));
+        assertEq(miniMap(IMG_2),secondImg(eltImg(callPokemonBeanImagesGet(),1)));
     }
     @Test
     public void getImages4() {
-        assertEq(miniMap(IMG_1),second(elt(callPokemonBeanImagesGet(),2)));
+        assertEq(miniMap(IMG_1),secondImg(eltImg(callPokemonBeanImagesGet(),2)));
     }
     @Test
     public void getImages5() {
-        assertEq(miniMap(IMG_3),second(elt(callPokemonBeanImagesGet(),3)));
+        assertEq(miniMap(IMG_3),secondImg(eltImg(callPokemonBeanImagesGet(),3)));
     }
     @Test
     public void getBackImage() {
@@ -139,27 +139,27 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getPlaces2() {
-        assertEq(2,callPlaceIndexIndexGet(elt(callPokemonBeanPlacesGet(),0)));
+        assertEq(2,callPlaceIndexIndexGet(eltPlInd(callPokemonBeanPlacesGet(),0)));
     }
     @Test
     public void getPlaces3() {
-        assertEq(CAVE,callPlaceGetName(callPlaceIndexGetPlace(elt(callPokemonBeanPlacesGet(),0))));
+        assertEq(CAVE,callPlaceGetName(callPlaceIndexGetPlace(eltPlInd(callPokemonBeanPlacesGet(),0))));
     }
     @Test
     public void getPlaces4() {
-        assertEq(1,callPlaceIndexIndexGet(elt(callPokemonBeanPlacesGet(),1)));
+        assertEq(1,callPlaceIndexIndexGet(eltPlInd(callPokemonBeanPlacesGet(),1)));
     }
     @Test
     public void getPlaces5() {
-        assertEq(CITY,callPlaceGetName(callPlaceIndexGetPlace(elt(callPokemonBeanPlacesGet(),1))));
+        assertEq(CITY,callPlaceGetName(callPlaceIndexGetPlace(eltPlInd(callPokemonBeanPlacesGet(),1))));
     }
     @Test
     public void getPlaces6() {
-        assertEq(0,callPlaceIndexIndexGet(elt(callPokemonBeanPlacesGet(),2)));
+        assertEq(0,callPlaceIndexIndexGet(eltPlInd(callPokemonBeanPlacesGet(),2)));
     }
     @Test
     public void getPlaces7() {
-        assertEq(ROAD,callPlaceGetName(callPlaceIndexGetPlace(elt(callPokemonBeanPlacesGet(),2))));
+        assertEq(ROAD,callPlaceGetName(callPlaceIndexGetPlace(eltPlInd(callPokemonBeanPlacesGet(),2))));
     }
     @Test
     public void getPlaceName1() {
@@ -227,27 +227,27 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getStatistics2() {
-        assertEq(ST_HP_TR,elt(callPokemonBeanStatisticsGet(),0));
+        assertEq(ST_HP_TR,eltStrTr(callPokemonBeanStatisticsGet(),0));
     }
     @Test
     public void getStatistics3() {
-        assertEq(ST_ATT_TR,elt(callPokemonBeanStatisticsGet(),1));
+        assertEq(ST_ATT_TR,eltStrTr(callPokemonBeanStatisticsGet(),1));
     }
     @Test
     public void getStatistics4() {
-        assertEq(ST_DEF_TR,elt(callPokemonBeanStatisticsGet(),2));
+        assertEq(ST_DEF_TR,eltStrTr(callPokemonBeanStatisticsGet(),2));
     }
     @Test
     public void getStatistics5() {
-        assertEq(ST_ATT_SPE_TR,elt(callPokemonBeanStatisticsGet(),3));
+        assertEq(ST_ATT_SPE_TR,eltStrTr(callPokemonBeanStatisticsGet(),3));
     }
     @Test
     public void getStatistics6() {
-        assertEq(ST_DEF_SPE_TR,elt(callPokemonBeanStatisticsGet(),4));
+        assertEq(ST_DEF_SPE_TR,eltStrTr(callPokemonBeanStatisticsGet(),4));
     }
     @Test
     public void getStatistics7() {
-        assertEq(ST_SPEED_TR,elt(callPokemonBeanStatisticsGet(),5));
+        assertEq(ST_SPEED_TR,eltStrTr(callPokemonBeanStatisticsGet(),5));
     }
     @Test
     public void getBase() {
@@ -263,7 +263,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getPossibleGenders2() {
-        assertEq(NO_G,elt(callPokemonBeanPossibleGendersGet(),0));
+        assertEq(NO_G,eltStrTr(callPokemonBeanPossibleGendersGet(),0));
     }
     @Test
     public void getTypes1() {
@@ -271,7 +271,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getTypes2() {
-        assertEq(T_TYPE1_TR,elt(callPokemonBeanTypesGet(),0));
+        assertEq(T_TYPE1_TR,eltStrTr(callPokemonBeanTypesGet(),0));
     }
     @Test
     public void getEvolutions1() {
@@ -279,7 +279,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getEvolutions2() {
-        assertEq(P_POK_01,elt(callPokemonBeanEvolutionsGet(),0));
+        assertEq(P_POK_01,eltStrKey(callPokemonBeanEvolutionsGet(),0));
     }
     @Test
     public void getMapVars1() {
@@ -287,11 +287,11 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getMapVars2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callPokemonBeanMapVarsGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstVar(eltVar(callPokemonBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {
-        assertEq(TIME,second(elt(callPokemonBeanMapVarsGet(),0)));
+        assertEq(TIME,secondVar(eltVar(callPokemonBeanMapVarsGet(),0)));
     }
     @Test
     public void getAbilities1() {
@@ -299,7 +299,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getAbilities2() {
-        assertEq(A_ABILITY,elt(callPokemonBeanAbilitiesGet(),0));
+        assertEq(A_ABILITY,eltStrKey(callPokemonBeanAbilitiesGet(),0));
     }
     @Test
     public void getTrAbility() {
@@ -319,7 +319,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getMoveTutors2() {
-        assertEq(M_DAM,elt(callPokemonBeanMoveTutorsGet(),0));
+        assertEq(M_DAM,eltStrKey(callPokemonBeanMoveTutorsGet(),0));
     }
     @Test
     public void getMoveTutor() {
@@ -399,23 +399,23 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getEggGroupsPk17() {
-        assertEq(P_POK_08,elt(callPokemonBeanEggGroupsPkGet(8),0));
+        assertEq(P_POK_08,eltStrKey(callPokemonBeanEggGroupsPkGet(8),0));
     }
     @Test
     public void getEggGroupsPk18() {
-        assertEq(P_POK_09,elt(callPokemonBeanEggGroupsPkGet(8),1));
+        assertEq(P_POK_09,eltStrKey(callPokemonBeanEggGroupsPkGet(8),1));
     }
     @Test
     public void getEggGroupsPk19() {
-        assertEq(P_POK_10,elt(callPokemonBeanEggGroupsPkGet(8),2));
+        assertEq(P_POK_10,eltStrKey(callPokemonBeanEggGroupsPkGet(8),2));
     }
     @Test
     public void getEggGroupsPk20() {
-        assertEq(P_POK_11,elt(callPokemonBeanEggGroupsPkGet(8),3));
+        assertEq(P_POK_11,eltStrKey(callPokemonBeanEggGroupsPkGet(8),3));
     }
     @Test
     public void getEggGroupsPk21() {
-        assertEq(P_POK_14,elt(callPokemonBeanEggGroupsPkGet(8),4));
+        assertEq(P_POK_14,eltStrKey(callPokemonBeanEggGroupsPkGet(8),4));
     }
     @Test
     public void getEggPk() {
@@ -435,11 +435,11 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getTechnicalMoves2() {
-        assertEq(1,first(elt(callPokemonBeanTechnicalMovesGet(),0)));
+        assertEq(1,firstIdMove(eltIdMove(callPokemonBeanTechnicalMovesGet(),0)));
     }
     @Test
     public void getTechnicalMoves3() {
-        assertEq(M_DAM_TR,second(elt(callPokemonBeanTechnicalMovesGet(),0)));
+        assertEq(M_DAM_TR,secondIdMove(eltIdMove(callPokemonBeanTechnicalMovesGet(),0)));
     }
     @Test
     public void clickTechnicalMove1() {
@@ -455,11 +455,11 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getHiddenMoves2() {
-        assertEq(1,first(elt(callPokemonBeanHiddenMovesGet(),0)));
+        assertEq(1,firstIdMove(eltIdMove(callPokemonBeanHiddenMovesGet(),0)));
     }
     @Test
     public void getHiddenMoves3() {
-        assertEq(M_STA_TR,second(elt(callPokemonBeanHiddenMovesGet(),0)));
+        assertEq(M_STA_TR,secondIdMove(eltIdMove(callPokemonBeanHiddenMovesGet(),0)));
     }
     @Test
     public void clickHiddenMove1() {
@@ -475,19 +475,19 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getLevMoves2() {
-        assertEq(1,callLevelMoveGetLevel(elt(callPokemonBeanLevMovesGet(),0)));
+        assertEq(1,callLevelMoveGetLevel(eltLvMv(callPokemonBeanLevMovesGet(),0)));
     }
     @Test
     public void getLevMoves3() {
-        assertEq(M_DAM_TR,callLevelMoveGetMove(elt(callPokemonBeanLevMovesGet(),0)));
+        assertEq(M_DAM_TR,callLevelMoveGetMove(eltLvMv(callPokemonBeanLevMovesGet(),0)));
     }
     @Test
     public void getLevMoves4() {
-        assertEq(3,callLevelMoveGetLevel(elt(callPokemonBeanLevMovesGet(),1)));
+        assertEq(3,callLevelMoveGetLevel(eltLvMv(callPokemonBeanLevMovesGet(),1)));
     }
     @Test
     public void getLevMoves5() {
-        assertEq(M_STA_TR,callLevelMoveGetMove(elt(callPokemonBeanLevMovesGet(),1)));
+        assertEq(M_STA_TR,callLevelMoveGetMove(eltLvMv(callPokemonBeanLevMovesGet(),1)));
     }
     @Test
     public void clickMove1() {
