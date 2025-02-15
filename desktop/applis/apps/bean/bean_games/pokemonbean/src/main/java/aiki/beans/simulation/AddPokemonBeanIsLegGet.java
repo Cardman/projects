@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class AddPokemonBeanIsLegGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getIsLeg());
+        return new NaStSt(( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getIsLeg().tryRet());
     }
 }

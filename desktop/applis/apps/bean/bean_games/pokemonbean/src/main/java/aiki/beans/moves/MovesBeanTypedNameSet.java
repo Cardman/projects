@@ -8,7 +8,7 @@ import code.bean.nat.*;
 public class MovesBeanTypedNameSet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        ( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).setTypedName(NaPa.getString(_args[0]).getInstance());
+        ( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).getTypedName().setupValue(NaPa.getString(_args[0]).getInstance());
         return NaNu.NULL_VALUE;
     }
 }

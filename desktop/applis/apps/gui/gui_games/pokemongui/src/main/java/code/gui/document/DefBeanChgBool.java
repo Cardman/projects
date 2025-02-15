@@ -15,6 +15,7 @@ public final class DefBeanChgBool extends BeanChgBool {
 
     @Override
     public void setSelected(boolean _v) {
+        super.setSelected(_v);
         check.setSelected(_v);
     }
 

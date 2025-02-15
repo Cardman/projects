@@ -15,6 +15,7 @@ public final class DefBeanChgTxt extends BeanChgString {
 
     @Override
     public void setupValue(String _v) {
+        super.setupValue(_v);
         text.setText(_v);
     }
 }

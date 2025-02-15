@@ -24,45 +24,37 @@ import code.util.core.StringUtil;
 
 public abstract class WithFilterBean extends CommonBean {
     private String typedAbility = DataBase.EMPTY_STRING;
-    private String typedName = DataBase.EMPTY_STRING;
-    private IntBeanChgString typedNameForm;
+    private IntBeanChgString typedName = new BeanChgString();
     private String typedPrice = DataBase.EMPTY_STRING;
 
     private String typedClass = DataBase.EMPTY_STRING;
-    private String typedType = DataBase.EMPTY_STRING;
-    private IntBeanChgString typedTypeForm;
+    private IntBeanChgString typedType = new BeanChgString();
     private String typedStatus = DataBase.EMPTY_STRING;
-    private String typedCategory = DataBase.EMPTY_STRING;
-    private IntBeanChgString typedCategoryForm;
-    private boolean wholeWord;
-    private IntBeanChgBool wholeWordForm;
-    private String hasEvo = SelectedBoolean.YES_AND_NO.getBoolName();
-    private IntBeanChgString hasEvoForm;
-    private String isEvo = SelectedBoolean.YES_AND_NO.getBoolName();
-    private IntBeanChgString isEvoForm;
-    private String isLeg = SelectedBoolean.YES_AND_NO.getBoolName();
-    private IntBeanChgString isLegForm;
-    private String learnt = SelectedBoolean.YES_AND_NO.getBoolName();
-    private IntBeanChgString learntForm;
-    private String typedMinNbPossEvos = DataBase.EMPTY_STRING;
-    private IntBeanChgString typedMinNbPossEvosForm;
-    private String typedMaxNbPossEvos = DataBase.EMPTY_STRING;
-    private IntBeanChgString typedMaxNbPossEvosForm;
-    private String minPower = DataBase.EMPTY_STRING;
-    private IntBeanChgString minPowerForm;
-    private String maxPower = DataBase.EMPTY_STRING;
-    private IntBeanChgString maxPowerForm;
-    private String minAccuracy = DataBase.EMPTY_STRING;
-    private IntBeanChgString minAccuracyForm;
-    private String maxAccuracy = DataBase.EMPTY_STRING;
-    private IntBeanChgString maxAccuracyForm;
+    private IntBeanChgString typedCategory = new BeanChgString();
+    private IntBeanChgBool wholeWord = new BeanChgBool();
+    private IntBeanChgString hasEvo = new BeanChgString();
+    private IntBeanChgString isEvo = new BeanChgString();
+    private IntBeanChgString isLeg = new BeanChgString();
+    private IntBeanChgString learnt = new BeanChgString();
+    private IntBeanChgString typedMinNbPossEvos = new BeanChgString();
+    private IntBeanChgString typedMaxNbPossEvos = new BeanChgString();
+    private IntBeanChgString minPower = new BeanChgString();
+    private IntBeanChgString maxPower = new BeanChgString();
+    private IntBeanChgString minAccuracy = new BeanChgString();
+    private IntBeanChgString maxAccuracy = new BeanChgString();
     private DictionaryComparator<String,String> booleans;
     private AbsMap<TranslatedKey,AbilityData> sortedAbilities = DictionaryComparatorUtil.buildAbilitiesData();
     private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private final CustList<ItemLine> items = new CustList<ItemLine>();
     private final CustList<TranslatedKey> itemsTr = new CustList<TranslatedKey>();
+    protected WithFilterBean() {
+        hasEvo.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
+        isEvo.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
+        isLeg.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
+        learnt.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
+    }
 
-    public static AbsMap<TranslatedKey,Item> sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
+    public static AbsMap<TranslatedKey,Item> sortedItems(DataBase _data, String _typedPrice, IntBeanChgString _typedName, String _typedClass, String _language) {
         DictionaryComparator<TranslatedKey, Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData();
         StringMap<String> translationsItems_;
         translationsItems_ = _data.getTranslatedItems().getVal(_language);
@@ -72,7 +64,7 @@ public abstract class WithFilterBean extends CommonBean {
             for (EntryCust<String, Item> i: _data.getItems().entryList()) {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
-                if (StringUtil.match(display_, _typedName) && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
+                if (StringUtil.match(display_, _typedName.tryRet()) && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
                     sortedItems_.put(buildIt(_data,translationsItems_,i.getKey()),i.getValue());
                 }
             }
@@ -81,7 +73,7 @@ public abstract class WithFilterBean extends CommonBean {
             for (EntryCust<String, Item> i: _data.getItems().entryList()) {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
-                if (StringUtil.match(display_, _typedName) && i.getValue().getPrice() == int_ && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
+                if (StringUtil.match(display_, _typedName.tryRet()) && i.getValue().getPrice() == int_ && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
                     sortedItems_.put(buildIt(_data,translationsItems_,i.getKey()),i.getValue());
                 }
             }
@@ -118,22 +110,22 @@ public abstract class WithFilterBean extends CommonBean {
             line_.setEvolutions(pkData_.getEvolutions().size());
             getPokedex().add(line_);
         }
-        escapeInputs();
+//        escapeInputs();
     }
-    protected void escapeInputs() {
-        setTypedName(escapedStringQuote(getTypedName()));
-        setTypedType(escapedStringQuote(getTypedType()));
-        setTypedMinNbPossEvos(escapedStringQuote(getTypedMinNbPossEvos()));
-        setTypedMaxNbPossEvos(escapedStringQuote(getTypedMaxNbPossEvos()));
-        setTypedAbility(escapedStringQuote(getTypedAbility()));
-        setTypedPrice(escapedStringQuote(getTypedPrice()));
-        setTypedClass(escapedStringQuote(getTypedClass()));
-        minPower = escapedStringQuote(minPower);
-        maxPower = escapedStringQuote(maxPower);
-        minAccuracy = escapedStringQuote(minAccuracy);
-        maxAccuracy = escapedStringQuote(maxAccuracy);
-        setTypedStatus(escapedStringQuote(getTypedStatus()));
-    }
+//    protected void escapeInputs() {
+//        getTypedName().setupValue(escapedStringQuote(getTypedName().tryRet()));
+//        getTypedType().setupValue(escapedStringQuote(getTypedType().tryRet()));
+//        getTypedMinNbPossEvos().setupValue(escapedStringQuote(getTypedMinNbPossEvos().tryRet()));
+//        getTypedMaxNbPossEvos().setupValue(escapedStringQuote(getTypedMaxNbPossEvos().tryRet()));
+//        setTypedAbility(escapedStringQuote(getTypedAbility()));
+//        setTypedPrice(escapedStringQuote(getTypedPrice()));
+//        setTypedClass(escapedStringQuote(getTypedClass()));
+//        minPower = escapedStringQuote(minPower);
+//        maxPower = escapedStringQuote(maxPower);
+//        minAccuracy = escapedStringQuote(minAccuracy);
+//        maxAccuracy = escapedStringQuote(maxAccuracy);
+//        setTypedStatus(escapedStringQuote(getTypedStatus()));
+//    }
 
     protected String search(String _pk, String _mono, String _multi) {
         return search(CST_POKEMON_SET, _pk, _mono, _multi);
@@ -158,11 +150,11 @@ public abstract class WithFilterBean extends CommonBean {
         DictionaryComparator<TranslatedKey, PokemonData> pokedex_ = DictionaryComparatorUtil.buildPkData();
         for (EntryCust<String, PokemonData> k: data_.getPokedex().entryList()) {
             String displayName_ = translationsPk_.getVal(k.getKey());
-            if (!StringUtil.match(displayName_, getTypedName())) {
+            if (!StringUtil.match(displayName_, getTypedName().tryRet())) {
                 continue;
             }
             PokemonData pkData_ = k.getValue();
-            if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos())) && (getTypedMaxNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getHasEvo()), !pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsEvo()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsLeg()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
+            if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos().tryRet())) && (getTypedMaxNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos().tryRet())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getHasEvo().tryRet()), !pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsEvo().tryRet()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsLeg().tryRet()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
                 pokedex_.put(buildPk(translationsPk_,k.getKey()),k.getValue());
             }
         }
@@ -181,11 +173,11 @@ public abstract class WithFilterBean extends CommonBean {
         CustList<String> list_ = keys(learntMoves_.getKeys());
         for (EntryCust<String, MoveData> k: _m.entryList()) {
             String displayName_ = translationsMoves_.getVal(k.getKey());
-            if (!StringUtil.match(displayName_, getTypedName())) {
+            if (!StringUtil.match(displayName_, getTypedName().tryRet())) {
                 continue;
             }
             MoveData moveData_ = k.getValue();
-            if (CriteriaForSearching.match(PokemonStandards.getBoolByName(getLearnt()), StringUtil.contains(list_, k.getKey()))&&atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory(), getDataBase().getCategory(moveData_))) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
+            if (CriteriaForSearching.match(PokemonStandards.getBoolByName(getLearnt().tryRet()), StringUtil.contains(list_, k.getKey()))&&atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory().tryRet(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory().tryRet(), getDataBase().getCategory(moveData_))) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
                 moves_.put(buildMv(translationsMoves_,k.getKey()),k.getValue());
             }
         }
@@ -201,31 +193,31 @@ public abstract class WithFilterBean extends CommonBean {
         return o_;
     }
     private boolean excludeByAccuracy(MoveData _move) {
-        if (Rate.isValid(getMinAccuracy())) {
+        if (Rate.isValid(getMinAccuracy().tryRet())) {
             String accuraryStr_ = _move.getAccuracy();
-            if (!Rate.isValid(accuraryStr_) || !Rate.greaterEq(new Rate(accuraryStr_), new Rate(getMinAccuracy()))) {
+            if (!Rate.isValid(accuraryStr_) || !Rate.greaterEq(new Rate(accuraryStr_), new Rate(getMinAccuracy().tryRet()))) {
                 return true;
             }
         }
-        if (Rate.isValid(getMaxAccuracy())) {
+        if (Rate.isValid(getMaxAccuracy().tryRet())) {
             String accuraryStr_ = _move.getAccuracy();
-            return Rate.isValid(accuraryStr_) && !Rate.lowerEq(new Rate(accuraryStr_), new Rate(getMaxAccuracy()));
+            return Rate.isValid(accuraryStr_) && !Rate.lowerEq(new Rate(accuraryStr_), new Rate(getMaxAccuracy().tryRet()));
         }
         return false;
     }
     private boolean excludeByPower(MoveData _move) {
-        if (Rate.isValid(getMinPower())) {
+        if (Rate.isValid(getMinPower().tryRet())) {
             if (!(_move instanceof DamagingMoveData)) {
                 return true;
             }
-            Rate power_ = new Rate(getMinPower());
+            Rate power_ = new Rate(getMinPower().tryRet());
             String p_ = power(_move);
             if (!power_.isZeroOrLt() && (!Rate.isValid(p_) || !Rate.greaterEq(new Rate(p_), power_))) {
                 return true;
             }
         }
-        if (Rate.isValid(getMaxPower()) && _move instanceof DamagingMoveData) {
-            Rate power_ = new Rate(getMaxPower());
+        if (Rate.isValid(getMaxPower().tryRet()) && _move instanceof DamagingMoveData) {
+            Rate power_ = new Rate(getMaxPower().tryRet());
             String p_ = power(_move);
             return Rate.isValid(p_) && !Rate.lowerEq(new Rate(p_), power_);
         }
@@ -296,7 +288,7 @@ public abstract class WithFilterBean extends CommonBean {
             getItems().add(item_);
             getItemsTr().add(i.getKey());
         }
-        escapeInputs();
+//        escapeInputs();
     }
 
     protected AbsMap<TranslatedKey,Item> sortedItems(DataBase _data) {
@@ -326,20 +318,12 @@ public abstract class WithFilterBean extends CommonBean {
         return typedAbility;
     }
 
-    public void setTypedName(String _typedName) {
+    public void setTypedName(IntBeanChgString _typedName) {
         typedName = _typedName;
     }
 
-    public String getTypedName() {
+    public IntBeanChgString getTypedName() {
         return typedName;
-    }
-
-    public IntBeanChgString getTypedNameForm() {
-        return typedNameForm;
-    }
-
-    public void setTypedNameForm(IntBeanChgString _t) {
-        this.typedNameForm = _t;
     }
 
     public void setTypedPrice(String _typedPrice) {
@@ -358,20 +342,12 @@ public abstract class WithFilterBean extends CommonBean {
         return typedClass;
     }
 
-    public void setTypedType(String _typedType) {
+    public void setTypedType(IntBeanChgString _typedType) {
         typedType = _typedType;
     }
 
-    public String getTypedType() {
+    public IntBeanChgString getTypedType() {
         return typedType;
-    }
-
-    public IntBeanChgString getTypedTypeForm() {
-        return typedTypeForm;
-    }
-
-    public void setTypedTypeForm(IntBeanChgString _t) {
-        this.typedTypeForm = _t;
     }
 
     public void setTypedStatus(String _typedStatus) {
@@ -382,52 +358,28 @@ public abstract class WithFilterBean extends CommonBean {
         return typedStatus;
     }
 
-    public void setWholeWord(boolean _wholeWord) {
+    public void setWholeWord(IntBeanChgBool _wholeWord) {
         wholeWord = _wholeWord;
     }
 
-    public boolean getWholeWord() {
+    public IntBeanChgBool getWholeWord() {
         return wholeWord;
     }
 
-    public IntBeanChgBool getWholeWordForm() {
-        return wholeWordForm;
-    }
-
-    public void setWholeWordForm(IntBeanChgBool _w) {
-        this.wholeWordForm = _w;
-    }
-
-    public void setTypedMinNbPossEvos(String _typedMinNbPossEvos) {
+    public void setTypedMinNbPossEvos(IntBeanChgString _typedMinNbPossEvos) {
         typedMinNbPossEvos = _typedMinNbPossEvos;
     }
 
-    public String getTypedMinNbPossEvos() {
+    public IntBeanChgString getTypedMinNbPossEvos() {
         return typedMinNbPossEvos;
     }
 
-    public IntBeanChgString getTypedMinNbPossEvosForm() {
-        return typedMinNbPossEvosForm;
-    }
-
-    public void setTypedMinNbPossEvosForm(IntBeanChgString _t) {
-        this.typedMinNbPossEvosForm = _t;
-    }
-
-    public void setTypedMaxNbPossEvos(String _typedMaxNbPossEvos) {
+    public void setTypedMaxNbPossEvos(IntBeanChgString _typedMaxNbPossEvos) {
         typedMaxNbPossEvos = _typedMaxNbPossEvos;
     }
 
-    public String getTypedMaxNbPossEvos() {
+    public IntBeanChgString getTypedMaxNbPossEvos() {
         return typedMaxNbPossEvos;
-    }
-
-    public IntBeanChgString getTypedMaxNbPossEvosForm() {
-        return typedMaxNbPossEvosForm;
-    }
-
-    public void setTypedMaxNbPossEvosForm(IntBeanChgString _t) {
-        this.typedMaxNbPossEvosForm = _t;
     }
 
     public DictionaryComparator<String,String> getBooleans() {
@@ -438,133 +390,70 @@ public abstract class WithFilterBean extends CommonBean {
         this.booleans = _b;
     }
 
-    public String getHasEvo() {
+    public IntBeanChgString getHasEvo() {
         return hasEvo;
     }
 
-    public void setHasEvo(String _hasEvo) {
+    public void setHasEvo(IntBeanChgString _hasEvo) {
         hasEvo = _hasEvo;
     }
 
-    public IntBeanChgString getHasEvoForm() {
-        return hasEvoForm;
-    }
-
-    public void setHasEvoForm(IntBeanChgString _h) {
-        this.hasEvoForm = _h;
-    }
-
-    public String getLearnt() {
+    public IntBeanChgString getLearnt() {
         return learnt;
     }
 
-    public void setLearnt(String _l) {
+    public void setLearnt(IntBeanChgString _l) {
         this.learnt = _l;
     }
 
-    public IntBeanChgString getLearntForm() {
-        return learntForm;
-    }
-
-    public void setLearntForm(IntBeanChgString _l) {
-        this.learntForm = _l;
-    }
-
-    public String getIsEvo() {
+    public IntBeanChgString getIsEvo() {
         return isEvo;
     }
 
-    public void setIsEvo(String _isEvo) {
+    public void setIsEvo(IntBeanChgString _isEvo) {
         isEvo = _isEvo;
     }
 
-    public IntBeanChgString getIsLegForm() {
-        return isLegForm;
-    }
-
-    public void setIsLegForm(IntBeanChgString _i) {
-        this.isLegForm = _i;
-    }
-
-    public String getIsLeg() {
+    public IntBeanChgString getIsLeg() {
         return isLeg;
     }
 
-    public void setIsLeg(String _isLeg) {
+    public void setIsLeg(IntBeanChgString _isLeg) {
         isLeg = _isLeg;
     }
 
-    public IntBeanChgString getIsEvoForm() {
-        return isEvoForm;
-    }
-
-    public void setIsEvoForm(IntBeanChgString _i) {
-        this.isEvoForm = _i;
-    }
-
-    public void setMinAccuracy(String _minAccuracy) {
+    public void setMinAccuracy(IntBeanChgString _minAccuracy) {
         minAccuracy = _minAccuracy;
     }
 
-    public String getMinAccuracy() {
+    public IntBeanChgString getMinAccuracy() {
         return minAccuracy;
     }
 
-    public IntBeanChgString getMinAccuracyForm() {
-        return minAccuracyForm;
-    }
-
-    public void setMinAccuracyForm(IntBeanChgString _m) {
-        this.minAccuracyForm = _m;
-    }
-
-    public void setMaxAccuracy(String _maxAccuracy) {
+    public void setMaxAccuracy(IntBeanChgString _maxAccuracy) {
         maxAccuracy = _maxAccuracy;
     }
 
-    public String getMaxAccuracy() {
+    public IntBeanChgString getMaxAccuracy() {
         return maxAccuracy;
     }
 
-    public IntBeanChgString getMaxAccuracyForm() {
-        return maxAccuracyForm;
-    }
-
-    public void setMaxAccuracyForm(IntBeanChgString _m) {
-        this.maxAccuracyForm = _m;
-    }
-
-    public void setMinPower(String _minPower) {
+    public void setMinPower(IntBeanChgString _minPower) {
         minPower = _minPower;
     }
 
-    public String getMinPower() {
+    public IntBeanChgString getMinPower() {
         return minPower;
     }
 
-    public IntBeanChgString getMinPowerForm() {
-        return minPowerForm;
-    }
-
-    public void setMinPowerForm(IntBeanChgString _m) {
-        this.minPowerForm = _m;
-    }
-
-    public void setMaxPower(String _maxPower) {
+    public void setMaxPower(IntBeanChgString _maxPower) {
         maxPower = _maxPower;
     }
 
-    public String getMaxPower() {
+    public IntBeanChgString getMaxPower() {
         return maxPower;
     }
 
-    public IntBeanChgString getMaxPowerForm() {
-        return maxPowerForm;
-    }
-
-    public void setMaxPowerForm(IntBeanChgString _m) {
-        this.maxPowerForm = _m;
-    }
 
     public CustList<TranslatedKey> sortedAbilitiesGet() {
         return sortedAbilities.getKeys();
@@ -574,20 +463,12 @@ public abstract class WithFilterBean extends CommonBean {
         this.sortedAbilities = _ab;
     }
 
-    public String getTypedCategory() {
+    public IntBeanChgString getTypedCategory() {
         return typedCategory;
     }
 
-    public void setTypedCategory(String _c) {
+    public void setTypedCategory(IntBeanChgString _c) {
         this.typedCategory = _c;
-    }
-
-    public IntBeanChgString getTypedCategoryForm() {
-        return typedCategoryForm;
-    }
-
-    public void setTypedCategoryForm(IntBeanChgString _t) {
-        this.typedCategoryForm = _t;
     }
 
     public CustList<PokemonLine> getPokedex() {

@@ -9,7 +9,7 @@ import code.bean.nat.*;
 public class MovesBeanLearntSet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        ( (WithFilterBean) ((PokemonBeanStruct)_instance).getInstance()).setLearnt(NaPa.getString(_args[0]).getInstance());
+        ( (WithFilterBean) ((PokemonBeanStruct)_instance).getInstance()).getLearnt().setupValue(NaPa.getString(_args[0]).getInstance());
         return NaNu.NULL_VALUE;
     }
 }

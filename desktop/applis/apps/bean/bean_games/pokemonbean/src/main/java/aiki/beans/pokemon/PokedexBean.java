@@ -23,32 +23,32 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
         initPage();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_CONTENT_NAME);
-        setTypedNameForm(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName()));
+        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_CONTENT_TYPE);
-        setTypedTypeForm(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType()));
+        setTypedType(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_CONTENT_TYPE_WHOLE);
-        setWholeWordForm(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord()));
+        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().isSelected()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_NB_EVOS);
-        setTypedMinNbPossEvosForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMinNbPossEvos()));
-        setTypedMaxNbPossEvosForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMaxNbPossEvos()));
+        setTypedMinNbPossEvos(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMinNbPossEvos().tryRet()));
+        setTypedMaxNbPossEvos(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMaxNbPossEvos().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_HAS_EVO);
-        setHasEvoForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getHasEvo()));
+        setHasEvo(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getHasEvo().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_IS_EVO);
-        setIsEvoForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getIsEvo()));
+        setIsEvo(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getIsEvo().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_LEG);
-        setIsLegForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getIsLeg()));
+        setIsLeg(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getIsLeg().tryRet()));
         feedParents();
         initLine();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_OK));
@@ -84,17 +84,17 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
         return search(CST_PK, PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML);
     }
 
-    public static boolean atLeastMatchType(StringMap<String> _translationsTypes, boolean _wholeWord, String _typedType, StringList _types) {
+    public static boolean atLeastMatchType(StringMap<String> _translationsTypes, IntBeanChgBool _wholeWord, IntBeanChgString _typedType, StringList _types) {
         boolean atLeastMatchType_ = false;
         for (String t: _types) {
             String displayType_;
             displayType_ = _translationsTypes.getVal(t);
-            if (_wholeWord) {
-                if (StringUtil.quickEq(displayType_, _typedType)) {
+            if (_wholeWord.isSelected()) {
+                if (StringUtil.quickEq(displayType_, _typedType.tryRet())) {
                     atLeastMatchType_ = true;
                 }
             } else {
-                if (StringUtil.match(displayType_, _typedType)) {
+                if (StringUtil.match(displayType_, _typedType.tryRet())) {
                     atLeastMatchType_ = true;
                 }
             }

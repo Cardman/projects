@@ -8,7 +8,7 @@ import code.bean.nat.*;
 public class PokedexBeanTypedMinNbPossEvosSet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        ( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).setTypedMinNbPossEvos(NaPa.getString(_args[0]).getInstance());
+        ( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getTypedMinNbPossEvos().setupValue(NaPa.getString(_args[0]).getInstance());
         return NaNu.NULL_VALUE;
     }
 }

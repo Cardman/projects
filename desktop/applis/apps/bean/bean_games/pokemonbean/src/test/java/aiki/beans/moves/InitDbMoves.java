@@ -26,47 +26,38 @@ import code.util.StringMap;
 public abstract class InitDbMoves extends InitDbConstr {
 
     public static NaSt callMovesBeanCategorySet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getTypedCategoryForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanCategorySet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMaxAccuracySet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMaxAccuracyForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMaxAccuracySet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMaxPowerSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMaxPowerForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMaxPowerSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMinAccuracySet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMinAccuracyForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMinAccuracySet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMinPowerSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMinPowerForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMinPowerSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanTypedNameSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getTypedNameForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanTypedNameSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanTypedTypeSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getTypedTypeForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanTypedTypeSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanWholeWordSet(NaSt _str, boolean _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getWholeWordForm().setSelected(_args);
         return BeanPokemonCommonTs.callBool(new MovesBeanWholeWordSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanLearntSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getLearntForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanLearntSet(),_str,_args);
     }
 

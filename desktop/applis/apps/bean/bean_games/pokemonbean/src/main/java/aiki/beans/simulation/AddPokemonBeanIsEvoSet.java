@@ -8,7 +8,7 @@ import code.bean.nat.*;
 public class AddPokemonBeanIsEvoSet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        ( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).setIsEvo(NaPa.getString(_args[0]).getInstance());
+        ( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getIsEvo().setupValue(NaPa.getString(_args[0]).getInstance());
         return NaNu.NULL_VALUE;
     }
 }

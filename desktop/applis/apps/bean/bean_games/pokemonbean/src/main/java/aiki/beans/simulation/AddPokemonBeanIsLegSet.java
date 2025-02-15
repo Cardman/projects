@@ -8,7 +8,7 @@ import code.bean.nat.*;
 public class AddPokemonBeanIsLegSet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        ( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).setIsLeg(NaPa.getString(_args[0]).getInstance());
+        ( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getIsLeg().setupValue(NaPa.getString(_args[0]).getInstance());
         return NaNu.NULL_VALUE;
     }
 }

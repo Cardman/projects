@@ -15,7 +15,7 @@ public class StatusSetBean extends WithFilterBean {
     @Override
     public void beforeDisplaying() {
         sortedStatus = getForms().getValStatusData(CST_STATUS_SET);
-        escapeInputs();
+//        escapeInputs();
     }
     public String search() {
         AbsMap<TranslatedKey,Status> sortedAbilities_;

@@ -8,7 +8,7 @@ import code.bean.nat.*;
 public class SelectPokemonBeanTypedTypeSet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        ( (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).setTypedType(NaPa.getString(_args[0]).getInstance());
+        ( (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getTypedType().setupValue(NaPa.getString(_args[0]).getInstance());
         return NaNu.NULL_VALUE;
     }
 }

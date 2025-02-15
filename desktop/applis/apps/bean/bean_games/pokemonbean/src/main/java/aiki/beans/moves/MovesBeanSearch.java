@@ -13,15 +13,6 @@ public final class MovesBeanSearch implements NatCaller, IntBeanAction {
 
     @Override
     public String actionBean() {
-        bean.setTypedName(bean.getTypedNameForm().tryRet());
-        bean.setTypedType(bean.getTypedTypeForm().tryRet());
-        bean.setTypedCategory(bean.getTypedCategoryForm().tryRet());
-        bean.setWholeWord(bean.getWholeWordForm().isSelected());
-        bean.setMinPower(bean.getMinPowerForm().tryRet());
-        bean.setMaxPower(bean.getMaxPowerForm().tryRet());
-        bean.setMinAccuracy(bean.getMinAccuracyForm().tryRet());
-        bean.setMaxAccuracy(bean.getMaxAccuracyForm().tryRet());
-        bean.setLearnt(bean.getLearntForm().tryRet());
         return ((NaStSt)re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
     }
 

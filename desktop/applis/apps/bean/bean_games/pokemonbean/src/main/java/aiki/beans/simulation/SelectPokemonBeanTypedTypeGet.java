@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class SelectPokemonBeanTypedTypeGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getTypedType());
+        return new NaStSt(( (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getTypedType().tryRet());
     }
 }

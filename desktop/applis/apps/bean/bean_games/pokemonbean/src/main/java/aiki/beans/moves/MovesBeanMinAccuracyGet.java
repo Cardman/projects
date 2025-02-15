@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class MovesBeanMinAccuracyGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).getMinAccuracy());
+        return new NaStSt(( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).getMinAccuracy().tryRet());
     }
 }

@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class MovesBeanMinPowerGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).getMinPower());
+        return new NaStSt(( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).getMinPower().tryRet());
     }
 }

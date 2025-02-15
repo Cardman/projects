@@ -1,7 +1,9 @@
 package aiki.beans;
 
+import aiki.db.*;
+
 public class BeanChgString implements IntBeanChgString {
-    private String value = "";
+    private String value = DataBase.EMPTY_STRING;
 
     @Override
     public String tryRet() {

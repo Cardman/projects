@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class PokedexBeanWholeWordGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return NaBoSt.of(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getWholeWord());
+        return NaBoSt.of(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getWholeWord().isSelected());
     }
 }

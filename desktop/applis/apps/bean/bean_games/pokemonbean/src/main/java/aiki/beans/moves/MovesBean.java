@@ -31,33 +31,33 @@ private IntBeanChgSubmit updateValues;
         initPage();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_NAME);
-        setTypedNameForm(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName()));
+        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CAT);
-        setTypedCategoryForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getCategories(),getTypedCategory()));
+        setTypedCategory(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getCategories(),getTypedCategory().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE);
-        setTypedTypeForm(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType()));
+        setTypedType(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE_WHOLE);
-        setWholeWordForm(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord()));
+        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().isSelected()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_ACCURACY);
-        setMinAccuracyForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinAccuracy()));
-        setMaxAccuracyForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxAccuracy()));
+        setMinAccuracy(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinAccuracy().tryRet()));
+        setMaxAccuracy(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxAccuracy().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONST_POWER);
-        setMinPowerForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinPower()));
-        setMaxPowerForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxPower()));
+        setMinPower(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinPower().tryRet()));
+        setMaxPower(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxPower().tryRet()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_LEARNT);
-        setLearntForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getLearnt()));
+        setLearnt(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getLearnt().tryRet()));
         feedParents();
         initLine();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_OK));
@@ -138,7 +138,7 @@ private IntBeanChgSubmit updateValues;
         for (MoveLine l: moves) {
             sortedMoves.add(l.getTranslatedKey());
         }
-        escapeInputs();
+//        escapeInputs();
 
     }
 
