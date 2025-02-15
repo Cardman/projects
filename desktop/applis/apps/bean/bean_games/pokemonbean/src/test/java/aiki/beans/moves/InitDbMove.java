@@ -109,7 +109,7 @@ public abstract class InitDbMove extends InitDbMoves {
         return getValMoveId(_str);
     }
     public static String callMoveBeanClickMoves(NaSt _str, long... _args) {
-        return navigateData(new MoveBeanClickMoves(),_str,_args);
+        return navigateData(new MoveBeanClickMoves((MoveBean) ((PokemonBeanStruct)_str).getBean()),_str);
     }
 
     public static String callMoveBeanClickPokemon(NaSt _str, long... _args) {

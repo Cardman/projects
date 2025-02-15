@@ -280,7 +280,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         res_.sortElts(new ComparingTranslatedKey());
         return res_;
     }
-
+    public static TranslatedKey buildCa(FacadeGame _tr, String _k) {
+        return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getTranslatedCategories().getVal(_k)));
+    }
     public static TranslatedKey buildTy(FacadeGame _tr, String _k) {
         return new TranslatedKey(_k,StringUtil.nullToEmpty(_tr.getTranslatedTypes().getVal(_k)));
     }

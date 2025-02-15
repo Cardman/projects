@@ -7,6 +7,7 @@ import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
@@ -22,6 +23,7 @@ import aiki.fight.util.LevelMove;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -32,9 +34,9 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
     private String displayName;
     private long pp;
     private boolean hasDefaultTypes;
-    private StringList types;
-    private String category;
-    private StringList boostedTypes;
+    private CustList<TranslatedKey> types;
+    private TranslatedKey category;
+    private CustList<TranslatedKey> boostedTypes;
     private long priority;
     private String accuracy;
     private Ints effects;
@@ -66,6 +68,35 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
     private CustList<TranslatedKey> movesHmLearntByPokemon;
     private CustList<TranslatedKey> movesMtLearntByPokemon;
 
+    public MoveBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMovesData.M_P_35_TITLE),displayName));
+        formatMessageAnc(new MoveBeanClickMoves(this),MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES);
+        formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_GENERAL_MOVE,displayName);
+        formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TYPE_CAT);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,boostedTypes,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TYPESBOOST);
+        if (!hasDefaultTypes) {
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,types,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TYPE_TITLE);
+        }
+        if (typesDependOnlyOnItem()) {
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_OTHER_ITEM),new BeanDisplayTranslatedKey()).displayGrid(this,typesByOwnedItems,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES,MessagesDataMovesData.M_P_35_ITEM,MessagesDataMovesData.M_P_35_TYPE_TITLE);
+        }
+        if (typesDependOnlyOnWeather()) {
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_OTHER_WEATHER),new BeanDisplayTranslatedKey()).displayGrid(this,typesByWeathers,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES,MessagesDataMovesData.M_P_35_WEATHER,MessagesDataMovesData.M_P_35_TYPE_TITLE);
+        }
+        if (typesDependOnWeatherAndItem()) {
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_OTHER_ITEM),new BeanDisplayTranslatedKey()).displayGrid(this,typesByOwnedItems,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES,MessagesDataMovesData.M_P_35_ITEM,MessagesDataMovesData.M_P_35_TYPE_TITLE);
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_OTHER_WEATHER),new BeanDisplayTranslatedKey()).displayGrid(this,typesByWeathers,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES,MessagesDataMovesData.M_P_35_WEATHER,MessagesDataMovesData.M_P_35_TYPE_TITLE);
+        }
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.MV_DATA).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         String name_ = getForms().getValStr(CST_MOVE);
@@ -74,8 +105,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         name = name_;
         displayName = translatedMoves_.getVal(name_);
         MoveData moveData_ = data_.getMove(name_);
-        StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        category = translatedCategories_.getVal(data_.getCategory(moveData_));
+        category = buildCa(getFacade(),data_.getCategory(moveData_));
         pp = moveData_.getPp();
         priority = moveData_.getPriority();
 //        CustList<ItemTypeLine> typesByOwnedItem_;
@@ -311,8 +341,6 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
     }
 
     private void withDef(MoveData _moveData) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         DictionaryComparator<TranslatedKey, TranslatedKey> typesByOwnedItems_;
         typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr();
         boolean hasDefault_ = false;
@@ -369,20 +397,20 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         //typesByWeather = typesByWeather_;
         typesByWeathers = typesByWeathers_;
         if (hasDefault_) {
-            types = new StringList();
+            types = new CustList<TranslatedKey>();
         } else {
-            StringList types_ = new StringList();
+            CustList<TranslatedKey> types_ = new CustList<TranslatedKey>();
             for (String t: _moveData.getTypes()) {
-                types_.add(translatedTypes_.getVal(t));
+                types_.add(buildTy(getFacade(),t));
             }
-            types_.sort();
+            types_.sortElts(new ComparingTranslatedKey());
             types = types_;
         }
-        StringList boostedTypes_ = new StringList();
+        CustList<TranslatedKey> boostedTypes_ = new CustList<TranslatedKey>();
         for (String t: _moveData.getBoostedTypes()) {
-            boostedTypes_.add(translatedTypes_.getVal(t));
+            boostedTypes_.add(buildTy(getFacade(),t));
         }
-        boostedTypes_.sort();
+        boostedTypes_.sortElts(new ComparingTranslatedKey());
         boostedTypes = boostedTypes_;
         hasDefaultTypes = hasDefault_;
     }
@@ -937,7 +965,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         return displayName;
     }
 
-    public StringList getBoostedTypes() {
+    public CustList<TranslatedKey> getBoostedTypes() {
         return boostedTypes;
     }
 
@@ -945,7 +973,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         return hasDefaultTypes;
     }
 
-    public StringList getTypes() {
+    public CustList<TranslatedKey> getTypes() {
         return types;
     }
 
@@ -957,7 +985,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         return typesByWeathers;
     }
 
-    public String getCategory() {
+    public TranslatedKey getCategory() {
         return category;
     }
 
