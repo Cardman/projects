@@ -26,7 +26,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class MoveBean extends CommonBean {
+public class MoveBean extends CommonBean implements BeanRenderWithAppName{
 
     private String name;
     private String displayName;

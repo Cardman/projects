@@ -17,6 +17,8 @@ import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -24,38 +26,47 @@ import code.util.StringMap;
 public abstract class InitDbMoves extends InitDbConstr {
 
     public static NaSt callMovesBeanCategorySet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getTypedCategoryForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanCategorySet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMaxAccuracySet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMaxAccuracyForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMaxAccuracySet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMaxPowerSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMaxPowerForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMaxPowerSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMinAccuracySet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMinAccuracyForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMinAccuracySet(),_str,_args);
     }
 
     public static NaSt callMovesBeanMinPowerSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getMinPowerForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanMinPowerSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanTypedNameSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getTypedNameForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanTypedNameSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanTypedTypeSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getTypedTypeForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanTypedTypeSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanWholeWordSet(NaSt _str, boolean _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getWholeWordForm().setSelected(_args);
         return BeanPokemonCommonTs.callBool(new MovesBeanWholeWordSet(),_str,_args);
     }
 
     public static NaSt callMovesBeanLearntSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getBean()).getLearntForm().setupValue(_args);
         return BeanPokemonCommonTs.callString(new MovesBeanLearntSet(),_str,_args);
     }
 
@@ -171,9 +182,9 @@ public abstract class InitDbMoves extends InitDbConstr {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
-        transit(_pk,new MovesBeanSearch(),moves_,moves_);
-        return displayMoveLine(_all, _index,_mapping);
+        transit(_pk,new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,moves_);
+        transit(_pk,new MovesBeanSearch((MovesBean) ((PokemonBeanStruct)moves_).getBean()),moves_,moves_);
+        return moves_;
     }
 
     protected static NaSt dispAllMoves(FacadeGame _fac) {
@@ -210,21 +221,21 @@ public abstract class InitDbMoves extends InitDbConstr {
     protected static NaSt dispAllMovesSearch(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         NaSt moves_ = dispAllMoves(pk_);
-        transit(pk_,new MovesBeanSearch(),moves_,moves_);
+        transit(pk_,new MovesBeanSearch((MovesBean) ((PokemonBeanStruct)moves_).getBean()),moves_,moves_);
         return moves_;
     }
 
     protected static String navigateMovesSearch(NaSt _moves) {
-        return navigateData(new MovesBeanSearch(), _moves);
+        return navigateData(new MovesBeanSearch((MovesBean) ((PokemonBeanStruct)_moves).getBean()), _moves);
     }
 
-    private static NaSt displayMoveLine(StringMap<NaSt> _all, int _index, StringMap<String> _mapping) {
-        NaSt moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
-//        Struct moveline_ = byStr(_all, _mapping, callMovesBeanMovesBeanGet(moves_));
-//        fwdLineFull(moveline_, moves_, _index);
-//        beforeDisplaying(moveline_);
-        return moves_;
-    }
+//    private static NaSt displayMoveLine(StringMap<NaSt> _all, int _index, StringMap<String> _mapping) {
+//        NaSt moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
+////        Struct moveline_ = byStr(_all, _mapping, callMovesBeanMovesBeanGet(moves_));
+////        fwdLineFull(moveline_, moves_, _index);
+////        beforeDisplaying(moveline_);
+//        return moves_;
+//    }
 
 //    private static void fwdLineFull(Struct _update, Struct _use, int _index) {
 //        PokemonStandards.fwd((PokemonBeanStruct) _use, (PokemonBeanStruct) _update);
@@ -303,9 +314,10 @@ public abstract class InitDbMoves extends InitDbConstr {
         WelcomeBean w_ = beanWelcomeBean(_pk, EN);
         map_.addEntry(AikiBeansStd.BEAN_WELCOME, new PokemonBeanStruct(w_));
         MovesBean moves_ = new MovesBean();
-        _pk.bean(moves_, EN);
         moves_.setBuilder(w_.getBuilder());
-        map_.addEntry(AikiBeansMovesStd.BEAN_MOVES, new PokemonBeanStruct(moves_));
+        map_.addEntry(AikiBeansMovesStd.BEAN_MOVES, _pk.bean(moves_, EN));
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
         w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,moves_);
 //        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE_LINE,_pk.beanMoveLineBean(EN));
         return map_;
@@ -397,7 +409,14 @@ public abstract class InitDbMoves extends InitDbConstr {
     protected static NaSt transitMove(int _index, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
         NaSt moveline_ = transitToAllMoves(_pk, _all, _index, _mapping);
         NaSt mbean_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVE);
-        transit(_pk,new MovesBeanClickLink(), moveline_, mbean_,_index);
+        MovesBean moves_ = (MovesBean) ((PokemonBeanStruct)moveline_).getBean();
+        transit(_pk,new EntityClickFormEvent(moves_,moves_.getMoves().get(_index).getTranslatedKey()), moveline_, mbean_);
         return mbean_;
+    }
+
+    protected static NaSt transitMoveQuick(int _index, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
+//        return transitMove(_index, _pk, _all, _mapping);
+        transitToAllMoves(_pk, _all, _index, _mapping);
+        return _all.getVal(AikiBeansMovesStd.BEAN_MOVE);
     }
 }

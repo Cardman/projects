@@ -3,18 +3,100 @@ package aiki.beans.moves;
 import aiki.beans.*;
 import aiki.beans.facade.dto.*;
 import aiki.beans.facade.simulation.dto.*;
+import aiki.beans.game.*;
 import aiki.comparators.*;
 import aiki.db.*;
+import aiki.facade.*;
 import aiki.fight.moves.*;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
+import code.util.core.*;
 
 public class MovesBean extends WithFilterBean implements BeanRenderWithAppName {
 //    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
+private IntBeanChgSubmit updateValues;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
     private final CustList<TranslatedKey> sortedMoves = new CustList<TranslatedKey>();
     private final StringMap<String> categories = new StringMap<String>();
 
+    public MovesBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataMovesMoves.M_P_71_TITLE));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
+        initPage();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_NAME);
+        setTypedNameForm(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CAT);
+        setTypedCategoryForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getCategories(),getTypedCategory()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE);
+        setTypedTypeForm(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE_WHOLE);
+        setWholeWordForm(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_ACCURACY);
+        setMinAccuracyForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinAccuracy()));
+        setMaxAccuracyForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxAccuracy()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONST_POWER);
+        setMinPowerForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinPower()));
+        setMaxPowerForm(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxPower()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_LEARNT);
+        setLearntForm(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getLearnt()));
+        feedParents();
+        initLine();
+        updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_OK));
+        getUpdateValues().addEvt(new MovesBeanSearch(this));
+        feedParents();
+        displayHead(getMoves(),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER);
+        for (MoveLine p: getMoves()) {
+            formatMessageDirCts(p.getTranslatedKey());
+            formatMessageDirCts(Long.toString(p.getPp()));
+            formatMessageDirCts(StringUtil.join(p.getTypes()," - "));
+            formatMessageDirCts(p.getCategory());
+            if (p.isDamageMove()) {
+                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING);
+            } else {
+                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_STATUS);
+            }
+            if (!p.isDamageMove()) {
+                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_STATUS_INDIRECT);
+            } else if (p.isDirect()) {
+                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING_DIRECT);
+            } else {
+                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING_INDIRECT);
+            }
+            formatMessageDirCts(Long.toString(p.getPriority()));
+            formatMessageDirCts(p.getAccuracy());
+            formatMessageDirCts(p.getPower());
+        }
+        feedParents();
+        feedParents();
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
+    }
+
+    public IntBeanChgSubmit getUpdateValues() {
+        return updateValues;
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.MOVES).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         bools();

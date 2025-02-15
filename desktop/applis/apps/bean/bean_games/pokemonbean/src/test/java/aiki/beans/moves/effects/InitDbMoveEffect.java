@@ -114,6 +114,15 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return eff_;
     }
 
+    protected static NaSt transitEffectQuick(int _index, int _indexEff, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
+        NaSt mbean_ = transitMoveQuick(_index, _pk, _all, _mapping);
+        int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
+        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
+        fwdEffect(_pk,eff_,mbean_, noEff_);
+        beforeDisplaying(eff_);
+        return eff_;
+    }
+
     public static void fwdEffect(PkData _pk, NaSt _update, NaSt _use, int _index) {
         setFormsBy(_pk,_update,_use);
         callEffectBeanIndexSet(_update,_index);

@@ -21,7 +21,7 @@ public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToEffectAccuracy(pk_);
         StringMap<String> mapping_ = mappingToEffectAccuracy();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        return transitEffectQuick(0,0,pk_,all_,mapping_);
     }
     public static StringMap<NaSt> beanToEffectAccuracy(PkData _pk) {
         StringMap<NaSt> map_ = beanToEffect(_pk);

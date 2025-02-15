@@ -21,7 +21,7 @@ public final class PokedexBeanSearch implements NatCaller, IntBeanAction {
         bean.setHasEvo(bean.getHasEvoForm().tryRet());
         bean.setIsEvo(bean.getIsEvoForm().tryRet());
         bean.setIsLeg(bean.getIsLegForm().tryRet());
-        return ((NaStSt)re(new PokemonBeanStruct(bean),new NaSt[0])).getInstance();
+        return ((NaStSt)re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
     }
 
     @Override

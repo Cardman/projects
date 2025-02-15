@@ -65,6 +65,7 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
         }
         feedParents();
         feedParents();
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
     }
     public StringMap<String> file() {
         return file(MessagesPkBean.POKEDEX).getMapping();

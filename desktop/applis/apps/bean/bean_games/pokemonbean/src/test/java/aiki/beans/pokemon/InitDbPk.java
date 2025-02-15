@@ -289,9 +289,8 @@ public abstract class InitDbPk extends InitDbConstr {
         w_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
-        _pk.bean(pkDex_, EN);
         w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,pkDex_);
-        map_.addEntry(AikiBeansPokemonStd.BEAN_POKEDEX, new PokemonBeanStruct(pkDex_));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_POKEDEX, _pk.bean(pkDex_, EN));
         return map_;
     }
     public static StringMap<String> mappingToPk() {

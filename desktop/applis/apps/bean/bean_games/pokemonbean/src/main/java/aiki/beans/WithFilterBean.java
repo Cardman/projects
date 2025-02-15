@@ -33,6 +33,7 @@ public abstract class WithFilterBean extends CommonBean {
     private IntBeanChgString typedTypeForm;
     private String typedStatus = DataBase.EMPTY_STRING;
     private String typedCategory = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedCategoryForm;
     private boolean wholeWord;
     private IntBeanChgBool wholeWordForm;
     private String hasEvo = SelectedBoolean.YES_AND_NO.getBoolName();
@@ -42,14 +43,19 @@ public abstract class WithFilterBean extends CommonBean {
     private String isLeg = SelectedBoolean.YES_AND_NO.getBoolName();
     private IntBeanChgString isLegForm;
     private String learnt = SelectedBoolean.YES_AND_NO.getBoolName();
+    private IntBeanChgString learntForm;
     private String typedMinNbPossEvos = DataBase.EMPTY_STRING;
     private IntBeanChgString typedMinNbPossEvosForm;
     private String typedMaxNbPossEvos = DataBase.EMPTY_STRING;
     private IntBeanChgString typedMaxNbPossEvosForm;
     private String minPower = DataBase.EMPTY_STRING;
+    private IntBeanChgString minPowerForm;
     private String maxPower = DataBase.EMPTY_STRING;
+    private IntBeanChgString maxPowerForm;
     private String minAccuracy = DataBase.EMPTY_STRING;
+    private IntBeanChgString minAccuracyForm;
     private String maxAccuracy = DataBase.EMPTY_STRING;
+    private IntBeanChgString maxAccuracyForm;
     private DictionaryComparator<String,String> booleans;
     private AbsMap<TranslatedKey,AbilityData> sortedAbilities = DictionaryComparatorUtil.buildAbilitiesData();
     private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
@@ -456,6 +462,14 @@ public abstract class WithFilterBean extends CommonBean {
         this.learnt = _l;
     }
 
+    public IntBeanChgString getLearntForm() {
+        return learntForm;
+    }
+
+    public void setLearntForm(IntBeanChgString _l) {
+        this.learntForm = _l;
+    }
+
     public String getIsEvo() {
         return isEvo;
     }
@@ -496,12 +510,28 @@ public abstract class WithFilterBean extends CommonBean {
         return minAccuracy;
     }
 
+    public IntBeanChgString getMinAccuracyForm() {
+        return minAccuracyForm;
+    }
+
+    public void setMinAccuracyForm(IntBeanChgString _m) {
+        this.minAccuracyForm = _m;
+    }
+
     public void setMaxAccuracy(String _maxAccuracy) {
         maxAccuracy = _maxAccuracy;
     }
 
     public String getMaxAccuracy() {
         return maxAccuracy;
+    }
+
+    public IntBeanChgString getMaxAccuracyForm() {
+        return maxAccuracyForm;
+    }
+
+    public void setMaxAccuracyForm(IntBeanChgString _m) {
+        this.maxAccuracyForm = _m;
     }
 
     public void setMinPower(String _minPower) {
@@ -512,12 +542,28 @@ public abstract class WithFilterBean extends CommonBean {
         return minPower;
     }
 
+    public IntBeanChgString getMinPowerForm() {
+        return minPowerForm;
+    }
+
+    public void setMinPowerForm(IntBeanChgString _m) {
+        this.minPowerForm = _m;
+    }
+
     public void setMaxPower(String _maxPower) {
         maxPower = _maxPower;
     }
 
     public String getMaxPower() {
         return maxPower;
+    }
+
+    public IntBeanChgString getMaxPowerForm() {
+        return maxPowerForm;
+    }
+
+    public void setMaxPowerForm(IntBeanChgString _m) {
+        this.maxPowerForm = _m;
     }
 
     public CustList<TranslatedKey> sortedAbilitiesGet() {
@@ -535,6 +581,15 @@ public abstract class WithFilterBean extends CommonBean {
     public void setTypedCategory(String _c) {
         this.typedCategory = _c;
     }
+
+    public IntBeanChgString getTypedCategoryForm() {
+        return typedCategoryForm;
+    }
+
+    public void setTypedCategoryForm(IntBeanChgString _t) {
+        this.typedCategoryForm = _t;
+    }
+
     public CustList<PokemonLine> getPokedex() {
         return pokedex;
     }

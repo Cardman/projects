@@ -710,7 +710,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToEffectOther(pk_);
         StringMap<String> mapping_ = mappingToEffectOther();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        return transitEffectQuick(0,0,pk_,all_,mapping_);
     }
     public static StringMap<NaSt> beanToEffectOther(PkData _pk) {
         StringMap<NaSt> map_ = beanToEffect(_pk);
