@@ -31,8 +31,8 @@ import code.sml.util.TranslationsFile;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
-import code.util.ints.Countable;
+import code.util.core.*;
+import code.util.ints.*;
 
 public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public static final int FALSE_VALUE = 0;
@@ -198,16 +198,81 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
 //        }
     }
-    protected void eff(EffectBean _e) {
-        target(_e.getEffect().getTargetChoice(),MessagesPkBean.EFF,MessagesDataEff.M_P_36_TARGETS_ADJ_ADV,MessagesDataEff.M_P_36_TARGETS_ADJ_MULT,MessagesDataEff.M_P_36_TARGETS_ADJ_UNIQ,MessagesDataEff.M_P_36_TARGETS_ALLIE,MessagesDataEff.M_P_36_TARGETS_ALLIES,MessagesDataEff.M_P_36_TARGETS_ANY_FOE,MessagesDataEff.M_P_36_TARGETS_AUTRE_UNIQ,MessagesDataEff.M_P_36_TARGETS_GLOBALE,MessagesDataEff.M_P_36_TARGETS_LANCEUR,MessagesDataEff.M_P_36_TARGETS_PSEUDO_GLOBALE,MessagesDataEff.M_P_36_TARGETS_TOUS_ADV,MessagesDataEff.M_P_36_TARGETS_UNIQUE_IMPORTE);
-        displayStringList(MessagesPkBean.EFF,_e.getReasons(),MessagesDataEff.M_P_36_REASONS);
-        mapVarsInit(_e.getMapVarsFail());
-        displayBoolTrue(MessagesPkBean.EFF,toInt(_e.getNeedSuccessFirstEffect()),MessagesDataEff.M_P_36_NEED_SUCESS);
-        if (_e.getEffect() instanceof EffectAccuracy) {
+    protected void eff(EffectBean _sub) {
+        preEff(_sub);
+        target(_sub.getEffect().getTargetChoice(),MessagesPkBean.EFF,MessagesDataEff.M_P_36_TARGETS_ADJ_ADV,MessagesDataEff.M_P_36_TARGETS_ADJ_MULT,MessagesDataEff.M_P_36_TARGETS_ADJ_UNIQ,MessagesDataEff.M_P_36_TARGETS_ALLIE,MessagesDataEff.M_P_36_TARGETS_ALLIES,MessagesDataEff.M_P_36_TARGETS_ANY_FOE,MessagesDataEff.M_P_36_TARGETS_AUTRE_UNIQ,MessagesDataEff.M_P_36_TARGETS_GLOBALE,MessagesDataEff.M_P_36_TARGETS_LANCEUR,MessagesDataEff.M_P_36_TARGETS_PSEUDO_GLOBALE,MessagesDataEff.M_P_36_TARGETS_TOUS_ADV,MessagesDataEff.M_P_36_TARGETS_UNIQUE_IMPORTE);
+        displayStringList(MessagesPkBean.EFF,_sub.getReasons(),MessagesDataEff.M_P_36_REASONS);
+        mapVarsInit(_sub.getMapVarsFail());
+        displayBoolTrue(MessagesPkBean.EFF,toInt(_sub.getNeedSuccessFirstEffect()),MessagesDataEff.M_P_36_NEED_SUCESS);
+        if (_sub.getEffect() instanceof EffectAccuracy) {
             formatMessage(MessagesPkBean.EFF_ACCURACY,MessagesDataEffaccuracy.M_P_37_ACCURACY_MAX);
         }
-        if (_e instanceof EffectAllyBean) {
-            formatMessage(MessagesPkBean.EFF_ALLY,MessagesDataEffally.M_P_38_MUL_ALLY_DAMAGE,((EffectAllyBean)_e).getMultAllyDamage().toNumberString());
+        if (_sub instanceof EffectAllyBean) {
+            formatMessage(MessagesPkBean.EFF_ALLY,MessagesDataEffally.M_P_38_MUL_ALLY_DAMAGE,((EffectAllyBean)_sub).getMultAllyDamage().toNumberString());
+        }
+        if (_sub instanceof EffectBatonPassBean) {
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectBatonPassBean)_sub).getMoves(),MessagesPkBean.EFF_BATONPASS,MessagesDataEffbatonpass.M_P_39_EFFECT_2);
+        }
+        if (_sub instanceof EffectCloneBean) {
+            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_2);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectCloneBean)_sub).getMovesEndRound(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_3);
+            batonPassSending((EffectCloneBean) _sub);
+            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_6);
+            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_7);
+            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_8);
+            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_9);
+        }
+        if (_sub instanceof EffectCommonStatisticsBean) {
+            new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,((EffectCommonStatisticsBean)_sub).getCommonValue(),MessagesPkBean.EFF_COMMONSTATISTICS,MessagesDataEffcommonstatistics.M_P_41_COMMON,MessagesDataEffcommonstatistics.M_P_41_COMMON_STAT,MessagesDataEffcommonstatistics.M_P_41_COMMON_VALUE);
+            mapVarsInit(((EffectCommonStatisticsBean)_sub).getMapVarsCommonStatistics());
+        }
+        if (_sub instanceof EffectCopyFighterBean) {
+            formatMessage(MessagesPkBean.EFF_COPYFIGHTER,MessagesDataEffcopyfighter.M_P_42_PP_MOVES,Long.toString(((EffectCopyFighterBean)_sub).getPpForMoves()));
+        }
+        if (_sub instanceof EffectCopyMoveBean) {
+            displayBoolTrue(MessagesPkBean.EFF_COPYMOVE,toInt(((EffectCopyMoveBean)_sub).copyMoveForUser()),MessagesDataEffcopymove.M_P_43_COPY_TMP_MOVE,((EffectCopyMoveBean)_sub).getDisplayName(),Long.toString(((EffectCopyMoveBean)_sub).getCopyingMoveForUser()));
+            if (((EffectCopyMoveBean)_sub).getCopyingMoveForUserDef()) {
+                formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT_2);
+                formatMessageDir(((EffectCopyMoveBean)_sub).getDefaultMove());
+                formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE,((EffectCopyMoveBean)_sub).getDisplayName());
+                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectCopyMoveBean)_sub).getMovesTransforming());
+                displayEmpty(MessagesPkBean.EFF_COPYMOVE,((EffectCopyMoveBean)_sub).getMovesTransforming(),MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS,((EffectCopyMoveBean)_sub).getDisplayName());
+                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectCopyMoveBean)_sub).getMovesNotToBeCopied(),MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_MOVES_NOT_COPIED);
+            }
+        }
+    }
+
+    private void batonPassSending(EffectCloneBean _sub) {
+//        if (NumberUtil.signum(_sub.getMovesBatonPass().size()) * NumberUtil.signum(_sub.getMovesSending().size()) == 0) {
+//            return;
+//        }
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesBatonPass(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesSending(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_5);
+    }
+
+    private void preEff(EffectBean _sub) {
+        if (_sub.getEffect() instanceof EffectAccuracy) {
+            formatMessage(MessagesPkBean.EFF_ACCURACY,MessagesDataEffaccuracy.M_P_37_EFFECT);
+        }
+        if (_sub instanceof EffectAllyBean) {
+            formatMessage(MessagesPkBean.EFF_ALLY,MessagesDataEffally.M_P_38_EFFECT);
+        }
+        if (_sub instanceof EffectBatonPassBean) {
+            formatMessage(MessagesPkBean.EFF_BATONPASS,MessagesDataEffbatonpass.M_P_39_EFFECT);
+        }
+        if (_sub instanceof EffectCloneBean) {
+            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT,((EffectCloneBean)_sub).getHpRateClone().toNumberString());
+        }
+        if (_sub instanceof EffectCommonStatisticsBean) {
+            formatMessage(MessagesPkBean.EFF_COMMONSTATISTICS,MessagesDataEffcommonstatistics.M_P_41_EFFECT);
+        }
+        if (_sub instanceof EffectCopyFighterBean) {
+            formatMessage(MessagesPkBean.EFF_COPYFIGHTER,MessagesDataEffcopyfighter.M_P_42_EFFECT);
+        }
+        if (_sub instanceof EffectCopyMoveBean) {
+            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_EFFECT);
+            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT);
+            formatMessageDir(((EffectCopyMoveBean)_sub).getDefaultMove());
         }
     }
 
@@ -601,6 +666,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public void displayEmpty(String _file, String _value, String _key) {
         if (_value.isEmpty()) {
             formatMessage(_file,_key);
+        }
+    }
+    public void displayEmpty(String _file, Countable _value, String _key, String... _values) {
+        if (_value.isEmpty()) {
+            formatMessage(_file,_key,_values);
         }
     }
     public void displayNotEmpty(String _file, String _value, String _key) {

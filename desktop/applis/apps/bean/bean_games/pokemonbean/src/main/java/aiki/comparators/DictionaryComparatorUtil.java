@@ -49,6 +49,9 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<Statistic,String> buildStatisString(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,String>(_data.getTranslatedStatistics().getVal(_language));
     }
+    public static DictionaryComparator<TranslatedKey,String> buildStatisString() {
+        return new DictionaryComparator<TranslatedKey,String>(new ComparingTranslatedKey());
+    }
     public static DictionaryComparator<Statistic, BoostHpRate> buildStatisBoostHpRate(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,BoostHpRate>(_data.getTranslatedStatistics().getVal(_language));
     }

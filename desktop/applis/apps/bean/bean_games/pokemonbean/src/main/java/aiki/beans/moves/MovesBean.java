@@ -13,9 +13,9 @@ import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
-public class MovesBean extends WithFilterBean implements BeanRenderWithAppName {
+public final class MovesBean extends WithFilterBean implements BeanRenderWithAppName {
 //    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
-private IntBeanChgSubmit updateValues;
+    private IntBeanChgSubmit updateValues;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
     private final CustList<TranslatedKey> sortedMoves = new CustList<TranslatedKey>();
     private final StringMap<String> categories = new StringMap<String>();

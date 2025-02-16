@@ -32,6 +32,10 @@ public final class EffectCopyMoveBeanTest extends InitDbMoveEffectCopy {
         assertEq(1,callEffectCopyMoveBeanCopyingMoveForUserGet(dispMoveEffCopyMove(true, 1)));
     }
     @Test
+    public void getMovesTransforming0() {
+        assertSizeEq(0,callEffectCopyMoveBeanMovesTransformingGet(dispMoveEffCopyMoveNoFighter(true, 1)));
+    }
+    @Test
     public void getMovesTransforming1() {
         assertSizeEq(1,callEffectCopyMoveBeanMovesTransformingGet(dispMoveEffCopyMove(true, 1)));
     }

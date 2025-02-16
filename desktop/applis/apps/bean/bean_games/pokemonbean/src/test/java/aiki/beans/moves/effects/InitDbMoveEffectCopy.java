@@ -83,6 +83,12 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         StringMap<String> mapping_ = mappingToEffectCopyMove();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
+    protected static NaSt dispMoveEffCopyMoveNoFighter(boolean _copyingMoveForUserDef, int _copy) {
+        PkData pk_ = pkDataByFacade(feedDbMoveEffDataDamNoFighter(_copyingMoveForUserDef, _copy));
+        StringMap<NaSt> all_ = beanToEffectCopyMove(pk_);
+        StringMap<String> mapping_ = mappingToEffectCopyMove();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
     public static StringMap<NaSt> beanToEffectCopyMove(PkData _pk) {
         StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_MOVE,_pk.beanEffectCopyMoveBean(EN));
@@ -112,7 +118,24 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         facade_.getData().completeVariables();
         return facade_;
     }
-
+    protected static FacadeGame feedDbMoveEffDataDamNoFighter(boolean _copyingMoveForUserDef, int _copy) {
+        FacadeGame facade_ = facade();
+        addEff(effectCopyMove(_copyingMoveForUserDef, _copy), facade_);
+        StatusMoveData chg_ = moveSta(TargetChoice.TOUS_ADV);
+        facade_.getData().completeMembers(M_STA,chg_);
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().setDefMove(M_DAM_VERY_BAD);
+        facade_.getData().completeVariables();
+        return facade_;
+    }
     private static void addEff(EffectCopyMove _eff, FacadeGame _facade) {
         DamagingMoveData dam_ = Instances.newDamagingMoveData();
         feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);

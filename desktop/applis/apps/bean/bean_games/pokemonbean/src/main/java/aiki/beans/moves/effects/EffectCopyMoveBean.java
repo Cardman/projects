@@ -76,6 +76,10 @@ public class EffectCopyMoveBean extends EffectBean {
 //        return translatedMoves_.getVal(defaultMove);
     }
 
+    public TranslatedKey getDefaultMove() {
+        return defaultMove;
+    }
+
     public String getDisplayName() {
         return displayName;
     }
