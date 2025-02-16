@@ -1,20 +1,18 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCounterAttack;
 import code.maths.Rate;
-import code.util.AbsMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public class EffectCounterAttackBean extends EffectBean {
-    private DictionaryComparator<String,Rate> sufferingDamageTypes;
-    private DictionaryComparator<Statistic, Long> droppedStatDirectMove;
+    private DictionaryComparator<TranslatedKey,Rate> sufferingDamageTypes;
+    private DictionaryComparator<TranslatedKey, Long> droppedStatDirectMove;
     private Rate sufferingDamageDirectMove;
     private StringList reasonsProtect;
     private StringList reasonsCounter;
@@ -26,16 +24,16 @@ public class EffectCounterAttackBean extends EffectBean {
         super.beforeDisplaying();
         EffectCounterAttack effect_ = (EffectCounterAttack) getEffect();
         DataBase data_ = getDataBase();
-        DictionaryComparator<String,Rate> sufferingDamageTypes_;
-        sufferingDamageTypes_ = DictionaryComparatorUtil.buildTypesRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey,Rate> sufferingDamageTypes_;
+        sufferingDamageTypes_ = DictionaryComparatorUtil.buildTypesRate();
         for (String type_: effect_.getSufferingDamageTypes().getKeys()) {
-            sufferingDamageTypes_.put(type_, effect_.getSufferingDamageTypes().getVal(type_));
+            sufferingDamageTypes_.put(buildTy(getFacade(),type_), effect_.getSufferingDamageTypes().getVal(type_));
         }
         sufferingDamageTypes = sufferingDamageTypes_;
-        DictionaryComparator<Statistic, Long> droppedStatDirectMove_;
-        droppedStatDirectMove_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Long> droppedStatDirectMove_;
+        droppedStatDirectMove_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic st_: effect_.getDroppedStatDirectMove().getKeys()) {
-            droppedStatDirectMove_.put(st_, effect_.getDroppedStatDirectMove().getVal(st_));
+            droppedStatDirectMove_.put(buildSi(getFacade(),st_), effect_.getDroppedStatDirectMove().getVal(st_));
         }
         droppedStatDirectMove = droppedStatDirectMove_;
         sufferingDamageDirectMove = effect_.getSufferingDamageDirectMove();
@@ -89,23 +87,25 @@ public class EffectCounterAttackBean extends EffectBean {
         return mapVarsFailCounter;
     }
     public String getTrSufferingDamageTypes(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String st_ = sufferingDamageTypes.getKey(_index);
-        return translatedTypes_.getVal(st_);
+        return sufferingDamageTypes.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        String st_ = sufferingDamageTypes.getKey(_index);
+//        return translatedTypes_.getVal(st_);
     }
     public String getTrDroppedStatDirectMove(int _index) {
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic st_ = droppedStatDirectMove.getKey(_index);
-        return translatedStatistics_.getVal(st_);
+        return droppedStatDirectMove.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        Statistic st_ = droppedStatDirectMove.getKey(_index);
+//        return translatedStatistics_.getVal(st_);
     }
 
-    public DictionaryComparator<String,Rate> getSufferingDamageTypes() {
+    public DictionaryComparator<TranslatedKey,Rate> getSufferingDamageTypes() {
         return sufferingDamageTypes;
     }
 
-    public DictionaryComparator<Statistic,Long> getDroppedStatDirectMove() {
+    public DictionaryComparator<TranslatedKey,Long> getDroppedStatDirectMove() {
         return droppedStatDirectMove;
     }
 

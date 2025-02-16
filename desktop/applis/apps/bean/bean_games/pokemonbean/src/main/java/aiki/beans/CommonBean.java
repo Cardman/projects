@@ -230,15 +230,87 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             formatMessage(MessagesPkBean.EFF_COPYFIGHTER,MessagesDataEffcopyfighter.M_P_42_PP_MOVES,Long.toString(((EffectCopyFighterBean)_sub).getPpForMoves()));
         }
         if (_sub instanceof EffectCopyMoveBean) {
-            displayBoolTrue(MessagesPkBean.EFF_COPYMOVE,toInt(((EffectCopyMoveBean)_sub).copyMoveForUser()),MessagesDataEffcopymove.M_P_43_COPY_TMP_MOVE,((EffectCopyMoveBean)_sub).getDisplayName(),Long.toString(((EffectCopyMoveBean)_sub).getCopyingMoveForUser()));
-            if (((EffectCopyMoveBean)_sub).getCopyingMoveForUserDef()) {
-                formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT_2);
-                formatMessageDir(((EffectCopyMoveBean)_sub).getDefaultMove());
-                formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE,((EffectCopyMoveBean)_sub).getDisplayName());
-                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectCopyMoveBean)_sub).getMovesTransforming());
-                displayEmpty(MessagesPkBean.EFF_COPYMOVE,((EffectCopyMoveBean)_sub).getMovesTransforming(),MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS,((EffectCopyMoveBean)_sub).getDisplayName());
-                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectCopyMoveBean)_sub).getMovesNotToBeCopied(),MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_MOVES_NOT_COPIED);
+            effCopy((EffectCopyMoveBean) _sub);
+        }
+        if (_sub instanceof EffectCounterAttackBean) {
+            effCounter((EffectCounterAttackBean) _sub);
+        }
+        if (_sub instanceof EffectDamageBean) {
+            effDam((EffectDamageBean) _sub);
+        }
+    }
+
+    private void effDam(EffectDamageBean _sub) {
+        displayEmpty(MessagesPkBean.EFF_DAMAGE, _sub.getHitsLaw(),MessagesDataEffdamage.M_P_45_HIT_LAW_CONST,Long.toString(_sub.getNbHits()));
+        new BeanDisplayMap<Long,Rate>(new BeanDisplayLong(),new BeanDisplayRate()).displayGrid(this, _sub.getHitsLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_HIT_LAW,MessagesDataEffdamage.M_P_45_EVENT_NB_HITS,MessagesDataEffdamage.M_P_45_RATE_EVENT);
+        displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getConstDamage()),MessagesDataEffdamage.M_P_45_CONST_DAMAGE,_sub.getPower());
+//        int condDet_ = toInt(_sub.hasLawForDamage())*toInt(!_sub.getConstDamage());
+        if (_sub.hasLawForDamage()) {
+//        if (condDet_ == TRUE_VALUE) {
+            displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.hasDeterminatedLawForDamage()),MessagesDataEffdamage.M_P_45_DAMAG_LAW_CONST,_sub.getPower());
+            if (!_sub.hasDeterminatedLawForDamage()) {
+                new BeanDisplayMap<String,Rate>(new BeanDisplayString(),new BeanDisplayRate()).displayGrid(this, _sub.getDamageLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAG_LAW,MessagesDataEffdamage.M_P_45_EVENT,MessagesDataEffdamage.M_P_45_RATE_EVENT);
             }
+            mapVarsInit(_sub.getMapVarsDamage());
+        }
+        if (!_sub.getConstDamage()) {
+//            if (_sub.hasLawForDamage()) {
+//                displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.hasDeterminatedLawForDamage()),MessagesDataEffdamage.M_P_45_DAMAG_LAW_CONST,_sub.getPower());
+//                if (!_sub.hasDeterminatedLawForDamage()) {
+//                    new BeanDisplayMap<String,Rate>(new BeanDisplayString(),new BeanDisplayRate()).displayGrid(this, _sub.getDamageLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAG_LAW,MessagesDataEffdamage.M_P_45_EVENT,MessagesDataEffdamage.M_P_45_RATE_EVENT);
+//                }
+//                mapVarsInit(_sub.getMapVarsDamage());
+//            }
+            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this, _sub.getMultDamageAgainst(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAGE_MULT_COUNTER,MessagesDataEffdamage.M_P_45_CATEGORY,MessagesDataEffdamage.M_P_45_RATE);
+//            if (_sub.constPower()) {
+//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.hasConstPower()),MessagesDataEffdamage.M_P_45_CONST_POWER,MessagesDataEffdamage.M_P_45_VAR_POWER,_sub.getPower());
+//                mapVarsInit(_sub.getMapVarsDamage());
+//                formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_RATE,Long.toString(_sub.getChRate()));
+//                new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this, _sub.getChLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_LAW,MessagesDataEffdamage.M_P_45_EVENT_RATE,MessagesDataEffdamage.M_P_45_RATE);
+//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getUserAttack()),MessagesDataEffdamage.M_P_45_ATTACK_USER,MessagesDataEffdamage.M_P_45_ATTACK_TARGET,_sub.getStatisAtt());
+//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getTargetDefense()),MessagesDataEffdamage.M_P_45_DEFENSE_TARGET,MessagesDataEffdamage.M_P_45_DEFENSE_USER,_sub.getStatisDef());
+//                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatTargetPos(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_POS_STAT);
+//                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatUserNeg(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_NEG_STAT);
+//                displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getRandMax()),MessagesDataEffdamage.M_P_45_RAND_MAX);
+//            }
+        }
+        int cond_ = toInt(_sub.constPower())*toInt(!_sub.getConstDamage());
+        if (cond_ == TRUE_VALUE) {
+            displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.hasConstPower()),MessagesDataEffdamage.M_P_45_CONST_POWER,MessagesDataEffdamage.M_P_45_VAR_POWER,_sub.getPower());
+            mapVarsInit(_sub.getMapVarsDamage());
+            formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_RATE,Long.toString(_sub.getChRate()));
+            new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this, _sub.getChLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_LAW,MessagesDataEffdamage.M_P_45_EVENT_RATE,MessagesDataEffdamage.M_P_45_RATE);
+            displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getUserAttack()),MessagesDataEffdamage.M_P_45_ATTACK_USER,MessagesDataEffdamage.M_P_45_ATTACK_TARGET,_sub.getStatisAtt());
+            displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getTargetDefense()),MessagesDataEffdamage.M_P_45_DEFENSE_TARGET,MessagesDataEffdamage.M_P_45_DEFENSE_USER,_sub.getStatisDef());
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatTargetPos(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_POS_STAT);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatUserNeg(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_NEG_STAT);
+            displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getRandMax()),MessagesDataEffdamage.M_P_45_RAND_MAX);
+        }
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this, _sub.getBoostStatisOnceKoFoe(), MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_BOOST_STATIS_ONCE_KO_FOE, MessagesDataEffdamage.M_P_45_STATISTIC, MessagesDataEffdamage.M_P_45_BOOST);
+        displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getSummingUserTeamOkFighter()),MessagesDataEffdamage.M_P_45_SUMMING_TEAM);
+    }
+
+    private void effCounter(EffectCounterAttackBean _sub) {
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGridParam(this, _sub.getSufferingDamageTypes(),new String[]{_sub.getMove()},MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_T,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_HP);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGridParam(this, _sub.getDroppedStatDirectMove(),new String[]{_sub.getMove()},MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_S,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_V);
+//        if (!_sub.getSufferingDamageDirectMove().isZero()) {
+//            formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT, _sub.getMove(), _sub.getSufferingDamageDirectMove().toNumberString());
+//        }
+        formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT, _sub.getMove(), _sub.getSufferingDamageDirectMove().toNumberString());
+        displayStringList(MessagesPkBean.EFF_COUNTERATTACK, _sub.getReasonsProtect(),MessagesDataEffcounterattack.M_P_44_FAIL_PROTECT, _sub.getMove());
+        displayStringList(MessagesPkBean.EFF_COUNTERATTACK, _sub.getReasonsCounter(),MessagesDataEffcounterattack.M_P_44_COUNTER_PROTECT, _sub.getMove());
+        mapVarsInit(_sub.getMapVarsFailCounter());
+    }
+
+    private void effCopy(EffectCopyMoveBean _sub) {
+        displayBoolTrue(MessagesPkBean.EFF_COPYMOVE,toInt(_sub.copyMoveForUser()),MessagesDataEffcopymove.M_P_43_COPY_TMP_MOVE, _sub.getDisplayName(),Long.toString(_sub.getCopyingMoveForUser()));
+        if (_sub.getCopyingMoveForUserDef()) {
+            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT_2);
+            formatMessageDir(_sub.getDefaultMove());
+            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE, _sub.getDisplayName());
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesTransforming());
+            displayEmpty(MessagesPkBean.EFF_COPYMOVE, _sub.getMovesTransforming(),MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS, _sub.getDisplayName());
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesNotToBeCopied(),MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_MOVES_NOT_COPIED);
         }
     }
 
@@ -648,8 +720,8 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         this.baseForms = _base;
     }
 
-    protected void displayStringList(String _file, CustList<String> _list, String _key) {
-        display(_file, _list, _key);
+    protected void displayStringList(String _file, CustList<String> _list, String _key, String... _values) {
+        display(_file, _list, _key,_values);
         displayStringList(_list);
     }
 

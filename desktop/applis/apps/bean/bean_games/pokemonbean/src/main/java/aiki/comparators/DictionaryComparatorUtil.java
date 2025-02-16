@@ -40,6 +40,9 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<Statistic,Long> buildStatisByte(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,Long>(_data.getTranslatedStatistics().getVal(_language));
     }
+    public static DictionaryComparator<TranslatedKey,Long> buildStatisByte() {
+        return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
+    }
     public static DictionaryComparator<Statistic,Rate> buildStatisRate(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,Rate>(_data.getTranslatedStatistics().getVal(_language));
     }
@@ -140,6 +143,9 @@ public final class DictionaryComparatorUtil {
     }
     public static DictionaryComparator<String,Rate> buildTypesRate(DataBase _data, String _language) {
         return new DictionaryComparator<String,Rate>(_data.getTranslatedTypes().getVal(_language));
+    }
+    public static DictionaryComparator<TranslatedKey,Rate> buildTypesRate() {
+        return new DictionaryComparator<TranslatedKey,Rate>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<TranslatedKey,TranslatedKey> buildTypesStr() {

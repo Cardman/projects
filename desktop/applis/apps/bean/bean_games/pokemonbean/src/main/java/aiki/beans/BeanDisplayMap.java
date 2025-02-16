@@ -15,7 +15,11 @@ public final class BeanDisplayMap<K,V> {
         display(_rend, _info);
         _rend.feedParents();
     }
-
+    public void displayGridParam(CommonBean _rend, AbsMap<K, V> _info, String[] _values, String _file, String _keyTitle, String... _cols) {
+        _rend.displayHeadParam(_info, _values, _file, _keyTitle, _cols);
+        display(_rend, _info);
+        _rend.feedParents();
+    }
     public void display(CommonBean _rend, AbsMap<K, V> _info) {
         for (EntryCust<K,V> e: _info.entryList()) {
             int count_ = displayKey.display(_rend, e.getKey(), 0);

@@ -1,5 +1,7 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.TranslatedKey;
+import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -12,20 +14,20 @@ public class EffectDamageBean extends EffectBean {
     private long chRate;
     private boolean constDamage;
     private NatStringTreeMap< Rate> damageLaw;
-    private NatStringTreeMap< Rate> multDamageAgainst;
+    private DictionaryComparator<TranslatedKey,Rate> multDamageAgainst;
     private DictionaryComparator<Rate, Rate> chLaw;
     private LongTreeMap< Rate> hitsLaw;
     private long nbHits;
     private String power;
     private boolean randMax;
     private boolean summingUserTeamOkFighter;
-    private IdList<Statistic> ignVarStatTargetPos;
-    private IdList<Statistic> ignVarStatUserNeg;
+    private CustList<TranslatedKey> ignVarStatTargetPos;
+    private CustList<TranslatedKey> ignVarStatUserNeg;
     private boolean userAttack;
     private String statisAtt;
     private boolean targetDefense;
     private String statisDef;
-    private DictionaryComparator<Statistic, Long> boostStatisOnceKoFoe;
+    private DictionaryComparator<TranslatedKey, Long> boostStatisOnceKoFoe;
     private NatStringTreeMap<String> mapVarsDamage;
 
     @Override
@@ -33,7 +35,6 @@ public class EffectDamageBean extends EffectBean {
         super.beforeDisplaying();
         EffectDamage effect_ = (EffectDamage) getEffect();
         DataBase data_ = getDataBase();
-        StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         constDamage = effect_.getConstDamage();
 //        Map<String,String> loc_ = new Map<>();
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
@@ -49,10 +50,10 @@ public class EffectDamageBean extends EffectBean {
         for (String k: desc_) {
             mapVarsAccuracy_.put(k, mapVars_.getVal(k));
         }
-        NatStringTreeMap< Rate> multDamageAgainst_;
-        multDamageAgainst_ = new NatStringTreeMap< Rate>();
+        DictionaryComparator<TranslatedKey,Rate> multDamageAgainst_;
+        multDamageAgainst_ = new DictionaryComparator<TranslatedKey,Rate>(new ComparingTranslatedKey());
         for (String c: effect_.getMultDamageAgainst().getKeys()) {
-            multDamageAgainst_.put(translatedCategories_.getVal(c), effect_.getMultDamageAgainst().getVal(c));
+            multDamageAgainst_.put(buildCa(getFacade(), c), effect_.getMultDamageAgainst().getVal(c));
         }
         multDamageAgainst = multDamageAgainst_;
         NatStringTreeMap< Rate> damageLaw_;
@@ -100,24 +101,24 @@ public class EffectDamageBean extends EffectBean {
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         statisAtt = translatedStatistics_.getVal(effect_.getStatisAtt());
         statisDef = translatedStatistics_.getVal(effect_.getStatisDef());
-        IdList<Statistic> ignVarStatTargetPos_;
-        ignVarStatTargetPos_ = new IdList<Statistic>();
+        CustList<TranslatedKey> ignVarStatTargetPos_;
+        ignVarStatTargetPos_ = new CustList<TranslatedKey>();
         for (Statistic s: effect_.getIgnVarStatTargetPos()) {
-            ignVarStatTargetPos_.add(s);
+            ignVarStatTargetPos_.add(buildSi(getFacade(),s));
         }
-        ignVarStatTargetPos_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
+        ignVarStatTargetPos_.sortElts(new ComparingTranslatedKey());
         ignVarStatTargetPos = ignVarStatTargetPos_;
-        IdList<Statistic> ignVarStatUserNeg_;
-        ignVarStatUserNeg_ = new IdList<Statistic>();
+        CustList<TranslatedKey> ignVarStatUserNeg_;
+        ignVarStatUserNeg_ = new CustList<TranslatedKey>();
         for (Statistic s: effect_.getIgnVarStatUserNeg()) {
-            ignVarStatUserNeg_.add(s);
+            ignVarStatUserNeg_.add(buildSi(getFacade(),s));
         }
-        ignVarStatUserNeg_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
+        ignVarStatUserNeg_.sortElts(new ComparingTranslatedKey());
         ignVarStatUserNeg = ignVarStatUserNeg_;
-        DictionaryComparator<Statistic, Long> boostStatisOnceKoFoe_;
-        boostStatisOnceKoFoe_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Long> boostStatisOnceKoFoe_;
+        boostStatisOnceKoFoe_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: effect_.getBoostStatisOnceKoFoe().getKeys()) {
-            boostStatisOnceKoFoe_.put(s, effect_.getBoostStatisOnceKoFoe().getVal(s));
+            boostStatisOnceKoFoe_.put(buildSi(getFacade(),s), effect_.getBoostStatisOnceKoFoe().getVal(s));
         }
         boostStatisOnceKoFoe = boostStatisOnceKoFoe_;
         summingUserTeamOkFighter = effect_.getSummingUserTeamOkFighter();
@@ -153,22 +154,25 @@ public class EffectDamageBean extends EffectBean {
         return Rate.isValid(power);
     }
     public String getTranslatedStatisTarget(int _index) {
-        Statistic st_ = ignVarStatTargetPos.get(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(st_);
+        return ignVarStatTargetPos.get(_index).getTranslation();
+//        Statistic st_ = ignVarStatTargetPos.get(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(st_);
     }
     public String getTranslatedStatisUser(int _index) {
-        Statistic st_ = ignVarStatUserNeg.get(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(st_);
+        return ignVarStatUserNeg.get(_index).getTranslation();
+//        Statistic st_ = ignVarStatUserNeg.get(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(st_);
     }
     public String getTranslatedStatisKo(int _index) {
-        Statistic st_ = boostStatisOnceKoFoe.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(st_);
+        return boostStatisOnceKoFoe.getKey(_index).getTranslation();
+//        Statistic st_ = boostStatisOnceKoFoe.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(st_);
     }
 
     public LongTreeMap<Rate> getHitsLaw() {
@@ -195,7 +199,7 @@ public class EffectDamageBean extends EffectBean {
         return mapVarsDamage;
     }
 
-    public NatStringTreeMap<Rate> getMultDamageAgainst() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultDamageAgainst() {
         return multDamageAgainst;
     }
 
@@ -223,11 +227,11 @@ public class EffectDamageBean extends EffectBean {
         return statisDef;
     }
 
-    public IdList<Statistic> getIgnVarStatTargetPos() {
+    public CustList<TranslatedKey> getIgnVarStatTargetPos() {
         return ignVarStatTargetPos;
     }
 
-    public IdList<Statistic> getIgnVarStatUserNeg() {
+    public CustList<TranslatedKey> getIgnVarStatUserNeg() {
         return ignVarStatUserNeg;
     }
 
@@ -235,7 +239,7 @@ public class EffectDamageBean extends EffectBean {
         return randMax;
     }
 
-    public DictionaryComparator<Statistic,Long> getBoostStatisOnceKoFoe() {
+    public DictionaryComparator<TranslatedKey,Long> getBoostStatisOnceKoFoe() {
         return boostStatisOnceKoFoe;
     }
 
