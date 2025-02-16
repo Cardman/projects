@@ -9,7 +9,7 @@ import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
-import aiki.fight.moves.effects.EffectAccuracy;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
@@ -251,6 +251,12 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     private void preEff(EffectBean _sub) {
+        preEff1(_sub);
+        preEff2(_sub);
+        preEff3(_sub);
+    }
+
+    private void preEff1(EffectBean _sub) {
         if (_sub.getEffect() instanceof EffectAccuracy) {
             formatMessage(MessagesPkBean.EFF_ACCURACY,MessagesDataEffaccuracy.M_P_37_EFFECT);
         }
@@ -274,8 +280,92 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT);
             formatMessageDir(((EffectCopyMoveBean)_sub).getDefaultMove());
         }
+        if (_sub instanceof EffectCounterAttackBean) {
+            formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_EFFECT);
+        }
+        if (_sub instanceof EffectDamageBean) {
+            formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_EFFECT);
+        }
+        if (_sub instanceof EffectDamageRateBean) {
+            formatMessage(MessagesPkBean.EFF_DAMAGERATE,MessagesDataEffdamagerate.M_P_46_EFFECT);
+        }
+        if (_sub instanceof EffectFullHpRateBean) {
+            formatMessage(MessagesPkBean.EFF_FULLHPRATE,MessagesDataEfffullhprate.M_P_48_EFFECT);
+        }
+        if (_sub instanceof EffectGlobalBean) {
+            formatMessage(MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_EFFECT);
+        }
+        if (_sub instanceof EffectInvokeBean) {
+            formatMessage(MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_EFFECT);
+        }
+        if (_sub.getEffect() instanceof EffectMultSufferedMovePower) {
+            formatMessage(MessagesPkBean.EFF_MULTSUFFEREDMOVEPOWER,MessagesDataEffmultsufferedmovepower.M_P_51_EFFECT);
+        }
+        if (_sub.getEffect() instanceof EffectMultMovePower) {
+            formatMessage(MessagesPkBean.EFF_MULTUSEDMOVEPOWER,MessagesDataEffmultusedmovepower.M_P_52_EFFECT);
+        }
     }
 
+    private void preEff2(EffectBean _sub) {
+        if (_sub instanceof EffectOrderBean) {
+            formatMessage(MessagesPkBean.EFF_ORDER,MessagesDataEfforder.M_P_53_EFFECT);
+        }
+        if (_sub instanceof EffectProtectFromTypesBean) {
+            formatMessage(MessagesPkBean.EFF_PROTECTFROMTYPES,MessagesDataEffprotectfromtypes.M_P_54_EFFECT);
+        }
+        if (_sub instanceof EffectProtectionBean) {
+            formatMessage(MessagesPkBean.EFF_PROTECTION,MessagesDataEffprotection.M_P_55_EFFECT);
+        }
+        if (_sub instanceof EffectRemainedHpRateBean) {
+            formatMessage(MessagesPkBean.EFF_REMAINEDHPRATE,MessagesDataEffremainedhprate.M_P_56_EFFECT);
+        }
+        if (_sub instanceof EffectRestrictionBean) {
+            displayBoolTrue(MessagesPkBean.EFF_RESTRICTION,toInt(((EffectRestrictionBean)_sub).getForbidTargetUsingItem()),MessagesDataEffrestriction.M_P_57_EFFECT_ITEM);
+            displayBoolTrue(MessagesPkBean.EFF_RESTRICTION,toInt(((EffectRestrictionBean)_sub).getForbidTargetUsingItem()),MessagesDataEffrestriction.M_P_57_EFFECT_ITEM_2);
+            displayBoolTrue(MessagesPkBean.EFF_RESTRICTION,toInt(((EffectRestrictionBean)_sub).forbid()),MessagesDataEffrestriction.M_P_57_EFFECT_MOVE);
+        }
+        if (_sub instanceof EffectStatisticBean) {
+            formatMessage(MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_EFFECT);
+        }
+        if (_sub instanceof EffectStatusBean) {
+            formatMessage(MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_EFFECT);
+        }
+        if (_sub instanceof EffectSwitchAbilitiesBean) {
+            formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_EFFECT);
+        }
+        if (_sub instanceof EffectSwitchItemsBean) {
+            formatMessage(MessagesPkBean.EFF_SWITCHITEMS,MessagesDataEffswitchitems.M_P_61_EFFECT);
+        }
+        if (_sub instanceof EffectSwitchMoveTypesBean) {
+            formatMessage(MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_EFFECT);
+        }
+        if (_sub instanceof EffectSwitchPointViewBean) {
+            formatMessage(MessagesPkBean.EFF_SWITCHPOINTVIEW,MessagesDataEffswitchpointview.M_P_63_EFFECT);
+        }
+        if (_sub.getEffect() instanceof EffectSwitchPosition) {
+            formatMessage(MessagesPkBean.EFF_SWITCHPOSITION,MessagesDataEffswitchposition.M_P_64_EFFECT);
+        }
+        if (_sub instanceof EffectSwitchTypesBean) {
+            formatMessage(MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_EFFECT);
+        }
+        if (_sub instanceof EffectTeamBean) {
+            formatMessage(MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_EFFECT);
+        }
+        if (_sub instanceof EffectTeamWhileSendFoeBean) {
+            formatMessage(MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_EFFECT);
+        }
+    }
+    private void preEff3(EffectBean _sub) {
+        if (_sub instanceof EffectUnprotectFromTypesBean) {
+            formatMessage(MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_EFFECT);
+        }
+        if (_sub instanceof EffectVarPPBean) {
+            formatMessage(MessagesPkBean.EFF_VARPP,MessagesDataEffvarpp.M_P_69_EFFECT);
+        }
+        if (_sub instanceof EffectWinMoneyBean) {
+            formatMessage(MessagesPkBean.EFF_WINMONEY,MessagesDataEffwinmoney.M_P_70_EFFECT);
+        }
+    }
     protected void evo(EvolutionBean _sub) {
         formatMessageDirCts(_sub.getName());
         if (_sub instanceof EvolutionLevelGenderBean) {
