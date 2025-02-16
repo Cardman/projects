@@ -583,7 +583,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue()));
+            PairStruct p_ = new PairStruct(new TypesDuoStruct(new TypesDuo(e.getKey().getFirst().getTranslation(),e.getKey().getSecond().getTranslation())),new RtSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -604,16 +604,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         int j_ = 0;
         for (EntryCust<Long, CustList<TranslatedKey>> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),getKeys(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getTpDuoRate(AbsMap<TypesDuo, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TypesDuo, Rate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new TypesDuoStruct(e.getKey()),new RtSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -716,11 +706,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getTypesDuo(CustList<TypesDuo> _ls) {
+    public static NatArrayStruct getTypesDuo(CustList<TranslatedKeyPair> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
-        for (TypesDuo s:_ls) {
-            arr_.set(j_,new TypesDuoStruct(s));
+        for (TranslatedKeyPair s:_ls) {
+            arr_.set(j_,new TypesDuoStruct(new TypesDuo(s.getFirst().getKey(),s.getSecond().getKey())));
             j_++;
         }
         return arr_;

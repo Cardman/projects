@@ -9,7 +9,6 @@ import aiki.beans.fight.*;
 import aiki.beans.game.PlaceNamePk;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
-import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -231,8 +230,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<MiniMapCoords, String>(new ComparatorMiniMapCoords());
     }
 
-    public static DictionaryComparator<TypesDuo,Rate> buildTypesDuoRate(DataBase _data, String _language, boolean _translate, boolean _reverse) {
-        return new DictionaryComparator<TypesDuo, Rate>(new ComparatorTypesDuo(_data, _language,_translate,_reverse));
+    public static DictionaryComparator<TranslatedKeyPair,Rate> buildTypesDuoRate() {
+        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorTranslatedKeyPair());
     }
 
     public static DictionaryComparator<StatisticCategory,Rate> buildStatisticCategoryRate(DataBase _data, String _language) {
@@ -330,12 +329,12 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<StatisticType, Long>(new ComparatorStatisticType(_data, _lg));
     }
 
-    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatisticStatus(FacadeGame _data) {
-        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorStatusStatistic(_data));
+    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatisticStatus() {
+        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorTranslatedKeyPair());
     }
 
-    public static DictionaryComparator<TranslatedKeyPair, Rate> buildWeatherType(FacadeGame _data) {
-        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorWeatherType(_data));
+    public static DictionaryComparator<TranslatedKeyPair, Rate> buildWeatherType() {
+        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorTranslatedKeyPair());
     }
 
     public static DictionaryComparator<StringList, ActivityOfMove> buildActivities(DataBase _data, String _lg) {
@@ -350,7 +349,7 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<Integer, String>(new ComparatorPlaceNumber(_map));
     }
 
-    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatPk(DataBase _data, String _lg) {
-        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorStatisticPokemon(_data, _lg));
+    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatPk() {
+        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorTranslatedKeyPair());
     }
 }

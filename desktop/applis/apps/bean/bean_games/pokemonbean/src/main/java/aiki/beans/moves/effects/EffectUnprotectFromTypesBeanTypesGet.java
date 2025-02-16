@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.PokemonBeanStruct;
-import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class EffectUnprotectFromTypesBeanTypesGet implements NatCaller{
     @Override

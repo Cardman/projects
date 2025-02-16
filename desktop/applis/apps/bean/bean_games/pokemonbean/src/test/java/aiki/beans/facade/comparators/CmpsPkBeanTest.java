@@ -111,158 +111,158 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         assertEq(M_DAM, lists_.get(2).get(1));
         assertEq(M_DAM_BAD, lists_.get(2).get(2));
     }
-    @Test
-    public void cmp5() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,false);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
-        assertEq(M_DAM, lists_.get(0).getPokemonType());
-        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
-        assertEq(M_DAM_BAD, lists_.get(1).getPokemonType());
-    }
-    @Test
-    public void cmp6() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,false);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
-        assertEq(M_DAM_BAD, lists_.get(0).getPokemonType());
-        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
-        assertEq(M_DAM, lists_.get(1).getPokemonType());
-    }
-    @Test
-    public void cmp7() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,false);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
-        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM, lists_.get(0).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
-        assertEq(M_DAM_BAD, lists_.get(1).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
-    }
-    @Test
-    public void cmp8() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,false);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
-        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM_BAD, lists_.get(0).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
-        assertEq(M_DAM, lists_.get(1).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
-    }
-    @Test
-    public void cmp9() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,true);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
-        assertEq(M_DAM, lists_.get(0).getPokemonType());
-        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
-        assertEq(M_DAM_BAD, lists_.get(1).getPokemonType());
-    }
-    @Test
-    public void cmp10() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,true);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
-        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
-        assertEq(M_DAM_BAD, lists_.get(0).getPokemonType());
-        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
-        assertEq(M_DAM, lists_.get(1).getPokemonType());
-    }
-    @Test
-    public void cmp11() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,true);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
-        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM, lists_.get(0).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
-        assertEq(M_DAM_BAD, lists_.get(1).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
-    }
-    @Test
-    public void cmp12() {
-        FacadeGame f_ = facade();
-        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        f_.updateTrs();
-        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,true);
-        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
-        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
-        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
-        lists_.sortElts(csl_);
-        assertEq(2,lists_.size());
-        assertEq(M_DAM_BAD, lists_.get(0).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
-        assertEq(M_DAM, lists_.get(1).getDamageType());
-        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
-    }
+//    @Test
+//    public void cmp5() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,false);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
+//        assertEq(M_DAM, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
+//        assertEq(M_DAM_BAD, lists_.get(1).getPokemonType());
+//    }
+//    @Test
+//    public void cmp6() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,false);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
+//        assertEq(M_DAM_BAD, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
+//        assertEq(M_DAM, lists_.get(1).getPokemonType());
+//    }
+//    @Test
+//    public void cmp7() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,false);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
+//        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM, lists_.get(0).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM_BAD, lists_.get(1).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
+//    }
+//    @Test
+//    public void cmp8() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,false);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
+//        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM_BAD, lists_.get(0).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM, lists_.get(1).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
+//    }
+//    @Test
+//    public void cmp9() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,true);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
+//        assertEq(M_DAM, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
+//        assertEq(M_DAM_BAD, lists_.get(1).getPokemonType());
+//    }
+//    @Test
+//    public void cmp10() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,true);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM));
+//        lists_.add(new TypesDuo(M_DAM_VAR,M_DAM_BAD));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM_VAR, lists_.get(0).getDamageType());
+//        assertEq(M_DAM_BAD, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getDamageType());
+//        assertEq(M_DAM, lists_.get(1).getPokemonType());
+//    }
+//    @Test
+//    public void cmp11() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,true,true);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
+//        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM, lists_.get(0).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM_BAD, lists_.get(1).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
+//    }
+//    @Test
+//    public void cmp12() {
+//        FacadeGame f_ = facade();
+//        f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+//        f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+//        f_.updateTrs();
+//        ComparatorTypesDuo csl_ = new ComparatorTypesDuo(f_.getData(),EN,false,true);
+//        CustList<TypesDuo> lists_ = new CustList<TypesDuo>();
+//        lists_.add(new TypesDuo(M_DAM,M_DAM_VAR));
+//        lists_.add(new TypesDuo(M_DAM_BAD,M_DAM_VAR));
+//        lists_.sortElts(csl_);
+//        assertEq(2,lists_.size());
+//        assertEq(M_DAM_BAD, lists_.get(0).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
+//        assertEq(M_DAM, lists_.get(1).getDamageType());
+//        assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
+//    }
     @Test
     public void cmp13() {
         StringMap<StringMap<String>> trs_ = new StringMap<StringMap<String>>();
@@ -316,20 +316,19 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStatusStatistic c_ = new ComparatorStatusStatistic(f_);
         CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
         lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.SPEED,M_DAM)));
         lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.ACCURACY,M_DAM)));
         lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.SPEED,M_DAM_BAD)));
         lists_.add(AbilityBean.buildPair(f_,new StatisticStatus(Statistic.ACCURACY,M_DAM_BAD)));
-        lists_.sortElts(c_);
+        lists_.sortElts(new ComparatorTranslatedKeyPair());
         assertEq(4,lists_.size());
         assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
         assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(0).getFirst().getKey()));
-        assertEq(M_DAM_BAD,lists_.get(1).getSecond().getKey());
-        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(1).getFirst().getKey()));
-        assertEq(M_DAM,lists_.get(2).getSecond().getKey());
-        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(2).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(1).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(1).getFirst().getKey()));
+        assertEq(M_DAM_BAD,lists_.get(2).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(2).getFirst().getKey()));
         assertEq(M_DAM,lists_.get(3).getSecond().getKey());
         assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(3).getFirst().getKey()));
     }
@@ -374,13 +373,12 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStatisticPokemon c_ = new ComparatorStatisticPokemon(f_.getData(),EN);
         CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
         lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.SPEED,M_DAM)));
         lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.ACCURACY,M_DAM)));
         lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.SPEED,M_DAM_BAD)));
         lists_.add(ItemForBattleBean.buildPair(f_,new StatisticPokemon(Statistic.ACCURACY,M_DAM_BAD)));
-        lists_.sortElts(c_);
+        lists_.sortElts(new ComparatorTranslatedKeyPair());
         assertEq(4,lists_.size());
         assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
         assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(0).getFirst().getKey()));
@@ -403,13 +401,12 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedTypes().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorWeatherType c_ = new ComparatorWeatherType(f_);
         CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
         lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM_BAD, M_DAM)));
         lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM,M_DAM)));
         lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM_BAD,M_DAM_BAD)));
         lists_.add(AbilityBean.buildPair(f_,new WeatherType(M_DAM,M_DAM_BAD)));
-        lists_.sortElts(c_);
+        lists_.sortElts(new ComparatorTranslatedKeyPair());
         assertEq(4,lists_.size());
         assertEq(M_DAM_BAD,lists_.get(0).getFirst().getKey());
         assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());

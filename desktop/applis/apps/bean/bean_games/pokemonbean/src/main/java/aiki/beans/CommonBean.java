@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.game.ImgPkPlayer;
@@ -260,6 +261,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             displayIntDef(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getMultEffectLovingAlly(),MessagesDataEffglobal.M_P_49_MULT_LOVE);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getPreventStatus(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_FORBID_STATUS);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getImmuneTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
+            new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getEfficiencyMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_EFFICIENCY_TABLE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE,MessagesDataEffglobal.M_P_49_EFFICIENCY);
         }
     }
 

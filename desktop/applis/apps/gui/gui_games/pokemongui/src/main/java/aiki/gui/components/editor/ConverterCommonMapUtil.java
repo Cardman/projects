@@ -1,5 +1,7 @@
 package aiki.gui.components.editor;
 
+import aiki.beans.TranslatedKey;
+import aiki.beans.abilities.*;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.*;
@@ -206,6 +208,37 @@ public final class ConverterCommonMapUtil {
             inv_.addEntry(e, trs_);
         }
         return inv_;
+    }
+    public static TranslatedKeyPair build(TypesDuo _o, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStr(_pk, _o.getDamageType()), buildStr(_pk, _o.getPokemonType()));
+    }
+    public static TranslatedKeyPair build(StatisticStatus _o, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStat(_stats, _o.getStatistic()), buildStr(_pk, _o.getStatus()));
+    }
+    public static TranslatedKeyPair buildRev(StatisticStatus _o, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStr(_pk, _o.getStatus()),buildStat(_stats, _o.getStatistic()));
+    }
+    public static TranslatedKeyPair build(WeatherType _o, AbsMap<String, String> _stats, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStr(_stats, _o.getWeather()), buildStr(_pk, _o.getType()));
+    }
+    public static TranslatedKeyPair build(StatisticPokemon _o, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStat(_stats, _o.getStatistic()), buildStr(_pk, _o.getPokemon()));
+    }
+
+    private static TranslatedKey buildStat(AbsMap<Statistic, String> _stats, Statistic _stat) {
+        return new TranslatedKey(_stat.getStatName(), _stats.getVal(_stat));
+    }
+
+    private static TranslatedKey buildStr(AbsMap<String, String> _pk, String _str) {
+        return new TranslatedKey(_str, _pk.getVal(_str));
+    }
+
+    public static int compare(TranslatedKeyPair _o1, TranslatedKeyPair _o2) {
+        int res_ = StringUtil.compareStrings(StringUtil.nullToEmpty(_o1.getFirst().getTranslation()),StringUtil.nullToEmpty(_o2.getFirst().getTranslation()));
+        if (res_ != 0) {
+            return res_;
+        }
+        return StringUtil.compareStrings(StringUtil.nullToEmpty(_o1.getSecond().getTranslation()),StringUtil.nullToEmpty(_o2.getSecond().getTranslation()));
     }
     public static void patchReplace(StringMap<StringMap<String>> _map, CustList<String> _entities, AbstractProgramInfos _api) {
         patchReplace(_map, _entities, _api, null);

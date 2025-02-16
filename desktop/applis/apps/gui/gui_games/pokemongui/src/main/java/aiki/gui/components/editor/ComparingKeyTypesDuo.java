@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.beans.facade.comparators.*;
 import aiki.fight.util.*;
 import code.gui.*;
 import code.maths.*;
@@ -17,6 +16,6 @@ public final class ComparingKeyTypesDuo implements Comparing<EditedCrudPair<Type
 
     @Override
     public int compare(EditedCrudPair<TypesDuo, Rate> _one, EditedCrudPair<TypesDuo, Rate> _two) {
-        return ComparatorTypesDuo.compareTr(_one.getKey(),_two.getKey(), cats);
+        return ConverterCommonMapUtil.compare(ConverterCommonMapUtil.build(_one.getKey(), cats),ConverterCommonMapUtil.build(_two.getKey(), cats));
     }
 }

@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.beans.facade.comparators.*;
 import aiki.fight.util.*;
 import code.util.*;
 import code.util.ints.*;
@@ -15,6 +14,6 @@ public final class ComparingTypesDuo implements Comparing<TypesDuo> {
 
     @Override
     public int compare(TypesDuo _one, TypesDuo _two) {
-        return ComparatorTypesDuo.compareTr(_one,_two, cats);
+        return ConverterCommonMapUtil.compare(ConverterCommonMapUtil.build(_one, cats),ConverterCommonMapUtil.build(_two, cats));
     }
 }

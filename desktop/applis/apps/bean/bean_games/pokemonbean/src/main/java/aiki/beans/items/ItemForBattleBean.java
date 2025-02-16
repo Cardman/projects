@@ -126,7 +126,7 @@ public class ItemForBattleBean extends ItemBean {
         }
         multStatRank = multStatRank_;
         DictionaryComparator<TranslatedKeyPair, Long> multStatPokemonRank_;
-        multStatPokemonRank_ = DictionaryComparatorUtil.buildStatPk(data_, getLanguage());
+        multStatPokemonRank_ = DictionaryComparatorUtil.buildStatPk();
         for (StatisticPokemon s: item_.getMultStatPokemonRank().getKeys()) {
             multStatPokemonRank_.put(buildPair(getFacade(),s), item_.getMultStatPokemonRank().getVal(s));
         }

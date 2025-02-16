@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.abilities.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.facade.FacadeGame;
 import aiki.fight.util.TypesDuo;
@@ -11,7 +12,7 @@ import org.junit.Test;
 public final class FightHelpBeanEfficiencyTest extends InitDbFightHelp {
     @Test
     public void movesTypesDefWeatherInitTest() {
-        DictionaryComparator<TypesDuo, Rate> ls_ = FightHelpBean.efficiencyInit(db().getData(),EN);
+        DictionaryComparator<TranslatedKeyPair, Rate> ls_ = FightHelpBean.efficiencyInit(dbTr());
         assertEq(4,ls_.size());
     }
     @Test
@@ -56,11 +57,11 @@ public final class FightHelpBeanEfficiencyTest extends InitDbFightHelp {
     }
     @Test
     public void getEfficiencyKey2() {
-        assertEq(T_TYPE2_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),1))));
+        assertEq(T_TYPE1_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),1))));
     }
     @Test
     public void getEfficiencyValue2() {
-        assertEq(T_TYPE1_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),1))));
+        assertEq(T_TYPE2_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),1))));
     }
     @Test
     public void getEfficiencyVal2() {
@@ -72,11 +73,11 @@ public final class FightHelpBeanEfficiencyTest extends InitDbFightHelp {
     }
     @Test
     public void getEfficiencyKey3() {
-        assertEq(T_TYPE1_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),2))));
+        assertEq(T_TYPE2_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),2))));
     }
     @Test
     public void getEfficiencyValue3() {
-        assertEq(T_TYPE2_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),2))));
+        assertEq(T_TYPE1_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),2))));
     }
     @Test
     public void getEfficiencyVal3() {
@@ -111,6 +112,11 @@ public final class FightHelpBeanEfficiencyTest extends InitDbFightHelp {
         assertEq(T_TYPE2_TR,elt(callFightHelpBeanTypesGet(bean(db())),1));
     }
 
+    private static FacadeGame dbTr() {
+        FacadeGame f_ = db();
+        f_.updateTrs();
+        return f_;
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());

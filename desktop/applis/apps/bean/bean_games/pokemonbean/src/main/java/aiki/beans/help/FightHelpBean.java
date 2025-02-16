@@ -4,6 +4,7 @@ import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.TranslatedKey;
 import aiki.beans.WithFilterBean;
+import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -184,7 +185,7 @@ public class FightHelpBean extends CommonBean {
     private CustList<TranslatedKey> itemsTypesDef;
     private final LongTreeMap<Rate> boosts = new LongTreeMap<Rate>();
     private final LongTreeMap<Rate> boostsCh = new LongTreeMap<Rate>();
-    private DictionaryComparator<TypesDuo,Rate> efficiency;
+    private DictionaryComparator<TranslatedKeyPair,Rate> efficiency;
     private CustList<TranslatedKey> types;
     private Rate minHpNotKo;
     private Rate wonHappinessPointsLevel;
@@ -271,7 +272,7 @@ public class FightHelpBean extends CommonBean {
 //                return _o1.getDamageType().compareTo(_o2.getDamageType());
 //            }
 //        });
-        efficiency = efficiencyInit(data_,getLanguage());
+        efficiency = efficiencyInit(getFacade());
         types = typesInit(getFacade());
         initFormulaElements();
     }
@@ -315,14 +316,10 @@ public class FightHelpBean extends CommonBean {
         }
         return abilitiesBreakImmu_;
     }
-    static DictionaryComparator<TypesDuo, Rate> efficiencyInit(DataBase _db, String _lg) {
-        DictionaryComparator<TypesDuo, Rate> efficiency_ = DictionaryComparatorUtil.buildTypesDuoRate(_db, _lg, true, true);
-        StringMap<String> translatedTypes_ = _db.getTranslatedTypes().getVal(_lg);
-        for (TypesDuo t: _db.getTableTypes().getKeys()) {
-            TypesDuo t_ = new TypesDuo();
-            t_.setPokemonType(translatedTypes_.getVal(t.getPokemonType()));
-            t_.setDamageType(translatedTypes_.getVal(t.getDamageType()));
-            efficiency_.put(t_, _db.getTableTypes().getVal(t));
+    static DictionaryComparator<TranslatedKeyPair, Rate> efficiencyInit(FacadeGame _db) {
+        DictionaryComparator<TranslatedKeyPair, Rate> efficiency_ = DictionaryComparatorUtil.buildTypesDuoRate();
+        for (TypesDuo t: _db.getData().getTableTypes().getKeys()) {
+            efficiency_.put(new TranslatedKeyPair(buildTy(_db,t.getPokemonType()),buildTy(_db,t.getDamageType())), _db.getData().getTableTypes().getVal(t));
         }
         return efficiency_;
     }
@@ -4303,9 +4300,9 @@ public class FightHelpBean extends CommonBean {
         if (_index == IndexConstants.FIRST_INDEX) {
             return true;
         }
-        TypesDuo types_ = efficiency.getKey(_index);
-        TypesDuo typesNext_ = efficiency.getKey(_index - 1);
-        return !StringUtil.quickEq(types_.getPokemonType(),typesNext_.getPokemonType());
+        String types_ = efficiency.getKey(_index).getFirst().getKey();
+        String typesNext_ = efficiency.getKey(_index - 1).getFirst().getKey();
+        return !StringUtil.quickEq(types_,typesNext_);
     }
     public String getEfficiency(int _def, int _off) {
         int i_ = _def * types.size() + _off;
@@ -4770,7 +4767,7 @@ public class FightHelpBean extends CommonBean {
         return types;
     }
 
-    public DictionaryComparator<TypesDuo,Rate> getEfficiency() {
+    public DictionaryComparator<TranslatedKeyPair,Rate> getEfficiency() {
         return efficiency;
     }
 

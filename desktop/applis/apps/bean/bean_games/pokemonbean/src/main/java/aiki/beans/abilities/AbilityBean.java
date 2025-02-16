@@ -3,8 +3,7 @@ package aiki.beans.abilities;
 import aiki.beans.CommonBean;
 import aiki.beans.EndRoundCommon;
 import aiki.beans.TranslatedKey;
-import aiki.beans.facade.comparators.ComparatorStatusStatistic;
-import aiki.beans.facade.comparators.ComparatorTypesDuo;
+import aiki.beans.facade.comparators.ComparatorTranslatedKeyPair;
 import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -79,7 +78,7 @@ public class AbilityBean extends CommonBean {
     private IdList<Statistic> immuLowStat;
     private IdList<Statistic> maxStatisticsIfCh;
     private CustList<TranslatedKeyPair> immuLowStatIfStatus;
-    private CustList<TypesDuo> breakFoeImmune;
+    private CustList<TranslatedKeyPair> breakFoeImmune;
     private DictionaryComparator<Statistic, Long> bonusStatRank;
     private DictionaryComparator<Statistic, Long> boostStatRankEndRound;
     private DictionaryComparator<Statistic, Long> boostStatRankProtected;
@@ -262,7 +261,7 @@ public class AbilityBean extends CommonBean {
         }
         healHpByWeather = healHpByWeather_;
         DictionaryComparator<TranslatedKeyPair, Rate> healHpByTypeIfWeather_;
-        healHpByTypeIfWeather_ = DictionaryComparatorUtil.buildWeatherType(getFacade());
+        healHpByTypeIfWeather_ = DictionaryComparatorUtil.buildWeatherType();
         for (WeatherType w: ability_.getHealHpByTypeIfWeather().getKeys()) {
             healHpByTypeIfWeather_.put(buildPair(getFacade(), w), ability_.getHealHpByTypeIfWeather().getVal(w));
         }
@@ -307,7 +306,7 @@ public class AbilityBean extends CommonBean {
         }
         multStatIfDamgeType = multStatIfDamgeType_;
         DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank_;
-        multStatIfStatutRank_ = DictionaryComparatorUtil.buildStatisticStatus(getFacade());
+        multStatIfStatutRank_ = DictionaryComparatorUtil.buildStatisticStatus();
         for (StatisticStatus w: ability_.getMultStatIfStatutRank().getKeys()) {
             multStatIfStatutRank_.put(buildPair(getFacade(), w), ability_.getMultStatIfStatutRank().getVal(w));
         }
@@ -331,6 +330,10 @@ public class AbilityBean extends CommonBean {
 
     public static TranslatedKeyPair buildPair(FacadeGame _data, StatisticStatus _w) {
         return new TranslatedKeyPair(buildSi(_data, _w.getStatistic()), buildSt(_data, _w.getStatus()));
+    }
+
+    public static TranslatedKeyPair buildPairRev(FacadeGame _data, StatisticStatus _w) {
+        return new TranslatedKeyPair(buildSt(_data, _w.getStatus()),buildSi(_data, _w.getStatistic()));
     }
 
     public static TranslatedKeyPair buildPair(FacadeGame _data, WeatherType _w) {
@@ -407,12 +410,11 @@ public class AbilityBean extends CommonBean {
         return bonusStatRank_;
     }
 
-    private CustList<TypesDuo> breakFoeImmune(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        CustList<TypesDuo> breakFoeImmune_;
-        breakFoeImmune_ = new CustList<TypesDuo>();
+    private CustList<TranslatedKeyPair> breakFoeImmune(AbilityData _ability) {
+        CustList<TranslatedKeyPair> breakFoeImmune_;
+        breakFoeImmune_ = new CustList<TranslatedKeyPair>();
         for (TypesDuo s: _ability.getBreakFoeImmune()) {
-            breakFoeImmune_.add(new TypesDuo(s.getDamageType(),s.getPokemonType()));
+            breakFoeImmune_.add(new TranslatedKeyPair(buildTy(getFacade(),s.getDamageType()),buildTy(getFacade(),s.getPokemonType())));
         }
 //        breakFoeImmune_.sort(new NaturalComparator<TypesDuo>() {
 //            @Override
@@ -427,7 +429,7 @@ public class AbilityBean extends CommonBean {
 //                return ComparatorTrString.compare(translatedTypesCmp_, _o1.getPokemonType(), _o2.getPokemonType());
 //            }
 //        });
-        breakFoeImmune_.sortElts(new ComparatorTypesDuo(data_, getLanguage(), false,false));
+        breakFoeImmune_.sortElts(new ComparatorTranslatedKeyPair());
         return breakFoeImmune_;
     }
 
@@ -457,9 +459,9 @@ public class AbilityBean extends CommonBean {
         CustList<TranslatedKeyPair> immuLowStatIfStatus_;
         immuLowStatIfStatus_ = new CustList<TranslatedKeyPair>();
         for (StatisticStatus s: _ability.getImmuLowStatIfStatus()) {
-            immuLowStatIfStatus_.add(buildPair(getFacade(),new StatisticStatus(s.getStatistic(),s.getStatus())));
+            immuLowStatIfStatus_.add(buildPairRev(getFacade(),new StatisticStatus(s.getStatistic(),s.getStatus())));
         }
-        immuLowStatIfStatus_.sortElts(new ComparatorStatusStatistic(getFacade()));
+        immuLowStatIfStatus_.sortElts(new ComparatorTranslatedKeyPair());
         return immuLowStatIfStatus_;
     }
 
@@ -896,7 +898,7 @@ public class AbilityBean extends CommonBean {
         return tryRedirect(failStatus.getKey(_index));
     }
     public String getTrImmuLowStatIfStatusKey(int _index) {
-        return immuLowStatIfStatus.get(_index).getSecond().getTranslation();
+        return immuLowStatIfStatus.get(_index).getFirst().getTranslation();
 //        String status_ = immuLowStatIfStatus.get(_index).getStatus();
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsStatus_;
@@ -904,10 +906,10 @@ public class AbilityBean extends CommonBean {
 //        return translationsStatus_.getVal(status_);
     }
     public String clickImmuLowStatIfStatusKey(int _index) {
-        return tryRedirect(immuLowStatIfStatus.get(_index).getSecond());
+        return tryRedirect(immuLowStatIfStatus.get(_index).getFirst());
     }
     public String getTrImmuLowStatIfStatusValue(int _index) {
-        return immuLowStatIfStatus.get(_index).getFirst().getTranslation();
+        return immuLowStatIfStatus.get(_index).getSecond().getTranslation();
 //        Statistic status_ = immuLowStatIfStatus.get(_index).getStatistic();
 //        DataBase data_ = getDataBase();
 //        AbsMap<Statistic,String> translationsStatistics_;
@@ -1066,18 +1068,20 @@ public class AbilityBean extends CommonBean {
         return translationsStatistics_.getVal(move_);
     }
     public String getTrBreakFoeImmuneKey(int _index) {
-        String status_ = breakFoeImmune.get(_index).getDamageType();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return breakFoeImmune.get(_index).getFirst().getTranslation();
+//        String status_ = breakFoeImmune.get(_index).getDamageType();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String getTrBreakFoeImmuneValue(int _index) {
-        String status_ = breakFoeImmune.get(_index).getPokemonType();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsStatus_;
-        translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsStatus_.getVal(status_);
+        return breakFoeImmune.get(_index).getSecond().getTranslation();
+//        String status_ = breakFoeImmune.get(_index).getPokemonType();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsStatus_;
+//        translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsStatus_.getVal(status_);
     }
     public String getTrBonusStatRank(int _index) {
         Statistic move_ = bonusStatRank.getKey(_index);
@@ -1431,7 +1435,7 @@ public class AbilityBean extends CommonBean {
         return forwardStatus;
     }
 
-    public CustList<TypesDuo> getBreakFoeImmune() {
+    public CustList<TranslatedKeyPair> getBreakFoeImmune() {
         return breakFoeImmune;
     }
 

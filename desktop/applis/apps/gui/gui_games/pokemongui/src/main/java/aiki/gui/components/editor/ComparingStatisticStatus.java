@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.beans.facade.comparators.*;
 import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import code.util.*;
@@ -18,6 +17,6 @@ public final class ComparingStatisticStatus implements Comparing<StatisticStatus
 
     @Override
     public int compare(StatisticStatus _one, StatisticStatus _two) {
-        return ComparatorStatusStatistic.comparePairs(_one,_two, types, stats);
+        return ConverterCommonMapUtil.compare(ConverterCommonMapUtil.buildRev(_one, stats, types),ConverterCommonMapUtil.buildRev(_two, stats, types));
     }
 }

@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.*;
+import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
@@ -15,7 +16,7 @@ public class EffectGlobalBean extends EffectBean {
     private EffectGlobalCore effectGlobalCore;
     private CustList<TranslatedKey> preventStatus;
     private CustList<TranslatedKey> immuneTypes;
-    private DictionaryComparator<TypesDuo, Rate> efficiencyMoves;
+    private DictionaryComparator<TranslatedKeyPair, Rate> efficiencyMoves;
     private CustList<TranslatedKey> disableImmuAgainstTypes;
     private CustList<TranslatedKey> cancelProtectingAbilities;
     private CustList<TranslatedKey> unusableMoves;
@@ -54,13 +55,10 @@ public class EffectGlobalBean extends EffectBean {
 //                return _o1.getPokemonType().compareTo(_o2.getPokemonType());
 //            }
 //        });
-        DictionaryComparator<TypesDuo, Rate> efficiencyMoves_;
-        efficiencyMoves_ = DictionaryComparatorUtil.buildTypesDuoRate(data_, getLanguage(), true,false);
+        DictionaryComparator<TranslatedKeyPair, Rate> efficiencyMoves_;
+        efficiencyMoves_ = DictionaryComparatorUtil.buildTypesDuoRate();
         for (TypesDuo t: effect_.getEfficiencyMoves().getKeys()) {
-            TypesDuo t_ = new TypesDuo();
-            t_.setDamageType(translatedTypes_.getVal(t.getDamageType()));
-            t_.setPokemonType(translatedTypes_.getVal(t.getPokemonType()));
-            efficiencyMoves_.put(t_, effect_.getEfficiencyMoves().getVal(t));
+            efficiencyMoves_.put(new TranslatedKeyPair(buildTy(getFacade(),t.getDamageType()),buildTy(getFacade(),t.getPokemonType())), effect_.getEfficiencyMoves().getVal(t));
         }
         efficiencyMoves = efficiencyMoves_;
         disableImmuAgainstTypes = listTrStringsTy(effect_.getDisableImmuAgainstTypes(), getFacade());
@@ -274,7 +272,7 @@ public class EffectGlobalBean extends EffectBean {
         return immuneTypes;
     }
 
-    public DictionaryComparator<TypesDuo,Rate> getEfficiencyMoves() {
+    public DictionaryComparator<TranslatedKeyPair,Rate> getEfficiencyMoves() {
         return efficiencyMoves;
     }
 
