@@ -3,10 +3,13 @@ package aiki.beans;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.game.ImgPkPlayer;
+import aiki.beans.moves.effects.*;
+import aiki.beans.pokemon.evolutions.*;
 import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
+import aiki.fight.moves.effects.EffectAccuracy;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
@@ -23,7 +26,7 @@ import code.bean.nat.StringMapObjectBase;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.scripts.confs.PkScriptPages;
-import code.scripts.pages.aiki.MessagesFightFight;
+import code.scripts.pages.aiki.*;
 import code.sml.util.TranslationsFile;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -195,6 +198,59 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
 //        }
     }
+    protected void eff(EffectBean _e) {
+        target(_e.getEffect().getTargetChoice(),MessagesPkBean.EFF,MessagesDataEff.M_P_36_TARGETS_ADJ_ADV,MessagesDataEff.M_P_36_TARGETS_ADJ_MULT,MessagesDataEff.M_P_36_TARGETS_ADJ_UNIQ,MessagesDataEff.M_P_36_TARGETS_ALLIE,MessagesDataEff.M_P_36_TARGETS_ALLIES,MessagesDataEff.M_P_36_TARGETS_ANY_FOE,MessagesDataEff.M_P_36_TARGETS_AUTRE_UNIQ,MessagesDataEff.M_P_36_TARGETS_GLOBALE,MessagesDataEff.M_P_36_TARGETS_LANCEUR,MessagesDataEff.M_P_36_TARGETS_PSEUDO_GLOBALE,MessagesDataEff.M_P_36_TARGETS_TOUS_ADV,MessagesDataEff.M_P_36_TARGETS_UNIQUE_IMPORTE);
+        displayStringList(MessagesPkBean.EFF,_e.getReasons(),MessagesDataEff.M_P_36_REASONS);
+        mapVarsInit(_e.getMapVarsFail());
+        displayBoolTrue(MessagesPkBean.EFF,toInt(_e.getNeedSuccessFirstEffect()),MessagesDataEff.M_P_36_NEED_SUCESS);
+        if (_e.getEffect() instanceof EffectAccuracy) {
+            formatMessage(MessagesPkBean.EFF_ACCURACY,MessagesDataEffaccuracy.M_P_37_ACCURACY_MAX);
+        }
+        if (_e instanceof EffectAllyBean) {
+            formatMessage(MessagesPkBean.EFF_ALLY,MessagesDataEffally.M_P_38_MUL_ALLY_DAMAGE,((EffectAllyBean)_e).getMultAllyDamage().toNumberString());
+        }
+    }
+
+    protected void evo(EvolutionBean _sub) {
+        formatMessageDirCts(_sub.getName());
+        if (_sub instanceof EvolutionLevelGenderBean) {
+            formatMessageCts(MessagesPkBean.EVO_LEVEL_GENDER, MessagesDataEvolutionsEvolevelgender.M_P_76_GENDER, _sub.getDisplayBase(),Long.toString(((EvolutionLevelGenderBean) _sub).getLevel()),((EvolutionLevelGenderBean) _sub).getGender());
+        } else if (_sub instanceof EvolutionLevelBean) {
+            formatMessageCts(MessagesPkBean.EVO_LEVEL, MessagesDataEvolutionsEvolevel.M_P_75_LEVEL, _sub.getDisplayBase(),Long.toString(((EvolutionLevelBean) _sub).getLevel()));
+        } else if (_sub instanceof EvolutionHappinessBean) {
+            formatMessageCts(MessagesPkBean.EVO_HAPPINESS, MessagesDataEvolutionsEvohappiness.M_P_73_HAPPY, _sub.getDisplayBase(),Long.toString(((EvolutionHappinessBean) _sub).getMin()));
+        } else if (_sub instanceof EvolutionMoveBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_MOVE,MessagesDataEvolutionsEvomove.M_P_77_MOVE, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionMoveBean) _sub).getMove());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionItemBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_ITEM,MessagesDataEvolutionsEvoitem.M_P_74_ITEM, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionItemBean) _sub).getItem());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionStoneGenderBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_STONE_GENDER,MessagesDataEvolutionsEvostonegender.M_P_79_STONE_GENDER, _sub.getDisplayBase(),((EvolutionStoneGenderBean) _sub).getGender());
+            formatMessageDir(((EvolutionStoneGenderBean) _sub).getStone());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionStoneBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_STONE,MessagesDataEvolutionsEvostone.M_P_78_STONE, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionStoneBean) _sub).getStone());
+            feedParentsCts();
+        } else if (_sub instanceof EvolutionMoveTypeBean) {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_TYPE,MessagesDataEvolutionsEvotype.M_P_81_TYPE, _sub.getDisplayBase(),((EvolutionMoveTypeBean)_sub).getType());
+            feedParentsCts();
+        } else {
+            initLine();
+            formatMessage(MessagesPkBean.EVO_TEAM,MessagesDataEvolutionsEvoteam.M_P_80_TEAM, _sub.getDisplayBase());
+            formatMessageDir(((EvolutionTeamBean) _sub).getOther());
+            feedParentsCts();
+        }
+    }
+
     protected void mapVarsInit(AbsMap<String,String> _m) {
         for (EntryCust<String,String> e: _m.entryList()) {
             initLine();

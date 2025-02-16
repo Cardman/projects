@@ -138,46 +138,6 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         formatMessageAnc(new PokemonBeanClickPokedex(this),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_POKEDEX);
     }
 
-    private void evo(EvolutionBean _sub) {
-        formatMessageDirCts(_sub.getName());
-        if (_sub instanceof EvolutionLevelGenderBean) {
-            formatMessageCts(MessagesPkBean.EVO_LEVEL_GENDER,MessagesDataEvolutionsEvolevelgender.M_P_76_GENDER, _sub.getDisplayBase(),Long.toString(((EvolutionLevelGenderBean) _sub).getLevel()),((EvolutionLevelGenderBean) _sub).getGender());
-        } else if (_sub instanceof EvolutionLevelBean) {
-            formatMessageCts(MessagesPkBean.EVO_LEVEL,MessagesDataEvolutionsEvolevel.M_P_75_LEVEL, _sub.getDisplayBase(),Long.toString(((EvolutionLevelBean) _sub).getLevel()));
-        } else if (_sub instanceof EvolutionHappinessBean) {
-            formatMessageCts(MessagesPkBean.EVO_HAPPINESS,MessagesDataEvolutionsEvohappiness.M_P_73_HAPPY, _sub.getDisplayBase(),Long.toString(((EvolutionHappinessBean) _sub).getMin()));
-        } else if (_sub instanceof EvolutionMoveBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_MOVE,MessagesDataEvolutionsEvomove.M_P_77_MOVE, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionMoveBean) _sub).getMove());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionItemBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_ITEM,MessagesDataEvolutionsEvoitem.M_P_74_ITEM, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionItemBean) _sub).getItem());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionStoneGenderBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_STONE_GENDER,MessagesDataEvolutionsEvostonegender.M_P_79_STONE_GENDER, _sub.getDisplayBase(),((EvolutionStoneGenderBean) _sub).getGender());
-            formatMessageDir(((EvolutionStoneGenderBean) _sub).getStone());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionStoneBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_STONE,MessagesDataEvolutionsEvostone.M_P_78_STONE, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionStoneBean) _sub).getStone());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionMoveTypeBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_TYPE,MessagesDataEvolutionsEvotype.M_P_81_TYPE, _sub.getDisplayBase(),((EvolutionMoveTypeBean)_sub).getType());
-            feedParentsCts();
-        } else {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_TEAM,MessagesDataEvolutionsEvoteam.M_P_80_TEAM, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionTeamBean) _sub).getOther());
-            feedParentsCts();
-        }
-    }
-
     public CustList<EvolutionBean> getBeans() {
         return beans;
     }

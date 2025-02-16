@@ -28,7 +28,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class MoveBean extends CommonBean implements BeanRenderWithAppName{
+public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
 
     private String name;
     private String displayName;
@@ -67,6 +67,7 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
     private CustList<TranslatedKey> movesTmLearntByPokemon;
     private CustList<TranslatedKey> movesHmLearntByPokemon;
     private CustList<TranslatedKey> movesMtLearntByPokemon;
+    private CustList<EffectBean> beans;
 
     public MoveBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -116,6 +117,18 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,items,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_ITEMS_AFFECT);
         displayBoolTrue(MessagesPkBean.MV_DATA,toInt(cannotKo),MessagesDataMovesData.M_P_35_CANNOT_KO);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,affectedByMoves,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_AFFECT_BY_MOVES);
+        int len_ = beans.size();
+        for (int i = 0; i < len_; i++) {
+            if (effPrimOrBeforeNotEndRound(i)) {
+                displayBoolFull(MessagesPkBean.MV_DATA,toInt(isBeforePrimaryEffect(i)),MessagesDataMovesData.M_P_35_EFFECTS_BEF_FIRST,MessagesDataMovesData.M_P_35_EFFECTS_FIRST);
+            }
+            if (effSecNotEndRound(i)) {
+                formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_EFFECTS_SEC);
+                displayBoolTrue(MessagesPkBean.MV_DATA,toInt(secEffectIfNoDamage),MessagesDataMovesData.M_P_35_EFFECT_WHILE_NO_DAMAGE);
+            }
+            displayBoolTrue(MessagesPkBean.MV_DATA,toInt(isEndRoundEffect(i)),MessagesDataMovesData.M_P_35_EFFECTS_END_ROUND);
+            eff(beans.get(i));
+        }
     }
 
     public StringMap<String> file() {
@@ -161,6 +174,16 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
             effects_.add(i);
         }
         effects = effects_;
+        CustList<EffectBean> curr_ = getForms().getCurrentBean();
+        beans = curr_;
+        curr_.clear();
+        CustList<Effect> effs_ = moveData_.getEffects();
+        int len_ = effs_.size();
+        for (int i = 0; i < len_; i++) {
+            buildOne(curr_, effs_, i);
+            buildTwo(curr_, effs_, i);
+            buildThree(curr_, effs_, i);
+        }
         repeatRoundLaw = DictionaryComparatorUtil.buildIntRate(moveData_.getRepeatRoundLaw());
         rankIncrementNbRound = moveData_.getRankIncrementNbRound();
         rechargeRound = moveData_.getRechargeRound();
@@ -1078,17 +1101,6 @@ public class MoveBean extends CommonBean implements BeanRenderWithAppName{
     }
 
     public Ints getEffects() {
-        DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name);
-        CustList<EffectBean> curr_ = getForms().getCurrentBean();
-        curr_.clear();
-        CustList<Effect> effs_ = moveData_.getEffects();
-        int len_ = effs_.size();
-        for (int i = 0; i < len_; i++) {
-            buildOne(curr_, effs_, i);
-            buildTwo(curr_, effs_, i);
-            buildThree(curr_, effs_, i);
-        }
         return effects;
     }
 

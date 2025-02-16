@@ -25,7 +25,7 @@ public class EffectBean extends CommonBean {
         needSuccessFirstEffect = effect.getRequiredSuccessfulEffects().containsObj(move_.indexOfPrimaryEffect());
     }
 
-    protected Effect getEffect() {
+    public Effect getEffect() {
         return effect;
     }
 
