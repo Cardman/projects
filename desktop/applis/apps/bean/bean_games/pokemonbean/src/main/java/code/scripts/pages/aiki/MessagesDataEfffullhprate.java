@@ -16,7 +16,7 @@ public final class MessagesDataEfffullhprate {
         e_.add(M_P_48_EFFECT,"This effect makes vary the hp in function by a rate of full hp of the fighter.");
         e_.add(M_P_48_FORMULA,"{0}");
         e_.add(M_P_48_LEFT_USER_HP,"The user decreases {0} of its full hp.");
-        e_.add(M_P_48_RESTORED,"Here is the rate of full restored hp of the user:");
+        e_.add(M_P_48_RESTORED,"Here is the rate of full restored hp of the user:{0}");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -25,7 +25,7 @@ public final class MessagesDataEfffullhprate {
         f_.add(M_P_48_EFFECT,"Cet effet fait varier les pv en fonction d''un quota de pv totaux du combattant.");
         f_.add(M_P_48_FORMULA,"{0}");
         f_.add(M_P_48_LEFT_USER_HP,"Le lanceur sacrifie {0} de ses pv max.");
-        f_.add(M_P_48_RESTORED,"Voici le taux des pv max restaurés du lanceur:");
+        f_.add(M_P_48_RESTORED,"Voici le taux des pv max restaurés du lanceur:{0}");
         return f_;
     }
 }

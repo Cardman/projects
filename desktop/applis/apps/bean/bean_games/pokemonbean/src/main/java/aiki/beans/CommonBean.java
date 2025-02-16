@@ -238,6 +238,29 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         if (_sub instanceof EffectDamageBean) {
             effDam((EffectDamageBean) _sub);
         }
+        if (_sub instanceof EffectDamageRateBean) {
+            displayBoolFull(MessagesPkBean.EFF_DAMAGERATE,toInt(((EffectDamageRateBean)_sub).getWinHp()),MessagesDataEffdamagerate.M_P_46_POS_RATE,MessagesDataEffdamagerate.M_P_46_NEG_RATE,((EffectDamageRateBean)_sub).getRateDamage().toNumberString());
+        }
+        if (_sub instanceof EffectFullHpRateBean) {
+            displayIntDef(MessagesPkBean.EFF_FULLHPRATE,((EffectFullHpRateBean)_sub).getLeftUserHp(),MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP);
+            displayNotEmpty(MessagesPkBean.EFF_FULLHPRATE,((EffectFullHpRateBean)_sub).getRestoredHp(),MessagesDataEfffullhprate.M_P_48_RESTORED);
+            mapVarsInit(((EffectFullHpRateBean)_sub).getMapVarsRestored());
+            displayIntDef(MessagesPkBean.EFF_FULLHPRATE,((EffectFullHpRateBean)_sub).getClosestFoeDamageRateHp(),MessagesDataEfffullhprate.M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP);
+        }
+        if (_sub instanceof EffectGlobalBean) {
+            displayBoolFull(MessagesPkBean.EFF_GLOBAL,toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getWeather()),MessagesDataEffglobal.M_P_49_IS_WEATHER,MessagesDataEffglobal.M_P_49_IS_NOT_WEATHER);
+            displayBoolTrue(MessagesPkBean.EFF_GLOBAL,toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getCanceledIfUsed()),MessagesDataEffglobal.M_P_49_CANCEL_REUSE);
+            displayBoolTrue(MessagesPkBean.EFF_GLOBAL,toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getReverseOrderOfSortBySpeed()),MessagesDataEffglobal.M_P_49_REVERSE_SPEED);
+            displayBoolTrue(MessagesPkBean.EFF_GLOBAL,toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getUnusableItem()),MessagesDataEffglobal.M_P_49_UNUSABLE_ITEM);
+            displayBoolTrue(MessagesPkBean.EFF_GLOBAL,toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getPuttingKo()),MessagesDataEffglobal.M_P_49_PUTTING_KO);
+            displayIntDef(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getEffectGlobalCore().getMultAccuracy(),MessagesDataEffglobal.M_P_49_MULT_ACC);
+            displayIntDef(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getEffectGlobalCore().getDamageEndRound(),MessagesDataEffglobal.M_P_49_DAMAGE_END_ROUND);
+            displayIntDef(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getEffectGlobalCore().getHealingEndRoundGround(),MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_GROUND);
+            displayIntDef(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getEffectGlobalCore().getHealingEndRound(),MessagesDataEffglobal.M_P_49_HEALING_END_ROUND);
+            displayIntDef(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getMultEffectLovingAlly(),MessagesDataEffglobal.M_P_49_MULT_LOVE);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getPreventStatus(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_FORBID_STATUS);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getImmuneTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
+        }
     }
 
     private void effDam(EffectDamageBean _sub) {
