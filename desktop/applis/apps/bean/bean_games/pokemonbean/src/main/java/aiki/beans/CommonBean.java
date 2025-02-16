@@ -575,6 +575,12 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             formatMessage(_file,_two,Long.toString(_value));
         }
     }
+
+    public void displayIntDef(String _file, long _value, String _one) {
+        if (_value != 0) {
+            formatMessage(_file,_one,Long.toString(_value));
+        }
+    }
     public void target(TargetChoice _target, String _file, String... _poss) {
         if (_target == TargetChoice.ADJ_ADV) {
             formatMessage(_file,_poss[0]);
