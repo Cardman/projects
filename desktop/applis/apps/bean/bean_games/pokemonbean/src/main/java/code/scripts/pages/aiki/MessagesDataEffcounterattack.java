@@ -25,7 +25,7 @@ public final class MessagesDataEffcounterattack {
         e_.add(M_P_44_EFFECT,"The effect protects its user against some moves and can let its user counter attack (return some effects of these moves).");
         e_.add(M_P_44_FAIL_PROTECT,"While a pokemon uses a move against the user of the move {0}, the protection of the effect fails if and only if one of the conditions is checked:");
         e_.add(M_P_44_FORMULA,"{0}");
-        e_.add(M_P_44_SUFFERING_DIRECT,"While a pokemon uses a move against the user of the move {0} with a direct move, the rate of lost life is {1}.");
+        e_.add(M_P_44_SUFFERING_DIRECT,"While a pokemon uses a move against the user of this move with a direct move, the rate of lost life is {0}.");
         e_.add(M_P_44_SUFFERING_TYPES,"While a pokemon uses a move against the user of the move {0}, it loose health points in function by the types of the used move (damage is added if there is some types for the move):");
         e_.add(M_P_44_SUFFERING_TYPES_HP,"Rate of lost life");
         e_.add(M_P_44_SUFFERING_TYPES_T,"Type of the move");
@@ -40,7 +40,7 @@ public final class MessagesDataEffcounterattack {
         f_.add(M_P_44_EFFECT,"L''effet protège son lanceur contre certains attaques et peut permettre de contre attaquer (retourner certains des effets de ces attaques).");
         f_.add(M_P_44_FAIL_PROTECT,"Lorsqu''un pokemon attaque le lanceur de l''attaque {0}, la protection de l''effet échoue si et seulement si une des conditions est vérifiée:");
         f_.add(M_P_44_FORMULA,"{0}");
-        f_.add(M_P_44_SUFFERING_DIRECT,"Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0} avec une attaque directe, le taux de vie perdue est de {1}.");
+        f_.add(M_P_44_SUFFERING_DIRECT,"Lorsqu''un pokemon adverse attaque le lanceur de cette attaque avec une attaque directe, le taux de vie perdue est de {0}.");
         f_.add(M_P_44_SUFFERING_TYPES,"Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0}, il perd des dégâts en fonction des types de l''attaque utilisée (les degats sont cumules s''il y a plusieurs types pour l''attaque):");
         f_.add(M_P_44_SUFFERING_TYPES_HP,"Taux de vie perdue");
         f_.add(M_P_44_SUFFERING_TYPES_T,"Type de l''attaque");

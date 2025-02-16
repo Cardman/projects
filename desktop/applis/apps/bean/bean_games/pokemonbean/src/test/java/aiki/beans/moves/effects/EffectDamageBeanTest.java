@@ -36,6 +36,14 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
         assertFalse(callEffectDamageBeanHasLawForDamage(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
     }
     @Test
+    public void hasLawForDamage3() {
+        assertTrue(callEffectDamageBeanHasLawForDamage(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(effDam("1",true,true,1,true,true,false),VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, LgInt.one())),0)));
+    }
+    @Test
+    public void hasLawForDamage4() {
+        assertFalse(callEffectDamageBeanHasLawForDamage(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,false)),0)));
+    }
+    @Test
     public void getDamageLaw1() {
         assertSizeEq(2,callEffectDamageBeanDamageLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(withDamageLawEv(effDam("1",true,true,1,true,true,true),"1", LgInt.one()),VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, LgInt.one())),0)));
     }
@@ -58,6 +66,10 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
     @Test
     public void getDamageLaw6() {
         assertSizeEq(0,callEffectDamageBeanDamageLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(effDam("1",true,true,1,true,true,true),VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, LgInt.one())),0)));
+    }
+    @Test
+    public void getDamageLaw7() {
+        assertSizeEq(2,callEffectDamageBeanDamageLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(withDamageLawEv(effDam("1",true,true,1,true,true,false),"1", LgInt.one()),VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, LgInt.one())),0)));
     }
     @Test
     public void getMapVarsDamage1() {

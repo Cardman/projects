@@ -244,9 +244,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         displayEmpty(MessagesPkBean.EFF_DAMAGE, _sub.getHitsLaw(),MessagesDataEffdamage.M_P_45_HIT_LAW_CONST,Long.toString(_sub.getNbHits()));
         new BeanDisplayMap<Long,Rate>(new BeanDisplayLong(),new BeanDisplayRate()).displayGrid(this, _sub.getHitsLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_HIT_LAW,MessagesDataEffdamage.M_P_45_EVENT_NB_HITS,MessagesDataEffdamage.M_P_45_RATE_EVENT);
         displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getConstDamage()),MessagesDataEffdamage.M_P_45_CONST_DAMAGE,_sub.getPower());
-//        int condDet_ = toInt(_sub.hasLawForDamage())*toInt(!_sub.getConstDamage());
-        if (_sub.hasLawForDamage()) {
-//        if (condDet_ == TRUE_VALUE) {
+        int condDet_ = toInt(_sub.hasLawForDamage())*toInt(!_sub.getConstDamage());
+//        if (_sub.hasLawForDamage()) {
+        if (condDet_ == TRUE_VALUE) {
             displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.hasDeterminatedLawForDamage()),MessagesDataEffdamage.M_P_45_DAMAG_LAW_CONST,_sub.getPower());
             if (!_sub.hasDeterminatedLawForDamage()) {
                 new BeanDisplayMap<String,Rate>(new BeanDisplayString(),new BeanDisplayRate()).displayGrid(this, _sub.getDamageLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAG_LAW,MessagesDataEffdamage.M_P_45_EVENT,MessagesDataEffdamage.M_P_45_RATE_EVENT);
@@ -296,7 +296,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //        if (!_sub.getSufferingDamageDirectMove().isZero()) {
 //            formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT, _sub.getMove(), _sub.getSufferingDamageDirectMove().toNumberString());
 //        }
-        formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT, _sub.getMove(), _sub.getSufferingDamageDirectMove().toNumberString());
+        displayIntDef(MessagesPkBean.EFF_COUNTERATTACK,_sub.getSufferingDamageDirectMove(),MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT);
         displayStringList(MessagesPkBean.EFF_COUNTERATTACK, _sub.getReasonsProtect(),MessagesDataEffcounterattack.M_P_44_FAIL_PROTECT, _sub.getMove());
         displayStringList(MessagesPkBean.EFF_COUNTERATTACK, _sub.getReasonsCounter(),MessagesDataEffcounterattack.M_P_44_COUNTER_PROTECT, _sub.getMove());
         mapVarsInit(_sub.getMapVarsFailCounter());
@@ -865,8 +865,16 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public void displayIntDef(String _file, long _value, String _one) {
-        if (_value != 0) {
-            formatMessage(_file,_one,Long.toString(_value));
+        displayIntDef(_file,Long.toString(_value),_one);
+    }
+
+    public void displayIntDef(String _file, Rate _value, String _one) {
+        displayIntDef(_file,_value.toNumberString(),_one);
+    }
+
+    public void displayIntDef(String _file, String _value, String _one) {
+        if (!StringUtil.quickEq(_value,"0")) {
+            formatMessage(_file,_one,_value);
         }
     }
     public void target(TargetChoice _target, String _file, String... _poss) {
