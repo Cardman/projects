@@ -32,7 +32,7 @@ public class EffectComboBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
-        moves = listTrStringsMv(combos.getKey(index),getFacade());
+        moves = combos.getKey(index);
         EffectCombo e_ = combos.getValue(index);
         if (!e_.getEffectEndRound().isEmpty()) {
             endRound = true;

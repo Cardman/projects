@@ -177,7 +177,7 @@ public final class TeamBean extends CommonFightBean {
 //                return 0;
 //            }
 //        });
-        enabledMovesByGroup_ = DictionaryComparatorUtil.buildActivities(data_, getLanguage());
+        enabledMovesByGroup_ = DictionaryComparatorUtil.buildActivities();
         for (StringList s: team_.getEnabledMovesByGroup().getKeys()) {
             StringList key_ = new StringList();
             for (String m: s) {

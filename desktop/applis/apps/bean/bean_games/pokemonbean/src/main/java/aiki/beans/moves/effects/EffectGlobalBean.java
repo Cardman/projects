@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.*;
+import aiki.beans.abilities.AbilityBean;
 import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.comparators.*;
 import aiki.db.DataBase;
@@ -20,17 +21,17 @@ public class EffectGlobalBean extends EffectBean {
     private CustList<TranslatedKey> disableImmuAgainstTypes;
     private CustList<TranslatedKey> cancelProtectingAbilities;
     private CustList<TranslatedKey> unusableMoves;
-    private NatStringTreeMap< Rate> multDamagePrepaRound;
+    private DictionaryComparator<TranslatedKey, Rate> multDamagePrepaRound;
     private CustList<TranslatedKey> movesUsedByTargetedFighters;
     private Rate multEffectLovingAlly;
     private DictionaryComparator<TranslatedKey, Rate> multPowerMoves;
-    private DictionaryComparator<StatisticType, Rate> multStatIfContainsType;
+    private DictionaryComparator<TranslatedKeyPair, Rate> multStatIfContainsType;
     private CustList<TranslatedKey> cancelEffects;
-    private NatStringTreeMap< Rate> multDamageTypesMoves;
-    private StringList cancelChgtStat;
+    private DictionaryComparator<TranslatedKey, Rate> multDamageTypesMoves;
+    private CustList<TranslatedKey> cancelChgtStat;
     private TranslatedKey invokedMoveTerrain;
     private CustList<TranslatedKey> invokingMoves;
-    private StringList changedTypesTerrain;
+    private CustList<TranslatedKey> changedTypesTerrain;
     private CustList<TranslatedKey> invokingMovesChangingTypes;
 
     @Override
@@ -39,8 +40,6 @@ public class EffectGlobalBean extends EffectBean {
         EffectGlobal effect_ = (EffectGlobal) getEffect();
         effectGlobalCore = effect_.getEffectGlobalCore();
         DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         multEffectLovingAlly = effect_.getMultEffectLovingAlly();
         preventStatus = listTrStringsSt(effect_.getPreventStatus(), getFacade());
         immuneTypes = listTrStringsTy(effect_.getImmuneTypes(), getFacade());
@@ -66,24 +65,24 @@ public class EffectGlobalBean extends EffectBean {
         unusableMoves = listTrStringsMv(effect_.getUnusableMoves(), getFacade());
         cancelEffects = listTrStringsMv(effect_.getCancelEffects(), getFacade());
         multPowerMoves = multPowerMoves(effect_);
-        multDamageTypesMoves = map(effect_.getMultDamageTypesMoves(), translatedTypes_);
-        StringList cancelChgtStat_;
-        cancelChgtStat_ = new StringList();
+        multDamageTypesMoves = map(effect_.getMultDamageTypesMoves());
+        CustList<TranslatedKey> cancelChgtStat_;
+        cancelChgtStat_ = new CustList<TranslatedKey>();
         for (Statistic s: effect_.getCancelChgtStat()) {
-            cancelChgtStat_.add(translatedStatistics_.getVal(s));
+            cancelChgtStat_.add(buildSi(getFacade(),s));
         }
-        cancelChgtStat_.sort();
+        cancelChgtStat_.sortElts(new ComparingTranslatedKey());
         cancelChgtStat = cancelChgtStat_;
         invokedMoveTerrain = buildMv(getFacade(), effect_.getInvokedMoveTerrain());
         invokingMoves = listTrStringsMv(invokingMoves(data_),getFacade());
-        StringList changedTypesTerrain_;
-        changedTypesTerrain_ = new StringList();
+        CustList<TranslatedKey> changedTypesTerrain_;
+        changedTypesTerrain_ = new CustList<TranslatedKey>();
         for (String s: effect_.getChangedTypesTerrain()) {
-            changedTypesTerrain_.add(translatedTypes_.getVal(s));
+            changedTypesTerrain_.add(buildTy(getFacade(),s));
         }
         changedTypesTerrain = changedTypesTerrain_;
         invokingMovesChangingTypes = listTrStringsMv(invokingMovesChangingTypes(data_),getFacade());
-        DictionaryComparator<StatisticType, Rate> multStatIfContainsType_;
+        DictionaryComparator<TranslatedKeyPair, Rate> multStatIfContainsType_;
 //        multStatIfContainsType_ = new TreeMap<new>(new NaturalComparator<Pair<String,String>>() {
 //            @Override
 //            public int compare(Pair<String, String> _o1,
@@ -95,15 +94,15 @@ public class EffectGlobalBean extends EffectBean {
 //                return _o1.getSecond().compareTo(_o2.getSecond());
 //            }
 //        });
-        multStatIfContainsType_ = DictionaryComparatorUtil.buildStatisTypeRate(data_,getLanguage());
+        multStatIfContainsType_ = DictionaryComparatorUtil.buildStatisTypeRate();
         for (StatisticType s: effect_.getMultStatIfContainsType().getKeys()) {
 //            StatisticType key_ = new StatisticType();
 //            key_.setFirst(translatedStatistics_.getVal(s.getStatistic()));
 //            key_.setSecond(translatedTypes_.getVal(s.getType()));
-            multStatIfContainsType_.put(s, effect_.getMultStatIfContainsType().getVal(s));
+            multStatIfContainsType_.put(AbilityBean.buildPair(getFacade(),s), effect_.getMultStatIfContainsType().getVal(s));
         }
         multStatIfContainsType = multStatIfContainsType_;
-        multDamagePrepaRound = map(effect_.getMultDamagePrepaRound(), translatedTypes_);
+        multDamagePrepaRound = map(effect_.getMultDamagePrepaRound());
         movesUsedByTargetedFighters = listTrStringsMv(effect_.getMovesUsedByTargetedFighters(), getFacade());
     }
 
@@ -242,18 +241,20 @@ public class EffectGlobalBean extends EffectBean {
 //        return translatedMoves_.getVal(st_);
     }
     public String getTrMultStatIfDamgeTypeFirst(int _index) {
-        Statistic statis_ = multStatIfContainsType.getKey(_index).getStatistic();
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(statis_);
+        return multStatIfContainsType.getKey(_index).getFirst().getTranslation();
+//        Statistic statis_ = multStatIfContainsType.getKey(_index).getStatistic();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(statis_);
     }
     public String getTrMultStatIfDamgeTypeSecond(int _index) {
-        String type_ = multStatIfContainsType.getKey(_index).getType();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(type_);
+        return multStatIfContainsType.getKey(_index).getSecond().getTranslation();
+//        String type_ = multStatIfContainsType.getKey(_index).getType();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(type_);
     }
 
     public EffectGlobalCore getEffectGlobalCore() {
@@ -296,23 +297,23 @@ public class EffectGlobalBean extends EffectBean {
         return multPowerMoves;
     }
 
-    public NatStringTreeMap<Rate> getMultDamageTypesMoves() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultDamageTypesMoves() {
         return multDamageTypesMoves;
     }
 
-    public StringList getCancelChgtStat() {
+    public CustList<TranslatedKey> getCancelChgtStat() {
         return cancelChgtStat;
     }
 
-    public String getInvokedMoveTerrain() {
-        return invokedMoveTerrain.getKey();
+    public TranslatedKey getInvokedMoveTerrain() {
+        return invokedMoveTerrain;
     }
 
     public CustList<TranslatedKey> getInvokingMoves() {
         return invokingMoves;
     }
 
-    public StringList getChangedTypesTerrain() {
+    public CustList<TranslatedKey> getChangedTypesTerrain() {
         return changedTypesTerrain;
     }
 
@@ -320,11 +321,11 @@ public class EffectGlobalBean extends EffectBean {
         return invokingMovesChangingTypes;
     }
 
-    public DictionaryComparator<StatisticType,Rate> getMultStatIfContainsType() {
+    public DictionaryComparator<TranslatedKeyPair,Rate> getMultStatIfContainsType() {
         return multStatIfContainsType;
     }
 
-    public NatStringTreeMap<Rate> getMultDamagePrepaRound() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultDamagePrepaRound() {
         return multDamagePrepaRound;
     }
 

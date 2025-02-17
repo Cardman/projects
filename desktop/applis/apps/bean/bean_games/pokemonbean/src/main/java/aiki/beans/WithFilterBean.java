@@ -193,6 +193,14 @@ public abstract class WithFilterBean extends CommonBean {
         }
         return o_;
     }
+
+    public static StringList values(CustList<TranslatedKey> _keys) {
+        StringList o_ = new StringList();
+        for (TranslatedKey e:_keys) {
+            o_.add(e.getTranslation());
+        }
+        return o_;
+    }
     private boolean excludeByAccuracy(MoveData _move) {
         if (Rate.isValid(getMinAccuracy().tryRet())) {
             String accuraryStr_ = _move.getAccuracy();

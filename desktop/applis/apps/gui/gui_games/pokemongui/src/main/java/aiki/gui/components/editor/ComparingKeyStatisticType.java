@@ -1,6 +1,5 @@
 package aiki.gui.components.editor;
 
-import aiki.beans.facade.comparators.*;
 import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import code.gui.*;
@@ -19,6 +18,7 @@ public final class ComparingKeyStatisticType<T> implements Comparing<EditedCrudP
 
     @Override
     public int compare(EditedCrudPair<StatisticType, T> _one, EditedCrudPair<StatisticType, T> _two) {
-        return ComparatorStatisticType.comparePairs(_one.getKey(),_two.getKey(), stats, types);
+        return ConverterCommonMapUtil.compare(ConverterCommonMapUtil.build(_one.getKey(), stats, types),ConverterCommonMapUtil.build(_two.getKey(), stats, types));
+//        return ComparatorStatisticType.comparePairs(_one.getKey(),_two.getKey(), stats, types);
     }
 }

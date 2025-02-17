@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.TranslatedKey;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
@@ -16,7 +17,7 @@ import org.junit.Test;
 public final class FightHelpBeanComboMultStatTest extends InitDbFightHelp {
     @Test
     public void movesTypesDefWeatherInitTest() {
-        CustList<StringList> ls_ = FightHelpBean.comboMultStatInit(db(Statistic.CRITICAL_HIT).getData(),EN);
+        CustList<CustList<TranslatedKey>> ls_ = FightHelpBean.comboMultStatInit(dbTr(Statistic.CRITICAL_HIT));
         assertEq(2,ls_.size());
     }
     @Test
@@ -109,6 +110,11 @@ public final class FightHelpBeanComboMultStatTest extends InitDbFightHelp {
     }
     private static String clickDest() {
         return toStr(callFightHelpBeanClickComboMultStat(bean(db(Statistic.ATTACK)),0));
+    }
+    private static FacadeGame dbTr(Statistic _st) {
+        FacadeGame f_ = db(_st);
+        f_.updateTrs();
+        return f_;
     }
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();

@@ -87,10 +87,10 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<Statistic, Long> multStatIfLowStat;
     private DictionaryComparator<Statistic, String> multStat;
     private DictionaryComparator<Statistic, Rate> multStatAlly;
-    private DictionaryComparator<StatisticCategory, Long> multStatIfDamageCat;
-    private DictionaryComparator<StatisticCategory, Rate> multStatIfCat;
+    private DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamageCat;
+    private DictionaryComparator<TranslatedKeyPair, Rate> multStatIfCat;
     private DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank;
-    private DictionaryComparator<StatisticType, Long> multStatIfDamgeType;
+    private DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamgeType;
     private DictionaryComparator<TranslatedKeyPair, Rate> healHpByTypeIfWeather;
     private DictionaryComparator<String, TypeDamageBoost> changingBoostTypes;
     private DictionaryComparator<String, Long> increasedPrio;
@@ -272,19 +272,19 @@ public class AbilityBean extends CommonBean {
             changingBoostTypes_.put(w, ability_.getChangingBoostTypes().getVal(w));
         }
         changingBoostTypes = changingBoostTypes_;
-        DictionaryComparator<StatisticCategory, Long> multStatIfDamageCat_;
-        multStatIfDamageCat_ = DictionaryComparatorUtil.buildStatisticCategoryByte(data_,getLanguage());
+        DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamageCat_;
+        multStatIfDamageCat_ = DictionaryComparatorUtil.buildStatisticCategoryByte();
         for (StatisticCategory w: ability_.getMultStatIfDamageCat().getKeys()) {
-            multStatIfDamageCat_.put(w, ability_.getMultStatIfDamageCat().getVal(w));
+            multStatIfDamageCat_.put(buildPair(getFacade(),w), ability_.getMultStatIfDamageCat().getVal(w));
         }
         multStatIfDamageCat = multStatIfDamageCat_;
-        DictionaryComparator<StatisticCategory, Rate> multStatIfCat_;
-        multStatIfCat_ = DictionaryComparatorUtil.buildStatisticCategoryRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKeyPair, Rate> multStatIfCat_;
+        multStatIfCat_ = DictionaryComparatorUtil.buildStatisticCategoryRate();
         for (StatisticCategory w: ability_.getMultStatIfCat().getKeys()) {
-            multStatIfCat_.put(w, ability_.getMultStatIfCat().getVal(w));
+            multStatIfCat_.put(buildPair(getFacade(),w), ability_.getMultStatIfCat().getVal(w));
         }
         multStatIfCat = multStatIfCat_;
-        DictionaryComparator<StatisticType, Long> multStatIfDamgeType_;
+        DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamgeType_;
 //        multStatIfDamgeType_ = new TreeMap<new>(new NaturalComparator<StatisticType>() {
 //            @Override
 //            public int compare(StatisticType _o1, StatisticType _o2) {
@@ -300,9 +300,9 @@ public class AbilityBean extends CommonBean {
 //                return ComparatorTrString.compare(translatedCategoriesCmp_, _o1.getType(), _o2.getType());
 //            }
 //        });
-        multStatIfDamgeType_ = DictionaryComparatorUtil.buildStatisTypeByte(data_, getLanguage());
+        multStatIfDamgeType_ = DictionaryComparatorUtil.buildStatisTypeByte();
         for (StatisticType w: ability_.getMultStatIfDamgeType().getKeys()) {
-            multStatIfDamgeType_.put(w, ability_.getMultStatIfDamgeType().getVal(w));
+            multStatIfDamgeType_.put(buildPair(getFacade(),w), ability_.getMultStatIfDamgeType().getVal(w));
         }
         multStatIfDamgeType = multStatIfDamgeType_;
         DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank_;
@@ -326,6 +326,14 @@ public class AbilityBean extends CommonBean {
         mapVars_.putAllMap(data_.getDescriptions(ability_.getMultPower(), getLanguage()));
         mapVars_.putAllMap(data_.getDescriptions(ability_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
+    }
+
+    public static TranslatedKeyPair buildPair(FacadeGame _data, StatisticType _w) {
+        return new TranslatedKeyPair(buildSi(_data, _w.getStatistic()), buildTy(_data, _w.getType()));
+    }
+
+    public static TranslatedKeyPair buildPair(FacadeGame _data, StatisticCategory _w) {
+        return new TranslatedKeyPair(buildSi(_data, _w.getStatistic()), buildCa(_data, _w.getCategory()));
     }
 
     public static TranslatedKeyPair buildPair(FacadeGame _data, StatisticStatus _w) {
@@ -986,46 +994,52 @@ public class AbilityBean extends CommonBean {
 //        return translationsTypes_.getVal(status_);
     }
     public String getTrMultStatIfDamageCatKey(int _index) {
-        Statistic status_ = multStatIfDamageCat.getKey(_index).getStatistic();
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(status_);
+        return multStatIfDamageCat.getKey(_index).getFirst().getTranslation();
+//        Statistic status_ = multStatIfDamageCat.getKey(_index).getStatistic();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(status_);
     }
     public String getTrMultStatIfDamageCatKeySec(int _index) {
-        String status_ = multStatIfDamageCat.getKey(_index).getCategory();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsCategories_;
-        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        return translationsCategories_.getVal(status_);
+        return multStatIfDamageCat.getKey(_index).getSecond().getTranslation();
+//        String status_ = multStatIfDamageCat.getKey(_index).getCategory();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsCategories_;
+//        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+//        return translationsCategories_.getVal(status_);
     }
     public String getTrMultStatIfCatKey(int _index) {
-        Statistic status_ = multStatIfCat.getKey(_index).getStatistic();
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(status_);
+        return multStatIfCat.getKey(_index).getFirst().getTranslation();
+//        Statistic status_ = multStatIfCat.getKey(_index).getStatistic();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(status_);
     }
     public String getTrMultStatIfCatKeySec(int _index) {
-        String status_ = multStatIfCat.getKey(_index).getCategory();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsCategories_;
-        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        return translationsCategories_.getVal(status_);
+        return multStatIfCat.getKey(_index).getSecond().getTranslation();
+//        String status_ = multStatIfCat.getKey(_index).getCategory();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsCategories_;
+//        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+//        return translationsCategories_.getVal(status_);
     }
     public String getTrMultStatIfDamgeType(int _index) {
-        Statistic status_ = multStatIfDamgeType.getKey(_index).getStatistic();
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(status_);
+        return multStatIfDamgeType.getKey(_index).getFirst().getTranslation();
+//        Statistic status_ = multStatIfDamgeType.getKey(_index).getStatistic();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(status_);
     }
     public String getTrMultStatIfDamgeTypeSec(int _index) {
-        String status_ = multStatIfDamgeType.getKey(_index).getType();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(status_);
+        return multStatIfDamgeType.getKey(_index).getSecond().getTranslation();
+//        String status_ = multStatIfDamgeType.getKey(_index).getType();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(status_);
     }
     public String getTrMultStatIfStatutRank(int _index) {
         return multStatIfStatutRank.getKey(_index).getFirst().getTranslation();
@@ -1447,15 +1461,15 @@ public class AbilityBean extends CommonBean {
         return multStat;
     }
 
-    public DictionaryComparator<StatisticCategory,Long> getMultStatIfDamageCat() {
+    public DictionaryComparator<TranslatedKeyPair,Long> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
     }
 
-    public DictionaryComparator<StatisticType,Long> getMultStatIfDamgeType() {
+    public DictionaryComparator<TranslatedKeyPair,Long> getMultStatIfDamgeType() {
         return multStatIfDamgeType;
     }
 
-    public DictionaryComparator<StatisticCategory,Rate> getMultStatIfCat() {
+    public DictionaryComparator<TranslatedKeyPair,Rate> getMultStatIfCat() {
         return multStatIfCat;
     }
 

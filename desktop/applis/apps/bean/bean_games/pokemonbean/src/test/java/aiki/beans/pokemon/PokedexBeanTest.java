@@ -371,18 +371,18 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void lineName() {
-        assertEq(P_POK_00_TR,callPokemonLineDisplayNameGet(elt(callPokedexBeanPokedexGet(dispAllPksSearch()),0)));
+        assertEq(P_POK_00_TR,callPokemonLineDisplayNameGet(eltPkLine(callPokedexBeanPokedexGet(dispAllPksSearch()),0)));
     }
     @Test
     public void lineTypes1() {
-        assertSizeEq(1,callPokemonLineTypesGet(elt(callPokedexBeanPokedexGet(dispAllPksSearch()),0)));
+        assertSizeEq(1,callPokemonLineTypesGet(eltPkLine(callPokedexBeanPokedexGet(dispAllPksSearch()),0)));
     }
     @Test
     public void lineTypes2() {
-        assertEq(T_TYPE1_TR,elt(callPokemonLineTypesGet(elt(callPokedexBeanPokedexGet(dispAllPksSearch()),0)),0));
+        assertEq(T_TYPE1_TR,eltStrTr(callPokemonLineTypesGet(eltPkLine(callPokedexBeanPokedexGet(dispAllPksSearch()),0)),0));
     }
     @Test
     public void lineEvos() {
-        assertEq(1,callPokemonLineEvolutionsGet(elt(callPokedexBeanPokedexGet(dispAllPksSearch()),0)));
+        assertEq(1,callPokemonLineEvolutionsGet(eltPkLine(callPokedexBeanPokedexGet(dispAllPksSearch()),0)));
     }
 }

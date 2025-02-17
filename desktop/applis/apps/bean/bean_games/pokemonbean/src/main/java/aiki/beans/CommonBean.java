@@ -262,6 +262,12 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getPreventStatus(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_FORBID_STATUS);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getImmuneTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
             new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getEfficiencyMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_EFFICIENCY_TABLE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE,MessagesDataEffglobal.M_P_49_EFFICIENCY);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getDisableImmuAgainstTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_TYPES);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelProtectingAbilities(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_ABILITIES);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getUnusableMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_UNUSABLE_MOVES);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelEffects(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_EFFECTS);
+            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultPowerMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultDamageTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         }
     }
 
@@ -527,11 +533,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         Place pl_ = _pls.get(_index).getPlace();
         return pl_.getLevelsList();
     }
-    protected NatStringTreeMap<Rate> map(StringMap<Rate> _input, StringMap<String> _translated) {
-        NatStringTreeMap< Rate> multDamageTypesMoves_;
-        multDamageTypesMoves_ = new NatStringTreeMap< Rate>();
+    protected DictionaryComparator<TranslatedKey, Rate> map(StringMap<Rate> _input) {
+        DictionaryComparator<TranslatedKey, Rate> multDamageTypesMoves_;
+        multDamageTypesMoves_ = new DictionaryComparator<TranslatedKey, Rate>(new ComparingTranslatedKey());
         for (String m: _input.getKeys()) {
-            multDamageTypesMoves_.put(_translated.getVal(m), _input.getVal(m));
+            multDamageTypesMoves_.put(buildTy(getFacade(),m), _input.getVal(m));
         }
         return multDamageTypesMoves_;
     }

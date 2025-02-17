@@ -212,8 +212,17 @@ public final class ConverterCommonMapUtil {
     public static TranslatedKeyPair build(TypesDuo _o, AbsMap<String, String> _pk) {
         return new TranslatedKeyPair(buildStr(_pk, _o.getDamageType()), buildStr(_pk, _o.getPokemonType()));
     }
+    public static TranslatedKeyPair build(CategoryMult _o, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStr(_pk, _o.getCategory()), new TranslatedKey(Long.toString(_o.getMult()),Long.toString(_o.getMult())));
+    }
     public static TranslatedKeyPair build(StatisticStatus _o, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
         return new TranslatedKeyPair(buildStat(_stats, _o.getStatistic()), buildStr(_pk, _o.getStatus()));
+    }
+    public static TranslatedKeyPair build(StatisticType _o, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStat(_stats, _o.getStatistic()), buildStr(_pk, _o.getType()));
+    }
+    public static TranslatedKeyPair build(StatisticCategory _o, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
+        return new TranslatedKeyPair(buildStat(_stats, _o.getStatistic()), buildStr(_pk, _o.getCategory()));
     }
     public static TranslatedKeyPair buildRev(StatisticStatus _o, AbsMap<Statistic, String> _stats, AbsMap<String, String> _pk) {
         return new TranslatedKeyPair(buildStr(_pk, _o.getStatus()),buildStat(_stats, _o.getStatistic()));

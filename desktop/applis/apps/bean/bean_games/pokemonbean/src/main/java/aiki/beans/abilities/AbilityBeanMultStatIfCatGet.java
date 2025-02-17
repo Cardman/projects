@@ -1,12 +1,10 @@
 package aiki.beans.abilities;
 
-import aiki.beans.PokemonBeanStruct;
-import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class AbilityBeanMultStatIfCatGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getStatisticCategoryRateMap(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getMultStatIfCat());
+        return PokemonStandards.getWcRateMap(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getMultStatIfCat());
     }
 }

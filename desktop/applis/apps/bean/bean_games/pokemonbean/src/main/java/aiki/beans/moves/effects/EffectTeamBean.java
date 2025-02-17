@@ -1,8 +1,10 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.*;
+import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.comparators.*;
 import aiki.db.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
@@ -15,7 +17,7 @@ public class EffectTeamBean extends EffectBean {
     private CustList<TranslatedKey> unusableMoves;
     private StringList cancelChgtStatFoeTeam;
     private StringList cancelChgtStatTeam;
-    private DictionaryComparator<CategoryMult, Rate> multDamage;
+    private DictionaryComparator<TranslatedKeyPair, Rate> multDamage;
     private NatStringTreeMap< Rate> multStatistic;
     private NatStringTreeMap< Rate> multStatisticFoe;
     private StringList protectAgainstLowStat;
@@ -31,7 +33,6 @@ public class EffectTeamBean extends EffectBean {
         EffectTeam effect_ = (EffectTeam) getEffect();
         DataBase data_ = getDataBase();
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         forbiddingHealing = effect_.getForbiddingHealing();
         protectAgainstCh = effect_.getProtectAgainstCh();
         defaultBoost = data_.getDefaultBoost();
@@ -75,19 +76,20 @@ public class EffectTeamBean extends EffectBean {
             multStatisticFoe_.put(translatedStatistics_.getVal(s), effect_.getMultStatisticFoe().getVal(s));
         }
         multStatisticFoe = multStatisticFoe_;
-        DictionaryComparator<CategoryMult, Rate> multDamage_;
+        DictionaryComparator<TranslatedKeyPair, Rate> multDamage_;
         multDamage_ = DictionaryComparatorUtil.buildCategoryMult();
         for (CategoryMult c: effect_.getMultDamage().getKeys()) {
-            CategoryMult cat_ = new CategoryMult();
-            cat_.setCategory(translatedCategories_.getVal(c.getCategory()));
-            cat_.setMult(c.getMult());
-            multDamage_.put(cat_, effect_.getMultDamage().getVal(c));
+            multDamage_.put(build(getFacade(), c), effect_.getMultDamage().getVal(c));
         }
         multDamage = multDamage_;
         protectAgainstStatus = listTrStringsSt(effect_.getProtectAgainstStatus(),getFacade());
         unusableMoves = listTrStringsMv(effect_.getUnusableMoves(),getFacade());
         disableFoeTeamEffects = listTrStringsMv(effect_.getDisableFoeTeamEffects(),getFacade());
         disableFoeTeamStatus = listTrStringsSt(effect_.getDisableFoeTeamStatus(),getFacade());
+    }
+
+    public static TranslatedKeyPair build(FacadeGame _fac, CategoryMult _c) {
+        return new TranslatedKeyPair(buildCa(_fac, _c.getCategory()), new TranslatedKey(Long.toString(_c.getMult()), Long.toString(_c.getMult())));
     }
 
     public String clickStatus(int _indexEffect, int _index) {
@@ -172,7 +174,7 @@ public class EffectTeamBean extends EffectBean {
         return multStatisticFoe;
     }
 
-    public DictionaryComparator<CategoryMult,Rate> getMultDamage() {
+    public DictionaryComparator<TranslatedKeyPair,Rate> getMultDamage() {
         return multDamage;
     }
 

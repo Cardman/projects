@@ -1,8 +1,9 @@
 package aiki.beans.effects;
 
-import aiki.beans.facade.comparators.DictionaryComparatorCombos;
-import aiki.fight.moves.effects.EffectCombo;
-import code.util.StringList;
+import aiki.beans.*;
+import aiki.beans.facade.comparators.*;
+import aiki.fight.moves.effects.*;
+import code.util.*;
 
 public final class ComboDto {
 
@@ -16,7 +17,7 @@ public final class ComboDto {
         return combos.getValue(_index);
     }
 
-    public StringList getKey(int _index) {
+    public CustList<TranslatedKey> getKey(int _index) {
         return combos.getKey(_index);
     }
 

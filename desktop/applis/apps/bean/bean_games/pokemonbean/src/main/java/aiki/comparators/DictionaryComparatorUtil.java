@@ -234,12 +234,12 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorTranslatedKeyPair());
     }
 
-    public static DictionaryComparator<StatisticCategory,Rate> buildStatisticCategoryRate(DataBase _data, String _language) {
-        return new DictionaryComparator<StatisticCategory, Rate>(new ComparatorStatisticCategory(_data, _language));
+    public static DictionaryComparator<TranslatedKeyPair,Rate> buildStatisticCategoryRate() {
+        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorTranslatedKeyPair());
     }
 
-    public static DictionaryComparator<StatisticCategory,Long> buildStatisticCategoryByte(DataBase _data, String _language) {
-        return new DictionaryComparator<StatisticCategory, Long>(new ComparatorStatisticCategory(_data, _language));
+    public static DictionaryComparator<TranslatedKeyPair,Long> buildStatisticCategoryByte() {
+        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorTranslatedKeyPair());
     }
 
     public static DictionaryComparator<Rate,Rate> feedRateRate(MonteCarloNumber _law) {
@@ -318,15 +318,15 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget>(new ComparatorMoveTarget());
     }
 
-    public static DictionaryComparator<CategoryMult, Rate> buildCategoryMult() {
-        return new DictionaryComparator<CategoryMult, Rate>(new ComparatorCategoryMult());
+    public static DictionaryComparator<TranslatedKeyPair, Rate> buildCategoryMult() {
+        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorTranslatedKeyPair());
     }
 
-    public static DictionaryComparator<StatisticType, Rate> buildStatisTypeRate(DataBase _data, String _lg) {
-        return new DictionaryComparator<StatisticType, Rate>(new ComparatorStatisticType(_data, _lg));
+    public static DictionaryComparator<TranslatedKeyPair, Rate> buildStatisTypeRate() {
+        return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorTranslatedKeyPair());
     }
-    public static DictionaryComparator<StatisticType, Long> buildStatisTypeByte(DataBase _data, String _lg) {
-        return new DictionaryComparator<StatisticType, Long>(new ComparatorStatisticType(_data, _lg));
+    public static DictionaryComparator<TranslatedKeyPair, Long> buildStatisTypeByte() {
+        return new DictionaryComparator<TranslatedKeyPair, Long>(new ComparatorTranslatedKeyPair());
     }
 
     public static DictionaryComparator<TranslatedKeyPair, Long> buildStatisticStatus() {
@@ -337,8 +337,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKeyPair, Rate>(new ComparatorTranslatedKeyPair());
     }
 
-    public static DictionaryComparator<StringList, ActivityOfMove> buildActivities(DataBase _data, String _lg) {
-        return new DictionaryComparator<StringList, ActivityOfMove>(new ComparatorStringList(_data, _lg, true));
+    public static DictionaryComparator<StringList, ActivityOfMove> buildActivities() {
+        return new DictionaryComparator<StringList, ActivityOfMove>(new ComparatorStringList());
     }
 
     public static DictionaryComparator<Integer, PlaceNamePk> buildPlaces(DataMap _map) {

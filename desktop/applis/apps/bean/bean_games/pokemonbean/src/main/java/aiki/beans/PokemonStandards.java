@@ -528,51 +528,21 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStatisticTypeByteMap(AbsMap<StatisticType, Long> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<StatisticType, Long> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStatisticCategoryByteMap(AbsMap<StatisticCategory, Long> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<StatisticCategory, Long> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
 
-    public static NatArrayStruct getCatMultRateMap(AbsMap<CategoryMult, Rate> _map) {
+    public static NatArrayStruct getCatMultRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<CategoryMult, Rate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new CategoryMultStruct(e.getKey()),new RtSt(e.getValue()));
+        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new CategoryMultStruct(new CategoryMult(e.getKey().getFirst().getTranslation(),NumberUtil.parseInt(e.getKey().getSecond().getKey()))),new RtSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
-    public static NatArrayStruct getStatisticCategoryRateMap(AbsMap<StatisticCategory, Rate> _map) {
+    public static NatArrayStruct getWcRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<StatisticCategory, Rate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getWcRateMap(AbsMap<StatisticType, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<StatisticType, Rate> e:_map.entryList()) {
+        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -1103,11 +1073,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrList(CustList<StringList> _map) {
+    public static NatArrayStruct getStrList(CustList<CustList<TranslatedKey>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (StringList e: _map){
-            arr_.set(i_,getStringArray(e));
+        for (CustList<TranslatedKey> e: _map){
+            arr_.set(i_,getKeys(e));
             i_++;
         }
         return arr_;

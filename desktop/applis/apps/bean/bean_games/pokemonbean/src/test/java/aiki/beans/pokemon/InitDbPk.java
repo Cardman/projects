@@ -239,6 +239,10 @@ public abstract class InitDbPk extends InitDbConstr {
         return BeanPokemonCommonTs.callBool(new PokedexBeanWholeWordSet(),_str,_args);
     }
 
+    protected static NaSt eltPkLine(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+
     protected static NaSt dispAllPks() {
         PkData pk_ = pkDataByFacade(feedDb());
         return dispAllPks(pk_);

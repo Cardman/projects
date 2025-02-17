@@ -5,7 +5,8 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.TranslatedKey;
 import aiki.beans.WithFilterBean;
 import aiki.beans.abilities.TranslatedKeyPair;
-import aiki.beans.facade.comparators.ComparatorStringList;
+import aiki.beans.facade.comparators.ComparatorTranslatedKeyList;
+import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -167,8 +168,8 @@ public class FightHelpBean extends CommonBean {
     private CustList<TranslatedKey> abilitiesAllyMultStat;
     private CustList<TranslatedKey> statusMultStat;
     private CustList<TranslatedKey> abilitiesImmuMultStat;
-    private CustList<StringList> comboMultStat;
-    private CustList<StringList> comboEvtStat;
+    private CustList<CustList<TranslatedKey>> comboMultStat;
+    private CustList<CustList<TranslatedKey>> comboEvtStat;
     private CustList<TranslatedKey> movesTypesDefItem;
     private CustList<TranslatedKey> movesTypesDefWeather;
     private CustList<TranslatedKey> abilitiesTypeDefMoves;
@@ -720,7 +721,7 @@ public class FightHelpBean extends CommonBean {
 //                return 0;
 //            }
 //        });
-        comboMultStat.sortElts(new ComparatorStringList(data_, getLanguage(), false));
+        comboMultStat.sortElts(new ComparatorTranslatedKeyList());
         initComboEvtStat();
 //        comboEvtStat.sort(new NaturalComparator<StringList>(){
 //            public int compare(StringList _key1, StringList _key2) {
@@ -742,7 +743,7 @@ public class FightHelpBean extends CommonBean {
 //                return 0;
 //            }
 //        });
-        comboEvtStat.sortElts(new ComparatorStringList(data_, getLanguage(), false));
+        comboEvtStat.sortElts(new ComparatorTranslatedKeyList());
     }
     static StringList abilitiesBoostingStatInit(DataBase _db) {
         StringList abilitiesBoostingStat_ = new StringList();
@@ -863,37 +864,35 @@ public class FightHelpBean extends CommonBean {
     }
 
     private void initComboMultStat() {
-        DataBase data_ = getDataBase();
-        comboMultStat = comboMultStatInit(data_,getLanguage());
+        comboMultStat = comboMultStatInit(getFacade());
     }
-    static CustList<StringList> comboMultStatInit(DataBase _db, String _lg) {
-        CustList<StringList> comboMultStat_ = new CustList<StringList>();
-        for (StringList g: _db.getCombos().getEffects().getKeys()) {
-            EffectCombo effect_ = _db.getCombos().getEffects().getVal(g);
+    static CustList<CustList<TranslatedKey>> comboMultStatInit(FacadeGame _db) {
+        CustList<CustList<TranslatedKey>> comboMultStat_ = new CustList<CustList<TranslatedKey>>();
+        for (StringList g: _db.getData().getCombos().getEffects().getKeys()) {
+            EffectCombo effect_ = _db.getData().getCombos().getEffects().getVal(g);
             if (effect_.estActifEquipe()) {
-                comboMultStat_.add(new StringList(g));
+                comboMultStat_.add(listTrStringsMv(g,_db));
             }
         }
-        for (StringList v: comboMultStat_) {
-            v.sortElts(DictionaryComparatorUtil.cmpMoves(_db,_lg));
+        for (CustList<TranslatedKey> v: comboMultStat_) {
+            v.sortElts(new ComparingTranslatedKey());
         }
         return comboMultStat_;
     }
 
     private void initComboEvtStat() {
-        DataBase data_ = getDataBase();
-        comboEvtStat = comboEvtStatInit(data_,getLanguage());
+        comboEvtStat = comboEvtStatInit(getFacade());
     }
-    static CustList<StringList> comboEvtStatInit(DataBase _db, String _lg) {
-        CustList<StringList> comboEvtStat_ = new CustList<StringList>();
-        for (StringList g: _db.getCombos().getEffects().getKeys()) {
-            EffectCombo effect_ = _db.getCombos().getEffects().getVal(g);
+    static CustList<CustList<TranslatedKey>> comboEvtStatInit(FacadeGame _db) {
+        CustList<CustList<TranslatedKey>> comboEvtStat_ = new CustList<CustList<TranslatedKey>>();
+        for (StringList g: _db.getData().getCombos().getEffects().getKeys()) {
+            EffectCombo effect_ = _db.getData().getCombos().getEffects().getVal(g);
             if (!effect_.getMultEvtRateSecEff().isZero()) {
-                comboEvtStat_.add(new StringList(g));
+                comboEvtStat_.add(listTrStringsMv(g,_db));
             }
         }
-        for (StringList v: comboEvtStat_) {
-            v.sortElts(DictionaryComparatorUtil.cmpMoves(_db,_lg));
+        for (CustList<TranslatedKey> v: comboEvtStat_) {
+            v.sortElts(new ComparingTranslatedKey());
         }
         return comboEvtStat_;
     }
@@ -4203,7 +4202,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean comboMultNormal(int _index) {
-        StringList combo_ = comboMultStat.get(_index);
+        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
         DataBase data_ = getDataBase();
         EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
         return hasNormalStat(eff_.getMultStatisticFoe().getKeys());
@@ -4219,7 +4218,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean comboMultEvasiness(int _index) {
-        StringList combo_ = comboMultStat.get(_index);
+        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
         DataBase data_ = getDataBase();
         EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
         return eff_.getMultStatisticFoe().contains(Statistic.EVASINESS);
@@ -4235,7 +4234,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean comboMultSpeed(int _index) {
-        StringList combo_ = comboMultStat.get(_index);
+        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
         DataBase data_ = getDataBase();
         EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
         return eff_.getMultStatisticFoe().contains(Statistic.SPEED);
@@ -4251,7 +4250,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean comboMultAccuracy(int _index) {
-        StringList combo_ = comboMultStat.get(_index);
+        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
         DataBase data_ = getDataBase();
         EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
         return eff_.getMultStatisticFoe().contains(Statistic.ACCURACY);
@@ -4271,29 +4270,30 @@ public class FightHelpBean extends CommonBean {
         return Instances.newEffectTeam();
     }
     public String getTrComboMultStat(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringList moves_ = new StringList();
-        for (String m: comboMultStat.get(_index)) {
-            moves_.add(translatedMoves_.getVal(m));
-        }
-        return StringUtil.join(moves_, CST_SEP_DASH);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        StringList moves_ = new StringList();
+//        for (String m: comboMultStat.get(_index)) {
+//            moves_.add(translatedMoves_.getVal(m));
+//        }
+        return StringUtil.join(WithFilterBean.values(comboMultStat.get(_index)), CST_SEP_DASH);
     }
     public String clickComboMultStat(int _index) {
-        getForms().put(CST_COMBO, comboMultStat.get(_index));
+        getForms().put(CST_COMBO, WithFilterBean.keys(comboMultStat.get(_index)));
         return PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML;
     }
     public String getTrComboEvtStat(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringList moves_ = new StringList();
-        for (String m: comboEvtStat.get(_index)) {
-            moves_.add(translatedMoves_.getVal(m));
-        }
-        return StringUtil.join(moves_, CST_SEP_DASH);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
+//        StringList moves_ = new StringList();
+//        for (String m: comboEvtStat.get(_index)) {
+//            moves_.add(translatedMoves_.getVal(m));
+//        }
+//        return StringUtil.join(moves_, CST_SEP_DASH);
+        return StringUtil.join(WithFilterBean.values(comboEvtStat.get(_index)), CST_SEP_DASH);
     }
     public String clickComboEvtStat(int _index) {
-        getForms().put(CST_COMBO, comboEvtStat.get(_index));
+        getForms().put(CST_COMBO, WithFilterBean.keys(comboEvtStat.get(_index)));
         return PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML;
     }
     public boolean nextRowAfter(int _index) {
@@ -4499,7 +4499,7 @@ public class FightHelpBean extends CommonBean {
         return abilitiesRateStatis;
     }
 
-    public CustList<StringList> getComboEvtStat() {
+    public CustList<CustList<TranslatedKey>> getComboEvtStat() {
         return comboEvtStat;
     }
 
@@ -4819,7 +4819,7 @@ public class FightHelpBean extends CommonBean {
         return abilitiesImmuMultStat;
     }
 
-    public CustList<StringList> getComboMultStat() {
+    public CustList<CustList<TranslatedKey>> getComboMultStat() {
         return comboMultStat;
     }
 

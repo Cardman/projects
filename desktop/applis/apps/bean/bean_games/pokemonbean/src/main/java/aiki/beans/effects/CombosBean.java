@@ -1,14 +1,12 @@
 package aiki.beans.effects;
 
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorStringList;
-import aiki.beans.facade.comparators.DictionaryComparatorCombos;
-import aiki.comparators.DictionaryComparatorUtil;
+import aiki.beans.TranslatedKey;
+import aiki.beans.facade.comparators.*;
 import aiki.db.DataBase;
 import aiki.fight.util.ListEffectCombo;
 import code.scripts.confs.*;
 import code.util.CustList;
-import code.util.StringList;
 
 public class CombosBean extends CommonBean {
     static final String COMBO=PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBO_HTML;
@@ -36,24 +34,20 @@ public class CombosBean extends CommonBean {
     private DictionaryComparatorCombos getLocCombos() {
         DataBase data_ = getDataBase();
         DictionaryComparatorCombos combos_;
-        combos_ = new DictionaryComparatorCombos(data_, getLanguage());
+        combos_ = new DictionaryComparatorCombos();
         for (ListEffectCombo l: data_.getCombos().getEffects()) {
-            StringList key_ = new StringList(l.getList());
-            key_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-            combos_.put(key_, l.getCombo());
+            combos_.put(listTrStringsMv(l.getList(),getFacade()), l.getCombo());
         }
         return combos_;
     }
-    public CustList<StringList> getCombosKey() {
+    public CustList<CustList<TranslatedKey>> getCombosKey() {
         DataBase data_ = getDataBase();
-        CustList<StringList> combos_;
-        combos_ = new CustList<StringList>();
+        CustList<CustList<TranslatedKey>> combos_;
+        combos_ = new CustList<CustList<TranslatedKey>>();
         for (ListEffectCombo l: data_.getCombos().getEffects()) {
-            StringList key_ = new StringList(l.getList());
-            key_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-            combos_.add(key_);
+            combos_.add(listTrStringsMv(l.getList(),getFacade()));
         }
-        combos_.sortElts(new ComparatorStringList(data_, getLanguage(), false));
+        combos_.sortElts(new ComparatorTranslatedKeyList());
         return combos_;
     }
 

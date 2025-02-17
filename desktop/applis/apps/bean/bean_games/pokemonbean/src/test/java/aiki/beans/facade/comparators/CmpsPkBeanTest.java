@@ -1,5 +1,6 @@
 package aiki.beans.facade.comparators;
 
+import aiki.beans.TranslatedKey;
 import aiki.beans.abilities.AbilityBean;
 import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.beans.db.InitDbConstr;
@@ -25,7 +26,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,true);
+        ComparatorStringList csl_ = new ComparatorStringList();
         CustList<StringList> lists_ = new CustList<StringList>();
         lists_.add(new StringList(M_DAM_VAR,M_DAM));
         lists_.add(new StringList(M_DAM_VAR,M_DAM_BAD));
@@ -46,18 +47,18 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,false);
-        CustList<StringList> lists_ = new CustList<StringList>();
-        lists_.add(new StringList(M_DAM_VAR,M_DAM));
-        lists_.add(new StringList(M_DAM_VAR,M_DAM_BAD));
+        ComparatorTranslatedKeyList csl_ = new ComparatorTranslatedKeyList();
+        CustList<CustList<TranslatedKey>> lists_ = new CustList<CustList<TranslatedKey>>();
+        lists_.add(new CustList<TranslatedKey>(new TranslatedKey(M_DAM_VAR,M_DAM_VAR_TR),new TranslatedKey(M_DAM,M_DAM_TR)));
+        lists_.add(new CustList<TranslatedKey>(new TranslatedKey(M_DAM_VAR,M_DAM_VAR_TR),new TranslatedKey(M_DAM_BAD,M_DAM_BAD_TR)));
         lists_.sortElts(csl_);
         assertEq(2,lists_.size());
         assertEq(2, lists_.get(0).size());
-        assertEq(M_DAM_VAR, lists_.get(0).get(0));
-        assertEq(M_DAM_BAD, lists_.get(0).get(1));
+        assertEq(M_DAM_VAR, lists_.get(0).get(0).getKey());
+        assertEq(M_DAM_BAD, lists_.get(0).get(1).getKey());
         assertEq(2, lists_.get(1).size());
-        assertEq(M_DAM_VAR, lists_.get(1).get(0));
-        assertEq(M_DAM, lists_.get(1).get(1));
+        assertEq(M_DAM_VAR, lists_.get(1).get(0).getKey());
+        assertEq(M_DAM, lists_.get(1).get(1).getKey());
     }
     @Test
     public void cmp3() {
@@ -67,7 +68,7 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,true);
+        ComparatorStringList csl_ = new ComparatorStringList();
         CustList<StringList> lists_ = new CustList<StringList>();
         lists_.add(new StringList(M_DAM_VAR,M_DAM));
         lists_.add(new StringList(M_DAM_VAR,M_DAM,M_DAM_BAD));
@@ -93,23 +94,23 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStringList csl_ = new ComparatorStringList(f_.getData(),EN,false);
-        CustList<StringList> lists_ = new CustList<StringList>();
-        lists_.add(new StringList(M_DAM_VAR,M_DAM));
-        lists_.add(new StringList(M_DAM_VAR,M_DAM,M_DAM_BAD));
-        lists_.add(new StringList(M_DAM_VAR,M_DAM_BAD));
+        ComparatorTranslatedKeyList csl_ = new ComparatorTranslatedKeyList();
+        CustList<CustList<TranslatedKey>> lists_ = new CustList<CustList<TranslatedKey>>();
+        lists_.add(new CustList<TranslatedKey>(new TranslatedKey(M_DAM_VAR,M_DAM_VAR_TR),new TranslatedKey(M_DAM,M_DAM_TR)));
+        lists_.add(new CustList<TranslatedKey>(new TranslatedKey(M_DAM_VAR,M_DAM_VAR_TR),new TranslatedKey(M_DAM,M_DAM_TR),new TranslatedKey(M_DAM_BAD,M_DAM_BAD_TR)));
+        lists_.add(new CustList<TranslatedKey>(new TranslatedKey(M_DAM_VAR,M_DAM_VAR_TR),new TranslatedKey(M_DAM_BAD,M_DAM_BAD_TR)));
         lists_.sortElts(csl_);
         assertEq(3,lists_.size());
         assertEq(2, lists_.get(0).size());
-        assertEq(M_DAM_VAR, lists_.get(0).get(0));
-        assertEq(M_DAM_BAD, lists_.get(0).get(1));
+        assertEq(M_DAM_VAR, lists_.get(0).get(0).getKey());
+        assertEq(M_DAM_BAD, lists_.get(0).get(1).getKey());
         assertEq(2, lists_.get(1).size());
-        assertEq(M_DAM_VAR, lists_.get(1).get(0));
-        assertEq(M_DAM, lists_.get(1).get(1));
+        assertEq(M_DAM_VAR, lists_.get(1).get(0).getKey());
+        assertEq(M_DAM, lists_.get(1).get(1).getKey());
         assertEq(3, lists_.get(2).size());
-        assertEq(M_DAM_VAR, lists_.get(2).get(0));
-        assertEq(M_DAM, lists_.get(2).get(1));
-        assertEq(M_DAM_BAD, lists_.get(2).get(2));
+        assertEq(M_DAM_VAR, lists_.get(2).get(0).getKey());
+        assertEq(M_DAM, lists_.get(2).get(1).getKey());
+        assertEq(M_DAM_BAD, lists_.get(2).get(2).getKey());
     }
 //    @Test
 //    public void cmp5() {
@@ -344,22 +345,22 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStatisticType c_ = new ComparatorStatisticType(f_.getData(),EN);
-        CustList<StatisticType> lists_ = new CustList<StatisticType>();
-        lists_.add(new StatisticType(Statistic.SPEED,M_DAM));
-        lists_.add(new StatisticType(Statistic.ACCURACY,M_DAM));
-        lists_.add(new StatisticType(Statistic.SPEED,M_DAM_BAD));
-        lists_.add(new StatisticType(Statistic.ACCURACY,M_DAM_BAD));
-        lists_.sortElts(c_);
+//        ComparatorStatisticType c_ = new ComparatorStatisticType(f_.getData(),EN);
+        CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
+        lists_.add(AbilityBean.buildPair(f_,new StatisticType(Statistic.SPEED,M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticType(Statistic.ACCURACY,M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticType(Statistic.SPEED,M_DAM_BAD)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticType(Statistic.ACCURACY,M_DAM_BAD)));
+        lists_.sortElts(new ComparatorTranslatedKeyPair());
         assertEq(4,lists_.size());
-        assertEq(M_DAM_BAD,lists_.get(0).getType());
-        assertSame(Statistic.SPEED,lists_.get(0).getStatistic());
-        assertEq(M_DAM,lists_.get(1).getType());
-        assertSame(Statistic.SPEED,lists_.get(1).getStatistic());
-        assertEq(M_DAM_BAD,lists_.get(2).getType());
-        assertSame(Statistic.ACCURACY,lists_.get(2).getStatistic());
-        assertEq(M_DAM,lists_.get(3).getType());
-        assertSame(Statistic.ACCURACY,lists_.get(3).getStatistic());
+        assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(0).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(1).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(1).getFirst().getKey()));
+        assertEq(M_DAM_BAD,lists_.get(2).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(2).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(3).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(3).getFirst().getKey()));
     }
     @Test
     public void cmp16() {
@@ -429,22 +430,21 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,M_DAM_BAD_TR);
         f_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,M_DAM_VAR_TR);
         f_.updateTrs();
-        ComparatorStatisticCategory c_ = new ComparatorStatisticCategory(f_.getData(),EN);
-        CustList<StatisticCategory> lists_ = new CustList<StatisticCategory>();
-        lists_.add(new StatisticCategory(Statistic.SPEED,M_DAM));
-        lists_.add(new StatisticCategory(Statistic.ACCURACY,M_DAM));
-        lists_.add(new StatisticCategory(Statistic.SPEED,M_DAM_BAD));
-        lists_.add(new StatisticCategory(Statistic.ACCURACY,M_DAM_BAD));
-        lists_.sortElts(c_);
+        CustList<TranslatedKeyPair> lists_ = new CustList<TranslatedKeyPair>();
+        lists_.add(AbilityBean.buildPair(f_,new StatisticCategory(Statistic.SPEED,M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticCategory(Statistic.ACCURACY,M_DAM)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticCategory(Statistic.SPEED,M_DAM_BAD)));
+        lists_.add(AbilityBean.buildPair(f_,new StatisticCategory(Statistic.ACCURACY,M_DAM_BAD)));
+        lists_.sortElts(new ComparatorTranslatedKeyPair());
         assertEq(4,lists_.size());
-        assertEq(M_DAM_BAD,lists_.get(0).getCategory());
-        assertSame(Statistic.SPEED,lists_.get(0).getStatistic());
-        assertEq(M_DAM,lists_.get(1).getCategory());
-        assertSame(Statistic.SPEED,lists_.get(1).getStatistic());
-        assertEq(M_DAM_BAD,lists_.get(2).getCategory());
-        assertSame(Statistic.ACCURACY,lists_.get(2).getStatistic());
-        assertEq(M_DAM,lists_.get(3).getCategory());
-        assertSame(Statistic.ACCURACY,lists_.get(3).getStatistic());
+        assertEq(M_DAM_BAD,lists_.get(0).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(0).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(1).getSecond().getKey());
+        assertSame(Statistic.SPEED,Statistic.getStatisticByName(lists_.get(1).getFirst().getKey()));
+        assertEq(M_DAM_BAD,lists_.get(2).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(2).getFirst().getKey()));
+        assertEq(M_DAM,lists_.get(3).getSecond().getKey());
+        assertSame(Statistic.ACCURACY,Statistic.getStatisticByName(lists_.get(3).getFirst().getKey()));
     }
     @Test
     public void cmp19() {
@@ -465,25 +465,25 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         assertEq(M_DAM_POW,lists_.get(3).getName());
         assertEq(M_DAM_VAR,lists_.get(3).getGender());
     }
-    @Test
-    public void cmp20() {
-        ComparatorCategoryMult c_ = new ComparatorCategoryMult();
-        CustList<CategoryMult> lists_ = new CustList<CategoryMult>();
-        lists_.add(new CategoryMult(M_DAM_BAD,0));
-        lists_.add(new CategoryMult(M_DAM,0));
-        lists_.add(new CategoryMult(M_DAM_BAD,1));
-        lists_.add(new CategoryMult(M_DAM,1));
-        lists_.sortElts(c_);
-        assertEq(4,lists_.size());
-        assertEq(M_DAM,lists_.get(0).getCategory());
-        assertEq(0,lists_.get(0).getMult());
-        assertEq(M_DAM,lists_.get(1).getCategory());
-        assertEq(1,lists_.get(1).getMult());
-        assertEq(M_DAM_BAD,lists_.get(2).getCategory());
-        assertEq(0,lists_.get(2).getMult());
-        assertEq(M_DAM_BAD,lists_.get(3).getCategory());
-        assertEq(1,lists_.get(3).getMult());
-    }
+//    @Test
+//    public void cmp20() {
+//        ComparatorCategoryMult c_ = new ComparatorCategoryMult();
+//        CustList<CategoryMult> lists_ = new CustList<CategoryMult>();
+//        lists_.add(new CategoryMult(M_DAM_BAD,0));
+//        lists_.add(new CategoryMult(M_DAM,0));
+//        lists_.add(new CategoryMult(M_DAM_BAD,1));
+//        lists_.add(new CategoryMult(M_DAM,1));
+//        lists_.sortElts(c_);
+//        assertEq(4,lists_.size());
+//        assertEq(M_DAM,lists_.get(0).getCategory());
+//        assertEq(0,lists_.get(0).getMult());
+//        assertEq(M_DAM,lists_.get(1).getCategory());
+//        assertEq(1,lists_.get(1).getMult());
+//        assertEq(M_DAM_BAD,lists_.get(2).getCategory());
+//        assertEq(0,lists_.get(2).getMult());
+//        assertEq(M_DAM_BAD,lists_.get(3).getCategory());
+//        assertEq(1,lists_.get(3).getMult());
+//    }
     @Test
     public void cmp21() {
         ComparatorPoint c_ = new ComparatorPoint();

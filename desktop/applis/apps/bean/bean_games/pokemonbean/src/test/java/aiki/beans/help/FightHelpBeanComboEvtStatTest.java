@@ -1,6 +1,8 @@
 package aiki.beans.help;
 
+import aiki.beans.TranslatedKey;
 import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.util.ListEffectCombo;
 import aiki.instances.Instances;
@@ -14,7 +16,7 @@ import org.junit.Test;
 public final class FightHelpBeanComboEvtStatTest extends InitDbFightHelp {
     @Test
     public void movesTypesDefWeatherInitTest() {
-        CustList<StringList> ls_ = FightHelpBean.comboEvtStatInit(db().getData(),EN);
+        CustList<CustList<TranslatedKey>> ls_ = FightHelpBean.comboEvtStatInit(dbTr());
         assertEq(1,ls_.size());
     }
     @Test
@@ -31,6 +33,11 @@ public final class FightHelpBeanComboEvtStatTest extends InitDbFightHelp {
     }
     private static String clickDest() {
         return toStr(callFightHelpBeanClickComboEvtStat(bean(db()),0));
+    }
+    private static FacadeGame dbTr() {
+        FacadeGame f_ = db();
+        f_.updateTrs();
+        return f_;
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
