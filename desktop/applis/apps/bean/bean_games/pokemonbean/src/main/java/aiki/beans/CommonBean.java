@@ -248,6 +248,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         if (_sub instanceof EffectDamageRateBean) {
             displayBoolFull(MessagesPkBean.EFF_DAMAGERATE,toInt(((EffectDamageRateBean)_sub).getWinHp()),MessagesDataEffdamagerate.M_P_46_POS_RATE,MessagesDataEffdamagerate.M_P_46_NEG_RATE,((EffectDamageRateBean)_sub).getRateDamage().toNumberString());
         }
+        if (_sub instanceof EffectEndRoundMoveBean) {
+            endRound((EffectEndRoundMoveBean)_sub);
+        }
         if (_sub instanceof EffectFullHpRateBean) {
             displayIntDef(MessagesPkBean.EFF_FULLHPRATE,((EffectFullHpRateBean)_sub).getLeftUserHp(),MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP);
             displayNotEmpty(MessagesPkBean.EFF_FULLHPRATE,((EffectFullHpRateBean)_sub).getRestoredHp(),MessagesDataEfffullhprate.M_P_48_RESTORED);
@@ -302,6 +305,15 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             effMult((EffectMultMovePowerBean) _sub);
         }
     }
+
+    private void endRound(EffectEndRoundMoveBean _sub) {
+        formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(_sub.getEndRoundRank()));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_ENDROUND);
+        display(MessagesPkBean.EFF_ENDROUND,_sub.getReasonsEndRound(),MessagesDataEffendround.M_P_47_REASONS);
+        displayStringList(_sub.getReasonsEndRound());
+        mapVarsInit(_sub.getMapVarsFailEndRound());
+    }
+
     private void eff2(EffectBean _sub) {
         if (_sub instanceof EffectOrderBean) {
             displayBoolFull(MessagesPkBean.EFF_ORDER,toInt(((EffectOrderBean)_sub).getTargetAttacksLast()),MessagesDataEfforder.M_P_53_LAST,MessagesDataEfforder.M_P_53_AFTER_USER);
