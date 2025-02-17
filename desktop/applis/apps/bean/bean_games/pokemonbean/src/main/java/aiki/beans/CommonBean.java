@@ -278,6 +278,30 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getMovesUsedByTargetedFighters(),NumberUtil.signum(((EffectGlobalBean) _sub).getMultDamagePrepaRound().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE);
             new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean) _sub).getMultDamagePrepaRound(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_RATE);
         }
+        if (_sub instanceof EffectInvokeBean) {
+            displayBoolTrue(MessagesPkBean.EFF_INVOKE,toInt(((EffectInvokeBean)_sub).getInvokingMoveButUser()),MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_BUT_USER);
+            displayBoolTrue(MessagesPkBean.EFF_INVOKE,toInt(((EffectInvokeBean)_sub).getInvokingTargetChosenMove()),MessagesDataEffinvoke.M_P_50_INVOKE_TARGET_CHOSEN_MOVE);
+            displayBoolTrue(MessagesPkBean.EFF_INVOKE,toInt(((EffectInvokeBean)_sub).getInvokingUserMoveWhileSleep()),MessagesDataEffinvoke.M_P_50_INVOKE_USER_MOVE_WHILE_SLEEP);
+            displayBoolTrue(MessagesPkBean.EFF_INVOKE,toInt(((EffectInvokeBean)_sub).getInvokingAllyMove()),MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_PART);
+            displayBoolTrue(MessagesPkBean.EFF_INVOKE,toInt(((EffectInvokeBean)_sub).getInvokingTargetSuccesfulMove()),MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_SUCCESS_TARGET);
+            displayBoolTrue(MessagesPkBean.EFF_INVOKE,toInt(((EffectInvokeBean)_sub).getInvokingSufferedMove()),MessagesDataEffinvoke.M_P_50_INVOKE_SUFFERED_MOVE);
+            displayIntDef(MessagesPkBean.EFF_INVOKE,((EffectInvokeBean)_sub).getRateInvokationMove(),MessagesDataEffinvoke.M_P_50_RATE_INVOKE_MOVE);
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this,((EffectInvokeBean)_sub).getMoveFctEnv(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVE_FCT_ENV,MessagesDataEffinvoke.M_P_50_ENV_TYPE,MessagesDataEffinvoke.M_P_50_INVOKED_MOVE);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectInvokeBean) _sub).getGlobalMoves(),NumberUtil.signum(((EffectInvokeBean) _sub).getMoveFctEnv().size()),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVE_FCT_ENV_EXC);
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_OTHER_OWNED_TYPE),new BeanDisplayTranslatedKey()).displayGrid(this,((EffectInvokeBean)_sub).getInvokingMoveByUserTypes(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_TYPE,MessagesDataEffinvoke.M_P_50_OWNED_TYPE,MessagesDataEffinvoke.M_P_50_INVOKED_MOVE);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectInvokeBean) _sub).getMovesNotToBeInvoked(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVES_NOT_INVOKED);
+        }
+        if (_sub instanceof EffectMultMovePowerBean) {
+            effMult((EffectMultMovePowerBean) _sub);
+        }
+    }
+
+    private void effMult(EffectMultMovePowerBean _sub) {
+        if (_sub.getEffect() instanceof EffectMultSufferedMovePower) {
+            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, _sub.getMultMovePowerFctType(),MessagesPkBean.EFF_MULTSUFFEREDMOVEPOWER,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_TYPE,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_RATE);
+        } else {
+            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, _sub.getMultMovePowerFctType(),MessagesPkBean.EFF_MULTUSEDMOVEPOWER,MessagesDataEffmultusedmovepower.M_P_52_MULT_POWER,MessagesDataEffmultusedmovepower.M_P_52_MULT_POWER_TYPE,MessagesDataEffmultusedmovepower.M_P_52_MULT_POWER_RATE);
+        }
     }
 
     private void effDam(EffectDamageBean _sub) {
