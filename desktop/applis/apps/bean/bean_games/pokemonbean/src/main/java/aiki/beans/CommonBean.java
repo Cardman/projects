@@ -329,37 +329,49 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         if (_sub instanceof EffectStatisticBean) {
             effStatis((EffectStatisticBean) _sub);
         }
+        if (_sub instanceof EffectStatusBean) {
+            effStatus((EffectStatusBean) _sub);
+        }
     }
     private void procMoveChoiceRestrictionType(MoveChoiceRestrictionType _value, MoveChoiceRestrictionType _cst, String _key) {
         if (_value == _cst) {
             formatMessage(MessagesPkBean.EFF_RESTRICTION,_key);
         }
     }
-    private void effStatis(EffectStatisticBean _statis) {
-        effStatis(_statis.getEffectStatisticCommon());
+    private void effStatis(EffectStatisticBean _sub) {
+        effStatis(_sub.getEffectStatisticCommon());
     }
-    protected void effStatis(EffectStatisticCommon _statis) {
-        if (!_statis.randomStatis()) {
-            displayBoolFull(MessagesPkBean.EFF_STATIS,toInt(_statis.isAlwaysEnabled()),MessagesDataEffstatis.M_P_58_ALWAYS_ENABLED,MessagesDataEffstatis.M_P_58_RATE_ENABLED,_statis.getEvtRate().toNumberString(),_statis.getEvtRatePerCent());
+    protected void effStatis(EffectStatisticCommon _sub) {
+        if (!_sub.randomStatis()) {
+            displayBoolFull(MessagesPkBean.EFF_STATIS,toInt(_sub.isAlwaysEnabled()),MessagesDataEffstatis.M_P_58_ALWAYS_ENABLED,MessagesDataEffstatis.M_P_58_RATE_ENABLED,_sub.getEvtRate().toNumberString(),_sub.getEvtRatePerCent());
         }
-        if (_statis.notEmptyVarBoost()) {
-            if (_statis.randomStatis()) {
-                new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(),new BeanDisplayStatRankRate(true)).displayGrid(this,_statis.getStatisVarRank(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_VAR_STATIS_RANK,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_BOOST,MessagesDataEffstatis.M_P_58_FAIL,MessagesDataEffstatis.M_P_58_RATE_EVENT);
+        if (_sub.notEmptyVarBoost()) {
+            if (_sub.randomStatis()) {
+                new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(),new BeanDisplayStatRankRate(true,true)).displayGrid(this,_sub.getStatisVarRank(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_VAR_STATIS_RANK,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_BOOST,MessagesDataEffstatis.M_P_58_FAIL,MessagesDataEffstatis.M_P_58_RATE_EVENT);
             } else {
-                new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(),new BeanDisplayStatRankRate(false)).displayGrid(this,_statis.getStatisVarRank(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_VAR_STATIS_RANK,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_BOOST,MessagesDataEffstatis.M_P_58_FAIL);
+                new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(),new BeanDisplayStatRankRate(true,false)).displayGrid(this,_sub.getStatisVarRank(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_VAR_STATIS_RANK,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_BOOST,MessagesDataEffstatis.M_P_58_FAIL);
             }
-            mapVarsInit(_statis.getMapVarsStatistics());
+            mapVarsInit(_sub.getMapVarsStatistics());
         }
-        if (!_statis.getSwapBoostStatis().isEmpty()) {
-            new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,_statis.getSwapBoostStatis(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_SWAP_BOOST,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_FAIL);
-            mapVarsInit(_statis.getMapVarsStatistics());
+        if (!_sub.getSwapBoostStatis().isEmpty()) {
+            new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,_sub.getSwapBoostStatis(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_SWAP_BOOST,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_FAIL);
+            mapVarsInit(_sub.getMapVarsStatistics());
         }
-        display(MessagesPkBean.EFF_STATIS,_statis.getCancelLowStat(),MessagesDataEffstatis.M_P_58_CANCEL_LOW_STAT,Long.toString(_statis.getDefaultBoost()));
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _statis.getCancelLowStat());
-        display(MessagesPkBean.EFF_STATIS,_statis.getCancelChgtStat(),MessagesDataEffstatis.M_P_58_CANCEL_CHGT_STAT,Long.toString(_statis.getDefaultBoost()));
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _statis.getCancelChgtStat());
-        display(MessagesPkBean.EFF_STATIS,_statis.getCopyBoost(),MessagesDataEffstatis.M_P_58_COPY_BOOST,Long.toString(_statis.getDefaultBoost()));
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _statis.getCopyBoost());
+        display(MessagesPkBean.EFF_STATIS,_sub.getCancelLowStat(),MessagesDataEffstatis.M_P_58_CANCEL_LOW_STAT,Long.toString(_sub.getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCancelLowStat());
+        display(MessagesPkBean.EFF_STATIS,_sub.getCancelChgtStat(),MessagesDataEffstatis.M_P_58_CANCEL_CHGT_STAT,Long.toString(_sub.getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCancelChgtStat());
+        display(MessagesPkBean.EFF_STATIS,_sub.getCopyBoost(),MessagesDataEffstatis.M_P_58_COPY_BOOST,Long.toString(_sub.getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCopyBoost());
+    }
+    private void effStatus(EffectStatusBean _sub) {
+        if (!_sub.getLawStatus().isEmpty()) {
+            new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_OTHER_STATUS),new BeanDisplayStatRankRate(false, true)).displayGrid(this,_sub.getLawStatus(),MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_LAW_STATUS,MessagesDataEffstatus.M_P_59_STATUS,MessagesDataEffstatus.M_P_59_FAIL,MessagesDataEffstatus.M_P_59_RATE_EVENT);
+            mapVarsInit(_sub.getMapVarsStatus());
+        }
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getDeletedStatus(), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_DELETED_STATUS);
+        displayBoolTrue(MessagesPkBean.EFF_STATUS,toInt(_sub.getKoUserHealSubst()),MessagesDataEffstatus.M_P_59_KO_USER);
+        displayBoolTrue(MessagesPkBean.EFF_STATUS,toInt(_sub.getStatusFromUser()),MessagesDataEffstatus.M_P_59_FORWARD);
     }
     private void effMult(EffectMultMovePowerBean _sub) {
         if (_sub.getEffect() instanceof EffectMultSufferedMovePower) {

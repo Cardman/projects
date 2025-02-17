@@ -1,14 +1,15 @@
 package aiki.beans;
 
 import aiki.fight.enums.Statistic;
+import code.maths.Rate;
 import code.util.IdMap;
 
 public final class StatRankRate {
     private final long rank;
     private final String fail;
-    private final String rate;
+    private final Rate rate;
 
-    public StatRankRate(IdMap<Statistic,Long> _k, Statistic _c, String _l, String _e) {
+    public StatRankRate(IdMap<Statistic,Long> _k, Statistic _c, String _l, Rate _e) {
         if (_k.contains(_c)) {
             this.rank = _k.getVal(_c);
         } else {
@@ -26,7 +27,7 @@ public final class StatRankRate {
         return fail;
     }
 
-    public String getRate() {
+    public Rate getRate() {
         return rate;
     }
 }

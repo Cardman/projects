@@ -922,6 +922,17 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
+
+    public static NatArrayStruct getStrLongStatKey(DictionaryComparator<TranslatedKey, StatRankRate> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int i_ = 0;
+        for (EntryCust<TranslatedKey,StatRankRate> e: _map.entryList()){
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue().getRate()));
+            arr_.set(i_,p_);
+            i_++;
+        }
+        return arr_;
+    }
     public static NatArrayStruct getStrLongStat(DictionaryComparator<TranslatedKey, StatRankRate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;

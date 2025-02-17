@@ -1,20 +1,28 @@
 package aiki.beans;
 
 public final class BeanDisplayStatRankRate implements BeanDisplay<StatRankRate> {
+    private final boolean boost;
     private final boolean rate;
 
-    public BeanDisplayStatRankRate(boolean _r) {
+    public BeanDisplayStatRankRate(boolean _b,boolean _r) {
+        this.boost = _b;
         this.rate = _r;
     }
 
     @Override
     public int display(CommonBean _rend, StatRankRate _info, int _index) {
-        _rend.formatMessageDirCts(Long.toString(_info.getRank()));
-        _rend.formatMessageDirCts(_info.getFail());
-        if (rate) {
-            _rend.formatMessageDirCts(_info.getRate());
-            return 3;
+        int c_ = 0;
+        if (boost) {
+            _rend.formatMessageDirCts(Long.toString(_info.getRank()));
+            c_++;
         }
-        return 2;
+        _rend.formatMessageDirCts(_info.getFail());
+        c_++;
+        if (rate) {
+            _rend.formatMessageDirCts(_info.getRate().toNumberString());
+            c_++;
+            return c_;
+        }
+        return c_;
     }
 }

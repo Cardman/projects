@@ -45,14 +45,14 @@ public final class EffectStatisticCommon {
         for (Statistic s: adj_.getStatisVarRank().getKeys()) {
             String formula_ = _data.getData().getFormula(StringUtil.nullToEmpty(adj_.getLocalFailStatis().getVal(s)), _lg);
             if (adj_.getLawBoost().isZero()) {
-                statisVarRank_.put(CommonBean.buildSi(_data,s), new StatRankRate(adj_.getStatisVarRank(),s,formula_,""));
+                statisVarRank_.put(CommonBean.buildSi(_data,s), new StatRankRate(adj_.getStatisVarRank(),s,formula_,Rate.one()));
             } else {
-                statisVarRank_.put(CommonBean.buildSi(_data,s), new StatRankRate(adj_.getStatisVarRank(),s,formula_,adj_.getLawBoost().normalizedRate(s).toNumberString()));
+                statisVarRank_.put(CommonBean.buildSi(_data,s), new StatRankRate(adj_.getStatisVarRank(),s,formula_,adj_.getLawBoost().normalizedRate(s)));
             }
         }
         for (Statistic s: adj_.getLawBoost().eventsDiff()) {
             String formula_ = _data.getData().getFormula(StringUtil.nullToEmpty(adj_.getLocalFailStatis().getVal(s)), _lg);
-            statisVarRank_.put(CommonBean.buildSi(_data,s), new StatRankRate(adj_.getStatisVarRank(),s,formula_,adj_.getLawBoost().normalizedRate(s).toNumberString()));
+            statisVarRank_.put(CommonBean.buildSi(_data,s), new StatRankRate(adj_.getStatisVarRank(),s,formula_,adj_.getLawBoost().normalizedRate(s)));
         }
         statisVarRank = statisVarRank_;
         DictionaryComparator<TranslatedKey,String> swapBoostStatis_;
@@ -128,7 +128,7 @@ public final class EffectStatisticCommon {
         return !lawBoost.isEmpty();
     }
     public Rate getRate(int _index) {
-        return Rate.newRate(statisVarRank.getValue(_index).getRate());
+        return statisVarRank.getValue(_index).getRate();
     }
     public String getFail(int _index) {
         return statisVarRank.getValue(_index).getFail();
