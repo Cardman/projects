@@ -27,7 +27,7 @@ public class EffectWhileSendingBean extends CommonBean {
         multWeight = effectSend_.getMultWeight();
         EffectStatistic effect_ = effectSend_.getEffect();
         statistic = effectSend_.isWithEffect();
-        effectStatisticCommon.init(getDataBase(),getLanguage(),effect_, statistic);
+        effectStatisticCommon.init(getFacade(),getLanguage(),effect_, statistic);
         if (statistic) {
             reasons = getFormattedReasons(getDataBase(), effect_.getFail(), getLanguage());
             mapVarsFail = getMapVarsFail(getDataBase(), effect_.getFail(), getLanguage());

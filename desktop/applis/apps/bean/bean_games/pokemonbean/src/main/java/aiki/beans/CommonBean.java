@@ -11,6 +11,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.*;
+import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
@@ -205,6 +206,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         displayStringList(MessagesPkBean.EFF,_sub.getReasons(),MessagesDataEff.M_P_36_REASONS);
         mapVarsInit(_sub.getMapVarsFail());
         displayBoolTrue(MessagesPkBean.EFF,toInt(_sub.getNeedSuccessFirstEffect()),MessagesDataEff.M_P_36_NEED_SUCESS);
+        eff1(_sub);
+        eff2(_sub);
+    }
+
+    private void eff1(EffectBean _sub) {
         if (_sub.getEffect() instanceof EffectAccuracy) {
             formatMessage(MessagesPkBean.EFF_ACCURACY,MessagesDataEffaccuracy.M_P_37_ACCURACY_MAX);
         }
@@ -295,7 +301,66 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             effMult((EffectMultMovePowerBean) _sub);
         }
     }
-
+    private void eff2(EffectBean _sub) {
+        if (_sub instanceof EffectOrderBean) {
+            displayBoolFull(MessagesPkBean.EFF_ORDER,toInt(((EffectOrderBean)_sub).getTargetAttacksLast()),MessagesDataEfforder.M_P_53_LAST,MessagesDataEfforder.M_P_53_AFTER_USER);
+        }
+        if (_sub instanceof EffectProtectFromTypesBean) {
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectProtectFromTypesBean)_sub).getImmuAgainstTypes(),MessagesPkBean.EFF_PROTECTFROMTYPES,MessagesDataEffprotectfromtypes.M_P_54_IMMU_MOVE_TYPES);
+        }
+        if (_sub instanceof EffectProtectionBean) {
+            displayBoolTrue(MessagesPkBean.EFF_PROTECTION,toInt(((EffectProtectionBean)_sub).getProtSingle()),MessagesDataEffprotection.M_P_55_PROT_SINGLE);
+            displayIntDef(MessagesPkBean.EFF_PROTECTION,((EffectProtectionBean)_sub).getProtSingleAgainstKo(),MessagesDataEffprotection.M_P_55_PROT_SINGLE_KO);
+            displayBoolTrue(MessagesPkBean.EFF_PROTECTION,toInt(((EffectProtectionBean)_sub).getProtTeamAgainstMultTargets()),MessagesDataEffprotection.M_P_55_PROT_MULTI_TARGETS);
+            displayBoolTrue(MessagesPkBean.EFF_PROTECTION,toInt(((EffectProtectionBean)_sub).getProtTeamAgainstPrio()),MessagesDataEffprotection.M_P_55_PROT_PRIO);
+            displayBoolTrue(MessagesPkBean.EFF_PROTECTION,toInt(((EffectProtectionBean)_sub).getProtTeamAgainstStatusMoves()),MessagesDataEffprotection.M_P_55_PROT_SINGLE_STATUS);
+            displayBoolTrue(MessagesPkBean.EFF_PROTECTION,toInt(((EffectProtectionBean)_sub).getProtTeamAgainstDamageMoves()),MessagesDataEffprotection.M_P_55_PROT_SINGLE_DAMAGE);
+        }
+        if (_sub instanceof EffectRemainedHpRateBean) {
+            displayBoolFull(MessagesPkBean.EFF_REMAINEDHPRATE,toInt(((EffectRemainedHpRateBean)_sub).getWinHp()),MessagesDataEffremainedhprate.M_P_56_RATE_WIN,MessagesDataEffremainedhprate.M_P_56_RATE_LOOSE,((EffectRemainedHpRateBean)_sub).getRateHp().toNumberString());
+        }
+        if (_sub instanceof EffectRestrictionBean) {
+            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.CATEGORIE_AUTRE,MessagesDataEffrestriction.M_P_57_FORBID_STATUS_MOVE);
+            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.DER,MessagesDataEffrestriction.M_P_57_FORBID_LAST_MOVE);
+            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.LANCEUR_ATTAQUES,MessagesDataEffrestriction.M_P_57_FORBID_USER_MOVES);
+            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.FORBIDDEN,MessagesDataEffrestriction.M_P_57_FORBID_USE_LAST_MOVE);
+            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.FORCE,MessagesDataEffrestriction.M_P_57_FORCE_USE_LAST_MOVE);
+        }
+        if (_sub instanceof EffectStatisticBean) {
+            effStatis((EffectStatisticBean) _sub);
+        }
+    }
+    private void procMoveChoiceRestrictionType(MoveChoiceRestrictionType _value, MoveChoiceRestrictionType _cst, String _key) {
+        if (_value == _cst) {
+            formatMessage(MessagesPkBean.EFF_RESTRICTION,_key);
+        }
+    }
+    private void effStatis(EffectStatisticBean _statis) {
+        effStatis(_statis.getEffectStatisticCommon());
+    }
+    protected void effStatis(EffectStatisticCommon _statis) {
+        if (!_statis.randomStatis()) {
+            displayBoolFull(MessagesPkBean.EFF_STATIS,toInt(_statis.isAlwaysEnabled()),MessagesDataEffstatis.M_P_58_ALWAYS_ENABLED,MessagesDataEffstatis.M_P_58_RATE_ENABLED,_statis.getEvtRate().toNumberString(),_statis.getEvtRatePerCent());
+        }
+        if (_statis.notEmptyVarBoost()) {
+            if (_statis.randomStatis()) {
+                new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(),new BeanDisplayStatRankRate(true)).displayGrid(this,_statis.getStatisVarRank(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_VAR_STATIS_RANK,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_BOOST,MessagesDataEffstatis.M_P_58_FAIL,MessagesDataEffstatis.M_P_58_RATE_EVENT);
+            } else {
+                new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(),new BeanDisplayStatRankRate(false)).displayGrid(this,_statis.getStatisVarRank(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_VAR_STATIS_RANK,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_BOOST,MessagesDataEffstatis.M_P_58_FAIL);
+            }
+            mapVarsInit(_statis.getMapVarsStatistics());
+        }
+        if (!_statis.getSwapBoostStatis().isEmpty()) {
+            new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,_statis.getSwapBoostStatis(),MessagesPkBean.EFF_STATIS,MessagesDataEffstatis.M_P_58_SWAP_BOOST,MessagesDataEffstatis.M_P_58_STATISTIC,MessagesDataEffstatis.M_P_58_FAIL);
+            mapVarsInit(_statis.getMapVarsStatistics());
+        }
+        display(MessagesPkBean.EFF_STATIS,_statis.getCancelLowStat(),MessagesDataEffstatis.M_P_58_CANCEL_LOW_STAT,Long.toString(_statis.getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _statis.getCancelLowStat());
+        display(MessagesPkBean.EFF_STATIS,_statis.getCancelChgtStat(),MessagesDataEffstatis.M_P_58_CANCEL_CHGT_STAT,Long.toString(_statis.getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _statis.getCancelChgtStat());
+        display(MessagesPkBean.EFF_STATIS,_statis.getCopyBoost(),MessagesDataEffstatis.M_P_58_COPY_BOOST,Long.toString(_statis.getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _statis.getCopyBoost());
+    }
     private void effMult(EffectMultMovePowerBean _sub) {
         if (_sub.getEffect() instanceof EffectMultSufferedMovePower) {
             new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, _sub.getMultMovePowerFctType(),MessagesPkBean.EFF_MULTSUFFEREDMOVEPOWER,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_TYPE,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_RATE);
@@ -606,6 +671,15 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
         for (String s: _input) {
             res_.add(buildPk(_db,s));
+        }
+        res_.sortElts(new ComparingTranslatedKey());
+        return res_;
+    }
+
+    protected static CustList<TranslatedKey> listTrStringsSi(CustList<Statistic> _input, FacadeGame _db) {
+        CustList<TranslatedKey> res_ = new CustList<TranslatedKey>();
+        for (Statistic s: _input) {
+            res_.add(buildSi(_db,s));
         }
         res_.sortElts(new ComparingTranslatedKey());
         return res_;

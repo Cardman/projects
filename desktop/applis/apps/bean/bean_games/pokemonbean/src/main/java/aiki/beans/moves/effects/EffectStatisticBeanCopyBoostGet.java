@@ -1,13 +1,11 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 
 public class EffectStatisticBeanCopyBoostGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return BeanNatCommonLgNames.getStringArray(((EffectStatisticBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().getCopyBoost());
+        return PokemonStandards.getValues(((EffectStatisticBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().getCopyBoost());
     }
 }

@@ -67,8 +67,8 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<String,String> buildCatsData(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedCategories().getVal(_language));
     }
-    public static DictionaryComparator<String,Long> buildCatsShort(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Long>(_data.getTranslatedCategories().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,Long> buildCatsShort() {
+        return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
     }
     public static DictionaryComparator<TranslatedKey,Long> buildItemsShort() {
         return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
@@ -159,8 +159,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,IdList<Statistic>>(_data.getTranslatedTypes().getVal(_language));
     }
 
-    public static DictionaryComparator<String, Long> buildTypesShort(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Long>(_data.getTranslatedTypes().getVal(_language));
+    public static DictionaryComparator<TranslatedKey, Long> buildTypesShort() {
+        return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<String, TypeDamageBoost> buildTypesTypeDamageBoost(DataBase _data, String _language) {

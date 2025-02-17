@@ -33,6 +33,10 @@ public class EffectRestrictionBean extends EffectBean {
         return choiceRestriction == MoveChoiceRestrictionType.FORCE;
     }
 
+    public MoveChoiceRestrictionType getChoiceRestriction() {
+        return choiceRestriction;
+    }
+
     public boolean getForbidTargetUsingItem() {
         return forbidTargetUsingItem;
     }
