@@ -14,6 +14,10 @@ public final class BeanDisplayList<E> {
         display(_rend,_info,_cond);
     }
 
+    public void displayHead(CommonBean _rend, CustList<E> _info, int _cond, String _file, String _key, String... _values) {
+        _rend.display(_file,cond(_info,_cond),_key,_values);
+    }
+
     public void display(CommonBean _rend, CustList<E> _info, String _file, String _key, String... _values) {
         _rend.display(_file,_info,_key,_values);
         display(_rend,_info);

@@ -41,4 +41,12 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
     public String clickAbility(int _index) {
         return tryRedirect(((EffectSwitchAbilitiesBean)getForms().getCurrentBean().get(_index)).constAbility);
     }
+
+    public TranslatedKey getConstAbility() {
+        return constAbility;
+    }
+
+    public ExchangeType getExchangeAbility() {
+        return exchangeAbility;
+    }
 }

@@ -33,4 +33,8 @@ public class EffectSwitchItemsBean extends EffectBean {
     public boolean resuseLastItem() {
         return moveObject == MoveItemType.REUSE_LAST_OBJECT;
     }
+
+    public MoveItemType getMoveObject() {
+        return moveObject;
+    }
 }

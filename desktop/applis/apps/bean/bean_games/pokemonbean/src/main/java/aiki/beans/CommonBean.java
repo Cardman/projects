@@ -11,7 +11,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.*;
-import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
+import aiki.fight.moves.effects.enums.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
@@ -275,8 +275,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultPowerMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
             new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultDamageTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelChgtStat(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS);
-            displayNotEmpty(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getInvokedMoveTerrain().getTranslation(),MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
-            formatMessageDir(((EffectGlobalBean)_sub).getInvokedMoveTerrain());
+//            displayNotEmpty(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getInvokedMoveTerrain().getTranslation(),MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
+//            formatMessageDir(((EffectGlobalBean)_sub).getInvokedMoveTerrain());
+            formatTrKey(((EffectGlobalBean)_sub).getInvokedMoveTerrain(),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getInvokingMoves(),NumberUtil.signum(((EffectGlobalBean)_sub).getInvokedMoveTerrain().getKey().length()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_INVOKED_MOVE_ENV);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getChangedTypesTerrain(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKED);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getInvokingMovesChangingTypes(),NumberUtil.signum(((EffectGlobalBean)_sub).getChangedTypesTerrain().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKING);
@@ -332,10 +333,100 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         if (_sub instanceof EffectStatusBean) {
             effStatus((EffectStatusBean) _sub);
         }
+        if (_sub instanceof EffectSwitchAbilitiesBean) {
+            swAb((EffectSwitchAbilitiesBean) _sub);
+        }
+        if (_sub instanceof EffectSwitchItemsBean) {
+            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.DELETE_DEF_TARGET_BERRY,MessagesDataEffswitchitems.M_P_61_DELETE_BERRY);
+            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.TAKE_OBJET,MessagesDataEffswitchitems.M_P_61_TAKE_ITEM);
+            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.REMOVE_TARGET_OBJECT,MessagesDataEffswitchitems.M_P_61_REMOVE_ITEM);
+            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.EXCHANGE_OBJECTS,MessagesDataEffswitchitems.M_P_61_SWITCH_ITEMS);
+            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.REUSE_LAST_OBJECT,MessagesDataEffswitchitems.M_P_61_REUSE_ITEM);
+            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.GIVE_OBJECT_TARGET,MessagesDataEffswitchitems.M_P_61_GIVE_TO_TARGET);
+            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.USE_OBJECT_AS_POSSIBLE,MessagesDataEffswitchitems.M_P_61_USE_ITEM_IF_POSSIBLE);
+        }
+        if (_sub instanceof EffectSwitchMoveTypesBean) {
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectSwitchMoveTypesBean)_sub).getReplacingTypes(),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_REPLACING_TYPES);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).displayHead(this,((EffectSwitchMoveTypesBean)_sub).getChangeTypes().getKeys(),NumberUtil.signum(((EffectSwitchMoveTypesBean)_sub).getReplacingTypes().size()),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_CHANGING_TYPE_POSSIBLE);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).displayHead(this,((EffectSwitchMoveTypesBean)_sub).getChangeTypes().getKeys(),1-NumberUtil.signum(((EffectSwitchMoveTypesBean)_sub).getReplacingTypes().size()),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_CHANGING_TYPE);
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this,((EffectSwitchMoveTypesBean)_sub).getChangeTypes(),MessagesPkBean.EFF_SWITCHMOVESTYPES,"",MessagesDataEffswitchmovestypes.M_P_62_OLD_TYPE,MessagesDataEffswitchmovestypes.M_P_62_NEW_TYPE);
+        }
+        if (_sub instanceof EffectSwitchPointViewBean) {
+            procPointViewChangementType(((EffectSwitchPointViewBean)_sub).getPointViewChangement(),PointViewChangementType.THIEF_BONUSES,MessagesDataEffswitchpointview.M_P_63_THIEF,_sub.getMove());
+            procPointViewChangementType(((EffectSwitchPointViewBean)_sub).getPointViewChangement(),PointViewChangementType.MIRROR_AGAINST_THROWER,MessagesDataEffswitchpointview.M_P_63_MIRROR,_sub.getMove());
+            procPointViewChangementType(((EffectSwitchPointViewBean)_sub).getPointViewChangement(),PointViewChangementType.ATTRACT_DAMAGES_MOVES,MessagesDataEffswitchpointview.M_P_63_ATTRACT);
+        }
+        if (_sub instanceof EffectSwitchTypesBean) {
+            swTy((EffectSwitchTypesBean) _sub);
+        }
     }
+
+    private void swTy(EffectSwitchTypesBean _sub) {
+        displayBoolTrue(MessagesPkBean.EFF_SWITCHTYPES,toInt(_sub.isResTypes()),MessagesDataEffswitchtypes.M_P_65_RES_MOVES);
+        displayBoolTrue(MessagesPkBean.EFF_SWITCHTYPES,toInt(_sub.isUserTypes()),MessagesDataEffswitchtypes.M_P_65_USER_MOVES);
+        if (!_sub.isConstTypes()) {
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this, _sub.getChgtTypeByEnv(), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_ENVIR,MessagesDataEffswitchtypes.M_P_65_ENVIR_ENV,MessagesDataEffswitchtypes.M_P_65_ENVIR_TYPE);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getGlobalMoves(),NumberUtil.signum(_sub.getChgtTypeByEnv().size()),MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_ENVIR_ENV_EXC);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getAddedTypes(),MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_ADDED_TYPES);
+            procExchangeType(_sub.getExchangeTypes(),ExchangeType.GIVE_TO_TARGET,_sub.getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES_NOT_CONST_TARGET);
+            procExchangeType(_sub.getExchangeTypes(),ExchangeType.GIVE_TO_THROWER,_sub.getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES_NOT_CONST_USER);
+            procExchangeType(_sub.getExchangeTypes(),ExchangeType.EXCHANGE,_sub.getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_SWITCH_TYPES);
+            procExchangeType(_sub.getExchangeTypes(),ExchangeType.GIVE_CONST,_sub.getAddedTypes(),_sub.getConstTypes(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES);
+        }
+    }
+
+    private void swAb(EffectSwitchAbilitiesBean _sub) {
+        procExchangeType(_sub.getExchangeAbility(),ExchangeType.GIVE_TO_TARGET,MessagesDataEffswitchabilities.M_P_60_GIVE_TO_TARGET);
+        procExchangeType(_sub.getExchangeAbility(),ExchangeType.GIVE_TO_THROWER,MessagesDataEffswitchabilities.M_P_60_GIVE_TO_USER);
+        procExchangeType(_sub.getExchangeAbility(),ExchangeType.EXCHANGE,MessagesDataEffswitchabilities.M_P_60_SWICTH_ABILITIES);
+        if (_sub.giveConst()) {
+//            formatMessageDir(_sub.getConstAbility());
+            formatTrKey(_sub.getConstAbility(),MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST_EMPTY,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST);
+//            if (_sub.isDefAbility()) {
+//                formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST);
+//                formatMessageDir(_sub.getConstAbility());
+//            } else {
+//                formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST_EMPTY);
+//            }
+        }
+    }
+    protected void formatTrKey(TranslatedKey _key,String _file,String _empty, String _fill) {
+        if (!_key.getKey().isEmpty()) {
+            formatMessage(_file,_fill);
+            formatMessageDir(_key);
+        } else {
+            formatMessage(_file,_empty);
+        }
+//        displayNotEmpty(_file,_key.getTranslation(),_fill);
+//        displayEmpty(_file,_key.getTranslation(),_empty);
+//        formatMessageDir(_key);
+    }
+
     private void procMoveChoiceRestrictionType(MoveChoiceRestrictionType _value, MoveChoiceRestrictionType _cst, String _key) {
         if (_value == _cst) {
             formatMessage(MessagesPkBean.EFF_RESTRICTION,_key);
+        }
+    }
+    private void procExchangeType(ExchangeType _value, ExchangeType _cst, String _key) {
+        if (_value == _cst) {
+            formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,_key);
+        }
+    }
+    private void procExchangeType(MoveItemType _value, MoveItemType _cst, String _key) {
+        if (_value == _cst) {
+            formatMessage(MessagesPkBean.EFF_SWITCHITEMS,_key);
+        }
+    }
+
+    private void procPointViewChangementType(PointViewChangementType _value, PointViewChangementType _cst, String _key, String... _values) {
+        if (_value == _cst) {
+            formatMessage(MessagesPkBean.EFF_SWITCHPOINTVIEW,_key,_values);
+        }
+    }
+    private void procExchangeType(ExchangeType _value, ExchangeType _cst, CustList<TranslatedKey> _addedTypes, CustList<TranslatedKey> _constTypes, String _key) {
+        if (_value == _cst) {
+            displayBoolTrue(MessagesPkBean.EFF_SWITCHTYPES,1-NumberUtil.signum(_addedTypes.size()),_key);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_constTypes,1-NumberUtil.signum(_addedTypes.size()),MessagesPkBean.EFF_SWITCHTYPES,"");
         }
     }
     private void effStatis(EffectStatisticBean _sub) {

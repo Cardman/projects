@@ -21,4 +21,8 @@ public class EffectSwitchPointViewBean extends EffectBean {
     public boolean mirrorAgainstUser() {
         return pointViewChangement == PointViewChangementType.MIRROR_AGAINST_THROWER;
     }
+
+    public PointViewChangementType getPointViewChangement() {
+        return pointViewChangement;
+    }
 }

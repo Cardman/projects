@@ -19,8 +19,8 @@ public class EffectSwitchTypesBean extends EffectBean {
     private ConstValuesType constValuesType;
 
     private ExchangeType exchangeTypes;
-    private StringList constTypes;
-    private StringList addedTypes;
+    private CustList<TranslatedKey> constTypes;
+    private CustList<TranslatedKey> addedTypes;
 
     @Override
     public void beforeDisplaying() {
@@ -40,20 +40,20 @@ public class EffectSwitchTypesBean extends EffectBean {
         globalMoves = listTrStringsMv(globalMoves_,getFacade());
         constValuesType = effect_.getConstValuesType();
         exchangeTypes = effect_.getExchangeTypes();
-        StringList constTypes_;
-        constTypes_ = new StringList();
-        for (String type_: effect_.getConstTypes()) {
-            constTypes_.add(type_);
-        }
-        constTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
-        constTypes = constTypes_;
-        StringList addedTypes_;
-        addedTypes_ = new StringList();
-        for (String type_: effect_.getAddedTypes()) {
-            addedTypes_.add(type_);
-        }
-        addedTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
-        addedTypes = addedTypes_;
+//        StringList constTypes_;
+//        constTypes_ = new StringList();
+//        for (String type_: effect_.getConstTypes()) {
+//            constTypes_.add(type_);
+//        }
+//        constTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
+        constTypes = listTrStringsTy(effect_.getConstTypes(),getFacade());
+//        StringList addedTypes_;
+//        addedTypes_ = new StringList();
+//        for (String type_: effect_.getAddedTypes()) {
+//            addedTypes_.add(type_);
+//        }
+//        addedTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
+        addedTypes = listTrStringsTy(effect_.getAddedTypes(),getFacade());
     }
 
     public static StringList globalMoves(DataBase _data) {
@@ -107,17 +107,24 @@ public class EffectSwitchTypesBean extends EffectBean {
     public boolean switchTypes() {
         return exchangeTypes == ExchangeType.EXCHANGE;
     }
+
+    public ExchangeType getExchangeTypes() {
+        return exchangeTypes;
+    }
+
     public String getTrConstType(int _index) {
-        String type_ = constTypes.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translatedTypes_.getVal(type_);
+        return constTypes.get(_index).getTranslation();
+//        String type_ = constTypes.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translatedTypes_.getVal(type_);
     }
     public String getTrAddedType(int _index) {
-        String type_ = addedTypes.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translatedTypes_.getVal(type_);
+        return addedTypes.get(_index).getTranslation();
+//        String type_ = addedTypes.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translatedTypes_.getVal(type_);
     }
 
     public DictionaryComparator<TranslatedKey,TranslatedKey> getChgtTypeByEnv() {
@@ -128,11 +135,11 @@ public class EffectSwitchTypesBean extends EffectBean {
         return globalMoves;
     }
 
-    public StringList getAddedTypes() {
+    public CustList<TranslatedKey> getAddedTypes() {
         return addedTypes;
     }
 
-    public StringList getConstTypes() {
+    public CustList<TranslatedKey> getConstTypes() {
         return constTypes;
     }
 }
