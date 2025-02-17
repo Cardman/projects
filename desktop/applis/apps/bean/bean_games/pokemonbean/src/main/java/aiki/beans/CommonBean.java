@@ -268,6 +268,15 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelEffects(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_EFFECTS);
             new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultPowerMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
             new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultDamageTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelChgtStat(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS);
+            displayNotEmpty(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getInvokedMoveTerrain().getTranslation(),MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
+            formatMessageDir(((EffectGlobalBean)_sub).getInvokedMoveTerrain());
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getInvokingMoves(),NumberUtil.signum(((EffectGlobalBean)_sub).getInvokedMoveTerrain().getKey().length()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_INVOKED_MOVE_ENV);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getChangedTypesTerrain(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKED);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getInvokingMovesChangingTypes(),NumberUtil.signum(((EffectGlobalBean)_sub).getChangedTypesTerrain().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKING);
+            new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean) _sub).getMultStatIfContainsType(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_STAT_TYPE,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT,MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getMovesUsedByTargetedFighters(),NumberUtil.signum(((EffectGlobalBean) _sub).getMultDamagePrepaRound().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE);
+            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean) _sub).getMultDamagePrepaRound(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_RATE);
         }
     }
 
@@ -990,7 +999,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public void formatMessageDirCts(TranslatedKey _txt) {
-        if (_txt.getRedirect() != null) {
+        if (ent(_txt)) {
             builder.formatMessageDirCts(_txt.getTranslation(),new EntityClickFormEvent(this,_txt));
         } else {
             builder.formatMessageDirCts(_txt.getTranslation());
@@ -998,11 +1007,14 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public void formatMessageDir(TranslatedKey _txt) {
-        if (_txt.getRedirect() != null) {
+        if (ent(_txt)) {
             builder.formatMessageDir(_txt.getTranslation(),new EntityClickFormEvent(this,_txt));
         } else {
             builder.formatMessageDir(_txt.getTranslation());
         }
+    }
+    private boolean ent(TranslatedKey _txt) {
+        return !_txt.getKey().isEmpty() && _txt.getRedirect() != null;
     }
 
     public void feedParentsCts() {
