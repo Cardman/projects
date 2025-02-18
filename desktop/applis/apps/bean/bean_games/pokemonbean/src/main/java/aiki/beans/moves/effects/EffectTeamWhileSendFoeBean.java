@@ -11,9 +11,9 @@ import code.util.*;
 
 public class EffectTeamWhileSendFoeBean extends EffectBean {
     private LongTreeMap< TranslatedKey> statusByNbUses;
-    private StringList deletedByFoeTypes;
+    private CustList<TranslatedKey> deletedByFoeTypes;
     private String damageRateAgainstFoe;
-    private DictionaryComparator<Statistic,Long> statistics;
+    private DictionaryComparator<TranslatedKey,Long> statistics;
     private StringList reasonsSending;
     private NatStringTreeMap<String> mapVarsFailSending;
     private NatStringTreeMap<String> mapVarsDamageSentFoe;
@@ -23,19 +23,19 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         super.beforeDisplaying();
         EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect();
         DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic,Long> statistics_;
-        statistics_ = DictionaryComparatorUtil.buildStatisByte(data_, getLanguage());
+        DictionaryComparator<TranslatedKey,Long> statistics_;
+        statistics_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: effect_.getStatistics().getKeys()) {
-            statistics_.put(s, effect_.getStatistics().getVal(s));
+            statistics_.put(buildSi(getFacade(),s), effect_.getStatistics().getVal(s));
         }
         statistics = statistics_;
-        StringList deletedByFoeTypes_;
-        deletedByFoeTypes_ = new StringList();
-        for (String t: effect_.getDeletedByFoeTypes()) {
-            deletedByFoeTypes_.add(t);
-        }
-        deletedByFoeTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
-        deletedByFoeTypes = deletedByFoeTypes_;
+//        StringList deletedByFoeTypes_;
+//        deletedByFoeTypes_ = new StringList();
+//        for (String t: effect_.getDeletedByFoeTypes()) {
+//            deletedByFoeTypes_.add(t);
+//        }
+//        deletedByFoeTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
+        deletedByFoeTypes = listTrStringsTy(effect_.getDeletedByFoeTypes(),getFacade());
         statusByNbUses = statusByNbUses(effect_.getStatusByNbUses());
 //        Map<String,String> locHtml_ = new Map<>();
 //        locHtml_.put(EAMP, E_AMP);
@@ -91,23 +91,25 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     }
 
     public String getTranslatedStatistic(int _index) {
-        Statistic st_ = getSortedStatistics().get(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(st_);
+        return statistics.getKey(_index).getTranslation();
+//        Statistic st_ = getSortedStatistics().get(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(st_);
     }
-    public CustList<Statistic> getSortedStatistics() {
-        IdList<Statistic> list_;
-        list_ = new IdList<Statistic>(statistics.getKeys());
-        DataBase data_ = getDataBase();
-        list_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
-        return list_;
-    }
+//    public CustList<Statistic> getSortedStatistics() {
+//        IdList<Statistic> list_;
+//        list_ = new IdList<Statistic>(statistics.getKeys());
+//        DataBase data_ = getDataBase();
+//        list_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
+//        return list_;
+//    }
     public String getTranslatedType(int _index) {
-        String type_ = deletedByFoeTypes.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translatedTypes_.getVal(type_);
+        return deletedByFoeTypes.get(_index).getTranslation();
+//        String type_ = deletedByFoeTypes.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translatedTypes_.getVal(type_);
     }
     public String clickStatus(int _indexEffect, int _index) {
         return tryRedirect(((EffectTeamWhileSendFoeBean)getForms().getCurrentBean().get(_indexEffect)).statusByNbUses.getValue(_index));
@@ -124,7 +126,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return mapVarsDamageSentFoe;
     }
 
-    public DictionaryComparator<Statistic,Long> getStatistics() {
+    public DictionaryComparator<TranslatedKey,Long> getStatistics() {
         return statistics;
     }
 
@@ -140,7 +142,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return mapVarsFailSending;
     }
 
-    public StringList getDeletedByFoeTypes() {
+    public CustList<TranslatedKey> getDeletedByFoeTypes() {
         return deletedByFoeTypes;
     }
 }

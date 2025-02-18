@@ -1,12 +1,10 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.PokemonBeanStruct;
-import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class EffectTeamWhileSendFoeBeanStatisticsGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getStaByte(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_instance).getInstance()).getStatistics());
+        return PokemonStandards.getStrLong(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_instance).getInstance()).getStatistics());
     }
 }

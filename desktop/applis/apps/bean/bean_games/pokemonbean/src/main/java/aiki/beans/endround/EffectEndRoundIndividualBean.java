@@ -3,16 +3,14 @@ package aiki.beans.endround;
 import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
 import code.maths.Rate;
-import code.util.StringMap;
 
 public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
     private Rate deleteAllStatus;
     private Rate recoilDamage;
     private Rate healHp;
-    private DictionaryComparator<String,Rate> healHpByOwnerTypes;
+    private DictionaryComparator<TranslatedKey,Rate> healHpByOwnerTypes;
     private DictionaryComparator<TranslatedKey,Rate> multDamageStatus;
     private TranslatedKey userStatusEndRound;
 
@@ -23,7 +21,6 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         deleteAllStatus = effect_.getDeleteAllStatus();
         recoilDamage = effect_.getRecoilDamage();
         healHp = effect_.getHealHp();
-        DataBase data_ = getDataBase();
         userStatusEndRound = buildSt(getFacade(),effect_.getUserStatusEndRound());
         DictionaryComparator<TranslatedKey,Rate> multDamageStatus_;
         multDamageStatus_ = DictionaryComparatorUtil.buildStatusRate();
@@ -31,10 +28,10 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
             multDamageStatus_.put(buildSt(getFacade(),s), effect_.getMultDamageStatus().getVal(s));
         }
         multDamageStatus = multDamageStatus_;
-        DictionaryComparator<String,Rate> healHpByOwnerTypes_;
-        healHpByOwnerTypes_ = DictionaryComparatorUtil.buildTypesRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey,Rate> healHpByOwnerTypes_;
+        healHpByOwnerTypes_ = DictionaryComparatorUtil.buildTypesRate();
         for (String s: effect_.getHealHpByOwnerTypes().getKeys()) {
-            healHpByOwnerTypes_.put(s, effect_.getHealHpByOwnerTypes().getVal(s));
+            healHpByOwnerTypes_.put(buildTy(getFacade(),s), effect_.getHealHpByOwnerTypes().getVal(s));
         }
         healHpByOwnerTypes = healHpByOwnerTypes_;
     }
@@ -59,13 +56,14 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         return tryRedirect(((EffectEndRoundIndividualBean)getForms().getCurrentBeanEnd().get(_indexOne)).multDamageStatus.getKey(_indexTwo));
     }
     public boolean isType(int _index) {
-        return !healHpByOwnerTypes.getKey(_index).isEmpty();
+        return !healHpByOwnerTypes.getKey(_index).getKey().isEmpty();
     }
     public String getTrType(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_;
-        translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translatedTypes_.getVal(healHpByOwnerTypes.getKey(_index));
+        return healHpByOwnerTypes.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_;
+//        translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translatedTypes_.getVal(healHpByOwnerTypes.getKey(_index));
     }
 
     public Rate getDeleteAllStatus() {
@@ -88,7 +86,7 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         return multDamageStatus;
     }
 
-    public DictionaryComparator<String,Rate> getHealHpByOwnerTypes() {
+    public DictionaryComparator<TranslatedKey,Rate> getHealHpByOwnerTypes() {
         return healHpByOwnerTypes;
     }
 }

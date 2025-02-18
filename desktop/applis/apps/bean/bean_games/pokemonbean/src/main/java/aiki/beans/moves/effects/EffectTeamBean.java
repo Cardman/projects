@@ -15,12 +15,12 @@ public class EffectTeamBean extends EffectBean {
     private boolean forbiddingHealing;
     private CustList<TranslatedKey> forbiddenBoost;
     private CustList<TranslatedKey> unusableMoves;
-    private StringList cancelChgtStatFoeTeam;
-    private StringList cancelChgtStatTeam;
+    private CustList<TranslatedKey> cancelChgtStatFoeTeam;
+    private CustList<TranslatedKey> cancelChgtStatTeam;
     private DictionaryComparator<TranslatedKeyPair, Rate> multDamage;
-    private NatStringTreeMap< Rate> multStatistic;
-    private NatStringTreeMap< Rate> multStatisticFoe;
-    private StringList protectAgainstLowStat;
+    private DictionaryComparator<TranslatedKey, Rate> multStatistic;
+    private DictionaryComparator<TranslatedKey, Rate> multStatisticFoe;
+    private CustList<TranslatedKey> protectAgainstLowStat;
     private boolean protectAgainstCh;
     private CustList<TranslatedKey> protectAgainstStatus;
     private CustList<TranslatedKey> disableFoeTeamEffects;
@@ -32,7 +32,7 @@ public class EffectTeamBean extends EffectBean {
         super.beforeDisplaying();
         EffectTeam effect_ = (EffectTeam) getEffect();
         DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         forbiddingHealing = effect_.getForbiddingHealing();
         protectAgainstCh = effect_.getProtectAgainstCh();
         defaultBoost = data_.getDefaultBoost();
@@ -43,37 +43,37 @@ public class EffectTeamBean extends EffectBean {
         }
         forbiddenBoost_.sortElts(new ComparingTranslatedKey());
         forbiddenBoost = forbiddenBoost_;
-        StringList cancelChgtStatFoeTeam_;
-        cancelChgtStatFoeTeam_ = new StringList();
-        for (Statistic s: effect_.getCancelChgtStatFoeTeam()) {
-            cancelChgtStatFoeTeam_.add(translatedStatistics_.getVal(s));
-        }
-        cancelChgtStatFoeTeam_.sort();
-        cancelChgtStatFoeTeam = cancelChgtStatFoeTeam_;
-        StringList cancelChgtStatTeam_;
-        cancelChgtStatTeam_ = new StringList();
-        for (Statistic s: effect_.getCancelChgtStatTeam()) {
-            cancelChgtStatTeam_.add(translatedStatistics_.getVal(s));
-        }
-        cancelChgtStatTeam_.sort();
-        cancelChgtStatTeam = cancelChgtStatTeam_;
-        StringList protectAgainstLowStat_;
-        protectAgainstLowStat_ = new StringList();
-        for (Statistic s: effect_.getProtectAgainstLowStat()) {
-            protectAgainstLowStat_.add(translatedStatistics_.getVal(s));
-        }
-        protectAgainstLowStat_.sort();
-        protectAgainstLowStat = protectAgainstLowStat_;
-        NatStringTreeMap< Rate> multStatistic_;
-        multStatistic_ = new NatStringTreeMap< Rate>();
+//        StringList cancelChgtStatFoeTeam_;
+//        cancelChgtStatFoeTeam_ = new StringList();
+//        for (Statistic s: effect_.getCancelChgtStatFoeTeam()) {
+//            cancelChgtStatFoeTeam_.add(translatedStatistics_.getVal(s));
+//        }
+//        cancelChgtStatFoeTeam_.sort();
+        cancelChgtStatFoeTeam = listTrStringsSi(effect_.getCancelChgtStatFoeTeam(),getFacade());
+//        StringList cancelChgtStatTeam_;
+//        cancelChgtStatTeam_ = new StringList();
+//        for (Statistic s: effect_.getCancelChgtStatTeam()) {
+//            cancelChgtStatTeam_.add(translatedStatistics_.getVal(s));
+//        }
+//        cancelChgtStatTeam_.sort();
+        cancelChgtStatTeam = listTrStringsSi(effect_.getCancelChgtStatTeam(),getFacade());
+//        StringList protectAgainstLowStat_;
+//        protectAgainstLowStat_ = new StringList();
+//        for (Statistic s: effect_.getProtectAgainstLowStat()) {
+//            protectAgainstLowStat_.add(translatedStatistics_.getVal(s));
+//        }
+//        protectAgainstLowStat_.sort();
+        protectAgainstLowStat = listTrStringsSi(effect_.getProtectAgainstLowStat(),getFacade());
+        DictionaryComparator<TranslatedKey, Rate> multStatistic_;
+        multStatistic_ = new DictionaryComparator<TranslatedKey, Rate>(new ComparingTranslatedKey());
         for (Statistic s: effect_.getMultStatistic().getKeys()) {
-            multStatistic_.put(translatedStatistics_.getVal(s), effect_.getMultStatistic().getVal(s));
+            multStatistic_.put(buildSi(getFacade(),s), effect_.getMultStatistic().getVal(s));
         }
         multStatistic = multStatistic_;
-        NatStringTreeMap< Rate> multStatisticFoe_;
-        multStatisticFoe_ = new NatStringTreeMap< Rate>();
+        DictionaryComparator<TranslatedKey, Rate> multStatisticFoe_;
+        multStatisticFoe_ = new DictionaryComparator<TranslatedKey, Rate>(new ComparingTranslatedKey());
         for (Statistic s: effect_.getMultStatisticFoe().getKeys()) {
-            multStatisticFoe_.put(translatedStatistics_.getVal(s), effect_.getMultStatisticFoe().getVal(s));
+            multStatisticFoe_.put(buildSi(getFacade(),s), effect_.getMultStatisticFoe().getVal(s));
         }
         multStatisticFoe = multStatisticFoe_;
         DictionaryComparator<TranslatedKeyPair, Rate> multDamage_;
@@ -146,7 +146,7 @@ public class EffectTeamBean extends EffectBean {
         return forbiddenBoost;
     }
 
-    public StringList getCancelChgtStatFoeTeam() {
+    public CustList<TranslatedKey> getCancelChgtStatFoeTeam() {
         return cancelChgtStatFoeTeam;
     }
 
@@ -154,11 +154,11 @@ public class EffectTeamBean extends EffectBean {
         return defaultBoost;
     }
 
-    public StringList getCancelChgtStatTeam() {
+    public CustList<TranslatedKey> getCancelChgtStatTeam() {
         return cancelChgtStatTeam;
     }
 
-    public StringList getProtectAgainstLowStat() {
+    public CustList<TranslatedKey> getProtectAgainstLowStat() {
         return protectAgainstLowStat;
     }
 
@@ -166,11 +166,11 @@ public class EffectTeamBean extends EffectBean {
         return protectAgainstStatus;
     }
 
-    public NatStringTreeMap<Rate> getMultStatistic() {
+    public DictionaryComparator<TranslatedKey, Rate> getMultStatistic() {
         return multStatistic;
     }
 
-    public NatStringTreeMap<Rate> getMultStatisticFoe() {
+    public DictionaryComparator<TranslatedKey, Rate> getMultStatisticFoe() {
         return multStatisticFoe;
     }
 
