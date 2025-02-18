@@ -4,7 +4,6 @@ import aiki.beans.CommonBean;
 import aiki.beans.EndRoundCommon;
 import aiki.beans.TranslatedKey;
 import aiki.beans.facade.comparators.ComparatorTranslatedKeyPair;
-import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -102,10 +101,10 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<TranslatedKey, Rate> healHpByWeather;
     private DictionaryComparator<TranslatedKey, Rate> multDamageFoe;
     private DictionaryComparator<TranslatedKey, Rate> multPowerMovesTypesGlobal;
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuLowStatisTypes;
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather;
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus;
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes;
+    private CustList<TranslatedKeyPair> immuLowStatisTypes;
+    private CustList<TranslatedKeyPair> immuMoveTypesByWeather;
+    private CustList<TranslatedKeyPair> immuStatus;
+    private CustList<TranslatedKeyPair> immuStatusTypes;
     private final EndRoundCommon endRoundCommon = new EndRoundCommon();
 //    private boolean endRound;
 //    private int endRoundRank;
@@ -443,13 +442,19 @@ public class AbilityBean extends CommonBean {
         return forwardStatus_;
     }
 
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuLowStatisTypes(AbilityData _ability) {
+    private CustList<TranslatedKeyPair> immuLowStatisTypes(AbilityData _ability) {
 //        DataBase data_ = getDataBase();
-        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuLowStatisTypes_;
-        immuLowStatisTypes_ = DictionaryComparatorUtil.buildTypesStrList();
-        for (String t: _ability.getImmuLowStatisTypes().getKeys()) {
-            immuLowStatisTypes_.put(buildTy(getFacade(), t), listTrStringsSi(_ability.getImmuLowStatisTypes().getVal(t),getFacade()));
+        CustList<TranslatedKeyPair> immuLowStatisTypes_;
+        immuLowStatisTypes_ = new CustList<TranslatedKeyPair>();
+        for (EntryCust<String,IdList<Statistic>> e: _ability.getImmuLowStatisTypes().entryList()) {
+            for (Statistic f:e.getValue()) {
+                immuLowStatisTypes_.add(new TranslatedKeyPair(buildTy(getFacade(), e.getKey()), buildSi(getFacade(), f)));
+            }
         }
+//        for (String t: _ability.getImmuLowStatisTypes().getKeys()) {
+//            immuLowStatisTypes_.put(buildTy(getFacade(), t), listTrStringsSi(_ability.getImmuLowStatisTypes().getVal(t),getFacade()));
+//        }
+        immuLowStatisTypes_.sortElts(new ComparatorTranslatedKeyPair());
 //        for (IdList<Statistic> v: immuLowStatisTypes_.values()) {
 //            v.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
 //        }
@@ -466,45 +471,72 @@ public class AbilityBean extends CommonBean {
         return immuLowStatIfStatus_;
     }
 
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes(AbilityData _ability) {
-        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes_;
-        immuStatusTypes_ = DictionaryComparatorUtil.buildTypesStrList();
-        for (String t: _ability.getImmuStatusTypes().getKeys()) {
-            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
-            for (String s: _ability.getImmuStatusTypes().getVal(t)) {
-                sub_.add(buildSt(getFacade(),s));
+    private CustList<TranslatedKeyPair> immuStatusTypes(AbilityData _ability) {
+        CustList<TranslatedKeyPair> immuStatusTypes_;
+        immuStatusTypes_ = new CustList<TranslatedKeyPair>();
+        for (EntryCust<String, StringList> e: _ability.getImmuStatusTypes().entryList()) {
+            for (String f : e.getValue()) {
+//                CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+//                for (String s: _ability.getImmuStatusTypes().getVal(t)) {
+//                    sub_.add(buildSt(getFacade(),s));
+//                }
+//                sub_.sortElts(new ComparingTranslatedKey());
+                immuStatusTypes_.add(new TranslatedKeyPair(buildTy(getFacade(),e.getKey()),buildSt(getFacade(),f)));
             }
-            sub_.sortElts(new ComparingTranslatedKey());
-            immuStatusTypes_.put(buildTy(getFacade(),t), sub_);
         }
+        immuStatusTypes_.sortElts(new ComparatorTranslatedKeyPair());
         return immuStatusTypes_;
     }
 
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus(AbilityData _ability) {
-        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus_;
-        immuStatus_ = DictionaryComparatorUtil.buildMovesStrList();
-        for (String t: _ability.getImmuStatus().getKeys()) {
-            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
-            for (String s: _ability.getImmuStatus().getVal(t)) {
-                sub_.add(buildSt(getFacade(),s));
+    private CustList<TranslatedKeyPair> immuStatus(AbilityData _ability) {
+        CustList<TranslatedKeyPair> immuStatus_;
+        immuStatus_ = new CustList<TranslatedKeyPair>();
+        for (EntryCust<String, StringList> e: _ability.getImmuStatus().entryList()) {
+            for (String f : e.getValue()) {
+//                CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+//                for (String s: _ability.getImmuStatusTypes().getVal(t)) {
+//                    sub_.add(buildSt(getFacade(),s));
+//                }
+//                sub_.sortElts(new ComparingTranslatedKey());
+                immuStatus_.add(new TranslatedKeyPair(buildMv(getFacade(),e.getKey()),buildSt(getFacade(),f)));
             }
-            sub_.sortElts(new ComparingTranslatedKey());
-            immuStatus_.put(buildMv(getFacade(),t), sub_);
         }
+        immuStatus_.sortElts(new ComparatorTranslatedKeyPair());
+
+
+//        for (String t: _ability.getImmuStatus().getKeys()) {
+//            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+//            for (String s: _ability.getImmuStatus().getVal(t)) {
+//                sub_.add(buildSt(getFacade(),s));
+//            }
+//            sub_.sortElts(new ComparingTranslatedKey());
+//            immuStatus_.put(buildMv(getFacade(),t), sub_);
+//        }
         return immuStatus_;
     }
 
-    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather(AbilityData _ability) {
-        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather_;
-        immuMoveTypesByWeather_ = DictionaryComparatorUtil.buildMovesStrList();
-        for (String t: _ability.getImmuMoveTypesByWeather().getKeys()) {
-            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
-            for (String s: _ability.getImmuMoveTypesByWeather().getVal(t)) {
-                sub_.add(buildTy(getFacade(),s));
+    private CustList<TranslatedKeyPair> immuMoveTypesByWeather(AbilityData _ability) {
+        CustList<TranslatedKeyPair> immuMoveTypesByWeather_;
+        immuMoveTypesByWeather_ = new CustList<TranslatedKeyPair>();
+        for (EntryCust<String, StringList> e: _ability.getImmuMoveTypesByWeather().entryList()) {
+            for (String f : e.getValue()) {
+//                CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+//                for (String s: _ability.getImmuStatusTypes().getVal(t)) {
+//                    sub_.add(buildSt(getFacade(),s));
+//                }
+//                sub_.sortElts(new ComparingTranslatedKey());
+                immuMoveTypesByWeather_.add(new TranslatedKeyPair(buildMv(getFacade(),e.getKey()),buildTy(getFacade(),f)));
             }
-            sub_.sortElts(new ComparingTranslatedKey());
-            immuMoveTypesByWeather_.put(buildMv(getFacade(),t), sub_);
         }
+        immuMoveTypesByWeather_.sortElts(new ComparatorTranslatedKeyPair());
+//        for (String t: _ability.getImmuMoveTypesByWeather().getKeys()) {
+//            CustList<TranslatedKey> sub_ = new CustList<TranslatedKey>();
+//            for (String s: _ability.getImmuMoveTypesByWeather().getVal(t)) {
+//                sub_.add(buildTy(getFacade(),s));
+//            }
+//            sub_.sortElts(new ComparingTranslatedKey());
+//            immuMoveTypesByWeather_.put(buildMv(getFacade(),t), sub_);
+//        }
         return immuMoveTypesByWeather_;
     }
 //
@@ -806,10 +838,10 @@ public class AbilityBean extends CommonBean {
 //        return translatedStatistics_.getVal(type_);
     }
     public boolean isMoveByWeather(int _index) {
-        return !immuMoveTypesByWeather.getKey(_index).getKey().isEmpty();
+        return !immuMoveTypesByWeather.get(_index).getFirst().getKey().isEmpty();
     }
     public String getTrImmuMoveByWeather(int _index) {
-        return immuMoveTypesByWeather.getKey(_index).getTranslation();
+        return immuMoveTypesByWeather.get(_index).getFirst().getTranslation();
 //        String move_ = immuMoveTypesByWeather.getKey(_index);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsMoves_;
@@ -817,10 +849,10 @@ public class AbilityBean extends CommonBean {
 //        return translationsMoves_.getVal(move_);
     }
     public String clickImmuMoveByWeather(int _index) {
-        return tryRedirect(immuMoveTypesByWeather.getKey(_index));
+        return tryRedirect(immuMoveTypesByWeather.get(_index).getFirst());
     }
-    public String getTrImmuTypeByWeather(int _indexOne, int _indexTwo) {
-        return immuMoveTypesByWeather.getValue(_indexOne).get(_indexTwo).getTranslation();
+    public String getTrImmuTypeByWeather(int _index) {
+        return immuMoveTypesByWeather.get(_index).getSecond().getTranslation();
 //        String move_ = immuMoveTypesByWeather.getValue(_indexOne).get(_indexTwo);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsTypes_;
@@ -828,10 +860,10 @@ public class AbilityBean extends CommonBean {
 //        return translationsTypes_.getVal(move_);
     }
     public boolean isMoveByStatus(int _index) {
-        return !immuStatus.getKey(_index).getKey().isEmpty();
+        return !immuStatus.get(_index).getFirst().getKey().isEmpty();
     }
     public String getTrImmuStatusWeather(int _index) {
-        return immuStatus.getKey(_index).getTranslation();
+        return immuStatus.get(_index).getFirst().getTranslation();
 //        String move_ = immuStatus.getKey(_index);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsMoves_;
@@ -839,37 +871,37 @@ public class AbilityBean extends CommonBean {
 //        return translationsMoves_.getVal(move_);
     }
     public String clickImmuStatusWeather(int _index) {
-        return tryRedirect(immuStatus.getKey(_index));
+        return tryRedirect(immuStatus.get(_index).getFirst());
     }
-    public String getTrImmuStatus(int _indexOne, int _indexTwo) {
-        return immuStatus.getValue(_indexOne).get(_indexTwo).getTranslation();
+    public String getTrImmuStatus(int _index) {
+        return immuStatus.get(_index).getSecond().getTranslation();
 //        String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsStatus_;
 //        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
 //        return translationsStatus_.getVal(move_);
     }
-    public String clickImmuStatus(int _indexOne, int _indexTwo) {
-        return tryRedirect(immuStatus.getValue(_indexOne).get(_indexTwo));
+    public String clickImmuStatus(int _index) {
+        return tryRedirect(immuStatus.get(_index).getSecond());
     }
     public String getTrImmuStatusTypes(int _index) {
-        return immuStatusTypes.getKey(_index).getTranslation();
+        return immuStatusTypes.get(_index).getFirst().getTranslation();
 //        String move_ = immuStatusTypes.getKey(_index);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsTypes_;
 //        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
 //        return translationsTypes_.getVal(move_);
     }
-    public String getTrImmuStatusValue(int _indexOne, int _indexTwo) {
-        return immuStatusTypes.getValue(_indexOne).get(_indexTwo).getTranslation();
+    public String getTrImmuStatusValue(int _index) {
+        return immuStatusTypes.get(_index).getSecond().getTranslation();
 //        String move_ = immuStatusTypes.getValue(_indexOne).get(_indexTwo);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsStatus_;
 //        translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
 //        return translationsStatus_.getVal(move_);
     }
-    public String clickImmuStatusTypes(int _indexOne, int _indexTwo) {
-        return tryRedirect(immuStatusTypes.getValue(_indexOne).get(_indexTwo));
+    public String clickImmuStatusTypes(int _index) {
+        return tryRedirect(immuStatusTypes.get(_index).getSecond());
     }
     public String getTrForwardStatusKey(int _index) {
         return forwardStatus.getKey(_index).getTranslation();
@@ -1065,15 +1097,17 @@ public class AbilityBean extends CommonBean {
 //        return translationsMoves_.getVal(status_);
     }
     public String getTrImmuLowStatisTypes(int _index) {
-        return immuLowStatisTypes.getKey(_index).getTranslation();
+        return immuLowStatisTypes.get(_index).getFirst().getTranslation();
+//        return immuLowStatisTypes.getKey(_index).getTranslation();
 //        String move_ = immuLowStatisTypes.getKey(_index);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsTypes_;
 //        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
 //        return translationsTypes_.getVal(move_);
     }
-    public String getTrImmuLowStatisValue(int _indexOne, int _indexTwo) {
-        return immuLowStatisTypes.getValue(_indexOne).get(_indexTwo).getTranslation();
+    public String getTrImmuLowStatisValue(int _index) {
+        return immuLowStatisTypes.get(_index).getSecond().getTranslation();
+//        return immuLowStatisTypes.getValue(_indexOne).get(_indexTwo).getTranslation();
 //        Statistic move_ = immuLowStatisTypes.getValue(_indexOne).get(_indexTwo);
 //        DataBase data_ = getDataBase();
 //        AbsMap<Statistic,String> translationsStatistics_;
@@ -1427,7 +1461,7 @@ public class AbilityBean extends CommonBean {
         return immuLowStatIfStatus;
     }
 
-    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuLowStatisTypes() {
+    public CustList<TranslatedKeyPair> getImmuLowStatisTypes() {
         return immuLowStatisTypes;
     }
 
@@ -1439,15 +1473,15 @@ public class AbilityBean extends CommonBean {
         return singleStatus;
     }
 
-    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuMoveTypesByWeather() {
+    public CustList<TranslatedKeyPair> getImmuMoveTypesByWeather() {
         return immuMoveTypesByWeather;
     }
 
-    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuStatus() {
+    public CustList<TranslatedKeyPair> getImmuStatus() {
         return immuStatus;
     }
 
-    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuStatusTypes() {
+    public CustList<TranslatedKeyPair> getImmuStatusTypes() {
         return immuStatusTypes;
     }
 

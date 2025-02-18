@@ -541,7 +541,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static NaSt callAbilityBeanGetTrImmuLowStatisValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisValue(),directCase(),0,0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisValue(),directCase(),0);
     }
 
     public static NaSt callAbilityBeanGetTrImmuMove() {

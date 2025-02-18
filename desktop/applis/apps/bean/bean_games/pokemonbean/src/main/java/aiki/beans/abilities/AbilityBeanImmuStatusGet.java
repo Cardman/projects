@@ -1,12 +1,10 @@
 package aiki.beans.abilities;
 
-import aiki.beans.PokemonBeanStruct;
-import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class AbilityBeanImmuStatusGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getStrStrList(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getImmuStatus());
+        return PokemonStandards.getStrListStaList(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getImmuStatus());
     }
 }

@@ -3,6 +3,7 @@ package aiki.beans.abilities;
 import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
@@ -854,12 +855,13 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuStatusTypes3() {
-        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusTypesGet(),0)));
+//        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusTypesGet(),0)));
+        assertEq(S_STA_SIM,second(elt(callAbilityBeanImmuStatusTypesGet(),0)));
     }
-    @Test
-    public void getImmuStatusTypes4() {
-        assertEq(S_STA_SIM,elt(second(elt(callAbilityBeanImmuStatusTypesGet(),0)),0));
-    }
+//    @Test
+//    public void getImmuStatusTypes4() {
+//        assertEq(S_STA_SIM,elt(second(elt(callAbilityBeanImmuStatusTypesGet(),0)),0));
+//    }
     @Test
     public void getTrImmuStatusTypes() {
         assertEq(T_TYPE1_TR,callAbilityBeanGetTrImmuStatusTypes());
@@ -906,7 +908,8 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuLowStatisTypes3() {
-        assertSizeEq(1,second(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
+//        assertSizeEq(1,second(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
+        assertEq(Statistic.SPEED.getStatName(),second(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
     }
     @Test
     public void getTrImmuLowStatisTypes() {
@@ -1132,7 +1135,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuStatus1() {
-        assertSizeEq(2,callAbilityBeanImmuStatusGet());
+        assertSizeEq(3,callAbilityBeanImmuStatusGet());
     }
     @Test
     public void getImmuStatus2() {
@@ -1140,7 +1143,8 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuStatus3() {
-        assertSizeEq(0,second(elt(callAbilityBeanImmuStatusGet(),0)));
+//        assertSizeEq(0,second(elt(callAbilityBeanImmuStatusGet(),0)));
+        assertEq(S_STA_SIM,second(elt(callAbilityBeanImmuStatusGet(),0)));
     }
     @Test
     public void getImmuStatus4() {
@@ -1148,12 +1152,13 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuStatus5() {
-        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusGet(),1)));
+//        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusGet(),1)));
+        assertEq(S_STA_SIM,second(elt(callAbilityBeanImmuStatusGet(),1)));
     }
-    @Test
-    public void getImmuStatus6() {
-        assertEq(S_STA_SIM,elt(second(elt(callAbilityBeanImmuStatusGet(),1)),0));
-    }
+//    @Test
+//    public void getImmuStatus6() {
+//        assertEq(S_STA_SIM,elt(second(elt(callAbilityBeanImmuStatusGet(),1)),0));
+//    }
     @Test
     public void isMoveByStatus1() {
         assertFalse(callAbilityBeanIsMoveByStatus(0));
@@ -1196,7 +1201,8 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuMoveTypesByWeather3() {
-        assertSizeEq(0,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
+//        assertSizeEq(0,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
+        assertEq(T_TYPE1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
     }
     @Test
     public void getImmuMoveTypesByWeather4() {
@@ -1204,12 +1210,13 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuMoveTypesByWeather5() {
-        assertSizeEq(1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
+//        assertSizeEq(1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
+        assertEq(T_TYPE1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
     }
-    @Test
-    public void getImmuMoveTypesByWeather6() {
-        assertEq(T_TYPE1,elt(second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)),0));
-    }
+//    @Test
+//    public void getImmuMoveTypesByWeather6() {
+//        assertEq(T_TYPE1,elt(second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)),0));
+//    }
     @Test
     public void isMoveByWeather1() {
         assertFalse(callAbilityBeanIsMoveByWeather(0));

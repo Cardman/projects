@@ -95,9 +95,6 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,TranslatedKey>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> buildMovesStrList() {
-        return new DictionaryComparator<TranslatedKey,CustList<TranslatedKey>>(new ComparingTranslatedKey());
-    }
     public static DictionaryComparator<TranslatedKey,Rate> buildMovesRate() {
         return new DictionaryComparator<TranslatedKey,Rate>(new ComparingTranslatedKey());
     }
@@ -139,10 +136,6 @@ public final class DictionaryComparatorUtil {
 
     public static DictionaryComparator<TranslatedKey,TranslatedKey> buildTypesStr() {
         return new DictionaryComparator<TranslatedKey,TranslatedKey>(new ComparingTranslatedKey());
-    }
-
-    public static DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> buildTypesStrList() {
-        return new DictionaryComparator<TranslatedKey,CustList<TranslatedKey>>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<TranslatedKey, Long> buildTypesShort() {

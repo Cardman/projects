@@ -188,11 +188,11 @@ public abstract class InitDbAbilities extends InitDbConstr {
         a_.getLowStatFoeHit().addEntry(Statistic.SPEED,1L);
         a_.getMultStatAlly().addEntry(Statistic.SPEED,Rate.one());
         a_.getMultStat().addEntry(Statistic.SPEED,VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
-        a_.getImmuMoveTypesByWeather().addEntry(NULL_REF,new StringList());
+        a_.getImmuMoveTypesByWeather().addEntry(NULL_REF,new StringList(T_TYPE1));
         a_.getImmuMoveTypesByWeather().addEntry(M_DAM,new StringList(T_TYPE1));
         a_.getChgtTypeByWeather().addEntry(NULL_REF,T_TYPE1);
         a_.getChgtTypeByWeather().addEntry(M_DAM,T_TYPE2);
-        a_.getImmuStatus().addEntry(NULL_REF,new StringList());
+        a_.getImmuStatus().addEntry(NULL_REF,new StringList(S_STA_SIM));
         a_.getImmuStatus().addEntry(M_DAM,new StringList(S_STA_SIM));
         a_.getHealHpByWeather().addEntry(NULL_REF,Rate.one());
         a_.getHealHpByWeather().addEntry(M_DAM,Rate.newRate("2"));

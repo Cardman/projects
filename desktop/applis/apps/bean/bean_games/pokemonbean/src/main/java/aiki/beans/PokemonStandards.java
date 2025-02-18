@@ -559,11 +559,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrListStaList(AbsMap<TranslatedKey, CustList<TranslatedKey>> _map) {
+    public static NatArrayStruct getStrListStaList(CustList<TranslatedKeyPair> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<TranslatedKey, CustList<TranslatedKey>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),getValues(e.getValue()));
+        for (TranslatedKeyPair e:_map) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getFirst().getKey()),new NaStSt(e.getSecond().getKey()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -1056,16 +1056,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getStrStrList(DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,CustList<TranslatedKey>> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),getKeys(e.getValue()));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
     public static NatArrayStruct getLayers(CustList<Level> _map) {
         int len_ = _map.size();
         return arrId(len_);
