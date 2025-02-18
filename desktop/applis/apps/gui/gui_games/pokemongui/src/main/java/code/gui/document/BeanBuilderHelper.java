@@ -141,7 +141,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         AbsTextPane tp_ = api.getCompoFactory().newTextPane();
         tp_.setBackground(GuiConstants.WHITE);
         tp_.setForeground(GuiConstants.BLACK);
-        tp_.setText(_txt);
+        api.getThreadFactory().newStartedThread(new SetTextThread(tp_,_txt)).join();
         tp_.setEditable(false);
         return tp_;
     }
