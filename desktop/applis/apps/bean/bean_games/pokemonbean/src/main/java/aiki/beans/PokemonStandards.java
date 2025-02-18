@@ -464,21 +464,21 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getBigNatMapSta(AbsMap<String, DictionaryComparator<Statistic, Long>> _map) {
+    public static NatArrayStruct getBigNatMapSta(AbsMap<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, DictionaryComparator<Statistic, Long>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getStaByte(e.getValue()));
+        for (EntryCust<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),getStaByte(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
         return arr_;
     }
 
-    public static NatArrayStruct getStaBoost(AbsMap<Statistic, BoostHpRate> _map) {
+    public static NatArrayStruct getStaBoost(AbsMap<TranslatedKey, BoostHpRate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<Statistic, BoostHpRate> e:_map.entryList()) {
+        for (EntryCust<TranslatedKey, BoostHpRate> e:_map.entryList()) {
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new BoostHpRateStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
@@ -507,11 +507,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getEffRateStr(AbsMap<String, EfficiencyRate> _map) {
+    public static NatArrayStruct getEffRateStr(AbsMap<TranslatedKey, EfficiencyRate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, EfficiencyRate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new EfficiencyRateStruct(e.getValue()));
+        for (EntryCust<TranslatedKey, EfficiencyRate> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),new EfficiencyRateStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -559,11 +559,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStrListStaList(AbsMap<String, IdList<Statistic>> _map) {
+    public static NatArrayStruct getStrListStaList(AbsMap<TranslatedKey, CustList<TranslatedKey>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, IdList<Statistic>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getSta(e.getValue()));
+        for (EntryCust<TranslatedKey, CustList<TranslatedKey>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),getValues(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -600,11 +600,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getStrTpDam(AbsMap<String, TypeDamageBoost> _map) {
+    public static NatArrayStruct getStrTpDam(AbsMap<TranslatedKey, TypeDamageBoost> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<String, TypeDamageBoost> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new TypeDamageBoostStruct(e.getValue()));
+        for (EntryCust<TranslatedKey, TypeDamageBoost> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),new TypeDamageBoostStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -963,30 +963,32 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStaByte(AbsMap<Statistic, Long> _map) {
+
+    public static NatArrayStruct getStaByte(DictionaryComparator<TranslatedKey, Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<Statistic,Long> e: _map.entryList()){
+        for (EntryCust<TranslatedKey, Long> e: _map.entryList()){
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
         return arr_;
     }
-    public static NatArrayStruct getStaStr(AbsMap<Statistic, String> _map) {
+
+    public static NatArrayStruct getStaStr(DictionaryComparator<TranslatedKey, String> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<Statistic,String> e: _map.entryList()){
+        for (EntryCust<TranslatedKey, String> e: _map.entryList()){
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaStSt(StringUtil.nullToEmpty(e.getValue())));
             arr_.set(i_,p_);
             i_++;
         }
         return arr_;
     }
-    public static NatArrayStruct getStaRate(AbsMap<Statistic, Rate> _map) {
+    public static NatArrayStruct getStaRate(AbsMap<TranslatedKey, Rate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<Statistic,Rate> e: _map.entryList()){
+        for (EntryCust<TranslatedKey, Rate> e: _map.entryList()){
             PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;
@@ -1069,10 +1071,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arrId(len_);
     }
     public static NatArrayStruct getEnd(CustList<EndRoundMainElements> _map) {
-        int len_ = _map.size();
-        return arrId(len_);
-    }
-    public static NatArrayStruct getSta(CustList<Statistic> _map) {
         int len_ = _map.size();
         return arrId(len_);
     }

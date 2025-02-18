@@ -1,15 +1,15 @@
 package aiki.beans.endround;
+import aiki.beans.TranslatedKey;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.instances.Instances;
 import code.maths.Rate;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
-    private StringList immuneTypes;
+    private CustList<TranslatedKey> immuneTypes;
     private Rate damageEndRound;
     private Rate healingEndRound;
     private Rate healingEndRoundGround;
@@ -21,14 +21,14 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
         DataBase data_ = getDataBase();
         MoveData move_ = data_.getMove(getElement().getElement());
         EffectGlobal effect_ = global(move_);
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringList immuneTypes_;
-        immuneTypes_ = new StringList();
-        for (String t: effect_.getImmuneTypes()) {
-            immuneTypes_.add(translatedTypes_.getVal(t));
-        }
-        immuneTypes_.sort();
-        immuneTypes = immuneTypes_;
+//        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        StringList immuneTypes_;
+//        immuneTypes_ = new StringList();
+//        for (String t: effect_.getImmuneTypes()) {
+//            immuneTypes_.add(translatedTypes_.getVal(t));
+//        }
+//        immuneTypes_.sort();
+        immuneTypes = listTrStringsTy(effect_.getImmuneTypes(),getFacade());
         damageEndRound = effect_.getDamageEndRound();
         healingEndRound = effect_.getHealingEndRound();
         healingEndRoundGround = effect_.getHealingEndRoundGround();
@@ -60,7 +60,7 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
         return puttingKo;
     }
 
-    public StringList getImmuneTypes() {
+    public CustList<TranslatedKey> getImmuneTypes() {
         return immuneTypes;
     }
 }

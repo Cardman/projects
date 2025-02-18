@@ -369,6 +369,7 @@ public abstract class InitDbConstr extends InitDbBean {
     public static PkData pkDataByFacade(FacadeGame _dataBase) {
         PkData pk_ = new PkData();
         pk_.setDataBase(_dataBase);
+        _dataBase.getData().getTranslatedStatistics().tryAdd(EN,new IdMap<Statistic, String>());
         _dataBase.updateTrs();
 //        pk_.setBaseEncode(BASE);
         return pk_;

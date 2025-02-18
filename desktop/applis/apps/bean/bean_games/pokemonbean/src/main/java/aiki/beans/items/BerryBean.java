@@ -12,8 +12,8 @@ import code.util.*;
 public class BerryBean extends ItemBean {
     private Rate healHpBySuperEffMove;
     private boolean lawForAttackFirst;
-    private DictionaryComparator<String, EfficiencyRate> multFoesDamage;
-    private DictionaryComparator<Statistic, BoostHpRate> multStat;
+    private DictionaryComparator<TranslatedKey, EfficiencyRate> multFoesDamage;
+    private DictionaryComparator<TranslatedKey, BoostHpRate> multStat;
     private boolean withoutFail;
     private long healPp;
     private Rate healHp;
@@ -21,14 +21,13 @@ public class BerryBean extends ItemBean {
     private CustList<TranslatedKey> healStatus;
     private Rate healHpRate;
     private Rate maxHpHealingHpRate;
-    private DictionaryComparator<String, Rate> damageRateRecoilFoe;
-    private String categoryBoosting;
-    private DictionaryComparator<Statistic, Long> boostStatis;
+    private DictionaryComparator<TranslatedKey, Rate> damageRateRecoilFoe;
+    private TranslatedKey categoryBoosting;
+    private DictionaryComparator<TranslatedKey, Long> boostStatis;
 
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();
-        DataBase data_ = getDataBase();
         Berry item_ = (Berry) getItem();
         healHpBySuperEffMove = item_.getHealHpBySuperEffMove();
         lawForAttackFirst = item_.getLawForAttackFirst();
@@ -38,35 +37,35 @@ public class BerryBean extends ItemBean {
         maxHpHealingHp = item_.getMaxHpHealingHp();
         healHpRate = item_.getHealHpRate();
         maxHpHealingHpRate = item_.getMaxHpHealingHpRate();
-        StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+//        StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         if (!item_.getCategoryBoosting().isEmpty()) {
-            categoryBoosting = translatedCategories_.getVal(item_.getCategoryBoosting());
+            categoryBoosting = buildCa(getFacade(),item_.getCategoryBoosting());
         } else {
-            categoryBoosting = DataBase.EMPTY_STRING;
+            categoryBoosting = new TranslatedKey(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
         }
-        DictionaryComparator<String, EfficiencyRate> multFoesDamage_;
-        multFoesDamage_ = DictionaryComparatorUtil.buildTypesTypeEfficiencyRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, EfficiencyRate> multFoesDamage_;
+        multFoesDamage_ = DictionaryComparatorUtil.buildTypesTypeEfficiencyRate();
         for (String s: item_.getMultFoesDamage().getKeys()) {
-            multFoesDamage_.put(s, item_.getMultFoesDamage().getVal(s));
+            multFoesDamage_.put(buildTy(getFacade(),s), item_.getMultFoesDamage().getVal(s));
         }
         multFoesDamage = multFoesDamage_;
-        DictionaryComparator<Statistic, BoostHpRate> multStat_;
-        multStat_ = DictionaryComparatorUtil.buildStatisBoostHpRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, BoostHpRate> multStat_;
+        multStat_ = DictionaryComparatorUtil.buildStatisBoostHpRate();
         for (Statistic s: item_.getMultStat().getKeys()) {
-            multStat_.put(s, item_.getMultStat().getVal(s));
+            multStat_.put(buildSi(getFacade(),s), item_.getMultStat().getVal(s));
         }
         multStat = multStat_;
         healStatus = listTrStringsSt(item_.getHealStatus(),getFacade());
-        DictionaryComparator<String, Rate> damageRateRecoilFoe_;
-        damageRateRecoilFoe_ = DictionaryComparatorUtil.buildCatsRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Rate> damageRateRecoilFoe_;
+        damageRateRecoilFoe_ = DictionaryComparatorUtil.buildCatsRate();
         for (String s: item_.getDamageRateRecoilFoe().getKeys()) {
-            damageRateRecoilFoe_.put(s, item_.getDamageRateRecoilFoe().getVal(s));
+            damageRateRecoilFoe_.put(buildCa(getFacade(),s), item_.getDamageRateRecoilFoe().getVal(s));
         }
         damageRateRecoilFoe = damageRateRecoilFoe_;
-        DictionaryComparator<Statistic, Long> boostStatis_;
-        boostStatis_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Long> boostStatis_;
+        boostStatis_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: item_.getBoostStatis().getKeys()) {
-            boostStatis_.put(s, item_.getBoostStatis().getVal(s));
+            boostStatis_.put(buildSi(getFacade(),s), item_.getBoostStatis().getVal(s));
         }
         boostStatis = boostStatis_;
     }
@@ -74,22 +73,25 @@ public class BerryBean extends ItemBean {
         return healPp > 0;
     }
     public String getTrMultFoesDamage(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String type_ = multFoesDamage.getKey(_index);
-        return translatedTypes_.getVal(type_);
+        return multFoesDamage.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        String type_ = multFoesDamage.getKey(_index);
+//        return translatedTypes_.getVal(type_);
     }
     public String getTrMultStat(int _index) {
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic type_ = multStat.getKey(_index);
-        return translatedStatistics_.getVal(type_);
+        return multStat.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        Statistic type_ = multStat.getKey(_index);
+//        return translatedStatistics_.getVal(type_);
     }
     public String getTrBoostStat(int _index) {
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic type_ = boostStatis.getKey(_index);
-        return translatedStatistics_.getVal(type_);
+        return boostStatis.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        Statistic type_ = boostStatis.getKey(_index);
+//        return translatedStatistics_.getVal(type_);
     }
     public String getTrStatus(int _index) {
         return healStatus.get(_index).getTranslation();
@@ -102,10 +104,11 @@ public class BerryBean extends ItemBean {
         return tryRedirect(healStatus.get(_index));
     }
     public String getTrCategRecoil(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        String status_ = damageRateRecoilFoe.getKey(_index);
-        return translatedCategories_.getVal(status_);
+        return damageRateRecoilFoe.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+//        String status_ = damageRateRecoilFoe.getKey(_index);
+//        return translatedCategories_.getVal(status_);
     }
 
     public Rate getHealHpBySuperEffMove() {
@@ -140,11 +143,11 @@ public class BerryBean extends ItemBean {
         return maxHpHealingHpRate;
     }
 
-    public DictionaryComparator<String,EfficiencyRate> getMultFoesDamage() {
+    public DictionaryComparator<TranslatedKey,EfficiencyRate> getMultFoesDamage() {
         return multFoesDamage;
     }
 
-    public DictionaryComparator<Statistic,BoostHpRate> getMultStat() {
+    public DictionaryComparator<TranslatedKey,BoostHpRate> getMultStat() {
         return multStat;
     }
 
@@ -152,15 +155,15 @@ public class BerryBean extends ItemBean {
         return healStatus;
     }
 
-    public DictionaryComparator<String,Rate> getDamageRateRecoilFoe() {
+    public DictionaryComparator<TranslatedKey,Rate> getDamageRateRecoilFoe() {
         return damageRateRecoilFoe;
     }
 
-    public DictionaryComparator<Statistic,Long> getBoostStatis() {
+    public DictionaryComparator<TranslatedKey,Long> getBoostStatis() {
         return boostStatis;
     }
 
-    public String getCategoryBoosting() {
+    public TranslatedKey getCategoryBoosting() {
         return categoryBoosting;
     }
 }

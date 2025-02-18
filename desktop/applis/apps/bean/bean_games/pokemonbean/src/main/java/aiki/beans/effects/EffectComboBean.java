@@ -10,10 +10,7 @@ import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.moves.effects.EffectEndRound;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.AbsMap;
-import code.util.CustList;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
+import code.util.*;
 
 public class EffectComboBean extends CommonBean {
     private ComboDto combos;
@@ -27,7 +24,7 @@ public class EffectComboBean extends CommonBean {
     private long endRoundRank;
     private StringList reasonsEndRound;
     private NatStringTreeMap<String> mapVarsFailEndRound;
-    private DictionaryComparator<Statistic, Rate> multStatisticFoe;
+    private DictionaryComparator<TranslatedKey, Rate> multStatisticFoe;
 
     @Override
     public void beforeDisplaying() {
@@ -47,12 +44,15 @@ public class EffectComboBean extends CommonBean {
             mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
         if (!e_.getTeamMove().isEmpty()) {
-            DictionaryComparator<Statistic, Rate> multStatisticFoe_;
-            multStatisticFoe_ = DictionaryComparatorUtil.buildStatisRate(data_,getLanguage());
-            multStatisticFoe_.putAllMap(e_.getTeamMove().first().getMultStatisticFoe());
+            DictionaryComparator<TranslatedKey, Rate> multStatisticFoe_;
+            multStatisticFoe_ = DictionaryComparatorUtil.buildStatisRate();
+            for (EntryCust<Statistic, Rate> e: e_.getTeamMove().first().getMultStatisticFoe().entryList()) {
+                multStatisticFoe_.put(buildSi(getFacade(),e.getKey()),e.getValue());
+            }
+//            multStatisticFoe_.putAllMap(e_.getTeamMove().first().getMultStatisticFoe());
             multStatisticFoe = multStatisticFoe_;
         } else {
-            multStatisticFoe = DictionaryComparatorUtil.buildStatisRate(data_,getLanguage());
+            multStatisticFoe = DictionaryComparatorUtil.buildStatisRate();
         }
         multEvtRateSecEff = e_.getMultEvtRateSecEff();
         rankIncrementNbRound = e_.getRankIncrementNbRound();
@@ -64,11 +64,12 @@ public class EffectComboBean extends CommonBean {
         repeatedRoundsLaw = repeatedRoundsLaw_;
     }
     public String getTrStatistic(int _index) {
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_;
-        translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic stat_ = multStatisticFoe.getKey(_index);
-        return translatedStatistics_.getVal(stat_);
+        return multStatisticFoe.getKey(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_;
+//        translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        Statistic stat_ = multStatisticFoe.getKey(_index);
+//        return translatedStatistics_.getVal(stat_);
     }
     public String clickMove(int _indexOne, int _indexTwo) {
         return tryRedirect(getForms().getCurrentComboBean().get(_indexOne).moves.get(_indexTwo));
@@ -106,7 +107,7 @@ public class EffectComboBean extends CommonBean {
         return multEvtRateSecEff;
     }
 
-    public DictionaryComparator<Statistic,Rate> getMultStatisticFoe() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultStatisticFoe() {
         return multStatisticFoe;
     }
 

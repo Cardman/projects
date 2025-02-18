@@ -201,7 +201,7 @@ public class FightHelpBean extends CommonBean {
     private StringMap<String> rates;
     private NatStringTreeMap< String> varRates;
     private StringMap<AbsBasicTreeMap<Rate,Rate>> lawsRates;
-    private IdList<Statistic> statisticAnim;
+    private CustList<TranslatedKey> statisticAnim;
 
     @Override
     public void beforeDisplaying() {
@@ -2217,7 +2217,10 @@ public class FightHelpBean extends CommonBean {
         rates = ratesInit(data_,getLanguage());
         varRates = varRatesInit(data_,getLanguage());
         lawsRates = lawRatesInit(data_);
-        statisticAnim = Statistic.getStatisticsWithBoost();
+        statisticAnim = new CustList<TranslatedKey>();
+        for (Statistic s: Statistic.getStatisticsWithBoost()) {
+            statisticAnim.add(buildSi(getFacade(),s));
+        }
     }
     static StringMap<String> ratesInit(DataBase _db, String _lg) {
         StringMap<String> rates_ = new StringMap<String>();
@@ -2247,14 +2250,16 @@ public class FightHelpBean extends CommonBean {
     }
 
     public String getTrStatistic(int _index) {
-        Statistic d_ = statisticAnim.get(_index);
-        DataBase data_ = getDataBase();
-        return data_.getTranslatedStatistics().getVal(getLanguage()).getVal(d_);
+        return statisticAnim.get(_index).getTranslation();
+//        Statistic d_ = statisticAnim.get(_index);
+//        DataBase data_ = getDataBase();
+//        return data_.getTranslatedStatistics().getVal(getLanguage()).getVal(d_);
     }
     public int[][] getAnimStatistic(int _index) {
-        Statistic d_ = statisticAnim.get(_index);
+//        Statistic d_ = statisticAnim.get(_index);
         DataBase data_ = getDataBase();
-        return data_.getAnimStatis().getVal(d_.getStatName()).getImage();
+//        return data_.getAnimStatis().getVal(d_.getStatName()).getImage();
+        return data_.getAnimStatis().getVal(statisticAnim.get(_index).getKey()).getImage();
     }
     public int[][] getAnimAbsorb() {
         DataBase data_ = getDataBase();
@@ -4944,7 +4949,7 @@ public class FightHelpBean extends CommonBean {
         return varFleeingFormula;
     }
 
-    public IdList<Statistic> getStatisticAnim() {
+    public CustList<TranslatedKey> getStatisticAnim() {
         return statisticAnim;
     }
 }

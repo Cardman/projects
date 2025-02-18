@@ -11,7 +11,6 @@ import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
@@ -36,32 +35,26 @@ import code.util.ints.Comparing;
 public final class DictionaryComparatorUtil {
     private DictionaryComparatorUtil() {
     }
-    public static DictionaryComparator<Statistic,Long> buildStatisByte(DataBase _data, String _language) {
-        return new DictionaryComparator<Statistic,Long>(_data.getTranslatedStatistics().getVal(_language));
-    }
     public static DictionaryComparator<TranslatedKey,Long> buildStatisByte() {
         return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
     }
-    public static DictionaryComparator<Statistic,Rate> buildStatisRate(DataBase _data, String _language) {
-        return new DictionaryComparator<Statistic,Rate>(_data.getTranslatedStatistics().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,Rate> buildStatisRate() {
+        return new DictionaryComparator<TranslatedKey,Rate>(new ComparingTranslatedKey());
     }
-    public static DictionaryComparator<Statistic,Long> buildStatisShort(DataBase _data, String _language) {
-        return new DictionaryComparator<Statistic,Long>(_data.getTranslatedStatistics().getVal(_language));
-    }
-    public static DictionaryComparator<Statistic,String> buildStatisString(DataBase _data, String _language) {
-        return new DictionaryComparator<Statistic,String>(_data.getTranslatedStatistics().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,Long> buildStatisShort() {
+        return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
     }
     public static DictionaryComparator<TranslatedKey,String> buildStatisString() {
         return new DictionaryComparator<TranslatedKey,String>(new ComparingTranslatedKey());
     }
-    public static DictionaryComparator<Statistic, BoostHpRate> buildStatisBoostHpRate(DataBase _data, String _language) {
-        return new DictionaryComparator<Statistic,BoostHpRate>(_data.getTranslatedStatistics().getVal(_language));
+    public static DictionaryComparator<TranslatedKey, BoostHpRate> buildStatisBoostHpRate() {
+        return new DictionaryComparator<TranslatedKey,BoostHpRate>(new ComparingTranslatedKey());
     }
     public static DictionaryComparator<String,String> buildAbilities(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedAbilities().getVal(_language));
     }
-    public static DictionaryComparator<String,Rate> buildCatsRate(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Rate>(_data.getTranslatedCategories().getVal(_language));
+    public static DictionaryComparator<TranslatedKey,Rate> buildCatsRate() {
+        return new DictionaryComparator<TranslatedKey,Rate>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<String,String> buildCatsData(DataBase _data, String _language) {
@@ -140,9 +133,6 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<TranslatedKey,TranslatedKey> buildStatusStr() {
         return new DictionaryComparator<TranslatedKey,TranslatedKey>(new ComparingTranslatedKey());
     }
-    public static DictionaryComparator<String,Rate> buildTypesRate(DataBase _data, String _language) {
-        return new DictionaryComparator<String,Rate>(_data.getTranslatedTypes().getVal(_language));
-    }
     public static DictionaryComparator<TranslatedKey,Rate> buildTypesRate() {
         return new DictionaryComparator<TranslatedKey,Rate>(new ComparingTranslatedKey());
     }
@@ -155,24 +145,20 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,CustList<TranslatedKey>>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String, IdList<Statistic>> buildTypesStaList(DataBase _data, String _language) {
-        return new DictionaryComparator<String,IdList<Statistic>>(_data.getTranslatedTypes().getVal(_language));
-    }
-
     public static DictionaryComparator<TranslatedKey, Long> buildTypesShort() {
         return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String, TypeDamageBoost> buildTypesTypeDamageBoost(DataBase _data, String _language) {
-        return new DictionaryComparator<String,TypeDamageBoost>(_data.getTranslatedTypes().getVal(_language));
+    public static DictionaryComparator<TranslatedKey, TypeDamageBoost> buildTypesTypeDamageBoost() {
+        return new DictionaryComparator<TranslatedKey,TypeDamageBoost>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String, EfficiencyRate> buildTypesTypeEfficiencyRate(DataBase _data, String _language) {
-        return new DictionaryComparator<String,EfficiencyRate>(_data.getTranslatedTypes().getVal(_language));
+    public static DictionaryComparator<TranslatedKey, EfficiencyRate> buildTypesTypeEfficiencyRate() {
+        return new DictionaryComparator<TranslatedKey,EfficiencyRate>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<String, DictionaryComparator<Statistic, Long>> buildTypesTypeDic(DataBase _data, String _language) {
-        return new DictionaryComparator<String,DictionaryComparator<Statistic, Long>>(_data.getTranslatedTypes().getVal(_language));
+    public static DictionaryComparator<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> buildTypesTypeDic() {
+        return new DictionaryComparator<TranslatedKey,DictionaryComparator<TranslatedKey, Long>>(new ComparingTranslatedKey());
     }
     public static DictionaryComparator<FighterNameId,DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>>> buildCalcAll(DataBase _data, String _language) {
         return new DictionaryComparator<FighterNameId,DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>>>(new ComparatorFighterId(_data,_language));
@@ -293,9 +279,6 @@ public final class DictionaryComparatorUtil {
 //        StringMap<String> translated_ = trEnvs(_data, _language);
 //        return new DictionaryComparator<String,String>(translated_);
 //    }
-    public static Comparing<Statistic> cmpStatistic(DataBase _data, String _language) {
-        return new ComparatorTrWrapper<Statistic>().wrap(_data.getTranslatedStatistics().getVal(_language));
-    }
     public static Comparing<TranslatedKey> cmpAbilities() {
         return new ComparingTranslatedKey();
     }

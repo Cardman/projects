@@ -151,6 +151,12 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static void assertEq(long _exp, NaSt _result) {
         assertEq(_exp,(((NaNbSt)_result).longStruct()));
     }
+    public static void assertTrue(int _value) {
+        assertEq(CommonBean.TRUE_VALUE,_value);
+    }
+    public static void assertFalse(int _value) {
+        assertEq(CommonBean.FALSE_VALUE,_value);
+    }
     public static void assertTrue(NaSt _value) {
         assertSame(NaBoSt.of(true),_value);
     }
@@ -200,6 +206,15 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return ((PairStruct)_arr).getFirst();
     }
     public static NaSt second(NaSt _arr) {
+        return ((PairStruct)_arr).getSecond();
+    }
+    public static NaSt eltEntryTkTk(NaSt _arr, int _index) {
+        return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static NaSt firstEntryTkTk(NaSt _arr) {
+        return ((PairStruct)_arr).getFirst();
+    }
+    public static NaSt secondEntryTkTk(NaSt _arr) {
         return ((PairStruct)_arr).getSecond();
     }
     public static StringList indexes(){

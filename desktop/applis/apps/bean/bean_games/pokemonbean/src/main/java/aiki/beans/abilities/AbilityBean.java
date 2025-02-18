@@ -53,7 +53,7 @@ public class AbilityBean extends CommonBean {
     private boolean takeItemByDamagingMove;
     private String multDamage;
     private String multPower;
-    private String typeForMoves;
+    private TranslatedKey typeForMoves;
     private Rate healHpWhileUsingBerry;
     private Rate healedHpRateBySwitch;
     private Rate maxHpForUsingBerry;
@@ -75,24 +75,24 @@ public class AbilityBean extends CommonBean {
     private long decreaseNecStepsHatch;
     private long nbUsedPp;
     private DictionaryComparator<TranslatedKey, Rate> singleStatus;
-    private IdList<Statistic> immuLowStat;
-    private IdList<Statistic> maxStatisticsIfCh;
+    private CustList<TranslatedKey> immuLowStat;
+    private CustList<TranslatedKey> maxStatisticsIfCh;
     private CustList<TranslatedKeyPair> immuLowStatIfStatus;
     private CustList<TranslatedKeyPair> breakFoeImmune;
-    private DictionaryComparator<Statistic, Long> bonusStatRank;
-    private DictionaryComparator<Statistic, Long> boostStatRankEndRound;
-    private DictionaryComparator<Statistic, Long> boostStatRankProtected;
-    private DictionaryComparator<Statistic, Long> lowStatFoeHit;
-    private DictionaryComparator<Statistic, Long> multStatIfKoFoe;
-    private DictionaryComparator<Statistic, Long> multStatIfLowStat;
-    private DictionaryComparator<Statistic, String> multStat;
-    private DictionaryComparator<Statistic, Rate> multStatAlly;
+    private DictionaryComparator<TranslatedKey, Long> bonusStatRank;
+    private DictionaryComparator<TranslatedKey, Long> boostStatRankEndRound;
+    private DictionaryComparator<TranslatedKey, Long> boostStatRankProtected;
+    private DictionaryComparator<TranslatedKey, Long> lowStatFoeHit;
+    private DictionaryComparator<TranslatedKey, Long> multStatIfKoFoe;
+    private DictionaryComparator<TranslatedKey, Long> multStatIfLowStat;
+    private DictionaryComparator<TranslatedKey, String> multStat;
+    private DictionaryComparator<TranslatedKey, Rate> multStatAlly;
     private DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamageCat;
     private DictionaryComparator<TranslatedKeyPair, Rate> multStatIfCat;
     private DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank;
     private DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamgeType;
     private DictionaryComparator<TranslatedKeyPair, Rate> healHpByTypeIfWeather;
-    private DictionaryComparator<String, TypeDamageBoost> changingBoostTypes;
+    private DictionaryComparator<TranslatedKey, TypeDamageBoost> changingBoostTypes;
     private DictionaryComparator<TranslatedKey, Long> increasedPrio;
     private DictionaryComparator<TranslatedKey, Long> increasedPrioTypes;
     private DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByWeather;
@@ -100,9 +100,9 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<TranslatedKey, TranslatedKey> forwardStatus;
     private DictionaryComparator<TranslatedKey, Rate> divideStatusRound;
     private DictionaryComparator<TranslatedKey, Rate> healHpByWeather;
-    private DictionaryComparator<String, Rate> multDamageFoe;
-    private DictionaryComparator<String, Rate> multPowerMovesTypesGlobal;
-    private DictionaryComparator<String,IdList<Statistic>> immuLowStatisTypes;
+    private DictionaryComparator<TranslatedKey, Rate> multDamageFoe;
+    private DictionaryComparator<TranslatedKey, Rate> multPowerMovesTypesGlobal;
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuLowStatisTypes;
     private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuMoveTypesByWeather;
     private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatus;
     private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuStatusTypes;
@@ -196,20 +196,20 @@ public class AbilityBean extends CommonBean {
         immuStatusBeginRound = listTrStringsSt(ability_.getImmuStatusBeginRound(),getFacade());
         tpForMoves(ability_);
         singleStatus = singleStatus(ability_);
-        immuLowStat = immuLowStat(ability_);
-        maxStatisticsIfCh = maxStatisticsIfCh(ability_);
+        immuLowStat = listTrStringsSi(ability_.getImmuLowStat(),getFacade());
+        maxStatisticsIfCh = listTrStringsSi(ability_.getMaxStatisticsIfCh(),getFacade());
         immuMoveTypesByWeather = immuMoveTypesByWeather(ability_);
         immuStatus = immuStatus(ability_);
         immuStatusTypes = immuStatusTypes(ability_);
         immuLowStatIfStatus = immuLowStatIfStatus(ability_);
         immuLowStatisTypes = immuLowStatisTypes(ability_);
-        DictionaryComparator<Statistic,String> multStat_;
-        multStat_ = DictionaryComparatorUtil.buildStatisString(data_,getLanguage());
+        DictionaryComparator<TranslatedKey,String> multStat_;
+        multStat_ = DictionaryComparatorUtil.buildStatisString();
         for (Statistic s: ability_.getMultStat().getKeys()) {
             String formula_ = data_.getFormula(ability_.getMultStat().getVal(s), getLanguage());
 //            formula_ = quoteBraces(formula_);
             mapVars_.putAllMap(data_.getDescriptions(ability_.getMultStat().getVal(s), getLanguage()));
-            multStat_.put(s, formula_);
+            multStat_.put(buildSi(getFacade(),s), formula_);
         }
         multStat = multStat_;
         forwardStatus = forwardStatus(ability_);
@@ -266,10 +266,10 @@ public class AbilityBean extends CommonBean {
             healHpByTypeIfWeather_.put(buildPair(getFacade(), w), ability_.getHealHpByTypeIfWeather().getVal(w));
         }
         healHpByTypeIfWeather = healHpByTypeIfWeather_;
-        DictionaryComparator<String, TypeDamageBoost> changingBoostTypes_;
-        changingBoostTypes_ = DictionaryComparatorUtil.buildTypesTypeDamageBoost(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, TypeDamageBoost> changingBoostTypes_;
+        changingBoostTypes_ = DictionaryComparatorUtil.buildTypesTypeDamageBoost();
         for (String w: ability_.getChangingBoostTypes().getKeys()) {
-            changingBoostTypes_.put(w, ability_.getChangingBoostTypes().getVal(w));
+            changingBoostTypes_.put(buildTy(getFacade(),w), ability_.getChangingBoostTypes().getVal(w));
         }
         changingBoostTypes = changingBoostTypes_;
         DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamageCat_;
@@ -311,16 +311,16 @@ public class AbilityBean extends CommonBean {
             multStatIfStatutRank_.put(buildPair(getFacade(), w), ability_.getMultStatIfStatutRank().getVal(w));
         }
         multStatIfStatutRank = multStatIfStatutRank_;
-        DictionaryComparator<String, Rate> multDamageFoe_;
-        multDamageFoe_ = DictionaryComparatorUtil.buildTypesRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Rate> multDamageFoe_;
+        multDamageFoe_ = DictionaryComparatorUtil.buildTypesRate();
         for (String c: ability_.getMultDamageFoe().getKeys()) {
-            multDamageFoe_.put(c, ability_.getMultDamageFoe().getVal(c));
+            multDamageFoe_.put(buildTy(getFacade(), c), ability_.getMultDamageFoe().getVal(c));
         }
         multDamageFoe = multDamageFoe_;
-        DictionaryComparator<String, Rate> multPowerMovesTypesGlobal_;
-        multPowerMovesTypesGlobal_ = DictionaryComparatorUtil.buildTypesRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Rate> multPowerMovesTypesGlobal_;
+        multPowerMovesTypesGlobal_ = DictionaryComparatorUtil.buildTypesRate();
         for (String c: ability_.getMultPowerMovesTypesGlobal().getKeys()) {
-            multPowerMovesTypesGlobal_.put(c, ability_.getMultPowerMovesTypesGlobal().getVal(c));
+            multPowerMovesTypesGlobal_.put(buildTy(getFacade(), c), ability_.getMultPowerMovesTypesGlobal().getVal(c));
         }
         multPowerMovesTypesGlobal = multPowerMovesTypesGlobal_;
         mapVars_.putAllMap(data_.getDescriptions(ability_.getMultPower(), getLanguage()));
@@ -348,72 +348,65 @@ public class AbilityBean extends CommonBean {
         return new TranslatedKeyPair(buildMv(_data, _w.getWeather()), buildTy(_data, _w.getType()));
     }
 
-    private DictionaryComparator<Statistic, Rate> multStatAlly(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Rate> multStatAlly_;
-        multStatAlly_ = DictionaryComparatorUtil.buildStatisRate(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, Rate> multStatAlly(AbilityData _ability) {
+        DictionaryComparator<TranslatedKey, Rate> multStatAlly_;
+        multStatAlly_ = DictionaryComparatorUtil.buildStatisRate();
         for (Statistic s: _ability.getMultStatAlly().getKeys()) {
-            multStatAlly_.put(s, _ability.getMultStatAlly().getVal(s));
+            multStatAlly_.put(buildSi(getFacade(),s), _ability.getMultStatAlly().getVal(s));
         }
         return multStatAlly_;
     }
 
-    private DictionaryComparator<Statistic, Long> multStatIfLowStat(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Long> multStatIfLowStat_;
-        multStatIfLowStat_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, Long> multStatIfLowStat(AbilityData _ability) {
+        DictionaryComparator<TranslatedKey, Long> multStatIfLowStat_;
+        multStatIfLowStat_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: _ability.getMultStatIfLowStat().getKeys()) {
-            multStatIfLowStat_.put(s, _ability.getMultStatIfLowStat().getVal(s));
+            multStatIfLowStat_.put(buildSi(getFacade(),s), _ability.getMultStatIfLowStat().getVal(s));
         }
         return multStatIfLowStat_;
     }
 
-    private DictionaryComparator<Statistic, Long> multStatIfKoFoe(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Long> multStatIfKoFoe_;
-        multStatIfKoFoe_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, Long> multStatIfKoFoe(AbilityData _ability) {
+        DictionaryComparator<TranslatedKey, Long> multStatIfKoFoe_;
+        multStatIfKoFoe_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: _ability.getMultStatIfKoFoe().getKeys()) {
-            multStatIfKoFoe_.put(s, _ability.getMultStatIfKoFoe().getVal(s));
+            multStatIfKoFoe_.put(buildSi(getFacade(),s), _ability.getMultStatIfKoFoe().getVal(s));
         }
         return multStatIfKoFoe_;
     }
 
-    private DictionaryComparator<Statistic, Long> lowStatFoeHit(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Long> lowStatFoeHit_;
-        lowStatFoeHit_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, Long> lowStatFoeHit(AbilityData _ability) {
+        DictionaryComparator<TranslatedKey, Long> lowStatFoeHit_;
+        lowStatFoeHit_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: _ability.getLowStatFoeHit().getKeys()) {
-            lowStatFoeHit_.put(s, _ability.getLowStatFoeHit().getVal(s));
+            lowStatFoeHit_.put(buildSi(getFacade(),s), _ability.getLowStatFoeHit().getVal(s));
         }
         return lowStatFoeHit_;
     }
 
-    private DictionaryComparator<Statistic, Long> boostStatRankProtected(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Long> boostStatRankProtected_;
-        boostStatRankProtected_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, Long> boostStatRankProtected(AbilityData _ability) {
+        DictionaryComparator<TranslatedKey, Long> boostStatRankProtected_;
+        boostStatRankProtected_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: _ability.getBoostStatRankProtected().getKeys()) {
-            boostStatRankProtected_.put(s, _ability.getBoostStatRankProtected().getVal(s));
+            boostStatRankProtected_.put(buildSi(getFacade(),s), _ability.getBoostStatRankProtected().getVal(s));
         }
         return boostStatRankProtected_;
     }
 
-    private DictionaryComparator<Statistic, Long> boostStatRankEndRound(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Long> boostStatRankEndRound_;
-        boostStatRankEndRound_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, Long> boostStatRankEndRound(AbilityData _ability) {
+        DictionaryComparator<TranslatedKey, Long> boostStatRankEndRound_;
+        boostStatRankEndRound_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: _ability.getBoostStatRankEndRound().getKeys()) {
-            boostStatRankEndRound_.put(s, _ability.getBoostStatRankEndRound().getVal(s));
+            boostStatRankEndRound_.put(buildSi(getFacade(),s), _ability.getBoostStatRankEndRound().getVal(s));
         }
         return boostStatRankEndRound_;
     }
 
-    private DictionaryComparator<Statistic, Long> bonusStatRank(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<Statistic, Long> bonusStatRank_;
-        bonusStatRank_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, Long> bonusStatRank(AbilityData _ability) {
+        DictionaryComparator<TranslatedKey, Long> bonusStatRank_;
+        bonusStatRank_ = DictionaryComparatorUtil.buildStatisByte();
         for (Statistic s: _ability.getBonusStatRank().getKeys()) {
-            bonusStatRank_.put(s, _ability.getBonusStatRank().getVal(s));
+            bonusStatRank_.put(buildSi(getFacade(),s), _ability.getBonusStatRank().getVal(s));
         }
         return bonusStatRank_;
     }
@@ -450,16 +443,16 @@ public class AbilityBean extends CommonBean {
         return forwardStatus_;
     }
 
-    private DictionaryComparator<String, IdList<Statistic>> immuLowStatisTypes(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        DictionaryComparator<String,IdList<Statistic>> immuLowStatisTypes_;
-        immuLowStatisTypes_ = DictionaryComparatorUtil.buildTypesStaList(data_,getLanguage());
+    private DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuLowStatisTypes(AbilityData _ability) {
+//        DataBase data_ = getDataBase();
+        DictionaryComparator<TranslatedKey, CustList<TranslatedKey>> immuLowStatisTypes_;
+        immuLowStatisTypes_ = DictionaryComparatorUtil.buildTypesStrList();
         for (String t: _ability.getImmuLowStatisTypes().getKeys()) {
-            immuLowStatisTypes_.put(t, new IdList<Statistic>(_ability.getImmuLowStatisTypes().getVal(t)));
+            immuLowStatisTypes_.put(buildTy(getFacade(), t), listTrStringsSi(_ability.getImmuLowStatisTypes().getVal(t),getFacade()));
         }
-        for (IdList<Statistic> v: immuLowStatisTypes_.values()) {
-            v.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
-        }
+//        for (IdList<Statistic> v: immuLowStatisTypes_.values()) {
+//            v.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
+//        }
         return immuLowStatisTypes_;
     }
 
@@ -514,28 +507,28 @@ public class AbilityBean extends CommonBean {
         }
         return immuMoveTypesByWeather_;
     }
-
-    private IdList<Statistic> maxStatisticsIfCh(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        IdList<Statistic> maxStatisticsIfCh_;
-        maxStatisticsIfCh_ = new IdList<Statistic>();
-        for (Statistic s: _ability.getMaxStatisticsIfCh()) {
-            maxStatisticsIfCh_.add(s);
-        }
-        maxStatisticsIfCh_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
-        return maxStatisticsIfCh_;
-    }
-
-    private IdList<Statistic> immuLowStat(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        IdList<Statistic> immuLowStat_;
-        immuLowStat_ = new IdList<Statistic>();
-        for (Statistic s: _ability.getImmuLowStat()) {
-            immuLowStat_.add(s);
-        }
-        immuLowStat_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
-        return immuLowStat_;
-    }
+//
+//    private IdList<Statistic> maxStatisticsIfCh(AbilityData _ability) {
+//        DataBase data_ = getDataBase();
+//        IdList<Statistic> maxStatisticsIfCh_;
+//        maxStatisticsIfCh_ = new IdList<Statistic>();
+//        for (Statistic s: _ability.getMaxStatisticsIfCh()) {
+//            maxStatisticsIfCh_.add(s);
+//        }
+//        maxStatisticsIfCh_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
+//        return maxStatisticsIfCh_;
+//    }
+//
+//    private IdList<Statistic> immuLowStat(AbilityData _ability) {
+//        DataBase data_ = getDataBase();
+//        IdList<Statistic> immuLowStat_;
+//        immuLowStat_ = new IdList<Statistic>();
+//        for (Statistic s: _ability.getImmuLowStat()) {
+//            immuLowStat_.add(s);
+//        }
+//        immuLowStat_.sortElts(DictionaryComparatorUtil.cmpStatistic(data_,getLanguage()));
+//        return immuLowStat_;
+//    }
 
     private DictionaryComparator<TranslatedKey, Rate> singleStatus(AbilityData _ability) {
         DictionaryComparator<TranslatedKey, Rate> singleStatus_;
@@ -547,13 +540,13 @@ public class AbilityBean extends CommonBean {
     }
 
     private void tpForMoves(AbilityData _ability) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedTypes_;
-        translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedTypes_;
+//        translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         if (!_ability.getTypeForMoves().isEmpty()) {
-            typeForMoves = translatedTypes_.getVal(_ability.getTypeForMoves());
+            typeForMoves = buildTy(getFacade(),_ability.getTypeForMoves());
         } else {
-            typeForMoves = DataBase.EMPTY_STRING;
+            typeForMoves = new TranslatedKey(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
         }
     }
 
@@ -792,22 +785,25 @@ public class AbilityBean extends CommonBean {
 //        return tryRedirectAb(move_);
     }
     public String getTrMultStat(int _index) {
-        Statistic type_ = multStat.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(type_);
+        return multStat.getKey(_index).getTranslation();
+//        Statistic type_ = multStat.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(type_);
     }
     public String getTrImmuLowStat(int _index) {
-        Statistic type_ = immuLowStat.get(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(type_);
+        return immuLowStat.get(_index).getTranslation();
+//        Statistic type_ = immuLowStat.get(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(type_);
     }
     public String getTrMaxStatisticsIfCh(int _index) {
-        Statistic type_ = maxStatisticsIfCh.get(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(type_);
+        return maxStatisticsIfCh.get(_index).getTranslation();
+//        Statistic type_ = maxStatisticsIfCh.get(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(type_);
     }
     public boolean isMoveByWeather(int _index) {
         return !immuMoveTypesByWeather.getKey(_index).getKey().isEmpty();
@@ -1061,25 +1057,28 @@ public class AbilityBean extends CommonBean {
         return tryRedirect(multStatIfStatutRank.getKey(_index).getSecond());
     }
     public String getTrMultPowerMovesTypesGlobalKey(int _index) {
-        String status_ = multPowerMovesTypesGlobal.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsMoves_;
-        translationsMoves_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsMoves_.getVal(status_);
+        return multPowerMovesTypesGlobal.getKey(_index).getTranslation();
+//        String status_ = multPowerMovesTypesGlobal.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsMoves_;
+//        translationsMoves_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsMoves_.getVal(status_);
     }
     public String getTrImmuLowStatisTypes(int _index) {
-        String move_ = immuLowStatisTypes.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(move_);
+        return immuLowStatisTypes.getKey(_index).getTranslation();
+//        String move_ = immuLowStatisTypes.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(move_);
     }
     public String getTrImmuLowStatisValue(int _indexOne, int _indexTwo) {
-        Statistic move_ = immuLowStatisTypes.getValue(_indexOne).get(_indexTwo);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return immuLowStatisTypes.getValue(_indexOne).get(_indexTwo).getTranslation();
+//        Statistic move_ = immuLowStatisTypes.getValue(_indexOne).get(_indexTwo);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrBreakFoeImmuneKey(int _index) {
         return breakFoeImmune.get(_index).getFirst().getTranslation();
@@ -1098,53 +1097,60 @@ public class AbilityBean extends CommonBean {
 //        return translationsStatus_.getVal(status_);
     }
     public String getTrBonusStatRank(int _index) {
-        Statistic move_ = bonusStatRank.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return bonusStatRank.getKey(_index).getTranslation();
+//        Statistic move_ = bonusStatRank.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrBoostStatRankEndRound(int _index) {
-        Statistic move_ = boostStatRankEndRound.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return boostStatRankEndRound.getKey(_index).getTranslation();
+//        Statistic move_ = boostStatRankEndRound.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrBoostStatRankProtected(int _index) {
-        Statistic move_ = boostStatRankProtected.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return boostStatRankProtected.getKey(_index).getTranslation();
+//        Statistic move_ = boostStatRankProtected.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrLowStatFoeHit(int _index) {
-        Statistic move_ = lowStatFoeHit.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return lowStatFoeHit.getKey(_index).getTranslation();
+//        Statistic move_ = lowStatFoeHit.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrMultStatIfKoFoe(int _index) {
-        Statistic move_ = multStatIfKoFoe.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return multStatIfKoFoe.getKey(_index).getTranslation();
+//        Statistic move_ = multStatIfKoFoe.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrMultStatIfLowStat(int _index) {
-        Statistic move_ = multStatIfLowStat.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return multStatIfLowStat.getKey(_index).getTranslation();
+//        Statistic move_ = multStatIfLowStat.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrMultStatAlly(int _index) {
-        Statistic move_ = multStatAlly.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translationsStatistics_;
-        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translationsStatistics_.getVal(move_);
+        return multStatAlly.getKey(_index).getTranslation();
+//        Statistic move_ = multStatAlly.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translationsStatistics_;
+//        translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translationsStatistics_.getVal(move_);
     }
     public String getTrIncreasedPrio(int _index) {
         return increasedPrio.getKey(_index).getTranslation();
@@ -1163,18 +1169,20 @@ public class AbilityBean extends CommonBean {
 //        return translationsTypes_.getVal(move_);
     }
     public String getTrMultDamageFoe(int _index) {
-        String move_ = multDamageFoe.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(move_);
+        return multDamageFoe.getKey(_index).getTranslation();
+//        String move_ = multDamageFoe.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(move_);
     }
     public String getTrChangingBoostTypesOld(int _index) {
-        String move_ = changingBoostTypes.getKey(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(move_);
+        return changingBoostTypes.getKey(_index).getTranslation();
+//        String move_ = changingBoostTypes.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(move_);
     }
     public String getTrChangingBoostTypesNew(int _index) {
         String move_ = changingBoostTypes.getValue(_index).getType();
@@ -1387,11 +1395,11 @@ public class AbilityBean extends CommonBean {
         return immuStatusBeginRound;
     }
 
-    public String getTypeForMoves() {
+    public TranslatedKey getTypeForMoves() {
         return typeForMoves;
     }
 
-    public DictionaryComparator<String,TypeDamageBoost> getChangingBoostTypes() {
+    public DictionaryComparator<TranslatedKey,TypeDamageBoost> getChangingBoostTypes() {
         return changingBoostTypes;
     }
 
@@ -1411,7 +1419,7 @@ public class AbilityBean extends CommonBean {
         return healHpByTypeIfWeather;
     }
 
-    public IdList<Statistic> getImmuLowStat() {
+    public CustList<TranslatedKey> getImmuLowStat() {
         return immuLowStat;
     }
 
@@ -1419,11 +1427,11 @@ public class AbilityBean extends CommonBean {
         return immuLowStatIfStatus;
     }
 
-    public DictionaryComparator<String,IdList<Statistic>> getImmuLowStatisTypes() {
+    public DictionaryComparator<TranslatedKey,CustList<TranslatedKey>> getImmuLowStatisTypes() {
         return immuLowStatisTypes;
     }
 
-    public IdList<Statistic> getMaxStatisticsIfCh() {
+    public CustList<TranslatedKey> getMaxStatisticsIfCh() {
         return maxStatisticsIfCh;
     }
 
@@ -1459,7 +1467,7 @@ public class AbilityBean extends CommonBean {
         return defEff;
     }
 
-    public DictionaryComparator<Statistic,String> getMultStat() {
+    public DictionaryComparator<TranslatedKey,String> getMultStat() {
         return multStat;
     }
 
@@ -1479,31 +1487,31 @@ public class AbilityBean extends CommonBean {
         return multStatIfStatutRank;
     }
 
-    public DictionaryComparator<Statistic,Long> getBonusStatRank() {
+    public DictionaryComparator<TranslatedKey,Long> getBonusStatRank() {
         return bonusStatRank;
     }
 
-    public DictionaryComparator<Statistic,Long> getBoostStatRankEndRound() {
+    public DictionaryComparator<TranslatedKey,Long> getBoostStatRankEndRound() {
         return boostStatRankEndRound;
     }
 
-    public DictionaryComparator<Statistic,Long> getBoostStatRankProtected() {
+    public DictionaryComparator<TranslatedKey,Long> getBoostStatRankProtected() {
         return boostStatRankProtected;
     }
 
-    public DictionaryComparator<Statistic,Long> getLowStatFoeHit() {
+    public DictionaryComparator<TranslatedKey,Long> getLowStatFoeHit() {
         return lowStatFoeHit;
     }
 
-    public DictionaryComparator<Statistic,Long> getMultStatIfKoFoe() {
+    public DictionaryComparator<TranslatedKey,Long> getMultStatIfKoFoe() {
         return multStatIfKoFoe;
     }
 
-    public DictionaryComparator<Statistic,Long> getMultStatIfLowStat() {
+    public DictionaryComparator<TranslatedKey,Long> getMultStatIfLowStat() {
         return multStatIfLowStat;
     }
 
-    public DictionaryComparator<Statistic,Rate> getMultStatAlly() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultStatAlly() {
         return multStatAlly;
     }
 
@@ -1515,11 +1523,11 @@ public class AbilityBean extends CommonBean {
         return increasedPrioTypes;
     }
 
-    public DictionaryComparator<String,Rate> getMultDamageFoe() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultDamageFoe() {
         return multDamageFoe;
     }
 
-    public DictionaryComparator<String,Rate> getMultPowerMovesTypesGlobal() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultPowerMovesTypesGlobal() {
         return multPowerMovesTypesGlobal;
     }
 

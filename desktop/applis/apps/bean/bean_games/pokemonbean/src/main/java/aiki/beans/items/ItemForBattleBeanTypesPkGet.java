@@ -1,12 +1,10 @@
 package aiki.beans.items;
 
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class ItemForBattleBeanTypesPkGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return BeanNatCommonLgNames.getStringArray(( (ItemForBattleBean) ((PokemonBeanStruct)_instance).getInstance()).getTypesPk());
+        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)_instance).getInstance()).getTypesPk());
     }
 }

@@ -1,6 +1,7 @@
 package aiki.beans.status;
 
 import aiki.beans.CommonBean;
+import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -27,7 +28,7 @@ public class StatusBean extends CommonBean {
     private boolean disabledEffIfSwitch;
     private long incrementEndRound;
     private boolean incrementingEndRound;
-    private DictionaryComparator<Statistic, Rate> multStat;
+    private DictionaryComparator<TranslatedKey, Rate> multStat;
     private StringList reasons;
     private NatStringTreeMap<String> mapVarsFail;
     private boolean endRound;
@@ -83,10 +84,10 @@ public class StatusBean extends CommonBean {
         mapVarsFail = getMapVarsFail(data_, status_.getFail(), getLanguage());
         AbsMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        DictionaryComparator<Statistic, Rate> multStat_;
-        multStat_ = DictionaryComparatorUtil.buildStatisRate(data_,getLanguage());
+        DictionaryComparator<TranslatedKey, Rate> multStat_;
+        multStat_ = DictionaryComparatorUtil.buildStatisRate();
         for (Statistic s: status_.getMultStat().getKeys()) {
-            multStat_.put(s, status_.getMultStat().getVal(s));
+            multStat_.put(buildSi(getFacade(),s), status_.getMultStat().getVal(s));
         }
         multStat = multStat_;
         notAttack = false;
@@ -148,10 +149,11 @@ public class StatusBean extends CommonBean {
         return incrementEndRound > 0;
     }
     public String getTrMultStat(int _index) {
-        Statistic type_ = multStat.getKey(_index);
-        DataBase data_ = getDataBase();
-        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        return translatedStatistics_.getVal(type_);
+        return multStat.getKey(_index).getTranslation();
+//        Statistic type_ = multStat.getKey(_index);
+//        DataBase data_ = getDataBase();
+//        AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
+//        return translatedStatistics_.getVal(type_);
     }
 
     public String getDisplayName() {
@@ -202,7 +204,7 @@ public class StatusBean extends CommonBean {
         return incrementingEndRound;
     }
 
-    public DictionaryComparator<Statistic,Rate> getMultStat() {
+    public DictionaryComparator<TranslatedKey,Rate> getMultStat() {
         return multStat;
     }
 
