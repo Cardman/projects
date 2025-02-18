@@ -129,6 +129,16 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
             displayBoolTrue(MessagesPkBean.MV_DATA,toInt(isEndRoundEffect(i)),MessagesDataMovesData.M_P_35_EFFECTS_END_ROUND);
             eff(beans.get(i));
         }
+        if (canBeLearnt()) {
+            formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_LEARNING_MOVE);
+            display(MessagesPkBean.MV_DATA,movesLevelLearntByPokemon,MessagesDataMovesData.M_P_35_BY_GROWING);
+            for (EntryCust<Long,CustList<TranslatedKey>> e:movesLevelLearntByPokemon.entryList()) {
+                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,e.getValue(),MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_GROW_LEVEL,Long.toString(e.getKey()));
+            }
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTmLearntByPokemon,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_BY_LEARN_TM);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesHmLearntByPokemon,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_BY_LEARN_HM);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesMtLearntByPokemon,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_BY_LEARN_MT);
+        }
     }
 
     public StringMap<String> file() {
