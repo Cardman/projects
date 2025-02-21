@@ -48,8 +48,8 @@ public final class TeamBean extends CommonFightBean {
         int lenGr_ = getEnabledMovesByGroup().size();
         for (int i = 0; i < lenGr_; i++) {
             formatMessageDirCts(getKey(i));
-            displayActivityOfMoveEnabled(MessagesPkBean.TEAM,getEnabledMovesByGroup().getValue(i),MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y,MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N);
-            displayActivityOfMoveNbRound(MessagesPkBean.TEAM,getEnabledMovesByGroup().getValue(i),MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_NO);
+            displayActivityOfMoveEnabled(getEnabledMovesByGroup().getValue(i), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y,MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N);
+            displayActivityOfMoveNbRound(getEnabledMovesByGroup().getValue(i), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_NO);
         }
         feedParents();
         new BeanDisplayMap<String, LgInt>(new BeanDisplayString(),new BeanDisplayLgInt()).displayGrid(this, getEnabledMovesWhileSendingFoeUses(),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_ENBALED_MOVES_SEND, MessagesFightTeam.M_P_92_ENBALED_MOVES_SEND_KEY, MessagesFightTeam.M_P_92_ENBALED_MOVES_SEND_VALUE);
@@ -115,7 +115,7 @@ public final class TeamBean extends CommonFightBean {
     }
 
     private void playerFoePart() {
-        display(MessagesPkBean.TEAM,getPlayerFightersAgainstFoe(),MessagesFightTeam.M_P_92_PLAYER_FOE);
+        display(getPlayerFightersAgainstFoe(), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_PLAYER_FOE);
         initPage();
         for (EntryCust<Integer, FighterAgainstFoes> e:getPlayerFightersAgainstFoe().entryList()) {
             initLine();

@@ -17,8 +17,8 @@ public final class BeanDisplayActivityOfMoveStill implements BeanDisplay<Activit
 
     @Override
     public int display(CommonBean _rend, ActivityOfMoveStill _info, int _index) {
-        _rend.displayActivityOfMoveEnabled(MessagesPkBean.FIGHTER,_info.getActivity(),valueTrue,valueFalse);
-        _rend.displayActivityOfMoveNbRound(MessagesPkBean.FIGHTER,_info.getActivity(),other);
+        _rend.displayActivityOfMoveEnabled(_info.getActivity(), MessagesPkBean.FIGHTER, valueTrue,valueFalse);
+        _rend.displayActivityOfMoveNbRound(_info.getActivity(), MessagesPkBean.FIGHTER, other);
         return 2;
     }
 }

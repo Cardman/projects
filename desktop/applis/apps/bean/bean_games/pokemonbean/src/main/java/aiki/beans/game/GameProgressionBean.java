@@ -51,22 +51,22 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
         displayBool(getFinishedGame(), CommonBean.TRUE_VALUE,getHeroImage());
         displayBool(getFinishedGame(),CommonBean.TRUE_VALUE,getHeroImageOppositeSex());
         displayBool(getFinishedGame(),CommonBean.TRUE_VALUE,getEndGameImage());
-        displayBoolFalse(MessagesPkBean.GAMEPROG,getFinishedGame(),MessagesProgGameprog.M_P_95_NICKNAME,getNickname());
+        displayBoolFalse(getFinishedGame(), MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_NICKNAME,getNickname());
         displayBool(getFinishedGame(),CommonBean.FALSE_VALUE,getHeroImage());
         feedParents();
         build(getNotAtAllFamiliesBase(),file().getVal(MessagesProgGameprog.M_P_95_TITLENOTATALL));
         buildPart(file().getVal(MessagesProgGameprog.M_P_95_TITLEPART));
         build(getFullFamiliesBase(),file().getVal(MessagesProgGameprog.M_P_95_TITLEFULL));
-        displayTrainerPlaceNamesList(MessagesPkBean.GAMEPROG,getUnBeatenImportantTrainers(),MessagesProgGameprog.M_P_95_UNBEATTRAINER);
-        displayTrainerPlaceNamesList(MessagesPkBean.GAMEPROG,getBeatenImportantTrainers(),MessagesProgGameprog.M_P_95_BEATTRAINER);
+        displayTrainerPlaceNamesList(getUnBeatenImportantTrainers(), MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_UNBEATTRAINER);
+        displayTrainerPlaceNamesList(getBeatenImportantTrainers(), MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_BEATTRAINER);
         displayHead(getRemainingOtherTrainerPlaces(),MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_OTHERTRAINERS,MessagesProgGameprog.M_P_95_OTHERTRAINERSPLACE,MessagesProgGameprog.M_P_95_OTHERTRAINERSNUMBER);
         for (EntryCust<Integer,PlaceNamePk> e: getRemainingOtherTrainerPlaces().entryList()) {
             formatMessageDirCts(e.getValue().getName());
             formatMessageDirCts(Long.toString(e.getValue().getIndex()));
         }
         feedParents();
-        displayStringList(MessagesPkBean.GAMEPROG,getUnVisitedPlaces(),MessagesProgGameprog.M_P_95_UNVISITPLACE);
-        displayStringList(MessagesPkBean.GAMEPROG,getVisitedPlaces(),MessagesProgGameprog.M_P_95_VISITPLACE);
+        displayStringList(getUnVisitedPlaces(), MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_UNVISITPLACE);
+        displayStringList(getVisitedPlaces(), MessagesPkBean.GAMEPROG, MessagesProgGameprog.M_P_95_VISITPLACE);
         initPage();
         formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NBREMPKLEVEL,Long.toString(getNbRemainingNotMaxLevel()));
         formatMessage(MessagesPkBean.GAMEPROG,MessagesProgGameprog.M_P_95_NBREMPKHAPPINESS,Long.toString(getNbRemainingNotMaxHappiness()));

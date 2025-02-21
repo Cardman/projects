@@ -40,16 +40,16 @@ public final class FightCalculationBean extends CommonFightBean {
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_FIGHT);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
         feedParents();
-        displayStringList(MessagesPkBean.FIGHT, getSortedFighters(), MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES);
-        display(MessagesPkBean.FIGHT,getSortedFightersWildFight(),MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD);
+        displayStringList(getSortedFighters(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES);
+        display(getSortedFightersWildFight(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD);
         initPage();
         for (ImgMovesListTeamPositionsList i: getSortedFightersWildFight()) {
             initLine();
             paintMetaLabelDisk();
             initPage();
-            display(MessagesPkBean.FIGHT,i.getKeyPks(),MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_KEY);
+            display(i.getKeyPks(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_KEY);
             new BeanDisplayList<ImgPkPlayer>(new BeanDisplayImgPkPlayer()).display(this,i.getKeyPks());
-            displayStringList(MessagesPkBean.FIGHT,i.getNamesPk(),MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_VALUE);
+            displayStringList(i.getNamesPk(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_VALUE);
             feedParents();
             feedParents();
         }
@@ -65,8 +65,8 @@ public final class FightCalculationBean extends CommonFightBean {
         feedParents();
         displayHead(getAllyChoice(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ALLY_CHOICES, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_TEAM, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_PLACE, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_NAME, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_TEAM, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_PLACE, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_NAME);
         for(EntryCust<TrPkMoveTarget, TrPkMoveTarget> e:getAllyChoice().entryList()) {
-            displayTrPkMoveTarget(MessagesPkBean.FIGHT,e.getKey());
-            displayTrPkMoveTarget(MessagesPkBean.FIGHT,e.getValue());
+            displayTrPkMoveTarget(e.getKey(), MessagesPkBean.FIGHT);
+            displayTrPkMoveTarget(e.getValue(), MessagesPkBean.FIGHT);
         }
         feedParents();
         displayHead(getFoeChoices(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES, MessagesFightFight.M_P_90_FOE_CHOICES_KEY, MessagesFightFight.M_P_90_FOE_CHOICES_KEY_NAME, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_TEAM, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_PLACE, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_NAME);

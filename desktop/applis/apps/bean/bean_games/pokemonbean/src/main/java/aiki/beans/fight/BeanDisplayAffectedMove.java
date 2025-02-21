@@ -20,8 +20,8 @@ public final class BeanDisplayAffectedMove implements BeanDisplay<AffectedMove> 
     @Override
     public int display(CommonBean _rend, AffectedMove _info, int _index) {
         _rend.formatMessageDirCts(_info.getMove());
-        _rend.displayActivityOfMoveEnabled(MessagesPkBean.FIGHTER,_info.getActivity(),valueTrue,valueFalse);
-        _rend.displayActivityOfMoveNbRound(MessagesPkBean.FIGHTER,_info.getActivity(),other);
+        _rend.displayActivityOfMoveEnabled(_info.getActivity(), MessagesPkBean.FIGHTER, valueTrue,valueFalse);
+        _rend.displayActivityOfMoveNbRound(_info.getActivity(), MessagesPkBean.FIGHTER, other);
         return 3;
     }
 }

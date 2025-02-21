@@ -94,44 +94,44 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
             new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_OTHER_WEATHER),new BeanDisplayTranslatedKey()).displayGrid(this,typesByWeathers,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES,MessagesDataMovesData.M_P_35_WEATHER,MessagesDataMovesData.M_P_35_TYPE_TITLE);
         }
         if (isDamagingMove()) {
-            displayBoolFull(MessagesPkBean.MV_DATA,toInt(isDamagingDirectMove()),MessagesDataMovesData.M_P_35_CAT_DIRECT_TRUE,MessagesDataMovesData.M_P_35_CAT_DIRECT_FALSE,category.getTranslation());
+            displayBoolFull(toInt(isDamagingDirectMove()), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_CAT_DIRECT_TRUE,MessagesDataMovesData.M_P_35_CAT_DIRECT_FALSE,category.getTranslation());
         } else {
             formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_CAT_STATUS);
         }
         formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_PP_TITLE);
         formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_PP,Long.toString(pp));
-        displayIntDef(MessagesPkBean.MV_DATA,priority,MessagesDataMovesData.M_P_35_PRIORITY_ZERO,MessagesDataMovesData.M_P_35_PRIORITY);
+        displayIntDef(priority, MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_PRIORITY_ZERO,MessagesDataMovesData.M_P_35_PRIORITY);
         formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TARGETS_TITLE);
         target(targetChoice,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TARGETS_ADJ_ADV,MessagesDataMovesData.M_P_35_TARGETS_ADJ_MULT,MessagesDataMovesData.M_P_35_TARGETS_ADJ_UNIQ,MessagesDataMovesData.M_P_35_TARGETS_ALLIE,MessagesDataMovesData.M_P_35_TARGETS_ALLIES,MessagesDataMovesData.M_P_35_TARGETS_ANY_FOE,MessagesDataMovesData.M_P_35_TARGETS_AUTRE_UNIQ,MessagesDataMovesData.M_P_35_TARGETS_GLOBALE,MessagesDataMovesData.M_P_35_TARGETS_LANCEUR,MessagesDataMovesData.M_P_35_TARGETS_PSEUDO_GLOBALE,MessagesDataMovesData.M_P_35_TARGETS_TOUS_ADV,MessagesDataMovesData.M_P_35_TARGETS_UNIQUE_IMPORTE);
         target(targetChoice,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ADJ_ADV,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ADJ_MULT,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ADJ_UNIQ,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ALLIE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ALLIES,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_ANY_FOE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_AUTRE_UNIQ,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_GLOBALE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_LANCEUR,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_PSEUDO_GLOBALE,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_TOUS_ADV,MessagesDataMovesData.M_P_35_CHOSEN_TARGETS_UNIQUE_IMPORTE);
         formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_ACCURACY_TITLE);
-        displayBoolFull(MessagesPkBean.MV_DATA,toInt(isConstAccuracy()),MessagesDataMovesData.M_P_35_ACCURACY_CONST,MessagesDataMovesData.M_P_35_ACCURACY_VAR,accuracy);
+        displayBoolFull(toInt(isConstAccuracy()), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_ACCURACY_CONST,MessagesDataMovesData.M_P_35_ACCURACY_VAR,accuracy);
         mapVarsInit(mapVarsAccuracy);
-        displayIntDef(MessagesPkBean.MV_DATA,nbPrepaRound,MessagesDataMovesData.M_P_35_PREPA_TOUR_CLIMAT);
-        displayBoolTrue(MessagesPkBean.MV_DATA,toInt(disappearBeforeUse),MessagesDataMovesData.M_P_35_DISPARITION_TOUR);
+        displayIntDef(nbPrepaRound, MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_PREPA_TOUR_CLIMAT);
+        displayBoolTrue(toInt(disappearBeforeUse), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_DISPARITION_TOUR);
         formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_SUCCESS_TITLE);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,deletedStatus,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_DELETED_STATUS);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,requiredStatus,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_REQUIERED_STATUS);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,achieveDisappearedPkUsingMove,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_TOUCHE_PK_DISPARUS);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilities,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_ABILITIES_AFFECT);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,items,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_ITEMS_AFFECT);
-        displayBoolTrue(MessagesPkBean.MV_DATA,toInt(cannotKo),MessagesDataMovesData.M_P_35_CANNOT_KO);
+        displayBoolTrue(toInt(cannotKo), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_CANNOT_KO);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,affectedByMoves,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_AFFECT_BY_MOVES);
         int len_ = beans.size();
         for (int i = 0; i < len_; i++) {
             if (effPrimOrBeforeNotEndRound(i)) {
-                displayBoolFull(MessagesPkBean.MV_DATA,toInt(isBeforePrimaryEffect(i)),MessagesDataMovesData.M_P_35_EFFECTS_BEF_FIRST,MessagesDataMovesData.M_P_35_EFFECTS_FIRST);
+                displayBoolFull(toInt(isBeforePrimaryEffect(i)), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_EFFECTS_BEF_FIRST,MessagesDataMovesData.M_P_35_EFFECTS_FIRST);
             }
             if (effSecNotEndRound(i)) {
                 formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_EFFECTS_SEC);
-                displayBoolTrue(MessagesPkBean.MV_DATA,toInt(secEffectIfNoDamage),MessagesDataMovesData.M_P_35_EFFECT_WHILE_NO_DAMAGE);
+                displayBoolTrue(toInt(secEffectIfNoDamage), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_EFFECT_WHILE_NO_DAMAGE);
             }
-            displayBoolTrue(MessagesPkBean.MV_DATA,toInt(isEndRoundEffect(i)),MessagesDataMovesData.M_P_35_EFFECTS_END_ROUND);
+            displayBoolTrue(toInt(isEndRoundEffect(i)), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_EFFECTS_END_ROUND);
             eff(beans.get(i));
         }
         if (canBeLearnt()) {
             formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_LEARNING_MOVE);
-            display(MessagesPkBean.MV_DATA,movesLevelLearntByPokemon,MessagesDataMovesData.M_P_35_BY_GROWING);
+            display(movesLevelLearntByPokemon, MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_BY_GROWING);
             for (EntryCust<Long,CustList<TranslatedKey>> e:movesLevelLearntByPokemon.entryList()) {
                 new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,e.getValue(),MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_GROW_LEVEL,Long.toString(e.getKey()));
             }

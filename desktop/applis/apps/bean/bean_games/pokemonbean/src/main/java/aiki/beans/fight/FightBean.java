@@ -40,12 +40,12 @@ public final class FightBean extends CommonFightBean {
         for (int i = 0; i < len_; i++) {
             formatMessageDirCts(getEnabledMoves().getKey(i));
             if (isStillEnabled(i)) {
-                displayActivityOfMoveEnabled(MessagesPkBean.FIGHT,getEnabledMoves().getValue(i).getActivity(),MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
+                displayActivityOfMoveEnabled(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
             } else {
                 formatMessageDirCts(formatMessageRend(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ENBALED_MOVES_NO));
             }
-            displayActivityOfMoveEnabled(MessagesPkBean.FIGHT,getEnabledMoves().getValue(i).getActivity(),MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
-            displayActivityOfMoveNbRound(MessagesPkBean.FIGHT,getEnabledMoves().getValue(i).getActivity(),MessagesFightFight.M_P_90_ENBALED_MOVES_NO);
+            displayActivityOfMoveEnabled(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
+            displayActivityOfMoveNbRound(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_NO);
         }
         feedParents();
     }
