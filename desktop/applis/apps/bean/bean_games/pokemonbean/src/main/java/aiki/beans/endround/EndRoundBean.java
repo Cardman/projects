@@ -7,10 +7,11 @@ import aiki.fight.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
-public class EndRoundBean extends CommonBean {
+public final class EndRoundBean extends CommonBean implements BeanRenderWithAppName {
 
 //    private static final String PAGE_EFF = "web/html/endround/eff.html";
 //    private static final String PAGE_GLOBAL = "web/html/endround/global.html";
@@ -24,13 +25,33 @@ public class EndRoundBean extends CommonBean {
 //    private static final String PAGE_POSITIONRELATION = "web/html/endround/positionrelation.html";
 //    private static final String PAGE_POSITIONTARGET = "web/html/endround/positiontarget.html";
     private CustList<EndRoundMainElements> evts;
+    private CustList<EffectEndRoundBean> effects;
 
+    public EndRoundBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataEndroundEndround.M_P_3_TITLE));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ENDROUND_ENDROUND,MessagesDataEndroundEndround.M_P_3_INDEX);
+        for (EffectEndRoundBean e: effects) {
+            e.setAppName(getAppName());
+            e.setBuilder(getBuilder());
+            e.buildSub();
+        }
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.ENDROUND_ENDROUND).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
         evts = data_.getEvtEndRound();
         getForms().getEvts().clear();
         CustList<EffectEndRoundBean> res_ = new CustList<EffectEndRoundBean>();
+        effects = res_;
         getForms().setCurrentBeanEnd(res_);
         for (EndRoundMainElements e: evts) {
             getForms().getEvtsGroups().add(new CustList<TranslatedKey>());

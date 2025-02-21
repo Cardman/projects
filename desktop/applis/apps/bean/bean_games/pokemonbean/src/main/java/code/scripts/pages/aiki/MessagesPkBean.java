@@ -45,6 +45,17 @@ public final class MessagesPkBean {
     public static final String EFF_UNPROTECTFROMTYPES="moves/effects/effunprotectfromtypes";
     public static final String EFF_VARPP="moves/effects/effvarpp";
     public static final String EFF_WINMONEY="moves/effects/effwinmoney";
+    public static final String ENDROUND_ENDROUND="endround/endround";
+    public static final String ENDROUND_EVENT="endround/event";
+    public static final String ENDROUND_FOE="endround/foe";
+    public static final String ENDROUND_INDIVIDUAL="endround/individual";
+    public static final String ENDROUND_MULTIRELATION="endround/multirelation";
+    public static final String ENDROUND_POSITIONRELATION="endround/positionrelation";
+    public static final String ENDROUND_POSITIONTARGET="endround/positiontarget";
+    public static final String ENDROUND_SINGLERELATION="endround/singlerelation";
+    public static final String ENDROUND_STATUS="endround/status";
+    public static final String ENDROUND_STATUSRELATION="endround/statusrelation";
+    public static final String ENDROUND_TEAM="endround/team";
     public static final String MOVES="moves/moves";
     public static final String POKEDEX = "pokemon/pokedex";
     public static final String PK_DATA = "pokemon/data";
@@ -143,6 +154,17 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.en());
         m.getMapping().addEntry(EFF_VARPP,MessagesDataEffvarpp.en());
         m.getMapping().addEntry(EFF_WINMONEY,MessagesDataEffwinmoney.en());
+        m.getMapping().addEntry(ENDROUND_ENDROUND,MessagesDataEndroundEndround.en());
+        m.getMapping().addEntry(ENDROUND_EVENT,MessagesDataEndroundEvent.en());
+        m.getMapping().addEntry(ENDROUND_FOE,MessagesDataEndroundFoe.en());
+        m.getMapping().addEntry(ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.en());
+        m.getMapping().addEntry(ENDROUND_MULTIRELATION,MessagesDataEndroundMultirelation.en());
+        m.getMapping().addEntry(ENDROUND_POSITIONRELATION,MessagesDataEndroundPositionrelation.en());
+        m.getMapping().addEntry(ENDROUND_POSITIONTARGET,MessagesDataEndroundPositiontarget.en());
+        m.getMapping().addEntry(ENDROUND_SINGLERELATION,MessagesDataEndroundSinglerelation.en());
+        m.getMapping().addEntry(ENDROUND_STATUS,MessagesDataEndroundStatus.en());
+        m.getMapping().addEntry(ENDROUND_STATUSRELATION,MessagesDataEndroundStatusrelation.en());
+        m.getMapping().addEntry(ENDROUND_TEAM,MessagesDataEndroundTeam.en());
         m.getMapping().addEntry(MOVES,MessagesDataMovesMoves.en());
         return m;
     }
@@ -196,6 +218,17 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.fr());
         m.getMapping().addEntry(EFF_VARPP,MessagesDataEffvarpp.fr());
         m.getMapping().addEntry(EFF_WINMONEY,MessagesDataEffwinmoney.fr());
+        m.getMapping().addEntry(ENDROUND_ENDROUND,MessagesDataEndroundEndround.fr());
+        m.getMapping().addEntry(ENDROUND_EVENT,MessagesDataEndroundEvent.fr());
+        m.getMapping().addEntry(ENDROUND_FOE,MessagesDataEndroundFoe.fr());
+        m.getMapping().addEntry(ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.fr());
+        m.getMapping().addEntry(ENDROUND_MULTIRELATION,MessagesDataEndroundMultirelation.fr());
+        m.getMapping().addEntry(ENDROUND_POSITIONRELATION,MessagesDataEndroundPositionrelation.fr());
+        m.getMapping().addEntry(ENDROUND_POSITIONTARGET,MessagesDataEndroundPositiontarget.fr());
+        m.getMapping().addEntry(ENDROUND_SINGLERELATION,MessagesDataEndroundSinglerelation.fr());
+        m.getMapping().addEntry(ENDROUND_STATUS,MessagesDataEndroundStatus.fr());
+        m.getMapping().addEntry(ENDROUND_STATUSRELATION,MessagesDataEndroundStatusrelation.fr());
+        m.getMapping().addEntry(ENDROUND_TEAM,MessagesDataEndroundTeam.fr());
         m.getMapping().addEntry(MOVES,MessagesDataMovesMoves.fr());
         return m;
     }

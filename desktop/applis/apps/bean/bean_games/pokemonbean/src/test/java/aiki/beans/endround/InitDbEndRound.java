@@ -16,6 +16,11 @@ import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -25,6 +30,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static final String T_TYPE_ROUND_1 = "T_TYPE1";
     public static final String S_STA_END_ROUND = "S_STA_END_ROUND";
     public static final String T_TYPE_HEAL = "T_TYPE_HEAL";
+    public static final String T_TYPE_HEAL_2 = "T_TYPE_HEAL_2";
     public static final String S_STA_DAM = "STA_DAM";
     public static final String S_STA_RELATION = "S_STA_RELATION";
     public static final String M_END_1="M_END_1";
@@ -60,6 +66,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static final String T_TYPE_ROUND_1_TR="T_TYPE1_TR";
     public static final String S_STA_END_ROUND_TR="S_STA_END_ROUND_TR";
     public static final String T_TYPE_HEAL_TR="T_TYPE_HEAL_TR";
+    public static final String T_TYPE_HEAL_2_TR="T_TYPE_HEAL_TR_2";
     public static final String S_STA_DAM_TR="STA_DAM_TR";
     public static final String S_STA_RELATION_TR="S_STA_RELATION_TR";
     public static final String M_END_1_TR="M_END_1_TR";
@@ -397,7 +404,47 @@ public abstract class InitDbEndRound extends InitDbConstr {
 
     protected static NaSt transitToAllPks(StringMap<NaSt> _all) {
         NaSt welcome_ = _all.getVal(AikiBeansEndroundStd.BEAN_ENDROUND);
-        beforeDisplaying(welcome_);
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(((BeanRenderWithAppName) ((PokemonBeanStruct)welcome_).getBean()).getFacade());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).setBuilder(bu_);
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_GLOBAL,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_EVENT,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_FOE,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_INDIVIDUAL,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_MULTIRELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONRELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONTARGET,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_SINGLERELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_GLOBAL,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_EVENT,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_FOE,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_INDIVIDUAL,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_MULTIRELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONRELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONTARGET,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_SINGLERELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
+        ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
+//        beforeDisplaying(welcome_);
         return welcome_;
     }
     public static StringMap<NaSt> beanToEndRound(PkData _pk) {
@@ -518,6 +565,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         facade_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
         facade_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE_ROUND_1,T_TYPE_ROUND_1_TR);
         facade_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE_HEAL,T_TYPE_HEAL_TR);
+        facade_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE_HEAL_2,T_TYPE_HEAL_2_TR);
         return facade_;
     }
     private static MoveData incr(int _rank) {
@@ -608,6 +656,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         e_.setUserStatusEndRound(S_STA_END_ROUND);
         e_.getHealHpByOwnerTypes().addEntry(T_TYPE_HEAL,Rate.one());
         e_.getHealHpByOwnerTypes().addEntry(NULL_REF,Rate.newRate("2"));
+        e_.getHealHpByOwnerTypes().addEntry(T_TYPE_HEAL_2,Rate.newRate("-2"));
         e_.getMultDamageStatus().addEntry(S_STA_DAM,Rate.one());
         return e_;
     }

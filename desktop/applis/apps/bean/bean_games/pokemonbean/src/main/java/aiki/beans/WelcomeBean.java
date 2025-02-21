@@ -25,7 +25,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         element(MessagesDataIndex.M_P_15_ABILITIES);
         element(MessagesDataIndex.M_P_15_STATUS);
         element(MessagesDataIndex.M_P_15_COMBOS);
-        element(MessagesDataIndex.M_P_15_ENDROUND);
+        elementAnchor(MessagesDataIndex.M_P_15_ENDROUND,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this));
         element(MessagesDataIndex.M_P_15_MAP);
         element(MessagesDataIndex.M_P_15_SOLUTION);
         element(MessagesDataIndex.M_P_15_LANGS);

@@ -1,4 +1,5 @@
 package aiki.beans.endround;
+import aiki.beans.*;
 import aiki.beans.TranslatedKey;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
@@ -6,6 +7,7 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.instances.Instances;
 import code.maths.Rate;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
@@ -35,6 +37,15 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
         puttingKo = effect_.getPuttingKo();
     }
 
+    @Override
+    public void buildSub() {
+        super.buildSub();
+        displayIntDef(damageEndRound, MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DAMAGE_END_ROUND);
+        displayIntDef(healingEndRoundGround,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_GROUND);
+        displayIntDef(healingEndRound,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND);
+        displayBoolTrue(toInt(puttingKo),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_PUTTING_KO);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuneTypes,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
+    }
     public static EffectGlobal global(MoveData _move) {
         for (Effect e: _move.getEffects()) {
             if (e instanceof EffectGlobal) {

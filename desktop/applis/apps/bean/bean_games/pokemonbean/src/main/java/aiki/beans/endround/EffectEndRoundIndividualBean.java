@@ -1,10 +1,11 @@
 package aiki.beans.endround;
 
-import aiki.beans.TranslatedKey;
+import aiki.beans.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
 import code.maths.Rate;
+import code.scripts.pages.aiki.*;
 
 public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
     private Rate deleteAllStatus;
@@ -34,6 +35,18 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
             healHpByOwnerTypes_.put(buildTy(getFacade(),s), effect_.getHealHpByOwnerTypes().getVal(s));
         }
         healHpByOwnerTypes = healHpByOwnerTypes_;
+    }
+
+    @Override
+    public void buildSub() {
+        super.buildSub();
+        formatMessage(MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_EFFECT);
+        displayIntDef(deleteAllStatus,MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_DELETE_ALL_STATUS);
+        displayIntDef(recoilDamage,MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_RECOIL_DAMAGE);
+        displayIntDef(healHp,MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_HEAL_HP);
+        formatTrKey(userStatusEndRound,MessagesPkBean.ENDROUND_INDIVIDUAL,"",MessagesDataEndroundIndividual.M_P_6_USER_STATUS);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,multDamageStatus,MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS_KEY,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS_VALUE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES_OTHER),new BeanDisplayRateAbs(MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES_VALUE_L,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES_VALUE_W)).displayGrid(this,healHpByOwnerTypes,MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES_KEY,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES_VALUE);
     }
     public String getTrUserStatus() {
         return userStatusEndRound.getTranslation();

@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.db.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
@@ -14,6 +15,13 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
     public void beforeDisplaying() {
         super.beforeDisplaying();
         movesSameCategory = listTrStringsMv(moves(),getFacade());
+    }
+
+    @Override
+    public void buildSub() {
+        super.buildSub();
+        formatMessage(MessagesPkBean.ENDROUND_POSITIONTARGET,MessagesDataEndroundPositiontarget.M_P_9_EFFECT);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesSameCategory,MessagesPkBean.ENDROUND_POSITIONTARGET,MessagesDataEndroundPositiontarget.M_P_9_ANTICIPE);
     }
 
     private StringList moves() {

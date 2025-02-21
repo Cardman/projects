@@ -6,6 +6,9 @@ import aiki.db.DataBase;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.moves.effects.EffectEndRound;
+import code.scripts.pages.aiki.MessagesDataEffendround;
+import code.scripts.pages.aiki.MessagesDataEndroundEvent;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -85,9 +88,22 @@ public class EffectEndRoundBean extends CommonBean {
         }
         mapVarsFailEndRound = mapVarsFail_;
     }
+    public void buildSub() {
+        formatMessageDir(getTranslatedKey());
+        for (TranslatedKey f:getTranslatedKeys()) {
+            formatMessageDir(f);
+        }
+        formatMessage(MessagesPkBean.ENDROUND_EVENT, MessagesDataEndroundEvent.M_P_4_RANK,Long.toString(getEndRoundRank()));
+        displayStringList(getReasonsEndRound(),MessagesPkBean.EFF_ENDROUND, MessagesDataEffendround.M_P_47_REASONS);
+        mapVarsInit(getMapVarsFailEndRound());
+    }
 
     private void trKey() {
         translatedKey = getForms().getEvts().get(index);
+    }
+
+    public TranslatedKey getTranslatedKey() {
+        return translatedKey;
     }
 
     protected EffectEndRound getEffect() {
@@ -176,6 +192,10 @@ public class EffectEndRoundBean extends CommonBean {
             trs_.add(e.getTranslation());
         }
         return trs_;
+    }
+
+    public CustList<TranslatedKey> getTranslatedKeys() {
+        return translatedKeys;
     }
 
     public long getEndRoundRank() {

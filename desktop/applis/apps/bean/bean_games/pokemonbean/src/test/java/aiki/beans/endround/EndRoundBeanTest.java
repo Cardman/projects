@@ -160,7 +160,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getHealHpByOwnerTypes1() {
-        assertSizeEq(2,callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9));
+        assertSizeEq(3,callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9));
     }
     @Test
     public void getHealHpByOwnerTypes2() {

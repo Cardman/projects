@@ -69,15 +69,15 @@ ad(_body,elt0_);
 }
 static void build1(Element _body,Document _doc17){
 Element elt0_=el(_doc17,P);
-Element elt1_=el(_doc17,C_IF);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(CONDITION,C_P_112_9));
-at(elt1_,attrs0_);
 Element elt2_=el(_doc17,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_P_112_10));
 at(elt2_,attrs1_);
-ad(elt1_,elt2_);
+ad(elt0_,elt2_);
+Element elt1_=el(_doc17,C_IF);
+CustList<Attr> attrs0_=al(1);
+attrs0_.add(at(CONDITION,C_P_112_9));
+at(elt1_,attrs0_);
 Element elt3_=el(_doc17,C_MESSAGE);
 CustList<Attr> attrs2_=al(1);
 attrs2_.add(at(VALUE,C_P_112_11));

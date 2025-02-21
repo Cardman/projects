@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.comparators.*;
 import aiki.fight.moves.effects.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 
 public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
     private DictionaryComparator<TranslatedKey,Rate> damageByStatus;
@@ -18,6 +19,11 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
             damageByStatus_.put(buildSt(getFacade(),s), effect_.getDamageByStatus().getVal(s));
         }
         damageByStatus = damageByStatus_;
+    }
+    @Override
+    public void buildSub() {
+        super.buildSub();
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,damageByStatus,MessagesPkBean.ENDROUND_MULTIRELATION,MessagesDataEndroundMultirelation.M_P_7_EFFECT,MessagesDataEndroundMultirelation.M_P_7_DAMAGE_STATUS_KEY,MessagesDataEndroundMultirelation.M_P_7_DAMAGE_STATUS_RATE);
     }
     public String getTrDamageStatus(int _index) {
         return damageByStatus.getKey(_index).getTranslation();
