@@ -1,22 +1,46 @@
 package aiki.beans.effects;
 
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
+import aiki.beans.*;
 import aiki.beans.facade.comparators.*;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.util.ListEffectCombo;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.CustList;
+import code.util.StringMap;
 
-public class CombosBean extends CommonBean {
+public final class CombosBean extends CommonBean implements BeanRenderWithAppName {
     static final String COMBO=PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBO_HTML;
     private ComboDto combos;
+    private CustList<EffectComboBean> list;
 
+    public CombosBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataCombo.M_P_2_TITLE));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this), MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_INDEX);
+        for (EffectComboBean e:list) {
+            e.buildSub();
+        }
+    }
+
+    public CustList<EffectComboBean> getList() {
+        return list;
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.COMBO).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         combos = new ComboDto(getLocCombos());
         CustList<EffectComboBean> combo_ = getForms().getCurrentComboBean();
         combo_.clear();
+        list = combo_;
         int len_ = combos.size();
         for (int i = 0; i < len_; i++) {
             build(combo_,i,new EffectComboBean());

@@ -10,6 +10,7 @@ public final class MessagesPkBean {
     public static final String FIGHTER = "fighter";
     public static final String INDEX = "index";
     public static final String MV_DATA="moves/data";
+    public static final String COMBO="combo/combo";
     public static final String EFF="moves/effects/eff";
     public static final String EFF_ACCURACY="moves/effects/effaccuracy";
     public static final String EFF_ALLY="moves/effects/effally";
@@ -119,6 +120,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(EVO_TEAM,MessagesDataEvolutionsEvoteam.en());
         m.getMapping().addEntry(EVO_TYPE,MessagesDataEvolutionsEvotype.en());
         m.getMapping().addEntry(MV_DATA,MessagesDataMovesData.en());
+        m.getMapping().addEntry(COMBO,MessagesDataCombo.en());
         m.getMapping().addEntry(EFF,MessagesDataEff.en());
         m.getMapping().addEntry(EFF_ACCURACY,MessagesDataEffaccuracy.en());
         m.getMapping().addEntry(EFF_ALLY,MessagesDataEffally.en());
@@ -183,6 +185,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(EVO_TEAM,MessagesDataEvolutionsEvoteam.fr());
         m.getMapping().addEntry(EVO_TYPE,MessagesDataEvolutionsEvotype.fr());
         m.getMapping().addEntry(MV_DATA,MessagesDataMovesData.fr());
+        m.getMapping().addEntry(COMBO,MessagesDataCombo.fr());
         m.getMapping().addEntry(EFF,MessagesDataEff.fr());
         m.getMapping().addEntry(EFF_ACCURACY,MessagesDataEffaccuracy.fr());
         m.getMapping().addEntry(EFF_ALLY,MessagesDataEffally.fr());

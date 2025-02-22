@@ -1,7 +1,6 @@
 package aiki.beans.effects;
 
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
+import aiki.beans.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -10,9 +9,11 @@ import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.moves.effects.EffectEndRound;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public class EffectComboBean extends CommonBean {
+public final class EffectComboBean extends CommonBean {
     private ComboDto combos;
     private int index;
     private CustList<TranslatedKey> moves;
@@ -62,6 +63,20 @@ public class EffectComboBean extends CommonBean {
             repeatedRoundsLaw_.put(e.intPart(), e_.getRepeatedRoundsLaw().normalizedRate(e));
         }
         repeatedRoundsLaw = repeatedRoundsLaw_;
+    }
+    public void buildSub() {
+        formatMessage(MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_EFFECT);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,moves);
+        if (endRound) {
+            formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(endRoundRank));
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_ENDROUND);
+            displayStringList(reasonsEndRound,MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
+            mapVarsInit(mapVarsFailEndRound);
+        }
+        displayIntDef(multEvtRateSecEff,MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_RATE_SEC_EFF);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,multStatisticFoe,MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_MULT_STAT_FOE,MessagesDataCombo.M_P_2_STATISTIC,MessagesDataCombo.M_P_2_RATE);
+        formatMessage(MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_RANK_INCREMENT_NB_ROUND,Long.toString(rankIncrementNbRound));
+        new BeanDisplayMap<LgInt,Rate>(new BeanDisplayLgInt(), new BeanDisplayRate()).displayGrid(this,repeatedRoundsLaw,MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_LAW_REPEAT,MessagesDataCombo.M_P_2_LAW_REPEAT_KEY,MessagesDataCombo.M_P_2_LAW_REPEAT_VALUE);
     }
     public String getTrStatistic(int _index) {
         return multStatisticFoe.getKey(_index).getTranslation();
