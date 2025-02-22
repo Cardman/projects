@@ -22,7 +22,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         elementAnchor(MessagesDataIndex.M_P_15_POKEDEX,new WelcomeBeanClickPokedex(this));
         element(MessagesDataIndex.M_P_15_ITEMS);
         elementAnchor(MessagesDataIndex.M_P_15_MOVES,new WelcomeBeanSeeAllMoves(this));
-        element(MessagesDataIndex.M_P_15_ABILITIES);
+        elementAnchor(MessagesDataIndex.M_P_15_ABILITIES,new WelcomeBeanClickAbilities(this));
         element(MessagesDataIndex.M_P_15_STATUS);
         elementAnchor(MessagesDataIndex.M_P_15_COMBOS,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,this));
         elementAnchor(MessagesDataIndex.M_P_15_ENDROUND,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this));

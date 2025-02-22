@@ -40,7 +40,7 @@ private static final String C_P_98_33="$intern.effect=getEffectSending()";
 private static final String C_P_98_34="achievedDisappearedPk";
 private static final String C_P_98_35="msg_ability,achieved_disappeared_time";
 private static final String C_P_98_36="msg_ability,achieved_disappeared";
-private static final String C_P_98_37="breakProtection";
+//private static final String C_P_98_37="breakProtection";
 private static final String C_P_98_38="!breakProtectionMoves.isEmpty()";
 private static final String C_P_98_39="msg_ability,break_protection_time";
 private static final String C_P_98_40="msg_ability,break_protection";
@@ -101,7 +101,7 @@ private static final String C_P_98_94="msg_ability,immu_damage_recoil";
 private static final String C_P_98_95="immuDamageTrappingMoves";
 private static final String C_P_98_96="msg_ability,immu_damage_trapping_moves_time";
 private static final String C_P_98_97="msg_ability,immu_damage_trapping_moves";
-private static final String C_P_98_98="immuRechargeRound";
+//private static final String C_P_98_98="immuRechargeRound";
 private static final String C_P_98_99="!immuRechargeRoundMoves.isEmpty()";
 private static final String C_P_98_100="msg_ability,immu_recharge_round_time";
 private static final String C_P_98_101="msg_ability,immu_recharge_round";
@@ -124,7 +124,7 @@ private static final String C_P_98_117="msg_ability,nb_hits_time";
 private static final String C_P_98_118="msg_ability,nb_hits";
 private static final String C_P_98_119="plate";
 private static final String C_P_98_120="msg_ability,plate";
-private static final String C_P_98_121="reverseEffectsPowerMovesTypesGlobal";
+//private static final String C_P_98_121="reverseEffectsPowerMovesTypesGlobal";
 private static final String C_P_98_122="!reverseEffectsPowerMovesTypesGlobalAbilities.isEmpty()";
 private static final String C_P_98_123="msg_ability,reverse_effects_power_global";
 private static final String C_P_98_124="reverseEffectsPowerMovesTypesGlobalAbilities";
@@ -247,7 +247,7 @@ private static final String C_P_98_240="!isEmpty(typeForMoves)";
 private static final String C_P_98_241="msg_ability,type_for_moves_time";
 private static final String C_P_98_242="msg_ability,type_for_moves";
 private static final String C_P_98_243="typeForMoves";
-private static final String C_P_98_244="isEmpty(typeForMoves)";
+//private static final String C_P_98_244="isEmpty(typeForMoves)";
 private static final String C_P_98_245="!changingBoostTypes.isEmpty()";
 private static final String C_P_98_246="msg_ability,changing_boost_types_time";
 private static final String C_P_98_247="msg_ability,changing_boost_types";
@@ -941,10 +941,10 @@ ad(elt0_,elt2_);
 ad(_body,elt0_);
 }
 static void build5(Element _body,Document _doc3){
-Element elt0_=el(_doc3,C_IF);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(CONDITION,C_P_98_37));
-at(elt0_,attrs0_);
+//Element elt0_=el(_doc3,C_IF);
+//CustList<Attr> attrs0_=al(1);
+//attrs0_.add(at(CONDITION,C_P_98_37));
+//at(elt0_,attrs0_);
 Element elt1_=el(_doc3,C_IF);
 CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(CONDITION,C_P_98_38));
@@ -979,8 +979,8 @@ ad(elt4_,elt5_);
 ad(elt1_,elt4_);
 Element elt8_=el(_doc3,BR);
 ad(elt1_,elt8_);
-ad(elt0_,elt1_);
-ad(_body,elt0_);
+//ad(elt0_,elt1_);
+ad(_body,elt1_);
 }
 static void build6(Element _body,Document _doc3){
 Element elt0_=el(_doc3,C_IF);
@@ -1265,10 +1265,10 @@ ad(elt0_,elt2_);
 ad(_body,elt0_);
 }
 static void build19(Element _body,Document _doc3){
-Element elt0_=el(_doc3,C_IF);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(CONDITION,C_P_98_98));
-at(elt0_,attrs0_);
+//Element elt0_=el(_doc3,C_IF);
+//CustList<Attr> attrs0_=al(1);
+//attrs0_.add(at(CONDITION,C_P_98_98));
+//at(elt0_,attrs0_);
 Element elt1_=el(_doc3,C_IF);
 CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(CONDITION,C_P_98_99));
@@ -1303,8 +1303,8 @@ ad(elt4_,elt5_);
 ad(elt1_,elt4_);
 Element elt8_=el(_doc3,BR);
 ad(elt1_,elt8_);
-ad(elt0_,elt1_);
-ad(_body,elt0_);
+//ad(elt0_,elt1_);
+ad(_body,elt1_);
 }
 static void build20(Element _body,Document _doc3){
 Element elt0_=el(_doc3,C_IF);
@@ -1387,10 +1387,10 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build25(Element _body,Document _doc3){
-Element elt0_=el(_doc3,C_IF);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(CONDITION,C_P_98_121));
-at(elt0_,attrs0_);
+//Element elt0_=el(_doc3,C_IF);
+//CustList<Attr> attrs0_=al(1);
+//attrs0_.add(at(CONDITION,C_P_98_121));
+//at(elt0_,attrs0_);
 Element elt1_=el(_doc3,C_IF);
 CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(CONDITION,C_P_98_122));
@@ -1420,8 +1420,8 @@ ad(elt3_,elt4_);
 ad(elt1_,elt3_);
 Element elt7_=el(_doc3,BR);
 ad(elt1_,elt7_);
-ad(elt0_,elt1_);
-ad(_body,elt0_);
+//ad(elt0_,elt1_);
+ad(_body,elt1_);
 }
 static void build26(Element _body,Document _doc3){
 Element elt0_=el(_doc3,C_IF);
@@ -2010,10 +2010,10 @@ ad(elt0_,elt2_);
 ad(_body,elt0_);
 }
 static void build49(Element _body,Document _doc3){
-Element elt0_=el(_doc3,C_IF);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(CONDITION,C_P_98_244));
-at(elt0_,attrs0_);
+//Element elt0_=el(_doc3,C_IF);
+//CustList<Attr> attrs0_=al(1);
+//attrs0_.add(at(CONDITION,C_P_98_244));
+//at(elt0_,attrs0_);
 Element elt1_=el(_doc3,C_IF);
 CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(CONDITION,C_P_98_245));
@@ -2082,8 +2082,8 @@ ad(elt4_,elt13_);
 ad(elt1_,elt4_);
 Element elt19_=el(_doc3,BR);
 ad(elt1_,elt19_);
-ad(elt0_,elt1_);
-ad(_body,elt0_);
+//ad(elt0_,elt1_);
+ad(_body,elt1_);
 }
 static void build50(Element _body,Document _doc3){
 Element elt0_=el(_doc3,C_IF);

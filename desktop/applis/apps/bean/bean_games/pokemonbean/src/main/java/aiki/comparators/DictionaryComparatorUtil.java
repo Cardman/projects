@@ -2,6 +2,7 @@ package aiki.comparators;
 
 import aiki.beans.TranslatedKey;
 import aiki.beans.abilities.TranslatedKeyPair;
+import aiki.beans.abilities.TypeDamageBoostKey;
 import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.fight.FighterNameId;
 import aiki.beans.facade.fight.KeyHypothesis;
@@ -142,8 +143,8 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
     }
 
-    public static DictionaryComparator<TranslatedKey, TypeDamageBoost> buildTypesTypeDamageBoost() {
-        return new DictionaryComparator<TranslatedKey,TypeDamageBoost>(new ComparingTranslatedKey());
+    public static DictionaryComparator<TranslatedKey, TypeDamageBoostKey> buildTypesTypeDamageBoost() {
+        return new DictionaryComparator<TranslatedKey,TypeDamageBoostKey>(new ComparingTranslatedKey());
     }
 
     public static DictionaryComparator<TranslatedKey, EfficiencyRate> buildTypesTypeEfficiencyRate() {

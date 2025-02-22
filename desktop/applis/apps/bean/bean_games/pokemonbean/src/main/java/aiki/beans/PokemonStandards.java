@@ -600,11 +600,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getStrTpDam(AbsMap<TranslatedKey, TypeDamageBoost> _map) {
+    public static NatArrayStruct getStrTpDam(AbsMap<TranslatedKey, TypeDamageBoostKey> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
-        for (EntryCust<TranslatedKey, TypeDamageBoost> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),new TypeDamageBoostStruct(e.getValue()));
+        for (EntryCust<TranslatedKey, TypeDamageBoostKey> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),new TypeDamageBoostStruct(new TypeDamageBoost(e.getValue().getType().getKey(),e.getValue().getBoost())));
             arr_.set(j_,p_);
             j_++;
         }

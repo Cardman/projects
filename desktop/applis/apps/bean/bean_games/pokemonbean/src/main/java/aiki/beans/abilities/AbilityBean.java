@@ -1,5 +1,6 @@
 package aiki.beans.abilities;
 
+import aiki.beans.*;
 import aiki.beans.CommonBean;
 import aiki.beans.EndRoundCommon;
 import aiki.beans.TranslatedKey;
@@ -17,10 +18,11 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.*;
 import code.maths.Rate;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public class AbilityBean extends CommonBean {
+public final class AbilityBean extends CommonBean implements BeanRenderWithAppName {
     static final String EFFECT_SEND_BEAN=PkScriptPages.REN_ADD_WEB_HTML_SENDING_EFFSENDING_HTML;
     private String name;
     private String displayName;
@@ -91,7 +93,7 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<TranslatedKeyPair, Long> multStatIfStatutRank;
     private DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamgeType;
     private DictionaryComparator<TranslatedKeyPair, Rate> healHpByTypeIfWeather;
-    private DictionaryComparator<TranslatedKey, TypeDamageBoost> changingBoostTypes;
+    private DictionaryComparator<TranslatedKey, TypeDamageBoostKey> changingBoostTypes;
     private DictionaryComparator<TranslatedKey, Long> increasedPrio;
     private DictionaryComparator<TranslatedKey, Long> increasedPrioTypes;
     private DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByWeather;
@@ -115,6 +117,137 @@ public class AbilityBean extends CommonBean {
     private final Rate defEff = Rate.one();
     private final CustList<TranslatedKey> pokemon = new CustList<TranslatedKey>();
 
+    public AbilityBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        formatMessageAnc(new AbilityBeanClickIndex(this),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_INDEX);
+        formatMessageDir(displayName);
+        if (getEndRoundCommon().getEndRound()) {
+            formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundCommon().getEndRoundRank()));
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_ENDROUND);
+            displayStringList(getEndRoundCommon().getReasonsEndRound(),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
+            mapVarsInit(getEndRoundCommon().getMapVarsFailEndRound());
+        }
+        /*if (sending) {
+            EffectWhileSendingWithStatistic effectSending_ = getEffectSending();
+            EffectWhileSendingBean send_ = new EffectWhileSendingBean();
+            send_.setBuilder(getBuilder());
+            send_.setAppName(getAppName());
+            send_.setForms(getForms());
+            send_.setFacade(getFacade());
+            send_.setEffect(effectSending_);
+            send_.beforeDisplaying();
+            <c:message value="msg_eff_sending,effect"/>
+			<c:if condition="disableWeather">
+				<c:message value="msg_eff_sending,disable_weather"/>
+				<c:message value="msg_eff_sending,disable_weather_2"/>
+				<c:message value="msg_eff_sending,disable_weather_3"/>
+				<c:message value="msg_eff_sending,disable_weather_4"/>
+			</c:if>
+			<c:if condition="!isEmpty(enabledWeather)">
+				<c:message value="msg_eff_sending,weather"/>
+				<a c:command="$clickWeather()">
+					{getTrWeather()}
+				</a>
+				<br/>
+			</c:if>
+			<c:if condition="copyingAbility">
+				<c:message value="msg_eff_sending,copy_ab"/>
+			</c:if>
+			<c:if condition="!multWeight.isZero()">
+				<c:message value="msg_eff_sending,weight">
+					<param value="multWeight"/>
+				</c:message>
+			</c:if>
+            if (send_.getStatistic()) {
+                effStatis(send_.getEffectStatisticCommon());
+            }
+        }*/
+        displayBoolTrue(toInt(achievedDisappearedPk),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_ACHIEVED_DISAPPEARED);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,breakProtectionMoves,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_BREAK_PROTECTION);
+        displayBoolTrue(toInt(cancelSecEffectOther),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CANCEL_SEC_EFFECT_OTHER);
+        displayBoolTrue(toInt(cancelSecEffectOwner),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CANCEL_SEC_EFFECT_OWNER);
+        displayBoolTrue(toInt(chgtTypeByDamage),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CHGT_TYPE_BY_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CHGT_TYPE_BY_WEATHER_NO),new BeanDisplayTranslatedKey()).displayGrid(this,chgtTypeByWeather,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CHGT_TYPE_BY_WEATHER,MessagesDataAbilityData.M_P_1_CHGT_TYPE_BY_WEATHER_KEY,MessagesDataAbilityData.M_P_1_CHGT_TYPE_BY_WEATHER_VALUE);
+        displayBoolTrue(toInt(copyMovesTypes),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_COPY_MOVE_TYPES);
+        displayBoolTrue(toInt(giveItemToAllyHavingUsed),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CANCEL_USING_ITEMS_TEAM);
+        displayBoolTrue(toInt(forbidUseBerryAgainstFoes),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_FORBID_BERRY_FOES);
+        displayBoolTrue(toInt(healedStatusBySwitch),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEALED_STATUS_BY_SWITCH);
+        displayBoolTrue(toInt(ignFoeStatisBoost),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IGN_FOE_SATIS_BOOST);
+        displayBoolTrue(toInt(immuCh),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_CH);
+        displayBoolTrue(toInt(immuDamageAllyMoves),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_ALLY_MOVES);
+        displayBoolTrue(toInt(immuDamageRecoil),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_RECOIL);
+        displayBoolTrue(toInt(immuDamageTrappingMoves),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_DAMAGE_TRAPPING_MOVES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuRechargeRoundMoves,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_RECHARGE_ROUND);
+        displayBoolTrue(toInt(immuSufferedDamageLowEff),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_SUFFERED_DAMAGE_LOW_EFF);
+        displayBoolTrue(toInt(inflictingDamageInsteadOfSuffering),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_INFLICTING_DAMAGE_INSTEAD_SUFFERING);
+        displayBoolTrue(toInt(mumy),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MUMY);
+        displayBoolTrue(toInt(nbHits),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_NB_HITS);
+        displayBoolTrue(toInt(plate),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_PLATE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,reverseEffectsPowerMovesTypesGlobalAbilities,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_REVERSE_EFFECTS_POWER_GLOBAL);
+        displayBoolTrue(toInt(slowing),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_SLOWING);
+        displayBoolTrue(toInt(takeItemByDamagingMove),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_ACHIEVED_DISAPPEARED);
+        displayIntDef(healHpWhileUsingBerry,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEAL_HP_WHILE_USING_BERRY);
+        displayIntDef(maxHpForUsingBerry,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MAX_HP_FOR_USING_BERRY);
+        displayIntDef(multAllyDamage,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_ALLY_DAMAGE);
+        displayIntDef(multDamageCh,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_DAMAGE_CH);
+        displayIntDef(multEvtRateCh,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_EVT_RATE_CH);
+        displayIntDef(multEvtRateSecEffectOwner,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_EVT_RATE_SEC_EFFECT_OWNER);
+        displayIntDef(multStab,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAB);
+        displayIntDef(multSufferedDamageSuperEff,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_SUFFERED_DAMAGE_SUPER_EFF);
+        displayIntDef(multVarBoost,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_VAR_BOOST);
+        displayIntDef(recoilDamageFoe,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_RECOIL_DAMAGE_FOE);
+        displayIntDef(decreaseNecStepsHatch,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_DECREASE_NEC_STEPS_HATCH);
+        displayIntDef(nbUsedPp,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_NB_USED_PP);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuMove,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_MOVES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuAllyFromMoves,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_ALLY_FROM_MOVES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuWeather,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_WEATHERS);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,ignAbility,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IGN_ABILITY);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,ignFoeTeamMove,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IGN_FOE_TEAM_MOVE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuAbility,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_ABILITY);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuStatusBeginRound,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_STATUS_BEGIN_ROUND);
+        formatTrKey(typeForMoves,MessagesPkBean.AB_DATA,"",MessagesDataAbilityData.M_P_1_TYPE_FOR_MOVES);
+        new BeanDisplayMap<TranslatedKey,TypeDamageBoostKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTypeDamageBoostKey()).displayGrid(this,changingBoostTypes,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CHANGING_BOOST_TYPES,MessagesDataAbilityData.M_P_1_CHANGING_BOOST_TYPES_OLD,MessagesDataAbilityData.M_P_1_CHANGING_BOOST_TYPES_NEW,MessagesDataAbilityData.M_P_1_CHANGING_BOOST_TYPES_RATE);
+        displayNotEmpty(multPower,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_POWER);
+        displayNotEmpty(multDamage,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_NO),new BeanDisplayRateAbs(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_HEAL,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_LOSS)).displayGrid(this,healHpByWeather,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_KEY,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_VALUE);
+        new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_TYPE_NO),new BeanDisplayRateAbs(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_TYPE_HEAL,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_TYPE_LOSS)).displayGrid(this,healHpByTypeIfWeather,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_TYPE,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_TYPE_KEY,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_TYPE_KEY_SEC,MessagesDataAbilityData.M_P_1_HEAL_HP_BY_WEATHER_TYPE_VALUE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuLowStat,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_LOW_STAT);
+        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,immuLowStatIfStatus,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_LOW_STAT_AFF,MessagesDataAbilityData.M_P_1_IMMU_LOW_STAT_AFF_KEY,MessagesDataAbilityData.M_P_1_IMMU_LOW_STAT_AFF_VALUE);
+        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,immuLowStatisTypes,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_LOW_STATIS_TYPES,MessagesDataAbilityData.M_P_1_IMMU_LOW_STATIS_TYPES_KEY,MessagesDataAbilityData.M_P_1_IMMU_LOW_STATIS_TYPES_VALUE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,maxStatisticsIfCh,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MAX_STATISTICS_IF_CH);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_SINGLE_STATUS_NO),new BeanDisplayRate()).displayGrid(this,singleStatus,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_SINGLE_STATUS,MessagesDataAbilityData.M_P_1_SINGLE_STATUS_KEY,MessagesDataAbilityData.M_P_1_SINGLE_STATUS_RATE);
+        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_MOVE_TYPES_WEATHER_NO)).displayGrid(this,immuMoveTypesByWeather,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_MOVE_TYPES_WEATHER,MessagesDataAbilityData.M_P_1_IMMU_MOVE_TYPES_WEATHER_KEY,MessagesDataAbilityData.M_P_1_IMMU_MOVE_TYPES_WEATHER_TYPE);
+        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair(MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_STATUS_NO)).displayGrid(this,immuStatus,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_STATUS,MessagesDataAbilityData.M_P_1_IMMU_STATUS_KEY,MessagesDataAbilityData.M_P_1_IMMU_STATUS_STATUS);
+        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,immuStatusTypes,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_IMMU_STATUS_TYPE,MessagesDataAbilityData.M_P_1_IMMU_STATUS_TYPE_KEY,MessagesDataAbilityData.M_P_1_IMMU_STATUS_TYPE_STATUS);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,divideStatusRound,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_DIVIDE_STATUS_ROUND,MessagesDataAbilityData.M_P_1_DIVIDE_STATUS_ROUND_KEY,MessagesDataAbilityData.M_P_1_DIVIDE_STATUS_ROUND_VALUE);
+        new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this,forwardStatus,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_FORWARD_STATUS,MessagesDataAbilityData.M_P_1_FORWARD_STATUS_KEY,MessagesDataAbilityData.M_P_1_FORWARD_STATUS_VALUE);
+        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,breakFoeImmune,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_BREAK_FOE_IMMUNE,MessagesDataAbilityData.M_P_1_BREAK_FOE_IMMUNE_KEY,MessagesDataAbilityData.M_P_1_BREAK_FOE_IMMUNE_VALUE);
+        new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,multStat,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT,MessagesDataAbilityData.M_P_1_MULT_STAT_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_RATE);
+        new BeanDisplayMap<TranslatedKeyPair,Long>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayLong()).displayGrid(this,multStatIfDamageCat,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_CAT,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_CAT_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_CAT_KEY_SEC,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_CAT_VAR);
+        new BeanDisplayMap<TranslatedKeyPair,Long>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayLong()).displayGrid(this,multStatIfDamgeType,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_TYPE,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_TYPE_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_TYPE_KEY_SEC,MessagesDataAbilityData.M_P_1_MULT_STAT_DAMAGE_TYPE_VAR);
+        new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,multStatIfCat,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT_CAT,MessagesDataAbilityData.M_P_1_MULT_STAT_CAT_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_CAT_KEY_SEC,MessagesDataAbilityData.M_P_1_MULT_STAT_CAT_RATE);
+        new BeanDisplayMap<TranslatedKeyPair,Long>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayLong()).displayGrid(this,multStatIfStatutRank,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT_STATUS_RANK,MessagesDataAbilityData.M_P_1_MULT_STAT_STATUS_RANK_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_STATUS_RANK_KEY_SEC,MessagesDataAbilityData.M_P_1_MULT_STAT_STATUS_RANK_VAR);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,bonusStatRank,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_KEY,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_BOOST);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,boostStatRankEndRound,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_END_ROUND,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_END_ROUND_KEY,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_END_ROUND_BOOST);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,boostStatRankProtected,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_PROTECTED,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_PROTECTED_KEY,MessagesDataAbilityData.M_P_1_BONUS_STAT_RANK_PROTECTED_BOOST);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,lowStatFoeHit,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_LOW_STAT_FOE_HIT,MessagesDataAbilityData.M_P_1_LOW_STAT_FOE_HIT_KEY,MessagesDataAbilityData.M_P_1_LOW_STAT_FOE_HIT_BOOST);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,multStatIfKoFoe,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT_IF_KO_FOE,MessagesDataAbilityData.M_P_1_MULT_STAT_IF_KO_FOE_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_IF_KO_FOE_BOOST);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,multStatIfLowStat,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT_IF_LOW_STAT,MessagesDataAbilityData.M_P_1_MULT_STAT_IF_LOW_STAT_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_IF_LOW_STAT_BOOST);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,multStatAlly,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_STAT_ALLY,MessagesDataAbilityData.M_P_1_MULT_STAT_ALLY_KEY,MessagesDataAbilityData.M_P_1_MULT_STAT_ALLY_RATE);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,increasedPrio,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_INCREASED_PRIO,MessagesDataAbilityData.M_P_1_INCREASED_PRIO_CAT,MessagesDataAbilityData.M_P_1_INCREASED_PRIO_INC);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,increasedPrioTypes,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_INCREASED_PRIO_TYPE,MessagesDataAbilityData.M_P_1_INCREASED_PRIO_TYPE_KEY,MessagesDataAbilityData.M_P_1_INCREASED_PRIO_TYPE_INC);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,multDamageFoe,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_DAMAGE_FOE,MessagesDataAbilityData.M_P_1_MULT_DAMAGE_FOE_TYPE,MessagesDataAbilityData.M_P_1_MULT_DAMAGE_FOE_RATE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,multPowerMovesTypesGlobal,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL,MessagesDataAbilityData.M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_MOVE,MessagesDataAbilityData.M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_RATE);
+        new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,failStatus,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_FAIL_STATUS,MessagesDataAbilityData.M_P_1_FAIL_STATUS_KEY,MessagesDataAbilityData.M_P_1_FAIL_STATUS_COND);
+        mapVarsInit(mapVars);
+        displayIntDef(healedHpRateBySwitch,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEALED_HP_RATE_BY_SWITCH);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pokemon,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_LEARNT_PK);
+    }
+
     @Override
     public void beforeDisplaying() {
         name = getForms().getValStr(CST_ABILITY);
@@ -137,6 +270,7 @@ public class AbilityBean extends CommonBean {
         breakProtectionMoves_.addAllElts(data_.getMovesProtSingleTarget());
         breakProtectionMoves_.removeDuplicates();
         breakProtectionMoves = listTrStringsMv(breakProtectionMoves_,getFacade());
+        resetProt();
         cancelSecEffectOther = ability_.isCancelSecEffectOther();
         cancelSecEffectOwner = ability_.isCancelSecEffectOwner();
         chgtTypeByDamage = ability_.isChgtTypeByDamage();
@@ -151,6 +285,7 @@ public class AbilityBean extends CommonBean {
         immuDamageTrappingMoves = ability_.isImmuDamageTrappingMoves();
         immuRechargeRound = ability_.isImmuRechargeRound();
         immuRechargeRoundMoves = listTrStringsMv(immuRechargeRoundMoves(data_),getFacade());
+        patchRecharge();
         immuSufferedDamageLowEff = ability_.isImmuSufferedDamageLowEff();
         inflictingDamageInsteadOfSuffering = ability_.isInflictingDamageInsteadOfSuffering();
         mumy = ability_.isMumy();
@@ -158,6 +293,7 @@ public class AbilityBean extends CommonBean {
         plate = ability_.isPlate();
         reverseEffectsPowerMovesTypesGlobal = ability_.isReverseEffectsPowerMovesTypesGlobal();
         reverseEffectsPowerMovesTypesGlobalAbilities = reverseEffectsPowerMovesTypesGlobalAbilities();
+        patchReverse();
         slowing = ability_.isSlowing();
         takeItemByDamagingMove = ability_.isTakeItemByDamagingMove();
         healHpWhileUsingBerry = ability_.getHealHpWhileUsingBerry();
@@ -265,12 +401,13 @@ public class AbilityBean extends CommonBean {
             healHpByTypeIfWeather_.put(buildPair(getFacade(), w), ability_.getHealHpByTypeIfWeather().getVal(w));
         }
         healHpByTypeIfWeather = healHpByTypeIfWeather_;
-        DictionaryComparator<TranslatedKey, TypeDamageBoost> changingBoostTypes_;
+        DictionaryComparator<TranslatedKey, TypeDamageBoostKey> changingBoostTypes_;
         changingBoostTypes_ = DictionaryComparatorUtil.buildTypesTypeDamageBoost();
-        for (String w: ability_.getChangingBoostTypes().getKeys()) {
-            changingBoostTypes_.put(buildTy(getFacade(),w), ability_.getChangingBoostTypes().getVal(w));
+        for (EntryCust<String, TypeDamageBoost> w: ability_.getChangingBoostTypes().entryList()) {
+            changingBoostTypes_.put(buildTy(getFacade(),w.getKey()), new TypeDamageBoostKey(buildTy(getFacade(),w.getValue().getType()),w.getValue().getBoost()));
         }
         changingBoostTypes = changingBoostTypes_;
+        possibleReset();
         DictionaryComparator<TranslatedKeyPair, Long> multStatIfDamageCat_;
         multStatIfDamageCat_ = DictionaryComparatorUtil.buildStatisticCategoryByte();
         for (StatisticCategory w: ability_.getMultStatIfDamageCat().getKeys()) {
@@ -325,6 +462,30 @@ public class AbilityBean extends CommonBean {
         mapVars_.putAllMap(data_.getDescriptions(ability_.getMultPower(), getLanguage()));
         mapVars_.putAllMap(data_.getDescriptions(ability_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
+    }
+
+    private void patchReverse() {
+        if (!reverseEffectsPowerMovesTypesGlobal) {
+            reverseEffectsPowerMovesTypesGlobalAbilities = new CustList<TranslatedKey>();
+        }
+    }
+
+    private void patchRecharge() {
+        if (!immuRechargeRound) {
+            immuRechargeRoundMoves = new CustList<TranslatedKey>();
+        }
+    }
+
+    private void resetProt() {
+        if (!breakProtection) {
+            breakProtectionMoves = new CustList<TranslatedKey>();
+        }
+    }
+
+    private void possibleReset() {
+        if (!typeForMoves.getTranslation().isEmpty()) {
+            changingBoostTypes = DictionaryComparatorUtil.buildTypesTypeDamageBoost();
+        }
     }
 
     public static TranslatedKeyPair buildPair(FacadeGame _data, StatisticType _w) {
@@ -1219,11 +1380,12 @@ public class AbilityBean extends CommonBean {
 //        return translationsTypes_.getVal(move_);
     }
     public String getTrChangingBoostTypesNew(int _index) {
-        String move_ = changingBoostTypes.getValue(_index).getType();
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translationsTypes_.getVal(move_);
+        return changingBoostTypes.getValue(_index).getType().getTranslation();
+//        String move_ = changingBoostTypes.getValue(_index).getType();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        return translationsTypes_.getVal(move_);
     }
     public String getTrPokemon(int _index) {
         return pokemon.get(_index).getTranslation();
@@ -1433,7 +1595,7 @@ public class AbilityBean extends CommonBean {
         return typeForMoves;
     }
 
-    public DictionaryComparator<TranslatedKey,TypeDamageBoost> getChangingBoostTypes() {
+    public DictionaryComparator<TranslatedKey,TypeDamageBoostKey> getChangingBoostTypes() {
         return changingBoostTypes;
     }
 

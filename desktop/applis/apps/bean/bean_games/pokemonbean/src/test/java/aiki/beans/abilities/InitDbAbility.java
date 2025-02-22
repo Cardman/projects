@@ -1,7 +1,9 @@
 package aiki.beans.abilities;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.CommonBean;
 import aiki.beans.PkData;
+import aiki.beans.PokemonBeanStruct;
 import aiki.beans.effects.AikiBeansEffectsStd;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
@@ -18,6 +20,8 @@ import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -315,7 +319,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return getValMoveId(b_);
     }
     public static String callAbilityBeanClickIndex() {
-        return navigateData(new AbilityBeanClickIndex(),directCase());
+        NaSt b_ = directCase();
+        return navigateData(new AbilityBeanClickIndex((AbilityBean) ((PokemonBeanStruct)b_).getBean()), b_);
     }
 
     public static String callAbilityBeanClickMultStatIfStatutRankSec() {
@@ -1012,7 +1017,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
     protected static NaSt directCaseEndRound() {
         PkData pk_ = pkDataByFacade(feedDbAbilityEndRound());
         StringMap<NaSt> all_ = beanToAbility(pk_);
-        return transitToAllAbilities(pk_,all_,0);
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        return transitToAllAbilitiesQuick(pk_,all_,0);
     }
 //
 //    protected static Struct healSimpleNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
@@ -1032,7 +1039,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     public static NaSt healSimpleNoStatSend() {
         PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        NaSt res_ = transitToAllAbilities(pk_, all_,0);
+        NaSt res_ = transitToAllAbilitiesQuick(pk_, all_,0);
         callAbilityBeanEffectSendBeanGet(res_);
         NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
         callEffectWhileSendingBeanEffectSet(send_,callAbilityBeanGetEffectSending(res_));
@@ -1042,7 +1049,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     public static NaSt abNoStatSend() {
         PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        return transitToAllAbilities(pk_, all_,0);
+        return transitToAllAbilitiesQuick(pk_, all_,0);
     }
 //
 //    public static Struct healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {

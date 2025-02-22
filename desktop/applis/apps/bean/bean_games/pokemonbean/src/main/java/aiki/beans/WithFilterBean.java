@@ -24,7 +24,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class WithFilterBean extends CommonBean {
-    private String typedAbility = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedAbility = new BeanChgString();
     private IntBeanChgString typedName = new BeanChgString();
     private String typedPrice = DataBase.EMPTY_STRING;
 
@@ -266,7 +266,7 @@ public abstract class WithFilterBean extends CommonBean {
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         for (EntryCust<String, AbilityData> i: data_.getAbilities().entryList()) {
             String ab_ = translationsAbilities_.getVal(i.getKey());
-            if (StringUtil.match(ab_, getTypedAbility())) {
+            if (StringUtil.match(ab_, getTypedAbility().tryRet())) {
                 sortedAbilities_.put(buildAb(getFacade(),i.getKey()),i.getValue());
             }
         }
@@ -319,11 +319,11 @@ public abstract class WithFilterBean extends CommonBean {
         return data_.getMiniPk(name_);
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
-    public void setTypedAbility(String _typedAbility) {
+    public void setTypedAbility(IntBeanChgString _typedAbility) {
         typedAbility = _typedAbility;
     }
 
-    public String getTypedAbility() {
+    public IntBeanChgString getTypedAbility() {
         return typedAbility;
     }
 

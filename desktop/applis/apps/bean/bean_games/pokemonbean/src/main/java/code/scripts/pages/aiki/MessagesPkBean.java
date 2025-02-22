@@ -57,6 +57,9 @@ public final class MessagesPkBean {
     public static final String ENDROUND_STATUS="endround/status";
     public static final String ENDROUND_STATUSRELATION="endround/statusrelation";
     public static final String ENDROUND_TEAM="endround/team";
+    public static final String ABILITIES="ability/abilities";
+    public static final String AB_DATA="ability/ability";
+    public static final String SENDING = "sending/effsending";
     public static final String MOVES="moves/moves";
     public static final String POKEDEX = "pokemon/pokedex";
     public static final String PK_DATA = "pokemon/data";
@@ -167,6 +170,9 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(ENDROUND_STATUS,MessagesDataEndroundStatus.en());
         m.getMapping().addEntry(ENDROUND_STATUSRELATION,MessagesDataEndroundStatusrelation.en());
         m.getMapping().addEntry(ENDROUND_TEAM,MessagesDataEndroundTeam.en());
+        m.getMapping().addEntry(SENDING,MessagesDataSending.en());
+        m.getMapping().addEntry(AB_DATA,MessagesDataAbilityData.en());
+        m.getMapping().addEntry(ABILITIES,MessagesDataAbilityAbilities.en());
         m.getMapping().addEntry(MOVES,MessagesDataMovesMoves.en());
         return m;
     }
@@ -232,6 +238,9 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(ENDROUND_STATUS,MessagesDataEndroundStatus.fr());
         m.getMapping().addEntry(ENDROUND_STATUSRELATION,MessagesDataEndroundStatusrelation.fr());
         m.getMapping().addEntry(ENDROUND_TEAM,MessagesDataEndroundTeam.fr());
+        m.getMapping().addEntry(SENDING,MessagesDataSending.fr());
+        m.getMapping().addEntry(AB_DATA,MessagesDataAbilityData.fr());
+        m.getMapping().addEntry(ABILITIES,MessagesDataAbilityAbilities.fr());
         m.getMapping().addEntry(MOVES,MessagesDataMovesMoves.fr());
         return m;
     }

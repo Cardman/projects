@@ -1,7 +1,7 @@
 package aiki.beans;
 
 import code.bean.nat.*;
-public class WelcomeBeanSeeAllMoves implements NatCaller, IntBeanAction{
+public final class WelcomeBeanSeeAllMoves implements NatCaller, IntBeanAction{
     private final WelcomeBean bean;
 
     public WelcomeBeanSeeAllMoves() {

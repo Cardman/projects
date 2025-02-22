@@ -15,7 +15,7 @@ import code.util.StringMap;
 public abstract class InitDbWelcome extends InitDbConstr {
 
     public static String navigateAbilities(NaSt _str) {
-        return navigateData(new WelcomeBeanClickAbilities(),_str);
+        return navigateData(new WelcomeBeanClickAbilities((WelcomeBean) (((PokemonBeanStruct)_str)).getBean()),_str);
     }
     public static String navigateItems(NaSt _str) {
         return navigateData(new WelcomeBeanClickItems(),_str);
