@@ -1,5 +1,6 @@
 package aiki.beans.items;
 
+import aiki.beans.BeanRenderWithAppName;
 import aiki.beans.CommonBean;
 import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
@@ -8,9 +9,10 @@ import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Item;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.StringMap;
 
-public abstract class ItemBean extends CommonBean {
+public abstract class ItemBean extends CommonBean implements BeanRenderWithAppName {
     static final String ITEM_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEM_HTML;
 
     private DictionaryComparator<TranslatedKey, Long> happiness;
@@ -19,6 +21,9 @@ public abstract class ItemBean extends CommonBean {
     private long price;
     private String description;
     private int[][] itemImage;
+    protected ItemBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
 
     protected void beforeDisplayingItem() {
         DataBase data_ = getDataBase();

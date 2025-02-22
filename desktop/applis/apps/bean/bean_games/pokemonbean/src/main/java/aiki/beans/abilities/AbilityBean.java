@@ -245,7 +245,7 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
         new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,failStatus,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_FAIL_STATUS,MessagesDataAbilityData.M_P_1_FAIL_STATUS_KEY,MessagesDataAbilityData.M_P_1_FAIL_STATUS_COND);
         mapVarsInit(mapVars);
         displayIntDef(healedHpRateBySwitch,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_HEALED_HP_RATE_BY_SWITCH);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pokemon,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_LEARNT_PK);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pokemon,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_LEARNT_PK,displayName);
     }
 
     @Override
