@@ -27,7 +27,7 @@ public abstract class InitDbWelcome extends InitDbConstr {
         return navigateData(new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str);
     }
     public static String navigateStatus(NaSt _str) {
-        return navigateData(new WelcomeBeanClickStatus(),_str);
+        return navigateData(new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)_str).getBean())),_str);
     }
     public static String navigateAllMoves(NaSt _str) {
         return navigateData(new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);

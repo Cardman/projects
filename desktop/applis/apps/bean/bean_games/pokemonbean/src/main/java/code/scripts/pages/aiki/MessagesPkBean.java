@@ -92,6 +92,8 @@ public final class MessagesPkBean {
     public static final String GAMEPROG = "gameprog";
     public static final String DIFFICULTY = "difficulty";
     public static final String SIMULATION = "simulation/simulation";
+    public static final String STATUS = "status/status";
+    public static final String STATUSSET = "status/statusset";
     private MessagesPkBean() {
 
     }
@@ -204,6 +206,8 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.en());
         m.getMapping().addEntry(IT_REPEL,MessagesDataItemsRepel.en());
         m.getMapping().addEntry(ITEMS,MessagesDataItems.en());
+        m.getMapping().addEntry(STATUS,MessagesDataStatus.en());
+        m.getMapping().addEntry(STATUSSET,MessagesDataStatusset.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -287,6 +291,8 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.fr());
         m.getMapping().addEntry(IT_REPEL,MessagesDataItemsRepel.fr());
         m.getMapping().addEntry(ITEMS,MessagesDataItems.fr());
+        m.getMapping().addEntry(STATUS,MessagesDataStatus.fr());
+        m.getMapping().addEntry(STATUSSET,MessagesDataStatusset.fr());
         return m;
     }
 }

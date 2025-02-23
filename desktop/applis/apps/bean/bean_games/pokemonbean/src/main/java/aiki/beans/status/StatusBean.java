@@ -1,24 +1,19 @@
 package aiki.beans.status;
 
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
-import aiki.fight.status.Status;
-import aiki.fight.status.StatusBeginRound;
-import aiki.fight.status.StatusBeginRoundAutoDamage;
-import aiki.fight.status.StatusType;
-import aiki.fight.status.effects.EffectPartnerStatus;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.*;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.facade.*;
+import aiki.fight.enums.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.status.*;
+import aiki.fight.status.effects.*;
+import code.maths.*;
+import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public class StatusBean extends CommonBean {
+public final class StatusBean extends CommonBean implements BeanRenderWithAppName {
     private String displayName;
     private int[][] animStatus;
 
@@ -46,7 +41,54 @@ public class StatusBean extends CommonBean {
     private String defense;
     private boolean singleStatus;
     private boolean incrementingDamageByRounds;
+    public StatusBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataStatus.M_P_88_TITLE));
+        formatMessageAnc(new StatusBeanClickIndex(this),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_STATUS);
+        addImg(animStatus);
+        if (endRound) {
+            formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(endRoundRank));
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_ENDROUND);
+            displayStringList(reasonsEndRound,MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
+            mapVarsInit(mapVarsFailEndRound);
+            if (singleStatus) {
+                displayBoolFull(toInt(incrementingDamageByRounds),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_DAMAGE_INCREMENTED_TRUE,MessagesDataStatus.M_P_88_DAMAGE_INCREMENTED_FALSE);
+            }
+        }
+        displayIntDef(catchingRate,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_CATCHING_RATE);
+        displayBoolTrue(toInt(disabledEffIfSwitch),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_DISABLED_EFF_IF_SWITCH);
+        displayIntDef(incrementEndRound,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_INCREMENT_END_ROUND);
+        displayBoolFull(toInt(incrementingEndRound),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_INCREMENTING_END_ROUND_TRUE,MessagesDataStatus.M_P_88_INCREMENTING_END_ROUND_FALSE);
+        displayBoolFull(toInt(isSingle()),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_SINGLE,MessagesDataStatus.M_P_88_RELATION);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,multStat,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_MULT_STAT,MessagesDataStatus.M_P_88_MULT_STAT_KEY,MessagesDataStatus.M_P_88_MULT_STAT_VALUE);
+        displayStringList(reasonsEndRound,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_REASONS);
+        mapVarsInit(mapVarsFail);
+        displayIntDef(rateForUsingAMove,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_RATE_USE_MOVE);
+        displayBoolTrue(toInt(notAttack),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_NOT_ATTACK);
+        displayIntDef(rateForUsingAMoveIfFoe,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_RATE_USE_MOVE_FOE);
+        displayBoolTrue(toInt(notAttackFoe),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_NOT_ATTACK_FOE);
+        displayIntDef(rateForFullHealIfMove,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_RATE_HEAL_MOVE);
+        new BeanDisplayMap<LgInt,Rate>(new BeanDisplayLgInt(),new BeanDisplayRate()).displayGrid(this,lawForUsingAMoveNbRound,MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_RATE_USE_MOVE_ROUND,MessagesDataStatus.M_P_88_RATE_USE_MOVE_ROUND_KEY,MessagesDataStatus.M_P_88_RATE_USE_MOVE_ROUND_RATE);
+        if (!power.isZero()) {
+            formatMessage(MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_AUTO_DAMAGE,power.toNumberString(),attack,defense);
+        }
+        if (!effectsPartner.isEmpty()) {
+            displayIntDef(getEffectPartner().getRestoredHpRateLovedAlly(),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_HEAL_HP);
+            if (getEffectPartner().getWeddingAlly()) {
+                formatMessage(MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_WEDDING);
+                formatMessage(MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_DAMAGED_FOES,getEffectPartner().getMultDamageAgainstFoe().toNumberString());
+            }
+        }
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.STATUS).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         String n_ = getForms().getValStr(CST_STATUS);

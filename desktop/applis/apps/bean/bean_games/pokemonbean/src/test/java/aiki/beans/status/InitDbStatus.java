@@ -2,6 +2,9 @@ package aiki.beans.status;
 
 import aiki.beans.*;
 import code.bean.nat.*;
+import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
+import code.sml.util.*;
 import code.util.StringMap;
 
 public abstract class InitDbStatus extends InitDbStatusSet {
@@ -19,7 +22,8 @@ public abstract class InitDbStatus extends InitDbStatusSet {
     }
 
     public static String callStatusBeanClickIndex(int _str, long... _args) {
-        return navigateData(new StatusBeanClickIndex(),dispStatusOne(_str),_args);
+        NaSt s_ = dispStatusOne(_str);
+        return navigateData(new StatusBeanClickIndex((StatusBean) ((PokemonBeanStruct)s_).getBean()), s_);
     }
 
     public static NaSt callStatusBeanDefenseGet(int _str, long... _args) {
@@ -132,7 +136,14 @@ public abstract class InitDbStatus extends InitDbStatusSet {
     }
     public static StringMap<NaSt> beanToStatus(PkData _pk) {
         StringMap<NaSt> map_ = beanToStatusSet(_pk);
-        map_.addEntry(AikiBeansStatusStd.BEAN_STATUS,_pk.beanStatusBean(EN));
+        StatusBean s_ = new StatusBean();
+        map_.addEntry(AikiBeansStatusStd.BEAN_STATUS, _pk.bean(s_, EN));
+        s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,s_);
         return map_;
     }
 }

@@ -1,17 +1,47 @@
 package aiki.beans.status;
 
-import aiki.beans.TranslatedKey;
-import aiki.beans.WithFilterBean;
-import aiki.comparators.DictionaryComparatorUtil;
-import aiki.db.DataBase;
-import aiki.fight.status.Status;
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.*;
+import aiki.beans.game.DifficultyBeanForm;
+import aiki.comparators.*;
+import aiki.db.*;
+import aiki.facade.FacadeGame;
+import aiki.fight.status.*;
+import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
-import code.util.core.StringUtil;
+import code.util.core.*;
 
-public class StatusSetBean extends WithFilterBean {
+public final class StatusSetBean extends WithFilterBean implements BeanRenderWithAppName {
     private AbsMap<TranslatedKey,Status> sortedStatus = DictionaryComparatorUtil.buildStatusData();
+    private IntBeanChgSubmit updateValues;
+    public StatusSetBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataStatusset.M_P_89_TITLE));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
+        initPage();
+        initLine();
+        formatMessage(MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_CONTENT);
+        setTypedStatus(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedStatus().tryRet()));
+        feedParents();
+        initLine();
+        updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_OK));
+        getUpdateValues().addEvt(new StatusSetBeanSearch(this));
+        feedParents();
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getSortedStatus());
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
+    }
+
+    public IntBeanChgSubmit getUpdateValues() {
+        return updateValues;
+    }
+    public StringMap<String> file() {
+        return file(MessagesPkBean.STATUSSET).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         sortedStatus = getForms().getValStatusData(CST_STATUS_SET);
@@ -25,7 +55,7 @@ public class StatusSetBean extends WithFilterBean {
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         for (EntryCust<String, Status> i: data_.getStatus().entryList()) {
             String displayName_ = translationsStatus_.getVal(i.getKey());
-            if (StringUtil.match(displayName_, getTypedStatus())) {
+            if (StringUtil.match(displayName_, getTypedStatus().tryRet())) {
                 sortedAbilities_.put(buildSt(getFacade(),i.getKey()),i.getValue());
             }
         }

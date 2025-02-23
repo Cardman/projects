@@ -12,6 +12,9 @@ import aiki.fight.status.effects.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.*;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
+import code.sml.util.*;
 import code.util.*;
 import code.util.core.BoolVal;
 
@@ -102,14 +105,14 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
-        transit(_pk,new WelcomeBeanClickStatus(),welcome_,moves_);
+        transit(_pk,new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
 
     protected static NaSt dispAllStatusSearch() {
         PkData pk_ = pkDataByFacade(feedDb());
         NaSt moves_ = dispAllStatus(pk_);
-        transit(pk_,new StatusSetBeanSearch(),moves_,moves_);
+        transit(pk_,new StatusSetBeanSearch(((StatusSetBean) ((PokemonBeanStruct)moves_).getBean())),moves_,moves_);
         return moves_;
     }
 
@@ -118,18 +121,23 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         beforeDisplaying(welcome_);
         NaSt pks_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
         NaSt pk_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS);
-        transit(_pk,new WelcomeBeanClickStatus(),welcome_,pks_);
-        transit(_pk,new StatusSetBeanSearch(),pks_,pks_);
-        transit(_pk,new StatusSetBeanClickStatus(),pks_,pk_,_index);
+        transit(_pk,new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,pks_);
+        transit(_pk,new StatusSetBeanSearch(((StatusSetBean) ((PokemonBeanStruct)pks_).getBean())),pks_,pks_);
+        transit(_pk,new EntityClickFormEvent(((StatusBean) ((PokemonBeanStruct)pk_).getBean()),((StatusSetBean) ((PokemonBeanStruct)pks_).getBean()).getSortedStatus().get(_index)),pks_,pk_);
         return pk_;
     }
     protected static String navigateStatusSearch(NaSt _moves) {
-        return navigateData(new StatusSetBeanSearch(), _moves);
+        return navigateData(new StatusSetBeanSearch(((StatusSetBean) ((PokemonBeanStruct)_moves).getBean())), _moves);
     }
     public static StringMap<NaSt> beanToStatusSet(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
-        map_.addEntry(AikiBeansStatusStd.BEAN_STATUS_SET,_pk.beanStatusSetBean(EN));
+        map_.addEntry(AikiBeansStd.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
+        StatusSetBean s_ = new StatusSetBean();
+        map_.addEntry(AikiBeansStatusStd.BEAN_STATUS_SET, _pk.bean(s_, EN));
+        s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,s_);
         return map_;
     }
     protected static FacadeGame feedDb() {

@@ -30,7 +30,7 @@ public abstract class WithFilterBean extends CommonBean {
 
     private IntBeanChgString typedClass = new BeanChgString();
     private IntBeanChgString typedType = new BeanChgString();
-    private String typedStatus = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedStatus = new BeanChgString();
     private IntBeanChgString typedCategory = new BeanChgString();
     private IntBeanChgBool wholeWord = new BeanChgBool();
     private IntBeanChgString hasEvo = new BeanChgString();
@@ -359,11 +359,11 @@ public abstract class WithFilterBean extends CommonBean {
         return typedType;
     }
 
-    public void setTypedStatus(String _typedStatus) {
+    public void setTypedStatus(IntBeanChgString _typedStatus) {
         typedStatus = _typedStatus;
     }
 
-    public String getTypedStatus() {
+    public IntBeanChgString getTypedStatus() {
         return typedStatus;
     }
 

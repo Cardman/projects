@@ -1,7 +1,7 @@
 package aiki.beans;
 
 import code.bean.nat.*;
-public class WelcomeBeanClickItems implements NatCaller, IntBeanAction{
+public final class WelcomeBeanClickItems implements NatCaller, IntBeanAction{
     private final WelcomeBean bean;
 
     public WelcomeBeanClickItems() {
