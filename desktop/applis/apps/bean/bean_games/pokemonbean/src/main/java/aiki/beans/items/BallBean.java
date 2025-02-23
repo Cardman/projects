@@ -1,12 +1,23 @@
 package aiki.beans.items;
+import aiki.beans.*;
 import aiki.db.DataBase;
-import aiki.fight.items.Ball;
+import aiki.facade.*;
+import aiki.fight.items.*;
+import code.scripts.pages.aiki.*;
 import code.util.NatStringTreeMap;
 
-public class BallBean extends ItemBean {
+public final class BallBean extends ItemBean {
     private String catchingRate;
     private NatStringTreeMap<String> mapVars;
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        formatMessage(MessagesPkBean.IT_BALL,MessagesDataItemsBall.M_P_16_RATE_CATCHING);
+        formatMessageDir(catchingRate);
+        mapVarsInit(mapVars);
+    }
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();

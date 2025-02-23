@@ -1,9 +1,17 @@
 package aiki.beans.items;
-import aiki.fight.items.Repel;
+import aiki.beans.*;
+import aiki.facade.*;
+import aiki.fight.items.*;
+import code.scripts.pages.aiki.*;
 
-public class RepelBean extends ItemBean {
+public final class RepelBean extends ItemBean {
     private long steps;
-
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        displayIntDef(steps,MessagesPkBean.IT_REPEL,MessagesDataItemsRepel.M_P_30_STEPS);
+    }
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();

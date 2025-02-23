@@ -62,14 +62,14 @@ public abstract class InitDbItem extends InitDbItems{
         return map_;
     }
     protected static NaSt itemLineSample() {
-        return dispLine(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
+        return dispLineSample(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
     }
 
-    protected static NaSt dispLine(FacadeGame _fac, String _key) {
-        PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToItemSample(pk_);
-        return dispLine(_key, pk_, all_);
-    }
+//    protected static NaSt dispLine(FacadeGame _fac, String _key) {
+//        PkData pk_ = pkDataByFacade(_fac);
+//        StringMap<NaSt> all_ = beanToItemSample(pk_);
+//        return dispLine(_key, pk_, all_);
+//    }
 
     protected static NaSt dispLineSample(FacadeGame _fac, String _key) {
         PkData pk_ = pkDataByFacade(_fac);
@@ -77,12 +77,12 @@ public abstract class InitDbItem extends InitDbItems{
         return dispLineClick(_key, pk_, all_);
     }
 
-    protected static NaSt dispLine(String _key, PkData _pk, StringMap<NaSt> _all) {
-        NaSt res_ = transitToAllItems(_pk, _all, _key);
-        callItemBeanItemBeanGet(res_);
-        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
-        return res_;
-    }
+//    protected static NaSt dispLine(String _key, PkData _pk, StringMap<NaSt> _all) {
+//        NaSt res_ = transitToAllItems(_pk, _all, _key);
+//        callItemBeanItemBeanGet(res_);
+//        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
+//        return res_;
+//    }
 
     protected static NaSt dispLineQuick(String _key, PkData _pk, StringMap<NaSt> _all) {
         NaSt res_ = transitToAllItemsQuick(_pk, _all, _key);

@@ -1,11 +1,20 @@
 package aiki.beans.items;
 import aiki.beans.*;
+import aiki.facade.*;
 import aiki.fight.items.*;
+import code.scripts.pages.aiki.*;
 
-public class FossilBean extends ItemBean {
+public final class FossilBean extends ItemBean {
     private TranslatedKey pokemon;
     private long level;
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        formatMessage(MessagesPkBean.IT_FOSSIL, MessagesDataItemsFossil.M_P_21_FOSSIL, Long.toString(level));
+        formatMessageDir(pokemon);
+    }
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();

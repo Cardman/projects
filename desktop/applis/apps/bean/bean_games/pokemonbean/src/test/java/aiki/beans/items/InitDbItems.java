@@ -139,16 +139,16 @@ public abstract class InitDbItems extends InitDbConstr {
         return res_;
     }
 
-    protected static NaSt transitToAllItems(PkData _pk, StringMap<NaSt> _all, String _it) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
-        beforeDisplaying(welcome_);
-        NaSt items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
-        transit(_pk,new WelcomeBeanClickItems(),welcome_,items_,new long[0]);
-        transit(_pk,new ItemsBeanSearch(),items_,items_,new long[0]);
-        NaSt itData_ = _all.getVal(_it);
-        transit(_pk,new ItemsBeanClickLink(),items_, itData_, 0);
-        return itData_;
-    }
+//    protected static NaSt transitToAllItems(PkData _pk, StringMap<NaSt> _all, String _it) {
+//        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+//        beforeDisplaying(welcome_);
+//        NaSt items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+//        transit(_pk,new WelcomeBeanClickItems(),welcome_,items_,new long[0]);
+//        transit(_pk,new ItemsBeanSearch(),items_,items_,new long[0]);
+//        NaSt itData_ = _all.getVal(_it);
+//        transit(_pk,new ItemsBeanClickLink(),items_, itData_, 0);
+//        return itData_;
+//    }
 
     protected static NaSt transitToAllItemsQuick(PkData _pk, StringMap<NaSt> _all, String _it) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);

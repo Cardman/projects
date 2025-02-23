@@ -3,10 +3,11 @@ package aiki.beans.items;
 import aiki.db.DataBase;
 import aiki.fight.pokemon.evolution.Evolution;
 import aiki.fight.pokemon.evolution.EvolutionItem;
+import code.scripts.pages.aiki.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class EvolvingItemBean extends EvolvingBean {
+public final class EvolvingItemBean extends EvolvingBean {
 
     @Override
     public void beforeDisplaying() {
@@ -21,5 +22,15 @@ public class EvolvingItemBean extends EvolvingBean {
             }
         }
         pk(pokemon_);
+    }
+
+    @Override
+    protected String fileLoc() {
+        return MessagesPkBean.IT_EVOITEM;
+    }
+
+    @Override
+    protected String keyLoc() {
+        return MessagesDataItemsEvoitem.M_P_19_ITEM;
     }
 }

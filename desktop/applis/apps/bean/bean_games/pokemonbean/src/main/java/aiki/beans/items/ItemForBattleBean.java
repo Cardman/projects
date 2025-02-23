@@ -18,7 +18,7 @@ import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.NumberUtil;
 
-public class ItemForBattleBean extends ItemBean {
+public final class ItemForBattleBean extends ItemBean {
     static final String EFFECT_SEND_BEAN=PkScriptPages.REN_ADD_WEB_HTML_SENDING_EFFSENDING_HTML;
     private CustList<TranslatedKey> typesPk;
     private CustList<TranslatedKey> typesPkAbilities;

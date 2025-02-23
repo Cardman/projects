@@ -9,6 +9,9 @@ import aiki.fight.pokemon.evolution.EvolutionItem;
 import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -84,14 +87,19 @@ public abstract class InitDbItemEvolving extends InitDbItem {
 
     public static StringMap<NaSt> beanToEvoItem(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_EVO_ITEM,_pk.beanEvolvingItemBean(EN));
+        EvolvingItemBean b_ = new EvolvingItemBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_EVO_ITEM, _pk.bean(b_, EN));
+        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOITEM,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOITEM,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,b_);
         return map_;
     }
 
     protected static NaSt healEvoItem() {
         PkData pk_ = pkDataByFacade(feedDbEvoItem());
         StringMap<NaSt> all_ = beanToEvoItem(pk_);
-        return dispLine(AikiBeansItemsStd.BEAN_EVO_ITEM, pk_, all_);
+        return dispLineQuick(AikiBeansItemsStd.BEAN_EVO_ITEM, pk_, all_);
     }
 
     private static FacadeGame feedDbEvoItem() {
@@ -112,14 +120,19 @@ public abstract class InitDbItemEvolving extends InitDbItem {
 
     public static StringMap<NaSt> beanToEvoStone(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_EVO_STONE,_pk.beanEvolvingStoneBean(EN));
+        EvolvingStoneBean b_ = new EvolvingStoneBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_EVO_STONE, _pk.bean(b_, EN));
+        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOSTONE,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOSTONE,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,b_);
         return map_;
     }
 
     protected static NaSt healEvoStone() {
         PkData pk_ = pkDataByFacade(feedDbEvoStone());
         StringMap<NaSt> all_ = beanToEvoStone(pk_);
-        return dispLine(AikiBeansItemsStd.BEAN_EVO_STONE, pk_, all_);
+        return dispLineQuick(AikiBeansItemsStd.BEAN_EVO_STONE, pk_, all_);
     }
 
     private static FacadeGame feedDbEvoStone() {
@@ -140,14 +153,19 @@ public abstract class InitDbItemEvolving extends InitDbItem {
 
     public static StringMap<NaSt> beanToFossil(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_FOSSIL,_pk.beanFossilBean(EN));
+        FossilBean b_ = new FossilBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_FOSSIL, _pk.bean(b_, EN));
+        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_FOSSIL,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_FOSSIL,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML,b_);
         return map_;
     }
 
     protected static NaSt healFossil() {
         PkData pk_ = pkDataByFacade(feedDbFossil());
         StringMap<NaSt> all_ = beanToFossil(pk_);
-        return dispLine(AikiBeansItemsStd.BEAN_FOSSIL, pk_, all_);
+        return dispLineQuick(AikiBeansItemsStd.BEAN_FOSSIL, pk_, all_);
     }
 
     private static FacadeGame feedDbFossil() {

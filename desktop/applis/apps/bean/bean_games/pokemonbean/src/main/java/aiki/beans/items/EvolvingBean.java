@@ -1,10 +1,22 @@
 package aiki.beans.items;
 
 import aiki.beans.*;
+import aiki.facade.FacadeGame;
 import code.util.*;
 
 public abstract class EvolvingBean extends ItemBean{
     private CustList<TranslatedKey> pokemon;
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pokemon,fileLoc(),keyLoc());
+    }
+
+    protected abstract String keyLoc();
+
+    protected abstract String fileLoc();
 
     public String getTrPokemon(int _index) {
         return pokemon.get(_index).getTranslation();
