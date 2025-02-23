@@ -1,12 +1,17 @@
 package aiki.beans.items;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.CommonBean;
 import aiki.beans.PkData;
+import aiki.beans.PokemonBeanStruct;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.StringMap;
 
 public abstract class InitDbHealingPp extends InitDbHealing {
@@ -37,13 +42,18 @@ public abstract class InitDbHealingPp extends InitDbHealing {
 
     public static StringMap<NaSt> beanToHealingPp(PkData _pk) {
         StringMap<NaSt> map_ = beanToHealing(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGPP,_pk.beanHealingPpBean(EN));
+        HealingPpBean s_ = new HealingPpBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGPP, _pk.bean(s_, EN));
+        s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,s_);
         return map_;
     }
     protected static NaSt ppDb(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {
         PkData pk_ = pkDataByFacade(feedDbPp(_healingMoveFullpp, _healingAllMovesPp, _healingAllMovesFullpp, _healedMovePp));
         StringMap<NaSt> all_ = beanToHealingPp(pk_);
-        return dispLine(AikiBeansItemsStd.BEAN_HEALINGPP, pk_, all_);
+        return dispLineClick(AikiBeansItemsStd.BEAN_HEALINGPP, pk_, all_);
     }
 
     private static FacadeGame feedDbPp(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {

@@ -38,6 +38,7 @@ public final class ItemsBean extends WithFilterBean implements BeanRenderWithApp
         getUpdateValues().addEvt(new ItemsBeanSearch(this));
         feedParents();
         new BeanDisplayList<ItemLine>(new BeanDisplayItemLine()).displayGrid(this,getItems(),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_ITEMS,MessagesDataItems.M_P_29_IMAGE,MessagesDataItems.M_P_29_NAME,MessagesDataItems.M_P_29_PRICE,MessagesDataItems.M_P_29_DESCRIPTION);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
     }
 
     public IntBeanChgSubmit getUpdateValues() {

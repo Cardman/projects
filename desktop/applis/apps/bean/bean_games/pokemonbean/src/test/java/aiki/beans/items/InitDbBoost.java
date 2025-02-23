@@ -47,7 +47,7 @@ public abstract class InitDbBoost extends InitDbItem {
         return BeanPokemonCommonTs.callLongs(new BoostBeanWinPpGet(),_str,_args);
     }
     protected static NaSt boostDb() {
-        return dispLine(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
+        return dispLineSample(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
     }
 
     private static FacadeGame feedDbItem() {

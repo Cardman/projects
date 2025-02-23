@@ -527,7 +527,7 @@ public final class PkData extends PokemonStandards {
     }
 
     public PokemonBeanStruct beanHealingItemBean(String _language) {
-        return bean(new HealingItemBean(), _language);
+        return bean(new SimpleHealingItemBean(), _language);
     }
 
     public PokemonBeanStruct beanHealingPpBean(String _language) {

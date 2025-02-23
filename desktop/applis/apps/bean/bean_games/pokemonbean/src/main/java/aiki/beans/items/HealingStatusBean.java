@@ -1,19 +1,30 @@
 package aiki.beans.items;
 
 import aiki.beans.*;
+import aiki.facade.*;
 import aiki.fight.items.*;
 import code.maths.*;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public class HealingStatusBean extends HealingItemBean {
+public final class HealingStatusBean extends HealingItemBean {
     static final String HEALING_STATUS_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
     private CustList<TranslatedKey> status;
     private boolean healingKo;
     private Rate healedHpRate;
     @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        healItem();
+        displayBoolTrue(toInt(healingKo),MessagesPkBean.IT_HEALINGSTATUS,MessagesDataItemsHealingstatus.M_P_26_HEAL_KO);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,status,MessagesPkBean.IT_HEALINGSTATUS,MessagesDataItemsHealingstatus.M_P_26_STATUS);
+        displayIntDef(healedHpRate,MessagesPkBean.IT_HEALINGHPSTATUS,MessagesDataItemsHealinghpstatus.M_P_23_RATE);
+    }
+    @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingHealItem();
         HealingStatus item_ = (HealingStatus) getItem();
         healingKo = item_.getHealingKo();
         status = listTrStringsSt(item_.getStatus(),getFacade());

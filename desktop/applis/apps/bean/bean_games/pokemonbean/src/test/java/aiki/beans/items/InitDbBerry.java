@@ -6,6 +6,9 @@ import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
+import code.sml.util.*;
 import code.util.StringMap;
 
 public abstract class InitDbBerry extends InitDbItem {
@@ -106,14 +109,19 @@ public abstract class InitDbBerry extends InitDbItem {
 
     public static StringMap<NaSt> beanToBerry(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_BERRY,_pk.beanBerryBean(EN));
+        BerryBean b_ = new BerryBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_BERRY, _pk.bean(b_, EN));
+        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BERRY,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BERRY,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML,b_);
         return map_;
     }
 
     protected static NaSt healSimple(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail) {
         PkData pk_ = pkDataByFacade(feedDbSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail));
         StringMap<NaSt> all_ = beanToBerry(pk_);
-        return dispLine(AikiBeansItemsStd.BEAN_BERRY, pk_, all_);
+        return dispLineClick(AikiBeansItemsStd.BEAN_BERRY, pk_, all_);
     }
 
     private static FacadeGame feedDbSimple(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail) {

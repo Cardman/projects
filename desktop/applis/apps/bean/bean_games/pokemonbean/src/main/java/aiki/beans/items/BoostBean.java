@@ -1,18 +1,27 @@
 package aiki.beans.items;
 
-import aiki.beans.TranslatedKey;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
+import aiki.beans.*;
+import aiki.comparators.*;
 import aiki.db.DataBase;
+import aiki.facade.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Boost;
 import code.maths.Rate;
+import code.scripts.pages.aiki.*;
 
-public class BoostBean extends ItemBean {
+public final class BoostBean extends ItemBean {
     private Rate winPp;
     private long maxEv;
     private DictionaryComparator<TranslatedKey, Long> evs;
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        displayIntDef(winPp,MessagesPkBean.IT_BOOST,MessagesDataItemsBoost.M_P_18_WIN_PP);
+        buildHappiness(MessagesPkBean.IT_BOOST,MessagesDataItemsBoost.M_P_18_HAPPINESS,MessagesDataItemsBoost.M_P_18_HAPPINESS_OTHER_BALL,MessagesDataItemsBoost.M_P_18_HAPPINESS_BALL,MessagesDataItemsBoost.M_P_18_HAPPINESS_BOOST);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,evs,MessagesPkBean.IT_BOOST,MessagesDataItemsBoost.M_P_18_EVS,MessagesDataItemsBoost.M_P_18_EVS_STAT,MessagesDataItemsBoost.M_P_18_EVS_BOOST);
+    }
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();

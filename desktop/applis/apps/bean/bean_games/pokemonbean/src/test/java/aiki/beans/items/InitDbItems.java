@@ -161,6 +161,18 @@ public abstract class InitDbItems extends InitDbConstr {
         return itData_;
     }
 
+
+    protected static NaSt transitToAllItemsClick(PkData _pk, StringMap<NaSt> _all, String _it) {
+        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        NaSt items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,items_);
+        transit(_pk,new ItemsBeanSearch((ItemsBean) ((PokemonBeanStruct)items_).getBean()),items_,items_);
+        NaSt itData_ = _all.getVal(_it);
+        transit(_pk,new EntityClickFormEvent((CommonBean) ((PokemonBeanStruct)items_).getBean(),((ItemsBean)((PokemonBeanStruct)items_).getBean()).getItemsTr().get(0)),items_, itData_);
+        return itData_;
+    }
+
     protected static NaSt dispAllItems(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllItems(pk_);

@@ -1,6 +1,7 @@
 package aiki.beans;
 
 import aiki.beans.facade.dto.*;
+import code.util.core.*;
 
 public final class BeanDisplayItemLine implements BeanDisplayElt<ItemLine> {
     @Override
@@ -10,7 +11,7 @@ public final class BeanDisplayItemLine implements BeanDisplayElt<ItemLine> {
         _rend.feedParentsCts();
         _rend.formatMessageDirCts(_info.getName());
         _rend.formatMessageDirCts(Long.toString(_info.getPrice()));
-        _rend.formatMessageDirCts(_info.getDescriptionClass());
+        _rend.formatMessageDirCts(StringUtil.nullToEmpty(_info.getDescriptionClass()));
         return 4;
     }
 }

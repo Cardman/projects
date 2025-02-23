@@ -1,8 +1,6 @@
 package aiki.beans.items;
 
-import aiki.beans.BeanRenderWithAppName;
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
+import aiki.beans.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -33,6 +31,9 @@ public abstract class ItemBean extends CommonBean implements BeanRenderWithAppNa
         addImg(itemImage);
         formatMessage(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_ITEM_TYPE,description);
         formatMessage(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_PRICE,displayName,Long.toString(price));
+    }
+    protected void buildHappiness(String _file, String _title, String _no, String... _cols) {
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(_file,_no),new BeanDisplayLong()).displayGrid(this,happiness,_file,_title,_cols);
     }
 
     public StringMap<String> file() {

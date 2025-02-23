@@ -1,6 +1,7 @@
 package aiki.beans.items;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.CommonBean;
 import aiki.beans.PkData;
 import aiki.beans.PokemonBeanStruct;
 import aiki.facade.FacadeGame;
@@ -10,6 +11,9 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -49,7 +53,12 @@ public abstract class InitDbItem extends InitDbItems{
     }
     public static StringMap<NaSt> beanToItemSample(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_BOOST,_pk.beanBoostBean(EN));
+        BoostBean b_ = new BoostBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_BOOST, _pk.bean(b_, EN));
+        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,b_);
         return map_;
     }
     protected static NaSt itemLineSample() {
@@ -62,6 +71,12 @@ public abstract class InitDbItem extends InitDbItems{
         return dispLine(_key, pk_, all_);
     }
 
+    protected static NaSt dispLineSample(FacadeGame _fac, String _key) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<NaSt> all_ = beanToItemSample(pk_);
+        return dispLineClick(_key, pk_, all_);
+    }
+
     protected static NaSt dispLine(String _key, PkData _pk, StringMap<NaSt> _all) {
         NaSt res_ = transitToAllItems(_pk, _all, _key);
         callItemBeanItemBeanGet(res_);
@@ -71,6 +86,13 @@ public abstract class InitDbItem extends InitDbItems{
 
     protected static NaSt dispLineQuick(String _key, PkData _pk, StringMap<NaSt> _all) {
         NaSt res_ = transitToAllItemsQuick(_pk, _all, _key);
+        callItemBeanItemBeanGet(res_);
+        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
+        return res_;
+    }
+
+    protected static NaSt dispLineClick(String _key, PkData _pk, StringMap<NaSt> _all) {
+        NaSt res_ = transitToAllItemsClick(_pk, _all, _key);
         callItemBeanItemBeanGet(res_);
         callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;

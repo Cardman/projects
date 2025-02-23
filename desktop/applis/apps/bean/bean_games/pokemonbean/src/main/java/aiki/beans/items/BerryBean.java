@@ -3,13 +3,16 @@ package aiki.beans.items;
 import aiki.beans.*;
 import aiki.comparators.*;
 import aiki.db.*;
+import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.util.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
+import code.util.core.NumberUtil;
 
-public class BerryBean extends ItemBean {
+public final class BerryBean extends ItemBean {
     private Rate healHpBySuperEffMove;
     private boolean lawForAttackFirst;
     private DictionaryComparator<TranslatedKey, EfficiencyRate> multFoesDamage;
@@ -25,6 +28,27 @@ public class BerryBean extends ItemBean {
     private TranslatedKey categoryBoosting;
     private DictionaryComparator<TranslatedKey, Long> boostStatis;
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        displayIntDef(healHpBySuperEffMove,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_WIN_SUPER_EFF);
+        displayBoolTrue(toInt(lawForAttackFirst),MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_SORTING_USERS);
+        displayBoolTrue(toInt(withoutFail),MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_WITHOUT_FAIL);
+        displayIntDef(healPp,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_HEAL_PP);
+        displayHealHp(healHp,maxHpHealingHp,MessagesDataItemsBerry.M_P_17_HEAL_HP_TIME,MessagesDataItemsBerry.M_P_17_HEAL_HP_ONLY_ROUND_HEAL,MessagesDataItemsBerry.M_P_17_HEAL_HP);
+        displayHealHp(healHpRate,maxHpHealingHpRate,MessagesDataItemsBerry.M_P_17_HEAL_HP_RATE_TIME,MessagesDataItemsBerry.M_P_17_HEAL_HP_RATE_ONLY_ROUND_HEAL,MessagesDataItemsBerry.M_P_17_HEAL_HP_RATE);
+        new BeanDisplayMap<TranslatedKey,EfficiencyRate>(new BeanDisplayTranslatedKey(),new BeanDisplayEfficiencyRate()).displayGrid(this,multFoesDamage,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_MULT_DAMAGE_FOE,MessagesDataItemsBerry.M_P_17_MULT_DAMAGE_FOE_TYPE,MessagesDataItemsBerry.M_P_17_MULT_DAMAGE_FOE_EFF,MessagesDataItemsBerry.M_P_17_MULT_DAMAGE_FOE_RATE);
+        new BeanDisplayMap<TranslatedKey,BoostHpRate>(new BeanDisplayTranslatedKey(),new BeanDisplayBoostHpRate()).displayGrid(this,multStat,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_MULT_STAT,MessagesDataItemsBerry.M_P_17_MULT_STAT_KEY,MessagesDataItemsBerry.M_P_17_MULT_STAT_HP,MessagesDataItemsBerry.M_P_17_MULT_STAT_BOOST);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,healStatus,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_HEAL_STATUS);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,damageRateRecoilFoe,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_RECOIL,MessagesDataItemsBerry.M_P_17_RECOIL_CAT,MessagesDataItemsBerry.M_P_17_RECOIL_HP);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,boostStatis,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_CATEGORY,MessagesDataItemsBerry.M_P_17_CATEGORY_STAT,MessagesDataItemsBerry.M_P_17_CATEGORY_BOOST);
+    }
+    private void displayHealHp(Rate _heal, Rate _max, String _gene, String _noMax, String _withMax) {
+        displayBoolTrue(NumberUtil.abs(_heal.signumToLong()),MessagesPkBean.IT_BERRY,_gene);
+        displayBoolTrue(NumberUtil.abs(_heal.signumToLong())*(1-NumberUtil.abs(_max.signumToLong())),MessagesPkBean.IT_BERRY,_noMax,_heal.toNumberString());
+        displayBoolTrue(NumberUtil.abs(_heal.signumToLong())* NumberUtil.abs(_max.signumToLong()),MessagesPkBean.IT_BERRY,_withMax,_max.toNumberString(),_heal.toNumberString());
+    }
     @Override
     public void beforeDisplaying() {
         beforeDisplayingItem();

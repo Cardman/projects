@@ -8,6 +8,9 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.StringMap;
 
 public abstract class InitDbHealingStatus extends InitDbHealing {
@@ -43,14 +46,22 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
 
     public static StringMap<NaSt> beanToHealingStatus(PkData _pk) {
         StringMap<NaSt> map_ = beanToHealing(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGSTATUS,_pk.beanHealingStatusBean(EN));
+        HealingStatusBean s_ = new HealingStatusBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGSTATUS, _pk.bean(s_, EN));
+        s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHPSTATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHPSTATUS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML,s_);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML,s_);
         return map_;
     }
     protected static NaSt statusDb(HealingStatus _heal) {
         PkData pk_ = pkDataByFacade(feedDbStatus(_heal));
         StringMap<NaSt> all_ = beanToHealingStatus(pk_);
         callHealingStatusBeanHealingStatusBeanGet(all_.getVal(AikiBeansItemsStd.BEAN_HEALINGSTATUS));
-        return dispLine(AikiBeansItemsStd.BEAN_HEALINGSTATUS, pk_, all_);
+        return dispLineClick(AikiBeansItemsStd.BEAN_HEALINGSTATUS, pk_, all_);
     }
 
     private static FacadeGame feedDbStatus(HealingStatus _heal) {

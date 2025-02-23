@@ -7,8 +7,10 @@ public final class MessagesDataItemsBerry {
     public static final String M_P_17_CATEGORY_BOOST="category_boost";
     public static final String M_P_17_CATEGORY_STAT="category_stat";
     public static final String M_P_17_HEAL_HP="heal_hp";
+    public static final String M_P_17_HEAL_HP_TIME="heal_hp_time";
     public static final String M_P_17_HEAL_HP_ONLY_ROUND_HEAL="heal_hp_only_round_heal";
     public static final String M_P_17_HEAL_HP_RATE="heal_hp_rate";
+    public static final String M_P_17_HEAL_HP_RATE_TIME="heal_hp_rate_time";
     public static final String M_P_17_HEAL_HP_RATE_ONLY_ROUND_HEAL="heal_hp_rate_only_round_heal";
     public static final String M_P_17_HEAL_PP="heal_pp";
     public static final String M_P_17_HEAL_STATUS="heal_status";
@@ -33,9 +35,11 @@ public final class MessagesDataItemsBerry {
         e_.add(M_P_17_CATEGORY,"The berry is enabled while the owner suffers damage from a move directly used by a fighter.\nIf the owner suffers from a move with the category {0}, then its statistics vary by the following kind:");
         e_.add(M_P_17_CATEGORY_BOOST,"Boost");
         e_.add(M_P_17_CATEGORY_STAT,"Statistic");
-        e_.add(M_P_17_HEAL_HP,"The berry is enabled at the end of the round of the owner.\nIf the rate of full life of the owner of the berry is at most {0}, then {1} hp are restored.The player can use a such berry never mind the remaining health points strictly lower at the maximum, in this case the pokemon is healed by {1} health points.");
+        e_.add(M_P_17_HEAL_HP,"If the rate of full life of the owner of the berry is at most {0}, then {1} hp are restored.The player can use a such berry never mind the remaining health points strictly lower at the maximum, in this case the pokemon is healed by {1} health points.");
+        e_.add(M_P_17_HEAL_HP_TIME,"The berry is enabled at the end of the round of the owner.");
         e_.add(M_P_17_HEAL_HP_ONLY_ROUND_HEAL,"The player can use a such berry never mind the remaining health points strictly lower at the maximum, in this case the pokemon is healed by {1} health points.");
-        e_.add(M_P_17_HEAL_HP_RATE,"The berry is enabled at the end of the round of the owner.\nIf the current rate of full life of the owner of the berry is lower or equals to {0}, then the rate of full restored life is {1}.The player can use a such berry never mind the remaining health points strictly lower at the maximum, in this case the pokemon is healed by {1} of its full life.");
+        e_.add(M_P_17_HEAL_HP_RATE,"If the current rate of full life of the owner of the berry is lower or equals to {0}, then the rate of full restored life is {1}.The player can use a such berry never mind the remaining health points strictly lower at the maximum, in this case the pokemon is healed by {1} of its full life.");
+        e_.add(M_P_17_HEAL_HP_RATE_TIME,"The berry is enabled at the end of the round of the owner.");
         e_.add(M_P_17_HEAL_HP_RATE_ONLY_ROUND_HEAL,"The player can use a such berry never mind the remaining health points strictly lower at the maximum, in this case the pokemon is healed by {1} of its full life.");
         e_.add(M_P_17_HEAL_PP,"The berry is enabled at the end of the round of the owner.\nIf the owner of the berry has one of its moves without PP, then {0} PP are restored fot this move.");
         e_.add(M_P_17_HEAL_STATUS,"The berry is enabled while the owner is targetted by an adding of status.\nThe following status of the owner are deleted:");
@@ -60,9 +64,11 @@ public final class MessagesDataItemsBerry {
         f_.add(M_P_17_CATEGORY,"La baie est activée lorsque le possesseur subit des dégâts d''une attaque utilisée directement par un combattant.\nSi le possesseur subit une attaque de catégorie {0}, alors ses statistiques suivantes varient de la façon suivante:");
         f_.add(M_P_17_CATEGORY_BOOST,"Boost");
         f_.add(M_P_17_CATEGORY_STAT,"Statistique");
-        f_.add(M_P_17_HEAL_HP,"La baie est activée en fin de tour du possesseur.\nSi le taux de vie totale du porteur de la baie est de au plus {0}, alors {1} pv sont restaurés.Le joueur peut utiliser une telle baie peu importe les points de vie restants strictement inférieurs au maximum, dans ce cas le pokemon est soigné de {1} points de vie.");
+        f_.add(M_P_17_HEAL_HP,"Si le taux de vie totale du porteur de la baie est de au plus {0}, alors {1} pv sont restaurés.Le joueur peut utiliser une telle baie peu importe les points de vie restants strictement inférieurs au maximum, dans ce cas le pokemon est soigné de {1} points de vie.");
+        f_.add(M_P_17_HEAL_HP_TIME,"La baie est activée en fin de tour du possesseur.");
         f_.add(M_P_17_HEAL_HP_ONLY_ROUND_HEAL,"Le joueur peut utiliser une telle baie peu importe les points de vie restants strictement inférieurs au maximum, dans ce cas le pokemon est soigné de {1} points de vie.");
-        f_.add(M_P_17_HEAL_HP_RATE,"La baie est activée en fin de tour du possesseur.\nSi le taux de vie totale actuelle du porteur de la baie est de au plus {0}, alors le taux de vie totale récupérée vaut {1}.Le joueur peut utiliser une telle baie peu importe les points de vie restants strictement inférieurs au maximum, dans ce cas le pokemon est soigné de {1} de sa vie totale.");
+        f_.add(M_P_17_HEAL_HP_RATE,"Si le taux de vie totale actuelle du porteur de la baie est de au plus {0}, alors le taux de vie totale récupérée vaut {1}.Le joueur peut utiliser une telle baie peu importe les points de vie restants strictement inférieurs au maximum, dans ce cas le pokemon est soigné de {1} de sa vie totale.");
+        f_.add(M_P_17_HEAL_HP_RATE_TIME,"La baie est activée en fin de tour du possesseur.");
         f_.add(M_P_17_HEAL_HP_RATE_ONLY_ROUND_HEAL,"Le joueur peut utiliser une telle baie peu importe les points de vie restants strictement inférieurs au maximum, dans ce cas le pokemon est soigné de {1} de sa vie totale.");
         f_.add(M_P_17_HEAL_PP,"La baie est activée en fin de tour du possesseur.\nSi le porteur de la baie a une de ses attaques sans PP, alors {0} PP sont restaurés pour cette attaque.");
         f_.add(M_P_17_HEAL_STATUS,"La baie est activée lorsque le possesseur est visé par une altération de statut.\nLes statuts suivants du porteur sont guéris:");

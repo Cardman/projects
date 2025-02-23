@@ -1,13 +1,23 @@
 package aiki.beans.items;
-import aiki.fight.items.HealingHp;
-import code.maths.Rate;
+import aiki.beans.*;
+import aiki.facade.*;
+import aiki.fight.items.*;
+import code.maths.*;
+import code.scripts.pages.aiki.*;
 
-public class HealingHpBean extends HealingItemBean {
+public final class HealingHpBean extends HealingItemBean {
     private Rate hp;
 
     @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        healItem();
+        displayIntDef(hp, MessagesPkBean.IT_HEALINGHP, MessagesDataItemsHealinghp.M_P_22_HEAL_HP);
+    }
+    @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingHealItem();
         HealingHp item_ = (HealingHp) getItem();
         hp = item_.getHp();
     }
