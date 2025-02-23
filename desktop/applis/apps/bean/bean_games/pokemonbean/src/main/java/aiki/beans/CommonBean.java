@@ -795,9 +795,27 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public static int width(MiniMapCoordsTileInts _miniMap) {
+//        int w_ = 0;
+//        int y_ = _miniMap.getKey(w_).getYcoords();
+//        while (_miniMap.isValidIndex(w_) && _miniMap.getKey(w_).getYcoords() != y_+1) {
+//            w_++;
+//        }
+        return width(new MiniSecondCoordMapper(_miniMap));
+    }
+
+    public static int width(IntSecondCoordMapper _miniMap) {
+        int len_ = _miniMap.length();
+        Ints values_ = new Ints();
+        int first_ = 0;
+        for (int i = 0; i < len_; i++) {
+            if (i == 0) {
+                first_ = _miniMap.sec(i);
+            }
+            values_.add(_miniMap.sec(i));
+        }
         int w_ = 0;
-        int y_ = _miniMap.getKey(w_).getYcoords();
-        while (_miniMap.isValidIndex(w_) && _miniMap.getKey(w_).getYcoords() != y_+1) {
+        int y_ = first_;
+        while (values_.isValidIndex(w_) && values_.get(w_) != y_+1) {
             w_++;
         }
         return w_;

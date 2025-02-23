@@ -94,6 +94,8 @@ public final class MessagesPkBean {
     public static final String SIMULATION = "simulation/simulation";
     public static final String STATUS = "status/status";
     public static final String STATUSSET = "status/statusset";
+    public static final String MAP = "map/level";
+    public static final String NPC = "map/pokemon_key";
     private MessagesPkBean() {
 
     }
@@ -208,6 +210,8 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(ITEMS,MessagesDataItems.en());
         m.getMapping().addEntry(STATUS,MessagesDataStatus.en());
         m.getMapping().addEntry(STATUSSET,MessagesDataStatusset.en());
+        m.getMapping().addEntry(MAP,MessagesDataMapLevel.en());
+        m.getMapping().addEntry(NPC,MessagesDataMapPokemonKey.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -293,6 +297,8 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(ITEMS,MessagesDataItems.fr());
         m.getMapping().addEntry(STATUS,MessagesDataStatus.fr());
         m.getMapping().addEntry(STATUSSET,MessagesDataStatusset.fr());
+        m.getMapping().addEntry(MAP,MessagesDataMapLevel.fr());
+        m.getMapping().addEntry(NPC,MessagesDataMapPokemonKey.fr());
         return m;
     }
 }

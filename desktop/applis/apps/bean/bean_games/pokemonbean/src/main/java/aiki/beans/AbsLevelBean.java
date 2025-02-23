@@ -30,6 +30,7 @@ public abstract class AbsLevelBean extends CommonBean {
     private boolean possibleMultiLayer;
     private CustList<AbsAreaApparition> wildPokemonAreas = new CustList<AbsAreaApparition>();
     private DictionaryComparator<Integer,String> neighbours;
+    private int mapWidth;
 
     protected void initTiles(boolean _addBorder) {
         wildPokemonAreas = new CustList<AbsAreaApparition>();
@@ -82,6 +83,7 @@ public abstract class AbsLevelBean extends CommonBean {
                 neighbours.put(n.getCoords().getNumberPlace(),getDataBase().getMap().getPlace(n.getCoords().getNumberPlace()).getName());
             }
         }
+        mapWidth = CommonBean.width(new MaxiSecondCoordMapper(tiles));
     }
 
     private void feedImages(Points<int[][]> _map, DictionaryComparator<Point, int[][]> _de, int _side, boolean _addBorder) {
@@ -116,12 +118,13 @@ public abstract class AbsLevelBean extends CommonBean {
     }
 
     public int getMapWidth() {
-        int w_ = 0;
-        int y_ = tiles.getKey(w_).gety();
-        while (tiles.getKey(w_).gety() != y_+1) {
-            w_++;
-        }
-        return w_;
+//        int w_ = 0;
+//        int y_ = tiles.getKey(w_).gety();
+//        while (tiles.isValidIndex(w_) && tiles.getKey(w_).gety() != y_+1) {
+//            w_++;
+//        }
+//        return w_;
+        return mapWidth;
     }
 //    public boolean isFirstRow(int _index) {
 //        if (_index == 0) {
