@@ -1,8 +1,10 @@
 package aiki.beans.facade.dto;
 
+import aiki.beans.TranslatedKey;
+
 public final class ItemLine {
     private String displayName;
-    private String name;
+    private TranslatedKey name;
     private String descriptionClass;
     private long price;
 
@@ -14,11 +16,11 @@ public final class ItemLine {
         displayName = _displayName;
     }
 
-    public String getName() {
+    public TranslatedKey getName() {
         return name;
     }
 
-    public void setName(String _name) {
+    public void setName(TranslatedKey _name) {
         name = _name;
     }
 

@@ -9,8 +9,9 @@ import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Item;
 import code.scripts.confs.PkScriptPages;
-import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.*;
 import code.util.StringMap;
+import code.util.core.*;
 
 public abstract class ItemBean extends CommonBean implements BeanRenderWithAppName {
     static final String ITEM_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEM_HTML;
@@ -25,6 +26,18 @@ public abstract class ItemBean extends CommonBean implements BeanRenderWithAppNa
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
 
+    protected void buildHeader() {
+        setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataItemsItem.M_P_27_TITLE),displayName));
+        formatMessageAnc(new ItemBeanClickItems(this),MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_ITEMS);
+        formatMessageDir(displayName);
+        addImg(itemImage);
+        formatMessage(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_ITEM_TYPE,description);
+        formatMessage(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_PRICE,displayName,Long.toString(price));
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.IT_ITEM).getMapping();
+    }
     protected void beforeDisplayingItem() {
         DataBase data_ = getDataBase();
         StringMap<String> translationsClasses_;

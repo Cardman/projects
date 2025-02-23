@@ -18,7 +18,7 @@ public abstract class InitDbWelcome extends InitDbConstr {
         return navigateData(new WelcomeBeanClickAbilities((WelcomeBean) (((PokemonBeanStruct)_str)).getBean()),_str);
     }
     public static String navigateItems(NaSt _str) {
-        return navigateData(new WelcomeBeanClickItems(),_str);
+        return navigateData(new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);
     }
     public static String navigatePokedex(NaSt _str) {
         return navigateData(new WelcomeBeanClickPokedex((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);

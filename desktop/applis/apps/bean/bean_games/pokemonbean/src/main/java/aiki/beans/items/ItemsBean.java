@@ -1,13 +1,52 @@
 package aiki.beans.items;
 
 import aiki.beans.*;
+import aiki.beans.facade.dto.*;
+import aiki.beans.game.*;
 import aiki.db.*;
+import aiki.facade.*;
 import aiki.fight.items.*;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public class ItemsBean extends WithFilterBean {
+public final class ItemsBean extends WithFilterBean implements BeanRenderWithAppName{
+    private IntBeanChgSubmit updateValues;
+    public ItemsBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataItems.M_P_29_TITLE));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
+        initPage();
+        initLine();
+        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_CONTENT_NAME);
+        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_PRICE_DOT);
+        setTypedPrice(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedPrice().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_CONTENT);
+        setTypedClass(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedClass().tryRet()));
+        feedParents();
+        initLine();
+        updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_OK));
+        getUpdateValues().addEvt(new ItemsBeanSearch(this));
+        feedParents();
+        new BeanDisplayList<ItemLine>(new BeanDisplayItemLine()).displayGrid(this,getItems(),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_ITEMS,MessagesDataItems.M_P_29_IMAGE,MessagesDataItems.M_P_29_NAME,MessagesDataItems.M_P_29_PRICE,MessagesDataItems.M_P_29_DESCRIPTION);
+    }
 
+    public IntBeanChgSubmit getUpdateValues() {
+        return updateValues;
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.ITEMS).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         AbsMap<TranslatedKey, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET);
@@ -125,7 +164,7 @@ public class ItemsBean extends WithFilterBean {
 //        return switchItem(it_);
     }
     public int[][] getMiniImage(int _number) {
-        String item_ = getItems().get(_number).getName();
+        String item_ = getItems().get(_number).getName().getKey();
         DataBase data_ = getDataBase();
         return data_.getMiniItem(item_);
     }

@@ -56,7 +56,7 @@ public class SelectItemBean extends WithFilterBean {
     }
 
     public String clickLink(int _index) {
-        item = getItems().get(_index).getName();
+        item = getItems().get(_index).getName().getKey();
         getForms().put(CST_ITEM_EDIT, item);
         return redirect();
     }
@@ -67,7 +67,7 @@ public class SelectItemBean extends WithFilterBean {
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public int[][] getMiniImage(int _number) {
-        String item_ = getItems().get(_number).getName();
+        String item_ = getItems().get(_number).getName().getKey();
         DataBase data_ = getDataBase();
         return data_.getMiniItem(item_);
     }

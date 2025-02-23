@@ -14,7 +14,9 @@ import aiki.fight.util.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
+import code.util.core.NumberUtil;
 
 public class ItemForBattleBean extends ItemBean {
     static final String EFFECT_SEND_BEAN=PkScriptPages.REN_ADD_WEB_HTML_SENDING_EFFSENDING_HTML;
@@ -62,6 +64,65 @@ public class ItemForBattleBean extends ItemBean {
     private boolean sending;
     private NatStringTreeMap<String> mapVars;
     private final EndRoundCommon endRoundCommon = new EndRoundCommon();
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        buildHeader();
+        if (getEndRoundCommon().getEndRound()) {
+            formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundCommon().getEndRoundRank()));
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ENDROUND);
+            displayStringList(getEndRoundCommon().getReasonsEndRound(),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
+            mapVarsInit(getEndRoundCommon().getMapVarsFailEndRound());
+        }
+        if (sending) {
+            displaySend(getEffectSending());
+        }
+        displayBoolTrue(toInt(cancelImmuType), MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_CANCEL_IMMU_TYPE);
+        displayBoolTrue(toInt(againstEvo),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_AGAINST_EVO);
+        displayBoolTrue(toInt(attackLast),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ATTACK_LAST);
+        displayBoolTrue(toInt(boostExp),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_BOOST_EXP);
+        displayBoolTrue(toInt(immuLowStatis),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_IMMU_LOW_STATIS);
+        displayBoolTrue(toInt(attacksSoon),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ATTACK_SOON);
+        displayIntDef(protectAgainstKo,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_PROTECT_KO);
+        displayIntDef(protectAgainstKoIfFullHp,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_PROTECT_KO_ALL);
+        displayIntDef(drainedHpByDamageRate,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_DRAINED_HP);
+        displayIntDef(multTrappingDamage,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_TRAPPING);
+        displayIntDef(multWinningHappiness,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_WIN_HAPPINESS);
+        displayIntDef(multWinningEv,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_WIN_EV);
+        displayIntDef(multWinningExp,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_WIN_EXP);
+        displayIntDef(multDrainedHp,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_DRAINED_HP);
+        displayIntDef(damageRecoil,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_DAMAGE_RECOIL);
+        displayNotEmpty(multPower,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_POWER);
+        displayNotEmpty(multDamage,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,multStatRank,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_RANK,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_RANK_KEY,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_RANK_BOOST);
+        new BeanDisplayMap<TranslatedKeyPair,Long>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayLong()).displayGrid(this,multStatPokemonRank,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_POKEMON_RANK,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_POKEMON_RANK_STAT,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_POKEMON_RANK_NAME,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_POKEMON_RANK_VAR);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,boostStatisSuperEff,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_BOOST_SUPER_EFF,MessagesDataItemsItemforbattle.M_P_28_BOOST_SUPER_EFF_STAT,MessagesDataItemsItemforbattle.M_P_28_BOOST_SUPER_EFF_BOOST);
+        display(boostStatisTypes,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_BOOST_TYPES);
+        for (EntryCust<TranslatedKey,DictionaryComparator<TranslatedKey, Long>> e:boostStatisTypes.entryList()) {
+            formatMessageDir(e.getKey());
+            new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,e.getValue(),MessagesPkBean.IT_ITEMFORBATTLE,"",MessagesDataItemsItemforbattle.M_P_28_BOOST_TYPES_STAT,MessagesDataItemsItemforbattle.M_P_28_BOOST_TYPES_BOOST);
+        }
+        new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,multStat,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_KEY,MessagesDataItemsItemforbattle.M_P_28_MULT_STAT_RATE);
+        new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,failStatus,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_FAIL,MessagesDataItemsItemforbattle.M_P_28_FAIL_STATUS,MessagesDataItemsItemforbattle.M_P_28_FAIL_REASON);
+        mapVarsInit(mapVars);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,typesPkAbilities, NumberUtil.signum(typesPk.size()),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_TYPES_PK);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,typesPk,NumberUtil.signum(typesPkAbilities.size()),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_TYPES_PK_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuStatus,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_IMMU_STATUS);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuTypes,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_IMMU_TYPES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,synchroStatus,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_SYNCHRO_STATUS);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,winEvFight,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_WIN_EV,MessagesDataItemsItemforbattle.M_P_28_WIN_EV_STAT,MessagesDataItemsItemforbattle.M_P_28_WIN_EV_VALUE);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,increasingMaxNbRoundTrap,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_INCREASING_TRAP,MessagesDataItemsItemforbattle.M_P_28_INCREASING_TRAP_MOVE,MessagesDataItemsItemforbattle.M_P_28_INCREASING_TRAP_NB);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,increasingMaxNbRoundGlobalMove,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_INCREASING_GLOBAL,MessagesDataItemsItemforbattle.M_P_28_INCREASING_GLOBAL_MOVE,MessagesDataItemsItemforbattle.M_P_28_INCREASING_GLOBAL_NB);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,increasingMaxNbRoundTeamMove,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_INCREASING_TEAM,MessagesDataItemsItemforbattle.M_P_28_INCREASING_TEAM_MOVE,MessagesDataItemsItemforbattle.M_P_28_INCREASING_TEAM_NB);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuMoves,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_IMMU_MOVES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuWeather,MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_IMMU_WEATHERS);
+        if (determinated()) {
+            formatMessage(MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST);
+        } else {
+            displayIntDef(rateForAttackFirst(),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST);
+        }
+    }
 
     @Override
     public void beforeDisplaying() {

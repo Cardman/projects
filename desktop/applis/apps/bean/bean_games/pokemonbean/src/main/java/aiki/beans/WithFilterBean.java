@@ -26,9 +26,9 @@ import code.util.core.StringUtil;
 public abstract class WithFilterBean extends CommonBean {
     private IntBeanChgString typedAbility = new BeanChgString();
     private IntBeanChgString typedName = new BeanChgString();
-    private String typedPrice = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedPrice = new BeanChgString();
 
-    private String typedClass = DataBase.EMPTY_STRING;
+    private IntBeanChgString typedClass = new BeanChgString();
     private IntBeanChgString typedType = new BeanChgString();
     private String typedStatus = DataBase.EMPTY_STRING;
     private IntBeanChgString typedCategory = new BeanChgString();
@@ -290,7 +290,7 @@ public abstract class WithFilterBean extends CommonBean {
             String class_ = translationsClasses_.getVal(i_.getItemType());
 //            class_ = XmlParser.transformSpecialChars(class_);
             ItemLine item_ = new ItemLine();
-            item_.setName(i.getKey().getKey());
+            item_.setName(i.getKey());
             item_.setDisplayName(i.getKey().getTranslation());
             item_.setPrice(i_.getPrice());
             item_.setDescriptionClass(class_);
@@ -301,7 +301,7 @@ public abstract class WithFilterBean extends CommonBean {
     }
 
     protected AbsMap<TranslatedKey,Item> sortedItems() {
-        return sortedItems(getFacade(),getTypedPrice(),getTypedName(),getTypedClass());
+        return sortedItems(getFacade(),getTypedPrice().tryRet(),getTypedName(),getTypedClass().tryRet());
     }
     public String getTrSortedAbility(int _index) {
         return sortedAbilities.getKey(_index).getTranslation();
@@ -335,19 +335,19 @@ public abstract class WithFilterBean extends CommonBean {
         return typedName;
     }
 
-    public void setTypedPrice(String _typedPrice) {
+    public void setTypedPrice(IntBeanChgString _typedPrice) {
         typedPrice = _typedPrice;
     }
 
-    public String getTypedPrice() {
+    public IntBeanChgString getTypedPrice() {
         return typedPrice;
     }
 
-    public void setTypedClass(String _typedClass) {
+    public void setTypedClass(IntBeanChgString _typedClass) {
         typedClass = _typedClass;
     }
 
-    public String getTypedClass() {
+    public IntBeanChgString getTypedClass() {
         return typedClass;
     }
 

@@ -1,6 +1,7 @@
 package aiki.beans;
 
 import aiki.beans.abilities.TranslatedKeyPair;
+import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.game.ImgPkPlayer;
@@ -9,6 +10,7 @@ import aiki.beans.pokemon.evolutions.*;
 import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.*;
@@ -209,6 +211,29 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         eff1(_sub);
         eff2(_sub);
         eff3(_sub);
+    }
+
+    protected EffectWhileSendingBean displaySend(EffectWhileSendingWithStatistic _s) {
+        EffectWhileSendingBean send_ = new EffectWhileSendingBean();
+        send_.setBuilder(getBuilder());
+        send_.setAppName(getAppName());
+        send_.setForms(getForms());
+        send_.setFacade(getFacade());
+        send_.setLanguage(getLanguage());
+        send_.setEffect(_s);
+        send_.beforeDisplaying();
+        formatMessage(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_EFFECT);
+        displayBoolTrue(toInt(send_.getDisableWeather()),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_DISABLE_WEATHER);
+        displayBoolTrue(toInt(send_.getDisableWeather()),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_DISABLE_WEATHER_2);
+        displayBoolTrue(toInt(send_.getDisableWeather()),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_DISABLE_WEATHER_3);
+        displayBoolTrue(toInt(send_.getDisableWeather()),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_DISABLE_WEATHER_4);
+        formatTrKey(send_.getEnabledWeather(),MessagesPkBean.SENDING,"",MessagesDataSending.M_P_84_WEATHER);
+        displayBoolTrue(toInt(send_.getCopyingAbility()),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_COPY_AB);
+        displayIntDef(send_.getMultWeight(),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_WEIGHT);
+        if (send_.getStatistic()) {
+            effStatis(send_.getEffectStatisticCommon());
+        }
+        return send_;
     }
 
     private void eff1(EffectBean _sub) {

@@ -72,6 +72,21 @@ public final class MessagesPkBean {
     public static final String EVO_STONE_GENDER="pokemon/evolutions/evostonegender";
     public static final String EVO_TEAM="pokemon/evolutions/evoteam";
     public static final String EVO_TYPE="pokemon/evolutions/evotype";
+    public static final String IT_BALL="items/ball";
+    public static final String IT_BERRY="items/berry";
+    public static final String IT_BOOST="items/boost";
+    public static final String IT_EVOITEM="items/evoitem";
+    public static final String IT_EVOSTONE="items/evostone";
+    public static final String IT_FOSSIL="items/fossil";
+    public static final String IT_HEALINGHP="items/healinghp";
+    public static final String IT_HEALINGHPSTATUS="items/healinghpstatus";
+    public static final String IT_HEALINGITEM="items/healingitem";
+    public static final String IT_HEALINGPP="items/healingpp";
+    public static final String IT_HEALINGSTATUS="items/healingstatus";
+    public static final String IT_ITEM="items/item";
+    public static final String IT_ITEMFORBATTLE="items/itemforbattle";
+    public static final String ITEMS="items/items";
+    public static final String IT_REPEL="items/repel";
     public static final String TEAM = "team";
     public static final String POKEMON = "pokemon";
     public static final String GAMEPROG = "gameprog";
@@ -174,6 +189,21 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(AB_DATA,MessagesDataAbilityData.en());
         m.getMapping().addEntry(ABILITIES,MessagesDataAbilityAbilities.en());
         m.getMapping().addEntry(MOVES,MessagesDataMovesMoves.en());
+        m.getMapping().addEntry(IT_BALL,MessagesDataItemsBall.en());
+        m.getMapping().addEntry(IT_BERRY,MessagesDataItemsBerry.en());
+        m.getMapping().addEntry(IT_BOOST,MessagesDataItemsBoost.en());
+        m.getMapping().addEntry(IT_EVOITEM,MessagesDataItemsEvoitem.en());
+        m.getMapping().addEntry(IT_EVOSTONE,MessagesDataItemsEvostone.en());
+        m.getMapping().addEntry(IT_FOSSIL,MessagesDataItemsFossil.en());
+        m.getMapping().addEntry(IT_HEALINGHP,MessagesDataItemsHealinghp.en());
+        m.getMapping().addEntry(IT_HEALINGHPSTATUS,MessagesDataItemsHealinghpstatus.en());
+        m.getMapping().addEntry(IT_HEALINGITEM,MessagesDataItemsHealingitem.en());
+        m.getMapping().addEntry(IT_HEALINGPP,MessagesDataItemsHealingpp.en());
+        m.getMapping().addEntry(IT_HEALINGSTATUS,MessagesDataItemsHealingstatus.en());
+        m.getMapping().addEntry(IT_ITEM,MessagesDataItemsItem.en());
+        m.getMapping().addEntry(IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.en());
+        m.getMapping().addEntry(IT_REPEL,MessagesDataItemsRepel.en());
+        m.getMapping().addEntry(ITEMS,MessagesDataItems.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -242,6 +272,21 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(AB_DATA,MessagesDataAbilityData.fr());
         m.getMapping().addEntry(ABILITIES,MessagesDataAbilityAbilities.fr());
         m.getMapping().addEntry(MOVES,MessagesDataMovesMoves.fr());
+        m.getMapping().addEntry(IT_BALL,MessagesDataItemsBall.fr());
+        m.getMapping().addEntry(IT_BERRY,MessagesDataItemsBerry.fr());
+        m.getMapping().addEntry(IT_BOOST,MessagesDataItemsBoost.fr());
+        m.getMapping().addEntry(IT_EVOITEM,MessagesDataItemsEvoitem.fr());
+        m.getMapping().addEntry(IT_EVOSTONE,MessagesDataItemsEvostone.fr());
+        m.getMapping().addEntry(IT_FOSSIL,MessagesDataItemsFossil.fr());
+        m.getMapping().addEntry(IT_HEALINGHP,MessagesDataItemsHealinghp.fr());
+        m.getMapping().addEntry(IT_HEALINGHPSTATUS,MessagesDataItemsHealinghpstatus.fr());
+        m.getMapping().addEntry(IT_HEALINGITEM,MessagesDataItemsHealingitem.fr());
+        m.getMapping().addEntry(IT_HEALINGPP,MessagesDataItemsHealingpp.fr());
+        m.getMapping().addEntry(IT_HEALINGSTATUS,MessagesDataItemsHealingstatus.fr());
+        m.getMapping().addEntry(IT_ITEM,MessagesDataItemsItem.fr());
+        m.getMapping().addEntry(IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.fr());
+        m.getMapping().addEntry(IT_REPEL,MessagesDataItemsRepel.fr());
+        m.getMapping().addEntry(ITEMS,MessagesDataItems.fr());
         return m;
     }
 }

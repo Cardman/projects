@@ -2,6 +2,7 @@ package aiki.beans.items;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.PokemonBeanStruct;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.HealingItem;
 import aiki.fight.items.HealingPp;
@@ -17,7 +18,7 @@ public abstract class InitDbItem extends InitDbItems{
     public static final String I_BASE = "B_BASE";
 
     public static String callItemBeanClickItems(NaSt _str, long... _args) {
-        return navigateData(new ItemBeanClickItems(),_str,_args);
+        return navigateData(new ItemBeanClickItems(((ItemBean) ((PokemonBeanStruct)_str).getBean())),_str);
     }
 
     public static NaSt callItemBeanDescriptionGet(NaSt _str, long... _args) {
@@ -63,6 +64,13 @@ public abstract class InitDbItem extends InitDbItems{
 
     protected static NaSt dispLine(String _key, PkData _pk, StringMap<NaSt> _all) {
         NaSt res_ = transitToAllItems(_pk, _all, _key);
+        callItemBeanItemBeanGet(res_);
+        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
+        return res_;
+    }
+
+    protected static NaSt dispLineQuick(String _key, PkData _pk, StringMap<NaSt> _all) {
+        NaSt res_ = transitToAllItemsQuick(_pk, _all, _key);
         callItemBeanItemBeanGet(res_);
         callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;

@@ -64,8 +64,8 @@ public class EffectWhileSendingBean extends CommonBean {
         return disableWeather;
     }
 
-    public String getEnabledWeather() {
-        return enabledWeather.getKey();
+    public TranslatedKey getEnabledWeather() {
+        return enabledWeather;
     }
 
     public boolean getCopyingAbility() {

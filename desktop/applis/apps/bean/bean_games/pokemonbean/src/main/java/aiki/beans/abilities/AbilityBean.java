@@ -123,6 +123,7 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataAbilityData.M_P_1_TITLE));
         formatMessageAnc(new AbilityBeanClickIndex(this),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_INDEX);
         formatMessageDir(displayName);
         if (getEndRoundCommon().getEndRound()) {
@@ -131,41 +132,9 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
             displayStringList(getEndRoundCommon().getReasonsEndRound(),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
             mapVarsInit(getEndRoundCommon().getMapVarsFailEndRound());
         }
-        /*if (sending) {
-            EffectWhileSendingWithStatistic effectSending_ = getEffectSending();
-            EffectWhileSendingBean send_ = new EffectWhileSendingBean();
-            send_.setBuilder(getBuilder());
-            send_.setAppName(getAppName());
-            send_.setForms(getForms());
-            send_.setFacade(getFacade());
-            send_.setEffect(effectSending_);
-            send_.beforeDisplaying();
-            <c:message value="msg_eff_sending,effect"/>
-			<c:if condition="disableWeather">
-				<c:message value="msg_eff_sending,disable_weather"/>
-				<c:message value="msg_eff_sending,disable_weather_2"/>
-				<c:message value="msg_eff_sending,disable_weather_3"/>
-				<c:message value="msg_eff_sending,disable_weather_4"/>
-			</c:if>
-			<c:if condition="!isEmpty(enabledWeather)">
-				<c:message value="msg_eff_sending,weather"/>
-				<a c:command="$clickWeather()">
-					{getTrWeather()}
-				</a>
-				<br/>
-			</c:if>
-			<c:if condition="copyingAbility">
-				<c:message value="msg_eff_sending,copy_ab"/>
-			</c:if>
-			<c:if condition="!multWeight.isZero()">
-				<c:message value="msg_eff_sending,weight">
-					<param value="multWeight"/>
-				</c:message>
-			</c:if>
-            if (send_.getStatistic()) {
-                effStatis(send_.getEffectStatisticCommon());
-            }
-        }*/
+        if (sending) {
+            displaySend(getEffectSending());
+        }
         displayBoolTrue(toInt(achievedDisappearedPk),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_ACHIEVED_DISAPPEARED);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,breakProtectionMoves,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_BREAK_PROTECTION);
         displayBoolTrue(toInt(cancelSecEffectOther),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_CANCEL_SEC_EFFECT_OTHER);
@@ -248,6 +217,9 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pokemon,MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_LEARNT_PK,displayName);
     }
 
+    public StringMap<String> file() {
+        return file(MessagesPkBean.AB_DATA).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         name = getForms().getValStr(CST_ABILITY);

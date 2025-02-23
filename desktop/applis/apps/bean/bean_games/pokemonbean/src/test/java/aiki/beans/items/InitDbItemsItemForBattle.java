@@ -2,6 +2,7 @@ package aiki.beans.items;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.*;
 import aiki.beans.effects.AikiBeansEffectsStd;
 import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
@@ -17,6 +18,9 @@ import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.*;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
+import code.sml.util.TranslationsFile;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -431,13 +435,20 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
 
     public static StringMap<NaSt> beanToItBaseSend(PkData _pk) {
         StringMap<NaSt> map_ = beanToItBase(_pk);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
         map_.addEntry(AikiBeansEffectsStd.EFFECT_SENDING,_pk.beanEffectWhileSendingBean(EN));
         return map_;
     }
 
     public static StringMap<NaSt> beanToItBase(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_ITEMFORBATTLE,_pk.beanItemForBattleBean(EN));
+        ItemForBattleBean it_ = new ItemForBattleBean();
+        map_.addEntry(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, _pk.bean(it_, EN));
+        it_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEMFORBATTLE,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEMFORBATTLE,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,it_);
         return map_;
     }
 
@@ -451,19 +462,21 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     protected static NaSt healSimple(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
         PkData pk_ = pkDataByFacade(feedDbItem(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<NaSt> all_ = beanToItBase(pk_);
-        return dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+        return dispLineQuick(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
     }
 
     protected static NaSt healSimpleEndRound(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
         PkData pk_ = pkDataByFacade(feedDbItemEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<NaSt> all_ = beanToItBase(pk_);
-        return dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        return dispLineQuick(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
     }
 
     protected static NaSt healSimpleNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
         PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        NaSt res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+        NaSt res_ = dispLineQuick(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
         callItemForBattleBeanEffectSendBeanGet(res_);
         NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
         callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
@@ -477,7 +490,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     public static NaSt healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
         PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        NaSt res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+        NaSt res_ = dispLineQuick(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
         callItemForBattleBeanEffectSendBeanGet(res_);
         NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
         callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
@@ -488,7 +501,9 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     public static NaSt healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
         PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        NaSt res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
+        NaSt res_ = dispLineQuick(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
         callItemForBattleBeanEffectSendBeanGet(res_);
         NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
         callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
@@ -499,7 +514,9 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     protected static NaSt healSimpleStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
         PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        NaSt res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
+        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
+        NaSt res_ = dispLineQuick(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
         callItemForBattleBeanEffectSendBeanGet(res_);
         NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
         callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
