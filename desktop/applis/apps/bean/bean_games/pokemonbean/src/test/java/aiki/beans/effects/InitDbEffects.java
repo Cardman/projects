@@ -63,14 +63,14 @@ public abstract class InitDbEffects extends InitDbConstr {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToCombosSet(pk_);
         NaSt combos_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBOS);
-        NaSt combo_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBO);
+        NaSt combo_ = new PokemonBeanStruct(new EffectComboBean());
         ((BeanRenderWithAppName)((PokemonBeanStruct)combos_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)combos_).getBean()).getFacade(),((CombosBean) ((PokemonBeanStruct)combos_).getBean()).getForms());
 //        beforeDisplaying(combos_);
         callCombosBeanComboGet(combos_);
         fwdComboDto(combo_,combos_);
         callEffectComboBeanIndexSet(combo_,_ind);
         setFormsBy(pk_,combo_,combos_);
-        beforeDisplaying(combo_);
+//        beforeDisplaying(combo_);
         return new PokemonBeanStruct(((CombosBean) ((PokemonBeanStruct)combos_).getBean()).getList().get(_ind));
     }
 

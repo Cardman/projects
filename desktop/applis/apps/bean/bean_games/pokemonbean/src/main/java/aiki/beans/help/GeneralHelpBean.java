@@ -13,10 +13,11 @@ import aiki.map.util.MiniMapCoordsTile;
 import aiki.map.util.MiniMapCoordsTileInts;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public class GeneralHelpBean extends CommonBean {
+public final class GeneralHelpBean extends CommonBean {
     private MiniMapCoordsTileInts miniMap;
 
     private DictionaryComparator<MiniMapCoords, String> namesPlaces;
@@ -39,9 +40,11 @@ public class GeneralHelpBean extends CommonBean {
     private Rate defaultMoney;
     private CustList<TranslatedKey> tm = new CustList<TranslatedKey>();
     private CustList<TranslatedKey> hm = new CustList<TranslatedKey>();
-    private StringList types = new StringList();
+    private CustList<TranslatedKey> types = new CustList<TranslatedKey>();
     private int mapWidth;
-
+    public GeneralHelpBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
@@ -75,8 +78,7 @@ public class GeneralHelpBean extends CommonBean {
         defaultMoney = data_.getDefaultMoney();
         tm = build(data_.getTm());
         hm = build(data_.getHm());
-        types = new StringList(data_.getTypes());
-        types.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
+        types = listTrStringsTy(data_.getTypes(),getFacade());
         mapWidth = width(miniMap);
     }
     private CustList<TranslatedKey> build(IntMap< String> _map) {
@@ -257,21 +259,23 @@ public class GeneralHelpBean extends CommonBean {
 //        return translationsMoves_.getVal(move_);
     }
     public String getTrType(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translationsTypes_;
-        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String type_ = types.get(_index);
-        return translationsTypes_.getVal(type_);
+        return types.get(_index).getTranslation();
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translationsTypes_;
+//        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+//        String type_ = types.get(_index);
+//        return translationsTypes_.getVal(type_);
     }
     public int[][] getImageType(int _index) {
         DataBase data_ = getDataBase();
-        String type_ = types.get(_index);
-        return data_.getTypesImages().getVal(type_).getImage();
+//        String type_ = types.get(_index);
+//        return data_.getTypesImages().getVal(type_).getImage();
+        return data_.getTypesImages().getVal(types.get(_index).getKey()).getImage();
     }
     public int[][] getColorType(int _index) {
         DataBase data_ = getDataBase();
-        String type_ = types.get(_index);
-        String color_ = data_.getTypesColors().getVal(type_);
+//        String type_ = types.get(_index);
+        String color_ = data_.getTypesColors().getVal(types.get(_index).getKey());
         return ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
     }
 
@@ -353,7 +357,7 @@ public class GeneralHelpBean extends CommonBean {
         return hm;
     }
 
-    public StringList getTypes() {
+    public CustList<TranslatedKey> getTypes() {
         return types;
     }
 }

@@ -283,9 +283,9 @@ public final class DictionaryComparatorUtil {
         return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedMoves().getVal(_language));
     }
 
-    public static Comparing<String> cmpTypes(DataBase _data, String _language) {
-        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedTypes().getVal(_language));
-    }
+//    public static Comparing<String> cmpTypes(DataBase _data, String _language) {
+//        return new ComparatorTrWrapper<String>().wrap(_data.getTranslatedTypes().getVal(_language));
+//    }
 
     public static DictionaryComparator<Point, int[][]> buildPointString() {
         return new DictionaryComparator<Point, int[][]>(new ComparatorPoint());

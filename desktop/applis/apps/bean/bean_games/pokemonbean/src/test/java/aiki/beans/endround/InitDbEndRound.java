@@ -395,11 +395,13 @@ public abstract class InitDbEndRound extends InitDbConstr {
         StringMap<NaSt> all_ = beanToEndRound(pk_);
         StringMap<String> mapping_ = mappingToEndRound();
         NaSt pkbean_ = transitToAllPks(all_);
-        NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
+        NaSt evobean_ = new PokemonBeanStruct(new EffectEndRoundBean());
+        callEndRoundBeanGetPage(pkbean_, _index);
+//        NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
         setFormsBy(pk_,evobean_,pkbean_);
         callEffectEndRoundBeanIndexSet(evobean_,_index);
-        beforeDisplaying(evobean_);
-        return evobean_;
+//        beforeDisplaying(evobean_);
+        return new PokemonBeanStruct(((EndRoundBean)((PokemonBeanStruct)pkbean_).getBean()).getEffects().get(_index));
     }
 
     protected static NaSt transitToAllPks(StringMap<NaSt> _all) {

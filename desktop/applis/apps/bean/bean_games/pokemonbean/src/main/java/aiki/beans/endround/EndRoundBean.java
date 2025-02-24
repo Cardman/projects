@@ -63,6 +63,10 @@ public final class EndRoundBean extends CommonBean implements BeanRenderWithAppN
         }
     }
 
+    public CustList<EffectEndRoundBean> getEffects() {
+        return effects;
+    }
+
     private void feedEvts(FacadeGame _data, EndRoundMainElements _e) {
         if (_e.getEndRoundType() == EndTurnType.ATTAQUE) {
             getForms().getEvts().add(buildMv(_data, _e.getElement()));

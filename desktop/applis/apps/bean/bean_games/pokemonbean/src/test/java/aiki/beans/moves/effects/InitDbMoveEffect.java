@@ -2,7 +2,9 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.PokemonBeanStruct;
 import aiki.beans.moves.InitDbMove;
+import aiki.beans.moves.MoveBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -108,19 +110,23 @@ public abstract class InitDbMoveEffect extends InitDbMove {
     protected static NaSt transitEffect(int _index, int _indexEff, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
         NaSt mbean_ = transitMove(_index, _pk, _all, _mapping);
         int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
-        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
+        NaSt eff_ = new PokemonBeanStruct(new EffectBean());
+        callMoveBeanGetPage(mbean_, noEff_);
+//        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
         fwdEffect(_pk,eff_,mbean_, noEff_);
-        beforeDisplaying(eff_);
-        return eff_;
+//        beforeDisplaying(eff_);
+        return new PokemonBeanStruct(((MoveBean)((PokemonBeanStruct)mbean_).getBean()).getBeans().get(_indexEff));
     }
 
     protected static NaSt transitEffectQuick(int _index, int _indexEff, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
         NaSt mbean_ = transitMoveQuick(_index, _pk, _all, _mapping);
         int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
-        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
+        NaSt eff_ = new PokemonBeanStruct(new EffectBean());
+        callMoveBeanGetPage(mbean_, noEff_);
+//        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
         fwdEffect(_pk,eff_,mbean_, noEff_);
-        beforeDisplaying(eff_);
-        return eff_;
+//        beforeDisplaying(eff_);
+        return new PokemonBeanStruct(((MoveBean)((PokemonBeanStruct)mbean_).getBean()).getBeans().get(_indexEff));
     }
 
     public static void fwdEffect(PkData _pk, NaSt _update, NaSt _use, int _index) {

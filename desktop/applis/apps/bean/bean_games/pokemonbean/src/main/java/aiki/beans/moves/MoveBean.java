@@ -141,6 +141,10 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
         }
     }
 
+    public CustList<EffectBean> getBeans() {
+        return beans;
+    }
+
     public StringMap<String> file() {
         return file(MessagesPkBean.MV_DATA).getMapping();
     }

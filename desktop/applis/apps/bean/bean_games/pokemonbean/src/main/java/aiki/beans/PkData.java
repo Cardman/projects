@@ -579,7 +579,7 @@ public final class PkData extends PokemonStandards {
     }
 
     public PokemonBeanStruct beanEffectEndRoundSingleStatusBean(String _language) {
-        return bean(new EffectEndRoundSingleStatusBean(), _language);
+        return bean(new EffectEndRoundStatusBean(), _language);
     }
 
     public PokemonBeanStruct beanEffectEndRoundStatusRelationBean(String _language) {
