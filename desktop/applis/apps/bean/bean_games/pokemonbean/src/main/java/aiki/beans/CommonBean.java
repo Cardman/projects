@@ -61,6 +61,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_BERRY = "berry";
     protected static final String CST_BOOST = "boost";
     protected static final String CST_COMBO = "combo";
+    protected static final String CST_NAMES = "names";
     protected static final String CST_SIMULATION = "simulation";
     protected static final String CST_SIMULATION_STATE = "simulation_state";
 //    protected static final String CST_CURRENT_TILE = "current_tile";

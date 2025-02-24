@@ -29,7 +29,7 @@ public final class TrainerBean extends CommonBean implements BeanRenderWithAppNa
         if (!getName().isEmpty()) {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_FIGHT),getName()));
         } else {
-            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_FIGHT_STAND),getName()));
+            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_FIGHT_STAND)));
         }
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);

@@ -275,6 +275,7 @@ public final class MapLevelBean extends AbsLevelBean implements BeanRenderWithAp
         if (l_.getDualFights().contains(pt_)) {
             getForms().put(CST_PERSON, l_.getDualFights().getVal(pt_).getFoeTrainer());
             getForms().put(CST_ALLY, l_.getDualFights().getVal(pt_).getAlly());
+            getForms().put(CST_NAMES,l_.getDualFights().getVal(pt_).getNames());
             return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
         }
         DataBase data_ = getDataBase();
@@ -344,6 +345,7 @@ public final class MapLevelBean extends AbsLevelBean implements BeanRenderWithAp
             if (Point.eq(d_.getPt(), pt_)) {
                 getForms().put(CST_PERSON, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
                 getForms().put(CST_ALLY, l_.getDualFights().getVal(ptKey_).getAlly());
+                getForms().put(CST_NAMES,l_.getDualFights().getVal(ptKey_).getNames());
                 return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
             }
         }

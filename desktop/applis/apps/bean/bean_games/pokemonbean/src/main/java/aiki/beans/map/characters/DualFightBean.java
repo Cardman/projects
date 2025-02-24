@@ -7,7 +7,7 @@ import aiki.map.characters.Ally;
 import aiki.map.characters.TempTrainer;
 import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
-import code.util.StringMap;
+import code.util.*;
 
 public final class DualFightBean extends CommonBean implements BeanRenderWithAppName {
     static final String PAGE_ALLY = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_ALLY_HTML;
@@ -19,6 +19,8 @@ public final class DualFightBean extends CommonBean implements BeanRenderWithApp
     private int[][] imageMiniSecond;
     private AllyBean allyTeam;
     private PokemonTeamBean foeTeam;
+    private StringList names;
+
     public DualFightBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
@@ -32,6 +34,7 @@ public final class DualFightBean extends CommonBean implements BeanRenderWithApp
         addImg(image);
         addImg(imageMini);
         addImg(imageMiniSecond);
+        displayStringList(names);
         allyTeam.beforeDisplaying();
         allyTeam.buildSub();
         foeTeam.beforeDisplaying();
@@ -53,6 +56,7 @@ public final class DualFightBean extends CommonBean implements BeanRenderWithApp
     public void beforeDisplaying() {
         trainer = (TempTrainer) getForms().getValPers(CST_PERSON);
         ally = getForms().getValAlly(CST_ALLY);
+        names = getForms().getValList(CST_NAMES);
         DataBase data_ = getDataBase();
         image = data_.getTrainer(trainer.getImageMaxiFileName());
         imageMini = data_.getPerson(trainer.getImageMiniFileName());
