@@ -129,6 +129,11 @@ public class EffectDamageBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayEmpty(getHitsLaw(), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_HIT_LAW_CONST,Long.toString(getNbHits()));
         new BeanDisplayMap<Long,Rate>(new BeanDisplayLong(),new BeanDisplayRate()).displayGrid(this, getHitsLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_HIT_LAW,MessagesDataEffdamage.M_P_45_EVENT_NB_HITS,MessagesDataEffdamage.M_P_45_RATE_EVENT);

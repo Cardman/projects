@@ -15,6 +15,11 @@ public class EffectWinMoneyBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_WINMONEY,MessagesDataEffwinmoney.M_P_70_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         formatMessage(MessagesPkBean.EFF_WINMONEY, MessagesDataEffwinmoney.M_P_70_WIN_MONEY,getWinningRateBySumTargetUser().toNumberString());
     }

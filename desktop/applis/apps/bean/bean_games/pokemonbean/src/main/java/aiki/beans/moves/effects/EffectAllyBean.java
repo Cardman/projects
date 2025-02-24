@@ -15,6 +15,11 @@ public class EffectAllyBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_ALLY,MessagesDataEffally.M_P_38_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         formatMessage(MessagesPkBean.EFF_ALLY, MessagesDataEffally.M_P_38_MUL_ALLY_DAMAGE,getMultAllyDamage().toNumberString());
     }

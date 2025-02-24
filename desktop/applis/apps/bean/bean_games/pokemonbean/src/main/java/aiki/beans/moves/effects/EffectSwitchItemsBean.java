@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectSwitchItems;
 import aiki.fight.moves.effects.enums.MoveItemType;
 import code.scripts.pages.aiki.MessagesDataEffswitchitems;
+import code.scripts.pages.aiki.MessagesPkBean;
 
 public class EffectSwitchItemsBean extends EffectBean {
 
@@ -12,6 +13,11 @@ public class EffectSwitchItemsBean extends EffectBean {
         super.beforeDisplaying();
         EffectSwitchItems effect_ = (EffectSwitchItems) getEffect();
         moveObject = effect_.getMoveObject();
+    }
+
+    @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_SWITCHITEMS,MessagesDataEffswitchitems.M_P_61_EFFECT);
     }
 
     @Override

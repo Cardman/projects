@@ -110,6 +110,11 @@ public class EffectGlobalBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolFull(toInt(getEffectGlobalCore().getWeather()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_IS_WEATHER,MessagesDataEffglobal.M_P_49_IS_NOT_WEATHER);
         displayBoolTrue(toInt(getEffectGlobalCore().getCanceledIfUsed()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_CANCEL_REUSE);

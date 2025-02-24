@@ -14,6 +14,11 @@ public class EffectCopyFighterBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_COPYFIGHTER,MessagesDataEffcopyfighter.M_P_42_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         formatMessage(MessagesPkBean.EFF_COPYFIGHTER, MessagesDataEffcopyfighter.M_P_42_PP_MOVES,Long.toString(getPpForMoves()));
     }

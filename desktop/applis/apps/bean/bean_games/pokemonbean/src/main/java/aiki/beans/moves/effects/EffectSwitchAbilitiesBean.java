@@ -20,6 +20,11 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         procExchangeType(getExchangeAbility(),ExchangeType.GIVE_TO_TARGET, MessagesDataEffswitchabilities.M_P_60_GIVE_TO_TARGET);
         procExchangeType(getExchangeAbility(),ExchangeType.GIVE_TO_THROWER,MessagesDataEffswitchabilities.M_P_60_GIVE_TO_USER);

@@ -14,6 +14,11 @@ public class EffectVarPPBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_VARPP,MessagesDataEffvarpp.M_P_69_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         formatMessage(MessagesPkBean.EFF_VARPP, MessagesDataEffvarpp.M_P_69_DELETE_PP,Long.toString(getDeletePp()));
     }

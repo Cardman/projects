@@ -55,6 +55,11 @@ public class EffectInvokeBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolTrue(toInt(getInvokingMoveButUser()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_BUT_USER);
         displayBoolTrue(toInt(getInvokingTargetChosenMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_TARGET_CHOSEN_MOVE);

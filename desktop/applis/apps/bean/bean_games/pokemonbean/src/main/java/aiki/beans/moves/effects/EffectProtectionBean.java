@@ -25,6 +25,11 @@ public class EffectProtectionBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_PROTECTION,MessagesDataEffprotection.M_P_55_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolTrue(toInt(getProtSingle()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE);
         displayIntDef(getProtSingleAgainstKo(), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE_KO);

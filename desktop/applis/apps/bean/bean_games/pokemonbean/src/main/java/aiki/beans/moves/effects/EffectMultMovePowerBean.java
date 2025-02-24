@@ -29,6 +29,15 @@ public class EffectMultMovePowerBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        if (getEffect() instanceof EffectMultSufferedMovePower) {
+            formatMessage(MessagesPkBean.EFF_MULTSUFFEREDMOVEPOWER,MessagesDataEffmultsufferedmovepower.M_P_51_EFFECT);
+        } else  {
+            formatMessage(MessagesPkBean.EFF_MULTUSEDMOVEPOWER,MessagesDataEffmultusedmovepower.M_P_52_EFFECT);
+        }
+    }
+
+    @Override
     public void buildSubEff() {
         if (getEffect() instanceof EffectMultSufferedMovePower) {
             new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, getMultMovePowerFctType(), MessagesPkBean.EFF_MULTSUFFEREDMOVEPOWER, MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_TYPE,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_RATE);

@@ -36,6 +36,11 @@ public class EffectCloneBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT,getHpRateClone().toNumberString());
+    }
+
+    @Override
     public void buildSubEff() {
         formatMessage(MessagesPkBean.EFF_CLONE, MessagesDataEffclone.M_P_40_EFFECT_2);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getMovesEndRound(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_3);

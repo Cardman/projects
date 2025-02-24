@@ -17,6 +17,11 @@ public class EffectRemainedHpRateBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_REMAINEDHPRATE,MessagesDataEffremainedhprate.M_P_56_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolFull(toInt(getWinHp()), MessagesPkBean.EFF_REMAINEDHPRATE, MessagesDataEffremainedhprate.M_P_56_RATE_WIN,MessagesDataEffremainedhprate.M_P_56_RATE_LOOSE,getRateHp().toNumberString());
     }

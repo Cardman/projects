@@ -31,6 +31,13 @@ public class EffectCopyMoveBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_EFFECT);
+        formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT);
+        formatMessageDir(getDefaultMove());
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolTrue(toInt(copyMoveForUser()), MessagesPkBean.EFF_COPYMOVE, MessagesDataEffcopymove.M_P_43_COPY_TMP_MOVE, getDisplayName(),Long.toString(getCopyingMoveForUser()));
         if (getCopyingMoveForUserDef()) {

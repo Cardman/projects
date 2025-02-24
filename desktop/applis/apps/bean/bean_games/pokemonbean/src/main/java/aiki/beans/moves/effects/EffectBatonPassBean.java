@@ -26,6 +26,11 @@ public class EffectBatonPassBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_BATONPASS,MessagesDataEffbatonpass.M_P_39_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getMoves(), MessagesPkBean.EFF_BATONPASS, MessagesDataEffbatonpass.M_P_39_EFFECT_2);
     }

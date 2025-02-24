@@ -60,6 +60,11 @@ public class EffectSwitchTypesBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolTrue(toInt(isResTypes()), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_RES_MOVES);
         displayBoolTrue(toInt(isUserTypes()), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_USER_MOVES);

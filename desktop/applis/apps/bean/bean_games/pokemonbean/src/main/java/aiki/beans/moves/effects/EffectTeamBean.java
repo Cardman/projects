@@ -91,6 +91,11 @@ public class EffectTeamBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolTrue(toInt(getForbiddingHealing()), MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_FORBID_HEAL);
         displayBoolTrue(toInt(getProtectAgainstCh()), MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_PROTECT_AG_CH);

@@ -17,6 +17,11 @@ public class EffectDamageRateBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_DAMAGERATE,MessagesDataEffdamagerate.M_P_46_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolFull(toInt(getWinHp()), MessagesPkBean.EFF_DAMAGERATE, MessagesDataEffdamagerate.M_P_46_POS_RATE,MessagesDataEffdamagerate.M_P_46_NEG_RATE,getRateDamage().toNumberString());
     }

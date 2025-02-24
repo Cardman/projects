@@ -82,6 +82,11 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayNotEmpty(getDamageRateAgainstFoe(), MessagesPkBean.EFF_TEAMWHILESENDINGFOE, MessagesDataEffteamwhilesendingfoe.M_P_67_DAMAGE_RATE_AGAINST_FOE);
         mapVarsInit(getMapVarsDamageSentFoe());

@@ -44,6 +44,11 @@ public class EffectCommonStatisticsBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_COMMONSTATISTICS,MessagesDataEffcommonstatistics.M_P_41_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,getCommonValue(), MessagesPkBean.EFF_COMMONSTATISTICS, MessagesDataEffcommonstatistics.M_P_41_COMMON,MessagesDataEffcommonstatistics.M_P_41_COMMON_STAT,MessagesDataEffcommonstatistics.M_P_41_COMMON_VALUE);
         mapVarsInit(getMapVarsCommonStatistics());

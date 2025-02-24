@@ -17,6 +17,11 @@ public class EffectProtectFromTypesBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_PROTECTFROMTYPES,MessagesDataEffprotectfromtypes.M_P_54_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getImmuAgainstTypes(), MessagesPkBean.EFF_PROTECTFROMTYPES, MessagesDataEffprotectfromtypes.M_P_54_IMMU_MOVE_TYPES);
     }

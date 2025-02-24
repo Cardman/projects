@@ -37,6 +37,11 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getReplacingTypes(), MessagesPkBean.EFF_SWITCHMOVESTYPES, MessagesDataEffswitchmovestypes.M_P_62_REPLACING_TYPES);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).displayHead(this,getChangeTypes().getKeys(), NumberUtil.signum(getReplacingTypes().size()),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_CHANGING_TYPE_POSSIBLE);

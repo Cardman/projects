@@ -55,6 +55,11 @@ public class EffectStatusBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         if (!getLawStatus().isEmpty()) {
             new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_OTHER_STATUS),new BeanDisplayStatRankRate(false, true)).displayGrid(this,getLawStatus(),MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_LAW_STATUS,MessagesDataEffstatus.M_P_59_STATUS,MessagesDataEffstatus.M_P_59_FAIL,MessagesDataEffstatus.M_P_59_RATE_EVENT);

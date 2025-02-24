@@ -14,6 +14,11 @@ public class EffectOrderBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_ORDER,MessagesDataEfforder.M_P_53_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayBoolFull(toInt(getTargetAttacksLast()), MessagesPkBean.EFF_ORDER, MessagesDataEfforder.M_P_53_LAST,MessagesDataEfforder.M_P_53_AFTER_USER);
     }

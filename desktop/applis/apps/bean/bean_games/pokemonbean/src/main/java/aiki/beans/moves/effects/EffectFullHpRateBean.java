@@ -38,6 +38,11 @@ public class EffectFullHpRateBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_FULLHPRATE,MessagesDataEfffullhprate.M_P_48_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         displayIntDef(getLeftUserHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP);
         displayNotEmpty(getRestoredHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_RESTORED);

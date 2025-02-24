@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectRestriction;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import code.scripts.pages.aiki.MessagesDataEffrestriction;
+import code.scripts.pages.aiki.MessagesPkBean;
 
 public class EffectRestrictionBean extends EffectBean {
     private boolean forbidTargetUsingItem;
@@ -14,6 +15,13 @@ public class EffectRestrictionBean extends EffectBean {
         EffectRestriction effect_ = (EffectRestriction) getEffect();
         forbidTargetUsingItem = effect_.getForbidTargetUsingItem();
         choiceRestriction = effect_.getChoiceRestriction();
+    }
+
+    @Override
+    public void buildSubEffPre() {
+        displayBoolTrue(toInt(getForbidTargetUsingItem()), MessagesPkBean.EFF_RESTRICTION, MessagesDataEffrestriction.M_P_57_EFFECT_ITEM);
+        displayBoolTrue(toInt(getForbidTargetUsingItem()), MessagesPkBean.EFF_RESTRICTION, MessagesDataEffrestriction.M_P_57_EFFECT_ITEM_2);
+        displayBoolTrue(toInt(forbid()), MessagesPkBean.EFF_RESTRICTION, MessagesDataEffrestriction.M_P_57_EFFECT_MOVE);
     }
 
     @Override

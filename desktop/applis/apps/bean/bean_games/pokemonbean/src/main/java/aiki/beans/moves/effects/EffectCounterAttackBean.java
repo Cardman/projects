@@ -85,6 +85,11 @@ public class EffectCounterAttackBean extends EffectBean {
     }
 
     @Override
+    public void buildSubEffPre() {
+        formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_EFFECT);
+    }
+
+    @Override
     public void buildSubEff() {
         new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGridParam(this, getSufferingDamageTypes(),new String[]{getMove()}, MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_T,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_HP);
         new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGridParam(this, getDroppedStatDirectMove(),new String[]{getMove()},MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_S,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_V);
