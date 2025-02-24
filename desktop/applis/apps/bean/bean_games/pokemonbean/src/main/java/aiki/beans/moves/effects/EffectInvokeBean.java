@@ -10,8 +10,11 @@ import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataEffinvoke;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public class EffectInvokeBean extends EffectBean {
     private DictionaryComparator<TranslatedKey, TranslatedKey> moveFctEnv;
@@ -49,6 +52,22 @@ public class EffectInvokeBean extends EffectBean {
         rateInvokationMove = effect_.getRateInvokationMove();
         movesNotToBeInvoked = listTrStringsMv(effect_.getMovesNotToBeInvoked(),getFacade());
         invokingMoveByUserTypes = invokingMoveByUserTypes(effect_);
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayBoolTrue(toInt(getInvokingMoveButUser()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_BUT_USER);
+        displayBoolTrue(toInt(getInvokingTargetChosenMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_TARGET_CHOSEN_MOVE);
+        displayBoolTrue(toInt(getInvokingUserMoveWhileSleep()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_USER_MOVE_WHILE_SLEEP);
+        displayBoolTrue(toInt(getInvokingAllyMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_PART);
+        displayBoolTrue(toInt(getInvokingTargetSuccesfulMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_SUCCESS_TARGET);
+        displayBoolTrue(toInt(getInvokingSufferedMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_SUFFERED_MOVE);
+        displayIntDef(getRateInvokationMove(), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_RATE_INVOKE_MOVE);
+        new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this,getMoveFctEnv(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVE_FCT_ENV,MessagesDataEffinvoke.M_P_50_ENV_TYPE,MessagesDataEffinvoke.M_P_50_INVOKED_MOVE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getGlobalMoves(), NumberUtil.signum(getMoveFctEnv().size()),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVE_FCT_ENV_EXC);
+        new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_OTHER_OWNED_TYPE),new BeanDisplayTranslatedKey()).displayGrid(this,getInvokingMoveByUserTypes(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_TYPE,MessagesDataEffinvoke.M_P_50_OWNED_TYPE,MessagesDataEffinvoke.M_P_50_INVOKED_MOVE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getMovesNotToBeInvoked(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVES_NOT_INVOKED);
+
     }
 
     private DictionaryComparator<TranslatedKey, TranslatedKey> invokingMoveByUserTypes(Effect _eff) {

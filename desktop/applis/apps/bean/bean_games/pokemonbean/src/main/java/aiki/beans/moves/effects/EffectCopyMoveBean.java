@@ -3,6 +3,8 @@ import aiki.beans.*;
 import aiki.db.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
+import code.scripts.pages.aiki.MessagesDataEffcopymove;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 
@@ -26,6 +28,19 @@ public class EffectCopyMoveBean extends EffectBean {
         displayName = translatedMoves_.getVal(getMove());
         defaultMove = buildMv(getFacade(),data_.getDefMove());
         movesTransforming = listTrStringsMv(movesTransforming(data_),getFacade());
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayBoolTrue(toInt(copyMoveForUser()), MessagesPkBean.EFF_COPYMOVE, MessagesDataEffcopymove.M_P_43_COPY_TMP_MOVE, getDisplayName(),Long.toString(getCopyingMoveForUser()));
+        if (getCopyingMoveForUserDef()) {
+            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT_2);
+            formatMessageDir(getDefaultMove());
+            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE, getDisplayName());
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, getMovesTransforming());
+            displayEmpty(getMovesTransforming(), MessagesPkBean.EFF_COPYMOVE, MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS, getDisplayName());
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, getMovesNotToBeCopied(),MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_MOVES_NOT_COPIED);
+        }
     }
 
     public static StringList movesTransforming(DataBase _data) {

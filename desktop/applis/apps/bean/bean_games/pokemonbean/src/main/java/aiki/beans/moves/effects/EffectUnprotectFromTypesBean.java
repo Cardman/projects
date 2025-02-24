@@ -5,6 +5,8 @@ import aiki.beans.abilities.*;
 import aiki.beans.facade.comparators.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
+import code.scripts.pages.aiki.MessagesDataEffunprotectfromtypes;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectUnprotectFromTypesBean extends EffectBean {
@@ -52,6 +54,15 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
 //        attackTargetWithTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         attackTargetWithTypes = listTrStringsTy(effect_.getAttackTargetWithTypes(),getFacade());
     }
+
+    @Override
+    public void buildSubEff() {
+        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,getTypes(), MessagesPkBean.EFF_UNPROTECTFROMTYPES, MessagesDataEffunprotectfromtypes.M_P_68_TYPES,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_DAMAG,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_PK);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableImmuAgainstTypes(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_TYPES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableImmuFromMoves(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_FROM_MOVES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getAttackTargetWithTypes(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_ATTACK_TARGET_TYPES);
+    }
+
     public String getTrDamageType(int _index) {
         return types.get(_index).getFirst().getTranslation();
 //        DataBase data_ = getDataBase();

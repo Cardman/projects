@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectSwitchPointView;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
+import code.scripts.pages.aiki.MessagesDataEffswitchpointview;
 
 public class EffectSwitchPointViewBean extends EffectBean {
 
@@ -12,6 +13,14 @@ public class EffectSwitchPointViewBean extends EffectBean {
         EffectSwitchPointView effect_ = (EffectSwitchPointView) getEffect();
         pointViewChangement = effect_.getPointViewChangement();
     }
+
+    @Override
+    public void buildSubEff() {
+        procPointViewChangementType(getPointViewChangement(),PointViewChangementType.THIEF_BONUSES, MessagesDataEffswitchpointview.M_P_63_THIEF,getMove());
+        procPointViewChangementType(getPointViewChangement(),PointViewChangementType.MIRROR_AGAINST_THROWER,MessagesDataEffswitchpointview.M_P_63_MIRROR,getMove());
+        procPointViewChangementType(getPointViewChangement(),PointViewChangementType.ATTRACT_DAMAGES_MOVES,MessagesDataEffswitchpointview.M_P_63_ATTRACT);
+    }
+
     public boolean thieveBonus() {
         return pointViewChangement == PointViewChangementType.THIEF_BONUSES;
     }

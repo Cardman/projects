@@ -1,11 +1,16 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.BeanDisplayMap;
+import aiki.beans.BeanDisplayString;
+import aiki.beans.BeanDisplayTranslatedKey;
 import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCommonStatistics;
+import code.scripts.pages.aiki.MessagesDataEffcommonstatistics;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.NatStringTreeMap;
 
 public class EffectCommonStatisticsBean extends EffectBean {
@@ -37,6 +42,13 @@ public class EffectCommonStatisticsBean extends EffectBean {
         commonValue = commonValue_;
         mapVarsCommonStatistics = mapVarsCommonStatistics_;
     }
+
+    @Override
+    public void buildSubEff() {
+        new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,getCommonValue(), MessagesPkBean.EFF_COMMONSTATISTICS, MessagesDataEffcommonstatistics.M_P_41_COMMON,MessagesDataEffcommonstatistics.M_P_41_COMMON_STAT,MessagesDataEffcommonstatistics.M_P_41_COMMON_VALUE);
+        mapVarsInit(getMapVarsCommonStatistics());
+    }
+
     public String getTrStatistic(int _index) {
         return commonValue.getKey(_index).getTranslation();
 //        Statistic st_ = commonValue.getKey(_index);

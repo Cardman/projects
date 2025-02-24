@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.TranslatedKey;
+import aiki.beans.*;
 import aiki.comparators.ComparingTranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -8,6 +8,8 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectDamage;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataEffdamage;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectDamageBean extends EffectBean {
@@ -124,6 +126,57 @@ public class EffectDamageBean extends EffectBean {
         summingUserTeamOkFighter = effect_.getSummingUserTeamOkFighter();
         randMax = effect_.getRandMax();
         mapVarsDamage = mapVarsAccuracy_;
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayEmpty(getHitsLaw(), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_HIT_LAW_CONST,Long.toString(getNbHits()));
+        new BeanDisplayMap<Long,Rate>(new BeanDisplayLong(),new BeanDisplayRate()).displayGrid(this, getHitsLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_HIT_LAW,MessagesDataEffdamage.M_P_45_EVENT_NB_HITS,MessagesDataEffdamage.M_P_45_RATE_EVENT);
+        displayBoolTrue(toInt(getConstDamage()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_CONST_DAMAGE,getPower());
+        int condDet_ = toInt(hasLawForDamage())*toInt(!getConstDamage());
+//        if (hasLawForDamage()) {
+        if (condDet_ == TRUE_VALUE) {
+            displayBoolTrue(toInt(hasDeterminatedLawForDamage()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_DAMAG_LAW_CONST,getPower());
+            if (!hasDeterminatedLawForDamage()) {
+                new BeanDisplayMap<String,Rate>(new BeanDisplayString(),new BeanDisplayRate()).displayGrid(this, getDamageLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAG_LAW,MessagesDataEffdamage.M_P_45_EVENT,MessagesDataEffdamage.M_P_45_RATE_EVENT);
+            }
+            mapVarsInit(getMapVarsDamage());
+        }
+        if (!getConstDamage()) {
+//            if (hasLawForDamage()) {
+//                displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(hasDeterminatedLawForDamage()),MessagesDataEffdamage.M_P_45_DAMAG_LAW_CONST,getPower());
+//                if (!hasDeterminatedLawForDamage()) {
+//                    new BeanDisplayMap<String,Rate>(new BeanDisplayString(),new BeanDisplayRate()).displayGrid(this, getDamageLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAG_LAW,MessagesDataEffdamage.M_P_45_EVENT,MessagesDataEffdamage.M_P_45_RATE_EVENT);
+//                }
+//                mapVarsInit(getMapVarsDamage());
+//            }
+            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this, getMultDamageAgainst(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAGE_MULT_COUNTER,MessagesDataEffdamage.M_P_45_CATEGORY,MessagesDataEffdamage.M_P_45_RATE);
+//            if (constPower()) {
+//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(hasConstPower()),MessagesDataEffdamage.M_P_45_CONST_POWER,MessagesDataEffdamage.M_P_45_VAR_POWER,getPower());
+//                mapVarsInit(getMapVarsDamage());
+//                formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_RATE,Long.toString(getChRate()));
+//                new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this, getChLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_LAW,MessagesDataEffdamage.M_P_45_EVENT_RATE,MessagesDataEffdamage.M_P_45_RATE);
+//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(getUserAttack()),MessagesDataEffdamage.M_P_45_ATTACK_USER,MessagesDataEffdamage.M_P_45_ATTACK_TARGET,getStatisAtt());
+//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(getTargetDefense()),MessagesDataEffdamage.M_P_45_DEFENSE_TARGET,MessagesDataEffdamage.M_P_45_DEFENSE_USER,getStatisDef());
+//                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getIgnVarStatTargetPos(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_POS_STAT);
+//                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getIgnVarStatUserNeg(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_NEG_STAT);
+//                displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(getRandMax()),MessagesDataEffdamage.M_P_45_RAND_MAX);
+//            }
+        }
+        int cond_ = toInt(constPower())*toInt(!getConstDamage());
+        if (cond_ == TRUE_VALUE) {
+            displayBoolFull(toInt(hasConstPower()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_CONST_POWER,MessagesDataEffdamage.M_P_45_VAR_POWER,getPower());
+            mapVarsInit(getMapVarsDamage());
+            formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_RATE,Long.toString(getChRate()));
+            new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this, getChLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_LAW,MessagesDataEffdamage.M_P_45_EVENT_RATE,MessagesDataEffdamage.M_P_45_RATE);
+            displayBoolFull(toInt(getUserAttack()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_ATTACK_USER,MessagesDataEffdamage.M_P_45_ATTACK_TARGET,getStatisAtt());
+            displayBoolFull(toInt(getTargetDefense()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_DEFENSE_TARGET,MessagesDataEffdamage.M_P_45_DEFENSE_USER,getStatisDef());
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getIgnVarStatTargetPos(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_POS_STAT);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getIgnVarStatUserNeg(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_NEG_STAT);
+            displayBoolTrue(toInt(getRandMax()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_RAND_MAX);
+        }
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this, getBoostStatisOnceKoFoe(), MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_BOOST_STATIS_ONCE_KO_FOE, MessagesDataEffdamage.M_P_45_STATISTIC, MessagesDataEffdamage.M_P_45_BOOST);
+        displayBoolTrue(toInt(getSummingUserTeamOkFighter()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_SUMMING_TEAM);
     }
     public boolean hasLawForDamage() {
         EffectDamage effect_ = (EffectDamage) getEffect();

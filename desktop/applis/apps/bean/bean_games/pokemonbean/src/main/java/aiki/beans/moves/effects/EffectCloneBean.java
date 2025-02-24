@@ -5,6 +5,8 @@ import aiki.db.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import code.maths.*;
+import code.scripts.pages.aiki.MessagesDataEffclone;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectCloneBean extends EffectBean {
@@ -32,6 +34,27 @@ public class EffectCloneBean extends EffectBean {
         movesSending_.removeDuplicates();
         movesSending = listTrStringsMv(movesSending_,getFacade());
     }
+
+    @Override
+    public void buildSubEff() {
+        formatMessage(MessagesPkBean.EFF_CLONE, MessagesDataEffclone.M_P_40_EFFECT_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getMovesEndRound(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_3);
+//        batonPassSending(this);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, getMovesBatonPass(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, getMovesSending(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_5);
+        formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_6);
+        formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_7);
+        formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_8);
+        formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_9);
+    }
+
+//    private void batonPassSending(EffectCloneBean _sub) {
+////        if (NumberUtil.signum(_sub.getMovesBatonPass().size()) * NumberUtil.signum(_sub.getMovesSending().size()) == 0) {
+////            return;
+////        }
+//        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesBatonPass(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_4);
+//        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesSending(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_5);
+//    }
 
     public static StringList movesSending(DataBase _data) {
         StringList movesSending_;

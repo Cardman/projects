@@ -1,6 +1,5 @@
 package aiki.beans;
 
-import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.fight.TrPkMoveTarget;
@@ -224,9 +223,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         displayStringList(_sub.getReasons(), MessagesPkBean.EFF, MessagesDataEff.M_P_36_REASONS);
         mapVarsInit(_sub.getMapVarsFail());
         displayBoolTrue(toInt(_sub.getNeedSuccessFirstEffect()), MessagesPkBean.EFF, MessagesDataEff.M_P_36_NEED_SUCESS);
-        eff1(_sub);
-        eff2(_sub);
-        eff3(_sub);
+        _sub.buildSubEff();
     }
 
     protected EffectWhileSendingBean displaySend(EffectWhileSendingWithStatistic _s) {
@@ -252,235 +249,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return send_;
     }
 
-    private void eff1(EffectBean _sub) {
-        if (_sub.getEffect() instanceof EffectAccuracy) {
-            formatMessage(MessagesPkBean.EFF_ACCURACY,MessagesDataEffaccuracy.M_P_37_ACCURACY_MAX);
-        }
-        if (_sub instanceof EffectAllyBean) {
-            formatMessage(MessagesPkBean.EFF_ALLY,MessagesDataEffally.M_P_38_MUL_ALLY_DAMAGE,((EffectAllyBean)_sub).getMultAllyDamage().toNumberString());
-        }
-        if (_sub instanceof EffectBatonPassBean) {
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectBatonPassBean)_sub).getMoves(),MessagesPkBean.EFF_BATONPASS,MessagesDataEffbatonpass.M_P_39_EFFECT_2);
-        }
-        if (_sub instanceof EffectCloneBean) {
-            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_2);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectCloneBean)_sub).getMovesEndRound(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_3);
-            batonPassSending((EffectCloneBean) _sub);
-            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_6);
-            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_7);
-            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_8);
-            formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_9);
-        }
-        if (_sub instanceof EffectCommonStatisticsBean) {
-            new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,((EffectCommonStatisticsBean)_sub).getCommonValue(),MessagesPkBean.EFF_COMMONSTATISTICS,MessagesDataEffcommonstatistics.M_P_41_COMMON,MessagesDataEffcommonstatistics.M_P_41_COMMON_STAT,MessagesDataEffcommonstatistics.M_P_41_COMMON_VALUE);
-            mapVarsInit(((EffectCommonStatisticsBean)_sub).getMapVarsCommonStatistics());
-        }
-        if (_sub instanceof EffectCopyFighterBean) {
-            formatMessage(MessagesPkBean.EFF_COPYFIGHTER,MessagesDataEffcopyfighter.M_P_42_PP_MOVES,Long.toString(((EffectCopyFighterBean)_sub).getPpForMoves()));
-        }
-        if (_sub instanceof EffectCopyMoveBean) {
-            effCopy((EffectCopyMoveBean) _sub);
-        }
-        if (_sub instanceof EffectCounterAttackBean) {
-            effCounter((EffectCounterAttackBean) _sub);
-        }
-        if (_sub instanceof EffectDamageBean) {
-            effDam((EffectDamageBean) _sub);
-        }
-        if (_sub instanceof EffectDamageRateBean) {
-            displayBoolFull(toInt(((EffectDamageRateBean)_sub).getWinHp()), MessagesPkBean.EFF_DAMAGERATE, MessagesDataEffdamagerate.M_P_46_POS_RATE,MessagesDataEffdamagerate.M_P_46_NEG_RATE,((EffectDamageRateBean)_sub).getRateDamage().toNumberString());
-        }
-        if (_sub instanceof EffectEndRoundMoveBean) {
-            endRound((EffectEndRoundMoveBean)_sub);
-        }
-        if (_sub instanceof EffectFullHpRateBean) {
-            displayIntDef(((EffectFullHpRateBean)_sub).getLeftUserHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP);
-            displayNotEmpty(((EffectFullHpRateBean)_sub).getRestoredHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_RESTORED);
-            mapVarsInit(((EffectFullHpRateBean)_sub).getMapVarsRestored());
-            displayIntDef(((EffectFullHpRateBean)_sub).getClosestFoeDamageRateHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP);
-        }
-        if (_sub instanceof EffectGlobalBean) {
-            displayBoolFull(toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getWeather()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_IS_WEATHER,MessagesDataEffglobal.M_P_49_IS_NOT_WEATHER);
-            displayBoolTrue(toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getCanceledIfUsed()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_CANCEL_REUSE);
-            displayBoolTrue(toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getReverseOrderOfSortBySpeed()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_REVERSE_SPEED);
-            displayBoolTrue(toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getUnusableItem()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_UNUSABLE_ITEM);
-            displayBoolTrue(toInt(((EffectGlobalBean)_sub).getEffectGlobalCore().getPuttingKo()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_PUTTING_KO);
-            displayIntDef(((EffectGlobalBean)_sub).getEffectGlobalCore().getMultAccuracy(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_MULT_ACC);
-            displayIntDef(((EffectGlobalBean)_sub).getEffectGlobalCore().getDamageEndRound(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_DAMAGE_END_ROUND);
-            displayIntDef(((EffectGlobalBean)_sub).getEffectGlobalCore().getHealingEndRoundGround(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_GROUND);
-            displayIntDef(((EffectGlobalBean)_sub).getEffectGlobalCore().getHealingEndRound(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_HEALING_END_ROUND);
-            displayIntDef(((EffectGlobalBean)_sub).getMultEffectLovingAlly(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_MULT_LOVE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getPreventStatus(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_FORBID_STATUS);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getImmuneTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
-            new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getEfficiencyMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_EFFICIENCY_TABLE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE,MessagesDataEffglobal.M_P_49_EFFICIENCY);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getDisableImmuAgainstTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_TYPES);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelProtectingAbilities(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_ABILITIES);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getUnusableMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_UNUSABLE_MOVES);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelEffects(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_EFFECTS);
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultPowerMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean)_sub).getMultDamageTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getCancelChgtStat(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS);
-//            displayNotEmpty(MessagesPkBean.EFF_GLOBAL,((EffectGlobalBean)_sub).getInvokedMoveTerrain().getTranslation(),MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
-//            formatMessageDir(((EffectGlobalBean)_sub).getInvokedMoveTerrain());
-            formatTrKey(((EffectGlobalBean)_sub).getInvokedMoveTerrain(),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean)_sub).getInvokingMoves(),NumberUtil.signum(((EffectGlobalBean)_sub).getInvokedMoveTerrain().getKey().length()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_INVOKED_MOVE_ENV);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getChangedTypesTerrain(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKED);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getInvokingMovesChangingTypes(),NumberUtil.signum(((EffectGlobalBean)_sub).getChangedTypesTerrain().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKING);
-            new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean) _sub).getMultStatIfContainsType(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_STAT_TYPE,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT,MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectGlobalBean) _sub).getMovesUsedByTargetedFighters(),NumberUtil.signum(((EffectGlobalBean) _sub).getMultDamagePrepaRound().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE);
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this,((EffectGlobalBean) _sub).getMultDamagePrepaRound(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_RATE);
-        }
-        if (_sub instanceof EffectInvokeBean) {
-            displayBoolTrue(toInt(((EffectInvokeBean)_sub).getInvokingMoveButUser()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_BUT_USER);
-            displayBoolTrue(toInt(((EffectInvokeBean)_sub).getInvokingTargetChosenMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_TARGET_CHOSEN_MOVE);
-            displayBoolTrue(toInt(((EffectInvokeBean)_sub).getInvokingUserMoveWhileSleep()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_USER_MOVE_WHILE_SLEEP);
-            displayBoolTrue(toInt(((EffectInvokeBean)_sub).getInvokingAllyMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_PART);
-            displayBoolTrue(toInt(((EffectInvokeBean)_sub).getInvokingTargetSuccesfulMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_SUCCESS_TARGET);
-            displayBoolTrue(toInt(((EffectInvokeBean)_sub).getInvokingSufferedMove()), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_INVOKE_SUFFERED_MOVE);
-            displayIntDef(((EffectInvokeBean)_sub).getRateInvokationMove(), MessagesPkBean.EFF_INVOKE, MessagesDataEffinvoke.M_P_50_RATE_INVOKE_MOVE);
-            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this,((EffectInvokeBean)_sub).getMoveFctEnv(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVE_FCT_ENV,MessagesDataEffinvoke.M_P_50_ENV_TYPE,MessagesDataEffinvoke.M_P_50_INVOKED_MOVE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectInvokeBean) _sub).getGlobalMoves(),NumberUtil.signum(((EffectInvokeBean) _sub).getMoveFctEnv().size()),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVE_FCT_ENV_EXC);
-            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_OTHER_OWNED_TYPE),new BeanDisplayTranslatedKey()).displayGrid(this,((EffectInvokeBean)_sub).getInvokingMoveByUserTypes(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_INVOKE_MOVE_TYPE,MessagesDataEffinvoke.M_P_50_OWNED_TYPE,MessagesDataEffinvoke.M_P_50_INVOKED_MOVE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectInvokeBean) _sub).getMovesNotToBeInvoked(),MessagesPkBean.EFF_INVOKE,MessagesDataEffinvoke.M_P_50_MOVES_NOT_INVOKED);
-        }
-        if (_sub instanceof EffectMultMovePowerBean) {
-            effMult((EffectMultMovePowerBean) _sub);
-        }
-    }
 
-    private void endRound(EffectEndRoundMoveBean _sub) {
-        formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(_sub.getEndRoundRank()));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_ENDROUND);
-        display(_sub.getReasonsEndRound(), MessagesPkBean.EFF_ENDROUND, MessagesDataEffendround.M_P_47_REASONS);
-        displayStringList(_sub.getReasonsEndRound());
-        mapVarsInit(_sub.getMapVarsFailEndRound());
-    }
-
-    private void eff2(EffectBean _sub) {
-        if (_sub instanceof EffectOrderBean) {
-            displayBoolFull(toInt(((EffectOrderBean)_sub).getTargetAttacksLast()), MessagesPkBean.EFF_ORDER, MessagesDataEfforder.M_P_53_LAST,MessagesDataEfforder.M_P_53_AFTER_USER);
-        }
-        if (_sub instanceof EffectProtectFromTypesBean) {
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectProtectFromTypesBean)_sub).getImmuAgainstTypes(),MessagesPkBean.EFF_PROTECTFROMTYPES,MessagesDataEffprotectfromtypes.M_P_54_IMMU_MOVE_TYPES);
-        }
-        if (_sub instanceof EffectProtectionBean) {
-            displayBoolTrue(toInt(((EffectProtectionBean)_sub).getProtSingle()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE);
-            displayIntDef(((EffectProtectionBean)_sub).getProtSingleAgainstKo(), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE_KO);
-            displayBoolTrue(toInt(((EffectProtectionBean)_sub).getProtTeamAgainstMultTargets()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_MULTI_TARGETS);
-            displayBoolTrue(toInt(((EffectProtectionBean)_sub).getProtTeamAgainstPrio()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_PRIO);
-            displayBoolTrue(toInt(((EffectProtectionBean)_sub).getProtTeamAgainstStatusMoves()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE_STATUS);
-            displayBoolTrue(toInt(((EffectProtectionBean)_sub).getProtTeamAgainstDamageMoves()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE_DAMAGE);
-        }
-        if (_sub instanceof EffectRemainedHpRateBean) {
-            displayBoolFull(toInt(((EffectRemainedHpRateBean)_sub).getWinHp()), MessagesPkBean.EFF_REMAINEDHPRATE, MessagesDataEffremainedhprate.M_P_56_RATE_WIN,MessagesDataEffremainedhprate.M_P_56_RATE_LOOSE,((EffectRemainedHpRateBean)_sub).getRateHp().toNumberString());
-        }
-        if (_sub instanceof EffectRestrictionBean) {
-            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.CATEGORIE_AUTRE,MessagesDataEffrestriction.M_P_57_FORBID_STATUS_MOVE);
-            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.DER,MessagesDataEffrestriction.M_P_57_FORBID_LAST_MOVE);
-            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.LANCEUR_ATTAQUES,MessagesDataEffrestriction.M_P_57_FORBID_USER_MOVES);
-            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.FORBIDDEN,MessagesDataEffrestriction.M_P_57_FORBID_USE_LAST_MOVE);
-            procMoveChoiceRestrictionType(((EffectRestrictionBean)_sub).getChoiceRestriction(),MoveChoiceRestrictionType.FORCE,MessagesDataEffrestriction.M_P_57_FORCE_USE_LAST_MOVE);
-        }
-        if (_sub instanceof EffectStatisticBean) {
-            effStatis((EffectStatisticBean) _sub);
-        }
-        if (_sub instanceof EffectStatusBean) {
-            effStatus((EffectStatusBean) _sub);
-        }
-        if (_sub instanceof EffectSwitchAbilitiesBean) {
-            swAb((EffectSwitchAbilitiesBean) _sub);
-        }
-        if (_sub instanceof EffectSwitchItemsBean) {
-            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.DELETE_DEF_TARGET_BERRY,MessagesDataEffswitchitems.M_P_61_DELETE_BERRY);
-            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.TAKE_OBJET,MessagesDataEffswitchitems.M_P_61_TAKE_ITEM);
-            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.REMOVE_TARGET_OBJECT,MessagesDataEffswitchitems.M_P_61_REMOVE_ITEM);
-            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.EXCHANGE_OBJECTS,MessagesDataEffswitchitems.M_P_61_SWITCH_ITEMS);
-            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.REUSE_LAST_OBJECT,MessagesDataEffswitchitems.M_P_61_REUSE_ITEM);
-            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.GIVE_OBJECT_TARGET,MessagesDataEffswitchitems.M_P_61_GIVE_TO_TARGET);
-            procExchangeType(((EffectSwitchItemsBean)_sub).getMoveObject(),MoveItemType.USE_OBJECT_AS_POSSIBLE,MessagesDataEffswitchitems.M_P_61_USE_ITEM_IF_POSSIBLE);
-        }
-        if (_sub instanceof EffectSwitchMoveTypesBean) {
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectSwitchMoveTypesBean)_sub).getReplacingTypes(),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_REPLACING_TYPES);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).displayHead(this,((EffectSwitchMoveTypesBean)_sub).getChangeTypes().getKeys(),NumberUtil.signum(((EffectSwitchMoveTypesBean)_sub).getReplacingTypes().size()),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_CHANGING_TYPE_POSSIBLE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).displayHead(this,((EffectSwitchMoveTypesBean)_sub).getChangeTypes().getKeys(),1-NumberUtil.signum(((EffectSwitchMoveTypesBean)_sub).getReplacingTypes().size()),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_CHANGING_TYPE);
-            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this,((EffectSwitchMoveTypesBean)_sub).getChangeTypes(),MessagesPkBean.EFF_SWITCHMOVESTYPES,"",MessagesDataEffswitchmovestypes.M_P_62_OLD_TYPE,MessagesDataEffswitchmovestypes.M_P_62_NEW_TYPE);
-        }
-        if (_sub instanceof EffectSwitchPointViewBean) {
-            procPointViewChangementType(((EffectSwitchPointViewBean)_sub).getPointViewChangement(),PointViewChangementType.THIEF_BONUSES,MessagesDataEffswitchpointview.M_P_63_THIEF,_sub.getMove());
-            procPointViewChangementType(((EffectSwitchPointViewBean)_sub).getPointViewChangement(),PointViewChangementType.MIRROR_AGAINST_THROWER,MessagesDataEffswitchpointview.M_P_63_MIRROR,_sub.getMove());
-            procPointViewChangementType(((EffectSwitchPointViewBean)_sub).getPointViewChangement(),PointViewChangementType.ATTRACT_DAMAGES_MOVES,MessagesDataEffswitchpointview.M_P_63_ATTRACT);
-        }
-        if (_sub instanceof EffectSwitchTypesBean) {
-            swTy((EffectSwitchTypesBean) _sub);
-        }
-        if (_sub instanceof EffectTeamBean) {
-            displayBoolTrue(toInt(((EffectTeamBean)_sub).getForbiddingHealing()), MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_FORBID_HEAL);
-            displayBoolTrue(toInt(((EffectTeamBean)_sub).getProtectAgainstCh()), MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_PROTECT_AG_CH);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getForbiddenBoost(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_FORBID_BOOST);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getCancelChgtStatFoeTeam(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT_FOE,Long.toString(((EffectTeamBean)_sub).getDefaultBoost()));
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getCancelChgtStatTeam(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT,Long.toString(((EffectTeamBean)_sub).getDefaultBoost()));
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getProtectAgainstLowStat(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_PROTECT_AG_LAW_STATIS);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getProtectAgainstStatus(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_PROTECT_AG_STATUS);
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectTeamBean)_sub).getMultStatistic(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_MULT_STAT,MessagesDataEffteam.M_P_66_STATISTIC,MessagesDataEffteam.M_P_66_RATE);
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,((EffectTeamBean)_sub).getMultStatisticFoe(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_MULT_STAT_FOE,MessagesDataEffteam.M_P_66_STATISTIC,MessagesDataEffteam.M_P_66_RATE);
-            new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,((EffectTeamBean)_sub).getMultDamage(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_MULT_DAMAGE,MessagesDataEffteam.M_P_66_CAT,MessagesDataEffteam.M_P_66_MULT,MessagesDataEffteam.M_P_66_RATE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getUnusableMoves(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_FORBID_MOVE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getDisableFoeTeamEffects(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_DELETE_EFFECTS);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamBean)_sub).getDisableFoeTeamStatus(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_DELETE_STATUS);
-        }
-        if (_sub instanceof EffectTeamWhileSendFoeBean) {
-            displayNotEmpty(((EffectTeamWhileSendFoeBean)_sub).getDamageRateAgainstFoe(), MessagesPkBean.EFF_TEAMWHILESENDINGFOE, MessagesDataEffteamwhilesendingfoe.M_P_67_DAMAGE_RATE_AGAINST_FOE);
-            mapVarsInit(((EffectTeamWhileSendFoeBean)_sub).getMapVarsDamageSentFoe());
-            new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,((EffectTeamWhileSendFoeBean)_sub).getStatistics(),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTICS,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTIC,MessagesDataEffteamwhilesendingfoe.M_P_67_BOOST);
-            new BeanDisplayMap<Long,TranslatedKey>(new BeanDisplayLong(), new BeanDisplayTranslatedKey()).displayGrid(this,((EffectTeamWhileSendFoeBean)_sub).getStatusByNbUses(),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS_IF_NB,MessagesDataEffteamwhilesendingfoe.M_P_67_NB_USES,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS);
-            displayStringList(((EffectTeamWhileSendFoeBean)_sub).getReasonsSending(), MessagesPkBean.EFF_TEAMWHILESENDINGFOE, MessagesDataEffteamwhilesendingfoe.M_P_67_REASONS_SENDING);
-            mapVarsInit(((EffectTeamWhileSendFoeBean)_sub).getMapVarsFailSending());
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectTeamWhileSendFoeBean)_sub).getDeletedByFoeTypes(),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_DELETE_STATUS_IF_TYPES);
-        }
-    }
-    private void eff3(EffectBean _sub) {
-        if (_sub instanceof EffectUnprotectFromTypesBean) {
-            new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,((EffectUnprotectFromTypesBean)_sub).getTypes(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_TYPES,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_DAMAG,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_PK);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectUnprotectFromTypesBean)_sub).getDisableImmuAgainstTypes(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_TYPES);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectUnprotectFromTypesBean)_sub).getDisableImmuFromMoves(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_FROM_MOVES);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,((EffectUnprotectFromTypesBean)_sub).getAttackTargetWithTypes(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_ATTACK_TARGET_TYPES);
-        }
-        if (_sub instanceof EffectVarPPBean) {
-            formatMessage(MessagesPkBean.EFF_VARPP,MessagesDataEffvarpp.M_P_69_DELETE_PP,Long.toString(((EffectVarPPBean)_sub).getDeletePp()));
-        }
-        if (_sub instanceof EffectWinMoneyBean) {
-            formatMessage(MessagesPkBean.EFF_WINMONEY,MessagesDataEffwinmoney.M_P_70_WIN_MONEY,((EffectWinMoneyBean)_sub).getWinningRateBySumTargetUser().toNumberString());
-        }
-    }
-    private void swTy(EffectSwitchTypesBean _sub) {
-        displayBoolTrue(toInt(_sub.isResTypes()), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_RES_MOVES);
-        displayBoolTrue(toInt(_sub.isUserTypes()), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_USER_MOVES);
-        if (!_sub.isConstTypes()) {
-            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this, _sub.getChgtTypeByEnv(), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_ENVIR,MessagesDataEffswitchtypes.M_P_65_ENVIR_ENV,MessagesDataEffswitchtypes.M_P_65_ENVIR_TYPE);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getGlobalMoves(),NumberUtil.signum(_sub.getChgtTypeByEnv().size()),MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_ENVIR_ENV_EXC);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getAddedTypes(),MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_ADDED_TYPES);
-            procExchangeType(_sub.getExchangeTypes(),ExchangeType.GIVE_TO_TARGET,_sub.getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES_NOT_CONST_TARGET);
-            procExchangeType(_sub.getExchangeTypes(),ExchangeType.GIVE_TO_THROWER,_sub.getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES_NOT_CONST_USER);
-            procExchangeType(_sub.getExchangeTypes(),ExchangeType.EXCHANGE,_sub.getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_SWITCH_TYPES);
-            procExchangeType(_sub.getExchangeTypes(),ExchangeType.GIVE_CONST,_sub.getAddedTypes(),_sub.getConstTypes(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES);
-        }
-    }
-
-    private void swAb(EffectSwitchAbilitiesBean _sub) {
-        procExchangeType(_sub.getExchangeAbility(),ExchangeType.GIVE_TO_TARGET,MessagesDataEffswitchabilities.M_P_60_GIVE_TO_TARGET);
-        procExchangeType(_sub.getExchangeAbility(),ExchangeType.GIVE_TO_THROWER,MessagesDataEffswitchabilities.M_P_60_GIVE_TO_USER);
-        procExchangeType(_sub.getExchangeAbility(),ExchangeType.EXCHANGE,MessagesDataEffswitchabilities.M_P_60_SWICTH_ABILITIES);
-        if (_sub.giveConst()) {
-//            formatMessageDir(_sub.getConstAbility());
-            formatTrKey(_sub.getConstAbility(),MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST_EMPTY,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST);
-//            if (_sub.isDefAbility()) {
-//                formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST);
-//                formatMessageDir(_sub.getConstAbility());
-//            } else {
-//                formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST_EMPTY);
-//            }
-        }
-    }
     protected void formatTrKey(TranslatedKey _key,String _file,String _empty, String _fill) {
         if (!_key.getKey().isEmpty()) {
             formatMessage(_file,_fill);
@@ -493,35 +262,32 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //        formatMessageDir(_key);
     }
 
-    private void procMoveChoiceRestrictionType(MoveChoiceRestrictionType _value, MoveChoiceRestrictionType _cst, String _key) {
+    protected void procMoveChoiceRestrictionType(MoveChoiceRestrictionType _value, MoveChoiceRestrictionType _cst, String _key) {
         if (_value == _cst) {
             formatMessage(MessagesPkBean.EFF_RESTRICTION,_key);
         }
     }
-    private void procExchangeType(ExchangeType _value, ExchangeType _cst, String _key) {
+    protected void procExchangeType(ExchangeType _value, ExchangeType _cst, String _key) {
         if (_value == _cst) {
             formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,_key);
         }
     }
-    private void procExchangeType(MoveItemType _value, MoveItemType _cst, String _key) {
+    protected void procExchangeType(MoveItemType _value, MoveItemType _cst, String _key) {
         if (_value == _cst) {
             formatMessage(MessagesPkBean.EFF_SWITCHITEMS,_key);
         }
     }
 
-    private void procPointViewChangementType(PointViewChangementType _value, PointViewChangementType _cst, String _key, String... _values) {
+    protected void procPointViewChangementType(PointViewChangementType _value, PointViewChangementType _cst, String _key, String... _values) {
         if (_value == _cst) {
             formatMessage(MessagesPkBean.EFF_SWITCHPOINTVIEW,_key,_values);
         }
     }
-    private void procExchangeType(ExchangeType _value, ExchangeType _cst, CustList<TranslatedKey> _addedTypes, CustList<TranslatedKey> _constTypes, String _key) {
+    protected void procExchangeType(ExchangeType _value, ExchangeType _cst, CustList<TranslatedKey> _addedTypes, CustList<TranslatedKey> _constTypes, String _key) {
         if (_value == _cst) {
             displayBoolTrue(1-NumberUtil.signum(_addedTypes.size()), MessagesPkBean.EFF_SWITCHTYPES, _key);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_constTypes,1-NumberUtil.signum(_addedTypes.size()),MessagesPkBean.EFF_SWITCHTYPES,"");
         }
-    }
-    private void effStatis(EffectStatisticBean _sub) {
-        effStatis(_sub.getEffectStatisticCommon());
     }
     protected void effStatis(EffectStatisticCommon _sub) {
         if (!_sub.randomStatis()) {
@@ -545,104 +311,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCancelChgtStat());
         display(_sub.getCopyBoost(), MessagesPkBean.EFF_STATIS, MessagesDataEffstatis.M_P_58_COPY_BOOST,Long.toString(_sub.getDefaultBoost()));
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCopyBoost());
-    }
-    private void effStatus(EffectStatusBean _sub) {
-        if (!_sub.getLawStatus().isEmpty()) {
-            new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_OTHER_STATUS),new BeanDisplayStatRankRate(false, true)).displayGrid(this,_sub.getLawStatus(),MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_LAW_STATUS,MessagesDataEffstatus.M_P_59_STATUS,MessagesDataEffstatus.M_P_59_FAIL,MessagesDataEffstatus.M_P_59_RATE_EVENT);
-            mapVarsInit(_sub.getMapVarsStatus());
-        }
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getDeletedStatus(), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_DELETED_STATUS);
-        displayBoolTrue(toInt(_sub.getKoUserHealSubst()), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_KO_USER);
-        displayBoolTrue(toInt(_sub.getStatusFromUser()), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_FORWARD);
-    }
-    private void effMult(EffectMultMovePowerBean _sub) {
-        if (_sub.getEffect() instanceof EffectMultSufferedMovePower) {
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, _sub.getMultMovePowerFctType(),MessagesPkBean.EFF_MULTSUFFEREDMOVEPOWER,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_TYPE,MessagesDataEffmultsufferedmovepower.M_P_51_MULT_POWER_RATE);
-        } else {
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this, _sub.getMultMovePowerFctType(),MessagesPkBean.EFF_MULTUSEDMOVEPOWER,MessagesDataEffmultusedmovepower.M_P_52_MULT_POWER,MessagesDataEffmultusedmovepower.M_P_52_MULT_POWER_TYPE,MessagesDataEffmultusedmovepower.M_P_52_MULT_POWER_RATE);
-        }
-    }
-
-    private void effDam(EffectDamageBean _sub) {
-        displayEmpty(_sub.getHitsLaw(), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_HIT_LAW_CONST,Long.toString(_sub.getNbHits()));
-        new BeanDisplayMap<Long,Rate>(new BeanDisplayLong(),new BeanDisplayRate()).displayGrid(this, _sub.getHitsLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_HIT_LAW,MessagesDataEffdamage.M_P_45_EVENT_NB_HITS,MessagesDataEffdamage.M_P_45_RATE_EVENT);
-        displayBoolTrue(toInt(_sub.getConstDamage()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_CONST_DAMAGE,_sub.getPower());
-        int condDet_ = toInt(_sub.hasLawForDamage())*toInt(!_sub.getConstDamage());
-//        if (_sub.hasLawForDamage()) {
-        if (condDet_ == TRUE_VALUE) {
-            displayBoolTrue(toInt(_sub.hasDeterminatedLawForDamage()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_DAMAG_LAW_CONST,_sub.getPower());
-            if (!_sub.hasDeterminatedLawForDamage()) {
-                new BeanDisplayMap<String,Rate>(new BeanDisplayString(),new BeanDisplayRate()).displayGrid(this, _sub.getDamageLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAG_LAW,MessagesDataEffdamage.M_P_45_EVENT,MessagesDataEffdamage.M_P_45_RATE_EVENT);
-            }
-            mapVarsInit(_sub.getMapVarsDamage());
-        }
-        if (!_sub.getConstDamage()) {
-//            if (_sub.hasLawForDamage()) {
-//                displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.hasDeterminatedLawForDamage()),MessagesDataEffdamage.M_P_45_DAMAG_LAW_CONST,_sub.getPower());
-//                if (!_sub.hasDeterminatedLawForDamage()) {
-//                    new BeanDisplayMap<String,Rate>(new BeanDisplayString(),new BeanDisplayRate()).displayGrid(this, _sub.getDamageLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAG_LAW,MessagesDataEffdamage.M_P_45_EVENT,MessagesDataEffdamage.M_P_45_RATE_EVENT);
-//                }
-//                mapVarsInit(_sub.getMapVarsDamage());
-//            }
-            new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this, _sub.getMultDamageAgainst(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_DAMAGE_MULT_COUNTER,MessagesDataEffdamage.M_P_45_CATEGORY,MessagesDataEffdamage.M_P_45_RATE);
-//            if (_sub.constPower()) {
-//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.hasConstPower()),MessagesDataEffdamage.M_P_45_CONST_POWER,MessagesDataEffdamage.M_P_45_VAR_POWER,_sub.getPower());
-//                mapVarsInit(_sub.getMapVarsDamage());
-//                formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_RATE,Long.toString(_sub.getChRate()));
-//                new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this, _sub.getChLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_LAW,MessagesDataEffdamage.M_P_45_EVENT_RATE,MessagesDataEffdamage.M_P_45_RATE);
-//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getUserAttack()),MessagesDataEffdamage.M_P_45_ATTACK_USER,MessagesDataEffdamage.M_P_45_ATTACK_TARGET,_sub.getStatisAtt());
-//                displayBoolFull(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getTargetDefense()),MessagesDataEffdamage.M_P_45_DEFENSE_TARGET,MessagesDataEffdamage.M_P_45_DEFENSE_USER,_sub.getStatisDef());
-//                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatTargetPos(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_POS_STAT);
-//                new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatUserNeg(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_NEG_STAT);
-//                displayBoolTrue(MessagesPkBean.EFF_DAMAGE,toInt(_sub.getRandMax()),MessagesDataEffdamage.M_P_45_RAND_MAX);
-//            }
-        }
-        int cond_ = toInt(_sub.constPower())*toInt(!_sub.getConstDamage());
-        if (cond_ == TRUE_VALUE) {
-            displayBoolFull(toInt(_sub.hasConstPower()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_CONST_POWER,MessagesDataEffdamage.M_P_45_VAR_POWER,_sub.getPower());
-            mapVarsInit(_sub.getMapVarsDamage());
-            formatMessage(MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_RATE,Long.toString(_sub.getChRate()));
-            new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this, _sub.getChLaw(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_CH_LAW,MessagesDataEffdamage.M_P_45_EVENT_RATE,MessagesDataEffdamage.M_P_45_RATE);
-            displayBoolFull(toInt(_sub.getUserAttack()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_ATTACK_USER,MessagesDataEffdamage.M_P_45_ATTACK_TARGET,_sub.getStatisAtt());
-            displayBoolFull(toInt(_sub.getTargetDefense()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_DEFENSE_TARGET,MessagesDataEffdamage.M_P_45_DEFENSE_USER,_sub.getStatisDef());
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatTargetPos(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_POS_STAT);
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,_sub.getIgnVarStatUserNeg(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_IGN_NEG_STAT);
-            displayBoolTrue(toInt(_sub.getRandMax()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_RAND_MAX);
-        }
-        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this, _sub.getBoostStatisOnceKoFoe(), MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_BOOST_STATIS_ONCE_KO_FOE, MessagesDataEffdamage.M_P_45_STATISTIC, MessagesDataEffdamage.M_P_45_BOOST);
-        displayBoolTrue(toInt(_sub.getSummingUserTeamOkFighter()), MessagesPkBean.EFF_DAMAGE, MessagesDataEffdamage.M_P_45_SUMMING_TEAM);
-    }
-
-    private void effCounter(EffectCounterAttackBean _sub) {
-        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGridParam(this, _sub.getSufferingDamageTypes(),new String[]{_sub.getMove()},MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_T,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_HP);
-        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGridParam(this, _sub.getDroppedStatDirectMove(),new String[]{_sub.getMove()},MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_S,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_V);
-//        if (!_sub.getSufferingDamageDirectMove().isZero()) {
-//            formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT, _sub.getMove(), _sub.getSufferingDamageDirectMove().toNumberString());
-//        }
-        displayIntDef(_sub.getSufferingDamageDirectMove(), MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT);
-        displayStringList(_sub.getReasonsProtect(), MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_FAIL_PROTECT, _sub.getMove());
-        displayStringList(_sub.getReasonsCounter(), MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_COUNTER_PROTECT, _sub.getMove());
-        mapVarsInit(_sub.getMapVarsFailCounter());
-    }
-
-    private void effCopy(EffectCopyMoveBean _sub) {
-        displayBoolTrue(toInt(_sub.copyMoveForUser()), MessagesPkBean.EFF_COPYMOVE, MessagesDataEffcopymove.M_P_43_COPY_TMP_MOVE, _sub.getDisplayName(),Long.toString(_sub.getCopyingMoveForUser()));
-        if (_sub.getCopyingMoveForUserDef()) {
-            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_NO_EFFECT_2);
-            formatMessageDir(_sub.getDefaultMove());
-            formatMessage(MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE, _sub.getDisplayName());
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesTransforming());
-            displayEmpty(_sub.getMovesTransforming(), MessagesPkBean.EFF_COPYMOVE, MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS, _sub.getDisplayName());
-            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesNotToBeCopied(),MessagesPkBean.EFF_COPYMOVE,MessagesDataEffcopymove.M_P_43_MOVES_NOT_COPIED);
-        }
-    }
-
-    private void batonPassSending(EffectCloneBean _sub) {
-//        if (NumberUtil.signum(_sub.getMovesBatonPass().size()) * NumberUtil.signum(_sub.getMovesSending().size()) == 0) {
-//            return;
-//        }
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesBatonPass(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_4);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getMovesSending(),MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_5);
     }
 
     private void preEff(EffectBean _sub) {

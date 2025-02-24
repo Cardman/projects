@@ -5,6 +5,8 @@ import aiki.comparators.*;
 import aiki.db.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
+import code.scripts.pages.aiki.MessagesDataEffstatus;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.*;
 
@@ -51,6 +53,18 @@ public class EffectStatusBean extends EffectBean {
         koUserHealSubst = effect_.getKoUserHealSubst();
         statusFromUser = effect_.getStatusFromUser();
     }
+
+    @Override
+    public void buildSubEff() {
+        if (!getLawStatus().isEmpty()) {
+            new BeanDisplayMap<TranslatedKey,StatRankRate>(new BeanDisplayTranslatedKey(MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_OTHER_STATUS),new BeanDisplayStatRankRate(false, true)).displayGrid(this,getLawStatus(),MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_LAW_STATUS,MessagesDataEffstatus.M_P_59_STATUS,MessagesDataEffstatus.M_P_59_FAIL,MessagesDataEffstatus.M_P_59_RATE_EVENT);
+            mapVarsInit(getMapVarsStatus());
+        }
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, getDeletedStatus(), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_DELETED_STATUS);
+        displayBoolTrue(toInt(getKoUserHealSubst()), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_KO_USER);
+        displayBoolTrue(toInt(getStatusFromUser()), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_FORWARD);
+    }
+
     public String clickLink(int _indexEffect, int _index) {
         return tryRedirect(((EffectStatusBean)getForms().getCurrentBean().get(_indexEffect)).lawStatus.getKey(_index));
     }

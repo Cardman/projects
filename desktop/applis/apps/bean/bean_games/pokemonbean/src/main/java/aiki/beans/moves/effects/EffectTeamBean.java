@@ -9,6 +9,8 @@ import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import code.maths.*;
+import code.scripts.pages.aiki.MessagesDataEffteam;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectTeamBean extends EffectBean {
@@ -86,6 +88,23 @@ public class EffectTeamBean extends EffectBean {
         unusableMoves = listTrStringsMv(effect_.getUnusableMoves(),getFacade());
         disableFoeTeamEffects = listTrStringsMv(effect_.getDisableFoeTeamEffects(),getFacade());
         disableFoeTeamStatus = listTrStringsSt(effect_.getDisableFoeTeamStatus(),getFacade());
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayBoolTrue(toInt(getForbiddingHealing()), MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_FORBID_HEAL);
+        displayBoolTrue(toInt(getProtectAgainstCh()), MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_PROTECT_AG_CH);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getForbiddenBoost(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_FORBID_BOOST);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelChgtStatFoeTeam(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT_FOE,Long.toString(getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelChgtStatTeam(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT,Long.toString(getDefaultBoost()));
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getProtectAgainstLowStat(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_PROTECT_AG_LAW_STATIS);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getProtectAgainstStatus(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_PROTECT_AG_STATUS);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultStatistic(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_MULT_STAT,MessagesDataEffteam.M_P_66_STATISTIC,MessagesDataEffteam.M_P_66_RATE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultStatisticFoe(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_MULT_STAT_FOE,MessagesDataEffteam.M_P_66_STATISTIC,MessagesDataEffteam.M_P_66_RATE);
+        new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,getMultDamage(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_MULT_DAMAGE,MessagesDataEffteam.M_P_66_CAT,MessagesDataEffteam.M_P_66_MULT,MessagesDataEffteam.M_P_66_RATE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getUnusableMoves(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_FORBID_MOVE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableFoeTeamEffects(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_DELETE_EFFECTS);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableFoeTeamStatus(),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_DELETE_STATUS);
     }
 
     public static TranslatedKeyPair build(FacadeGame _fac, CategoryMult _c) {

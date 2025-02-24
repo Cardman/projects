@@ -4,6 +4,8 @@ import aiki.db.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
+import code.scripts.pages.aiki.MessagesDataEffaccuracy;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectBean extends CommonBean {
@@ -23,6 +25,11 @@ public class EffectBean extends CommonBean {
         reasons = getFormattedReasons(data_, effect.getFail(), getLanguage());
         mapVarsFail = getMapVarsFail(data_, effect.getFail(), getLanguage());
         needSuccessFirstEffect = effect.getRequiredSuccessfulEffects().containsObj(move_.indexOfPrimaryEffect());
+    }
+    public void buildSubEff() {
+        if (getEffect() instanceof EffectAccuracy) {
+            formatMessage(MessagesPkBean.EFF_ACCURACY, MessagesDataEffaccuracy.M_P_37_ACCURACY_MAX);
+        }
     }
 
     public Effect getEffect() {

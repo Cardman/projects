@@ -1,13 +1,14 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
+import aiki.beans.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCounterAttack;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataEffcounterattack;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectCounterAttackBean extends EffectBean {
@@ -81,6 +82,19 @@ public class EffectCounterAttackBean extends EffectBean {
             mapVarsFail_.put(k, mapVars_.getVal(k));
         }
         mapVarsFailCounter = mapVarsFail_;
+    }
+
+    @Override
+    public void buildSubEff() {
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGridParam(this, getSufferingDamageTypes(),new String[]{getMove()}, MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_T,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_HP);
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGridParam(this, getDroppedStatDirectMove(),new String[]{getMove()},MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_S,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_V);
+//        if (!_sub.getSufferingDamageDirectMove().isZero()) {
+//            formatMessage(MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT, _sub.getMove(), _sub.getSufferingDamageDirectMove().toNumberString());
+//        }
+        displayIntDef(getSufferingDamageDirectMove(), MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT);
+        displayStringList(getReasonsProtect(), MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_FAIL_PROTECT, getMove());
+        displayStringList(getReasonsCounter(), MessagesPkBean.EFF_COUNTERATTACK, MessagesDataEffcounterattack.M_P_44_COUNTER_PROTECT, getMove());
+        mapVarsInit(getMapVarsFailCounter());
     }
 
     public NatStringTreeMap< String> getMapVarsFailCounter() {

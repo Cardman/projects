@@ -1,7 +1,11 @@
 package aiki.beans.moves.effects;
+import aiki.beans.BeanAnchorCstEvent;
 import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectEndRound;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesDataEffendround;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 
@@ -42,6 +46,15 @@ public class EffectEndRoundMoveBean extends EffectBean {
             mapVarsFail_.put(k, mapVars_.getVal(k));
         }
         mapVarsFailEndRound = mapVarsFail_;
+    }
+
+    @Override
+    public void buildSubEff() {
+        formatMessage(MessagesPkBean.EFF_ENDROUND, MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundRank()));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_ENDROUND);
+        display(getReasonsEndRound(), MessagesPkBean.EFF_ENDROUND, MessagesDataEffendround.M_P_47_REASONS);
+        displayStringList(getReasonsEndRound());
+        mapVarsInit(getMapVarsFailEndRound());
     }
 
     public long getEndRoundRank() {

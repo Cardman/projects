@@ -2,6 +2,8 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.*;
 import aiki.fight.moves.effects.*;
+import code.scripts.pages.aiki.MessagesDataEffprotectfromtypes;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectProtectFromTypesBean extends EffectBean {
@@ -13,6 +15,12 @@ public class EffectProtectFromTypesBean extends EffectBean {
         EffectProtectFromTypes effect_ = (EffectProtectFromTypes) getEffect();
         immuAgainstTypes = listTrStringsTy(effect_.getImmuAgainstTypes(),getFacade());
     }
+
+    @Override
+    public void buildSubEff() {
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getImmuAgainstTypes(), MessagesPkBean.EFF_PROTECTFROMTYPES, MessagesDataEffprotectfromtypes.M_P_54_IMMU_MOVE_TYPES);
+    }
+
     public String getTrType(int _index) {
         return immuAgainstTypes.get(_index).getTranslation();
 //        DataBase data_ = getDataBase();

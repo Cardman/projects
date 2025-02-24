@@ -10,7 +10,10 @@ import aiki.fight.moves.effects.EffectSwitchTypes;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.map.levels.enums.EnvironmentType;
+import code.scripts.pages.aiki.MessagesDataEffswitchtypes;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
+import code.util.core.NumberUtil;
 
 public class EffectSwitchTypesBean extends EffectBean {
     private DictionaryComparator<TranslatedKey, TranslatedKey> chgtTypeByEnv;
@@ -54,6 +57,21 @@ public class EffectSwitchTypesBean extends EffectBean {
 //        }
 //        addedTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         addedTypes = listTrStringsTy(effect_.getAddedTypes(),getFacade());
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayBoolTrue(toInt(isResTypes()), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_RES_MOVES);
+        displayBoolTrue(toInt(isUserTypes()), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_USER_MOVES);
+        if (!isConstTypes()) {
+            new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this, getChgtTypeByEnv(), MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_ENVIR,MessagesDataEffswitchtypes.M_P_65_ENVIR_ENV,MessagesDataEffswitchtypes.M_P_65_ENVIR_TYPE);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getGlobalMoves(), NumberUtil.signum(getChgtTypeByEnv().size()),MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_ENVIR_ENV_EXC);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getAddedTypes(),MessagesPkBean.EFF_SWITCHTYPES,MessagesDataEffswitchtypes.M_P_65_ADDED_TYPES);
+            procExchangeType(getExchangeTypes(),ExchangeType.GIVE_TO_TARGET,getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES_NOT_CONST_TARGET);
+            procExchangeType(getExchangeTypes(),ExchangeType.GIVE_TO_THROWER,getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES_NOT_CONST_USER);
+            procExchangeType(getExchangeTypes(),ExchangeType.EXCHANGE,getAddedTypes(),new CustList<TranslatedKey>(),MessagesDataEffswitchtypes.M_P_65_SWITCH_TYPES);
+            procExchangeType(getExchangeTypes(),ExchangeType.GIVE_CONST,getAddedTypes(),getConstTypes(),MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES);
+        }
     }
 
     public static StringList globalMoves(DataBase _data) {

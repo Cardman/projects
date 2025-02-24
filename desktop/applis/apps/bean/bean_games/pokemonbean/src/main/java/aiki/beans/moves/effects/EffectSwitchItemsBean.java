@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectSwitchItems;
 import aiki.fight.moves.effects.enums.MoveItemType;
+import code.scripts.pages.aiki.MessagesDataEffswitchitems;
 
 public class EffectSwitchItemsBean extends EffectBean {
 
@@ -12,6 +13,18 @@ public class EffectSwitchItemsBean extends EffectBean {
         EffectSwitchItems effect_ = (EffectSwitchItems) getEffect();
         moveObject = effect_.getMoveObject();
     }
+
+    @Override
+    public void buildSubEff() {
+        procExchangeType(getMoveObject(),MoveItemType.DELETE_DEF_TARGET_BERRY, MessagesDataEffswitchitems.M_P_61_DELETE_BERRY);
+        procExchangeType(getMoveObject(),MoveItemType.TAKE_OBJET,MessagesDataEffswitchitems.M_P_61_TAKE_ITEM);
+        procExchangeType(getMoveObject(),MoveItemType.REMOVE_TARGET_OBJECT,MessagesDataEffswitchitems.M_P_61_REMOVE_ITEM);
+        procExchangeType(getMoveObject(),MoveItemType.EXCHANGE_OBJECTS,MessagesDataEffswitchitems.M_P_61_SWITCH_ITEMS);
+        procExchangeType(getMoveObject(),MoveItemType.REUSE_LAST_OBJECT,MessagesDataEffswitchitems.M_P_61_REUSE_ITEM);
+        procExchangeType(getMoveObject(),MoveItemType.GIVE_OBJECT_TARGET,MessagesDataEffswitchitems.M_P_61_GIVE_TO_TARGET);
+        procExchangeType(getMoveObject(),MoveItemType.USE_OBJECT_AS_POSSIBLE,MessagesDataEffswitchitems.M_P_61_USE_ITEM_IF_POSSIBLE);
+    }
+
     public boolean takeItem() {
         return moveObject == MoveItemType.TAKE_OBJET;
     }

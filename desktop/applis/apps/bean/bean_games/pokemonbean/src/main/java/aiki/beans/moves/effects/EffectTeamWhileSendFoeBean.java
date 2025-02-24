@@ -1,12 +1,13 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.CommonBean;
-import aiki.beans.TranslatedKey;
+import aiki.beans.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
+import code.scripts.pages.aiki.MessagesDataEffteamwhilesendingfoe;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public class EffectTeamWhileSendFoeBean extends EffectBean {
@@ -78,6 +79,17 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
             mapVarsDamageSentFoe_.put(k, mapVars_.getVal(k));
         }
         mapVarsDamageSentFoe = mapVarsDamageSentFoe_;
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayNotEmpty(getDamageRateAgainstFoe(), MessagesPkBean.EFF_TEAMWHILESENDINGFOE, MessagesDataEffteamwhilesendingfoe.M_P_67_DAMAGE_RATE_AGAINST_FOE);
+        mapVarsInit(getMapVarsDamageSentFoe());
+        new BeanDisplayMap<TranslatedKey,Long>(new BeanDisplayTranslatedKey(),new BeanDisplayLong()).displayGrid(this,getStatistics(),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTICS,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTIC,MessagesDataEffteamwhilesendingfoe.M_P_67_BOOST);
+        new BeanDisplayMap<Long,TranslatedKey>(new BeanDisplayLong(), new BeanDisplayTranslatedKey()).displayGrid(this,getStatusByNbUses(),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS_IF_NB,MessagesDataEffteamwhilesendingfoe.M_P_67_NB_USES,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS);
+        displayStringList(getReasonsSending(), MessagesPkBean.EFF_TEAMWHILESENDINGFOE, MessagesDataEffteamwhilesendingfoe.M_P_67_REASONS_SENDING);
+        mapVarsInit(getMapVarsFailSending());
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDeletedByFoeTypes(),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_DELETE_STATUS_IF_TYPES);
     }
 
     private LongTreeMap<TranslatedKey> statusByNbUses(LongMap<String> _st) {

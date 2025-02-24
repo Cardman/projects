@@ -1,10 +1,16 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.BeanDisplayList;
+import aiki.beans.BeanDisplayMap;
+import aiki.beans.BeanDisplayTranslatedKey;
 import aiki.beans.TranslatedKey;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.fight.moves.effects.EffectSwitchMoveTypes;
+import code.scripts.pages.aiki.MessagesDataEffswitchmovestypes;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
+import code.util.core.NumberUtil;
 
 public class EffectSwitchMoveTypesBean extends EffectBean {
     private CustList<TranslatedKey> replacingTypes;
@@ -29,6 +35,15 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
         }
         changeTypes = changeTypes_;
     }
+
+    @Override
+    public void buildSubEff() {
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getReplacingTypes(), MessagesPkBean.EFF_SWITCHMOVESTYPES, MessagesDataEffswitchmovestypes.M_P_62_REPLACING_TYPES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).displayHead(this,getChangeTypes().getKeys(), NumberUtil.signum(getReplacingTypes().size()),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_CHANGING_TYPE_POSSIBLE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).displayHead(this,getChangeTypes().getKeys(),1-NumberUtil.signum(getReplacingTypes().size()),MessagesPkBean.EFF_SWITCHMOVESTYPES,MessagesDataEffswitchmovestypes.M_P_62_CHANGING_TYPE);
+        new BeanDisplayMap<TranslatedKey,TranslatedKey>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKey()).displayGrid(this,getChangeTypes(),MessagesPkBean.EFF_SWITCHMOVESTYPES,"",MessagesDataEffswitchmovestypes.M_P_62_OLD_TYPE,MessagesDataEffswitchmovestypes.M_P_62_NEW_TYPE);
+    }
+
     public String getTrReplacingTypes(int _index) {
         return replacingTypes.get(_index).getTranslation();
 //        DataBase data_ = getDataBase();

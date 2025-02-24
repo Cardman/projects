@@ -11,7 +11,10 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataEffglobal;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
+import code.util.core.NumberUtil;
 
 public class EffectGlobalBean extends EffectBean {
     private EffectGlobalCore effectGlobalCore;
@@ -104,6 +107,39 @@ public class EffectGlobalBean extends EffectBean {
         multStatIfContainsType = multStatIfContainsType_;
         multDamagePrepaRound = map(effect_.getMultDamagePrepaRound());
         movesUsedByTargetedFighters = listTrStringsMv(effect_.getMovesUsedByTargetedFighters(), getFacade());
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayBoolFull(toInt(getEffectGlobalCore().getWeather()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_IS_WEATHER,MessagesDataEffglobal.M_P_49_IS_NOT_WEATHER);
+        displayBoolTrue(toInt(getEffectGlobalCore().getCanceledIfUsed()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_CANCEL_REUSE);
+        displayBoolTrue(toInt(getEffectGlobalCore().getReverseOrderOfSortBySpeed()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_REVERSE_SPEED);
+        displayBoolTrue(toInt(getEffectGlobalCore().getUnusableItem()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_UNUSABLE_ITEM);
+        displayBoolTrue(toInt(getEffectGlobalCore().getPuttingKo()), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_PUTTING_KO);
+        displayIntDef(getEffectGlobalCore().getMultAccuracy(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_MULT_ACC);
+        displayIntDef(getEffectGlobalCore().getDamageEndRound(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_DAMAGE_END_ROUND);
+        displayIntDef(getEffectGlobalCore().getHealingEndRoundGround(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_GROUND);
+        displayIntDef(getEffectGlobalCore().getHealingEndRound(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_HEALING_END_ROUND);
+        displayIntDef(getMultEffectLovingAlly(), MessagesPkBean.EFF_GLOBAL, MessagesDataEffglobal.M_P_49_MULT_LOVE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getPreventStatus(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_FORBID_STATUS);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getImmuneTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES);
+        new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,getEfficiencyMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_EFFICIENCY_TABLE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE,MessagesDataEffglobal.M_P_49_EFFICIENCY);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableImmuAgainstTypes(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_TYPES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelProtectingAbilities(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_ABILITIES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getUnusableMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_UNUSABLE_MOVES);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelEffects(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_EFFECTS);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultPowerMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(),new BeanDisplayRate()).displayGrid(this,getMultDamageTypesMoves(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getCancelChgtStat(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS);
+//            displayNotEmpty(MessagesPkBean.EFF_GLOBAL,getInvokedMoveTerrain().getTranslation(),MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
+//            formatMessageDir(getInvokedMoveTerrain());
+        formatTrKey(getInvokedMoveTerrain(),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_INVOKED_MOVE);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getInvokingMoves(), NumberUtil.signum(getInvokedMoveTerrain().getKey().length()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_INVOKED_MOVE_ENV);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getChangedTypesTerrain(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKED);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getInvokingMovesChangingTypes(),NumberUtil.signum(getChangedTypesTerrain().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKING);
+        new BeanDisplayMap<TranslatedKeyPair,Rate>(new BeanDisplayTranslatedKeyPair(),new BeanDisplayRate()).displayGrid(this,getMultStatIfContainsType(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_STAT_TYPE,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT,MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getMovesUsedByTargetedFighters(),NumberUtil.signum(getMultDamagePrepaRound().size()),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE);
+        new BeanDisplayMap<TranslatedKey,Rate>(new BeanDisplayTranslatedKey(), new BeanDisplayRate()).displayGrid(this,getMultDamagePrepaRound(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_RATE);
     }
 
     private DictionaryComparator<TranslatedKey, Rate> multPowerMoves(EffectGlobal _eff) {

@@ -13,6 +13,11 @@ public class EffectStatisticBean extends EffectBean {
         effectStatisticCommon.init(getFacade(),getLanguage(),effect_, true);
     }
 
+    @Override
+    public void buildSubEff() {
+        effStatis(getEffectStatisticCommon());
+    }
+
     public EffectStatisticCommon getEffectStatisticCommon() {
         return effectStatisticCommon;
     }

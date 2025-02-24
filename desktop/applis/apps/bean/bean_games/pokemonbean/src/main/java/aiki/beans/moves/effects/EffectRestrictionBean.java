@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectRestriction;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
+import code.scripts.pages.aiki.MessagesDataEffrestriction;
 
 public class EffectRestrictionBean extends EffectBean {
     private boolean forbidTargetUsingItem;
@@ -14,6 +15,16 @@ public class EffectRestrictionBean extends EffectBean {
         forbidTargetUsingItem = effect_.getForbidTargetUsingItem();
         choiceRestriction = effect_.getChoiceRestriction();
     }
+
+    @Override
+    public void buildSubEff() {
+        procMoveChoiceRestrictionType(getChoiceRestriction(),MoveChoiceRestrictionType.CATEGORIE_AUTRE, MessagesDataEffrestriction.M_P_57_FORBID_STATUS_MOVE);
+        procMoveChoiceRestrictionType(getChoiceRestriction(),MoveChoiceRestrictionType.DER,MessagesDataEffrestriction.M_P_57_FORBID_LAST_MOVE);
+        procMoveChoiceRestrictionType(getChoiceRestriction(),MoveChoiceRestrictionType.LANCEUR_ATTAQUES,MessagesDataEffrestriction.M_P_57_FORBID_USER_MOVES);
+        procMoveChoiceRestrictionType(getChoiceRestriction(),MoveChoiceRestrictionType.FORBIDDEN,MessagesDataEffrestriction.M_P_57_FORBID_USE_LAST_MOVE);
+        procMoveChoiceRestrictionType(getChoiceRestriction(),MoveChoiceRestrictionType.FORCE,MessagesDataEffrestriction.M_P_57_FORCE_USE_LAST_MOVE);
+    }
+
     public boolean forbid() {
         return choiceRestriction != MoveChoiceRestrictionType.NOTHING;
     }

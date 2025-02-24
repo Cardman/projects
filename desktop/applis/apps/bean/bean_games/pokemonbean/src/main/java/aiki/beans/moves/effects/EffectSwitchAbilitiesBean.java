@@ -2,6 +2,8 @@ package aiki.beans.moves.effects;
 import aiki.beans.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.*;
+import code.scripts.pages.aiki.MessagesDataEffswitchabilities;
+import code.scripts.pages.aiki.MessagesPkBean;
 
 public class EffectSwitchAbilitiesBean extends EffectBean {
 
@@ -16,6 +18,24 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
         exchangeAbility = effect_.getExchangeAbility();
         constAbility = buildAb(getFacade(),effect_.getConstAbility());
     }
+
+    @Override
+    public void buildSubEff() {
+        procExchangeType(getExchangeAbility(),ExchangeType.GIVE_TO_TARGET, MessagesDataEffswitchabilities.M_P_60_GIVE_TO_TARGET);
+        procExchangeType(getExchangeAbility(),ExchangeType.GIVE_TO_THROWER,MessagesDataEffswitchabilities.M_P_60_GIVE_TO_USER);
+        procExchangeType(getExchangeAbility(),ExchangeType.EXCHANGE,MessagesDataEffswitchabilities.M_P_60_SWICTH_ABILITIES);
+        if (giveConst()) {
+//            formatMessageDir(getConstAbility());
+            formatTrKey(getConstAbility(), MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST_EMPTY,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST);
+//            if (isDefAbility()) {
+//                formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST);
+//                formatMessageDir(getConstAbility());
+//            } else {
+//                formatMessage(MessagesPkBean.EFF_SWITCHABILITIES,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST_EMPTY);
+//            }
+        }
+    }
+
     public boolean giveToTarget() {
         return exchangeAbility == ExchangeType.GIVE_TO_TARGET;
     }

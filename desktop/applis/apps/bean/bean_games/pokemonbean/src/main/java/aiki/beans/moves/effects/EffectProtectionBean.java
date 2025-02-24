@@ -1,6 +1,8 @@
 package aiki.beans.moves.effects;
 import aiki.fight.moves.effects.EffectProtection;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataEffprotection;
+import code.scripts.pages.aiki.MessagesPkBean;
 
 public class EffectProtectionBean extends EffectBean {
     private boolean protSingle;
@@ -20,6 +22,16 @@ public class EffectProtectionBean extends EffectBean {
         protTeamAgainstPrio = effect_.getProtTeamAgainstPrio();
         protTeamAgainstStatusMoves = effect_.isProtTeamAgainstStatusMoves();
         protTeamAgainstDamageMoves = effect_.isProtTeamAgainstDamageMoves();
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayBoolTrue(toInt(getProtSingle()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE);
+        displayIntDef(getProtSingleAgainstKo(), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE_KO);
+        displayBoolTrue(toInt(getProtTeamAgainstMultTargets()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_MULTI_TARGETS);
+        displayBoolTrue(toInt(getProtTeamAgainstPrio()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_PRIO);
+        displayBoolTrue(toInt(getProtTeamAgainstStatusMoves()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE_STATUS);
+        displayBoolTrue(toInt(getProtTeamAgainstDamageMoves()), MessagesPkBean.EFF_PROTECTION, MessagesDataEffprotection.M_P_55_PROT_SINGLE_DAMAGE);
     }
 
     public boolean getProtSingle() {

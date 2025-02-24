@@ -2,6 +2,8 @@ package aiki.beans.moves.effects;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectFullHpRate;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataEfffullhprate;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 
@@ -33,6 +35,14 @@ public class EffectFullHpRateBean extends EffectBean {
         }
         mapVarsRestored = mapVarsAccuracy_;
         closestFoeDamageRateHp = effect_.getClosestFoeDamageRateHp();
+    }
+
+    @Override
+    public void buildSubEff() {
+        displayIntDef(getLeftUserHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP);
+        displayNotEmpty(getRestoredHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_RESTORED);
+        mapVarsInit(getMapVarsRestored());
+        displayIntDef(getClosestFoeDamageRateHp(), MessagesPkBean.EFF_FULLHPRATE, MessagesDataEfffullhprate.M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP);
     }
 
     public Rate getLeftUserHp() {
