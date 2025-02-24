@@ -1,15 +1,40 @@
 package aiki.beans.map.elements;
 
 import aiki.beans.*;
+import aiki.facade.*;
 import aiki.map.levels.*;
 import aiki.map.pokemon.*;
+import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public class AreaBean extends CommonBean {
+public final class AreaBean extends CommonBean implements BeanRenderWithAppName {
     private AbsAreaApparition area;
     private CustList<TranslatedPkElements> walk;
     private CustList<TranslatedPkElements> fish;
+    public AreaBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_AREA));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this), MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
+        formatMessageDir(Long.toString(area.getAvgNbSteps()));
+        for (TranslatedPkElements p:walk) {
+            disTranslatedPkElements(p);
+        }
+        for (TranslatedPkElements p:fish) {
+            disTranslatedPkElements(p);
+        }
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.MAP).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         area = getForms().getValArea(CST_AREA);

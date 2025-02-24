@@ -151,7 +151,7 @@ public abstract class InitDbArea extends InitDbLevelMap{
     private static NaSt transitArea(int _no,PkData _pk, StringMap<NaSt> _all) {
         NaSt bean_ = transitLevelZero(2, _pk, _all);
         NaSt area_ = _all.getVal(AikiBeansMapStd.BEAN_AREA);
-        transit(_pk,new MapLevelBeanClickArea(),bean_,area_,_no);
+        transit(_pk,new MapLevelBeanClickArea(((AbsLevelBean) ((PokemonBeanStruct)bean_).getBean()),_no),bean_,area_);
         return area_;
     }
 }

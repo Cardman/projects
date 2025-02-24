@@ -83,7 +83,7 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
     private static NaSt transitPk(int _tile,PkData _pk, StringMap<NaSt> _all) {
         NaSt bean_ = transitLevel(3,0, _pk, _all);
         NaSt area_ = _all.getVal(AikiBeansMapStd.BEAN_LEG_PK);
-        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,area_,_tile);
+        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_tile),bean_,area_);
         return area_;
     }
     private static Ints mapInts() {

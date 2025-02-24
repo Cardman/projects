@@ -2,6 +2,10 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.db.*;
+import aiki.beans.map.characters.*;
+import aiki.beans.map.elements.AreaBean;
+import aiki.beans.map.elements.LegendaryPokemonBean;
+import aiki.beans.map.pokemon.PokemonTeamBean;
 import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.pokemon.*;
@@ -22,6 +26,11 @@ import aiki.util.Point;
 import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.util.*;
 
 public abstract class InitDbMap extends InitDbConstr {
@@ -213,7 +222,8 @@ public abstract class InitDbMap extends InitDbConstr {
     private static NaSt dispMap(PkData _pk) {
         StringMap<NaSt> all_ = beanToMap(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
-        beforeDisplaying(welcome_);
+//        beforeDisplaying(welcome_);
+        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
         return welcome_;
     }
 
@@ -225,9 +235,10 @@ public abstract class InitDbMap extends InitDbConstr {
 
     protected static NaSt transitLevel(int _place, int _level, PkData _pk, StringMap<NaSt> _all) {
         NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
-        beforeDisplaying(welcome_);
+//        beforeDisplaying(welcome_);
+        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
         NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
-        transit(_pk,new MapBeanClickLevel(),welcome_,moves_, _place, _level);
+        transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,_level),welcome_,moves_);
         return moves_;
     }
 
@@ -239,9 +250,10 @@ public abstract class InitDbMap extends InitDbConstr {
 
     protected static NaSt transitLevelZero(int _place, PkData _pk, StringMap<NaSt> _all) {
         NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
-        beforeDisplaying(welcome_);
+//        beforeDisplaying(welcome_);
+        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
         NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
-        transit(_pk,new MapBeanClickLevelZero(),welcome_,moves_, _place);
+        transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,0),welcome_,moves_);
         return moves_;
     }
 
@@ -257,17 +269,51 @@ public abstract class InitDbMap extends InitDbConstr {
     }*/
     public static StringMap<NaSt> beanToMap(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansMapStd.BEAN_GAME_MAP,_pk.beanMapBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_LEVEL_MAP,_pk.beanMapLevelBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_PK_TEAM,_pk.beanPokemonTeamBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_TRAINER_FIGHT,_pk.beanTrainerBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_ALLY,_pk.beanAllyBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_DUAL,_pk.beanDualFightBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_AREA,_pk.beanAreaBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_LEG_PK,_pk.beanLegendaryPokemonBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_DEALER,_pk.beanDealerBean(EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_SELLER,_pk.beanSellerBean(EN));
+        MapBean welcome_ = new MapBean();
+        welcome_.setFacade(_pk.getDataBase());
+        welcome_.setLanguage(EN);
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MAP,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.NPC,new TranslationsFile());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MAP,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.NPC,new TranslationsFile());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(welcome_.getFacade());
+        welcome_.setBuilder(bu_);
+        map_.addEntry(AikiBeansMapStd.BEAN_GAME_MAP, _pk.bean(welcome_, EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_LEVEL_MAP, _pk.bean(build(new MapLevelBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,bu_), EN));
+//        map_.addEntry(AikiBeansMapStd.BEAN_PK_TEAM, _pk.bean(build(new PokemonTeamBean(),bu_), EN));
+        TrainerBean trainer_ = new TrainerBean();
+        map_.addEntry(AikiBeansMapStd.BEAN_TRAINER_FIGHT, _pk.bean(build(trainer_,PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,bu_), EN));
+        _pk.bean(build(trainer_,PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,bu_), EN);
+//        map_.addEntry(AikiBeansMapStd.BEAN_ALLY, _pk.bean(build(new AllyBean(),bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_DUAL, _pk.bean(build(new DualFightBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_AREA, _pk.bean(build(new AreaBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_LEG_PK, _pk.bean(build(new LegendaryPokemonBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_DEALER, _pk.bean(build(new DealerBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_SELLER, _pk.bean(build(new SellerBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,bu_), EN));
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,welcome_);
         return map_;
+    }
+    protected static MapBean mainBean(StringMap<NaSt> _all) {
+        return (MapBean) ((PokemonBeanStruct)_all.getVal(AikiBeansMapStd.BEAN_GAME_MAP)).getBean();
+    }
+    protected static BeanRenderWithAppName bean(StringMap<NaSt> _all, String _lk) {
+        return mainBean(_all).getBuilder().getRenders().getVal(_lk);
+    }
+    private static CommonBean build(BeanRenderWithAppName _c,String _k, MockBeanBuilderHelper _bu) {
+        _c.setBuilder(_bu);
+        _bu.getRenders().addEntry(_k,_c);
+        return (CommonBean) _c;
     }
     public static StringMap<String> mappingToMap() {
         StringMap<String> map_ = new StringMap<String>();

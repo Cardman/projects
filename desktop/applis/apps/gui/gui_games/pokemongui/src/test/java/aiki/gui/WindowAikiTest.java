@@ -212,8 +212,10 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.colCount(1);
         IntBeanChgString txt_ = new DefBeanGeneInput(h_, window_.getFrames()).newText();
         txt_.setupValue(txt_.tryRet());
-        h_.formatMessageDirCts("",new BeanAnchorCstEvent("",new PokedexBean()));
+        BeanAnchorCstEvent evt_ = new BeanAnchorCstEvent("", new PokedexBean());
+        h_.formatMessageDirCts("", evt_);
         h_.addImgCts(new int[1][1],"");
+        h_.addImgCtsAnc(new int[1][1],"", evt_);
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 

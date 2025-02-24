@@ -65,4 +65,10 @@ public final class MockBeanBuilderHelper extends IntBeanBuilderHelper {
         setRowGroup(getRowGroup());
         incColIndex();
     }
+
+    @Override
+    public void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e) {
+        getAnchors().add(_e);
+        incColIndex();
+    }
 }

@@ -1,6 +1,9 @@
 package aiki.beans.map;
 
+import aiki.beans.AbsLevelBean;
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.CommonBean;
+import aiki.beans.PokemonBeanStruct;
 import aiki.util.Coords;
 import code.bean.nat.*;
 
@@ -84,7 +87,7 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return getValPlaceLevelId(bean_);
     }
     public static String callMapLevelBeanClickTileOnMap(NaSt _str, int _tile) {
-        return navigateData(new MapLevelBeanClickTileOnMap(),_str,_tile);
+        return navigateData(new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)_str).getBean(),_tile),_str,_tile);
     }
 
     public static NaSt callMapLevelBeanClickTileOnMapStruct(NaSt _str, int _tile) {
@@ -205,7 +208,8 @@ public abstract class InitDbLevelMap extends InitDbMap {
     }
 
     public static String callMapLevelBeanClickAreaOnMap(int _place, int _tile) {
-        return navigateData(new MapLevelBeanClickAreaOnMap(),dispMapLevelZero(_place),_tile);
+        NaSt level_ = dispMapLevelZero(_place);
+        return navigateData(new MapLevelBeanClickAreaOnMap((AbsLevelBean)((PokemonBeanStruct)level_).getBean(),_tile), level_);
     }
 
     public static NaSt callMapLevelBeanWhiteTilesGet(int _place) {
@@ -217,7 +221,8 @@ public abstract class InitDbLevelMap extends InitDbMap {
     }
 
     public static String callMapLevelBeanClickNeighbour(int _place, int _index) {
-        return navigateData(new MapLevelBeanClickNeighbour(),dispMapLevelZero(_place),_index);
+        NaSt lev_ = dispMapLevelZero(_place);
+        return navigateData(new MapLevelBeanClickNeighbour((AbsLevelBean) ((PokemonBeanStruct)lev_).getBean(),_index), lev_);
     }
     public static NaSt callMapLevelBeanAreas(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanAreas(),dispMapLevelZero(_place));

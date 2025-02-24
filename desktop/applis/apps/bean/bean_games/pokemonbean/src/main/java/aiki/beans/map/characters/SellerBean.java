@@ -2,14 +2,33 @@ package aiki.beans.map.characters;
 
 import aiki.beans.*;
 import aiki.db.*;
+import aiki.facade.*;
 import aiki.map.characters.*;
+import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public class SellerBean extends CommonBean {
+public final class SellerBean extends CommonBean implements BeanRenderWithAppName{
 
     private CustList<TranslatedKey> items;
     private CustList<TranslatedKey> allTm;
+    public SellerBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_SELLER));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this), MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,items);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,allTm);
+    }
 
+    public StringMap<String> file() {
+        return file(MessagesPkBean.MAP).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         Seller seller_ = (Seller) getForms().getValPers(CST_PERSON);

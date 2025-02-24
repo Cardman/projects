@@ -5,6 +5,7 @@ import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.game.ImgPkPlayer;
+import aiki.beans.map.elements.TranslatedPkElements;
 import aiki.beans.moves.effects.*;
 import aiki.beans.pokemon.evolutions.*;
 import aiki.comparators.*;
@@ -188,6 +189,20 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             return Rate.zero();
         }
         return _law.normalizedRate(BoolVal.TRUE);
+    }
+    public void disTranslatedPkElements(TranslatedPkElements _tr) {
+        addImg(_tr.getImage());
+        formatMessage(MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_NAME);
+        formatMessageDir(_tr.getName());
+        formatMessage(MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_GENDER);
+        formatMessageDir(_tr.getGender());
+        formatMessage(MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_LEVEL);
+        formatMessageDir(Long.toString(_tr.getLevel()));
+        formatMessage(MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_ABILITY);
+        formatMessageDir(_tr.getAbility());
+        formatMessage(MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_ITEM);
+        formatTrKey(_tr.getItem(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_ITEM_NO,"");
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _tr.getMoves(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MOVES);
     }
 
     public static void feedForms(int _indexOne, int _indexTwo, StringMapObject _forms) {

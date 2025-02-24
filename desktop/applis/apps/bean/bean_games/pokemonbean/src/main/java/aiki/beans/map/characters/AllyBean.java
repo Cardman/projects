@@ -2,8 +2,10 @@ package aiki.beans.map.characters;
 
 import aiki.beans.AbsPkTeamBean;
 import aiki.map.characters.Ally;
+import code.scripts.pages.aiki.MessagesDataMapPokemonKey;
+import code.scripts.pages.aiki.MessagesPkBean;
 
-public class AllyBean extends AbsPkTeamBean {
+public final class AllyBean extends AbsPkTeamBean {
     private Ally ally;
 //    private CustList<PkTrainer> team;
 
@@ -28,6 +30,13 @@ public class AllyBean extends AbsPkTeamBean {
 //            team_.add(pk_);
 //        }
 //        team = team_;
+    }
+    public void buildSub() {
+        formatMessage(MessagesPkBean.MAP, MessagesDataMapPokemonKey.M_P_34_ALLY_TEAM);
+        int len_ = getTeam().size();
+        for (int i = 0; i < len_; i++) {
+            disTranslatedPkElements(getTeam().get(i));
+        }
     }
     public int[][] getImage(int _index) {
 //        DataBase data_ = getDataBase();

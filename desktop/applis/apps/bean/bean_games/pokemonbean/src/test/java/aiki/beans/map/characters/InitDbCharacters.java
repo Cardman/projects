@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.beans.map.*;
 import aiki.beans.map.pokemon.*;
 import code.bean.nat.*;
+import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbCharacters extends InitDbLevelMap {
@@ -22,9 +23,9 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
 
     private static NaSt transitTrainerLevelZero(int _place, int _tile, int _second, PkData _pk, StringMap<NaSt> _all) {
         NaSt bean_ = transitLevelZero(_place, _pk, _all);
-        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,bean_, _tile);
+        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_tile),bean_,bean_);
         NaSt tr_ = _all.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,tr_, _second);
+        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_second),bean_,tr_);
         return tr_;
     }
 
@@ -33,9 +34,9 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         StringMap<NaSt> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
         NaSt bean_ = transitLevelZero(_place,pk_,all_);
-        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,bean_,_tile);
+        transit(pk_,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_tile),bean_,bean_);
         NaSt tr_ = all_.getVal(AikiBeansMapStd.BEAN_SELLER);
-        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,tr_,_second);
+        transit(pk_,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_second),bean_,tr_);
 //        callMapLevelBeanClickTileOnMapStruct(bean_,_tile);
 //        beforeDisplaying(bean_);
 //        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _second));
@@ -53,7 +54,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     private static NaSt transitTrainer(int _place, int _level, int _tile, PkData _pk, StringMap<NaSt> _all) {
         NaSt bean_ = transitLevel(_place, _level, _pk, _all);
         NaSt tr_ = _all.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,tr_, _tile);
+        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_tile),bean_,tr_);
 //        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _tile));
 //        beforeDisplaying(tr_);
         return tr_;
@@ -65,7 +66,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
 //        StringMap<String> map_ = mappingToMap();
         NaSt bean_ = transitLevel(_place, _level,pk_,all_);
         NaSt tr_ = all_.getVal(AikiBeansMapStd.BEAN_DEALER);
-        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,tr_,_tile);
+        transit(pk_,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_tile),bean_,tr_);
 //        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _tile));
 //        beforeDisplaying(tr_);
         return tr_;
@@ -170,20 +171,20 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt dual_ = transitDual(pk_, all_);
-        NaSt ally_ = all_.getVal(AikiBeansMapStd.BEAN_ALLY);
+        NaSt ally_ = new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getAllyTeam());
         fwdAlly(ally_,dual_);
         beforeDisplaying(ally_);
-        return ally_;
+        return new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getAllyTeam());
     }
 
     public static NaSt displayTempTrainer() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt dual_ = transitDual(pk_, all_);
-        NaSt pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        NaSt pkTeam_ = new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getFoeTeam());
         fwdTrainerDual(pkTeam_,dual_);
         beforeDisplaying(pkTeam_);
-        return pkTeam_;
+        return new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getFoeTeam());
     }
 
     public static NaSt displayGymTrainer() {
@@ -197,34 +198,34 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainerLevelZero(0,12,_tile,pk_, all_);
-        NaSt pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        NaSt pkTeam_ = new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
         fwdTrainer(pkTeam_,trainer_);
         beforeDisplaying(pkTeam_);
-        return pkTeam_;
+        return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
     }
     public static NaSt displayLeague(int _level) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainer(8,_level,12,pk_, all_);
-        NaSt pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        NaSt pkTeam_ = new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
         fwdTrainer(pkTeam_,trainer_);
         beforeDisplaying(pkTeam_);
-        return pkTeam_;
+        return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
     }
     public static NaSt displayMult(int _no) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainer(3,1,7,pk_, all_);
-        NaSt pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        NaSt pkTeam_ = new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(_no));
         fwdTrainer(pkTeam_,trainer_);
         callPokemonTeamBeanNoFightSet(pkTeam_,_no);
         beforeDisplaying(pkTeam_);
-        return pkTeam_;
+        return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(_no));
     }
     private static NaSt transitDual(PkData _pk, StringMap<NaSt> _all) {
         NaSt bean_ = transitLevel(3, 0, _pk, _all);
         NaSt tr_ = _all.getVal(AikiBeansMapStd.BEAN_DUAL);
-        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,tr_,8);
+        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)bean(_all, PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),8),bean_,tr_);
         return tr_;
     }
 

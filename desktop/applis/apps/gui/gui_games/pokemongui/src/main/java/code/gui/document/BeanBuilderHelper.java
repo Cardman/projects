@@ -93,6 +93,10 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     private void evt(IntBeanAction _e, AbsTextPane _tx) {
         anchor(api, _tx);
+        evtCompo(_e, _tx);
+    }
+
+    private void evtCompo(IntBeanAction _e, AbsCustComponent _tx) {
         getAnchors().add(_e);
         _tx.addMouseListener(new BeanAnchorEvent(this, _e));
     }
@@ -168,6 +172,15 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         lab_.setToolTipText(_tip);
         stack.last().add(lab_, cts());
         incColIndex();
+    }
+
+    @Override
+    public void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e) {
+        AbsPreparedLabel lab_ = api.getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(api.getImageFactory(), _img));
+        lab_.setToolTipText(_tip);
+        stack.last().add(lab_, cts());
+        incColIndex();
+        evtCompo(_e, lab_);
     }
 
     public void hierarchy(String _txt, AbsTextPane _ch) {

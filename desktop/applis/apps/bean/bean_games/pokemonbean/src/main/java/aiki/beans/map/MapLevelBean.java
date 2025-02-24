@@ -1,8 +1,9 @@
 package aiki.beans.map;
 
-import aiki.beans.AbsLevelBean;
-import aiki.beans.StringMapObject;
+import aiki.beans.*;
+import aiki.comparators.DictionaryComparator;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
@@ -19,15 +20,103 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesDataMapLevel;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
-public class MapLevelBean extends AbsLevelBean {
+public final class MapLevelBean extends AbsLevelBean implements BeanRenderWithAppName {
 //    private boolean proponeLink;
 //    private boolean proponeTile;
 //    private boolean seeArea;
 //    private IdList<Direction> dirs;
+    public MapLevelBean() {
+    setAppName(MessagesPkBean.APP_BEAN_DATA);
+}
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        if (getPossibleMultiLayer()) {
+            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_LEVEL_PLACE),getPlaceName(),Long.toString(getLevelIndex())));
+        } else if (getOutside()) {
+            if (getRoad()) {
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_ROAD)));
+            } else {
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_CITY)));
+            }
+        } else {
+            if (getGym()) {
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_GYM)));
+            }
+            if (getPokemonCenter()) {
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER)));
+            }
+        }
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
+        initGrid();
+        getBuilder().colCount(getMapWidth());
+        DictionaryComparator<Point, int[][]> tiles_ = getTiles();
+        int len_ = tiles_.size();
+        for (int i = 0; i < len_; i++) {
+            mergedTile(tiles_, i);
+        }
+        feedParents();
+        initGrid();
+        getBuilder().colCount(getMapWidth());
+        DictionaryComparator<Point, int[][]> tilesWhite_ = getTiles();
+        int lenWhite_ = tilesWhite_.size();
+        for (int i = 0; i < lenWhite_; i++) {
+            int[][] img_ = tilesWhite_.getValue(i);
+            getBuilder().addImgCtsAnc(img_,"",new MapLevelBeanClickAreaOnMap(this,i));
+        }
+        feedParents();
+        CustList<AbsAreaApparition> areas_ = getWildPokemonAreas();
+        int as_ = areas_.size();
+        for (int i = 0; i < as_; i++) {
+            formatMessageDirAnc("->"+Long.toString(i),new MapLevelBeanClickArea(this,i));
+        }
+        DictionaryComparator<Integer, String> ne_ = getNeighbours();
+        int nes_ = ne_.size();
+        for (int i = 0; i < nes_; i++) {
+            formatMessageDirAnc("->"+ne_.getKey(i)+"-"+ne_.getValue(i),new MapLevelBeanClickNeighbour(this,i));
+        }
+    }
+
+    private void mergedTile(DictionaryComparator<Point, int[][]> _tiles, int _i) {
+        int[][] img_ = _tiles.getValue(_i);
+        if (withoutTitle(_i)) {
+            if (!isAccessibleByBeatingSomeTrainers(_i)) {
+                getBuilder().addImgCtsAnc(img_,"",new MapLevelBeanClickTileOnMap(this, _i));
+            } else {
+                getBuilder().addImgCtsAnc(img_, title(MessagesDataMapLevel.M_P_32_TITLE_ACCESS),new MapLevelBeanClickTileOnMap(this, _i));
+            }
+        }
+        if (isStorage(_i)) {
+            getBuilder().addImgCtsAnc(img_,title(MessagesDataMapLevel.M_P_32_TITLE_STORAGE),new MapLevelBeanClickTileOnMap(this, _i));
+        }
+        if (isHealer(_i)) {
+            getBuilder().addImgCtsAnc(img_,title(MessagesDataMapLevel.M_P_32_TITLE_HEAL),new MapLevelBeanClickTileOnMap(this, _i));
+        }
+        if (isHost(_i)) {
+            getBuilder().addImgCtsAnc(img_,title(MessagesDataMapLevel.M_P_32_TITLE_HOST),new MapLevelBeanClickTileOnMap(this, _i));
+        }
+        if (isFossile(_i)) {
+            getBuilder().addImgCtsAnc(img_,title(MessagesDataMapLevel.M_P_32_TITLE_FOSSILE),new MapLevelBeanClickTileOnMap(this, _i));
+        }
+        if (isMoveTutors(_i)) {
+            getBuilder().addImgCtsAnc(img_,title(MessagesDataMapLevel.M_P_32_TITLE_MT),new MapLevelBeanClickTileOnMap(this, _i));
+        }
+    }
+
+    private String title(String _key) {
+        return getBuilder().formatMessageRend(getAppName(), MessagesPkBean.MAP, _key);
+    }
+    public StringMap<String> file() {
+        return file(MessagesPkBean.MAP).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         initTiles(true);
