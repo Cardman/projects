@@ -36,7 +36,6 @@ public final class TrainerBean extends CommonBean implements BeanRenderWithAppNa
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
         addImg(image);
         addImg(imageMini);
-        formatMessageDir(name);
         int len_ = beans.size();
         for (int i = 0; i < len_; i++) {
             beans.get(i).beforeDisplaying();
