@@ -3,9 +3,9 @@ package aiki.beans;
 import aiki.beans.facade.dto.*;
 import code.util.core.*;
 
-public final class BeanDisplayItemLine implements BeanDisplayElt<ItemLine> {
+public final class BeanDisplayItemLine implements BeanDisplayEltGrid<ItemLine> {
     @Override
-    public int displayElt(CommonBean _rend, ItemLine _info) {
+    public int displayEltGrid(CommonBean _rend, ItemLine _info) {
         _rend.initLine();
         _rend.addImg(_rend.getFacade().getData().getMiniItem(_info.getName().getKey()));
         _rend.feedParentsCts();

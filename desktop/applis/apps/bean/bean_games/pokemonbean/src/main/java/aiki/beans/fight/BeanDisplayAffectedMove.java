@@ -1,9 +1,7 @@
 package aiki.beans.fight;
 
-import aiki.beans.BeanDisplay;
-import aiki.beans.CommonBean;
+import aiki.beans.*;
 import aiki.game.fight.util.*;
-import code.scripts.pages.aiki.MessagesPkBean;
 
 public final class BeanDisplayAffectedMove implements BeanDisplay<AffectedMove> {
 
@@ -20,8 +18,8 @@ public final class BeanDisplayAffectedMove implements BeanDisplay<AffectedMove> 
     @Override
     public int display(CommonBean _rend, AffectedMove _info, int _index) {
         _rend.formatMessageDirCts(_info.getMove());
-        _rend.displayActivityOfMoveEnabled(_info.getActivity(), MessagesPkBean.FIGHTER, valueTrue,valueFalse);
-        _rend.displayActivityOfMoveNbRound(_info.getActivity(), MessagesPkBean.FIGHTER, other);
+        _rend.displayActivityOfMoveEnabled(_info.getActivity(), valueTrue,valueFalse);
+        _rend.displayActivityOfMoveNbRound(_info.getActivity(), other);
         return 3;
     }
 }

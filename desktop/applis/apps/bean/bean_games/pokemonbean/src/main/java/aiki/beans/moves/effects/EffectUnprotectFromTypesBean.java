@@ -62,7 +62,7 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
 
     @Override
     public void buildSubEff() {
-        new BeanDisplayList<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,getTypes(), MessagesPkBean.EFF_UNPROTECTFROMTYPES, MessagesDataEffunprotectfromtypes.M_P_68_TYPES,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_DAMAG,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_PK);
+        new BeanDisplayListGrid<TranslatedKeyPair>(new BeanDisplayTranslatedKeyPair()).displayGrid(this,getTypes(), MessagesPkBean.EFF_UNPROTECTFROMTYPES, MessagesDataEffunprotectfromtypes.M_P_68_TYPES,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_DAMAG,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_PK);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableImmuAgainstTypes(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_TYPES);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getDisableImmuFromMoves(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_FROM_MOVES);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getAttackTargetWithTypes(),MessagesPkBean.EFF_UNPROTECTFROMTYPES,MessagesDataEffunprotectfromtypes.M_P_68_ATTACK_TARGET_TYPES);

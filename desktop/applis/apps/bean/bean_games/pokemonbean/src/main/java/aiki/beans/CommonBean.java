@@ -2,11 +2,9 @@ package aiki.beans;
 
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
-import aiki.beans.fight.TrPkMoveTarget;
 import aiki.beans.game.ImgPkPlayer;
 import aiki.beans.map.elements.TranslatedPkElements;
 import aiki.beans.moves.effects.*;
-import aiki.beans.pokemon.evolutions.*;
 import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -16,8 +14,6 @@ import aiki.fight.moves.effects.enums.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
 import aiki.map.levels.Level;
 import aiki.map.levels.enums.*;
 import aiki.map.places.Place;
@@ -310,46 +306,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCancelChgtStat());
         display(_sub.getCopyBoost(), MessagesPkBean.EFF_STATIS, MessagesDataEffstatis.M_P_58_COPY_BOOST,Long.toString(_sub.getDefaultBoost()));
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCopyBoost());
-    }
-
-    protected void evo(EvolutionBean _sub) {
-        formatMessageDirCts(_sub.getName());
-        if (_sub instanceof EvolutionLevelGenderBean) {
-            formatMessageCts(MessagesPkBean.EVO_LEVEL_GENDER, MessagesDataEvolutionsEvolevelgender.M_P_76_GENDER, _sub.getDisplayBase(),Long.toString(((EvolutionLevelGenderBean) _sub).getLevel()),((EvolutionLevelGenderBean) _sub).getGender());
-        } else if (_sub instanceof EvolutionLevelBean) {
-            formatMessageCts(MessagesPkBean.EVO_LEVEL, MessagesDataEvolutionsEvolevel.M_P_75_LEVEL, _sub.getDisplayBase(),Long.toString(((EvolutionLevelBean) _sub).getLevel()));
-        } else if (_sub instanceof EvolutionHappinessBean) {
-            formatMessageCts(MessagesPkBean.EVO_HAPPINESS, MessagesDataEvolutionsEvohappiness.M_P_73_HAPPY, _sub.getDisplayBase(),Long.toString(((EvolutionHappinessBean) _sub).getMin()));
-        } else if (_sub instanceof EvolutionMoveBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_MOVE,MessagesDataEvolutionsEvomove.M_P_77_MOVE, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionMoveBean) _sub).getMove());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionItemBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_ITEM,MessagesDataEvolutionsEvoitem.M_P_74_ITEM, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionItemBean) _sub).getItem());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionStoneGenderBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_STONE_GENDER,MessagesDataEvolutionsEvostonegender.M_P_79_STONE_GENDER, _sub.getDisplayBase(),((EvolutionStoneGenderBean) _sub).getGender());
-            formatMessageDir(((EvolutionStoneGenderBean) _sub).getStone());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionStoneBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_STONE,MessagesDataEvolutionsEvostone.M_P_78_STONE, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionStoneBean) _sub).getStone());
-            feedParentsCts();
-        } else if (_sub instanceof EvolutionMoveTypeBean) {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_TYPE,MessagesDataEvolutionsEvotype.M_P_81_TYPE, _sub.getDisplayBase(),((EvolutionMoveTypeBean)_sub).getType());
-            feedParentsCts();
-        } else {
-            initLine();
-            formatMessage(MessagesPkBean.EVO_TEAM,MessagesDataEvolutionsEvoteam.M_P_80_TEAM, _sub.getDisplayBase());
-            formatMessageDir(((EvolutionTeamBean) _sub).getOther());
-            feedParentsCts();
-        }
     }
 
     protected void mapVarsInit(AbsMap<String,String> _m) {
@@ -679,6 +635,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         builder.initPage();
         display(_list, _file, _key);
         buildPkList(_list);
+        builder.feedParents();
     }
 
     public void buildPkList(CustList<ImgPkPlayer> _list) {
@@ -886,34 +843,18 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         builder.feedParents();
     }
 
-    public void displayTrPkMoveTarget(TrPkMoveTarget _value, String _file) {
-        formatMessageDirCts(_value.getMoveTarget().getMove());
-        if (_value.getMoveTarget().getTarget().getTeam() == Fight.CST_FOE) {
-            formatMessageCts(_file, MessagesFightFight.M_P_90_ALLY_CHOICES_FOE);
-        } else {
-            formatMessageCts(_file,MessagesFightFight.M_P_90_ALLY_CHOICES_PLAYER);
-        }
-        if (_value.getMoveTarget().getTarget().getPosition() != Fighter.BACK) {
-            formatMessageDirCts(Long.toString(_value.getMoveTarget().getTarget().getPosition()));
-            formatMessageDirCts(_value.getTranslation());
-        } else {
-            formatMessageCts(_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
-            formatMessageCts(_file,MessagesFightFight.M_P_90_ALLY_CHOICES_NO);
-        }
-    }
-
-    public void displayActivityOfMoveEnabled(ActivityOfMove _value, String _file, String _one, String _two) {
+    public void displayActivityOfMoveEnabled(ActivityOfMove _value,String _one, String _two) {
         if (_value.isEnabled()) {
-            formatMessageCts(_file,_one);
+            formatMessageDirCts(_one);
         } else {
-            formatMessageCts(_file,_two);
+            formatMessageDirCts(_two);
         }
     }
-    public void displayActivityOfMoveNbRound(ActivityOfMove _value, String _file, String _key) {
+    public void displayActivityOfMoveNbRound(ActivityOfMove _value, String _key) {
         if (_value.isIncrementCount()) {
             formatMessageDirCts(Long.toString(_value.getNbTurn()));
         } else {
-            formatMessageCts(_file,_key);
+            formatMessageDirCts(_key);
         }
     }
     public void headerCol(String _file, String _key) {

@@ -1,9 +1,6 @@
 package aiki.beans.fight;
 
-import aiki.beans.BeanAnchorCstEvent;
-import aiki.beans.BeanDisplayImgPkPlayer;
-import aiki.beans.BeanDisplayList;
-import aiki.beans.StringMapObject;
+import aiki.beans.*;
 import aiki.beans.facade.fight.FighterNameId;
 import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.beans.game.ImgPkPlayer;
@@ -19,15 +16,13 @@ import code.scripts.pages.aiki.MessagesFightFight;
 import code.scripts.pages.aiki.MessagesFightTeam;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
-import code.util.comparators.ComparatorBoolean;
-import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class FightCalculationBean extends CommonFightBean {
     private DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> allyChoice;
     private DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> foeChoices;
 
-    private IntTreeMap<BoolVal> foeChoicesTargets;
+//    private IntTreeMap<BoolVal> foeChoicesTargets;
     private CustList<KeyHypothesis> damage;
     private StringList sortedFighters;
     private CustList<ImgMovesListTeamPositionsList> sortedFightersWildFight;
@@ -36,72 +31,48 @@ public final class FightCalculationBean extends CommonFightBean {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_DETAIL_FIGHT)));
-        initPage();
+//        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_FIGHT);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
-        feedParents();
+//        feedParents();
         displayStringList(getSortedFighters(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES);
         display(getSortedFightersWildFight(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD);
-        initPage();
-        for (ImgMovesListTeamPositionsList i: getSortedFightersWildFight()) {
-            initLine();
-            paintMetaLabelDisk();
-            initPage();
-            display(i.getKeyPks(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_KEY);
-            new BeanDisplayList<ImgPkPlayer>(new BeanDisplayImgPkPlayer()).display(this,i.getKeyPks());
-            displayStringList(i.getNamesPk(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_VALUE);
-            feedParents();
-            feedParents();
-        }
-        feedParents();
-        displayHead(getDamage(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES, MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_KEY_ONE,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_KEY_TWO,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_KEY_THREE,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_DAMAGE);
-        for(KeyHypothesis k:getDamage()) {
-            formatMessageDirCts(k.getPlayerPokemon());
-            formatMessageDirCts(k.getMove());
-            String message_ = targetPk(k);
-            formatMessageDirCts(message_);
-            formatMessageDirCts(k.getDamage().toNumberString()+" - "+k.getDamageSecond().toNumberString());
-        }
-        feedParents();
-        displayHead(getAllyChoice(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ALLY_CHOICES, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_TEAM, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_PLACE, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_NAME, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_TEAM, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_PLACE, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_NAME);
-        for(EntryCust<TrPkMoveTarget, TrPkMoveTarget> e:getAllyChoice().entryList()) {
-            displayTrPkMoveTarget(e.getKey(), MessagesPkBean.FIGHT);
-            displayTrPkMoveTarget(e.getValue(), MessagesPkBean.FIGHT);
-        }
-        feedParents();
-        displayHead(getFoeChoices(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES, MessagesFightFight.M_P_90_FOE_CHOICES_KEY, MessagesFightFight.M_P_90_FOE_CHOICES_KEY_NAME, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_TEAM, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_PLACE, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_NAME);
-        int len_ = getFoeChoices().size();
-        for (int i = 0; i < len_; i++) {
-            formatMessageDirCts(Long.toString(getFoeChoices().getKey(i).getIndex()));
-            formatMessageDirCts(getFoeChoices().getKey(i).getTranslation());
-            formatMessageDirCts(getFoeChoices().getValue(i).getMoveTarget().getMove());
-            if (isChosenTarget(i)) {
-                if (getFoeChoices().getValue(i).getMoveTarget().getTarget().getTeam() == Fight.CST_FOE) {
-                    formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_FOE);
-                } else {
-                    formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_PLAYER);
-                }
-                formatMessageDirCts(Long.toString(getFoeChoices().getValue(i).getMoveTarget().getTarget().getPosition()));
-                formatMessageDirCts(getFoeChoices().getValue(i).getTranslation());
-            } else {
-                formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_NO);
-                formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_NO);
-                formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_NO);
-            }
-        }
-        feedParents();
-    }
-
-    private String targetPk(KeyHypothesis _k) {
-        String message_;
-        if (_k.isBelongsToUser()) {
-            message_ = formatMessageRend(MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_PLAYER);
-        } else {
-            message_ = formatMessageRend(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_FOE);
-        }
-        message_+="\u00A0";
-        message_+= _k.getTargetPokemon();
-        return message_;
+//        initPage();
+        new BeanDisplayListSec<ImgMovesListTeamPositionsList>(new BeanDisplayImgMovesListTeamPositionsList()).display(this,getSortedFightersWildFight());
+//        for (ImgMovesListTeamPositionsList i: getSortedFightersWildFight()) {
+//            initLine();
+//            paintMetaLabelDisk();
+//            initPage();
+//            display(i.getKeyPks(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_KEY);
+//            new BeanDisplayList<ImgPkPlayer>(new BeanDisplayImgPkPlayer()).display(this,i.getKeyPks());
+//            displayStringList(i.getNamesPk(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD_VALUE);
+//            feedParents();
+//            feedParents();
+//        }
+//        feedParents();
+        new BeanDisplayListGrid<KeyHypothesis>(new BeanDisplayKeyHypothesis()).displayGrid(this,getDamage(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES, MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_KEY_ONE,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_KEY_TWO,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_KEY_THREE,MessagesFightFight.M_P_90_DAMAGE_FCT_CHOICES_DAMAGE);
+        new BeanDisplayMap<TrPkMoveTarget,TrPkMoveTarget>(new BeanDisplayTrPkMoveTarget(),new BeanDisplayTrPkMoveTarget()).displayGrid(this,getAllyChoice(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ALLY_CHOICES, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_TEAM, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_PLACE, MessagesFightFight.M_P_90_ALLY_CHOICES_KEY_NAME, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_TEAM, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_PLACE, MessagesFightFight.M_P_90_ALLY_CHOICES_VALUE_NAME);
+        new BeanDisplayMap<TrPkMoveTarget,TrPkMoveTarget>(new BeanDisplayTrPkMoveTargetKey(),new BeanDisplayTrPkMoveTargetValue()).displayGrid(this,getFoeChoices(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES, MessagesFightFight.M_P_90_FOE_CHOICES_KEY, MessagesFightFight.M_P_90_FOE_CHOICES_KEY_NAME, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_TEAM, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_PLACE, MessagesFightFight.M_P_90_FOE_CHOICES_VALUE_NAME);
+//        int len_ = getFoeChoices().size();
+//        for (int i = 0; i < len_; i++) {
+//            formatMessageDirCts(Long.toString(getFoeChoices().getKey(i).getIndex()));
+//            formatMessageDirCts(getFoeChoices().getKey(i).getTranslation());
+//            formatMessageDirCts(getFoeChoices().getValue(i).getMoveTarget().getMove());
+//            if (isChosenTarget(i)) {
+//                if (getFoeChoices().getValue(i).getMoveTarget().getTarget().getTeam() == Fight.CST_FOE) {
+//                    formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_FOE);
+//                } else {
+//                    formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_PLAYER);
+//                }
+//                formatMessageDirCts(Long.toString(getFoeChoices().getValue(i).getMoveTarget().getTarget().getPosition()));
+//                formatMessageDirCts(getFoeChoices().getValue(i).getTranslation());
+//            } else {
+//                formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_NO);
+//                formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_NO);
+//                formatMessageCts(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOE_CHOICES_NO);
+//            }
+//        }
+//        feedParents();
     }
 
     public StringMap<String> file() {
@@ -139,8 +110,8 @@ public final class FightCalculationBean extends CommonFightBean {
         allyChoice = allyChoice_;
         DictionaryComparator<TrPkMoveTarget, TrPkMoveTarget> foeChoices_;
         foeChoices_ = DictionaryComparatorUtil.buildMoveTarget();
-        IntTreeMap<BoolVal> foeChoicesTargets_;
-        foeChoicesTargets_ = new IntTreeMap<BoolVal>();
+//        IntTreeMap<BoolVal> foeChoicesTargets_;
+//        foeChoicesTargets_ = new IntTreeMap<BoolVal>();
         for (int k: fight_.getFoeTeam().getMembers().getKeys()) {
             Fighter f_ = fight_.getFoeTeam().getMembers().getVal(k);
             String move_ = f_.getFirstChosenMove();
@@ -154,11 +125,11 @@ public final class FightCalculationBean extends CommonFightBean {
                 value_ = new MoveTarget(translationsMoves_.getVal(move_),TargetCoords.def());
             }
             MoveTarget key_ = new MoveTarget(DataBase.EMPTY_STRING, TargetCoords.toFoeTarget(k));
-            foeChoices_.put(new TrPkMoveTarget(key_,trPk(key_),k), new TrPkMoveTarget(value_,trPk(value_)));
-            foeChoicesTargets_.put(k, ComparatorBoolean.of(!f_.getChosenTargets().isEmpty()));
+            foeChoices_.put(new TrPkMoveTarget(key_,trPk(key_),k), new TrPkMoveTarget(value_,trPk(value_),0,!f_.getChosenTargets().isEmpty()));
+//            foeChoicesTargets_.put(k, ComparatorBoolean.of(!f_.getChosenTargets().isEmpty()));
         }
         foeChoices = foeChoices_;
-        foeChoicesTargets = foeChoicesTargets_;
+//        foeChoicesTargets = foeChoicesTargets_;
     }
 
     private MoveTarget build(StringMap<String> _tr, MoveTarget _mt) {
@@ -274,7 +245,8 @@ public final class FightCalculationBean extends CommonFightBean {
         return allyChoice.getValue(_index).getTranslation();
     }
     public boolean isChosenTarget(int _index) {
-        return foeChoicesTargets.getValue(_index) == BoolVal.TRUE;
+        return foeChoices.getValue(_index).isChosen();
+//        return foeChoicesTargets.getValue(_index) == BoolVal.TRUE;
     }
     public String getTargetNameFoeChoice(int _index) {
         return foeChoices.getValue(_index).getTranslation();

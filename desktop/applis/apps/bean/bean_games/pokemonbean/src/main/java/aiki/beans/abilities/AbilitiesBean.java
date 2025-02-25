@@ -18,7 +18,7 @@ public final class AbilitiesBean extends AbilitySearchBean implements BeanRender
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataAbilityAbilities.M_P_0_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
-        initPage();
+//        initPage();
         initLine();
         formatMessage(MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_CONTENT);
         setTypedAbility(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedAbility().tryRet()));

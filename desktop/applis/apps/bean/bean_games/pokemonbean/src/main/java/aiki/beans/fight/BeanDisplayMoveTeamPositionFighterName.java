@@ -2,7 +2,6 @@ package aiki.beans.fight;
 
 import aiki.beans.*;
 import aiki.game.fight.*;
-import code.scripts.pages.aiki.*;
 
 public final class BeanDisplayMoveTeamPositionFighterName implements BeanDisplay<MoveTeamPositionFighterName> {
     private final String foe;
@@ -22,9 +21,9 @@ public final class BeanDisplayMoveTeamPositionFighterName implements BeanDisplay
     }
     private void team(CommonBean _rend, int _value, String _foe, String _player) {
         if (_value == Fight.CST_FOE) {
-            _rend.formatMessageCts(MessagesPkBean.FIGHTER, _foe);
+            _rend.formatMessageDirCts(_foe);
         } else {
-            _rend.formatMessageCts(MessagesPkBean.FIGHTER, _player);
+            _rend.formatMessageDirCts(_player);
         }
     }
 }

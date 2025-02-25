@@ -2,7 +2,7 @@ package aiki.beans;
 
 import aiki.beans.abilities.*;
 
-public final class BeanDisplayTranslatedKeyPair implements BeanDisplayElt<TranslatedKeyPair>,BeanDisplay<TranslatedKeyPair> {
+public final class BeanDisplayTranslatedKeyPair implements BeanDisplayEltGrid<TranslatedKeyPair>,BeanDisplay<TranslatedKeyPair> {
 
     private final String file;
     private final String key;
@@ -15,7 +15,7 @@ public final class BeanDisplayTranslatedKeyPair implements BeanDisplayElt<Transl
         key = _k;
     }
     @Override
-    public int displayElt(CommonBean _rend, TranslatedKeyPair _info) {
+    public int displayEltGrid(CommonBean _rend, TranslatedKeyPair _info) {
         diplay(_rend, _info);
         return 2;
     }

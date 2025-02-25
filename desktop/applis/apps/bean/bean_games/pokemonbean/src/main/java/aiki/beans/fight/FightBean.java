@@ -1,15 +1,13 @@
 package aiki.beans.fight;
-import aiki.beans.BeanAnchorCstEvent;
-import aiki.beans.BeanAnchorToTeamEvent;
-import aiki.beans.StringMapObject;
+import aiki.beans.*;
+import aiki.beans.BeanDisplayActivityOfMoveStillFight;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
-import code.scripts.pages.aiki.MessagesFightFight;
-import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.*;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -25,7 +23,7 @@ public final class FightBean extends CommonFightBean {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_FIGHT)));
-        initPage();
+//        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_GO_DETAIL);
         formatMessageAnc(new BeanAnchorToTeamEvent(Fight.CST_PLAYER,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_YOURS);
@@ -34,20 +32,20 @@ public final class FightBean extends CommonFightBean {
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_NB_ROUNDS,getNbRounds().toNumberString());
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_NB_FLEE_ATTEMPTS,Long.toString(getNbFleeAttempt()));
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_WIN_MONEY,getWinningMoney().toNumberString());
-        feedParents();
-        displayHead(getEnabledMoves(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ENBALED_MOVES, MessagesFightFight.M_P_90_ENBALED_MOVES_KEY, MessagesFightFight.M_P_90_ENBALED_MOVES_STILL, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED, MessagesFightFight.M_P_90_ENBALED_MOVES_NB_ROUND);
-        int len_ = getEnabledMoves().size();
-        for (int i = 0; i < len_; i++) {
-            formatMessageDirCts(getEnabledMoves().getKey(i));
-            if (isStillEnabled(i)) {
-                displayActivityOfMoveEnabled(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
-            } else {
-                formatMessageDirCts(formatMessageRend(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ENBALED_MOVES_NO));
-            }
-            displayActivityOfMoveEnabled(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
-            displayActivityOfMoveNbRound(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_NO);
-        }
-        feedParents();
+//        feedParents();
+        new BeanDisplayMap<String,ActivityOfMoveStill>(new BeanDisplayString(),new BeanDisplayActivityOfMoveStillFight(file().getVal(MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y),file().getVal(MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N),file().getVal(MessagesFightFight.M_P_90_ENBALED_MOVES_NO))).displayGrid(this,getEnabledMoves(),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ENBALED_MOVES, MessagesFightFight.M_P_90_ENBALED_MOVES_KEY, MessagesFightFight.M_P_90_ENBALED_MOVES_STILL, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED, MessagesFightFight.M_P_90_ENBALED_MOVES_NB_ROUND);
+//        int len_ = getEnabledMoves().size();
+//        for (int i = 0; i < len_; i++) {
+//            formatMessageDirCts(getEnabledMoves().getKey(i));
+//            if (isStillEnabled(i)) {
+//                displayActivityOfMoveEnabled(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
+//            } else {
+//                formatMessageDirCts(formatMessageRend(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_ENBALED_MOVES_NO));
+//            }
+//            displayActivityOfMoveEnabled(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_Y,MessagesFightFight.M_P_90_ENBALED_MOVES_ENABLED_N);
+//            displayActivityOfMoveNbRound(getEnabledMoves().getValue(i).getActivity(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_ENBALED_MOVES_NO);
+//        }
+//        feedParents();
     }
 
     public StringMap<String> file() {

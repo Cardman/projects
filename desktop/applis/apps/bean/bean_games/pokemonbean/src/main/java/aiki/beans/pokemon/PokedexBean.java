@@ -20,7 +20,7 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataPokemonPokedex.M_P_82_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
-        initPage();
+//        initPage();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_CONTENT_NAME);
         setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
@@ -54,17 +54,17 @@ public final class PokedexBean extends WithFilterBean implements BeanRenderWithA
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_OK));
         getUpdateValues().addEvt(new PokedexBeanSearch(this));
         feedParents();
-        displayHead(getPokedex(),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_POKEDEX,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataPokemonPokedex.M_P_82_NAME,MessagesDataPokemonPokedex.M_P_82_TYPES,MessagesDataPokemonPokedex.M_P_82_EVOS);
-        for (PokemonLine p: getPokedex()) {
-            initLine();
-            addImg(getDataBase().getMiniPk(p.getName()));
-            feedParentsCts();
-            formatMessageDirCts(p.getKey());
-            formatMessageDirCts(StringUtil.join(p.getTypes()," - "));
-            formatMessageDirCts(Long.toString(p.getEvolutions()));
-        }
-        feedParents();
-        feedParents();
+        new BeanDisplayListGrid<PokemonLine>(new BeanDisplayPokemonLine()).displayGrid(this,getPokedex(),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_POKEDEX,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataPokemonPokedex.M_P_82_NAME,MessagesDataPokemonPokedex.M_P_82_TYPES,MessagesDataPokemonPokedex.M_P_82_EVOS);
+//        for (PokemonLine p: getPokedex()) {
+//            initLine();
+//            addImg(getDataBase().getMiniPk(p.getName()));
+//            feedParentsCts();
+//            formatMessageDirCts(p.getKey());
+//            formatMessageDirCts(StringUtil.join(p.getTypes()," - "));
+//            formatMessageDirCts(Long.toString(p.getEvolutions()));
+//        }
+//        feedParents();
+//        feedParents();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
     }
     public StringMap<String> file() {

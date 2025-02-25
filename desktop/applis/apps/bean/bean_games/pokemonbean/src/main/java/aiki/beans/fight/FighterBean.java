@@ -91,7 +91,7 @@ public final class FighterBean extends CommonFightBean {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFighter.M_P_91_TITLE)));
-        initPage();
+//        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_FIGHT);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,this),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_TEAM);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,this),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_REFRESH);
@@ -123,58 +123,50 @@ public final class FighterBean extends CommonFightBean {
         displayNotEmpty(getExpItem(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_EXP_ITEM);
         displayEmpty(getExpItem(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_EXP_ITEM_NO);
         displayBoolTrue(getUsingItem(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_USING_ITEM);
-        feedParents();
+//        feedParents();
         displayStringList(getTypes(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_TYPES);
         new BeanDisplayMap<String, UsesOfMove>(new BeanDisplayString(),new BeanDisplayUsesOfMove()).displayGrid(this,getMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_MOVES, MessagesFightFighter.M_P_91_MOVES_KEY, MessagesFightFighter.M_P_91_MOVES_VALUE_ONE, MessagesFightFighter.M_P_91_MOVES_VALUE_TWO);
         new BeanDisplayMap<String, UsesOfMove>(new BeanDisplayString(),new BeanDisplayUsesOfMove()).displayGrid(this,getCurrentMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_CURRENT_MOVES, MessagesFightFighter.M_P_91_CURRENT_MOVES_KEY, MessagesFightFighter.M_P_91_CURRENT_MOVES_VALUE_ONE, MessagesFightFighter.M_P_91_CURRENT_MOVES_VALUE_TWO);
         formatMessage(MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_NB_ROUNDS, getNbRounds().toNumberString());
         new BeanDisplayMap<String, CopiedMove>(new BeanDisplayString(),new BeanDisplayCopiedMove()).displayGrid(this,getCopiedMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_COPIED_MOVES, MessagesFightFighter.M_P_91_COPIED_MOVES_OLD, MessagesFightFighter.M_P_91_COPIED_MOVES_NEW, MessagesFightFighter.M_P_91_COPIED_MOVES_PP);
-        displayHead(getStatistics(),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_STATISTICS, MessagesFightFighter.M_P_91_STATISTICS_KEY, MessagesFightFighter.M_P_91_STATISTICS_BASE, MessagesFightFighter.M_P_91_STATISTICS_EV, MessagesFightFighter.M_P_91_STATISTICS_IV, MessagesFightFighter.M_P_91_STATISTICS_BOOST);
-        for (StatisticInfo s: getStatistics()) {
-            formatMessageDirCts(s.getDisplayStatistic());
-            cell(s.base(), s.getStatisBase().toNumberString());
-            cell(s.base(), Long.toString(s.getEv()));
-            cell(s.base(), Long.toString(s.getIv()));
-            cell(s.boost(), Long.toString(s.getStatisBoost()));
-        }
-        feedParents();
+        new BeanDisplayListGrid<StatisticInfo>(new BeanDisplayStatisticInfo()).displayGrid(this,getStatistics(),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_STATISTICS, MessagesFightFighter.M_P_91_STATISTICS_KEY, MessagesFightFighter.M_P_91_STATISTICS_BASE, MessagesFightFighter.M_P_91_STATISTICS_EV, MessagesFightFighter.M_P_91_STATISTICS_IV, MessagesFightFighter.M_P_91_STATISTICS_BOOST);
+//        for (StatisticInfo s: getStatistics()) {
+//            formatMessageDirCts(s.getDisplayStatistic());
+//            cell(s.base(), s.getStatisBase().toNumberString());
+//            cell(s.base(), Long.toString(s.getEv()));
+//            cell(s.base(), Long.toString(s.getIv()));
+//            cell(s.boost(), Long.toString(s.getStatisBoost()));
+//        }
+//        feedParents();
         new BeanDisplayMap<String, MultPowerMoves>(new BeanDisplayString(),new BeanDisplayMultPowerMoves()).displayGrid(this,getDamageRateByType(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_DAMAGE_POWER_TYPES, MessagesFightFighter.M_P_91_DAMAGE_POWER_TYPES_KEY, MessagesFightFighter.M_P_91_DAMAGE_POWER_TYPES_VALUE_ONE, MessagesFightFighter.M_P_91_DAMAGE_POWER_TYPES_VALUE_TWO);
         displayStringList(getProtectedAgainstMoveTypes(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_TYPES_PROTECTED);
         new BeanDisplayMap<String, SufferedDamageCategory>(new BeanDisplayString(),new BeanDisplaySufferedDamageCategory()).displayGrid(this,getDamageSufferedCateg(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_SUFFERING_DAMAGE, MessagesFightFighter.M_P_91_SUFFERING_DAMAGE_KEY, MessagesFightFighter.M_P_91_SUFFERING_DAMAGE_VALUE_ROUND, MessagesFightFighter.M_P_91_SUFFERING_DAMAGE_VALUE_USING);
         new BeanDisplayMap<String,ActivityOfMoveStill>(new BeanDisplayString(),new BeanDisplayActivityOfMoveStill(file().getVal(MessagesFightFighter.M_P_91_ENBALED_MOVES_ENABLED_Y),file().getVal(MessagesFightFighter.M_P_91_ENBALED_MOVES_ENABLED_N),file().getVal(MessagesFightFighter.M_P_91_ENBALED_MOVES_NO))).displayGrid(this,getEnabledMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_ENBALED_MOVES, MessagesFightFighter.M_P_91_ENBALED_MOVES_KEY, MessagesFightFighter.M_P_91_ENBALED_MOVES_ENABLED, MessagesFightFighter.M_P_91_ENBALED_MOVES_NB_ROUND);
         new BeanDisplayMap<String,Integer>(new BeanDisplayString(),new BeanDisplayBool(file().getVal(MessagesFightFighter.M_P_91_ENBALED_MOVES_ALLY_ENABLED_Y),file().getVal(MessagesFightFighter.M_P_91_ENBALED_MOVES_ALLY_ENABLED_N))).displayGrid(this,getEnabledMovesForAlly(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_ENBALED_MOVES_ALLY, MessagesFightFighter.M_P_91_ENBALED_MOVES_ALLY_KEY, MessagesFightFighter.M_P_91_ENBALED_MOVES_ALLY_ENABLED);
         new BeanDisplayMap<String,Long>(new BeanDisplayString(),new BeanDisplayLong()).displayGrid(this,getNbUsesMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_NB_USES, MessagesFightFighter.M_P_91_NB_USES_KEY, MessagesFightFighter.M_P_91_NB_USES_VALUE);
-        initPage();
+//        initPage();
         formatMessage(MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_NB_SUCCESS_MOVES,getNbRepeatingSuccessfulMoves().toNumberString());
         displayBoolFull(getSuccessfulMove(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_SUCCESSFUL_MOVE,MessagesFightFighter.M_P_91_SUCCESSFUL_MOVE_NO);
         displayNotEmpty(getLastSuccessfulMove(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_LAST_SUCCESSFUL_MOVE);
         displayNotEmpty(getLastUsedMove(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_LAST_USED_MOVE);
         displayNotEmpty(getUsedMoveLastRound(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_USED_MOVE_LAST_ROUND);
         formatMessage(MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_NB_ROUND_PREPA,Long.toString(getNbPrepaRound()));
-        feedParents();
+//        feedParents();
         displayStringList(getAlreadyInvokedMovesRound(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_INVOKED_MOVES);
-        initPage();
+//        initPage();
         displayNotEmpty(getLastSufferedMove(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_LAST_SUFFERED_MOVE);
-        feedParents();
+//        feedParents();
         displayStringList(getLastSufferedMoveTypes(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_LAST_SUFFERED_MOVE_TYPES);
-        initPage();
+//        initPage();
         displayBoolFull(getDisappeared(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_DISAPPEARED,MessagesFightFighter.M_P_91_DISAPPEARED_NO);
         displayBoolTrue(getNeedingToRecharge(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_NEEDING_RECHARGE);
-        feedParents();
+//        feedParents();
         new BeanDisplayMap<String,Long>(new BeanDisplayString(),new BeanDisplayLong()).displayGrid(this,getStatus(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_STATUS, MessagesFightFighter.M_P_91_STATUS_KEY, MessagesFightFighter.M_P_91_STATUS_VALUE);
         new BeanDisplayMap<MoveTeamPositionFighterName,Long>(new BeanDisplayMoveTeamPositionFighterName(file().getVal(MessagesFightFighter.M_P_91_STATUS_REL_FOE),file().getVal(MessagesFightFighter.M_P_91_STATUS_REL_PLAYER)),new BeanDisplayBoolLong(file().getVal(MessagesFightFighter.M_P_91_STATUS_REL_ENABLED_Y),file().getVal(MessagesFightFighter.M_P_91_STATUS_REL_ENABLED_N))).displayGrid(this,getStatusRelat(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_STATUS_REL, MessagesFightFighter.M_P_91_STATUS_REL_KEY_ONE, MessagesFightFighter.M_P_91_STATUS_REL_KEY_TWO, MessagesFightFighter.M_P_91_STATUS_REL_KEY_THREE, MessagesFightFighter.M_P_91_STATUS_REL_ENABLED);
         new BeanDisplayMap<MoveTeamPositionFighterName,String>(new BeanDisplayMoveTeamPositionFighterName(file().getVal(MessagesFightFighter.M_P_91_PRIVATE_MOVES_FOE),file().getVal(MessagesFightFighter.M_P_91_PRIVATE_MOVES_PLAYER)),new BeanDisplayString()).displayGrid(this,getPrivateMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_PRIVATE_MOVES, MessagesFightFighter.M_P_91_PRIVATE_MOVES_KEY_ONE, MessagesFightFighter.M_P_91_PRIVATE_MOVES_KEY_TWO, MessagesFightFighter.M_P_91_PRIVATE_MOVES_KEY_THREE, MessagesFightFighter.M_P_91_PRIVATE_MOVES_MV);
         new BeanDisplayMap<MoveTeamPositionFighterName,ActivityOfMoveStill>(new BeanDisplayMoveTeamPositionFighterName(file().getVal(MessagesFightFighter.M_P_91_TRAPPING_MOVES_FOE),file().getVal(MessagesFightFighter.M_P_91_TRAPPING_MOVES_PLAYER)),new BeanDisplayActivityOfMoveStill(file().getVal(MessagesFightFighter.M_P_91_TRAPPING_MOVES_ENABLED_Y),file().getVal(MessagesFightFighter.M_P_91_TRAPPING_MOVES_ENABLED_N),file().getVal(MessagesFightFighter.M_P_91_TRAPPING_MOVES_NO))).displayGrid(this,getTrappingMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_TRAPPING_MOVES, MessagesFightFighter.M_P_91_TRAPPING_MOVES_KEY_ONE, MessagesFightFighter.M_P_91_TRAPPING_MOVES_KEY_TWO, MessagesFightFighter.M_P_91_TRAPPING_MOVES_KEY_THREE, MessagesFightFighter.M_P_91_TRAPPING_MOVES_ENABLED, MessagesFightFighter.M_P_91_TRAPPING_MOVES_NB_ROUND);
         new BeanDisplayMap<MoveTeamPositionFighterName, AffectedMove>(new BeanDisplayMoveTeamPositionFighterName(file().getVal(MessagesFightFighter.M_P_91_TRACKING_MOVES_FOE),file().getVal(MessagesFightFighter.M_P_91_TRACKING_MOVES_PLAYER)),new BeanDisplayAffectedMove(file().getVal(MessagesFightFighter.M_P_91_TRACKING_MOVES_ENABLED_Y),file().getVal(MessagesFightFighter.M_P_91_TRACKING_MOVES_ENABLED_N),file().getVal(MessagesFightFighter.M_P_91_TRACKING_MOVES_NO))).displayGrid(this,getTrackingMoves(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_TRACKING_MOVES, MessagesFightFighter.M_P_91_TRACKING_MOVES_KEY_ONE, MessagesFightFighter.M_P_91_TRACKING_MOVES_KEY_TWO, MessagesFightFighter.M_P_91_TRACKING_MOVES_KEY_THREE, MessagesFightFighter.M_P_91_TRACKING_MOVES_V, MessagesFightFighter.M_P_91_TRACKING_MOVES_ENABLED, MessagesFightFighter.M_P_91_TRACKING_MOVES_NB_ROUND);
         new BeanDisplayMap<MoveTeamPositionFighterName, Integer>(new BeanDisplayMoveTeamPositionFighterName(file().getVal(MessagesFightFighter.M_P_91_INC_ACCURACY_FOE),file().getVal(MessagesFightFighter.M_P_91_INC_ACCURACY_PLAYER)),new BeanDisplayBool(file().getVal(MessagesFightFighter.M_P_91_INC_ACCURACY_ENABLED_Y),file().getVal(MessagesFightFighter.M_P_91_INC_ACCURACY_ENABLED_N))).displayGrid(this,getIncrUserAccuracy(), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_INC_ACCURACY, MessagesFightFighter.M_P_91_INC_ACCURACY_KEY_ONE, MessagesFightFighter.M_P_91_INC_ACCURACY_KEY_TWO, MessagesFightFighter.M_P_91_INC_ACCURACY_KEY_THREE, MessagesFightFighter.M_P_91_INC_ACCURACY_ENABLED);
-    }
-
-    private void cell(int _v, String _txt) {
-        if (_v == CommonBean.TRUE_VALUE) {
-            formatMessageDirCts(_txt);
-        } else {
-            formatMessageCts(MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_STATISTICS_NO);
-        }
     }
 
     private void place(int _value, String _alt, String _found) {

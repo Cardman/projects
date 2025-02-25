@@ -11,7 +11,6 @@ import aiki.fight.moves.*;
 import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
-import code.util.core.*;
 
 public final class MovesBean extends WithFilterBean implements BeanRenderWithAppName {
 //    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
@@ -28,7 +27,7 @@ public final class MovesBean extends WithFilterBean implements BeanRenderWithApp
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataMovesMoves.M_P_71_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
-        initPage();
+//        initPage();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_NAME);
         setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
@@ -63,30 +62,30 @@ public final class MovesBean extends WithFilterBean implements BeanRenderWithApp
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_OK));
         getUpdateValues().addEvt(new MovesBeanSearch(this));
         feedParents();
-        displayHead(getMoves(),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER);
-        for (MoveLine p: getMoves()) {
-            formatMessageDirCts(p.getTranslatedKey());
-            formatMessageDirCts(Long.toString(p.getPp()));
-            formatMessageDirCts(StringUtil.join(p.getTypes()," - "));
-            formatMessageDirCts(p.getCategory());
-            if (p.isDamageMove()) {
-                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING);
-            } else {
-                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_STATUS);
-            }
-            if (!p.isDamageMove()) {
-                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_STATUS_INDIRECT);
-            } else if (p.isDirect()) {
-                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING_DIRECT);
-            } else {
-                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING_INDIRECT);
-            }
-            formatMessageDirCts(Long.toString(p.getPriority()));
-            formatMessageDirCts(p.getAccuracy());
-            formatMessageDirCts(p.getPower());
-        }
-        feedParents();
-        feedParents();
+        new BeanDisplayListGrid<MoveLine>(new BeanDisplayMoveLine()).displayGrid(this,getMoves(),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER);
+//        for (MoveLine p: getMoves()) {
+//            formatMessageDirCts(p.getTranslatedKey());
+//            formatMessageDirCts(Long.toString(p.getPp()));
+//            formatMessageDirCts(StringUtil.join(p.getTypes()," - "));
+//            formatMessageDirCts(p.getCategory());
+//            if (p.isDamageMove()) {
+//                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING);
+//            } else {
+//                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_STATUS);
+//            }
+//            if (!p.isDamageMove()) {
+//                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_STATUS_INDIRECT);
+//            } else if (p.isDirect()) {
+//                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING_DIRECT);
+//            } else {
+//                formatMessageCts(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_DAMAGING_INDIRECT);
+//            }
+//            formatMessageDirCts(Long.toString(p.getPriority()));
+//            formatMessageDirCts(p.getAccuracy());
+//            formatMessageDirCts(p.getPower());
+//        }
+//        feedParents();
+//        feedParents();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
     }
 

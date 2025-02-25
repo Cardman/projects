@@ -20,7 +20,7 @@ public final class ItemsBean extends WithFilterBean implements BeanRenderWithApp
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataItems.M_P_29_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
-        initPage();
+//        initPage();
         initLine();
         formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_CONTENT_NAME);
         setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
@@ -37,7 +37,7 @@ public final class ItemsBean extends WithFilterBean implements BeanRenderWithApp
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_OK));
         getUpdateValues().addEvt(new ItemsBeanSearch(this));
         feedParents();
-        new BeanDisplayList<ItemLine>(new BeanDisplayItemLine()).displayGrid(this,getItems(),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_ITEMS,MessagesDataItems.M_P_29_IMAGE,MessagesDataItems.M_P_29_NAME,MessagesDataItems.M_P_29_PRICE,MessagesDataItems.M_P_29_DESCRIPTION);
+        new BeanDisplayListGrid<ItemLine>(new BeanDisplayItemLine()).displayGrid(this,getItems(),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_ITEMS,MessagesDataItems.M_P_29_IMAGE,MessagesDataItems.M_P_29_NAME,MessagesDataItems.M_P_29_PRICE,MessagesDataItems.M_P_29_DESCRIPTION);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
     }
 

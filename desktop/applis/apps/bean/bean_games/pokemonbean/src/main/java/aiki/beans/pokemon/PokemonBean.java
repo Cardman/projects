@@ -95,12 +95,12 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilities,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_ABILITIES,displayName);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_CATCHINGRATE,displayName,Long.toString(catchingRate));
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_TREE);
-        displayHeadParam(evolutions,new String[]{displayName},MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EVOLUTIONS_TITLE,MessagesDataPokemonData.M_P_72_EVOLUTIONS_KEY,MessagesDataPokemonData.M_P_72_GET_EVO);
-        int len_ = beans.size();
-        for (int i = 0; i < len_; i++) {
-            evo(beans.get(i));
-        }
-        feedParents();
+        new BeanDisplayListGrid<EvolutionBean>(new BeanDisplayEvolution()).displayGridParam(this,beans,new String[]{displayName},MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EVOLUTIONS_TITLE,MessagesDataPokemonData.M_P_72_EVOLUTIONS_KEY,MessagesDataPokemonData.M_P_72_GET_EVO);
+//        int len_ = beans.size();
+//        for (int i = 0; i < len_; i++) {
+//            evo(beans.get(i));
+//        }
+//        feedParents();
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_BASE,displayName);
         formatMessageDir(evoBase);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EXP);
@@ -109,10 +109,10 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_PTS_EXP,displayName,Long.toString(expRate));
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_TITLE);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS,displayName);
-        new BeanDisplayList<StringStatBaseEv>(new BeanDisplayStatBaseEv()).displayGrid(this,statistics,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_TITLE,MessagesDataPokemonData.M_P_72_STATISTICS_KEY,MessagesDataPokemonData.M_P_72_STATISTICS_VALUE,MessagesDataPokemonData.M_P_72_STATISTICS_EV);
+        new BeanDisplayListGrid<StringStatBaseEv>(new BeanDisplayStatBaseEv()).displayGrid(this,statistics,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_TITLE,MessagesDataPokemonData.M_P_72_STATISTICS_KEY,MessagesDataPokemonData.M_P_72_STATISTICS_VALUE,MessagesDataPokemonData.M_P_72_STATISTICS_EV);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_MOVES,displayName);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_LEVEL_MOVES,displayName);
-        new BeanDisplayList<LevelMoveTranslatedKey>(new BeanDisplayLevelMove()).displayGrid(this,levMoves,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_MOVES_LEVELS,MessagesDataPokemonData.M_P_72_LEVEL,MessagesDataPokemonData.M_P_72_MOVE);
+        new BeanDisplayListGrid<LevelMoveTranslatedKey>(new BeanDisplayLevelMove()).displayGrid(this,levMoves,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_MOVES_LEVELS,MessagesDataPokemonData.M_P_72_LEVEL,MessagesDataPokemonData.M_P_72_MOVE);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_TECHNICAL_MOVES,displayName);
         new BeanDisplayMap<Integer,TranslatedKey>(new BeanDisplayInt(),new BeanDisplayTranslatedKey()).displayGrid(this,technicalMoves,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_TM_TITLE,MessagesDataPokemonData.M_P_72_TM_NUMBER,MessagesDataPokemonData.M_P_72_TM_MOVE);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HIDDEN_MOVES,displayName);
@@ -146,7 +146,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         return file(MessagesPkBean.PK_DATA).getMapping();
     }
     public void initPlacesLevelList() {
-        initPage();
+//        initPage();
         int len_ = places.size();
         for (int i = 0; i < len_; i++) {
             if (!isAppearingPlace(i)) {
@@ -176,7 +176,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
             }
             feedParents();
         }
-        feedParents();
+//        feedParents();
     }
     @Override
     public void beforeDisplaying() {

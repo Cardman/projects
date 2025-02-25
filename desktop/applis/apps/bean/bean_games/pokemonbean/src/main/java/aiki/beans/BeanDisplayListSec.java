@@ -1,11 +1,11 @@
 package aiki.beans;
 
-import code.util.*;
+import code.util.CustList;
 
-public final class BeanDisplayList<E> extends BeanDisplayListCommon<E> {
-    private final BeanDisplayElt<E> display;
+public final class BeanDisplayListSec<E> extends BeanDisplayListCommon<E> {
+    private final BeanDisplayEltSec<E> display;
 
-    public BeanDisplayList(BeanDisplayElt<E> _d) {
+    public BeanDisplayListSec(BeanDisplayEltSec<E> _d) {
         this.display = _d;
     }
 
@@ -14,7 +14,7 @@ public final class BeanDisplayList<E> extends BeanDisplayListCommon<E> {
         for (E e: cond(_info,_enable)) {
             _rend.initLine();
             _rend.paintMetaLabelDisk();
-            display.displayElt(_rend, e);
+            display.displayEltSec(_rend, e);
             _rend.feedParents();
         }
         _rend.feedParents();

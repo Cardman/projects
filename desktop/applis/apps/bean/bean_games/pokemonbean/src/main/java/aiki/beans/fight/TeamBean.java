@@ -33,7 +33,7 @@ public final class TeamBean extends CommonFightBean {
         } else {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightTeam.M_P_92_TITLE_PLAYER)));
         }
-        initPage();
+//        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_FIGHT);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,this),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_REFRESH);
         for (EntryCust<Integer,String> e:getMembers().entryList()) {
@@ -42,16 +42,18 @@ public final class TeamBean extends CommonFightBean {
             formatMessageDirAnc(e.getValue(),new BeanAnchorToFighterEvent(e.getKey(),this));
             feedParents();
         }
-        feedParents();
+//        feedParents();
+        //_rend.displayActivityOfMoveEnabled(_info, MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y,MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N);
+        //        _rend.displayActivityOfMoveNbRound(_info, MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_NO);
         new BeanDisplayMap<String,ActivityOfMoveStill>(new BeanDisplayString(),new BeanDisplayActivityOfMoveStill(file().getVal(MessagesFightTeam.M_P_92_ENBALED_MOVES_ENABLED_Y),file().getVal(MessagesFightTeam.M_P_92_ENBALED_MOVES_ENABLED_N),file().getVal(MessagesFightTeam.M_P_92_ENBALED_MOVES_NO))).displayGrid(this, getEnabledMoves(),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_ENBALED_MOVES, MessagesFightTeam.M_P_92_ENBALED_MOVES_KEY, MessagesFightTeam.M_P_92_ENBALED_MOVES_ENABLED, MessagesFightTeam.M_P_92_ENBALED_MOVES_NB_ROUND);
-        displayHead(getEnabledMovesByGroup(),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_ENBALED_MOVES, MessagesFightTeam.M_P_92_ENBALED_MOVES_KEY, MessagesFightTeam.M_P_92_ENBALED_MOVES_ENABLED, MessagesFightTeam.M_P_92_ENBALED_MOVES_NB_ROUND);
-        int lenGr_ = getEnabledMovesByGroup().size();
-        for (int i = 0; i < lenGr_; i++) {
-            formatMessageDirCts(getKey(i));
-            displayActivityOfMoveEnabled(getEnabledMovesByGroup().getValue(i), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y,MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N);
-            displayActivityOfMoveNbRound(getEnabledMovesByGroup().getValue(i), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_NO);
-        }
-        feedParents();
+        new BeanDisplayMap<StringList,ActivityOfMove>(new BeanDisplayStringList(),new BeanDisplayActivityOfMove(file().getVal(MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y),file().getVal(MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N),file().getVal(MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_NO))).displayGrid(this,getEnabledMovesByGroup(),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_ENBALED_MOVES, MessagesFightTeam.M_P_92_ENBALED_MOVES_KEY, MessagesFightTeam.M_P_92_ENBALED_MOVES_ENABLED, MessagesFightTeam.M_P_92_ENBALED_MOVES_NB_ROUND);
+//        int lenGr_ = getEnabledMovesByGroup().size();
+//        for (int i = 0; i < lenGr_; i++) {
+//            formatMessageDirCts(getKey(i));
+//            displayActivityOfMoveEnabled(getEnabledMovesByGroup().getValue(i), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y,MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N);
+//            displayActivityOfMoveNbRound(getEnabledMovesByGroup().getValue(i), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_NO);
+//        }
+//        feedParents();
         new BeanDisplayMap<String, LgInt>(new BeanDisplayString(),new BeanDisplayLgInt()).displayGrid(this, getEnabledMovesWhileSendingFoeUses(),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_ENBALED_MOVES_SEND, MessagesFightTeam.M_P_92_ENBALED_MOVES_SEND_KEY, MessagesFightTeam.M_P_92_ENBALED_MOVES_SEND_VALUE);
         new BeanDisplayMap<String, Long>(new BeanDisplayString(),new BeanDisplayLong()).displayGrid(this, getNbUsesMoves(),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_ENBALED_MOVES_USES, MessagesFightTeam.M_P_92_ENBALED_MOVES_USES_KEY, MessagesFightTeam.M_P_92_ENBALED_MOVES_USES_VALUE);
         healPart();
@@ -116,7 +118,7 @@ public final class TeamBean extends CommonFightBean {
 
     private void playerFoePart() {
         display(getPlayerFightersAgainstFoe(), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_PLAYER_FOE);
-        initPage();
+//        initPage();
         for (EntryCust<Integer, FighterAgainstFoes> e:getPlayerFightersAgainstFoe().entryList()) {
             initLine();
             paintMetaLabelDisk();
@@ -124,7 +126,7 @@ public final class TeamBean extends CommonFightBean {
             new BeanDisplayList<String>(new BeanDisplayString()).display(this,e.getValue().getFoes().values());
             feedParents();
         }
-        feedParents();
+//        feedParents();
     }
 
     public StringMap<String> file() {

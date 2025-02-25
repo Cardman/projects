@@ -23,7 +23,7 @@ public final class StatusSetBean extends WithFilterBean implements BeanRenderWit
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataStatusset.M_P_89_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
-        initPage();
+//        initPage();
         initLine();
         formatMessage(MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_CONTENT);
         setTypedStatus(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedStatus().tryRet()));
