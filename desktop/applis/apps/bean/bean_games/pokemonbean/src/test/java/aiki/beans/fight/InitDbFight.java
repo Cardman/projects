@@ -349,7 +349,7 @@ public abstract class InitDbFight extends InitDbBean {
     }
 
     public static String navigateTeamFighter(TeamBean _str, int... _args) {
-        return _str.clickFighter(_args[0]);
+        return TeamBean.clickFighter(_args[0], _str.getForms());
     }
 
     public static String navigateFight(int _caller, String _concat, FightBean _str, int... _args) {

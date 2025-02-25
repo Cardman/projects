@@ -20,7 +20,9 @@ public final class TeamBean extends CommonFightBean {
     private NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses;
     private NatStringTreeMap<Long> nbUsesMoves;
     private NatStringTreeMap<IntTreeMap<StacksOfUses>> healAfter;
+    private CustList<AbsRowGridPkBean<StacksOfUses>> healAfterDisplay;
     private NatStringTreeMap<IntTreeMap<Anticipation>> movesAnticipation;
+    private CustList<AbsRowGridPkBean<Anticipation>> movesAnticipationDisplay;
     private IntTreeMap<FighterAgainstFoes > playerFightersAgainstFoe;
     private boolean foeTeam;
     private IntMap<String> members;
@@ -36,12 +38,13 @@ public final class TeamBean extends CommonFightBean {
 //        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_FIGHT);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,this),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_REFRESH);
-        for (EntryCust<Integer,String> e:getMembers().entryList()) {
-            initLine();
-            paintMetaLabelDisk();
-            formatMessageDirAnc(e.getValue(),new BeanAnchorToFighterEvent(e.getKey(),this));
-            feedParents();
-        }
+        new BeanDisplayList<EntryCust<Integer,String>>(new BeanDisplayMember()).display(this,getMembers().getList());
+//        for (EntryCust<Integer,String> e:getMembers().entryList()) {
+//            initLine();
+//            paintMetaLabelDisk();
+//            formatMessageDirAnc(e.getValue(),new BeanAnchorToFighterEvent(e.getKey(),this, getForms()));
+//            feedParents();
+//        }
 //        feedParents();
         //_rend.displayActivityOfMoveEnabled(_info, MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y,MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N);
         //        _rend.displayActivityOfMoveNbRound(_info, MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_ENBALED_MOVES_GROUPS_NO);
@@ -62,70 +65,71 @@ public final class TeamBean extends CommonFightBean {
     }
 
     private void healPart() {
-        displayHead(getHealAfter(),MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_HEAL_AFTER, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_ONE, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_TWO, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_RD, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_USED_CURRENT, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_USED_LAST);
-        for (EntryCust<String,IntTreeMap<StacksOfUses>> e:getHealAfter().entryList()) {
-            for (EntryCust<Integer, StacksOfUses> f:e.getValue().entryList()) {
-                formatMessageDirCts(e.getKey());
-                formatMessageDirCts(Long.toString(f.getKey()));
-                formatMessageDirCts(Long.toString(f.getValue().getNbRounds()));
-                if (f.getValue().isFirstStacked()) {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_Y);
-                } else {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_N);
-                }
-                if (f.getValue().isLastStacked()) {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_Y);
-                } else {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_N);
-                }
-            }
-        }
-        feedParents();
+        new BeanDisplayListGrid<AbsRowGridPkBean<StacksOfUses>>(new BeanDisplayStacksOfUsesRow()).displayGrid(this,healAfterDisplay,MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_HEAL_AFTER, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_ONE, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_TWO, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_RD, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_USED_CURRENT, MessagesFightTeam.M_P_92_HEAL_AFTER_KEY_USED_LAST);
+//        for (EntryCust<String,IntTreeMap<StacksOfUses>> e:getHealAfter().entryList()) {
+//            for (EntryCust<Integer, StacksOfUses> f:e.getValue().entryList()) {
+//                formatMessageDirCts(e.getKey());
+//                formatMessageDirCts(Long.toString(f.getKey()));
+//                formatMessageDirCts(Long.toString(f.getValue().getNbRounds()));
+//                if (f.getValue().isFirstStacked()) {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_Y);
+//                } else {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_N);
+//                }
+//                if (f.getValue().isLastStacked()) {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_Y);
+//                } else {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_HEAL_AFTER_N);
+//                }
+//            }
+//        }
+//        feedParents();
     }
 
     private void antPart() {
-        displayHead(getMovesAnticipation(),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT, MessagesFightTeam.M_P_92_MOVE_ANT_KEY_ONE, MessagesFightTeam.M_P_92_MOVE_ANT_KEY_TWO, MessagesFightTeam.M_P_92_MOVE_ANT_TEAM, MessagesFightTeam.M_P_92_MOVE_ANT_GROUND, MessagesFightTeam.M_P_92_MOVE_ANT_DAMAGE, MessagesFightTeam.M_P_92_MOVE_ANT_NB_ROUND);
-        for (EntryCust<String, IntTreeMap<Anticipation>> e:getMovesAnticipation().entryList()) {
-            for (EntryCust<Integer, Anticipation> f:e.getValue().entryList()) {
-                formatMessageDirCts(e.getKey());
-                formatMessageDirCts(Long.toString(f.getKey()));
-                if (f.getValue().getTargetPosition().getTeam() == Fight.CST_FOE) {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_FOE);
-                } else if (f.getValue().getTargetPosition().getTeam() == Fight.CST_PLAYER) {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_PLAYER);
-                } else {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_NO);
-                }
-                enabledAnt(f.getValue());
-                formatMessageDirCts(f.getValue().getDamage().toNumberString());
-                if (f.getValue().isIncrementing()) {
-                    formatMessageDirCts(Long.toString(f.getValue().getNbRounds()));
-                } else {
-                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_NO);
-                }
-            }
-        }
-        feedParents();
+        new BeanDisplayListGrid<AbsRowGridPkBean<Anticipation>>(new BeanDisplayAnticipationRow()).displayGrid(this,movesAnticipationDisplay,MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT, MessagesFightTeam.M_P_92_MOVE_ANT_KEY_ONE, MessagesFightTeam.M_P_92_MOVE_ANT_KEY_TWO, MessagesFightTeam.M_P_92_MOVE_ANT_TEAM, MessagesFightTeam.M_P_92_MOVE_ANT_GROUND, MessagesFightTeam.M_P_92_MOVE_ANT_DAMAGE, MessagesFightTeam.M_P_92_MOVE_ANT_NB_ROUND);
+//        for (EntryCust<String, IntTreeMap<Anticipation>> e:getMovesAnticipation().entryList()) {
+//            for (EntryCust<Integer, Anticipation> f:e.getValue().entryList()) {
+//                formatMessageDirCts(e.getKey());
+//                formatMessageDirCts(Long.toString(f.getKey()));
+//                if (f.getValue().getTargetPosition().getTeam() == Fight.CST_FOE) {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_FOE);
+//                } else if (f.getValue().getTargetPosition().getTeam() == Fight.CST_PLAYER) {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_PLAYER);
+//                } else {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_NO);
+//                }
+//                enabledAnt(f.getValue());
+//                formatMessageDirCts(f.getValue().getDamage().toNumberString());
+//                if (f.getValue().isIncrementing()) {
+//                    formatMessageDirCts(Long.toString(f.getValue().getNbRounds()));
+//                } else {
+//                    formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_NO);
+//                }
+//            }
+//        }
+//        feedParents();
     }
 
-    private void enabledAnt(Anticipation _f) {
-        if (_f.getTargetPosition().isEnabled()) {
-            formatMessageDirCts(Long.toString(_f.getTargetPosition().getPosition()));
-        } else {
-            formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_NO);
-        }
-    }
+//    private void enabledAnt(Anticipation _f) {
+//        if (_f.getTargetPosition().isEnabled()) {
+//            formatMessageDirCts(Long.toString(_f.getTargetPosition().getPosition()));
+//        } else {
+//            formatMessageCts(MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_MOVE_ANT_NO);
+//        }
+//    }
 
     private void playerFoePart() {
         display(getPlayerFightersAgainstFoe(), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_PLAYER_FOE);
+        new BeanDisplayListSec<FighterAgainstFoes>(new BeanDisplayFighterAgainstFoes()).display(this,getPlayerFightersAgainstFoe().values());
 //        initPage();
-        for (EntryCust<Integer, FighterAgainstFoes> e:getPlayerFightersAgainstFoe().entryList()) {
-            initLine();
-            paintMetaLabelDisk();
-            formatMessageDir(e.getValue().getName());
-            new BeanDisplayList<String>(new BeanDisplayString()).display(this,e.getValue().getFoes().values());
-            feedParents();
-        }
+//        for (EntryCust<Integer, FighterAgainstFoes> e:getPlayerFightersAgainstFoe().entryList()) {
+//            initLine();
+//            paintMetaLabelDisk();
+//            formatMessageDir(e.getValue().getName());
+//            new BeanDisplayList<String>(new BeanDisplayString()).display(this,e.getValue().getFoes().values());
+//            feedParents();
+//        }
 //        feedParents();
     }
 
@@ -206,6 +210,7 @@ public final class TeamBean extends CommonFightBean {
             healAfter_.put(translationsMoves_.getVal(m), h_);
         }
         healAfter = healAfter_;
+        initHeal(healAfter_);
         NatStringTreeMap<IntTreeMap<Anticipation>> movesAnticipation_;
         movesAnticipation_ = new NatStringTreeMap<IntTreeMap<Anticipation>>();
         for (String m: team_.getMovesAnticipationSet()) {
@@ -225,6 +230,7 @@ public final class TeamBean extends CommonFightBean {
             movesAnticipation_.put(translationsMoves_.getVal(m), a_);
         }
         movesAnticipation = movesAnticipation_;
+        initAnt(movesAnticipation_);
         playerFightersAgainstFoe = new IntTreeMap<FighterAgainstFoes >();
         CustList<Integer> mem_ = team_.getPlayerFightersAgainstFoeSet();
         int len_ = mem_.size();
@@ -235,6 +241,25 @@ public final class TeamBean extends CommonFightBean {
             playerFightersAgainstFoe.put(mem_.get(i), new FighterAgainstFoes(name(i, mem_.get(i), data_, team_),initMembers(data_,dataBaseFight_.getGame().getFight().getFoeTeam(),numbers_)));
         }
     }
+
+    private void initHeal(NatStringTreeMap<IntTreeMap<StacksOfUses>> _h) {
+        healAfterDisplay = new CustList<AbsRowGridPkBean<StacksOfUses>>();
+        for (EntryCust<String,IntTreeMap<StacksOfUses>> e: _h.entryList()) {
+            for (EntryCust<Integer, StacksOfUses> f:e.getValue().entryList()) {
+                healAfterDisplay.add(new AbsRowGridPkBean<StacksOfUses>(e.getKey(),f.getKey(),f.getValue()));
+            }
+        }
+    }
+
+    private void initAnt(NatStringTreeMap<IntTreeMap<Anticipation>> _a) {
+        movesAnticipationDisplay = new CustList<AbsRowGridPkBean<Anticipation>>();
+        for (EntryCust<String,IntTreeMap<Anticipation>> e: _a.entryList()) {
+            for (EntryCust<Integer, Anticipation> f:e.getValue().entryList()) {
+                movesAnticipationDisplay.add(new AbsRowGridPkBean<Anticipation>(e.getKey(),f.getKey(),f.getValue()));
+            }
+        }
+    }
+
     private IntMap<String> initMembers() {
         FacadeGame dataBaseFight_ = facade();
         int noTeam_ = getForms().getValInt(NO_TEAM);
@@ -260,8 +285,8 @@ public final class TeamBean extends CommonFightBean {
         return getMembers().getValue(_index);
     }
 
-    public String clickFighter(int _index) {
-        getForms().put(NO_FIGHTER, _index);
+    public static String clickFighter(int _index, StringMapObject _forms) {
+        _forms.put(NO_FIGHTER, _index);
         return PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML;
     }
     public String getKey(int _index) {

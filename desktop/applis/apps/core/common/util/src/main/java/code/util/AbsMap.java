@@ -56,7 +56,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V>, IntIndexOfE
         return getList().last().getValue();
     }
 
-    protected final CustList<EntryCust<K, V>> getList() {
+    public final CustList<EntryCust<K, V>> getList() {
         return list;
     }
 

@@ -309,12 +309,13 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     protected void mapVarsInit(AbsMap<String,String> _m) {
-        for (EntryCust<String,String> e: _m.entryList()) {
-            initLine();
-            paintMetaLabelDisk();
-            formatMessageDir(e.getKey()+" : "+e.getValue());
-            feedParents();
-        }
+        new BeanDisplayList<EntryCust<String,String>>(new BeanDisplayVars()).display(this, _m.getList());
+//        for (EntryCust<String,String> e: _m.entryList()) {
+//            initLine();
+//            paintMetaLabelDisk();
+//            formatMessageDir(e.getKey()+" : "+e.getValue());
+//            feedParents();
+//        }
     }
 
     public static int width(MiniMapCoordsTileInts _miniMap) {
@@ -592,12 +593,13 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     protected void displayTrainerPlaceNamesList(CustList<TrainerPlaceNames> _list) {
-        for (TrainerPlaceNames i: _list) {
-            builder.initLine();
-            paintMetaLabelDisk();
-            builder.formatMessageDir(i.getTrainer()+" - "+i.getPlace());
-            builder.feedParents();
-        }
+        new BeanDisplayList<TrainerPlaceNames>(new BeanDisplayTrainerPlaceNames()).display(this,_list);
+//        for (TrainerPlaceNames i: _list) {
+//            builder.initLine();
+//            paintMetaLabelDisk();
+//            builder.formatMessageDir(i.getTrainer()+" - "+i.getPlace());
+//            builder.feedParents();
+//        }
     }
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
