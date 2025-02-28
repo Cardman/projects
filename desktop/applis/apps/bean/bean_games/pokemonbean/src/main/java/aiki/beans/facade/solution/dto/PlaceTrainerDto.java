@@ -1,8 +1,8 @@
 package aiki.beans.facade.solution.dto;
 
 public final class PlaceTrainerDto {
-    private String place;
-    private String trainer;
+    private final String place;
+    private final String trainer;
 
     public PlaceTrainerDto(String _place, String _trainer) {
         place = _place;

@@ -1,27 +1,50 @@
 package aiki.beans.solution;
-import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorWildPokemonDto;
-import aiki.beans.facade.solution.dto.PlaceTrainerDto;
-import aiki.beans.facade.solution.dto.StepDto;
-import aiki.beans.facade.solution.dto.WildPokemonDto;
-import aiki.comparators.ComparatorPlaceLevel;
-import aiki.comparators.DictionaryComparatorPlaceLevel;
+import aiki.beans.*;
+import aiki.beans.facade.comparators.*;
+import aiki.beans.facade.solution.dto.*;
+import aiki.comparators.*;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.GenderName;
 import aiki.map.Solution;
 import aiki.map.Step;
 import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
-import aiki.util.PlaceLevelsCustListGenderName;
-import code.util.CustList;
+import aiki.util.*;
+import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
+import code.util.*;
 import code.util.core.StringUtil;
 
-public class SolutionBean extends CommonBean {
+public final class SolutionBean extends CommonBean implements BeanRenderWithAppName {
 
     private Solution solution;
     private CustList<StepDto> steps = new CustList<StepDto>();
 
+    public SolutionBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataSolution.M_P_87_TITLE));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.SOLUTION,MessagesDataSolution.M_P_87_INDEX);
+        int len_ = steps.size();
+        for (int i = 0; i < len_; i++) {
+            formatMessageDir(Long.toString(i));
+            int sub_ = steps.get(i).getPokemon().size();
+            for (int j = 0; j < sub_; j++) {
+                formatMessageDir(getPlace(i,j));
+                new BeanDisplayListGrid<WildPokemonDto>(new BeanDisplayWildPokemonDtoRow()).displayGrid(this,steps.get(i).getPokemon().getValue(j),MessagesPkBean.SOLUTION,"",MessagesDataSolution.M_P_87_IMAGE,MessagesDataSolution.M_P_87_NAME,MessagesDataSolution.M_P_87_GENDER);
+                new BeanDisplayList<PlaceTrainerDto>(new BeanDisplayPlaceTrainerDto()).display(this,steps.get(i).getNames());
+            }
+        }
+    }
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SOLUTION).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();

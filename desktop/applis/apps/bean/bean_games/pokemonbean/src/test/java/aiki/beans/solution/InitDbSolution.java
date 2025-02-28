@@ -22,6 +22,8 @@ import aiki.map.util.*;
 import aiki.util.Coords;
 import code.bean.nat.*;
 import code.maths.*;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.*;
 
 public abstract class InitDbSolution extends InitDbConstr {
@@ -109,9 +111,13 @@ public abstract class InitDbSolution extends InitDbConstr {
     }
 
     private static NaSt dispSol(PkData _pk) {
-        NaSt welcome_ = _pk.beanSolutionBean(EN);
-        beforeDisplaying(welcome_);
-        return welcome_;
+        SolutionBean sol_ = new SolutionBean();
+        sol_.setBuilder(builder(_pk.getDataBase()));
+        sol_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
+        sol_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
+        _pk.bean(sol_, EN);
+        beforeDisplaying(sol_);
+        return new PokemonBeanStruct(sol_);
     }
 
     private static FacadeGame db() {

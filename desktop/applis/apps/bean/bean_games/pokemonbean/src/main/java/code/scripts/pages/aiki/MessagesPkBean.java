@@ -98,6 +98,7 @@ public final class MessagesPkBean {
     public static final String NPC = "map/pokemon_key";
     public static final String GENERAL = "general/general";
     public static final String LANGS = "langs/langs";
+    public static final String SOLUTION = "solution/solution";
     private MessagesPkBean() {
 
     }
@@ -216,6 +217,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(NPC,MessagesDataMapPokemonKey.en());
         m.getMapping().addEntry(GENERAL,MessagesDataGeneral.en());
         m.getMapping().addEntry(LANGS,MessagesDataLangs.en());
+        m.getMapping().addEntry(SOLUTION,MessagesDataSolution.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -305,6 +307,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(NPC,MessagesDataMapPokemonKey.fr());
         m.getMapping().addEntry(GENERAL,MessagesDataGeneral.fr());
         m.getMapping().addEntry(LANGS,MessagesDataLangs.fr());
+        m.getMapping().addEntry(SOLUTION,MessagesDataSolution.fr());
         return m;
     }
 }
