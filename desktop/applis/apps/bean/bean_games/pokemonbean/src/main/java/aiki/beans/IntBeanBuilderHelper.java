@@ -16,6 +16,7 @@ public abstract class IntBeanBuilderHelper {
     private Translations translations;
     private final IdList<IntBeanAction> anchors = new IdList<IntBeanAction>();
     private int indent;
+    private String refLk = "";
     protected IntBeanBuilderHelper() {
     }
 
@@ -166,6 +167,14 @@ public abstract class IntBeanBuilderHelper {
 
     public void setIndent(int _i) {
         this.indent = _i;
+    }
+
+    public String getRefLk() {
+        return refLk;
+    }
+
+    public void setRefLk(String _r) {
+        this.refLk = _r;
     }
 
     public int colCount() {

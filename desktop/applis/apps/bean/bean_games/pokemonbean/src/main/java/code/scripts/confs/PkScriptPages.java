@@ -322,6 +322,7 @@ public static final String WEB_FIGHT_HTML_TEAM_HTML="web_fight/html/team.html";
 public static final String WEB_FIGHT_HTML_FIGHT_HTML="web_fight/html/fight.html";
 public static final String WEB_FIGHT_HTML_FIGHTDETAIL_HTML = "web_fight/html/fightdetail.html";
 public static final String WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
+public static final String BEGIN="begin";
 public static final String DIFF_COMMON_HTML = "diff_common.html";
 
     private PkScriptPages() {

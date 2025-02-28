@@ -1,19 +1,22 @@
 package aiki.beans.help;
 
-import aiki.beans.CommonBean;
+import aiki.beans.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.*;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
+import code.scripts.confs.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public class LangsBean extends CommonBean {
+public final class LangsBean extends CommonBean implements BeanRenderWithAppName {
     private DictionaryComparator<LanguageElementStringKey,String> translatedCategories;
     private DictionaryComparator<LanguageElementStringKey,String> translatedEnvironment;
     private DictionaryComparator<LanguageElementStringKey,String> translatedBooleans;
@@ -29,7 +32,68 @@ public class LangsBean extends CommonBean {
     private DictionaryComparator<LanguageElementStringKey,String> translatedClassesDescriptions;
     private DictionaryComparator<LanguageElementStringKey,String> translatedFctMath;
     private StringList languages;
+    public LangsBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataLangs.M_P_31_TITLE));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
+        getBuilder().setRefLk(PkScriptPages.BEGIN);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS);
+        getBuilder().setRefLk("");
+        StringList headers_ = new StringList();
+        for (String l:languages) {
+            DataBase data_ = getDataBase();
+            headers_.add(data_.getDisplayLanguages().getVal(l));
+        }
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_GENDERS);
+        display(translatedGenders,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_BOOLEANS);
+        display(translatedBooleans,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_ENVS);
+        display(translatedEnvironment,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_STATISTICS);
+        display(translatedStatistics,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_TARGETS);
+        display(translatedTargets,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_CATEGORIES);
+        display(translatedCategories,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_TYPES);
+        display(translatedTypes,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_PK);
+        display(translatedPokemon,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_MV);
+        display(translatedMoves,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_IT);
+        display(translatedItems,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_AB);
+        display(translatedAbilities,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_STATUS);
+        display(translatedStatus,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_MATH);
+        display(translatedFctMath,headers_);
+        formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_CLASSES);
+        display(translatedClassesDescriptions,headers_);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML+'#'+PkScriptPages.BEGIN,this),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_RETURN_BEGIN);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
+    }
+    private void display(DictionaryComparator<LanguageElementStringKey,String> _dico, StringList _headers) {
+        initGrid();
+        getBuilder().colCount(_headers.size());
+        for (String l: _headers) {
+            getBuilder().formatMessageDirCtsHeader(l);
+        }
+        for (EntryCust<LanguageElementStringKey,String> e:_dico.entryList()) {
+            formatMessageDirCts(e.getValue());
+        }
+        feedParents();
+    }
+    public StringMap<String> file() {
+        return file(MessagesPkBean.LANGS).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         languages = new StringList();

@@ -11,6 +11,8 @@ import aiki.instances.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.bean.nat.*;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 import code.util.*;
 
 public abstract class InitDbLangs extends InitDbConstr {
@@ -137,10 +139,15 @@ public abstract class InitDbLangs extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new LangsBeanLanguagesGet(),str());
     }
     protected static NaSt str() {
-        PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct bean_ = pk_.beanLangsBean(EN);
-        beforeDisplaying(bean_);
-        return bean_;
+        FacadeGame db_ = db();
+        PkData pk_ = pkDataByFacade(db_);
+        LangsBean g_ = new LangsBean();
+        g_.setBuilder(builder(db_));
+        g_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.LANGS,new TranslationsFile());
+        g_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.LANGS,new TranslationsFile());
+        pk_.bean(g_, EN);
+        beforeDisplaying(g_);
+        return new PokemonBeanStruct(g_);
     }
     protected static FacadeGame db(){
         DataBase data_ = newData();

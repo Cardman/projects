@@ -12,6 +12,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     private final AbstractProgramInfos api;
     private final FindBeanEvent finder;
     private final IdMap<MetaSearchableContent,AbsTextPane> refsSearch = new IdMap<MetaSearchableContent,AbsTextPane>();
+    private final StringMap<AbsTextPane> refsSearchDir = new StringMap<AbsTextPane>();
     private final IdList<MetaSearchableContent> metaSearchableContents = new IdList<MetaSearchableContent>();
     private final CustList<AbsPanel> stack = new CustList<AbsPanel>();
     private AbsCommonFrame frame;
@@ -26,6 +27,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         getMetaSearchableContents().clear();
         getParents().clear();
         getRefsSearch().clear();
+        getRefsSearchDir().clear();
         setPartGroup(0);
         setRowGroup(0);
     }
@@ -197,6 +199,9 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         MetaSearchableContent s_ = new MetaSearchableContent(_txt, getPartGroup(), getRowGroup());
         metaSearchableContents.add(s_);
         getRefsSearch().addEntry(s_,_ch);
+        if (!getRefLk().isEmpty()) {
+            getRefsSearchDir().addEntry(getRefLk(),_ch);
+        }
     }
 
     public CustList<AbsPanel> getStack() {
@@ -205,7 +210,17 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     @Override
     public void build(String _dest, StringMapObject _form) {
-        BeanRenderWithAppName target_ = getRenders().getVal(_dest);
+        int sep_ = _dest.indexOf('#');
+        String page_;
+        String name_;
+        if (sep_ >= 0)  {
+            page_ = _dest.substring(0,sep_);
+            name_ = _dest.substring(sep_+1);
+        } else {
+            page_ = _dest;
+            name_ = "";
+        }
+        BeanRenderWithAppName target_ = getRenders().getVal(page_);
         clearAnchors();
         reset();
         initPage();
@@ -215,6 +230,10 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         getFinder().setFinding(this);
         getScrollPane().setViewportView(stack.last());
         getScrollPane().validate();
+        AbsTextPane redir_ = getRefsSearchDir().getVal(name_);
+        if (redir_ != null) {
+            FindBeanEvent.scroll(this,redir_);
+        }
         getFrame().pack();
         stack.removeQuicklyLast();
         decr();
@@ -252,6 +271,9 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         return refsSearch;
     }
 
+    public StringMap<AbsTextPane> getRefsSearchDir() {
+        return refsSearchDir;
+    }
 
     public AbsScrollPane getScrollPane() {
         return scrollPane;

@@ -1,8 +1,6 @@
 package aiki.gui;
 
-import aiki.beans.BeanAnchorCstEvent;
-import aiki.beans.DataGameInit;
-import aiki.beans.IntBeanChgString;
+import aiki.beans.*;
 import aiki.beans.pokemon.PokedexBean;
 import aiki.game.Game;
 import aiki.game.params.enums.DifficultyModelLaw;
@@ -33,6 +31,7 @@ import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.*;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.stream.StreamBinaryFile;
 import code.threads.ConcreteBoolean;
 import code.threads.ConcreteInteger;
@@ -210,14 +209,29 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         BeanBuilderHelper h_ = new BeanBuilderHelper(window_.getFrames(), new FindBeanEvent(window_.getFrames().getCompoFactory().newTextField(),window_.getFrames()));
         h_.initGrid();
         h_.colCount(1);
+        h_.setTranslations(window_.getFrames().getTranslations());
+        h_.setScrollPane(new MockScrollPane());
+        h_.setFrame(window_.getCommonFrame());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        window_.getFrames().getTranslations().getMapping().getVal(window_.getFrames().getLanguage()).getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, ta_);
         IntBeanChgString txt_ = new DefBeanGeneInput(h_, window_.getFrames()).newText();
         txt_.setupValue(txt_.tryRet());
-        BeanAnchorCstEvent evt_ = new BeanAnchorCstEvent("", new PokedexBean());
+        WelcomeBean pk_ = new WelcomeBean();
+        pk_.setLanguage(window_.getFrames().getLanguage());
+        pk_.setForms(new StringMapObject());
+        pk_.setDataBase(window_.getFacade());
+        h_.setFacade(window_.getFacade());
+        BeanAnchorCstEvent evt_ = new BeanAnchorCstEvent("#_", pk_);
+        h_.getRenders().addEntry("",pk_);
         h_.formatMessageDirCts("", evt_);
         h_.addImgCts(new int[1][1],"");
         h_.addImgCtsAnc(new int[1][1],"", evt_);
         h_.setIndent(1);
         h_.paintIndent();
+        h_.setRefLk("_");
+        h_.hierarchy("",new MockTextPane());
+        h_.build(evt_);
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 
