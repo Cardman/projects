@@ -41,6 +41,7 @@ public final class SolutionBean extends CommonBean implements BeanRenderWithAppN
                 new BeanDisplayList<PlaceTrainerDto>(new BeanDisplayPlaceTrainerDto()).display(this,steps.get(i).getNames());
             }
         }
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.SOLUTION,MessagesDataSolution.M_P_87_INDEX);
     }
     public StringMap<String> file() {
         return file(MessagesPkBean.SOLUTION).getMapping();

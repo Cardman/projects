@@ -27,7 +27,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         elementAnchor(MessagesDataIndex.M_P_15_COMBOS,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,this));
         elementAnchor(MessagesDataIndex.M_P_15_ENDROUND,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this));
         elementAnchor(MessagesDataIndex.M_P_15_MAP,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,this));
-        element(MessagesDataIndex.M_P_15_SOLUTION);
+        elementAnchor(MessagesDataIndex.M_P_15_SOLUTION,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,this));
         elementAnchor(MessagesDataIndex.M_P_15_LANGS,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML,this));
         feedParents();
     }
