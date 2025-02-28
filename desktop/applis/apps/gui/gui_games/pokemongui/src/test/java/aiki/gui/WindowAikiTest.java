@@ -216,6 +216,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.formatMessageDirCts("", evt_);
         h_.addImgCts(new int[1][1],"");
         h_.addImgCtsAnc(new int[1][1],"", evt_);
+        h_.setIndent(1);
+        h_.paintIndent();
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 

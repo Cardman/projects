@@ -15,6 +15,7 @@ public abstract class IntBeanBuilderHelper {
     private FacadeGame facade;
     private Translations translations;
     private final IdList<IntBeanAction> anchors = new IdList<IntBeanAction>();
+    private int indent;
     protected IntBeanBuilderHelper() {
     }
 
@@ -85,6 +86,7 @@ public abstract class IntBeanBuilderHelper {
     public abstract void formatMessageDirCts(String _txt, IntBeanAction _e);
     public abstract void breakLine();
     public abstract void paintMetaLabelDisk();
+    public abstract void paintIndent();
     public abstract void addImg(int[][] _img);
     public abstract void addImgCts(int[][] _img, String _tip);
     public abstract void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e);
@@ -117,6 +119,12 @@ public abstract class IntBeanBuilderHelper {
         rowGroup = 0;
     }
 
+    public void indent() {
+        int indent_ = getIndent();
+        for (int i = 0; i < indent_; i++) {
+           paintIndent();
+        }
+    }
     public void incColIndex() {
         colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % colCount());
     }
@@ -151,6 +159,15 @@ public abstract class IntBeanBuilderHelper {
     public void setRowGroup(int _r) {
         this.rowGroup = _r;
     }
+
+    public int getIndent() {
+        return indent;
+    }
+
+    public void setIndent(int _i) {
+        this.indent = _i;
+    }
+
     public int colCount() {
         return getColCount().last();
     }

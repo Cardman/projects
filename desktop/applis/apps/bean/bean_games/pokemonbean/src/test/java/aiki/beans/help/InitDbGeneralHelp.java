@@ -14,6 +14,8 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import code.bean.nat.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
+import code.sml.util.*;
 import code.util.*;
 
 public abstract class InitDbGeneralHelp extends InitDbConstr {
@@ -323,9 +325,15 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
 
     private static PokemonBeanStruct bean(FacadeGame _db) {
         PkData pk_ = pkDataByFacade(_db);
-        PokemonBeanStruct bean_ = pk_.beanGeneralHelpBean(EN);
-        beforeDisplaying(bean_);
-        return bean_;
+        GeneralHelpBean g_ = new GeneralHelpBean();
+        g_.setBuilder(builder(_db));
+        g_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.GENERAL,new TranslationsFile());
+        g_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.GENERAL,new TranslationsFile());
+        g_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.NPC,new TranslationsFile());
+        g_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.NPC,new TranslationsFile());
+        pk_.bean(g_, EN);
+        beforeDisplaying(g_);
+        return new PokemonBeanStruct(g_);
     }
 
     protected static FacadeGame db(String _it) {

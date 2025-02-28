@@ -106,6 +106,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         ((BeanStruct)_bean).beforeDisplaying();
     }
 
+    public static void beforeDisplaying(CommonBean _bean) {
+        _bean.build(_bean.getFacade(),new StringMapObject());
+    }
+
     public static void setFormsBy(PokemonStandards _pk, NaSt _to, NaSt _from) {
         _pk.setForms(forms(_from),_to);
     }

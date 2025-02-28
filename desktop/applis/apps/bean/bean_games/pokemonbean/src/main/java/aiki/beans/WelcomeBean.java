@@ -17,7 +17,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         init(_facade,_form);
         setTitledBorder(file().getVal(MessagesDataIndex.M_P_15_TITLE));
         initPage();
-        element(MessagesDataIndex.M_P_15_GENERAL);
+        elementAnchor(MessagesDataIndex.M_P_15_GENERAL,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML,this));
         element(MessagesDataIndex.M_P_15_ROUND);
         elementAnchor(MessagesDataIndex.M_P_15_POKEDEX,new WelcomeBeanClickPokedex(this));
         elementAnchor(MessagesDataIndex.M_P_15_ITEMS,new WelcomeBeanClickItems(this));
@@ -33,10 +33,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
     }
 
     public void element(String _key) {
-        initLine();
-        paintMetaLabelDisk();
-        formatMessage(MessagesPkBean.INDEX, _key);
-        feedParents();
+        element(MessagesPkBean.INDEX, _key);
     }
 
     private void elementAnchor(String _key, IntBeanAction _ac) {

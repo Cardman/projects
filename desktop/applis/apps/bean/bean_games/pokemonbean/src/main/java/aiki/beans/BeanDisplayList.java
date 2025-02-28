@@ -13,6 +13,7 @@ public final class BeanDisplayList<E> extends BeanDisplayListCommon<E> {
         _rend.initPage();
         for (E e: cond(_info,_enable)) {
             _rend.initLine();
+            _rend.getBuilder().indent();
             _rend.paintMetaLabelDisk();
             display.displayElt(_rend, e);
             _rend.feedParents();

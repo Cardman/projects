@@ -10,13 +10,18 @@ public final class BeanDisplayListSec<E> extends BeanDisplayListCommon<E> {
     }
 
     public void display(CommonBean _rend, CustList<E> _info, int _enable) {
-        _rend.initPage();
+//        _rend.initPage();
         for (E e: cond(_info,_enable)) {
             _rend.initLine();
             _rend.paintMetaLabelDisk();
+            display.displayEltSecHeader(_rend, e);
+            _rend.feedParents();
+            _rend.initLine();
+            _rend.getBuilder().setIndent(1);
             display.displayEltSec(_rend, e);
+            _rend.getBuilder().setIndent(0);
             _rend.feedParents();
         }
-        _rend.feedParents();
+//        _rend.feedParents();
     }
 }

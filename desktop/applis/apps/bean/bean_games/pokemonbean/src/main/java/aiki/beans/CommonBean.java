@@ -308,6 +308,20 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _sub.getCopyBoost());
     }
 
+    public void element(String _file,String _key, String... _values) {
+        element(0,_file,_key,_values);
+    }
+
+    public void element(int _i,String _file,String _key, String... _values) {
+        getBuilder().setIndent(getBuilder().getIndent()+_i);
+        initLine();
+        getBuilder().indent();
+        paintMetaLabelDisk();
+        formatMessage(_file, _key, _values);
+        feedParents();
+        getBuilder().setIndent(getBuilder().getIndent()-_i);
+    }
+
     protected void mapVarsInit(AbsMap<String,String> _m) {
         new BeanDisplayList<EntryCust<String,String>>(new BeanDisplayVars()).display(this, _m.getList());
 //        for (EntryCust<String,String> e: _m.entryList()) {

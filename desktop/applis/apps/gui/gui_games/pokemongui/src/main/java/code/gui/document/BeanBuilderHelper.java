@@ -152,6 +152,16 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     public void breakLine() {
         getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
     }
+
+    @Override
+    public void paintIndent() {
+        AbstractImage img_ = api.getImageFactory().newImageArgb(16, 16);
+        img_.setColor(GuiConstants.WHITE);
+        img_.fillRect(0, 0, 16, 16);
+        stack.last().add(api.getCompoFactory().newPreparedLabel(img_));
+        img_.dispose();
+    }
+
     public void paintMetaLabelDisk() {
         AbstractImage img_ = api.getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);

@@ -626,6 +626,13 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static WelcomeBean beanWelcomeBean(PkData _pk,String _lg) {
         WelcomeBean b_ = new WelcomeBean();
         _pk.bean(b_, _lg);
+        MockBeanBuilderHelper bu_ = builder(_pk.getDataBase());
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,b_);
+        b_.setBuilder(bu_);
+        return b_;
+    }
+
+    protected static MockBeanBuilderHelper builder(FacadeGame _facade) {
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
         TranslationsLg en_ = new TranslationsLg();
@@ -637,9 +644,7 @@ public abstract class InitDbConstr extends InitDbBean {
         fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
         tr_.getMapping().addEntry(FR, fr_);
         bu_.setTranslations(tr_);
-        bu_.setFacade(_pk.getDataBase());
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,b_);
-        b_.setBuilder(bu_);
-        return b_;
+        bu_.setFacade(_facade);
+        return bu_;
     }
 }
