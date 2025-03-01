@@ -1,9 +1,6 @@
 package aiki.beans.help;
 
-import aiki.beans.CommonBean;
-import aiki.beans.PokemonStandards;
-import aiki.beans.TranslatedKey;
-import aiki.beans.WithFilterBean;
+import aiki.beans.*;
 import aiki.beans.abilities.TranslatedKeyPair;
 import aiki.beans.facade.comparators.ComparatorTranslatedKeyList;
 import aiki.comparators.ComparingTranslatedKey;
@@ -35,12 +32,13 @@ import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
-public class FightHelpBean extends CommonBean {
+public final class FightHelpBean extends CommonBean implements BeanRenderWithAppName {
 
 //    private static final String VAR_BOOST ="b";
     private CustList<TranslatedKey> abilitiesSentBeginWeather;
@@ -63,12 +61,15 @@ public class FightHelpBean extends CommonBean {
     private CustList<TranslatedKey> deletedStatusSwitch;
     private CustList<TranslatedKey> entryHazard;
     private CustList<TranslatedKey> beginRoundStatus;
+    private CustList<TranslatedKey> beginRoundStatusAttack;
+    private CustList<TranslatedKey> beginRoundStatusHeal;
     private CustList<TranslatedKey> deleteStatusMove;
     private CustList<TranslatedKey> immuStatusAbility;
     private AbsMap<TranslatedKey,StatusBeginRoundAutoDamage> autoDamage;
     private String damgeFormula;
     private NatStringTreeMap<String> mapAutoDamage;
     private CustList<TranslatedKey> prepaRoundMoves;
+    private CustList<TranslatedKey> prepaRoundMovesDisappear;
     private CustList<TranslatedKey> disappearingRoundMoves;
     private CustList<TranslatedKey> speedPreparingItems;
     private CustList<TranslatedKey> rechargeMoves;
@@ -87,6 +88,8 @@ public class FightHelpBean extends CommonBean {
     private CustList<TranslatedKey> effMoves;
     private CustList<TranslatedKey> abilitiesPartStatis;
     private CustList<TranslatedKey> movesTeam;
+    private CustList<TranslatedKey> movesTeamStatis;
+    private CustList<TranslatedKey> movesTeamStatus;
     private CustList<TranslatedKey> abilitiesRateStatis;
     private CustList<TranslatedKey> abilitiesFighterStatis;
     private CustList<TranslatedKey> itemsFighterStatis;
@@ -116,7 +119,12 @@ public class FightHelpBean extends CommonBean {
     private CustList<TranslatedKey> abilitiesEndRound;
     private CustList<TranslatedKey> berryEndRound;
     private CustList<TranslatedKey> movesChangingAttOrder;
+    private CustList<TranslatedKey> movesChangingAttOrderFirst;
+    private CustList<TranslatedKey> movesChangingAttOrderLast;
     private CustList<TranslatedKey> damagingMoves;
+    private CustList<TranslatedKey> damagingMovesConst;
+    private CustList<TranslatedKey> damagingMovesRand;
+    private CustList<TranslatedKey> damagingMovesMult;
     private CustList<TranslatedKey> itemsUserPower;
     private CustList<TranslatedKey> movesUserPower;
     private CustList<TranslatedKey> movesTargetPower;
@@ -159,15 +167,57 @@ public class FightHelpBean extends CommonBean {
     private CustList<TranslatedKey> movesIgnEva;
     private CustList<TranslatedKey> movesGlobalAcc;
     private CustList<TranslatedKey> abilitiesBoostingStat;
+    private CustList<TranslatedKey> abilitiesBoostingStatNormal;
+    private CustList<TranslatedKey> abilitiesBoostingStatSpeed;
+    private CustList<TranslatedKey> abilitiesBoostingStatAccuracy;
+    private CustList<TranslatedKey> abilitiesBoostingStatEvasiness;
+    private CustList<TranslatedKey> abilitiesBoostingStatCh;
     private CustList<TranslatedKey> itemsBoostingStat;
+    private CustList<TranslatedKey> itemsBoostingStatNormal;
+    private CustList<TranslatedKey> itemsBoostingStatSpeed;
+    private CustList<TranslatedKey> itemsBoostingStatAccuracy;
+    private CustList<TranslatedKey> itemsBoostingStatEvasiness;
+    private CustList<TranslatedKey> itemsBoostingStatCh;
     private CustList<TranslatedKey> abilitiesMultStat;
+    private CustList<TranslatedKey> abilitiesMultStatNormal;
+    private CustList<TranslatedKey> abilitiesMultStatSpeed;
+    private CustList<TranslatedKey> abilitiesMultStatAccuracy;
+    private CustList<TranslatedKey> abilitiesMultStatEvasiness;
     private CustList<TranslatedKey> itemsMultStat;
+    private CustList<TranslatedKey> itemsMultStatNormal;
+    private CustList<TranslatedKey> itemsMultStatSpeed;
+    private CustList<TranslatedKey> itemsMultStatAccuracy;
+    private CustList<TranslatedKey> itemsMultStatEvasiness;
     private CustList<TranslatedKey> movesGlobalMultStat;
+    private CustList<TranslatedKey> movesGlobalMultStatNormal;
+    private CustList<TranslatedKey> movesGlobalMultStatSpeed;
+    private CustList<TranslatedKey> movesGlobalMultStatAccuracy;
+    private CustList<TranslatedKey> movesGlobalMultStatEvasiness;
     private CustList<TranslatedKey> movesTeamMultStat;
+    private CustList<TranslatedKey> movesTeamMultStatNormal;
+    private CustList<TranslatedKey> movesTeamMultStatSpeed;
+    private CustList<TranslatedKey> movesTeamMultStatAccuracy;
+    private CustList<TranslatedKey> movesTeamMultStatEvasiness;
     private CustList<TranslatedKey> movesFoeTeamMultStat;
+    private CustList<TranslatedKey> movesFoeTeamMultStatNormal;
+    private CustList<TranslatedKey> movesFoeTeamMultStatSpeed;
+    private CustList<TranslatedKey> movesFoeTeamMultStatAccuracy;
+    private CustList<TranslatedKey> movesFoeTeamMultStatEvasiness;
     private CustList<TranslatedKey> abilitiesAllyMultStat;
+    private CustList<TranslatedKey> abilitiesAllyMultStatNormal;
+    private CustList<TranslatedKey> abilitiesAllyMultStatSpeed;
+    private CustList<TranslatedKey> abilitiesAllyMultStatAccuracy;
+    private CustList<TranslatedKey> abilitiesAllyMultStatEvasiness;
     private CustList<TranslatedKey> statusMultStat;
+    private CustList<TranslatedKey> statusMultStatNormal;
+    private CustList<TranslatedKey> statusMultStatSpeed;
+    private CustList<TranslatedKey> statusMultStatAccuracy;
+    private CustList<TranslatedKey> statusMultStatEvasiness;
     private CustList<TranslatedKey> abilitiesImmuMultStat;
+    private CustList<TranslatedKey> abilitiesImmuMultStatNormal;
+    private CustList<TranslatedKey> abilitiesImmuMultStatSpeed;
+    private CustList<TranslatedKey> abilitiesImmuMultStatAccuracy;
+    private CustList<TranslatedKey> abilitiesImmuMultStatEvasiness;
     private CustList<CustList<TranslatedKey>> comboMultStat;
     private CustList<CustList<TranslatedKey>> comboEvtStat;
     private CustList<TranslatedKey> movesTypesDefItem;
@@ -202,6 +252,15 @@ public class FightHelpBean extends CommonBean {
     private NatStringTreeMap< String> varRates;
     private StringMap<AbsBasicTreeMap<Rate,Rate>> lawsRates;
     private CustList<TranslatedKey> statisticAnim;
+    public FightHelpBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+
+    }
 
     @Override
     public void beforeDisplaying() {
@@ -244,6 +303,9 @@ public class FightHelpBean extends CommonBean {
         initEffMoves();
         initAbilitiesPartStatis();
         movesTeam = listTrStringsMv(data_.getMovesEffectTeam(),getFacade());
+        movesTeamStatis = new CustList<TranslatedKey>();
+        movesTeamStatus = new CustList<TranslatedKey>();
+        filterMovesTeam();
         initAbilitiesRateStatis();
         initStatisticsImmuElements();
         initStatusElements();
@@ -277,6 +339,18 @@ public class FightHelpBean extends CommonBean {
         types = typesInit(getFacade());
         initFormulaElements();
     }
+
+    private void filterMovesTeam() {
+        for (TranslatedKey t: movesTeam) {
+            if (immuStatisTeamMove(t)) {
+                movesTeamStatis.add(t);
+            }
+            if (immuStatusTeamMove(t)) {
+                movesTeamStatus.add(t);
+            }
+        }
+    }
+
     static StringList movesTypesDefWeatherInit(DataBase _db) {
         StringList movesTypesDefWeather_ = new StringList();
         for (String m: _db.getMoves().getKeys()) {
@@ -694,12 +768,33 @@ public class FightHelpBean extends CommonBean {
     private void initStatisticsCalculationElements() {
         DataBase data_ = getDataBase();
         abilitiesBoostingStat = listTrStringsAb(abilitiesBoostingStatInit(data_),getFacade());
+        abilitiesBoostingStatNormal = new CustList<TranslatedKey>();
+        abilitiesBoostingStatSpeed = new CustList<TranslatedKey>();
+        abilitiesBoostingStatAccuracy = new CustList<TranslatedKey>();
+        abilitiesBoostingStatEvasiness = new CustList<TranslatedKey>();
+        abilitiesBoostingStatCh = new CustList<TranslatedKey>();
+        filterAbilitiesBoostingStat();
         initItemsBoostingStat();
         initAbItMultStat();
         initMultStatTeamGlobal();
         abilitiesAllyMultStat = listTrStringsAb(abilitiesAllyMultStatInit(data_),getFacade());
+        abilitiesAllyMultStatNormal = new CustList<TranslatedKey>();
+        abilitiesAllyMultStatSpeed = new CustList<TranslatedKey>();
+        abilitiesAllyMultStatAccuracy = new CustList<TranslatedKey>();
+        abilitiesAllyMultStatEvasiness = new CustList<TranslatedKey>();
+        filterAbilitiesAllyMultStat();
         statusMultStat = listTrStringsSt(statusMultStatInit(data_),getFacade());
+        statusMultStatNormal = new CustList<TranslatedKey>();
+        statusMultStatSpeed = new CustList<TranslatedKey>();
+        statusMultStatAccuracy = new CustList<TranslatedKey>();
+        statusMultStatEvasiness = new CustList<TranslatedKey>();
+        filterStatusMultStat();
         abilitiesImmuMultStat = listTrStringsAb(abilitiesImmuMultStatInit(data_),getFacade());
+        abilitiesImmuMultStatNormal = new CustList<TranslatedKey>();
+        abilitiesImmuMultStatSpeed = new CustList<TranslatedKey>();
+        abilitiesImmuMultStatAccuracy = new CustList<TranslatedKey>();
+        abilitiesImmuMultStatEvasiness = new CustList<TranslatedKey>();
+        filterAbilitiesImmuMultStat();
         initComboMultStat();
 //        comboMultStat.sort(new NaturalComparator<StringList>(){
 //            public int compare(StringList _key1, StringList _key2) {
@@ -745,6 +840,78 @@ public class FightHelpBean extends CommonBean {
 //        });
         comboEvtStat.sortElts(new ComparatorTranslatedKeyList());
     }
+
+    private void filterAbilitiesImmuMultStat() {
+        for (TranslatedKey t: abilitiesImmuMultStat) {
+            if (abilityImmuMultNormal(t)) {
+                abilitiesImmuMultStatNormal.add(t);
+            }
+            if (abilityImmuMult(Statistic.ACCURACY, t)) {
+                abilitiesImmuMultStatAccuracy.add(t);
+            }
+            if (abilityImmuMult(Statistic.EVASINESS, t)) {
+                abilitiesImmuMultStatEvasiness.add(t);
+            }
+            if (abilityImmuMult(Statistic.SPEED, t)) {
+                abilitiesImmuMultStatSpeed.add(t);
+            }
+        }
+    }
+
+    private void filterStatusMultStat() {
+        for (TranslatedKey t: statusMultStat) {
+            if (statusMultNormal(t)) {
+                statusMultStatNormal.add(t);
+            }
+            if (statusMult(Statistic.ACCURACY, t)) {
+                statusMultStatAccuracy.add(t);
+            }
+            if (statusMult(Statistic.EVASINESS, t)) {
+                statusMultStatEvasiness.add(t);
+            }
+            if (statusMult(Statistic.SPEED, t)) {
+                statusMultStatSpeed.add(t);
+            }
+        }
+    }
+
+    private void filterAbilitiesAllyMultStat() {
+        for (TranslatedKey t: abilitiesAllyMultStat) {
+            if (abilityAllyMultNormal(t)) {
+                abilitiesAllyMultStatNormal.add(t);
+            }
+            if (abilityAllyMult(Statistic.ACCURACY, t)) {
+                abilitiesAllyMultStatAccuracy.add(t);
+            }
+            if (abilityAllyMult(Statistic.EVASINESS, t)) {
+                abilitiesAllyMultStatEvasiness.add(t);
+            }
+            if (abilityAllyMult(Statistic.SPEED, t)) {
+                abilitiesAllyMultStatSpeed.add(t);
+            }
+        }
+    }
+
+    private void filterAbilitiesBoostingStat() {
+        for (TranslatedKey t: abilitiesBoostingStat) {
+            if (abilityBoostNormal(t)) {
+                abilitiesBoostingStatNormal.add(t);
+            }
+            if (abilityBoost(Statistic.ACCURACY,t)) {
+                abilitiesBoostingStatAccuracy.add(t);
+            }
+            if (abilityBoost(Statistic.EVASINESS,t)) {
+                abilitiesBoostingStatEvasiness.add(t);
+            }
+            if (abilityBoost(Statistic.CRITICAL_HIT,t)) {
+                abilitiesBoostingStatCh.add(t);
+            }
+            if (abilityBoost(Statistic.SPEED,t)) {
+                abilitiesBoostingStatSpeed.add(t);
+            }
+        }
+    }
+
     static StringList abilitiesBoostingStatInit(DataBase _db) {
         StringList abilitiesBoostingStat_ = new StringList();
         for (String a: _db.getAbilities().getKeys()) {
@@ -789,8 +956,53 @@ public class FightHelpBean extends CommonBean {
     private void initAbItMultStat() {
         DataBase data_ = getDataBase();
         abilitiesMultStat = listTrStringsAb(abilitiesMultStatInit(data_),getFacade());
+        abilitiesMultStatNormal = new CustList<TranslatedKey>();
+        abilitiesMultStatSpeed = new CustList<TranslatedKey>();
+        abilitiesMultStatAccuracy = new CustList<TranslatedKey>();
+        abilitiesMultStatEvasiness = new CustList<TranslatedKey>();
+        filterAbilitiesMultStat();
         itemsMultStat = listTrStringsIt(itemsMultStatInit(data_),getFacade());
+        itemsMultStatNormal = new CustList<TranslatedKey>();
+        itemsMultStatSpeed = new CustList<TranslatedKey>();
+        itemsMultStatAccuracy = new CustList<TranslatedKey>();
+        itemsMultStatEvasiness = new CustList<TranslatedKey>();
+        filterItemsMultStat();
     }
+
+    private void filterAbilitiesMultStat() {
+        for (TranslatedKey t: abilitiesMultStat) {
+            if (abilityMultNormal(t)) {
+                abilitiesMultStatNormal.add(t);
+            }
+            if (abilityMult(Statistic.ACCURACY, t)) {
+                abilitiesMultStatAccuracy.add(t);
+            }
+            if (abilityMult(Statistic.EVASINESS, t)) {
+                abilitiesMultStatEvasiness.add(t);
+            }
+            if (abilityMult(Statistic.SPEED, t)) {
+                abilitiesMultStatSpeed.add(t);
+            }
+        }
+    }
+
+    private void filterItemsMultStat() {
+        for (TranslatedKey t: itemsMultStat) {
+            if (itemMultNormal(t)) {
+                itemsMultStatNormal.add(t);
+            }
+            if (itemMult(Statistic.ACCURACY, t)) {
+                itemsMultStatAccuracy.add(t);
+            }
+            if (itemMult(Statistic.EVASINESS, t)) {
+                itemsMultStatEvasiness.add(t);
+            }
+            if (itemMult(Statistic.SPEED, t)) {
+                itemsMultStatSpeed.add(t);
+            }
+        }
+    }
+
     static StringList abilitiesMultStatInit(DataBase _db) {
         StringList abilitiesMultStat_ = new StringList();
         for (String a: _db.getAbilities().getKeys()) {
@@ -815,8 +1027,31 @@ public class FightHelpBean extends CommonBean {
     private void initMultStatTeamGlobal() {
         DataBase data_ = getDataBase();
         movesGlobalMultStat = listTrStringsMv(movesGlobalMultStatInit(data_),getFacade());
+        movesGlobalMultStatNormal = new CustList<TranslatedKey>();
+        movesGlobalMultStatSpeed = new CustList<TranslatedKey>();
+        movesGlobalMultStatAccuracy = new CustList<TranslatedKey>();
+        movesGlobalMultStatEvasiness = new CustList<TranslatedKey>();
+        filterMovesGlobalMultStat();
         initMultStatTeam();
     }
+
+    private void filterMovesGlobalMultStat() {
+        for (TranslatedKey t: movesGlobalMultStat) {
+            if (moveGlobalMultNormal(t)) {
+                movesGlobalMultStatNormal.add(t);
+            }
+            if (moveGlobalMult(Statistic.ACCURACY, t)) {
+                movesGlobalMultStatAccuracy.add(t);
+            }
+            if (moveGlobalMult(Statistic.EVASINESS, t)) {
+                movesGlobalMultStatEvasiness.add(t);
+            }
+            if (moveGlobalMult(Statistic.SPEED, t)) {
+                movesGlobalMultStatSpeed.add(t);
+            }
+        }
+    }
+
     static StringList movesGlobalMultStatInit(DataBase _db) {
         StringList movesGlobalMultStat_ = new StringList();
         for (String m: _db.getMoves().getKeys()) {
@@ -834,8 +1069,53 @@ public class FightHelpBean extends CommonBean {
     private void initMultStatTeam() {
         DataBase data_ = getDataBase();
         movesTeamMultStat = listTrStringsMv(movesTeamMultStatInit(data_),getFacade());
+        movesTeamMultStatNormal = new CustList<TranslatedKey>();
+        movesTeamMultStatSpeed = new CustList<TranslatedKey>();
+        movesTeamMultStatAccuracy = new CustList<TranslatedKey>();
+        movesTeamMultStatEvasiness = new CustList<TranslatedKey>();
+        filterMovesTeamMultStat();
         movesFoeTeamMultStat = listTrStringsMv(movesFoeTeamMultStatInit(data_),getFacade());
+        movesFoeTeamMultStatNormal = new CustList<TranslatedKey>();
+        movesFoeTeamMultStatSpeed = new CustList<TranslatedKey>();
+        movesFoeTeamMultStatAccuracy = new CustList<TranslatedKey>();
+        movesFoeTeamMultStatEvasiness = new CustList<TranslatedKey>();
+        filterMovesFoeTeamMultStat();
     }
+
+    private void filterMovesTeamMultStat() {
+        for (TranslatedKey t: movesTeamMultStat) {
+            if (moveTeamMultNormal(t)) {
+                movesTeamMultStatNormal.add(t);
+            }
+            if (moveTeamMult(Statistic.ACCURACY, t)) {
+                movesTeamMultStatAccuracy.add(t);
+            }
+            if (moveTeamMult(Statistic.EVASINESS, t)) {
+                movesTeamMultStatEvasiness.add(t);
+            }
+            if (moveTeamMult(Statistic.SPEED, t)) {
+                movesTeamMultStatSpeed.add(t);
+            }
+        }
+    }
+
+    private void filterMovesFoeTeamMultStat() {
+        for (TranslatedKey t: movesFoeTeamMultStat) {
+            if (moveFoeTeamMultNormal(t)) {
+                movesFoeTeamMultStatNormal.add(t);
+            }
+            if (moveFoeTeamMult(Statistic.ACCURACY, t)) {
+                movesFoeTeamMultStatAccuracy.add(t);
+            }
+            if (moveFoeTeamMult(Statistic.EVASINESS, t)) {
+                movesFoeTeamMultStatEvasiness.add(t);
+            }
+            if (moveFoeTeamMult(Statistic.SPEED, t)) {
+                movesFoeTeamMultStatSpeed.add(t);
+            }
+        }
+    }
+
     static StringList movesTeamMultStatInit(DataBase _db) {
         StringList movesTeamMultStat_ = new StringList();
         for (String m: _db.getMoves().getKeys()) {
@@ -900,7 +1180,34 @@ public class FightHelpBean extends CommonBean {
     private void initItemsBoostingStat() {
         DataBase data_ = getDataBase();
         itemsBoostingStat = listTrStringsIt(itemsBoostingStatInit(data_),getFacade());
+        itemsBoostingStatNormal = new CustList<TranslatedKey>();
+        itemsBoostingStatSpeed = new CustList<TranslatedKey>();
+        itemsBoostingStatAccuracy = new CustList<TranslatedKey>();
+        itemsBoostingStatEvasiness = new CustList<TranslatedKey>();
+        itemsBoostingStatCh = new CustList<TranslatedKey>();
+        filterItemsBoostingStat();
     }
+
+    private void filterItemsBoostingStat() {
+        for (TranslatedKey t: itemsBoostingStat) {
+            if (itemBoostNormal(t)) {
+                itemsBoostingStatNormal.add(t);
+            }
+            if (itemBoost(Statistic.ACCURACY, t)) {
+                itemsBoostingStatAccuracy.add(t);
+            }
+            if (itemBoost(Statistic.EVASINESS, t)) {
+                itemsBoostingStatEvasiness.add(t);
+            }
+            if (itemBoost(Statistic.CRITICAL_HIT, t)) {
+                itemsBoostingStatCh.add(t);
+            }
+            if (itemBoost(Statistic.SPEED, t)) {
+                itemsBoostingStatSpeed.add(t);
+            }
+        }
+    }
+
     static StringList itemsBoostingStatInit(DataBase _db) {
         StringList itemsBoostingStat_ = new StringList();
         for (String i: _db.getItems().getKeys()) {
@@ -1373,10 +1680,29 @@ public class FightHelpBean extends CommonBean {
     private void initPowerElements() {
         DataBase data_ = getDataBase();
         damagingMoves = listTrStringsMv(damagingMovesInit(data_),getFacade());
+        damagingMovesConst = new CustList<TranslatedKey>();
+        damagingMovesRand = new CustList<TranslatedKey>();
+        damagingMovesMult = new CustList<TranslatedKey>();
+        filterDamagingMoves();
         itemsUserPower = listTrStringsIt(itemsUserPowerInit(data_),getFacade());
         initMovePowerUserTarget();
         abilitiesUserPower = listTrStringsAb(abilitiesUserPowerInit(data_),getFacade());
     }
+
+    private void filterDamagingMoves() {
+        for (TranslatedKey t: damagingMoves) {
+            if (withConstDamage(t)) {
+                damagingMovesConst.add(t);
+            }
+            if (withRandDamage(t)) {
+                damagingMovesRand.add(t);
+            }
+            if (withMultDamage(t)) {
+                damagingMovesMult.add(t);
+            }
+        }
+    }
+
     static StringList damagingMovesInit(DataBase _db) {
         StringList damagingMoves_ = new StringList();
         for (String m: _db.getMoves().getKeys()) {
@@ -1613,7 +1939,21 @@ public class FightHelpBean extends CommonBean {
         abilitiesEndRound = listTrStringsAb(abilitiesEndRoundInit(data_),getFacade());
         berryEndRound = listTrStringsIt(berryEndRoundInit(data_),getFacade());
         movesChangingAttOrder = listTrStringsMv(movesChangingAttOrderInit(data_),getFacade());
+        movesChangingAttOrderFirst = new CustList<TranslatedKey>();
+        movesChangingAttOrderLast = new CustList<TranslatedKey>();
+        filterMovesChangingAttOrder();
     }
+
+    private void filterMovesChangingAttOrder() {
+        for (TranslatedKey t: movesChangingAttOrder) {
+            if (attackLast(t.getKey())) {
+                movesChangingAttOrderLast.add(t);
+            } else {
+                movesChangingAttOrderFirst.add(t);
+            }
+        }
+    }
+
     static StringList abilitiesEndRoundInit(DataBase _db) {
         StringList abilitiesEndRound_ = new StringList();
         for (String a: _db.getAbilities().getKeys()) {
@@ -1832,11 +2172,22 @@ public class FightHelpBean extends CommonBean {
     private void initBeginRoundPreparingMembers() {
         DataBase data_ = getDataBase();
         prepaRoundMoves = listTrStringsMv(prepaRoundMovesInit(data_),getFacade());
+        prepaRoundMovesDisappear = new CustList<TranslatedKey>();
+        filterPrepaRoundMoves();
         disappearingRoundMoves = listTrStringsMv(disappearingRoundMovesInit(data_),getFacade());
         rechargeMoves = listTrStringsMv(rechargeMovesInit(data_),getFacade());
         speedPreparingItems = listTrStringsIt(speedPreparingItemsInit(data_),getFacade());
         immuRecharging = listTrStringsAb(immuRechargingInit(data_),getFacade());
     }
+
+    private void filterPrepaRoundMoves() {
+        for (TranslatedKey t: prepaRoundMoves) {
+            if (isDisappearingUser(t.getKey())) {
+                prepaRoundMovesDisappear.add(t);
+            }
+        }
+    }
+
     static StringList prepaRoundMovesInit(DataBase _db) {
         StringList prepaRoundMoves_ = new StringList();
         for (String m: _db.getMoves().getKeys()) {
@@ -1895,6 +2246,9 @@ public class FightHelpBean extends CommonBean {
     private void initBeginRoundStatusMembers() {
         DataBase data_ = getDataBase();
         beginRoundStatus = listTrStringsSt(beginRoundStatusInit(data_),getFacade());
+        beginRoundStatusAttack = new CustList<TranslatedKey>();
+        beginRoundStatusHeal = new CustList<TranslatedKey>();
+        filterBeginRoundStatus();
         deleteStatusMove = listTrStringsMv(deleteStatusMoveInit(data_),getFacade());
         immuStatusAbility = listTrStringsAb(immuStatusAbilityInit(data_),getFacade());
         autoDamage = autoDamageInit(getFacade());
@@ -1902,6 +2256,17 @@ public class FightHelpBean extends CommonBean {
         mapVar = new NatStringTreeMap<String>();
         mapVar.putAllMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
         mapAutoDamage = mapAutoDamageInit(data_,getLanguage(), autoDamage);
+    }
+
+    private void filterBeginRoundStatus() {
+        for (TranslatedKey t: beginRoundStatus) {
+            if (hasLawForAttack(t.getKey())) {
+                beginRoundStatusAttack.add(t);
+            }
+            if (hasLawForHeal(t.getKey())) {
+                beginRoundStatusHeal.add(t);
+            }
+        }
     }
 
     static NatStringTreeMap<String> mapAutoDamageInit(DataBase _data, String _lg, AbsMap<TranslatedKey, StatusBeginRoundAutoDamage> _a) {
@@ -2457,7 +2822,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemBoostNormal(int _index) {
-        String ab_ = itemsBoostingStat.get(_index).getKey();
+        return itemBoostNormal(itemsBoostingStat.get(_index));
+    }
+
+    private boolean itemBoostNormal(TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         if (data_.getItem(ab_) instanceof Berry) {
             Berry b_ = (Berry) data_.getItem(ab_);
@@ -2485,22 +2854,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemBoostSpeed(int _index) {
-        String ab_ = itemsBoostingStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        if (data_.getItem(ab_) instanceof Berry) {
-            Berry b_ = (Berry) data_.getItem(ab_);
-            return b_.getMultStat().contains(Statistic.SPEED);
-        }
-        ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (i_.getMultStatRank().contains(Statistic.SPEED)) {
-            return true;
-        }
-        for (StatisticPokemon s: i_.getMultStatPokemonRank().getKeys()) {
-            if (s.getStatistic() == Statistic.SPEED) {
-                return true;
-            }
-        }
-        return false;
+        return itemBoost(Statistic.SPEED, itemsBoostingStat.get(_index));
     }
     public boolean itemBoostChAny() {
         int len_;
@@ -2513,22 +2867,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemBoostCh(int _index) {
-        String ab_ = itemsBoostingStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        if (data_.getItem(ab_) instanceof Berry) {
-            Berry b_ = (Berry) data_.getItem(ab_);
-            return b_.getMultStat().contains(Statistic.CRITICAL_HIT);
-        }
-        ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (i_.getMultStatRank().contains(Statistic.CRITICAL_HIT)) {
-            return true;
-        }
-        for (StatisticPokemon s: i_.getMultStatPokemonRank().getKeys()) {
-            if (s.getStatistic() == Statistic.CRITICAL_HIT) {
-                return true;
-            }
-        }
-        return false;
+        return itemBoost(Statistic.CRITICAL_HIT, itemsBoostingStat.get(_index));
     }
     public boolean itemBoostEvasinessAny() {
         int len_;
@@ -2541,22 +2880,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemBoostEvasiness(int _index) {
-        String ab_ = itemsBoostingStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        if (data_.getItem(ab_) instanceof Berry) {
-            Berry b_ = (Berry) data_.getItem(ab_);
-            return b_.getMultStat().contains(Statistic.EVASINESS);
-        }
-        ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (i_.getMultStatRank().contains(Statistic.EVASINESS)) {
-            return true;
-        }
-        for (StatisticPokemon s: i_.getMultStatPokemonRank().getKeys()) {
-            if (s.getStatistic() == Statistic.EVASINESS) {
-                return true;
-            }
-        }
-        return false;
+        return itemBoost(Statistic.EVASINESS, itemsBoostingStat.get(_index));
     }
     public boolean itemBoostAccuracyAny() {
         int len_;
@@ -2569,18 +2893,22 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemBoostAccuracy(int _index) {
-        String ab_ = itemsBoostingStat.get(_index).getKey();
+        return itemBoost(Statistic.ACCURACY, itemsBoostingStat.get(_index));
+    }
+
+    private boolean itemBoost(Statistic _stat, TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         if (data_.getItem(ab_) instanceof Berry) {
             Berry b_ = (Berry) data_.getItem(ab_);
-            return b_.getMultStat().contains(Statistic.ACCURACY);
+            return b_.getMultStat().contains(_stat);
         }
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (i_.getMultStatRank().contains(Statistic.ACCURACY)) {
+        if (i_.getMultStatRank().contains(_stat)) {
             return true;
         }
         for (StatisticPokemon s: i_.getMultStatPokemonRank().getKeys()) {
-            if (s.getStatistic() == Statistic.ACCURACY) {
+            if (s.getStatistic() == _stat) {
                 return true;
             }
         }
@@ -2603,7 +2931,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemMultNormal(int _index) {
-        String ab_ = itemsMultStat.get(_index).getKey();
+        return itemMultNormal(itemsMultStat.get(_index));
+    }
+
+    private boolean itemMultNormal(TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
         return hasNormalStat(i_.getMultStat().getKeys());
@@ -2612,17 +2944,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemMultSpeed(i)) {
+            if (itemMult(i, Statistic.SPEED)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemMultSpeed(int _index) {
-        String ab_ = itemsMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        return i_.getMultStat().contains(Statistic.SPEED);
+    public boolean itemMult(int _index, Statistic _stat) {
+        return itemMult(_stat, itemsMultStat.get(_index));
     }
     public boolean itemMultEvasinessAny() {
         int len_;
@@ -2635,10 +2964,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemMultEvasiness(int _index) {
-        String ab_ = itemsMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        return i_.getMultStat().contains(Statistic.EVASINESS);
+        return itemMult(_index, Statistic.EVASINESS);
     }
     public boolean itemMultAccuracyAny() {
         int len_;
@@ -2651,10 +2977,14 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean itemMultAccuracy(int _index) {
-        String ab_ = itemsMultStat.get(_index).getKey();
+        return itemMult(_index, Statistic.ACCURACY);
+    }
+
+    private boolean itemMult(Statistic _stat, TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        return i_.getMultStat().contains(Statistic.ACCURACY);
+        return i_.getMultStat().contains(_stat);
     }
     public String getTrItemsMultStat(int _index) {
         return itemsMultStat.get(_index).getTranslation();
@@ -2937,7 +3267,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityBoostNormal(int _index) {
-        String ab_ = abilitiesBoostingStat.get(_index).getKey();
+        return abilityBoostNormal(abilitiesBoostingStat.get(_index));
+    }
+
+    private boolean abilityBoostNormal(TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return hasNormalStat(a_.getBonusStatRank().getKeys());
@@ -2953,10 +3287,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityBoostSpeed(int _index) {
-        String ab_ = abilitiesBoostingStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        return a_.getBonusStatRank().contains(Statistic.SPEED);
+        return abilityBoost(Statistic.SPEED, abilitiesBoostingStat.get(_index));
     }
     public boolean abilityBoostChAny() {
         int len_;
@@ -2969,10 +3300,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityBoostCh(int _index) {
-        String ab_ = abilitiesBoostingStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        return a_.getBonusStatRank().contains(Statistic.CRITICAL_HIT);
+        return abilityBoost(Statistic.CRITICAL_HIT, abilitiesBoostingStat.get(_index));
     }
     public boolean abilityBoostEvasinessAny() {
         int len_;
@@ -2985,10 +3313,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityBoostEvasiness(int _index) {
-        String ab_ = abilitiesBoostingStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        return a_.getBonusStatRank().contains(Statistic.EVASINESS);
+        return abilityBoost(Statistic.EVASINESS, abilitiesBoostingStat.get(_index));
     }
     public boolean abilityBoostAccuracyAny() {
         int len_;
@@ -3001,10 +3326,14 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityBoostAccuracy(int _index) {
-        String ab_ = abilitiesBoostingStat.get(_index).getKey();
+        return abilityBoost(Statistic.ACCURACY, abilitiesBoostingStat.get(_index));
+    }
+
+    private boolean abilityBoost(Statistic _stat, TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
-        return a_.getBonusStatRank().contains(Statistic.ACCURACY);
+        return a_.getBonusStatRank().contains(_stat);
     }
     public String getTrAbilitiesBoostingStat(int _index) {
         return abilitiesBoostingStat.get(_index).getTranslation();
@@ -3023,7 +3352,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityMultNormal(int _index) {
-        String ab_ = abilitiesMultStat.get(_index).getKey();
+        return abilityMultNormal(abilitiesMultStat.get(_index));
+    }
+
+    private boolean abilityMultNormal(TranslatedKey _tk) {
+        String ab_ = _tk.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
@@ -3044,15 +3377,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityMultSpeed(int _index) {
-        String ab_ = abilitiesMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
-            if (s.getStatistic() == Statistic.SPEED) {
-                return true;
-            }
-        }
-        return a_.getMultStat().contains(Statistic.SPEED);
+        return abilityMult(Statistic.SPEED, abilitiesMultStat.get(_index));
     }
     public boolean abilityMultEvasinessAny() {
         int len_;
@@ -3065,15 +3390,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityMultEvasiness(int _index) {
-        String ab_ = abilitiesMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
-            if (s.getStatistic() == Statistic.EVASINESS) {
-                return true;
-            }
-        }
-        return a_.getMultStat().contains(Statistic.EVASINESS);
+        return abilityMult(Statistic.EVASINESS, abilitiesMultStat.get(_index));
     }
     public boolean abilityMultAccuracyAny() {
         int len_;
@@ -3086,15 +3403,19 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityMultAccuracy(int _index) {
-        String ab_ = abilitiesMultStat.get(_index).getKey();
+        return abilityMult(Statistic.ACCURACY, abilitiesMultStat.get(_index));
+    }
+
+    private boolean abilityMult(Statistic _stat, TranslatedKey _tk) {
+        String ab_ = _tk.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
-            if (s.getStatistic() == Statistic.ACCURACY) {
+            if (s.getStatistic() == _stat) {
                 return true;
             }
         }
-        return a_.getMultStat().contains(Statistic.ACCURACY);
+        return a_.getMultStat().contains(_stat);
     }
     public String getTrAbilitiesMultStat(int _index) {
         return abilitiesMultStat.get(_index).getTranslation();
@@ -3113,7 +3434,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityAllyMultNormal(int _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index).getKey();
+        return abilityAllyMultNormal(abilitiesAllyMultStat.get(_index));
+    }
+
+    private boolean abilityAllyMultNormal(TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return hasNormalStat(a_.getMultStatAlly().getKeys());
@@ -3129,10 +3454,14 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityAllyMultEvasiness(int _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index).getKey();
+        return abilityAllyMult(Statistic.EVASINESS, abilitiesAllyMultStat.get(_index));
+    }
+
+    private boolean abilityAllyMult(Statistic _stat, TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
-        return a_.getMultStatAlly().contains(Statistic.EVASINESS);
+        return a_.getMultStatAlly().contains(_stat);
     }
     public boolean abilityAllyMultSpeedAny() {
         int len_;
@@ -3145,10 +3474,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityAllyMultSpeed(int _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        return a_.getMultStatAlly().contains(Statistic.SPEED);
+        return abilityAllyMult(Statistic.SPEED, abilitiesAllyMultStat.get(_index));
     }
     public boolean abilityAllyMultAccuracyAny() {
         int len_;
@@ -3161,10 +3487,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityAllyMultAccuracy(int _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        return a_.getMultStatAlly().contains(Statistic.ACCURACY);
+        return abilityAllyMult(Statistic.ACCURACY, abilitiesAllyMultStat.get(_index));
     }
     public String getTrAbilitiesAllyMultStat(int _index) {
         return abilitiesAllyMultStat.get(_index).getTranslation();
@@ -3183,7 +3506,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityImmuMultNormal(int _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index).getKey();
+        return abilityImmuMultNormal(abilitiesImmuMultStat.get(_index));
+    }
+
+    private boolean abilityImmuMultNormal(TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
@@ -3204,15 +3531,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityImmuMultEvasiness(int _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
-            if (s.getStatistic() == Statistic.EVASINESS) {
-                return true;
-            }
-        }
-        return false;
+        return abilityImmuMult(Statistic.EVASINESS, abilitiesImmuMultStat.get(_index));
     }
     public boolean abilityImmuMultSpeedAny() {
         int len_;
@@ -3225,15 +3544,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityImmuMultSpeed(int _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        AbilityData a_ = data_.getAbility(ab_);
-        for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
-            if (s.getStatistic() == Statistic.SPEED) {
-                return true;
-            }
-        }
-        return false;
+        return abilityImmuMult(Statistic.SPEED, abilitiesImmuMultStat.get(_index));
     }
     public boolean abilityImmuMultAccuracyAny() {
         int len_;
@@ -3246,11 +3557,15 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean abilityImmuMultAccuracy(int _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index).getKey();
+        return abilityImmuMult(Statistic.ACCURACY, abilitiesImmuMultStat.get(_index));
+    }
+
+    private boolean abilityImmuMult(Statistic _stat, TranslatedKey _key) {
+        String ab_ = _key.getKey();
         DataBase data_ = getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
-            if (s.getStatistic() == Statistic.ACCURACY) {
+            if (s.getStatistic() == _stat) {
                 return true;
             }
         }
@@ -3335,9 +3650,13 @@ public class FightHelpBean extends CommonBean {
         return tryRedirect(deleteStatusMove.get(_index));
     }
     public boolean isDisappearingUser(int _index) {
-        DataBase data_ = getDataBase();
         String m_ = prepaRoundMoves.get(_index).getKey();
-        MoveData move_ = data_.getMove(m_);
+        return isDisappearingUser(m_);
+    }
+
+    private boolean isDisappearingUser(String _m) {
+        DataBase data_ = getDataBase();
+        MoveData move_ = data_.getMove(_m);
         return move_.getDisappearBeforeUse();
     }
     public String getTrPrepaRoundMoves(int _index) {
@@ -3425,7 +3744,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean immuStatisTeamMove(int _index) {
-        MoveData move_ = getStatisTeamMove(_index);
+        return immuStatisTeamMove(movesTeam.get(_index));
+    }
+
+    private boolean immuStatisTeamMove(TranslatedKey _key) {
+        MoveData move_ = getStatisTeamMove(_key);
         for (Effect e: move_.getEffects()) {
             if (!(e instanceof EffectTeam)) {
                 continue;
@@ -3438,7 +3761,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean immuStatusTeamMove(int _index) {
-        MoveData move_ = getStatisTeamMove(_index);
+        return immuStatusTeamMove(movesTeam.get(_index));
+    }
+
+    private boolean immuStatusTeamMove(TranslatedKey _key) {
+        MoveData move_ = getStatisTeamMove(_key);
         for (Effect e: move_.getEffects()) {
             if (!(e instanceof EffectTeam)) {
                 continue;
@@ -3451,7 +3778,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean immuChTeamMove(int _index) {
-        MoveData move_ = getStatisTeamMove(_index);
+        MoveData move_ = getStatisTeamMove(movesTeam.get(_index));
         for (Effect e: move_.getEffects()) {
             if (!(e instanceof EffectTeam)) {
                 continue;
@@ -3463,9 +3790,9 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public MoveData getStatisTeamMove(int _index) {
+    public MoveData getStatisTeamMove(TranslatedKey _key) {
         DataBase data_ = getDataBase();
-        String m_ = movesTeam.get(_index).getKey();
+        String m_ = _key.getKey();
         return data_.getMove(m_);
     }
     public String getTrMovesTeam(int _index) {
@@ -3520,8 +3847,12 @@ public class FightHelpBean extends CommonBean {
     }
     public boolean attackLast(int _index) {
         String m_ = movesChangingAttOrder.get(_index).getKey();
+        return attackLast(m_);
+    }
+
+    private boolean attackLast(String _m) {
         DataBase data_ = getDataBase();
-        MoveData move_ = data_.getMove(m_);
+        MoveData move_ = data_.getMove(_m);
         for(Effect e: move_.getEffects()){
             if(!(e instanceof EffectOrder)){
                 continue;
@@ -3550,9 +3881,17 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean withConstDamage(int _index) {
+        return withConstDamage(damagingMoves.get(_index));
+    }
+
+    private boolean withConstDamage(TranslatedKey _key) {
         DataBase data_ = getDataBase();
-        MoveData move_ = data_.getMove(damagingMoves.get(_index).getKey());
-        EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
+        MoveData move_ = data_.getMove(_key.getKey());
+        Effect prim_ = move_.getEffet(move_.indexOfPrimaryEffect());
+        if (!(prim_ instanceof EffectDamage)) {
+            return false;
+        }
+        EffectDamage eff_ = (EffectDamage) prim_;
         return eff_.getConstDamage();
     }
     public boolean withRandDamageAny() {
@@ -3566,9 +3905,17 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean withRandDamage(int _index) {
+        return withRandDamage(damagingMoves.get(_index));
+    }
+
+    private boolean withRandDamage(TranslatedKey _key) {
         DataBase data_ = getDataBase();
-        MoveData move_ = data_.getMove(damagingMoves.get(_index).getKey());
-        EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
+        MoveData move_ = data_.getMove(_key.getKey());
+        Effect prim_ = move_.getEffet(move_.indexOfPrimaryEffect());
+        if (!(prim_ instanceof EffectDamage)) {
+            return false;
+        }
+        EffectDamage eff_ = (EffectDamage) prim_;
         return !eff_.getDamageLaw().isEmpty();
     }
     public boolean withMultDamageAny() {
@@ -3582,9 +3929,17 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean withMultDamage(int _index) {
+        return withMultDamage(damagingMoves.get(_index));
+    }
+
+    private boolean withMultDamage(TranslatedKey _key) {
         DataBase data_ = getDataBase();
-        MoveData move_ = data_.getMove(damagingMoves.get(_index).getKey());
-        EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
+        MoveData move_ = data_.getMove(_key.getKey());
+        Effect prim_ = move_.getEffet(move_.indexOfPrimaryEffect());
+        if (!(prim_ instanceof EffectDamage)) {
+            return false;
+        }
+        EffectDamage eff_ = (EffectDamage) prim_;
         return !eff_.getMultDamageAgainst().isEmpty();
     }
     public String getTrDamagingMoves(int _index) {
@@ -3706,7 +4061,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveGlobalMultNormal(int _index) {
-        String move_ = movesGlobalMultStat.get(_index).getKey();
+        return moveGlobalMultNormal(movesGlobalMultStat.get(_index));
+    }
+
+    private boolean moveGlobalMultNormal(TranslatedKey _key) {
+        String move_ = _key.getKey();
         DataBase data_ = getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3733,21 +4092,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveGlobalMultEvasiness(int _index) {
-        String move_ = movesGlobalMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        MoveData m_ = data_.getMove(move_);
-        for (Effect e: m_.getEffects()) {
-            if (!(e instanceof EffectGlobal)) {
-                continue;
-            }
-            EffectGlobal e_ = (EffectGlobal) e;
-            for (StatisticType t: e_.getMultStatIfContainsType().getKeys()) {
-                if (t.getStatistic() == Statistic.EVASINESS) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return moveGlobalMult(Statistic.EVASINESS, movesGlobalMultStat.get(_index));
     }
     public boolean moveGlobalMultSpeedAny() {
         int len_;
@@ -3760,21 +4105,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveGlobalMultSpeed(int _index) {
-        String move_ = movesGlobalMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        MoveData m_ = data_.getMove(move_);
-        for (Effect e: m_.getEffects()) {
-            if (!(e instanceof EffectGlobal)) {
-                continue;
-            }
-            EffectGlobal e_ = (EffectGlobal) e;
-            for (StatisticType t: e_.getMultStatIfContainsType().getKeys()) {
-                if (t.getStatistic() == Statistic.SPEED) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return moveGlobalMult(Statistic.SPEED, movesGlobalMultStat.get(_index));
     }
     public boolean moveGlobalMultAccuracyAny() {
         int len_;
@@ -3787,16 +4118,19 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveGlobalMultAccuracy(int _index) {
-        String move_ = movesGlobalMultStat.get(_index).getKey();
+        return moveGlobalMult(Statistic.ACCURACY, movesGlobalMultStat.get(_index));
+    }
+
+    private boolean moveGlobalMult(Statistic _stat, TranslatedKey _key) {
         DataBase data_ = getDataBase();
-        MoveData m_ = data_.getMove(move_);
+        MoveData m_ = data_.getMove(_key.getKey());
         for (Effect e: m_.getEffects()) {
             if (!(e instanceof EffectGlobal)) {
                 continue;
             }
             EffectGlobal e_ = (EffectGlobal) e;
             for (StatisticType t: e_.getMultStatIfContainsType().getKeys()) {
-                if (t.getStatistic() == Statistic.ACCURACY) {
+                if (t.getStatistic() == _stat) {
                     return true;
                 }
             }
@@ -3819,7 +4153,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveTeamMultNormal(int _index) {
-        String move_ = movesTeamMultStat.get(_index).getKey();
+        return moveTeamMultNormal(movesTeamMultStat.get(_index));
+    }
+
+    private boolean moveTeamMultNormal(TranslatedKey _key) {
+        String move_ = _key.getKey();
         DataBase data_ = getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3843,19 +4181,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveTeamMultEvasiness(int _index) {
-        String move_ = movesTeamMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        MoveData m_ = data_.getMove(move_);
-        for (Effect e: m_.getEffects()) {
-            if (!(e instanceof EffectTeam)) {
-                continue;
-            }
-            EffectTeam e_ = (EffectTeam) e;
-            if (e_.getMultStatistic().contains(Statistic.EVASINESS)) {
-                return true;
-            }
-        }
-        return false;
+        return moveTeamMult(Statistic.EVASINESS, movesTeamMultStat.get(_index));
     }
     public boolean moveTeamMultSpeedAny() {
         int len_ = movesTeamMultStat.size();
@@ -3867,19 +4193,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveTeamMultSpeed(int _index) {
-        String move_ = movesTeamMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        MoveData m_ = data_.getMove(move_);
-        for (Effect e: m_.getEffects()) {
-            if (!(e instanceof EffectTeam)) {
-                continue;
-            }
-            EffectTeam e_ = (EffectTeam) e;
-            if (e_.getMultStatistic().contains(Statistic.SPEED)) {
-                return true;
-            }
-        }
-        return false;
+        return moveTeamMult(Statistic.SPEED, movesTeamMultStat.get(_index));
     }
     public boolean moveTeamMultAccuracyAny() {
         int len_ = movesTeamMultStat.size();
@@ -3891,7 +4205,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveTeamMultAccuracy(int _index) {
-        String move_ = movesTeamMultStat.get(_index).getKey();
+        return moveTeamMult(Statistic.ACCURACY, movesTeamMultStat.get(_index));
+    }
+
+    private boolean moveTeamMult(Statistic _stat, TranslatedKey _key) {
+        String move_ = _key.getKey();
         DataBase data_ = getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3899,7 +4217,7 @@ public class FightHelpBean extends CommonBean {
                 continue;
             }
             EffectTeam e_ = (EffectTeam) e;
-            if (e_.getMultStatistic().contains(Statistic.ACCURACY)) {
+            if (e_.getMultStatistic().contains(_stat)) {
                 return true;
             }
         }
@@ -3922,7 +4240,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveFoeTeamMultNormal(int _index) {
-        String move_ = movesFoeTeamMultStat.get(_index).getKey();
+        return moveFoeTeamMultNormal(movesFoeTeamMultStat.get(_index));
+    }
+
+    private boolean moveFoeTeamMultNormal(TranslatedKey _key) {
+        String move_ = _key.getKey();
         DataBase data_ = getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3947,19 +4269,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveFoeTeamMultEvasiness(int _index) {
-        String move_ = movesFoeTeamMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        MoveData m_ = data_.getMove(move_);
-        for (Effect e: m_.getEffects()) {
-            if (!(e instanceof EffectTeam)) {
-                continue;
-            }
-            EffectTeam e_ = (EffectTeam) e;
-            if (e_.getMultStatisticFoe().contains(Statistic.EVASINESS)) {
-                return true;
-            }
-        }
-        return false;
+        return moveFoeTeamMult(Statistic.EVASINESS, movesFoeTeamMultStat.get(_index));
     }
     public boolean moveFoeTeamMultSpeedAny() {
         int len_;
@@ -3972,19 +4282,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveFoeTeamMultSpeed(int _index) {
-        String move_ = movesFoeTeamMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        MoveData m_ = data_.getMove(move_);
-        for (Effect e: m_.getEffects()) {
-            if (!(e instanceof EffectTeam)) {
-                continue;
-            }
-            EffectTeam e_ = (EffectTeam) e;
-            if (e_.getMultStatisticFoe().contains(Statistic.SPEED)) {
-                return true;
-            }
-        }
-        return false;
+        return moveFoeTeamMult(Statistic.SPEED, movesFoeTeamMultStat.get(_index));
     }
     public boolean moveFoeTeamMultAccuracyAny() {
         int len_;
@@ -3997,7 +4295,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean moveFoeTeamMultAccuracy(int _index) {
-        String move_ = movesFoeTeamMultStat.get(_index).getKey();
+        return moveFoeTeamMult(Statistic.ACCURACY, movesFoeTeamMultStat.get(_index));
+    }
+
+    private boolean moveFoeTeamMult(Statistic _stat, TranslatedKey _key) {
+        String move_ = _key.getKey();
         DataBase data_ = getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4005,7 +4307,7 @@ public class FightHelpBean extends CommonBean {
                 continue;
             }
             EffectTeam e_ = (EffectTeam) e;
-            if (e_.getMultStatisticFoe().contains(Statistic.ACCURACY)) {
+            if (e_.getMultStatisticFoe().contains(_stat)) {
                 return true;
             }
         }
@@ -4071,8 +4373,12 @@ public class FightHelpBean extends CommonBean {
     }
     public boolean hasLawForAttack(int _index) {
         String status_ = beginRoundStatus.get(_index).getKey();
+        return hasLawForAttack(status_);
+    }
+
+    private boolean hasLawForAttack(String _status) {
         DataBase data_ = getDataBase();
-        Status st_ = data_.getStatus(status_);
+        Status st_ = data_.getStatus(_status);
         StatusBeginRound s_ = (StatusBeginRound) st_;
         if (s_.getLawForUsingAMove().isEmpty()) {
             return !s_.getLawForUsingAMoveIfFoe().isEmpty();
@@ -4091,8 +4397,12 @@ public class FightHelpBean extends CommonBean {
     }
     public boolean hasLawForHeal(int _index) {
         String status_ = beginRoundStatus.get(_index).getKey();
+        return hasLawForHeal(status_);
+    }
+
+    private boolean hasLawForHeal(String _status) {
         DataBase data_ = getDataBase();
-        Status st_ = data_.getStatus(status_);
+        Status st_ = data_.getStatus(_status);
         StatusBeginRound s_ = (StatusBeginRound) st_;
         return !s_.getLawForFullHealIfMove().isEmpty();
     }
@@ -4137,7 +4447,11 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean statusMultNormal(int _index) {
-        String status_ = statusMultStat.get(_index).getKey();
+        return statusMultNormal(statusMultStat.get(_index));
+    }
+
+    private boolean statusMultNormal(TranslatedKey _key) {
+        String status_ = _key.getKey();
         DataBase data_ = getDataBase();
         Status s_ = data_.getStatus(status_);
         return hasNormalStat(s_.getMultStat().getKeys());
@@ -4153,10 +4467,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean statusMultEvasiness(int _index) {
-        String status_ = statusMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        Status s_ = data_.getStatus(status_);
-        return s_.getMultStat().contains(Statistic.EVASINESS);
+        return statusMult(Statistic.EVASINESS, statusMultStat.get(_index));
     }
     public boolean statusMultSpeedAny() {
         int len_;
@@ -4169,10 +4480,7 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean statusMultSpeed(int _index) {
-        String status_ = statusMultStat.get(_index).getKey();
-        DataBase data_ = getDataBase();
-        Status s_ = data_.getStatus(status_);
-        return s_.getMultStat().contains(Statistic.SPEED);
+        return statusMult(Statistic.SPEED, statusMultStat.get(_index));
     }
     public boolean statusMultAccuracyAny() {
         int len_;
@@ -4185,10 +4493,14 @@ public class FightHelpBean extends CommonBean {
         return false;
     }
     public boolean statusMultAccuracy(int _index) {
-        String status_ = statusMultStat.get(_index).getKey();
+        return statusMult(Statistic.ACCURACY, statusMultStat.get(_index));
+    }
+
+    private boolean statusMult(Statistic _stat, TranslatedKey _key) {
+        String status_ = _key.getKey();
         DataBase data_ = getDataBase();
         Status s_ = data_.getStatus(status_);
-        return s_.getMultStat().contains(Statistic.ACCURACY);
+        return s_.getMultStat().contains(_stat);
     }
     public String getTrStatusMultStat(int _index) {
         return statusMultStat.get(_index).getTranslation();

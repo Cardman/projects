@@ -51,6 +51,14 @@ public final class FightHelpBeanItemsMultStatTest extends InitDbFightHelp {
         assertTrue(callFightHelpBeanItemMultSpeedAny(bean(db(Statistic.SPEED))));
     }
     @Test
+    public void itemMultEvasiness1() {
+        assertFalse(callFightHelpBeanItemMultEvasiness(bean(db(Statistic.SPEED)),0));
+    }
+    @Test
+    public void itemMultEvasiness2() {
+        assertTrue(callFightHelpBeanItemMultEvasiness(bean(db(Statistic.EVASINESS)),0));
+    }
+    @Test
     public void itemMultEvasinessAny1() {
         assertFalse(callFightHelpBeanItemMultEvasinessAny(bean(db(Statistic.SPEED))));
     }

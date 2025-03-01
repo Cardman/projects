@@ -2,6 +2,7 @@ package aiki.beans.help;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
+import aiki.fight.enums.Statistic;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
@@ -355,6 +356,7 @@ public final class AikiBeansHelpStd{
     private static final String ITEM_BOOST_ACCURACY = "itemBoostAccuracy";
     private static final String ITEM_MULT_ACCURACY_ANY = "itemMultAccuracyAny";
     private static final String ITEM_MULT_ACCURACY = "itemMultAccuracy";
+    private static final String ITEM_MULT_EVASINESS = "itemMultEvasiness";
     private static final String ABILITY_MULT_ACCURACY_ANY = "abilityMultAccuracyAny";
     private static final String ABILITY_MULT_ACCURACY = "abilityMultAccuracy";
     private static final String MOVE_GLOBAL_MULT_ACCURACY_ANY = "moveGlobalMultAccuracyAny";
@@ -1100,7 +1102,8 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(ITEM_BOOST_ACCURACY_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemBoostAccuracyAny()));
         methods_.add( new SpecNatMethod(ITEM_BOOST_ACCURACY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemBoostAccuracy()));
         methods_.add( new SpecNatMethod(ITEM_MULT_ACCURACY_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemMultAccuracyAny()));
-        methods_.add( new SpecNatMethod(ITEM_MULT_ACCURACY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemMultAccuracy()));
+        methods_.add( new SpecNatMethod(ITEM_MULT_ACCURACY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemMult(Statistic.ACCURACY)));
+        methods_.add( new SpecNatMethod(ITEM_MULT_EVASINESS,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemMult(Statistic.EVASINESS)));
         methods_.add( new SpecNatMethod(ABILITY_MULT_ACCURACY_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanAbilityMultAccuracyAny()));
         methods_.add( new SpecNatMethod(ABILITY_MULT_ACCURACY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanAbilityMultAccuracy()));
         methods_.add( new SpecNatMethod(MOVE_GLOBAL_MULT_ACCURACY_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanMoveGlobalMultAccuracyAny()));
@@ -1157,7 +1160,7 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(ITEM_BOOST_SPEED_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemBoostSpeedAny()));
         methods_.add( new SpecNatMethod(ITEM_BOOST_SPEED,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemBoostSpeed()));
         methods_.add( new SpecNatMethod(ITEM_MULT_SPEED_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemMultSpeedAny()));
-        methods_.add( new SpecNatMethod(ITEM_MULT_SPEED,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemMultSpeed()));
+        methods_.add( new SpecNatMethod(ITEM_MULT_SPEED,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanItemMult(Statistic.SPEED)));
         methods_.add( new SpecNatMethod(ABILITY_MULT_SPEED_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanAbilityMultSpeedAny()));
         methods_.add( new SpecNatMethod(ABILITY_MULT_SPEED,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanAbilityMultSpeed()));
         methods_.add( new SpecNatMethod(MOVE_GLOBAL_MULT_SPEED_ANY,BeanNatCommonLgNames.PRIM_BOOLEAN, new FightHelpBeanMoveGlobalMultSpeedAny()));

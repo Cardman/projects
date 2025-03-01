@@ -5,6 +5,7 @@ import aiki.beans.PkData;
 import aiki.beans.PokemonBeanStruct;
 import aiki.beans.db.InitDbConstr;
 import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
 import code.bean.nat.*;
 
 public abstract class InitDbFightHelp extends InitDbConstr {
@@ -1690,7 +1691,11 @@ public abstract class InitDbFightHelp extends InitDbConstr {
     }
 
     public static NaSt callFightHelpBeanItemMultAccuracy(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemMultAccuracy(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemMult(Statistic.ACCURACY),_str,_args);
+    }
+
+    public static NaSt callFightHelpBeanItemMultEvasiness(NaSt _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemMult(Statistic.EVASINESS),_str,_args);
     }
 
     public static NaSt callFightHelpBeanItemMultAccuracyAny(NaSt _str, long... _args) {
@@ -1710,7 +1715,7 @@ public abstract class InitDbFightHelp extends InitDbConstr {
     }
 
     public static NaSt callFightHelpBeanItemMultSpeed(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemMultSpeed(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemMult(Statistic.SPEED),_str,_args);
     }
 
     public static NaSt callFightHelpBeanItemMultSpeedAny(NaSt _str, long... _args) {
@@ -2209,8 +2214,10 @@ public abstract class InitDbFightHelp extends InitDbConstr {
     }
     protected static NaSt bean(FacadeGame _f) {
         PkData pk_ = pkDataByFacade(_f);
-        PokemonBeanStruct str_ = pk_.beanFightHelpBean(EN);
-        beforeDisplaying(str_);
-        return str_;
+        FightHelpBean help_ = new FightHelpBean();
+        help_.setBuilder(builder(_f));
+        pk_.bean(help_, EN);
+        beforeDisplaying(help_);
+        return new PokemonBeanStruct(help_);
     }
 }
