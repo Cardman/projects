@@ -154,6 +154,9 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         comp_.setSize(new MetaDimension(10,10));
         AbsGridConstraints cts_ = pr_.getCompoFactory().newGridCts();
         cts_.gridwidth(cts_.gridwidth());
+        cts_.gridheight(cts_.gridheight());
+        cts_.gridx(cts_.gridx());
+        cts_.gridy(cts_.gridy());
         g_.add(comp_, cts_);
         g_.add(new MockPlainLabel(""));
         p_.add(g_);

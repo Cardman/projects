@@ -36,7 +36,12 @@ public final class SolutionBean extends CommonBean implements BeanRenderWithAppN
             formatMessageDir(Long.toString(i));
             int sub_ = steps.get(i).getPokemon().size();
             for (int j = 0; j < sub_; j++) {
+                initLine();
+                getBuilder().setIndent(4);
+                getBuilder().indent();
                 formatMessageDir(getPlace(i,j));
+                getBuilder().setIndent(0);
+                feedParents();
                 new BeanDisplayListGrid<WildPokemonDto>(new BeanDisplayWildPokemonDtoRow()).displayGrid(this,steps.get(i).getPokemon().getValue(j),MessagesPkBean.SOLUTION,"",MessagesDataSolution.M_P_87_IMAGE,MessagesDataSolution.M_P_87_NAME,MessagesDataSolution.M_P_87_GENDER);
                 new BeanDisplayList<PlaceTrainerDto>(new BeanDisplayPlaceTrainerDto()).display(this,steps.get(i).getNames());
             }
