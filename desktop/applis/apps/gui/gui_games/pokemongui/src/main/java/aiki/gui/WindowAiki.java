@@ -833,7 +833,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        });
 //        dataWeb = getCompoFactory().newMenuItem();
         dataWeb.setAccelerator(GuiConstants.VK_F1,0);
-        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWeb(), null));
+        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWeb(), getPreparedDataWebTask()));
         dataGame.addMenuItem(dataWeb);
         dataWebSimu.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWebSimu(), getPreparedDataWebTaskSimu()));
         dataGame.addMenuItem(dataWebSimu);

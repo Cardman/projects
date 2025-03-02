@@ -1135,7 +1135,6 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         app_.getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
         window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, app_);
         prepareWebTask(window_);
-        window_.getPreparedDataWebTask();
         window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
