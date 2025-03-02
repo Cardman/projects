@@ -241,6 +241,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         folderOpenSaveFrame = new FolderOpenSaveFrame(_list, modal);
         core = new WindowAikiCore(_fact,_list, resultFile);
         renderDataWeb = new FrameHtmlData(this, dataWeb);
+        renderDataWeb.initDataBeans();
         renderDataWebSimu = new FrameHtmlData(this, dataWebSimu);
         GuiBaseUtil.choose(this, _list);
         expThread = _list.getThreadFactory().newExecutorService();
@@ -832,7 +833,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        });
 //        dataWeb = getCompoFactory().newMenuItem();
         dataWeb.setAccelerator(GuiConstants.VK_F1,0);
-        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWeb(), getPreparedDataWebTask()));
+        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWeb(), null));
         dataGame.addMenuItem(dataWeb);
         dataWebSimu.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWebSimu(), getPreparedDataWebTaskSimu()));
         dataGame.addMenuItem(dataWebSimu);
@@ -1132,6 +1133,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     //EDT (mouse event, key event, ...) can not happen at the same time
     public void showDataWeb(FrameHtmlData _renderDataWeb, AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
+        if (getRenderDataWeb() == _renderDataWeb) {
+            getRenderDataWeb().setTitle(messages.getVal(MessagesRenderBattle.TITLE));
+            getRenderDataWeb().initSession(getFacade());
+            getRenderDataWeb().pack();
+            return;
+        }
 //        if (preparedDataWebThread == null || preparedDataWebThread.isAlive() || preparedDataWebTask == null) {
 //            return;
 //        }

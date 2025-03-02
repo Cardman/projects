@@ -1131,7 +1131,11 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
 //        prepareFightTask(window_);
+        TranslationsAppli app_ = new TranslationsAppli();
+        app_.getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, app_);
         prepareWebTask(window_);
+        window_.getPreparedDataWebTask();
         window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());

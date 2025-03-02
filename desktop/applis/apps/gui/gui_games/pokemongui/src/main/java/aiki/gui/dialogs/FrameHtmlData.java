@@ -4,7 +4,19 @@ package aiki.gui.dialogs;
 
 
 import aiki.beans.BeanNatCommonLgNamesForm;
+import aiki.beans.*;
+import aiki.beans.abilities.*;
+import aiki.beans.effects.*;
+import aiki.beans.endround.*;
 import aiki.beans.fight.*;
+import aiki.beans.help.*;
+import aiki.beans.items.*;
+import aiki.beans.map.*;
+import aiki.beans.map.characters.*;
+import aiki.beans.map.elements.*;
+import aiki.beans.moves.*;
+import aiki.beans.pokemon.*;
+import aiki.beans.solution.*;
 import aiki.facade.FacadeGame;
 import aiki.main.AikiNatLgNamesNavigation;
 import aiki.main.VideoLoading;
@@ -80,6 +92,45 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,new FightCalculationBean());
         wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,new TeamBean());
         wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,new FighterBean());
+    }
+    public void initDataBeans() {
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,new WelcomeBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,new PokedexBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,new PokemonBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,new MovesBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,new MoveBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,new AbilitiesBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,new AbilityBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,new EndRoundBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,new CombosBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,new ItemsBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,new ItemForBattleBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,new BallBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML,new BerryBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,new BoostBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,new EvolvingItemBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,new EvolvingStoneBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,new HealingPpBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHP_HTML,new HealingHpBean());
+        HealingStatusBean healing_ = new HealingStatusBean();
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML, healing_);
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML, healing_);
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGITEM_HTML,new SimpleHealingItemBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML,new SellingItemBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,new MapBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,new MapLevelBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,new LegendaryPokemonBean());
+        TrainerBean trainer_ = new TrainerBean();
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,trainer_);
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,trainer_);
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,new DualFightBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,new AreaBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,new DealerBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,new SellerBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML,new GeneralHelpBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML,new LangsBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,new SolutionBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML,new FightHelpBean());
     }
     public void setDialogIcon(AbsCommonFrame _group) {
         setIconImage(_group.getImageIconFrame());
