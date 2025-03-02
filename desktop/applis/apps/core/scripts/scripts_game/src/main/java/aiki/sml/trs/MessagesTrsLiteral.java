@@ -56,7 +56,7 @@ e.add(MessagesDataBaseConstants.DEF_LANCEUR_NB_UTILISATION,DataBase.MOVE_FORMULA
 e.add(MessagesDataBaseConstants.DEF_CIBLE_STATIS,DataBase.STATIS_FORMULA+"\ttarg_statis__{0}\t{0} in terms of base of statistic of the target");
 e.add(MessagesDataBaseConstants.DEF_NB_UTILI_ATT_EQ_TOUR,DataBase.MOVE_FORMULA+"\tnb_uses_team_move_rd__{0}\tNumber of uses of the move {0} by the team");
 e.add(MessagesDataBaseConstants.DEF_NIVEAU,"\tl\tThe level of the Pokemon");
-e.add(MessagesDataBaseConstants.DEF_BOOST,"\tb\tThe boost of the Pokemon");
+e.add(MessagesDataBaseConstants.DEF_BOOST,"\tb\tBoost of the statistic changing the rate");
 //e.add(DataBase.DEF_EV,"ev\tev\tThe ev of a statistic of the pokemon");
 //e.add(DataBase.DEF_IV,"iv\tiv\tThe iv of a statistic of the pokemon");
 //e.add(DataBase.DEF_BASE,"base\tbase\tThe base value of a statistic of the pokemon");
@@ -175,7 +175,7 @@ f.add(MessagesDataBaseConstants.DEF_LANCEUR_NB_UTILISATION,DataBase.MOVE_FORMULA
 f.add(MessagesDataBaseConstants.DEF_CIBLE_STATIS,DataBase.STATIS_FORMULA+"\tcib_statis__{0}\t{0} en terme de base de statistique de la cible");
 f.add(MessagesDataBaseConstants.DEF_NB_UTILI_ATT_EQ_TOUR,DataBase.MOVE_FORMULA+"\tnb_ut_att_eq_tr__{0}\tNombre d''utilisation de l''attaque {0} par l''équipe");
 f.add(MessagesDataBaseConstants.DEF_NIVEAU,"\tn\tNiveau du pokemon");
-f.add(MessagesDataBaseConstants.DEF_BOOST,"\tb\tBoost du pokemon");
+f.add(MessagesDataBaseConstants.DEF_BOOST,"\tb\tBonus de la statistique changeant le coefficient");
 //f.add(DataBase.DEF_EV,"ev\tev\tLa valeur ev d''une statistique du pokemon");
 //f.add(DataBase.DEF_IV,"iv\tiv\tLa valeur iv d''une statistique du pokemon");
 //f.add(DataBase.DEF_BASE,"base\tbase\tLa valeur de base d''une statistique du pokemon");

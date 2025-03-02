@@ -803,7 +803,8 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_2);
         formatMessageDir(rateFormulaCh);
         headlessTable(boostsCh);
-        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_3);
+        formatMessageDir(getBoostVar());
+//        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_3);
         getBuilder().setRefLk(ADDONFORMULA4);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4);
         getBuilder().setRefLk("");
@@ -5890,7 +5891,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
 
     public String getBoostVar() {
         DataBase data_ = getDataBase();
-        return StringUtil.splitStrings(StringUtil.nullToEmpty(data_.getLitterals().getVal(getLanguage()).getVal(StringUtil.nullToEmpty(data_.boost()))), "\t").get(1);
+        return StringUtil.join(StringUtil.splitStrings(StringUtil.nullToEmpty(data_.getLitterals().getVal(getLanguage()).getVal(StringUtil.nullToEmpty(data_.boost()))), "\t").mid(1),":");
     }
 
     public LongTreeMap<Rate> getBoosts() {
