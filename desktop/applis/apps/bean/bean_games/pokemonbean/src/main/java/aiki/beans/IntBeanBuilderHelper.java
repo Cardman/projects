@@ -17,6 +17,8 @@ public abstract class IntBeanBuilderHelper {
     private final IdList<IntBeanAction> anchors = new IdList<IntBeanAction>();
     private int indent;
     private String refLk = "";
+    private int header;
+    private final Ints orderedLists = new Ints();
     protected IntBeanBuilderHelper() {
     }
 
@@ -87,6 +89,7 @@ public abstract class IntBeanBuilderHelper {
     public abstract void formatMessageDirCts(String _txt, IntBeanAction _e);
     public abstract void breakLine();
     public abstract void paintMetaLabelDisk();
+    public abstract void paintNb(int _nb);
     public abstract void paintIndent();
     public abstract void addImg(int[][] _img);
     public abstract void addImgCts(int[][] _img, String _tip);
@@ -98,6 +101,7 @@ public abstract class IntBeanBuilderHelper {
     public void build(String _dest, StringMapObject _form) {
         BeanRenderWithAppName target_ = getRenders().getVal(_dest);
         clearAnchors();
+        getOrderedLists().clear();
         initPage();
         target_.setBuilder(this);
         target_.build(target_.getFacade(), _form);
@@ -175,6 +179,18 @@ public abstract class IntBeanBuilderHelper {
 
     public void setRefLk(String _r) {
         this.refLk = _r;
+    }
+
+    public int getHeader() {
+        return header;
+    }
+
+    public void setHeader(int _h) {
+        this.header = _h;
+    }
+
+    public Ints getOrderedLists() {
+        return orderedLists;
     }
 
     public int colCount() {

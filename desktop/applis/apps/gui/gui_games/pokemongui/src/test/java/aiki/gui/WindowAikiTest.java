@@ -229,6 +229,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.addImgCtsAnc(new int[1][1],"", evt_);
         h_.setIndent(1);
         h_.paintIndent();
+        h_.paintNb(1);
         h_.setRefLk("_");
         h_.hierarchy("",new MockTextPane());
         h_.build(evt_);

@@ -39,6 +39,12 @@ public final class MockBeanBuilderHelper extends IntBeanBuilderHelper {
     }
 
     @Override
+    public void paintNb(int _nb) {
+        setPartGroup(getPartGroup());
+        setRowGroup(getRowGroup());
+    }
+
+    @Override
     public void paintMetaLabelDisk() {
         setPartGroup(getPartGroup());
         setRowGroup(getRowGroup());
@@ -75,6 +81,7 @@ public final class MockBeanBuilderHelper extends IntBeanBuilderHelper {
     @Override
     public void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e) {
         setRefLk(getRefLk());
+        setHeader(getHeader());
         getAnchors().add(_e);
         incColIndex();
     }

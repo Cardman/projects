@@ -79,7 +79,7 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
     }
     @Test
     public void anims() {
-        assertSizeEq(8,callFightHelpBeanStatisticAnimGet(bean(db())));
+        assertSizeEq(1,callFightHelpBeanStatisticAnimGet(bean(db())));
     }
     @Test
     public void tr() {

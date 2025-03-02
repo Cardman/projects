@@ -3,6 +3,7 @@ package aiki.beans.help;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import code.util.IdMap;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
 import org.junit.Test;
@@ -22,6 +23,7 @@ public final class FightHelpBeanVarRatesTest extends InitDbFightHelp {
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedDiffWinPts().addEntry(EN,new IdMap<DifficultyWinPointsFight, String>());
         f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE,VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         f_.getData().getLitterals().addEntry(EN,new StringMap<String>());
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);

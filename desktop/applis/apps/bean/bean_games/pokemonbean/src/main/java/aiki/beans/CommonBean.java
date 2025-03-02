@@ -322,6 +322,35 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         getBuilder().setIndent(getBuilder().getIndent()-_i);
     }
 
+    public void element(Countable _c,String _file,String _key, String... _values) {
+        element(0,_c,_file,_key,_values);
+    }
+
+    public void element(int _i,Countable _c,String _file,String _key, String... _values) {
+        getBuilder().setIndent(getBuilder().getIndent()+_i);
+        initLine();
+        getBuilder().indent();
+        paintMetaLabelDisk();
+        display(_c,_file, _key, _values);
+        feedParents();
+        getBuilder().setIndent(getBuilder().getIndent()-_i);
+    }
+
+    public void elementOrd(String _file,String _key, String... _values) {
+        elementOrd(0,_file,_key,_values);
+    }
+
+    public void elementOrd(int _i,String _file,String _key, String... _values) {
+        getBuilder().setIndent(getBuilder().getIndent()+_i);
+        initLine();
+        getBuilder().indent();
+        getBuilder().paintNb(getBuilder().getOrderedLists().last()+1);
+        formatMessage(_file, _key, _values);
+        getBuilder().getOrderedLists().set(getBuilder().getOrderedLists().getLastIndex(),getBuilder().getOrderedLists().last()+1);
+        feedParents();
+        getBuilder().setIndent(getBuilder().getIndent()-_i);
+    }
+
     protected void mapVarsInit(AbsMap<String,String> _m) {
         new BeanDisplayList<EntryCust<String,String>>(new BeanDisplayVars()).display(this, _m.getList());
 //        for (EntryCust<String,String> e: _m.entryList()) {
@@ -814,6 +843,26 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         String txt_ = builder.formatMessageRend(getAppName(), _file, _key, _values);
         builder.formatMessageDirCts(txt_);
         builder.nextPart();
+    }
+
+    public void formatMessageIndent(String _file, String _key, String... _values) {
+        if (getBuilder().getIndent() == 0) {
+            formatMessage(_file, _key, _values);
+            return;
+        }
+        initLine();
+        getBuilder().indent();
+        String txt_ = formatMessageRend(_file, _key, _values);
+        formatMessageDir(txt_);
+        feedParents();
+    }
+
+    public void formatMessageDirIndent(String _txt) {
+        initLine();
+        getBuilder().indent();
+        paintMetaLabelDisk();
+        formatMessageDir(_txt);
+        feedParents();
     }
 
     public String formatMessageRend(String _file, String _key, String... _values) {

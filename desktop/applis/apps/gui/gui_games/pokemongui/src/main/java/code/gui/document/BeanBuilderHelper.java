@@ -17,9 +17,14 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     private final CustList<AbsPanel> stack = new CustList<AbsPanel>();
     private AbsCommonFrame frame;
     private final IdMap<AbsCustComponent,AbsCustComponent> parents = new IdMap<AbsCustComponent,AbsCustComponent>();
+    private final Ints colours = new Ints();
     public BeanBuilderHelper(AbstractProgramInfos _a, FindBeanEvent _f) {
         this.api = _a;
         this.finder = _f;
+        colours.add(GuiConstants.BLACK);
+        colours.add(GuiConstants.RED);
+        colours.add(GuiConstants.GREEN);
+        colours.add(GuiConstants.BLUE);
         setGenInput(new DefBeanGeneInput(this,_a));
     }
 
@@ -28,6 +33,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         getParents().clear();
         getRefsSearch().clear();
         getRefsSearchDir().clear();
+        getOrderedLists().clear();
         setPartGroup(0);
         setRowGroup(0);
     }
@@ -146,7 +152,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     public AbsTextPane message(String _txt) {
         AbsTextPane tp_ = api.getCompoFactory().newTextPane();
         tp_.setBackground(GuiConstants.WHITE);
-        tp_.setForeground(GuiConstants.BLACK);
+        tp_.setForeground(colours.get(getHeader()));
         api.getThreadFactory().newStartedThread(new SetTextThread(tp_,_txt)).join();
         tp_.setEditable(false);
         return tp_;
@@ -160,6 +166,17 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         AbstractImage img_ = api.getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, 16, 16);
+        stack.last().add(api.getCompoFactory().newPreparedLabel(img_));
+        img_.dispose();
+    }
+
+    @Override
+    public void paintNb(int _nb) {
+        AbstractImage img_ = api.getImageFactory().newImageArgb(32, 16);
+        img_.setColor(GuiConstants.WHITE);
+        img_.fillRect(0, 0, 32, 16);
+        img_.setColor(GuiConstants.BLACK);
+        img_.drawString(Long.toString(_nb),0,16);
         stack.last().add(api.getCompoFactory().newPreparedLabel(img_));
         img_.dispose();
     }

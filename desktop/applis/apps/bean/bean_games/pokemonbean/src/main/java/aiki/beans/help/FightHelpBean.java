@@ -32,15 +32,20 @@ import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.scripts.confs.PkScriptPages;
-import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.*;
 import code.util.*;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
+import code.util.core.*;
 import code.util.ints.Listable;
 
 public final class FightHelpBean extends CommonBean implements BeanRenderWithAppName {
 
 //    private static final String VAR_BOOST ="b";
+    public static final String BEGIN="0";
+    public static final String SENDBEGINFIGHT="1";
+    public static final String SWITCHROUND="2";
+    public static final String ENDROUNDUSER="3";
+    public static final String ADDONFORMULA="4";
+    public static final String ADDONFORMULA4="5";
     private CustList<TranslatedKey> abilitiesSentBeginWeather;
     private CustList<TranslatedKey> abilitiesSentBeginOther;
     private CustList<TranslatedKey> abilitiesSentStatis;
@@ -66,6 +71,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     private CustList<TranslatedKey> deleteStatusMove;
     private CustList<TranslatedKey> immuStatusAbility;
     private AbsMap<TranslatedKey,StatusBeginRoundAutoDamage> autoDamage;
+    private DictionaryComparator<TranslatedKey,String> autoDamageStr;
     private String damgeFormula;
     private NatStringTreeMap<String> mapAutoDamage;
     private CustList<TranslatedKey> prepaRoundMoves;
@@ -88,6 +94,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     private CustList<TranslatedKey> effMoves;
     private CustList<TranslatedKey> abilitiesPartStatis;
     private CustList<TranslatedKey> movesTeam;
+    private CustList<TranslatedKey> movesTeamCh;
     private CustList<TranslatedKey> movesTeamStatis;
     private CustList<TranslatedKey> movesTeamStatus;
     private CustList<TranslatedKey> abilitiesRateStatis;
@@ -219,6 +226,10 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     private CustList<TranslatedKey> abilitiesImmuMultStatAccuracy;
     private CustList<TranslatedKey> abilitiesImmuMultStatEvasiness;
     private CustList<CustList<TranslatedKey>> comboMultStat;
+    private CustList<CustList<TranslatedKey>> comboMultStatNormal;
+    private CustList<CustList<TranslatedKey>> comboMultStatSpeed;
+    private CustList<CustList<TranslatedKey>> comboMultStatAccuracy;
+    private CustList<CustList<TranslatedKey>> comboMultStatEvasiness;
     private CustList<CustList<TranslatedKey>> comboEvtStat;
     private CustList<TranslatedKey> movesTypesDefItem;
     private CustList<TranslatedKey> movesTypesDefWeather;
@@ -259,9 +270,661 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
-
+        setTitledBorder(file().getVal(MessagesDataAbilityData.M_P_1_TITLE));
+        elementAnchor(MessagesDataRound.M_P_83_INDEX,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this));
+        getBuilder().setRefLk(BEGIN);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_TITLE);
+        getBuilder().setRefLk("");
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_USES);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_USES_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_USES_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_USES_3,Long.toString(defaultBoostValue));
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,privatingMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_4);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_5);
+        if (!movesHealingSubstitute.isEmpty()){
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_6);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesHealingSubstitute);
+        }
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_7);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_8);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_8_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_9);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_RULES_10);
+        formatMessageDir(defaultMove);
+        getBuilder().setRefLk(SENDBEGINFIGHT);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN);
+        getBuilder().setRefLk("");
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_0);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_0_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSentBeginWeather,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsSentBeginWeather,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_1_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsSentBeginOther,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_1_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_1_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSentBeginWeather,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_1_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSentBeginOther,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsSentBeginWeather,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_2_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsSentBeginOther,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_2_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_2_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_2_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,changingTypesAbilities,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,copyAbilities,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSentStatis,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,changingTypesAbilities,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,copyAbilities,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_6);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSentStatis,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_6);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_INTRO_ROUND);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,substitutingMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_INTRO_ROUND_NEXT_1);
+        display(substitutingMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_INTRO_ROUND_NEXT_2);
+        display(substitutingMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_INTRO_ROUND_NEXT_3);
+        header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_FIRST_EVENTS);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_FIRST_EVENTS_0);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_FIRST_EVENTS_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_FIRST_EVENTS_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_FIRST_EVENTS_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_FIRST_EVENTS_4);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_FIRST_EVENTS_5);
+        header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_2);
+        getBuilder().getOrderedLists().add(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_3);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_4);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_3_0);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_3_1);
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_4_0);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_4_1);
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_0);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_1);
+        getBuilder().getOrderedLists().add(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_2);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesPrio,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_3);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_4);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,slowAbilities);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_5);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,slowItems);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_6);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,reverseSpeedMoves);
+        getBuilder().setIndent(0);
+        displayEmpty(reverseSpeedMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_6_1);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_7);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,berrySpeed);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_ROUND_5_8);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemSpeed);
+        getBuilder().setIndent(0);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_HEAL);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_HEAL_1);
+        getBuilder().setRefLk(SWITCHROUND);
+        header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH);
+        getBuilder().setRefLk("");
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSwitch,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,deletedStatusSwitch,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_2);
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_0);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,entryHazard,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_2);
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_2_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+SENDBEGINFIGHT,this));
+        header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE);
+        if (!beginRoundStatus.isEmpty()){
+            header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_STATUS);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_1);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,beginRoundStatus);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,deleteStatusMove,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_2);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_3);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuStatusAbility,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_4);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,beginRoundStatusAttack,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_5);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,beginRoundStatusHeal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_5_1);
+            display(autoDamageStr,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_6);
+            new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,autoDamageStr,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_6_1,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_6_1_KEY,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_6_1_VALUE);
+            mapVarsInit(mapAutoDamage);
+            display(autoDamageStr,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_6_2);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_STATUS_END);
+            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+        }
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE);
+        if (!prepaRoundMoves.isEmpty()){
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_1);
+            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_2);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,prepaRoundMoves);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,speedPreparingItems,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_2_1);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,prepaRoundMovesDisappear,NumberUtil.signum(disappearingRoundMoves.size()),MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_3);
+        }
+        if (!rechargeMoves.isEmpty()){
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_4);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_4_1);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,rechargeMoves);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,immuRecharging,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_5);
+        }
+        if (!movesInvoking.isEmpty()){
+            header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_INVOKE);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_INVOKE_MOVES);
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesInvoking);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_INVOKE_PROCESS);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_INVOKE_PROCESS_FAIL);
+        }
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_1);
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_3);
+        if (!movesHealingSubstitute.isEmpty()){
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_4);
+            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesHealingSubstitute);
+        }
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,copyMoveTypesAb,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesThieving,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_6);
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesSecEffItems,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesAttracting,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_5);
+        displayEmpty(movesAttracting,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_5_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,beginRoundStatusFoe,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_6);
+        display(beginRoundStatusFoe,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_7);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pressureAbilities,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_8);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_9);
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_10_1,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ADDONFORMULA4,this));
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_10);
+        getBuilder().getOrderedLists().add(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_SUCC_1);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_SUCC_2);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_SUCC_3);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,protectAbilities,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_11);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,protectItems,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_11_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,protectMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_11_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,effMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_12);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_13);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_14);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesMirror,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_15);
+        display(movesMirror,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1);
+        getBuilder().getOrderedLists().add(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1);
+        getBuilder().getOrderedLists().add(0);
+        getBuilder().setIndent(1);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_1);
+        getBuilder().setIndent(0);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesPartStatis);
+        getBuilder().setIndent(1);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_2);
+        getBuilder().setIndent(0);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamStatis,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_2);
+        getBuilder().setIndent(1);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_3);
+        getBuilder().setIndent(0);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesFighterStatisVar);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2_1);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesRateStatis);
+        getBuilder().setIndent(0);
+        new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboEvtStat,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2_2);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_3);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesFighterStatis);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_4);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsFighterStatis);
+        getBuilder().setIndent(0);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2);
+        getBuilder().getOrderedLists().add(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_1);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,successfulStatus);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_2);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,globalMovesStatus);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_3);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesPartStatus);
+        getBuilder().setIndent(0);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamStatus,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_4);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_5);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesFighterStatus);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_6);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsFighterStatus);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_7);
+        new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboEvtStat,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_8);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_17);
+        getBuilder().getOrderedLists().add(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_18);
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_18_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ADDONFORMULA,this));
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_19);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_0);
+        for(EntryCust<String,AbsBasicTreeMap<Rate,Rate>> e:lawsRates.entryList()){
+            getBuilder().setIndent(1);
+            formatMessageDirIndent(getDataBase().getTranslatedDiffModelLaw().getVal(getLanguage()).getVal(PokemonStandards.getModelByName(e.getKey())));
+            getBuilder().setIndent(0);
+            new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this,e.getValue(),MessagesPkBean.ROUND,"",MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_1,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_2);
+        }
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_21);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_22);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesProtAgainstKo);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_22_1,minHpNotKo.toNumberString());
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_23);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsProtAgainstKo);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_23_1,minHpNotKo.toNumberString());
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_24);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesCannotKo);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_24_1,minHpNotKo.toNumberString());
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_25);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsAbs);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_26);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesRevAbs);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_27);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesDamageStatis);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_28);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesChangingTypesDamage);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_29);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesTakingItem);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_30);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesStatisVarUser);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_31);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesStatus);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_32);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesCopyAb);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_33);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,recoilItems);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_34);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,recoilAbilities);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_35);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesKoTarget);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_36);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesKoTarget);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_37);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,berryUser);
+        getBuilder().setIndent(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_38);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,berryTarget);
+        getBuilder().setIndent(0);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_39);
+        getBuilder().setRefLk(ENDROUNDUSER);
+        header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END);
+        getBuilder().setRefLk("");
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END_1_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesEndRound,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,berryEndRound,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END_3);
+        if (!substitutingMoves.isEmpty()){
+            header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_AFTER);
+            formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_AFTER_1);
+        }
+        header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_BETWEEN_USER_ROUND);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesChangingAttOrderFirst,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_BETWEEN_USER_ROUND_1);
+        display(movesChangingAttOrderFirst,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_BETWEEN_USER_ROUND_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesChangingAttOrderLast,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_BETWEEN_USER_ROUND_3);
+        display(movesChangingAttOrderLast,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_EVENTS_BETWEEN_USER_ROUND_4);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SEE);
+        elementAnchor(MessagesDataRound.M_P_83_END_ROUND_SEE_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this));
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_1);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_1_1);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_1_2);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_1_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_2_0);
+        new BeanDisplayMap<String,String>(new BeanDisplayStringDifficultyWinPointsFight(getFacade()),new BeanDisplayString()).displayGrid(this,rates,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_2_1,MessagesDataRound.M_P_83_WIN_EXP_2_2);
+        mapVarsInit(varRates);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_WIN_EXP_4,wonHappinessPointsLevel.toNumberString());
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP_1);
+        getBuilder().getOrderedLists().add(0);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP_1_1);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP_1_2);
+        getBuilder().getOrderedLists().removeQuicklyLast();
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP_2_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP_2_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_PROP_3,Long.toString(happinessPoints));
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_4);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_5);
+        elementAnchor(MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_5_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+SWITCHROUND,this));
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1_1);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1_2);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1_3);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1_4);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1_5);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_2_1);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_2_2);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_2_3);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_2_4);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_2_5);
+        getBuilder().setRefLk(ADDONFORMULA);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1);
+        getBuilder().setRefLk("");
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_0);
+        mapVarsInit(mapVar);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_0_0,strongMove.toNumberString());
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,damagingMovesConst,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,damagingMovesRand,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,damagingMovesMult,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsUserPower,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesUserPower,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTargetPower,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_6);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserPower,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_7);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesUserAllyDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_8);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesTargetDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_10);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTargetTeamDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_11);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserIgnTargetTeam,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_12);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesGlobal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_13);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_14);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsUserDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_15);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_9);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesInvokDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_19);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsTargetDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_16);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalPrepaDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_20);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_18);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserTargetDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_17);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_21,getStab());
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserStabDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_22);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_7);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_0);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTypesDefItem);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsTypesDef);
+        getBuilder().setIndent(0);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTypesDefWeather,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesTypeDefMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserPower,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTypeDefMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesChangeTypeMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_6);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_1);
+        element(movesGlobalBreakImmu,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_1_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalBreakImmu);
+        element(movesUnprotectingTypes,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_1_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesUnprotectingTypes);
+        element(abilitiesBreakImmu,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_1_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBreakImmu);
+        element(abilitiesBreakImmu,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_1_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBreakImmu);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_2);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_3);
+        headlessTable();
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesIgnLowAtt,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_3);
+        displayEmpty(movesIgnLowAtt,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_3_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_4);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesIgnIncDef,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_6);
+        displayEmpty(movesIgnIncDef,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_5_6_1);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBoostingStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsBoostingStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_6);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_7);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_8);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_9);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_10);
+        new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_11);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBreakProtectMoves);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesIgnAcc,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_4);
+        displayEmpty(movesIgnAcc,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_4_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesIgnEva,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_6);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_8);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_10);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalAcc);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBoostingStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_11);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsBoostingStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_12);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_13);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_14);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_15);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_16);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_17);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_18);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_19);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_20);
+        new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_21);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBoostingStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_22);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsBoostingStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_23);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_24);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_25);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_26);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_27);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_28);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_29);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_30);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_31);
+        new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_32);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserIgnTargetTeam,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBoostingStat,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsBoostingStatCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesBoostCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_6);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitesMultEvtCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_7);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitesMultRateCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_8);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBoostingStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsBoostingStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_3);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_4);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_5);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_6);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_7);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_8);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_9);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_10);
+        new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_11);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_1);
+        headlessTable(boosts);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_2);
+        headlessTable(boostsCh);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_3);
+        getBuilder().setRefLk(ADDONFORMULA4);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4);
+        getBuilder().setRefLk("");
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_0_0);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_0);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsCancelImmu);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_0_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesProtectingTypes);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_0_2);
+        getBuilder().setIndent(0);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_1);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsCancelImmu);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_1_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesUnprotectingTypes);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_1_2);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesProtectingTypes);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_1_3);
+        getBuilder().setIndent(0);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_2);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalBreakImmu);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_2_1);
+        getBuilder().setIndent(0);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_3);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobalBreakImmuAb);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_3_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBreakable);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_3_2);
+        getBuilder().setIndent(0);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_4);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuTypes);
+        getBuilder().setIndent(0);
+        element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_5);
+        getBuilder().setIndent(1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsImmuTypes);
+        getBuilder().setIndent(0);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_6);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuAllies);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_6_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_7);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuAlliesDam);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_8);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsCancelImmu);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_8_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_9);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmu);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_10);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsImmu);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_11);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuSecEffOther);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_11_1);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuSecEffOwner);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_12);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAchieveTarget);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_14);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_15);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBreakProtectMoves);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_16);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesProtecting);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12_0);
+        mapVarsInit(varCatchingFormula);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12_1);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12_2,minHpNotKo.toNumberString());
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_13);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_13_0);
+        mapVarsInit(varFleeingFormula);
+        header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_14);
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_14_0);
+        for (TranslatedKey s:statisticAnim) {
+            formatMessageDir(s.getTranslation());
+            addImg(getDataBase().getAnimStatis().getVal(s.getKey()).getImage());
+        }
+        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_14_1);
+        addImg(getAnimAbsorb());
+        elementAnchor(MessagesDataRound.M_P_83_RETURN_BEGIN,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+BEGIN,this));
     }
 
+    public StringMap<String> file() {
+        return file(MessagesPkBean.ROUND).getMapping();
+    }
+    private void headlessTable(LongTreeMap<Rate> _field) {
+        initGrid();
+        getBuilder().colCount(2);
+        for (EntryCust<Long,Rate> e:_field.entryList()) {
+            formatMessageDirCts(Long.toString(e.getKey()));
+            formatMessageDirCts(e.getValue().toNumberString());
+        }
+        feedParents();
+    }
+
+    private void headlessTable() {
+        initGrid();
+        int len_ = types.size();
+        getBuilder().colCount(len_ +1);
+        formatMessageDirCts("");
+        for (TranslatedKey t:types) {
+            formatMessageDirCts(t);
+        }
+        for (int i = 0; i < len_; i++) {
+            formatMessageDirCts(types.get(i));
+            for (int j = 0; j < len_; j++) {
+                formatMessageDirCts(getEfficiency(i,j));
+            }
+        }
+        feedParents();
+    }
+    private void elementAnchor(String _key, IntBeanAction _ac) {
+        initLine();
+        getBuilder().indent();
+        paintMetaLabelDisk();
+        formatMessageAnc(_ac,MessagesPkBean.ROUND, _key);
+        feedParents();
+    }
+
+    private void header(int _h,String _file, String _key, String... _values) {
+        getBuilder().setHeader(_h);
+        formatMessage(_file, _key, _values);
+        getBuilder().setHeader(0);
+    }
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
@@ -305,6 +968,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         movesTeam = listTrStringsMv(data_.getMovesEffectTeam(),getFacade());
         movesTeamStatis = new CustList<TranslatedKey>();
         movesTeamStatus = new CustList<TranslatedKey>();
+        movesTeamCh = new CustList<TranslatedKey>();
         filterMovesTeam();
         initAbilitiesRateStatis();
         initStatisticsImmuElements();
@@ -347,6 +1011,9 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
             }
             if (immuStatusTeamMove(t)) {
                 movesTeamStatus.add(t);
+            }
+            if (immuChTeamMove(t)) {
+                movesTeamCh.add(t);
             }
         }
     }
@@ -1145,7 +1812,30 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
 
     private void initComboMultStat() {
         comboMultStat = comboMultStatInit(getFacade());
+        comboMultStatNormal = new CustList<CustList<TranslatedKey>>();
+        comboMultStatSpeed = new CustList<CustList<TranslatedKey>>();
+        comboMultStatAccuracy = new CustList<CustList<TranslatedKey>>();
+        comboMultStatEvasiness = new CustList<CustList<TranslatedKey>>();
+        filterComboMult();
     }
+
+    private void filterComboMult() {
+        for (CustList<TranslatedKey> t:comboMultStat) {
+            if (comboMultNormal(t)) {
+                comboMultStatNormal.add(t);
+            }
+            if (comboMult(Statistic.ACCURACY, t)) {
+                comboMultStatAccuracy.add(t);
+            }
+            if (comboMult(Statistic.EVASINESS, t)) {
+                comboMultStatEvasiness.add(t);
+            }
+            if (comboMult(Statistic.SPEED, t)) {
+                comboMultStatSpeed.add(t);
+            }
+        }
+    }
+
     static CustList<CustList<TranslatedKey>> comboMultStatInit(FacadeGame _db) {
         CustList<CustList<TranslatedKey>> comboMultStat_ = new CustList<CustList<TranslatedKey>>();
         for (StringList g: _db.getData().getCombos().getEffects().getKeys()) {
@@ -2252,10 +2942,18 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         deleteStatusMove = listTrStringsMv(deleteStatusMoveInit(data_),getFacade());
         immuStatusAbility = listTrStringsAb(immuStatusAbilityInit(data_),getFacade());
         autoDamage = autoDamageInit(getFacade());
+        autoDamageStr = new DictionaryComparator<TranslatedKey, String>(new ComparingTranslatedKey());
+        buildAutoDamageStr();
         damgeFormula = data_.getFormula(data_.getDamageFormula(), getLanguage());
         mapVar = new NatStringTreeMap<String>();
         mapVar.putAllMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
         mapAutoDamage = mapAutoDamageInit(data_,getLanguage(), autoDamage);
+    }
+
+    private void buildAutoDamageStr() {
+        for (EntryCust<TranslatedKey,StatusBeginRoundAutoDamage> e: autoDamage.entryList()) {
+            autoDamageStr.put(e.getKey(),getDataBase().getFormula(numString(getDataBase(), e.getValue()), getLanguage()));
+        }
     }
 
     private void filterBeginRoundStatus() {
@@ -2584,7 +3282,9 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         lawsRates = lawRatesInit(data_);
         statisticAnim = new CustList<TranslatedKey>();
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            statisticAnim.add(buildSi(getFacade(),s));
+            if (getDataBase().getAnimStatis().contains(s.getStatName())) {
+                statisticAnim.add(buildSi(getFacade(),s));
+            }
         }
     }
     static StringMap<String> ratesInit(DataBase _db, String _lg) {
@@ -3778,7 +4478,11 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         return false;
     }
     public boolean immuChTeamMove(int _index) {
-        MoveData move_ = getStatisTeamMove(movesTeam.get(_index));
+        return immuChTeamMove(movesTeam.get(_index));
+    }
+
+    private boolean immuChTeamMove(TranslatedKey _key) {
+        MoveData move_ = getStatisTeamMove(_key);
         for (Effect e: move_.getEffects()) {
             if (!(e instanceof EffectTeam)) {
                 continue;
@@ -3790,6 +4494,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         }
         return false;
     }
+
     public MoveData getStatisTeamMove(TranslatedKey _key) {
         DataBase data_ = getDataBase();
         String m_ = _key.getKey();
@@ -4519,7 +5224,11 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         return false;
     }
     public boolean comboMultNormal(int _index) {
-        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
+        return comboMultNormal(comboMultStat.get(_index));
+    }
+
+    private boolean comboMultNormal(CustList<TranslatedKey> _keys) {
+        StringList combo_ = WithFilterBean.keys(_keys);
         DataBase data_ = getDataBase();
         EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
         return hasNormalStat(eff_.getMultStatisticFoe().getKeys());
@@ -4535,10 +5244,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         return false;
     }
     public boolean comboMultEvasiness(int _index) {
-        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
-        DataBase data_ = getDataBase();
-        EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
-        return eff_.getMultStatisticFoe().contains(Statistic.EVASINESS);
+        return comboMult(Statistic.EVASINESS, comboMultStat.get(_index));
     }
     public boolean comboMultSpeedAny() {
         int len_;
@@ -4551,10 +5257,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         return false;
     }
     public boolean comboMultSpeed(int _index) {
-        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
-        DataBase data_ = getDataBase();
-        EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
-        return eff_.getMultStatisticFoe().contains(Statistic.SPEED);
+        return comboMult(Statistic.SPEED, comboMultStat.get(_index));
     }
     public boolean comboMultAccuracyAny() {
         int len_;
@@ -4567,10 +5270,14 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         return false;
     }
     public boolean comboMultAccuracy(int _index) {
-        StringList combo_ = WithFilterBean.keys(comboMultStat.get(_index));
+        return comboMult(Statistic.ACCURACY, comboMultStat.get(_index));
+    }
+
+    private boolean comboMult(Statistic _stat, CustList<TranslatedKey> _key) {
+        StringList combo_ = WithFilterBean.keys(_key);
         DataBase data_ = getDataBase();
         EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
-        return eff_.getMultStatisticFoe().contains(Statistic.ACCURACY);
+        return eff_.getMultStatisticFoe().contains(_stat);
     }
     static EffectTeam effectTeam(DataBase _db, StringList _key, String _lg) {
         for (StringList s: _db.getCombos().getEffects().getKeys()) {

@@ -99,6 +99,7 @@ public final class MessagesPkBean {
     public static final String GENERAL = "general/general";
     public static final String LANGS = "langs/langs";
     public static final String SOLUTION = "solution/solution";
+    public static final String ROUND = "round/round";
     private MessagesPkBean() {
 
     }
@@ -218,6 +219,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(GENERAL,MessagesDataGeneral.en());
         m.getMapping().addEntry(LANGS,MessagesDataLangs.en());
         m.getMapping().addEntry(SOLUTION,MessagesDataSolution.en());
+        m.getMapping().addEntry(ROUND,MessagesDataRound.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -308,6 +310,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(GENERAL,MessagesDataGeneral.fr());
         m.getMapping().addEntry(LANGS,MessagesDataLangs.fr());
         m.getMapping().addEntry(SOLUTION,MessagesDataSolution.fr());
+        m.getMapping().addEntry(ROUND,MessagesDataRound.fr());
         return m;
     }
 }

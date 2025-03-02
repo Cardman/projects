@@ -7,6 +7,8 @@ import aiki.beans.db.InitDbConstr;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import code.bean.nat.*;
+import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.TranslationsFile;
 
 public abstract class InitDbFightHelp extends InitDbConstr {
 
@@ -2216,6 +2218,9 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         PkData pk_ = pkDataByFacade(_f);
         FightHelpBean help_ = new FightHelpBean();
         help_.setBuilder(builder(_f));
+        help_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ROUND,new TranslationsFile());
+        help_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ROUND,new TranslationsFile());
+
         pk_.bean(help_, EN);
         beforeDisplaying(help_);
         return new PokemonBeanStruct(help_);
