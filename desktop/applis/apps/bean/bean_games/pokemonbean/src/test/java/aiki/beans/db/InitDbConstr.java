@@ -370,6 +370,7 @@ public abstract class InitDbConstr extends InitDbBean {
         PkData pk_ = new PkData();
         pk_.setDataBase(_dataBase);
         _dataBase.getData().getTranslatedStatistics().tryAdd(EN,new IdMap<Statistic, String>());
+        _dataBase.getData().getLitterals().tryAdd(EN,new StringMap<String>());
         _dataBase.updateTrs();
 //        pk_.setBaseEncode(BASE);
         return pk_;

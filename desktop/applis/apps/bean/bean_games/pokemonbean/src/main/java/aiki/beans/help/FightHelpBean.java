@@ -669,6 +669,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1);
         getBuilder().setRefLk("");
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_0);
+        formatMessageDir(damgeFormula);
         mapVarsInit(mapVar);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_0_0,strongMove.toNumberString());
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,damagingMovesConst,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_1);
@@ -797,8 +798,10 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_11);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_1);
+        formatMessageDir(rateFormula);
         headlessTable(boosts);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_2);
+        formatMessageDir(rateFormulaCh);
         headlessTable(boostsCh);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_3);
         getBuilder().setRefLk(ADDONFORMULA4);
@@ -866,11 +869,13 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesProtecting);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12_0);
+        formatMessageDir(catchingFormula);
         mapVarsInit(varCatchingFormula);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12_1);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_12_2,minHpNotKo.toNumberString());
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_13);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_13_0);
+        formatMessageDir(fleeingFormula);
         mapVarsInit(varFleeingFormula);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_14);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_14_0);
@@ -5885,7 +5890,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
 
     public String getBoostVar() {
         DataBase data_ = getDataBase();
-        return StringUtil.splitStrings(data_.getLitterals().getVal(getLanguage()).getVal(data_.boost()), "\t").get(1);
+        return StringUtil.splitStrings(StringUtil.nullToEmpty(data_.getLitterals().getVal(getLanguage()).getVal(StringUtil.nullToEmpty(data_.boost()))), "\t").get(1);
     }
 
     public LongTreeMap<Rate> getBoosts() {
