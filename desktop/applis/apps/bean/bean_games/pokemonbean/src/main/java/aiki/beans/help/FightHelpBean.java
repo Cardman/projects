@@ -46,6 +46,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     public static final String ENDROUNDUSER="3";
     public static final String ADDONFORMULA="4";
     public static final String ADDONFORMULA4="5";
+    public static final String ANCHOR = "#";
     private CustList<TranslatedKey> abilitiesSentBeginWeather;
     private CustList<TranslatedKey> abilitiesSentBeginOther;
     private CustList<TranslatedKey> abilitiesSentStatis;
@@ -270,11 +271,11 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
-        setTitledBorder(file().getVal(MessagesDataAbilityData.M_P_1_TITLE));
+        setTitledBorder(file().getVal(MessagesDataRound.M_P_83_TITLE));
         elementAnchor(MessagesDataRound.M_P_83_INDEX,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this));
         getBuilder().setRefLk(BEGIN);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_TITLE);
-        getBuilder().setRefLk("");
+        getBuilder().setRefLk(DataBase.EMPTY_STRING);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_USES);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_GOAL_USES_1);
@@ -298,7 +299,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         formatMessageDir(defaultMove);
         getBuilder().setRefLk(SENDBEGINFIGHT);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN);
-        getBuilder().setRefLk("");
+        getBuilder().setRefLk(DataBase.EMPTY_STRING);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_0);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_0_1);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSentBeginWeather,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_BEGIN_1);
@@ -375,14 +376,14 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_HEAL_1);
         getBuilder().setRefLk(SWITCHROUND);
         header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH);
-        getBuilder().setRefLk("");
+        getBuilder().setRefLk(DataBase.EMPTY_STRING);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesSwitch,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_1);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,deletedStatusSwitch,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_2);
         header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_0);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,entryHazard,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_1);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_2);
-        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_2_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+SENDBEGINFIGHT,this));
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_SWITCH_3_2_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +SENDBEGINFIGHT,this));
         header(2,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE);
         if (!beginRoundStatus.isEmpty()){
             header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_STATUS);
@@ -398,13 +399,13 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
             mapVarsInit(mapAutoDamage);
             display(autoDamageStr,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_6_2);
             formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_STATUS_END);
-            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +ENDROUNDUSER,this));
         }
         header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE);
         if (!prepaRoundMoves.isEmpty()){
             formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_1);
-            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +ENDROUNDUSER,this));
             formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_2);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,prepaRoundMoves);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,speedPreparingItems,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_BEFORE_2_1);
@@ -425,12 +426,12 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         }
         header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_1);
-        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +ENDROUNDUSER,this));
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_2);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_3);
         if (!movesHealingSubstitute.isEmpty()){
             formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_4);
-            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ENDROUNDUSER,this));
+            elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_END_LK,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +ENDROUNDUSER,this));
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesHealingSubstitute);
         }
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,copyMoveTypesAb,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_PREP_FINAL_5);
@@ -446,7 +447,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         display(beginRoundStatusFoe,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_7);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pressureAbilities,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_8);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_9);
-        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_10_1,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ADDONFORMULA4,this));
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_10_1,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +ADDONFORMULA4,this));
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_10);
         getBuilder().getOrderedLists().add(0);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_SUCC_1);
@@ -478,9 +479,9 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         getBuilder().setIndent(0);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesFighterStatisVar);
         getBuilder().getOrderedLists().removeQuicklyLast();
-        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2_1);
+        elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2);
         getBuilder().setIndent(1);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesRateStatis);
+        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesRateStatis,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2_1);
         getBuilder().setIndent(0);
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboEvtStat,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2_2);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_3);
@@ -521,7 +522,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_17);
         getBuilder().getOrderedLists().add(0);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_18);
-        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_18_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+ADDONFORMULA,this));
+        elementAnchor(MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_18_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +ADDONFORMULA,this));
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_19);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_0);
@@ -529,7 +530,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
             getBuilder().setIndent(1);
             formatMessageDirIndent(getDataBase().getTranslatedDiffModelLaw().getVal(getLanguage()).getVal(PokemonStandards.getModelByName(e.getKey())));
             getBuilder().setIndent(0);
-            new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this,e.getValue(),MessagesPkBean.ROUND,"",MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_1,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_2);
+            new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this,e.getValue(),MessagesPkBean.ROUND,DataBase.EMPTY_STRING,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_1,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_2);
         }
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_21);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_22);
@@ -607,7 +608,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_39);
         getBuilder().setRefLk(ENDROUNDUSER);
         header(3,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END);
-        getBuilder().setRefLk("");
+        getBuilder().setRefLk(DataBase.EMPTY_STRING);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END_1);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END_1_1);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesEndRound,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_END_2);
@@ -651,7 +652,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_3);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_4);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_5);
-        elementAnchor(MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_5_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+SWITCHROUND,this));
+        elementAnchor(MessagesDataRound.M_P_83_END_ROUND_SUBSTITUTING_5_0,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +SWITCHROUND,this));
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_1_1);
@@ -667,7 +668,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_0_2_5);
         getBuilder().setRefLk(ADDONFORMULA);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1);
-        getBuilder().setRefLk("");
+        getBuilder().setRefLk(DataBase.EMPTY_STRING);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_0);
         formatMessageDir(damgeFormula);
         mapVarsInit(mapVar);
@@ -807,7 +808,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
 //        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_3);
         getBuilder().setRefLk(ADDONFORMULA4);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4);
-        getBuilder().setRefLk("");
+        getBuilder().setRefLk(DataBase.EMPTY_STRING);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_0_0);
         element(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4_0);
         getBuilder().setIndent(1);
@@ -886,7 +887,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         }
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_14_1);
         addImg(getAnimAbsorb());
-        elementAnchor(MessagesDataRound.M_P_83_RETURN_BEGIN,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+"#"+BEGIN,this));
+        elementAnchor(MessagesDataRound.M_P_83_RETURN_BEGIN,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +BEGIN,this));
     }
 
     public StringMap<String> file() {
@@ -906,7 +907,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         initGrid();
         int len_ = types.size();
         getBuilder().colCount(len_ +1);
-        formatMessageDirCts("");
+        formatMessageDirCts(DataBase.EMPTY_STRING);
         for (TranslatedKey t:types) {
             formatMessageDirCts(t);
         }
