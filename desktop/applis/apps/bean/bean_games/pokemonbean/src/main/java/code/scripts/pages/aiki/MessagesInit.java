@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.bean.nat.analyze.blocks.*;
 import code.sml.util.*;
 public final class MessagesInit{
-public static final String APP_BEAN_DATA = "pk_bean_data";
+public static final String APP_BEAN_DATA = "pk_bean_data_";
 public static final String APP_BEAN_FIGHT = "pk_bean_fight";
 public static final String APP_BEAN = "pk_bean";
 public static final String DIFFICULTY = "difficulty";
