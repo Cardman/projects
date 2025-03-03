@@ -12,6 +12,7 @@ import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class EffectComboBean extends CommonBean {
     private ComboDto combos;
@@ -65,7 +66,9 @@ public final class EffectComboBean extends CommonBean {
         repeatedRoundsLaw = repeatedRoundsLaw_;
     }
     public void buildSub() {
+        getBuilder().setRefLk(StringUtil.join(WithFilterBean.keys(moves),DataBase.SEPARATOR_MOVES));
         formatMessage(MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_EFFECT);
+        getBuilder().setRefLk(DataBase.EMPTY_STRING);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,moves);
         if (endRound) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(endRoundRank));
