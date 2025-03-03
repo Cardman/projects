@@ -10,7 +10,7 @@ import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public final class ItemsBean extends WithFilterBean implements BeanRenderWithAppName{
+public final class ItemsBean extends WithFilterBean {
     private IntBeanChgSubmit updateValues;
     public ItemsBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);

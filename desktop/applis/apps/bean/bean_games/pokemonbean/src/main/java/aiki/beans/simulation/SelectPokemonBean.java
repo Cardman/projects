@@ -3,7 +3,7 @@ package aiki.beans.simulation;
 import aiki.beans.WithFilterBean;
 import code.scripts.confs.PkScriptPages;
 
-public class SelectPokemonBean extends WithFilterBean {
+public final class SelectPokemonBean extends WithFilterBean {
 
     @Override
     public void beforeDisplaying() {

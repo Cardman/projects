@@ -15,10 +15,14 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
 
-public class SimulationLevelBean extends AbsLevelBean {
+public final class SimulationLevelBean extends AbsLevelBean {
     private int noFight;
 
+    public SimulationLevelBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
     @Override
     public void beforeDisplaying() {
         initTiles(false);

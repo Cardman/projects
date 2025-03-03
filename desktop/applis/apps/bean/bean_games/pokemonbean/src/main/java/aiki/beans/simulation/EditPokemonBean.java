@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import aiki.beans.BeanRenderWithAppName;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.EvLine;
@@ -14,11 +15,12 @@ import aiki.fight.items.Ball;
 import aiki.fight.moves.MoveData;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class EditPokemonBean extends CommonBean {
+public final class EditPokemonBean extends CommonBean implements BeanRenderWithAppName {
     private String namePk = DataBase.EMPTY_STRING;
     private long level;
     private Rate experience;
@@ -30,7 +32,9 @@ public class EditPokemonBean extends CommonBean {
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private String ball;
     private DictionaryComparator<String,String> balls;
-
+    public EditPokemonBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
     @Override
     public void beforeDisplaying() {
         ev = new IdMap<Statistic, EvLine>();

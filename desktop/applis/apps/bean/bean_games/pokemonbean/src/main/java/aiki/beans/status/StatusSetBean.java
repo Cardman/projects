@@ -11,7 +11,7 @@ import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
-public final class StatusSetBean extends WithFilterBean implements BeanRenderWithAppName {
+public final class StatusSetBean extends WithFilterBean {
     private AbsMap<TranslatedKey,Status> sortedStatus = DictionaryComparatorUtil.buildStatusData();
     private IntBeanChgSubmit updateValues;
     public StatusSetBean() {

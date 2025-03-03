@@ -3,12 +3,18 @@ package aiki.beans.game;
 import aiki.beans.*;
 import aiki.beans.simulation.SimulationBean;
 import aiki.facade.FacadeGame;
+import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.bean.nat.*;
 //import code.formathtml.Configuration;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataSimulation;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
+import code.util.IdMap;
 
 public abstract class InitDbDifficultyBean extends InitDbBean {
 //    public static String navigateDiffChange(NaSt _str, long... _args) {
@@ -242,7 +248,28 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     public static NaSt beanDiff(String _language, FacadeGame _dataBase) {
         PkData stds_ = new PkData();
         stds_.setDataBase(_dataBase);
-        return stds_.beanSimulationBean(_language);
+        SimulationBean si_ = new SimulationBean();
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION, MessagesDataSimulation.en());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.fr());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_dataBase);
+        si_.setBuilder(bu_);
+        _dataBase.setLanguage(_language);
+        stds_.bean(si_, _language);
+        _dataBase.getData().getTranslatedDiffModelLaw().tryAdd(_language,new IdMap<DifficultyModelLaw, String>());
+        _dataBase.getData().getTranslatedDiffWinPts().tryAdd(_language,new IdMap<DifficultyWinPointsFight, String>());
+        _dataBase.updateTrs();
+        return new PokemonBeanStruct(si_);
     }
 
     public static NaSt beanSimu(String _language, FacadeGame _dataBase) {

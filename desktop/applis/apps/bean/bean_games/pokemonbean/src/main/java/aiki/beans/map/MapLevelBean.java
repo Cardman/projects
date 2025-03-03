@@ -26,7 +26,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class MapLevelBean extends AbsLevelBean implements BeanRenderWithAppName {
+public final class MapLevelBean extends AbsLevelBean {
 //    private boolean proponeLink;
 //    private boolean proponeTile;
 //    private boolean seeArea;

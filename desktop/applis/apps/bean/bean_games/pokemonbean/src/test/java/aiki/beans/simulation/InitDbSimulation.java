@@ -1694,6 +1694,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static NaSt init(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
         NaSt from_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         NaSt dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
+        ((CommonBean)((PokemonBeanStruct)from_).getBean()).setBuilder(builder(_pk.getDataBase()));
         beforeDisplaying(from_);
         NaSt simu_ = transitSimu(_pk, _all, _mapping, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML), from_);
         callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));

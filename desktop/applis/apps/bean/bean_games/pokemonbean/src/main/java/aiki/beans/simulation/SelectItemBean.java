@@ -7,7 +7,7 @@ import aiki.fight.items.Item;
 import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
 
-public class SelectItemBean extends WithFilterBean {
+public final class SelectItemBean extends WithFilterBean {
     private String item = DataBase.EMPTY_STRING;
 
     private boolean player;

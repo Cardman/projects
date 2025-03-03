@@ -10,9 +10,10 @@ import aiki.db.*;
 import aiki.fight.moves.*;
 import aiki.map.pokemon.enums.*;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
-public class EditTrainerPokemonBean extends CommonBean {
+public final class EditTrainerPokemonBean extends CommonBean implements BeanRenderWithAppName {
     private final CrudPkCommon common = new CrudPkCommon();
     private boolean add;
     private String namePk = DataBase.EMPTY_STRING;
@@ -23,7 +24,9 @@ public class EditTrainerPokemonBean extends CommonBean {
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private boolean allyPk;
-
+    public EditTrainerPokemonBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
     @Override
     public void beforeDisplaying() {
         add = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;

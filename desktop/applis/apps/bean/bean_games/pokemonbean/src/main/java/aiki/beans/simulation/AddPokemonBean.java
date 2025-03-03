@@ -14,7 +14,7 @@ import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
 import code.util.StringMap;
 
-public class AddPokemonBean extends WithFilterBean {
+public final class AddPokemonBean extends WithFilterBean {
     private final CrudPkCommon common = new CrudPkCommon();
     private String namePk = DataBase.EMPTY_STRING;
     private String ability = DataBase.EMPTY_STRING;

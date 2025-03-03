@@ -12,7 +12,7 @@ import aiki.game.fight.FightSimulation;
 import code.scripts.confs.PkScriptPages;
 import code.util.*;
 
-public class EditPokemonMovesBean extends WithFilterBean {
+public final class EditPokemonMovesBean extends WithFilterBean {
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private final StringMap<String> categories = new StringMap<String>();
     private boolean player;

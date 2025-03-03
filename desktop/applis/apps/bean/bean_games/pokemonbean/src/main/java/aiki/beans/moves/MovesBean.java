@@ -12,7 +12,7 @@ import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public final class MovesBean extends WithFilterBean implements BeanRenderWithAppName {
+public final class MovesBean extends WithFilterBean {
 //    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
     private IntBeanChgSubmit updateValues;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();

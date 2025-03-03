@@ -18,12 +18,13 @@ import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public abstract class WithFilterBean extends CommonBean {
+public abstract class WithFilterBean extends CommonBean implements BeanRenderWithAppName {
     private IntBeanChgString typedAbility = new BeanChgString();
     private IntBeanChgString typedName = new BeanChgString();
     private IntBeanChgString typedPrice = new BeanChgString();
@@ -49,6 +50,7 @@ public abstract class WithFilterBean extends CommonBean {
     private final CustList<ItemLine> items = new CustList<ItemLine>();
     private final CustList<TranslatedKey> itemsTr = new CustList<TranslatedKey>();
     protected WithFilterBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
         hasEvo.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
         isEvo.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
         isLeg.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());

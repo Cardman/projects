@@ -3,7 +3,7 @@ package aiki.beans.simulation;
 import aiki.beans.abilities.*;
 import code.scripts.confs.*;
 
-public class SelectAbilityBean extends AbilitySearchBean {
+public final class SelectAbilityBean extends AbilitySearchBean {
 
     public static String cancel() {
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;

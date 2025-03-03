@@ -49,7 +49,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class SimulationBean extends CommonBean  implements WithDifficultyCommon, BeanRenderWithAppName {
+public final class SimulationBean extends CommonBean  implements WithDifficultyCommon, BeanRenderWithAppName {
     private final DifficultyCommon difficultyCommon = new DifficultyCommon();
     private CustList<PlaceIndex> places = new CustList<PlaceIndex>();
 
@@ -113,6 +113,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon,
     private IntBeanChgLong nbTeamsField;
     private IntBeanChgSubmit updateValues;
 
+    public SimulationBean() {
+        setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);

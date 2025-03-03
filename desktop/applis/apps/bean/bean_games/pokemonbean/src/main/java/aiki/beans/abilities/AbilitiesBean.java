@@ -7,7 +7,7 @@ import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.StringMap;
 
-public final class AbilitiesBean extends AbilitySearchBean implements BeanRenderWithAppName {
+public final class AbilitiesBean extends AbilitySearchBean {
     private IntBeanChgSubmit updateValues;
     public AbilitiesBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);

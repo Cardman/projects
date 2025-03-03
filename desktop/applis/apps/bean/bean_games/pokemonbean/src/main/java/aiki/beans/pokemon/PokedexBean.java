@@ -9,7 +9,7 @@ import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
-public final class PokedexBean extends WithFilterBean implements BeanRenderWithAppName {
+public final class PokedexBean extends WithFilterBean {
     private IntBeanChgSubmit updateValues;
     public PokedexBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);

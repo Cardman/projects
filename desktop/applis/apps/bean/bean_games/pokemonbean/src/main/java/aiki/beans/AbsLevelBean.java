@@ -18,7 +18,7 @@ import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.IndexConstants;
 
-public abstract class AbsLevelBean extends CommonBean {
+public abstract class AbsLevelBean extends CommonBean  implements BeanRenderWithAppName{
     private DictionaryComparator<Point,int[][]> tiles;
     private DictionaryComparator<Point,int[][]> whiteTiles;
     private String placeName;

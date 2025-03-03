@@ -44,7 +44,9 @@ public abstract class InitDbWelcome extends InitDbConstr {
         PkData pk_ = pkDataByFacade(_dataBase);
         pk_.getDataBase().getData().completeMoveTutors();
         pk_.getDataBase().getData().setView(pk_.getDataBase().getData().computeLearn());
-        return pk_.beanWelcomeBean(EN);
+        WelcomeBean w_ = new WelcomeBean();
+        w_.setBuilder(builder(_dataBase));
+        return pk_.bean(w_, EN);
     }
     public static NaSt callWelcomeBeanClickAbilities(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickAbilities(),_str,_args);

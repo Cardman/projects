@@ -100,6 +100,8 @@ public final class MessagesPkBean {
     public static final String LANGS = "langs/langs";
     public static final String SOLUTION = "solution/solution";
     public static final String ROUND = "round/round";
+    public static final String SIMU = "simulation/simulation";
+    public static final String SIMU_LEVEL = "simulation/levelsimu";
     private MessagesPkBean() {
 
     }
@@ -220,6 +222,8 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(LANGS,MessagesDataLangs.en());
         m.getMapping().addEntry(SOLUTION,MessagesDataSolution.en());
         m.getMapping().addEntry(ROUND,MessagesDataRound.en());
+        m.getMapping().addEntry(SIMU,MessagesDataSimulation.en());
+        m.getMapping().addEntry(SIMU_LEVEL,MessagesDataSimulationLevelsimu.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -311,6 +315,8 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(LANGS,MessagesDataLangs.fr());
         m.getMapping().addEntry(SOLUTION,MessagesDataSolution.fr());
         m.getMapping().addEntry(ROUND,MessagesDataRound.fr());
+        m.getMapping().addEntry(SIMU,MessagesDataSimulation.fr());
+        m.getMapping().addEntry(SIMU_LEVEL,MessagesDataSimulationLevelsimu.fr());
         return m;
     }
 }
