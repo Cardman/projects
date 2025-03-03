@@ -659,10 +659,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return builder.file(getAppName(),_file);
     }
 
-    public void nextPart() {
-        builder.nextPart();
-    }
-
     public void addImg(int[][] _img) {
         builder.addImg(_img);
     }
@@ -673,7 +669,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 
     public void formatMessageAnc(IntBeanAction _e,String _file, String _key, String... _values) {
         builder.formatMessageAnc(getAppName(),_e,_file,_key,_values);
-        nextPart();
+        getBuilder().breakNext();
     }
 
     public void buildPkList(CustList<ImgPkPlayer> _list, String _file, String _key) {
@@ -842,7 +838,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public void formatMessageCts(String _file, String _key, String... _values) {
         String txt_ = builder.formatMessageRend(getAppName(), _file, _key, _values);
         builder.formatMessageDirCts(txt_);
-        builder.nextPart();
+        builder.breakNext();
     }
 
     public void formatMessageIndent(String _file, String _key, String... _values) {

@@ -23,7 +23,7 @@ public final class FindBeanEvent implements AbsActionListener {
         api = _a;
     }
 
-    public static void paint(AbstractProgramInfos _api, AbsTextPane _tp, CustList<SegmentPart> _segs) {
+    public static void paint(AbstractProgramInfos _api, AbsTextPane _tp, CustList<SegmentPart> _segs, IdMap<AbsTextPane, AbsAttrSet> _fonts) {
         String text_ = _tp.getText();
         _tp.setCharacterAttributes(0,text_.length(),_api.getCompoFactory().newAttrSet(), true);
         MetaFont copy_ = _tp.getMetaFont();
@@ -43,9 +43,15 @@ public final class FindBeanEvent implements AbsActionListener {
         }
         AbsAttrSet attSeg_ = _api.getCompoFactory().newAttrSet();
         attSeg_.addFontFamily(copy_.getFontFamily());
+        if (_segs.isEmpty()) {
+            attSeg_.addBackground(_tp.getBackgroundValue());
+        }
         attSeg_.addForeground(_tp.getForegroundValue());
         attSeg_.addFontSize(_tp.getMetaFont().getRealSize());
         _tp.setCharacterAttributes(0,text_.length(),attSeg_,false);
+        if (_fonts.contains(_tp)) {
+            _tp.setCharacterAttributes(0, _tp.getText().length(), _fonts.getVal(_tp), false);
+        }
     }
 
     public static void scroll(BeanBuilderHelper _rend, AbsCustComponent _dual) {
@@ -84,7 +90,7 @@ public final class FindBeanEvent implements AbsActionListener {
         }
         for (EntryCust<MetaSearchableContent, CustList<SegmentPart>> l: finding.getSegments().entryList()) {
             AbsTextPane l_ = page.getRefsSearch().getVal(l.getKey());
-            paint(api,l_,l.getValue());
+            paint(api,l_,l.getValue(),page.getFonts());
             labels.add(l_);
         }
         scroll(page, page.getRefsSearch().getVal(lab_));
@@ -92,9 +98,12 @@ public final class FindBeanEvent implements AbsActionListener {
 
     private void clear() {
         for (AbsTextPane l: getLabels()) {
-            paint(api,l,new CustList<SegmentPart>());
+            paint(api,l,new CustList<SegmentPart>(),page.getFonts());
         }
         labels.clear();
+        for (EntryCust<AbsTextPane, AbsAttrSet> a: page.getFonts().entryList()) {
+            a.getKey().setCharacterAttributes(0, a.getKey().getText().length(), a.getValue(), false);
+        }
     }
 
     public CustList<AbsTextPane> getLabels() {

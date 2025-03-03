@@ -26,42 +26,47 @@ public final class DifficultyBeanForm {
     private IntBeanChgString damageRatePlayer;
     private IntBeanChgString damageRateLawFoe;
     public void displayDiff(IntBeanGeneInput _genInput, CommonBean _rend, DifficultyCommon _common, String _file) {
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_WIN_PTS);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_WIN_PTS);
         winPointsFight = select(_genInput,_rend, _common.getWinPointsFight(), _common.getDiffWinningExpPtsFight());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_ALLOW_CATCHING_KO);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_ALLOW_CATCHING_KO);
         allowCatchingKo = check(_genInput,_rend, _common.getAllowCatchingKo());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_ALLOW_SWITCH_PLACES);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_ALLOW_SWITCH_PLACES);
         allowedSwitchPlacesEndRound = check(_genInput,_rend, _common.getAllowedSwitchPlacesEndRound());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_WIN_TRAINER_EXP);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_WIN_TRAINER_EXP);
         winTrainerExp = rate(_genInput, _rend, _common.getWinTrainerExp());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_WINNING_EXP_PTS_FIGHT);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_WINNING_EXP_PTS_FIGHT);
         rateWinningExpPtsFight = rate(_genInput, _rend, _common.getRateWinningExpPtsFight());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_END_FIGHT);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_END_FIGHT);
         endFightIfOneTeamKo = check(_genInput,_rend, _common.getEndFightIfOneTeamKo());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_IV_PLAYER);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_IV_PLAYER);
         ivPlayer = iv(_genInput, _rend, _common.getIvPlayer());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_IV_FOE);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_IV_FOE);
         ivFoe = iv(_genInput, _rend, _common.getIvFoe());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_BASE);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_BASE);
         rateWinMoneyBase = rate(_genInput, _rend, _common.getRateWinMoneyBase());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_LOOSE);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_RATE_WIN_MONEY_LOOSE);
         rateLooseMoneyWin = rate(_genInput, _rend, _common.getRateLooseMoneyWin());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RESTORED_MOVES);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_RESTORED_MOVES);
         restoredMovesEndFight = check(_genInput,_rend, _common.getRestoredMovesEndFight());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_CLOSING);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_CLOSING);
         enabledClosing = check(_genInput,_rend, _common.getEnabledClosing());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_RANDOM_WILD);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_RANDOM_WILD);
         randomWildFight = check(_genInput,_rend, _common.getRandomWildFight());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_FLEE);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_FLEE);
         stillPossibleFlee = check(_genInput,_rend, _common.getStillPossibleFlee());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_SKIP_LEARN);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_SKIP_LEARN);
         skipLearningMovesWhileNotGrowingLevel = check(_genInput,_rend, _common.getSkipLearningMovesWhileNotGrowingLevel());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_PLAYER);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_LAW_CHOICE_PLAYER);
         damageRatePlayer = select(_genInput,_rend, _common.getDamageRates(), _common.getDamageRatePlayer());
         tableView(_rend, _file, _common.getDamageRatePlayerTable());
-        _rend.formatMessage(_file,MessagesGameDifficulty.M_P_93_LAW_CHOICE_FOE);
+        formatMessage(_rend, _file, MessagesGameDifficulty.M_P_93_LAW_CHOICE_FOE);
         damageRateLawFoe = select(_genInput,_rend, _common.getDamageRates(), _common.getDamageRateLawFoe());
         tableView(_rend, _file, _common.getDamageRateFoeTable());
+    }
+
+    private void formatMessage(CommonBean _rend, String _file, String _key) {
+        _rend.formatMessage(_file, _key);
+        _rend.getBuilder().breakNext();
     }
 
     public void update(DifficultyCommon _common) {
@@ -90,35 +95,35 @@ public final class DifficultyBeanForm {
     public static IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, boolean _value) {
         IntBeanChgBool check_ = _genInput.newBool();
         check_.setSelected(_value);
-        _rend.nextPart();
+        _rend.getBuilder().breakNext();
         return check_;
     }
 
     public static IntBeanChgRate rate(IntBeanGeneInput _genInput, CommonBean _rend, Rate _value) {
         IntBeanChgRate rate_ = _genInput.newRate();
         rate_.valueRate(_value);
-        _rend.nextPart();
+        _rend.getBuilder().breakNext();
         return rate_;
     }
 
     public static IntBeanChgLong iv(IntBeanGeneInput _genInput, CommonBean _rend, long _value) {
         IntBeanChgLong ivPlayer_ = _genInput.newLong();
         ivPlayer_.valueLong(_value);
-        _rend.nextPart();
+        _rend.getBuilder().breakNext();
         return ivPlayer_;
     }
 
     public static IntBeanChgString select(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<String,String> _map, String _v) {
         IntBeanChgString sel_ = _genInput.newString(_map);
         sel_.setupValue(_v);
-        _rend.nextPart();
+        _rend.getBuilder().breakNext();
         return sel_;
     }
 
     public static IntBeanChgString txt(IntBeanGeneInput _genInput, CommonBean _rend, String _v) {
         IntBeanChgString sel_ = _genInput.newText();
         sel_.setupValue(_v);
-        _rend.nextPart();
+        _rend.getBuilder().breakNext();
         return sel_;
     }
 

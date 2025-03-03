@@ -18,6 +18,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     private AbsCommonFrame frame;
     private final IdMap<AbsCustComponent,AbsCustComponent> parents = new IdMap<AbsCustComponent,AbsCustComponent>();
     private final Ints colours = new Ints();
+    private final IdMap<AbsTextPane,AbsAttrSet> fonts = new IdMap<AbsTextPane,AbsAttrSet>();
     public BeanBuilderHelper(AbstractProgramInfos _a, FindBeanEvent _f) {
         this.api = _a;
         this.finder = _f;
@@ -34,6 +35,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         getRefsSearch().clear();
         getRefsSearchDir().clear();
         getOrderedLists().clear();
+        fonts.clear();
         setPartGroup(0);
         setRowGroup(0);
     }
@@ -274,6 +276,11 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         att_.addUnderline(true);
         att_.addForeground(GuiConstants.BLUE);
         _tx.setCharacterAttributes(0, _tx.getText().length(), att_, false);
+        fonts.addEntry(_tx,att_);
+    }
+
+    public IdMap<AbsTextPane,AbsAttrSet> getFonts() {
+        return fonts;
     }
 
     public IdList<MetaSearchableContent> getMetaSearchableContents() {
