@@ -27,7 +27,7 @@ public final class MapBean extends CommonBean implements BeanRenderWithAppName {
             paintMetaLabelDisk();
             formatMessageDir(places.get(p).getPlace().getName());
             if (isMultiLayer(p)) {
-                CustList<Level> layers_ = layers(places.get(p).getIndex());
+                CustList<Level> layers_ = layers(p);
                 int len_ = layers_.size();
                 for (int i = 0; i < len_; i++) {
                     formatMessageDirAnc("->"+Long.toString(i),new MapBeanClickLevelBeanAction(this,places.get(p).getIndex(),i));
