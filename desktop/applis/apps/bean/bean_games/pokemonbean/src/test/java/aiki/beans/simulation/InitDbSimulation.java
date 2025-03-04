@@ -1692,9 +1692,35 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
     }
     private static NaSt init(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
-        NaSt from_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt from_ = _all.getVal(AikiBeansSimulationStd.BEAN_SIMULATION);
         NaSt dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
-        ((CommonBean)((PokemonBeanStruct)from_).getBean()).setBuilder(builder(_pk.getDataBase()));
+        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
+        Translations tr_ = new Translations();
+        TranslationsLg en_ = new TranslationsLg();
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMU_LEVEL,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
+        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MAP,new TranslationsFile());
+        tr_.getMapping().addEntry(EN, en_);
+        TranslationsLg fr_ = new TranslationsLg();
+        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMU_LEVEL,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
+        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MAP,new TranslationsFile());
+        tr_.getMapping().addEntry(FR, fr_);
+        bu_.setTranslations(tr_);
+        bu_.setFacade(_pk.getDataBase());
+        ((CommonBean)((PokemonBeanStruct)from_).getBean()).setBuilder(bu_);
         beforeDisplaying(from_);
         NaSt simu_ = transitSimu(_pk, _all, _mapping, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML), from_);
         callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
@@ -3489,24 +3515,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt dest_ = _all.getVal(_mapping.getVal(url_));
         setFormsBy(_stds,dest_,_first);
         CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
-        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
-        Translations tr_ = new Translations();
-        TranslationsLg en_ = new TranslationsLg();
-        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
-        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
-        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.en());
-        tr_.getMapping().addEntry(EN, en_);
-        TranslationsLg fr_ = new TranslationsLg();
-        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
-        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
-        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.fr());
-        tr_.getMapping().addEntry(FR, fr_);
-        bu_.setTranslations(tr_);
-        bu_.setFacade(_stds.getDataBase());
-        s_.setBuilder(bu_);
-        s_.setAppName(MessagesPkBean.APP_BEAN_DATA);
         s_.build(_stds.getDataBase(), s_.getForms());
-//        beforeDisplaying(dest_);
         return dest_;
     }
 
@@ -3515,24 +3524,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt dest_ = _all.getVal(_mapping.getVal(url_));
         setFormsBy(_stds,dest_,_first);
         CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
-        MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
-        Translations tr_ = new Translations();
-        TranslationsLg en_ = new TranslationsLg();
-        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
-        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
-        en_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.en());
-        tr_.getMapping().addEntry(EN, en_);
-        TranslationsLg fr_ = new TranslationsLg();
-        fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, new TranslationsAppli());
-        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
-        fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SIMULATION,MessagesDataSimulation.fr());
-        tr_.getMapping().addEntry(FR, fr_);
-        bu_.setTranslations(tr_);
-        bu_.setFacade(_stds.getDataBase());
-        s_.setBuilder(bu_);
-        s_.setAppName(MessagesPkBean.APP_BEAN_DATA);
         s_.build(_stds.getDataBase(), s_.getForms());
-//        beforeDisplaying(dest_);
         return dest_;
     }
     protected static Rate integration() {
@@ -3556,7 +3548,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     public static StringMap<NaSt> beanToSimu(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
+//        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
         map_.addEntry(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,_pk.beanDiffCommon(EN));
         map_.addEntry(AikiBeansSimulationStd.BEAN_SIMULATION,_pk.beanSimulationBean(EN));
         map_.addEntry(AikiBeansSimulationStd.BEAN_ADDPOKEMON,_pk.beanAddPokemonBean(EN));
@@ -4255,7 +4247,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevel(),simu_,_place,_level);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevel(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),_place,_level),simu_);
     }
     protected static NaSt chooseTrainerLevelZero(int _place) {
         PkData pk_ = pkDataByFacade(dbFull());
@@ -4269,7 +4261,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 0);
-        NaSt sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, _level);
+        NaSt sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),2,_level), simu_);
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
         return transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,_tile);
     }
@@ -4287,7 +4279,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 0);
-        NaSt sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, 0);
+        NaSt sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),2,0), simu_);
         callSimulationLevelBeanNoFightSet(sel_,0);
         transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,1);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoice(),simu_);
@@ -4304,7 +4296,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 0);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 3, 0);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),3,0), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoice(), simu_);
         simpleTeam(pk_, all_, mapping_, simu_);
         return simu_;
@@ -4314,7 +4306,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 0);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 3, 1);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),3,1), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoice(), simu_);
         simpleTeamLight(pk_, all_, mapping_, simu_);
         return simu_;

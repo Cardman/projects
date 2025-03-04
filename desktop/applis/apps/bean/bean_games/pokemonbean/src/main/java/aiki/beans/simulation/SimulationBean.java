@@ -127,7 +127,33 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getNbTeamsField().valueLong(0);
             updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON));
             getUpdateValues().addEvt(new SimulationBeanValidDiffFormEvent(this, form));
+        } else if (simu_ == SimulationSteps.FOE) {
+            freeTeams();
         }
+    }
+
+    private void freeTeams() {
+        if (freeTeams) {
+            return;
+        }
+        int pls_ = places.size();
+        for (int p = 0; p < pls_; p++) {
+            initLine();
+            paintMetaLabelDisk();
+            formatMessageDir(places.get(p).getPlace().getName());
+            if (isMultiLayer(p)) {
+                CustList<Level> layers_ = layers(p);
+                int len_ = layers_.size();
+                for (int i = 0; i < len_; i++) {
+                    formatMessageDirAnc("->"+Long.toString(i),new SimulationBeanClickLevel(this,places.get(p).getIndex(),i));
+                }
+            } else {
+                formatMessageAnc(new SimulationBeanClickLevel(this,places.get(p).getIndex(),0),MessagesPkBean.MAP,MessagesDataMapLevel.M_P_32_GOLEVEL);
+            }
+            feedParents();
+        }
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NO_FIGHT);
+        formatMessageDir(getTrainerName());
     }
 
     public DifficultyBeanForm getForm() {

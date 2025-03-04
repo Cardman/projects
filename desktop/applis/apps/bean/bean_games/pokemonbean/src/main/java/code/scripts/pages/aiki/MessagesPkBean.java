@@ -224,6 +224,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(ROUND,MessagesDataRound.en());
         m.getMapping().addEntry(SIMU,MessagesDataSimulation.en());
         m.getMapping().addEntry(SIMU_LEVEL,MessagesDataSimulationLevelsimu.en());
+        m.getMapping().addEntry(DIFFICULTY,MessagesGameDifficulty.en());
         return m;
     }
     public static TranslationsAppli frData(){
@@ -317,6 +318,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(ROUND,MessagesDataRound.fr());
         m.getMapping().addEntry(SIMU,MessagesDataSimulation.fr());
         m.getMapping().addEntry(SIMU_LEVEL,MessagesDataSimulationLevelsimu.fr());
+        m.getMapping().addEntry(DIFFICULTY,MessagesGameDifficulty.en());
         return m;
     }
 }
