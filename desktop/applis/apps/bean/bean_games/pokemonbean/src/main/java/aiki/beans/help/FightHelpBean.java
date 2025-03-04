@@ -244,7 +244,9 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     private CustList<TranslatedKey> abilitesMultEvtCh;
     private CustList<TranslatedKey> abilitesMultRateCh;
     private String rateFormula;
+    private NatStringTreeMap<String> varRateFormula;
     private String rateFormulaCh;
+    private NatStringTreeMap<String> varRateFormulaCh;
     private CustList<TranslatedKey> itemsTypesDef;
     private final LongTreeMap<Rate> boosts = new LongTreeMap<Rate>();
     private final LongTreeMap<Rate> boostsCh = new LongTreeMap<Rate>();
@@ -468,22 +470,25 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         getBuilder().getOrderedLists().add(0);
         getBuilder().setIndent(1);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_1);
-        getBuilder().setIndent(0);
+        getBuilder().setIndent(2);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesPartStatis);
         getBuilder().setIndent(1);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_2);
-        getBuilder().setIndent(0);
+        getBuilder().setIndent(2);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamStatis,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_2);
         getBuilder().setIndent(1);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_1_3);
-        getBuilder().setIndent(0);
+        getBuilder().setIndent(2);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesFighterStatisVar);
+        getBuilder().setIndent(0);
         getBuilder().getOrderedLists().removeQuicklyLast();
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2);
         getBuilder().setIndent(1);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesRateStatis,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2_1);
         getBuilder().setIndent(0);
+        getBuilder().setIndent(1);
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboEvtStat,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_2_2);
+        getBuilder().setIndent(0);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_1_3);
         getBuilder().setIndent(1);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesFighterStatis);
@@ -517,7 +522,9 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsFighterStatus);
         getBuilder().setIndent(0);
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_7);
+        getBuilder().setIndent(1);
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboEvtStat,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_16_2_8);
+        getBuilder().setIndent(0);
         getBuilder().getOrderedLists().removeQuicklyLast();
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_17);
         getBuilder().getOrderedLists().add(0);
@@ -800,11 +807,12 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_1);
         formatMessageDir(rateFormula);
+        mapVarsInit(varRateFormula);
         headlessTable(boosts);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_2);
         formatMessageDir(rateFormulaCh);
+        mapVarsInit(varRateFormulaCh);
         headlessTable(boostsCh);
-        formatMessageDir(getBoostVar());
 //        formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_3);
         getBuilder().setRefLk(ADDONFORMULA4);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_4);
@@ -947,12 +955,14 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
 //        rateFormula = MathExpUtil.replaceWordsJoin(rateFormula, replace_);
         rateFormula = data_.getFormula(data_.getRateBoost(),getLanguage());
+        varRateFormula = data_.getDescriptions(data_.getRateBoost(),getLanguage());
 //        replace_ = new StringMap<String>();
 //        rateFormulaCh = data_.getRateBoostCriticalHit();
 //        replace_.put(StringUtil.concat(pref_,DataBase.SEP_BETWEEN_KEYS,data_.boost()), VAR_BOOST);
 //        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
 //        rateFormulaCh = MathExpUtil.replaceWordsJoin(rateFormulaCh, replace_);
         rateFormulaCh = data_.getFormula(data_.getRateBoostCriticalHit(),getLanguage());
+        varRateFormulaCh = data_.getDescriptions(data_.getRateBoostCriticalHit(),getLanguage());
         long minBoost_ = data_.getMinBoost();
         long maxBoost_ = data_.getMaxBoost();
         initBoosts(minBoost_, maxBoost_);
@@ -5892,7 +5902,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
 
     public String getBoostVar() {
         DataBase data_ = getDataBase();
-        return StringUtil.join(StringUtil.splitStrings(StringUtil.nullToEmpty(data_.getLitterals().getVal(getLanguage()).getVal(StringUtil.nullToEmpty(data_.boost()))), "\t").mid(1),":");
+        return StringUtil.splitStrings(StringUtil.nullToEmpty(data_.getLitterals().getVal(getLanguage()).getVal(StringUtil.nullToEmpty(data_.boost()))), "\t").get(1);
     }
 
     public LongTreeMap<Rate> getBoosts() {

@@ -712,7 +712,10 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 
     public void display(Countable _ls, String _file, String _key, String... _values) {
         if (!_ls.isEmpty() && !_key.isEmpty()) {
+            builder.initLine();
+            builder.indent();
             builder.formatMessage(getAppName(),_file,_key,_values);
+            builder.feedParents();
             builder.breakNext();
         }
     }

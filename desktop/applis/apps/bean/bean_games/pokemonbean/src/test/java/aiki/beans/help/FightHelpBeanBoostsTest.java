@@ -26,7 +26,7 @@ public final class FightHelpBeanBoostsTest extends InitDbFightHelp {
     }
     @Test
     public void varBoost() {
-        assertEq("b:_",callFightHelpBeanBoostVarGet(bean(db())));
+        assertEq("b",callFightHelpBeanBoostVarGet(bean(db())));
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
