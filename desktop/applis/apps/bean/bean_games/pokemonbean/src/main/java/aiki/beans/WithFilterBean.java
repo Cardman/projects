@@ -172,6 +172,7 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         moves_ = DictionaryComparatorUtil.buildMovesData();
+        getForms().safeMoves(CST_LEARNT_MOVES);
         AbsMap<TranslatedKey, MoveData> learntMoves_ = getForms().getValMoveData(CST_LEARNT_MOVES);
         CustList<String> list_ = keys(learntMoves_.getKeys());
         for (EntryCust<String, MoveData> k: _m.entryList()) {
