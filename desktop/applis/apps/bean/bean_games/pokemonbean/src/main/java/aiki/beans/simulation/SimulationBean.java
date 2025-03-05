@@ -135,6 +135,14 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void foe() {
         if (freeTeams) {
+            Ints nbs_ = getNumbers();
+            int len_ = nbs_.size();
+            formatMessage(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SELECT_TEAM);
+            for (int i = 0; i < len_; i++) {
+                IntBeanChgSubmit chgIndex_ = getBuilder().button(Long.toString(nbs_.get(i)));
+                chgIndex_.addEvt(new SimulationBeanValidateIndexTeamAction(this,i));
+            }
+            formatMessageDir(Long.toString(selectedTeamNumber()));
             cancelDiffChoice = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON));
             getCancelDiffChoice().addEvt(new SimulationBeanCancelDiffChoice(this));
             return;

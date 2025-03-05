@@ -32,4 +32,5 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     public IntBeanChgSubmit newSubmit(String _text) {
         return new AbsBeanChgSubmit();
     }
+
 }
