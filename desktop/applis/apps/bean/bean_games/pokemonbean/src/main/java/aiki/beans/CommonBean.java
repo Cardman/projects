@@ -95,6 +95,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_POKEMON_SET = "pokemon_set";
 //    protected static final String CST_PROPONE_LINK = "propone_link";
     protected static final String CST_COORDS = "coords";
+    protected static final String CST_COORDS_TR = "coords_tr";
     protected static final String CST_NO_FIGHT = "no_fight";
     protected static final String CST_POKEMON_SET_SIMU = "pokemon_set_simu";
     protected static final String CST_POKEMON_ADDED = "pokemon_added";

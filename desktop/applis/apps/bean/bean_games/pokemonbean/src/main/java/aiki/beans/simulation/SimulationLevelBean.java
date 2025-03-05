@@ -1,7 +1,10 @@
 package aiki.beans.simulation;
 
-import aiki.beans.AbsLevelBean;
+import aiki.beans.*;
+import aiki.beans.game.DifficultyBeanForm;
+import aiki.comparators.DictionaryComparator;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.characters.CharacterInRoadCave;
@@ -15,22 +18,73 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.scripts.confs.PkScriptPages;
-import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.*;
+import code.util.*;
 
 public final class SimulationLevelBean extends AbsLevelBean {
-    private int noFight;
+    private IntBeanChgLong noFight = new BeanChgLong();
+    private IntBeanChgSubmit ok;
 
     public SimulationLevelBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        initTitle(file(),MessagesDataSimulationLevelsimu.M_P_85_TITLE_LEVEL_PLACE,MessagesDataSimulationLevelsimu.M_P_85_TITLE_OUT_ROAD,MessagesDataSimulationLevelsimu.M_P_85_TITLE_OUT_CITY,MessagesDataSimulationLevelsimu.M_P_85_TITLE_GYM,MessagesDataSimulationLevelsimu.M_P_85_TITLE_PK_CENTER);
+//        if (getPossibleMultiLayer()) {
+//            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_LEVEL_PLACE),getPlaceName(),Long.toString(getLevelIndex())));
+//        } else if (getOutside()) {
+//            if (getRoad()) {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_OUT_ROAD),getPlaceName()));
+//            } else {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_OUT_CITY),getPlaceName()));
+//            }
+//        } else {
+//            if (getGym()) {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_GYM),getPlaceName()));
+//            }
+//            if (getPokemonCenter()) {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_PK_CENTER),getPlaceName()));
+//            }
+//        }
+        initLine();
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_NO_FIGHT);
+        noFight = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, getForms().getValLong(CST_NO_FIGHT));
+        feedParents();
+        initLine();
+        ok = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_OK));
+        getOk().addEvt(new SimulationLevelBeanValidateNoFightAction(this));
+        feedParents();
+        formatMessageDir(Long.toString(noFight.valueLong()));
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,this),MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL);
+        initGrid();
+        getBuilder().colCount(getMapWidth());
+        DictionaryComparator<Point, int[][]> tiles_ = getTiles();
+        int len_ = tiles_.size();
+        for (int i = 0; i < len_; i++) {
+            int[][] img_ = tiles_.getValue(i);
+            getBuilder().addImgCtsAnc(img_,"",new SimulationLevelBeanClickTile(this, i));
+        }
+        feedParents();
+    }
+
+    public IntBeanChgSubmit getOk() {
+        return ok;
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SIMU_LEVEL).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         initTiles(false);
-        noFight = getForms().getValInt(CST_NO_FIGHT);
+        noFight.valueLong(getForms().getValLong(CST_NO_FIGHT));
     }
     public String clickTile(int _index) {
-        if (noFight < 0) {
-            noFight = 0;
+        if (noFight.valueLong() < 0) {
+            noFight.valueLong(0);
         }
         Point pt_ = getTiles().getKey(_index);
         //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
@@ -51,8 +105,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.affectInside(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(CST_COORDS, coords_);
-                getForms().put(CST_NO_FIGHT, noFight);
+                getForms().put(CST_COORDS_TR, coords_);
+                getForms().put(CST_NO_FIGHT, noFight.valueLong());
                 return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
@@ -61,8 +115,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.affectInside(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(CST_COORDS, coords_);
-                getForms().put(CST_NO_FIGHT, noFight);
+                getForms().put(CST_COORDS_TR, coords_);
+                getForms().put(CST_NO_FIGHT, noFight.valueLong());
                 return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
@@ -77,8 +131,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
             coords_.setLevel(new LevelPoint());
             coords_.getLevel().setLevelIndex(lev_);
             coords_.getLevel().setPoint(new Point(pt_));
-            getForms().put(CST_COORDS, coords_);
-            getForms().put(CST_NO_FIGHT, noFight);
+            getForms().put(CST_COORDS_TR, coords_);
+            getForms().put(CST_NO_FIGHT, noFight.valueLong());
             return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (l_.getCharacters().contains(pt_)) {
@@ -86,13 +140,13 @@ public final class SimulationLevelBean extends AbsLevelBean {
             if (char_ instanceof TrainerMultiFights) {
                 TrainerMultiFights tr_ = (TrainerMultiFights) char_;
                 updateNbFight(tr_);
-                getForms().put(CST_NO_FIGHT, noFight);
+                getForms().put(CST_NO_FIGHT, noFight.valueLong());
                 Coords coords_ = new Coords();
                 coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());
                 coords_.getLevel().setLevelIndex(lev_);
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(CST_COORDS, coords_);
+                getForms().put(CST_COORDS_TR, coords_);
                 //noFight
                 return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
@@ -105,8 +159,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.getLevel().setLevelIndex(lev_);
                 coords_.getLevel().setPoint(new Point(ptKey_));
-                getForms().put(CST_NO_FIGHT, noFight);
-                getForms().put(CST_COORDS, coords_);
+                getForms().put(CST_NO_FIGHT, noFight.valueLong());
+                getForms().put(CST_COORDS_TR, coords_);
                 return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
@@ -114,19 +168,17 @@ public final class SimulationLevelBean extends AbsLevelBean {
     }
 
     private void updateNbFight(TrainerMultiFights _tr) {
-        if (_tr.getTeamsRewards().size() <= noFight) {
-            noFight = _tr.getTeamsRewards().size();
-            noFight--;
+        if (_tr.getTeamsRewards().size() <= noFight.valueLong()) {
+            noFight.valueLong(_tr.getTeamsRewards().size()-1L);
         }
     }
 
-    public int getNoFight() {
+    public IntBeanChgLong getNoFight() {
         return noFight;
     }
 
-    public void setNoFight(int _n) {
-        getForms().put(CST_NO_FIGHT,_n);
-        this.noFight = _n;
+    public void noFight(long _n) {
+        getForms().put(CST_NO_FIGHT, _n);
     }
 
 }

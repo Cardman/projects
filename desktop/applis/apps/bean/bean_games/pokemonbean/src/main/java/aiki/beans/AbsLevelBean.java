@@ -17,6 +17,7 @@ import aiki.util.Points;
 import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class AbsLevelBean extends CommonBean  implements BeanRenderWithAppName{
     private DictionaryComparator<Point,int[][]> tiles;
@@ -32,6 +33,24 @@ public abstract class AbsLevelBean extends CommonBean  implements BeanRenderWith
     private DictionaryComparator<Integer,String> neighbours;
     private int mapWidth;
 
+    protected void initTitle(StringMap<String> _file, String... _poss) {
+        if (getPossibleMultiLayer()) {
+            setTitledBorder(StringUtil.simpleStringsFormat(_file.getVal(_poss[0]),getPlaceName(),Long.toString(getLevelIndex())));
+        } else if (getOutside()) {
+            if (getRoad()) {
+                setTitledBorder(StringUtil.simpleStringsFormat(_file.getVal(_poss[1]),getPlaceName()));
+            } else {
+                setTitledBorder(StringUtil.simpleStringsFormat(_file.getVal(_poss[2]),getPlaceName()));
+            }
+        } else {
+            if (getGym()) {
+                setTitledBorder(StringUtil.simpleStringsFormat(_file.getVal(_poss[3]),getPlaceName()));
+            }
+            if (getPokemonCenter()) {
+                setTitledBorder(StringUtil.simpleStringsFormat(_file.getVal(_poss[4]),getPlaceName()));
+            }
+        }
+    }
     protected void initTiles(boolean _addBorder) {
         wildPokemonAreas = new CustList<AbsAreaApparition>();
         neighbours = DictionaryComparatorUtil.buildStringPlaces(getDataBase().getMap());

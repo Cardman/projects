@@ -83,7 +83,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private final Difficulty difficulty = new Difficulty();
 
-    private int noFight;
+    private long noFight;
     private String selectedRound ="0";
     private IntTreeMap< Integer> round = new IntTreeMap< Integer>();
 
@@ -128,11 +128,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON));
             getUpdateValues().addEvt(new SimulationBeanValidDiffFormEvent(this, form));
         } else if (simu_ == SimulationSteps.FOE) {
-            freeTeams();
+            foe();
         }
     }
 
-    private void freeTeams() {
+    private void foe() {
         if (freeTeams) {
             return;
         }
@@ -366,10 +366,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             stateFoeFree();
         } else {
             if (!getForms().contains(CST_NO_FIGHT)) {
-                getForms().put(CST_NO_FIGHT, IndexConstants.FIRST_INDEX);
+                getForms().put(CST_NO_FIGHT, 0L);
             }
-            noFight = getForms().getValInt(CST_NO_FIGHT);
-            coords = getForms().getValCoords(CST_COORDS);
+            noFight = getForms().getValLong(CST_NO_FIGHT);
+            coords = getForms().getValCoords(CST_COORDS_TR);
             if (coords != null) {
                 ok = true;
             }
@@ -523,12 +523,12 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         Place pl_ = data_.getMap().getPlace(_indexOne);
         if (pl_ instanceof League) {
             League l_ = (League) pl_;
-            coords = new Coords();
-            coords.setNumberPlace(_indexOne);
-            coords.setLevel(new LevelPoint());
-            coords.getLevel().setLevelIndex(_indexTwo);
-            coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().get(_indexTwo)).getTrainerCoords().value()));
-            getForms().put(CST_COORDS, coords);
+            Coords coords_ = new Coords();
+            coords_.setNumberPlace(_indexOne);
+            coords_.setLevel(new LevelPoint());
+            coords_.getLevel().setLevelIndex(_indexTwo);
+            coords_.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().get(_indexTwo)).getTrainerCoords().value()));
+            getForms().put(CST_COORDS_TR, coords_);
             noFight = IndexConstants.FIRST_INDEX;
             return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
@@ -584,7 +584,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             return;
         }
         DataBase data_ = getDataBase();
-        simulation.initializeFight(coords, noFight, data_);
+        simulation.initializeFight(coords, (int) NumberUtil.max(0,NumberUtil.min(noFight,Integer.MAX_VALUE)), data_);
         allyTeams.clear();
         foeTeams.clear();
         for (CustList<PkTrainer> t: simulation.getAllyTeamAll()) {
@@ -1461,6 +1461,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         teamAfterFight.clear();
         getForms().removeKey(CST_SIMULATION_STATE);
         getForms().removeKey(CST_COORDS);
+        getForms().removeKey(CST_COORDS_TR);
         stepNumber = 0;
         ok = true;
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;

@@ -64,7 +64,7 @@ public final class DifficultyBeanForm {
         tableView(_rend, _file, _common.getDamageRateFoeTable());
     }
 
-    private void formatMessage(CommonBean _rend, String _file, String _key) {
+    public static void formatMessage(CommonBean _rend, String _file, String _key) {
         _rend.formatMessage(_file, _key);
         _rend.getBuilder().breakNext();
     }

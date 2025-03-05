@@ -24,7 +24,6 @@ import code.scripts.pages.aiki.MessagesDataMapLevel;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public final class MapLevelBean extends AbsLevelBean {
 //    private boolean proponeLink;
@@ -38,22 +37,23 @@ public final class MapLevelBean extends AbsLevelBean {
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
-        if (getPossibleMultiLayer()) {
-            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_LEVEL_PLACE),getPlaceName(),Long.toString(getLevelIndex())));
-        } else if (getOutside()) {
-            if (getRoad()) {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_ROAD),getPlaceName()));
-            } else {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_CITY),getPlaceName()));
-            }
-        } else {
-            if (getGym()) {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_GYM),getPlaceName()));
-            }
-            if (getPokemonCenter()) {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER),getPlaceName()));
-            }
-        }
+        initTitle(file(),MessagesDataMapLevel.M_P_32_TITLE_LEVEL_PLACE,MessagesDataMapLevel.M_P_32_TITLE_OUT_ROAD,MessagesDataMapLevel.M_P_32_TITLE_OUT_CITY,MessagesDataMapLevel.M_P_32_TITLE_GYM,MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER);
+//        if (getPossibleMultiLayer()) {
+//            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_LEVEL_PLACE),getPlaceName(),Long.toString(getLevelIndex())));
+//        } else if (getOutside()) {
+//            if (getRoad()) {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_ROAD),getPlaceName()));
+//            } else {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_CITY),getPlaceName()));
+//            }
+//        } else {
+//            if (getGym()) {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_GYM),getPlaceName()));
+//            }
+//            if (getPokemonCenter()) {
+//                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER),getPlaceName()));
+//            }
+//        }
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
         initGrid();
