@@ -1,7 +1,6 @@
 package aiki.beans.abilities;
 
 import aiki.beans.*;
-import aiki.beans.game.*;
 import aiki.facade.*;
 import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
@@ -19,10 +18,7 @@ public final class AbilitiesBean extends AbilitySearchBean {
         setTitledBorder(file().getVal(MessagesDataAbilityAbilities.M_P_0_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
 //        initPage();
-        initLine();
-        formatMessage(MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_CONTENT);
-        setTypedAbility(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedAbility().tryRet()));
-        feedParents();
+        initFormAb();
         initLine();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_OK));
         getUpdateValues().addEvt(new AbilitiesBeanSearch(this));

@@ -47,6 +47,8 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         getChooseAbility().addEvt(new EditTrainerPokemonBeanChooseAbility(this));
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NAME_PK);
         formatMessageDir(getTranslatedName());
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ABILITY_PK);
+        formatMessageDir(getTranslatedAbility());
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ITEM_PK);
         formatMessageDir(getTranslatedItem());
     }
