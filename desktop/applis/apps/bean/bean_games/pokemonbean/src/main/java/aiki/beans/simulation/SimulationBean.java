@@ -113,6 +113,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntBeanChgLong nbTeamsField;
     private IntBeanChgSubmit updateValues;
     private IntBeanChgSubmit cancelDiffChoice;
+    private IntBeanChgSubmit addPkTrainer;
 
     public SimulationBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -143,6 +144,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
                 chgIndex_.addEvt(new SimulationBeanValidateIndexTeamAction(this,i));
             }
             formatMessageDir(Long.toString(selectedTeamNumber()));
+            addPkTrainer = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ADD));
+            getAddPkTrainer().addEvt(new SimulationBeanAddPkTrainer(this));
             cancelDiffChoice = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON));
             getCancelDiffChoice().addEvt(new SimulationBeanCancelDiffChoice(this));
             return;
@@ -171,6 +174,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     public DifficultyBeanForm getForm() {
         return form;
+    }
+
+    public IntBeanChgSubmit getAddPkTrainer() {
+        return addPkTrainer;
     }
 
     public IntBeanChgSubmit getCancelDiffChoice() {

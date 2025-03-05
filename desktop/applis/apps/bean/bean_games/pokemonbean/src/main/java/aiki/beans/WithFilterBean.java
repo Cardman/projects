@@ -2,6 +2,7 @@ package aiki.beans;
 
 import aiki.beans.facade.dto.ItemLine;
 import aiki.beans.facade.dto.PokemonLine;
+import aiki.beans.game.DifficultyBeanForm;
 import aiki.beans.pokemon.PokedexBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -18,6 +19,7 @@ import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataPokemonPokedex;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -95,6 +97,37 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
         }
     }
 
+    protected void initFormPk() {
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX, MessagesDataPokemonPokedex.M_P_82_CONTENT_NAME);
+        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_CONTENT_TYPE);
+        setTypedType(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_CONTENT_TYPE_WHOLE);
+        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().isSelected()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_NB_EVOS);
+        setTypedMinNbPossEvos(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMinNbPossEvos().tryRet()));
+        setTypedMaxNbPossEvos(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getTypedMaxNbPossEvos().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_HAS_EVO);
+        setHasEvo(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getHasEvo().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_IS_EVO);
+        setIsEvo(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getIsEvo().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_LEG);
+        setIsLeg(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getIsLeg().tryRet()));
+        feedParents();
+    }
     protected void setupPokedex(AbsMap<TranslatedKey,PokemonData> _pokedex) {
         DataBase data_ = getDataBase();
         getPokedex().clear();

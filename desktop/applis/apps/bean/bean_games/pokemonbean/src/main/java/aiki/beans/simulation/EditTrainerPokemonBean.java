@@ -11,8 +11,7 @@ import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.map.pokemon.enums.*;
 import code.scripts.confs.*;
-import code.scripts.pages.aiki.MessagesDataSimulationLevelsimu;
-import code.scripts.pages.aiki.MessagesPkBean;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class EditTrainerPokemonBean extends CommonBean implements BeanRenderWithAppName {
@@ -40,11 +39,11 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_EDIT_POKEMON_TR));
         cancel = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
         getCancel().addEvt(new EditTrainerPokemonBeanCancel(this));
-        chooseName = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
+        chooseName = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NAME_PK));
         getChooseName().addEvt(new EditTrainerPokemonBeanChooseName(this));
-        chooseItem = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
+        chooseItem = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ITEM_PK));
         getChooseItem().addEvt(new EditTrainerPokemonBeanChooseItem(this));
-        chooseAbility = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
+        chooseAbility = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ABILITY_PK));
         getChooseAbility().addEvt(new EditTrainerPokemonBeanChooseAbility(this));
     }
 
