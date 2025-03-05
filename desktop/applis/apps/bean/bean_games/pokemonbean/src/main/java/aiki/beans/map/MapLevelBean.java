@@ -42,16 +42,16 @@ public final class MapLevelBean extends AbsLevelBean {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_LEVEL_PLACE),getPlaceName(),Long.toString(getLevelIndex())));
         } else if (getOutside()) {
             if (getRoad()) {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_ROAD)));
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_ROAD),getPlaceName()));
             } else {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_CITY)));
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_OUT_CITY),getPlaceName()));
             }
         } else {
             if (getGym()) {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_GYM)));
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_GYM),getPlaceName()));
             }
             if (getPokemonCenter()) {
-                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER)));
+                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER),getPlaceName()));
             }
         }
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
