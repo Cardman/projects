@@ -7,9 +7,11 @@ import aiki.beans.facade.simulation.enums.*;
 import aiki.beans.moves.*;
 import aiki.comparators.*;
 import aiki.db.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.map.pokemon.enums.*;
 import code.scripts.confs.*;
+import code.scripts.pages.aiki.MessagesDataSimulationLevelsimu;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
@@ -24,8 +26,46 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private boolean allyPk;
+    private IntBeanChgSubmit cancel;
+    private IntBeanChgSubmit chooseName;
+    private IntBeanChgSubmit chooseItem;
+    private IntBeanChgSubmit chooseAbility;
     public EditTrainerPokemonBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_EDIT_POKEMON_TR));
+        cancel = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
+        getCancel().addEvt(new EditTrainerPokemonBeanCancel(this));
+        chooseName = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
+        getChooseName().addEvt(new EditTrainerPokemonBeanChooseName(this));
+        chooseItem = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
+        getChooseItem().addEvt(new EditTrainerPokemonBeanChooseItem(this));
+        chooseAbility = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
+        getChooseAbility().addEvt(new EditTrainerPokemonBeanChooseAbility(this));
+    }
+
+    public IntBeanChgSubmit getCancel() {
+        return cancel;
+    }
+
+    public IntBeanChgSubmit getChooseName() {
+        return chooseName;
+    }
+
+    public IntBeanChgSubmit getChooseItem() {
+        return chooseItem;
+    }
+
+    public IntBeanChgSubmit getChooseAbility() {
+        return chooseAbility;
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SIMU_LEVEL).getMapping();
     }
     @Override
     public void beforeDisplaying() {

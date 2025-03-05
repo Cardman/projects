@@ -1918,7 +1918,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_,all_,mapping_,simu_);
-        return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanCancel(), editPkTrainer_);
+        return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanCancel((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
     }
     protected static NaSt pkTrainerLevelRestoreMoves() {
         PkData pk_ = pkDataByFacade(db());
@@ -1965,7 +1965,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     private static NaSt chooseName(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _str) {
-        NaSt selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _str);
+        NaSt selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getBean()), _str);
         callSelectPokemonBeanTypedNameSet(selPk_, _name);
         NaSt afSel_ = transitSimu(_pk, _all, _mapping, new SelectPokemonBeanSearch(), selPk_);
         assertSame((PokemonBeanStruct)afSel_,(PokemonBeanStruct)_str);
@@ -1973,7 +1973,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     private static NaSt chooseAbility(String _ability, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _str) {
-        NaSt selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), _str);
+        NaSt selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getBean()), _str);
         callSelectAbilityBeanTypedAbilitySet(selAb_, _ability);
         NaSt afSel_ = transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
         assertSame((PokemonBeanStruct)afSel_,(PokemonBeanStruct)_str);
@@ -1996,7 +1996,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanCancel(),selPk_);
     }
 
@@ -2006,7 +2006,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
@@ -2016,7 +2016,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectPokemonBeanHasEvoSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
@@ -2026,7 +2026,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectPokemonBeanIsEvoSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
@@ -2036,7 +2036,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectPokemonBeanIsLegSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
@@ -2046,7 +2046,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectPokemonBeanTypedNameSet(selPk_,"");
         NaSt rSe_ = transitSimu(pk_, all_, mapping_, new SelectPokemonBeanSearch(), selPk_);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanClickLink(),rSe_,_row);
@@ -2057,7 +2057,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectPokemonBeanTypedTypeSet(selPk_,_type);
         callSelectPokemonBeanWholeWordSet(selPk_,_wholeWord);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
@@ -2085,7 +2085,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         return transitSimu(pk_,all_,mapping_,new SelectAbilityBeanCancel(),selPk_);
     }
     protected static NaSt pkTrainerSelectAb(int _row) {
@@ -2094,7 +2094,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectAbilityBeanTypedAbilitySet(selAb_,"");
         NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectAbilityBeanSearch(),selAb_);
         return transitSimu(pk_,all_,mapping_,new SelectAbilityBeanClickAbility(),rSe_,_row);
@@ -2105,7 +2105,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectAbilityBeanTypedAbilitySet(selAb_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectAbilityBeanSearch(),selAb_);
     }
@@ -2123,12 +2123,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanCancelItem(),selPk_);
-        NaSt twice_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), rSe_);
+        NaSt twice_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)rSe_).getBean()), rSe_);
         callSelectItemBeanTypedNameSet(twice_,I_BALL_TR);
         NaSt againEditPk_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),twice_);
-        NaSt nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), againEditPk_);
+        NaSt nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)againEditPk_).getBean()), againEditPk_);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanCancel(),nextIt_);
     }
     protected static NaSt pkTrainerSelectItCancelRem() {
@@ -2137,11 +2137,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectItemBeanTypedNameSet(selPk_,"");
         NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selPk_);
         NaSt againEditPk_ = transitSimu(pk_, all_, mapping_, new SelectItemBeanClickLink(), rSe_, 0);
-        NaSt nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), againEditPk_);
+        NaSt nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)againEditPk_).getBean()), againEditPk_);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanCancelItem(),nextIt_);
     }
     protected static NaSt pkTrainerSelectItName(int _row) {
@@ -2150,7 +2150,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectItemBeanTypedNameSet(selAb_,"");
         NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanClickLink(),rSe_,_row);
@@ -2165,7 +2165,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     private static NaSt chooseItemPkTrainer(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editPkTrainer) {
-        NaSt selIt_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _editPkTrainer);
+        NaSt selIt_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)_editPkTrainer).getBean()), _editPkTrainer);
         return chooseItemGene(_name, _pk, _all, _mapping, selIt_);
     }
 
@@ -2184,7 +2184,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectItemBeanTypedPriceSet(selAb_,"");
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
     }
@@ -2194,7 +2194,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callSelectItemBeanTypedClassSet(selAb_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
     }
@@ -3435,13 +3435,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     private static NaSt goToSelectPk(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
-        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _struct);
+        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) ((PokemonBeanStruct)_struct).getBean()), _struct);
     }
     private static NaSt goToSelectAb(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
-        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), _struct);
+        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) ((PokemonBeanStruct)_struct).getBean()), _struct);
     }
     private static NaSt goToSelectIt(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
-        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _struct);
+        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) ((PokemonBeanStruct)_struct).getBean()), _struct);
     }
     private static NaSt goToSelectItPlayer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
         return transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _struct);
@@ -3475,7 +3475,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static NaSt goToAddPkTrainer(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
-        return transitSimu(_stds,_all,_mapping,new SimulationBeanAddPkTrainer(),_simu);
+        return transitSimu(_stds,_all,_mapping,new SimulationBeanAddPkTrainer((SimulationBean)((PokemonBeanStruct) _simu).getBean()),_simu);
     }
 
     protected static NaSt goToAddPkPlayer(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
