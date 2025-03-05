@@ -13,18 +13,36 @@ import code.util.StringMap;
 public final class SelectItemBean extends WithFilterBean {
 
     private boolean player;
+    private IntBeanChgSubmit cancel;
+    private IntBeanChgSubmit cancelItem;
     private IntBeanChgSubmit updateValues;
 
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SELECT_ITEM));
+        initLine();
+        cancel = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL));
+        getCancel().addEvt(new SelectItemBeanCancel(this));
+        feedParents();
+        initLine();
+        cancelItem = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL_ITEM));
+        getCancelItem().addEvt(new SelectItemBeanCancelItem(this));
+        feedParents();
         initFormIt();
         initLine();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SEARCH));
         getUpdateValues().addEvt(new SelectItemBeanSearch(this));
         feedParents();
         new BeanDisplayListGrid<ItemLine>(new BeanDisplayItemLineSimu(this)).displayGrid(this,getItems(),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_ITEMS,MessagesDataItems.M_P_29_IMAGE,MessagesDataItems.M_P_29_NAME,MessagesDataItems.M_P_29_PRICE,MessagesDataItems.M_P_29_DESCRIPTION);
+    }
+
+    public IntBeanChgSubmit getCancel() {
+        return cancel;
+    }
+
+    public IntBeanChgSubmit getCancelItem() {
+        return cancelItem;
     }
 
     public IntBeanChgSubmit getUpdateValues() {
