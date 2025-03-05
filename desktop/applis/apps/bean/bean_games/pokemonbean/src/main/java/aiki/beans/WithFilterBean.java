@@ -19,6 +19,7 @@ import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.maths.Rate;
+import code.scripts.pages.aiki.MessagesDataItems;
 import code.scripts.pages.aiki.MessagesDataPokemonPokedex;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
@@ -57,6 +58,20 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
         isEvo.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
         isLeg.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
         learnt.setupValue(SelectedBoolean.YES_AND_NO.getBoolName());
+    }
+    protected void initFormIt() {
+        initLine();
+        formatMessage(MessagesPkBean.ITEMS, MessagesDataItems.M_P_29_CONTENT_NAME);
+        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_PRICE_DOT);
+        setTypedPrice(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedPrice().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_CONTENT);
+        setTypedClass(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedClass().tryRet()));
+        feedParents();
     }
 
     public static AbsMap<TranslatedKey,Item> sortedItems(FacadeGame _data, String _typedPrice, IntBeanChgString _typedName, String _typedClass) {

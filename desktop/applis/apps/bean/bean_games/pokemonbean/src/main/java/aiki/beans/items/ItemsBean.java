@@ -2,7 +2,6 @@ package aiki.beans.items;
 
 import aiki.beans.*;
 import aiki.beans.facade.dto.*;
-import aiki.beans.game.*;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.items.*;
@@ -21,18 +20,7 @@ public final class ItemsBean extends WithFilterBean {
         setTitledBorder(file().getVal(MessagesDataItems.M_P_29_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
 //        initPage();
-        initLine();
-        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_CONTENT_NAME);
-        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_PRICE_DOT);
-        setTypedPrice(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedPrice().tryRet()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_CONTENT);
-        setTypedClass(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedClass().tryRet()));
-        feedParents();
+        initFormIt();
         initLine();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_OK));
         getUpdateValues().addEvt(new ItemsBeanSearch(this));

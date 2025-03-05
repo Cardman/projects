@@ -1,17 +1,38 @@
 package aiki.beans.simulation;
 
-import aiki.beans.TranslatedKey;
-import aiki.beans.WithFilterBean;
+import aiki.beans.*;
+import aiki.beans.facade.dto.ItemLine;
 import aiki.db.DataBase;
+import aiki.facade.*;
 import aiki.fight.items.Item;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.AbsMap;
+import code.util.StringMap;
 
 public final class SelectItemBean extends WithFilterBean {
-    private String item = DataBase.EMPTY_STRING;
 
     private boolean player;
+    private IntBeanChgSubmit updateValues;
 
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SELECT_ITEM));
+        initFormIt();
+        initLine();
+        updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SEARCH));
+        getUpdateValues().addEvt(new SelectItemBeanSearch(this));
+        feedParents();
+        new BeanDisplayListGrid<ItemLine>(new BeanDisplayItemLineSimu(this)).displayGrid(this,getItems(),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_ITEMS,MessagesDataItems.M_P_29_IMAGE,MessagesDataItems.M_P_29_NAME,MessagesDataItems.M_P_29_PRICE,MessagesDataItems.M_P_29_DESCRIPTION);
+    }
+
+    public IntBeanChgSubmit getUpdateValues() {
+        return updateValues;
+    }
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SIMU_LEVEL).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         player = getForms().getValBool(CST_IS_POKEMON_PLAYER_MOVES);
@@ -48,16 +69,17 @@ public final class SelectItemBean extends WithFilterBean {
         AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems();
         getForms().putItems(CST_ITEMS_SET_EDIT, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            item = sortedItems_.firstKey().getKey();
-            getForms().put(CST_ITEM_EDIT, item);
-            return redirect();
+            return putName(sortedItems_.firstKey());
         }
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
 
     public String clickLink(int _index) {
-        item = getItems().get(_index).getName().getKey();
-        getForms().put(CST_ITEM_EDIT, item);
+        return putName(getItems().get(_index).getName());
+    }
+
+    public String putName(TranslatedKey _tk) {
+        getForms().put(CST_ITEM_EDIT, _tk.getKey());
         return redirect();
     }
     private String redirect() {
