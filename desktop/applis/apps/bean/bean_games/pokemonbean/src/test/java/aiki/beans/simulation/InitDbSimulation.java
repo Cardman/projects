@@ -2964,7 +2964,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelFrontFighters(), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelTeam(), simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelDiffChoice(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelDiffChoice((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
     }
 
     protected static NaSt pkPlayerFighterSimulateAfterFightOne() {
@@ -3492,12 +3492,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     public static NaSt transitSimu(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, IntBeanAction _caller, NaSt _first) {
         String url_ = _caller.actionBean();
-        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
-        setFormsBy(_stds,dest_,_first);
-        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
-        _caller.getBean();
-        s_.build(_stds.getDataBase(), s_.getForms());
-        return dest_;
+        ((CommonBean) ((BeanStruct) _first).getBean()).getBuilder().build(url_,_caller.getBean().getForms());
+//        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
+//        setFormsBy((CommonBean) ((PokemonBeanStruct)dest_).getBean(),_caller.getBean());
+//        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
+//        s_.build(_stds.getDataBase(), s_.getForms());
+        return _all.getVal(_mapping.getVal(url_));
     }
     protected static Rate integration() {
         PkData pk_ = pkDataByFacade(db());
@@ -3575,6 +3575,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         editPk_.setBuilder(bu_);
         editMv_.setBuilder(bu_);
         editTr_.setBuilder(bu_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,simu_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML,add_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML,selAb_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML,selPk_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML,selIt_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML,editPk_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML,editMv_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML,editTr_);
+        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,level_);
         return map_;
     }
     public static StringMap<String> mappingToSimu() {
