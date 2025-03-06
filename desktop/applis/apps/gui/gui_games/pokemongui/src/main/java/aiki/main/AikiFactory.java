@@ -1,6 +1,5 @@
 package aiki.main;
 
-import aiki.beans.PokemonStandards;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.IntGamePkStream;
@@ -18,23 +17,18 @@ import code.threads.AbstractFutureParam;
 import code.threads.IntCallable;
 
 public final class AikiFactory {
-    private final AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> navigation;
     private final EnabledMenu generalHelp;
     private final EnabledMenu generalHelpSimu;
     private final FacadeGame facade;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavData;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> taskNavDataSimu;
     private final AbstractBaseExecutorServiceParam<DataBase> geneDb;
     private AbstractFutureParam<DataBase> taskLoad;
     private IntDataBaseStream dataBaseStream;
     private IntGamePkStream gamePkStream;
     private IntConfPkStream confPkStream;
-    public AikiFactory(AbstractProgramInfos _p, AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> _n, AbstractBaseExecutorServiceParam<DataBase> _g) {
+    public AikiFactory(AbstractProgramInfos _p, AbstractBaseExecutorServiceParam<DataBase> _g) {
         generalHelp = _p.getCompoFactory().newMenuItem();
         generalHelpSimu = _p.getCompoFactory().newMenuItem();
         facade = new FacadeGame();
-        navigation = _n;
-        _n.shutdown();
         geneDb = _g;
         setDataBaseStream(new DefDataBaseStream());
         setGamePkStream(new DefGamePkStream(_p));
@@ -59,28 +53,20 @@ public final class AikiFactory {
         return generalHelpSimu;
     }
 
-    public void submitNavData(IntCallable<AikiNatLgNamesNavigation> _n) {
-        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
-        taskNavData = n_.submitWrCallable(_n);
-        n_.shutdown();
-    }
+//    public void submitNavData(IntCallable<AikiNatLgNamesNavigation> _n) {
+//        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
+//        taskNavData = n_.submitWrCallable(_n);
+//        n_.shutdown();
+//    }
 
-    public void submitNavDataSimu(PokemonStandards _n) {
-        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
-        taskNavDataSimu = n_.submitWrCallable(new DataWebInitSimu(facade, taskNavData, _n));
-        n_.shutdown();
-    }
+//    public void submitNavDataSimu(PokemonStandards _n) {
+//        AbstractBaseExecutorServiceParam<AikiNatLgNamesNavigation> n_ = navigation.copy();
+//        taskNavDataSimu = n_.submitWrCallable(new DataWebInitSimu(facade, taskNavData, _n));
+//        n_.shutdown();
+//    }
 
     public FacadeGame getFacade() {
         return facade;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavData() {
-        return taskNavData;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getTaskNavDataSimu() {
-        return taskNavDataSimu;
     }
 
     public IntDataBaseStream getDataBaseStream() {

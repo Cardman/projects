@@ -4,7 +4,6 @@ import aiki.db.DataBase;
 import aiki.game.Game;
 import aiki.game.player.enums.Sex;
 import aiki.main.AikiFactory;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.sml.IntDataBaseStream;
 import aiki.sml.MessagesPkGame;
@@ -65,7 +64,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(api_.getTranslations()));
         api_.setLanguages(new StringList(EN,FR));
         MessagesCardGames.appendNickNames(MessagesCardGames.getAppliTr(api_.currentLg()), MessagesCardGames.en());
-        AikiFactory ai_ = new AikiFactory(api_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+        AikiFactory ai_ = new AikiFactory(api_, new MockBaseExecutorServiceParam<DataBase>());
         CardFactories cf_ = new CardFactories(api_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
         LaunchNetwork l_ = new LaunchNetwork(api_, ai_, cf_, new LanguagesButtonsPair(api_.getCompoFactory().newMenuItem(),null,null));
         l_.run();
@@ -197,7 +196,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         MessagesCardGames.sys(MessagesCardGames.initAppliFilesTr(pr_.getTranslations()));
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(pr_.getTranslations()));
         pr_.getSocketFactory().setOkServer(false);
-        AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+        AikiFactory ai_ = new AikiFactory(pr_, new MockBaseExecutorServiceParam<DataBase>());
 //        ai_.setConfPkStream(new MockConfPkStream());
         ai_.setGamePkStream(new MockGamePkStream());
 //        ai_.submit(new MockCallable<DataBase>(_db));

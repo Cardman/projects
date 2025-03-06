@@ -176,8 +176,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
 //    private final VideoLoading videoLoading = new VideoLoading();
     private final AbstractAtomicBooleanCore loadFlag;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
-    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTaskSimu;
+//    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTask;
+//    private AbstractFutureParam<AikiNatLgNamesNavigation> preparedDataWebTaskSimu;
 //    private AbstractThread preparedDataWebThread;
 //    private AbstractThread preparedFightThread;
 //    private AbstractThread preparedPkThread;
@@ -243,6 +243,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         renderDataWeb = new FrameHtmlData(this, dataWeb);
         renderDataWeb.initDataBeans();
         renderDataWebSimu = new FrameHtmlData(this, dataWebSimu);
+        renderDataWebSimu.initSimuBeans();
         GuiBaseUtil.choose(this, _list);
         expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list, this);
@@ -276,8 +277,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
         difficulty = getCompoFactory().newMenuItem();
         battle = new FrontBattle(this, core.getFacade());
         battle.addMouseListener(new PkNonModalEvent(modal),new FrontClickEvent(battle));
-        setPreparedDataWebTaskSimu(_fact.getTaskNavDataSimu());
-        setPreparedDataWebTask(_fact.getTaskNavData());
         initMenuBar();
         core.getGameLoad().setEnabled(false);
         core.getGameSave().setEnabled(false);
@@ -833,9 +832,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        });
 //        dataWeb = getCompoFactory().newMenuItem();
         dataWeb.setAccelerator(GuiConstants.VK_F1,0);
-        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWeb(), getPreparedDataWebTask()));
+        dataWeb.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWeb()));
         dataGame.addMenuItem(dataWeb);
-        dataWebSimu.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWebSimu(), getPreparedDataWebTaskSimu()));
+        dataWebSimu.addActionListener(new PkNonModalEvent(modal),new ShowDataWebEvent(this, getRenderDataWebSimu()));
         dataGame.addMenuItem(dataWebSimu);
         dataBattle.setEnabled(false);
         dataBattle.setAccelerator(GuiConstants.VK_F2,0);
@@ -1132,13 +1131,16 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     }
 
     //EDT (mouse event, key event, ...) can not happen at the same time
-    public void showDataWeb(FrameHtmlData _renderDataWeb, AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
-        if (getRenderDataWeb() == _renderDataWeb) {
-            getRenderDataWeb().setTitle(messages.getVal(MessagesRenderBattle.TITLE));
-            getRenderDataWeb().initSession(getFacade());
-            getRenderDataWeb().pack();
-            return;
-        }
+    public void showDataWeb(FrameHtmlData _renderDataWeb) {
+        _renderDataWeb.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
+        _renderDataWeb.initSession(getFacade());
+        _renderDataWeb.pack();
+//        if (getRenderDataWeb() == _renderDataWeb) {
+//            getRenderDataWeb().setTitle(messages.getVal(MessagesRenderBattle.TITLE));
+//            getRenderDataWeb().initSession(getFacade());
+//            getRenderDataWeb().pack();
+//            return;
+//        }
 //        if (preparedDataWebThread == null || preparedDataWebThread.isAlive() || preparedDataWebTask == null) {
 //            return;
 //        }
@@ -1159,11 +1161,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        session_ = new RenderedPage(getCompoFactory().newAbsScrollPane(), getFrames(),new FixCharacterCaseConverter());
 //        session_.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
 //        FrameHtmlData dialog_ = new FrameHtmlData(this, dataWeb);
-        _renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
-//        dialog_.setTitle(messages.getVal(TITLE_WEB));
-//        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
-        _renderDataWeb.initSessionLg(core.getFacade(), _preparedDataWebTask,core.getFacade().getLanguage());
-        _renderDataWeb.pack();
+//        _renderDataWeb.setTitle(messages.getVal(MessagesRenderWindowPk.TITLE_WEB));
+////        dialog_.setTitle(messages.getVal(TITLE_WEB));
+////        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
+//        _renderDataWeb.initSessionLg(core.getFacade(), _preparedDataWebTask,core.getFacade().getLanguage());
+//        _renderDataWeb.pack();
 //        dialog_.initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
 //        htmlDialogs.add(dialog_);
     }
@@ -1816,22 +1818,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 
     public AbstractAtomicBooleanCore getLoadFlag() {
         return loadFlag;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDataWebTask() {
-        return preparedDataWebTask;
-    }
-
-    public void setPreparedDataWebTask(AbstractFutureParam<AikiNatLgNamesNavigation> _preparedDataWebTask) {
-        preparedDataWebTask = _preparedDataWebTask;
-    }
-
-    public AbstractFutureParam<AikiNatLgNamesNavigation> getPreparedDataWebTaskSimu() {
-        return preparedDataWebTaskSimu;
-    }
-
-    public void setPreparedDataWebTaskSimu(AbstractFutureParam<AikiNatLgNamesNavigation> _p) {
-        this.preparedDataWebTaskSimu = _p;
     }
 
     public IntTileRender getTileRender() {

@@ -1,9 +1,7 @@
 package applications.code.gui;
 
-import aiki.beans.*;
 import aiki.db.*;
 import aiki.facade.*;
-import aiki.gui.threads.*;
 import aiki.main.*;
 import aiki.sml.*;
 import applications.code.gui.initialize.LoadLanguageUtil;
@@ -20,7 +18,6 @@ import code.gui.files.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
-import code.scripts.pages.aiki.*;
 import code.scripts.pages.cards.*;
 import code.sml.util.*;
 import code.util.*;
@@ -65,9 +62,9 @@ public abstract class SoftApplicationCore {
     }
     private static void aiki(AikiFactory _af, StringList _lgs, Translations _msg, StringMap<String> _dis, AbstractGenerator _gene) {
         _af.submit(new DefLoadingData(_gene, _lgs, _dis,new SexListImpl(), GamesPk.baseEncode(_msg), _msg.byAppl(MessagesDataBaseConstants.SC_APP)));
-        StringMap<String> builtOther_ = CssInit.ms();
-        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs)));
-        _af.submitNavDataSimu(new PkData());
+//        StringMap<String> builtOther_ = CssInit.ms();
+//        _af.submitNavData(new DataWebInit(new PreparedRenderedPages(new DataGameInit(), PagesInit.build(), _msg.byAppl(MessagesInit.APP_BEAN_DATA), builtOther_, new PkData(), _lgs)));
+//        _af.submitNavDataSimu(new PkData());
 //        _af.submitNavFight(new DataWebInit(new PreparedRenderedPages(new FightGameInit(), PagesInit.buildFight(), _msg.byAppl(MessagesPkBean.APP_BEAN_FIGHT), builtOther_, new PkFight(), _lgs)));
 //        StringMap<TranslationsAppli> stds_ = _msg.byAppl(MessagesPkBean.APP_BEAN);
 //        _af.submitNavPkTask(new DataWebInit(new PreparedRenderedPages(new DetPkGameInit(), PagesInit.buildInd(), stds_, builtOther_, new PkInd(), _lgs),null));

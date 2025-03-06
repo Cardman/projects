@@ -3,7 +3,6 @@ package aiki.gui.dialogs;
 
 
 
-import aiki.beans.BeanNatCommonLgNamesForm;
 import aiki.beans.*;
 import aiki.beans.abilities.*;
 import aiki.beans.effects.*;
@@ -16,20 +15,17 @@ import aiki.beans.map.characters.*;
 import aiki.beans.map.elements.*;
 import aiki.beans.moves.*;
 import aiki.beans.pokemon.*;
+import aiki.beans.simulation.*;
 import aiki.beans.solution.*;
 import aiki.facade.FacadeGame;
-import aiki.main.AikiNatLgNamesNavigation;
-import aiki.main.VideoLoading;
 import aiki.sml.*;
 import aiki.gui.WindowAiki;
 import code.bean.nat.FixCharacterCaseConverter;
-import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.document.*;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.scripts.confs.PkScriptPages;
-import code.threads.AbstractFutureParam;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
@@ -39,7 +35,6 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //    private static final String SEARCH_LABEL = "searchLabel";
 
     private final RenderedPage session;
-    private final VideoLoading videoLoading;
 
 //    private StringMap<String> messages;
 
@@ -53,7 +48,6 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
     public FrameHtmlData(WindowAiki _parent, EnabledMenu _m) {
         super(_parent.getFrames());
         window = _parent;
-        videoLoading = _parent.getVideoLoading();
 //        setAccessFile(DIALOG_ACCESS);
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent.getCommonFrame());
@@ -132,20 +126,31 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,new SolutionBean());
         wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML,new FightHelpBean());
     }
+    public void initSimuBeans() {
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML, new SimulationBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML, new SimulationLevelBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, new EditTrainerPokemonBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML, new EditPokemonBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML, new EditPokemonMovesBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML, new SelectAbilityBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML, new SelectItemBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML, new SelectPokemonBean());
+        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML, new AddPokemonBean());
+    }
     public void setDialogIcon(AbsCommonFrame _group) {
         setIconImage(_group.getImageIconFrame());
         setImageIconFrame(_group.getImageIconFrame());
     }
-    public static void initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
-        NatNavigation n_ = _prepared.getNavigation();
-        n_.setLanguage(_lg);
-        coreInfos(_cur, n_);
-        _cur.getNavCore().setLanguage(_lg);
-        _cur.setStandards(_stds);
-        _cur.setRenderAction(new NatRenderAction(_stds,n_));
-        _stds.initializeRendSessionDoc(n_);
-        _cur.setupText();
-    }
+//    public static void initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
+//        NatNavigation n_ = _prepared.getNavigation();
+//        n_.setLanguage(_lg);
+//        coreInfos(_cur, n_);
+//        _cur.getNavCore().setLanguage(_lg);
+//        _cur.setStandards(_stds);
+//        _cur.setRenderAction(new NatRenderAction(_stds,n_));
+//        _stds.initializeRendSessionDoc(n_);
+//        _cur.setupText();
+//    }
 //
 //    public static RenderedPage initializeOnlyConf(AikiNatLgNamesNavigation _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
 //        AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
@@ -162,10 +167,10 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //        return r_;
 //    }
 
-    public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
-        _cur.setNavCore(_n.getBean());
-        _cur.setKeys(_n.getSession().getRendKeyWords());
-    }
+//    public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
+//        _cur.setNavCore(_n.getBean());
+//        _cur.setKeys(_n.getSession().getRendKeyWords());
+//    }
     @Override
     public void closeWindow() {
         setVisible(false);
@@ -179,20 +184,20 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
     }
 
-    public void initSessionLg(FacadeGame _dataBase, AbstractFutureParam<AikiNatLgNamesNavigation> _pre, String _lg) {
-        AikiNatLgNamesNavigation res_ = _pre.attendreResultat();
-        initSessionLg(_dataBase, res_, _lg);
-    }
+//    public void initSessionLg(FacadeGame _dataBase, AbstractFutureParam<AikiNatLgNamesNavigation> _pre, String _lg) {
+//        AikiNatLgNamesNavigation res_ = _pre.attendreResultat();
+//        initSessionLg(_dataBase, res_, _lg);
+//    }
 
-    public void initSessionLg(FacadeGame _dataBase, AikiNatLgNamesNavigation _pr, String _lg) {
-        setVisible(true);
-        menuItem.setEnabled(false);
-        search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
-        _pr.getBeanNatLgNames().setDataBase(_dataBase);
-//        _pr.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
-        session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames(), window.getVideoBase()));
-        initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
-    }
+//    public void initSessionLg(FacadeGame _dataBase, AikiNatLgNamesNavigation _pr, String _lg) {
+//        setVisible(true);
+//        menuItem.setEnabled(false);
+//        search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
+//        _pr.getBeanNatLgNames().setDataBase(_dataBase);
+////        _pr.getBeanNatLgNames().setBaseEncode(GamesPk.baseEncode(window.getFrames().getTranslations()));
+//        session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames(), window.getVideoBase()));
+//        initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
+//    }
 
     public ProgressingWebDialog getDialog() {
         return dialog;

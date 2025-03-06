@@ -10,7 +10,6 @@ import aiki.game.Game;
 import aiki.gui.components.*;
 import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.map.levels.enums.*;
 import aiki.sml.*;
 import code.bean.nat.NatNavigation;
@@ -122,18 +121,18 @@ public abstract class EquallableAikiGuiUtil {
 //        _window.setPreparedDiffTask(_window.getCore().getAikiFactory().getTaskNavDiff());
 //    }
 
-    public static void prepareWebTask(WindowAiki _window) {
-        _window.getCore().getAikiFactory().submitNavData(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
-        _window.setPreparedDataWebTask(_window.getCore().getAikiFactory().getTaskNavData());
-    }
-    public static void prepareWebTask(AikiFactory _window) {
-        _window.submitNavData(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
-    }
+//    public static void prepareWebTask(WindowAiki _window) {
+//        _window.getCore().getAikiFactory().submitNavData(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+//        _window.setPreparedDataWebTask(_window.getCore().getAikiFactory().getTaskNavData());
+//    }
+//    public static void prepareWebTask(AikiFactory _window) {
+//        _window.submitNavData(new MockCallable<AikiNatLgNamesNavigation>(new AikiNatLgNamesNavigation(new PokemonStandardsSample(),nav())));
+//    }
 
-    public static void prepareWebTaskReal(WindowAiki _window) {
-        _window.getCore().getAikiFactory().submitNavDataSimu(new PokemonStandardsSample());
-        _window.setPreparedDataWebTaskSimu(_window.getCore().getAikiFactory().getTaskNavDataSimu());
-    }
+//    public static void prepareWebTaskReal(WindowAiki _window) {
+//        _window.getCore().getAikiFactory().submitNavDataSimu(new PokemonStandardsSample());
+//        _window.setPreparedDataWebTaskSimu(_window.getCore().getAikiFactory().getTaskNavDataSimu());
+//    }
     public static void gameTr(MockProgramInfos _pr) {
         TranslationsLg en_ = _pr.lg(EN);
         TranslationsAppli app_ = MessagesPkGame.initAppliTr(en_);
@@ -240,7 +239,7 @@ public abstract class EquallableAikiGuiUtil {
     }
 
     public static AikiFactory pkFact(MockProgramInfos _pr) {
-        AikiFactory fact_ = new AikiFactory(_pr, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>());
+        AikiFactory fact_ = new AikiFactory(_pr, new MockBaseExecutorServiceParam<DataBase>());
         fact_.setConfPkStream(new MockConfPkStream());
         fact_.setGamePkStream(new MockGamePkStream());
         return fact_;

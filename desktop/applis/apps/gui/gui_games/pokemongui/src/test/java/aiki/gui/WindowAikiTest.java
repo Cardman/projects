@@ -1,17 +1,13 @@
 package aiki.gui;
 
 import aiki.beans.*;
-import aiki.beans.pokemon.PokedexBean;
 import aiki.game.Game;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.gui.components.walk.events.WalkNicknameAutoCompleteListener;
 import aiki.gui.dialogs.*;
 import aiki.gui.listeners.DefTaskEnabled;
-import aiki.gui.threads.PreparedRenderedPages;
 import aiki.instances.Instances;
-import aiki.main.AikiNatLgNamesNavigation;
-import aiki.main.DataWebInit;
 import aiki.main.PkNonModalEvent;
 import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
@@ -172,8 +168,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
 //        prepareFightTask(window_);
-        prepareWebTask(window_);
-        window_.getCore().getAikiFactory().getTaskNavData().attendreResultat();
+//        prepareWebTask(window_);
+//        window_.getCore().getAikiFactory().getTaskNavData().attendreResultat();
         window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
         window_.getRenderDataWebSimu().getSession().setNavCore(new NavigationCore());
         window_.getBattle().getRenderDataFight().getSession().setNavCore(new NavigationCore());
@@ -191,9 +187,9 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         window_.getFacade().setChangeToFightScene(true);
 //        window_.getBattle().resetWindows();
         assertFalse(window_.getModal().get());
-        AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages(new DataGameInit(), new StringMap<Document>(), new StringMap<TranslationsAppli>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList())).call();
-        res_.getNavigation().setLanguage("");
-        assertEq("",res_.getNavigation().getLanguage());
+//        AikiNatLgNamesNavigation res_ = new DataWebInit(new PreparedRenderedPages(new DataGameInit(), new StringMap<Document>(), new StringMap<TranslationsAppli>(), new StringMap<String>(), new PokemonStandardsSample(), new StringList())).call();
+//        res_.getNavigation().setLanguage("");
+//        assertEq("",res_.getNavigation().getLanguage());
         new WalkNicknameAutoCompleteListener(new MockTextField(""),window_.getFacade()).changedUpdate(0,0);
         tryClick(window_.getLanguage());
         assertEq(0,new DefTaskEnabled().status(new ConcreteInteger(0)));

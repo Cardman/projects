@@ -1123,12 +1123,10 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRomOpened1() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        prepareWebTask(fact_);
-        fact_.submitNavDataSimu(new PokemonStandardsSample());
+//        prepareWebTask(fact_);
+//        fact_.submitNavDataSimu(new PokemonStandardsSample());
         gameTr(pr_);
         WindowAiki window_ = window(pr_, fact_);
-        window_.setPreparedDataWebTask(fact_.getTaskNavData());
-        window_.setPreparedDataWebTaskSimu(fact_.getTaskNavDataSimu());
         updateBase(window_.getFrames().getTranslations());
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
 //        prepareFightTask(window_);
@@ -1137,7 +1135,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tf_.getMapping().addEntry(MessagesDataIndex.M_P_15_SOLUTION,"Sol");
         app_.getMapping().addEntry(MessagesPkBean.INDEX, tf_);
         window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, app_);
-        prepareWebTask(window_);
+//        prepareWebTask(window_);
         window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
@@ -1174,7 +1172,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRomOpened2() {
         WindowAiki window_ = newGame();
 //        prepareFightTask(window_);
-        prepareWebTask(window_);
+//        prepareWebTask(window_);
         window_.getRenderDataWeb().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
@@ -1185,23 +1183,30 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRomOpened3() {
         MockProgramInfos pr_ = buildListLgs();
         AikiFactory fact_ = pkFact(pr_);
-        prepareWebTask(fact_);
-        fact_.submitNavDataSimu(new PokemonStandardsSample());
+//        prepareWebTask(fact_);
+//        fact_.submitNavDataSimu(new PokemonStandardsSample());
         gameTr(pr_);
         WindowAiki window_ = window(pr_, fact_);
-        window_.setPreparedDataWebTask(fact_.getTaskNavData());
-        window_.setPreparedDataWebTaskSimu(fact_.getTaskNavDataSimu());
+        fact_.getFacade().getData().getTranslatedDiffWinPts().tryAdd(window_.getFrames().getLanguage(),new IdMap<DifficultyWinPointsFight, String>());
+        fact_.getFacade().getData().getTranslatedDiffModelLaw().tryAdd(window_.getFrames().getLanguage(),new IdMap<DifficultyModelLaw, String>());
+        fact_.getFacade().getData().setLawsDamageRate(new IdMap<DifficultyModelLaw, LawNumber>());
+        fact_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(new MonteCarloNumber(),0));
+        fact_.getFacade().getData().getLawsDamageRate().addEntry(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(new MonteCarloNumber(),0));
         updateBase(window_.getFrames().getTranslations());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry(MessagesPkBean.DIFFICULTY,new TranslationsFile());
+        ta_.getMapping().addEntry(MessagesPkBean.SIMULATION,new TranslationsFile());
+        window_.getFrames().currentLg().getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, ta_);
         MessagesPkGame.appendPkGameDetailContent(MessagesPkGame.getAppliTr(window_.getFrames().currentLg()), MessagesRenderPkGameDetail.en());
 //        prepareFightTask(window_);
-        prepareWebTask(window_);
-        prepareWebTaskReal(window_);
+//        prepareWebTask(window_);
+//        prepareWebTaskReal(window_);
         window_.getBattle().getBattle().getRenderDataFight().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         assertTrue(window_.getCommonFrame().isVisible());
-        window_.getCore().getAikiFactory().getTaskNavDataSimu().attendreResultat();
+//        window_.getCore().getAikiFactory().getTaskNavDataSimu().attendreResultat();
 //        window_.setPreparedDataWebTask(window_.getCore().getAikiFactory().getTaskNav());
         window_.getRenderDataWebSimu().getSession().setNavCore(new NavigationCore());
         window_.getDataWebSimu().getActionListeners().get(0).action();
@@ -1217,7 +1222,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
     public void menuRomOpened4() {
         WindowAiki window_ = newGame();
 //        prepareFightTask(window_);
-        prepareWebTask(window_);
+//        prepareWebTask(window_);
         window_.getRenderDataWebSimu().getCommonFrame().setVisible(true);
         window_.getCore().getAikiFactory().setDataBaseStream(new MockDataBaseStream());
         updateBase(window_.getFrames().currentLg());

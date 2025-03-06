@@ -1307,7 +1307,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     private LaunchingApplications la(MockProgramInfos _p) {
         TranslationsAppli tmpFold_ = MessagesApplications.initAppliFilesTr(_p.getTranslations());
         MessagesApplications.sys(tmpFold_);
-        return new LaunchingApplications(new WithAppFactories(_p, new AppFactories(new AikiFactory(_p, new MockBaseExecutorServiceParam<AikiNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<DataBase>()), new CardFactories(_p, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()), new CdmFactory(_p, new MockInterceptor()), TEMP_FOLDER)));
+        return new LaunchingApplications(new WithAppFactories(_p, new AppFactories(new AikiFactory(_p, new MockBaseExecutorServiceParam<DataBase>()), new CardFactories(_p, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>()), new CdmFactory(_p, new MockInterceptor()), TEMP_FOLDER)));
     }
     public static StringList indexes(){
         return new StringList(EN);

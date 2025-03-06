@@ -4,7 +4,6 @@ import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.gui.components.editor.MessagesPkEditor;
 import aiki.main.AikiFactory;
-import aiki.main.AikiNatLgNamesNavigation;
 import aiki.sml.MessagesPkGame;
 import aiki.sml.trs.*;
 import applications.code.gui.AppFactories;
@@ -28,7 +27,6 @@ import code.netw.MessagesNetWork;
 import code.player.gui.MessagesSongs;
 import code.renders.MessagesRenders;
 import code.scripts.imgs.cards.CardsInit;
-import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.scripts.pages.cards.HelpCards;
 import code.scripts.pages.cards.MessBelotePage;
@@ -142,8 +140,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.fr());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN,MessagesPkBean.en());
         fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN,MessagesPkBean.fr());
-        en_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.enData());
-        fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
+//        en_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.enData());
+//        fr_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.frData());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.enFight());
         fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_FIGHT,MessagesPkBean.frFight());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.enData());
@@ -161,7 +159,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     }
 
     public static WithAppFactories build(AbstractProgramInfos _p, String _tmpApp) {
-        return new WithAppFactories(_p,new AppFactories(new AikiFactory(_p,new DefaultExecutorServiceParam<AikiNatLgNamesNavigation>(), new DefaultExecutorServiceParam<DataBase>()),
+        return new WithAppFactories(_p,new AppFactories(new AikiFactory(_p, new DefaultExecutorServiceParam<DataBase>()),
                 new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator())), _p.getTranslations().getFiles().getVal(_tmpApp).getMapping().getVal(Translations.FILES_PATH).getMapping().getVal(Translations.TEMP_FOLDER)));
     }
 
