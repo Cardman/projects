@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.simulation.enums.*;
+import aiki.beans.game.DifficultyBeanForm;
 import aiki.beans.moves.*;
 import aiki.comparators.*;
 import aiki.db.*;
@@ -24,13 +25,14 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
 //    private DictionaryComparator<String,String> genders;
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
-    private boolean allyPk;
+    private IntBeanChgBool allyPk = new BeanChgBool();
     private IntBeanChgSubmit cancel;
     private IntBeanChgSubmit chooseName;
     private IntBeanChgSubmit chooseItem;
     private IntBeanChgSubmit chooseAbility;
     private IntBeanChgSubmit addMvs;
     private IntBeanChgSubmit remMvs;
+    private IntBeanChgSubmit valid;
     public EditTrainerPokemonBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
@@ -58,6 +60,15 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         formatMessageDir(getTranslatedAbility());
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ITEM_PK);
         formatMessageDir(getTranslatedItem());
+        common.initForm(this);
+        if (add) {
+            initLine();
+            formatMessage(MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_ALLY_PK);
+            setAllyPk(DifficultyBeanForm.check(getBuilder().getGenInput(), this, allyPk.isSelected()));
+            feedParents();
+        }
+        valid = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_OK));
+        getValid().addEvt(new EditTrainerPokemonBeanValidateTrainerPk(this));
     }
 
     public IntBeanChgSubmit getCancel() {
@@ -84,6 +95,10 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         return remMvs;
     }
 
+    public IntBeanChgSubmit getValid() {
+        return valid;
+    }
+
     public StringMap<String> file() {
         return file(MessagesPkBean.SIMU_LEVEL).getMapping();
     }
@@ -94,8 +109,8 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         namePk = getForms().getValStr(CST_POKEMON_NAME_EDIT);
         item = getForms().getValStr(CST_ITEM_EDIT);
         ability = getForms().getValStr(CST_POKEMON_ABILITY_EDIT);
-        common.setGender(getForms().getValGen(CST_POKEMON_GENDER_EDIT).getGenderName());
-        common.setLevel(getForms().getValLong(CST_POKEMON_LEVEL_EDIT));
+        common.getGender().setupValue(getForms().getValGen(CST_POKEMON_GENDER_EDIT).getGenderName());
+        common.getLevel().valueLong(getForms().getValLong(CST_POKEMON_LEVEL_EDIT));
 
         moves.clear();
         DataBase data_ = getDataBase();
@@ -198,15 +213,15 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
             selected_.add(s.getName());
         }
         if (selected_.isEmpty()) {
-            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel(common.getLevel());
+            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel(common.getLevel().valueLong());
         }
         if (add) {
-            getForms().put(CST_POKEMON_FOE, !allyPk);
+            getForms().put(CST_POKEMON_FOE, !allyPk.isSelected());
         }
         getForms().put(CST_POKEMON_NAME_EDIT, namePk);
-        getForms().put(CST_POKEMON_LEVEL_EDIT, common.getLevel());
+        getForms().put(CST_POKEMON_LEVEL_EDIT, common.getLevel().valueLong());
         getForms().put(CST_ITEM_EDIT, item);
-        getForms().put(CST_POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(common.getGender()));
+        getForms().put(CST_POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(common.getGender().tryRet()));
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
         getForms().put(CST_POKEMON_ABILITY_EDIT, ability);
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
@@ -236,11 +251,11 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         return add;
     }
 
-    public void setAllyPk(boolean _allyPk) {
+    public void setAllyPk(IntBeanChgBool _allyPk) {
         allyPk = _allyPk;
     }
 
-    public boolean getAllyPk() {
+    public IntBeanChgBool getAllyPk() {
         return allyPk;
     }
 }
