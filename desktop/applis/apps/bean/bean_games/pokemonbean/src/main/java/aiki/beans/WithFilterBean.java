@@ -20,6 +20,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesDataItems;
+import code.scripts.pages.aiki.MessagesDataMovesMoves;
 import code.scripts.pages.aiki.MessagesDataPokemonPokedex;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
@@ -48,6 +49,7 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
     private IntBeanChgString minAccuracy = new BeanChgString();
     private IntBeanChgString maxAccuracy = new BeanChgString();
     private DictionaryComparator<String,String> booleans;
+    private final StringMap<String> categories = new StringMap<String>();
     private AbsMap<TranslatedKey,AbilityData> sortedAbilities = DictionaryComparatorUtil.buildAbilitiesData();
     private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private final CustList<ItemLine> items = new CustList<ItemLine>();
@@ -192,6 +194,41 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
         return _multi;
     }
 
+    protected void initFormMv(boolean _simu) {
+        initLine();
+        formatMessage(MessagesPkBean.MOVES, MessagesDataMovesMoves.M_P_71_CONTENT_NAME);
+        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CAT);
+        setTypedCategory(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getCategories(),getTypedCategory().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE);
+        setTypedType(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE_WHOLE);
+        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().isSelected()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_ACCURACY);
+        setMinAccuracy(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinAccuracy().tryRet()));
+        setMaxAccuracy(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxAccuracy().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONST_POWER);
+        setMinPower(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinPower().tryRet()));
+        setMaxPower(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxPower().tryRet()));
+        feedParents();
+        if (_simu) {
+            return;
+        }
+        initLine();
+        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_LEARNT);
+        setLearnt(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getLearnt().tryRet()));
+        feedParents();
+    }
     protected AbsMap<TranslatedKey,PokemonData> pokedex() {
         DataBase data_ = getDataBase();
         StringMap<String> translationsPk_;
@@ -542,4 +579,9 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
     public CustList<TranslatedKey> getItemsTr() {
         return itemsTr;
     }
+
+    public StringMap<String> getCategories() {
+        return categories;
+    }
+
 }

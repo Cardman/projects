@@ -306,7 +306,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 //                        line_.setDirect(damag_.isDirect());
 //                    }
 //                    line_.setPriority(moveData_.getPriority());
-                line_.setSelected(info_.getMoves().getVal(k) == BoolVal.TRUE);
+                line_.getSelected().setSelected(info_.getMoves().getVal(k) == BoolVal.TRUE);
                 keptMoves.add(line_);
             }
             keptMoves.sortElts(new ComparatorMoves());
@@ -1365,7 +1365,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 //                line_.setDirect(damag_.isDirect());
 //            }
 //            line_.setPriority(moveData_.getPriority());
-            line_.setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
+            line_.getSelected().setSelected(selectedMoves_.getVal(m) == BoolVal.TRUE);
             keptMovesAfterFight.add(line_);
         }
         keptMovesAfterFight.sortElts(new ComparatorMoves());

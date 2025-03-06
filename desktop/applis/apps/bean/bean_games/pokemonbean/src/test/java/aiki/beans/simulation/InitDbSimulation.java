@@ -1927,7 +1927,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_,all_,mapping_,simu_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(editPkTrainer_),0),true);
-        NaSt after_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), editPkTrainer_);
+        NaSt after_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callEditTrainerPokemonBeanAllyPkSet(after_,false);
         return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanValidateTrainerPk(), after_);
     }
@@ -2215,9 +2215,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callEditPokemonMovesBeanTypedNameSet(selPk_,_name);
-        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch(),selPk_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch((EditPokemonMovesBean) ((PokemonBeanStruct)selPk_).getBean()),selPk_);
     }
 
     protected static NaSt pkTrainerSetMovesCat(String _name) {
@@ -2226,9 +2226,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callEditPokemonMovesBeanCategorySet(selPk_,_name);
-        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch(),selPk_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch((EditPokemonMovesBean) ((PokemonBeanStruct)selPk_).getBean()),selPk_);
     }
     protected static NaSt pkTrainerSetMovesCancel() {
         PkData pk_ = pkDataByFacade(db());
@@ -2236,8 +2236,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
-        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel(),selPk_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel((EditPokemonMovesBean) ((PokemonBeanStruct)selPk_).getBean()),selPk_);
     }
     protected static NaSt pkTrainerSetMovesRemove() {
         PkData pk_ = pkDataByFacade(db());
@@ -2247,7 +2247,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         NaSt re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
-        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanDeleteMoves(),re_);
+        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)re_).getBean()),re_);
     }
     protected static NaSt addPkTrainerChangeMoves(boolean _ally) {
         PkData pk_ = pkDataByFacade(db());
@@ -2257,7 +2257,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         NaSt re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
-        NaSt afterDel_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), re_);
+        NaSt afterDel_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)re_).getBean()), re_);
         callEditTrainerPokemonBeanAllyPkSet(afterDel_,_ally);
         return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),afterDel_);
     }
@@ -2281,7 +2281,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     private static NaSt addMoveTrainer(String _name, int _row, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editPkTrainer) {
-        NaSt editMoves_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
+        NaSt editMoves_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)_editPkTrainer).getBean()), _editPkTrainer);
         return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
     }
 
@@ -2295,14 +2295,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
         callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_, _flag);
         callEditPokemonMovesBeanTypedNameSet(editMoves_, _name);
-        return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), editMoves_);
+        return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch((EditPokemonMovesBean) ((PokemonBeanStruct)editMoves_).getBean()), editMoves_);
     }
 
     private static NaSt addMoveGene(String _name, int _row, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editMoves) {
         callEditPokemonMovesBeanTypedNameSet(_editMoves, _name);
-        NaSt foundMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), _editMoves);
+        NaSt foundMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch((EditPokemonMovesBean) ((PokemonBeanStruct)_editMoves).getBean()), _editMoves);
         callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
-        return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanAddMoves(), foundMoves_);
+        return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanAddMoves((EditPokemonMovesBean) ((PokemonBeanStruct)foundMoves_).getBean()), foundMoves_);
     }
     protected static NaSt pkTrainerSetMovesType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
@@ -2310,10 +2310,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)editPkTrainer_).getBean()), editPkTrainer_);
         callEditPokemonMovesBeanTypedTypeSet(selPk_,_type);
         callEditPokemonMovesBeanWholeWordSet(selPk_,_wholeWord);
-        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch(),selPk_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch((EditPokemonMovesBean) ((PokemonBeanStruct)selPk_).getBean()),selPk_);
     }
     protected static NaSt pkTrainerSetMoves() {
         PkData pk_ = pkDataByFacade(db());
@@ -2526,7 +2526,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         NaSt se_ = searchMovePlayer(M_POK_04_TR, pk_, all_, mapping_, editing_, false);
         callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(se_),0),true);
-        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel(),se_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel((EditPokemonMovesBean) ((PokemonBeanStruct)se_).getBean()),se_);
     }
 
     private static NaSt editPkPlayer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
@@ -3449,7 +3449,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _struct);
     }
     private static NaSt goToSetMovesTrainer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
-        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _struct);
+        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) ((PokemonBeanStruct)_struct).getBean()), _struct);
     }
     private static NaSt simu(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, int _nbTeam) {
         NaSt simu_ = init(_nbTeam, _pk, _all, _mapping);

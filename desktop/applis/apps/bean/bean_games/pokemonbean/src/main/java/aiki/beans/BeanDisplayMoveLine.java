@@ -8,6 +8,11 @@ public final class BeanDisplayMoveLine implements BeanDisplayEltGrid<MoveLine> {
     @Override
     public int displayEltGrid(CommonBean _rend, MoveLine _info) {
         _rend.formatMessageDirCts(_info.getTranslatedKey());
+        displayLine(_rend, _info);
+        return 9;
+    }
+
+    public static void displayLine(CommonBean _rend, MoveLine _info) {
         _rend.formatMessageDirCts(Long.toString(_info.getPp()));
         _rend.formatMessageDirCts(StringUtil.join(_info.getTypes()," - "));
         _rend.formatMessageDirCts(_info.getCategory());
@@ -26,6 +31,5 @@ public final class BeanDisplayMoveLine implements BeanDisplayEltGrid<MoveLine> {
         _rend.formatMessageDirCts(Long.toString(_info.getPriority()));
         _rend.formatMessageDirCts(_info.getAccuracy());
         _rend.formatMessageDirCts(_info.getPower());
-        return 9;
     }
 }

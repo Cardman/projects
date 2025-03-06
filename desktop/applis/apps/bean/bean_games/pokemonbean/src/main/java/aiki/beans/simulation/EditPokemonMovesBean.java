@@ -1,22 +1,59 @@
 package aiki.beans.simulation;
 
-import aiki.beans.TranslatedKey;
-import aiki.beans.WithFilterBean;
+import aiki.beans.*;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
+import aiki.beans.game.DifficultyBeanForm;
 import aiki.beans.moves.MovesBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
 import aiki.game.fight.FightSimulation;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class EditPokemonMovesBean extends WithFilterBean {
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
-    private final StringMap<String> categories = new StringMap<String>();
     private boolean player;
-    private boolean availableMovesOnly;
+    private IntBeanChgBool availableMovesOnly = new BeanChgBool();
+    private IntBeanChgSubmit updateValues;
+    private IntBeanChgSubmit addMvs;
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SEARCH_MOVES));
+        formatMessageAnc(new EditPokemonMovesBeanCancel(this),MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_CANCEL);
+        initFormMv(true);
+        if (player) {
+            initLine();
+            formatMessage(MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_AVAILABLE_MOVES);
+            setAvailableMovesOnly(DifficultyBeanForm.check(getBuilder().getGenInput(),this,getAvailableMovesOnly().isSelected()));
+            feedParents();
+        }
+        initLine();
+        updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_OK));
+        getUpdateValues().addEvt(new EditPokemonMovesBeanSearch(this));
+        feedParents();
+        new BeanDisplayListGrid<SelectLineMove>(new BeanDisplaySelectLineMove()).displayGrid(this,getMoves(),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER,MessagesDataSimulation.M_P_86_SELECTED);
+        initLine();
+        addMvs = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD));
+        getAddMvs().addEvt(new EditPokemonMovesBeanAddMoves(this));
+        feedParents();
+    }
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SIMU_LEVEL).getMapping();
+    }
+
+    public IntBeanChgSubmit getUpdateValues() {
+        return updateValues;
+    }
+
+    public IntBeanChgSubmit getAddMvs() {
+        return addMvs;
+    }
 
     @Override
     public void beforeDisplaying() {
@@ -26,8 +63,8 @@ public final class EditPokemonMovesBean extends WithFilterBean {
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        categories.putAllMap(translationsCategories_);
-        categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
+        getCategories().putAllMap(translationsCategories_);
+        getCategories().put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         moves.clear();
         for (EntryCust<TranslatedKey, MoveData> k: getForms().getValMoveData(CST_MOVES_EDIT_SET).entryList()) {
             MoveData moveData_ = k.getValue();
@@ -82,7 +119,7 @@ public final class EditPokemonMovesBean extends WithFilterBean {
 //        moves_ = new StringList();
         StringMap<MoveData> set_ = new StringMap<MoveData>();
         if (player) {
-            if (availableMovesOnly) {
+            if (availableMovesOnly.isSelected()) {
                 String namePk_ = getForms().getValStr(CST_POKEMON_NAME_EDIT);
                 long level_ = getForms().getValLong(CST_POKEMON_LEVEL_EDIT);
                 set_.addAllEntries(FightSimulation.possiblesInitialMoves(namePk_, level_, data_));
@@ -114,19 +151,16 @@ public final class EditPokemonMovesBean extends WithFilterBean {
         }
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
-    public StringMap<String> getCategories() {
-        return categories;
-    }
 
     public boolean getPlayer() {
         return player;
     }
 
-    public void setAvailableMovesOnly(boolean _availableMovesOnly) {
+    public void setAvailableMovesOnly(IntBeanChgBool _availableMovesOnly) {
         availableMovesOnly = _availableMovesOnly;
     }
 
-    public boolean getAvailableMovesOnly() {
+    public IntBeanChgBool getAvailableMovesOnly() {
         return availableMovesOnly;
     }
 

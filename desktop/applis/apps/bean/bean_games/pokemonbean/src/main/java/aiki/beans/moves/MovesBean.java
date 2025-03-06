@@ -3,7 +3,6 @@ package aiki.beans.moves;
 import aiki.beans.*;
 import aiki.beans.facade.dto.*;
 import aiki.beans.facade.simulation.dto.*;
-import aiki.beans.game.*;
 import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.*;
@@ -17,7 +16,6 @@ public final class MovesBean extends WithFilterBean {
     private IntBeanChgSubmit updateValues;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
     private final CustList<TranslatedKey> sortedMoves = new CustList<TranslatedKey>();
-    private final StringMap<String> categories = new StringMap<String>();
 
     public MovesBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -28,36 +26,7 @@ public final class MovesBean extends WithFilterBean {
         setTitledBorder(file().getVal(MessagesDataMovesMoves.M_P_71_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
 //        initPage();
-        initLine();
-        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_NAME);
-        setTypedName(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedName().tryRet()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CAT);
-        setTypedCategory(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getCategories(),getTypedCategory().tryRet()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE);
-        setTypedType(DifficultyBeanForm.txt(getBuilder().getGenInput(),this,getTypedType().tryRet()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE_WHOLE);
-        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().isSelected()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_ACCURACY);
-        setMinAccuracy(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinAccuracy().tryRet()));
-        setMaxAccuracy(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxAccuracy().tryRet()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONST_POWER);
-        setMinPower(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMinPower().tryRet()));
-        setMaxPower(DifficultyBeanForm.txt(getBuilder().getGenInput(), this,getMaxPower().tryRet()));
-        feedParents();
-        initLine();
-        formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_LEARNT);
-        setLearnt(DifficultyBeanForm.select(getBuilder().getGenInput(), this,getBooleans(),getLearnt().tryRet()));
-        feedParents();
+        initFormMv(false);
         initLine();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_OK));
         getUpdateValues().addEvt(new MovesBeanSearch(this));
@@ -106,8 +75,8 @@ public final class MovesBean extends WithFilterBean {
         DictionaryComparator<String,String> sort_ = DictionaryComparatorUtil.buildCatsData(data_,getLanguage());
         StringMap<String> translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         sort_.putAllMap(translationsCategories_);
-        categories.putAllMap(sort_);
-        categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
+        getCategories().putAllMap(sort_);
+        getCategories().put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         AbsMap<TranslatedKey, MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
         for (EntryCust<TranslatedKey, MoveData> k: moves_.entryList()) {
             MoveData moveData_ = k.getValue();
@@ -226,10 +195,6 @@ public final class MovesBean extends WithFilterBean {
 //    }
     public String clickLink(int _number) {
         return tryRedirect(moves.get(_number).getTranslatedKey());
-    }
-
-    public StringMap<String> getCategories() {
-        return categories;
     }
 
     public CustList<MoveLine> getMoves() {

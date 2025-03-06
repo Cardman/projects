@@ -29,6 +29,8 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
     private IntBeanChgSubmit chooseName;
     private IntBeanChgSubmit chooseItem;
     private IntBeanChgSubmit chooseAbility;
+    private IntBeanChgSubmit addMvs;
+    private IntBeanChgSubmit remMvs;
     public EditTrainerPokemonBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
@@ -45,6 +47,11 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         getChooseItem().addEvt(new EditTrainerPokemonBeanChooseItem(this));
         chooseAbility = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ABILITY_PK));
         getChooseAbility().addEvt(new EditTrainerPokemonBeanChooseAbility(this));
+        addMvs = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD));
+        getAddMvs().addEvt(new EditTrainerPokemonBeanAddMoves(this));
+        new BeanDisplayListGrid<SelectLineMove>(new BeanDisplaySelectLineMove()).displayGrid(this,getMoves(),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER,MessagesDataSimulation.M_P_86_SELECTED);
+        remMvs = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_REMOVE));
+        getRemMvs().addEvt(new EditTrainerPokemonBeanDeleteMoves(this));
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NAME_PK);
         formatMessageDir(getTranslatedName());
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ABILITY_PK);
@@ -67,6 +74,14 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
 
     public IntBeanChgSubmit getChooseAbility() {
         return chooseAbility;
+    }
+
+    public IntBeanChgSubmit getAddMvs() {
+        return addMvs;
+    }
+
+    public IntBeanChgSubmit getRemMvs() {
+        return remMvs;
     }
 
     public StringMap<String> file() {
