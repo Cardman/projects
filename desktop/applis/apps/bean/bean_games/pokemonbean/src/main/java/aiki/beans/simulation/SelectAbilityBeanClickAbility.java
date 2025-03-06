@@ -2,7 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-public class SelectAbilityBeanClickAbility implements NatCaller, IntBeanAction {
+public final class SelectAbilityBeanClickAbility implements NatCaller, IntBeanAction {
     private final SelectAbilityBean bean;
     private final int index;
     public SelectAbilityBeanClickAbility() {

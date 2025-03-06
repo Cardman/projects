@@ -2,7 +2,7 @@ package aiki.beans.abilities;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-public class AbilityBeanClickIndex implements NatCaller, IntBeanAction {
+public final class AbilityBeanClickIndex implements NatCaller, IntBeanAction {
     private final AbilityBean bean;
 
     public AbilityBeanClickIndex() {

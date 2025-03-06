@@ -3,7 +3,7 @@ package aiki.beans.map;
 import aiki.beans.*;
 import code.bean.nat.*;
 
-public class MapLevelBeanClickArea implements NatCaller, IntBeanAction {
+public final class MapLevelBeanClickArea implements NatCaller, IntBeanAction {
     private final AbsLevelBean bean;
     private final int index;
     public MapLevelBeanClickArea() {

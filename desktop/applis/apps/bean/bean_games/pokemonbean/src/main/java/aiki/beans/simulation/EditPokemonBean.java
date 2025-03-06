@@ -1,20 +1,21 @@
 package aiki.beans.simulation;
 
-import aiki.beans.BeanRenderWithAppName;
-import aiki.beans.CommonBean;
+import aiki.beans.*;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.EvLine;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.beans.game.DifficultyBeanForm;
 import aiki.beans.moves.MovesBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.moves.MoveData;
-import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.NumberUtil;
@@ -23,24 +24,104 @@ import code.util.core.StringUtil;
 public final class EditPokemonBean extends CommonBean implements BeanRenderWithAppName {
     private String namePk = DataBase.EMPTY_STRING;
     private long level;
-    private Rate experience;
-    private long happiness;
-    private boolean heal;
-    private Rate remainingHp;
+    private IntBeanChgRate experience = new BeanChgRate();
+    private IntBeanChgLong happiness = new BeanChgLong();
+    private IntBeanChgBool heal = new BeanChgBool();
+    private IntBeanChgRate remainingHp = new BeanChgRate();
     private IdMap<Statistic, EvLine> ev;
     private String item = DataBase.EMPTY_STRING;
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
-    private String ball;
+    private IntBeanChgString ball = new BeanChgString();
     private DictionaryComparator<String,String> balls;
     public EditPokemonBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
+    }
+
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_EDIT_POKEMON_PL));
+        formatMessageAnc(new EditPokemonBeanCancel(this),MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL);
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NAME_PK);
+        formatMessageDir(translateName());
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_LEVEL_PK);
+        formatMessageDir(Long.toString(level));
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ITEM_PK);
+        formatMessageDir(translateItem());
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ITEM_PK)).addEvt(new EditPokemonBeanChooseItem(this));
+//        if (!namePk.isEmpty()) {
+//            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD)).addEvt(new EditPokemonBeanAddMoves(this));
+//            new BeanDisplayListGrid<SelectLineMove>(new BeanDisplaySelectLineMove()).displayGrid(this,getMoves(),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER,MessagesDataSimulation.M_P_86_SELECTED);
+//            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD)).addEvt(new EditPokemonBeanDeleteMoves(this));
+//            initLine();
+//            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EXP_PK);
+//            setExperience(DifficultyBeanForm.rate(getBuilder().getGenInput(), this,getExperience().valueRate()));
+//            feedParents();
+//            initLine();
+//            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CATCHING_BALL);
+//            setBall(DifficultyBeanForm.select(getBuilder().getGenInput(), this,balls,getBall().tryRet()));
+//            feedParents();
+//            initLine();
+//            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HAPPINESS_PK);
+//            setHappiness(DifficultyBeanForm.iv(getBuilder().getGenInput(), this,getHappiness().valueLong()));
+//            feedParents();
+//            initLine();
+//            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_REMAINING_HP);
+//            setRemainingHp(DifficultyBeanForm.rate(getBuilder().getGenInput(), this,getRemainingHp().valueRate()));
+//            feedParents();
+//            initLine();
+//            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HEAL_HP);
+//            setHeal(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getHeal().isSelected()));
+//            feedParents();
+//            for (EntryCust<Statistic,EvLine> l:ev.entryList()) {
+//                initLine();
+//                formatMessageDir(getFacade().getTranslatedStatistics().getVal(l.getKey()));
+//                l.getValue().setEv(DifficultyBeanForm.iv(getBuilder().getGenInput(), this, l.getValue().getEv().valueLong()));
+//                feedParents();
+//            }
+//            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EDIT)).addEvt(new EditPokemonBeanEdit(this));
+//        }
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD)).addEvt(new EditPokemonBeanAddMoves(this));
+        new BeanDisplayListGrid<SelectLineMove>(new BeanDisplaySelectLineMove()).displayGrid(this,getMoves(),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER,MessagesDataSimulation.M_P_86_SELECTED);
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_REMOVE)).addEvt(new EditPokemonBeanDeleteMoves(this));
+        initLine();
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EXP_PK);
+        setExperience(DifficultyBeanForm.rate(getBuilder().getGenInput(), this,getExperience().valueRate()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CATCHING_BALL);
+        setBall(DifficultyBeanForm.select(getBuilder().getGenInput(), this,balls,getBall().tryRet()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HAPPINESS_PK);
+        setHappiness(DifficultyBeanForm.iv(getBuilder().getGenInput(), this,getHappiness().valueLong()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_REMAINING_HP);
+        setRemainingHp(DifficultyBeanForm.rate(getBuilder().getGenInput(), this,getRemainingHp().valueRate()));
+        feedParents();
+        initLine();
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HEAL_HP);
+        setHeal(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getHeal().isSelected()));
+        feedParents();
+        for (EntryCust<Statistic,EvLine> l:ev.entryList()) {
+            initLine();
+            formatMessageDir(getFacade().getTranslatedStatistics().getVal(l.getKey()));
+            l.getValue().setEv(DifficultyBeanForm.iv(getBuilder().getGenInput(), this, l.getValue().getEv().valueLong()));
+            feedParents();
+        }
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EDIT)).addEvt(new EditPokemonBeanEdit(this));
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SIMU_LEVEL).getMapping();
     }
     @Override
     public void beforeDisplaying() {
         ev = new IdMap<Statistic, EvLine>();
         DataBase data_ = getDataBase();
-        heal = false;
-        ball = getForms().getValStr(CST_CATCHING_BALL);
+        heal.setSelected(false);
+        ball.setupValue(getForms().getValStr(CST_CATCHING_BALL));
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         balls = DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
@@ -51,15 +132,15 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         }
         namePk = getForms().getValStr(CST_POKEMON_NAME_EDIT);
         level = getForms().getValLong(CST_POKEMON_LEVEL_EDIT);
-        experience = getForms().getValRate(CST_POKEMON_EXPERIENCE);
-        happiness = getForms().getValLong(CST_POKEMON_HAPPINESS);
+        experience.valueRate(getForms().getValRate(CST_POKEMON_EXPERIENCE));
+        happiness.valueLong(getForms().getValLong(CST_POKEMON_HAPPINESS));
         item = getForms().getValStr(CST_ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv(getForms().getValLong(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName())));
+            ev_.getEv().valueLong(getForms().getValLong(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName())));
             ev.put(s, ev_);
         }
-        remainingHp = getForms().getValRate(CST_POKEMON_HP);
+        remainingHp.valueRate(getForms().getValRate(CST_POKEMON_HP));
         StringList currentMoves_ = getForms().getValList(CST_POKEMON_MOVES_EDIT);
         moves.clear();
         StringMap<String> translationsTypes_;
@@ -139,14 +220,14 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
     }
     public String edit() {
         getForms().put(CST_ITEM_EDIT, item);
-        getForms().put(CST_POKEMON_EXPERIENCE, experience.absNb());
-        getForms().put(CST_POKEMON_HAPPINESS, NumberUtil.max(happiness,0));
-        getForms().put(CST_POKEMON_HP, remainingHp.absNb());
+        getForms().put(CST_POKEMON_EXPERIENCE, experience.valueRate().absNb());
+        getForms().put(CST_POKEMON_HAPPINESS, NumberUtil.max(happiness.valueLong(),0));
+        getForms().put(CST_POKEMON_HP, remainingHp.valueRate().absNb());
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), NumberUtil.max(ev.getVal(s).getEv(),0));
+            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), NumberUtil.max(ev.getVal(s).getEv().valueLong(),0));
         }
-        getForms().put(CST_HEAL_EDIT_PK, heal);
-        getForms().put(CST_CATCHING_BALL, ball);
+        getForms().put(CST_HEAL_EDIT_PK, heal.isSelected());
+        getForms().put(CST_CATCHING_BALL, ball.tryRet());
         StringList selected_ = new StringList();
         for (SelectLineMove s: moves) {
 //            if (s.isSelected()) {
@@ -178,11 +259,11 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         return moves;
     }
 
-    public void setExperience(Rate _experience) {
+    public void setExperience(IntBeanChgRate _experience) {
         experience = _experience;
     }
 
-    public Rate getExperience() {
+    public IntBeanChgRate getExperience() {
         return experience;
     }
 
@@ -190,35 +271,35 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         return balls;
     }
 
-    public String getBall() {
+    public IntBeanChgString getBall() {
         return ball;
     }
 
-    public void setBall(String _ball) {
+    public void setBall(IntBeanChgString _ball) {
         ball = _ball;
     }
 
-    public void setHappiness(long _happiness) {
+    public void setHappiness(IntBeanChgLong _happiness) {
         happiness = _happiness;
     }
 
-    public long getHappiness() {
+    public IntBeanChgLong getHappiness() {
         return happiness;
     }
 
-    public void setRemainingHp(Rate _remainingHp) {
+    public void setRemainingHp(IntBeanChgRate _remainingHp) {
         remainingHp = _remainingHp;
     }
 
-    public Rate getRemainingHp() {
+    public IntBeanChgRate getRemainingHp() {
         return remainingHp;
     }
 
-    public void setHeal(boolean _heal) {
+    public void setHeal(IntBeanChgBool _heal) {
         heal = _heal;
     }
 
-    public boolean getHeal() {
+    public IntBeanChgBool getHeal() {
         return heal;
     }
 

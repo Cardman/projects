@@ -4,7 +4,7 @@ import aiki.beans.*;
 import code.bean.nat.*;
 import code.scripts.confs.*;
 
-public class SimulationBeanCancelTeam implements NatCaller, IntBeanAction {
+public final class SimulationBeanCancelTeam implements NatCaller, IntBeanAction {
     private final SimulationBean bean;
     public SimulationBeanCancelTeam() {
         this(null);

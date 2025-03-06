@@ -3,7 +3,7 @@ package aiki.beans.simulation;
 import aiki.beans.*;
 import code.bean.nat.*;
 
-public class AddPokemonBeanClickLink implements NatCaller, IntBeanAction {
+public final class AddPokemonBeanClickLink implements NatCaller, IntBeanAction {
     private final AddPokemonBean bean;
     private final String index;
     public AddPokemonBeanClickLink() {

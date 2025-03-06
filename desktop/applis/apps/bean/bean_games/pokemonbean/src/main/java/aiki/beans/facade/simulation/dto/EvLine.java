@@ -1,13 +1,16 @@
 package aiki.beans.facade.simulation.dto;
 
-public final class EvLine {
-    private long ev;
+import aiki.beans.BeanChgLong;
+import aiki.beans.IntBeanChgLong;
 
-    public long getEv() {
+public final class EvLine {
+    private IntBeanChgLong ev = new BeanChgLong();
+
+    public IntBeanChgLong getEv() {
         return ev;
     }
 
-    public void setEv(long _ev) {
+    public void setEv(IntBeanChgLong _ev) {
         ev = _ev;
     }
 }

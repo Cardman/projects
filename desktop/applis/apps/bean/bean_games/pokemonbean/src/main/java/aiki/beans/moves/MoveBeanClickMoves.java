@@ -2,7 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-public class MoveBeanClickMoves implements NatCaller, IntBeanAction {
+public final class MoveBeanClickMoves implements NatCaller, IntBeanAction {
     private final MoveBean bean;
     public MoveBeanClickMoves() {
         this(null);

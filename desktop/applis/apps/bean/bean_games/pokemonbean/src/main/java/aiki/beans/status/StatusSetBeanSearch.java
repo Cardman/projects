@@ -2,7 +2,7 @@ package aiki.beans.status;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-public class StatusSetBeanSearch implements NatCaller, IntBeanAction {
+public final class StatusSetBeanSearch implements NatCaller, IntBeanAction {
     private final StatusSetBean bean;
     public StatusSetBeanSearch() {
         this(null);

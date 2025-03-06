@@ -6,7 +6,7 @@ import code.bean.nat.*;
 import code.scripts.confs.*;
 import code.util.core.*;
 
-public class SimulationBeanValidateDiffChoice implements NatCaller, IntBeanAction {
+public final class SimulationBeanValidateDiffChoice implements NatCaller, IntBeanAction {
     private final SimulationBean bean;
     private final DifficultyBeanForm form;
     public SimulationBeanValidateDiffChoice() {
