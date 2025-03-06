@@ -1843,7 +1843,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         callSimulationBeanSelectedAllyActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(second_,0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPk(),second_);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPkValidation((SimulationBean) ((PokemonBeanStruct)second_).getBean(),TeamCrud.REMOVE.getTeamCrudString(),0),second_);
     }
     protected static String editNoSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
@@ -1863,7 +1863,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPk(),added_);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPkValidation((SimulationBean) ((PokemonBeanStruct)added_).getBean(),TeamCrud.EDIT.getTeamCrudString(),0),added_);
     }
     protected static NaSt formEditSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
@@ -1883,9 +1883,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,0);
-        NaSt editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectAllyPk(), added_);
+        PokemonBeanStruct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectAllyPkValidation((SimulationBean) ((PokemonBeanStruct)added_).getBean(),TeamCrud.EDIT.getTeamCrudString(),0), added_);
         addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
-        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) ((PokemonBeanStruct)editing_).getBean()),editing_);
+        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editing_.getBean()),editing_);
     }
     protected static String editForgetSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());

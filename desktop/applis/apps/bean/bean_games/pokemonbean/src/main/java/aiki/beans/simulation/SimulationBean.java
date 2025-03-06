@@ -147,6 +147,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             addPkTrainer = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ADD));
             getAddPkTrainer().addEvt(new SimulationBeanAddPkTrainer(this));
             new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDtoFoe(this)).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SELECT_FOE_PK,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
+            new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDtoAlly(this)).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SELECT_FOE_PK,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
             cancelDiffChoice = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON));
             getCancelDiffChoice().addEvt(new SimulationBeanCancelDiffChoice(this));
             return;
