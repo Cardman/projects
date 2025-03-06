@@ -117,6 +117,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntBeanChgSubmit cancelDiffChoice;
     private IntBeanChgSubmit validMultEnv;
     private IntBeanChgSubmit addPkTrainer;
+    private IntBeanChgSubmit validNpcTeams;
 
     public SimulationBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -134,6 +135,21 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getUpdateValues().addEvt(new SimulationBeanValidDiffFormEvent(this, form));
         } else if (simu_ == SimulationSteps.FOE) {
             foe();
+            errorsFoe();
+        } else if (simu_ == SimulationSteps.TEAM) {
+            team();
+        }
+    }
+
+    private void errorsFoe() {
+        String k_;
+        if (freeTeams) {
+            k_ = MessagesDataSimulation.M_P_86_EMPTY_FOE_TEAM;
+        } else {
+            k_ = MessagesDataSimulation.M_P_86_NOT_SELECTED_FOE;
+        }
+        if (!ok) {
+            formatMessage(MessagesPkBean.SIMU,k_);
         }
     }
 
@@ -163,6 +179,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             feedParents();
             validMultEnv = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON));
             getValidMultEnv().addEvt(new SimulationBeanValidateMultiplicityEnvAction(this));
+            validNpcTeams = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON));
+            getValidNpcTeams().addEvt(new SimulationBeanValidateFoeChoiceFree(this));
             return;
         }
         int pls_ = places.size();
@@ -185,6 +203,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         formatMessageDir(getTrainerName());
         cancelDiffChoice = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON));
         getCancelDiffChoice().addEvt(new SimulationBeanCancelDiffChoice(this));
+        validNpcTeams = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON));
+        getValidNpcTeams().addEvt(new SimulationBeanValidateFoeChoice(this));
     }
 
     public DifficultyBeanForm getForm() {
@@ -211,6 +231,14 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         return validMultEnv;
     }
 
+    public IntBeanChgSubmit getValidNpcTeams() {
+        return validNpcTeams;
+    }
+
+    private void team() {
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK);
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanCancelTeam(this));
+    }
     @Override
     public void beforeDisplaying() {
         if (!getForms().contains(CST_SIMULATION_STATE)) {

@@ -5,7 +5,7 @@ import aiki.beans.facade.simulation.dto.*;
 import code.util.StringList;
 import code.util.core.*;
 
-public abstract class BeanDisplayPokemonTrainerDto implements BeanDisplayEltGrid<PokemonTrainerDto> {
+public class BeanDisplayPokemonTrainerDto implements BeanDisplayEltGrid<PokemonTrainerDto> {
     @Override
     public int displayEltGrid(CommonBean _rend, PokemonTrainerDto _info) {
         _rend.initLine();
