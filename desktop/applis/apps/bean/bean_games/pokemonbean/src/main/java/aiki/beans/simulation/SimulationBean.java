@@ -78,8 +78,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private StringMap<Long> availableEvosLevel = new StringMap<Long>();
     private DictionaryComparator<String, String> availableEvos;
 
-    private String chosenEvo = DataBase.EMPTY_STRING;
-    private long levelEvo;
+    private IntBeanChgString chosenEvo = new BeanChgString();
+    private IntBeanChgLong levelEvo = new BeanChgLong();
 
     private FightSimulation simulation;
 
@@ -121,6 +121,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     public SimulationBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
+        chosenEvo.setupValue(DataBase.EMPTY_STRING);
     }
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
@@ -138,6 +139,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             errorsFoe();
         } else if (simu_ == SimulationSteps.TEAM) {
             team();
+        } else if (simu_ == SimulationSteps.EVOLUTIONS) {
+            evolutions();
         }
     }
 
@@ -238,14 +241,36 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private void team() {
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK);
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD)).addEvt(new SimulationBeanAdd(this));
-        new BeanDisplayListGrid<PokemonPlayerDto>(new BeanDisplayPokemonPlayerDto(this)).displayGrid(this,getTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
+        new BeanDisplayListGrid<PokemonPlayerDto>(new BeanDisplayPokemonPlayerDtoCrud(this)).displayGrid(this,getTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanCancelTeam(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanValidateTeam(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISABLE_EVOS)).addEvt(new SimulationBeanValidateFoeChoiceSkipEvolutions(this));
         if (!ok) {
             formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NOT_SELECTED_PLAYER_PK);
         }
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
     }
+
+    private void evolutions() {
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK_EVOS);
+        new BeanDisplayListGrid<PokemonPlayerDto>(new BeanDisplayPokemonPlayerDtoSelect(this)).displayGrid(this,getTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
+        if (selectedIndex()) {
+            if (!availableEvos.isEmpty()) {
+                setChosenEvo(DifficultyBeanForm.select(getBuilder().getGenInput(), this, availableEvos, chosenEvo.tryRet()));
+                initLine();
+                setLevelEvo(DifficultyBeanForm.iv(getBuilder().getGenInput(), this, levelEvo.valueLong()));
+                feedParents();
+                getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SELECT)).addEvt(new SimulationBeanValidateEvo(this));
+            }
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CANCEL_EVO)).addEvt(new SimulationBeanCancelEvo(this));
+        }
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanCancelEvolutions(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanValidateEvolutions(this));
+        new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
+        new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
+    }
+
     @Override
     public void beforeDisplaying() {
         if (!getForms().contains(CST_SIMULATION_STATE)) {
@@ -1089,8 +1114,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 //        }
         DataBase data_ = getDataBase();
         int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
-        levelEvo = NumberUtil.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
-        simulation.setNextEvolutions(index_, chosenEvo, levelEvo, data_);
+        levelEvo.valueLong(NumberUtil.max(levelEvo.valueLong(), availableEvosLevel.getVal(chosenEvo.tryRet())));
+        simulation.setNextEvolutions(index_, chosenEvo.tryRet(), levelEvo.valueLong(), data_);
         evoList(data_, index_);
     }
     public void cancelEvo() {
@@ -1702,19 +1727,19 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         return availableEvos;
     }
 
-    public String getChosenEvo() {
+    public IntBeanChgString getChosenEvo() {
         return chosenEvo;
     }
 
-    public void setChosenEvo(String _chosenEvo) {
+    public void setChosenEvo(IntBeanChgString _chosenEvo) {
         chosenEvo = _chosenEvo;
     }
 
-    public void setLevelEvo(long _levelEvo) {
+    public void setLevelEvo(IntBeanChgLong _levelEvo) {
         levelEvo = _levelEvo;
     }
 
-    public long getLevelEvo() {
+    public IntBeanChgLong getLevelEvo() {
         return levelEvo;
     }
 

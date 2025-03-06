@@ -2,21 +2,18 @@ package aiki.beans.simulation;
 
 import aiki.beans.BeanDisplayEltGrid;
 import aiki.beans.CommonBean;
-import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
-import aiki.beans.facade.simulation.enums.TeamCrud;
-import code.scripts.pages.aiki.MessagesDataSimulation;
-import code.scripts.pages.aiki.MessagesPkBean;
+import aiki.beans.facade.simulation.dto.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class BeanDisplayPokemonPlayerDto implements BeanDisplayEltGrid<PokemonPlayerDto> {
+public abstract class BeanDisplayPokemonPlayerDto implements BeanDisplayEltGrid<PokemonPlayerDto> {
     private final SimulationBean bean;
 
-    public BeanDisplayPokemonPlayerDto(SimulationBean _b) {
+    protected BeanDisplayPokemonPlayerDto(SimulationBean _b) {
         this.bean = _b;
     }
-    @Override
-    public int displayEltGrid(CommonBean _rend, PokemonPlayerDto _info) {
+
+    protected void common(CommonBean _rend, PokemonPlayerDto _info) {
         _rend.initLine();
         _rend.addImg(_rend.getDataBase().getMiniPk(_info.getPokemon().getName()));
         _rend.feedParentsCts();
@@ -31,10 +28,9 @@ public final class BeanDisplayPokemonPlayerDto implements BeanDisplayEltGrid<Pok
         }
         list_.sort();
         _rend.formatMessageDirCts(StringUtil.join(list_," - "));
-        _rend.initLine();
-        _rend.formatMessageAnc(new SimulationBeanSelectPkValidation(bean, TeamCrud.EDIT.getTeamCrudString(),_info.getIndex()), MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_EDIT);
-        _rend.formatMessageAnc(new SimulationBeanSelectPkValidation(bean, TeamCrud.REMOVE.getTeamCrudString(),_info.getIndex()),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_REMOVE);
-        _rend.feedParentsCts();
-        return 8;
+    }
+
+    public SimulationBean getBean() {
+        return bean;
     }
 }

@@ -2639,7 +2639,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,-1);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanDisplayEvolutions(),simu_);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),-1),simu_);
     }
 
     protected static NaSt pkPlayerValidateEvosSelect() {
@@ -2650,7 +2650,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanDisplayEvolutions(),simu_);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),1),simu_);
     }
 
     protected static NaSt pkPlayerValidateEvoValues() {
@@ -2661,7 +2661,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanDisplayEvolutions(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),1),simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,41);
         return simu_;
@@ -2675,10 +2675,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanDisplayEvolutions(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),1),simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,39);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
     }
 
     protected static NaSt pkPlayerEvoThenFighters() {
@@ -2877,7 +2877,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesSets(), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelFrontFighters(), simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutions(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutions((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
     }
 
     protected static NaSt pkPlayerFighterSimulate() {
@@ -3050,7 +3050,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves((EditPokemonBean) ((PokemonBeanStruct)re_).getBean()), re_);
         transitSimu(pk_, all_, mapping_,new EditPokemonBeanEdit((EditPokemonBean) ((PokemonBeanStruct)afterDel_).getBean()),afterDel_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_04_TR,A_SIM_1, pk_, all_, mapping_, simu_,41);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoiceSkipEvolutions(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())), simu_);
     }
 
     protected static NaSt pkPlayerFighterSkipEvosStateEmpty() {
@@ -3059,7 +3059,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoiceSkipEvolutions(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())), simu_);
     }
 
     protected static NaSt pkPlayerEvoFighterSimulateKo() {
@@ -3082,7 +3082,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSampleInv(pk_, all_, mapping_, simu_);
         playerTeamSampleInv(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvolutions(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvolutions(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
         fighterPositions(pk_, all_, mapping_, simu_);
         movesSet(pk_, all_, mapping_, simu_);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
@@ -3205,10 +3205,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static NaSt validEvos(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         validEvo(_pk, _all, _mapping, _simu,1);
         validEvo(_pk, _all, _mapping, _simu,3);
-        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateEvolutions(),_simu);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateEvolutions(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
     }
 
-    protected static NaSt pkPlayerValidateEvoValidateThenCancel() {
+    protected static PokemonBeanStruct pkPlayerValidateEvoValidateThenCancel() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3216,18 +3216,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanDisplayEvolutions(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),1),simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,39);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanCancelEvo(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanCancelEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
     }
     private static void validEvo(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _index) {
         callSimulationBeanSelectedPkSet(_simu,_index);
-        transitSimu(_pk, _all, _mapping,new SimulationBeanDisplayEvolutions(),_simu);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),_index),_simu);
         callSimulationBeanChosenEvoSet(_simu,P_POK_03);
         callSimulationBeanLevelEvoSet(_simu,41);
-        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateEvo(),_simu);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
     }
 //
 //    protected static Struct pkPlayerValidateEvosSelect(int _index) {
@@ -3252,12 +3252,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return playerTeamSample(pk_, all_, mapping_, simu_);
     }
 
-    private static NaSt playerTeamSample(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
+    private static PokemonBeanStruct playerTeamSample(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
-        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),_simu);
     }
 
     private static NaSt playerTeamSampleSkip(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
@@ -3267,24 +3267,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
-        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
     }
 
-    private static NaSt playerTeamSampleInv(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
+    private static PokemonBeanStruct playerTeamSampleInv(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
-        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),_simu);
     }
 
-    protected static NaSt pkPlayerValidateEvosKo() {
+    protected static PokemonBeanStruct pkPlayerValidateEvosKo() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateTeam(),simu_);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateTeam((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
     }
     private static NaSt pkPlAb(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         NaSt addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
@@ -3712,7 +3712,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         evolutions(pk_, all_, mapping_, simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
     }
 
     protected static NaSt pkPlayerValidateEvosSelectTwoTwice() {
@@ -3723,10 +3723,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         evolutions(pk_, all_, mapping_, simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_02);
         callSimulationBeanLevelEvoSet(simu_,41);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
     }
 
     protected static NaSt pkPlayerValidateEvosSelectTwoThreeTimes() {
@@ -3737,27 +3737,27 @@ public abstract class InitDbSimulation extends InitDbConstr {
         evolutions(pk_, all_, mapping_, simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_02);
         callSimulationBeanLevelEvoSet(simu_,41);
-        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,41);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
     }
 
     private static NaSt evolutions(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         foeTeamsSampleLight(_pk, _all, _mapping, _simu);
         playerTeamSampleLight(_pk, _all, _mapping, _simu);
         callSimulationBeanSelectedPkSet(_simu,0);
-        return transitSimu(_pk, _all, _mapping, new SimulationBeanDisplayEvolutions(), _simu);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),0), _simu);
     }
 
     private static NaSt evolutionsTree(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         foeTeamsSampleLightTree(_pk, _all, _mapping, _simu);
         playerTeamSampleLight(_pk, _all, _mapping, _simu);
         callSimulationBeanSelectedPkSet(_simu,0);
-        return transitSimu(_pk, _all, _mapping, new SimulationBeanDisplayEvolutions(), _simu);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanSelectPkEvosValidation(((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),0), _simu);
     }
 
     private static void foeTeamsSampleLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
@@ -3789,9 +3789,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree((SimulationBean) ((PokemonBeanStruct)_simu).getBean()), _simu);
     }
 
-    private static NaSt playerTeamSampleLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
+    private static PokemonBeanStruct playerTeamSampleLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
-        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),_simu);
     }
     private static FacadeGame dbLight() {
         FacadeGame facade_ = facade();
@@ -3931,7 +3931,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static NaSt playerTeamSampleLightSkip(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
-        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
     }
     private static FacadeGame dbLightThree() {
         FacadeGame facade_ = facade();
@@ -4374,7 +4374,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static void simpleTeam(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pk(_pk, _all, _mapping, _simu,0);
         pk(_pk, _all, _mapping, _simu,1);
-        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"1","0");
@@ -4387,7 +4387,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
         transitSimu(_pk, _all, _mapping, new SimulationBeanNextFight(),_simu);
         transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesAfterFight(),_simu);
-        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"1","0");
@@ -4402,7 +4402,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static void simpleTeamLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pk(_pk, _all, _mapping, _simu,0);
         pk(_pk, _all, _mapping, _simu,1);
-        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"1","0");
