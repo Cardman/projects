@@ -29,6 +29,7 @@ import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
+import code.bean.Bean;
 import code.bean.nat.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
@@ -2529,11 +2530,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel((EditPokemonMovesBean) ((PokemonBeanStruct)se_).getBean()),se_);
     }
 
-    private static NaSt editPkPlayer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
+    private static PokemonBeanStruct editPkPlayer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
         NaSt added_ = pkTrainerSelectPkPlayerNameCycle(_name, _ab, _pk, _all, _mapping, _simu, _level);
         callSimulationBeanSelectedActionSet(added_, _mode.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_, _index);
-        return transitSimu(_pk, _all, _mapping, new SimulationBeanSelectPk(), added_);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanSelectPkValidation((SimulationBean) ((PokemonBeanStruct)added_).getBean(),_mode.getTeamCrudString(),_index), added_);
     }
 
     protected static NaSt pkPlayerSetMovesRemove() {
@@ -2586,10 +2587,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static NaSt pkTrainerSelectPkPlayerNameCycle(String _name, String _ability, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _level) {
         NaSt addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
-        NaSt afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
+        NaSt afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()), addPk_);
         callAddPokemonBeanAbilitySet(afSearch_,_ability);
         callAddPokemonBeanLevelSet(afSearch_,_level);
-        NaSt afterAddEdit_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanAdd(), afSearch_);
+        NaSt afterAddEdit_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanAdd((AddPokemonBean) ((PokemonBeanStruct)afSearch_).getBean()), afSearch_);
         assertSame((PokemonBeanStruct)afterAddEdit_,(PokemonBeanStruct)_simu);
         return afterAddEdit_;
     }
@@ -2608,7 +2609,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
-        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanCancel(),addPk_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanCancel((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()),addPk_);
     }
 
     protected static NaSt pkPlayerSelectPkNameAbility(String _name) {
@@ -3288,7 +3289,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static NaSt pkPlAb(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         NaSt addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
         callAddPokemonBeanTypedNameSet(addPk_, _name);
-        NaSt afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
+        NaSt afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()), addPk_);
         callAddPokemonBeanAbilitySet(afSearch_,A_SIM_2);
         callAddPokemonBeanLevelSet(afSearch_,40);
         genderSetPl(afSearch_);
@@ -3304,10 +3305,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
 //        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
-        return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd(),pkPlAb(_name,pk_,all_,mapping_,simu_));
+        NaSt first_ = pkPlAb(_name, pk_, all_, mapping_, simu_);
+        return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd((AddPokemonBean) ((PokemonBeanStruct)first_).getBean()), first_);
     }
 
-    protected static NaSt pkPlayerSelectPkNameQuickAdded() {
+    protected static PokemonBeanStruct pkPlayerSelectPkNameQuickAdded() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3316,9 +3318,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
 //        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
-        return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd(),addPk_);
+        return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()),addPk_);
     }
-    protected static NaSt pkPlayerSelectPkName(String _name) {
+    protected static PokemonBeanStruct pkPlayerSelectPkName(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3326,9 +3328,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
-        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()),addPk_);
     }
-    protected static NaSt pkPlayerSelectPkHasEvo(String _name) {
+    protected static PokemonBeanStruct pkPlayerSelectPkHasEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3336,9 +3338,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanHasEvoSet(addPk_,_name);
-        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()),addPk_);
     }
-    protected static NaSt pkPlayerSelectPkIsEvo(String _name) {
+    protected static PokemonBeanStruct pkPlayerSelectPkIsEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3346,9 +3348,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanIsEvoSet(addPk_,_name);
-        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()),addPk_);
     }
-    protected static NaSt pkPlayerSelectPkIsLeg(String _name) {
+    protected static PokemonBeanStruct pkPlayerSelectPkIsLeg(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3356,9 +3358,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanIsLegSet(addPk_,_name);
-        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()),addPk_);
     }
-    protected static NaSt pkPlayerSelectPkRow(int _row) {
+    protected static PokemonBeanStruct pkPlayerSelectPkRow(int _row) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3366,21 +3368,23 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanTypedNameSet(addPk_,"");
-        NaSt rSe_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
-        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanClickLink(),rSe_,_row);
+        PokemonBeanStruct rSe_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch((AddPokemonBean) ((PokemonBeanStruct)addPk_).getBean()), addPk_);
+        new AddPokemonBeanClickLink().re(rSe_,new NaSt[]{new NaNbSt(_row)});
+        AddPokemonBean add_ = (AddPokemonBean) rSe_.getBean();
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanClickLink(add_,add_.getPokedex().get(_row).getName()),rSe_);
     }
-    protected static NaSt pkPlayerSelectPkType(String _type, boolean _wholeWord) {
+    protected static PokemonBeanStruct pkPlayerSelectPkType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        PokemonBeanStruct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanTypedTypeSet(addPk_,_type);
         callAddPokemonBeanWholeWordSet(addPk_,_wholeWord);
-        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()),addPk_);
     }
-    protected static NaSt pkPlayer() {
+    protected static PokemonBeanStruct pkPlayer() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -3481,8 +3485,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_stds,_all,_mapping,new SimulationBeanAddPkTrainer((SimulationBean)((PokemonBeanStruct) _simu).getBean()),_simu);
     }
 
-    protected static NaSt goToAddPkPlayer(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
-        return transitSimu(_stds,_all,_mapping,new SimulationBeanAdd(),_simu);
+    protected static PokemonBeanStruct goToAddPkPlayer(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
+        return transitSimu(_stds,_all,_mapping,new SimulationBeanAdd((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),_simu);
     }
 
     public static NaSt transitSimu(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NatCaller _caller, NaSt _first, long... _args) {

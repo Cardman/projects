@@ -2,7 +2,6 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-import code.scripts.confs.*;
 
 public final class SelectPokemonBeanClickLink implements NatCaller, IntBeanAction {
     private final SelectPokemonBean bean;
@@ -17,8 +16,7 @@ public final class SelectPokemonBeanClickLink implements NatCaller, IntBeanActio
 
     @Override
     public String actionBean() {
-        bean.putName(index);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return bean.putName(index);
     }
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){

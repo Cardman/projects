@@ -1,28 +1,59 @@
 package aiki.beans.simulation;
 
-import aiki.beans.PokemonStandards;
-import aiki.beans.WithFilterBean;
+import aiki.beans.*;
+import aiki.beans.facade.dto.PokemonLine;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.beans.game.DifficultyBeanForm;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.scripts.confs.PkScriptPages;
+import code.scripts.pages.aiki.*;
 import code.util.AbsMap;
 import code.util.StringMap;
 
 public final class AddPokemonBean extends WithFilterBean {
     private final CrudPkCommon common = new CrudPkCommon();
     private String namePk = DataBase.EMPTY_STRING;
-    private String ability = DataBase.EMPTY_STRING;
+    private IntBeanChgString ability = new BeanChgString();
 //    private String gender = Gender.NO_GENDER.getGenderName();
 //    private int level;
 //    private DictionaryComparator<String,String> genders;
     private DictionaryComparator<String,String> abilities;
 
+    public AddPokemonBean() {
+        ability.setupValue(DataBase.EMPTY_STRING);
+    }
+    @Override
+    public void build(FacadeGame _facade, StringMapObject _form) {
+        init(_facade, _form);
+        setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_ADD_POKEMON));
+        formatMessageAnc(new AddPokemonBeanCancel(this),MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL);
+        if (!namePk.isEmpty()) {
+            initLine();
+            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NAME_PK);
+            formatMessageDir(namePk);
+            feedParents();
+            initLine();
+            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ABILITY_PK);
+            setAbility(DifficultyBeanForm.select(getBuilder().getGenInput(), this,abilities,getAbility().tryRet()));
+            feedParents();
+            common.initForm(this);
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD_PK_PLAYER)).addEvt(new AddPokemonBeanAdd(this));
+        }
+        initFormPk();
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SEARCH_PK_PLAYER)).addEvt(new AddPokemonBeanSearch(this));
+        new BeanDisplayListGrid<PokemonLine>(new BeanDisplayPokemonLineSimuPlayer(this)).displayGrid(this,getPokedex(),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_POKEDEX,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataPokemonPokedex.M_P_82_NAME,MessagesDataPokemonPokedex.M_P_82_TYPES,MessagesDataPokemonPokedex.M_P_82_EVOS);
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SIMU_LEVEL).getMapping();
+    }
     @Override
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
@@ -65,7 +96,7 @@ public final class AddPokemonBean extends WithFilterBean {
         WildPk pk_ = new WildPk();
         pk_.setName(namePk);
         pk_.setLevel(common.getLevel().valueLong());
-        pk_.setAbility(ability);
+        pk_.setAbility(ability.tryRet());
         pk_.setGender(PokemonStandards.getGenderByName(common.getGender().tryRet()));
         PokemonData pkData_ = data_.getPokemon(namePk);
         PokemonPlayerDto pkDto_ = new PokemonPlayerDto();
@@ -90,7 +121,11 @@ public final class AddPokemonBean extends WithFilterBean {
 //        }
     }
     public String clickLink(int _number) {
-        getForms().put(CST_PK_NAME, getPokedex().get(_number).getName());
+        return putName(getPokedex().get(_number).getName());
+    }
+
+    public String putName(String _name) {
+        getForms().put(CST_PK_NAME, _name);
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
 
@@ -102,11 +137,11 @@ public final class AddPokemonBean extends WithFilterBean {
         return abilities;
     }
 
-    public String getAbility() {
+    public IntBeanChgString getAbility() {
         return ability;
     }
 
-    public void setAbility(String _ability) {
+    public void setAbility(IntBeanChgString _ability) {
         ability = _ability;
     }
 

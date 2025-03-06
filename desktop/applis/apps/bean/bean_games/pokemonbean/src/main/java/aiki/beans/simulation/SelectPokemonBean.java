@@ -42,12 +42,12 @@ public final class SelectPokemonBean extends WithFilterBean {
     }
 
     public String clickLink(int _number) {
-        putName(getPokedex().get(_number).getName());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return putName(getPokedex().get(_number).getName());
     }
 
-    public void putName(String _name) {
+    public String putName(String _name) {
         getForms().put(CST_POKEMON_NAME_EDIT, _name);
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 
 }

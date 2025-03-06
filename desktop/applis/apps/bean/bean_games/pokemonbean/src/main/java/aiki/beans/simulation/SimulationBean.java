@@ -237,7 +237,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void team() {
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK);
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ADD)).addEvt(new SimulationBeanAdd(this));
+        new BeanDisplayListGrid<PokemonPlayerDto>(new BeanDisplayPokemonPlayerDto(this)).displayGrid(this,getTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanCancelTeam(this));
+        new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
+        new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
     }
     @Override
     public void beforeDisplaying() {
