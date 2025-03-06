@@ -2,7 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-public class EditPokemonBeanEdit implements NatCaller, IntBeanAction {
+public final class EditPokemonBeanEdit implements NatCaller, IntBeanAction {
     private final EditPokemonBean bean;
     public EditPokemonBeanEdit() {
         this(null);
