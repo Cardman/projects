@@ -1,12 +1,10 @@
 package aiki.beans.simulation;
 
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.*;
-import code.bean.nat.*;
+import aiki.beans.*;
 import code.bean.nat.*;
 public class SimulationBeanTargetGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getTarget());
+        return new NaStSt(Long.toString(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getTarget().valueInt()));
     }
 }
