@@ -318,7 +318,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(ROUND,MessagesDataRound.fr());
         m.getMapping().addEntry(SIMU,MessagesDataSimulation.fr());
         m.getMapping().addEntry(SIMU_LEVEL,MessagesDataSimulationLevelsimu.fr());
-        m.getMapping().addEntry(DIFFICULTY,MessagesGameDifficulty.en());
+        m.getMapping().addEntry(DIFFICULTY,MessagesGameDifficulty.fr());
         return m;
     }
 }
