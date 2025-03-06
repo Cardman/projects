@@ -120,6 +120,13 @@ public final class DifficultyBeanForm {
         return sel_;
     }
 
+    public static IntBeanChgInt selectInt(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<Integer,String> _map, int _v) {
+        IntBeanChgInt sel_ = _genInput.newInt(_map);
+        sel_.valueInt(_v);
+        _rend.getBuilder().breakNext();
+        return sel_;
+    }
+
     public static IntBeanChgString txt(IntBeanGeneInput _genInput, CommonBean _rend, String _v) {
         IntBeanChgString sel_ = _genInput.newText();
         sel_.setupValue(_v);

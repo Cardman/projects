@@ -1010,7 +1010,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void roundsFirstValue() {
-        assertEq(0,second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
+        assertEq("0",second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
     }
     @Test
     public void roundsSecondKey() {
@@ -1018,7 +1018,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void roundsSecondValue() {
-        assertEq(1,second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
+        assertEq("1",second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
     }
     @Test
     public void placesFights() {

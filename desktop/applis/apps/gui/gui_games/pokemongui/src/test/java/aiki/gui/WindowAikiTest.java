@@ -233,6 +233,10 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.setRefLk("_");
         h_.hierarchy("",new MockTextPane());
         h_.build(evt_);
+        IntMap<String> i_ = new IntMap<String>();
+        i_.addEntry(0,"");
+        IntBeanChgInt chgInt_ = h_.getGenInput().newInt(i_);
+        chgInt_.valueInt(chgInt_.valueInt());
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 

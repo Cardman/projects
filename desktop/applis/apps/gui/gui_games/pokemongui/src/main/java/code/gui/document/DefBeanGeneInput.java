@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import aiki.beans.*;
+import aiki.gui.components.editor.NbDefValue;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
@@ -45,6 +46,15 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         GeneComponentModelElt<String> sel_ = new GeneComponentModelElt<String>(api, _map,new EmptyDefValue());
         AbsCustComponent ch_ = sel_.geneEnum();
         DefBeanChgString chg_ = new DefBeanChgString(sel_);
+        helper.feedParent(ch_);
+        return chg_;
+    }
+
+    @Override
+    public IntBeanChgInt newInt(AbsMap<Integer, String> _map) {
+        GeneComponentModelElt<Integer> sel_ = new GeneComponentModelElt<Integer>(api, _map,new NbDefValue<Integer>(0));
+        AbsCustComponent ch_ = sel_.geneEnum();
+        DefBeanChgInt chg_ = new DefBeanChgInt(sel_);
         helper.feedParent(ch_);
         return chg_;
     }
