@@ -3433,7 +3433,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static void setMult(NaSt _simu, int _value) {
         callSimulationBeanEnvironmentSet(_simu, EnvironmentType.ROAD.getEnvName());
         callSimulationBeanMultiplicitySet(_simu,_value);
-        beforeDisplaying(_simu);
+        assertSame((PokemonBeanStruct) _simu, transitSimu(null,null,null,new SimulationBeanValidateMultiplicityEnvAction((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),_simu));
+//        beforeDisplaying(_simu);
     }
 
     private static NaSt goToSelectPk(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {

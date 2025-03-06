@@ -62,9 +62,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private int selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private final CustList<CustList<PokemonTrainerDto>> allyTeams = new CustList<CustList<PokemonTrainerDto>>();
     private final Ints multiplicities = new Ints();
+    private IntBeanChgLong multiplicity = new BeanChgLong();
 
     private final CustList<EnvironmentType> environmentsList = new CustList<EnvironmentType>();
     private DictionaryComparator<String, String> environments;
+    private IntBeanChgString environment = new BeanChgString();
 
     private boolean enableEvolutions = true;
     private final CustList<PokemonPlayerDto> team = new CustList<PokemonPlayerDto>();
@@ -113,6 +115,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntBeanChgLong nbTeamsField;
     private IntBeanChgSubmit updateValues;
     private IntBeanChgSubmit cancelDiffChoice;
+    private IntBeanChgSubmit validMultEnv;
     private IntBeanChgSubmit addPkTrainer;
 
     public SimulationBean() {
@@ -147,9 +150,19 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             addPkTrainer = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ADD));
             getAddPkTrainer().addEvt(new SimulationBeanAddPkTrainer(this));
             new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDtoFoe(this)).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SELECT_FOE_PK,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
-            new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDtoAlly(this)).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SELECT_FOE_PK,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
+            new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDtoAlly(this)).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SELECT_ALLY_PK,MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
             cancelDiffChoice = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON));
             getCancelDiffChoice().addEvt(new SimulationBeanCancelDiffChoice(this));
+            initLine();
+            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_MULTIPLICITY_FIGHT);
+            multiplicity = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, multiplicity());
+            feedParents();
+            initLine();
+            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ENV_FIGHT);
+            environment = DifficultyBeanForm.select(getBuilder().getGenInput(), this, environments, environment());
+            feedParents();
+            validMultEnv = getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON));
+            getValidMultEnv().addEvt(new SimulationBeanValidateMultiplicityEnvAction(this));
             return;
         }
         int pls_ = places.size();
@@ -192,6 +205,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     public IntBeanChgLong getNbTeamsField() {
         return nbTeamsField;
+    }
+
+    public IntBeanChgSubmit getValidMultEnv() {
+        return validMultEnv;
     }
 
     @Override
@@ -1531,6 +1548,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             environmentsList.add(EnvironmentType.ROAD);
             multiplicities.add(1);
         }
+        if (freeTeams) {
+            multiplicity.valueLong(1);
+            environment.setupValue(EnvironmentType.ROAD.getEnvName());
+        }
     }
 
     public int selectedTeamNumber() {
@@ -1550,7 +1571,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         multiplicities.set(indexTeam,_multiplicity);
     }
 
-    public int getMultiplicity() {
+    public IntBeanChgLong getMultiplicity() {
+        return multiplicity;
+    }
+
+    public int multiplicity() {
         return multiplicities.get(indexTeam);
     }
 
@@ -1558,7 +1583,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         return environments;
     }
 
-    public String getEnvironment() {
+    public IntBeanChgString getEnvironment() {
+        return environment;
+    }
+
+    public String environment() {
         return environmentsList.get(indexTeam).getEnvName();
     }
 
