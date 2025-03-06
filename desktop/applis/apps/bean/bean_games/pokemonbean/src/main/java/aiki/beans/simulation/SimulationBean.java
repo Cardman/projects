@@ -93,7 +93,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntTreeMap< String> placesFight = new IntTreeMap< String>();
     private String target ="0";
     private IntTreeMap< String> targetFight = new IntTreeMap< String>();
-    private String currentAbility = DataBase.EMPTY_STRING;
+    private IntBeanChgString currentAbility = new BeanChgString();
     private DictionaryComparator<String,String> abilities;
     private final CustList<SelectLineMove> keptMoves = new CustList<SelectLineMove>();
     private final CustList<RadioLineMove> movesSet = new CustList<RadioLineMove>();
@@ -122,6 +122,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     public SimulationBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
         chosenEvo.setupValue(DataBase.EMPTY_STRING);
+        currentAbility.setupValue(DataBase.EMPTY_STRING);
         selectedRound.valueInt(0);
         placeFight.valueInt(Fighter.BACK);
     }
@@ -145,6 +146,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             evolutions();
         } else if (simu_ == SimulationSteps.FRONT) {
             front();
+        } else if (simu_ == SimulationSteps.MOVES) {
+            moves();
         }
     }
 
@@ -288,12 +291,37 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanCancelFrontFighters(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanValidateFrontFighters(this));
-        int both_ = NumberUtil.signum(toInt(!ok)) * NumberUtil.signum(toInt(displayIfError));
-        if (both_ == TRUE_VALUE) {
-            formatMessage(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_BAD_CHOICE_FRONT_FIGHTER);
-        }
+        possibleError(MessagesDataSimulation.M_P_86_BAD_CHOICE_FRONT_FIGHTER);
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
+    }
+
+    private void moves() {
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK_MOVES);
+        new BeanDisplayListGrid<PokemonPlayerDto>(new BeanDisplayPokemonPlayerDtoSelectMoves(this)).displayGrid(this,getTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
+        if (selectedIndexForMoves()) {
+            if (isAvailableMoves()) {
+                if (isAvailableAbilities()) {
+                    initLine();
+                    formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ABILITY_PK);
+                    setCurrentAbility(DifficultyBeanForm.select(getBuilder().getGenInput(), this, abilities, currentAbility.tryRet()));
+                    feedParents();
+                }
+                new BeanDisplayListGrid<SelectLineMove>(new BeanDisplaySelectLineMove()).displayGrid(this,keptMoves,MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER,MessagesDataSimulation.M_P_86_SELECTED);
+                getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_VALIDATE_MOVES)).addEvt(new SimulationBeanValidateMoves(this));
+            }
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL_MOVES)).addEvt(new SimulationBeanCancelMoves(this));
+        }
+        possibleError(MessagesDataSimulation.M_P_86_BAD_CHOICE_FRONT_FIGHTER_MOVES);
+        new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
+        new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
+    }
+
+    private void possibleError(String _key) {
+        int both_ = NumberUtil.signum(toInt(!ok)) * NumberUtil.signum(toInt(displayIfError));
+        if (both_ == TRUE_VALUE) {
+            formatMessage(MessagesPkBean.SIMULATION, _key);
+        }
     }
     @Override
     public void beforeDisplaying() {
@@ -375,13 +403,13 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilities = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
-        currentAbility = DataBase.EMPTY_STRING;
+        currentAbility.setupValue(DataBase.EMPTY_STRING);
         if (isAvailableMoves()) {
             if (isAvailableAbilities()) {
                 for (String a : getAvailableAbilities()) {
                     abilities.put(a, translationsAbilities_.getVal(a));
                 }
-                currentAbility = abilities.firstKey();
+                currentAbility.setupValue(abilities.firstKey());
             }
             //keptMoves
             keptMoves.clear();
@@ -1221,11 +1249,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     public void validateMoves() {
         displayIfError = false;
         if (isAvailableAbilities()) {
-            if (currentAbility.isEmpty()) {
+            if (currentAbility.tryRet().isEmpty()) {
                 return;
             }
             int r_ = simulation.getAvailableMoves().getVal(selectedPk).getKey().getRound();
-            simulation.setAbilityWhileFight(selectedPk, IndexConstants.FIRST_INDEX, r_, currentAbility);
+            simulation.setAbilityWhileFight(selectedPk, IndexConstants.FIRST_INDEX, r_, currentAbility.tryRet());
         }
         StringList moves_ = new StringList();
         for (SelectLineMove m: keptMoves) {
@@ -1799,11 +1827,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         return abilities;
     }
 
-    public String getCurrentAbility() {
+    public IntBeanChgString getCurrentAbility() {
         return currentAbility;
     }
 
-    public void setCurrentAbility(String _currentAbility) {
+    public void setCurrentAbility(IntBeanChgString _currentAbility) {
         currentAbility = _currentAbility;
     }
 
