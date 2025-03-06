@@ -1747,7 +1747,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         callSimulationBeanSelectedFoeActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(second_,0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectFoePk(),second_);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectFoePkValidation((SimulationBean) ((PokemonBeanStruct)second_).getBean(),TeamCrud.REMOVE.getTeamCrudString(),0),second_);
     }
     protected static String editNoSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
@@ -1767,7 +1767,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectFoePk(),added_);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectFoePkValidation((SimulationBean) ((PokemonBeanStruct)added_).getBean(),TeamCrud.EDIT.getTeamCrudString(),0),added_);
     }
     protected static NaSt formEditSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
@@ -1787,7 +1787,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         NaSt added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,0);
-        NaSt editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectFoePk(), added_);
+        NaSt editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectFoePkValidation((SimulationBean) ((PokemonBeanStruct)added_).getBean(),TeamCrud.EDIT.getTeamCrudString(),0), added_);
         addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) ((PokemonBeanStruct)editing_).getBean()),editing_);
     }
