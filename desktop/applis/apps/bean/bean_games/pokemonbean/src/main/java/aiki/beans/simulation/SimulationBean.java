@@ -104,9 +104,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private CustList<PokemonPlayer> teamAfterFight = new CustList<PokemonPlayer>();
     private final CustList<KeptMovesAfterFight> keptMovesAbilitiesDto = new CustList<KeptMovesAfterFight>();
     private final CustList<SelectLineMove> keptMovesAfterFight = new CustList<SelectLineMove>();
-    private String evolutionAfterFight = DataBase.EMPTY_STRING;
+    private IntBeanChgString evolutionAfterFight = new BeanChgString();
     private DictionaryComparator<String,String> evolutionsAfterFight;
-    private String abilityAfterFight = DataBase.EMPTY_STRING;
+    private IntBeanChgString abilityAfterFight = new BeanChgString();
     private DictionaryComparator<String,String> abilitiesAfterFight;
     private int stepNumber;
     private boolean ok;
@@ -123,6 +123,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         setAppName(MessagesPkBean.APP_BEAN_DATA);
         chosenEvo.setupValue(DataBase.EMPTY_STRING);
         currentAbility.setupValue(DataBase.EMPTY_STRING);
+        evolutionAfterFight.setupValue(DataBase.EMPTY_STRING);
+        abilityAfterFight.setupValue(DataBase.EMPTY_STRING);
         selectedRound.valueInt(0);
         target.valueInt(0);
         placeFight.valueInt(Fighter.BACK);
@@ -151,6 +153,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             moves();
         } else if (simu_ == SimulationSteps.MOVES_FIGHT) {
             movesFight();
+        } else if (simu_ == SimulationSteps.SIMULATION) {
+            simulation();
+        } else {
+            evoAfterFight();
         }
     }
 
@@ -321,6 +327,12 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
     }
+    private void possibleError(String _key) {
+        int both_ = NumberUtil.signum(toInt(!ok)) * NumberUtil.signum(toInt(displayIfError));
+        if (both_ == TRUE_VALUE) {
+            formatMessage(MessagesPkBean.SIMULATION, _key);
+        }
+    }
     private void movesFight() {
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK_MOVE_TARGET);
         new BeanDisplayListGrid<PokemonPlayerDto>(new BeanDisplayPokemonPlayerDtoSelectMoves(this)).displayGrid(this,getTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_SELECTED);
@@ -340,16 +352,51 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             feedParents();
         }
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanCancelMovesEvos(this));
-        possibleError(MessagesDataSimulation.M_P_86_BAD_CHOICE_FRONT_FIGHTER_MOVES_TARGETS);
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanSimulateFight(this));
+        if (!ok) {
+            formatMessage(MessagesPkBean.SIMULATION, MessagesDataSimulation.M_P_86_BAD_CHOICE_FRONT_FIGHTER_MOVES_TARGETS);
+        }
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getFoeTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
         new BeanDisplayListGrid<PokemonTrainerDto>(new BeanDisplayPokemonTrainerDto()).displayGrid(this,getAllyTeam(),MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK);
     }
 
-    private void possibleError(String _key) {
-        int both_ = NumberUtil.signum(toInt(!ok)) * NumberUtil.signum(toInt(displayIfError));
-        if (both_ == TRUE_VALUE) {
-            formatMessage(MessagesPkBean.SIMULATION, _key);
+    private void simulation() {
+        if (isIssue()) {
+            new BeanDisplayList<String>(new BeanDisplayString()).display(this,getKoPlayers(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KO_PLAYER_FIGHTERS);
+            new BeanDisplayList<String>(new BeanDisplayString()).display(this,getNotKoFrontFoes(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NOT_KO_FOE_FIGHTERS);
+            new BeanDisplayList<String>(new BeanDisplayString()).display(this,getKoFoes(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KO_FOE_FIGHTERS);
+            new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
         }
+        new BeanDisplayListGrid<PokemonPlayer>(new BeanDisplayPokemonPlayer()).displayGrid(this,teamAfterFight,MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_HP_RATE,MessagesDataSimulation.M_P_86_EXP_PK,MessagesDataSimulation.M_P_86_EXP_PK_REM,MessagesDataSimulation.M_P_86_HAPPINESS_PK);
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanChangeFight(this));
+        if (isFightAfter()) {
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanNextFight(this));
+        }
+        if (!isIssue()) {
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
+            new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
+        }
+    }
+    private void evoAfterFight() {
+        formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK_EVOS_AFTER_FIGHT);
+        new BeanDisplayListGrid<PokemonPlayer>(new BeanDisplayPokemonPlayerSelect(this)).displayGrid(this,teamAfterFight,MessagesPkBean.SIMULATION,"",MessagesDataPokemonPokedex.M_P_82_IMAGE,MessagesDataSimulation.M_P_86_NAME_PK,MessagesDataSimulation.M_P_86_LEVEL_PK,MessagesDataSimulation.M_P_86_ABILITY_PK,MessagesDataSimulation.M_P_86_GENDER_PK,MessagesDataSimulation.M_P_86_ITEM_PK,MessagesDataSimulation.M_P_86_MOVES_PK,MessagesDataSimulation.M_P_86_HP_RATE,MessagesDataSimulation.M_P_86_EXP_PK,MessagesDataSimulation.M_P_86_EXP_PK_REM,MessagesDataSimulation.M_P_86_HAPPINESS_PK,MessagesDataSimulation.M_P_86_SELECTED);
+        if (selectedIndexForMoves()) {
+            initLine();
+            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EVOLUTION);
+            setEvolutionAfterFight(DifficultyBeanForm.select(getBuilder().getGenInput(), this, evolutionsAfterFight, evolutionAfterFight.tryRet()));
+            feedParents();
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT)).addEvt(new SimulationBeanValidateEvolutionAfterFight(this));
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL_MOVES)).addEvt(new SimulationBeanCancelEvolutionsAfterFight(this));
+            initLine();
+            formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ABILITY_PK);
+            setAbilityAfterFight(DifficultyBeanForm.select(getBuilder().getGenInput(), this, abilitiesAfterFight, abilityAfterFight.tryRet()));
+            feedParents();
+            new BeanDisplayListGrid<SelectLineMove>(new BeanDisplaySelectLineMove()).displayGrid(this,keptMovesAfterFight,MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER,MessagesDataSimulation.M_P_86_SELECTED);
+            getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT)).addEvt(new SimulationBeanValidateMovesAbilityAfterFight(this));
+        }
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanChangeFightWhileEnd(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanValidateMovesAfterFight(this));
     }
     @Override
     public void beforeDisplaying() {
@@ -1463,17 +1510,17 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         }
         DataBase data_ = getDataBase();
         KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
-        evolutionAfterFight = k_.getEvolutions().last();
-        abilityAfterFight = k_.getAbility();
+        evolutionAfterFight.setupValue(k_.getEvolutions().last());
+        abilityAfterFight.setupValue(k_.getAbility());
         evolutionsAfterFight = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
         afterFighter(k_);
     }
 
     public void validateEvolutionAfterFight() {
         KeptMovesAfterFight k_ = keptMovesAbilitiesDto.get(selectedPk);
-        k_.getEvolutions().add(evolutionAfterFight);
+        k_.getEvolutions().add(evolutionAfterFight.tryRet());
         afterFighter(k_);
-        abilityAfterFight = abilitiesAfterFight.firstKey();
+        abilityAfterFight.setupValue(abilitiesAfterFight.firstKey());
     }
 
     public void cancelEvolutionsAfterFight() {
@@ -1481,13 +1528,13 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         String base_ = k_.getEvolutions().first();
         k_.getEvolutions().clear();
         k_.getEvolutions().add(base_);
-        evolutionAfterFight = base_;
+        evolutionAfterFight.setupValue(base_);
         PokemonPlayer pk_ = teamAfterFight.get(selectedPk);
         k_.getMoves().clear();
         k_.getMoves().addAllElts(pk_.getMoves().getKeys());
         k_.setAbility(pk_.getAbility());
         afterFighter(k_);
-        abilityAfterFight = k_.getAbility();
+        abilityAfterFight.setupValue(k_.getAbility());
     }
 
     private void afterFighter(KeptMovesAfterFight _k) {
@@ -1495,11 +1542,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         PokemonPlayer pk_ = teamAfterFight.get(selectedPk);
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        StringList evolutions_ = pk_.directEvolutionsByStone(evolutionAfterFight, data_);
+        StringList evolutions_ = pk_.directEvolutionsByStone(evolutionAfterFight.tryRet(), data_);
         for (String e: evolutions_) {
             evolutionsAfterFight.put(e, translationsPokemon_.getVal(e));
         }
-        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), _k.getMoves(), evolutionAfterFight, data_);
+        StringMap<BoolVal> selectedMoves_ = PokemonPlayer.getMovesForEvolution(pk_.getLevel(), _k.getMoves(), evolutionAfterFight.tryRet(), data_);
         keptMovesAfterFight.clear();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
@@ -1529,7 +1576,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         }
         keptMovesAfterFight.sortElts(new ComparatorMoves());
         //StringList moves_ = data_.getPokemon(lastPk_).getMovesBeforeLevel(pk_.getLevel());
-        StringList abilities_ = data_.getPokemon(evolutionAfterFight).getAbilities();
+        StringList abilities_ = data_.getPokemon(evolutionAfterFight.tryRet()).getAbilities();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilitiesAfterFight = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
@@ -1547,7 +1594,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             }
         }
         k_.setMoves(moves_);
-        k_.setAbility(abilityAfterFight);
+        k_.setAbility(abilityAfterFight.tryRet());
     }
     public void validateMovesAfterFight() {
         ok = true;
@@ -1911,11 +1958,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         return evolutionsAfterFight;
     }
 
-    public String getEvolutionAfterFight() {
+    public IntBeanChgString getEvolutionAfterFight() {
         return evolutionAfterFight;
     }
 
-    public void setEvolutionAfterFight(String _evolutionAfterFight) {
+    public void setEvolutionAfterFight(IntBeanChgString _evolutionAfterFight) {
         evolutionAfterFight = _evolutionAfterFight;
     }
 
@@ -1923,11 +1970,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         return abilitiesAfterFight;
     }
 
-    public String getAbilityAfterFight() {
+    public IntBeanChgString getAbilityAfterFight() {
         return abilityAfterFight;
     }
 
-    public void setAbilityAfterFight(String _abilityAfterFight) {
+    public void setAbilityAfterFight(IntBeanChgString _abilityAfterFight) {
         abilityAfterFight = _abilityAfterFight;
     }
 

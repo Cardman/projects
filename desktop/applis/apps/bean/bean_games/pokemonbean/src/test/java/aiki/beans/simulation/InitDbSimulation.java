@@ -29,7 +29,6 @@ import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
-import code.bean.Bean;
 import code.bean.nat.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
@@ -2830,7 +2829,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         validEvos(pk_, all_, mapping_,simu_);
         fighterPositions(pk_, all_, mapping_, simu_);
         movesSet(pk_, all_, mapping_, simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
+        return mvChs(pk_, all_, mapping_, simu_);
     }
 
     protected static NaSt pkPlayerEvoFighterSimulateStMove() {
@@ -2898,8 +2897,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanDisplayComments(),simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanHideComments(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanDisplayComments((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanHideComments((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
         return callSimulationBeanCommentsGet(simu_);
     }
 
@@ -2911,8 +2910,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),(((SimulationBean) ((PokemonBeanStruct)simu_).getBean()).getSelectedPk())), simu_);
     }
 
     protected static NaSt pkPlayerFighterSimulateAfterFightCancel() {
@@ -2923,8 +2922,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
     }
 
     protected static NaSt pkPlayerFighterSimulateAfterFightCancel2() {
@@ -2935,9 +2934,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
     }
 
     protected static NaSt pkPlayerFighterSimulateAfterFightCancel3() {
@@ -2948,9 +2947,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
     }
 
@@ -2962,9 +2961,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelFrontFighters((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
         transitSimu(pk_, all_, mapping_, new SimulationBeanCancelTeam(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())), simu_);
@@ -2979,10 +2978,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
         callSimulationBeanSelectedPkSet(simu_,0);
-        assertSame((PokemonBeanStruct) simu_,transitSimu(null,null,null,new SimulationBeanSelectPkMovesValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0),simu_));
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0), simu_);
     }
 
     protected static NaSt pkPlayerFighterSimulateAfterFightOneValidate() {
@@ -2993,15 +2991,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
         callSimulationBeanSelectedPkSet(simu_,0);
-        assertSame((PokemonBeanStruct) simu_,transitSimu(null,null,null,new SimulationBeanSelectPkMovesValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0),simu_));
-        transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0), simu_);
         callSimulationBeanEvolutionAfterFightSet(simu_,P_POK_05);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateEvolutionAfterFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateEvolutionAfterFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
         callSimulationBeanAbilityAfterFightSet(simu_,A_SIM_2);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAbilityAfterFight(), simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAfterFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAbilityAfterFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAfterFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
     }
 
     protected static NaSt pkPlayerFighterSimulateAfterFightCancelOne() {
@@ -3012,18 +3009,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
         callSimulationBeanSelectedPkSet(simu_,0);
-        assertSame((PokemonBeanStruct) simu_,transitSimu(null,null,null,new SimulationBeanSelectPkMovesValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0),simu_));
-        transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0), simu_);
         callSimulationBeanEvolutionAfterFightSet(simu_,P_POK_05);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateEvolutionAfterFight(), simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutionsAfterFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateEvolutionAfterFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutionsAfterFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()), simu_);
     }
 
     private static NaSt oneFight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         fighterPositions(_pk, _all, _mapping, _simu);
-        return transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(), moveChoices(_pk, _all, _mapping, _simu));
+        return mvChs(_pk, _all, _mapping, _simu);
     }
 
     protected static NaSt pkPlayerFighterSimulateOneFight() {
@@ -3034,7 +3030,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         fighterPositions(pk_, all_, mapping_, simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
+        return mvChs(pk_, all_, mapping_, simu_);
     }
 
     protected static NaSt pkPlayerFighterSkipEvosStateBadNbCount() {
@@ -3072,7 +3068,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         validEvos(pk_, all_, mapping_,simu_);
         fighterPositions(pk_, all_, mapping_, simu_);
         movesSet(pk_, all_, mapping_, simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoicesKo(pk_, all_, mapping_, simu_));
+        NaSt koChs_ = moveChoicesKo(pk_, all_, mapping_, simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight((SimulationBean)((PokemonBeanStruct)koChs_).getBean()), koChs_);
     }
 
     protected static NaSt pkPlayerEvoFighterSimulateKos() {
@@ -3085,7 +3082,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvolutions(((SimulationBean) ((PokemonBeanStruct)simu_).getBean())),simu_);
         fighterPositions(pk_, all_, mapping_, simu_);
         movesSet(pk_, all_, mapping_, simu_);
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
+        return mvChs(pk_, all_, mapping_, simu_);
+    }
+
+    private static PokemonBeanStruct mvChs(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
+        NaSt first_ = moveChoices(_pk, _all, _mapping, _simu);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight((SimulationBean) ((PokemonBeanStruct)first_).getBean()), first_);
     }
 
     private static NaSt moveChoices(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
@@ -3911,11 +3913,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSampleVeryLight(pk_, all_, mapping_, simu_);
         playerTeamSampleLightSkip(pk_, all_, mapping_, simu_);
         fighterPositionsLight(pk_, all_, mapping_, simu_);
-        transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoicesLight(pk_, all_, mapping_, simu_));
-        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        NaSt light_ = moveChoicesLight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight((SimulationBean)((PokemonBeanStruct)light_).getBean()), light_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight((SimulationBean) ((PokemonBeanStruct)simu_).getBean()),simu_);
         callSimulationBeanSelectedPkSet(simu_,0);
-        assertSame((PokemonBeanStruct) simu_,transitSimu(null,null,null,new SimulationBeanSelectPkMovesValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0),simu_));
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),0), simu_);
     }
 
     private static NaSt moveChoicesLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
@@ -4384,9 +4386,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
         moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
         moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
-        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
-        transitSimu(_pk, _all, _mapping, new SimulationBeanNextFight(),_simu);
-        transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesAfterFight(),_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight((SimulationBean)((PokemonBeanStruct)_simu).getBean()),_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanNextFight((SimulationBean)((PokemonBeanStruct)_simu).getBean()),_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesAfterFight((SimulationBean) ((PokemonBeanStruct)_simu).getBean()),_simu);
         transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) ((PokemonBeanStruct)_simu).getBean())),_simu);
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
@@ -4397,7 +4399,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
         moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
         moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
-        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight((SimulationBean)((PokemonBeanStruct)_simu).getBean()),_simu);
     }
     private static void simpleTeamLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pk(_pk, _all, _mapping, _simu,0);
@@ -4412,7 +4414,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
         moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
         moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
-        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight((SimulationBean)((PokemonBeanStruct)_simu).getBean()),_simu);
     }
 
     private static void pk(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _teamIndex) {
