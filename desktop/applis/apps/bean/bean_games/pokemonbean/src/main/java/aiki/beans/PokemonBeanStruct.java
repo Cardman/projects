@@ -1,6 +1,5 @@
 package aiki.beans;
 
-import code.bean.Bean;
 import code.bean.nat.BeanStruct;
 import code.bean.nat.exec.opers.NatExecMethodOperation;
 import code.bean.nat.exec.opers.NatExecOperationNode;
@@ -31,8 +30,8 @@ public final class PokemonBeanStruct extends BeanStruct {
         return ((NatExecMethodOperation) _root).getChildrenNodes().last();
     }
 
-    public Bean getInstance() {
-        return getBean();
+    public CommonBean getInstance() {
+        return (CommonBean) getBean();
     }
 
 

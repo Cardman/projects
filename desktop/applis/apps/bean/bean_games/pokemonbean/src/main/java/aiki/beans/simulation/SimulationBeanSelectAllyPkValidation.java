@@ -1,10 +1,6 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
-import aiki.beans.IntBeanAction;
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NaSt;
-import code.bean.nat.NaStSt;
+import aiki.beans.*;
 
 public final class SimulationBeanSelectAllyPkValidation implements IntBeanAction {
     private final SimulationBean bean;
@@ -21,7 +17,7 @@ public final class SimulationBeanSelectAllyPkValidation implements IntBeanAction
     public String actionBean() {
         bean.setSelectedAllyAction(act);
         bean.setSelectedAllyPk(index);
-        return ((NaStSt)new SimulationBeanSelectAllyPk().re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
+        return bean.selectAllyPk();
     }
 
     @Override

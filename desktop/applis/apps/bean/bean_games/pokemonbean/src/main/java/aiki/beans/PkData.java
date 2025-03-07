@@ -71,7 +71,7 @@ public final class PkData extends PokemonStandards {
         AikiBeansMovesStd.build(this);
         AikiBeansPokemonEvolutionsStd.build(this);
         AikiBeansPokemonStd.build(this);
-        AikiBeansSimulationStd.build(this);
+//        AikiBeansSimulationStd.build(this);
         AikiBeansSolutionStd.build(this);
         AikiBeansStatusStd.build(this);
         buildTypeDamageBoost(this);

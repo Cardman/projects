@@ -1,28 +1,20 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
-import aiki.beans.IntBeanAction;
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.*;
 
-public final class SimulationBeanValidateFoeChoice implements NatCaller, IntBeanAction {
+import code.scripts.confs.*;
+
+public final class SimulationBeanValidateFoeChoice implements IntBeanAction {
     private final SimulationBean bean;
-    public SimulationBeanValidateFoeChoice() {
-        this(null);
-    }
+
     public SimulationBeanValidateFoeChoice(SimulationBean _b) {
         bean = _b;
     }
 
     @Override
     public String actionBean() {
-        return ((NaStSt)re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
-    }
-    @Override
-    public NaSt re(NaSt _instance, NaSt[] _args){
-        ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).validateFoeChoice();
-        return new NaStSt(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML);
+        bean.validateFoeChoice();
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
     @Override

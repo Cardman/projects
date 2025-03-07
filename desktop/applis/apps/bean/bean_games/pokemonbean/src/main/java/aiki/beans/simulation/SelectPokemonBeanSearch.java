@@ -1,23 +1,17 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
-import code.bean.nat.*;
-public final class SelectPokemonBeanSearch implements NatCaller, IntBeanAction {
+
+public final class SelectPokemonBeanSearch implements IntBeanAction {
     private final SelectPokemonBean bean;
-    public SelectPokemonBeanSearch() {
-        this(null);
-    }
+
     public SelectPokemonBeanSearch(SelectPokemonBean _b) {
         bean = _b;
     }
 
     @Override
     public String actionBean() {
-        return ((NaStSt)re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
-    }
-    @Override
-    public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).search());
+        return bean.search();
     }
 
     @Override

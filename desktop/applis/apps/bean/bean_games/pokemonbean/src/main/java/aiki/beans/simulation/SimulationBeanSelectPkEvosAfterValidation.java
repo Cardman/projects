@@ -1,10 +1,7 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
-import aiki.beans.IntBeanAction;
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NaSt;
-import code.bean.nat.NaStSt;
+import aiki.beans.*;
+import code.scripts.confs.*;
 
 public final class SimulationBeanSelectPkEvosAfterValidation implements IntBeanAction {
     private final SimulationBean bean;
@@ -18,7 +15,8 @@ public final class SimulationBeanSelectPkEvosAfterValidation implements IntBeanA
     @Override
     public String actionBean() {
         bean.setSelectedPk(index);
-        return ((NaStSt)new SimulationBeanSelectPkAfterFight().re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
+        bean.selectPkAfterFight();
+        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
     @Override

@@ -1,15 +1,10 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
-import code.bean.nat.*;
-public final class SimulationLevelBeanClickTile implements NatCaller, IntBeanAction {
+public final class SimulationLevelBeanClickTile implements IntBeanAction {
 
     private final SimulationLevelBean bean;
     private final int index;
-
-    public SimulationLevelBeanClickTile() {
-        this(null,0);
-    }
 
     public SimulationLevelBeanClickTile(SimulationLevelBean _b,int _i) {
         bean = _b;
@@ -18,12 +13,7 @@ public final class SimulationLevelBeanClickTile implements NatCaller, IntBeanAct
 
     @Override
     public String actionBean() {
-        return ((NaStSt)re(new PokemonBeanStruct(getBean()),new NaSt[]{new NaNbSt(index)})).getInstance();
-    }
-
-    @Override
-    public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (SimulationLevelBean) ((PokemonBeanStruct)_instance).getInstance()).clickTile(NaPa.convertToNumber(_args[0]).intStruct()));
+        return bean.clickTile(index);
     }
 
     @Override

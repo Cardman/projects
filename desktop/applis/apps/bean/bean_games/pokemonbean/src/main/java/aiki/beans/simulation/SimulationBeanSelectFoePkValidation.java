@@ -1,7 +1,6 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
-import code.bean.nat.*;
 
 public final class SimulationBeanSelectFoePkValidation implements IntBeanAction {
     private final SimulationBean bean;
@@ -18,7 +17,7 @@ public final class SimulationBeanSelectFoePkValidation implements IntBeanAction 
     public String actionBean() {
         bean.setSelectedFoeAction(act);
         bean.setSelectedFoePk(index);
-        return ((NaStSt)new SimulationBeanSelectFoePk().re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
+        return bean.selectFoePk();
     }
 
     @Override
