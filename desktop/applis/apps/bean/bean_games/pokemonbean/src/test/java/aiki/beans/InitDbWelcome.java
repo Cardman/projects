@@ -48,37 +48,37 @@ public abstract class InitDbWelcome extends InitDbConstr {
         w_.setBuilder(builder(_dataBase));
         return pk_.bean(w_, EN);
     }
-    public static NaSt callWelcomeBeanClickAbilities(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickAbilities(),_str,_args);
-    }
+//    public static NaSt callWelcomeBeanClickAbilities(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickAbilities(),_str,_args);
+//    }
 
-    public static NaSt callWelcomeBeanClickItems(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickItems(),_str,_args);
-    }
+//    public static NaSt callWelcomeBeanClickItems(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickItems(),_str,_args);
+//    }
 
-    public static NaSt callWelcomeBeanClickPokedex(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickPokedex(),_str,_args);
-    }
+//    public static NaSt callWelcomeBeanClickPokedex(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickPokedex(),_str,_args);
+//    }
 
-    public static NaSt callWelcomeBeanClickSimulation(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str,_args);
-    }
+//    public static NaSt callWelcomeBeanClickSimulation(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str,_args);
+//    }
 
-    public static NaSt callWelcomeBeanClickStatus(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickStatus(),_str,_args);
-    }
+//    public static NaSt callWelcomeBeanClickStatus(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickStatus(),_str,_args);
+//    }
 
-    public static NaSt callWelcomeBeanSeeAllMoves(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeAllMoves(),_str,_args);
-    }
+//    public static NaSt callWelcomeBeanSeeAllMoves(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeAllMoves(),_str,_args);
+//    }
 
-    public static NaSt callWelcomeBeanSeeLearntMoves(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeLearntMoves(),_str,_args);
-    }
-
-    public static NaSt callWelcomeBeanSeeNotLearntMoves(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeNotLearntMoves(),_str,_args);
-    }
+//    public static NaSt callWelcomeBeanSeeLearntMoves(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeLearntMoves(),_str,_args);
+//    }
+//
+//    public static NaSt callWelcomeBeanSeeNotLearntMoves(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeNotLearntMoves(),_str,_args);
+//    }
 
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = dbBaseWelcome();
