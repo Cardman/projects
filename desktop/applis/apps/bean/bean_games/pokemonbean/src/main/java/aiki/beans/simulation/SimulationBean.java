@@ -132,6 +132,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     @Override
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
+        setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulation.M_P_86_TITLE_PARAM),Long.toString(getRealStepNumber())));
+        formatMessageAnc(new SimulationBeanQuit(this),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_INDEX);
         SimulationSteps simu_ = getForms().getValSimStep(CST_SIMULATION_STATE);
         if (simu_ == SimulationSteps.DIFF) {
             form.displayDiff(getBuilder().getGenInput(), this, getDifficultyCommon(), MessagesPkBean.DIFFICULTY);
@@ -397,6 +399,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         }
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanChangeFightWhileEnd(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanValidateMovesAfterFight(this));
+    }
+
+    public StringMap<String> file() {
+        return file(MessagesPkBean.SIMU).getMapping();
     }
     @Override
     public void beforeDisplaying() {

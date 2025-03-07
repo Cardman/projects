@@ -238,13 +238,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanChosenEvoGet(),_str,_args);
     }
 
-    public static NaSt callSimulationBeanClickLevel(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevel(),_str,_args);
-    }
+//    public static NaSt callSimulationBeanClickLevel(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevel(),_str,_args);
+//    }
 
-    public static NaSt callSimulationBeanClickLevelZero(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevelZero(),_str,_args);
-    }
+//    public static NaSt callSimulationBeanClickLevelZero(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevelZero(),_str,_args);
+//    }
 
     public static NaSt callSimulationBeanCommentsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCommentsGet(),_str,_args);
@@ -626,9 +626,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanPlacesGet(),_str,_args);
     }
 
-    public static NaSt callSimulationBeanQuit(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanQuit(),_str,_args);
-    }
+//    public static NaSt callSimulationBeanQuit(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanQuit(),_str,_args);
+//    }
 
 //    public static Struct callSimulationBeanRandomWildFightGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanRandomWildFightGet(),_str,_args);
@@ -1555,7 +1555,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = init(pk_, all_, mapping_);
-        return navigateData(new SimulationBeanQuit(),simu_);
+        return navigateData(new SimulationBeanQuit((SimulationBean)((PokemonBeanStruct)simu_).getBean()),simu_);
     }
     protected static NaSt validateDiff(int _nbTeam){
         PkData pk_ = pkDataByFacade(db());
@@ -3520,14 +3520,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ((SimulationBean)((PokemonBeanStruct)result_).getBean()).getDifficultyCommon().getWinTrainerExp();
     }
 
-    public static NaSt transitSimuRem(PokemonStandards _stds, NatCaller _caller, NaSt _first, long... _args) {
-        String url_ = navigateData(_caller, _first, _args);
-        assertTrue(url_.isEmpty());
-//        Struct dest_ = _all.getVal(_mapping.getVal(url_));
-        setFormsBy(_stds, _first,_first);
-        beforeDisplaying(_first);
-        return _first;
-    }
+//    public static NaSt transitSimuRem(PokemonStandards _stds, NatCaller _caller, NaSt _first, long... _args) {
+//        String url_ = navigateData(_caller, _first, _args);
+//        assertTrue(url_.isEmpty());
+////        Struct dest_ = _all.getVal(_mapping.getVal(url_));
+//        setFormsBy(_stds, _first,_first);
+//        beforeDisplaying(_first);
+//        return _first;
+//    }
     public static StringMap<NaSt> beanToSimu(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
 //        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
@@ -4289,7 +4289,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevelZero(),simu_,_place);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevel((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),_place,0),simu_);
     }
     protected static NaSt chooseTrainerLevel(int _level, int _noFight, int _tile) {
         PkData pk_ = pkDataByFacade(dbFull());
@@ -4306,7 +4306,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         NaSt simu_ = simu(pk_, all_, mapping_, 0);
-        NaSt sel_ = transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevelZero(),simu_,_place);
+        NaSt sel_ = transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevel((SimulationBean) ((PokemonBeanStruct)simu_).getBean(),_place,0),simu_);
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
         assertSame((PokemonBeanStruct) sel_,transitSimu(pk_, all_, mapping_, new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) ((PokemonBeanStruct) sel_).getBean()), sel_));
         return transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile((SimulationLevelBean) ((PokemonBeanStruct)sel_).getBean(),_tile),sel_);

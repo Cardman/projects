@@ -181,7 +181,10 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return _caller.actionBean();
 //    }
     public static String navigateData(IntBeanAction _caller, NaSt _str) {
-        return _caller.actionBean();
+        String url_ = _caller.actionBean();
+        _caller.getBean();
+//        _caller.getBean().getBuilder().build(url_,_caller.getBean().getForms());
+        return url_;
     }
     public static NaSt callEffectWhileSendingBeanEffectSet(NaSt _str, NaSt _args) {
         return BeanPokemonCommonTs.callStruct(new EffectWhileSendingBeanEffectSet(),_str,_args);

@@ -1,12 +1,20 @@
 package aiki.beans.simulation;
 
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.*;
-import code.bean.nat.*;
-import code.bean.nat.*;
-public class SimulationBeanQuit implements NatCaller{
+import aiki.beans.*;
+
+public final class SimulationBeanQuit implements IntBeanAction {
+    private final SimulationBean bean;
+    public SimulationBeanQuit(SimulationBean _b) {
+        this.bean = _b;
+    }
+
     @Override
-    public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).quit());
+    public String actionBean() {
+        return bean.quit();
+    }
+
+    @Override
+    public CommonBean getBean() {
+        return bean;
     }
 }

@@ -49,7 +49,7 @@ public final class AikiBeansSimulationStd{
     private static final String GET_TR_ABILITY = "getTrAbility";
     private static final String CANCEL_ITEM = "cancelItem";
     private static final String GET_REAL_STEP_NUMBER = "getRealStepNumber";
-    private static final String QUIT = "quit";
+//    private static final String QUIT = "quit";
     private static final String IS_DIFF_STATE = "isDiffState";
     private static final String VALIDATE_DIFF_CHOICE = "validateDiffChoice";
     private static final String IS_FOE_STATE = "isFoeState";
@@ -73,7 +73,7 @@ public final class AikiBeansSimulationStd{
     private static final String IS_MULTI_LAYER = "isMultiLayer";
     private static final String LAYERS = "layers";
     private static final String CLICK_LEVEL = "clickLevel";
-    private static final String CLICK_LEVEL_ZERO = "clickLevelZero";
+//    private static final String CLICK_LEVEL_ZERO = "clickLevelZero";
     private static final String GET_TRAINER_NAME = "getTrainerName";
     private static final String CANCEL_DIFF_CHOICE = "cancelDiffChoice";
     private static final String VALIDATE_FOE_CHOICE_FREE = "validateFoeChoiceFree";
@@ -473,7 +473,7 @@ public final class AikiBeansSimulationStd{
         fields_.add(new StandardField(ABILITY_AFTER_FIGHT,BeanNatCommonLgNames.STRING, new SimulationBeanAbilityAfterFightGet(),new SimulationBeanAbilityAfterFightSet()));
         fields_.add(new StandardField(KEPT_MOVES_AFTER_FIGHT, BeanNatCommonLgNames.TYPE_LIST, new SimulationBeanKeptMovesAfterFightGet(),null));
         methods_.add( new SpecNatMethod(GET_REAL_STEP_NUMBER, BeanNatCommonLgNames.PRIM_INTEGER, new SimulationBeanGetRealStepNumber()));
-        methods_.add( new SpecNatMethod(QUIT,BeanNatCommonLgNames.STRING, new SimulationBeanQuit()));
+//        methods_.add( new SpecNatMethod(QUIT,BeanNatCommonLgNames.STRING, new SimulationBeanQuit()));
         methods_.add( new SpecNatMethod(IS_DIFF_STATE,BeanNatCommonLgNames.PRIM_BOOLEAN, new SimulationBeanIsDiffState()));
         methods_.add( new SpecNatMethod(VALIDATE_DIFF_CHOICE, BeanNatCommonLgNames.VOID, new SimulationBeanValidateDiffChoice()));
         methods_.add( new SpecNatMethod(IS_FOE_STATE,BeanNatCommonLgNames.PRIM_BOOLEAN, new SimulationBeanIsFoeState()));
@@ -497,7 +497,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(IS_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN, new SimulationBeanIsMultiLayer()));
         methods_.add( new SpecNatMethod(LAYERS, BeanNatCommonLgNames.TYPE_LIST, new SimulationBeanLayers()));
         methods_.add( new SpecNatMethod(CLICK_LEVEL,BeanNatCommonLgNames.STRING, new SimulationBeanClickLevel()));
-        methods_.add( new SpecNatMethod(CLICK_LEVEL_ZERO,BeanNatCommonLgNames.STRING, new SimulationBeanClickLevelZero()));
+//        methods_.add( new SpecNatMethod(CLICK_LEVEL_ZERO,BeanNatCommonLgNames.STRING, new SimulationBeanClickLevelZero()));
         methods_.add( new SpecNatMethod(GET_TRAINER_NAME,BeanNatCommonLgNames.STRING, new SimulationBeanGetTrainerName()));
         methods_.add( new SpecNatMethod(CANCEL_DIFF_CHOICE, BeanNatCommonLgNames.VOID, new SimulationBeanCancelDiffChoice()));
         methods_.add( new SpecNatMethod(VALIDATE_FOE_CHOICE_FREE, BeanNatCommonLgNames.VOID, new SimulationBeanValidateFoeChoiceFree()));
