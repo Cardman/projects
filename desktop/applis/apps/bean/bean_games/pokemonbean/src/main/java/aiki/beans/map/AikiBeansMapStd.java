@@ -21,7 +21,7 @@ public final class AikiBeansMapStd{
     public static final String BEAN_SELLER="seller";
     private static final String WITHOUT_TITLE = "withoutTitle";
     private static final String IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS = "isAccessibleByBeatingSomeTrainers";
-    private static final String CLICK_TILE_ON_MAP = "clickTileOnMap";
+//    private static final String CLICK_TILE_ON_MAP = "clickTileOnMap";
     private static final String IS_STORAGE = "isStorage";
     private static final String IS_HEALER = "isHealer";
     private static final String IS_HOST = "isHost";
@@ -72,7 +72,7 @@ public final class AikiBeansMapStd{
         fields_.add(new StandardField(AREAS,BeanNatCommonLgNames.TYPE_LIST, new MapLevelBeanAreas(),null));
         methods_.add( new SpecNatMethod(WITHOUT_TITLE,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanWithoutTitle()));
         methods_.add( new SpecNatMethod(IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanIsAccessibleByBeatingSomeTrainers()));
-        methods_.add( new SpecNatMethod(CLICK_TILE_ON_MAP,BeanNatCommonLgNames.STRING, new MapLevelBeanClickTileOnMap()));
+//        methods_.add( new SpecNatMethod(CLICK_TILE_ON_MAP,BeanNatCommonLgNames.STRING, new MapLevelBeanClickTileOnMap()));
         methods_.add( new SpecNatMethod(IS_STORAGE,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanIsStorage()));
         methods_.add( new SpecNatMethod(IS_HEALER,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanIsHealer()));
         methods_.add( new SpecNatMethod(IS_HOST,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanIsHost()));

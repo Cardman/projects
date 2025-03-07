@@ -20,9 +20,9 @@ public final class AikiBeansStd{
     private static final String CLICK_SIMULATION = "clickSimulation";
     private static final String GET_MAP_WIDTH = "getMapWidth";
 //    private static final String IS_FIRST_ROW = "isFirstRow";
-    private static final String CLICK_AREA = "clickArea";
-    private static final String CLICK_AREA_ON_MAP = "clickAreaOnMap";
-    private static final String CLICK_NEIGHBOUR = "clickNeighbour";
+//    private static final String CLICK_AREA = "clickArea";
+//    private static final String CLICK_AREA_ON_MAP = "clickAreaOnMap";
+//    private static final String CLICK_NEIGHBOUR = "clickNeighbour";
     private static final String POSSIBLE_MULTI_LAYER = "possibleMultiLayer";
     private static final String PLACE_NAME = "placeName";
     private static final String LEVEL_INDEX = "levelIndex";
@@ -91,9 +91,9 @@ public final class AikiBeansStd{
         fields_.add(new StandardField(NEIGHBOURS, BeanNatCommonLgNames.TYPE_MAP, new MapLevelBeanNeighboursGet(),null));
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, new MapLevelBeanGetMapWidth()));
 //        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
-        methods_.add( new SpecNatMethod(CLICK_AREA,BeanNatCommonLgNames.STRING, new MapLevelBeanClickArea()));
-        methods_.add( new SpecNatMethod(CLICK_AREA_ON_MAP,BeanNatCommonLgNames.STRING, new MapLevelBeanClickAreaOnMap()));
-        methods_.add( new SpecNatMethod(CLICK_NEIGHBOUR,BeanNatCommonLgNames.STRING, new MapLevelBeanClickNeighbour()));
+//        methods_.add( new SpecNatMethod(CLICK_AREA,BeanNatCommonLgNames.STRING, new MapLevelBeanClickArea()));
+//        methods_.add( new SpecNatMethod(CLICK_AREA_ON_MAP,BeanNatCommonLgNames.STRING, new MapLevelBeanClickAreaOnMap()));
+//        methods_.add( new SpecNatMethod(CLICK_NEIGHBOUR,BeanNatCommonLgNames.STRING, new MapLevelBeanClickNeighbour()));
         _std.getStds().addEntry(TYPE_ABS_LEVEL_BEAN, type_);
     }
 }

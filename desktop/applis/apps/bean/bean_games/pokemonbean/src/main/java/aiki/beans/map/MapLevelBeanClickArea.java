@@ -1,14 +1,11 @@
 package aiki.beans.map;
 
 import aiki.beans.*;
-import code.bean.nat.*;
 
-public final class MapLevelBeanClickArea implements NatCaller, IntBeanAction {
+public final class MapLevelBeanClickArea implements IntBeanAction {
     private final AbsLevelBean bean;
     private final int index;
-    public MapLevelBeanClickArea() {
-        this(null,0);
-    }
+
     public MapLevelBeanClickArea(AbsLevelBean _m, int _i) {
         bean = _m;
         index = _i;
@@ -16,11 +13,7 @@ public final class MapLevelBeanClickArea implements NatCaller, IntBeanAction {
 
     @Override
     public String actionBean() {
-        return ((NaStSt)re(new PokemonBeanStruct(getBean()),new NaSt[]{new NaNbSt(index)})).getInstance();
-    }
-    @Override
-    public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (AbsLevelBean) ((PokemonBeanStruct)_instance).getInstance()).clickArea(NaPa.convertToNumber(_args[0]).intStruct()));
+        return bean.clickArea(index);
     }
 
     @Override

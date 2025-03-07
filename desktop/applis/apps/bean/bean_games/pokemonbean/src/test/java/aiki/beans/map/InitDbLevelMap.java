@@ -87,12 +87,12 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return getValPlaceLevelId(bean_);
     }
     public static String callMapLevelBeanClickTileOnMap(NaSt _str, int _tile) {
-        return navigateData(new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)_str).getBean(),_tile),_str,_tile);
+        return navigateData(new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)_str).getBean(),_tile),_str);
     }
 
-    public static NaSt callMapLevelBeanClickTileOnMapStruct(NaSt _str, int _tile) {
-        return callLongs(new MapLevelBeanClickTileOnMap(),_str,_tile);
-    }
+//    public static NaSt callMapLevelBeanClickTileOnMapStruct(NaSt _str, int _tile) {
+//        return callLongs(new MapLevelBeanClickTileOnMap(),_str,_tile);
+//    }
 //    public static String callMapLevelBeanClickForeGround(Struct _str, int _tile) {
 //        return navigateData(new MapLevelBeanClickTileOnMap(),_str,_tile);
 //    }
@@ -199,12 +199,13 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanOutsideGet(),dispMapLevelZero(_place));
     }
 
-    public static NaSt callMapLevelBeanClickArea(NaSt _str, int _index) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_index);
-    }
+//    public static NaSt callMapLevelBeanClickArea(NaSt _str, int _index) {
+//        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_index);
+//    }
 
-    public static NaSt callMapLevelBeanClickArea(int _place, int _index) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),dispMapLevelZero(_place),_index);
+    public static String callMapLevelBeanClickArea(int _place, int _index) {
+        NaSt str_ = dispMapLevelZero(_place);
+        return navigateData(new MapLevelBeanClickArea((AbsLevelBean) ((PokemonBeanStruct)str_).getBean(),_index),str_);
     }
 
     public static String callMapLevelBeanClickAreaOnMap(int _place, int _tile) {
