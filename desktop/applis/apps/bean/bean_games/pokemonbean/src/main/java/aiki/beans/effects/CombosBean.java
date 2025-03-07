@@ -38,8 +38,7 @@ public final class CombosBean extends CommonBean implements BeanRenderWithAppNam
     @Override
     public void beforeDisplaying() {
         combos = new ComboDto(getLocCombos());
-        CustList<EffectComboBean> combo_ = getForms().getCurrentComboBean();
-        combo_.clear();
+        CustList<EffectComboBean> combo_ = new CustList<EffectComboBean>();
         list = combo_;
         int len_ = combos.size();
         for (int i = 0; i < len_; i++) {
@@ -52,7 +51,6 @@ public final class CombosBean extends CommonBean implements BeanRenderWithAppNam
         _b.setCombos(combos);
         _b.setIndex(_i);
         _b.beforeDisplaying();
-        _b.getForms().setCurrentComboBean(_feed);
         _feed.add(_b);
     }
     private DictionaryComparatorCombos getLocCombos() {

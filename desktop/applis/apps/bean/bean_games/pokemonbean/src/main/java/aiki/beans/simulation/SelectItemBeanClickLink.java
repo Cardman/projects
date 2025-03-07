@@ -1,14 +1,10 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
-import code.bean.nat.*;
 
-public final class SelectItemBeanClickLink implements NatCaller, IntBeanAction {
+public final class SelectItemBeanClickLink implements IntBeanAction {
     private final SelectItemBean bean;
     private final TranslatedKey index;
-    public SelectItemBeanClickLink() {
-        this(null,null);
-    }
     public SelectItemBeanClickLink(SelectItemBean _b, TranslatedKey _i) {
         bean = _b;
         index = _i;
@@ -16,10 +12,6 @@ public final class SelectItemBeanClickLink implements NatCaller, IntBeanAction {
     @Override
     public String actionBean() {
         return bean.putName(index);
-    }
-    @Override
-    public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (SelectItemBean) ((PokemonBeanStruct)_instance).getInstance()).clickLink(NaPa.convertToNumber(_args[0]).intStruct()));
     }
 
     @Override

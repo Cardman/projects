@@ -15,7 +15,6 @@ import aiki.instances.*;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
@@ -108,7 +107,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundBeanClickAbility(NaSt _str) {
-        return navigateData(new EffectEndRoundBeanClickAbility(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
+        return navigateData(new EffectEndRoundBeanClickAbility(),_str);
     }
 
     public static String callEffectEndRoundBeanClickAbilityId(int _ev) {
@@ -122,7 +121,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundBeanClickItem(NaSt _str) {
-        return navigateData(new EffectEndRoundBeanClickItem(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
+        return navigateData(new EffectEndRoundBeanClickItem(),_str);
     }
 
     public static String callEffectEndRoundBeanClickItemId(int _ev) {
@@ -135,7 +134,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundBeanClickMove(NaSt _str) {
-        return navigateData(new EffectEndRoundBeanClickMove(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
+        return navigateData(new EffectEndRoundBeanClickMove(),_str);
     }
     public static String callEffectEndRoundBeanClickMoveId(int _ev) {
         NaSt bean_ = dispEndRound(_ev);
@@ -147,7 +146,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundBeanClickMoves(NaSt _str, int _ind) {
-        return navigateData(new EffectEndRoundBeanClickMoves(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
+        return navigateData(new EffectEndRoundBeanClickMoves(),_str,_ind);
     }
     public static String callEffectEndRoundBeanClickMovesId(int _ev, int _ind) {
         NaSt bean_ = dispEndRound(_ev);
@@ -160,7 +159,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundBeanClickStatus(NaSt _str) {
-        return navigateData(new EffectEndRoundBeanClickStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
+        return navigateData(new EffectEndRoundBeanClickStatus(),_str);
     }
 
     public static String callEffectEndRoundBeanClickStatusId(int _ev) {
@@ -180,9 +179,9 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanGetTrMoves(),dispEndRound(_ev),_ind);
     }
 
-    public static NaSt callEffectEndRoundBeanIndexGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanIndexGet(),_str,_args);
-    }
+//    public static NaSt callEffectEndRoundBeanIndexGet(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanIndexGet(),_str,_args);
+//    }
 
     public static NaSt callEffectEndRoundBeanItemGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanItemGet(),dispEndRound(_ev));
@@ -215,9 +214,9 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static NaSt callEndRoundBeanGetPage(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EndRoundBeanGetPage(),_str,_args);
     }
-    public static NaSt callEffectEndRoundBeanIndexSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new EffectEndRoundBeanIndexSet(),_str,_args);
-    }
+//    public static NaSt callEffectEndRoundBeanIndexSet(NaSt _str, int _args) {
+//        return BeanPokemonCommonTs.callInt(new EffectEndRoundBeanIndexSet(),_str,_args);
+//    }
 
     public static NaSt callEffectEndRoundFoeBeanInflictedRateHpTargetGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundFoeBeanInflictedRateHpTargetGet(),dispEndRound(_ev));
@@ -248,7 +247,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundIndividualBeanClickDamageStatus(NaSt _str, int _ind) {
-        return navigateData(new EffectEndRoundIndividualBeanClickDamageStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
+        return navigateData(new EffectEndRoundIndividualBeanClickDamageStatus(),_str,_ind);
     }
 
     public static String callEffectEndRoundIndividualBeanClickDamageStatusId(int _ev, int _ind) {
@@ -262,7 +261,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundIndividualBeanClickUserStatus(NaSt _str) {
-        return navigateData(new EffectEndRoundIndividualBeanClickUserStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
+        return navigateData(new EffectEndRoundIndividualBeanClickUserStatus(),_str);
     }
 
     public static String callEffectEndRoundIndividualBeanClickUserStatusId(int _ev) {
@@ -322,7 +321,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
 
     public static String callEffectEndRoundMultiRelationBeanClickDamageStatus(NaSt _str, int _ind) {
-        return navigateData(new EffectEndRoundMultiRelationBeanClickDamageStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
+        return navigateData(new EffectEndRoundMultiRelationBeanClickDamageStatus(),_str,_ind);
     }
 
     public static NaSt callEffectEndRoundMultiRelationBeanDamageByStatusGet(int _ev) {
@@ -393,13 +392,12 @@ public abstract class InitDbEndRound extends InitDbConstr {
     protected static NaSt dispEndRound(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToEndRound(pk_);
-        StringMap<String> mapping_ = mappingToEndRound();
         NaSt pkbean_ = transitToAllPks(all_);
         NaSt evobean_ = new PokemonBeanStruct(new EffectEndRoundBean());
         callEndRoundBeanGetPage(pkbean_, _index);
 //        NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
         setFormsBy(pk_,evobean_,pkbean_);
-        callEffectEndRoundBeanIndexSet(evobean_,_index);
+//        callEffectEndRoundBeanIndexSet(evobean_,_index);
 //        beforeDisplaying(evobean_);
         return new PokemonBeanStruct(((EndRoundBean)((PokemonBeanStruct)pkbean_).getBean()).getEffects().get(_index));
     }
@@ -463,22 +461,6 @@ public abstract class InitDbEndRound extends InitDbConstr {
         map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUS,_pk.beanEffectEndRoundSingleStatusBean(EN));
         map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUSRELATION,_pk.beanEffectEndRoundStatusRelationBean(EN));
         map_.addEntry(AikiBeansEndroundStd.BEAN_END_TEAM,_pk.beanEffectEndRoundTeamBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEndRound() {
-        StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,AikiBeansEndroundStd.BEAN_ENDROUND);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_EFF_HTML,AikiBeansEndroundStd.BEAN_END);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_FOE_HTML,AikiBeansEndroundStd.BEAN_END_FOE);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_GLOBAL_HTML,AikiBeansEndroundStd.BEAN_END_GLOBAL);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_INDIVIDUAL_HTML,AikiBeansEndroundStd.BEAN_END_INDIVIDUAL);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_MULTIRELATION_HTML,AikiBeansEndroundStd.BEAN_END_MULTIRELATION);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONRELATION_HTML,AikiBeansEndroundStd.BEAN_END_POSITIONRELATION);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONTARGET_HTML,AikiBeansEndroundStd.BEAN_END_POSITIONTARGET);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_SINGLERELATION_HTML,AikiBeansEndroundStd.BEAN_END_SINGLERELATION);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUS_HTML,AikiBeansEndroundStd.BEAN_END_STATUS);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUSRELATION_HTML,AikiBeansEndroundStd.BEAN_END_STATUSRELATION);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_TEAM_HTML,AikiBeansEndroundStd.BEAN_END_TEAM);
         return map_;
     }
     protected static FacadeGame feedDb() {

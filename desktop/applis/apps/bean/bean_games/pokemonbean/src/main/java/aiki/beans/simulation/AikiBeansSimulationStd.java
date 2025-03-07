@@ -3,8 +3,6 @@ package aiki.beans.simulation;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.beans.game.AikiBeansGameStd;
-import aiki.beans.game.DifficultyBeanComGet;
 import code.bean.nat.*;
 import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
@@ -31,7 +29,7 @@ public final class AikiBeansSimulationStd{
     private static final String ADD = "add";
     private static final String SEARCH = "search";
     private static final String GET_MINI_IMAGE = "getMiniImage";
-    private static final String CLICK_LINK = "clickLink";
+//    private static final String CLICK_LINK = "clickLink";
     private static final String TRANSLATE_NAME = "translateName";
     private static final String TRANSLATE_ITEM = "translateItem";
     private static final String CHOOSE_ITEM = "chooseItem";
@@ -286,7 +284,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(ADD,BeanNatCommonLgNames.STRING, new AddPokemonBeanAdd()));
         methods_.add( new SpecNatMethod(SEARCH, BeanNatCommonLgNames.VOID, new AddPokemonBeanSearch()));
         methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, new AddPokemonBeanGetMiniImage()));
-        methods_.add( new SpecNatMethod(CLICK_LINK, BeanNatCommonLgNames.VOID, new AddPokemonBeanClickLink()));
+//        methods_.add( new SpecNatMethod(CLICK_LINK, BeanNatCommonLgNames.VOID, new AddPokemonBeanClickLink()));
         _std.getStds().addEntry(TYPE_ADD_POKEMON_BEAN, type_);
     }
     private static void buildEditPokemonBean(PokemonStandards _std){
@@ -358,7 +356,7 @@ public final class AikiBeansSimulationStd{
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TYPED_ABILITY,BeanNatCommonLgNames.STRING, new SelectAbilityBeanTypedAbilityGet(),new SelectAbilityBeanTypedAbilitySet()));
         fields_.add(new StandardField(SORTED_ABILITIES, BeanNatCommonLgNames.TYPE_LIST, new SelectAbilityBeanSortedAbilitiesGet(),null));
-        methods_.add( new SpecNatMethod(CANCEL,BeanNatCommonLgNames.STRING, new SelectAbilityBeanCancel()));
+//        methods_.add( new SpecNatMethod(CANCEL,BeanNatCommonLgNames.STRING, new SelectAbilityBeanCancel()));
         methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new SelectAbilityBeanSearch()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, new SelectAbilityBeanClickAbility()));
         methods_.add( new SpecNatMethod(GET_TR_ABILITY,BeanNatCommonLgNames.STRING, new SelectAbilityBeanGetTrAbility()));
@@ -376,7 +374,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(CANCEL_ITEM,BeanNatCommonLgNames.STRING, new SelectItemBeanCancelItem()));
         methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new SelectItemBeanSearch()));
         methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, new SelectItemBeanGetMiniImage()));
-        methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, new SelectItemBeanClickLink()));
+//        methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, new SelectItemBeanClickLink()));
         _std.getStds().addEntry(TYPE_SELECT_ITEM_BEAN, type_);
     }
     private static void buildSelectPokemonBean(PokemonStandards _std){
@@ -391,10 +389,10 @@ public final class AikiBeansSimulationStd{
         fields_.add(new StandardField(IS_EVO,BeanNatCommonLgNames.STRING, new SelectPokemonBeanIsEvoGet(),new SelectPokemonBeanIsEvoSet()));
         fields_.add(new StandardField(IS_LEG,BeanNatCommonLgNames.STRING, new SelectPokemonBeanIsLegGet(),new SelectPokemonBeanIsLegSet()));
         fields_.add(new StandardField(POKEDEX, BeanNatCommonLgNames.TYPE_LIST, new SelectPokemonBeanPokedexGet(),null));
-        methods_.add( new SpecNatMethod(CANCEL,BeanNatCommonLgNames.STRING, new SelectPokemonBeanCancel()));
+//        methods_.add( new SpecNatMethod(CANCEL,BeanNatCommonLgNames.STRING, new SelectPokemonBeanCancel()));
         methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new SelectPokemonBeanSearch()));
         methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, new SelectPokemonBeanGetMiniImage()));
-        methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, new SelectPokemonBeanClickLink()));
+//        methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, new SelectPokemonBeanClickLink()));
         _std.getStds().addEntry(TYPE_SELECT_POKEMON_BEAN, type_);
     }
     private static void buildSimulationBean(PokemonStandards _std){
@@ -402,7 +400,7 @@ public final class AikiBeansSimulationStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.DIFF_COMMON_HTML),null));
-        fields_.add(new StandardField("c", AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN, new DifficultyBeanComGet(),null));
+//        fields_.add(new StandardField("c", AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN, new DifficultyBeanComGet(),null));
 //        fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new SimulationBeanWinPointsFightGet(),null));
 //        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanDiffWinningExpPtsFightGet(),new SimulationBeanDiffWinningExpPtsFightSet()));
 //        fields_.add(new StandardField(ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new SimulationBeanAllowCatchingKoGet(),new SimulationBeanAllowCatchingKoSet()));

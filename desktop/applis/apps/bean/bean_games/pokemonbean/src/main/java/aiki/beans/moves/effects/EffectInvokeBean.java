@@ -125,8 +125,8 @@ public class EffectInvokeBean extends EffectBean {
     public String clickGlobalMoveFctEnv(int _index) {
         return tryRedirect(globalMoves.get(_index));
     }
-    public String clickMoveNotInvok(int _eff,int _index) {
-        return tryRedirect(((EffectInvokeBean)getForms().getCurrentBean().get(_eff)).movesNotToBeInvoked.get(_index));
+    public String clickMoveNotInvok(int _index) {
+        return tryRedirect(movesNotToBeInvoked.get(_index));
     }
     public String getTrMoveNotInvok(int _index) {
         return movesNotToBeInvoked.get(_index).getTranslation();
@@ -135,8 +135,8 @@ public class EffectInvokeBean extends EffectBean {
 //        String st_ = movesNotToBeInvoked.get(_index);
 //        return translatedMoves_.getVal(st_);
     }
-    public String clickMoveUserTypes(int _eff,int _index) {
-        return tryRedirect(((EffectInvokeBean)getForms().getCurrentBean().get(_eff)).invokingMoveByUserTypes.getValue(_index));
+    public String clickMoveUserTypes(int _index) {
+        return tryRedirect(invokingMoveByUserTypes.getValue(_index));
     }
     public boolean isType(int _index) {
         String st_ = invokingMoveByUserTypes.getKey(_index).getKey();

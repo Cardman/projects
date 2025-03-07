@@ -55,8 +55,8 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
 //        translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
 //        return translatedStatus_.getVal(userStatusEndRound);
     }
-    public String clickUserStatus(int _index) {
-        return tryRedirect(((EffectEndRoundIndividualBean)getForms().getCurrentBeanEnd().get(_index)).userStatusEndRound);
+    public String clickUserStatus() {
+        return tryRedirect(userStatusEndRound);
     }
     public String getTrDamageStatus(int _index) {
         return multDamageStatus.getKey(_index).getTranslation();
@@ -65,8 +65,8 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
 //        translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
 //        return translatedStatus_.getVal(multDamageStatus.getKey(_index));
     }
-    public String clickDamageStatus(int _indexOne,int _indexTwo) {
-        return tryRedirect(((EffectEndRoundIndividualBean)getForms().getCurrentBeanEnd().get(_indexOne)).multDamageStatus.getKey(_indexTwo));
+    public String clickDamageStatus(int _indexTwo) {
+        return tryRedirect(multDamageStatus.getKey(_indexTwo));
     }
     public boolean isType(int _index) {
         return !healHpByOwnerTypes.getKey(_index).getKey().isEmpty();

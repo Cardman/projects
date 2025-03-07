@@ -116,8 +116,8 @@ public class EffectTeamBean extends EffectBean {
         return new TranslatedKeyPair(buildCa(_fac, _c.getCategory()), new TranslatedKey(Long.toString(_c.getMult()), Long.toString(_c.getMult())));
     }
 
-    public String clickStatus(int _indexEffect, int _index) {
-        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).protectAgainstStatus.get(_index));
+    public String clickStatus(int _index) {
+        return tryRedirect(protectAgainstStatus.get(_index));
     }
 
     public String getTrStatus(int _index) {
@@ -127,8 +127,8 @@ public class EffectTeamBean extends EffectBean {
 //        String st_ = protectAgainstStatus.get(_index);
 //        return translatedStatus_.getVal(st_);
     }
-    public String clickUnusableMove(int _indexEffect, int _index) {
-        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).unusableMoves.get(_index));
+    public String clickUnusableMove(int _index) {
+        return tryRedirect(unusableMoves.get(_index));
     }
     public String getTrUnusableMove(int _index) {
         return unusableMoves.get(_index).getTranslation();
@@ -137,8 +137,8 @@ public class EffectTeamBean extends EffectBean {
 //        String st_ = unusableMoves.get(_index);
 //        return translatedMoves_.getVal(st_);
     }
-    public String clickDisableFoeTeamEffects(int _indexEffect, int _index) {
-        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).disableFoeTeamEffects.get(_index));
+    public String clickDisableFoeTeamEffects(int _index) {
+        return tryRedirect(disableFoeTeamEffects.get(_index));
     }
     public String getTrDisableFoeTeamEffects(int _index) {
         return disableFoeTeamEffects.get(_index).getTranslation();
@@ -147,8 +147,8 @@ public class EffectTeamBean extends EffectBean {
 //        String st_ = disableFoeTeamEffects.get(_index);
 //        return translatedMoves_.getVal(st_);
     }
-    public String clickDisableFoeTeamStatus(int _indexEffect, int _index) {
-        return tryRedirect(((EffectTeamBean)getForms().getCurrentBean().get(_indexEffect)).disableFoeTeamStatus.get(_index));
+    public String clickDisableFoeTeamStatus(int _index) {
+        return tryRedirect(disableFoeTeamStatus.get(_index));
     }
     public String getTrDisableFoeTeamStatus(int _index) {
         return disableFoeTeamStatus.get(_index).getTranslation();

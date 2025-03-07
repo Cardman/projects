@@ -99,7 +99,7 @@ public class EffectEndRoundBean extends CommonBean {
     }
 
     private void trKey() {
-        translatedKey = getForms().getEvts().get(index);
+        translatedKey = getForms().getEvts().get(getIndex());
     }
 
     public TranslatedKey getTranslatedKey() {
@@ -119,8 +119,8 @@ public class EffectEndRoundBean extends CommonBean {
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         return element_.getEff();
     }
-    public String clickMoves(int _indexOne, int _indexTwo) {
-        return tryRedirect(getForms().getEvtsGroups().get(_indexOne).get(_indexTwo));
+    public String clickMoves(int _indexTwo) {
+        return tryRedirect(translatedKeys.get(_indexTwo));
 //        DataBase data_ = getDataBase();
 //        EndRoundMainElements element_ = data_.getEvtEndRound().get(_indexOne);
 //        StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
@@ -137,26 +137,26 @@ public class EffectEndRoundBean extends CommonBean {
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
 //        return translatedMoves_.getVal(moves_.get(_indexTwo));
     }
-    public String clickMove(int _index) {
-        return tryRedirect(getForms().getEvts().get(_index));
+    public String clickMove() {
+        return tryRedirect(translatedKey);
 //        DataBase data_ = getDataBase();
 //        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
 //        return tryRedirectMv(element_.getElement());
     }
-    public String clickAbility(int _index) {
-        return tryRedirect(getForms().getEvts().get(_index));
+    public String clickAbility() {
+        return tryRedirect(translatedKey);
 //        DataBase data_ = getDataBase();
 //        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
 //        return tryRedirectAb(element_.getElement());
     }
-    public String clickItem(int _index) {
-        return tryRedirect(getForms().getEvts().get(_index));
+    public String clickItem() {
+        return tryRedirect(translatedKey);
 //        DataBase data_ = getDataBase();
 //        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
 //        return tryRedirectIt(element_.getElement());
     }
-    public String clickStatus(int _index) {
-        return tryRedirect(getForms().getEvts().get(_index));
+    public String clickStatus() {
+        return tryRedirect(translatedKey);
 //        DataBase data_ = getDataBase();
 //        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
 //        return tryRedirectSt(element_.getElement());

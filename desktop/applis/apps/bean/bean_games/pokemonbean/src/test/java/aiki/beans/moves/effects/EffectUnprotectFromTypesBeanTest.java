@@ -42,11 +42,11 @@ public final class EffectUnprotectFromTypesBeanTest extends InitDbMoveEffectChan
     }
     @Test
     public void clickMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectUnprotectFromTypesBeanClickMove(dispMoveEffUnprotectFromTypes(),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectUnprotectFromTypesBeanClickMove(dispMoveEffUnprotectFromTypes(),0));
     }
     @Test
     public void clickMove2() {
-        assertEq(M_STA,callEffectUnprotectFromTypesBeanClickMoveId(dispMoveEffUnprotectFromTypes(),0,0));
+        assertEq(M_STA,callEffectUnprotectFromTypesBeanClickMoveId(dispMoveEffUnprotectFromTypes(),0));
     }
     @Test
     public void getTypes1() {

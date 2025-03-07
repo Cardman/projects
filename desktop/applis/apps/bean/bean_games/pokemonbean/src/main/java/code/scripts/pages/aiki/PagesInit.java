@@ -117,7 +117,7 @@ m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,PageD
 m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,PageDataSolutionSolution.build());
 m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,PageDataStatusData.build());
 m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,PageDataStatusStatus.build());
-m_.addEntry(PkScriptPages.DIFF_COMMON_HTML,PageDifficultyCommon.build());
+//m_.addEntry(PkScriptPages.DIFF_COMMON_HTML,PageDifficultyCommon.build());
 return m_;
 }
 }

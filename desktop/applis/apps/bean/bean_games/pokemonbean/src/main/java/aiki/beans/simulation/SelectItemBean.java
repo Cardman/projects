@@ -76,9 +76,9 @@ public final class SelectItemBean extends WithFilterBean {
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
 
-    public String clickLink(int _index) {
-        return putName(getItems().get(_index).getName());
-    }
+//    public String clickLink(int _index) {
+//        return putName(getItems().get(_index).getName());
+//    }
 
     public String putName(TranslatedKey _tk) {
         getForms().put(CST_ITEM_EDIT, _tk.getKey());

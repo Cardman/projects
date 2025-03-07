@@ -32,7 +32,7 @@ public final class EffectComboBean extends CommonBean {
     public void beforeDisplaying() {
         DataBase data_ = getDataBase();
         moves = combos.getKey(index);
-        EffectCombo e_ = combos.getValue(index);
+        EffectCombo e_ = combos.getValue(getIndex());
         if (!e_.getEffectEndRound().isEmpty()) {
             endRound = true;
             EffectEndRound effect_ = e_.getEffectEndRound().first();
@@ -89,8 +89,8 @@ public final class EffectComboBean extends CommonBean {
 //        Statistic stat_ = multStatisticFoe.getKey(_index);
 //        return translatedStatistics_.getVal(stat_);
     }
-    public String clickMove(int _indexOne, int _indexTwo) {
-        return tryRedirect(getForms().getCurrentComboBean().get(_indexOne).moves.get(_indexTwo));
+    public String clickMove(int _indexTwo) {
+        return tryRedirect(moves.get(_indexTwo));
     }
 
     public CustList<TranslatedKey> getMoves() {

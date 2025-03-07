@@ -192,8 +192,8 @@ public class EffectGlobalBean extends EffectBean {
         return invokingMoves_;
     }
 
-    public String clickPreventedStatus(int _eff, int _index) {
-        return tryRedirect(((EffectGlobalBean)getForms().getCurrentBean().get(_eff)).preventStatus.get(_index));
+    public String clickPreventedStatus(int _index) {
+        return tryRedirect(preventStatus.get(_index));
     }
     public String getTrPreventedStatus(int _index) {
         return preventStatus.get(_index).getTranslation();
@@ -202,8 +202,8 @@ public class EffectGlobalBean extends EffectBean {
 //        String st_ = preventStatus.get(_index);
 //        return translatedStatus_.getVal(st_);
     }
-    public String clickCancelledAbility(int _eff, int _index) {
-        return tryRedirect(((EffectGlobalBean)getForms().getCurrentBean().get(_eff)).cancelProtectingAbilities.get(_index));
+    public String clickCancelledAbility(int _index) {
+        return tryRedirect(cancelProtectingAbilities.get(_index));
     }
     public String getTrCancelledAbility(int _index) {
         return cancelProtectingAbilities.get(_index).getTranslation();
@@ -212,8 +212,8 @@ public class EffectGlobalBean extends EffectBean {
 //        String st_ = cancelProtectingAbilities.get(_index);
 //        return translatedAbilities_.getVal(st_);
     }
-    public String clickUnusableMove(int _eff, int _index) {
-        return tryRedirect(((EffectGlobalBean)getForms().getCurrentBean().get(_eff)).unusableMoves.get(_index));
+    public String clickUnusableMove(int _index) {
+        return tryRedirect(unusableMoves.get(_index));
     }
     public String getTrUnusableMoves(int _index) {
         return unusableMoves.get(_index).getTranslation();
@@ -222,8 +222,8 @@ public class EffectGlobalBean extends EffectBean {
 //        String st_ = unusableMoves.get(_index);
 //        return translatedMoves_.getVal(st_);
     }
-    public String clickCancelledEffect(int _eff, int _index) {
-        return tryRedirect(((EffectGlobalBean)getForms().getCurrentBean().get(_eff)).cancelEffects.get(_index));
+    public String clickCancelledEffect(int _index) {
+        return tryRedirect(cancelEffects.get(_index));
     }
     public String getTrCancelledEffect(int _index) {
         return cancelEffects.get(_index).getTranslation();
@@ -232,8 +232,8 @@ public class EffectGlobalBean extends EffectBean {
 //        String st_ = cancelEffects.get(_index);
 //        return translatedMoves_.getVal(st_);
     }
-    public String clickMultMovePower(int _eff, int _index) {
-        return tryRedirect(((EffectGlobalBean)getForms().getCurrentBean().get(_eff)).multPowerMoves.getKey(_index));
+    public String clickMultMovePower(int _index) {
+        return tryRedirect(multPowerMoves.getKey(_index));
     }
     public String getTrMultMovePower(int _index) {
         return multPowerMoves.getKey(_index).getTranslation();
@@ -242,8 +242,8 @@ public class EffectGlobalBean extends EffectBean {
 //        String st_ = multPowerMoves.getKey(_index);
 //        return translatedMoves_.getVal(st_);
     }
-    public String clickInvokedMove(int _eff) {
-        return tryRedirect(((EffectGlobalBean)getForms().getCurrentBean().get(_eff)).invokedMoveTerrain);
+    public String clickInvokedMove() {
+        return tryRedirect(invokedMoveTerrain);
     }
     public String getTrInvokedMoveTerrain() {
         return invokedMoveTerrain.getTranslation();
@@ -271,8 +271,8 @@ public class EffectGlobalBean extends EffectBean {
 //        String st_ = invokingMovesChangingTypes.get(_index);
 //        return translatedMoves_.getVal(st_);
     }
-    public String clickMovesTarget(int _eff, int _index) {
-        return tryRedirect(((EffectGlobalBean)getForms().getCurrentBean().get(_eff)).movesUsedByTargetedFighters.get(_index));
+    public String clickMovesTarget(int _index) {
+        return tryRedirect(movesUsedByTargetedFighters.get(_index));
     }
     public String getTrMovesTarget(int _index) {
         return movesUsedByTargetedFighters.get(_index).getTranslation();

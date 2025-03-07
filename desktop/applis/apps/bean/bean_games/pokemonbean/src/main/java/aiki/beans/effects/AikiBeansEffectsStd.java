@@ -28,7 +28,7 @@ public final class AikiBeansEffectsStd{
     private static final String GET_SWAP_FAIL = "getSwapFail";
     private static final String EFFECT = "effect";
     private static final String MOVES = "moves";
-    private static final String INDEX = "index";
+//    private static final String INDEX = "index";
     private static final String END_ROUND = "endRound";
     private static final String END_ROUND_RANK = "endRoundRank";
     private static final String REASONS_END_ROUND = "reasonsEndRound";
@@ -77,7 +77,7 @@ public final class AikiBeansEffectsStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(MOVES, BeanNatCommonLgNames.TYPE_LIST, new EffectComboBeanMovesGet(),null));
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new EffectComboBeanIndexGet(),new EffectComboBeanIndexSet()));
+//        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new EffectComboBeanIndexGet(),new EffectComboBeanIndexSet()));
         fields_.add(new StandardField(END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN, new EffectComboBeanEndRoundGet(),null));
         fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER, new EffectComboBeanEndRoundRankGet(),null));
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatCommonLgNames.TYPE_LIST, new EffectComboBeanReasonsEndRoundGet(),null));

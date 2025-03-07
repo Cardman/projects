@@ -188,9 +188,8 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
             effects_.add(i);
         }
         effects = effects_;
-        CustList<EffectBean> curr_ = getForms().getCurrentBean();
+        CustList<EffectBean> curr_ = new CustList<EffectBean>();
         beans = curr_;
-        curr_.clear();
         CustList<Effect> effs_ = moveData_.getEffects();
         int len_ = effs_.size();
         for (int i = 0; i < len_; i++) {
@@ -241,8 +240,6 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
         }
         movesMtLearntByPokemon_.sortElts(new ComparingTranslatedKey());
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
-        getForms().getCurrent().clear();
-        getForms().getCurrent().addAllElts(moveData_.getEffects());
     }
 
     static Ints getValidEffects(MoveData _move, Ints _ls) {
@@ -1233,7 +1230,6 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
         _b.setMove(name);
         _b.setIndex(_i);
         _b.beforeDisplaying();
-        _b.getForms().setCurrentBean(_feed);
         _feed.add(_b);
     }
 

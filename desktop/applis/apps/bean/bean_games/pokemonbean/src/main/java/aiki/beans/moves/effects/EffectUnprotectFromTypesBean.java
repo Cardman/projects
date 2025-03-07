@@ -91,8 +91,8 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
 //        return translatedTypes_.getVal(type_);
 
     }
-    public String clickMove(int _indexEffect, int _index) {
-        return tryRedirect(((EffectUnprotectFromTypesBean)getForms().getCurrentBean().get(_indexEffect)).disableImmuFromMoves.get(_index));
+    public String clickMove(int _index) {
+        return tryRedirect(disableImmuFromMoves.get(_index));
     }
     public String getTrDisableImmuMove(int _index) {
         return disableImmuFromMoves.get(_index).getTranslation();

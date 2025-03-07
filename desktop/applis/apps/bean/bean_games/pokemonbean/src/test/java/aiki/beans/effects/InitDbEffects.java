@@ -68,15 +68,15 @@ public abstract class InitDbEffects extends InitDbConstr {
 //        beforeDisplaying(combos_);
         callCombosBeanComboGet(combos_);
         fwdComboDto(combo_,combos_);
-        callEffectComboBeanIndexSet(combo_,_ind);
+//        callEffectComboBeanIndexSet(combo_,_ind);
         setFormsBy(pk_,combo_,combos_);
 //        beforeDisplaying(combo_);
         return new PokemonBeanStruct(((CombosBean) ((PokemonBeanStruct)combos_).getBean()).getList().get(_ind));
     }
 
-    public static NaSt callEffectComboBeanIndexSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new EffectComboBeanIndexSet(),_str,_args);
-    }
+//    public static NaSt callEffectComboBeanIndexSet(NaSt _str, int _args) {
+//        return BeanPokemonCommonTs.callInt(new EffectComboBeanIndexSet(),_str,_args);
+//    }
 
     public static StringMap<NaSt> beanToCombosSet(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();

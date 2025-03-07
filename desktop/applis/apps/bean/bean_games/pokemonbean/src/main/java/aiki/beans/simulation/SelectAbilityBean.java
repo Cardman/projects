@@ -33,9 +33,7 @@ public final class SelectAbilityBean extends AbilitySearchBean {
     public StringMap<String> file() {
         return file(MessagesPkBean.SIMU_LEVEL).getMapping();
     }
-    public static String cancel() {
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
-    }
+
     public String search() {
         return searchAbility(CST_POKEMON_ABILITY_EDIT, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML);
     }

@@ -128,8 +128,8 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
 //        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
 //        return translatedTypes_.getVal(type_);
     }
-    public String clickStatus(int _indexEffect, int _index) {
-        return tryRedirect(((EffectTeamWhileSendFoeBean)getForms().getCurrentBean().get(_indexEffect)).statusByNbUses.getValue(_index));
+    public String clickStatus(int _index) {
+        return tryRedirect(statusByNbUses.getValue(_index));
     }
     public String getTranslatedStatus(int _index) {
         return statusByNbUses.getValue(_index).getTranslation();

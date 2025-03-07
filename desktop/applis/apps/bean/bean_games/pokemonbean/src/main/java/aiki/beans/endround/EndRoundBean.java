@@ -52,7 +52,6 @@ public final class EndRoundBean extends CommonBean implements BeanRenderWithAppN
         getForms().getEvts().clear();
         CustList<EffectEndRoundBean> res_ = new CustList<EffectEndRoundBean>();
         effects = res_;
-        getForms().setCurrentBeanEnd(res_);
         for (EndRoundMainElements e: evts) {
             getForms().getEvtsGroups().add(new CustList<TranslatedKey>());
             feedEvts(getFacade(), e);
@@ -117,7 +116,6 @@ public final class EndRoundBean extends CommonBean implements BeanRenderWithAppN
         _b.setDataBase(db());
         _b.setForms(new StringMapObject());
         _b.getForms().putAllMap(getForms());
-        _b.getForms().setCurrentBeanEnd(_feed);
         _b.setLanguage(getLanguage());
         _b.setBuilder(getBuilder());
         _b.setIndex(_i);

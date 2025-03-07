@@ -32,8 +32,8 @@ public class EvolutionBean extends CommonBean {
         return name;
     }
 
-    public String clickEvo(int _index) {
-        return tryRedirect(getForms().getCurrentBeanEvo().get(_index).name);
+    public String clickEvo() {
+        return tryRedirect(name);
     }
 
     public String getBase() {

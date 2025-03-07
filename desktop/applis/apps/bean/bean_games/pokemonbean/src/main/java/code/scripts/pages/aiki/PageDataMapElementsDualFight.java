@@ -21,14 +21,14 @@ private static final String C_P_135_14="msg_levelmap,level";
 private static final String C_P_135_15="image";
 private static final String C_P_135_16="imageMini";
 private static final String C_P_135_17="imageMiniSecond";
-private static final String C_P_135_18="pageAlly";
-private static final String C_P_135_19="aiki.beans.map.characters";
-private static final String C_P_135_20="AllyBean";
-private static final String C_P_135_21="$intern.ally=ally";
-private static final String C_P_135_22="pageTeam";
-private static final String C_P_135_23="aiki.beans.map.pokemon";
-private static final String C_P_135_24="PokemonTeamBean";
-private static final String C_P_135_25="$intern.trainer=trainer";
+//private static final String C_P_135_18="pageAlly";
+//private static final String C_P_135_19="aiki.beans.map.characters";
+//private static final String C_P_135_20="AllyBean";
+//private static final String C_P_135_21="$intern.ally=ally";
+//private static final String C_P_135_22="pageTeam";
+//private static final String C_P_135_23="aiki.beans.map.pokemon";
+//private static final String C_P_135_24="PokemonTeamBean";
+//private static final String C_P_135_25="$intern.trainer=trainer";
 private PageDataMapElementsDualFight(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -70,11 +70,11 @@ build8(elt5_,_doc40);
 br(elt5_,_doc40);
 build10(elt5_,_doc40);
 br(elt5_,_doc40);
-build12(elt5_,_doc40);
+//build12(elt5_,_doc40);
 br(elt5_,_doc40);
 build14(elt5_,_doc40);
 br(elt5_,_doc40);
-build16(elt5_,_doc40);
+//build16(elt5_,_doc40);
 ad(elt0_,elt5_);
 _doc40.appendChild(elt0_);
 }
@@ -146,52 +146,52 @@ attrs0_.add(at(SRC,C_P_135_17));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
-static void build12(Element _body,Document _doc40){
-Element elt0_=el(_doc40,C_IMPORT);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(PAGE,C_P_135_18));
-at(elt0_,attrs0_);
-Element elt1_=el(_doc40,C_PACKAGE);
-CustList<Attr> attrs1_=al(1);
-attrs1_.add(at(NAME,C_P_135_19));
-at(elt1_,attrs1_);
-Element elt2_=el(_doc40,C_CLASS);
-CustList<Attr> attrs2_=al(1);
-attrs2_.add(at(NAME,C_P_135_20));
-at(elt2_,attrs2_);
-Element elt3_=el(_doc40,C_FIELD);
-CustList<Attr> attrs3_=al(1);
-attrs3_.add(at(PREPARE,C_P_135_21));
-at(elt3_,attrs3_);
-ad(elt2_,elt3_);
-ad(elt1_,elt2_);
-ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
+//static void build12(Element _body,Document _doc40){
+//Element elt0_=el(_doc40,C_IMPORT);
+//CustList<Attr> attrs0_=al(1);
+//attrs0_.add(at(PAGE,C_P_135_18));
+//at(elt0_,attrs0_);
+//Element elt1_=el(_doc40,C_PACKAGE);
+//CustList<Attr> attrs1_=al(1);
+//attrs1_.add(at(NAME,C_P_135_19));
+//at(elt1_,attrs1_);
+//Element elt2_=el(_doc40,C_CLASS);
+//CustList<Attr> attrs2_=al(1);
+//attrs2_.add(at(NAME,C_P_135_20));
+//at(elt2_,attrs2_);
+//Element elt3_=el(_doc40,C_FIELD);
+//CustList<Attr> attrs3_=al(1);
+//attrs3_.add(at(PREPARE,C_P_135_21));
+//at(elt3_,attrs3_);
+//ad(elt2_,elt3_);
+//ad(elt1_,elt2_);
+//ad(elt0_,elt1_);
+//ad(_body,elt0_);
+//}
 static void build14(Element _body,Document _doc40){
 Element elt0_=el(_doc40,HR);
 ad(_body,elt0_);
 }
-static void build16(Element _body,Document _doc40){
-Element elt0_=el(_doc40,C_IMPORT);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(PAGE,C_P_135_22));
-at(elt0_,attrs0_);
-Element elt1_=el(_doc40,C_PACKAGE);
-CustList<Attr> attrs1_=al(1);
-attrs1_.add(at(NAME,C_P_135_23));
-at(elt1_,attrs1_);
-Element elt2_=el(_doc40,C_CLASS);
-CustList<Attr> attrs2_=al(1);
-attrs2_.add(at(NAME,C_P_135_24));
-at(elt2_,attrs2_);
-Element elt3_=el(_doc40,C_FIELD);
-CustList<Attr> attrs3_=al(1);
-attrs3_.add(at(PREPARE,C_P_135_25));
-at(elt3_,attrs3_);
-ad(elt2_,elt3_);
-ad(elt1_,elt2_);
-ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
+//static void build16(Element _body,Document _doc40){
+//Element elt0_=el(_doc40,C_IMPORT);
+//CustList<Attr> attrs0_=al(1);
+//attrs0_.add(at(PAGE,C_P_135_22));
+//at(elt0_,attrs0_);
+//Element elt1_=el(_doc40,C_PACKAGE);
+//CustList<Attr> attrs1_=al(1);
+//attrs1_.add(at(NAME,C_P_135_23));
+//at(elt1_,attrs1_);
+//Element elt2_=el(_doc40,C_CLASS);
+//CustList<Attr> attrs2_=al(1);
+//attrs2_.add(at(NAME,C_P_135_24));
+//at(elt2_,attrs2_);
+//Element elt3_=el(_doc40,C_FIELD);
+//CustList<Attr> attrs3_=al(1);
+//attrs3_.add(at(PREPARE,C_P_135_25));
+//at(elt3_,attrs3_);
+//ad(elt2_,elt3_);
+//ad(elt1_,elt2_);
+//ad(elt0_,elt1_);
+//ad(_body,elt0_);
+//}
 }

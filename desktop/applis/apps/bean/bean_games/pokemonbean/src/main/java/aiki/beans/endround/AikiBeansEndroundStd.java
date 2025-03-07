@@ -49,7 +49,7 @@ public final class AikiBeansEndroundStd{
     private static final String CLICK_TARGET_RELATION_MOVE = "clickTargetRelationMove";
     private static final String GET_TR_TARGET_RELATION_MOVE = "getTrTargetRelationMove";
     private static final String MOVE = "move";
-    private static final String INDEX = "index";
+//    private static final String INDEX = "index";
     private static final String ABILITY = "ability";
     private static final String ITEM = "item";
     private static final String STATUS = "status";
@@ -96,7 +96,7 @@ public final class AikiBeansEndroundStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING, new EffectEndRoundBeanMoveGet(),null));
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new EffectEndRoundBeanIndexGet(),new EffectEndRoundBeanIndexSet()));
+//        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new EffectEndRoundBeanIndexGet(),new EffectEndRoundBeanIndexSet()));
         fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING, new EffectEndRoundBeanAbilityGet(),null));
         fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING, new EffectEndRoundBeanItemGet(),null));
         fields_.add(new StandardField(STATUS,BeanNatCommonLgNames.STRING, new EffectEndRoundBeanStatusGet(),null));

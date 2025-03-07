@@ -34,16 +34,14 @@ public final class SelectPokemonBean extends WithFilterBean {
         bools();
         setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET));
     }
-    public static String cancel() {
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
-    }
+
     public String search() {
         return search(CST_POKEMON_NAME_EDIT, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML);
     }
 
-    public String clickLink(int _number) {
-        return putName(getPokedex().get(_number).getName());
-    }
+//    public String clickLink(int _number) {
+//        return putName(getPokedex().get(_number).getName());
+//    }
 
     public String putName(String _name) {
         getForms().put(CST_POKEMON_NAME_EDIT, _name);

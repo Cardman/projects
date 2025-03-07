@@ -25,11 +25,11 @@ public abstract class EquallablePkBeanUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(NaSt _expected, NaSt _result) {
+    public static void assertSame(NaBoSt _expected, NaSt _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertSame(PokemonBeanStruct _expected, PokemonBeanStruct _result) {
-        Assert.assertSame(_expected.getBean(), _result.getBean());
+    public static void assertSame(NaSt _expected, NaSt _result) {
+        Assert.assertSame(((PokemonBeanStruct)_expected).getBean(), ((PokemonBeanStruct)_result).getBean());
     }
     public static void assertSame(CommonBean _expected, CommonBean _result) {
         Assert.assertSame(_expected, _result);

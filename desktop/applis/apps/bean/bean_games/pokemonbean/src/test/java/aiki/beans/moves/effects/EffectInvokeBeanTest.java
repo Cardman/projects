@@ -91,19 +91,19 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void clickMoveUserTypes1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),0));
     }
     @Test
     public void clickMoveUserTypes2() {
-        assertEq(M_WEA,callEffectInvokeBeanClickMoveUserTypesId(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
+        assertEq(M_WEA,callEffectInvokeBeanClickMoveUserTypesId(dispMoveEffInvoke(true,true,true,true,true,true),0));
     }
     @Test
     public void clickMoveUserTypes3() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),0,1));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveUserTypes(dispMoveEffInvoke(true,true,true,true,true,true),1));
     }
     @Test
     public void clickMoveUserTypes4() {
-        assertEq(M_STA,callEffectInvokeBeanClickMoveUserTypesId(dispMoveEffInvoke(true,true,true,true,true,true),0,1));
+        assertEq(M_STA,callEffectInvokeBeanClickMoveUserTypesId(dispMoveEffInvoke(true,true,true,true,true,true),1));
     }
     @Test
     public void getGlobalMoves1() {
@@ -139,11 +139,11 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void clickMoveNotInvok1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveNotInvok(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectInvokeBeanClickMoveNotInvok(dispMoveEffInvoke(true,true,true,true,true,true),0));
     }
     @Test
     public void clickMoveNotInvok2() {
-        assertEq(M_STA,callEffectInvokeBeanClickMoveNotInvokId(dispMoveEffInvoke(true,true,true,true,true,true),0,0));
+        assertEq(M_STA,callEffectInvokeBeanClickMoveNotInvokId(dispMoveEffInvoke(true,true,true,true,true,true),0));
     }
     @Test
     public void getInvokingMoveByUserTypes1() {

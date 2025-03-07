@@ -18,6 +18,7 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
+import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.bean.nat.fwd.opers.*;
 import code.maths.*;
 import code.scripts.confs.PkScriptPages;
@@ -210,6 +211,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         exps_.add(new NatSettableFieldOperation(true,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
         PokemonStandards.redir(NaNu.NULL_VALUE,new StringList(""), exps_,new StringList(""),r_);
         PokemonStandards.getStructToBeValidated(new StringList(""),PokemonStandards.TYPE_RATE);
+        new AdvNatBlockBuilder().fwd();
         LongMap<LongTreeMap<NatNodeContainer>> form_ = new LongMap<LongTreeMap<NatNodeContainer>>();
         LongTreeMap<NatNodeContainer> c_ = new LongTreeMap<NatNodeContainer>();
         NatNodeContainer v_ = new NatNodeContainer();

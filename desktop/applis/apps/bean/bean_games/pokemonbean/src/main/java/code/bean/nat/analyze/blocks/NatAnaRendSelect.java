@@ -1,7 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
 import code.sml.NatAnalyzingDoc;
-import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.sml.Element;
@@ -9,7 +8,7 @@ import code.sml.Element;
 public final class NatAnaRendSelect extends NatAnaRendParentBlock implements NatRendBuildEl {
     private NatOperationNode rootRead;
     private NatOperationNode rootValue;
-    private NatOperationNode rootMap;
+//    private NatOperationNode rootMap;
     private final Element elt;
     private String classNameNat = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
@@ -25,8 +24,8 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
         rootValue = r_.getOpsValueRoot();
         resultInput = r_;
         classNameNat = r_.getClassNameNat();
-        String map_ = elt.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrMap());
-        rootMap = NatRenderAnalysis.getRootAnalyzedOperations(map_, 0, _anaDoc, _page);
+//        String map_ = elt.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrMap());
+//        rootMap = NatRenderAnalysis.getRootAnalyzedOperations(map_, 0, _anaDoc, _page);
     }
 
     public NatOperationNode getRootValue() {
@@ -43,10 +42,6 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
 
     public Element getElt() {
         return elt;
-    }
-
-    public NatOperationNode getRootMap() {
-        return rootMap;
     }
 
     public NatResultInput getResultInput() {

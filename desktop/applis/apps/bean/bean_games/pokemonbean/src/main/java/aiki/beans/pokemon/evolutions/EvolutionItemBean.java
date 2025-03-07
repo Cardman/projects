@@ -12,8 +12,8 @@ public class EvolutionItemBean extends EvolutionBean {
         EvolutionItem evo_ = (EvolutionItem) getEvo();
         item = buildIt(getFacade(), evo_.getItem());
     }
-    public String clickItem(int _index) {
-        return tryRedirect(((EvolutionItemBean)getForms().getCurrentBeanEvo().get(_index)).item);
+    public String clickItem() {
+        return tryRedirect(item);
     }
 
     public TranslatedKey getItem() {

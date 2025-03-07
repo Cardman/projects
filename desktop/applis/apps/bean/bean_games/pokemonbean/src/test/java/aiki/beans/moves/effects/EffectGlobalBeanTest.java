@@ -280,11 +280,11 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickMovesTarget1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMovesTarget(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMovesTarget(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickMovesTarget2() {
-        assertEq(M_STA,callEffectGlobalBeanClickMovesTargetId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(M_STA,callEffectGlobalBeanClickMovesTargetId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void getTrUnusableMoves() {
@@ -292,11 +292,11 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickUnusableMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickUnusableMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickUnusableMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickUnusableMove2() {
-        assertEq(M_STA,callEffectGlobalBeanClicUnusableMoveId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(M_STA,callEffectGlobalBeanClicUnusableMoveId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void getTrCancelledEffect() {
@@ -304,11 +304,11 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickCancelledEffect1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickCancelledEffect(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickCancelledEffect(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickCancelledEffect2() {
-        assertEq(M_STA,callEffectGlobalBeanClickCancelledEffectId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(M_STA,callEffectGlobalBeanClickCancelledEffectId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void getTrMultMovePower() {
@@ -316,11 +316,11 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickMultMovePower1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMultMovePower(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMultMovePower(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickMultMovePower2() {
-        assertEq(M_STA,callEffectGlobalBeanClickMultMovePowerId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(M_STA,callEffectGlobalBeanClickMultMovePowerId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void getTrCancelledAbility() {
@@ -328,11 +328,11 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickCancelledAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callEffectGlobalBeanClickCancelledAbility(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callEffectGlobalBeanClickCancelledAbility(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickCancelledAbility2() {
-        assertEq(A_ABILITY,callEffectGlobalBeanClickCancelledAbilityId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(A_ABILITY,callEffectGlobalBeanClickCancelledAbilityId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void getTrPreventedStatus() {
@@ -340,10 +340,10 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickPreventedStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectGlobalBeanClickPreventedStatus(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectGlobalBeanClickPreventedStatus(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickPreventedStatus2() {
-        assertEq(S_STA_SIM,callEffectGlobalBeanClickPreventedStatusId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0,0));
+        assertEq(S_STA_SIM,callEffectGlobalBeanClickPreventedStatusId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
 }

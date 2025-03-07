@@ -223,8 +223,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         abilities = listTrStringsAb(pk_.getAbilities(),getFacade());
         catchingRate = pk_.getCatchingRate();
         evolutions = listTrStringsPk(pk_.getEvolutions().getKeys(),getFacade());
-        CustList<EvolutionBean> evoBean_ = getForms().getCurrentBeanEvo();
-        evoBean_.clear();
+        CustList<EvolutionBean> evoBean_ = new CustList<EvolutionBean>();
         beans = evoBean_;
         int len_ = evolutions.size();
         for (int i = 0; i < len_; i++) {
@@ -293,7 +292,6 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         _b.setBase(name);
         _b.setName(_n);
         _b.beforeDisplaying();
-        _b.getForms().setCurrentBeanEvo(_feed);
         _feed.add(_b);
     }
     private void initEggGroup(PokemonData _pk) {

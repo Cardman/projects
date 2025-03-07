@@ -120,9 +120,9 @@ public final class AddPokemonBean extends WithFilterBean {
 //            getForms().put(CST_PK_NAME,pokedex_.first());
 //        }
     }
-    public String clickLink(int _number) {
-        return putName(getPokedex().get(_number).getName());
-    }
+//    public String clickLink(int _number) {
+//        return putName(getPokedex().get(_number).getName());
+//    }
 
     public String putName(String _name) {
         getForms().put(CST_PK_NAME, _name);

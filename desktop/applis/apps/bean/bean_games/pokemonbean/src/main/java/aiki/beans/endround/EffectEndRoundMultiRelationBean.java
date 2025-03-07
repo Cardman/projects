@@ -32,8 +32,8 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
 //        translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
 //        return translatedStatus_.getVal(damageByStatus.getKey(_index));
     }
-    public String clickDamageStatus(int _indexOne,int _indexTwo) {
-        return tryRedirect(((EffectEndRoundMultiRelationBean)getForms().getCurrentBeanEnd().get(_indexOne)).damageByStatus.getKey(_indexTwo));
+    public String clickDamageStatus(int _indexTwo) {
+        return tryRedirect(damageByStatus.getKey(_indexTwo));
     }
 
     public DictionaryComparator<TranslatedKey,Rate> getDamageByStatus() {

@@ -151,7 +151,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     }
     public void processRendFormRequest(NatNavigation _nav) {
         NatRendStackCallAdv st_ = new NatRendStackCallAdv();
-        st_.setCurrent(this);
+//        st_.setCurrent(this);
         st_.clearPages();
         st_.setDocument(_nav.getDocument());
         NatImportingPageAbs ip_ = new NatImportingPageForm();
@@ -208,9 +208,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(lg_);
         for (EntryCust<Long, NatNodeContainer> e: containers_.entryList()) {
             NatNodeContainer nCont_ = e.getValue();
-            if (!nCont_.getNodeInformation().isEnabled()) {
-                continue;
-            }
+//            if (!nCont_.getNodeInformation().isEnabled()) {
+//                continue;
+//            }
             NaSt res_ = convert(nCont_);
             setRendObject(e.getValue(), res_);
         }
@@ -224,21 +224,21 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     }
 
     public static NaSt getStructToBeValidated(StringList _values, String _className) {
-        String value_ = NavigationCore.oneElt(_values);
+//        String value_ = NavigationCore.oneElt(_values);
         if (StringUtil.quickEq(_className,TYPE_RATE)) {
-            return new RtSt(RtSt.convertToRate(str(value_)));
+            return new RtSt(RtSt.convertToRate(NaNu.NULL_VALUE));
         }
-        if (StringUtil.quickEq(_className, STRING)) {
-            return new NaStSt(value_);
-        }
+//        if (StringUtil.quickEq(_className, STRING)) {
+//            return new NaStSt(value_);
+//        }
         return getStructToBeValidatedPrim(_values, _className);
     }
-    private static NaSt str(String _value) {
-        if (!Rate.isValid(_value)) {
-            return NaNu.NULL_VALUE;
-        }
-        return new RtSt(new Rate(_value));
-    }
+//    private static NaSt str(String _value) {
+//        if (!Rate.isValid(_value)) {
+//            return NaNu.NULL_VALUE;
+//        }
+//        return new RtSt(new Rate(_value));
+//    }
     public NatDocumentBlock getRender(String _one) {
         return getRenders().getVal(StringUtil.getFirstToken(_one, REF_TAG));
     }
@@ -335,7 +335,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     public void processRendAnchorRequest(NatNavigation _nav) {
         NatRendStackCall rendStackCall_ = new NatRendStackCallAdv();
-        rendStackCall_.setCurrent(this);
+//        rendStackCall_.setCurrent(this);
         processRendAnchorRequest(_nav, rendStackCall_);
     }
     public void processRendAnchorRequest(NatNavigation _nav, NatRendStackCall _rendStack) {
@@ -383,17 +383,17 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         ((WithForms) ((PokemonBeanStruct) _bean).getBean()).setForms(_forms);
     }
 
-    @Override
-    public BeanNatCommonLgNames setBeanForms(NaSt _mainBean, NaSt _called) {
-        fwd((PokemonBeanStruct) _mainBean, (PokemonBeanStruct) _called);
-        return this;
-    }
+//    @Override
+//    public BeanNatCommonLgNames setBeanForms(NaSt _mainBean, NaSt _called) {
+//        fwd((PokemonBeanStruct) _mainBean, (PokemonBeanStruct) _called);
+//        return this;
+//    }
 
-    public static void fwd(PokemonBeanStruct _mainBean, PokemonBeanStruct _called) {
-        StringMapObject forms_ = ((WithForms) _called.getBean()).getForms();
-        StringMapObject formsMap_ = ((WithForms) _mainBean.getBean()).getForms();
-        forms_.putAllMap(formsMap_);
-    }
+//    public static void fwd(PokemonBeanStruct _mainBean, PokemonBeanStruct _called) {
+//        StringMapObject forms_ = ((WithForms) _called.getBean()).getForms();
+//        StringMapObject formsMap_ = ((WithForms) _mainBean.getBean()).getForms();
+//        forms_.putAllMap(formsMap_);
+//    }
 
     public void execute(boolean _form, NatNavigation _navigation) {
         if (_form) {

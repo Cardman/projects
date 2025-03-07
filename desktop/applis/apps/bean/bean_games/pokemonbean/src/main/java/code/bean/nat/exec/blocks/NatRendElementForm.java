@@ -103,17 +103,20 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
 //        }
         if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordsTags().getKeyWordInput())) {
             NaSt o_ = BeanNatCommonLgNames.getAllArgs(_ops, _rendStackCall).lastValue().getArgument();
-            if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrType()),_cont.getRendKeyWords().getKeyWordsValues().getValueCheckbox())) {
-                if (NaBoSt.isTrue(o_)) {
-                    _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked(), _cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
-                } else {
-                    _write.removeAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
-                }
-            } else {
-                o_ = nullValueToEmpty(o_);
-                String value_ = BeanNatCommonLgNames.processString(o_);
-                _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrValue(), value_);
-            }
+//            if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrType()),_cont.getRendKeyWords().getKeyWordsValues().getValueCheckbox())) {
+//                if (NaBoSt.isTrue(o_)) {
+//                    _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked(), _cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
+//                } else {
+//                    _write.removeAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
+//                }
+//            } else {
+//                o_ = nullValueToEmpty(o_);
+//                String value_ = BeanNatCommonLgNames.processString(o_);
+//                _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrValue(), value_);
+//            }
+            o_ = nullValueToEmpty(o_);
+            String value_ = BeanNatCommonLgNames.processString(o_);
+            _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrValue(), value_);
         }
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getKeyWordsAttrs().getAttrVarValue()));
     }

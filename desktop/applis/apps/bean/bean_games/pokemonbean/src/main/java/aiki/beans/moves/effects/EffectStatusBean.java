@@ -70,8 +70,8 @@ public class EffectStatusBean extends EffectBean {
         displayBoolTrue(toInt(getStatusFromUser()), MessagesPkBean.EFF_STATUS, MessagesDataEffstatus.M_P_59_FORWARD);
     }
 
-    public String clickLink(int _indexEffect, int _index) {
-        return tryRedirect(((EffectStatusBean)getForms().getCurrentBean().get(_indexEffect)).lawStatus.getKey(_index));
+    public String clickLink(int _index) {
+        return tryRedirect(lawStatus.getKey(_index));
     }
     public String getTrLink(int _index) {
         return lawStatus.getKey(_index).getTranslation();
@@ -81,8 +81,8 @@ public class EffectStatusBean extends EffectBean {
 //        return StringUtil.nullToEmpty(translatedStatus_.getVal(status_));
     }
 
-    public String clickLinkDeleted(int _indexEffect, int _index) {
-        return tryRedirect(((EffectStatusBean)getForms().getCurrentBean().get(_indexEffect)).deletedStatus.get(_index));
+    public String clickLinkDeleted(int _index) {
+        return tryRedirect(deletedStatus.get(_index));
     }
     public String getTrLinkDeleted(int _index) {
         return deletedStatus.get(_index).getTranslation();

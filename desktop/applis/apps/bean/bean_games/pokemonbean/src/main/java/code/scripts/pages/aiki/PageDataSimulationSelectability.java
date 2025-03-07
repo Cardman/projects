@@ -9,9 +9,9 @@ private static final String C_P_198_2="msg_levelsimu,title_select_ability";
 private static final String C_P_198_3=PkScriptPages.REN_ADD_WEB_CSS_SIMULATION_CSS;
 private static final String C_P_198_4="stylesheet";
 private static final String C_P_198_5="text/css";
-private static final String C_P_198_6="$cancel()";
-private static final String C_P_198_7="";
-private static final String C_P_198_8="msg_levelsimu,cancel";
+//private static final String C_P_198_6="$cancel()";
+//private static final String C_P_198_7="";
+//private static final String C_P_198_8="msg_levelsimu,cancel";
 private static final String C_P_198_9="";
 private static final String C_P_198_10="$search";
 private static final String C_P_198_11="post";
@@ -55,7 +55,7 @@ at(elt4_,attrs2_);
 ad(elt1_,elt4_);
 ad(elt0_,elt1_);
 Element elt5_=el(_doc103,BODY);
-build0(elt5_,_doc103);
+//build0(elt5_,_doc103);
 build1(elt5_,_doc103);
 build2(elt5_,_doc103);
 br(elt5_,_doc103);
@@ -63,19 +63,19 @@ build4(elt5_,_doc103);
 ad(elt0_,elt5_);
 _doc103.appendChild(elt0_);
 }
-static void build0(Element _body,Document _doc103){
-Element elt0_=el(_doc103,A);
-CustList<Attr> attrs0_=al(2);
-attrs0_.add(at(C_COMMAND,C_P_198_6));
-attrs0_.add(at(HREF,C_P_198_7));
-at(elt0_,attrs0_);
-Element elt1_=el(_doc103,C_MESSAGE);
-CustList<Attr> attrs1_=al(1);
-attrs1_.add(at(VALUE,C_P_198_8));
-at(elt1_,attrs1_);
-ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
+//static void build0(Element _body,Document _doc103){
+//Element elt0_=el(_doc103,A);
+//CustList<Attr> attrs0_=al(2);
+//attrs0_.add(at(C_COMMAND,C_P_198_6));
+//attrs0_.add(at(HREF,C_P_198_7));
+//at(elt0_,attrs0_);
+//Element elt1_=el(_doc103,C_MESSAGE);
+//CustList<Attr> attrs1_=al(1);
+//attrs1_.add(at(VALUE,C_P_198_8));
+//at(elt1_,attrs1_);
+//ad(elt0_,elt1_);
+//ad(_body,elt0_);
+//}
 static void build1(Element _body,Document _doc103){
 Element elt0_=el(_doc103,BR);
 ad(_body,elt0_);

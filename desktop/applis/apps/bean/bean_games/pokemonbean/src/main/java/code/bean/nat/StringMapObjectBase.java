@@ -1,11 +1,6 @@
 package code.bean.nat;
 
 import aiki.beans.*;
-import aiki.beans.effects.EffectComboBean;
-import aiki.beans.endround.*;
-import aiki.beans.moves.effects.*;
-import aiki.beans.pokemon.evolutions.EvolutionBean;
-import aiki.fight.moves.effects.*;
 import code.maths.*;
 import code.util.*;
 import code.util.core.*;
@@ -20,11 +15,6 @@ public class StringMapObjectBase {
     private final StringMap<NaSt> beansOthers = new StringMap<NaSt>();
     private final CustList<TranslatedKey> evts = new CustList<TranslatedKey>();
     private final CustList<CustList<TranslatedKey>> evtsGroups = new CustList<CustList<TranslatedKey>>();
-    private final CustList<Effect> current = new CustList<Effect>();
-    private CustList<EffectBean> currentBean = new CustList<EffectBean>();
-    private CustList<EffectEndRoundBean> currentBeanEnd = new CustList<EffectEndRoundBean>();
-    private CustList<EvolutionBean> currentBeanEvo = new CustList<EvolutionBean>();
-    private CustList<EffectComboBean> currentComboBean = new CustList<EffectComboBean>();
 
     public static BoolVal to(boolean _v) {
         if (_v) {
@@ -58,16 +48,6 @@ public class StringMapObjectBase {
         getEvtsGroups().clear();
         getEvts().addAllElts(_m.getEvts());
         getEvtsGroups().addAllElts(_m.getEvtsGroups());
-        getCurrent().clear();
-        getCurrent().addAllElts(_m.getCurrent());
-        getCurrentBean().clear();
-        getCurrentBean().addAllElts(_m.getCurrentBean());
-        getCurrentBeanEnd().clear();
-        getCurrentBeanEnd().addAllElts(_m.getCurrentBeanEnd());
-        getCurrentBeanEvo().clear();
-        getCurrentBeanEvo().addAllElts(_m.getCurrentBeanEvo());
-        getCurrentComboBean().clear();
-        getCurrentComboBean().addAllElts(_m.getCurrentComboBean());
     }
     public void removeKeyBase(String _key) {
         mapRate.removeKey(_key);
@@ -155,39 +135,4 @@ public class StringMapObjectBase {
         return evtsGroups;
     }
 
-    public CustList<Effect> getCurrent() {
-        return current;
-    }
-
-    public CustList<EffectBean> getCurrentBean() {
-        return currentBean;
-    }
-
-    public void setCurrentBean(CustList<EffectBean> _c) {
-        this.currentBean = _c;
-    }
-
-    public CustList<EffectEndRoundBean> getCurrentBeanEnd() {
-        return currentBeanEnd;
-    }
-
-    public void setCurrentBeanEnd(CustList<EffectEndRoundBean> _c) {
-        this.currentBeanEnd = _c;
-    }
-
-    public CustList<EvolutionBean> getCurrentBeanEvo() {
-        return currentBeanEvo;
-    }
-
-    public void setCurrentBeanEvo(CustList<EvolutionBean> _c) {
-        this.currentBeanEvo = _c;
-    }
-
-    public CustList<EffectComboBean> getCurrentComboBean() {
-        return currentComboBean;
-    }
-
-    public void setCurrentComboBean(CustList<EffectComboBean> _c) {
-        this.currentComboBean = _c;
-    }
 }

@@ -92,9 +92,8 @@ public final class AdvNatBlockBuilder implements AbstractNatBlockBuilder {
             NatResultInput resultInput_ = f_.getResultInput();
             NatCaller opsWrite_ = buildWritePart(resultInput_);
             CustList<NatExecOperationNode> opRead_ = NatRendForwardInfos.getExecutableNodes(f_.getRootRead());
-            CustList<NatExecOperationNode> opMap_ = NatRendForwardInfos.getExecutableNodes(f_.getRootMap());
             CustList<NatExecOperationNode> opValue_ = NatRendForwardInfos.getExecutableNodes(f_.getRootValue());
-            return new NatRendSelect(opRead_,opValue_,opsWrite_,opMap_,
+            return new NatRendSelect(opRead_,opValue_,opsWrite_,
                     f_.getElt(),
                     initIn(f_.getClassNameNat(), false));
         }

@@ -68,8 +68,8 @@ public class EffectCopyMoveBean extends EffectBean {
     public boolean copyMoveForUser() {
         return copyingMoveForUser > 0;
     }
-    public String clickMove(int _eff, int _index) {
-        return tryRedirect(((EffectCopyMoveBean)getForms().getCurrentBean().get(_eff)).movesNotToBeCopied.get(_index));
+    public String clickMove(int _index) {
+        return tryRedirect(movesNotToBeCopied.get(_index));
     }
     public String getTrMove(int _index) {
         return movesNotToBeCopied.get(_index).getTranslation();

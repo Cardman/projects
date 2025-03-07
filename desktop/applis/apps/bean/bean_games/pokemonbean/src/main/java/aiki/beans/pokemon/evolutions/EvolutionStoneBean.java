@@ -12,8 +12,8 @@ public class EvolutionStoneBean extends EvolutionBean {
         EvolutionStone evo_ = (EvolutionStone) getEvo();
         stone = buildIt(getFacade(), evo_.getStone());
     }
-    public String clickStone(int _index) {
-        return tryRedirect(((EvolutionStoneBean)getForms().getCurrentBeanEvo().get(_index)).stone);
+    public String clickStone() {
+        return tryRedirect(stone);
     }
 
     public TranslatedKey getStone() {

@@ -63,8 +63,8 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
 //        StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
 //        return translatedAbilities_.getVal(effect_.getConstAbility());
     }
-    public String clickAbility(int _index) {
-        return tryRedirect(((EffectSwitchAbilitiesBean)getForms().getCurrentBean().get(_index)).constAbility);
+    public String clickAbility() {
+        return tryRedirect(constAbility);
     }
 
     public TranslatedKey getConstAbility() {

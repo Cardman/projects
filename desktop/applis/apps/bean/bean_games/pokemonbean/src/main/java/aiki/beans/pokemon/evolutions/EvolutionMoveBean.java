@@ -12,8 +12,8 @@ public class EvolutionMoveBean extends EvolutionBean {
         EvolutionMove evo_ = (EvolutionMove) getEvo();
         move = buildMv(getFacade(),evo_.getMove());
     }
-    public String clickMove(int _index) {
-        return tryRedirect(((EvolutionMoveBean)getForms().getCurrentBeanEvo().get(_index)).move);
+    public String clickMove() {
+        return tryRedirect(move);
     }
 
     public TranslatedKey getMove() {

@@ -67,7 +67,7 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(D_DAMAGE_RATE_PLAYER_TABLE, BeanNatCommonLgNames.TYPE_MAP, new DifficultyCommonBeanDamageRatePlayerTableGet(),null));
         fields_.add(new StandardField(D_DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING, new DifficultyCommonBeanDamageRateLawFoeGet(),new DifficultyCommonBeanDamageRateLawFoeSet()));
         fields_.add(new StandardField(D_DAMAGE_RATE_FOE_TABLE, BeanNatCommonLgNames.TYPE_MAP, new DifficultyCommonBeanDamageRateFoeTableGet(),null));
-        fields_.add(new StandardField("c", TYPE_DIFFICULTY_COMMON_BEAN, null,new DifficultyBeanComSet()));
+//        fields_.add(new StandardField("c", TYPE_DIFFICULTY_COMMON_BEAN, null,new DifficultyBeanComSet()));
         _std.getStds().addEntry(TYPE_DIFFICULTY_COMMON_BEAN, type_);
     }
 

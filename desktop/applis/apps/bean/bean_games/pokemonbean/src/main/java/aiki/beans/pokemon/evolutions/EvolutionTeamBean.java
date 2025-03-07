@@ -12,8 +12,8 @@ public class EvolutionTeamBean extends EvolutionBean {
         EvolutionTeam evo_ = (EvolutionTeam) getEvo();
         other = buildPk(getFacade(),evo_.getPokemon());
     }
-    public String clickTeam(int _index) {
-        return tryRedirect(((EvolutionTeamBean)getForms().getCurrentBeanEvo().get(_index)).other);
+    public String clickTeam() {
+        return tryRedirect(other);
     }
 
     public TranslatedKey getOther() {

@@ -83,10 +83,10 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void clickStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectTeamWhileSendFoeBeanClickStatus(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0),0,0));
+        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectTeamWhileSendFoeBeanClickStatus(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0),0));
     }
     @Test
     public void clickStatus2() {
-        assertEq(S_STA_SIM,callEffectTeamWhileSendFoeBeanClickStatusId(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0),0,0));
+        assertEq(S_STA_SIM,callEffectTeamWhileSendFoeBeanClickStatusId(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0),0));
     }
 }
