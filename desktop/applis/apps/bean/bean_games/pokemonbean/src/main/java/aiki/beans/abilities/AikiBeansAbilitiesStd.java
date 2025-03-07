@@ -10,10 +10,10 @@ public final class AikiBeansAbilitiesStd{
     public static final String BEAN_ABILITY="ability";
     public static final String TYPE_ABILITIES_BEAN = "aiki.beans.abilities.AbilitiesBean";
     public static final String TYPE_ABILITY_BEAN = "aiki.beans.abilities.AbilityBean";
-    private static final String SEARCH = "search";
+//    private static final String SEARCH = "search";
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String GET_TR_ABILITY = "getTrAbility";
-    private static final String CLICK_INDEX = "clickIndex";
+//    private static final String CLICK_INDEX = "clickIndex";
     private static final String GET_EFFECT_SENDING = "getEffectSending";
     private static final String CLICK_BREAK_PROTECTION_MOVES = "clickBreakProtectionMoves";
     private static final String GET_TR_BREAK_PROTECTION_MOVES = "getTrBreakProtectionMoves";
@@ -212,7 +212,7 @@ public final class AikiBeansAbilitiesStd{
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TYPED_ABILITY,BeanNatCommonLgNames.STRING, new AbilitiesBeanTypedAbilityGet(),new AbilitiesBeanTypedAbilitySet()));
         fields_.add(new StandardField(SORTED_ABILITIES, BeanNatCommonLgNames.TYPE_LIST, new AbilitiesBeanSortedAbilitiesGet(),null));
-        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new AbilitiesBeanSearch()));
+//        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new AbilitiesBeanSearch()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, new AbilitiesBeanClickAbility()));
         methods_.add( new SpecNatMethod(GET_TR_ABILITY,BeanNatCommonLgNames.STRING, new AbilitiesBeanGetTrAbility()));
         _std.getStds().addEntry(TYPE_ABILITIES_BEAN, type_);
@@ -313,7 +313,7 @@ public final class AikiBeansAbilitiesStd{
         fields_.add(new StandardField(MAP_VARS, BeanNatCommonLgNames.TYPE_MAP, new AbilityBeanMapVarsGet(),null));
         fields_.add(new StandardField(HEALED_HP_RATE_BY_SWITCH,BeanNatCommonLgNames.TYPE_RATE, new AbilityBeanHealedHpRateBySwitchGet(),null));
         fields_.add(new StandardField(POKEMON, BeanNatCommonLgNames.TYPE_LIST, new AbilityBeanPokemonGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_INDEX,BeanNatCommonLgNames.STRING, new AbilityBeanClickIndex()));
+//        methods_.add( new SpecNatMethod(CLICK_INDEX,BeanNatCommonLgNames.STRING, new AbilityBeanClickIndex()));
         methods_.add( new SpecNatMethod(GET_EFFECT_SENDING,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, new AbilityBeanGetEffectSending()));
         methods_.add( new SpecNatMethod(CLICK_BREAK_PROTECTION_MOVES,BeanNatCommonLgNames.STRING, new AbilityBeanClickBreakProtectionMoves()));
         methods_.add( new SpecNatMethod(GET_TR_BREAK_PROTECTION_MOVES,BeanNatCommonLgNames.STRING, new AbilityBeanGetTrBreakProtectionMoves()));

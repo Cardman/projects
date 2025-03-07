@@ -93,9 +93,9 @@ public abstract class InitDbMoves extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new MovesBeanMovesGet(),_str,_args);
     }
 
-    public static NaSt callMovesBeanSearch(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MovesBeanSearch(),_str,_args);
-    }
+//    public static NaSt callMovesBeanSearch(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new MovesBeanSearch(),_str,_args);
+//    }
 
     public static NaSt callMovesBeanTypedNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanTypedNameGet(),_str,_args);

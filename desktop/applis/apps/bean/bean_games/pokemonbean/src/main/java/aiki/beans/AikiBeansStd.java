@@ -68,7 +68,7 @@ public final class AikiBeansStd{
         methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, new WelcomeBeanClickStatus()));
         methods_.add( new SpecNatMethod(CLICK_SIMULATION,BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML)));
         methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML)));
         methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML)));
         methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML)));
         methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML)));

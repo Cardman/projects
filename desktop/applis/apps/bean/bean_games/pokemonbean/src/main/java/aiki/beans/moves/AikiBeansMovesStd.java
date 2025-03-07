@@ -14,7 +14,7 @@ public final class AikiBeansMovesStd{
     public static final String TYPE_MOVE_BEAN = "aiki.beans.moves.MoveBean";
     public static final String TYPE_MOVE_LINE_BEAN = "aiki.beans.moves.MoveLineBean";
     public static final String TYPE_MOVES_BEAN = "aiki.beans.moves.MovesBean";
-    private static final String CLICK_MOVES = "clickMoves";
+//    private static final String CLICK_MOVES = "clickMoves";
     private static final String TYPES_DEPEND_ONLY_ON_ITEM = "typesDependOnlyOnItem";
     private static final String IS_ITEM = "isItem";
     private static final String CLICK_TYPES_BY_OWNED_ITEMS = "clickTypesByOwnedItems";
@@ -73,7 +73,7 @@ public final class AikiBeansMovesStd{
     private static final String GET_TR_POKEMON_HM = "getTrPokemonHm";
     private static final String CLICK_POKEMON_MT = "clickPokemonMt";
     private static final String GET_TR_POKEMON_MT = "getTrPokemonMt";
-    private static final String SEARCH = "search";
+//    private static final String SEARCH = "search";
     private static final String DISPLAY_NAME = "displayName";
     private static final String BOOSTED_TYPES = "boostedTypes";
     private static final String HAS_DEFAULT_TYPES = "hasDefaultTypes";
@@ -170,7 +170,7 @@ public final class AikiBeansMovesStd{
         fields_.add(new StandardField(MOVES_TM_LEARNT_BY_POKEMON, BeanNatCommonLgNames.TYPE_LIST, new MoveBeanMovesTmLearntByPokemonGet(),null));
         fields_.add(new StandardField(MOVES_HM_LEARNT_BY_POKEMON, BeanNatCommonLgNames.TYPE_LIST, new MoveBeanMovesHmLearntByPokemonGet(),null));
         fields_.add(new StandardField(MOVES_MT_LEARNT_BY_POKEMON, BeanNatCommonLgNames.TYPE_LIST, new MoveBeanMovesMtLearntByPokemonGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_MOVES,BeanNatCommonLgNames.STRING, new MoveBeanClickMoves()));
+//        methods_.add( new SpecNatMethod(CLICK_MOVES,BeanNatCommonLgNames.STRING, new MoveBeanClickMoves()));
         methods_.add( new SpecNatMethod(TYPES_DEPEND_ONLY_ON_ITEM,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveBeanTypesDependOnlyOnItem()));
         methods_.add( new SpecNatMethod(IS_ITEM,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveBeanIsItem()));
         methods_.add( new SpecNatMethod(CLICK_TYPES_BY_OWNED_ITEMS,BeanNatCommonLgNames.STRING, new MoveBeanClickTypesByOwnedItems()));
@@ -266,7 +266,7 @@ public final class AikiBeansMovesStd{
         fields_.add(new StandardField(LEARNT,BeanNatCommonLgNames.STRING, new MovesBeanLearntGet(),new MovesBeanLearntSet()));
 //        fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MovesBeanSortedMovesGet(),null));
         fields_.add(new StandardField(BOOLEANS, BeanNatCommonLgNames.TYPE_MAP, new MovesBeanBooleansGet(),null));
-        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new MovesBeanSearch()));
+//        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new MovesBeanSearch()));
         methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, new MovesBeanClickLink()));
         _std.getStds().addEntry(TYPE_MOVES_BEAN, type_);
     }

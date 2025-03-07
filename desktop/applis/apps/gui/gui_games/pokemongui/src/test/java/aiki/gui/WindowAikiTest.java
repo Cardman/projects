@@ -201,7 +201,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         nav_.setupText("<_/>", d_,"","");
         rend_.setNavCore(nav_);
         new ThreadRefresh(rend_).run();
-        new NatRenderAction(new PokemonStandardsSample(),new NatNavigation()).execute(false,d_.getDocumentElement());
+//        new NatRenderAction(new PokemonStandardsSample(),new NatNavigation()).execute(false,d_.getDocumentElement());
         BeanBuilderHelper h_ = new BeanBuilderHelper(window_.getFrames(), new FindBeanEvent(window_.getFrames().getCompoFactory().newTextField(),window_.getFrames()));
         h_.initGrid();
         h_.colCount(1);

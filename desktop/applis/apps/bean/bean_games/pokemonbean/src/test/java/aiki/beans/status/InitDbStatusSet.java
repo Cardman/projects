@@ -79,9 +79,9 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new StatusSetBeanGetTrStatus(),_str,_args);
     }
 
-    public static NaSt callStatusSetBeanSearch(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new StatusSetBeanSearch(),_str,_args);
-    }
+//    public static NaSt callStatusSetBeanSearch(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new StatusSetBeanSearch(),_str,_args);
+//    }
 
     public static NaSt callStatusSetBeanSortedStatusGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatusSetBeanSortedStatusGet(),_str,_args);

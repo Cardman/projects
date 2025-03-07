@@ -1,25 +1,17 @@
 package aiki.beans.status;
 
 import aiki.beans.*;
-import code.bean.nat.*;
-public final class StatusSetBeanSearch implements NatCaller, IntBeanAction {
+public final class StatusSetBeanSearch implements IntBeanAction {
     private final StatusSetBean bean;
-    public StatusSetBeanSearch() {
-        this(null);
-    }
+
     public StatusSetBeanSearch(StatusSetBean _m) {
         bean = _m;
     }
 
     @Override
     public String actionBean() {
-        return ((NaStSt)re(new PokemonBeanStruct(getBean()),new NaSt[0])).getInstance();
+        return bean.search();
     }
-    @Override
-    public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( (StatusSetBean) ((PokemonBeanStruct)_instance).getInstance()).search());
-    }
-
 
     @Override
     public CommonBean getBean() {

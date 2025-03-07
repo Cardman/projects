@@ -2,8 +2,6 @@ package aiki.beans.abilities;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
-import aiki.beans.pokemon.PokedexBean;
-import aiki.beans.pokemon.PokemonBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;

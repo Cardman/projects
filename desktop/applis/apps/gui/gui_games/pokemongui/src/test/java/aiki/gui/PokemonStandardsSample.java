@@ -23,11 +23,11 @@ public final class PokemonStandardsSample extends PokemonStandards {
     protected void buildAddon() {
         getStds().clear();
     }
-
-    @Override
-    public void execute(boolean _form, NatNavigation _navigation) {
-        _navigation.setSession(new NatConfigurationCore());
-    }
+//
+//    @Override
+//    public void execute(boolean _form, NatNavigation _navigation) {
+//        _navigation.setSession(new NatConfigurationCore());
+//    }
 
     @Override
     public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack) {

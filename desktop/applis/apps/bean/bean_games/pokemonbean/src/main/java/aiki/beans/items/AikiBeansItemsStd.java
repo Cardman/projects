@@ -55,7 +55,7 @@ public final class AikiBeansItemsStd{
     private static final String GET_TR_POKEMON = "getTrPokemon";
     private static final String LIMITED_PP_MOVE = "limitedPpMove";
     private static final String LIMITED_PP_MOVES = "limitedPpMoves";
-    private static final String CLICK_ITEMS = "clickItems";
+//    private static final String CLICK_ITEMS = "clickItems";
     private static final String GET_EFFECT_SENDING = "getEffectSending";
     private static final String GET_TR_MULT_STAT_RANK = "getTrMultStatRank";
     private static final String GET_TR_MULT_STAT_PK_RANK = "getTrMultStatPkRank";
@@ -87,7 +87,7 @@ public final class AikiBeansItemsStd{
     private static final String GET_TR_WEATHER = "getTrWeather";
     private static final String RATE_FOR_ATTACK_FIRST = "rateForAttackFirst";
     private static final String DETERMINATED = "determinated";
-    private static final String SEARCH = "search";
+//    private static final String SEARCH = "search";
     private static final String GET_MINI_IMAGE = "getMiniImage";
     private static final String CLICK_LINK = "clickLink";
     private static final String DISPLAY_NAME = "displayName";
@@ -329,7 +329,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(ITEM_IMAGE,BeanNatCommonLgNames.STRING, new ItemBeanItemImageGet(),null));
         fields_.add(new StandardField(DESCRIPTION,BeanNatCommonLgNames.STRING, new ItemBeanDescriptionGet(),null));
         fields_.add(new StandardField(PRICE, BeanNatCommonLgNames.PRIM_INTEGER, new ItemBeanPriceGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_ITEMS,BeanNatCommonLgNames.STRING, new ItemBeanClickItems()));
+//        methods_.add( new SpecNatMethod(CLICK_ITEMS,BeanNatCommonLgNames.STRING, new ItemBeanClickItems()));
         _std.getStds().addEntry(TYPE_ITEM_BEAN, type_);
     }
     private static void buildItemForBattleBean(PokemonStandards _std){
@@ -421,7 +421,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(TYPED_PRICE,BeanNatCommonLgNames.STRING, new ItemsBeanTypedPriceGet(),new ItemsBeanTypedPriceSet()));
         fields_.add(new StandardField(TYPED_CLASS,BeanNatCommonLgNames.STRING, new ItemsBeanTypedClassGet(),new ItemsBeanTypedClassSet()));
         fields_.add(new StandardField(ITEMS, BeanNatCommonLgNames.TYPE_LIST, new ItemsBeanItemsGet(),null));
-        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new ItemsBeanSearch()));
+//        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new ItemsBeanSearch()));
         methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, new ItemsBeanGetMiniImage()));
         methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, new ItemsBeanClickLink()));
         _std.getStds().addEntry(TYPE_ITEMS_BEAN, type_);

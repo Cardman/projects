@@ -14,11 +14,9 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsList;
 import aiki.map.util.TileMiniMap;
 import code.bean.nat.*;
-import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
-import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.bean.nat.fwd.opers.*;
 import code.maths.*;
 import code.scripts.confs.PkScriptPages;
@@ -173,8 +171,8 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         f_.getData().getTranslatedItems().addEntry(FR,new StringMap<String>());
         f_.updateTrs();
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
-        builtMessages_.addEntry(EN,MessagesInit.enData());
-        builtMessages_.addEntry(FR,MessagesInit.frData());
+        builtMessages_.addEntry(EN,new TranslationsAppli());
+        builtMessages_.addEntry(FR,new TranslationsAppli());
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         StringMap<Document> b_ = PagesInit.build();
@@ -182,9 +180,10 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         nav_.setLanguage(EN);
         pk_.setDataBase(f_);
         pk_.initializeRendSessionDoc(nav_);
+        pk_.getPage();
         assertFalse(nav_.getHtmlText().isEmpty());
-        goToPage(pk_,nav_,0);
-        NatRendStackCallAdv r_ = new NatRendStackCallAdv();
+//        goToPage(pk_,nav_,0);
+        NatRendStackCall r_ = new NatRendStackCall();
         NatImportingPageForm l_ = new NatImportingPageForm();
         NatRendReadWrite rend_ = new NatRendReadWrite();
         rend_.setDocument(b_.getValue(0));
@@ -194,56 +193,55 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         NatExecTextPart txt_ = new NatExecTextPart();
         txt_.setOpExp(new CustList<CustList<NatExecOperationNode>>());
         txt_.getTexts().add("");
-        r_.getFormParts().initFormsSpec();
-        new NatRendTitledAnchor(b_.getValue(0).getDocumentElement(),new StringMap<NatExecTextPart>(),new StringMap<NatExecTextPart>(),new CustList<NatExecOperationNode>(),new StringList(),new StringMap<String>(), txt_).processEl(new NatConfigurationCore(), r_);
-        new NatRendInactiveAnchor(b_.getValue(0).getDocumentElement(),new StringMap<NatExecTextPart>(),new StringMap<NatExecTextPart>()).processEl(new NatConfigurationCore(), r_);
+//        r_.getFormParts().initFormsSpec();
+//        new NatRendTitledAnchor(b_.getValue(0).getDocumentElement(),new StringMap<NatExecTextPart>(),new StringMap<NatExecTextPart>(),new CustList<NatExecOperationNode>(),new StringList(),new StringMap<String>(), txt_).processEl(new NatConfigurationCore(), r_);
+//        new NatRendInactiveAnchor(b_.getValue(0).getDocumentElement(),new StringMap<NatExecTextPart>(),new StringMap<NatExecTextPart>()).processEl(new NatConfigurationCore(), r_);
         Element radi_ = b_.getValue(0).createElement("");
         radi_.setAttribute("type","radio");
         CustList<NatExecOperationNode> exps2_ = new CustList<NatExecOperationNode>();
         NatAnaFieldOperationContent fc_ = new NatAnaFieldOperationContent();
         fc_.setIntermediate(true);
         exps2_.add(new NatSettableFieldOperation(true,0,new NatExecFieldOperationContent(fc_),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
-        NatFieldUpdates up_ = new NatFieldUpdates();
-        new NatRendInput(radi_,new StringMap<NatExecTextPart>(),new StringMap<NatExecTextPart>(),exps2_,exps2_,null, up_).processEl(new NatConfigurationCore(), r_);
-        PokemonStandards.getStructToBeValidatedPrim(new StringList(""),PokemonStandards.PRIM_BOOLEAN);
-        PokemonStandards.getStructToBeValidatedPrim(new StringList(PokemonStandards.ON),PokemonStandards.PRIM_BOOLEAN);
+//        NatFieldUpdates up_ = new NatFieldUpdates();
+//        new NatRendInput(radi_,new StringMap<NatExecTextPart>(),new StringMap<NatExecTextPart>(),exps2_, null, up_).processEl(new NatConfigurationCore(), r_);
+//        PokemonStandards.getStructToBeValidatedPrim(new StringList(""),PokemonStandards.PRIM_BOOLEAN);
+//        PokemonStandards.getStructToBeValidatedPrim(new StringList(PokemonStandards.ON),PokemonStandards.PRIM_BOOLEAN);
         CustList<NatExecOperationNode> exps_ = new CustList<NatExecOperationNode>();
         exps_.add(new NatSettableFieldOperation(true,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
-        PokemonStandards.redir(NaNu.NULL_VALUE,new StringList(""), exps_,new StringList(""),r_);
-        PokemonStandards.getStructToBeValidated(new StringList(""),PokemonStandards.TYPE_RATE);
-        new AdvNatBlockBuilder().fwd();
-        LongMap<LongTreeMap<NatNodeContainer>> form_ = new LongMap<LongTreeMap<NatNodeContainer>>();
-        LongTreeMap<NatNodeContainer> c_ = new LongTreeMap<NatNodeContainer>();
-        NatNodeContainer v_ = new NatNodeContainer();
+//        PokemonStandards.redir(NaNu.NULL_VALUE,new StringList(""), exps_,new StringList(""),r_);
+//        PokemonStandards.getStructToBeValidated(new StringList(""),PokemonStandards.TYPE_RATE);
+        LongMap<LongTreeMap<NodeContainer>> form_ = new LongMap<LongTreeMap<NodeContainer>>();
+        LongTreeMap<NodeContainer> c_ = new LongTreeMap<NodeContainer>();
+        NodeContainer v_ = new NodeContainer();
         v_.getNodeInformation().setValue(new StringList(""));
         c_.addEntry(0L, v_);
         form_.addEntry(0L, c_);
 //        v_.getNodeInformation().setValidator("rate_validator");
-        pk_.getNatPage().setContainers(form_);
-        pk_.getPage().setUrl(0);
+//        pk_.getNatPage().setContainers(form_);
+//        pk_.getPage().setUrl(0);
 //        pk_.processRendFormRequest(nav_,nav_.getDocument().getDocumentElement());
-        v_.setOpsWrite(new CstNatCaller(""));
-        CustList<LongTreeMap<NatNodeContainer>> st_ = new CustList<LongTreeMap<NatNodeContainer>>();
+//        v_.setOpsWrite(new CstNatCaller(""));
+        CustList<LongTreeMap<NodeContainer>> st_ = new CustList<LongTreeMap<NodeContainer>>();
         st_.add(c_);
-        LongTreeMap<NatNodeContainer> second_ = new LongTreeMap<NatNodeContainer>();
-        NatNodeContainer w_ = new NatNodeContainer();
+        LongTreeMap<NodeContainer> second_ = new LongTreeMap<NodeContainer>();
+        NodeContainer w_ = new NodeContainer();
         w_.getNodeInformation().setValue(new StringList(""));
-        w_.setOpsWrite(new CstNatCaller(""));
+//        w_.setOpsWrite(new CstNatCaller(""));
         second_.addEntry(0L, w_);
         st_.add(second_);
-        r_.getFormParts().getInputs().add(0L);
-        up_.setRad(true);
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(NaNu.NULL_VALUE, st_), r_,"");
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(NaNu.NULL_VALUE, st_), r_,"");
+//        r_.getFormParts().getInputs().add(0L);
+//        up_.setRad(true);
+//        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(NaNu.NULL_VALUE, st_), r_,"");
+//        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(NaNu.NULL_VALUE, st_), r_,"");
         NatExecTextPart txtPart_ = new NatExecTextPart();
         txtPart_.setOpExp(new CustList<CustList<NatExecOperationNode>>());
         txtPart_.getOpExp().add(exps_);
         txtPart_.getTexts().add("");
-        NatRendElementForm.renderAltListNat(txtPart_,r_);
-        NatRendElementForm.nullValueToEmpty(NaNu.NULL_VALUE);
+//        NatRendElementForm.renderAltListNat(txtPart_,r_);
+//        NatRendElementForm.nullValueToEmpty();
         NatDotOperation root_ = new NatDotOperation(1);
         root_.appendChild(new NatSettableFieldOperation(false,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
-        NatRendElementForm.castDottedTo(root_);
+        PokemonBeanStruct.castDottedTo(root_);
         StringMapObjectBase s_ = new StringMapObjectBase();
         s_.put("0",0);
         s_.put("1",false);
@@ -263,9 +261,9 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertEq(0,s_.getValInt("7"));
         assertEq(0,s_.getValLong("9"));
         s_.removeKeyBase("1");
-        NatImgAttr n_ = new NatImgAttr("");
-        n_.setAnim(new CustList<int[][]>());
-        n_.copy();
+//        NatImgAttr n_ = new NatImgAttr("");
+//        n_.setAnim(new CustList<int[][]>());
+//        n_.copy();
         assertEq(0,NaImgSt.tryGet(null).length);
         WelcomeBean w2_ = new WelcomeBean();
         MockBeanBuilderHelper tmp_ = new MockBeanBuilderHelper();
@@ -286,7 +284,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         StringList list_ = new StringList();
         list_.add("_");
         list_.add("__");
-        StringList a_ = NatRendElementForm.arg(list_);
+        StringList a_ = PokemonBeanStruct.arg(list_);
         assertEq(1,a_.size());
         assertEq("__",a_.get(0));
     }
@@ -297,9 +295,9 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         return tile_;
     }
 
-    private void goToPage(PkData _pk, NatNavigation _nav, int _nb) {
-        _pk.getNatPage().setUrl(_nb);
-        _pk.execute(false, _nav);
-    }
+//    private void goToPage(PkData _pk, NatNavigation _nav, int _nb) {
+//        _pk.getNatPage().setUrl(_nb);
+//        _pk.execute(false, _nav);
+//    }
 
 }

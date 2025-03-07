@@ -9,13 +9,11 @@ import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
-import code.bean.nat.NatHtmlPage;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.CssInit;
-import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.util.*;
 import code.util.IdMap;
@@ -587,8 +585,8 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         diff(fac_).setRateWinningExpPtsFight(rt());
         diff(fac_).setRateWinMoneyBase(rt());
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
-        builtMessages_.addEntry(EN,MessagesInit.enData());
-        builtMessages_.addEntry(FR,MessagesInit.frData());
+        builtMessages_.addEntry(EN,new TranslationsAppli());
+        builtMessages_.addEntry(FR,new TranslationsAppli());
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new DataGameInit(), PagesInit.build(),builtOther_,builtMessages_);
@@ -631,8 +629,8 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         fac_.getData().getTranslatedEnvironment().addEntry(FR,new IdMap<EnvironmentType, String>());
         fac_.getData().setMap(Instances.newDataMap());
         StringMap<TranslationsAppli> builtMessages_ = new StringMap<TranslationsAppli>();
-        builtMessages_.addEntry(EN,MessagesInit.enData());
-        builtMessages_.addEntry(FR,MessagesInit.frData());
+        builtMessages_.addEntry(EN,new TranslationsAppli());
+        builtMessages_.addEntry(FR,new TranslationsAppli());
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new DataGameInit(), PagesInit.build(),builtOther_,builtMessages_);
@@ -640,19 +638,19 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         nav_.setLanguage(EN);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
-        NatHtmlPage htmlPage_ = pk_.getNatPage();
-        choose(htmlPage_, 0, DifficultyWinPointsFight.FACILE.getWinName());
-        choose(htmlPage_, 3, rt().toNumberString());
-        choose(htmlPage_, 4, rt().toNumberString());
-        choose(htmlPage_, 6, "12");
-        choose(htmlPage_, 7, "4");
-        choose(htmlPage_, 8, rt().toNumberString());
-        choose(htmlPage_, 9, rt().toNumberString());
-        choose(htmlPage_, 15, DifficultyModelLaw.CONSTANT_MAX.getModelName());
-        choose(htmlPage_, 16, DifficultyModelLaw.CONSTANT_MIN.getModelName());
-        htmlPage_.setUrl(0);
-
-        pk_.execute(true, nav_);
+//        NatHtmlPage htmlPage_ = pk_.getNatPage();
+//        choose(htmlPage_, 0, DifficultyWinPointsFight.FACILE.getWinName());
+//        choose(htmlPage_, 3, rt().toNumberString());
+//        choose(htmlPage_, 4, rt().toNumberString());
+//        choose(htmlPage_, 6, "12");
+//        choose(htmlPage_, 7, "4");
+//        choose(htmlPage_, 8, rt().toNumberString());
+//        choose(htmlPage_, 9, rt().toNumberString());
+//        choose(htmlPage_, 15, DifficultyModelLaw.CONSTANT_MAX.getModelName());
+//        choose(htmlPage_, 16, DifficultyModelLaw.CONSTANT_MIN.getModelName());
+//        htmlPage_.setUrl(0);
+//
+//        pk_.execute(true, nav_);
 
 
         assertFalse(nav_.getHtmlText().isEmpty());
@@ -683,11 +681,11 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
 //                "}\n" +
 //                "</style></head><body><a c:command=\"simulation.quit\" href=\"\" n-a=\"0\">Return to the index</a><br/><br/><ul/>Fight number<br/><form action=\"\" c:command=\"simulation.cancelDiffChoice\" method=\"post\" name=\"cancel\" n-f=\"0\"><input value=\"&#60;&#60;\" type=\"submit\"/></form><form action=\"\" c:command=\"simulation.validateFoeChoice\" method=\"post\" name=\"ok\" n-f=\"1\"><input value=\"&#62;&#62;\" type=\"submit\"/></form></body></html>",nav_.getHtmlText());
     }
-
-    private void choose(NatHtmlPage _page, int _nbId, String _value) {
-        _page.getContainer(0, _nbId).setEnabled(true);
-        _page.getContainer(0, _nbId).setValue(new StringList(_value));
-    }
+//
+//    private void choose(NatHtmlPage _page, int _nbId, String _value) {
+//        _page.getContainer(0, _nbId).setEnabled(true);
+//        _page.getContainer(0, _nbId).setValue(new StringList(_value));
+//    }
 
     private DifficultyCommon result(NaSt _str) {
         return (((DifficultyCommonBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon()).getDifficultyCommon();

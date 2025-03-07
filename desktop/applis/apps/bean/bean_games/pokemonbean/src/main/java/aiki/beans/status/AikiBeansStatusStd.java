@@ -12,12 +12,12 @@ public final class AikiBeansStatusStd{
     public static final String BEAN_STATUS_SET="status_set";
     public static final String TYPE_STATUS_BEAN = "aiki.beans.status.StatusBean";
     public static final String TYPE_STATUS_SET_BEAN = "aiki.beans.status.StatusSetBean";
-    private static final String CLICK_INDEX = "clickIndex";
+//    private static final String CLICK_INDEX = "clickIndex";
     private static final String INCREMENT_END_ROUND_INT = "incrementEndRoundInt";
     private static final String IS_SINGLE = "isSingle";
     private static final String GET_TR_MULT_STAT = "getTrMultStat";
     private static final String GET_EFFECT_PARTNER = "getEffectPartner";
-    private static final String SEARCH = "search";
+//    private static final String SEARCH = "search";
     private static final String CLICK_STATUS = "clickStatus";
     private static final String GET_TR_STATUS = "getTrStatus";
     private static final String DISPLAY_NAME = "displayName";
@@ -81,7 +81,7 @@ public final class AikiBeansStatusStd{
         fields_.add(new StandardField(ATTACK,BeanNatCommonLgNames.STRING, new StatusBeanAttackGet(),null));
         fields_.add(new StandardField(DEFENSE,BeanNatCommonLgNames.STRING, new StatusBeanDefenseGet(),null));
         fields_.add(new StandardField(EFFECTS_PARTNER, BeanNatCommonLgNames.TYPE_LIST, new StatusBeanEffectsPartnerGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_INDEX,BeanNatCommonLgNames.STRING, new StatusBeanClickIndex()));
+//        methods_.add( new SpecNatMethod(CLICK_INDEX,BeanNatCommonLgNames.STRING, new StatusBeanClickIndex()));
         methods_.add( new SpecNatMethod(INCREMENT_END_ROUND_INT,BeanNatCommonLgNames.PRIM_BOOLEAN, new StatusBeanIncrementEndRoundInt()));
         methods_.add( new SpecNatMethod(IS_SINGLE,BeanNatCommonLgNames.PRIM_BOOLEAN, new StatusBeanIsSingle()));
         methods_.add( new SpecNatMethod(GET_TR_MULT_STAT,BeanNatCommonLgNames.STRING, new StatusBeanGetTrMultStat()));
@@ -94,7 +94,7 @@ public final class AikiBeansStatusStd{
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TYPED_STATUS,BeanNatCommonLgNames.STRING, new StatusSetBeanTypedStatusGet(),new StatusSetBeanTypedStatusSet()));
         fields_.add(new StandardField(SORTED_STATUS, BeanNatCommonLgNames.TYPE_LIST, new StatusSetBeanSortedStatusGet(),null));
-        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new StatusSetBeanSearch()));
+//        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new StatusSetBeanSearch()));
         methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, new StatusSetBeanClickStatus()));
         methods_.add( new SpecNatMethod(GET_TR_STATUS,BeanNatCommonLgNames.STRING, new StatusSetBeanGetTrStatus()));
         _std.getStds().addEntry(TYPE_STATUS_SET_BEAN, type_);

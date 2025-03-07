@@ -183,9 +183,9 @@ public abstract class InitDbPk extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new PokedexBeanPokedexGet(),_str,_args);
     }
 
-    public static NaSt callPokedexBeanSearch(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanSearch(),_str,_args);
-    }
+//    public static NaSt callPokedexBeanSearch(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new PokedexBeanSearch(),_str,_args);
+//    }
 
     public static NaSt callPokedexBeanTypedMaxNbPossEvosGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokedexBeanTypedMaxNbPossEvosGet(),_str,_args);

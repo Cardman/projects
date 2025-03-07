@@ -21,7 +21,7 @@ public final class AikiBeansPokemonStd{
     public static final String BEAN_EVO_TYPE="evo_type";
     public static final String TYPE_POKEDEX_BEAN = "aiki.beans.pokemon.PokedexBean";
     public static final String TYPE_POKEMON_BEAN = "aiki.beans.pokemon.PokemonBean";
-    private static final String CLICK_POKEDEX = "clickPokedex";
+//    private static final String CLICK_POKEDEX = "clickPokedex";
     private static final String ROUND_WEIGHT = "roundWeight";
     private static final String ROUND_HEIGHT = "roundHeight";
     private static final String CLICK_ABILITY = "clickAbility";
@@ -49,7 +49,7 @@ public final class AikiBeansPokemonStd{
 //    private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String GET_PLACE_NAME = "getPlaceName";
     private static final String GET_MINI_MAP_IMAGE = "getMiniMapImage";
-    private static final String SEARCH = "search";
+//    private static final String SEARCH = "search";
     private static final String GET_MINI_IMAGE = "getMiniImage";
     private static final String CLICK_LINK = "clickLink";
     private static final String DISPLAY_NAME = "displayName";
@@ -103,7 +103,7 @@ public final class AikiBeansPokemonStd{
         fields_.add(new StandardField(IS_EVO,BeanNatCommonLgNames.STRING, new PokedexBeanIsEvoGet(),new PokedexBeanIsEvoSet()));
         fields_.add(new StandardField(IS_LEG,BeanNatCommonLgNames.STRING, new PokedexBeanIsLegGet(),new PokedexBeanIsLegSet()));
         fields_.add(new StandardField(POKEDEX, BeanNatCommonLgNames.TYPE_LIST, new PokedexBeanPokedexGet(),null));
-        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new PokedexBeanSearch()));
+//        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new PokedexBeanSearch()));
         methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, new PokedexBeanGetMiniImage()));
         methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, new PokedexBeanClickLink()));
         _std.getStds().addEntry(TYPE_POKEDEX_BEAN, type_);
@@ -136,7 +136,7 @@ public final class AikiBeansPokemonStd{
         fields_.add(new StandardField(HATCHING_STEPS,BeanNatCommonLgNames.TYPE_LG_INT, new PokemonBeanHatchingStepsGet(),null));
         fields_.add(new StandardField(PLACES, BeanNatCommonLgNames.TYPE_LIST, new PokemonBeanPlacesGet(),null));
         fields_.add(new StandardField(IMAGES, BeanNatCommonLgNames.TYPE_MAP, new PokemonBeanImagesGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_POKEDEX,BeanNatCommonLgNames.STRING, new PokemonBeanClickPokedex()));
+//        methods_.add( new SpecNatMethod(CLICK_POKEDEX,BeanNatCommonLgNames.STRING, new PokemonBeanClickPokedex()));
         methods_.add( new SpecNatMethod(ROUND_WEIGHT,BeanNatCommonLgNames.STRING, new PokemonBeanRoundWeight()));
         methods_.add( new SpecNatMethod(ROUND_HEIGHT,BeanNatCommonLgNames.STRING, new PokemonBeanRoundHeight()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, new PokemonBeanClickAbility()));
