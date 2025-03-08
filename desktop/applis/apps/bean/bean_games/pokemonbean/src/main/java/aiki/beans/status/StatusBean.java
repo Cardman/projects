@@ -9,7 +9,6 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import code.maths.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -53,7 +52,7 @@ public final class StatusBean extends CommonBean implements BeanRenderWithAppNam
         addImg(animStatus);
         if (endRound) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(endRoundRank));
-            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_ENDROUND);
+            formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_ENDROUND);
             displayStringList(reasonsEndRound,MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
             mapVarsInit(mapVarsFailEndRound);
             if (singleStatus) {
@@ -185,7 +184,7 @@ public final class StatusBean extends CommonBean implements BeanRenderWithAppNam
     }
     public String clickIndex() {
         getForms().safeStatus(CST_STATUS_SET);
-        return PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
     }
     public boolean incrementEndRoundInt() {
         return incrementEndRound > 0;

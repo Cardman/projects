@@ -3,7 +3,6 @@ package aiki.beans.pokemon;
 import aiki.beans.*;
 import aiki.beans.facade.dto.PokemonLine;
 import aiki.facade.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
@@ -18,7 +17,7 @@ public final class PokedexBean extends WithFilterBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataPokemonPokedex.M_P_82_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
 //        initPage();
         initFormPk();
         initLine();
@@ -36,7 +35,7 @@ public final class PokedexBean extends WithFilterBean {
 //        }
 //        feedParents();
 //        feedParents();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
     }
     public StringMap<String> file() {
         return file(MessagesPkBean.POKEDEX).getMapping();
@@ -52,7 +51,7 @@ public final class PokedexBean extends WithFilterBean {
         setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET));
     }
     public String search() {
-        return search(CST_PK, PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML);
+        return search(CST_PK, CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML);
     }
 
     public static boolean atLeastMatchType(StringMap<String> _translationsTypes, IntBeanChgBool _wholeWord, IntBeanChgString _typedType, StringList _types) {

@@ -1,6 +1,6 @@
 package aiki.beans.items;
 
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.CommonBean;
 import org.junit.Test;
 
 public final class ItemBeanTest extends InitDbItem {
@@ -26,6 +26,6 @@ public final class ItemBeanTest extends InitDbItem {
     }
     @Test
     public void clickItems() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,callItemBeanClickItems(itemLineSample()));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,callItemBeanClickItems(itemLineSample()));
     }
 }

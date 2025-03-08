@@ -1,7 +1,7 @@
 package aiki.beans.map;
 
+import aiki.beans.CommonBean;
 import aiki.util.Coords;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class MapBeanTest extends InitDbMap {
@@ -23,7 +23,7 @@ public final class MapBeanTest extends InitDbMap {
     }
     @Test
     public void clickLevel1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapBeanClickLevel(3,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapBeanClickLevel(3,1));
     }
     @Test
     public void clickLevel2() {
@@ -33,7 +33,7 @@ public final class MapBeanTest extends InitDbMap {
     }
     @Test
     public void clickLevelZero1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapBeanClickLevelZero(0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callMapBeanClickLevelZero(0));
     }
     @Test
     public void clickLevelZero2() {

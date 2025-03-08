@@ -5,7 +5,6 @@ import aiki.beans.facade.dto.ItemLine;
 import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.items.Item;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.AbsMap;
 import code.util.StringMap;
@@ -73,7 +72,7 @@ public final class SelectItemBean extends WithFilterBean {
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return putName(sortedItems_.firstKey());
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
 
 //    public String clickLink(int _index) {
@@ -86,9 +85,9 @@ public final class SelectItemBean extends WithFilterBean {
     }
     private String redirect() {
         if (player) {
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public int[][] getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName().getKey();

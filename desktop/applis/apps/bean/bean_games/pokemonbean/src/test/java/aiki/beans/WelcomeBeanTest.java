@@ -19,7 +19,6 @@ import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
 import code.maths.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.sml.*;
 import code.sml.util.*;
@@ -49,7 +48,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
     public void allMoves1() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertFalse(forms(bean_).contains(CST_LEARNT));
         assertEq(0,forms(bean_).getValMoveData(CST_MOVES_SET).size());
@@ -61,12 +60,12 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void allMoves2() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(displaying(beanWelcome(feedDb())))));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(displaying(beanWelcome(feedDb())))));
     }
     @Test
     public void learntMoves() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateLearntMoves(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateLearntMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertTrue(forms(bean_).contains(CST_LEARNT));
         assertTrue(forms(bean_).getValBool(CST_LEARNT));
@@ -80,7 +79,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
     public void notLearntMoves() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateNotLearntMoves(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateNotLearntMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertTrue(forms(bean_).contains(CST_LEARNT));
         assertFalse(forms(bean_).getValBool(CST_LEARNT));
@@ -94,35 +93,35 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
     public void abilities() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,navigateAbilities(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,navigateAbilities(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_ABILITIES_SET));
         assertTrue(forms(bean_).getValAbilityData(CST_ABILITIES_SET).isEmpty());
     }
     @Test
     public void items() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,navigateItems(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,navigateItems(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
         assertTrue(forms(bean_).getValItemData(CST_ITEMS_SET).isEmpty());
     }
     @Test
     public void pokedex() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,navigatePokedex(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,navigatePokedex(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
         assertTrue(forms(bean_).getValPokemonData(CST_POKEMON_SET).isEmpty());
     }
     @Test
     public void status() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,navigateStatus(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,navigateStatus(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_STATUS_SET));
         assertTrue(forms(bean_).getValStatusData(CST_STATUS_SET).isEmpty());
     }
     @Test
     public void simulation() {
         NaSt bean_ = beanWelcome(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,navigateSimulation(displaying(bean_)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,navigateSimulation(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_SIMULATION_STATE));
         assertSame(SimulationSteps.DIFF,forms(bean_).getValSimStep(CST_SIMULATION_STATE));
     }

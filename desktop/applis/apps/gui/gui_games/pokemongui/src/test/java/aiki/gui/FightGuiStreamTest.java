@@ -1,7 +1,7 @@
 package aiki.gui;
 
 import aiki.beans.BeanRenderWithAppName;
-import aiki.beans.PkData;
+import aiki.beans.CommonBean;
 import aiki.db.*;
 import aiki.facade.enums.*;
 import aiki.fight.enums.*;
@@ -45,7 +45,6 @@ import code.maths.*;
 import code.maths.montecarlo.*;
 import code.maths.litteral.*;
 import code.mock.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesDataIndex;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.NavigationCore;
@@ -915,15 +914,15 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getFacade().getFight().getUserTeam().getMembers().firstValue().getTrackingMoves().addEntry(new MoveTeamPosition("_1",Fight.toFoeFighter(0)),new AffectedMove("_2",new ActivityOfMove()));
         window_.getDataBattle().getActionListeners().get(0).action();
         tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().firstValue()),2);
-        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML)),2);
+        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(CommonBean.WEB_FIGHT_HTML_TEAM_HTML)),2);
         int bkGround_ = window_.getFacade().getFight().getUserTeam().getMembers().firstValue().getGroundPlace();
         window_.getFacade().getFight().getUserTeam().getMembers().firstValue().setGroundPlace(Fighter.BACK);
-        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML)),2);
+        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(CommonBean.WEB_FIGHT_HTML_FIGHTER_HTML)),2);
         window_.getFacade().getFight().getUserTeam().getMembers().firstValue().setGroundPlace(bkGround_);
-        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML)),2);
-        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML)),0);
+        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(CommonBean.WEB_FIGHT_HTML_FIGHTER_HTML)),2);
+        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(CommonBean.WEB_FIGHT_HTML_FIGHTER_HTML)),0);
         tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().firstValue()),(3));
-        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML)),0);
+        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(CommonBean.WEB_FIGHT_HTML_TEAM_HTML)),0);
         tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().firstValue()),(1));
     }
     @Test
@@ -1027,14 +1026,14 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         am_.setChosenTargets(tc_);
         am_.setFirstChosenMove("_1");
         window_.getFacade().getFight().getFoeTeam().getMembers().firstValue().setAction(am_);
-        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML)),1);
+        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(CommonBean.WEB_FIGHT_HTML_FIGHTDETAIL_HTML)),1);
         ActionMove am2_ = new ActionMove();
         TargetCoordsList tc2_ = new TargetCoordsList();
         tc2_.add(TargetCoords.toFoeTarget(1));
         am2_.setChosenTargets(tc2_);
         am2_.setFirstChosenMove("_1");
         window_.getFacade().getFight().getFoeTeam().getMembers().firstValue().setAction(am2_);
-        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML)),1);
+        tryClick(builder(window_.getBattle().getBattle().getRenderDataFight().getWrapBeanRender().getRenders().getVal(CommonBean.WEB_FIGHT_HTML_FIGHTDETAIL_HTML)),1);
     }
     @Test
     public void save1() {

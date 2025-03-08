@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.CommonBean;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -61,7 +61,7 @@ public final class EffectCopyMoveBeanTest extends InitDbMoveEffectCopy {
     }
     @Test
     public void clickDefaultMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickDefaultMove(dispMoveEffCopyMove(true,1)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickDefaultMove(dispMoveEffCopyMove(true,1)));
     }
     @Test
     public void clickDefaultMove2() {
@@ -73,7 +73,7 @@ public final class EffectCopyMoveBeanTest extends InitDbMoveEffectCopy {
     }
     @Test
     public void clickMoveTrans1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickMoveTrans(dispMoveEffCopyMove(true,1),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickMoveTrans(dispMoveEffCopyMove(true,1),0));
     }
     @Test
     public void clickMoveTrans2() {
@@ -85,7 +85,7 @@ public final class EffectCopyMoveBeanTest extends InitDbMoveEffectCopy {
     }
     @Test
     public void clickMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickMove(dispMoveEffCopyMove(true,1),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickMove(dispMoveEffCopyMove(true,1),0));
     }
     @Test
     public void clickMove2() {

@@ -5,7 +5,6 @@ import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.facade.FacadeGame;
 import aiki.map.levels.Level;
 import aiki.map.places.Place;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.CustList;
 import code.util.StringMap;
@@ -20,7 +19,7 @@ public final class MapBean extends CommonBean implements BeanRenderWithAppName {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_MAP));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP,MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP,MessagesDataMapLevel.M_P_32_INDEX);
         int pls_ = places.size();
         for (int p = 0; p < pls_; p++) {
             initLine();
@@ -56,7 +55,7 @@ public final class MapBean extends CommonBean implements BeanRenderWithAppName {
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
         feedForms(_indexOne, _indexTwo, getForms());
-        return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public CustList<PlaceIndex> getPlaces() {

@@ -22,7 +22,6 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -476,7 +475,7 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
     public String clickMoves() {
         getForms().safeMoves(CST_MOVES_SET);
         getForms().safeMoves(CST_LEARNT_MOVES);
-        return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
 
     private StringList getMovesThieve() {

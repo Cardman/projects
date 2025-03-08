@@ -4,12 +4,11 @@ import aiki.beans.*;
 import aiki.facade.*;
 import aiki.fight.items.*;
 import code.maths.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class HealingStatusBean extends HealingItemBean {
-    static final String HEALING_STATUS_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
+    static final String HEALING_STATUS_BEAN= CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
     private CustList<TranslatedKey> status;
     private boolean healingKo;
     private Rate healedHpRate;

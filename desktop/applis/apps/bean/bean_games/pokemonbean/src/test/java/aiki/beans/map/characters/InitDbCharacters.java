@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.beans.map.*;
 import aiki.beans.map.pokemon.*;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbCharacters extends InitDbLevelMap {
@@ -225,7 +224,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     private static NaSt transitDual(PkData _pk, StringMap<NaSt> _all) {
         NaSt bean_ = transitLevel(3, 0, _pk, _all);
         NaSt tr_ = _all.getVal(AikiBeansMapStd.BEAN_DUAL);
-        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)bean(_all, PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),8),bean_,tr_);
+        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)bean(_all, CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),8),bean_,tr_);
         return tr_;
     }
 

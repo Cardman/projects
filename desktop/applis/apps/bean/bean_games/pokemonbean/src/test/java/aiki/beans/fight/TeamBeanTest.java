@@ -1,11 +1,11 @@
 package aiki.beans.fight;
 
+import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class TeamBeanTest extends InitDbFight {
@@ -585,7 +585,7 @@ public final class TeamBeanTest extends InitDbFight {
     @Test
     public void clickFighter() {
         TeamBean fBean_ = playerPath();
-        assertEq(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,navigateTeamFighter(fBean_,1));
+        assertEq(CommonBean.WEB_FIGHT_HTML_FIGHTER_HTML,navigateTeamFighter(fBean_,1));
         assertTrue(fBean_.getForms().contains(NO_TEAM));
         assertTrue(fBean_.getForms().contains(NO_FIGHTER));
         assertEq(Fight.CST_PLAYER,fBean_.getForms().getValInt(NO_TEAM));

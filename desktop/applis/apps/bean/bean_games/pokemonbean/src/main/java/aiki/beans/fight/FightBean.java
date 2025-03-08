@@ -6,7 +6,6 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
@@ -24,8 +23,8 @@ public final class FightBean extends CommonFightBean {
         init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_FIGHT)));
 //        initPage();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_GO_DETAIL);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.WEB_FIGHT_HTML_FIGHTDETAIL_HTML),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_GO_DETAIL);
         formatMessageAnc(new BeanAnchorToTeamEvent(Fight.CST_PLAYER,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_YOURS);
         formatMessageAnc(new BeanAnchorToTeamEvent(Fight.CST_FOE,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_FOES);
         formatMessage(MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_MULT,Long.toString(getMult()));
@@ -75,7 +74,7 @@ public final class FightBean extends CommonFightBean {
 
     public String click(int _c) {
         getForms().put(NO_TEAM, _c);
-        return PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML;
+        return CommonBean.WEB_FIGHT_HTML_TEAM_HTML;
     }
 
     public int getMult() {

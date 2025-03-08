@@ -1,7 +1,7 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.CommonBean;
 import aiki.fight.moves.effects.enums.ExchangeType;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EffectSwitchAbilitiesBeanTest extends InitDbMoveEffectSwitch {
@@ -51,7 +51,7 @@ public final class EffectSwitchAbilitiesBeanTest extends InitDbMoveEffectSwitch 
     }
     @Test
     public void clickAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callEffectSwitchAbilitiesBeanClickAbility(dispMoveEffSwitchAbilities(A_ABILITY,ExchangeType.NOTHING),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callEffectSwitchAbilitiesBeanClickAbility(dispMoveEffSwitchAbilities(A_ABILITY,ExchangeType.NOTHING),0));
     }
     @Test
     public void clickAbility2() {

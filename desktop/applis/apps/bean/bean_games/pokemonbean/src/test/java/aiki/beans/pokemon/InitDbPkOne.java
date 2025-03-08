@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.beans.pokemon.evolutions.*;
 import aiki.util.Coords;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.StringMap;
@@ -510,7 +509,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TYPE,new TranslationsFile());
         PokemonBean pkBean_ = new PokemonBean();
         pkBean_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,pkBean_);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,pkBean_);
         map_.addEntry(AikiBeansPokemonStd.BEAN_PK, _pk.bean(pkBean_, EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_HAPPY,_pk.beanEvolutionHappinessBean(EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_ITEM,_pk.beanEvolutionItemBean(EN));

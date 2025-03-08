@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.CommonBean;
 import org.junit.Test;
 
 public final class EffectUnprotectFromTypesBeanTest extends InitDbMoveEffectChangeProtect {
@@ -42,7 +42,7 @@ public final class EffectUnprotectFromTypesBeanTest extends InitDbMoveEffectChan
     }
     @Test
     public void clickMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectUnprotectFromTypesBeanClickMove(dispMoveEffUnprotectFromTypes(),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectUnprotectFromTypesBeanClickMove(dispMoveEffUnprotectFromTypes(),0));
     }
     @Test
     public void clickMove2() {

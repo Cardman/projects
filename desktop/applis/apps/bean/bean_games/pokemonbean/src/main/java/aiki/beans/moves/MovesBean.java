@@ -7,7 +7,6 @@ import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.moves.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -24,7 +23,7 @@ public final class MovesBean extends WithFilterBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataMovesMoves.M_P_71_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
 //        initPage();
         initFormMv(false);
         initLine();
@@ -55,7 +54,7 @@ public final class MovesBean extends WithFilterBean {
 //        }
 //        feedParents();
 //        feedParents();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
     }
 
     public IntBeanChgSubmit getUpdateValues() {
@@ -158,7 +157,7 @@ public final class MovesBean extends WithFilterBean {
         if (moves_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return tryRedirect(moves_.firstKey());
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
 //    private boolean excludeByAccuracy(MoveData _move) {
 //        if (Rate.isValid(getMinAccuracy())) {

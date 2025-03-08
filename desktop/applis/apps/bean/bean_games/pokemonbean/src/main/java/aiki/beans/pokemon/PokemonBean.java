@@ -26,7 +26,6 @@ import aiki.map.util.MiniMapCoordsTileInts;
 import code.images.ConverterBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -361,7 +360,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
     }
     public String clickPokedex() {
         getForms().safePokedex(CST_POKEMON_SET);
-        return PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML;
     }
 //    public String getPage(int _index) {
 //        DataBase data_ = getDataBase();
@@ -509,7 +508,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
         CommonBean.feedForms(_indexOne, _indexTwo, getForms());
-        return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public String getDisplayName() {

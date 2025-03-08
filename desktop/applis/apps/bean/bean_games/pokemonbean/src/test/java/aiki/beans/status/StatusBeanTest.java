@@ -1,9 +1,9 @@
 package aiki.beans.status;
 
+import aiki.beans.CommonBean;
 import aiki.db.MessagesDataBaseConstants;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class StatusBeanTest extends InitDbStatus {
@@ -309,6 +309,6 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void clickIndex() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,callStatusBeanClickIndex(0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,callStatusBeanClickIndex(0));
     }
 }

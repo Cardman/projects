@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.CommonBean;
 import aiki.beans.TranslatedKey;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
@@ -8,7 +9,6 @@ import aiki.fight.status.StatusType;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.AbsMap;
 import code.util.NatStringTreeMap;
 import code.util.StringMap;
@@ -55,7 +55,7 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
     }
     @Test
     public void cl1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,click());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,click());
     }
     @Test
     public void clId1() {

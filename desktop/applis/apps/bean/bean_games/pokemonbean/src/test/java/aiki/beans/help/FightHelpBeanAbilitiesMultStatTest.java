@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.CommonBean;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -7,7 +8,6 @@ import aiki.fight.util.StatisticCategory;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -168,7 +168,7 @@ public final class FightHelpBeanAbilitiesMultStatTest extends InitDbFightHelp {
     }
     @Test
     public void cl1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,click());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,click());
     }
     @Test
     public void clId1() {

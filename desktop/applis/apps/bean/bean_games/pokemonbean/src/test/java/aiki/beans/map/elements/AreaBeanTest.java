@@ -1,7 +1,7 @@
 package aiki.beans.map.elements;
 
+import aiki.beans.CommonBean;
 import aiki.beans.map.InitDbArea;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class AreaBeanTest extends InitDbArea {
@@ -472,34 +472,34 @@ public final class AreaBeanTest extends InitDbArea {
     }
     @Test
     public void clickItem5() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML,callAreaBeanClickItem(0,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML,callAreaBeanClickItem(0,0));
     }
     @Test
     public void clickItem6() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML,callAreaBeanClickItem(0,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML,callAreaBeanClickItem(0,1));
     }
     @Test
     public void clickItem7() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML,callAreaBeanClickItem(1,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML,callAreaBeanClickItem(1,0));
     }
     @Test
     public void clickItem8() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML,callAreaBeanClickItem(1,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML,callAreaBeanClickItem(1,1));
     }
     @Test
     public void clickItemFishing5() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,callAreaBeanClickItemFishing(0,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,callAreaBeanClickItemFishing(0,0));
     }
     @Test
     public void clickItemFishing6() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,callAreaBeanClickItemFishing(0,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,callAreaBeanClickItemFishing(0,1));
     }
     @Test
     public void clickItemFishing7() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,callAreaBeanClickItemFishing(1,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,callAreaBeanClickItemFishing(1,0));
     }
     @Test
     public void clickItemFishing8() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,callAreaBeanClickItemFishing(1,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,callAreaBeanClickItemFishing(1,1));
     }
 }

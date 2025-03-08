@@ -3,7 +3,6 @@ package aiki.beans.simulation;
 import aiki.beans.*;
 import aiki.beans.abilities.*;
 import aiki.facade.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -13,7 +12,7 @@ public final class SelectAbilityBean extends AbilitySearchBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SELECT_ABILITY));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL);
         initFormAb();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_OK));
         getUpdateValues().addEvt(new SelectAbilityBeanSearch(this));
@@ -35,12 +34,12 @@ public final class SelectAbilityBean extends AbilitySearchBean {
     }
 
     public String search() {
-        return searchAbility(CST_POKEMON_ABILITY_EDIT, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML);
+        return searchAbility(CST_POKEMON_ABILITY_EDIT, CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML);
     }
 
     public String clickAbility(int _index) {
         getForms().put(CST_POKEMON_ABILITY_EDIT, sortedAbilitiesGet().get(_index).getKey());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 
 

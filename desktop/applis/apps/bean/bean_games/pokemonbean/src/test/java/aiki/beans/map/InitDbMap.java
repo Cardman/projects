@@ -24,7 +24,6 @@ import aiki.util.Coords;
 import aiki.util.Point;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
@@ -289,18 +288,18 @@ public abstract class InitDbMap extends InitDbConstr {
         bu_.setFacade(welcome_.getFacade());
         welcome_.setBuilder(bu_);
         map_.addEntry(AikiBeansMapStd.BEAN_GAME_MAP, _pk.bean(welcome_, EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_LEVEL_MAP, _pk.bean(build(new MapLevelBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_LEVEL_MAP, _pk.bean(build(new MapLevelBean(), CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,bu_), EN));
 //        map_.addEntry(AikiBeansMapStd.BEAN_PK_TEAM, _pk.bean(build(new PokemonTeamBean(),bu_), EN));
         TrainerBean trainer_ = new TrainerBean();
-        map_.addEntry(AikiBeansMapStd.BEAN_TRAINER_FIGHT, _pk.bean(build(trainer_,PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,bu_), EN));
-        _pk.bean(build(trainer_,PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,bu_), EN);
+        map_.addEntry(AikiBeansMapStd.BEAN_TRAINER_FIGHT, _pk.bean(build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,bu_), EN));
+        _pk.bean(build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,bu_), EN);
 //        map_.addEntry(AikiBeansMapStd.BEAN_ALLY, _pk.bean(build(new AllyBean(),bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_DUAL, _pk.bean(build(new DualFightBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_AREA, _pk.bean(build(new AreaBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_LEG_PK, _pk.bean(build(new LegendaryPokemonBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_DEALER, _pk.bean(build(new DealerBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_SELLER, _pk.bean(build(new SellerBean(),PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,bu_), EN));
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,welcome_);
+        map_.addEntry(AikiBeansMapStd.BEAN_DUAL, _pk.bean(build(new DualFightBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_AREA, _pk.bean(build(new AreaBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_LEG_PK, _pk.bean(build(new LegendaryPokemonBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_DEALER, _pk.bean(build(new DealerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,bu_), EN));
+        map_.addEntry(AikiBeansMapStd.BEAN_SELLER, _pk.bean(build(new SellerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,bu_), EN));
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML,welcome_);
         return map_;
     }
     protected static MapBean mainBean(StringMap<NaSt> _all) {
@@ -314,21 +313,21 @@ public abstract class InitDbMap extends InitDbConstr {
         _bu.getRenders().addEntry(_k,_c);
         return (CommonBean) _c;
     }
-    public static StringMap<String> mappingToMap() {
-        StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,AikiBeansMapStd.BEAN_GAME_MAP);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,AikiBeansMapStd.BEAN_LEVEL_MAP);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML,AikiBeansMapStd.BEAN_PK_TEAM);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_ALLY_HTML,AikiBeansMapStd.BEAN_ALLY);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,AikiBeansMapStd.BEAN_DUAL);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,AikiBeansMapStd.BEAN_AREA);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,AikiBeansMapStd.BEAN_LEG_PK);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,AikiBeansMapStd.BEAN_DEALER);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,AikiBeansMapStd.BEAN_SELLER);
-        return map_;
-    }
+//    public static StringMap<String> mappingToMap() {
+//        StringMap<String> map_ = new StringMap<String>();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,AikiBeansMapStd.BEAN_GAME_MAP);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,AikiBeansMapStd.BEAN_LEVEL_MAP);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML,AikiBeansMapStd.BEAN_PK_TEAM);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_ALLY_HTML,AikiBeansMapStd.BEAN_ALLY);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,AikiBeansMapStd.BEAN_DUAL);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,AikiBeansMapStd.BEAN_AREA);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,AikiBeansMapStd.BEAN_LEG_PK);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,AikiBeansMapStd.BEAN_DEALER);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,AikiBeansMapStd.BEAN_SELLER);
+//        return map_;
+//    }
     protected static PokemonData pkOne() {
         return pk(M_POK_00,M_POK_01);
     }

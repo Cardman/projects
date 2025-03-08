@@ -1,9 +1,9 @@
 package aiki.beans.map.elements;
 
 import aiki.beans.AikiBeansStd;
+import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 public final class AikiBeansMapElementsStd{
     public static final String GM = "gm";
@@ -48,8 +48,8 @@ public final class AikiBeansMapElementsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        methods_.add( new SpecNatMethod(GM, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
-        methods_.add( new SpecNatMethod(GL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML)));
+        methods_.add( new SpecNatMethod(GM, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
+        methods_.add( new SpecNatMethod(GL, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML)));
         _std.getStds().addEntry(ELTS, type_);
     }
     private static void buildAreaBean(PokemonStandards _std){

@@ -6,7 +6,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
@@ -34,7 +33,7 @@ public final class EndRoundBean extends CommonBean implements BeanRenderWithAppN
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataEndroundEndround.M_P_3_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ENDROUND_ENDROUND,MessagesDataEndroundEndround.M_P_3_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ENDROUND_ENDROUND,MessagesDataEndroundEndround.M_P_3_INDEX);
         for (EffectEndRoundBean e: effects) {
             e.setAppName(getAppName());
             e.setBuilder(getBuilder());

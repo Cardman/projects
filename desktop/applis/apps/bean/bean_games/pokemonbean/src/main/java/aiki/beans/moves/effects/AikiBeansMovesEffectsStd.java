@@ -172,7 +172,7 @@ public final class AikiBeansMovesEffectsStd{
     private static final String REASONS = "reasons";
     private static final String MAP_VARS_FAIL = "mapVarsFail";
     private static final String NEED_SUCCESS_FIRST_EFFECT = "needSuccessFirstEffect";
-    private static final String EFFECT_BEAN = "effectBean";
+//    private static final String EFFECT_BEAN = "effectBean";
     private static final String MULT_ALLY_DAMAGE = "multAllyDamage";
     private static final String MOVES = "moves";
     private static final String HP_RATE_CLONE = "hpRateClone";
@@ -371,7 +371,7 @@ public final class AikiBeansMovesEffectsStd{
         fields_.add(new StandardField(REASONS, BeanNatCommonLgNames.TYPE_LIST, new EffectBeanReasonsGet(),null));
         fields_.add(new StandardField(MAP_VARS_FAIL, BeanNatCommonLgNames.TYPE_MAP, new EffectBeanMapVarsFailGet(),null));
         fields_.add(new StandardField(NEED_SUCCESS_FIRST_EFFECT,BeanNatCommonLgNames.PRIM_BOOLEAN, new EffectBeanNeedSuccessFirstEffectGet(),null));
-        fields_.add(new StandardField(EFFECT_BEAN,BeanNatCommonLgNames.STRING, new EffectBeanEffectBeanGet(),null));
+//        fields_.add(new StandardField(EFFECT_BEAN,BeanNatCommonLgNames.STRING, new EffectBeanEffectBeanGet(),null));
         methods_.add( new SpecNatMethod(M_IS_ADJ_ADV,BeanNatCommonLgNames.PRIM_BOOLEAN, new EffectBeanIsAdjAdv()));
         methods_.add( new SpecNatMethod(M_IS_ADJ_MULT,BeanNatCommonLgNames.PRIM_BOOLEAN, new EffectBeanIsAdjMult()));
         methods_.add( new SpecNatMethod(M_IS_ADJ_UNIQ,BeanNatCommonLgNames.PRIM_BOOLEAN, new EffectBeanIsAdjUniq()));

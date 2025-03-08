@@ -1,6 +1,6 @@
 package aiki.beans.map.characters;
 
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.CommonBean;
 import org.junit.Test;
 
 public final class TrainerBeanTest extends InitDbCharacters {
@@ -82,7 +82,7 @@ public final class TrainerBeanTest extends InitDbCharacters {
     }
     @Test
     public void clickMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callTrainerBeanClickMove(0,12,4));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callTrainerBeanClickMove(0,12,4));
     }
     @Test
     public void clickMove2() {

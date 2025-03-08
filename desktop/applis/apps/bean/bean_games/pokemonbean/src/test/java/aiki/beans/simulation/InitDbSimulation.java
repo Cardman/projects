@@ -31,7 +31,6 @@ import aiki.util.*;
 import code.bean.nat.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesDataSimulation;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
@@ -1668,7 +1667,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return _str;
     }
     public static String navigateDiffChange(SimulationBean _str, long... _args) {
-        _str.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,_str);
+        _str.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,_str);
         IntBeanAction intAct_ = ((AbsBeanChgSubmit) _str.getUpdateValues()).getEvts().get(0);
         _str.getBuilder().build(intAct_);
         return "";
@@ -1678,7 +1677,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct from_ = _main;
 //        NaSt dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
         beforeDisplaying(from_);
-        PokemonBeanStruct simu_ =transitSimu(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML), _main.getInstance().getBuilder());
+        PokemonBeanStruct simu_ =transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML), _main.getInstance().getBuilder());
 //        callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
 //        beforeDisplaying(dCom_);
         return simu_;
@@ -1937,7 +1936,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
         PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getInstance().getBuilder());
+        return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getInstance().getBuilder());
     }
 
     protected static PokemonBeanStruct pkTrainerSelectPkName(String _name) {
@@ -2008,7 +2007,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
         PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getInstance().getBuilder());
+        return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getInstance().getBuilder());
     }
     protected static PokemonBeanStruct pkTrainerSelectAb(int _row) {
         PkData pk_ = pkDataByFacade(db());
@@ -3322,15 +3321,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         editPk_.setBuilder(bu_);
         editMv_.setBuilder(bu_);
         editTr_.setBuilder(bu_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,simu_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML,add_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML,selAb_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML,selPk_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML,selIt_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML,editPk_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML,editMv_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML,editTr_);
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,level_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,simu_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML,add_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML,selAb_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML,selPk_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML,selIt_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML,editPk_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML,editMv_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML,editTr_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,level_);
         return new PokemonBeanStruct(simu_);
     }
 

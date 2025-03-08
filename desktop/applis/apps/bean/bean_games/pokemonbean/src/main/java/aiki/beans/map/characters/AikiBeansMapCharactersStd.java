@@ -12,7 +12,7 @@ public final class AikiBeansMapCharactersStd{
     public static final String TYPE_DUAL_FIGHT_BEAN = "aiki.beans.map.characters.DualFightBean";
     public static final String TYPE_SELLER_BEAN = "aiki.beans.map.characters.SellerBean";
     public static final String TYPE_TRAINER_BEAN = "aiki.beans.map.characters.TrainerBean";
-    public static final String TYPE_TRAINER_ONE_FIGHT_BEAN = "aiki.beans.map.characters.TrainerOneFightBean";
+//    public static final String TYPE_TRAINER_ONE_FIGHT_BEAN = "aiki.beans.map.characters.TrainerOneFightBean";
     private static final String GET_NAME = "getName";
     private static final String CLICK_ITEM = "clickItem";
     private static final String GET_ITEM = "getItem";
@@ -27,9 +27,9 @@ public final class AikiBeansMapCharactersStd{
     private static final String IMAGE = "image";
     private static final String IMAGE_MINI = "imageMini";
     private static final String IMAGE_MINI_SECOND = "imageMiniSecond";
-    private static final String PAGE_ALLY = "pageAlly";
+//    private static final String PAGE_ALLY = "pageAlly";
     private static final String ALLY = "ally";
-    private static final String PAGE_TEAM = "pageTeam";
+//    private static final String PAGE_TEAM = "pageTeam";
     private static final String TRAINER = "trainer";
     private static final String MOVE = "move";
     private AikiBeansMapCharactersStd(){}
@@ -77,9 +77,9 @@ public final class AikiBeansMapCharactersStd{
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING, new DualFightBeanImageGet(),null));
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING, new DualFightBeanImageMiniGet(),null));
         fields_.add(new StandardField(IMAGE_MINI_SECOND,BeanNatCommonLgNames.STRING, new DualFightBeanImageMiniSecondGet(),null));
-        fields_.add(new StandardField(PAGE_ALLY,BeanNatCommonLgNames.STRING, new CstNatCaller(DualFightBean.PAGE_ALLY),null));
+//        fields_.add(new StandardField(PAGE_ALLY,BeanNatCommonLgNames.STRING, new CstNatCaller(DualFightBean.PAGE_ALLY),null));
         fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY, new DualFightBeanAllyGet(),null));
-        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING, new CstNatCaller(DualFightBean.PAGE_TEAM),null));
+//        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING, new CstNatCaller(DualFightBean.PAGE_TEAM),null));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TEMP_TRAINER, new DualFightBeanTrainerGet(),null));
         _std.getStds().addEntry(TYPE_DUAL_FIGHT_BEAN, type_);
     }
@@ -101,7 +101,7 @@ public final class AikiBeansMapCharactersStd{
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansMapElementsStd.ELTS);
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING, new TrainerBeanImageGet(),null));
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING, new TrainerBeanImageMiniGet(),null));
-        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING, new CstNatCaller(TrainerBean.PAGE_TEAM),null));
+//        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING, new CstNatCaller(TrainerBean.PAGE_TEAM),null));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER, new TrainerBeanTrainerGet(),null));
         fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING, new TrainerBeanMoveGet(),null));
         methods_.add( new SpecNatMethod(GET_TEAMS_REWARDS, BeanNatCommonLgNames.TYPE_LIST, new TrainerBeanGetTeamsRewards()));

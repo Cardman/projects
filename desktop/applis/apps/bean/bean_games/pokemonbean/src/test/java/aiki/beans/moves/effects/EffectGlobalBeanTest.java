@@ -1,7 +1,7 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.CommonBean;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -244,7 +244,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickInvokedMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokedMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokedMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickInvokedMove2() {
@@ -256,7 +256,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickInvokingMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokingMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokingMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickInvokingMove2() {
@@ -268,7 +268,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickInvokingMoveTypes1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokingMoveTypes(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokingMoveTypes(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickInvokingMoveTypes2() {
@@ -280,7 +280,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickMovesTarget1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMovesTarget(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMovesTarget(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickMovesTarget2() {
@@ -292,7 +292,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickUnusableMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickUnusableMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickUnusableMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickUnusableMove2() {
@@ -304,7 +304,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickCancelledEffect1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickCancelledEffect(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickCancelledEffect(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickCancelledEffect2() {
@@ -316,7 +316,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickMultMovePower1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMultMovePower(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMultMovePower(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickMultMovePower2() {
@@ -328,7 +328,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickCancelledAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callEffectGlobalBeanClickCancelledAbility(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callEffectGlobalBeanClickCancelledAbility(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickCancelledAbility2() {
@@ -340,7 +340,7 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     }
     @Test
     public void clickPreventedStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectGlobalBeanClickPreventedStatus(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callEffectGlobalBeanClickPreventedStatus(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
     @Test
     public void clickPreventedStatus2() {

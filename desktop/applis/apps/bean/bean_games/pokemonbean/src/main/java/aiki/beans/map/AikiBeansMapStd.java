@@ -1,10 +1,10 @@
 package aiki.beans.map;
 
 import aiki.beans.AikiBeansStd;
+import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.map.elements.*;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 public final class AikiBeansMapStd{
     public static final String TYPE_MAP_BEAN = "aiki.beans.map.MapBean";
@@ -87,7 +87,7 @@ public final class AikiBeansMapStd{
 //        methods_.add( new SpecNatMethod(IS_DOWN,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsDown()));
 //        methods_.add( new SpecNatMethod(IS_LEFT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsLeft()));
 //        methods_.add( new SpecNatMethod(IS_RIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsRight()));
-        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
+        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
         _std.getStds().addEntry(TYPE_MAP_LEVEL_BEAN, type_);
     }
 }

@@ -2,7 +2,6 @@ package aiki.beans.abilities;
 
 import aiki.beans.*;
 import aiki.facade.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.StringMap;
 
@@ -16,7 +15,7 @@ public final class AbilitiesBean extends AbilitySearchBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataAbilityAbilities.M_P_0_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
 //        initPage();
         initFormAb();
         initLine();
@@ -24,7 +23,7 @@ public final class AbilitiesBean extends AbilitySearchBean {
         getUpdateValues().addEvt(new AbilitiesBeanSearch(this));
         feedParents();
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,sortedAbilitiesGet());
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
     }
 
     public IntBeanChgSubmit getUpdateValues() {
@@ -35,7 +34,7 @@ public final class AbilitiesBean extends AbilitySearchBean {
         return file(MessagesPkBean.ABILITIES).getMapping();
     }
     public String search() {
-        return searchAbility(CST_ABILITY, PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML, PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML);
+        return searchAbility(CST_ABILITY, CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML, CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML);
     }
     public String clickAbility(int _index) {
         return tryRedirect(sortedAbilitiesGet().get(_index));

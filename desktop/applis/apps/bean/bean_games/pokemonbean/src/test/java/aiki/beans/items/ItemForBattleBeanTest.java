@@ -1,12 +1,12 @@
 package aiki.beans.items;
 
+import aiki.beans.CommonBean;
 import aiki.beans.TranslatedKey;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import org.junit.Test;
 
@@ -202,7 +202,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickTypesPkAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callItemForBattleBeanClickTypesPkAbility());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callItemForBattleBeanClickTypesPkAbility());
     }
     @Test
     public void clickTypesPkAbility2() {
@@ -222,7 +222,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickImmuStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickImmuStatus());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickImmuStatus());
     }
     @Test
     public void clickImmuStatus2() {
@@ -242,7 +242,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickSynchroStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickSynchroStatus());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickSynchroStatus());
     }
     @Test
     public void clickSynchroStatus2() {
@@ -262,7 +262,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickImmuMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickImmuMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickImmuMove());
     }
     @Test
     public void clickImmuMove2() {
@@ -282,7 +282,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickWeatherInd1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickWeather());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickWeather());
     }
     @Test
     public void clickWeatherInd2() {
@@ -366,7 +366,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickTrapMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickTrapMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickTrapMove());
     }
     @Test
     public void clickTrapMove2() {
@@ -390,7 +390,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickTeamMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickTeamMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickTeamMove());
     }
     @Test
     public void clickTeamMove2() {
@@ -414,7 +414,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickGlobalMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickGlobalMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickGlobalMove());
     }
     @Test
     public void clickGlobalMove2() {
@@ -438,7 +438,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickFailStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickFailStatus());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickFailStatus());
     }
     @Test
     public void clickFailStatus2() {
@@ -462,7 +462,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickMultStatPk1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callItemForBattleBeanClickMultStatPk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callItemForBattleBeanClickMultStatPk());
     }
     @Test
     public void clickMultStatPk2() {
@@ -550,7 +550,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void clickWeather1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectWhileSendingBeanClickWeather(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectWhileSendingBeanClickWeather(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
     }
     @Test
     public void clickWeather2() {

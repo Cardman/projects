@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -7,7 +8,6 @@ import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -37,7 +37,7 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
     }
     @Test
     public void clMv1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,clickMv());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,clickMv());
     }
     @Test
     public void clIdMv1() {
@@ -62,7 +62,7 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
     }
     @Test
     public void clAb1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,clickAb());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,clickAb());
     }
     @Test
     public void clIdAb1() {

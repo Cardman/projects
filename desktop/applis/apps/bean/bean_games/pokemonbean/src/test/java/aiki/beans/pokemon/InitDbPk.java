@@ -28,7 +28,6 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.IdMap;
@@ -285,14 +284,14 @@ public abstract class InitDbPk extends InitDbConstr {
         w_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
-        w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,pkDex_);
+        w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,pkDex_);
         map_.addEntry(AikiBeansPokemonStd.BEAN_POKEDEX, _pk.bean(pkDex_, EN));
         return map_;
     }
     public static StringMap<String> mappingToPk() {
         StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
+        map_.addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+        map_.addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
         return map_;
     }
 

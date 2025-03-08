@@ -13,13 +13,12 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.NumberUtil;
 
 public final class ItemForBattleBean extends ItemBean {
-    static final String EFFECT_SEND_BEAN=PkScriptPages.REN_ADD_WEB_HTML_SENDING_EFFSENDING_HTML;
+//    static final String EFFECT_SEND_BEAN=PkScriptPages.REN_ADD_WEB_HTML_SENDING_EFFSENDING_HTML;
     private CustList<TranslatedKey> typesPk;
     private CustList<TranslatedKey> typesPkAbilities;
     private boolean cancelImmuType;
@@ -71,7 +70,7 @@ public final class ItemForBattleBean extends ItemBean {
         buildHeader();
         if (getEndRoundCommon().getEndRound()) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundCommon().getEndRoundRank()));
-            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ENDROUND);
+            formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ENDROUND);
             displayStringList(getEndRoundCommon().getReasonsEndRound(),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
             mapVarsInit(getEndRoundCommon().getMapVarsFailEndRound());
         }

@@ -7,7 +7,6 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.*;
 import code.maths.LgInt;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesFightTeam;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
@@ -36,8 +35,8 @@ public final class TeamBean extends CommonFightBean {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightTeam.M_P_92_TITLE_PLAYER)));
         }
 //        initPage();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_FIGHT);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_REFRESH);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_FIGHT);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.WEB_FIGHT_HTML_TEAM_HTML),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_REFRESH);
         new BeanDisplayList<EntryCust<Integer,String>>(new BeanDisplayMember()).display(this,getMembers().getList());
 //        for (EntryCust<Integer,String> e:getMembers().entryList()) {
 //            initLine();
@@ -287,7 +286,7 @@ public final class TeamBean extends CommonFightBean {
 
     public static String clickFighter(int _index, StringMapObject _forms) {
         _forms.put(NO_FIGHTER, _index);
-        return PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML;
+        return CommonBean.WEB_FIGHT_HTML_FIGHTER_HTML;
     }
     public String getKey(int _index) {
         return StringUtil.join(enabledMovesByGroup.getKey(_index), MOVES_SEPARATOR);

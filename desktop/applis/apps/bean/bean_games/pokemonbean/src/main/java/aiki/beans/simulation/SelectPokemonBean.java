@@ -3,7 +3,6 @@ package aiki.beans.simulation;
 import aiki.beans.*;
 import aiki.beans.facade.dto.*;
 import aiki.facade.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -13,7 +12,7 @@ public final class SelectPokemonBean extends WithFilterBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SELECT_PK));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL);
         initFormPk();
         initLine();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_OK));
@@ -36,7 +35,7 @@ public final class SelectPokemonBean extends WithFilterBean {
     }
 
     public String search() {
-        return search(CST_POKEMON_NAME_EDIT, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML);
+        return search(CST_POKEMON_NAME_EDIT, CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML);
     }
 
 //    public String clickLink(int _number) {
@@ -45,7 +44,7 @@ public final class SelectPokemonBean extends WithFilterBean {
 
     public String putName(String _name) {
         getForms().put(CST_POKEMON_NAME_EDIT, _name);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 
 }

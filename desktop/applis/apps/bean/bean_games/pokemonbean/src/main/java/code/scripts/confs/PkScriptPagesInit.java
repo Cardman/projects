@@ -1,5 +1,6 @@
 package code.scripts.confs;
 
+import aiki.beans.CommonBean;
 import code.bean.nat.analyze.*;
 
 public final class PkScriptPagesInit {
@@ -579,7 +580,7 @@ private static final String PREF="c";
     private PkScriptPagesInit(){
     }
     public static void initConfData(NatConfigurationCore _configuration){
-        _configuration.setFirstUrl(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML);
+        _configuration.setFirstUrl(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML);
         _configuration.setPrefix(PREF);
 //        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(109));
 //        NavBuilder.buildBeans(beans_,AikiBeansStd.BEAN_WELCOME,AIKI_BEANS_WELCOME_BEAN);

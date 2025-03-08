@@ -11,7 +11,6 @@ import aiki.db.*;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.map.pokemon.enums.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -163,25 +162,25 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String chooseAbility() {
         getForms().putAbilities(CST_ABILITIES_SET, DictionaryComparatorUtil.buildAbilitiesData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML;
     }
     public String chooseItem() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
         getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String chooseName() {
         getForms().putPokedex(CST_POKEMON_SET, DictionaryComparatorUtil.buildPkData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML;
     }
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
         getForms().putMoves(CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
     public String deleteMoves() {
         StringList keptMoves_ = new StringList();
@@ -191,7 +190,7 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
             }
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public String validateTrainerPk() {
         DataBase data_ = getDataBase();
@@ -224,7 +223,7 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         getForms().put(CST_POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(common.getGender().tryRet()));
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
         getForms().put(CST_POKEMON_ABILITY_EDIT, ability);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String getTranslatedName() {
         DataBase data_ = getDataBase();

@@ -14,7 +14,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.moves.MoveData;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
@@ -173,7 +172,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
     public String chooseItem() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
         getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String translateName() {
 //        if (namePk.isEmpty()) {
@@ -196,7 +195,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
         getForms().putMoves(CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
     public String getTranslatedStatistic(int _index) {
         Statistic st_ = ev.getKey(_index);
@@ -206,7 +205,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String deleteMoves() {
         StringList keptMoves_ = new StringList();
@@ -216,7 +215,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
             }
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
     }
     public String edit() {
         getForms().put(CST_ITEM_EDIT, item);
@@ -236,11 +235,11 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
             selected_.add(s.getName());
         }
         if (!inRangeMoves(selected_)) {
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public boolean inRangeMoves(StringList _selected) {
         DataBase data_ = getDataBase();

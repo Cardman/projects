@@ -14,7 +14,6 @@ import aiki.map.util.PlaceInterConnectCoords;
 import aiki.util.Coords;
 import aiki.util.Point;
 import aiki.util.Points;
-import code.scripts.confs.PkScriptPages;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -115,7 +114,7 @@ public abstract class AbsLevelBean extends CommonBean  implements BeanRenderWith
     }
     public String clickArea(int _index) {
         getForms().put(CST_AREA,getWildPokemonAreas().get(_index));
-        return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML;
     }
     public String clickAreaOnMap(int _index) {
         Coords co_ = getForms().getValCoords(CST_COORDS);
@@ -126,14 +125,14 @@ public abstract class AbsLevelBean extends CommonBean  implements BeanRenderWith
         DataBase data_ = getDataBase();
         AbsAreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
         if (app_.isVirtual()) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
         }
         getForms().put(CST_AREA,app_);
-        return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML;
     }
     public String clickNeighbour(int _index) {
         CommonBean.feedForms(neighbours.getKey(_index),0,getForms());
-        return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public int getMapWidth() {

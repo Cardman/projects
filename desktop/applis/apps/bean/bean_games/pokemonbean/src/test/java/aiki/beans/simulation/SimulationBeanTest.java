@@ -1,8 +1,8 @@
 package aiki.beans.simulation;
 
+import aiki.beans.CommonBean;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.db.DataBase;
-import aiki.facade.*;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.game.fight.Fighter;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -10,7 +10,6 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -447,15 +446,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void selectFoePkInit() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoFoePk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoFoePk());
     }
     @Test
     public void selectFoePkAddedNoSelect() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedFoePk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedFoePk());
     }
     @Test
     public void selectFoePkAddedForget() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedFoePk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedFoePk());
     }
     @Test
     public void editingFoe() {
@@ -498,15 +497,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void selectAllyPkInit() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
     }
     @Test
     public void selectAllyPkAddedNoSelect() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
     }
     @Test
     public void selectAllyPkAddedForget() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
     }
     @Test
     public void editingAlly() {
@@ -726,15 +725,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
 
     @Test
     public void selectPlayerPkInit() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoPlayerPk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoPlayerPk());
     }
     @Test
     public void selectPlayerPkAddedNoSelect() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedPlayerPk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedPlayerPk());
     }
     @Test
     public void selectPlayerPkAddedForget() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedPlayerPk());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedPlayerPk());
     }
     @Test
     public void namePkPlayerEdit() {
@@ -1718,7 +1717,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void exit() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,quit());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,quit());
     }
     @Test
     public void heart() {

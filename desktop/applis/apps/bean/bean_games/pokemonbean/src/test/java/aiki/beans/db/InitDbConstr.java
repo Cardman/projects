@@ -631,7 +631,7 @@ public abstract class InitDbConstr extends InitDbBean {
         WelcomeBean b_ = new WelcomeBean();
         _pk.bean(b_, _lg);
         MockBeanBuilderHelper bu_ = builder(_pk.getDataBase());
-        bu_.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,b_);
+        bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,b_);
         b_.setBuilder(bu_);
         return b_;
     }

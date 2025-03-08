@@ -16,7 +16,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.IdMap;
@@ -312,7 +311,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         map_.addEntry(BEAN_MOVES, _pk.bean(moves_, EN));
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
-        w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,moves_);
+        w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,moves_);
 //        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE_LINE,_pk.beanMoveLineBean(EN));
         return map_;
     }

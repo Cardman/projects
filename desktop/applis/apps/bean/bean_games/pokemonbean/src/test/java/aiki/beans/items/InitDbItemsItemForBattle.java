@@ -17,7 +17,6 @@ import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.sml.util.TranslationsFile;
 import code.util.StringList;
@@ -449,7 +448,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         it_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEMFORBATTLE,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEMFORBATTLE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,it_);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,it_);
         return map_;
     }
 

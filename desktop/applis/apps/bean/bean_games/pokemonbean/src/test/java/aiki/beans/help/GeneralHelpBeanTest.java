@@ -1,7 +1,7 @@
 package aiki.beans.help;
 
+import aiki.beans.CommonBean;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
@@ -96,7 +96,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickPkName1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callGeneralHelpBeanClickName());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callGeneralHelpBeanClickName());
     }
     @Test
     public void clickPkName2() {
@@ -108,7 +108,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickPkItem1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,callGeneralHelpBeanClickItem());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,callGeneralHelpBeanClickItem());
     }
     @Test
     public void clickPkItem2() {
@@ -120,7 +120,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickPkAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callGeneralHelpBeanClickAbility());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callGeneralHelpBeanClickAbility());
     }
     @Test
     public void clickPkAbility2() {
@@ -136,7 +136,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickPkMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickMove());
     }
     @Test
     public void clickPkMove2() {
@@ -164,7 +164,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickName1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callGeneralHelpBeanClickPokemon());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callGeneralHelpBeanClickPokemon());
     }
     @Test
     public void clickName2() {
@@ -184,7 +184,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickTm1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickTm(0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickTm(0));
     }
     @Test
     public void clickTm2() {
@@ -192,7 +192,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickTm3() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickTm(1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickTm(1));
     }
     @Test
     public void clickTm4() {
@@ -208,7 +208,7 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void clickHm1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickHm());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickHm());
     }
     @Test
     public void clickHm2() {

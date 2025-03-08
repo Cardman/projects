@@ -41,7 +41,6 @@ import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -766,7 +765,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             coords_.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().get(_indexTwo)).getTrainerCoords().value()));
             getForms().put(CST_COORDS_TR, coords_);
             noFight = IndexConstants.FIRST_INDEX;
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (pl_ instanceof City) {
             City c_ = (City) pl_;
@@ -778,7 +777,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
                     co_.getLevel().setLevelIndex(_indexTwo);
                     co_.affectInside(new Point(p));
                     getForms().put(CST_COORDS,co_);
-                    return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
+                    return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
                 }
             }
         }
@@ -786,7 +785,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         co_.setNumberPlace(_indexOne);
         co_.getLevel().setLevelIndex(_indexTwo);
         getForms().put(CST_COORDS,co_);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
     public void validateDiffChoice() {
         ok = true;
@@ -897,7 +896,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 //            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
 //        }
         if (selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, true);
@@ -910,7 +909,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getForms().put(CST_POKEMON_MOVES_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getMoves());
             getForms().put(CST_POKEMON_ABILITY_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getAbility());
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.REMOVE) {
             int index_ = selectedFoePk;
@@ -921,7 +920,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             }
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.REMOVE);
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public boolean errorSelectedFoePk() {
         return selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.REMOVE);
@@ -973,7 +972,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 //            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
 //        }
         if (selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, false);
@@ -986,7 +985,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getForms().put(CST_POKEMON_MOVES_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getMoves());
             getForms().put(CST_POKEMON_ABILITY_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getAbility());
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.REMOVE) {
             int index_ = selectedAllyPk;
@@ -997,7 +996,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             }
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.REMOVE);
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public boolean errorSelectedAllyPk() {
         return selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.REMOVE);
@@ -1014,7 +1013,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getForms().put(CST_POKEMON_ABILITY_EDIT, pk_.getAbility());
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
         getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public void validateFoeChoiceFree() {
         ok = true;
@@ -1078,7 +1077,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 //            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
 //        }
         if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.EDIT) {
             getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
@@ -1095,7 +1094,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             for (Statistic s: Statistic.getStatisticsWithBase()) {
                 getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), simulation.getTeam().get(selectedPk).getEv().getVal(s));
             }
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.REMOVE) {
             int index_ = selectedPk;
@@ -1106,14 +1105,14 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             }
             simulation.removePokemonPlayer(index_);
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public boolean errorSelectedPk() {
         return selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.REMOVE);
     }
     public String add() {
         getForms().putPokedex(CST_POKEMON_SET_SIMU, DictionaryComparatorUtil.buildPkData());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
     public int[][] getImage(int _index) {
         DataBase data_ = getDataBase();
@@ -1700,7 +1699,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getForms().removeKey(CST_COORDS_TR);
         stepNumber = 0;
         ok = true;
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
 

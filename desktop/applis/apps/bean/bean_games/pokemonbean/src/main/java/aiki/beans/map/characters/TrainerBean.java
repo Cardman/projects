@@ -5,14 +5,13 @@ import aiki.db.*;
 import aiki.facade.FacadeGame;
 import aiki.map.characters.*;
 import aiki.map.pokemon.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.MessagesDataMapLevel;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.StringUtil;
 
 public final class TrainerBean extends CommonBean implements BeanRenderWithAppName {
-    static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
+//    static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
     private Trainer trainer;
     private String name = DataBase.EMPTY_STRING;
     private TranslatedKey move;
@@ -31,9 +30,9 @@ public final class TrainerBean extends CommonBean implements BeanRenderWithAppNa
         } else {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_FIGHT_STAND)));
         }
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
         addImg(image);
         addImg(imageMini);
         int len_ = beans.size();

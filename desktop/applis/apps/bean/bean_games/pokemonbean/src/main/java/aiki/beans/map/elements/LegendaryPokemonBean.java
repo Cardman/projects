@@ -3,7 +3,6 @@ package aiki.beans.map.elements;
 import aiki.beans.*;
 import aiki.facade.*;
 import aiki.map.pokemon.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -18,9 +17,9 @@ public final class LegendaryPokemonBean extends CommonBean implements BeanRender
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_LEG),getName()));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
         disTranslatedPkElements(pokemon);
     }
     public StringMap<String> file() {

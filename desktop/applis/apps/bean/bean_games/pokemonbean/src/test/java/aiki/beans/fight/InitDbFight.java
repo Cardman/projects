@@ -51,7 +51,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsLg;
@@ -304,8 +303,8 @@ public abstract class InitDbFight extends InitDbBean {
         b_.setDataBase(_fac);
         b_.setLanguage(EN);
         b_.setBuilder(bu_);
-        bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,fightBean_);
-        bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,b_);
+        bu_.getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_FIGHT_HTML,fightBean_);
+        bu_.getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,b_);
         fightBean_.build(_fac);
         IntBeanAction anc_ = bu_.getAnchors().get(1);
         bu_.build(anc_);
@@ -328,8 +327,8 @@ public abstract class InitDbFight extends InitDbBean {
     protected TeamBean beanTeam(int _caller, FacadeGame _facade) {
         FightBean bFigtht_ = beanFight(EN, _facade);
         TeamBean bTeam_ = beanTeam(EN, _facade,bFigtht_);
-        bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,bFigtht_);
-        bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,bTeam_);
+        bFigtht_.getBuilder().getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_FIGHT_HTML,bFigtht_);
+        bFigtht_.getBuilder().getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_TEAM_HTML,bTeam_);
         bFigtht_.build(_facade);
         IntBeanAction anc_ = bFigtht_.getBuilder().getAnchors().get(2 + _caller);
         bFigtht_.getBuilder().build(anc_);

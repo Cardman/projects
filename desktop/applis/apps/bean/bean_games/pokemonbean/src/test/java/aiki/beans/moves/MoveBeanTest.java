@@ -1,11 +1,11 @@
 package aiki.beans.moves;
 
+import aiki.beans.CommonBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class MoveBeanTest extends InitDbMove {
@@ -323,11 +323,11 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickPokemon1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,0));
     }
     @Test
     public void clickPokemon2() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,1));
     }
     @Test
     public void clickPokemon3() {
@@ -639,7 +639,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickAchieveDisappearedPkUsingMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickAchieveDisappearedPkUsingMove(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickAchieveDisappearedPkUsingMove(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickAchieveDisappearedPkUsingMove2() {
@@ -651,7 +651,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickDeletedStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callMoveBeanClickDeletedStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callMoveBeanClickDeletedStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickDeletedStatus2() {
@@ -663,7 +663,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickRequiredStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callMoveBeanClickRequiredStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callMoveBeanClickRequiredStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickRequiredStatus2() {
@@ -723,7 +723,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickPokemonTm1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonTm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonTm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickPokemonTm2() {
@@ -743,7 +743,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickPokemonMt1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonMt(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonMt(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickPokemonMt2() {
@@ -763,7 +763,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickPokemonHm1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonHm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonHm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1),0));
     }
     @Test
     public void clickPokemonHm2() {
@@ -775,7 +775,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickTypesByWeathers1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickTypesByWeathers(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickTypesByWeathers(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickTypesByWeathers2() {
@@ -795,15 +795,15 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),0));
     }
     @Test
     public void clickMove2() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),1));
     }
     @Test
     public void clickMove3() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),2));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),2));
     }
     @Test
     public void clickMove4() {
@@ -823,7 +823,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callMoveBeanClickAbility(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callMoveBeanClickAbility(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickAbility2() {
@@ -831,7 +831,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickMoves() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,callMoveBeanClickMoves(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,callMoveBeanClickMoves(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
     @Test
     public void getTrTypesByOwnedItems() {
@@ -839,7 +839,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickTypesByOwnedItems1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickTypesByOwnedItems(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickTypesByOwnedItems(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickTypesByOwnedItems2() {
@@ -851,7 +851,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickItemSecEffect1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickItemSecEffect(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickItemSecEffect(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void clickItemSecEffect2() {
@@ -864,7 +864,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void clickItem1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickItem(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickItem(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
 
     }
     @Test

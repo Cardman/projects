@@ -1,9 +1,9 @@
 package aiki.beans.effects;
 
+import aiki.beans.CommonBean;
 import aiki.db.MessagesDataBaseConstants;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
@@ -173,11 +173,11 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void clickMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectComboBeanClickMove(0,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectComboBeanClickMove(0,0));
     }
     @Test
     public void clickMove2() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectComboBeanClickMove(0,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEffectComboBeanClickMove(0,1));
     }
     @Test
     public void clickMove3() {

@@ -12,7 +12,6 @@ import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
 import aiki.util.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -30,7 +29,7 @@ public final class SolutionBean extends CommonBean implements BeanRenderWithAppN
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataSolution.M_P_87_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.SOLUTION,MessagesDataSolution.M_P_87_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.SOLUTION,MessagesDataSolution.M_P_87_INDEX);
         int len_ = steps.size();
         for (int i = 0; i < len_; i++) {
             formatMessageDir(Long.toString(i));
@@ -46,7 +45,7 @@ public final class SolutionBean extends CommonBean implements BeanRenderWithAppN
                 new BeanDisplayList<PlaceTrainerDto>(new BeanDisplayPlaceTrainerDto()).display(this,steps.get(i).getNames());
             }
         }
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.SOLUTION,MessagesDataSolution.M_P_87_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.SOLUTION,MessagesDataSolution.M_P_87_INDEX);
     }
     public StringMap<String> file() {
         return file(MessagesPkBean.SOLUTION).getMapping();

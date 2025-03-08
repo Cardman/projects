@@ -5,7 +5,6 @@ import aiki.beans.facade.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.util.ListEffectCombo;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.CustList;
 import code.util.StringMap;
@@ -21,7 +20,7 @@ public final class CombosBean extends CommonBean implements BeanRenderWithAppNam
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataCombo.M_P_2_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML), MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML), MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_INDEX);
         for (EffectComboBean e:list) {
             e.buildSub();
         }

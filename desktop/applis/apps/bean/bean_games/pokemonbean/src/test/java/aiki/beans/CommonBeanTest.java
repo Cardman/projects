@@ -10,7 +10,6 @@ import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.scripts.confs.PkScriptPages;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect3() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML, tryRedirect(d_, forms_, redirectIt(I_ITEM,d_.getData())));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_BALL_HTML, tryRedirect(d_, forms_, redirectIt(I_ITEM,d_.getData())));
         assertEq(I_ITEM, value(forms_));
     }
 

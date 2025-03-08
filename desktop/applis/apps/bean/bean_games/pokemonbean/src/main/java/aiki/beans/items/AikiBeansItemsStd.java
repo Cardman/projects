@@ -91,7 +91,7 @@ public final class AikiBeansItemsStd{
     private static final String GET_MINI_IMAGE = "getMiniImage";
     private static final String CLICK_LINK = "clickLink";
     private static final String DISPLAY_NAME = "displayName";
-    private static final String ITEM_BEAN = "itemBean";
+//    private static final String ITEM_BEAN = "itemBean";
     private static final String NAME = "name";
     private static final String CATCHING_RATE = "catchingRate";
     private static final String MAP_VARS = "mapVars";
@@ -324,7 +324,7 @@ public final class AikiBeansItemsStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING, new ItemBeanDisplayNameGet(),null));
-        fields_.add(new StandardField(ITEM_BEAN,BeanNatCommonLgNames.STRING, new ItemBeanItemBeanGet(),null));
+//        fields_.add(new StandardField(ITEM_BEAN,BeanNatCommonLgNames.STRING, new ItemBeanItemBeanGet(),null));
         fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, new ItemBeanNameGet(),new ItemBeanNameSet()));
         fields_.add(new StandardField(ITEM_IMAGE,BeanNatCommonLgNames.STRING, new ItemBeanItemImageGet(),null));
         fields_.add(new StandardField(DESCRIPTION,BeanNatCommonLgNames.STRING, new ItemBeanDescriptionGet(),null));

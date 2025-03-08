@@ -19,7 +19,6 @@ import aiki.map.util.PlaceInterConnectCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesDataMapLevel;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
@@ -54,8 +53,8 @@ public final class MapLevelBean extends AbsLevelBean {
 //                setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER),getPlaceName()));
 //            }
 //        }
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
         initGrid();
         getBuilder().colCount(getMapWidth());
         DictionaryComparator<Point, int[][]> tiles_ = getTiles();
@@ -147,7 +146,7 @@ public final class MapLevelBean extends AbsLevelBean {
             Place place_ = data_.getMap().getPlace(p);
             if (place_ instanceof League && Coords.eq(co_, (((League) place_).getAccessCoords()))) {
                 getForms().put(CST_COORDS,p,IndexConstants.FIRST_INDEX);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         if (p_ instanceof InitializedPlace) {
@@ -155,7 +154,7 @@ public final class MapLevelBean extends AbsLevelBean {
             if (i_.getLinksWithCaves().contains(pt_)) {
                 Coords c_ = i_.getLinksWithCaves().getVal(pt_).getCoords();
                 getForms().putPlaceLevel(CST_COORDS,c_);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         return place(co_, p_);
@@ -168,14 +167,14 @@ public final class MapLevelBean extends AbsLevelBean {
             if (c_.getLinksWithOtherPlaces().contains(lp_)) {
                 Coords coords_ = c_.getLinksWithOtherPlaces().getVal(lp_).getCoords();
                 getForms().putPlaceLevel(CST_COORDS,coords_);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
             }
             LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal(lp_.getLevelIndex());
             Point pt_ = lp_.getPoint();
             if (level_.getLinksOtherLevels().contains(pt_)) {
                 Coords coords_ = level_.getLinksOtherLevels().getVal(pt_).getCoords();
                 getForms().putPlaceLevel(CST_COORDS,coords_);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         if (_p instanceof League) {
@@ -188,7 +187,7 @@ public final class MapLevelBean extends AbsLevelBean {
             }
             if (Point.eq(l_.getRooms().get(lev_).getTrainerCoords(), pt_)) {
                 getForms().put(CST_PERSON, l_.getRooms().get(lev_).getTrainer());
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
         }
         if (_p instanceof City) {
@@ -202,7 +201,7 @@ public final class MapLevelBean extends AbsLevelBean {
                 Coords inside_ = new Coords(_co);
                 inside_.affectInside(pt_);
                 getForms().put(CST_COORDS, inside_);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         return campaign(_co,_p);
@@ -217,7 +216,7 @@ public final class MapLevelBean extends AbsLevelBean {
             Coords coords_ = data_.getMap().getBegin();
             getForms().putPlaceLevel(CST_COORDS,coords_);
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
 
     private String inside(Coords _co, City _c) {
@@ -229,17 +228,17 @@ public final class MapLevelBean extends AbsLevelBean {
             Coords outside_ = new Coords(_co);
             outside_.outside();
             getForms().put(CST_COORDS, outside_);
-            return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
         }
         if (b_ instanceof Gym) {
             Gym g_ = (Gym) b_;
             if (g_.getIndoor().getGymTrainers().contains(pt_)) {
                 getForms().put(CST_PERSON, g_.getIndoor().getGymTrainers().getVal(pt_));
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
                 getForms().put(CST_PERSON, g_.getIndoor().getGymLeader());
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
         }
         if (b_ instanceof PokemonCenter) {
@@ -254,11 +253,11 @@ public final class MapLevelBean extends AbsLevelBean {
             Seller seller_ = (Seller) pers_;
             if (!seller_.getItems().isEmpty()) {
                 getForms().put(CST_PERSON, seller_);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
             }
             if (!seller_.getTm().isEmpty()) {
                 getForms().put(CST_PERSON, seller_);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
             }
         }
         return DataBase.EMPTY_STRING;
@@ -276,7 +275,7 @@ public final class MapLevelBean extends AbsLevelBean {
             getForms().put(CST_PERSON, l_.getDualFights().getVal(pt_).getFoeTrainer());
             getForms().put(CST_ALLY, l_.getDualFights().getVal(pt_).getAlly());
             getForms().put(CST_NAMES,l_.getDualFights().getVal(pt_).getNames());
-            return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
         }
         DataBase data_ = getDataBase();
         if (l_.getItems().contains(pt_)) {
@@ -335,10 +334,10 @@ public final class MapLevelBean extends AbsLevelBean {
             CharacterInRoadCave char_ = l_.getCharacters().getVal(pt_);
             if (char_ instanceof TrainerMultiFights) {
                 getForms().put(CST_PERSON, (TrainerMultiFights)char_);
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML;
             }
             getForms().put(CST_PERSON, (DealerItem)char_);
-            return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML;
         }
         for (Point ptKey_: l_.getDualFights().getKeys()) {
             DualFight d_ = l_.getDualFights().getVal(ptKey_);
@@ -346,12 +345,12 @@ public final class MapLevelBean extends AbsLevelBean {
                 getForms().put(CST_PERSON, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
                 getForms().put(CST_ALLY, l_.getDualFights().getVal(ptKey_).getAlly());
                 getForms().put(CST_NAMES,l_.getDualFights().getVal(ptKey_).getNames());
-                return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
+                return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
             }
         }
         if (l_.containsPokemon(pt_)) {
             getForms().put(CST_LEG_PK, l_.getPokemon(pt_));
-            return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML;
         }
         return DataBase.EMPTY_STRING;
     }
@@ -506,10 +505,10 @@ public final class MapLevelBean extends AbsLevelBean {
     private String whenNoTile(Point _pt, AbsAreaApparition _app, Place _p) {
         if (_p instanceof Campaign && !_app.isVirtual()) {
             getForms().put(CST_AREA, _app);
-            return PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML;
         }
         whenNoTile(_pt,_p, getForms());
-        return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
     static void whenNoTile(Point _pt, Place _p, StringMapObject _map) {
         Coords co_ = _map.getValCoords(CST_COORDS);

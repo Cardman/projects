@@ -1,14 +1,15 @@
 package code.scripts.pages.aiki;
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.CommonBean;
 import code.sml.*;
 import code.util.*;
 
 public final class PagesInit{
+public static final String REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML="web/html/ability/ability.html";
 private PagesInit(){}
 public static StringMap<Document> build(){
 StringMap<Document> m_ = new StringMap<Document>();
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,PageDataAbilityAbilities.build());
-m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML,PageDataAbilityAbility.build());
+m_.addEntry(REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML,PageDataAbilityAbility.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,PageDataAbilityData.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBO_HTML,PageDataComboCombo.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,PageDataComboCombos.build());
@@ -25,7 +26,7 @@ m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML,PageDataAbilityA
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUSRELATION_HTML,PageDataEndroundStatusrelation.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_TEAM_HTML,PageDataEndroundTeam.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML,PageDataGeneralGeneral.build());
-m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,PageDataIndex.build());
+m_.addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,PageDataIndex.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,PageDataItemsBall.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML,PageDataItemsBerry.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,PageDataItemsBoost.build());

@@ -1,6 +1,6 @@
 package aiki.beans.map.characters;
 
-import code.scripts.confs.PkScriptPages;
+import aiki.beans.CommonBean;
 import org.junit.Test;
 
 public final class AllyBeanTest extends InitDbCharacters {
@@ -142,42 +142,42 @@ public final class AllyBeanTest extends InitDbCharacters {
     }
     @Test
     public void clickName3() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callAllyBeanClickName(0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callAllyBeanClickName(0));
     }
     @Test
     public void clickName4() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callAllyBeanClickName(1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callAllyBeanClickName(1));
     }
     @Test
     public void clickAbility3() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAllyBeanClickAbility(0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAllyBeanClickAbility(0));
     }
     @Test
     public void clickAbility4() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAllyBeanClickAbility(1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAllyBeanClickAbility(1));
     }
     @Test
     public void clickItem3() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML,callAllyBeanClickItem(0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML,callAllyBeanClickItem(0));
     }
     @Test
     public void clickItem4() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,callAllyBeanClickItem(1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,callAllyBeanClickItem(1));
     }
     @Test
     public void clickMove5() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(0,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(0,0));
     }
     @Test
     public void clickMove6() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(0,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(0,1));
     }
     @Test
     public void clickMove7() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(1,0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(1,0));
     }
     @Test
     public void clickMove8() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(1,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(1,1));
     }
 }

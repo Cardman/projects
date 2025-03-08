@@ -1,7 +1,7 @@
 package aiki.beans.simulation;
 
+import aiki.beans.CommonBean;
 import aiki.beans.IntBeanAction;
-import code.scripts.confs.PkScriptPages;
 
 public final class SimulationBeanValidateIndexTeamAction implements IntBeanAction {
     private final SimulationBean bean;
@@ -15,7 +15,7 @@ public final class SimulationBeanValidateIndexTeamAction implements IntBeanActio
     @Override
     public String actionBean() {
         bean.setIndexTeam(index);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
 }

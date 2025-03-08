@@ -2,8 +2,6 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 
-import code.scripts.confs.*;
-
 public final class SimulationBeanValidateEvolutionAfterFight implements IntBeanAction {
     private final SimulationBean bean;
 
@@ -14,7 +12,7 @@ public final class SimulationBeanValidateEvolutionAfterFight implements IntBeanA
     @Override
     public String actionBean() {
         bean.validateEvolutionAfterFight();
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
 }

@@ -25,7 +25,6 @@ import code.gui.*;
 import code.gui.document.*;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
-import code.scripts.confs.PkScriptPages;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
@@ -82,60 +81,60 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         menuItem.setEnabled(false);
     }
     public void initFightBeans() {
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,new FightBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,new FightCalculationBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,new TeamBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,new FighterBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_FIGHT_HTML,new FightBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,new FightCalculationBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_TEAM_HTML,new TeamBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_FIGHTER_HTML,new FighterBean());
     }
     public void initDataBeans() {
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,new WelcomeBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,new PokedexBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,new PokemonBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,new MovesBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,new MoveBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,new AbilitiesBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,new AbilityBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,new EndRoundBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,new CombosBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,new ItemsBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,new ItemForBattleBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,new BallBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML,new BerryBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,new BoostBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,new EvolvingItemBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,new EvolvingStoneBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,new HealingPpBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHP_HTML,new HealingHpBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,new WelcomeBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,new PokedexBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,new PokemonBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,new MovesBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,new MoveBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,new AbilitiesBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,new AbilityBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,new EndRoundBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,new CombosBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,new ItemsBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,new ItemForBattleBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,new BallBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML,new BerryBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,new BoostBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,new EvolvingItemBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,new EvolvingStoneBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,new HealingPpBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGHP_HTML,new HealingHpBean());
         HealingStatusBean healing_ = new HealingStatusBean();
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML, healing_);
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML, healing_);
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGITEM_HTML,new SimpleHealingItemBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML,new SellingItemBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,new MapBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,new MapLevelBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,new LegendaryPokemonBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML, healing_);
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML, healing_);
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGITEM_HTML,new SimpleHealingItemBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML,new SellingItemBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML,new MapBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,new MapLevelBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,new LegendaryPokemonBean());
         TrainerBean trainer_ = new TrainerBean();
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,trainer_);
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,trainer_);
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,new DualFightBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,new AreaBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,new DealerBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,new SellerBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML,new GeneralHelpBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML,new LangsBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,new SolutionBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML,new FightHelpBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,trainer_);
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,trainer_);
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,new DualFightBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,new AreaBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,new DealerBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,new SellerBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML,new GeneralHelpBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_LANGS_LANGS_HTML,new LangsBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,new SolutionBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML,new FightHelpBean());
     }
     public void initSimuBeans() {
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML, new SimulationBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML, new SimulationLevelBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, new EditTrainerPokemonBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML, new EditPokemonBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML, new EditPokemonMovesBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML, new SelectAbilityBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML, new SelectItemBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML, new SelectPokemonBean());
-        wrapBeanRender.getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML, new AddPokemonBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML, new SimulationBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML, new SimulationLevelBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, new EditTrainerPokemonBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML, new EditPokemonBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML, new EditPokemonMovesBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML, new SelectAbilityBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML, new SelectItemBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML, new SelectPokemonBean());
+        wrapBeanRender.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML, new AddPokemonBean());
     }
     public void setDialogIcon(AbsCommonFrame _group) {
         setIconImage(_group.getImageIconFrame());

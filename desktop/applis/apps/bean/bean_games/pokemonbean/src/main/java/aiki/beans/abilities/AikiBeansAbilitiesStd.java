@@ -1,9 +1,9 @@
 package aiki.beans.abilities;
 
 import aiki.beans.AikiBeansStd;
+import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
-import code.scripts.confs.*;
 import code.util.CustList;
 public final class AikiBeansAbilitiesStd{
     public static final String BEAN_ABILITIES="abilities";
@@ -405,7 +405,7 @@ public final class AikiBeansAbilitiesStd{
         methods_.add( new SpecNatMethod(GET_TR_FAIL_STATUS,BeanNatCommonLgNames.STRING, new AbilityBeanGetTrFailStatus()));
         methods_.add( new SpecNatMethod(CLICK_POKEMON,BeanNatCommonLgNames.STRING, new AbilityBeanClickPokemon()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON,BeanNatCommonLgNames.STRING, new AbilityBeanGetTrPokemon()));
-        methods_.add( new SpecNatMethod(GA,BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML)));
+        methods_.add( new SpecNatMethod(GA,BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML)));
         _std.getStds().addEntry(TYPE_ABILITY_BEAN, type_);
     }
 }

@@ -2,7 +2,6 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 import aiki.beans.game.*;
-import code.scripts.confs.*;
 import code.util.core.*;
 
 public final class SimulationBeanValidateDiffChoice implements IntBeanAction {
@@ -35,7 +34,7 @@ public final class SimulationBeanValidateDiffChoice implements IntBeanAction {
         bean.getDifficultyCommon().setIvPlayer(form.getIvPlayer().valueLong());
         bean.setNbTeams((int) NumberUtil.max(0,NumberUtil.min(this.bean.getNbTeamsField().valueLong(),Integer.MAX_VALUE)));
         bean.validateDiffChoice();
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
 }

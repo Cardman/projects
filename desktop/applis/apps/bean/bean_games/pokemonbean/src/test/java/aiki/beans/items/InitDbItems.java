@@ -19,7 +19,6 @@ import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;
 import code.util.IdMap;
@@ -192,7 +191,7 @@ public abstract class InitDbItems extends InitDbConstr {
         ItemsBean its_ = new ItemsBean();
         its_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         map_.addEntry(AikiBeansItemsStd.BEAN_ITEMS, _pk.bean(its_, EN));
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,its_);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,its_);
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
         return map_;

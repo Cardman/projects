@@ -1,7 +1,7 @@
 package aiki.beans.simulation;
 
+import aiki.beans.CommonBean;
 import aiki.beans.IntBeanAction;
-import code.scripts.confs.PkScriptPages;
 
 public final class SimulationBeanValidateMultiplicityEnvAction implements IntBeanAction {
     private final SimulationBean bean;
@@ -14,7 +14,7 @@ public final class SimulationBeanValidateMultiplicityEnvAction implements IntBea
     public String actionBean() {
         bean.setMultiplicity((int) bean.getMultiplicity().valueLong());
         bean.setEnvironment(bean.getEnvironment().tryRet());
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
 }

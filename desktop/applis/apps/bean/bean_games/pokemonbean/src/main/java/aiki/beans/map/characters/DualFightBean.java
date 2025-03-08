@@ -5,13 +5,12 @@ import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.map.characters.Ally;
 import aiki.map.characters.TempTrainer;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class DualFightBean extends CommonBean implements BeanRenderWithAppName {
-    static final String PAGE_ALLY = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_ALLY_HTML;
-    static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
+//    static final String PAGE_ALLY = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_ALLY_HTML;
+//    static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_MAP_ELEMENTS_POKEMON_TEAM_HTML;
     private TempTrainer trainer;
     private Ally ally;
     private int[][] image;
@@ -28,9 +27,9 @@ public final class DualFightBean extends CommonBean implements BeanRenderWithApp
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_DUAL));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML), MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML), MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_LEVEL);
         addImg(image);
         addImg(imageMini);
         addImg(imageMiniSecond);

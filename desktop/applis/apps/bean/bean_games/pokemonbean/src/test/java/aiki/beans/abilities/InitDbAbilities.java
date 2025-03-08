@@ -11,7 +11,6 @@ import aiki.fight.util.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.*;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.*;
@@ -94,7 +93,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         w_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
-        w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,pkDex_);
+        w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,pkDex_);
         map_.addEntry(AikiBeansAbilitiesStd.BEAN_ABILITIES, _pk.bean(pkDex_, EN));
         return map_;
     }
@@ -105,7 +104,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         ab_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.AB_DATA,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.AB_DATA,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,ab_);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,ab_);
         map_.addEntry(AikiBeansAbilitiesStd.BEAN_ABILITY, _pk.bean(ab_, EN));
         return map_;
     }

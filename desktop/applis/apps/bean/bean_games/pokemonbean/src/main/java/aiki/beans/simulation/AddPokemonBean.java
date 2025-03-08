@@ -12,7 +12,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.AbsMap;
 import code.util.StringMap;
@@ -82,7 +81,7 @@ public final class AddPokemonBean extends WithFilterBean {
     }
     public String add() {
         if (!getForms().contains(CST_PK_NAME)) {
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
         }
         getForms().removeKey(CST_PK_NAME);
         DataBase data_ = getDataBase();
@@ -104,16 +103,16 @@ public final class AddPokemonBean extends WithFilterBean {
         pkDto_.setMoves(pkData_.getMovesAtLevel(common.getLevel().valueLong(), data_.getNbMaxMoves()));
         getForms().put(CST_POKEMON_ADDED, pkDto_);
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().removeKey(CST_PK_NAME);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String search() {
         search(CST_POKEMON_SET_SIMU, CST_PK_NAME, "", "");
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
 //        StringList pokedex_ = pokedex();
 //        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
 //        if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
@@ -126,7 +125,7 @@ public final class AddPokemonBean extends WithFilterBean {
 
     public String putName(String _name) {
         getForms().put(CST_PK_NAME, _name);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
 
     public String getNamePk() {

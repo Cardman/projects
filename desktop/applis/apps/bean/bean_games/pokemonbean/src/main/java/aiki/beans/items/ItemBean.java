@@ -6,13 +6,12 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Item;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.StringMap;
 import code.util.core.*;
 
 public abstract class ItemBean extends CommonBean implements BeanRenderWithAppName {
-    static final String ITEM_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEM_HTML;
+//    static final String ITEM_BEAN= PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEM_HTML;
 
     private DictionaryComparator<TranslatedKey, Long> happiness;
     private String name;
@@ -80,7 +79,7 @@ public abstract class ItemBean extends CommonBean implements BeanRenderWithAppNa
 
     public String clickItems() {
         getForms().safeItems(CST_ITEMS_SET);
-        return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
     }
 
     protected Item getItem() {

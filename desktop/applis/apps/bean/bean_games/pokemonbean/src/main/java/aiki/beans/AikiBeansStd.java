@@ -3,7 +3,6 @@ package aiki.beans;
 import aiki.beans.map.*;
 import aiki.beans.map.elements.*;
 import code.bean.nat.*;
-import code.scripts.confs.*;
 import code.util.CustList;
 public final class AikiBeansStd{
     public static final String BEAN_WELCOME = "welcome";
@@ -35,7 +34,7 @@ public final class AikiBeansStd{
     private static final String NEIGHBOURS = "neighbours";
     private static final String GO_TO_INDEX = "gi";
     private static final String GO_TO_ENDROUND = "ge";
-    private static final String GO_TO_GENERAL = "g";
+//    private static final String GO_TO_GENERAL = "g";
     private static final String GO_TO_HELPROUND = "h";
     private static final String GO_TO_COMBOS = "c";
     private static final String GO_TO_SOLUTION = "s";
@@ -51,8 +50,8 @@ public final class AikiBeansStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML)));
         _std.getStds().addEntry(TYPE_COMMON_BEAN, type_);
     }
     private static void buildWelcomeBean(PokemonStandards _std){
@@ -66,13 +65,13 @@ public final class AikiBeansStd{
         methods_.add( new SpecNatMethod(SEE_NOT_LEARNT_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeNotLearntMoves()));
 //        methods_.add( new SpecNatMethod(CLICK_ABILITIES,BeanNatCommonLgNames.STRING, new WelcomeBeanClickAbilities()));
 //        methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, new WelcomeBeanClickStatus()));
-        methods_.add( new SpecNatMethod(CLICK_SIMULATION,BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML)));
-        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_LANGS, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML)));
+        methods_.add( new SpecNatMethod(CLICK_SIMULATION,BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML)));
+        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML)));
+//        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_LANGS, BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_LANGS_LANGS_HTML)));
         _std.getStds().addEntry(TYPE_WELCOME_BEAN, type_);
     }
     private static void buildAbsBean(PokemonStandards _std){

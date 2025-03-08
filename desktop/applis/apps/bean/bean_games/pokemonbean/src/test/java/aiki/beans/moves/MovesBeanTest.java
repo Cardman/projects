@@ -3,7 +3,6 @@ package aiki.beans.moves;
 import aiki.beans.*;
 import aiki.facade.enums.*;
 import code.bean.nat.*;
-import code.scripts.confs.*;
 import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
@@ -150,7 +149,7 @@ public final class MovesBeanTest extends InitDbMoves {
     @Test
     public void search1() {
         NaSt bean_ = dispAllMoves(feedDb());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(7,keys_.size());
@@ -166,7 +165,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search2() {
         NaSt bean_ = dispAllMovesTutors(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.NO.getBoolName());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(5,keys_.size());
@@ -180,7 +179,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search3() {
         NaSt bean_ = dispAllMovesTutors(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.YES.getBoolName());
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(2,keys_.size());
@@ -191,7 +190,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search4() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedTypeSet(bean_,"__");
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(0,keys_.size());
@@ -201,7 +200,7 @@ public final class MovesBeanTest extends InitDbMoves {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedTypeSet(bean_, T_TYPE1_TR);
         callMovesBeanWholeWordSet(bean_,true);
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(7,keys_.size());
@@ -218,7 +217,7 @@ public final class MovesBeanTest extends InitDbMoves {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedTypeSet(bean_,"__");
         callMovesBeanWholeWordSet(bean_,true);
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(0,keys_.size());
@@ -227,7 +226,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search7() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanCategorySet(bean_,C_CAT);
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(5,keys_.size());
@@ -241,7 +240,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search8() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanMinAccuracySet(bean_,"4/5");
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(5,keys_.size());
@@ -255,7 +254,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search9() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanMaxAccuracySet(bean_,"4/5");
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(2,keys_.size());
@@ -266,7 +265,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search10() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanMinPowerSet(bean_,"0");
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(5,keys_.size());
@@ -280,7 +279,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search11() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanMinPowerSet(bean_,"1");
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(2,keys_.size());
@@ -291,7 +290,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search12() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanMaxPowerSet(bean_,"1");
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(6,keys_.size());
@@ -306,7 +305,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search13() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanMinPowerSet(bean_,"11");
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(0,keys_.size());
@@ -315,7 +314,7 @@ public final class MovesBeanTest extends InitDbMoves {
     public void search14() {
         NaSt bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedNameSet(bean_,M_DAM_TR);
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML, navigateMovesSearch(bean_));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
         assertEq(1,keys_.size());
@@ -425,7 +424,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void clickRow1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML, goToLine(2));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML, goToLine(2));
     }
     @Test
     public void clickRow2() {

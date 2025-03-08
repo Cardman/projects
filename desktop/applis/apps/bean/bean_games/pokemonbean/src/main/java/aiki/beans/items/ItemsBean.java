@@ -5,7 +5,6 @@ import aiki.beans.facade.dto.*;
 import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.items.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -18,7 +17,7 @@ public final class ItemsBean extends WithFilterBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataItems.M_P_29_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
 //        initPage();
         initFormIt();
         initLine();
@@ -26,7 +25,7 @@ public final class ItemsBean extends WithFilterBean {
         getUpdateValues().addEvt(new ItemsBeanSearch(this));
         feedParents();
         new BeanDisplayListGrid<ItemLine>(new BeanDisplayItemLine()).displayGrid(this,getItems(),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_ITEMS,MessagesDataItems.M_P_29_IMAGE,MessagesDataItems.M_P_29_NAME,MessagesDataItems.M_P_29_PRICE,MessagesDataItems.M_P_29_DESCRIPTION);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ITEMS,MessagesDataItems.M_P_29_INDEX);
     }
 
     public IntBeanChgSubmit getUpdateValues() {
@@ -95,50 +94,50 @@ public final class ItemsBean extends WithFilterBean {
             return tryRedirect(sortedItems_.firstKey());
 //            return switchItem(it_);
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML;
     }
 
     public static String switchItemPage(Item _it) {
         if (_it instanceof Ball) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BALL_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_BALL_HTML;
         }
         if (_it instanceof Berry) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_BERRY_HTML;
         }
         if (_it instanceof Boost) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML;
         }
         if (_it instanceof EvolvingItem) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML;
         }
         if (_it instanceof EvolvingStone) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML;
         }
         if (_it instanceof Fossil) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_FOSSIL_HTML;
         }
         if (_it instanceof HealingHpStatus) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML;
         }
         if (_it instanceof HealingStatus) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML;
         }
         if (_it instanceof HealingHp) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGHP_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGHP_HTML;
         }
         if (_it instanceof HealingPp) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML;
         }
         if (_it instanceof HealingItem) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_HEALINGITEM_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGITEM_HTML;
         }
         if (_it instanceof ItemForBattle) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMFORBATTLE_HTML;
         }
         if (_it instanceof Repel) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_REPEL_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_ITEMS_REPEL_HTML;
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML;
 //        if (_it instanceof SellingItem) {
 //            return AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML;
 //        }

@@ -5,7 +5,6 @@ import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 import code.util.StringList;
 import org.junit.Test;
@@ -491,7 +490,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuMove());
     }
     @Test
     public void clickImmuMove2() {
@@ -511,7 +510,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickBreakProtectionMoves1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickBreakProtectionMoves());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickBreakProtectionMoves());
     }
     @Test
     public void clickBreakProtectionMoves2() {
@@ -531,7 +530,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuRechargeRoundMoves1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuRechargeRoundMoves());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuRechargeRoundMoves());
     }
     @Test
     public void clickImmuRechargeRoundMoves2() {
@@ -551,7 +550,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuAllyFromMoves1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuAllyFromMoves());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuAllyFromMoves());
     }
     @Test
     public void clickImmuAllyFromMoves2() {
@@ -571,7 +570,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickIgnFoeTeamMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickIgnFoeTeamMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickIgnFoeTeamMove());
     }
     @Test
     public void clickIgnFoeTeamMove2() {
@@ -591,7 +590,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuWeather1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickWeather());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickWeather());
     }
     @Test
     public void clickImmuWeather2() {
@@ -611,7 +610,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickIgnAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickIgnAbility());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickIgnAbility());
     }
     @Test
     public void clickIgnAbility2() {
@@ -631,7 +630,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickImmuAbility());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickImmuAbility());
     }
     @Test
     public void clickImmuAbility2() {
@@ -651,7 +650,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuStatusBeginRound1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatusBeginRound());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatusBeginRound());
     }
     @Test
     public void clickImmuStatusBeginRound2() {
@@ -671,7 +670,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickPokemon1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callAbilityBeanClickPokemon());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callAbilityBeanClickPokemon());
     }
     @Test
     public void clickPokemon2() {
@@ -755,7 +754,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickReversePowerTypesAbilities1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickReversePowerTypesAbilities());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickReversePowerTypesAbilities());
     }
     @Test
     public void clickReversePowerTypesAbilities2() {
@@ -779,7 +778,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickDivideStatusRoundKey1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickDivideStatusRoundKey());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickDivideStatusRoundKey());
     }
     @Test
     public void clickDivideStatusRoundKey2() {
@@ -803,7 +802,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickFailStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickFailStatus());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickFailStatus());
     }
     @Test
     public void clickFailStatus2() {
@@ -831,7 +830,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickForwardStatusKey1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickForwardStatusKey());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickForwardStatusKey());
     }
     @Test
     public void clickForwardStatusKey2() {
@@ -839,7 +838,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickForwardStatusValue1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickForwardStatusValue());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickForwardStatusValue());
     }
     @Test
     public void clickForwardStatusValue2() {
@@ -872,7 +871,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuStatusTypes1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatusTypes());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatusTypes());
     }
     @Test
     public void clickImmuStatusTypes2() {
@@ -892,7 +891,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuLowStatIfStatusKey1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuLowStatIfStatusKey());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuLowStatIfStatusKey());
     }
     @Test
     public void clickImmuLowStatIfStatusKey2() {
@@ -1005,7 +1004,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickMultStatIfStatutRankSec1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickMultStatIfStatutRankSec());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickMultStatIfStatutRankSec());
     }
     @Test
     public void clickMultStatIfStatutRankSec2() {
@@ -1049,7 +1048,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickChgtTypeByWeatherKey1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickChgtTypeByWeatherKey());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickChgtTypeByWeatherKey());
     }
     @Test
     public void clickChgtTypeByWeatherKey2() {
@@ -1086,7 +1085,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickHealHpByTypeIfWeatherKey1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickHealHpByTypeIfWeatherKey());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickHealHpByTypeIfWeatherKey());
     }
     @Test
     public void clickHealHpByTypeIfWeatherKey2() {
@@ -1127,7 +1126,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickHealHpByWeatherKey1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickHealHpByWeatherKey());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickHealHpByWeatherKey());
     }
     @Test
     public void clickHealHpByWeatherKey2() {
@@ -1177,7 +1176,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuStatusWeather1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuStatusWeather());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuStatusWeather());
     }
     @Test
     public void clickImmuStatusWeather2() {
@@ -1185,7 +1184,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickImmuStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatus());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatus());
     }
     @Test
     public void clickImmuStatus2() {
@@ -1235,7 +1234,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickWeather1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuMoveByWeather());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuMoveByWeather());
     }
     @Test
     public void clickWeather2() {
@@ -1275,7 +1274,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickSingleStatus1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickSingleStatus());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickSingleStatus());
     }
     @Test
     public void clickSingleStatus2() {
@@ -1315,6 +1314,6 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void clickAbilities() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,callAbilityBeanClickIndex());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,callAbilityBeanClickIndex());
     }
 }

@@ -10,7 +10,6 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
 import aiki.game.fight.FightSimulation;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -142,14 +141,14 @@ public final class EditPokemonMovesBean extends WithFilterBean {
 //        }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         getForms().putMoves(CST_MOVES_EDIT_SET, moves_);
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
 
     private String redirect() {
         if (player) {
-            return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+            return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
-        return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 
     public boolean getPlayer() {

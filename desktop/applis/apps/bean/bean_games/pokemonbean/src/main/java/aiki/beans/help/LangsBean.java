@@ -11,12 +11,13 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
 public final class LangsBean extends CommonBean implements BeanRenderWithAppName {
+    //public static final String WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
+    public static final String BEGIN="0";
     private DictionaryComparator<LanguageElementStringKey,String> translatedCategories;
     private DictionaryComparator<LanguageElementStringKey,String> translatedEnvironment;
     private DictionaryComparator<LanguageElementStringKey,String> translatedBooleans;
@@ -40,8 +41,8 @@ public final class LangsBean extends CommonBean implements BeanRenderWithAppName
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataLangs.M_P_31_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
-        getBuilder().setRefLk(PkScriptPages.BEGIN);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
+        getBuilder().setRefLk(BEGIN);
         formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS);
         getBuilder().setRefLk("");
         StringList headers_ = new StringList();
@@ -77,8 +78,8 @@ public final class LangsBean extends CommonBean implements BeanRenderWithAppName
         display(translatedFctMath,headers_);
         formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_CLASSES);
         display(translatedClassesDescriptions,headers_);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML+'#'+PkScriptPages.BEGIN),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_RETURN_BEGIN);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_LANGS_LANGS_HTML+'#'+ BEGIN),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_RETURN_BEGIN);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
     }
     private void display(DictionaryComparator<LanguageElementStringKey,String> _dico, StringList _headers) {
         initGrid();

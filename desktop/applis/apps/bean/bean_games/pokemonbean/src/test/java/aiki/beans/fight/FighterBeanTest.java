@@ -6,7 +6,6 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class FighterBeanTest extends InitDbFight {
@@ -823,7 +822,7 @@ public final class FighterBeanTest extends InitDbFight {
         update(facade_, bFighter_);
         TeamBean bTeam_ = beanTeam(_caller,facade_);
         bTeam_.getBuilder().setRenders(bTeam_.getBuilder().getRenders());
-        bTeam_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,bFighter_);
+        bTeam_.getBuilder().getRenders().addEntry(CommonBean.WEB_FIGHT_HTML_FIGHTER_HTML,bFighter_);
         bFighter_.setBuilder(bTeam_.getBuilder());
         IntBeanAction anc_ = bTeam_.getBuilder().getAnchors().get(_args[0] + 2);
         bTeam_.getBuilder().build(anc_);

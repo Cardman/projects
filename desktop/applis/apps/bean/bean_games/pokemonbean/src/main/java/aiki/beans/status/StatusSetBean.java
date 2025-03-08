@@ -6,7 +6,6 @@ import aiki.comparators.*;
 import aiki.db.*;
 import aiki.facade.FacadeGame;
 import aiki.fight.status.*;
-import code.scripts.confs.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
@@ -22,7 +21,7 @@ public final class StatusSetBean extends WithFilterBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         setTitledBorder(file().getVal(MessagesDataStatusset.M_P_89_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
 //        initPage();
         initLine();
         formatMessage(MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_CONTENT);
@@ -33,7 +32,7 @@ public final class StatusSetBean extends WithFilterBean {
         getUpdateValues().addEvt(new StatusSetBeanSearch(this));
         feedParents();
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getSortedStatus());
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
     }
 
     public IntBeanChgSubmit getUpdateValues() {
@@ -64,7 +63,7 @@ public final class StatusSetBean extends WithFilterBean {
             return tryRedirect(sortedAbilities_.firstKey());
         }
 //        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        return PkScriptPages.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
+        return CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML;
     }
     public String clickStatus(int _index) {
         return tryRedirect(sortedStatus.getKey(_index));

@@ -1,9 +1,9 @@
 package aiki.beans.fight;
 
+import aiki.beans.CommonBean;
 import aiki.facade.*;
 import aiki.game.fight.*;
 import code.maths.*;
-import code.scripts.confs.*;
 import org.junit.Test;
 
 public final class FightBeanTest extends InitDbFight {
@@ -56,7 +56,7 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void clickPlayer() {
         FightBean fBean_ = dis(facade(db()));
-        assertEq(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
+        assertEq(CommonBean.WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
         assertTrue(fBean_.getForms().contains(NO_TEAM));
         assertEq(Fight.CST_PLAYER,fBean_.getForms().getValInt(NO_TEAM));
     }
@@ -65,7 +65,7 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void clickFoe() {
         FightBean fBean_ = dis(facade(db()));
-        assertEq(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
+        assertEq(CommonBean.WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
         assertTrue(fBean_.getForms().contains(NO_TEAM));
         assertEq(Fight.CST_FOE,fBean_.getForms().getValInt(NO_TEAM));
     }

@@ -23,7 +23,6 @@ import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.scripts.confs.PkScriptPages;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;
 import code.util.*;
@@ -552,7 +551,7 @@ public abstract class InitDbMove extends InitDbMoves {
         MoveBean move_ = new MoveBean();
         move_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         map_.addEntry(BEAN_MOVE, _pk.bean(move_, EN));
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,move_);
+        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,move_);
         return map_;
     }
 //    public static StringMap<String> mappingToMove() {

@@ -1,10 +1,10 @@
 package aiki.beans.pokemon;
 
+import aiki.beans.CommonBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.util.Coords;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import org.junit.Test;
 
 public final class PokemonBeanTest extends InitDbPkOne {
@@ -215,7 +215,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickBase1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callPokemonBeanClickBase());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callPokemonBeanClickBase());
     }
     @Test
     public void clickBase2() {
@@ -307,7 +307,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickAbility1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callPokemonBeanClickAbility());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,callPokemonBeanClickAbility());
     }
     @Test
     public void clickAbility2() {
@@ -327,7 +327,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickMoveTutors1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMoveTutors());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMoveTutors());
     }
     @Test
     public void clickMoveTutors2() {
@@ -423,7 +423,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickEggPk1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callPokemonBeanClickEggPk(8,1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callPokemonBeanClickEggPk(8,1));
     }
     @Test
     public void clickEggPk2() {
@@ -443,7 +443,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickTechnicalMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickTechnicalMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickTechnicalMove());
     }
     @Test
     public void clickTechnicalMove2() {
@@ -463,7 +463,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickHiddenMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickHiddenMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickHiddenMove());
     }
     @Test
     public void clickHiddenMove2() {
@@ -491,7 +491,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickMove1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMove(0));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMove(0));
     }
     @Test
     public void clickMove2() {
@@ -499,7 +499,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickMove3() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMove(1));
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMove(1));
     }
     @Test
     public void clickMove4() {
@@ -524,7 +524,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickStone1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,callEvolutionStoneBeanClickStone());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_STONE_HTML,callEvolutionStoneBeanClickStone());
     }
     @Test
     public void clickStone2() {
@@ -540,7 +540,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickMoveEvo1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEvolutionMoveBeanClickMove());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,callEvolutionMoveBeanClickMove());
     }
     @Test
     public void clickMoveEvo2() {
@@ -556,7 +556,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickTeam1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callEvolutionTeamBeanClickTeam());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callEvolutionTeamBeanClickTeam());
     }
     @Test
     public void clickTeam2() {
@@ -568,7 +568,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickItem1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,callEvolutionItemBeanClickItem());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_EVO_ITEM_HTML,callEvolutionItemBeanClickItem());
     }
     @Test
     public void clickItem2() {
@@ -580,7 +580,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickEvo1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callEvolutionBeanClickEvo());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,callEvolutionBeanClickEvo());
     }
     @Test
     public void clickEvo2() {
@@ -592,7 +592,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickLevel1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevel());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevel());
     }
     @Test
     public void clickLevel2() {
@@ -602,7 +602,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickLevelZero1() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevelZero());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevelZero());
     }
     @Test
     public void clickLevelZero2() {
@@ -612,6 +612,6 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickPokedex() {
-        assertEq(PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,callPokemonBeanClickPokedex());
+        assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,callPokemonBeanClickPokedex());
     }
 }
