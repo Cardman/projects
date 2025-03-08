@@ -41,8 +41,8 @@ public final class GameProgressionBean extends CommonSingleBean implements BeanR
         setAppName(MessagesPkBean.APP_BEAN);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade,_form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesProgGameprog.M_P_95_TITLE));
 //        initPage();
         displayBool(getFinishedGame(), CommonBean.TRUE_VALUE,getHeroImage());

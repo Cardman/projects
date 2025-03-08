@@ -228,7 +228,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     }
 
     @Override
-    public void build(String _dest, StringMapObject _form) {
+    public void build(String _dest) {
         int sep_ = _dest.indexOf('#');
         String page_;
         String name_;
@@ -245,7 +245,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         initPage();
         setBackgroundBody();
         target_.setBuilder(this);
-        target_.build(target_.getFacade(), _form);
+        target_.build(target_.getFacade());
         getFinder().setFinding(this);
         getScrollPane().setViewportView(stack.last());
         getScrollPane().validate();

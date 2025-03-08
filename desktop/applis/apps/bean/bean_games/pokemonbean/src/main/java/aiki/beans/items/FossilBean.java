@@ -9,8 +9,8 @@ public final class FossilBean extends ItemBean {
     private long level;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         formatMessage(MessagesPkBean.IT_FOSSIL, MessagesDataItemsFossil.M_P_21_FOSSIL, Long.toString(level));
         formatMessageDir(pokemon);

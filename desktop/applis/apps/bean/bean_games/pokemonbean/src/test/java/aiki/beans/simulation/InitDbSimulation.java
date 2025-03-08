@@ -885,9 +885,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callInt(new SimulationBeanMultiplicitySet(),_str,_args);
     }
 
-    public static NaSt callSimulationBeanNbTeamsSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new SimulationBeanNbTeamsSet(),_str,_args);
-    }
+//    public static NaSt callSimulationBeanNbTeamsSet(NaSt _str, int _args) {
+//        return BeanPokemonCommonTs.callInt(new SimulationBeanNbTeamsSet(),_str,_args);
+//    }
 
     public static NaSt callSimulationBeanSelectedAllyPkSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanSelectedAllyPkSet(),_str,_args);
@@ -1565,7 +1565,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     protected static PokemonBeanStruct init(int _nbTeam, PokemonBeanStruct _init) {
         PokemonBeanStruct simu_ = init(_init);
-        callSimulationBeanNbTeamsSet(simu_, _nbTeam);
+        ((SimulationBean)simu_.getInstance()).setNbTeams(_nbTeam);
         return simu_;
     }
     protected static PokemonBeanStruct selectTeam(PokemonBeanStruct _simu, int _indexTeam) {
@@ -1643,7 +1643,6 @@ public abstract class InitDbSimulation extends InitDbConstr {
         fac_.setLanguage(_language);
         SimulationBean b_ = new SimulationBean();
         b_.setDataBase(fac_);
-        b_.setForms(new StringMapObject());
         b_.setLanguage(_language);
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
@@ -1660,7 +1659,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         bu_.setTranslations(tr_);
         bu_.setFacade(fac_);
         b_.setBuilder(bu_);
-        b_.build(fac_,b_.getForms());
+        b_.build(fac_);
         return b_;
     }
     public static SimulationBean callChange(SimulationBean _str, String _args) {
@@ -3240,7 +3239,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     public static PokemonBeanStruct transitSimu(IntBeanAction _caller, IntBeanBuilderHelper _builder) {
         String url_ = _caller.actionBean();
-        _builder.build(url_, _builder.getForms());
+        _builder.build(url_);
 //        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
 //        setFormsBy((CommonBean) ((PokemonBeanStruct)dest_).getBean(),_caller.getBean());
 //        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
@@ -3337,7 +3336,6 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static void update(FacadeGame _facade, CommonBean _bean) {
         _bean.setDataBase(_facade);
-        _bean.setForms(new StringMapObject());
         _bean.setLanguage(EN);
     }
 //    public static StringMap<String> mappingToSimu() {

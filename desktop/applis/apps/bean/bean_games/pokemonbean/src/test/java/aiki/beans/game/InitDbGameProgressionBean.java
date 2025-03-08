@@ -2,13 +2,10 @@ package aiki.beans.game;
 
 import aiki.beans.*;
 import aiki.comparators.DictionaryComparator;
-import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
-import code.bean.nat.*;
 import code.maths.LgInt;
 import code.scripts.pages.aiki.MessagesPkBean;
-import code.scripts.pages.aiki.MessagesProgGameprog;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
@@ -153,7 +150,6 @@ public abstract class InitDbGameProgressionBean extends InitDbBean {
 
     public static GameProgressionBean beanProg(String _language, FacadeGame _dataBase) {
         GameProgressionBean b_ = new GameProgressionBean();
-        b_.setForms(new StringMapObject());
         b_.setDataBase(_dataBase);
         b_.setLanguage(_language);
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
@@ -167,7 +163,7 @@ public abstract class InitDbGameProgressionBean extends InitDbBean {
         bu_.setTranslations(tr_);
         bu_.setFacade(_dataBase);
         b_.setBuilder(bu_);
-        b_.build(_dataBase,b_.getForms());
+        b_.build(_dataBase);
         return b_;
     }
 

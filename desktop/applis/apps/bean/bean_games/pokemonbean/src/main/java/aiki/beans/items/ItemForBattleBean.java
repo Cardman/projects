@@ -66,8 +66,8 @@ public final class ItemForBattleBean extends ItemBean {
     private final EndRoundCommon endRoundCommon = new EndRoundCommon();
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         if (getEndRoundCommon().getEndRound()) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundCommon().getEndRoundRank()));

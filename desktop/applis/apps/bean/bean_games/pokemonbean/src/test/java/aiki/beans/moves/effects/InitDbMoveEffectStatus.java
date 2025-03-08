@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.moves.InitDbMoves;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -11,7 +12,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.LgInt;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
@@ -79,20 +79,20 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffStatus(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectStatus(pk_);
-        StringMap<String> mapping_ = mappingToEffectStatus();
-        return transitEffect(_index,_indexEff,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectStatus();
+        return transitEffect(_index,_indexEff,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectStatus(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_STATUS,_pk.beanEffectStatusBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectStatus() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_STATUS);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectStatus(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_STATUS,_pk.beanEffectStatusBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectStatus() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_STATUS);
+//        return map_;
+//    }
     private static FacadeGame feedDbMoveEffDataDam(EffectStatus _eff) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();

@@ -15,8 +15,8 @@ public final class BoostBean extends ItemBean {
     private DictionaryComparator<TranslatedKey, Long> evs;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         displayIntDef(winPp,MessagesPkBean.IT_BOOST,MessagesDataItemsBoost.M_P_18_WIN_PP);
         buildHappiness(MessagesPkBean.IT_BOOST,MessagesDataItemsBoost.M_P_18_HAPPINESS,MessagesDataItemsBoost.M_P_18_HAPPINESS_OTHER_BALL,MessagesDataItemsBoost.M_P_18_HAPPINESS_BALL,MessagesDataItemsBoost.M_P_18_HAPPINESS_BOOST);

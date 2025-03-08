@@ -135,7 +135,7 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static String navigateItemsSearch(NaSt _moves) {
         ItemsBean its_ = (ItemsBean) ((PokemonBeanStruct) _moves).getBean();
         String res_ = navigateData(new ItemsBeanSearch(its_), _moves);
-        its_.build(its_.getFacade(),its_.getForms());
+        its_.build(its_.getFacade());
         return res_;
     }
 

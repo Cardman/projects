@@ -32,7 +32,7 @@ import code.util.core.IndexConstants;
 import code.util.core.*;
 import code.util.ints.*;
 
-public abstract class CommonBean extends Bean implements WithFacade,WithForms {
+public abstract class CommonBean extends Bean implements WithFacade {
     public static final int FALSE_VALUE = 0;
     public static final int TRUE_VALUE = 1;
     public static final String GET_IMAGE = "getImage";
@@ -148,7 +148,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final char CST_RIGHT_PAR = ')';
     protected static final char CST_PIPE_CHAR = '|';
 
-    private StringMapObject baseForms;
+//    private StringMapObject baseForms;
 
     private FacadeGame dataBase;
     private IntBeanBuilderHelper builder;
@@ -225,7 +225,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         EffectWhileSendingBean send_ = new EffectWhileSendingBean();
         send_.setBuilder(getBuilder());
         send_.setAppName(getAppName());
-        send_.setForms(getForms());
         send_.setFacade(getFacade());
         send_.setLanguage(getLanguage());
         send_.setEffect(_s);
@@ -528,9 +527,9 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return builder.getForms();
     }
 
-    public void setForms(StringMapObject _forms) {
-        setBaseForms(getBaseForms());
-    }
+//    public void setForms(StringMapObject _forms) {
+//        setBaseForms(getBaseForms());
+//    }
 
     public static boolean inRange(long _value, long _min, long _max) {
         return _value >= _min && _value <= _max;
@@ -613,13 +612,13 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return AbsRedirect.tryRedirect(this,_tk.getRedirect(),_tk.getKeyForm(),_tk.getDest());
     }
 
-    public StringMapObject getBaseForms() {
-        return baseForms;
-    }
-
-    public void setBaseForms(StringMapObject _base) {
-        this.baseForms = _base;
-    }
+//    public StringMapObject getBaseForms() {
+//        return baseForms;
+//    }
+//
+//    public void setBaseForms(StringMapObject _base) {
+//        this.baseForms = _base;
+//    }
 
     protected void displayStringList(CustList<String> _list, String _file, String _key, String... _values) {
         display(_list, _file, _key,_values);
@@ -644,13 +643,12 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //            builder.feedParents();
 //        }
     }
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
     }
 
-    protected void init(FacadeGame _facade, StringMapObject _form) {
+    protected void init(FacadeGame _facade) {
         setDataBase(_facade);
-        setForms(_form);
         setLanguage(_facade.getLanguage());
         beforeDisplaying();
     }

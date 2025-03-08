@@ -29,8 +29,8 @@ public final class BerryBean extends ItemBean {
     private DictionaryComparator<TranslatedKey, Long> boostStatis;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         displayIntDef(healHpBySuperEffMove,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_WIN_SUPER_EFF);
         displayBoolTrue(toInt(lawForAttackFirst),MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_SORTING_USERS);

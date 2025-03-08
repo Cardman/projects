@@ -21,8 +21,8 @@ public final class MovesBean extends WithFilterBean {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataMovesMoves.M_P_71_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_INDEX);
 //        initPage();

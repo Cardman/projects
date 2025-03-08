@@ -24,8 +24,8 @@ public final class TrainerBean extends CommonBean implements BeanRenderWithAppNa
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         if (!getName().isEmpty()) {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_FIGHT),getName()));
         } else {

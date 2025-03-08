@@ -34,15 +34,15 @@ import code.util.core.StringUtil;
 
 public final class PokemonBean extends CommonBean implements BeanRenderWithAppName  {
 
-    private static final String PAGE_LEVELGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVELGENDER_HTML;
-    private static final String PAGE_LEVEL = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVEL_HTML;
-    private static final String PAGE_HAPPY = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOHAPPY_HTML;
-    private static final String PAGE_MOVE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOMOVE_HTML;
-    private static final String PAGE_ITEM = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOITEM_HTML;
-    private static final String PAGE_STONEGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONEGENDER_HTML;
-    private static final String PAGE_STONE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONE_HTML;
-    private static final String PAGE_TYPE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTYPE_HTML;
-    private static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTEAM_HTML;
+//    private static final String PAGE_LEVELGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVELGENDER_HTML;
+//    private static final String PAGE_LEVEL = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVEL_HTML;
+//    private static final String PAGE_HAPPY = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOHAPPY_HTML;
+//    private static final String PAGE_MOVE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOMOVE_HTML;
+//    private static final String PAGE_ITEM = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOITEM_HTML;
+//    private static final String PAGE_STONEGENDER = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONEGENDER_HTML;
+//    private static final String PAGE_STONE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOSTONE_HTML;
+//    private static final String PAGE_TYPE = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTYPE_HTML;
+//    private static final String PAGE_TEAM = PkScriptPages.REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOTEAM_HTML;
     private String name;
     private int[][] backImage;
     private int[][] frontImage;
@@ -78,8 +78,8 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataPokemonData.M_P_72_TITLE),displayName));
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_GENERAL);
         formatMessageAnc(new PokemonBeanClickPokedex(this),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_POKEDEX);
@@ -228,7 +228,7 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         int len_ = evolutions.size();
         for (int i = 0; i < len_; i++) {
             TranslatedKey tk_ = evolutions.get(i);
-            build(evoBean_,pk_.getEvolutions(),i,tk_.getKey());
+            build(evoBean_,pk_.getEvolutions(), tk_.getKey());
         }
         evoBase = buildPk(getFacade(),pk_.getBaseEvo());
         expEvo = data_.getFormula(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
@@ -264,32 +264,32 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         hatchingSteps = pk_.getHatchingSteps();
     }
 
-    private void build(CustList<EvolutionBean> _curr, StringMap<Evolution> _effs, int _i, String _n) {
+    private void build(CustList<EvolutionBean> _curr, StringMap<Evolution> _effs, String _n) {
         Evolution evo_ = _effs.getVal(_n);
         if (evo_ instanceof EvolutionLevelGender) {
-            build(_curr, _i, new EvolutionLevelGenderBean(),_n);
+            build(_curr, new EvolutionLevelGenderBean(),_n);
         } else if (evo_ instanceof EvolutionLevel) {
-            build(_curr, _i, new EvolutionLevelBean(),_n);
+            build(_curr, new EvolutionLevelBean(),_n);
         } else if (evo_ instanceof EvolutionHappiness) {
-            build(_curr, _i, new EvolutionHappinessBean(),_n);
+            build(_curr, new EvolutionHappinessBean(),_n);
         } else if (evo_ instanceof EvolutionMove) {
-            build(_curr, _i, new EvolutionMoveBean(),_n);
+            build(_curr, new EvolutionMoveBean(),_n);
         } else if (evo_ instanceof EvolutionItem) {
-            build(_curr, _i, new EvolutionItemBean(),_n);
+            build(_curr, new EvolutionItemBean(),_n);
         } else if (evo_ instanceof EvolutionStoneGender) {
-            build(_curr, _i, new EvolutionStoneGenderBean(),_n);
+            build(_curr, new EvolutionStoneGenderBean(),_n);
         } else  if (evo_ instanceof EvolutionStone) {
-            build(_curr, _i, new EvolutionStoneBean(),_n);
+            build(_curr, new EvolutionStoneBean(),_n);
         } else  if (evo_ instanceof EvolutionMoveType) {
-            build(_curr, _i, new EvolutionMoveTypeBean(),_n);
+            build(_curr, new EvolutionMoveTypeBean(),_n);
         } else {
-            build(_curr, _i, new EvolutionTeamBean(),_n);
+            build(_curr, new EvolutionTeamBean(),_n);
         }
     }
-    private void build(CustList<EvolutionBean> _feed,int _i, EvolutionBean _b, String _n) {
+    private void build(CustList<EvolutionBean> _feed, EvolutionBean _b, String _n) {
         fwd(_b);
-        _b.setIndex(_i);
-        _b.setBase(name);
+//        _b.setIndex(_i);
+        _b.setBase(getName());
         _b.setName(_n);
         _b.beforeDisplaying();
         _feed.add(_b);
@@ -363,36 +363,36 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         getForms().safePokedex(CST_POKEMON_SET);
         return PkScriptPages.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML;
     }
-    public String getPage(int _index) {
-        DataBase data_ = getDataBase();
-        PokemonData pk_ = data_.getPokemon(name);
-        Evolution evo_ = pk_.getEvolutions().getVal(evolutions.get(_index).getKey());
-        if (evo_ instanceof EvolutionLevelGender) {
-            return PAGE_LEVELGENDER;
-        }
-        if (evo_ instanceof EvolutionLevel) {
-            return PAGE_LEVEL;
-        }
-        if (evo_ instanceof EvolutionHappiness) {
-            return PAGE_HAPPY;
-        }
-        if (evo_ instanceof EvolutionMove) {
-            return PAGE_MOVE;
-        }
-        if (evo_ instanceof EvolutionItem) {
-            return PAGE_ITEM;
-        }
-        if (evo_ instanceof EvolutionStoneGender) {
-            return PAGE_STONEGENDER;
-        }
-        if (evo_ instanceof EvolutionStone) {
-            return PAGE_STONE;
-        }
-        if (evo_ instanceof EvolutionMoveType) {
-            return PAGE_TYPE;
-        }
-        return PAGE_TEAM;
-    }
+//    public String getPage(int _index) {
+//        DataBase data_ = getDataBase();
+//        PokemonData pk_ = data_.getPokemon(name);
+//        Evolution evo_ = pk_.getEvolutions().getVal(evolutions.get(_index).getKey());
+//        if (evo_ instanceof EvolutionLevelGender) {
+//            return PAGE_LEVELGENDER;
+//        }
+//        if (evo_ instanceof EvolutionLevel) {
+//            return PAGE_LEVEL;
+//        }
+//        if (evo_ instanceof EvolutionHappiness) {
+//            return PAGE_HAPPY;
+//        }
+//        if (evo_ instanceof EvolutionMove) {
+//            return PAGE_MOVE;
+//        }
+//        if (evo_ instanceof EvolutionItem) {
+//            return PAGE_ITEM;
+//        }
+//        if (evo_ instanceof EvolutionStoneGender) {
+//            return PAGE_STONEGENDER;
+//        }
+//        if (evo_ instanceof EvolutionStone) {
+//            return PAGE_STONE;
+//        }
+//        if (evo_ instanceof EvolutionMoveType) {
+//            return PAGE_TYPE;
+//        }
+//        return PAGE_TEAM;
+//    }
 
     public String getTrAbility(int _index) {
         return abilities.get(_index).getTranslation();

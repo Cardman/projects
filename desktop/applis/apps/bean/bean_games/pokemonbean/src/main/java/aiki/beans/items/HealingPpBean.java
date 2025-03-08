@@ -1,5 +1,4 @@
 package aiki.beans.items;
-import aiki.beans.StringMapObject;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.HealingPp;
 import code.scripts.pages.aiki.*;
@@ -11,8 +10,8 @@ public final class HealingPpBean extends HealingItemBean {
     private boolean healingMoveFullpp;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         healItem();
         displayBoolTrue(toInt(healingAllMovesPp),MessagesPkBean.IT_HEALINGPP,MessagesDataItemsHealingpp.M_P_25_FULL_HEAL_MOVES);

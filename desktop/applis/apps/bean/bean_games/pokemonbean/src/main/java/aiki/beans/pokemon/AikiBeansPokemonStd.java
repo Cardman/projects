@@ -26,7 +26,7 @@ public final class AikiBeansPokemonStd{
     private static final String ROUND_HEIGHT = "roundHeight";
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String GET_TR_ABILITY = "getTrAbility";
-    private static final String GET_PAGE = "getPage";
+//    private static final String GET_PAGE = "getPage";
     private static final String CLICK_BASE = "clickBase";
     private static final String GET_BASE = "getBase";
     private static final String GET_EV = "getEv";
@@ -62,7 +62,7 @@ public final class AikiBeansPokemonStd{
     private static final String ABILITIES = "abilities";
     private static final String CATCHING_RATE = "catchingRate";
     private static final String EVOLUTIONS = "evolutions";
-    private static final String NAME = "name";
+//    private static final String NAME = "name";
     private static final String EVO_BASE = "evoBase";
     private static final String EXP_EVO = "expEvo";
     private static final String MAP_VARS = "mapVars";
@@ -122,7 +122,7 @@ public final class AikiBeansPokemonStd{
         fields_.add(new StandardField(ABILITIES, BeanNatCommonLgNames.TYPE_LIST, new PokemonBeanAbilitiesGet(),null));
         fields_.add(new StandardField(CATCHING_RATE, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonBeanCatchingRateGet(),null));
         fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.TYPE_LIST, new PokemonBeanEvolutionsGet(),null));
-        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, new PokemonBeanNameGet(),null));
+//        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, new PokemonBeanNameGet(),null));
         fields_.add(new StandardField(EVO_BASE,BeanNatCommonLgNames.STRING, new PokemonBeanEvoBaseGet(),null));
         fields_.add(new StandardField(EXP_EVO,BeanNatCommonLgNames.STRING, new PokemonBeanExpEvoGet(),null));
         fields_.add(new StandardField(MAP_VARS, BeanNatCommonLgNames.TYPE_MAP, new PokemonBeanMapVarsGet(),null));
@@ -141,7 +141,7 @@ public final class AikiBeansPokemonStd{
         methods_.add( new SpecNatMethod(ROUND_HEIGHT,BeanNatCommonLgNames.STRING, new PokemonBeanRoundHeight()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, new PokemonBeanClickAbility()));
         methods_.add( new SpecNatMethod(GET_TR_ABILITY,BeanNatCommonLgNames.STRING, new PokemonBeanGetTrAbility()));
-        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, new PokemonBeanGetPage()));
+//        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, new PokemonBeanGetPage()));
         methods_.add( new SpecNatMethod(CLICK_BASE,BeanNatCommonLgNames.STRING, new PokemonBeanClickBase()));
         methods_.add( new SpecNatMethod(GET_BASE, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonBeanGetBase()));
         methods_.add( new SpecNatMethod(GET_EV, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonBeanGetEv()));

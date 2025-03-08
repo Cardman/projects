@@ -28,8 +28,8 @@ public final class TeamBean extends CommonFightBean {
     private IntMap<String> members;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade,_form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         if (getFoeTeam()) {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightTeam.M_P_92_TITLE_FOE)));
         } else {

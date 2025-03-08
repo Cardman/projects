@@ -37,8 +37,8 @@ public final class AikiBeansEffectsStd{
     private static final String MULT_STATISTIC_FOE = "multStatisticFoe";
     private static final String RANK_INCREMENT_NB_ROUND = "rankIncrementNbRound";
     private static final String REPEATED_ROUNDS_LAW = "repeatedRoundsLaw";
-    private static final String COMBO = "combo";
-    private static final String COMBOS = "combos";
+//    private static final String COMBO = "combo";
+//    private static final String COMBOS = "combos";
     private static final String DISABLE_WEATHER = "disableWeather";
     private static final String ENABLED_WEATHER = "enabledWeather";
     private static final String COPYING_ABILITY = "copyingAbility";
@@ -67,8 +67,8 @@ public final class AikiBeansEffectsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(COMBO,BeanNatCommonLgNames.STRING, new CombosBeanComboGet(),null));
-        fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO, new CombosBeanCombosGet(),null));
+//        fields_.add(new StandardField(COMBO,BeanNatCommonLgNames.STRING, new CombosBeanComboGet(),null));
+//        fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO, new CombosBeanCombosGet(),null));
         methods_.add( new SpecNatMethod(GET_COMBOS_KEY, BeanNatCommonLgNames.TYPE_LIST, new CombosBeanGetCombosKey()));
         _std.getStds().addEntry(TYPE_COMBOS_BEAN, type_);
     }
@@ -86,7 +86,7 @@ public final class AikiBeansEffectsStd{
         fields_.add(new StandardField(MULT_STATISTIC_FOE, BeanNatCommonLgNames.TYPE_MAP, new EffectComboBeanMultStatisticFoeGet(),null));
         fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND, BeanNatCommonLgNames.PRIM_INTEGER, new EffectComboBeanRankIncrementNbRoundGet(),null));
         fields_.add(new StandardField(REPEATED_ROUNDS_LAW, BeanNatCommonLgNames.TYPE_MAP, new EffectComboBeanRepeatedRoundsLawGet(),null));
-        fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO, null,new EffectComboBeanCombosSet()));
+//        fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO, null,new EffectComboBeanCombosSet()));
         methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, new EffectComboBeanClickMove()));
         methods_.add( new SpecNatMethod(GET_TR_STATISTIC,BeanNatCommonLgNames.STRING, new EffectComboBeanGetTrStatistic()));
         _std.getStds().addEntry(TYPE_EFFECT_COMBO_BEAN, type_);

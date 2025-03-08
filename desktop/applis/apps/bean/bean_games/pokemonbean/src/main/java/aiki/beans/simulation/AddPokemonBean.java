@@ -30,8 +30,8 @@ public final class AddPokemonBean extends WithFilterBean {
         ability.setupValue(DataBase.EMPTY_STRING);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_ADD_POKEMON));
         formatMessageAnc(new AddPokemonBeanCancel(this),MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL);
         if (!namePk.isEmpty()) {

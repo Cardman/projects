@@ -28,8 +28,8 @@ public final class FightCalculationBean extends CommonFightBean {
     private CustList<ImgMovesListTeamPositionsList> sortedFightersWildFight;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade,_form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_DETAIL_FIGHT)));
 //        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_FIGHT);

@@ -25,8 +25,8 @@ public final class DualFightBean extends CommonBean implements BeanRenderWithApp
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_DUAL));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML), MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_INDEX);
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML),MessagesPkBean.MAP, MessagesDataMapLevel.M_P_32_MAP);

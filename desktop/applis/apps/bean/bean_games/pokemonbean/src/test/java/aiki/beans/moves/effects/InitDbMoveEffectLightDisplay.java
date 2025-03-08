@@ -1,13 +1,13 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.PkData;
+import aiki.beans.moves.InitDbMoves;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
@@ -19,22 +19,22 @@ public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffAccuracy(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectAccuracy(pk_);
-        StringMap<String> mapping_ = mappingToEffectAccuracy();
-        return transitEffectQuick(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectAccuracy();
+        return transitEffectQuick(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectAccuracy(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ACCURACY,_pk.beanEffectBean(EN));
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOSITION,_pk.beanEffectBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectAccuracy() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ACCURACY);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOSITION);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectAccuracy(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_ACCURACY,_pk.beanEffectBean(EN));
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_SWITCHPOSITION,_pk.beanEffectBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectAccuracy() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ACCURACY);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOSITION);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataAccuracy(Effect _eff) {
         FacadeGame facade_ = facade();
         addEffAccuracy(facade_,_eff);

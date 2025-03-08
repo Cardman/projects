@@ -73,8 +73,8 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMovesData.M_P_35_TITLE),displayName));
         formatMessageAnc(new MoveBeanClickMoves(this),MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES);
         formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_GENERAL_MOVE,displayName);
@@ -905,119 +905,119 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
     public boolean isUniqueImporte() {
         return targetChoice == TargetChoice.UNIQUE_IMPORTE;
     }
-    public String getPage(int _long) {
-        DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name);
-        Effect eff_ = moveData_.getEffet(_long);
-        if (eff_ instanceof EffectDamage) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML;
-        }
-        if (eff_ instanceof EffectDamageRate) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML;
-        }
-        if (eff_ instanceof EffectStatistic) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML;
-        }
-        if (eff_ instanceof EffectStatus) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML;
-        }
-        if (eff_ instanceof EffectTeam) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAM_HTML;
-        }
-        if (eff_ instanceof EffectGlobal) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML;
-        }
-        if (eff_ instanceof EffectEndRound) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML;
-        }
-        if (eff_ instanceof EffectTeamWhileSendFoe) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAMWHILESENDINGFOE_HTML;
-        }
-        if (eff_ instanceof EffectCopyMove) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML;
-        }
-        if (eff_ instanceof EffectFullHpRate) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML;
-        }
-        if (eff_ instanceof EffectInvoke) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML;
-        }
-        if (eff_ instanceof EffectSwitchTypes) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML;
-        }
-        if (eff_ instanceof EffectSwitchMoveTypes) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML;
-        }
-        return red(eff_);
-    }
-
-    private String red(Effect _eff) {
-        if (_eff instanceof EffectCounterAttack) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML;
-        }
-        if (_eff instanceof EffectProtection) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML;
-        }
-        if (_eff instanceof EffectAccuracy) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML;
-        }
-        if (_eff instanceof EffectCopyFighter) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML;
-        }
-        if (_eff instanceof EffectProtectFromTypes) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML;
-        }
-        if (_eff instanceof EffectUnprotectFromTypes) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML;
-        }
-        if (_eff instanceof EffectAlly) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML;
-        }
-        if (_eff instanceof EffectBatonPass) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML;
-        }
-        if (_eff instanceof EffectClone) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML;
-        }
-        if (_eff instanceof EffectCommonStatistics) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOMMONSTATISTICS_HTML;
-        }
-        return redir(_eff);
-    }
-
-    private String redir(Effect _eff) {
-        if (_eff instanceof EffectOrder) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFORDER_HTML;
-        }
-        if (_eff instanceof EffectRestriction) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML;
-        }
-        if (_eff instanceof EffectSwitchAbilities) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML;
-        }
-        if (_eff instanceof EffectSwitchItems) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML;
-        }
-        if (_eff instanceof EffectSwitchPointView) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML;
-        }
-        if (_eff instanceof EffectRemainedHpRate) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFREMAINEDHPRATE_HTML;
-        }
-        if (_eff instanceof EffectMultUsedMovePower) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTUSEDMOVEPOWER_HTML;
-        }
-        if (_eff instanceof EffectMultSufferedMovePower) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTSUFFEREDMOVEPOWER_HTML;
-        }
-        if (_eff instanceof EffectSwitchPosition) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML;
-        }
-        if (_eff instanceof EffectVarPP) {
-            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFVARPP_HTML;
-        }
-        return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML;
-    }
+//    public String getPage(int _long) {
+//        DataBase data_ = getDataBase();
+//        MoveData moveData_ = data_.getMove(name);
+//        Effect eff_ = moveData_.getEffet(_long);
+//        if (eff_ instanceof EffectDamage) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML;
+//        }
+//        if (eff_ instanceof EffectDamageRate) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML;
+//        }
+//        if (eff_ instanceof EffectStatistic) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML;
+//        }
+//        if (eff_ instanceof EffectStatus) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML;
+//        }
+//        if (eff_ instanceof EffectTeam) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAM_HTML;
+//        }
+//        if (eff_ instanceof EffectGlobal) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML;
+//        }
+//        if (eff_ instanceof EffectEndRound) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML;
+//        }
+//        if (eff_ instanceof EffectTeamWhileSendFoe) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAMWHILESENDINGFOE_HTML;
+//        }
+//        if (eff_ instanceof EffectCopyMove) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML;
+//        }
+//        if (eff_ instanceof EffectFullHpRate) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML;
+//        }
+//        if (eff_ instanceof EffectInvoke) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML;
+//        }
+//        if (eff_ instanceof EffectSwitchTypes) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML;
+//        }
+//        if (eff_ instanceof EffectSwitchMoveTypes) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML;
+//        }
+//        return red(eff_);
+//    }
+//
+//    private String red(Effect _eff) {
+//        if (_eff instanceof EffectCounterAttack) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML;
+//        }
+//        if (_eff instanceof EffectProtection) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML;
+//        }
+//        if (_eff instanceof EffectAccuracy) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML;
+//        }
+//        if (_eff instanceof EffectCopyFighter) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML;
+//        }
+//        if (_eff instanceof EffectProtectFromTypes) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML;
+//        }
+//        if (_eff instanceof EffectUnprotectFromTypes) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML;
+//        }
+//        if (_eff instanceof EffectAlly) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML;
+//        }
+//        if (_eff instanceof EffectBatonPass) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML;
+//        }
+//        if (_eff instanceof EffectClone) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML;
+//        }
+//        if (_eff instanceof EffectCommonStatistics) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOMMONSTATISTICS_HTML;
+//        }
+//        return redir(_eff);
+//    }
+//
+//    private String redir(Effect _eff) {
+//        if (_eff instanceof EffectOrder) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFORDER_HTML;
+//        }
+//        if (_eff instanceof EffectRestriction) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML;
+//        }
+//        if (_eff instanceof EffectSwitchAbilities) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML;
+//        }
+//        if (_eff instanceof EffectSwitchItems) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML;
+//        }
+//        if (_eff instanceof EffectSwitchPointView) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML;
+//        }
+//        if (_eff instanceof EffectRemainedHpRate) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFREMAINEDHPRATE_HTML;
+//        }
+//        if (_eff instanceof EffectMultUsedMovePower) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTUSEDMOVEPOWER_HTML;
+//        }
+//        if (_eff instanceof EffectMultSufferedMovePower) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTSUFFEREDMOVEPOWER_HTML;
+//        }
+//        if (_eff instanceof EffectSwitchPosition) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML;
+//        }
+//        if (_eff instanceof EffectVarPP) {
+//            return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFVARPP_HTML;
+//        }
+//        return PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML;
+//    }
 
     public String getDisplayName() {
         return displayName;

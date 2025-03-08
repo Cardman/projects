@@ -46,8 +46,8 @@ public final class StatusBean extends CommonBean implements BeanRenderWithAppNam
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataStatus.M_P_88_TITLE));
         formatMessageAnc(new StatusBeanClickIndex(this),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_STATUS);
         addImg(animStatus);

@@ -1,5 +1,4 @@
 package aiki.beans.items;
-import aiki.beans.*;
 import aiki.facade.*;
 import aiki.fight.items.*;
 import code.maths.*;
@@ -9,8 +8,8 @@ public final class HealingHpBean extends HealingItemBean {
     private Rate hp;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         healItem();
         displayIntDef(hp, MessagesPkBean.IT_HEALINGHP, MessagesDataItemsHealinghp.M_P_22_HEAL_HP);

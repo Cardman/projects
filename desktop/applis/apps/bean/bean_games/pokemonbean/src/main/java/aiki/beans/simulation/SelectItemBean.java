@@ -16,8 +16,8 @@ public final class SelectItemBean extends WithFilterBean {
     private IntBeanChgSubmit updateValues;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SELECT_ITEM));
         formatMessageAnc(new SelectItemBeanCancel(this),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL);
         formatMessageAnc(new SelectItemBeanCancelItem(this),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL_ITEM);

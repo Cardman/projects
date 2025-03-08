@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.moves.InitDbMoves;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -11,7 +12,6 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
@@ -48,20 +48,20 @@ public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffRestriction(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectRestriction(pk_);
-        StringMap<String> mapping_ = mappingToEffectRestriction();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectRestriction();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectRestriction(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_RESTRICTION,_pk.beanEffectRestrictionBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectRestriction() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_RESTRICTION);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectRestriction(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_RESTRICTION,_pk.beanEffectRestrictionBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectRestriction() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_RESTRICTION);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataRestriction(boolean _targetAttacksLast, MoveChoiceRestrictionType _res) {
         FacadeGame facade_ = facade();
         addEffRestriction(facade_, _targetAttacksLast, _res);

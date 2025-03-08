@@ -30,8 +30,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         initTitle(file(),MessagesDataSimulationLevelsimu.M_P_85_TITLE_LEVEL_PLACE,MessagesDataSimulationLevelsimu.M_P_85_TITLE_OUT_ROAD,MessagesDataSimulationLevelsimu.M_P_85_TITLE_OUT_CITY,MessagesDataSimulationLevelsimu.M_P_85_TITLE_GYM,MessagesDataSimulationLevelsimu.M_P_85_TITLE_PK_CENTER);
 //        if (getPossibleMultiLayer()) {
 //            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_LEVEL_PLACE),getPlaceName(),Long.toString(getLevelIndex())));

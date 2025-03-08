@@ -15,8 +15,8 @@ public final class PokedexBean extends WithFilterBean {
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataPokemonPokedex.M_P_82_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
 //        initPage();

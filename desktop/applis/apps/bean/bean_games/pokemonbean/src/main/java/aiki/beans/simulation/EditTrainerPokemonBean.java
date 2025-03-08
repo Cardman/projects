@@ -38,8 +38,8 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_EDIT_POKEMON_TR));
         cancel = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL));
         getCancel().addEvt(new EditTrainerPokemonBeanCancel(this));

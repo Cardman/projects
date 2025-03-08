@@ -17,8 +17,8 @@ public final class DifficultyBean extends CommonSingleBean implements WithDiffic
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade,_form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(formatMessageRend(MessagesPkBean.DIFFICULTY, MessagesGameDifficulty.M_P_93_TITLE));
         form.displayDiff(getBuilder().getGenInput(), this, getDifficultyCommon(), MessagesPkBean.DIFFICULTY);
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.DIFFICULTY,MessagesGameDifficulty.M_P_93_OK));

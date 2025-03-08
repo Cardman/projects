@@ -20,8 +20,8 @@ public final class FightBean extends CommonFightBean {
     private Rate winningMoney;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade,_form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_FIGHT)));
 //        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);

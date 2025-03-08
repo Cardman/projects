@@ -37,8 +37,8 @@ public final class LangsBean extends CommonBean implements BeanRenderWithAppName
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataLangs.M_P_31_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
         getBuilder().setRefLk(PkScriptPages.BEGIN);

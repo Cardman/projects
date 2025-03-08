@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.moves.InitDbMoves;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -14,7 +15,6 @@ import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
@@ -199,20 +199,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffFullHpRate(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectFullHpRate(pk_);
-        StringMap<String> mapping_ = mappingToEffectFullHpRate();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectFullHpRate();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectFullHpRate(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_FULLHPRATE,_pk.beanEffectFullHpRateBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectFullHpRate() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_FULLHPRATE);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectFullHpRate(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_FULLHPRATE,_pk.beanEffectFullHpRateBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectFullHpRate() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_FULLHPRATE);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataFullHpRate() {
         FacadeGame facade_ = facade();
         addEffFullHpRate(facade_);
@@ -256,20 +256,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffCounterAttack(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectCounterAttack(pk_);
-        StringMap<String> mapping_ = mappingToEffectCounterAttack();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectCounterAttack();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectCounterAttack(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COUNTER_ATTACK,_pk.beanEffectCounterAttackBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectCounterAttack() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COUNTER_ATTACK);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectCounterAttack(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_COUNTER_ATTACK,_pk.beanEffectCounterAttackBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectCounterAttack() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COUNTER_ATTACK);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataCounterAttack() {
         FacadeGame facade_ = facade();
         addEffCounterAttack(facade_);
@@ -315,20 +315,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffAlly(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectAlly(pk_);
-        StringMap<String> mapping_ = mappingToEffectAlly();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectAlly();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectAlly(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ALLY,_pk.beanEffectAllyBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectAlly() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ALLY);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectAlly(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_ALLY,_pk.beanEffectAllyBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectAlly() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ALLY);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataAlly() {
         FacadeGame facade_ = facade();
         addEffAlly(facade_);
@@ -370,20 +370,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffBatonPass(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectBatonPass(pk_);
-        StringMap<String> mapping_ = mappingToEffectBatonPass();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectBatonPass();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectBatonPass(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_BATONPASS,_pk.beanEffectBatonPassBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectBatonPass() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_BATONPASS);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectBatonPass(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_BATONPASS,_pk.beanEffectBatonPassBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectBatonPass() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_BATONPASS);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataBatonPass() {
         FacadeGame facade_ = facade();
         addEffBatonPass(facade_);
@@ -417,20 +417,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffClone(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectClone(pk_);
-        StringMap<String> mapping_ = mappingToEffectClone();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectClone();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectClone(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_CLONE,_pk.beanEffectCloneBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectClone() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_CLONE);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectClone(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_CLONE,_pk.beanEffectCloneBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectClone() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_CLONE);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataClone() {
         FacadeGame facade_ = facade();
         addEffClone(facade_);
@@ -499,20 +499,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffCommonStatistics(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectCommonStatistics(pk_);
-        StringMap<String> mapping_ = mappingToEffectCommonStatistics();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectCommonStatistics();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectCommonStatistics(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COMMONSTATISTICS,_pk.beanEffectCommonStatisticsBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectCommonStatistics() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOMMONSTATISTICS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COMMONSTATISTICS);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectCommonStatistics(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_COMMONSTATISTICS,_pk.beanEffectCommonStatisticsBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectCommonStatistics() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOMMONSTATISTICS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COMMONSTATISTICS);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataCommonStatistics() {
         FacadeGame facade_ = facade();
         addEffCommonStatistics(facade_);
@@ -547,20 +547,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffOrder(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectOrder(pk_);
-        StringMap<String> mapping_ = mappingToEffectOrder();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectOrder();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectOrder(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ORDER,_pk.beanEffectOrderBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectOrder() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFORDER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ORDER);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectOrder(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_ORDER,_pk.beanEffectOrderBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectOrder() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFORDER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ORDER);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataOrder(boolean _targetAttacksLast) {
         FacadeGame facade_ = facade();
         addEffOrder(facade_, _targetAttacksLast);
@@ -595,20 +595,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffRemainedHpRate(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectRemainedHpRate(pk_);
-        StringMap<String> mapping_ = mappingToEffectRemainedHpRate();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectRemainedHpRate();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectRemainedHpRate(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_REMAINEDHPRATE,_pk.beanEffectRemainedHpRateBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectRemainedHpRate() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFREMAINEDHPRATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_REMAINEDHPRATE);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectRemainedHpRate(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_REMAINEDHPRATE,_pk.beanEffectRemainedHpRateBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectRemainedHpRate() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFREMAINEDHPRATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_REMAINEDHPRATE);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataRemainedHpRate(Rate _targetAttacksLast) {
         FacadeGame facade_ = facade();
         addEffRemainedHpRate(facade_, _targetAttacksLast);
@@ -644,22 +644,22 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffMultMovePower(FacadeGame _fac, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectMultMovePower(pk_);
-        StringMap<String> mapping_ = mappingToEffectMultMovePower();
-        return transitEffect(0, _indexEff,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectMultMovePower();
+        return transitEffect(0, _indexEff,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectMultMovePower(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTSUFFEREDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTUSEDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectMultMovePower() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTSUFFEREDMOVEPOWER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTSUFFEREDMOVEPOWER);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTUSEDMOVEPOWER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTUSEDMOVEPOWER);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectMultMovePower(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_MULTSUFFEREDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_MULTUSEDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectMultMovePower() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTSUFFEREDMOVEPOWER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTSUFFEREDMOVEPOWER);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFMULTUSEDMOVEPOWER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTUSEDMOVEPOWER);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataMultMovePower() {
         FacadeGame facade_ = facade();
         addEffMultMovePower(facade_);
@@ -708,22 +708,22 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
 
     protected static NaSt dispMoveEffOther(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectOther(pk_);
-        StringMap<String> mapping_ = mappingToEffectOther();
-        return transitEffectQuick(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectOther();
+        return transitEffectQuick(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectOther(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_VARPP,_pk.beanEffectVarPPBean(EN));
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_WINMONEY,_pk.beanEffectWinMoneyBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectOther() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFVARPP_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_VARPP);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_WINMONEY);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectOther(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_VARPP,_pk.beanEffectVarPPBean(EN));
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_WINMONEY,_pk.beanEffectWinMoneyBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectOther() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFVARPP_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_VARPP);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_WINMONEY);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataOther(Effect _eff) {
         FacadeGame facade_ = facade();
         addEffOther(facade_,_eff);

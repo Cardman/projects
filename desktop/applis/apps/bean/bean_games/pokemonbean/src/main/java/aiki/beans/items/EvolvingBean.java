@@ -8,8 +8,8 @@ public abstract class EvolvingBean extends ItemBean{
     private CustList<TranslatedKey> pokemon;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,pokemon,fileLoc(),keyLoc());
     }

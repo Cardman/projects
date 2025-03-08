@@ -35,8 +35,8 @@ public final class MapLevelBean extends AbsLevelBean {
 }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         initTitle(file(),MessagesDataMapLevel.M_P_32_TITLE_LEVEL_PLACE,MessagesDataMapLevel.M_P_32_TITLE_OUT_ROAD,MessagesDataMapLevel.M_P_32_TITLE_OUT_CITY,MessagesDataMapLevel.M_P_32_TITLE_GYM,MessagesDataMapLevel.M_P_32_TITLE_PK_CENTER);
 //        if (getPossibleMultiLayer()) {
 //            setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_LEVEL_PLACE),getPlaceName(),Long.toString(getLevelIndex())));

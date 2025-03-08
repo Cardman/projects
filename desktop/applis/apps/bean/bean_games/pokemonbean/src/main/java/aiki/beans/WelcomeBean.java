@@ -13,8 +13,8 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade,_form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataIndex.M_P_15_TITLE));
         initPage();
         elementAnchor(MessagesDataIndex.M_P_15_GENERAL,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML));

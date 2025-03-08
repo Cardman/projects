@@ -23,9 +23,9 @@ public final class AikiBeansPokemonEvolutionsStd{
     private static final String CLICK_MOVE = "clickMove";
     private static final String CLICK_STONE = "clickStone";
     private static final String CLICK_TEAM = "clickTeam";
-    private static final String INDEX = "index";
-    private static final String NAME = "name";
-    private static final String BASE = "base";
+//    private static final String INDEX = "index";
+//    private static final String NAME = "name";
+//    private static final String BASE = "base";
     private static final String DISPLAY_NAME = "displayName";
     private static final String DISPLAY_BASE = "displayBase";
     private static final String MIN = "min";
@@ -53,11 +53,11 @@ public final class AikiBeansPokemonEvolutionsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new EvolutionBeanIndexGet(),new EvolutionBeanIndexSet()));
+//        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new EvolutionBeanIndexGet(),new EvolutionBeanIndexSet()));
         fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING, new EvolutionBeanDisplayNameGet(),null));
         fields_.add(new StandardField(DISPLAY_BASE,BeanNatCommonLgNames.STRING, new EvolutionBeanDisplayBaseGet(),null));
-        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, null,new EvolutionBeanNameSet()));
-        fields_.add(new StandardField(BASE,BeanNatCommonLgNames.STRING, null,new EvolutionBeanBaseSet()));
+//        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, null,new EvolutionBeanNameSet()));
+//        fields_.add(new StandardField(BASE,BeanNatCommonLgNames.STRING, null,new EvolutionBeanBaseSet()));
         methods_.add( new SpecNatMethod(CLICK_EVO,BeanNatCommonLgNames.STRING, new EvolutionBeanClickEvo()));
         _std.getStds().addEntry(TYPE_EVOLUTION_BEAN, type_);
     }

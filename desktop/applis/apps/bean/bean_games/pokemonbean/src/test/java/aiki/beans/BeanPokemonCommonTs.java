@@ -26,9 +26,8 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    }
 
     public static void transit(PokemonStandards _stds, IntBeanAction _caller, NaSt _first, NaSt _second) {
-        CommonBean s_ = (CommonBean) ((BeanStruct) _second).getBean();
-        IntBeanBuilderHelper bu_ = s_.getBuilder();
-        setFormsBy(_stds,_second,_first);
+        IntBeanBuilderHelper bu_ = ((PokemonBeanStruct) _second).getInstance().getBuilder();
+//        setFormsBy(_stds,_second,_first);
         bu_.build(_caller);
     }
 
@@ -107,12 +106,12 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
     public static void beforeDisplaying(CommonBean _bean) {
-        _bean.build(_bean.getFacade(),_bean.getBuilder().getForms());
+        _bean.build(_bean.getFacade());
     }
 
-    public static void setFormsBy(PokemonStandards _pk, NaSt _to, NaSt _from) {
-        _pk.setForms(forms(_from),_to);
-    }
+//    public static void setFormsBy(PokemonStandards _pk, NaSt _to, NaSt _from) {
+//        _pk.setForms(forms(_from),_to);
+//    }
 
 //    public static void setFormsBy(CommonBean _to, CommonBean _from) {
 //        _to.setForms(_from.getForms());

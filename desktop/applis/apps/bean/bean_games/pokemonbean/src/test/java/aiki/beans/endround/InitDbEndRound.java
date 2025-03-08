@@ -444,24 +444,24 @@ public abstract class InitDbEndRound extends InitDbConstr {
         ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
         ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).setBuilder(bu_);
-        ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
+        ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)welcome_).getBean()).getFacade());
 //        beforeDisplaying(welcome_);
         return welcome_;
     }
     public static StringMap<NaSt> beanToEndRound(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansEndroundStd.BEAN_ENDROUND,_pk.beanEndRoundBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END,_pk.beanEffectEndRoundBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_FOE,_pk.beanEffectEndRoundFoeBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_GLOBAL,_pk.beanEffectEndRoundGlobalBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_INDIVIDUAL,_pk.beanEffectEndRoundIndividualBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_MULTIRELATION,_pk.beanEffectEndRoundMultiRelationBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_POSITIONRELATION,_pk.beanEffectEndRoundPositionRelationBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_POSITIONTARGET,_pk.beanEffectEndRoundPositionTargetBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_SINGLERELATION,_pk.beanEffectEndRoundSingleRelationBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUS,_pk.beanEffectEndRoundSingleStatusBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUSRELATION,_pk.beanEffectEndRoundStatusRelationBean(EN));
-        map_.addEntry(AikiBeansEndroundStd.BEAN_END_TEAM,_pk.beanEffectEndRoundTeamBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END,_pk.beanEffectEndRoundBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_FOE,_pk.beanEffectEndRoundFoeBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_GLOBAL,_pk.beanEffectEndRoundGlobalBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_INDIVIDUAL,_pk.beanEffectEndRoundIndividualBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_MULTIRELATION,_pk.beanEffectEndRoundMultiRelationBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_POSITIONRELATION,_pk.beanEffectEndRoundPositionRelationBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_POSITIONTARGET,_pk.beanEffectEndRoundPositionTargetBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_SINGLERELATION,_pk.beanEffectEndRoundSingleRelationBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUS,_pk.beanEffectEndRoundSingleStatusBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUSRELATION,_pk.beanEffectEndRoundStatusRelationBean(EN));
+//        map_.addEntry(AikiBeansEndroundStd.BEAN_END_TEAM,_pk.beanEffectEndRoundTeamBean(EN));
         return map_;
     }
     protected static FacadeGame feedDb() {

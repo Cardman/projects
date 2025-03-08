@@ -271,8 +271,8 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataRound.M_P_83_TITLE));
         elementAnchor(MessagesDataRound.M_P_83_INDEX,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML));
         getBuilder().setRefLk(BEGIN);

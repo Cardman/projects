@@ -88,8 +88,8 @@ public final class FighterBean extends CommonFightBean {
     private int changed;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade,_form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFighter.M_P_91_TITLE)));
 //        initPage();
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_FIGHT);

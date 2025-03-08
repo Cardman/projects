@@ -8,11 +8,9 @@ import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.util.CustList;
 public final class AikiBeansMovesStd{
-    public static final String BEAN_MOVES="moves";
-    public static final String BEAN_MOVE="move";
-    public static final String BEAN_MOVE_LINE="move_line";
+    //    public static final String BEAN_MOVE_LINE="move_line";
     public static final String TYPE_MOVE_BEAN = "aiki.beans.moves.MoveBean";
-    public static final String TYPE_MOVE_LINE_BEAN = "aiki.beans.moves.MoveLineBean";
+//    public static final String TYPE_MOVE_LINE_BEAN = "aiki.beans.moves.MoveLineBean";
     public static final String TYPE_MOVES_BEAN = "aiki.beans.moves.MovesBean";
 //    private static final String CLICK_MOVES = "clickMoves";
     private static final String TYPES_DEPEND_ONLY_ON_ITEM = "typesDependOnlyOnItem";
@@ -59,7 +57,7 @@ public final class AikiBeansMovesStd{
     private static final String IS_END_ROUND_EFFECT = "isEndRoundEffect";
     private static final String IS_PRIMARY_EFFECT = "isPrimaryEffect";
     private static final String IS_AFTER_PRIMARY_EFFECT = "isAfterPrimaryEffect";
-    private static final String GET_PAGE = "getPage";
+//    private static final String GET_PAGE = "getPage";
     private static final String CLICK_ITEM_SEC_EFFECT = "clickItemSecEffect";
     private static final String TRANSLATE_ITEM_SEC_EFFECT = "translateItemSecEffect";
     private static final String SWITCH_AFTER_USING_MOVE = "switchAfterUsingMove";
@@ -215,7 +213,7 @@ public final class AikiBeansMovesStd{
         methods_.add( new SpecNatMethod(IS_END_ROUND_EFFECT,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveBeanIsEndRoundEffect()));
         methods_.add( new SpecNatMethod(IS_PRIMARY_EFFECT,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveBeanIsPrimaryEffect()));
         methods_.add( new SpecNatMethod(IS_AFTER_PRIMARY_EFFECT,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveBeanIsAfterPrimaryEffect()));
-        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, new MoveBeanGetPage()));
+//        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, new MoveBeanGetPage()));
         methods_.add( new SpecNatMethod(CLICK_ITEM_SEC_EFFECT,BeanNatCommonLgNames.STRING, new MoveBeanClickItemSecEffect()));
         methods_.add( new SpecNatMethod(TRANSLATE_ITEM_SEC_EFFECT,BeanNatCommonLgNames.STRING, new MoveBeanTranslateItemSecEffect()));
         methods_.add( new SpecNatMethod(SWITCH_AFTER_USING_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveBeanSwitchAfterUsingMove()));

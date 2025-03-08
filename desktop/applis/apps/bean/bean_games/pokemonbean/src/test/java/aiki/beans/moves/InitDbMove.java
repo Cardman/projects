@@ -1,7 +1,6 @@
 package aiki.beans.moves;
 
 import aiki.beans.*;
-import aiki.beans.pokemon.PokemonBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -202,9 +201,9 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanGetDeletedStatus(),_str,_args);
     }
 
-    public static NaSt callMoveBeanGetPage(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanGetPage(),_str,_args);
-    }
+//    public static NaSt callMoveBeanGetPage(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new MoveBeanGetPage(),_str,_args);
+//    }
 
     public static NaSt callMoveBeanGetRequiredStatus(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanGetRequiredStatus(),_str,_args);
@@ -472,8 +471,8 @@ public abstract class InitDbMove extends InitDbMoves {
     protected static NaSt dispMove(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
-        StringMap<String> mapping_ = mappingToMove();
-        return transitMove(_index, pk_, all_, mapping_);
+//        StringMap<String> mapping_ = mappingToMove();
+        return transitMove(_index, pk_, all_);
     }
 
     public static StringMap<NaSt> beanToMove(PkData _pk) {
@@ -552,15 +551,15 @@ public abstract class InitDbMove extends InitDbMoves {
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_WINMONEY,new TranslationsFile());
         MoveBean move_ = new MoveBean();
         move_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE, _pk.bean(move_, EN));
+        map_.addEntry(BEAN_MOVE, _pk.bean(move_, EN));
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,move_);
         return map_;
     }
-    public static StringMap<String> mappingToMove() {
-        StringMap<String> map_ = mappingToMoves();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE);
-        return map_;
-    }
+//    public static StringMap<String> mappingToMove() {
+//        StringMap<String> map_ = mappingToMoves();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveStaStatis(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _t, boolean _count) {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(M_DAM, moveDam(TargetChoice.ANY_FOE));

@@ -359,128 +359,128 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         diff(fac_).setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MIN);
         assertEq(Rate.one(),second(elt(callDifficultyBeanDamageRateFoeTableGet(beanSimu(EN, fac_)),0)));
     }
-
-    @Test
-    public void setAllowCatchingKo1() {
-        assertTrue(result(callDifficultyBeanAllowCatchingKoSet(displaying(beanDiff(EN, fac())),true)).getAllowCatchingKo());
-    }
-
-    @Test
-    public void setAllowCatchingKo2() {
-        assertFalse(result(callDifficultyBeanAllowCatchingKoSet(displaying(beanDiff(EN, fac())),false)).getAllowCatchingKo());
-    }
-
-    @Test
-    public void setEndFightIfOneTeamKo1() {
-        assertTrue(result(callDifficultyBeanEndFightIfOneTeamKoSet(displaying(beanDiff(EN, fac())),true)).getEndFightIfOneTeamKo());
-    }
-
-    @Test
-    public void setEndFightIfOneTeamKo2() {
-        assertFalse(result(callDifficultyBeanEndFightIfOneTeamKoSet(displaying(beanDiff(EN, fac())),false)).getEndFightIfOneTeamKo());
-    }
-
-    @Test
-    public void setAllowedSwitchPlacesEndRound1() {
-        assertTrue(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(displaying(beanDiff(EN, fac())),true)).getAllowedSwitchPlacesEndRound());
-    }
-
-    @Test
-    public void setAllowedSwitchPlacesEndRound2() {
-        assertFalse(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(displaying(beanDiff(EN, fac())),false)).getAllowedSwitchPlacesEndRound());
-    }
-
-    @Test
-    public void setRestoredMovesEndFight1() {
-        assertTrue(result(callDifficultyBeanRestoredMovesEndFightSet(displaying(beanDiff(EN, fac())),true)).getRestoredMovesEndFight());
-    }
-
-    @Test
-    public void setRestoredMovesEndFight2() {
-        assertFalse(result(callDifficultyBeanRestoredMovesEndFightSet(displaying(beanDiff(EN, fac())),false)).getRestoredMovesEndFight());
-    }
-
-    @Test
-    public void setEnabledClosing1() {
-        assertTrue(result(callDifficultyBeanEnabledClosingSet(displaying(beanDiff(EN, fac())),true)).getEnabledClosing());
-    }
-
-    @Test
-    public void setEnabledClosing2() {
-        assertFalse(result(callDifficultyBeanEnabledClosingSet(displaying(beanDiff(EN, fac())),false)).getEnabledClosing());
-    }
-
-    @Test
-    public void setRandomWildFight1() {
-        assertTrue(result(callDifficultyBeanRandomWildFightSet(displaying(beanDiff(EN, fac())),true)).getRandomWildFight());
-    }
-
-    @Test
-    public void setRandomWildFight2() {
-        assertFalse(result(callDifficultyBeanRandomWildFightSet(displaying(beanDiff(EN, fac())),false)).getRandomWildFight());
-    }
-
-    @Test
-    public void setStillPossibleFlee1() {
-        assertTrue(result(callDifficultyBeanStillPossibleFleeSet(displaying(beanDiff(EN, fac())),true)).getStillPossibleFlee());
-    }
-
-    @Test
-    public void setStillPossibleFlee2() {
-        assertFalse(result(callDifficultyBeanStillPossibleFleeSet(displaying(beanDiff(EN, fac())),false)).getStillPossibleFlee());
-    }
-
-    @Test
-    public void setSkipLearningMovesWhileNotGrowingLevel1() {
-        assertTrue(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(displaying(beanDiff(EN, fac())),true)).getSkipLearningMovesWhileNotGrowingLevel());
-    }
-
-    @Test
-    public void setSkipLearningMovesWhileNotGrowingLevel2() {
-        assertFalse(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(displaying(beanDiff(EN, fac())),false)).getSkipLearningMovesWhileNotGrowingLevel());
-    }
-
-    @Test
-    public void setWinTrainerExp() {
-        assertEq(rt(),result(callDifficultyBeanWinTrainerExpSet(displaying(beanDiff(EN, fac())),rt())).getWinTrainerExp());
-    }
-
-    @Test
-    public void setRateWinningExpPtsFight() {
-        assertEq(rt(),result(callDifficultyBeanRateWinningExpPtsFightSet(displaying(beanDiff(EN, fac())),rt())).getRateWinningExpPtsFight());
-    }
-
-    @Test
-    public void setRateWinMoneyBase() {
-        assertEq(rt(),result(callDifficultyBeanRateWinMoneyBaseSet(displaying(beanDiff(EN, fac())),rt())).getRateWinMoneyBase());
-    }
-
-    @Test
-    public void setRateLooseMoneyWin() {
-        assertEq(rt(),result(callDifficultyBeanRateLooseMoneyWinSet(displaying(beanDiff(EN, fac())),rt())).getRateLooseMoneyWin());
-    }
-
-    @Test
-    public void setIvFoe() {
-        assertEq(1,result(callDifficultyBeanIvFoeSet(displaying(beanDiff(EN, fac())),1)).getIvFoe());
-    }
-
-    @Test
-    public void setIvPlayer() {
-        assertEq(1,result(callDifficultyBeanIvPlayerSet(displaying(beanDiff(EN, fac())),1)).getIvPlayer());
-    }
-    @Test
-    public void setDiffWinningExpPtsFight() {
-        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),result(callDifficultyBeanDiffWinningExpPtsFightSet(displaying(beanDiff(EN, fac())),DifficultyWinPointsFight.FACILE.getWinName())).getDiffWinningExpPtsFight());
-    }
-    @Test
-    public void setDamageRateLawFoe() {
-        assertEq(DifficultyModelLaw.CONSTANT_MIN.getModelName(),result(callDifficultyBeanDamageRateLawFoeSet(displaying(beanDiff(EN, fac())),DifficultyModelLaw.CONSTANT_MIN.getModelName())).getDamageRateLawFoe());
-    }
-    @Test
-    public void setDamageRatePlayer() {
-        assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),result(callDifficultyBeanDamageRatePlayerSet(displaying(beanDiff(EN, fac())),DifficultyModelLaw.CONSTANT_MAX.getModelName())).getDamageRatePlayer());
-    }
+//
+//    @Test
+//    public void setAllowCatchingKo1() {
+//        assertTrue(result(callDifficultyBeanAllowCatchingKoSet(displaying(beanDiff(EN, fac())),true)).getAllowCatchingKo());
+//    }
+//
+//    @Test
+//    public void setAllowCatchingKo2() {
+//        assertFalse(result(callDifficultyBeanAllowCatchingKoSet(displaying(beanDiff(EN, fac())),false)).getAllowCatchingKo());
+//    }
+//
+//    @Test
+//    public void setEndFightIfOneTeamKo1() {
+//        assertTrue(result(callDifficultyBeanEndFightIfOneTeamKoSet(displaying(beanDiff(EN, fac())),true)).getEndFightIfOneTeamKo());
+//    }
+//
+//    @Test
+//    public void setEndFightIfOneTeamKo2() {
+//        assertFalse(result(callDifficultyBeanEndFightIfOneTeamKoSet(displaying(beanDiff(EN, fac())),false)).getEndFightIfOneTeamKo());
+//    }
+//
+//    @Test
+//    public void setAllowedSwitchPlacesEndRound1() {
+//        assertTrue(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(displaying(beanDiff(EN, fac())),true)).getAllowedSwitchPlacesEndRound());
+//    }
+//
+//    @Test
+//    public void setAllowedSwitchPlacesEndRound2() {
+//        assertFalse(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(displaying(beanDiff(EN, fac())),false)).getAllowedSwitchPlacesEndRound());
+//    }
+//
+//    @Test
+//    public void setRestoredMovesEndFight1() {
+//        assertTrue(result(callDifficultyBeanRestoredMovesEndFightSet(displaying(beanDiff(EN, fac())),true)).getRestoredMovesEndFight());
+//    }
+//
+//    @Test
+//    public void setRestoredMovesEndFight2() {
+//        assertFalse(result(callDifficultyBeanRestoredMovesEndFightSet(displaying(beanDiff(EN, fac())),false)).getRestoredMovesEndFight());
+//    }
+//
+//    @Test
+//    public void setEnabledClosing1() {
+//        assertTrue(result(callDifficultyBeanEnabledClosingSet(displaying(beanDiff(EN, fac())),true)).getEnabledClosing());
+//    }
+//
+//    @Test
+//    public void setEnabledClosing2() {
+//        assertFalse(result(callDifficultyBeanEnabledClosingSet(displaying(beanDiff(EN, fac())),false)).getEnabledClosing());
+//    }
+//
+//    @Test
+//    public void setRandomWildFight1() {
+//        assertTrue(result(callDifficultyBeanRandomWildFightSet(displaying(beanDiff(EN, fac())),true)).getRandomWildFight());
+//    }
+//
+//    @Test
+//    public void setRandomWildFight2() {
+//        assertFalse(result(callDifficultyBeanRandomWildFightSet(displaying(beanDiff(EN, fac())),false)).getRandomWildFight());
+//    }
+//
+//    @Test
+//    public void setStillPossibleFlee1() {
+//        assertTrue(result(callDifficultyBeanStillPossibleFleeSet(displaying(beanDiff(EN, fac())),true)).getStillPossibleFlee());
+//    }
+//
+//    @Test
+//    public void setStillPossibleFlee2() {
+//        assertFalse(result(callDifficultyBeanStillPossibleFleeSet(displaying(beanDiff(EN, fac())),false)).getStillPossibleFlee());
+//    }
+//
+//    @Test
+//    public void setSkipLearningMovesWhileNotGrowingLevel1() {
+//        assertTrue(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(displaying(beanDiff(EN, fac())),true)).getSkipLearningMovesWhileNotGrowingLevel());
+//    }
+//
+//    @Test
+//    public void setSkipLearningMovesWhileNotGrowingLevel2() {
+//        assertFalse(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(displaying(beanDiff(EN, fac())),false)).getSkipLearningMovesWhileNotGrowingLevel());
+//    }
+//
+//    @Test
+//    public void setWinTrainerExp() {
+//        assertEq(rt(),result(callDifficultyBeanWinTrainerExpSet(displaying(beanDiff(EN, fac())),rt())).getWinTrainerExp());
+//    }
+//
+//    @Test
+//    public void setRateWinningExpPtsFight() {
+//        assertEq(rt(),result(callDifficultyBeanRateWinningExpPtsFightSet(displaying(beanDiff(EN, fac())),rt())).getRateWinningExpPtsFight());
+//    }
+//
+//    @Test
+//    public void setRateWinMoneyBase() {
+//        assertEq(rt(),result(callDifficultyBeanRateWinMoneyBaseSet(displaying(beanDiff(EN, fac())),rt())).getRateWinMoneyBase());
+//    }
+//
+//    @Test
+//    public void setRateLooseMoneyWin() {
+//        assertEq(rt(),result(callDifficultyBeanRateLooseMoneyWinSet(displaying(beanDiff(EN, fac())),rt())).getRateLooseMoneyWin());
+//    }
+//
+//    @Test
+//    public void setIvFoe() {
+//        assertEq(1,result(callDifficultyBeanIvFoeSet(displaying(beanDiff(EN, fac())),1)).getIvFoe());
+//    }
+//
+//    @Test
+//    public void setIvPlayer() {
+//        assertEq(1,result(callDifficultyBeanIvPlayerSet(displaying(beanDiff(EN, fac())),1)).getIvPlayer());
+//    }
+//    @Test
+//    public void setDiffWinningExpPtsFight() {
+//        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),result(callDifficultyBeanDiffWinningExpPtsFightSet(displaying(beanDiff(EN, fac())),DifficultyWinPointsFight.FACILE.getWinName())).getDiffWinningExpPtsFight());
+//    }
+//    @Test
+//    public void setDamageRateLawFoe() {
+//        assertEq(DifficultyModelLaw.CONSTANT_MIN.getModelName(),result(callDifficultyBeanDamageRateLawFoeSet(displaying(beanDiff(EN, fac())),DifficultyModelLaw.CONSTANT_MIN.getModelName())).getDamageRateLawFoe());
+//    }
+//    @Test
+//    public void setDamageRatePlayer() {
+//        assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),result(callDifficultyBeanDamageRatePlayerSet(displaying(beanDiff(EN, fac())),DifficultyModelLaw.CONSTANT_MAX.getModelName())).getDamageRatePlayer());
+//    }
 //    @Test
 //    public void change() {
 //        FacadeGame fac_ = fac();
@@ -687,9 +687,9 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
 //        _page.getContainer(0, _nbId).setValue(new StringList(_value));
 //    }
 
-    private DifficultyCommon result(NaSt _str) {
-        return (((DifficultyCommonBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon()).getDifficultyCommon();
-    }
+//    private DifficultyCommon result(NaSt _str) {
+//        return (((DifficultyCommonBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon()).getDifficultyCommon();
+//    }
 
     private DifficultyCommon result(DifficultyBean _str) {
         return _str.getDifficultyCommon();

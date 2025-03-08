@@ -436,7 +436,6 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     private PokemonPlayerBean bean(FacadeGame _fac) {
         PokemonPlayerBean b_ = new PokemonPlayerBean();
         b_.setDataBase(_fac);
-        b_.setForms(new StringMapObject());
         b_.setLanguage(EN);
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
@@ -449,7 +448,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         bu_.setTranslations(tr_);
         bu_.setFacade(_fac);
         b_.setBuilder(bu_);
-        b_.build(_fac,b_.getForms());
+        b_.build(_fac);
         return b_;
     }
 

@@ -277,7 +277,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.frData());
         trs_.getMapping().addEntry(FR, fr_);
         w2_.getBuilder().setTranslations(trs_);
-        w2_.build(f_,new StringMapObject());
+        w2_.build(f_);
         pk_.initBeans(null,EN);
     }
     @Test

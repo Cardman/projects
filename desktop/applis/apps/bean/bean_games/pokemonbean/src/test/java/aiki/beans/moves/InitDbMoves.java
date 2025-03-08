@@ -25,6 +25,9 @@ import code.util.StringMap;
 
 public abstract class InitDbMoves extends InitDbConstr {
 
+    public static final String BEAN_MOVES="moves";
+    public static final String BEAN_MOVE="move";
+
     public static NaSt callMovesBeanCategorySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanCategorySet(),_str,_args);
     }
@@ -159,20 +162,20 @@ public abstract class InitDbMoves extends InitDbConstr {
     private static NaSt moveLine(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToMoves(pk_);
-        return transitToAllMoves(pk_, all_, _index, mappingToMoves());
+        return transitToAllMoves(pk_, all_, _index);
     }
 
     protected static NaSt dispLine(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMoves(pk_);
-        NaSt moves_ = transitToAllMoves(pk_, all_, _index, mappingToMoves());
+        NaSt moves_ = transitToAllMoves(pk_, all_, _index);
         return elt(callMovesBeanMovesGet(moves_),_index);
     }
 
-    protected static NaSt transitToAllMoves(PkData _pk, StringMap<NaSt> _all,int _index, StringMap<String> _mapping) {
+    protected static NaSt transitToAllMoves(PkData _pk, StringMap<NaSt> _all, int _index) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        NaSt moves_ = _all.getVal(BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,moves_);
         transit(_pk,new MovesBeanSearch((MovesBean) ((PokemonBeanStruct)moves_).getBean()),moves_,moves_);
         return moves_;
@@ -192,7 +195,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         StringMap<NaSt> all_ = beanToMoves(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        NaSt moves_ = all_.getVal(BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
@@ -204,7 +207,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         _pk.getDataBase().getData().completeMoveTutors();
         _pk.getDataBase().getData().setView(_pk.getDataBase().getData().computeLearn());
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        NaSt moves_ = all_.getVal(BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
@@ -306,20 +309,20 @@ public abstract class InitDbMoves extends InitDbConstr {
         map_.addEntry(AikiBeansStd.BEAN_WELCOME, new PokemonBeanStruct(w_));
         MovesBean moves_ = new MovesBean();
         moves_.setBuilder(w_.getBuilder());
-        map_.addEntry(AikiBeansMovesStd.BEAN_MOVES, _pk.bean(moves_, EN));
+        map_.addEntry(BEAN_MOVES, _pk.bean(moves_, EN));
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
         w_.getBuilder().getRenders().addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,moves_);
 //        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE_LINE,_pk.beanMoveLineBean(EN));
         return map_;
     }
-    public static StringMap<String> mappingToMoves() {
-        StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,AikiBeansMovesStd.BEAN_MOVES);
-//        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML,AikiBeansMovesStd.BEAN_MOVE_LINE);
-        return map_;
-    }
+//    public static StringMap<String> mappingToMoves() {
+//        StringMap<String> map_ = new StringMap<String>();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,AikiBeansMovesStd.BEAN_MOVES);
+////        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML,AikiBeansMovesStd.BEAN_MOVE_LINE);
+//        return map_;
+//    }
 
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
@@ -397,17 +400,17 @@ public abstract class InitDbMoves extends InitDbConstr {
         _dam.getEffects().add(_ef);
     }
 
-    protected static NaSt transitMove(int _index, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
-        NaSt moveline_ = transitToAllMoves(_pk, _all, _index, _mapping);
-        NaSt mbean_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVE);
+    protected static NaSt transitMove(int _index, PkData _pk, StringMap<NaSt> _all) {
+        NaSt moveline_ = transitToAllMoves(_pk, _all, _index);
+        NaSt mbean_ = _all.getVal(BEAN_MOVE);
         MovesBean moves_ = (MovesBean) ((PokemonBeanStruct)moveline_).getBean();
         transit(_pk,new EntityClickFormEvent(moves_,moves_.getMoves().get(_index).getTranslatedKey()), moveline_, mbean_);
         return mbean_;
     }
 
-    protected static NaSt transitMoveQuick(int _index, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
+    protected static NaSt transitMoveQuick(int _index, PkData _pk, StringMap<NaSt> _all) {
 //        return transitMove(_index, _pk, _all, _mapping);
-        transitToAllMoves(_pk, _all, _index, _mapping);
-        return _all.getVal(AikiBeansMovesStd.BEAN_MOVE);
+        transitToAllMoves(_pk, _all, _index);
+        return _all.getVal(BEAN_MOVE);
     }
 }

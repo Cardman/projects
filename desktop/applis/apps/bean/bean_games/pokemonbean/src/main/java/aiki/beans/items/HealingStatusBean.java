@@ -14,8 +14,8 @@ public final class HealingStatusBean extends HealingItemBean {
     private boolean healingKo;
     private Rate healedHpRate;
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         healItem();
         displayBoolTrue(toInt(healingKo),MessagesPkBean.IT_HEALINGSTATUS,MessagesDataItemsHealingstatus.M_P_26_HEAL_KO);

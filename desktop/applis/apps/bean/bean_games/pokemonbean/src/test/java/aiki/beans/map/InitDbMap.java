@@ -5,7 +5,6 @@ import aiki.beans.db.*;
 import aiki.beans.map.characters.*;
 import aiki.beans.map.elements.AreaBean;
 import aiki.beans.map.elements.LegendaryPokemonBean;
-import aiki.beans.map.pokemon.PokemonTeamBean;
 import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.pokemon.*;
@@ -223,7 +222,7 @@ public abstract class InitDbMap extends InitDbConstr {
         StringMap<NaSt> all_ = beanToMap(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
-        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
+        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
         return welcome_;
     }
 
@@ -236,7 +235,7 @@ public abstract class InitDbMap extends InitDbConstr {
     protected static NaSt transitLevel(int _place, int _level, PkData _pk, StringMap<NaSt> _all) {
         NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
-        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
+        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
         NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
         transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,_level),welcome_,moves_);
         return moves_;
@@ -251,7 +250,7 @@ public abstract class InitDbMap extends InitDbConstr {
     protected static NaSt transitLevelZero(int _place, PkData _pk, StringMap<NaSt> _all) {
         NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
-        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
+        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
         NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
         transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,0),welcome_,moves_);
         return moves_;

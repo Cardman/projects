@@ -1,5 +1,4 @@
 package aiki.beans.items;
-import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.items.*;
@@ -11,8 +10,8 @@ public final class BallBean extends ItemBean {
     private NatStringTreeMap<String> mapVars;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         buildHeader();
         formatMessage(MessagesPkBean.IT_BALL,MessagesDataItemsBall.M_P_16_RATE_CATCHING);
         formatMessageDir(catchingRate);

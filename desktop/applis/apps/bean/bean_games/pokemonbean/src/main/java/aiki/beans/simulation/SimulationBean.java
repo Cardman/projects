@@ -130,8 +130,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         placeFight.valueInt(Fighter.BACK);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesDataSimulation.M_P_86_TITLE_PARAM),Long.toString(getRealStepNumber())));
         formatMessageAnc(new SimulationBeanQuit(this),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_INDEX);
         SimulationSteps simu_ = getForms().getValSimStep(CST_SIMULATION_STATE);

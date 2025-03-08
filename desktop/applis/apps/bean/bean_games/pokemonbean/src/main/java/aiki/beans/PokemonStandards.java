@@ -5,7 +5,6 @@ import aiki.beans.facade.dto.*;
 import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
-import aiki.beans.game.*;
 import aiki.beans.map.elements.*;
 import aiki.beans.pokemon.LevelMoveTranslatedKey;
 import aiki.beans.pokemon.StringStatBaseEv;
@@ -371,9 +370,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //    }
 
 
-    public void setForms(StringMapObject _forms, NaSt _bean) {
-        ((WithForms) ((PokemonBeanStruct) _bean).getBean()).setForms(_forms);
-    }
+//    public void setForms(StringMapObject _forms, NaSt _bean) {
+//        ((PokemonBeanStruct) _bean).getInstance().setForms(_forms);
+//    }
 
 //    @Override
 //    public BeanNatCommonLgNames setBeanForms(NaSt _mainBean, NaSt _called) {
@@ -438,14 +437,13 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     public PokemonBeanStruct bean(CommonBean _bean, String _lg) {
         _bean.setDataBase(dataBase);
 //        _bean.setBaseEncode(baseEncode);
-        _bean.setForms(new StringMapObject());
         _bean.setLanguage(_lg);
         return new PokemonBeanStruct(_bean);
     }
 
-    public PokemonBeanStruct beanDiffCommon(String _language) {
-        return bean(new DifficultyCommonBean(), _language);
-    }
+//    public PokemonBeanStruct beanDiffCommon(String _language) {
+//        return bean(new DifficultyCommonBean(), _language);
+//    }
     public static NatArrayStruct getBigNatMap(AbsMap<String, AbsBasicTreeMap<Rate, Rate>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;

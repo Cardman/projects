@@ -136,7 +136,6 @@ public abstract class InitDbFight extends InitDbBean {
     public static FightBean beanFight(String _language, FacadeGame _dataBase) {
         FightBean b_ = new FightBean();
         b_.setDataBase(_dataBase);
-        b_.setForms(new StringMapObject());
         b_.setLanguage(_language);
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
@@ -301,15 +300,13 @@ public abstract class InitDbFight extends InitDbBean {
         fightBean_.setBuilder(bu_);
         fightBean_.setDataBase(_fac);
         fightBean_.setLanguage(EN);
-        fightBean_.setForms(new StringMapObject());
         FightCalculationBean b_ = new FightCalculationBean();
         b_.setDataBase(_fac);
-        b_.setForms(new StringMapObject());
         b_.setLanguage(EN);
         b_.setBuilder(bu_);
         bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,fightBean_);
         bu_.getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,b_);
-        fightBean_.build(_fac,new StringMapObject());
+        fightBean_.build(_fac);
         IntBeanAction anc_ = bu_.getAnchors().get(1);
         bu_.build(anc_);
         return b_;
@@ -318,7 +315,6 @@ public abstract class InitDbFight extends InitDbBean {
     public static TeamBean beanTeam(String _language, FacadeGame _dataBase, FightBean _f) {
         TeamBean b_ = new TeamBean();
         b_.setDataBase(_dataBase);
-        b_.setForms(new StringMapObject());
         b_.setLanguage(_language);
         b_.setBuilder(_f.getBuilder());
         return b_;
@@ -334,7 +330,7 @@ public abstract class InitDbFight extends InitDbBean {
         TeamBean bTeam_ = beanTeam(EN, _facade,bFigtht_);
         bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,bFigtht_);
         bFigtht_.getBuilder().getRenders().addEntry(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,bTeam_);
-        bFigtht_.build(_facade,bFigtht_.getForms());
+        bFigtht_.build(_facade);
         IntBeanAction anc_ = bFigtht_.getBuilder().getAnchors().get(2 + _caller);
         bFigtht_.getBuilder().build(anc_);
         return bTeam_;
@@ -993,7 +989,6 @@ public abstract class InitDbFight extends InitDbBean {
 
     protected void update(FacadeGame _facade, CommonBean _bean) {
         _bean.setDataBase(_facade);
-        _bean.setForms(new StringMapObject());
         _bean.setLanguage(EN);
     }
 

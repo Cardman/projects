@@ -27,8 +27,8 @@ public final class SolutionBean extends CommonBean implements BeanRenderWithAppN
     }
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataSolution.M_P_87_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.SOLUTION,MessagesDataSolution.M_P_87_INDEX);
         int len_ = steps.size();

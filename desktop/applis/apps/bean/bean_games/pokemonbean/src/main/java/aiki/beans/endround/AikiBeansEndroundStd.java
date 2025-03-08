@@ -3,7 +3,6 @@ package aiki.beans.endround;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.CustList;
 public final class AikiBeansEndroundStd{
     public static final String BEAN_END="end";
@@ -26,7 +25,7 @@ public final class AikiBeansEndroundStd{
     public static final String TYPE_EFFECT_END_ROUND_POSITION_RELATION_BEAN = "aiki.beans.endround.EffectEndRoundPositionRelationBean";
     public static final String TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN = "aiki.beans.endround.EffectEndRoundPositionTargetBean";
     public static final String TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN = "aiki.beans.endround.EffectEndRoundSingleRelationBean";
-    public static final String TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN = "aiki.beans.endround.EffectEndRoundSingleStatusBean";
+//    public static final String TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN = "aiki.beans.endround.EffectEndRoundSingleStatusBean";
     public static final String TYPE_EFFECT_END_ROUND_STATUS_BEAN = "aiki.beans.endround.EffectEndRoundStatusBean";
     public static final String TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN = "aiki.beans.endround.EffectEndRoundStatusRelationBean";
     public static final String TYPE_EFFECT_END_ROUND_TEAM_BEAN = "aiki.beans.endround.EffectEndRoundTeamBean";
@@ -57,7 +56,7 @@ public final class AikiBeansEndroundStd{
     private static final String END_ROUND_RANK = "endRoundRank";
     private static final String REASONS_END_ROUND = "reasonsEndRound";
     private static final String MAP_VARS_FAIL_END_ROUND = "mapVarsFailEndRound";
-    private static final String END_ROUND_HTML = "endRoundHtml";
+//    private static final String END_ROUND_HTML = "endRoundHtml";
     private static final String INFLICTED_RATE_HP_TARGET = "inflictedRateHpTarget";
     private static final String DAMAGE_END_ROUND = "damageEndRound";
     private static final String HEALING_END_ROUND_GROUND = "healingEndRoundGround";
@@ -73,7 +72,7 @@ public final class AikiBeansEndroundStd{
     private static final String DAMAGE_BY_STATUS = "damageByStatus";
     private static final String RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS = "rateDamageFunctionOfNbRounds";
     private static final String LAW_FOR_ENABLING_EFFECT = "lawForEnablingEffect";
-    private static final String END_ROUND_STATUS_HTML = "endRoundStatusHtml";
+//    private static final String END_ROUND_STATUS_HTML = "endRoundStatusHtml";
     private static final String THIEVED_HP_RATE_TARGET_TO_USER = "thievedHpRateTargetToUser";
     private static final String DELETE_ALL_STATUS_ALLY = "deleteAllStatusAlly";
     private AikiBeansEndroundStd(){}
@@ -104,7 +103,7 @@ public final class AikiBeansEndroundStd{
         fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER, new EffectEndRoundBeanEndRoundRankGet(),null));
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatCommonLgNames.TYPE_LIST, new EffectEndRoundBeanReasonsEndRoundGet(),null));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatCommonLgNames.TYPE_MAP, new EffectEndRoundBeanMapVarsFailEndRoundGet(),null));
-        fields_.add(new StandardField(END_ROUND_HTML,BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_EFF_HTML),null));
+//        fields_.add(new StandardField(END_ROUND_HTML,BeanNatCommonLgNames.STRING, new CstNatCaller(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_EFF_HTML),null));
         methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, new EffectEndRoundBeanClickMove()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, new EffectEndRoundBeanClickAbility()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, new EffectEndRoundBeanClickItem()));
@@ -188,7 +187,7 @@ public final class AikiBeansEndroundStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,BeanNatCommonLgNames.TYPE_RATE, new EffectEndRoundStatusBeanInflictedRateHpTargetGet(),null));
-        fields_.add(new StandardField(END_ROUND_STATUS_HTML,BeanNatCommonLgNames.STRING, new CstNatCaller(EffectEndRoundStatusBean.END_ROUND_STATUS_HTML),null));
+//        fields_.add(new StandardField(END_ROUND_STATUS_HTML,BeanNatCommonLgNames.STRING, new CstNatCaller(EffectEndRoundStatusBean.END_ROUND_STATUS_HTML),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_STATUS_BEAN, type_);
     }
     private static void buildEffectEndRoundStatusRelationBean(PokemonStandards _std){

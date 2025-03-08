@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.moves.InitDbMoves;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -13,7 +14,6 @@ import aiki.fight.util.CategoryMult;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
@@ -128,20 +128,20 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffTeam(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectTeam(pk_);
-        StringMap<String> mapping_ = mappingToEffectTeam();
-        return transitEffect(_index,_indexEff,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectTeam();
+        return transitEffect(_index,_indexEff,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectTeam(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_TEAM,_pk.beanEffectTeamBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectTeam() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAM_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_TEAM);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectTeam(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_TEAM,_pk.beanEffectTeamBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectTeam() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFTEAM_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_TEAM);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataDam(EffectTeam _eff) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();

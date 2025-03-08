@@ -121,8 +121,8 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataAbilityData.M_P_1_TITLE));
         formatMessageAnc(new AbilityBeanClickIndex(this),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_INDEX);
         formatMessageDir(displayName);

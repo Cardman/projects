@@ -12,7 +12,7 @@ public class EvolutionBean extends CommonBean {
     private Evolution evo;
     private String displayName;
     private TranslatedKey name;
-    private int index;
+//    private int index;
 
     @Override
     public void beforeDisplaying() {
@@ -40,13 +40,13 @@ public class EvolutionBean extends CommonBean {
         return base;
     }
 
-    public void setIndex(int _index) {
-        index = _index;
-    }
-
-    public int getIndex() {
-        return index;
-    }
+//    public void setIndex(int _index) {
+//        index = _index;
+//    }
+//
+//    public int getIndex() {
+//        return index;
+//    }
 
     public void setName(String _name) {
         name = buildPk(getFacade(),_name);

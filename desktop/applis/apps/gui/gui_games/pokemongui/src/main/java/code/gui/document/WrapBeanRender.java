@@ -38,7 +38,7 @@ public final class WrapBeanRender {
         _rend.setFacade(_facade);
         _rend.setLanguage(_facade.getLanguage());
         _rend.setBuilder(bu_);
-        _rend.build(_facade, new StringMapObject());
+        _rend.build(_facade);
         find_.setFinding(bu_);
         scrollSession_.setViewportView(bu_.getStack().last());
         bu_.getStack().removeQuicklyLast();

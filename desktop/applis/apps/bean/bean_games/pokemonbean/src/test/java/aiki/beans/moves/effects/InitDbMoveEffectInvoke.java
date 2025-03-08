@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.moves.InitDbMoves;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -14,7 +15,6 @@ import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -129,20 +129,20 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
     }
     protected static NaSt dispMoveEffInvoke(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectInvoke(pk_);
-        StringMap<String> mapping_ = mappingToEffectInvoke();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectInvoke();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectInvoke(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_INVOKE,_pk.beanEffectInvokeBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectInvoke() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_INVOKE);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectInvoke(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_INVOKE,_pk.beanEffectInvokeBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectInvoke() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_INVOKE);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataInvoke(boolean _invokingAllyMove, boolean _invokingMoveButUser, boolean _invokingSufferedMove, boolean _invokingTargetChosenMove, boolean _invokingTargetSuccesfulMove, boolean _invokingUserMoveWhileSleep) {
         FacadeGame facade_ = facade();
         addEffInvoke(facade_, _invokingAllyMove, _invokingMoveButUser, _invokingSufferedMove, _invokingTargetChosenMove, _invokingTargetSuccesfulMove, _invokingUserMoveWhileSleep);

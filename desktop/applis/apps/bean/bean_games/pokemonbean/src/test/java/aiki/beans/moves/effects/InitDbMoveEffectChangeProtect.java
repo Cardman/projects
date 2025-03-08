@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.*;
+import aiki.beans.moves.InitDbMoves;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
@@ -9,7 +10,6 @@ import aiki.fight.util.TypesDuo;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
@@ -95,20 +95,20 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffProtection(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectProtection(pk_);
-        StringMap<String> mapping_ = mappingToEffectProtection();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectProtection();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectProtection(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTION,_pk.beanEffectProtectionBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectProtection() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTION);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectProtection(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_PROTECTION,_pk.beanEffectProtectionBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectProtection() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTION);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataProtection(boolean _protSingle, boolean _protTeamAgainstPrio, boolean _protTeamAgainstStatusMoves, boolean _protTeamAgainstDamageMoves, boolean _protTeamAgainstMultTargets) {
         FacadeGame facade_ = facade();
         addEffProtection(facade_, _protSingle, _protTeamAgainstPrio, _protTeamAgainstStatusMoves, _protTeamAgainstDamageMoves, _protTeamAgainstMultTargets);
@@ -146,20 +146,20 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffProtectFromTypes(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectProtectFromTypes(pk_);
-        StringMap<String> mapping_ = mappingToEffectProtectFromTypes();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectProtectFromTypes();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectProtectFromTypes(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTFROMTYPES,_pk.beanEffectProtectFromTypesBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectProtectFromTypes() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTFROMTYPES);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectProtectFromTypes(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_PROTECTFROMTYPES,_pk.beanEffectProtectFromTypesBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectProtectFromTypes() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTFROMTYPES);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataProtectFromTypes() {
         FacadeGame facade_ = facade();
         addEffProtectFromTypes(facade_);
@@ -192,20 +192,20 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffUnprotectFromTypes(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectUnprotectFromTypes(pk_);
-        StringMap<String> mapping_ = mappingToEffectUnprotectFromTypes();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectUnprotectFromTypes();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectUnprotectFromTypes(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_UNPROTECTFROMTYPES,_pk.beanEffectUnprotectFromTypesBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectUnprotectFromTypes() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_UNPROTECTFROMTYPES);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectUnprotectFromTypes(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_UNPROTECTFROMTYPES,_pk.beanEffectUnprotectFromTypesBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectUnprotectFromTypes() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_UNPROTECTFROMTYPES);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataUnprotectFromTypes() {
         FacadeGame facade_ = facade();
         addEffUnprotectFromTypes(facade_);

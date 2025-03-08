@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.moves.InitDbMoves;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -11,7 +12,6 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
@@ -34,20 +34,20 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
     }
     protected static NaSt dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToEffectDamageRate(pk_);
-        StringMap<String> mapping_ = mappingToEffectDamageRate();
-        return transitEffect(_index,_indexEff,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectDamageRate();
+        return transitEffect(_index,_indexEff,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectDamageRate(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE_RATE,_pk.beanEffectDamageRateBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectDamageRate() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE_RATE);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectDamageRate(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_DAMAGE_RATE,_pk.beanEffectDamageRateBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectDamageRate() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE_RATE);
+//        return map_;
+//    }
     private static FacadeGame feedDbMoveEffDataDam(Rate _efDam) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();

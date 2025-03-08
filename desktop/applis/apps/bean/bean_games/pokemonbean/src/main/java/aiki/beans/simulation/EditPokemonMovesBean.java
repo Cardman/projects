@@ -22,8 +22,8 @@ public final class EditPokemonMovesBean extends WithFilterBean {
     private IntBeanChgSubmit addMvs;
 
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SEARCH_MOVES));
         formatMessageAnc(new EditPokemonMovesBeanCancel(this),MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_CANCEL);
         initFormMv(true);

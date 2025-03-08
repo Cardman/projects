@@ -1,13 +1,13 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.*;
+import aiki.beans.moves.InitDbMoves;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.scripts.confs.PkScriptPages;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
@@ -79,26 +79,26 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffCopyMove(boolean _copyingMoveForUserDef, int _copy) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_copyingMoveForUserDef, _copy));
-        StringMap<NaSt> all_ = beanToEffectCopyMove(pk_);
-        StringMap<String> mapping_ = mappingToEffectCopyMove();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectCopyMove();
+        return transitEffect(0,0,pk_,all_);
     }
     protected static NaSt dispMoveEffCopyMoveNoFighter(boolean _copyingMoveForUserDef, int _copy) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDamNoFighter(_copyingMoveForUserDef, _copy));
-        StringMap<NaSt> all_ = beanToEffectCopyMove(pk_);
-        StringMap<String> mapping_ = mappingToEffectCopyMove();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectCopyMove();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectCopyMove(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_MOVE,_pk.beanEffectCopyMoveBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectCopyMove() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_MOVE);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectCopyMove(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_COPY_MOVE,_pk.beanEffectCopyMoveBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectCopyMove() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_MOVE);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataDam(boolean _copyingMoveForUserDef, int _copy) {
         FacadeGame facade_ = facade();
         addEff(effectCopyMove(_copyingMoveForUserDef, _copy), facade_);
@@ -152,20 +152,20 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
     protected static NaSt dispMoveEffCopyFighter() {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam());
-        StringMap<NaSt> all_ = beanToEffectCopyFighter(pk_);
-        StringMap<String> mapping_ = mappingToEffectCopyFighter();
-        return transitEffect(0,0,pk_,all_,mapping_);
+        StringMap<NaSt> all_ = beanToMove(pk_);
+//        StringMap<String> mapping_ = mappingToEffectCopyFighter();
+        return transitEffect(0,0,pk_,all_);
     }
-    public static StringMap<NaSt> beanToEffectCopyFighter(PkData _pk) {
-        StringMap<NaSt> map_ = beanToEffect(_pk);
-        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_FIGHTER,_pk.beanEffectCopyFighterBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToEffectCopyFighter() {
-        StringMap<String> map_ = mappingToEffect();
-        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_FIGHTER);
-        return map_;
-    }
+//    public static StringMap<NaSt> beanToEffectCopyFighter(PkData _pk) {
+//        StringMap<NaSt> map_ = beanToEffect(_pk);
+//        map_.addEntry(InitDbMoves.BEAN_EFFECT_COPY_FIGHTER,_pk.beanEffectCopyFighterBean(EN));
+//        return map_;
+//    }
+//    public static StringMap<String> mappingToEffectCopyFighter() {
+//        StringMap<String> map_ = mappingToEffect();
+//        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COPY_FIGHTER);
+//        return map_;
+//    }
     protected static FacadeGame feedDbMoveEffDataDam() {
         FacadeGame facade_ = facade();
         addEff(effectCopyFighter(), facade_);

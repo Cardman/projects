@@ -97,15 +97,15 @@ public abstract class IntBeanBuilderHelper {
     public abstract void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e);
 
     public void build(IntBeanAction _action) {
-        build(_action.actionBean(), getForms());
+        build(_action.actionBean());
     }
-    public void build(String _dest, StringMapObject _form) {
+    public void build(String _dest) {
         BeanRenderWithAppName target_ = getRenders().getVal(_dest);
         clearAnchors();
         getOrderedLists().clear();
         initPage();
         target_.setBuilder(this);
-        target_.build(target_.getFacade(), _form);
+        target_.build(target_.getFacade());
         decr();
     }
 

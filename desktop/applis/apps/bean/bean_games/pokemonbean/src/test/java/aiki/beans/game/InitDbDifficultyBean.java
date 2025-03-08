@@ -31,73 +31,73 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
 //        return navigate(_caller, _concat,_str,_args);
 //    }
 
-    public static NaSt callDifficultyBeanDamageRateLawFoeSet(NaSt _str, String _args) {
-        return callString(new DifficultyCommonBeanDamageRateLawFoeSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanDamageRatePlayerSet(NaSt _str, String _args) {
-        return callString(new DifficultyCommonBeanDamageRatePlayerSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanDiffWinningExpPtsFightSet(NaSt _str, String _args) {
-        return callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanIvFoeSet(NaSt _str, int _args) {
-        return callInt(new DifficultyCommonBeanIvFoeSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanIvPlayerSet(NaSt _str, int _args) {
-        return callInt(new DifficultyCommonBeanIvPlayerSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanRateLooseMoneyWinSet(NaSt _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanRateLooseMoneyWinSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanRateWinMoneyBaseSet(NaSt _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanRateWinMoneyBaseSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanRateWinningExpPtsFightSet(NaSt _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanRateWinningExpPtsFightSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanWinTrainerExpSet(NaSt _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanWinTrainerExpSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanStillPossibleFleeSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanStillPossibleFleeSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanRandomWildFightSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanRandomWildFightSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanEnabledClosingSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanEnabledClosingSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanRestoredMovesEndFightSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanRestoredMovesEndFightSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanAllowedSwitchPlacesEndRoundSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanAllowedSwitchPlacesEndRoundSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanEndFightIfOneTeamKoSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanEndFightIfOneTeamKoSet(),inner(_str),_args);
-    }
-
-    public static NaSt callDifficultyBeanAllowCatchingKoSet(NaSt _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanAllowCatchingKoSet(),inner(_str),_args);
-    }
+//    public static NaSt callDifficultyBeanDamageRateLawFoeSet(NaSt _str, String _args) {
+//        return callString(new DifficultyCommonBeanDamageRateLawFoeSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanDamageRatePlayerSet(NaSt _str, String _args) {
+//        return callString(new DifficultyCommonBeanDamageRatePlayerSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanDiffWinningExpPtsFightSet(NaSt _str, String _args) {
+//        return callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanIvFoeSet(NaSt _str, int _args) {
+//        return callInt(new DifficultyCommonBeanIvFoeSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanIvPlayerSet(NaSt _str, int _args) {
+//        return callInt(new DifficultyCommonBeanIvPlayerSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanRateLooseMoneyWinSet(NaSt _str, Rate _args) {
+//        return callRate(new DifficultyCommonBeanRateLooseMoneyWinSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanRateWinMoneyBaseSet(NaSt _str, Rate _args) {
+//        return callRate(new DifficultyCommonBeanRateWinMoneyBaseSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanRateWinningExpPtsFightSet(NaSt _str, Rate _args) {
+//        return callRate(new DifficultyCommonBeanRateWinningExpPtsFightSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanWinTrainerExpSet(NaSt _str, Rate _args) {
+//        return callRate(new DifficultyCommonBeanWinTrainerExpSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanStillPossibleFleeSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanStillPossibleFleeSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanRandomWildFightSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanRandomWildFightSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanEnabledClosingSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanEnabledClosingSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanRestoredMovesEndFightSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanRestoredMovesEndFightSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanAllowedSwitchPlacesEndRoundSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanAllowedSwitchPlacesEndRoundSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanEndFightIfOneTeamKoSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanEndFightIfOneTeamKoSet(),inner(_str),_args);
+//    }
+//
+//    public static NaSt callDifficultyBeanAllowCatchingKoSet(NaSt _str, boolean _args) {
+//        return callBool(new DifficultyCommonBeanAllowCatchingKoSet(),inner(_str),_args);
+//    }
 
     public static DifficultyBean callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(DifficultyBean _str, boolean _args) {
         inner(_str).setSkipLearningMovesWhileNotGrowingLevel(_args);
@@ -316,7 +316,6 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         _dataBase.setLanguage(_language);
         DifficultyBean b_ = new DifficultyBean();
         b_.setDataBase(_dataBase);
-        b_.setForms(new StringMapObject());
         b_.setLanguage(_language);
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
@@ -329,7 +328,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         bu_.setTranslations(tr_);
         bu_.setFacade(_dataBase);
         b_.setBuilder(bu_);
-        b_.build(_dataBase,b_.getForms());
+        b_.build(_dataBase);
         return b_;
     }
 }

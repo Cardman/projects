@@ -31,8 +31,8 @@ public final class EndRoundBean extends CommonBean implements BeanRenderWithAppN
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
     @Override
-    public void build(FacadeGame _facade, StringMapObject _form) {
-        init(_facade, _form);
+    public void build(FacadeGame _facade) {
+        init(_facade);
         setTitledBorder(file().getVal(MessagesDataEndroundEndround.M_P_3_TITLE));
         formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ENDROUND_ENDROUND,MessagesDataEndroundEndround.M_P_3_INDEX);
         for (EffectEndRoundBean e: effects) {
