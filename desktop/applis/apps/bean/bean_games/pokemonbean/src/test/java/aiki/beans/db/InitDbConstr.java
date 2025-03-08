@@ -186,9 +186,9 @@ public abstract class InitDbConstr extends InitDbBean {
 //        _caller.getBean().getBuilder().build(url_,_caller.getBean().getForms());
         return url_;
     }
-    public static NaSt callEffectWhileSendingBeanEffectSet(NaSt _str, NaSt _args) {
-        return BeanPokemonCommonTs.callStruct(new EffectWhileSendingBeanEffectSet(),_str,_args);
-    }
+//    public static NaSt callEffectWhileSendingBeanEffectSet(NaSt _str, NaSt _args) {
+//        return BeanPokemonCommonTs.callStruct(new EffectWhileSendingBeanEffectSet(),_str,_args);
+//    }
 
     protected static FacadeGame facade() {
         DataBase data_ = newData();

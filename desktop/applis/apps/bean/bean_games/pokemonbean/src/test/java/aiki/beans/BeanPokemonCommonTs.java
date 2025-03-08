@@ -88,9 +88,9 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return NaPa.convertToNumber(_str).intStruct();
     }
 
-    public static NaSt byStr(StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _resultAsString) {
-        return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
-    }
+//    public static NaSt byStr(StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _resultAsString) {
+//        return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
+//    }
 
     protected static String toStr(NaSt _resultAsString) {
         return BeanNatCommonLgNames.processString(_resultAsString);
@@ -106,7 +106,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
     public static void beforeDisplaying(CommonBean _bean) {
-        _bean.build(_bean.getFacade());
+        ((BeanRenderWithAppName)_bean).build(_bean.getFacade());
     }
 
 //    public static void setFormsBy(PokemonStandards _pk, NaSt _to, NaSt _from) {

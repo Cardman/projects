@@ -56,7 +56,7 @@ public final class AikiBeansItemsStd{
     private static final String LIMITED_PP_MOVE = "limitedPpMove";
     private static final String LIMITED_PP_MOVES = "limitedPpMoves";
 //    private static final String CLICK_ITEMS = "clickItems";
-    private static final String GET_EFFECT_SENDING = "getEffectSending";
+//    private static final String GET_EFFECT_SENDING = "getEffectSending";
     private static final String GET_TR_MULT_STAT_RANK = "getTrMultStatRank";
     private static final String GET_TR_MULT_STAT_PK_RANK = "getTrMultStatPkRank";
     private static final String CLICK_MULT_STAT_PK = "clickMultStatPk";
@@ -134,7 +134,7 @@ public final class AikiBeansItemsStd{
     private static final String REASONS_END_ROUND = "reasonsEndRound";
     private static final String MAP_VARS_FAIL_END_ROUND = "mapVarsFailEndRound";
     private static final String SENDING = "sending";
-    private static final String EFFECT_SEND_BEAN = "effectSendBean";
+//    private static final String EFFECT_SEND_BEAN = "effectSendBean";
     private static final String CANCEL_IMMU_TYPE = "cancelImmuType";
     private static final String AGAINST_EVO = "againstEvo";
     private static final String ATTACK_LAST = "attackLast";
@@ -341,7 +341,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatCommonLgNames.TYPE_LIST, new ItemForBattleBeanReasonsEndRoundGet(),null));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatCommonLgNames.TYPE_MAP, new ItemForBattleBeanMapVarsFailEndRoundGet(),null));
         fields_.add(new StandardField(SENDING,BeanNatCommonLgNames.PRIM_BOOLEAN, new ItemForBattleBeanSendingGet(),null));
-        fields_.add(new StandardField(EFFECT_SEND_BEAN,BeanNatCommonLgNames.STRING, new ItemForBattleBeanEffectSendBeanGet(),null));
+//        fields_.add(new StandardField(EFFECT_SEND_BEAN,BeanNatCommonLgNames.STRING, new ItemForBattleBeanEffectSendBeanGet(),null));
         fields_.add(new StandardField(CANCEL_IMMU_TYPE,BeanNatCommonLgNames.PRIM_BOOLEAN, new ItemForBattleBeanCancelImmuTypeGet(),null));
         fields_.add(new StandardField(AGAINST_EVO,BeanNatCommonLgNames.PRIM_BOOLEAN, new ItemForBattleBeanAgainstEvoGet(),null));
         fields_.add(new StandardField(ATTACK_LAST,BeanNatCommonLgNames.PRIM_BOOLEAN, new ItemForBattleBeanAttackLastGet(),null));
@@ -379,7 +379,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(INCREASING_MAX_NB_ROUND_TEAM_MOVE, BeanNatCommonLgNames.TYPE_MAP, new ItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),null));
         fields_.add(new StandardField(IMMU_MOVES, BeanNatCommonLgNames.TYPE_LIST, new ItemForBattleBeanImmuMovesGet(),null));
         fields_.add(new StandardField(IMMU_WEATHER, BeanNatCommonLgNames.TYPE_LIST, new ItemForBattleBeanImmuWeatherGet(),null));
-        methods_.add( new SpecNatMethod(GET_EFFECT_SENDING,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, new ItemForBattleBeanGetEffectSending()));
+//        methods_.add( new SpecNatMethod(GET_EFFECT_SENDING,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, new ItemForBattleBeanGetEffectSending()));
         methods_.add( new SpecNatMethod(GET_TR_MULT_STAT_RANK,BeanNatCommonLgNames.STRING, new ItemForBattleBeanGetTrMultStatRank()));
         methods_.add( new SpecNatMethod(GET_TR_MULT_STAT_PK_RANK,BeanNatCommonLgNames.STRING, new ItemForBattleBeanGetTrMultStatPkRank()));
         methods_.add( new SpecNatMethod(CLICK_MULT_STAT_PK,BeanNatCommonLgNames.STRING, new ItemForBattleBeanClickMultStatPk()));

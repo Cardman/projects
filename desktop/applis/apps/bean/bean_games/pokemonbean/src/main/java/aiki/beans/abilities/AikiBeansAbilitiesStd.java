@@ -14,7 +14,7 @@ public final class AikiBeansAbilitiesStd{
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String GET_TR_ABILITY = "getTrAbility";
 //    private static final String CLICK_INDEX = "clickIndex";
-    private static final String GET_EFFECT_SENDING = "getEffectSending";
+//    private static final String GET_EFFECT_SENDING = "getEffectSending";
     private static final String CLICK_BREAK_PROTECTION_MOVES = "clickBreakProtectionMoves";
     private static final String GET_TR_BREAK_PROTECTION_MOVES = "getTrBreakProtectionMoves";
     private static final String IS_CHGT_TYPE_BY_WEATHER = "isChgtTypeByWeather";
@@ -113,7 +113,7 @@ public final class AikiBeansAbilitiesStd{
     private static final String REASONS_END_ROUND = "reasonsEndRound";
     private static final String MAP_VARS_FAIL_END_ROUND = "mapVarsFailEndRound";
     private static final String SENDING = "sending";
-    private static final String EFFECT_SEND_BEAN = "effectSendBean";
+//    private static final String EFFECT_SEND_BEAN = "effectSendBean";
     private static final String ACHIEVED_DISAPPEARED_PK = "achievedDisappearedPk";
     private static final String BREAK_PROTECTION = "breakProtection";
     private static final String BREAK_PROTECTION_MOVES = "breakProtectionMoves";
@@ -227,7 +227,7 @@ public final class AikiBeansAbilitiesStd{
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatCommonLgNames.TYPE_LIST, new AbilityBeanReasonsEndRoundGet(),null));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatCommonLgNames.TYPE_MAP, new AbilityBeanMapVarsFailEndRoundGet(),null));
         fields_.add(new StandardField(SENDING,BeanNatCommonLgNames.PRIM_BOOLEAN, new AbilityBeanSendingGet(),null));
-        fields_.add(new StandardField(EFFECT_SEND_BEAN,BeanNatCommonLgNames.STRING, new AbilityBeanEffectSendBeanGet(),null));
+//        fields_.add(new StandardField(EFFECT_SEND_BEAN,BeanNatCommonLgNames.STRING, new AbilityBeanEffectSendBeanGet(),null));
         fields_.add(new StandardField(ACHIEVED_DISAPPEARED_PK,BeanNatCommonLgNames.PRIM_BOOLEAN, new AbilityBeanAchievedDisappearedPkGet(),null));
         fields_.add(new StandardField(BREAK_PROTECTION,BeanNatCommonLgNames.PRIM_BOOLEAN, new AbilityBeanBreakProtectionGet(),null));
         fields_.add(new StandardField(BREAK_PROTECTION_MOVES, BeanNatCommonLgNames.TYPE_LIST, new AbilityBeanBreakProtectionMovesGet(),null));
@@ -314,7 +314,7 @@ public final class AikiBeansAbilitiesStd{
         fields_.add(new StandardField(HEALED_HP_RATE_BY_SWITCH,BeanNatCommonLgNames.TYPE_RATE, new AbilityBeanHealedHpRateBySwitchGet(),null));
         fields_.add(new StandardField(POKEMON, BeanNatCommonLgNames.TYPE_LIST, new AbilityBeanPokemonGet(),null));
 //        methods_.add( new SpecNatMethod(CLICK_INDEX,BeanNatCommonLgNames.STRING, new AbilityBeanClickIndex()));
-        methods_.add( new SpecNatMethod(GET_EFFECT_SENDING,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, new AbilityBeanGetEffectSending()));
+//        methods_.add( new SpecNatMethod(GET_EFFECT_SENDING,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, new AbilityBeanGetEffectSending()));
         methods_.add( new SpecNatMethod(CLICK_BREAK_PROTECTION_MOVES,BeanNatCommonLgNames.STRING, new AbilityBeanClickBreakProtectionMoves()));
         methods_.add( new SpecNatMethod(GET_TR_BREAK_PROTECTION_MOVES,BeanNatCommonLgNames.STRING, new AbilityBeanGetTrBreakProtectionMoves()));
         methods_.add( new SpecNatMethod(IS_CHGT_TYPE_BY_WEATHER,BeanNatCommonLgNames.PRIM_BOOLEAN, new AbilityBeanIsChgtTypeByWeather()));

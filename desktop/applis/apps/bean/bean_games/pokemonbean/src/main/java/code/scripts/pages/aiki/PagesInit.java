@@ -112,7 +112,7 @@ m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,PageDataIndex.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML,PageDataSimulationSelectability.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML,PageDataSimulationSelectitem.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML,PageDataSimulationSelectpokemon.build());
-m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,PageDataSimulationSimulation.build());
+//m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,PageDataSimulationSimulation.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,PageDataSimulationSimulationlevel.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,PageDataSolutionSolution.build());
 //m_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_STATUS_DATA_HTML,PageDataStatusData.build());

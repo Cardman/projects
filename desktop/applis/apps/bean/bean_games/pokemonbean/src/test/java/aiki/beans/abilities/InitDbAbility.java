@@ -410,9 +410,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanDivideStatusRoundGet(),directCase());
     }
 
-    public static NaSt callAbilityBeanEffectSendBeanGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanEffectSendBeanGet(),_str,_args);
-    }
+//    public static NaSt callAbilityBeanEffectSendBeanGet(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new AbilityBeanEffectSendBeanGet(),_str,_args);
+//    }
 
     public static NaSt callAbilityBeanEndRoundGet() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundGet(),directCaseEndRound());
@@ -442,9 +442,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanForwardStatusGet(),directCase());
     }
 
-    public static NaSt callAbilityBeanGetEffectSending(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetEffectSending(),_str,_args);
-    }
+//    public static NaSt callAbilityBeanGetEffectSending(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetEffectSending(),_str,_args);
+//    }
 
     public static NaSt callAbilityBeanGetTrBonusStatRank() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBonusStatRank(),directCase(),0);
@@ -988,9 +988,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
         StringMap<NaSt> map_ = beanToAbility(_pk);
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
-        EffectWhileSendingBean send_ = new EffectWhileSendingBean();
-        send_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        map_.addEntry(AikiBeansEffectsStd.EFFECT_SENDING, _pk.bean(send_, EN));
+//        EffectWhileSendingBean send_ = new EffectWhileSendingBean();
+//        send_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+//        map_.addEntry(AikiBeansEffectsStd.EFFECT_SENDING, _pk.bean(send_, EN));
         return map_;
     }
 
@@ -1045,11 +1045,11 @@ public abstract class InitDbAbility extends InitDbAbilities {
         PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
         NaSt res_ = transitToAllAbilitiesQuick(pk_, all_,0);
-        callAbilityBeanEffectSendBeanGet(res_);
-        NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
-        callEffectWhileSendingBeanEffectSet(send_,callAbilityBeanGetEffectSending(res_));
-        beforeDisplaying(send_);
-        return send_;
+//        callAbilityBeanEffectSendBeanGet(res_);
+//        NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
+//        callEffectWhileSendingBeanEffectSet(send_,callAbilityBeanGetEffectSending(res_));
+//        beforeDisplaying(send_);
+        return new PokemonBeanStruct(((PokemonBeanStruct)res_).getInstance().effSending(((AbilityBean)((PokemonBeanStruct)res_).getInstance()).getEffectSending()));
     }
     public static NaSt abNoStatSend() {
         PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());

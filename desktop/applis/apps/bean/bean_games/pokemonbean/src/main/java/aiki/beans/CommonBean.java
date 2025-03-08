@@ -222,13 +222,7 @@ public abstract class CommonBean extends Bean implements WithFacade {
     }
 
     protected EffectWhileSendingBean displaySend(EffectWhileSendingWithStatistic _s) {
-        EffectWhileSendingBean send_ = new EffectWhileSendingBean();
-        send_.setBuilder(getBuilder());
-        send_.setAppName(getAppName());
-        send_.setFacade(getFacade());
-        send_.setLanguage(getLanguage());
-        send_.setEffect(_s);
-        send_.beforeDisplaying();
+        EffectWhileSendingBean send_ = effSending(_s);
         formatMessage(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_EFFECT);
         displayBoolTrue(toInt(send_.getDisableWeather()),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_DISABLE_WEATHER);
         displayBoolTrue(toInt(send_.getDisableWeather()),MessagesPkBean.SENDING,MessagesDataSending.M_P_84_DISABLE_WEATHER_2);
@@ -240,6 +234,17 @@ public abstract class CommonBean extends Bean implements WithFacade {
         if (send_.getStatistic()) {
             effStatis(send_.getEffectStatisticCommon());
         }
+        return send_;
+    }
+
+    public EffectWhileSendingBean effSending(EffectWhileSendingWithStatistic _s) {
+        EffectWhileSendingBean send_ = new EffectWhileSendingBean();
+        send_.setBuilder(getBuilder());
+        send_.setAppName(getAppName());
+        send_.setFacade(getFacade());
+        send_.setLanguage(getLanguage());
+        send_.setEffect(_s);
+        send_.beforeDisplaying();
         return send_;
     }
 
@@ -643,9 +648,9 @@ public abstract class CommonBean extends Bean implements WithFacade {
 //            builder.feedParents();
 //        }
     }
-    public void build(FacadeGame _facade) {
-        init(_facade);
-    }
+//    public void build(FacadeGame _facade) {
+//        init(_facade);
+//    }
 
     protected void init(FacadeGame _facade) {
         setDataBase(_facade);

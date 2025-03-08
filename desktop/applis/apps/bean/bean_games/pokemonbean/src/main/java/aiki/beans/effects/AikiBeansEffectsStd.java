@@ -26,7 +26,7 @@ public final class AikiBeansEffectsStd{
     private static final String GET_FAIL = "getFail";
     private static final String GET_RATE = "getRate";
     private static final String GET_SWAP_FAIL = "getSwapFail";
-    private static final String EFFECT = "effect";
+//    private static final String EFFECT = "effect";
     private static final String MOVES = "moves";
 //    private static final String INDEX = "index";
     private static final String END_ROUND = "endRound";
@@ -112,7 +112,7 @@ public final class AikiBeansEffectsStd{
         fields_.add(new StandardField(DEFAULT_BOOST, BeanNatCommonLgNames.PRIM_INTEGER, new EffectWhileSendingBeanDefaultBoostGet(),null));
         fields_.add(new StandardField(CANCEL_CHGT_STAT, BeanNatCommonLgNames.TYPE_LIST, new EffectWhileSendingBeanCancelChgtStatGet(),null));
         fields_.add(new StandardField(COPY_BOOST, BeanNatCommonLgNames.TYPE_LIST, new EffectWhileSendingBeanCopyBoostGet(),null));
-        fields_.add(new StandardField(EFFECT,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, null,new EffectWhileSendingBeanEffectSet()));
+//        fields_.add(new StandardField(EFFECT,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, null,new EffectWhileSendingBeanEffectSet()));
         methods_.add( new SpecNatMethod(CLICK_WEATHER,BeanNatCommonLgNames.STRING, new EffectWhileSendingBeanClickWeather()));
         methods_.add( new SpecNatMethod(GET_TR_WEATHER,BeanNatCommonLgNames.STRING, new EffectWhileSendingBeanGetTrWeather()));
         methods_.add( new SpecNatMethod(RANDOM_STATIS,BeanNatCommonLgNames.PRIM_BOOLEAN, new EffectWhileSendingBeanRandomStatis()));

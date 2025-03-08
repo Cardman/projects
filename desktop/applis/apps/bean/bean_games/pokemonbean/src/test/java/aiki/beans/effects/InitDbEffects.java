@@ -81,7 +81,7 @@ public abstract class InitDbEffects extends InitDbConstr {
     public static StringMap<NaSt> beanToCombosSet(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
 //        map_.addEntry(AikiBeansEffectsStd.BEAN_COMBO,_pk.beanEffectComboBean(EN));
-        map_.addEntry(AikiBeansEffectsStd.BEAN_COMBOS,_pk.beanCombosBean(EN));
+        map_.addEntry(AikiBeansEffectsStd.BEAN_COMBOS,_pk.bean(new CombosBean(),EN));
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
         TranslationsLg en_ = new TranslationsLg();

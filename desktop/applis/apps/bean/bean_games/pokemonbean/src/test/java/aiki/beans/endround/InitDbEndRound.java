@@ -450,7 +450,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     public static StringMap<NaSt> beanToEndRound(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansEndroundStd.BEAN_ENDROUND,_pk.beanEndRoundBean(EN));
+        map_.addEntry(AikiBeansEndroundStd.BEAN_ENDROUND,_pk.bean(new EndRoundBean(),EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END,_pk.beanEffectEndRoundBean(EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_FOE,_pk.beanEffectEndRoundFoeBean(EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_GLOBAL,_pk.beanEffectEndRoundGlobalBean(EN));

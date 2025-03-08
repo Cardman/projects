@@ -541,11 +541,11 @@ public final class PkData extends PokemonStandards {
 //    public PokemonBeanStruct beanRepelBean(String _language) {
 //        return bean(new RepelBean(), _language);
 //    }
-
-    public PokemonBeanStruct beanSellingItemBean(String _language) {
-        return bean(new SellingItemBean(), _language);
-    }
-
+//
+//    public PokemonBeanStruct beanSellingItemBean(String _language) {
+//        return bean(new SellingItemBean(), _language);
+//    }
+//
 //    public PokemonBeanStruct beanAbilityBean(String _language) {
 //        return bean(new AbilityBean(), _language);
 //    }
@@ -561,11 +561,11 @@ public final class PkData extends PokemonStandards {
 //    public PokemonBeanStruct beanStatusSetBean(String _language) {
 //        return bean(new StatusSetBean(), _language);
 //    }
-
-    public PokemonBeanStruct beanEndRoundBean(String _language) {
-        return bean(new EndRoundBean(), _language);
-    }
-
+//
+//    public PokemonBeanStruct beanEndRoundBean(String _language) {
+//        return bean(new EndRoundBean(), _language);
+//    }
+//
 //    public PokemonBeanStruct beanEffectEndRoundBean(String _language) {
 //        return bean(new EffectEndRoundBean(), _language);
 //    }
@@ -613,11 +613,11 @@ public final class PkData extends PokemonStandards {
 //    public PokemonBeanStruct beanEffectComboBean(String _language) {
 //        return bean(new EffectComboBean(), _language);
 //    }
-
-    public PokemonBeanStruct beanCombosBean(String _language) {
-        return bean(new CombosBean(), _language);
-    }
-
+//
+//    public PokemonBeanStruct beanCombosBean(String _language) {
+//        return bean(new CombosBean(), _language);
+//    }
+//
 //    public PokemonBeanStruct beanFightHelpBean(String _language) {
 //        return bean(new FightHelpBean(), _language);
 //    }

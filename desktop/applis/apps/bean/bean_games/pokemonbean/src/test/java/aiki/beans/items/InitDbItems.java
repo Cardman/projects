@@ -257,7 +257,7 @@ public abstract class InitDbItems extends InitDbConstr {
 
     public static StringMap<NaSt> beanToItem(PkData _pk) {
         StringMap<NaSt> map_ = beanToItems(_pk);
-        map_.addEntry(AikiBeansItemsStd.BEAN_ITEM,_pk.beanSellingItemBean(EN));
+        map_.addEntry(AikiBeansItemsStd.BEAN_ITEM, _pk.bean(new SellingItemBean(), EN));
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEM,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEM,new TranslationsFile());
         return map_;
