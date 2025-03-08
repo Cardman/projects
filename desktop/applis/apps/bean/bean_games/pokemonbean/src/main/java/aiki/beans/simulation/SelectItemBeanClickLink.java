@@ -14,8 +14,4 @@ public final class SelectItemBeanClickLink implements IntBeanAction {
         return bean.putName(index);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

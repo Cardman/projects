@@ -17,18 +17,18 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         init(_facade,_form);
         setTitledBorder(file().getVal(MessagesDataIndex.M_P_15_TITLE));
         initPage();
-        elementAnchor(MessagesDataIndex.M_P_15_GENERAL,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML,this));
-        elementAnchor(MessagesDataIndex.M_P_15_ROUND,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML,this));
+        elementAnchor(MessagesDataIndex.M_P_15_GENERAL,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_GENERAL_GENERAL_HTML));
+        elementAnchor(MessagesDataIndex.M_P_15_ROUND,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML));
         elementAnchor(MessagesDataIndex.M_P_15_POKEDEX,new WelcomeBeanClickPokedex(this));
         elementAnchor(MessagesDataIndex.M_P_15_ITEMS,new WelcomeBeanClickItems(this));
         elementAnchor(MessagesDataIndex.M_P_15_MOVES,new WelcomeBeanSeeAllMoves(this));
         elementAnchor(MessagesDataIndex.M_P_15_ABILITIES,new WelcomeBeanClickAbilities(this));
         elementAnchor(MessagesDataIndex.M_P_15_STATUS,new WelcomeBeanClickStatus(this));
-        elementAnchor(MessagesDataIndex.M_P_15_COMBOS,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,this));
-        elementAnchor(MessagesDataIndex.M_P_15_ENDROUND,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this));
-        elementAnchor(MessagesDataIndex.M_P_15_MAP,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,this));
-        elementAnchor(MessagesDataIndex.M_P_15_SOLUTION,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML,this));
-        elementAnchor(MessagesDataIndex.M_P_15_LANGS,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML,this));
+        elementAnchor(MessagesDataIndex.M_P_15_COMBOS,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML));
+        elementAnchor(MessagesDataIndex.M_P_15_ENDROUND,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML));
+        elementAnchor(MessagesDataIndex.M_P_15_MAP,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML));
+        elementAnchor(MessagesDataIndex.M_P_15_SOLUTION,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SOLUTION_SOLUTION_HTML));
+        elementAnchor(MessagesDataIndex.M_P_15_LANGS,new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML));
         feedParents();
     }
 

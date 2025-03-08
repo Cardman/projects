@@ -16,8 +16,4 @@ public final class SimulationBeanCancelFrontFighters implements IntBeanAction {
         bean.cancelFrontFighters();
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

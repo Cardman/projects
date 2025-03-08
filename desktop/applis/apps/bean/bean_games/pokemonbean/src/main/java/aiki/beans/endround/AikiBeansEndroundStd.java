@@ -38,7 +38,7 @@ public final class AikiBeansEndroundStd{
     private static final String CLICK_MOVES = "clickMoves";
     private static final String GET_TR_MOVES = "getTrMoves";
     private static final String GET_EVTS = "getEvts";
-    private static final String GET_PAGE = "getPage";
+//    private static final String GET_PAGE = "getPage";
     private static final String CLICK_USER_STATUS = "clickUserStatus";
     private static final String GET_TR_USER_STATUS = "getTrUserStatus";
     private static final String CLICK_DAMAGE_STATUS = "clickDamageStatus";
@@ -211,7 +211,7 @@ public final class AikiBeansEndroundStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         methods_.add( new SpecNatMethod(GET_EVTS, BeanNatCommonLgNames.TYPE_LIST, new EndRoundBeanGetEvts()));
-        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, new EndRoundBeanGetPage()));
+//        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, new EndRoundBeanGetPage()));
         _std.getStds().addEntry(TYPE_END_ROUND_BEAN, type_);
     }
 }

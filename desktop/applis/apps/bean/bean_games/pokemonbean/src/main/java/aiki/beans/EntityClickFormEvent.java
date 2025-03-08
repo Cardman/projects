@@ -14,8 +14,4 @@ public final class EntityClickFormEvent implements IntBeanAction {
         return bean.tryRedirect(key);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

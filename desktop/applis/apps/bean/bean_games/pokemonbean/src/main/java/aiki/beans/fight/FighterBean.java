@@ -92,9 +92,9 @@ public final class FighterBean extends CommonFightBean {
         init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFighter.M_P_91_TITLE)));
 //        initPage();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_FIGHT);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,this),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_TEAM);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML,this),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_REFRESH);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_FIGHT);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_TEAM);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTER_HTML),MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_REFRESH);
         formatMessage(MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_NAME,getName());
         formatMessage(MessagesPkBean.FIGHTER,MessagesFightFighter.M_P_91_GENDER,getGender());
         displayBoolTrue(getChanged(), MessagesPkBean.FIGHTER, MessagesFightFighter.M_P_91_CHANGED);

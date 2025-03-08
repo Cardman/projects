@@ -12,8 +12,4 @@ public final class WelcomeBeanSeeAllMoves implements IntBeanAction{
         return bean.seeAllMoves();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

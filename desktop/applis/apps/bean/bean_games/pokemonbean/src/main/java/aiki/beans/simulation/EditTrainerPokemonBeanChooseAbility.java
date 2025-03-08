@@ -14,8 +14,4 @@ public final class EditTrainerPokemonBeanChooseAbility implements IntBeanAction 
         return bean.chooseAbility();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

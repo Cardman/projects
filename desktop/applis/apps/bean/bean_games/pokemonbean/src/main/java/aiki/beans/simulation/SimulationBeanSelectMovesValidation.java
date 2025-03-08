@@ -18,8 +18,4 @@ public final class SimulationBeanSelectMovesValidation implements IntBeanAction 
         return ((NaStSt)new SimulationBeanValidateMovesChoice().re(new PokemonBeanStruct(bean),new NaSt[0])).getInstance();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

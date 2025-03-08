@@ -40,7 +40,7 @@ public final class LangsBean extends CommonBean implements BeanRenderWithAppName
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataLangs.M_P_31_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
         getBuilder().setRefLk(PkScriptPages.BEGIN);
         formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS);
         getBuilder().setRefLk("");
@@ -77,8 +77,8 @@ public final class LangsBean extends CommonBean implements BeanRenderWithAppName
         display(translatedFctMath,headers_);
         formatMessage(MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_TRANSLATIONS_CLASSES);
         display(translatedClassesDescriptions,headers_);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML+'#'+PkScriptPages.BEGIN,this),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_RETURN_BEGIN);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_LANGS_LANGS_HTML+'#'+PkScriptPages.BEGIN),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_RETURN_BEGIN);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.LANGS,MessagesDataLangs.M_P_31_INDEX);
     }
     private void display(DictionaryComparator<LanguageElementStringKey,String> _dico, StringList _headers) {
         initGrid();

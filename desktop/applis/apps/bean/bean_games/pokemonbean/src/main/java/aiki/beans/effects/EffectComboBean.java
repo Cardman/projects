@@ -72,7 +72,7 @@ public final class EffectComboBean extends CommonBean {
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,moves);
         if (endRound) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(endRoundRank));
-            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_ENDROUND);
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_ENDROUND);
             displayStringList(reasonsEndRound,MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
             mapVarsInit(mapVarsFailEndRound);
         }

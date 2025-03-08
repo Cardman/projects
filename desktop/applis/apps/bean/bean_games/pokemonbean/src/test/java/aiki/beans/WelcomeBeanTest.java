@@ -242,7 +242,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         NatDotOperation root_ = new NatDotOperation(1);
         root_.appendChild(new NatSettableFieldOperation(false,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
         PokemonBeanStruct.castDottedTo(root_);
-        StringMapObjectBase s_ = new StringMapObjectBase();
+        StringMapObject s_ = new StringMapObject();
         s_.put("0",0);
         s_.put("1",false);
         s_.put("2","");
@@ -278,6 +278,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         trs_.getMapping().addEntry(FR, fr_);
         w2_.getBuilder().setTranslations(trs_);
         w2_.build(f_,new StringMapObject());
+        pk_.initBeans(null,EN);
     }
     @Test
     public void alt() {

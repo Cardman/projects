@@ -14,8 +14,4 @@ public final class EditPokemonBeanDeleteMoves implements IntBeanAction {
         return bean.deleteMoves();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

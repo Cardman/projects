@@ -58,7 +58,7 @@ public final class SimulationLevelBean extends AbsLevelBean {
         getOk().addEvt(new SimulationLevelBeanValidateNoFightAction(this));
         feedParents();
         formatMessageDir(Long.toString(noFight.valueLong()));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,this),MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_CANCEL);
         initGrid();
         getBuilder().colCount(getMapWidth());
         DictionaryComparator<Point, int[][]> tiles_ = getTiles();

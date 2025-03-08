@@ -15,8 +15,4 @@ public final class AddPokemonBeanClickLink implements IntBeanAction {
         return bean.putName(index);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

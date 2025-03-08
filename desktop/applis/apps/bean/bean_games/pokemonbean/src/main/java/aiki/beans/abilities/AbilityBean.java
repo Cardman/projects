@@ -128,7 +128,7 @@ public final class AbilityBean extends CommonBean implements BeanRenderWithAppNa
         formatMessageDir(displayName);
         if (getEndRoundCommon().getEndRound()) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundCommon().getEndRoundRank()));
-            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_ENDROUND);
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_ENDROUND);
             displayStringList(getEndRoundCommon().getReasonsEndRound(),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
             mapVarsInit(getEndRoundCommon().getMapVarsFailEndRound());
         }

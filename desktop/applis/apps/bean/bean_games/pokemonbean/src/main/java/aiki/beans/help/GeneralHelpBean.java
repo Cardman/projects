@@ -51,7 +51,7 @@ public final class GeneralHelpBean extends CommonBean implements BeanRenderWithA
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataGeneral.M_P_14_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_INDEX);
         formatMessage(MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_GOAL_0);
         element(MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_GOAL_0_0);
         element(MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_GOAL_0_1);
@@ -106,7 +106,7 @@ public final class GeneralHelpBean extends CommonBean implements BeanRenderWithA
         new BeanDisplayMap<TranslatedKey,String>(new BeanDisplayTranslatedKey(),new BeanDisplayString()).displayGrid(this,tm,MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_HELP_TM,MessagesDataGeneral.M_P_14_HELP_TM_HM_MOVE,MessagesDataGeneral.M_P_14_HELP_TM_HM_PRICE);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,hm,MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_HELP_HM);
         new BeanDisplayMap<TranslatedKey,TranslatedKeyImgs>(new BeanDisplayTranslatedKey(),new BeanDisplayTranslatedKeyImgs()).displayGrid(this,types,MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_TYPES_INTRO,MessagesDataGeneral.M_P_14_TYPES_NAME,MessagesDataGeneral.M_P_14_TYPES_IMAGE,MessagesDataGeneral.M_P_14_TYPES_COULOUR);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_INDEX);
     }
     public StringMap<String> file() {
         return file(MessagesPkBean.GENERAL).getMapping();

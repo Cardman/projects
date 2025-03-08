@@ -21,7 +21,6 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.MiniMapCoordsTileInts;
 import aiki.util.Coords;
 import code.bean.Bean;
-import code.bean.nat.StringMapObjectBase;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.scripts.confs.PkScriptPages;
@@ -149,7 +148,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final char CST_RIGHT_PAR = ')';
     protected static final char CST_PIPE_CHAR = '|';
 
-    private StringMapObjectBase baseForms;
+    private StringMapObject baseForms;
 
     private FacadeGame dataBase;
     private IntBeanBuilderHelper builder;
@@ -159,8 +158,8 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected void fwd(CommonBean _b) {
         _b.setAppName(getAppName());
         _b.setDataBase(db());
-        _b.setForms(new StringMapObject());
-        _b.getForms().putAllMap(getForms());
+//        _b.setForms(new StringMapObject());
+//        _b.getForms().putAllMap(getForms());
         _b.setLanguage(getLanguage());
         _b.setBuilder(getBuilder());
     }
@@ -526,11 +525,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 //    }
 
     public StringMapObject getForms() {
-        return (StringMapObject) getBaseForms();
+        return builder.getForms();
     }
 
     public void setForms(StringMapObject _forms) {
-        setBaseForms(_forms);
+        setBaseForms(getBaseForms());
     }
 
     public static boolean inRange(long _value, long _min, long _max) {
@@ -614,11 +613,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return AbsRedirect.tryRedirect(this,_tk.getRedirect(),_tk.getKeyForm(),_tk.getDest());
     }
 
-    public StringMapObjectBase getBaseForms() {
+    public StringMapObject getBaseForms() {
         return baseForms;
     }
 
-    public void setBaseForms(StringMapObjectBase _base) {
+    public void setBaseForms(StringMapObject _base) {
         this.baseForms = _base;
     }
 

@@ -16,8 +16,4 @@ public final class MapLevelBeanClickArea implements IntBeanAction {
         return bean.clickArea(index);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

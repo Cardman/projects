@@ -19,6 +19,7 @@ public abstract class IntBeanBuilderHelper {
     private String refLk = "";
     private int header;
     private final Ints orderedLists = new Ints();
+    private StringMapObject forms = new StringMapObject();
     protected IntBeanBuilderHelper() {
     }
 
@@ -96,7 +97,7 @@ public abstract class IntBeanBuilderHelper {
     public abstract void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e);
 
     public void build(IntBeanAction _action) {
-        build(_action.actionBean(), _action.getBean().getForms());
+        build(_action.actionBean(), getForms());
     }
     public void build(String _dest, StringMapObject _form) {
         BeanRenderWithAppName target_ = getRenders().getVal(_dest);
@@ -130,6 +131,11 @@ public abstract class IntBeanBuilderHelper {
            paintIndent();
         }
     }
+
+    public StringMapObject getForms() {
+        return forms;
+    }
+
     public void incColIndex() {
         colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % colCount());
     }

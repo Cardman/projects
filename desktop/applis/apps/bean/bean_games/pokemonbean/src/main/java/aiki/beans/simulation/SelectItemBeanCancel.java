@@ -13,8 +13,4 @@ public final class SelectItemBeanCancel implements IntBeanAction {
         return bean.cancel();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

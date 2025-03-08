@@ -15,12 +15,8 @@ public final class MapBeanClickLevelBeanAction implements IntBeanAction{
 
     @Override
     public String actionBean() {
-        CommonBean.feedForms(place, level, getBean().getForms());
+        CommonBean.feedForms(place, level, bean.getBuilder().getForms());
         return PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML;
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

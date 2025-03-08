@@ -14,8 +14,4 @@ public final class EditPokemonMovesBeanCancel implements IntBeanAction {
         return bean.cancel();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

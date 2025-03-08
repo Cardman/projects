@@ -13,8 +13,4 @@ public final class StatusSetBeanSearch implements IntBeanAction {
         return bean.search();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

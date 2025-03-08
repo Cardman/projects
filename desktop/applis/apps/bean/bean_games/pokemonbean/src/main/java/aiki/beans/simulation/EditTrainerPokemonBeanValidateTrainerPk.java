@@ -14,8 +14,4 @@ public final class EditTrainerPokemonBeanValidateTrainerPk implements IntBeanAct
         return bean.validateTrainerPk();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

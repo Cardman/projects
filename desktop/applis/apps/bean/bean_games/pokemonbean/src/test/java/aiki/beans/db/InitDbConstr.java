@@ -182,7 +182,7 @@ public abstract class InitDbConstr extends InitDbBean {
 //    }
     public static String navigateData(IntBeanAction _caller, NaSt _str) {
         String url_ = _caller.actionBean();
-        _caller.getBean();
+//        _caller.getBean();
 //        _caller.getBean().getBuilder().build(url_,_caller.getBean().getForms());
         return url_;
     }

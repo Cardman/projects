@@ -276,6 +276,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         PkData stds_ = new PkData();
         stds_.setDataBase(_dataBase);
         SimulationBean si_ = new SimulationBean();
+        si_.setBuilder(new MockBeanBuilderHelper());
 //        si_.getDifficultyCommon().
         PokemonBeanStruct b_ = stds_.bean(si_, _language);
         si_.beforeDisplaying();

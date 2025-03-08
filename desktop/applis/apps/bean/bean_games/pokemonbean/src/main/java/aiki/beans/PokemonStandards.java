@@ -302,14 +302,14 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPageForm();
         _rendStack.addPage(ip_);
-        StringMapObject stringMapObject_ = new StringMapObject();
-        stringMapObject_.putAllMapGene(new StringMapObjectBase());
-        stringMapObject_.putAllMapGene(new StringMapObject());
-        String currentBeanName_;
+//        StringMapObject stringMapObject_ = new StringMapObject();
+//        stringMapObject_.putAllMapGene(new StringMapObjectBase());
+//        stringMapObject_.putAllMapGene(new StringMapObject());
+//        String currentBeanName_;
         NatDocumentBlock rendDocumentBlock_ = getRender(_dest);
-        currentBeanName_ = rendDocumentBlock_.getBeanName();
-        NaSt bean_ = getBeanOrNull(currentBeanName_);
-        setForms(stringMapObject_, bean_);
+//        currentBeanName_ = rendDocumentBlock_.getBeanName();
+//        NaSt bean_ = getBeanOrNull(currentBeanName_);
+//        setForms(stringMapObject_, bean_);
         _rendStack.clearPages();
 //        ((NatRendStackCallAdv)_rendStack).getFormParts().initFormsSpec();
         String res_ = getRes(rendDocumentBlock_, _conf, _rendStack,ip_);

@@ -16,8 +16,4 @@ public final class SelectAbilityBeanClickAbility implements IntBeanAction {
         return bean.clickAbility(index);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

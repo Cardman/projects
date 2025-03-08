@@ -7,7 +7,6 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.bean.nat.*;
 import code.util.*;
 import code.util.core.*;
 public abstract class TarotStandards extends BeanNatCommonLgNames {
@@ -125,6 +124,13 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
         LineDealStruct.buildLineDeal(getStds());
     }
 
+    @Override
+    public void initializeRendSessionDoc(NatNavigation _nav, NatRendStackCall _rendStackCall) {
+        _rendStackCall.init();
+        NatConfigurationCore session_ = _nav.getSession();
+        initBeans(session_,_nav.getLanguage());
+        proc(_nav, _rendStackCall, session_.getFirstUrl(), getBeanOrNull(_nav.getCurrentBeanName()));
+    }
     @Override
     public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPage();

@@ -20,7 +20,7 @@ public final class MapBean extends CommonBean implements BeanRenderWithAppName {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataMapLevel.M_P_32_TITLE_MAP));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.MAP,MessagesDataMapLevel.M_P_32_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.MAP,MessagesDataMapLevel.M_P_32_INDEX);
         int pls_ = places.size();
         for (int p = 0; p < pls_; p++) {
             initLine();

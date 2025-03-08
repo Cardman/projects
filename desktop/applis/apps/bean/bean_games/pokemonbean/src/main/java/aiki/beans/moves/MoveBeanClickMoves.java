@@ -13,8 +13,4 @@ public final class MoveBeanClickMoves implements IntBeanAction {
         return bean.clickMoves();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

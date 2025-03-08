@@ -22,7 +22,7 @@ public final class StatusSetBean extends WithFilterBean {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataStatusset.M_P_89_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
 //        initPage();
         initLine();
         formatMessage(MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_CONTENT);
@@ -33,7 +33,7 @@ public final class StatusSetBean extends WithFilterBean {
         getUpdateValues().addEvt(new StatusSetBeanSearch(this));
         feedParents();
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,getSortedStatus());
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.STATUSSET,MessagesDataStatusset.M_P_89_INDEX);
     }
 
     public IntBeanChgSubmit getUpdateValues() {

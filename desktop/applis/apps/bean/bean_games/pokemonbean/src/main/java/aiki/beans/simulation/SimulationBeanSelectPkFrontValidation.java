@@ -19,8 +19,4 @@ public final class SimulationBeanSelectPkFrontValidation implements IntBeanActio
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

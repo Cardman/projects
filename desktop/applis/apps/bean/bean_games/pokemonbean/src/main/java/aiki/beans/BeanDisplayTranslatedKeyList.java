@@ -10,7 +10,7 @@ public final class BeanDisplayTranslatedKeyList implements BeanDisplayElt<CustLi
 
     @Override
     public int displayElt(CommonBean _rend, CustList<TranslatedKey> _info) {
-        _rend.formatMessageDirAnc(StringUtil.join(WithFilterBean.values(_info), CommonBean.CST_SEP_DASH),new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML+ FightHelpBean.ANCHOR+StringUtil.join(WithFilterBean.keys(_info), DataBase.SEPARATOR_MOVES),_rend));
+        _rend.formatMessageDirAnc(StringUtil.join(WithFilterBean.values(_info), CommonBean.CST_SEP_DASH),new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML+ FightHelpBean.ANCHOR+StringUtil.join(WithFilterBean.keys(_info), DataBase.SEPARATOR_MOVES)));
         return 1;
     }
 }

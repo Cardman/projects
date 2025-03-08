@@ -13,8 +13,4 @@ public final class AbilityBeanClickIndex implements IntBeanAction {
         return bean.clickIndex();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

@@ -13,7 +13,7 @@ public final class SelectAbilityBean extends AbilitySearchBean {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataSimulationLevelsimu.M_P_85_TITLE_SELECT_ABILITY));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML,this),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML),MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_CANCEL);
         initFormAb();
         updateValues = getBuilder().button(formatMessageRend(MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_OK));
         getUpdateValues().addEvt(new SelectAbilityBeanSearch(this));

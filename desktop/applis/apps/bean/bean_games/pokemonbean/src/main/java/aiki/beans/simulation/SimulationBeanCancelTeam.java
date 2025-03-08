@@ -18,8 +18,4 @@ public final class SimulationBeanCancelTeam implements IntBeanAction {
     }
 
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

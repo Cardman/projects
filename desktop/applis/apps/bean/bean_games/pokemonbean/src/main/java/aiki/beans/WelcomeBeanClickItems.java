@@ -12,8 +12,4 @@ public final class WelcomeBeanClickItems implements IntBeanAction{
         return bean.clickItems();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

@@ -211,9 +211,9 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EndRoundBeanGetEvts(),_str,_args);
     }
 
-    public static NaSt callEndRoundBeanGetPage(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EndRoundBeanGetPage(),_str,_args);
-    }
+//    public static NaSt callEndRoundBeanGetPage(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new EndRoundBeanGetPage(),_str,_args);
+//    }
 //    public static NaSt callEffectEndRoundBeanIndexSet(NaSt _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new EffectEndRoundBeanIndexSet(),_str,_args);
 //    }
@@ -393,10 +393,10 @@ public abstract class InitDbEndRound extends InitDbConstr {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToEndRound(pk_);
         NaSt pkbean_ = transitToAllPks(all_);
-        NaSt evobean_ = new PokemonBeanStruct(new EffectEndRoundBean());
-        callEndRoundBeanGetPage(pkbean_, _index);
-//        NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
-        setFormsBy(pk_,evobean_,pkbean_);
+//        NaSt evobean_ = new PokemonBeanStruct(new EffectEndRoundBean());
+//        callEndRoundBeanGetPage(pkbean_, _index);
+////        NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
+//        setFormsBy(pk_,evobean_,pkbean_);
 //        callEffectEndRoundBeanIndexSet(evobean_,_index);
 //        beforeDisplaying(evobean_);
         return new PokemonBeanStruct(((EndRoundBean)((PokemonBeanStruct)pkbean_).getBean()).getEffects().get(_index));
@@ -443,6 +443,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUS,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
+        ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).setBuilder(bu_);
         ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)welcome_).getBean()).getFacade(),new StringMapObject());
 //        beforeDisplaying(welcome_);
         return welcome_;

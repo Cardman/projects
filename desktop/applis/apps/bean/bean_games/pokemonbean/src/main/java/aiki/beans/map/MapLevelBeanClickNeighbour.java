@@ -16,8 +16,4 @@ public final class MapLevelBeanClickNeighbour implements IntBeanAction {
         return bean.clickNeighbour(index);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

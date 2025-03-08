@@ -7,7 +7,6 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.bean.nat.*;
 
 public abstract class PresidentStandards extends BeanNatCommonLgNames {
     private RulesPresident dataBaseRules;
@@ -25,6 +24,13 @@ public abstract class PresidentStandards extends BeanNatCommonLgNames {
         return new InvokedPageOutput(_dest,res_);
     }
 
+    @Override
+    public void initializeRendSessionDoc(NatNavigation _nav, NatRendStackCall _rendStackCall) {
+        _rendStackCall.init();
+        NatConfigurationCore session_ = _nav.getSession();
+        initBeans(session_,_nav.getLanguage());
+        proc(_nav, _rendStackCall, session_.getFirstUrl(), getBeanOrNull(_nav.getCurrentBeanName()));
+    }
     protected static PresidentBeanStruct bean(Bean _bean) {
         return (new PresidentBeanStruct(_bean));
     }

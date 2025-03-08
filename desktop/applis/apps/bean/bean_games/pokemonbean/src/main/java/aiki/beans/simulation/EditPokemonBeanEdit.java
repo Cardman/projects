@@ -14,8 +14,4 @@ public final class EditPokemonBeanEdit implements IntBeanAction {
         return bean.edit();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

@@ -13,8 +13,4 @@ public final class StatusBeanClickIndex implements IntBeanAction {
         return bean.clickIndex();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

@@ -32,8 +32,8 @@ public final class FightCalculationBean extends CommonFightBean {
         init(_facade,_form);
         setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightFight.M_P_90_TITLE_DETAIL_FIGHT)));
 //        initPage();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_FIGHT);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,this),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.TEAM, MessagesFightTeam.M_P_92_FIGHT);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHTDETAIL_HTML),MessagesPkBean.FIGHT,MessagesFightFight.M_P_90_REFRESH);
 //        feedParents();
         displayStringList(getSortedFighters(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES);
         display(getSortedFightersWildFight(), MessagesPkBean.FIGHT, MessagesFightFight.M_P_90_SORTED_FIGHTERS_FCT_CHOICES_WILD);

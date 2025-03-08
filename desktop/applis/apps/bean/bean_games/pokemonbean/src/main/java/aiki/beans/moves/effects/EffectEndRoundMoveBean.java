@@ -51,7 +51,7 @@ public class EffectEndRoundMoveBean extends EffectBean {
     @Override
     public void buildSubEff() {
         formatMessage(MessagesPkBean.EFF_ENDROUND, MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundRank()));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_ENDROUND);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_ENDROUND);
         display(getReasonsEndRound(), MessagesPkBean.EFF_ENDROUND, MessagesDataEffendround.M_P_47_REASONS);
         displayStringList(getReasonsEndRound());
         mapVarsInit(getMapVarsFailEndRound());

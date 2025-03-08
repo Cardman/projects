@@ -17,7 +17,7 @@ public final class SimulationBeanValidateDiffChoice implements IntBeanAction {
 
     @Override
     public String actionBean() {
-        PokemonBeanStruct b_ = new PokemonBeanStruct(getBean());
+        PokemonBeanStruct b_ = new PokemonBeanStruct(bean);
         DifficultyCommonBean bean_ = new DifficultyCommonBean();
         bean_.setOwner(bean);
         bean_.beforeDisplaying();
@@ -43,8 +43,4 @@ public final class SimulationBeanValidateDiffChoice implements IntBeanAction {
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

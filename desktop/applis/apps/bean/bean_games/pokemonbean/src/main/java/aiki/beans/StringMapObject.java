@@ -15,12 +15,24 @@ import aiki.map.levels.AbsAreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
-import code.bean.nat.StringMapObjectBase;
+import code.bean.nat.NaSt;
+import code.maths.Rate;
 import code.util.AbsMap;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
-public final class StringMapObject extends StringMapObjectBase {
-
+public final class StringMapObject {
+    private final StringMap<Rate> mapRate = new StringMap<Rate>();
+    private final StringMap<Integer> mapInt = new StringMap<Integer>();
+    private final StringMap<Long> mapLong = new StringMap<Long>();
+    private final StringMap<String> mapString = new StringMap<String>();
+    private final StringMap<StringList> mapStringList = new StringMap<StringList>();
+    private final StringMap<BoolVal> mapBoolean = new StringMap<BoolVal>();
+    private final StringMap<NaSt> beansOthers = new StringMap<NaSt>();
+    private final CustList<TranslatedKey> evts = new CustList<TranslatedKey>();
+    private final CustList<CustList<TranslatedKey>> evtsGroups = new CustList<CustList<TranslatedKey>>();
     private final StringMap<Ally> mapAlly = new StringMap<Ally>();
     private final StringMap<WildPk> mapWildPk = new StringMap<WildPk>();
     private final StringMap<Person> mapPerson = new StringMap<Person>();
@@ -37,6 +49,22 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<AbsMap<TranslatedKey,AbilityData>> mapAbilities = new StringMap<AbsMap<TranslatedKey,AbilityData>>();
     private final StringMap<AbsMap<TranslatedKey,Status>> mapStatus = new StringMap<AbsMap<TranslatedKey,Status>>();
 
+    public static BoolVal to(boolean _v) {
+        if (_v) {
+            return BoolVal.TRUE;
+        } else {
+            return BoolVal.FALSE;
+        }
+    }
+
+    public boolean containsBase(String _key) {
+        return mapRate.contains(_key)||
+                mapInt.contains(_key)||
+                mapLong.contains(_key)||
+                mapString.contains(_key)||
+                mapStringList.contains(_key)||
+                mapBoolean.contains(_key)||beansOthers.contains(_key);
+    }
     public void put(String _key, AbsAreaApparition _v) {
         getBeansOthers().put(_key,new AreaApparitionStruct(_v));
     }
@@ -185,30 +213,6 @@ public final class StringMapObject extends StringMapObjectBase {
         return mapCoords.getVal(_key);
     }
 
-    public void putAllMapGene(StringMapObjectBase _m) {
-        if (_m instanceof StringMapObject) {
-            putAllMap((StringMapObject) _m);
-        } else {
-            putAllMapBase(_m);
-        }
-    }
-    public void putAllMap(StringMapObject _m) {
-        putAllMapBase(_m);
-        mapAlly.putAllMap(_m.mapAlly);
-        mapWildPk.putAllMap(_m.mapWildPk);
-        mapPerson.putAllMap(_m.mapPerson);
-        mapCoords.putAllMap(_m.mapCoords);
-        mapSimulationSteps.putAllMap(_m.mapSimulationSteps);
-        mapTeamCrud.putAllMap(_m.mapTeamCrud);
-        mapGender.putAllMap(_m.mapGender);
-        mapPokemonPlayerDto.putAllMap(_m.mapPokemonPlayerDto);
-        mapMoves.putAllMap(_m.mapMoves);
-        mapPokedex.putAllMap(_m.mapPokedex);
-        mapItems.putAllMap(_m.mapItems);
-        mapAbilities.putAllMap(_m.mapAbilities);
-        mapStatus.putAllMap(_m.mapStatus);
-    }
-
     public void removeKey(String _key) {
         removeKeyBase(_key);
         mapAlly.removeKey(_key);
@@ -226,4 +230,94 @@ public final class StringMapObject extends StringMapObjectBase {
         mapStatus.removeKey(_key);
     }
 
+
+    public static boolean from(BoolVal _v) {
+        return _v == BoolVal.TRUE;
+    }
+
+    public void removeKeyBase(String _key) {
+        mapRate.removeKey(_key);
+        mapInt.removeKey(_key);
+        mapLong.removeKey(_key);
+        mapString.removeKey(_key);
+        mapStringList.removeKey(_key);
+        mapBoolean.removeKey(_key);
+        beansOthers.removeKey(_key);
+    }
+    public void put(String _key, Rate _v) {
+        mapRate.put(_key, _v);
+    }
+
+    public void put(String _key, int _v) {
+        mapInt.put(_key, _v);
+    }
+
+    public void put(String _key, long _v) {
+        mapLong.put(_key, _v);
+    }
+
+    public void put(String _key, String _v) {
+        mapString.put(_key, _v);
+    }
+
+    public void put(String _key, boolean _v) {
+        put(_key, to(_v));
+    }
+
+    public void put(String _key, BoolVal _v) {
+        mapBoolean.put(_key, _v);
+    }
+
+    public void put(String _key, StringList _v) {
+        mapStringList.put(_key, _v);
+    }
+
+    public void put(String _key, NaSt _v) {
+        beansOthers.put(_key, _v);
+    }
+    public Rate getValRate(String _key) {
+        return mapRate.getVal(_key);
+    }
+    public boolean getValBool(String _key) {
+        return from(mapBoolean.getVal(_key));
+    }
+
+    public StringList getValList(String _key) {
+        return mapStringList.getVal(_key);
+    }
+    public String getValStr(String _key) {
+        return mapString.getVal(_key);
+    }
+
+    public int getValInt(String _key) {
+        return defInt(mapInt.getVal(_key));
+    }
+
+    public long getValLong(String _key) {
+        return defLong(mapLong.getVal(_key));
+    }
+    private int defInt(Integer _i) {
+        if (_i == null) {
+            return 0;
+        }
+        return _i;
+    }
+    private long defLong(Long _i) {
+        if (_i == null) {
+            return 0;
+        }
+        return _i;
+    }
+
+    public StringMap<NaSt> getBeansOthers() {
+        return beansOthers;
+    }
+
+    public CustList<TranslatedKey> getEvts() {
+        return evts;
+    }
+
+    public CustList<CustList<TranslatedKey>> getEvtsGroups() {
+        return evtsGroups;
+    }
 }

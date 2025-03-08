@@ -12,8 +12,4 @@ public final class AddPokemonBeanAdd implements IntBeanAction {
         return bean.add();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

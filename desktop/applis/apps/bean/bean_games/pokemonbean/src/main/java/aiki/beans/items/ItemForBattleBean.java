@@ -71,7 +71,7 @@ public final class ItemForBattleBean extends ItemBean {
         buildHeader();
         if (getEndRoundCommon().getEndRound()) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(getEndRoundCommon().getEndRoundRank()));
-            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ENDROUND);
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ENDROUND);
             displayStringList(getEndRoundCommon().getReasonsEndRound(),MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
             mapVarsInit(getEndRoundCommon().getMapVarsFailEndRound());
         }

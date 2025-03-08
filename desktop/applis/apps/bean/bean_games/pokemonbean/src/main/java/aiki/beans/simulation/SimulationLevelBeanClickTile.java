@@ -16,8 +16,4 @@ public final class SimulationLevelBeanClickTile implements IntBeanAction {
         return bean.clickTile(index);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

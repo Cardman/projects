@@ -20,8 +20,4 @@ public final class SimulationBeanSelectAllyPkValidation implements IntBeanAction
         return bean.selectAllyPk();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

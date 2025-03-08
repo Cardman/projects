@@ -169,8 +169,8 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     public void initializeRendSessionDoc(NatNavigation _nav, NatRendStackCall _rendStackCall) {
         _rendStackCall.init();
         NatConfigurationCore session_ = _nav.getSession();
-        String lg_ = _nav.getLanguage();
-        initBeans(session_,lg_);
+//        String lg_ = _nav.getLanguage();
+//        initBeans(session_,lg_);
         String currentUrl_ = session_.getFirstUrl();
         NaSt bean_ = getBeanOrNull(_nav.getCurrentBeanName());
         proc(_nav, _rendStackCall, currentUrl_, bean_);

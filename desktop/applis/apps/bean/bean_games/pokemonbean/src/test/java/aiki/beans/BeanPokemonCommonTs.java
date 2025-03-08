@@ -107,16 +107,16 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
     public static void beforeDisplaying(CommonBean _bean) {
-        _bean.build(_bean.getFacade(),_bean.getForms());
+        _bean.build(_bean.getFacade(),_bean.getBuilder().getForms());
     }
 
     public static void setFormsBy(PokemonStandards _pk, NaSt _to, NaSt _from) {
         _pk.setForms(forms(_from),_to);
     }
 
-    public static void setFormsBy(CommonBean _to, CommonBean _from) {
-        _to.setForms(_from.getForms());
-    }
+//    public static void setFormsBy(CommonBean _to, CommonBean _from) {
+//        _to.setForms(_from.getForms());
+//    }
 
 //    public static void setBeanFormsBy(PokemonStandards _pk, Struct _to, Struct _from) {
 //        _pk.setBeanForms(_from,_to);

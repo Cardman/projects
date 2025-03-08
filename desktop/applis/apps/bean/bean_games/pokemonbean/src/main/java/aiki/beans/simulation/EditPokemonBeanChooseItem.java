@@ -14,8 +14,4 @@ public final class EditPokemonBeanChooseItem implements IntBeanAction {
         return bean.chooseItem();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

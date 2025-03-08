@@ -12,8 +12,4 @@ public final class MovesBeanSearch implements IntBeanAction {
         return bean.search();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

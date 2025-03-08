@@ -16,7 +16,4 @@ public final class BeanAnchorToTeamEvent implements IntBeanAction{
         return bean.click(constant);
     }
 
-    public CommonBean getBean() {
-        return bean;
-    }
 }

@@ -53,7 +53,7 @@ public final class StatusBean extends CommonBean implements BeanRenderWithAppNam
         addImg(animStatus);
         if (endRound) {
             formatMessage(MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_RANK,Long.toString(endRoundRank));
-            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML,this),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_ENDROUND);
+            formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_ENDROUND);
             displayStringList(reasonsEndRound,MessagesPkBean.EFF_ENDROUND,MessagesDataEffendround.M_P_47_REASONS);
             mapVarsInit(mapVarsFailEndRound);
             if (singleStatus) {

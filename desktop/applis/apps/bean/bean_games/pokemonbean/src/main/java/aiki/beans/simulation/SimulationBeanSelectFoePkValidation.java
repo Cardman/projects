@@ -20,8 +20,4 @@ public final class SimulationBeanSelectFoePkValidation implements IntBeanAction 
         return bean.selectFoePk();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

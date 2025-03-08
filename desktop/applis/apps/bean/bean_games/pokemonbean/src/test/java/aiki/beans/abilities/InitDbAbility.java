@@ -5,6 +5,7 @@ import aiki.beans.CommonBean;
 import aiki.beans.PkData;
 import aiki.beans.PokemonBeanStruct;
 import aiki.beans.effects.AikiBeansEffectsStd;
+import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
@@ -987,7 +988,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
         StringMap<NaSt> map_ = beanToAbility(_pk);
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
-        map_.addEntry(AikiBeansEffectsStd.EFFECT_SENDING,_pk.beanEffectWhileSendingBean(EN));
+        EffectWhileSendingBean send_ = new EffectWhileSendingBean();
+        send_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
+        map_.addEntry(AikiBeansEffectsStd.EFFECT_SENDING, _pk.bean(send_, EN));
         return map_;
     }
 

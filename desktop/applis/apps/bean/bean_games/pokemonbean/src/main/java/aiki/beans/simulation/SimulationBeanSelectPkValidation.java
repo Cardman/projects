@@ -20,8 +20,4 @@ public final class SimulationBeanSelectPkValidation implements IntBeanAction {
         return bean.selectPk();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

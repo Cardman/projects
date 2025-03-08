@@ -14,8 +14,4 @@ public final class SimulationBeanAddPkTrainer implements IntBeanAction {
         return bean.addPkTrainer();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

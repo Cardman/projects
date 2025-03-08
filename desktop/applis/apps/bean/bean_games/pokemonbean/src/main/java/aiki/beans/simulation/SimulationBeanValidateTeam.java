@@ -17,8 +17,4 @@ public final class SimulationBeanValidateTeam implements IntBeanAction {
     }
 
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

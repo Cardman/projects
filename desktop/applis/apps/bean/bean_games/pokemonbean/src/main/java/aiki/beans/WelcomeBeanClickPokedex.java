@@ -12,8 +12,4 @@ public final class WelcomeBeanClickPokedex implements IntBeanAction{
         return bean.clickPokedex();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

@@ -7,7 +7,6 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.bean.nat.*;
 import code.util.*;
 
 public abstract class BeloteStandards extends BeanNatCommonLgNames {
@@ -78,6 +77,13 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
         return new InvokedPageOutput(_dest,res_);
     }
 
+    @Override
+    public void initializeRendSessionDoc(NatNavigation _nav, NatRendStackCall _rendStackCall) {
+        _rendStackCall.init();
+        NatConfigurationCore session_ = _nav.getSession();
+        initBeans(session_,_nav.getLanguage());
+        proc(_nav, _rendStackCall, session_.getFirstUrl(), getBeanOrNull(_nav.getCurrentBeanName()));
+    }
     public static NatArrayStruct getSumDeclaringPlayerArray(CustList<BeloteSumDeclaringPlayer> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;

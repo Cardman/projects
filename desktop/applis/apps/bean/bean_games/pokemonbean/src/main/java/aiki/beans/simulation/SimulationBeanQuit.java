@@ -13,8 +13,4 @@ public final class SimulationBeanQuit implements IntBeanAction {
         return bean.quit();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

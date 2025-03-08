@@ -16,8 +16,4 @@ public final class SimulationLevelBeanValidateNoFightAction implements IntBeanAc
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

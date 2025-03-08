@@ -11,8 +11,4 @@ public final class WelcomeBeanClickStatus implements IntBeanAction{
     public String actionBean() {
         return bean.clickStatus();
     }
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

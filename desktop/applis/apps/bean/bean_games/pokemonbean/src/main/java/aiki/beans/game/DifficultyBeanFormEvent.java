@@ -17,8 +17,4 @@ public final class DifficultyBeanFormEvent implements IntBeanAction {
         return "";
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

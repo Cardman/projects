@@ -16,7 +16,7 @@ public final class AbilitiesBean extends AbilitySearchBean {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataAbilityAbilities.M_P_0_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
 //        initPage();
         initFormAb();
         initLine();
@@ -24,7 +24,7 @@ public final class AbilitiesBean extends AbilitySearchBean {
         getUpdateValues().addEvt(new AbilitiesBeanSearch(this));
         feedParents();
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,sortedAbilitiesGet());
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ABILITIES,MessagesDataAbilityAbilities.M_P_0_INDEX);
     }
 
     public IntBeanChgSubmit getUpdateValues() {

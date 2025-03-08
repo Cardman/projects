@@ -15,8 +15,4 @@ public final class MapLevelBeanClickTileOnMap implements IntBeanAction {
         return bean.clickTileOnMap(index);
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

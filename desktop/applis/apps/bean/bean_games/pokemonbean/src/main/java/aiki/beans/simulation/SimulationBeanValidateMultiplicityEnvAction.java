@@ -1,6 +1,5 @@
 package aiki.beans.simulation;
 
-import aiki.beans.CommonBean;
 import aiki.beans.IntBeanAction;
 import code.scripts.confs.PkScriptPages;
 
@@ -18,8 +17,4 @@ public final class SimulationBeanValidateMultiplicityEnvAction implements IntBea
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

@@ -21,8 +21,4 @@ public final class SimulationBeanValidDiffFormEvent implements IntBeanAction {
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

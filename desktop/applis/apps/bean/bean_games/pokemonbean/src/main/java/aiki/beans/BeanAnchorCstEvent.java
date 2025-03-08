@@ -3,10 +3,9 @@ package aiki.beans;
 
 public final class BeanAnchorCstEvent implements IntBeanAction{
     private final String constant;
-    private final CommonBean bean;
-    public BeanAnchorCstEvent(String _cst, CommonBean _b) {
+
+    public BeanAnchorCstEvent(String _cst) {
         constant = _cst;
-        bean = _b;
     }
 
     @Override
@@ -14,8 +13,4 @@ public final class BeanAnchorCstEvent implements IntBeanAction{
         return constant;
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

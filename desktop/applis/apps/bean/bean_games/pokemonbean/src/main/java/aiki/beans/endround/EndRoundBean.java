@@ -34,7 +34,7 @@ public final class EndRoundBean extends CommonBean implements BeanRenderWithAppN
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataEndroundEndround.M_P_3_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.ENDROUND_ENDROUND,MessagesDataEndroundEndround.M_P_3_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.ENDROUND_ENDROUND,MessagesDataEndroundEndround.M_P_3_INDEX);
         for (EffectEndRoundBean e: effects) {
             e.setAppName(getAppName());
             e.setBuilder(getBuilder());
@@ -114,53 +114,13 @@ public final class EndRoundBean extends CommonBean implements BeanRenderWithAppN
     private void build(CustList<EffectEndRoundBean> _feed, int _i, EffectEndRoundBean _b) {
         _b.setAppName(getAppName());
         _b.setDataBase(db());
-        _b.setForms(new StringMapObject());
-        _b.getForms().putAllMap(getForms());
+//        _b.setForms(new StringMapObject());
+//        _b.getForms().putAllMap(getForms());
         _b.setLanguage(getLanguage());
         _b.setBuilder(getBuilder());
         _b.setIndex(_i);
         _b.beforeDisplaying();
         _feed.add(_b);
-    }
-
-    public String getPage(int _index) {
-        CustList<EndRoundMainElements> evts_ = getEvts();
-        EndRoundMainElements elt_ = evts_.get(_index);
-        return endRound(elt_.getEff());
-    }
-
-    private String endRound(EffectEndRound _effect) {
-        if (_effect instanceof EffectEndRoundGlobal) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_GLOBAL_HTML;
-        }
-        if (_effect instanceof EffectEndRoundIndividual) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_INDIVIDUAL_HTML;
-        }
-        if (_effect instanceof EffectEndRoundStatusRelation) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUSRELATION_HTML;
-        }
-        if (_effect instanceof EffectEndRoundStatus) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_STATUS_HTML;
-        }
-        if (_effect instanceof EffectEndRoundSingleRelation) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_SINGLERELATION_HTML;
-        }
-        if (_effect instanceof EffectEndRoundFoe) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_FOE_HTML;
-        }
-        if (_effect instanceof EffectEndRoundTeam) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_TEAM_HTML;
-        }
-        if (_effect instanceof EffectEndRoundMultiRelation) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_MULTIRELATION_HTML;
-        }
-        if (_effect instanceof EffectEndRoundPositionRelation) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONRELATION_HTML;
-        }
-        if (_effect instanceof EffectEndRoundPositionTargetRelation) {
-            return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_POSITIONTARGET_HTML;
-        }
-        return PkScriptPages.REN_ADD_WEB_HTML_ENDROUND_EFF_HTML;
     }
 
     public CustList<EndRoundMainElements> getEvts() {

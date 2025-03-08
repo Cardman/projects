@@ -36,8 +36,8 @@ public final class TeamBean extends CommonFightBean {
             setTitledBorder(StringUtil.simpleStringsFormat(file().getVal(MessagesFightTeam.M_P_92_TITLE_PLAYER)));
         }
 //        initPage();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML,this), MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_FIGHT);
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML,this),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_REFRESH);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_FIGHT_HTML), MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_FIGHT);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.WEB_FIGHT_HTML_TEAM_HTML),MessagesPkBean.TEAM,MessagesFightTeam.M_P_92_REFRESH);
         new BeanDisplayList<EntryCust<Integer,String>>(new BeanDisplayMember()).display(this,getMembers().getList());
 //        for (EntryCust<Integer,String> e:getMembers().entryList()) {
 //            initLine();

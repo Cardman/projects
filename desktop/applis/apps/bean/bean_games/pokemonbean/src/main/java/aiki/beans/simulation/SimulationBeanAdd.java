@@ -14,8 +14,4 @@ public final class SimulationBeanAdd implements IntBeanAction {
         return bean.add();
     }
 
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }

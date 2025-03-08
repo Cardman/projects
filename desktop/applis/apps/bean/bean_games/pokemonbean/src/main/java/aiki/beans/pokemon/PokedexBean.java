@@ -18,7 +18,7 @@ public final class PokedexBean extends WithFilterBean {
     public void build(FacadeGame _facade, StringMapObject _form) {
         init(_facade, _form);
         setTitledBorder(file().getVal(MessagesDataPokemonPokedex.M_P_82_TITLE));
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
 //        initPage();
         initFormPk();
         initLine();
@@ -36,7 +36,7 @@ public final class PokedexBean extends WithFilterBean {
 //        }
 //        feedParents();
 //        feedParents();
-        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML,this),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
+        formatMessageAnc(new BeanAnchorCstEvent(PkScriptPages.REN_ADD_WEB_HTML_INDEX_HTML),MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_INDEX);
     }
     public StringMap<String> file() {
         return file(MessagesPkBean.POKEDEX).getMapping();

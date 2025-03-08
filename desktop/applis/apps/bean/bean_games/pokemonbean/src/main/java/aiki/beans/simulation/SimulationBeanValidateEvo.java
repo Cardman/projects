@@ -16,8 +16,4 @@ public final class SimulationBeanValidateEvo implements IntBeanAction {
         bean.validateEvo();
         return PkScriptPages.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
-    @Override
-    public CommonBean getBean() {
-        return bean;
-    }
 }
