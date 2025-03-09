@@ -206,36 +206,36 @@ public abstract class InitDbPk extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new PokedexBeanWholeWordGet(),_str,_args);
     }
 
-    public static NaSt callPokedexBeanIsEvoSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new PokedexBeanIsEvoSet(),_str,_args);
+    public static void callPokedexBeanIsEvoSet(NaSt _str, String _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().setupValue(_args);
     }
 
-    public static NaSt callPokedexBeanHasEvoSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new PokedexBeanHasEvoSet(),_str,_args);
+    public static void callPokedexBeanHasEvoSet(NaSt _str, String _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().setupValue(_args);
     }
 
-    public static NaSt callPokedexBeanIsLegSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new PokedexBeanIsLegSet(),_str,_args);
+    public static void callPokedexBeanIsLegSet(NaSt _str, String _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().setupValue(_args);
     }
 
-    public static NaSt callPokedexBeanTypedMaxNbPossEvosSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new PokedexBeanTypedMaxNbPossEvosSet(),_str,_args);
+    public static void callPokedexBeanTypedMaxNbPossEvosSet(NaSt _str, String _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMaxNbPossEvos().setupValue(_args);
     }
 
-    public static NaSt callPokedexBeanTypedMinNbPossEvosSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new PokedexBeanTypedMinNbPossEvosSet(),_str,_args);
+    public static void callPokedexBeanTypedMinNbPossEvosSet(NaSt _str, String _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMinNbPossEvos().setupValue(_args);
     }
 
-    public static NaSt callPokedexBeanTypedNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new PokedexBeanTypedNameSet(),_str,_args);
+    public static void callPokedexBeanTypedNameSet(NaSt _str, String _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
     }
 
-    public static NaSt callPokedexBeanTypedTypeSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new PokedexBeanTypedTypeSet(),_str,_args);
+    public static void callPokedexBeanTypedTypeSet(NaSt _str, String _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
     }
 
-    public static NaSt callPokedexBeanWholeWordSet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new PokedexBeanWholeWordSet(),_str,_args);
+    public static void callPokedexBeanWholeWordSet(NaSt _str, boolean _args) {
+        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
     }
 
     protected static NaSt eltPkLine(NaSt _arr, int _index) {

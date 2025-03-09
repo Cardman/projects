@@ -105,7 +105,7 @@ public final class AikiBeansAbilitiesStd{
     private static final String GET_TR_FAIL_STATUS = "getTrFailStatus";
     private static final String CLICK_POKEMON = "clickPokemon";
     private static final String GET_TR_POKEMON = "getTrPokemon";
-    private static final String TYPED_ABILITY = "typedAbility";
+//    private static final String TYPED_ABILITY = "typedAbility";
     private static final String SORTED_ABILITIES = "sortedAbilities";
     private static final String DISPLAY_NAME = "displayName";
     private static final String END_ROUND = "endRound";
@@ -210,7 +210,7 @@ public final class AikiBeansAbilitiesStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_ABILITY,BeanNatCommonLgNames.STRING, new AbilitiesBeanTypedAbilityGet(),new AbilitiesBeanTypedAbilitySet()));
+//        fields_.add(new StandardField(TYPED_ABILITY,BeanNatCommonLgNames.STRING, new AbilitiesBeanTypedAbilityGet(),new AbilitiesBeanTypedAbilitySet()));
         fields_.add(new StandardField(SORTED_ABILITIES, BeanNatCommonLgNames.TYPE_LIST, new AbilitiesBeanSortedAbilitiesGet(),null));
 //        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new AbilitiesBeanSearch()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, new AbilitiesBeanClickAbility()));

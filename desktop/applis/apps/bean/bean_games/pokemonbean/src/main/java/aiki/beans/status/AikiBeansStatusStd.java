@@ -45,7 +45,7 @@ public final class AikiBeansStatusStd{
     private static final String ATTACK = "attack";
     private static final String DEFENSE = "defense";
     private static final String EFFECTS_PARTNER = "effectsPartner";
-    private static final String TYPED_STATUS = "typedStatus";
+//    private static final String TYPED_STATUS = "typedStatus";
     private static final String SORTED_STATUS = "sortedStatus";
     private AikiBeansStatusStd(){}
     public static void build(PokemonStandards _std) {
@@ -92,7 +92,7 @@ public final class AikiBeansStatusStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_STATUS,BeanNatCommonLgNames.STRING, new StatusSetBeanTypedStatusGet(),new StatusSetBeanTypedStatusSet()));
+//        fields_.add(new StandardField(TYPED_STATUS,BeanNatCommonLgNames.STRING, new StatusSetBeanTypedStatusGet(),new StatusSetBeanTypedStatusSet()));
         fields_.add(new StandardField(SORTED_STATUS, BeanNatCommonLgNames.TYPE_LIST, new StatusSetBeanSortedStatusGet(),null));
 //        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new StatusSetBeanSearch()));
         methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, new StatusSetBeanClickStatus()));

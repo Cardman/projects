@@ -113,16 +113,16 @@ public abstract class InitDbItems extends InitDbConstr {
     public static NaSt callItemsBeanTypedPriceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedPriceGet(),_str,_args);
     }
-    public static NaSt callItemsBeanTypedClassSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new ItemsBeanTypedClassSet(),_str,_args);
+    public static void callItemsBeanTypedClassSet(NaSt _str, String _args) {
+        ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().setupValue(_args);
     }
 
-    public static NaSt callItemsBeanTypedNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new ItemsBeanTypedNameSet(),_str,_args);
+    public static void callItemsBeanTypedNameSet(NaSt _str, String _args) {
+        ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
     }
 
-    public static NaSt callItemsBeanTypedPriceSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new ItemsBeanTypedPriceSet(),_str,_args);
+    public static void callItemsBeanTypedPriceSet(NaSt _str, String _args) {
+        ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().setupValue(_args);
     }
 //    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
 //        callEffectWhileSendingBeanEffectSet(_update,callItemForBattleBeanGetEffectSending(_use));

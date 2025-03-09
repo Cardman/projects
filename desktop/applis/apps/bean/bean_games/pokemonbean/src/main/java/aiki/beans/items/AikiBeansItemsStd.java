@@ -170,9 +170,9 @@ public final class AikiBeansItemsStd{
     private static final String INCREASING_MAX_NB_ROUND_TEAM_MOVE = "increasingMaxNbRoundTeamMove";
     private static final String IMMU_MOVES = "immuMoves";
     private static final String IMMU_WEATHER = "immuWeather";
-    private static final String TYPED_NAME = "typedName";
-    private static final String TYPED_PRICE = "typedPrice";
-    private static final String TYPED_CLASS = "typedClass";
+//    private static final String TYPED_NAME = "typedName";
+//    private static final String TYPED_PRICE = "typedPrice";
+//    private static final String TYPED_CLASS = "typedClass";
     private static final String ITEMS = "items";
     private static final String STEPS = "steps";
     private AikiBeansItemsStd(){}
@@ -417,9 +417,9 @@ public final class AikiBeansItemsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING, new ItemsBeanTypedNameGet(),new ItemsBeanTypedNameSet()));
-        fields_.add(new StandardField(TYPED_PRICE,BeanNatCommonLgNames.STRING, new ItemsBeanTypedPriceGet(),new ItemsBeanTypedPriceSet()));
-        fields_.add(new StandardField(TYPED_CLASS,BeanNatCommonLgNames.STRING, new ItemsBeanTypedClassGet(),new ItemsBeanTypedClassSet()));
+//        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING, new ItemsBeanTypedNameGet(),new ItemsBeanTypedNameSet()));
+//        fields_.add(new StandardField(TYPED_PRICE,BeanNatCommonLgNames.STRING, new ItemsBeanTypedPriceGet(),new ItemsBeanTypedPriceSet()));
+//        fields_.add(new StandardField(TYPED_CLASS,BeanNatCommonLgNames.STRING, new ItemsBeanTypedClassGet(),new ItemsBeanTypedClassSet()));
         fields_.add(new StandardField(ITEMS, BeanNatCommonLgNames.TYPE_LIST, new ItemsBeanItemsGet(),null));
 //        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, new ItemsBeanSearch()));
         methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, new ItemsBeanGetMiniImage()));

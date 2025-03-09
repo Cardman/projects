@@ -44,8 +44,8 @@ public abstract class InitDbAbilities extends InitDbConstr {
 //    public static Struct callAbilityBeanGetEffectSending(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetEffectSending(),_str,_args);
 //    }
-    public static NaSt callAbilitiesBeanTypedAbilitySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AbilitiesBeanTypedAbilitySet(),_str,_args);
+    public static void callAbilitiesBeanTypedAbilitySet(NaSt _str, String _args) {
+        ( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedAbility().setupValue(_args);
     }
 
     protected static String navigateAbilitiesSearch(NaSt _moves) {

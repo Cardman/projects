@@ -90,8 +90,8 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new StatusSetBeanTypedStatusGet(),_str,_args);
     }
 
-    public static NaSt callStatusSetBeanTypedStatusSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new StatusSetBeanTypedStatusSet(),_str,_args);
+    public static void callStatusSetBeanTypedStatusSet(NaSt _str, String _args) {
+        ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTypedStatus().setupValue(_args);
     }
 
     protected static NaSt dispAllStatus() {

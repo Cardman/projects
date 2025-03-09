@@ -27,40 +27,40 @@ public abstract class InitDbMoves extends InitDbConstr {
     public static final String BEAN_MOVES="moves";
     public static final String BEAN_MOVE="move";
 
-    public static NaSt callMovesBeanCategorySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanCategorySet(),_str,_args);
+    public static void callMovesBeanCategorySet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getTypedCategory().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanMaxAccuracySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanMaxAccuracySet(),_str,_args);
+    public static void callMovesBeanMaxAccuracySet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMaxAccuracy().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanMaxPowerSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanMaxPowerSet(),_str,_args);
+    public static void callMovesBeanMaxPowerSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMaxPower().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanMinAccuracySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanMinAccuracySet(),_str,_args);
+    public static void callMovesBeanMinAccuracySet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMinAccuracy().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanMinPowerSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanMinPowerSet(),_str,_args);
+    public static void callMovesBeanMinPowerSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMinPower().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanTypedNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanTypedNameSet(),_str,_args);
+    public static void callMovesBeanTypedNameSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanTypedTypeSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanTypedTypeSet(),_str,_args);
+    public static void callMovesBeanTypedTypeSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanWholeWordSet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new MovesBeanWholeWordSet(),_str,_args);
+    public static void callMovesBeanWholeWordSet(NaSt _str, boolean _args) {
+        ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
     }
 
-    public static NaSt callMovesBeanLearntSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanLearntSet(),_str,_args);
+    public static void callMovesBeanLearntSet(NaSt _str, String _args) {
+        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getLearnt().setupValue(_args);
     }
 
     public static NaSt callMovesBeanCategoriesGet(NaSt _str, long... _args) {
