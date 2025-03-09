@@ -922,9 +922,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         }
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
-    public boolean errorSelectedFoePk() {
-        return selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.REMOVE);
-    }
+//    public boolean errorSelectedFoePk() {
+//        return selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.REMOVE);
+//    }
     public int[][] getImageAlly(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = allyTeams.get(indexTeam).get(_index);
@@ -1795,9 +1795,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         selectedFoePk = _selectedFoePk;
     }
 
-    public int getSelectedFoePk() {
-        return selectedFoePk;
-    }
+//    public int getSelectedFoePk() {
+//        return selectedFoePk;
+//    }
 
     public void setSelectedFoeAction(String _selectedFoeAction) {
         selectedFoeAction = _selectedFoeAction;

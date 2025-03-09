@@ -437,13 +437,13 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void cancelAddPkTrainer() {
         assertSizeEq(0,callSimulationBeanFoeTeamGet(pkTrainerLevelCancelAdd()));
     }
-    @Test
-    public void selectFoePkInitBad() {
-        assertTrue(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero()));
-        assertTrue(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectNo()));
-        assertFalse(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero(TeamCrud.EDIT)));
-        assertFalse(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero(TeamCrud.REMOVE)));
-    }
+//    @Test
+//    public void selectFoePkInitBad() {
+//        assertTrue(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero()));
+//        assertTrue(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectNo()));
+//        assertFalse(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero(TeamCrud.EDIT)));
+//        assertFalse(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero(TeamCrud.REMOVE)));
+//    }
     @Test
     public void selectFoePkInit() {
         assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoFoePk());
@@ -480,14 +480,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void pkTrainerNameFoeAfterRemove() {
         assertEq(P_POK_01_TR,callSimulationBeanGetNameFoe(pkTrainerFoeRemove(),0));
     }
-    @Test
-    public void getSelectedFoePk() {
-        assertEq(0,callSimulationBeanSelectedFoePkGet(formEditSelectedFoePk()));
-    }
-    @Test
-    public void getSelectedFoeAction() {
-        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedFoeActionGet(formEditSelectedFoePk()));
-    }
+//    @Test
+//    public void getSelectedFoePk() {
+//        assertEq(0,callSimulationBeanSelectedFoePkGet(formEditSelectedFoePk()));
+//    }
+//    @Test
+//    public void getSelectedFoeAction() {
+//        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedFoeActionGet(formEditSelectedFoePk()));
+//    }
     @Test
     public void selectAllyPkInitBad() {
         assertTrue(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero()));
