@@ -5,7 +5,6 @@ import aiki.beans.effects.*;
 import aiki.beans.endround.*;
 import aiki.beans.facade.dto.*;
 import aiki.beans.facade.map.dto.*;
-import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.help.*;
 import aiki.beans.items.*;
@@ -53,7 +52,7 @@ public final class PkData extends PokemonStandards {
         AikiBeansEndroundStd.build(this);
         AikiBeansFacadeDtoStd.build(this);
         AikiBeansFacadeMapDtoStd.build(this);
-        AikiBeansFacadeSimulationDtoStd.build(this);
+//        AikiBeansFacadeSimulationDtoStd.build(this);
         AikiBeansFacadeSolutionDtoStd.build(this);
         AikiBeansHelpStd.build(this);
         AikiBeansItemsStd.build(this);
