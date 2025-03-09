@@ -28,9 +28,9 @@ public final class AikiBeansMapCharactersStd{
     private static final String IMAGE_MINI = "imageMini";
     private static final String IMAGE_MINI_SECOND = "imageMiniSecond";
 //    private static final String PAGE_ALLY = "pageAlly";
-    private static final String ALLY = "ally";
+//    private static final String ALLY = "ally";
 //    private static final String PAGE_TEAM = "pageTeam";
-    private static final String TRAINER = "trainer";
+//    private static final String TRAINER = "trainer";
     private static final String MOVE = "move";
     private AikiBeansMapCharactersStd(){}
     public static void build(PokemonStandards _std) {
@@ -45,7 +45,7 @@ public final class AikiBeansMapCharactersStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TEAM, BeanNatCommonLgNames.TYPE_LIST, new AllyBeanTeamGet(),null));
-        fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY, null,new AllyBeanAllySet()));
+//        fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY, null,new AllyBeanAllySet()));
         methods_.add( new SpecNatMethod(CommonBean.GET_IMAGE,BeanNatCommonLgNames.STRING, new AllyBeanGetImage()));
         methods_.add( new SpecNatMethod(CommonBean.CLICK_NAME,BeanNatCommonLgNames.STRING, new AllyBeanClickName()));
         methods_.add( new SpecNatMethod(CommonBean.GET_NAME,BeanNatCommonLgNames.STRING, new AllyBeanGetName()));
@@ -78,9 +78,9 @@ public final class AikiBeansMapCharactersStd{
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING, new DualFightBeanImageMiniGet(),null));
         fields_.add(new StandardField(IMAGE_MINI_SECOND,BeanNatCommonLgNames.STRING, new DualFightBeanImageMiniSecondGet(),null));
 //        fields_.add(new StandardField(PAGE_ALLY,BeanNatCommonLgNames.STRING, new CstNatCaller(DualFightBean.PAGE_ALLY),null));
-        fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY, new DualFightBeanAllyGet(),null));
+//        fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY, new DualFightBeanAllyGet(),null));
 //        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING, new CstNatCaller(DualFightBean.PAGE_TEAM),null));
-        fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TEMP_TRAINER, new DualFightBeanTrainerGet(),null));
+//        fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TEMP_TRAINER, new DualFightBeanTrainerGet(),null));
         _std.getStds().addEntry(TYPE_DUAL_FIGHT_BEAN, type_);
     }
     private static void buildSellerBean(PokemonStandards _std){
@@ -102,7 +102,7 @@ public final class AikiBeansMapCharactersStd{
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING, new TrainerBeanImageGet(),null));
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING, new TrainerBeanImageMiniGet(),null));
 //        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING, new CstNatCaller(TrainerBean.PAGE_TEAM),null));
-        fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER, new TrainerBeanTrainerGet(),null));
+//        fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER, new TrainerBeanTrainerGet(),null));
         fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING, new TrainerBeanMoveGet(),null));
         methods_.add( new SpecNatMethod(GET_TEAMS_REWARDS, BeanNatCommonLgNames.TYPE_LIST, new TrainerBeanGetTeamsRewards()));
         methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, new TrainerBeanGetName()));

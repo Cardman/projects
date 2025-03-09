@@ -47,9 +47,9 @@ public abstract class InitDbItem extends InitDbItems{
     public static NaSt callItemBeanPriceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemBeanPriceGet(),_str,_args);
     }
-    public static NaSt callItemBeanNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new ItemBeanNameSet(),_str,_args);
-    }
+//    public static NaSt callItemBeanNameSet(NaSt _str, String _args) {
+//        return BeanPokemonCommonTs.callString(new ItemBeanNameSet(),_str,_args);
+//    }
     public static StringMap<NaSt> beanToItemSample(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
         BoostBean b_ = new BoostBean();
@@ -86,14 +86,14 @@ public abstract class InitDbItem extends InitDbItems{
     protected static NaSt dispLineQuick(String _key, PkData _pk, StringMap<NaSt> _all) {
         NaSt res_ = transitToAllItemsQuick(_pk, _all, _key);
 //        callItemBeanItemBeanGet(res_);
-        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
+//        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;
     }
 
     protected static NaSt dispLineClick(String _key, PkData _pk, StringMap<NaSt> _all) {
         NaSt res_ = transitToAllItemsClick(_pk, _all, _key);
 //        callItemBeanItemBeanGet(res_);
-        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
+//        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;
     }
 

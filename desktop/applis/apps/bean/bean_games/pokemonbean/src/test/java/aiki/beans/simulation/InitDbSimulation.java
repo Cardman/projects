@@ -1696,24 +1696,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        callSimulationBeanSelectedFoePkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(),((SimulationBean)simu_.getBean()).getSelectedFoeAction(),-1),simu_);
     }
-    protected static PokemonBeanStruct editNoFoePkStateSelectZero() {
-        PokemonBeanStruct simu_ = editNoFoePkState();
-//        callSimulationBeanSelectedFoePkSet(simu_,0);
-//        callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
-        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), TeamCrud.NOTHING.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
-    }
-    protected static PokemonBeanStruct editNoFoePkStateSelectZero(TeamCrud _tc) {
-        PokemonBeanStruct simu_ = editNoFoePkState();
-//        callSimulationBeanSelectedFoePkSet(simu_,0);
-//        callSimulationBeanSelectedFoeActionSet(simu_, _tc.getTeamCrudString());
-        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), _tc.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
-    }
-    protected static PokemonBeanStruct editNoFoePkStateSelectNo() {
-        PokemonBeanStruct simu_ = editNoFoePkState();
-//        callSimulationBeanSelectedFoePkSet(simu_,-1);
-//        callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
-        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), TeamCrud.EDIT.getTeamCrudString(), -1), simu_.getInstance().getBuilder());
-    }
+//    protected static PokemonBeanStruct editNoFoePkStateSelectZero() {
+//        PokemonBeanStruct simu_ = editNoFoePkState();
+////        callSimulationBeanSelectedFoePkSet(simu_,0);
+////        callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
+//        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), TeamCrud.NOTHING.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+//    }
+//    protected static PokemonBeanStruct editNoFoePkStateSelectZero(TeamCrud _tc) {
+//        PokemonBeanStruct simu_ = editNoFoePkState();
+////        callSimulationBeanSelectedFoePkSet(simu_,0);
+////        callSimulationBeanSelectedFoeActionSet(simu_, _tc.getTeamCrudString());
+//        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), _tc.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+//    }
+//    protected static PokemonBeanStruct editNoFoePkStateSelectNo() {
+//        PokemonBeanStruct simu_ = editNoFoePkState();
+////        callSimulationBeanSelectedFoePkSet(simu_,-1);
+////        callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
+//        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), TeamCrud.EDIT.getTeamCrudString(), -1), simu_.getInstance().getBuilder());
+//    }
     protected static PokemonBeanStruct editNoFoePkState() {
         PkData pk_ = pkDataByFacade(db());
         return simBean(2, pk_.getDataBase());

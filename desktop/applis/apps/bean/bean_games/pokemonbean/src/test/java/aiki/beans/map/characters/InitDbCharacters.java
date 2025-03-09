@@ -170,8 +170,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt dual_ = transitDual(pk_, all_);
-        NaSt ally_ = new PokemonBeanStruct(new AllyBean());
-        fwdAlly(ally_,dual_);
+//        NaSt ally_ = new PokemonBeanStruct(new AllyBean());
+//        fwdAlly(ally_,dual_);
 //        beforeDisplaying(ally_);
         return new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getAllyTeam());
     }
@@ -180,8 +180,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt dual_ = transitDual(pk_, all_);
-        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
-        fwdTrainerDual(pkTeam_,dual_);
+//        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
+//        fwdTrainerDual(pkTeam_,dual_);
 //        beforeDisplaying(pkTeam_);
         return new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getFoeTeam());
     }
@@ -197,8 +197,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainerLevelZero(0,12,_tile,pk_, all_);
-        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
-        fwdTrainer(pkTeam_,trainer_);
+//        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
+//        fwdTrainer(pkTeam_,trainer_);
 //        beforeDisplaying(pkTeam_);
         return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
     }
@@ -206,8 +206,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainer(8,_level,12,pk_, all_);
-        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
-        fwdTrainer(pkTeam_,trainer_);
+//        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
+//        fwdTrainer(pkTeam_,trainer_);
 //        beforeDisplaying(pkTeam_);
         return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
     }
@@ -215,9 +215,9 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainer(3,1,7,pk_, all_);
-        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
-        fwdTrainer(pkTeam_,trainer_);
-        callPokemonTeamBeanNoFightSet(pkTeam_,_no);
+//        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
+//        fwdTrainer(pkTeam_,trainer_);
+//        callPokemonTeamBeanNoFightSet(pkTeam_,_no);
 //        beforeDisplaying(pkTeam_);
         return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(_no));
     }
@@ -561,33 +561,33 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),displayMult(_no));
     }
 
-    public static NaSt callPokemonTeamBeanNoFightSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new PokemonTeamBeanNoFightSet(),_str,_args);
-    }
-    public static void fwdTrainerDual(NaSt _update, NaSt _use) {
-        callPokemonTeamBeanTrainerSet(_update,callDualFightBeanTrainerGet(_use));
-    }
-
-    public static void fwdTrainer(NaSt _update, NaSt _use) {
-        callPokemonTeamBeanTrainerSet(_update,callTrainerBeanTrainerGet(_use));
-    }
-    public static void fwdAlly(NaSt _update, NaSt _use) {
-        callAllyBeanAllySet(_update,callDualFightBeanAllyGet(_use));
-    }
-    public static NaSt callDualFightBeanAllyGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DualFightBeanAllyGet(),_str,_args);
-    }
-
-    public static NaSt callAllyBeanAllySet(NaSt _str, NaSt _args) {
-        return BeanPokemonCommonTs.callStruct(new AllyBeanAllySet(),_str,_args);
-    }
-    public static NaSt callDualFightBeanTrainerGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DualFightBeanTrainerGet(),_str,_args);
-    }
-    public static NaSt callTrainerBeanTrainerGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanTrainerGet(),_str,_args);
-    }
-    public static NaSt callPokemonTeamBeanTrainerSet(NaSt _str, NaSt _args) {
-        return BeanPokemonCommonTs.callStruct(new PokemonTeamBeanTrainerSet(),_str,_args);
-    }
+//    public static NaSt callPokemonTeamBeanNoFightSet(NaSt _str, int _args) {
+//        return BeanPokemonCommonTs.callInt(new PokemonTeamBeanNoFightSet(),_str,_args);
+//    }
+//    public static void fwdTrainerDual(NaSt _update, NaSt _use) {
+//        callPokemonTeamBeanTrainerSet(_update,callDualFightBeanTrainerGet(_use));
+//    }
+//
+//    public static void fwdTrainer(NaSt _update, NaSt _use) {
+//        callPokemonTeamBeanTrainerSet(_update,callTrainerBeanTrainerGet(_use));
+//    }
+//    public static void fwdAlly(NaSt _update, NaSt _use) {
+//        callAllyBeanAllySet(_update,callDualFightBeanAllyGet(_use));
+//    }
+//    public static NaSt callDualFightBeanAllyGet(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new DualFightBeanAllyGet(),_str,_args);
+//    }
+//
+//    public static NaSt callAllyBeanAllySet(NaSt _str, NaSt _args) {
+//        return BeanPokemonCommonTs.callStruct(new AllyBeanAllySet(),_str,_args);
+//    }
+//    public static NaSt callDualFightBeanTrainerGet(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new DualFightBeanTrainerGet(),_str,_args);
+//    }
+//    public static NaSt callTrainerBeanTrainerGet(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new TrainerBeanTrainerGet(),_str,_args);
+//    }
+//    public static NaSt callPokemonTeamBeanTrainerSet(NaSt _str, NaSt _args) {
+//        return BeanPokemonCommonTs.callStruct(new PokemonTeamBeanTrainerSet(),_str,_args);
+//    }
 }

@@ -62,10 +62,10 @@ public final class DualFightBean extends CommonBean implements BeanRenderWithApp
         imageMiniSecond = data_.getPerson(trainer.getImageMiniSecondTrainerFileName());
         allyTeam = new AllyBean();
         fwd(allyTeam);
-        allyTeam.setAlly(ally);
+        allyTeam.setAlly(getAlly());
         foeTeam = new PokemonTeamBean();
         fwd(foeTeam);
-        foeTeam.setTrainer(trainer);
+        foeTeam.setTrainer(getTrainer());
 
     }
 

@@ -91,9 +91,9 @@ public abstract class ItemBean extends CommonBean implements BeanRenderWithAppNa
         return name;
     }
 
-    public void setName(String _name) {
-        name = _name;
-    }
+//    public void setName(String _name) {
+//        name = _name;
+//    }
 
     public String getDisplayName() {
         return displayName;

@@ -66,14 +66,14 @@ public final class TrainerBean extends CommonBean implements BeanRenderWithAppNa
             for (int i = 0; i < len_; i++) {
                 PokemonTeamBean b_ = new PokemonTeamBean();
                 fwd(b_);
-                b_.setTrainer(trainer);
+                b_.setTrainer(getTrainer());
                 b_.setNoFight(i);
                 bs_.add(b_);
             }
         } else {
             PokemonTeamBean b_ = new PokemonTeamBean();
             fwd(b_);
-            b_.setTrainer(trainer);
+            b_.setTrainer(getTrainer());
             bs_.add(b_);
         }
         beans = bs_;
