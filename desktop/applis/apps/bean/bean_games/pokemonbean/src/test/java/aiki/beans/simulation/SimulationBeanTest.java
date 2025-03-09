@@ -488,13 +488,13 @@ public final class SimulationBeanTest extends InitDbSimulation {
 //    public void getSelectedFoeAction() {
 //        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedFoeActionGet(formEditSelectedFoePk()));
 //    }
-    @Test
-    public void selectAllyPkInitBad() {
-        assertTrue(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero()));
-        assertTrue(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectNo()));
-        assertFalse(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero(TeamCrud.EDIT)));
-        assertFalse(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero(TeamCrud.REMOVE)));
-    }
+//    @Test
+//    public void selectAllyPkInitBad() {
+//        assertTrue(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero()));
+//        assertTrue(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectNo()));
+//        assertFalse(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero(TeamCrud.EDIT)));
+//        assertFalse(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero(TeamCrud.REMOVE)));
+//    }
     @Test
     public void selectAllyPkInit() {
         assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
@@ -531,14 +531,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void pkTrainerNameAllyAfterRemove() {
         assertEq(P_POK_01_TR,callSimulationBeanGetNameAlly(pkTrainerAllyRemove(),0));
     }
-    @Test
-    public void getSelectedAllyPk() {
-        assertEq(0,callSimulationBeanSelectedAllyPkGet(formEditSelectedAllyPk()));
-    }
-    @Test
-    public void getSelectedAllyAction() {
-        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedAllyActionGet(formEditSelectedAllyPk()));
-    }
+//    @Test
+//    public void getSelectedAllyPk() {
+//        assertEq(0,callSimulationBeanSelectedAllyPkGet(formEditSelectedAllyPk()));
+//    }
+//    @Test
+//    public void getSelectedAllyAction() {
+//        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedAllyActionGet(formEditSelectedAllyPk()));
+//    }
     @Test
     public void defaultMult() {
         assertEq(1,callSimulationBeanMultiplicityGet(validateDiff(1)));
@@ -715,13 +715,13 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void addPkPlayerTwice() {
         assertSizeEq(2,callSimulationBeanTeamGet(pkPlayerSelectPkNameTwice()));
     }
-    @Test
-    public void selectPkInitBad() {
-        assertTrue(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero()));
-        assertTrue(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectNo()));
-        assertFalse(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero(TeamCrud.EDIT)));
-        assertFalse(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero(TeamCrud.REMOVE)));
-    }
+//    @Test
+//    public void selectPkInitBad() {
+//        assertTrue(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero()));
+//        assertTrue(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectNo()));
+//        assertFalse(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero(TeamCrud.EDIT)));
+//        assertFalse(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero(TeamCrud.REMOVE)));
+//    }
 
     @Test
     public void selectPlayerPkInit() {
@@ -771,14 +771,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void pkPlayerNameAfterRemove() {
         assertEq(P_POK_01_TR,callSimulationBeanGetName(pkPlayerRemove(),0));
     }
-    @Test
-    public void getSelectedPkPlayerIndexe() {
-        assertEq(0,callSimulationBeanSelectedPkGet(formEditSelectedPlayerPk()));
-    }
-    @Test
-    public void getSelectedAction() {
-        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedActionGet(formEditSelectedPlayerPk()));
-    }
+//    @Test
+//    public void getSelectedPkPlayerIndexe() {
+//        assertEq(0,callSimulationBeanSelectedPkGet(formEditSelectedPlayerPk()));
+//    }
+//    @Test
+//    public void getSelectedAction() {
+//        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedActionGet(formEditSelectedPlayerPk()));
+//    }
     @Test
     public void allMovesPkPlayer() {
         assertSizeEq(5,callEditPokemonMovesBeanMovesGet(editEditSelectedPlayerPkListMoves("",false)));

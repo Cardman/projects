@@ -1,7 +1,6 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
-import code.bean.nat.*;
 
 public final class SimulationBeanSelectMovesValidation implements IntBeanAction {
     private final SimulationBean bean;
@@ -15,7 +14,8 @@ public final class SimulationBeanSelectMovesValidation implements IntBeanAction 
     @Override
     public String actionBean() {
         bean.setSelectedMove(index);
-        return ((NaStSt)new SimulationBeanValidateMovesChoice().re(new PokemonBeanStruct(bean),new NaSt[0])).getInstance();
+        bean.validateMovesChoice();
+        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
 }

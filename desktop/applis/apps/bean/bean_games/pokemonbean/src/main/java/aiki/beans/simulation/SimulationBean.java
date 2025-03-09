@@ -998,9 +998,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         }
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
-    public boolean errorSelectedAllyPk() {
-        return selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.REMOVE);
-    }
+//    public boolean errorSelectedAllyPk() {
+//        return selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.REMOVE);
+//    }
     public String addPkTrainer() {
         DataBase data_ = getDataBase();
         Pokemon pk_ = data_.getMap().getFirstPokemon();
@@ -1107,9 +1107,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         }
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
-    public boolean errorSelectedPk() {
-        return selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.REMOVE);
-    }
+//    public boolean errorSelectedPk() {
+//        return selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.REMOVE);
+//    }
     public String add() {
         getForms().putPokedex(CST_POKEMON_SET_SIMU, DictionaryComparatorUtil.buildPkData());
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
@@ -1814,10 +1814,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     public void setSelectedAllyPk(int _selectedAllyPk) {
         selectedAllyPk = _selectedAllyPk;
     }
-
-    public int getSelectedAllyPk() {
-        return selectedAllyPk;
-    }
+//
+//    public int getSelectedAllyPk() {
+//        return selectedAllyPk;
+//    }
 
     public void setSelectedAllyAction(String _selectedAllyAction) {
         selectedAllyAction = _selectedAllyAction;
