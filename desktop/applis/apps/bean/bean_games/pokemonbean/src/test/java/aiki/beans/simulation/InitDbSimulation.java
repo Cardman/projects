@@ -38,7 +38,6 @@ import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.util.*;
-import code.util.core.NumberUtil;
 
 public abstract class InitDbSimulation extends InitDbConstr {
     public static final String M_POK_00 = "M_POK00";
@@ -809,16 +808,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateTeam(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanAbilityAfterFightSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SimulationBeanAbilityAfterFightSet(),_str,_args);
+    public static void callSimulationBeanAbilityAfterFightSet(NaSt _str, String _args) {
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilityAfterFight().setupValue(_args);
     }
 
-    public static NaSt callSimulationBeanChosenEvoSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SimulationBeanChosenEvoSet(),_str,_args);
+    public static void callSimulationBeanChosenEvoSet(NaSt _str, String _args) {
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getChosenEvo().setupValue(_args);
     }
 
-    public static NaSt callSimulationBeanCurrentAbilitySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SimulationBeanCurrentAbilitySet(),_str,_args);
+    public static void callSimulationBeanCurrentAbilitySet(NaSt _str, String _args) {
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getCurrentAbility().setupValue(_args);
     }
 
 //    public static Struct callSimulationBeanDamageRateLawFoeSet(Struct _str, String _args) {
@@ -833,12 +832,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callString(new SimulationBeanDiffWinningExpPtsFightSet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanEnvironmentSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SimulationBeanEnvironmentSet(),_str,_args);
+    public static void callSimulationBeanEnvironmentSet(NaSt _str, String _args) {
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEnvironment().setupValue(_args);
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).setEnvironment(_args);
     }
 
-    public static NaSt callSimulationBeanEvolutionAfterFightSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SimulationBeanEvolutionAfterFightSet(),_str,_args);
+    public static void callSimulationBeanEvolutionAfterFightSet(NaSt _str, String _args) {
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutionAfterFight().setupValue(_args);
     }
 //
 //    public static NaSt callSimulationBeanPlaceFightSet(NaSt _str, String _args) {
@@ -877,12 +877,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callInt(new SimulationBeanIvPlayerSet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanLevelEvoSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new SimulationBeanLevelEvoSet(),_str,_args);
+    public static void callSimulationBeanLevelEvoSet(NaSt _str, int _args) {
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelEvo().valueLong(_args);
     }
 
-    public static NaSt callSimulationBeanMultiplicitySet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new SimulationBeanMultiplicitySet(),_str,_args);
+    public static void callSimulationBeanMultiplicitySet(NaSt _str, int _args) {
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMultiplicity().valueLong(_args);
+        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).setMultiplicity(_args);
     }
 
 //    public static NaSt callSimulationBeanNbTeamsSet(NaSt _str, int _args) {
@@ -968,109 +969,110 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanWinTrainerExpGet(),_str,_args);
 //    }
 
-    public static NaSt callAddPokemonBeanAbilitySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AddPokemonBeanAbilitySet(),_str,_args);
+    public static void callAddPokemonBeanAbilitySet(NaSt _str, String _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAbility().setupValue(_args);
     }
 
-    public static NaSt callAddPokemonBeanGenderSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AddPokemonBeanGenderSet(),_str,_args);
+    public static void callAddPokemonBeanGenderSet(NaSt _str, String _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getGender().setupValue(_args);
     }
 
-    public static NaSt callAddPokemonBeanHasEvoSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AddPokemonBeanHasEvoSet(),_str,_args);
+    public static void callAddPokemonBeanHasEvoSet(NaSt _str, String _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().setupValue(_args);
     }
 
-    public static NaSt callAddPokemonBeanIsEvoSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AddPokemonBeanIsEvoSet(),_str,_args);
+    public static void callAddPokemonBeanIsEvoSet(NaSt _str, String _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().setupValue(_args);
     }
 
-    public static NaSt callAddPokemonBeanIsLegSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AddPokemonBeanIsLegSet(),_str,_args);
+    public static void callAddPokemonBeanIsLegSet(NaSt _str, String _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().setupValue(_args);
     }
 
-    public static NaSt callAddPokemonBeanTypedNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AddPokemonBeanTypedNameSet(),_str,_args);
+    public static void callAddPokemonBeanTypedNameSet(NaSt _str, String _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
     }
 
-    public static NaSt callAddPokemonBeanTypedTypeSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new AddPokemonBeanTypedTypeSet(),_str,_args);
+    public static void callAddPokemonBeanTypedTypeSet(NaSt _str, String _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
     }
 
-    public static NaSt callEditPokemonBeanBallSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new EditPokemonBeanBallSet(),_str,_args);
+    public static void callEditPokemonBeanBallSet(NaSt _str, String _args) {
+        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBall().setupValue(_args);
     }
 
-    public static NaSt callEditPokemonMovesBeanCategorySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new EditPokemonMovesBeanCategorySet(),_str,_args);
+    public static void callEditPokemonMovesBeanCategorySet(NaSt _str, String _args) {
+        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedCategory().setupValue(_args);
     }
 
-    public static NaSt callEditPokemonMovesBeanTypedNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new EditPokemonMovesBeanTypedNameSet(),_str,_args);
+    public static void callEditPokemonMovesBeanTypedNameSet(NaSt _str, String _args) {
+        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
     }
 
-    public static NaSt callEditPokemonMovesBeanTypedTypeSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new EditPokemonMovesBeanTypedTypeSet(),_str,_args);
+    public static void callEditPokemonMovesBeanTypedTypeSet(NaSt _str, String _args) {
+        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
     }
 
-    public static NaSt callEditTrainerPokemonBeanGenderSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new EditTrainerPokemonBeanGenderSet(),_str,_args);
+    public static void callEditTrainerPokemonBeanGenderSet(NaSt _str, String _args) {
+        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getGender().setupValue(_args);
     }
 
-    public static NaSt callSelectAbilityBeanTypedAbilitySet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectAbilityBeanTypedAbilitySet(),_str,_args);
+    public static void callSelectAbilityBeanTypedAbilitySet(NaSt _str, String _args) {
+        ( (SelectAbilityBean) ((PokemonBeanStruct)_str).getInstance()).getTypedAbility().setupValue(_args);
     }
 
-    public static NaSt callSelectItemBeanTypedClassSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectItemBeanTypedClassSet(),_str,_args);
+    public static void callSelectItemBeanTypedClassSet(NaSt _str, String _args) {
+        ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().setupValue(_args);
     }
 
-    public static NaSt callSelectItemBeanTypedNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectItemBeanTypedNameSet(),_str,_args);
+    public static void callSelectItemBeanTypedNameSet(NaSt _str, String _args) {
+        ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
     }
 
-    public static NaSt callSelectItemBeanTypedPriceSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectItemBeanTypedPriceSet(),_str,_args);
+    public static void callSelectItemBeanTypedPriceSet(NaSt _str, String _args) {
+        ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().setupValue(_args);
     }
 
-    public static NaSt callSelectPokemonBeanHasEvoSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectPokemonBeanHasEvoSet(),_str,_args);
+    public static void callSelectPokemonBeanHasEvoSet(NaSt _str, String _args) {
+        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().setupValue(_args);
     }
 
-    public static NaSt callSelectPokemonBeanIsEvoSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectPokemonBeanIsEvoSet(),_str,_args);
+    public static void callSelectPokemonBeanIsEvoSet(NaSt _str, String _args) {
+        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().setupValue(_args);
     }
 
-    public static NaSt callSelectPokemonBeanIsLegSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectPokemonBeanIsLegSet(),_str,_args);
+    public static void callSelectPokemonBeanIsLegSet(NaSt _str, String _args) {
+        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().setupValue(_args);
     }
 
-    public static NaSt callSelectPokemonBeanTypedNameSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectPokemonBeanTypedNameSet(),_str,_args);
+    public static void callSelectPokemonBeanTypedNameSet(NaSt _str, String _args) {
+        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
     }
 
-    public static NaSt callSelectPokemonBeanTypedTypeSet(NaSt _str, String _args) {
-        return BeanPokemonCommonTs.callString(new SelectPokemonBeanTypedTypeSet(),_str,_args);
+    public static void callSelectPokemonBeanTypedTypeSet(NaSt _str, String _args) {
+        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
     }
 
 //    public static NaSt callAddPokemonBeanClickLink(NaSt _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new AddPokemonBeanClickLink(),_str,_args);
 //    }
 
-    public static NaSt callAddPokemonBeanLevelSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new AddPokemonBeanLevelSet(),_str,_args);
+    public static void callAddPokemonBeanLevelSet(NaSt _str, int _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getLevel().valueLong(_args);
     }
 
-    public static NaSt callEditPokemonBeanHappinessSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new EditPokemonBeanHappinessSet(),_str,_args);
+    public static void callEditPokemonBeanHappinessSet(NaSt _str, int _args) {
+        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness().valueLong(_args);
     }
 
-    public static NaSt callEditTrainerPokemonBeanLevelSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new EditTrainerPokemonBeanLevelSet(),_str,_args);
+    public static void callEditTrainerPokemonBeanLevelSet(NaSt _str, int _args) {
+        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getLevel().valueLong(_args);
     }
 
 
-    public static NaSt callSimulationLevelBeanNoFightSet(NaSt _str, int _args) {
-        return BeanPokemonCommonTs.callInt(new SimulationLevelBeanNoFightSet(),_str,_args);
+    public static void callSimulationLevelBeanNoFightSet(NaSt _str, int _args) {
+        ( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).noFight(_args);
+        ( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).getNoFight().valueLong(_args);
     }
 
     public static void callSelectLineMoveSelectedSet(NaSt _str, boolean _args) {
@@ -1078,36 +1080,36 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
 
-    public static NaSt callAddPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new AddPokemonBeanWholeWordSet(),_str,_args);
+    public static void callAddPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
+        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
     }
 
-    public static NaSt callEditPokemonBeanHealSet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new EditPokemonBeanHealSet(),_str,_args);
+    public static void callEditPokemonBeanHealSet(NaSt _str, boolean _args) {
+        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHeal().setSelected(_args);
     }
 
-    public static NaSt callEditPokemonMovesBeanAvailableMovesOnlySet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new EditPokemonMovesBeanAvailableMovesOnlySet(),_str,_args);
+    public static void callEditPokemonMovesBeanAvailableMovesOnlySet(NaSt _str, boolean _args) {
+        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableMovesOnly().setSelected(_args);
     }
 
-    public static NaSt callEditPokemonMovesBeanWholeWordSet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new EditPokemonMovesBeanWholeWordSet(),_str,_args);
+    public static void callEditPokemonMovesBeanWholeWordSet(NaSt _str, boolean _args) {
+        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
     }
 
-    public static NaSt callEditTrainerPokemonBeanAllyPkSet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new EditTrainerPokemonBeanAllyPkSet(),_str,_args);
+    public static void callEditTrainerPokemonBeanAllyPkSet(NaSt _str, boolean _args) {
+        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAllyPk().setSelected(_args);
     }
 
-    public static NaSt callSelectPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new SelectPokemonBeanWholeWordSet(),_str,_args);
+    public static void callSelectPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
+        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
     }
 
-    public static NaSt callEditPokemonBeanExperienceSet(NaSt _str, Rate _args) {
-        return BeanPokemonCommonTs.callRate(new EditPokemonBeanExperienceSet(),_str,_args);
+    public static void callEditPokemonBeanExperienceSet(NaSt _str, Rate _args) {
+        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getExperience().valueRate(_args);
     }
 
-    public static NaSt callEditPokemonBeanRemainingHpSet(NaSt _str, Rate _args) {
-        return BeanPokemonCommonTs.callRate(new EditPokemonBeanRemainingHpSet(),_str,_args);
+    public static void callEditPokemonBeanRemainingHpSet(NaSt _str, Rate _args) {
+        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingHp().valueRate(_args);
     }
 
     public static long callEvLineEvGet(NaSt _str, long... _args) {
