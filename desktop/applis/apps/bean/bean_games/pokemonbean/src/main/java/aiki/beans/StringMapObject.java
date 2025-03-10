@@ -15,7 +15,6 @@ import aiki.map.levels.AbsAreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
-import code.bean.nat.NaSt;
 import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.CustList;
@@ -30,7 +29,7 @@ public final class StringMapObject {
     private final StringMap<String> mapString = new StringMap<String>();
     private final StringMap<StringList> mapStringList = new StringMap<StringList>();
     private final StringMap<BoolVal> mapBoolean = new StringMap<BoolVal>();
-    private final StringMap<NaSt> beansOthers = new StringMap<NaSt>();
+    private final StringMap<AbsAreaApparition> beansOthers = new StringMap<AbsAreaApparition>();
     private final CustList<TranslatedKey> evts = new CustList<TranslatedKey>();
     private final CustList<CustList<TranslatedKey>> evtsGroups = new CustList<CustList<TranslatedKey>>();
     private final StringMap<Ally> mapAlly = new StringMap<Ally>();
@@ -66,7 +65,7 @@ public final class StringMapObject {
                 mapBoolean.contains(_key)||beansOthers.contains(_key);
     }
     public void put(String _key, AbsAreaApparition _v) {
-        getBeansOthers().put(_key,new AreaApparitionStruct(_v));
+        getBeansOthers().put(_key,_v);
     }
 
     public void put(String _key, Ally _v) {
@@ -195,7 +194,7 @@ public final class StringMapObject {
         return mapWildPk.getVal(_key);
     }
     public AbsAreaApparition getValArea(String _key) {
-        return ((AreaApparitionStruct)getBeansOthers().getVal(_key)).getWildPk();
+        return getBeansOthers().getVal(_key);
     }
     public Person getValPers(String _key) {
         return mapPerson.getVal(_key);
@@ -272,9 +271,6 @@ public final class StringMapObject {
         mapStringList.put(_key, _v);
     }
 
-    public void put(String _key, NaSt _v) {
-        beansOthers.put(_key, _v);
-    }
     public Rate getValRate(String _key) {
         return mapRate.getVal(_key);
     }
@@ -309,7 +305,7 @@ public final class StringMapObject {
         return _i;
     }
 
-    public StringMap<NaSt> getBeansOthers() {
+    public StringMap<AbsAreaApparition> getBeansOthers() {
         return beansOthers;
     }
 

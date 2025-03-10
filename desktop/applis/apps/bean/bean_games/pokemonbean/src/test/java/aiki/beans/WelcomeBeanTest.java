@@ -6,6 +6,7 @@ import aiki.facade.enums.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
+import aiki.map.levels.AreaApparition;
 import aiki.map.levels.enums.*;
 import aiki.map.places.Place;
 import aiki.map.pokemon.WildPk;
@@ -247,7 +248,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         s_.put("2","");
         s_.put("3", Rate.zero());
         s_.put("4", new StringList());
-        s_.put("5", new NaStSt(""));
+        s_.put("5", new AreaApparition());
         s_.put("8", 0L);
         assertTrue(s_.containsBase("0"));
         assertTrue(s_.containsBase("1"));
