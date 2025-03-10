@@ -1,6 +1,5 @@
 package aiki.beans;
 
-import aiki.beans.endround.*;
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.help.*;
 import aiki.beans.map.*;
@@ -8,7 +7,6 @@ import aiki.beans.map.characters.*;
 import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.*;
 import aiki.beans.solution.*;
-import aiki.beans.status.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 
@@ -38,7 +36,7 @@ public final class PkData extends PokemonStandards {
 //        AikiBeansAbilitiesStd.build(this);
         AikiBeansStd.build(this);
 //        AikiBeansEffectsStd.build(this);
-        AikiBeansEndroundStd.build(this);
+//        AikiBeansEndroundStd.build(this);
 //        AikiBeansFacadeDtoStd.build(this);
 //        AikiBeansFacadeMapDtoStd.build(this);
 //        AikiBeansFacadeSimulationDtoStd.build(this);
@@ -56,7 +54,7 @@ public final class PkData extends PokemonStandards {
 //        AikiBeansPokemonStd.build(this);
 //        AikiBeansSimulationStd.build(this);
         AikiBeansSolutionStd.build(this);
-        AikiBeansStatusStd.build(this);
+//        AikiBeansStatusStd.build(this);
 //        buildTypeDamageBoost(this);
 //        buildEfficiencyRate(this);
 //        buildBoostHpRate(this);

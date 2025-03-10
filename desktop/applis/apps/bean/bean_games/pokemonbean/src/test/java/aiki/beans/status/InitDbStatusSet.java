@@ -59,35 +59,37 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     public static final int IMG_10 = IMG_09 + 1;
     public static final int IMG_11 = IMG_10 + 1;
     public static final int IMG_12 = IMG_11 + 1;
+    public static final String BEAN_STATUS="status";
+    public static final String BEAN_STATUS_SET="status_set";
 
-    public static String callStatusSetBeanClickStatus(long... _args) {
+    public static String callStatusSetBeanClickStatus(int... _args) {
         return callStatusSetBeanClickStatus(dispAllStatusSearch(),_args);
     }
 
-    public static String callStatusSetBeanClickStatus(NaSt _str, long... _args) {
-        return navigateData(new StatusSetBeanClickStatus(),_str,_args);
+    public static String callStatusSetBeanClickStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0])).getInstance();
     }
 
-    public static String callStatusSetBeanClickStatusId(long... _args) {
+    public static String callStatusSetBeanClickStatusId(int... _args) {
         NaSt bean_ = dispAllStatusSearch();
         callStatusSetBeanClickStatus(bean_,_args);
         return getValStatusId(bean_);
     }
 
-    public static NaSt callStatusSetBeanGetTrStatus(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new StatusSetBeanGetTrStatus(),_str,_args);
+    public static NaSt callStatusSetBeanGetTrStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]));
     }
 
 //    public static NaSt callStatusSetBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new StatusSetBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callStatusSetBeanSortedStatusGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new StatusSetBeanSortedStatusGet(),_str,_args);
+    public static NaSt callStatusSetBeanSortedStatusGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getSortedStatus());
     }
 
-    public static NaSt callStatusSetBeanTypedStatusGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new StatusSetBeanTypedStatusGet(),_str,_args);
+    public static NaSt callStatusSetBeanTypedStatusGet(NaSt _str, int... _args) {
+        return new NaStSt(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTypedStatus().tryRet());
     }
 
     public static void callStatusSetBeanTypedStatusSet(NaSt _str, String _args) {
@@ -103,7 +105,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         StringMap<NaSt> all_ = beanToStatusSet(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
+        NaSt moves_ = all_.getVal(BEAN_STATUS_SET);
         transit(_pk,new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
@@ -118,8 +120,8 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     protected static NaSt transitToAllStatus(PkData _pk, StringMap<NaSt> _all,int _index) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt pks_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
-        NaSt pk_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS);
+        NaSt pks_ = _all.getVal(BEAN_STATUS_SET);
+        NaSt pk_ = _all.getVal(BEAN_STATUS);
         transit(_pk,new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,pks_);
         transit(_pk,new StatusSetBeanSearch(((StatusSetBean) ((PokemonBeanStruct)pks_).getBean())),pks_,pks_);
         transit(_pk,new EntityClickFormEvent(((StatusBean) ((PokemonBeanStruct)pk_).getBean()),((StatusSetBean) ((PokemonBeanStruct)pks_).getBean()).getSortedStatus().get(_index)),pks_,pk_);
@@ -132,7 +134,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
         StatusSetBean s_ = new StatusSetBean();
-        map_.addEntry(AikiBeansStatusStd.BEAN_STATUS_SET, _pk.bean(s_, EN));
+        map_.addEntry(BEAN_STATUS_SET, _pk.bean(s_, EN));
         s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
