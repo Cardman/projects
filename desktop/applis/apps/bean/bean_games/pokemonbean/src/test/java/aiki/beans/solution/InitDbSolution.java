@@ -61,43 +61,43 @@ public abstract class InitDbSolution extends InitDbConstr {
     public static final int IMG_OTHER = 16777215;
 
     public static NaSt callSolutionBeanGetPlace(int _step, int _place) {
-        return BeanPokemonCommonTs.callLongs(new SolutionBeanGetPlace(),dispSol(),_step,_place);
+        return new NaStSt(( (SolutionBean) ((PokemonBeanStruct)dispSol()).getInstance()).getPlace(_step,_place));
     }
 
     public static NaSt callSolutionBeanStepsGet() {
-        return BeanPokemonCommonTs.callLongs(new SolutionBeanStepsGet(),dispSol());
+        return PokemonStandards.getSteDto(( (SolutionBean) ((PokemonBeanStruct)dispSol()).getInstance()).getSteps());
     }
 
     public static NaSt callSolutionBeanStepsTwiceGet() {
-        return BeanPokemonCommonTs.callLongs(new SolutionBeanStepsGet(),dispSolTwice());
+        return PokemonStandards.getSteDto(( (SolutionBean) ((PokemonBeanStruct)dispSolTwice()).getInstance()).getSteps());
     }
 
     public static NaSt callPlaceTrainerDtoPlaceGet(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoPlaceGet(),_str);
+        return new NaStSt(( ((PlaceTrainerDtoStruct) _str).getPlaceTrainerDto()).getPlace());
     }
 
     public static NaSt callPlaceTrainerDtoTrainerGet(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoTrainerGet(),_str);
+        return new NaStSt(( ((PlaceTrainerDtoStruct) _str).getPlaceTrainerDto()).getTrainer());
     }
 
     public static NaSt callStepDtoGetNames(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new StepDtoGetNames(),_str);
+        return PokemonStandards.getPlTr(( ((StepDtoStruct) _str).getStepDto()).getNames());
     }
 
     public static NaSt callStepDtoGetPokemon(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new StepDtoGetPokemon(),_str);
+        return PokemonStandards.getPlLevWildPkDto(( ((StepDtoStruct) _str).getStepDto()).getPokemon());
     }
 
     public static NaSt callWildPokemonDtoGenderGet(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoGenderGet(),_str);
+        return new NaStSt(( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getGender());
     }
 
     public static NaSt callWildPokemonDtoImageGet(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoImageGet(),_str);
+        return new NaImgSt(( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getImage());
     }
 
     public static NaSt callWildPokemonDtoNameGet(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoNameGet(),_str);
+        return new NaStSt(( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getName());
     }
     protected static NaSt dispSol() {
         PkData pk_ = pkDataByFacade(db());

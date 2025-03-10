@@ -147,88 +147,88 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return _str;
     }
 
-    public static NaSt callDifficultyBeanDamageRatePlayerTableGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRatePlayerTableGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanDamageRatePlayerTableGet(NaSt _str, int... _args) {
+        return PokemonStandards.getRateRate(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRatePlayerTable());
     }
 
-    public static NaSt callDifficultyBeanDamageRateFoeTableGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRateFoeTableGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanDamageRateFoeTableGet(NaSt _str, int... _args) {
+        return PokemonStandards.getRateRate(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRateFoeTable());
     }
 
-    public static NaSt callDifficultyBeanDamageRatesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRatesGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanDamageRatesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrStr(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRates());
     }
 
-    public static NaSt callDifficultyBeanWinPointsFightGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanWinPointsFightGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanWinPointsFightGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrStr(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getWinPointsFight());
     }
 
-    public static NaSt callDifficultyBeanDamageRateLawFoeGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRateLawFoeGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanDamageRateLawFoeGet(NaSt _str, int... _args) {
+        return new NaStSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRateLawFoe());
     }
 
-    public static NaSt callDifficultyBeanDamageRatePlayerGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRatePlayerGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanDamageRatePlayerGet(NaSt _str, int... _args) {
+        return new NaStSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRatePlayer());
     }
 
-    public static NaSt callDifficultyBeanDiffWinningExpPtsFightGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDiffWinningExpPtsFightGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanDiffWinningExpPtsFightGet(NaSt _str, int... _args) {
+        return new NaStSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDiffWinningExpPtsFight());
     }
 
-    public static NaSt callDifficultyBeanIvFoeGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanIvFoeGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanIvFoeGet(NaSt _str, int... _args) {
+        return new NaNbSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getIvFoe());
     }
 
-    public static NaSt callDifficultyBeanIvPlayerGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanIvPlayerGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanIvPlayerGet(NaSt _str, int... _args) {
+        return new NaNbSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getIvPlayer());
     }
 
-    public static NaSt callDifficultyBeanRateLooseMoneyWinGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRateLooseMoneyWinGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanRateLooseMoneyWinGet(NaSt _str, int... _args) {
+        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateLooseMoneyWin());
     }
 
-    public static NaSt callDifficultyBeanRateWinMoneyBaseGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRateWinMoneyBaseGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanRateWinMoneyBaseGet(NaSt _str, int... _args) {
+        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateWinMoneyBase());
     }
 
-    public static NaSt callDifficultyBeanRateWinningExpPtsFightGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRateWinningExpPtsFightGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanRateWinningExpPtsFightGet(NaSt _str, int... _args) {
+        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateWinningExpPtsFight());
     }
 
-    public static NaSt callDifficultyBeanWinTrainerExpGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanWinTrainerExpGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanWinTrainerExpGet(NaSt _str, int... _args) {
+        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getWinTrainerExp());
     }
 
-    public static NaSt callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getSkipLearningMovesWhileNotGrowingLevel());
     }
 
-    public static NaSt callDifficultyBeanStillPossibleFleeGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanStillPossibleFleeGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanStillPossibleFleeGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getStillPossibleFlee());
     }
 
-    public static NaSt callDifficultyBeanRandomWildFightGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRandomWildFightGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanRandomWildFightGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRandomWildFight());
     }
 
-    public static NaSt callDifficultyBeanEnabledClosingGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanEnabledClosingGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanEnabledClosingGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getEnabledClosing());
     }
 
-    public static NaSt callDifficultyBeanRestoredMovesEndFightGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRestoredMovesEndFightGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanRestoredMovesEndFightGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRestoredMovesEndFight());
     }
 
-    public static NaSt callDifficultyBeanAllowedSwitchPlacesEndRoundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanAllowedSwitchPlacesEndRoundGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanAllowedSwitchPlacesEndRoundGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getAllowedSwitchPlacesEndRound());
     }
 
-    public static NaSt callDifficultyBeanEndFightIfOneTeamKoGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanEndFightIfOneTeamKoGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanEndFightIfOneTeamKoGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getEndFightIfOneTeamKo());
     }
 
-    public static NaSt callDifficultyBeanAllowCatchingKoGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanAllowCatchingKoGet(),inner(_str),_args);
+    public static NaSt callDifficultyBeanAllowCatchingKoGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getAllowCatchingKo());
     }
 
     private static NaSt inner(NaSt _str) {
@@ -237,7 +237,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         b_.beforeDisplaying();
         return new PokemonBeanStruct(b_);
     }
-//
+    //
     private static DifficultyCommon inner(DifficultyBean _str) {
 //        DifficultyCommonBean b_ = new DifficultyCommonBean();
 //        b_.setOwner(_str.getDifficultyCommon());
