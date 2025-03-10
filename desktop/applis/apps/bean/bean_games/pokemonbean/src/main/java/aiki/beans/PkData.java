@@ -2,10 +2,6 @@ package aiki.beans;
 
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.help.*;
-import aiki.beans.map.*;
-import aiki.beans.map.characters.*;
-import aiki.beans.map.elements.*;
-import aiki.beans.map.pokemon.*;
 import aiki.beans.solution.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
@@ -44,10 +40,10 @@ public final class PkData extends PokemonStandards {
         AikiBeansHelpStd.build(this);
 //        AikiBeansItemsStd.build(this);
 //        AikiBeansItemsEffectsStd.build(this);
-        AikiBeansMapCharactersStd.build(this);
-        AikiBeansMapElementsStd.build(this);
-        AikiBeansMapStd.build(this);
-        AikiBeansMapPokemonStd.build(this);
+//        AikiBeansMapCharactersStd.build(this);
+//        AikiBeansMapElementsStd.build(this);
+//        AikiBeansMapStd.build(this);
+//        AikiBeansMapPokemonStd.build(this);
 //        AikiBeansMovesEffectsStd.build(this);
 //        AikiBeansMovesStd.build(this);
 //        AikiBeansPokemonEvolutionsStd.build(this);

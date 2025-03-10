@@ -8,30 +8,30 @@ import code.util.StringMap;
 public abstract class InitDbArea extends InitDbLevelMap{
 
     public static NaSt callAreaApparitionGetAvgNbSteps(int _area) {
-        return BeanPokemonCommonTs.callLongs(new AreaApparitionGetAvgNbSteps(),callAreaBeanAreaGet(_area));
+        return new NaNbSt(( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getAvgNbSteps());
     }
 
     public static NaSt callAreaApparitionGetWildPokemon(int _area) {
-        return BeanPokemonCommonTs.callLongs(new AreaApparitionGetWildPokemon(),callAreaBeanAreaGet(_area));
+        return PokemonStandards.getWildPkArray(( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getWildPokemon());
     }
 
     public static NaSt callAreaApparitionGetWildPokemonFishing(int _area) {
-        return BeanPokemonCommonTs.callLongs(new AreaApparitionGetWildPokemonFishing(),callAreaBeanAreaGet(_area));
+        return PokemonStandards.getWildPkArray(( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getWildPokemonFishing());
     }
 
     public static NaSt callAreaBeanAreaGet(int _area) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanAreaGet(),displayArea(_area));
+        return new AreaApparitionStruct(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getArea());
     }
 
     public static String callAreaBeanClickAbilityId(int _area, int _pk) {
         NaSt bean_ = displayArea(_area);
-        BeanPokemonCommonTs.callLongs(new AreaBeanClickAbility(),bean_,_pk);
+        ((AreaBean) ((PokemonBeanStruct)bean_).getInstance()).clickAbility(_pk);
         return getValAbilityId(bean_);
     }
 
     public static String callAreaBeanClickAbilityFishingId(int _area, int _pk) {
         NaSt bean_ = displayArea(_area);
-        BeanPokemonCommonTs.callLongs(new AreaBeanClickAbilityFishing(),bean_,_pk);
+        ((AreaBean) ((PokemonBeanStruct)bean_).getInstance()).clickAbilityFishing(_pk);
         return getValAbilityId(bean_);
     }
 
@@ -44,11 +44,11 @@ public abstract class InitDbArea extends InitDbLevelMap{
     }
 
     public static String callAreaBeanClickItem(NaSt _str, int _pk) {
-        return navigateData(new AreaBeanClickItem(),_str,_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_pk)).getInstance();
     }
 
     public static String callAreaBeanClickItemFishing(NaSt _str, int _pk) {
-        return navigateData(new AreaBeanClickItemFishing(),_str,_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)_str).getInstance()).clickItemFishing(_pk)).getInstance();
     }
 
     public static String callAreaBeanClickItemId(int _area, int _pk) {
@@ -65,82 +65,82 @@ public abstract class InitDbArea extends InitDbLevelMap{
 
     public static String callAreaBeanClickMoveId(int _area, int _pk, int _move) {
         NaSt bean_ = displayArea(_area);
-        BeanPokemonCommonTs.callLongs(new AreaBeanClickMove(),bean_,_pk,_move);
+        ((AreaBean) ((PokemonBeanStruct)bean_).getInstance()).clickMove(_pk,_move);
         return getValMoveId(bean_);
     }
 
     public static String callAreaBeanClickMoveFishingId(int _area, int _pk, int _move) {
         NaSt bean_ = displayArea(_area);
-        BeanPokemonCommonTs.callLongs(new AreaBeanClickMoveFishing(),bean_,_pk,_move);
+        ((AreaBean) ((PokemonBeanStruct)bean_).getInstance()).clickMoveFishing(_pk,_move);
         return getValMoveId(bean_);
     }
 
     public static String callAreaBeanClickNameId(int _area, int _pk) {
         NaSt bean_ = displayArea(_area);
-        BeanPokemonCommonTs.callLongs(new AreaBeanClickName(),bean_,_pk);
+        ((AreaBean) ((PokemonBeanStruct)bean_).getInstance()).clickName(_pk);
         return getValPkId(bean_);
     }
 
     public static String callAreaBeanClickNameFishingId(int _area, int _pk) {
         NaSt bean_ = displayArea(_area);
-        BeanPokemonCommonTs.callLongs(new AreaBeanClickNameFishing(),bean_,_pk);
+        ((AreaBean) ((PokemonBeanStruct)bean_).getInstance()).clickNameFishing(_pk);
         return getValPkId(bean_);
     }
 
     public static NaSt callAreaBeanGetAbility(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetAbility(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getAbility(_pk));
     }
 
     public static NaSt callAreaBeanGetAbilityFishing(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetAbilityFishing(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getAbilityFishing(_pk));
     }
 
     public static NaSt callAreaBeanGetGender(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetGender(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getGender(_pk));
     }
 
     public static NaSt callAreaBeanGetGenderFishing(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetGenderFishing(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getGenderFishing(_pk));
     }
 
     public static NaSt callAreaBeanGetImage(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetImage(),displayArea(_area),_pk);
+        return new NaImgSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getImage(_pk));
     }
 
     public static NaSt callAreaBeanGetImageFishing(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetImageFishing(),displayArea(_area),_pk);
+        return new NaImgSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getImageFishing(_pk));
     }
 
     public static NaSt callAreaBeanGetItem(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetItem(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getItem(_pk));
     }
 
     public static NaSt callAreaBeanGetItemFishing(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetItemFishing(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getItemFishing(_pk));
     }
 
     public static NaSt callAreaBeanGetMove(int _area, int _pk, int _move) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetMove(),displayArea(_area),_pk,_move);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMove(_pk,_move));
     }
 
     public static NaSt callAreaBeanGetMoveFishing(int _area, int _pk, int _move) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetMoveFishing(),displayArea(_area),_pk,_move);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMoveFishing(_pk,_move));
     }
 
     public static NaSt callAreaBeanGetMovesAtLevel(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetMovesAtLevel(),displayArea(_area),_pk);
+        return PokemonStandards.getKeys(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMovesAtLevel(_pk));
     }
 
     public static NaSt callAreaBeanGetMovesAtLevelFishing(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetMovesAtLevelFishing(),displayArea(_area),_pk);
+        return PokemonStandards.getKeys(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMovesAtLevelFishing(_pk));
     }
 
     public static NaSt callAreaBeanGetName(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetName(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getName(_pk));
     }
 
     public static NaSt callAreaBeanGetNameFishing(int _area, int _pk) {
-        return BeanPokemonCommonTs.callLongs(new AreaBeanGetNameFishing(),displayArea(_area),_pk);
+        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getNameFishing(_pk));
     }
     public static NaSt displayArea(int _area){
         PkData pk_ = pkDataByFacade(db());
@@ -150,7 +150,7 @@ public abstract class InitDbArea extends InitDbLevelMap{
 
     private static NaSt transitArea(int _no,PkData _pk, StringMap<NaSt> _all) {
         NaSt bean_ = transitLevelZero(2, _pk, _all);
-        NaSt area_ = _all.getVal(AikiBeansMapStd.BEAN_AREA);
+        NaSt area_ = _all.getVal(InitDbMap.BEAN_AREA);
         transit(_pk,new MapLevelBeanClickArea(((AbsLevelBean) ((PokemonBeanStruct)bean_).getBean()),_no),bean_,area_);
         return area_;
     }

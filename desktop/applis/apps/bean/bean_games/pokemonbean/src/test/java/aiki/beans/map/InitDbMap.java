@@ -167,19 +167,29 @@ public abstract class InitDbMap extends InitDbConstr {
     public static final int IMG_19 = IMG_18 + 1;
     public static final int IMG_20 = IMG_19 + 1;
     public static final int IMG_21 = IMG_20 + 1;
-//    public static final String IMG_DUAL = "AAACAAAWAAAX";
+    //    public static final String IMG_DUAL = "AAACAAAWAAAX";
     public static final int IMG_SINGLE = 22;
     public static final int IMG_DUAL1 = IMG_SINGLE + 1;
     public static final int IMG_DUAL2 = IMG_DUAL1 + 1;
     public static final int IMG_SI = IMG_DUAL2 + 1;
     public static final int IMG_ITEM = 16777215;
+    public static final String BEAN_GAME_MAP="game_map";
+    public static final String BEAN_LEVEL_MAP="level_map";
+    public static final String BEAN_PK_TEAM="pk_team";
+    public static final String BEAN_TRAINER_FIGHT="trainer_fight";
+    public static final String BEAN_ALLY="ally";
+    public static final String BEAN_DUAL="dual";
+    public static final String BEAN_AREA="area";
+    public static final String BEAN_LEG_PK="leg_pk";
+    public static final String BEAN_DEALER="dealer";
+    public static final String BEAN_SELLER="seller";
 
     public static String callMapBeanClickLevel(int _place, int _level) {
         return callMapBeanClickLevel(dispMap(),_place,_level);
     }
 
     public static String callMapBeanClickLevel(NaSt _str, int _place, int _level) {
-        return navigateData(new MapBeanClickLevel(),_str,_place,_level);
+        return new NaStSt(( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,_level)).getInstance();
     }
 
     public static Coords callMapBeanClickLevelId(int _place, int _level) {
@@ -192,7 +202,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     public static String callMapBeanClickLevelZero(NaSt _str, int  _place) {
-        return navigateData(new MapBeanClickLevelZero(),_str,_place);
+        return new NaStSt(( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,0)).getInstance();
     }
 
     public static Coords callMapBeanClickLevelZeroId(int _place) {
@@ -201,15 +211,15 @@ public abstract class InitDbMap extends InitDbConstr {
         return getValPlaceLevelId(bean_);
     }
     public static NaSt callMapBeanIsMultiLayer(int _place) {
-        return BeanPokemonCommonTs.callLongs(new MapBeanIsMultiLayer(),dispMap(),_place);
+        return NaBoSt.of(( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).isMultiLayer(_place));
     }
 
     public static NaSt callMapBeanLayers(int _place) {
-        return BeanPokemonCommonTs.callLongs(new MapBeanLayers(),dispMap(),_place);
+        return PokemonStandards.getLayers(( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).layers(_place));
     }
 
     public static NaSt callMapBeanPlacesGet() {
-        return BeanPokemonCommonTs.callLongs(new MapBeanPlacesGet(),dispMap());
+        return PokemonStandards.getPlInd(( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).getPlaces());
     }
 
     protected static NaSt dispMap() {
@@ -219,7 +229,7 @@ public abstract class InitDbMap extends InitDbConstr {
 
     private static NaSt dispMap(PkData _pk) {
         StringMap<NaSt> all_ = beanToMap(_pk);
-        NaSt welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        NaSt welcome_ = all_.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
         ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
         return welcome_;
@@ -232,10 +242,10 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     protected static NaSt transitLevel(int _place, int _level, PkData _pk, StringMap<NaSt> _all) {
-        NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        NaSt welcome_ = _all.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
         ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
-        NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        NaSt moves_ = _all.getVal(BEAN_LEVEL_MAP);
         transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,_level),welcome_,moves_);
         return moves_;
     }
@@ -247,10 +257,10 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     protected static NaSt transitLevelZero(int _place, PkData _pk, StringMap<NaSt> _all) {
-        NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        NaSt welcome_ = _all.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
         ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
-        NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        NaSt moves_ = _all.getVal(BEAN_LEVEL_MAP);
         transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,0),welcome_,moves_);
         return moves_;
     }
@@ -287,23 +297,23 @@ public abstract class InitDbMap extends InitDbConstr {
         bu_.setTranslations(tr_);
         bu_.setFacade(welcome_.getFacade());
         welcome_.setBuilder(bu_);
-        map_.addEntry(AikiBeansMapStd.BEAN_GAME_MAP, _pk.bean(welcome_, EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_LEVEL_MAP, _pk.bean(build(new MapLevelBean(), CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,bu_), EN));
+        map_.addEntry(BEAN_GAME_MAP, _pk.bean(welcome_, EN));
+        map_.addEntry(BEAN_LEVEL_MAP, _pk.bean(build(new MapLevelBean(), CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,bu_), EN));
 //        map_.addEntry(AikiBeansMapStd.BEAN_PK_TEAM, _pk.bean(build(new PokemonTeamBean(),bu_), EN));
         TrainerBean trainer_ = new TrainerBean();
-        map_.addEntry(AikiBeansMapStd.BEAN_TRAINER_FIGHT, _pk.bean(build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,bu_), EN));
+        map_.addEntry(BEAN_TRAINER_FIGHT, _pk.bean(build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,bu_), EN));
         _pk.bean(build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,bu_), EN);
 //        map_.addEntry(AikiBeansMapStd.BEAN_ALLY, _pk.bean(build(new AllyBean(),bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_DUAL, _pk.bean(build(new DualFightBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_AREA, _pk.bean(build(new AreaBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_LEG_PK, _pk.bean(build(new LegendaryPokemonBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_DEALER, _pk.bean(build(new DealerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,bu_), EN));
-        map_.addEntry(AikiBeansMapStd.BEAN_SELLER, _pk.bean(build(new SellerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,bu_), EN));
+        map_.addEntry(BEAN_DUAL, _pk.bean(build(new DualFightBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,bu_), EN));
+        map_.addEntry(BEAN_AREA, _pk.bean(build(new AreaBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,bu_), EN));
+        map_.addEntry(BEAN_LEG_PK, _pk.bean(build(new LegendaryPokemonBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,bu_), EN));
+        map_.addEntry(BEAN_DEALER, _pk.bean(build(new DealerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,bu_), EN));
+        map_.addEntry(BEAN_SELLER, _pk.bean(build(new SellerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,bu_), EN));
         bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML,welcome_);
         return map_;
     }
     protected static MapBean mainBean(StringMap<NaSt> _all) {
-        return (MapBean) ((PokemonBeanStruct)_all.getVal(AikiBeansMapStd.BEAN_GAME_MAP)).getBean();
+        return (MapBean) ((PokemonBeanStruct)_all.getVal(BEAN_GAME_MAP)).getBean();
     }
     protected static BeanRenderWithAppName bean(StringMap<NaSt> _all, String _lk) {
         return mainBean(_all).getBuilder().getRenders().getVal(_lk);
@@ -313,7 +323,7 @@ public abstract class InitDbMap extends InitDbConstr {
         _bu.getRenders().addEntry(_k,_c);
         return (CommonBean) _c;
     }
-//    public static StringMap<String> mappingToMap() {
+    //    public static StringMap<String> mappingToMap() {
 //        StringMap<String> map_ = new StringMap<String>();
 //        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_MAP_HTML,AikiBeansMapStd.BEAN_GAME_MAP);
 //        map_.addEntry(PkScriptPages.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,AikiBeansMapStd.BEAN_LEVEL_MAP);
