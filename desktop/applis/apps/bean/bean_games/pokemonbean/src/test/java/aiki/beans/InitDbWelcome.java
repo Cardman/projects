@@ -22,9 +22,9 @@ public abstract class InitDbWelcome extends InitDbConstr {
     public static String navigatePokedex(NaSt _str) {
         return navigateData(new WelcomeBeanClickPokedex((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);
     }
-    public static String navigateSimulation(NaSt _str) {
-        return navigateData(new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str);
-    }
+//    public static String navigateSimulation(NaSt _str) {
+//        return navigateData(new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str);
+//    }
     public static String navigateStatus(NaSt _str) {
         return navigateData(new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)_str).getBean())),_str);
     }
@@ -32,13 +32,13 @@ public abstract class InitDbWelcome extends InitDbConstr {
         return navigateData(new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);
     }
 
-    public static String navigateLearntMoves(NaSt _str) {
-        return navigateData(new WelcomeBeanSeeLearntMoves(),_str);
-    }
-
-    public static String navigateNotLearntMoves(NaSt _str) {
-        return navigateData(new WelcomeBeanSeeNotLearntMoves(),_str);
-    }
+//    public static String navigateLearntMoves(NaSt _str) {
+//        return navigateData(new WelcomeBeanSeeLearntMoves(),_str);
+//    }
+//
+//    public static String navigateNotLearntMoves(NaSt _str) {
+//        return navigateData(new WelcomeBeanSeeNotLearntMoves(),_str);
+//    }
     public static NaSt beanWelcome(FacadeGame _dataBase) {
         PkData pk_ = pkDataByFacade(_dataBase);
         pk_.getDataBase().getData().completeMoveTutors();

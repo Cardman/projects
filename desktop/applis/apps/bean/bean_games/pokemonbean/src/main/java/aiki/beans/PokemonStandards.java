@@ -63,9 +63,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //    public static final String TYPE_POSITIVE_RATE_VALIDATOR = "PositiveRateValidator";
 //    public static final String TYPE_SHORT_VALIDATOR = "ShortValidator";
 //    public static final String TYPE_UNSELECTED_RADIO = "UnselectedRadio";
-    private static final String IS_ZERO = "isZero";
-    private static final String IS_ZERO_OR_GT = "isZeroOrGt";
-    private static final String ABS_NB = "absNb";
+//    private static final String IS_ZERO = "isZero";
+//    private static final String IS_ZERO_OR_GT = "isZeroOrGt";
+//    private static final String ABS_NB = "absNb";
 
     private static final String REF_TAG = "#";
 
@@ -97,9 +97,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(IS_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZero()));
-        methods_.add( new SpecNatMethod(IS_ZERO_OR_GT,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZeroOrGt()));
-        methods_.add( new SpecNatMethod(ABS_NB,BeanNatCommonLgNames.TYPE_RATE, new RateAbsNb()));
+//        methods_.add( new SpecNatMethod(IS_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZero()));
+//        methods_.add( new SpecNatMethod(IS_ZERO_OR_GT,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZeroOrGt()));
+//        methods_.add( new SpecNatMethod(ABS_NB,BeanNatCommonLgNames.TYPE_RATE, new RateAbsNb()));
         _std.getStds().addEntry(TYPE_RATE, type_);
     }
     private static void buildLgInt(PokemonStandards _std){

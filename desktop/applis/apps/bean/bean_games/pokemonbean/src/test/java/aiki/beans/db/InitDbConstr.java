@@ -169,10 +169,10 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String ST_DEF_SPE_TR="ST_DEF_SPE_TR";
     protected static final String ST_SPEED_TR="ST_SPEED_TR";
     protected static final String ST_HP_TR="ST_HP_TR";
-    public static String navigateData(NatCaller _caller, NaSt _str, long... _args) {
-        PkScriptPagesInit.initConfData(new NatConfigurationCore());
-        return navigate(_caller, "", _str, _args);
-    }
+//    public static String navigateData(NatCaller _caller, NaSt _str, long... _args) {
+//        PkScriptPagesInit.initConfData(new NatConfigurationCore());
+//        return navigate(_caller, "", _str, _args);
+//    }
     //    public static String navigateData(IntBeanAction _caller, NaSt _str) {
 //        PkScriptPagesInit.initConfData(new NatConfigurationCore());
 //        return _caller.actionBean();

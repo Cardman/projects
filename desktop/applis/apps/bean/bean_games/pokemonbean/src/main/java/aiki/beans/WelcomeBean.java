@@ -56,16 +56,16 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
         getForms().removeKey(CST_LEARNT);
         return CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
     }
-    public String seeLearntMoves() {
-        getForms().putMoves(CST_MOVES_SET, DictionaryComparatorUtil.buildMovesData());
-        getForms().put(CST_LEARNT, true);
-        return CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
-    }
-    public String seeNotLearntMoves() {
-        getForms().putMoves(CST_MOVES_SET, DictionaryComparatorUtil.buildMovesData());
-        getForms().put(CST_LEARNT, false);
-        return CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
-    }
+//    public String seeLearntMoves() {
+//        getForms().putMoves(CST_MOVES_SET, DictionaryComparatorUtil.buildMovesData());
+//        getForms().put(CST_LEARNT, true);
+//        return CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
+//    }
+//    public String seeNotLearntMoves() {
+//        getForms().putMoves(CST_MOVES_SET, DictionaryComparatorUtil.buildMovesData());
+//        getForms().put(CST_LEARNT, false);
+//        return CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML;
+//    }
     public String clickAbilities() {
         getForms().putAbilities(CST_ABILITIES_SET, DictionaryComparatorUtil.buildAbilitiesData());
         return CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML;

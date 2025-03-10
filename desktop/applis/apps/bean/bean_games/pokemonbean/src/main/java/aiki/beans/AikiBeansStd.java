@@ -10,8 +10,8 @@ public final class AikiBeansStd{
 //    private static final String CLICK_POKEDEX = "clickPokedex";
 //    private static final String CLICK_ITEMS = "clickItems";
 //    private static final String SEE_ALL_MOVES = "seeAllMoves";
-    private static final String SEE_LEARNT_MOVES = "seeLearntMoves";
-    private static final String SEE_NOT_LEARNT_MOVES = "seeNotLearntMoves";
+//    private static final String SEE_LEARNT_MOVES = "seeLearntMoves";
+//    private static final String SEE_NOT_LEARNT_MOVES = "seeNotLearntMoves";
 //    private static final String CLICK_ABILITIES = "clickAbilities";
 //    private static final String CLICK_STATUS = "clickStatus";
     private static final String CLICK_SIMULATION = "clickSimulation";
@@ -59,8 +59,8 @@ public final class AikiBeansStd{
 //        methods_.add( new SpecNatMethod(CLICK_POKEDEX, BeanNatCommonLgNames.STRING, new WelcomeBeanClickPokedex()));
 //        methods_.add( new SpecNatMethod(CLICK_ITEMS,BeanNatCommonLgNames.STRING, new WelcomeBeanClickItems()));
 //        methods_.add( new SpecNatMethod(SEE_ALL_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeAllMoves()));
-        methods_.add( new SpecNatMethod(SEE_LEARNT_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeLearntMoves()));
-        methods_.add( new SpecNatMethod(SEE_NOT_LEARNT_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeNotLearntMoves()));
+//        methods_.add( new SpecNatMethod(SEE_LEARNT_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeLearntMoves()));
+//        methods_.add( new SpecNatMethod(SEE_NOT_LEARNT_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeNotLearntMoves()));
 //        methods_.add( new SpecNatMethod(CLICK_ABILITIES,BeanNatCommonLgNames.STRING, new WelcomeBeanClickAbilities()));
 //        methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, new WelcomeBeanClickStatus()));
         methods_.add( new SpecNatMethod(CLICK_SIMULATION,BeanNatCommonLgNames.STRING, new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML)));

@@ -236,16 +236,16 @@ public final class CommonBeanTest extends InitDbWelcome {
         return new RedirectSt(_key, DEF_DIR);
     }
 
-    public static NaSt callRateAbsNb(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new RateAbsNb(),_str,_args);
+    public static NaSt callRateAbsNb(NaSt _str, int... _args) {
+        return new RtSt(( ((RtSt) _str).getInstance()).absNb());
     }
 
-    public static NaSt callRateIsZero(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new RateIsZero(),_str,_args);
+    public static NaSt callRateIsZero(NaSt _str, int... _args) {
+        return NaBoSt.of(( ((RtSt) _str).getInstance()).isZero());
     }
 
-    public static NaSt callRateIsZeroOrGt(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new RateIsZeroOrGt(),_str,_args);
+    public static NaSt callRateIsZeroOrGt(NaSt _str, int... _args) {
+        return NaBoSt.of(( ((RtSt) _str).getInstance()).isZeroOrGt());
     }
     private String value(StringMapObject _forms) {
         return _forms.getValStr(KEY);

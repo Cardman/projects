@@ -36,53 +36,53 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
 
-    public static String navigate(NatCaller _caller, String _concat, NaSt _str, long... _args) {
-        NaSt res_ = callLongs(_caller, _str, _args);
-//        BeanNatCommonLgNames.methName(_concat);
-        return BeanNatCommonLgNames.processString(res_);
-//        String urlDest_ = _currentUrl;
-//        if (_ret != NullStruct.NULL_VALUE) {
-//            StringMap<String> cases_ = _navigation.getVal(_concat);
-//            String ca_ = BeanNatCommonLgNames.processString(_ret);
-//            if (cases_ == null) {
-////                if (ca_.isEmpty()) {
-////                    return _currentUrl;
-////                }
-//                return ca_;
-//            }
-//            urlDest_ = cases_.getVal(ca_);
-//            if (urlDest_ == null) {
-//                urlDest_ = _currentUrl;
-//            }
-//        }
-//        return urlDest_;
-    }
-
-
-    public static NaSt callRate(NatCaller _caller, NaSt _str, Rate _args) {
-        _caller.re(_str,new NaSt[]{new RtSt(_args)});
-        return _str;
-    }
-    public static NaSt callBool(NatCaller _caller, NaSt _str, boolean _args) {
-        _caller.re(_str,new NaSt[]{NaBoSt.of(_args)});
-        return _str;
-    }
-    public static NaSt callInt(NatCaller _caller, NaSt _str, int _args) {
-        _caller.re(_str,new NaSt[]{new NaNbSt(_args)});
-        return _str;
-    }
-    public static NaSt callString(NatCaller _caller, NaSt _str, String _args) {
-        _caller.re(_str,new NaSt[]{new NaStSt(_args)});
-        return _str;
-    }
-
-    public static NaSt callLongs(NatCaller _caller, NaSt _str, long... _args) {
-        return _caller.re(_str,getLongArray(_args));
-    }
-    public static NaSt callStruct(NatCaller _caller, NaSt _str, NaSt _args) {
-        _caller.re(_str,new NaSt[]{_args});
-        return _str;
-    }
+//    public static String navigate(NatCaller _caller, String _concat, NaSt _str, long... _args) {
+//        NaSt res_ = callLongs(_caller, _str, _args);
+////        BeanNatCommonLgNames.methName(_concat);
+//        return BeanNatCommonLgNames.processString(res_);
+////        String urlDest_ = _currentUrl;
+////        if (_ret != NullStruct.NULL_VALUE) {
+////            StringMap<String> cases_ = _navigation.getVal(_concat);
+////            String ca_ = BeanNatCommonLgNames.processString(_ret);
+////            if (cases_ == null) {
+//////                if (ca_.isEmpty()) {
+//////                    return _currentUrl;
+//////                }
+////                return ca_;
+////            }
+////            urlDest_ = cases_.getVal(ca_);
+////            if (urlDest_ == null) {
+////                urlDest_ = _currentUrl;
+////            }
+////        }
+////        return urlDest_;
+//    }
+//
+//
+//    public static NaSt callRate(NatCaller _caller, NaSt _str, Rate _args) {
+//        _caller.re(_str,new NaSt[]{new RtSt(_args)});
+//        return _str;
+//    }
+//    public static NaSt callBool(NatCaller _caller, NaSt _str, boolean _args) {
+//        _caller.re(_str,new NaSt[]{NaBoSt.of(_args)});
+//        return _str;
+//    }
+//    public static NaSt callInt(NatCaller _caller, NaSt _str, int _args) {
+//        _caller.re(_str,new NaSt[]{new NaNbSt(_args)});
+//        return _str;
+//    }
+//    public static NaSt callString(NatCaller _caller, NaSt _str, String _args) {
+//        _caller.re(_str,new NaSt[]{new NaStSt(_args)});
+//        return _str;
+//    }
+//
+//    public static NaSt callLongs(NatCaller _caller, NaSt _str, long... _args) {
+//        return _caller.re(_str,getLongArray(_args));
+//    }
+//    public static NaSt callStruct(NatCaller _caller, NaSt _str, NaSt _args) {
+//        _caller.re(_str,new NaSt[]{_args});
+//        return _str;
+//    }
 
     public static int toInt(NaSt _str) {
         return NaPa.convertToNumber(_str).intStruct();

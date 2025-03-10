@@ -63,34 +63,34 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     public void allMoves2() {
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(displaying(beanWelcome(feedDb())))));
     }
-    @Test
-    public void learntMoves() {
-        NaSt bean_ = beanWelcome(feedDb());
-        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateLearntMoves(displaying(bean_)));
-        assertTrue(forms(bean_).contains(CST_MOVES_SET));
-        assertTrue(forms(bean_).contains(CST_LEARNT));
-        assertTrue(forms(bean_).getValBool(CST_LEARNT));
-        assertTrue(forms(bean_).getValMoveData(CST_MOVES_SET).isEmpty());
-        assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
-        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
-        assertEq(2,keys_.size());
-        assertTrue(StringUtil.contains(keys_,M_DAM));
-        assertTrue(StringUtil.contains(keys_,M_STA));
-    }
-    @Test
-    public void notLearntMoves() {
-        NaSt bean_ = beanWelcome(feedDb());
-        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateNotLearntMoves(displaying(bean_)));
-        assertTrue(forms(bean_).contains(CST_MOVES_SET));
-        assertTrue(forms(bean_).contains(CST_LEARNT));
-        assertFalse(forms(bean_).getValBool(CST_LEARNT));
-        assertTrue(forms(bean_).getValMoveData(CST_MOVES_SET).isEmpty());
-        assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
-        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
-        assertEq(2,keys_.size());
-        assertTrue(StringUtil.contains(keys_,M_DAM));
-        assertTrue(StringUtil.contains(keys_,M_STA));
-    }
+//    @Test
+//    public void learntMoves() {
+//        NaSt bean_ = beanWelcome(feedDb());
+//        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateLearntMoves(displaying(bean_)));
+//        assertTrue(forms(bean_).contains(CST_MOVES_SET));
+//        assertTrue(forms(bean_).contains(CST_LEARNT));
+//        assertTrue(forms(bean_).getValBool(CST_LEARNT));
+//        assertTrue(forms(bean_).getValMoveData(CST_MOVES_SET).isEmpty());
+//        assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
+//        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
+//        assertEq(2,keys_.size());
+//        assertTrue(StringUtil.contains(keys_,M_DAM));
+//        assertTrue(StringUtil.contains(keys_,M_STA));
+//    }
+//    @Test
+//    public void notLearntMoves() {
+//        NaSt bean_ = beanWelcome(feedDb());
+//        assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateNotLearntMoves(displaying(bean_)));
+//        assertTrue(forms(bean_).contains(CST_MOVES_SET));
+//        assertTrue(forms(bean_).contains(CST_LEARNT));
+//        assertFalse(forms(bean_).getValBool(CST_LEARNT));
+//        assertTrue(forms(bean_).getValMoveData(CST_MOVES_SET).isEmpty());
+//        assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
+//        CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
+//        assertEq(2,keys_.size());
+//        assertTrue(StringUtil.contains(keys_,M_DAM));
+//        assertTrue(StringUtil.contains(keys_,M_STA));
+//    }
     @Test
     public void abilities() {
         NaSt bean_ = beanWelcome(feedDb());
@@ -119,13 +119,13 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertTrue(forms(bean_).contains(CST_STATUS_SET));
         assertTrue(forms(bean_).getValStatusData(CST_STATUS_SET).isEmpty());
     }
-    @Test
-    public void simulation() {
-        NaSt bean_ = beanWelcome(feedDb());
-        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,navigateSimulation(displaying(bean_)));
-        assertTrue(forms(bean_).contains(CST_SIMULATION_STATE));
-        assertSame(SimulationSteps.DIFF,forms(bean_).getValSimStep(CST_SIMULATION_STATE));
-    }
+//    @Test
+//    public void simulation() {
+//        NaSt bean_ = beanWelcome(feedDb());
+//        assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,navigateSimulation(displaying(bean_)));
+//        assertTrue(forms(bean_).contains(CST_SIMULATION_STATE));
+//        assertSame(SimulationSteps.DIFF,forms(bean_).getValSimStep(CST_SIMULATION_STATE));
+//    }
     @Test
     public void init() {
         FacadeGame f_ = facade();
