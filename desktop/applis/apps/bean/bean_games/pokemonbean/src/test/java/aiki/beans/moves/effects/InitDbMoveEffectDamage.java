@@ -1,6 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -20,108 +20,108 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
 
-    public static NaSt callEffectDamageBeanBoostStatisOnceKoFoeGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanBoostStatisOnceKoFoeGet(),_str,_args);
+    public static NaSt callEffectDamageBeanBoostStatisOnceKoFoeGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrLongVal(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getBoostStatisOnceKoFoe());
     }
 
-    public static NaSt callEffectDamageBeanChLawGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanChLawGet(),_str,_args);
+    public static NaSt callEffectDamageBeanChLawGet(NaSt _str, int... _args) {
+        return PokemonStandards.getRateRate(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getChLaw());
     }
 
-    public static NaSt callEffectDamageBeanChRateGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanChRateGet(),_str,_args);
+    public static NaSt callEffectDamageBeanChRateGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getChRate());
     }
 
-    public static NaSt callEffectDamageBeanConstDamageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanConstDamageGet(),_str,_args);
+    public static NaSt callEffectDamageBeanConstDamageGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getConstDamage());
     }
 
-    public static NaSt callEffectDamageBeanConstPower(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanConstPower(),_str,_args);
+    public static NaSt callEffectDamageBeanConstPower(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).constPower());
     }
 
-    public static NaSt callEffectDamageBeanCounterDamageCat(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanCounterDamageCat(),_str,_args);
+    public static NaSt callEffectDamageBeanCounterDamageCat(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).counterDamageCat());
     }
 
-    public static NaSt callEffectDamageBeanDamageLawGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanDamageLawGet(),_str,_args);
+    public static NaSt callEffectDamageBeanDamageLawGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrRate(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getDamageLaw());
     }
 
-    public static NaSt callEffectDamageBeanGetTranslatedStatisKo(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanGetTranslatedStatisKo(),_str,_args);
+    public static NaSt callEffectDamageBeanGetTranslatedStatisKo(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatisKo(_args[0]));
     }
 
-    public static NaSt callEffectDamageBeanGetTranslatedStatisTarget(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanGetTranslatedStatisTarget(),_str,_args);
+    public static NaSt callEffectDamageBeanGetTranslatedStatisTarget(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatisTarget(_args[0]));
     }
 
-    public static NaSt callEffectDamageBeanGetTranslatedStatisUser(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanGetTranslatedStatisUser(),_str,_args);
+    public static NaSt callEffectDamageBeanGetTranslatedStatisUser(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatisUser(_args[0]));
     }
 
-    public static NaSt callEffectDamageBeanHasConstPower(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanHasConstPower(),_str,_args);
+    public static NaSt callEffectDamageBeanHasConstPower(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).hasConstPower());
     }
 
-    public static NaSt callEffectDamageBeanHasDeterminatedLawForDamage(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanHasDeterminatedLawForDamage(),_str,_args);
+    public static NaSt callEffectDamageBeanHasDeterminatedLawForDamage(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).hasDeterminatedLawForDamage());
     }
 
-    public static NaSt callEffectDamageBeanHasLawForDamage(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanHasLawForDamage(),_str,_args);
+    public static NaSt callEffectDamageBeanHasLawForDamage(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForDamage());
     }
 
-    public static NaSt callEffectDamageBeanHitsLawGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanHitsLawGet(),_str,_args);
+    public static NaSt callEffectDamageBeanHitsLawGet(NaSt _str, int... _args) {
+        return PokemonStandards.getLongRate(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getHitsLaw());
     }
 
-    public static NaSt callEffectDamageBeanIgnVarStatTargetPosGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanIgnVarStatTargetPosGet(),_str,_args);
+    public static NaSt callEffectDamageBeanIgnVarStatTargetPosGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getIgnVarStatTargetPos());
     }
 
-    public static NaSt callEffectDamageBeanIgnVarStatUserNegGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanIgnVarStatUserNegGet(),_str,_args);
+    public static NaSt callEffectDamageBeanIgnVarStatUserNegGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getIgnVarStatUserNeg());
     }
 
-    public static NaSt callEffectDamageBeanMapVarsDamageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanMapVarsDamageGet(),_str,_args);
+    public static NaSt callEffectDamageBeanMapVarsDamageGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrStr(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsDamage());
     }
 
-    public static NaSt callEffectDamageBeanMultDamageAgainstGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanMultDamageAgainstGet(),_str,_args);
+    public static NaSt callEffectDamageBeanMultDamageAgainstGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrRateVal(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamageAgainst());
     }
 
-    public static NaSt callEffectDamageBeanNbHitsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanNbHitsGet(),_str,_args);
+    public static NaSt callEffectDamageBeanNbHitsGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getNbHits());
     }
 
-    public static NaSt callEffectDamageBeanPowerGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanPowerGet(),_str,_args);
+    public static NaSt callEffectDamageBeanPowerGet(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getPower());
     }
 
-    public static NaSt callEffectDamageBeanRandMaxGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanRandMaxGet(),_str,_args);
+    public static NaSt callEffectDamageBeanRandMaxGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getRandMax());
     }
 
-    public static NaSt callEffectDamageBeanStatisAttGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanStatisAttGet(),_str,_args);
+    public static NaSt callEffectDamageBeanStatisAttGet(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getStatisAtt());
     }
 
-    public static NaSt callEffectDamageBeanStatisDefGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanStatisDefGet(),_str,_args);
+    public static NaSt callEffectDamageBeanStatisDefGet(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getStatisDef());
     }
 
-    public static NaSt callEffectDamageBeanSummingUserTeamOkFighterGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanSummingUserTeamOkFighterGet(),_str,_args);
+    public static NaSt callEffectDamageBeanSummingUserTeamOkFighterGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getSummingUserTeamOkFighter());
     }
 
-    public static NaSt callEffectDamageBeanTargetDefenseGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanTargetDefenseGet(),_str,_args);
+    public static NaSt callEffectDamageBeanTargetDefenseGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTargetDefense());
     }
 
-    public static NaSt callEffectDamageBeanUserAttackGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageBeanUserAttackGet(),_str,_args);
+    public static NaSt callEffectDamageBeanUserAttackGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getUserAttack());
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectDamage _dam) {

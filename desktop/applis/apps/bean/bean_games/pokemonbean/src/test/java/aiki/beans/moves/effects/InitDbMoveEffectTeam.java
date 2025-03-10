@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.moves.InitDbMoves;
+import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -18,110 +16,110 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
 
-    public static NaSt callEffectTeamBeanCancelChgtStatFoeTeamGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanCancelChgtStatFoeTeamGet(),_str,_args);
+    public static NaSt callEffectTeamBeanCancelChgtStatFoeTeamGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getCancelChgtStatFoeTeam());
     }
 
-    public static NaSt callEffectTeamBeanCancelChgtStatTeamGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanCancelChgtStatTeamGet(),_str,_args);
+    public static NaSt callEffectTeamBeanCancelChgtStatTeamGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getCancelChgtStatTeam());
     }
 
-    public static String callEffectTeamBeanClickDisableFoeTeamEffects(NaSt _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickDisableFoeTeamEffects(),_str,_args);
+    public static String callEffectTeamBeanClickDisableFoeTeamEffects(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickDisableFoeTeamEffects(_args[0])).getInstance();
     }
-    public static String callEffectTeamBeanClickDisableFoeTeamEffectsId(NaSt _str, long... _args) {
+    public static String callEffectTeamBeanClickDisableFoeTeamEffectsId(NaSt _str, int... _args) {
         callEffectTeamBeanClickDisableFoeTeamEffects(_str, _args);
         return getValMoveId(_str);
     }
 
-    public static String callEffectTeamBeanClickDisableFoeTeamStatus(NaSt _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickDisableFoeTeamStatus(),_str,_args);
+    public static String callEffectTeamBeanClickDisableFoeTeamStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickDisableFoeTeamStatus(_args[0])).getInstance();
     }
 
-    public static String callEffectTeamBeanClickDisableFoeTeamStatusId(NaSt _str, long... _args) {
+    public static String callEffectTeamBeanClickDisableFoeTeamStatusId(NaSt _str, int... _args) {
         callEffectTeamBeanClickDisableFoeTeamStatus(_str, _args);
         return getValStatusId(_str);
     }
 
-    public static String callEffectTeamBeanClickStatus(NaSt _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickStatus(),_str,_args);
+    public static String callEffectTeamBeanClickStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0])).getInstance();
     }
 
-    public static String callEffectTeamBeanClickStatusId(NaSt _str, long... _args) {
+    public static String callEffectTeamBeanClickStatusId(NaSt _str, int... _args) {
         callEffectTeamBeanClickStatus(_str, _args);
         return getValStatusId(_str);
     }
 
-    public static String callEffectTeamBeanClickUnusableMove(NaSt _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickUnusableMove(),_str,_args);
+    public static String callEffectTeamBeanClickUnusableMove(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickUnusableMove(_args[0])).getInstance();
     }
 
-    public static String callEffectTeamBeanClickUnusableMoveId(NaSt _str, long... _args) {
+    public static String callEffectTeamBeanClickUnusableMoveId(NaSt _str, int... _args) {
         callEffectTeamBeanClickUnusableMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static NaSt callEffectTeamBeanDefaultBoostGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanDefaultBoostGet(),_str,_args);
+    public static NaSt callEffectTeamBeanDefaultBoostGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDefaultBoost());
     }
 
-    public static NaSt callEffectTeamBeanDisableFoeTeamEffectsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanDisableFoeTeamEffectsGet(),_str,_args);
+    public static NaSt callEffectTeamBeanDisableFoeTeamEffectsGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDisableFoeTeamEffects());
     }
 
-    public static NaSt callEffectTeamBeanDisableFoeTeamStatusGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanDisableFoeTeamStatusGet(),_str,_args);
+    public static NaSt callEffectTeamBeanDisableFoeTeamStatusGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDisableFoeTeamStatus());
     }
 
-    public static NaSt callEffectTeamBeanForbiddenBoostGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanForbiddenBoostGet(),_str,_args);
+    public static NaSt callEffectTeamBeanForbiddenBoostGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getForbiddenBoost());
     }
 
-    public static NaSt callEffectTeamBeanForbiddingHealingGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanForbiddingHealingGet(),_str,_args);
+    public static NaSt callEffectTeamBeanForbiddingHealingGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getForbiddingHealing());
     }
 
-    public static NaSt callEffectTeamBeanGetTrDisableFoeTeamEffects(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanGetTrDisableFoeTeamEffects(),_str,_args);
+    public static NaSt callEffectTeamBeanGetTrDisableFoeTeamEffects(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getTrDisableFoeTeamEffects(_args[0]));
     }
 
-    public static NaSt callEffectTeamBeanGetTrDisableFoeTeamStatus(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanGetTrDisableFoeTeamStatus(),_str,_args);
+    public static NaSt callEffectTeamBeanGetTrDisableFoeTeamStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getTrDisableFoeTeamStatus(_args[0]));
     }
 
-    public static NaSt callEffectTeamBeanGetTrStatus(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanGetTrStatus(),_str,_args);
+    public static NaSt callEffectTeamBeanGetTrStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]));
     }
 
-    public static NaSt callEffectTeamBeanGetTrUnusableMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanGetTrUnusableMove(),_str,_args);
+    public static NaSt callEffectTeamBeanGetTrUnusableMove(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getTrUnusableMove(_args[0]));
     }
 
-    public static NaSt callEffectTeamBeanMultDamageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanMultDamageGet(),_str,_args);
+    public static NaSt callEffectTeamBeanMultDamageGet(NaSt _str, int... _args) {
+        return PokemonStandards.getCatMultRateMap(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamage());
     }
 
-    public static NaSt callEffectTeamBeanMultStatisticFoeGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanMultStatisticFoeGet(),_str,_args);
+    public static NaSt callEffectTeamBeanMultStatisticFoeGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrRateVal(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatisticFoe());
     }
 
-    public static NaSt callEffectTeamBeanMultStatisticGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanMultStatisticGet(),_str,_args);
+    public static NaSt callEffectTeamBeanMultStatisticGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrRateVal(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatistic());
     }
 
-    public static NaSt callEffectTeamBeanProtectAgainstChGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanProtectAgainstChGet(),_str,_args);
+    public static NaSt callEffectTeamBeanProtectAgainstChGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstCh());
     }
 
-    public static NaSt callEffectTeamBeanProtectAgainstLowStatGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanProtectAgainstLowStatGet(),_str,_args);
+    public static NaSt callEffectTeamBeanProtectAgainstLowStatGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstLowStat());
     }
 
-    public static NaSt callEffectTeamBeanProtectAgainstStatusGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanProtectAgainstStatusGet(),_str,_args);
+    public static NaSt callEffectTeamBeanProtectAgainstStatusGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstStatus());
     }
 
-    public static NaSt callEffectTeamBeanUnusableMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectTeamBeanUnusableMovesGet(),_str,_args);
+    public static NaSt callEffectTeamBeanUnusableMovesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getUnusableMoves());
     }
     protected static NaSt dispMoveEffTeam(FacadeGame _fac, int _index) {
         return dispMoveEffTeam(_fac, _index,0);
@@ -132,7 +130,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
 //        StringMap<String> mapping_ = mappingToEffectTeam();
         return transitEffect(_index,_indexEff,pk_,all_);
     }
-//    public static StringMap<NaSt> beanToEffectTeam(PkData _pk) {
+    //    public static StringMap<NaSt> beanToEffectTeam(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
 //        map_.addEntry(InitDbMoves.BEAN_EFFECT_TEAM,_pk.beanEffectTeamBean(EN));
 //        return map_;

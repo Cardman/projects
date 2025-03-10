@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.moves.InitDbMoves;
+import aiki.beans.*;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -22,229 +20,229 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
 
-    public static NaSt callEffectGlobalBeanCancelChgtStatGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanCancelChgtStatGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanCancelChgtStatGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getCancelChgtStat());
     }
 
-    public static NaSt callEffectGlobalBeanCancelEffectsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanCancelEffectsGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanCancelEffectsGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getCancelEffects());
     }
 
-    public static NaSt callEffectGlobalBeanCancelProtectingAbilitiesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanCancelProtectingAbilitiesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanCancelProtectingAbilitiesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getCancelProtectingAbilities());
     }
 
-    public static NaSt callEffectGlobalBeanCanceledIfUsedGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanCanceledIfUsedGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanCanceledIfUsedGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getCanceledIfUsed());
     }
 
-    public static NaSt callEffectGlobalBeanChangedTypesTerrainGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanChangedTypesTerrainGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanChangedTypesTerrainGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getChangedTypesTerrain());
     }
 
-    public static String callEffectGlobalBeanClickCancelledAbility(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickCancelledAbility(),_str,_args);
+    public static String callEffectGlobalBeanClickCancelledAbility(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickCancelledAbility(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickCancelledAbilityId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickCancelledAbilityId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickCancelledAbility(_str, _args);
         return getValAbilityId(_str);
     }
-    public static String callEffectGlobalBeanClickCancelledEffect(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickCancelledEffect(),_str,_args);
+    public static String callEffectGlobalBeanClickCancelledEffect(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickCancelledEffect(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickCancelledEffectId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickCancelledEffectId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickCancelledEffect(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectGlobalBeanClickInvokedMove(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickInvokedMove(),_str,_args);
+    public static String callEffectGlobalBeanClickInvokedMove(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickInvokedMove()).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickInvokedMoveId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickInvokedMoveId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickInvokedMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectGlobalBeanClickInvokingMove(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickInvokingMove(),_str,_args);
+    public static String callEffectGlobalBeanClickInvokingMove(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickInvokingMove(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickInvokingMoveId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickInvokingMoveId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickInvokingMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectGlobalBeanClickInvokingMoveTypes(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickInvokingMoveTypes(),_str,_args);
+    public static String callEffectGlobalBeanClickInvokingMoveTypes(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickInvokingMoveTypes(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickInvokingMoveTypesId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickInvokingMoveTypesId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickInvokingMoveTypes(_str, _args);
         return getValMoveId(_str);
     }
 
-    public static String callEffectGlobalBeanClickMovesTarget(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickMovesTarget(),_str,_args);
+    public static String callEffectGlobalBeanClickMovesTarget(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTarget(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickMovesTargetId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickMovesTargetId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickMovesTarget(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectGlobalBeanClickMultMovePower(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickMultMovePower(),_str,_args);
+    public static String callEffectGlobalBeanClickMultMovePower(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickMultMovePower(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickMultMovePowerId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickMultMovePowerId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickMultMovePower(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectGlobalBeanClickPreventedStatus(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickPreventedStatus(),_str,_args);
+    public static String callEffectGlobalBeanClickPreventedStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickPreventedStatus(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClickPreventedStatusId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClickPreventedStatusId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickPreventedStatus(_str, _args);
         return getValStatusId(_str);
     }
-    public static String callEffectGlobalBeanClickUnusableMove(NaSt _str, long... _args) {
-        return navigateData(new EffectGlobalBeanClickUnusableMove(),_str,_args);
+    public static String callEffectGlobalBeanClickUnusableMove(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).clickUnusableMove(_args[0])).getInstance();
     }
 
-    public static String callEffectGlobalBeanClicUnusableMoveId(NaSt _str, long... _args) {
+    public static String callEffectGlobalBeanClicUnusableMoveId(NaSt _str, int... _args) {
         callEffectGlobalBeanClickUnusableMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static NaSt callEffectGlobalBeanDamageEndRoundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanDamageEndRoundGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanDamageEndRoundGet(NaSt _str, int... _args) {
+        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getDamageEndRound());
     }
 
-    public static NaSt callEffectGlobalBeanDisableImmuAgainstTypesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanDisableImmuAgainstTypesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanDisableImmuAgainstTypesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getDisableImmuAgainstTypes());
     }
 
-    public static NaSt callEffectGlobalBeanEfficiencyMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanEfficiencyMovesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanEfficiencyMovesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getWeatherTypeRateMap(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getEfficiencyMoves());
     }
 
-    public static NaSt callEffectGlobalBeanGetTrCancelledAbility(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrCancelledAbility(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrCancelledAbility(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrCancelledAbility(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrCancelledEffect(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrCancelledEffect(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrCancelledEffect(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrCancelledEffect(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrInvokedMoveTerrain(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrInvokedMoveTerrain(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrInvokedMoveTerrain(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrInvokedMoveTerrain());
     }
 
-    public static NaSt callEffectGlobalBeanGetTrInvokingMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrInvokingMove(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrInvokingMove(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrInvokingMove(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrInvokingMoveTypes(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrInvokingMoveTypes(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrInvokingMoveTypes(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrInvokingMoveTypes(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrMovesTarget(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrMovesTarget(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrMovesTarget(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTarget(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrMultMovePower(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrMultMovePower(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrMultMovePower(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrMultMovePower(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrMultStatIfDamgeTypeFirst(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrMultStatIfDamgeTypeFirst(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrMultStatIfDamgeTypeFirst(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrMultStatIfDamgeTypeFirst(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrMultStatIfDamgeTypeSecond(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrMultStatIfDamgeTypeSecond(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrMultStatIfDamgeTypeSecond(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrMultStatIfDamgeTypeSecond(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrPreventedStatus(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrPreventedStatus(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrPreventedStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrPreventedStatus(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanGetTrUnusableMoves(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanGetTrUnusableMoves(),_str,_args);
+    public static NaSt callEffectGlobalBeanGetTrUnusableMoves(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrUnusableMoves(_args[0]));
     }
 
-    public static NaSt callEffectGlobalBeanHealingEndRoundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanHealingEndRoundGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanHealingEndRoundGet(NaSt _str, int... _args) {
+        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getHealingEndRound());
     }
 
-    public static NaSt callEffectGlobalBeanHealingEndRoundGroundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanHealingEndRoundGroundGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanHealingEndRoundGroundGet(NaSt _str, int... _args) {
+        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getHealingEndRoundGround());
     }
 
-    public static NaSt callEffectGlobalBeanImmuneTypesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanImmuneTypesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanImmuneTypesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getValues(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getImmuneTypes());
     }
 
-    public static NaSt callEffectGlobalBeanInvokedMoveTerrainGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanInvokedMoveTerrainGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanInvokedMoveTerrainGet(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getInvokedMoveTerrain().getKey());
     }
 
-    public static NaSt callEffectGlobalBeanInvokingMovesChangingTypesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanInvokingMovesChangingTypesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanInvokingMovesChangingTypesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingMovesChangingTypes());
     }
 
-    public static NaSt callEffectGlobalBeanInvokingMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanInvokingMovesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanInvokingMovesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingMoves());
     }
 
-    public static NaSt callEffectGlobalBeanMovesUsedByTargetedFightersGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanMovesUsedByTargetedFightersGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanMovesUsedByTargetedFightersGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMovesUsedByTargetedFighters());
     }
 
-    public static NaSt callEffectGlobalBeanMultAccuracyGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanMultAccuracyGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanMultAccuracyGet(NaSt _str, int... _args) {
+        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getMultAccuracy());
     }
 
-    public static NaSt callEffectGlobalBeanMultDamagePrepaRoundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanMultDamagePrepaRoundGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanMultDamagePrepaRoundGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrRateVal(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamagePrepaRound());
     }
 
-    public static NaSt callEffectGlobalBeanMultDamageTypesMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanMultDamageTypesMovesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanMultDamageTypesMovesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrRateVal(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamageTypesMoves());
     }
 
-    public static NaSt callEffectGlobalBeanMultEffectLovingAllyGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanMultEffectLovingAllyGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanMultEffectLovingAllyGet(NaSt _str, int... _args) {
+        return new RtSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultEffectLovingAlly());
     }
 
-    public static NaSt callEffectGlobalBeanMultPowerMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanMultPowerMovesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanMultPowerMovesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrRate(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultPowerMoves());
     }
 
-    public static NaSt callEffectGlobalBeanMultStatIfContainsTypeGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanMultStatIfContainsTypeGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanMultStatIfContainsTypeGet(NaSt _str, int... _args) {
+        return PokemonStandards.getWcRateMap(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatIfContainsType());
     }
 
-    public static NaSt callEffectGlobalBeanPreventStatusGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanPreventStatusGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanPreventStatusGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getPreventStatus());
     }
 
-    public static NaSt callEffectGlobalBeanPuttingKoGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanPuttingKoGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanPuttingKoGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getPuttingKo());
     }
 
-    public static NaSt callEffectGlobalBeanReverseOrderOfSortBySpeedGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanReverseOrderOfSortBySpeedGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanReverseOrderOfSortBySpeedGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getReverseOrderOfSortBySpeed());
     }
 
-    public static NaSt callEffectGlobalBeanUnusableItemGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanUnusableItemGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanUnusableItemGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getUnusableItem());
     }
 
-    public static NaSt callEffectGlobalBeanUnusableMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanUnusableMovesGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanUnusableMovesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getUnusableMoves());
     }
 
-    public static NaSt callEffectGlobalBeanWeatherGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanWeatherGet(),_str,_args);
+    public static NaSt callEffectGlobalBeanWeatherGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getWeather());
     }
     protected static NaSt dispMoveEffGlobal(FacadeGame _fac, int _index) {
         return dispMoveEffGlobal(_fac, _index,0);
@@ -255,7 +253,7 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
 //        StringMap<String> mapping_ = mappingToEffectGlobal();
         return transitEffect(_index,_indexEff,pk_,all_);
     }
-//    public static StringMap<NaSt> beanToEffectGlobal(PkData _pk) {
+    //    public static StringMap<NaSt> beanToEffectGlobal(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
 //        map_.addEntry(InitDbMoves.BEAN_EFFECT_GLOBAL,_pk.beanEffectGlobalBean(EN));
 //        return map_;

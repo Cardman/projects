@@ -1,6 +1,6 @@
 package aiki.beans.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.*;
 import code.bean.nat.*;
 
 public abstract class InitDbMoveEffectCombo extends InitDbEffects {
@@ -10,7 +10,7 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
     }
 
     public static String callEffectComboBeanClickMove(NaSt _combo, int _move) {
-        return navigateData(new EffectComboBeanClickMove(),_combo,_move);
+        return new NaStSt(( (EffectComboBean) ((PokemonBeanStruct)_combo).getInstance()).clickMove(_move)).getInstance();
     }
 
     public static String callEffectComboBeanClickMoveId(int _combo, int _move) {
@@ -20,15 +20,15 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
     }
 
     public static NaSt callEffectComboBeanEndRoundGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanEndRoundGet(),dispAllCombos(_index));
+        return NaBoSt.of(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getEndRound());
     }
 
     public static NaSt callEffectComboBeanEndRoundRankGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanEndRoundRankGet(),dispAllCombos(_index));
+        return new NaNbSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getEndRoundRank());
     }
 
-    public static NaSt callEffectComboBeanGetTrStatistic(int _index, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanGetTrStatistic(),dispAllCombos(_index),_args);
+    public static NaSt callEffectComboBeanGetTrStatistic(int _index, int... _args) {
+        return new NaStSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getTrStatistic(_args[0]));
     }
 //
 //    public static NaSt callEffectComboBeanIndexGet(NaSt _str, long... _args) {
@@ -36,31 +36,31 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
 //    }
 
     public static NaSt callEffectComboBeanMapVarsFailEndRoundGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanMapVarsFailEndRoundGet(),dispAllCombos(_index));
+        return PokemonStandards.getStrStr(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMapVarsFailEndRound());
     }
 
     public static NaSt callEffectComboBeanMovesGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanMovesGet(),dispAllCombos(_index));
+        return PokemonStandards.getValues(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMoves());
     }
 
     public static NaSt callEffectComboBeanMultEvtRateSecEffGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanMultEvtRateSecEffGet(),dispAllCombos(_index));
+        return new RtSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMultEvtRateSecEff());
     }
 
     public static NaSt callEffectComboBeanMultStatisticFoeGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanMultStatisticFoeGet(),dispAllCombos(_index));
+        return PokemonStandards.getStaRate(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMultStatisticFoe());
     }
 
     public static NaSt callEffectComboBeanRankIncrementNbRoundGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanRankIncrementNbRoundGet(),dispAllCombos(_index));
+        return new NaNbSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getRankIncrementNbRound());
     }
 
     public static NaSt callEffectComboBeanReasonsEndRoundGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanReasonsEndRoundGet(),dispAllCombos(_index));
+        return BeanNatCommonLgNames.getStringArray(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getReasonsEndRound());
     }
 
     public static NaSt callEffectComboBeanRepeatedRoundsLawGet(int _index) {
-        return BeanPokemonCommonTs.callLongs(new EffectComboBeanRepeatedRoundsLawGet(),dispAllCombos(_index));
+        return PokemonStandards.getLgIntRate(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getRepeatedRoundsLaw());
     }
 
 }

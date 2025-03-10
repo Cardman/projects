@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.moves.InitDbMoves;
+import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -16,32 +14,32 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
 
-    public static NaSt callEffectRestrictionBeanForbid(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectRestrictionBeanForbid(),_str,_args);
+    public static NaSt callEffectRestrictionBeanForbid(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbid());
     }
 
-    public static NaSt callEffectRestrictionBeanForbidLastMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectRestrictionBeanForbidLastMove(),_str,_args);
+    public static NaSt callEffectRestrictionBeanForbidLastMove(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidLastMove());
     }
 
-    public static NaSt callEffectRestrictionBeanForbidStatusMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectRestrictionBeanForbidStatusMove(),_str,_args);
+    public static NaSt callEffectRestrictionBeanForbidStatusMove(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidStatusMove());
     }
 
-    public static NaSt callEffectRestrictionBeanForbidTargetUsingItemGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectRestrictionBeanForbidTargetUsingItemGet(),_str,_args);
+    public static NaSt callEffectRestrictionBeanForbidTargetUsingItemGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).getForbidTargetUsingItem());
     }
 
-    public static NaSt callEffectRestrictionBeanForbidUseMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectRestrictionBeanForbidUseMove(),_str,_args);
+    public static NaSt callEffectRestrictionBeanForbidUseMove(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidUseMove());
     }
 
-    public static NaSt callEffectRestrictionBeanForbidUserMoves(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectRestrictionBeanForbidUserMoves(),_str,_args);
+    public static NaSt callEffectRestrictionBeanForbidUserMoves(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidUserMoves());
     }
 
-    public static NaSt callEffectRestrictionBeanForceUseMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectRestrictionBeanForceUseMove(),_str,_args);
+    public static NaSt callEffectRestrictionBeanForceUseMove(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forceUseMove());
     }
     protected static NaSt dispMoveEffRestriction(boolean _targetAttacksLast, MoveChoiceRestrictionType _res) {
         return dispMoveEffRestriction(feedDbMoveEffDataRestriction(_targetAttacksLast, _res));
@@ -52,7 +50,7 @@ public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
 //        StringMap<String> mapping_ = mappingToEffectRestriction();
         return transitEffect(0,0,pk_,all_);
     }
-//    public static StringMap<NaSt> beanToEffectRestriction(PkData _pk) {
+    //    public static StringMap<NaSt> beanToEffectRestriction(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
 //        map_.addEntry(InitDbMoves.BEAN_EFFECT_RESTRICTION,_pk.beanEffectRestrictionBean(EN));
 //        return map_;

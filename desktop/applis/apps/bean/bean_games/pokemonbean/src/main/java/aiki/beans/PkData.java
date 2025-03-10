@@ -1,7 +1,6 @@
 package aiki.beans;
 
 import aiki.beans.abilities.*;
-import aiki.beans.effects.*;
 import aiki.beans.endround.*;
 import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.solution.dto.*;
@@ -12,7 +11,6 @@ import aiki.beans.map.*;
 import aiki.beans.map.characters.*;
 import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.*;
-import aiki.beans.moves.effects.*;
 import aiki.beans.solution.*;
 import aiki.beans.status.*;
 import code.bean.nat.*;
@@ -44,7 +42,7 @@ public final class PkData extends PokemonStandards {
     public void buildAddon() {
         AikiBeansAbilitiesStd.build(this);
         AikiBeansStd.build(this);
-        AikiBeansEffectsStd.build(this);
+//        AikiBeansEffectsStd.build(this);
         AikiBeansEndroundStd.build(this);
 //        AikiBeansFacadeDtoStd.build(this);
         AikiBeansFacadeMapDtoStd.build(this);
@@ -57,7 +55,7 @@ public final class PkData extends PokemonStandards {
         AikiBeansMapElementsStd.build(this);
         AikiBeansMapStd.build(this);
         AikiBeansMapPokemonStd.build(this);
-        AikiBeansMovesEffectsStd.build(this);
+//        AikiBeansMovesEffectsStd.build(this);
 //        AikiBeansMovesStd.build(this);
 //        AikiBeansPokemonEvolutionsStd.build(this);
 //        AikiBeansPokemonStd.build(this);

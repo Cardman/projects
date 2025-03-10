@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.moves.InitDbMoves;
+import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -16,12 +14,12 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
 
-    public static NaSt callEffectDamageRateBeanRateDamageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageRateBeanRateDamageGet(),_str,_args);
+    public static NaSt callEffectDamageRateBeanRateDamageGet(NaSt _str, int... _args) {
+        return new RtSt(( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateDamage());
     }
 
-    public static NaSt callEffectDamageRateBeanWinHpGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectDamageRateBeanWinHpGet(),_str,_args);
+    public static NaSt callEffectDamageRateBeanWinHpGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getWinHp());
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(Rate _dam) {
@@ -38,7 +36,7 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
 //        StringMap<String> mapping_ = mappingToEffectDamageRate();
         return transitEffect(_index,_indexEff,pk_,all_);
     }
-//    public static StringMap<NaSt> beanToEffectDamageRate(PkData _pk) {
+    //    public static StringMap<NaSt> beanToEffectDamageRate(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
 //        map_.addEntry(InitDbMoves.BEAN_EFFECT_DAMAGE_RATE,_pk.beanEffectDamageRateBean(EN));
 //        return map_;

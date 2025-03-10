@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.moves.InitDbMoves;
+import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -17,16 +15,16 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
 
-    public static NaSt callEffectEndRoundMoveBeanEndRoundRankGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanEndRoundRankGet(),_str,_args);
+    public static NaSt callEffectEndRoundMoveBeanEndRoundRankGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getEndRoundRank());
     }
 
-    public static NaSt callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanMapVarsFailEndRoundGet(),_str,_args);
+    public static NaSt callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrStr(( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailEndRound());
     }
 
-    public static NaSt callEffectEndRoundMoveBeanReasonsEndRoundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanReasonsEndRoundGet(),_str,_args);
+    public static NaSt callEffectEndRoundMoveBeanReasonsEndRoundGet(NaSt _str, int... _args) {
+        return BeanNatCommonLgNames.getStringArray(( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsEndRound());
     }
     protected static NaSt dispMoveEffEndRound() {
         return dispMoveEffEndRound(feedDbMoveEffDataDam());
@@ -37,7 +35,7 @@ public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
 //        StringMap<String> mapping_ = mappingToEffectEndRound();
         return transitEffect(0,0,pk_,all_);
     }
-//    public static StringMap<NaSt> beanToEffectEndRound(PkData _pk) {
+    //    public static StringMap<NaSt> beanToEffectEndRound(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
 //        map_.addEntry(InitDbMoves.BEAN_EFFECT_ENDROUND,_pk.beanEffectEndRoundMoveBean(EN));
 //        return map_;

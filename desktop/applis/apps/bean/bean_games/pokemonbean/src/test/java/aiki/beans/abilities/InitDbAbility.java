@@ -4,8 +4,6 @@ import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.CommonBean;
 import aiki.beans.PkData;
 import aiki.beans.PokemonBeanStruct;
-import aiki.beans.effects.AikiBeansEffectsStd;
-import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;

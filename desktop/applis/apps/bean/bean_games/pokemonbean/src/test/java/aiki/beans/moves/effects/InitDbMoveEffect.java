@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import aiki.beans.moves.InitDbMove;
 import aiki.beans.moves.MoveBean;
 import aiki.db.MessagesDataBaseConstants;
@@ -17,79 +15,79 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffect extends InitDbMove {
 
-    public static NaSt callEffectBeanEffectBeanGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanEffectBeanGet(),_str,_args);
+    public static NaSt callEffectBeanEffectBeanGet(NaSt _str, int... _args) {
+        return new NaStSt(EffectBeanTest.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFF_HTML);
     }
 
-    public static NaSt callEffectBeanIndexGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIndexGet(),_str,_args);
+    public static NaSt callEffectBeanIndexGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getIndex());
     }
 
-    public static NaSt callEffectBeanIsAdjAdv(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsAdjAdv(),_str,_args);
+    public static NaSt callEffectBeanIsAdjAdv(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjAdv());
     }
 
-    public static NaSt callEffectBeanIsAdjMult(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsAdjMult(),_str,_args);
+    public static NaSt callEffectBeanIsAdjMult(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjMult());
     }
 
-    public static NaSt callEffectBeanIsAdjUniq(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsAdjUniq(),_str,_args);
+    public static NaSt callEffectBeanIsAdjUniq(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjUniq());
     }
 
-    public static NaSt callEffectBeanIsAllie(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsAllie(),_str,_args);
+    public static NaSt callEffectBeanIsAllie(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAllie());
     }
 
-    public static NaSt callEffectBeanIsAllies(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsAllies(),_str,_args);
+    public static NaSt callEffectBeanIsAllies(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAllies());
     }
 
-    public static NaSt callEffectBeanIsAnyFoe(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsAnyFoe(),_str,_args);
+    public static NaSt callEffectBeanIsAnyFoe(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAnyFoe());
     }
 
-    public static NaSt callEffectBeanIsAutreUniq(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsAutreUniq(),_str,_args);
+    public static NaSt callEffectBeanIsAutreUniq(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAutreUniq());
     }
 
-    public static NaSt callEffectBeanIsGlobale(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsGlobale(),_str,_args);
+    public static NaSt callEffectBeanIsGlobale(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isGlobale());
     }
 
-    public static NaSt callEffectBeanIsLanceur(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsLanceur(),_str,_args);
+    public static NaSt callEffectBeanIsLanceur(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isLanceur());
     }
 
-    public static NaSt callEffectBeanIsPseudoGlobale(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsPseudoGlobale(),_str,_args);
+    public static NaSt callEffectBeanIsPseudoGlobale(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isPseudoGlobale());
     }
 
-    public static NaSt callEffectBeanIsTousAdv(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsTousAdv(),_str,_args);
+    public static NaSt callEffectBeanIsTousAdv(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isTousAdv());
     }
 
-    public static NaSt callEffectBeanIsUniqueImporte(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanIsUniqueImporte(),_str,_args);
+    public static NaSt callEffectBeanIsUniqueImporte(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isUniqueImporte());
     }
 
-    public static NaSt callEffectBeanMapVarsFailGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanMapVarsFailGet(),_str,_args);
+    public static NaSt callEffectBeanMapVarsFailGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrStr(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFail());
     }
 
-    public static NaSt callEffectBeanMoveGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanMoveGet(),_str,_args);
+    public static NaSt callEffectBeanMoveGet(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMove());
     }
 
-    public static NaSt callEffectBeanNeedSuccessFirstEffectGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanNeedSuccessFirstEffectGet(),_str,_args);
+    public static NaSt callEffectBeanNeedSuccessFirstEffectGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getNeedSuccessFirstEffect());
     }
 
-    public static NaSt callEffectBeanReasonsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBeanReasonsGet(),_str,_args);
+    public static NaSt callEffectBeanReasonsGet(NaSt _str, int... _args) {
+        return BeanNatCommonLgNames.getStringArray(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getReasons());
     }
 
-//    public static NaSt callEffectBeanMoveSet(NaSt _str, String _args) {
+    //    public static NaSt callEffectBeanMoveSet(NaSt _str, String _args) {
 //        return BeanPokemonCommonTs.callString(new EffectBeanMoveSet(),_str,_args);
 //    }
 //

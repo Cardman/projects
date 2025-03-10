@@ -20,7 +20,7 @@ import code.sml.util.TranslationsLg;
 import code.util.*;
 
 public abstract class InitDbEffects extends InitDbConstr {
-
+    public static final String BEAN_COMBOS = "combos";
     public static final String M_STA_00 = "M_STA_00";
     public static final String M_STA_01 = "M_STA_01";
     public static final String M_STA_02 = "M_STA_02";
@@ -53,7 +53,7 @@ public abstract class InitDbEffects extends InitDbConstr {
     protected static NaSt dispAllCombos() {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToCombosSet(pk_);
-        NaSt combos_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBOS);
+        NaSt combos_ = all_.getVal(BEAN_COMBOS);
 //        beforeDisplaying(combos_);
         ((BeanRenderWithAppName)((PokemonBeanStruct)combos_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)combos_).getBean()).getFacade());
         return combos_;
@@ -62,7 +62,7 @@ public abstract class InitDbEffects extends InitDbConstr {
     protected static NaSt dispAllCombos(int _ind) {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToCombosSet(pk_);
-        NaSt combos_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBOS);
+        NaSt combos_ = all_.getVal(BEAN_COMBOS);
 //        NaSt combo_ = new PokemonBeanStruct(new EffectComboBean());
         ((BeanRenderWithAppName)((PokemonBeanStruct)combos_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)combos_).getBean()).getFacade());
 //        beforeDisplaying(combos_);
@@ -81,7 +81,7 @@ public abstract class InitDbEffects extends InitDbConstr {
     public static StringMap<NaSt> beanToCombosSet(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
 //        map_.addEntry(AikiBeansEffectsStd.BEAN_COMBO,_pk.beanEffectComboBean(EN));
-        map_.addEntry(AikiBeansEffectsStd.BEAN_COMBOS,_pk.bean(new CombosBean(),EN));
+        map_.addEntry(BEAN_COMBOS,_pk.bean(new CombosBean(),EN));
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
         TranslationsLg en_ = new TranslationsLg();

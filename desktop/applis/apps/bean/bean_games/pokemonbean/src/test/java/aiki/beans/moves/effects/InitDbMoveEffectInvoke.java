@@ -1,8 +1,6 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.moves.InitDbMoves;
+import aiki.beans.*;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
@@ -22,107 +20,107 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
 
     public static final String ROAD_TR = "ROAD_TR";
 
-    public static String callEffectInvokeBeanClickGlobalMoveFctEnv(NaSt _str, long... _args) {
-        return navigateData(new EffectInvokeBeanClickGlobalMoveFctEnv(),_str,_args);
+    public static String callEffectInvokeBeanClickGlobalMoveFctEnv(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).clickGlobalMoveFctEnv(_args[0])).getInstance();
     }
 
-    public static String callEffectInvokeBeanClickGlobalMoveFctEnvId(NaSt _str, long... _args) {
+    public static String callEffectInvokeBeanClickGlobalMoveFctEnvId(NaSt _str, int... _args) {
         callEffectInvokeBeanClickGlobalMoveFctEnv(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectInvokeBeanClickMoveFctEnv(NaSt _str, long... _args) {
-        return navigateData(new EffectInvokeBeanClickMoveFctEnv(),_str,_args);
+    public static String callEffectInvokeBeanClickMoveFctEnv(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveFctEnv(_args[0])).getInstance();
     }
-    public static String callEffectInvokeBeanClickMoveFctEnvId(NaSt _str, long... _args) {
+    public static String callEffectInvokeBeanClickMoveFctEnvId(NaSt _str, int... _args) {
         callEffectInvokeBeanClickMoveFctEnv(_str,_args);
         return getValMoveId(_str);
     }
-    public static String callEffectInvokeBeanClickMoveNotInvok(NaSt _str, long... _args) {
-        return navigateData(new EffectInvokeBeanClickMoveNotInvok(),_str,_args);
+    public static String callEffectInvokeBeanClickMoveNotInvok(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveNotInvok(_args[0])).getInstance();
     }
 
-    public static String callEffectInvokeBeanClickMoveNotInvokId(NaSt _str, long... _args) {
+    public static String callEffectInvokeBeanClickMoveNotInvokId(NaSt _str, int... _args) {
         callEffectInvokeBeanClickMoveNotInvok(_str,_args);
         return getValMoveId(_str);
     }
-    public static String callEffectInvokeBeanClickMoveUserTypes(NaSt _str, long... _args) {
-        return navigateData(new EffectInvokeBeanClickMoveUserTypes(),_str,_args);
+    public static String callEffectInvokeBeanClickMoveUserTypes(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveUserTypes(_args[0])).getInstance();
     }
 
-    public static String callEffectInvokeBeanClickMoveUserTypesId(NaSt _str, long... _args) {
+    public static String callEffectInvokeBeanClickMoveUserTypesId(NaSt _str, int... _args) {
         callEffectInvokeBeanClickMoveUserTypes(_str, _args);
         return getValMoveId(_str);
     }
-    public static NaSt callEffectInvokeBeanGetTrEnv(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanGetTrEnv(),_str,_args);
+    public static NaSt callEffectInvokeBeanGetTrEnv(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getTrEnv(_args[0]));
     }
 
-    public static NaSt callEffectInvokeBeanGetTrGlobalMoveFctEnv(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanGetTrGlobalMoveFctEnv(),_str,_args);
+    public static NaSt callEffectInvokeBeanGetTrGlobalMoveFctEnv(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getTrGlobalMoveFctEnv(_args[0]));
     }
 
-    public static NaSt callEffectInvokeBeanGetTrMoveFctEnv(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanGetTrMoveFctEnv(),_str,_args);
+    public static NaSt callEffectInvokeBeanGetTrMoveFctEnv(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getTrMoveFctEnv(_args[0]));
     }
 
-    public static NaSt callEffectInvokeBeanGetTrMoveNotInvok(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanGetTrMoveNotInvok(),_str,_args);
+    public static NaSt callEffectInvokeBeanGetTrMoveNotInvok(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getTrMoveNotInvok(_args[0]));
     }
 
-    public static NaSt callEffectInvokeBeanGetTrMoveUserTypes(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanGetTrMoveUserTypes(),_str,_args);
+    public static NaSt callEffectInvokeBeanGetTrMoveUserTypes(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getTrMoveUserTypes(_args[0]));
     }
 
-    public static NaSt callEffectInvokeBeanGetTrUserTypes(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanGetTrUserTypes(),_str,_args);
+    public static NaSt callEffectInvokeBeanGetTrUserTypes(NaSt _str, int... _args) {
+        return new NaStSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getTrUserTypes(_args[0]));
     }
 
-    public static NaSt callEffectInvokeBeanGlobalMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanGlobalMovesGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanGlobalMovesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMoves());
     }
 
-    public static NaSt callEffectInvokeBeanInvokingAllyMoveGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanInvokingAllyMoveGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanInvokingAllyMoveGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingAllyMove());
     }
 
-    public static NaSt callEffectInvokeBeanInvokingMoveButUserGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanInvokingMoveButUserGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanInvokingMoveButUserGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingMoveButUser());
     }
 
-    public static NaSt callEffectInvokeBeanInvokingMoveByUserTypesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanInvokingMoveByUserTypesGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanInvokingMoveByUserTypesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrStrKey(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingMoveByUserTypes());
     }
 
-    public static NaSt callEffectInvokeBeanInvokingSufferedMoveGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanInvokingSufferedMoveGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanInvokingSufferedMoveGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingSufferedMove());
     }
 
-    public static NaSt callEffectInvokeBeanInvokingTargetChosenMoveGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanInvokingTargetChosenMoveGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanInvokingTargetChosenMoveGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingTargetChosenMove());
     }
 
-    public static NaSt callEffectInvokeBeanInvokingTargetSuccesfulMoveGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanInvokingTargetSuccesfulMoveGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanInvokingTargetSuccesfulMoveGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingTargetSuccesfulMove());
     }
 
-    public static NaSt callEffectInvokeBeanInvokingUserMoveWhileSleepGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanInvokingUserMoveWhileSleepGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanInvokingUserMoveWhileSleepGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingUserMoveWhileSleep());
     }
 
-    public static NaSt callEffectInvokeBeanIsType(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanIsType(),_str,_args);
+    public static NaSt callEffectInvokeBeanIsType(NaSt _str, int... _args) {
+        return NaBoSt.of(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).isType(_args[0]));
     }
 
-    public static NaSt callEffectInvokeBeanMoveFctEnvGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanMoveFctEnvGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanMoveFctEnvGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrStrKey(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getMoveFctEnv());
     }
 
-    public static NaSt callEffectInvokeBeanMovesNotToBeInvokedGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanMovesNotToBeInvokedGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanMovesNotToBeInvokedGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getMovesNotToBeInvoked());
     }
 
-    public static NaSt callEffectInvokeBeanRateInvokationMoveGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectInvokeBeanRateInvokationMoveGet(),_str,_args);
+    public static NaSt callEffectInvokeBeanRateInvokationMoveGet(NaSt _str, int... _args) {
+        return new RtSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getRateInvokationMove());
     }
     protected static NaSt dispMoveEffInvoke(boolean _invokingAllyMove, boolean _invokingMoveButUser, boolean _invokingSufferedMove, boolean _invokingTargetChosenMove, boolean _invokingTargetSuccesfulMove, boolean _invokingUserMoveWhileSleep) {
         return dispMoveEffInvoke(feedDbMoveEffDataInvoke(_invokingAllyMove, _invokingMoveButUser, _invokingSufferedMove, _invokingTargetChosenMove, _invokingTargetSuccesfulMove, _invokingUserMoveWhileSleep));
@@ -133,7 +131,7 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
 //        StringMap<String> mapping_ = mappingToEffectInvoke();
         return transitEffect(0,0,pk_,all_);
     }
-//    public static StringMap<NaSt> beanToEffectInvoke(PkData _pk) {
+    //    public static StringMap<NaSt> beanToEffectInvoke(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
 //        map_.addEntry(InitDbMoves.BEAN_EFFECT_INVOKE,_pk.beanEffectInvokeBean(EN));
 //        return map_;
