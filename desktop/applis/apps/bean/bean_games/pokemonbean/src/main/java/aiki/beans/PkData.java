@@ -3,7 +3,6 @@ package aiki.beans;
 import aiki.beans.abilities.*;
 import aiki.beans.effects.*;
 import aiki.beans.endround.*;
-import aiki.beans.facade.dto.*;
 import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.help.*;
@@ -15,8 +14,6 @@ import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.*;
 import aiki.beans.moves.*;
 import aiki.beans.moves.effects.*;
-import aiki.beans.pokemon.*;
-import aiki.beans.pokemon.evolutions.*;
 import aiki.beans.solution.*;
 import aiki.beans.status.*;
 import code.bean.nat.*;
@@ -24,7 +21,7 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.util.CustList;
 
 public final class PkData extends PokemonStandards {
-    private static final String GET_MOVE = "getMove";
+//    private static final String GET_MOVE = "getMove";
     private static final String GET_BOOST = "getBoost";
     private static final String GET_EFF = "getEff";
     private static final String GET_HP_RATE = "getHpRate";
@@ -50,7 +47,7 @@ public final class PkData extends PokemonStandards {
         AikiBeansStd.build(this);
         AikiBeansEffectsStd.build(this);
         AikiBeansEndroundStd.build(this);
-        AikiBeansFacadeDtoStd.build(this);
+//        AikiBeansFacadeDtoStd.build(this);
         AikiBeansFacadeMapDtoStd.build(this);
 //        AikiBeansFacadeSimulationDtoStd.build(this);
         AikiBeansFacadeSolutionDtoStd.build(this);
@@ -63,8 +60,8 @@ public final class PkData extends PokemonStandards {
         AikiBeansMapPokemonStd.build(this);
         AikiBeansMovesEffectsStd.build(this);
         AikiBeansMovesStd.build(this);
-        AikiBeansPokemonEvolutionsStd.build(this);
-        AikiBeansPokemonStd.build(this);
+//        AikiBeansPokemonEvolutionsStd.build(this);
+//        AikiBeansPokemonStd.build(this);
 //        AikiBeansSimulationStd.build(this);
         AikiBeansSolutionStd.build(this);
         AikiBeansStatusStd.build(this);
@@ -77,7 +74,7 @@ public final class PkData extends PokemonStandards {
         buildPlace(this);
         buildTypesDuo(this);
         buildCategoryMult(this);
-        buildLevelMove(this);
+//        buildLevelMove(this);
         buildPokemonPlayer(this);
         buildEffectPartnerStatus(this);
 //        AikiBeansGameStd.buildDifficultyCommonBean(this);
@@ -156,14 +153,14 @@ public final class PkData extends PokemonStandards {
         methods_.add( new SpecNatMethod(GET_MULT, PRIM_INTEGER, new CategoryMultGetMult()));
         _std.getStds().addEntry(TYPE_CATEGORY_MULT, type_);
     }
-    private static void buildLevelMove(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_LEVEL, PRIM_INTEGER, new LevelMoveGetLevel()));
-        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, new LevelMoveGetMove()));
-        _std.getStds().addEntry(TYPE_LEVEL_MOVE, type_);
-    }
+//    private static void buildLevelMove(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+//        methods_.add( new SpecNatMethod(GET_LEVEL, PRIM_INTEGER, new LevelMoveGetLevel()));
+//        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, new LevelMoveGetMove()));
+//        _std.getStds().addEntry(TYPE_LEVEL_MOVE, type_);
+//    }
     private static void buildPokemonPlayer(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();

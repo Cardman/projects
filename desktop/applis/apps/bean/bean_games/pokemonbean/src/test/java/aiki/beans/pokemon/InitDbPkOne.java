@@ -10,24 +10,24 @@ import code.util.StringMap;
 
 public abstract class InitDbPkOne extends InitDbPk {
 
-    public static NaSt callLevelMoveGetLevel(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new LevelMoveGetLevel(),_str,_args);
+    public static NaSt callLevelMoveGetLevel(NaSt _str, int... _args) {
+        return new NaNbSt(( ((LevelMoveStruct) _str).getLevelMove()).getLevel());
     }
 
-    public static NaSt callLevelMoveGetMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new LevelMoveGetMove(),_str,_args);
+    public static NaSt callLevelMoveGetMove(NaSt _str, int... _args) {
+        return new NaStSt(( ((LevelMoveStruct) _str).getLevelMove()).getMove());
     }
 
     public static NaSt callPokemonBeanAbilitiesGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanAbilitiesGet(),dispPkOne(0));
+        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getAbilities());
     }
 
     public static NaSt callPokemonBeanBackImageGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanBackImageGet(),dispPkOne(0));
+        return new NaImgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getBackImage());
     }
 
     public static NaSt callPokemonBeanCatchingRateGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanCatchingRateGet(),dispPkOne(0));
+        return new NaNbSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getCatchingRate());
     }
 
     public static String callPokemonBeanClickAbility() {
@@ -35,7 +35,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickAbility(NaSt _str) {
-        return navigateData(new PokemonBeanClickAbility(),_str,0);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(0)).getInstance();
     }
 
     public static String callPokemonBeanClickAbilityId() {
@@ -45,7 +45,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickBase(NaSt _str) {
-        return navigateData(new PokemonBeanClickBase(),_str);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickBase()).getInstance();
     }
 
     public static String callPokemonBeanClickBase() {
@@ -63,7 +63,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickEggPk(NaSt _str, int _ind) {
-        return navigateData(new PokemonBeanClickEggPk(),_str,_ind);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickEggPk(_ind)).getInstance();
     }
 
     public static String callPokemonBeanClickEggPkId(int _row,int _args) {
@@ -77,7 +77,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickHiddenMove(NaSt _str) {
-        return navigateData(new PokemonBeanClickHiddenMove(),_str,0);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickHiddenMove(0)).getInstance();
     }
 
     public static String callPokemonBeanClickHiddenMoveId() {
@@ -93,7 +93,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     public static String callPokemonBeanClickLevel(NaSt _str) {
         PokemonBean pk_ = new PokemonBean();
         pk_.setBuilder(((PokemonBeanStruct)_str).getInstance().getBuilder());
-        navigateData(new PokemonBeanClickLevel(),new PokemonBeanStruct(pk_),2,1);
+//        navigateData(new PokemonBeanClickLevel(),new PokemonBeanStruct(pk_),2,1);
         return navigateData(new MapBeanClickLevelBeanAction((CommonBean) ((PokemonBeanStruct)_str).getBean(),2,1),_str);
     }
 
@@ -109,7 +109,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickLevelZero(NaSt _str) {
-        return navigateData(new PokemonBeanClickLevelZero(),_str,0);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(0,0)).getInstance();
     }
 
     public static Coords callPokemonBeanClickLevelZeroId() {
@@ -123,7 +123,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickMove(NaSt _str, int _args) {
-        return navigateData(new PokemonBeanClickMove(),_str,_args);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args)).getInstance();
     }
 
     public static String callPokemonBeanClickMoveId(int _args) {
@@ -137,7 +137,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickMoveTutors(NaSt _str) {
-        return navigateData(new PokemonBeanClickMoveTutors(),_str,0);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveTutors(0)).getInstance();
     }
 
     public static String callPokemonBeanClickMoveTutorsId() {
@@ -158,7 +158,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickTechnicalMove(NaSt _str) {
-        return navigateData(new PokemonBeanClickTechnicalMove(),_str,0);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickTechnicalMove(0)).getInstance();
     }
 
     public static String callPokemonBeanClickTechnicalMoveId() {
@@ -168,15 +168,15 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callPokemonBeanDisplayNameGet(int _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanDisplayNameGet(),dispPkOne(_args));
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_args)).getInstance()).getDisplayName());
     }
 
     public static NaSt callPokemonBeanEggGroupsPkGet(int _line) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanEggGroupsPkGet(),dispPkOne(_line));
+        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_line)).getInstance()).getEggGroupsPk());
     }
 
     public static NaSt callPokemonBeanEvoBaseGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanEvoBaseGet(),dispPkOne(1));
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(1)).getInstance()).getEvoBase());
     }
 
     public static NaSt callPokemonBeanEvolutionsGet() {
@@ -184,43 +184,43 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callPokemonBeanEvolutionsGet(NaSt _str) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanEvolutionsGet(),_str);
+        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutions());
     }
 
     public static NaSt callPokemonBeanExpEvoGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanExpEvoGet(),dispPkOne(0));
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getExpEvo());
     }
 
     public static NaSt callPokemonBeanExpRateGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanExpRateGet(),dispPkOne(0));
+        return new NaNbSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getExpRate());
     }
 
     public static NaSt callPokemonBeanFrontImageGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanFrontImageGet(),dispPkOne(0));
+        return new NaImgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getFrontImage());
     }
 
     public static NaSt callPokemonBeanGetBase() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetBase(),dispPkOne(0),0);
+        return new NaNbSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getBase(0));
     }
 
     public static NaSt callPokemonBeanGetEggPk(int _line, int _ind) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetEggPk(),dispPkOne(_line),_ind);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_line)).getInstance()).getEggPk(_ind));
     }
 
     public static NaSt callPokemonBeanGetEv() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetEv(),dispPkOne(0),0);
+        return new NaNbSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getEv(0));
     }
 
     public static NaSt callPokemonBeanGetMapWidth() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMapWidth(),dispPkOne(0));
+        return new NaNbSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMapWidth());
     }
 
     public static NaSt callPokemonBeanGetMiniMapImage(int _tile) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMiniMapImage(),dispPkOne(0),_tile);
+        return new NaImgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMiniMapImage(_tile));
     }
 
     public static NaSt callPokemonBeanGetMoveTutor() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMoveTutor(),dispPkOne(0),0);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMoveTutor(0));
     }
 
 //    public static NaSt callPokemonBeanGetPage(NaSt _str, long... _args) {
@@ -228,43 +228,43 @@ public abstract class InitDbPkOne extends InitDbPk {
 //    }
 
     public static NaSt callPokemonBeanGetPlaceName(int _tile) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetPlaceName(),dispPkOne(0),_tile);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPlaceName(_tile));
     }
 
     public static NaSt callPokemonBeanGetTrAbility() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetTrAbility(),dispPkOne(0),0);
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTrAbility(0));
     }
 
     public static NaSt callPokemonBeanHatchingStepsGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanHatchingStepsGet(),dispPkOne(0));
+        return new LgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHatchingSteps());
     }
 
     public static NaSt callPokemonBeanHeightGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanHeightGet(),dispPkOne(0));
+        return new RtSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHeight());
     }
 
     public static NaSt callPokemonBeanHiddenMovesGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanHiddenMovesGet(),dispPkOne(0));
+        return PokemonStandards.getIntStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHiddenMoves());
     }
 
     public static NaSt callPokemonBeanImagesGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanImagesGet(),dispPkOne(0));
+        return PokemonStandards.getWcStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getImages());
     }
 
     public static NaSt callPokemonBeanIsAppearing(int _pk,int _pl, int _lev) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearing(),dispPkOne(_pk),_pl,_lev);
+        return NaBoSt.of(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearing(_pl,_lev));
     }
 
     public static NaSt callPokemonBeanIsAppearingAnyWhere(int _pk) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingAnyWhere(),dispPkOne(_pk));
+        return NaBoSt.of(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearingAnyWhere());
     }
 
     public static NaSt callPokemonBeanIsAppearingPlace(int _pk,int _pl) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingPlace(),dispPkOne(_pk),_pl);
+        return NaBoSt.of(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearingPlace(_pl));
     }
 
     public static NaSt callPokemonBeanIsAppearingZero(int _pk,int _pl) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingZero(),dispPkOne(_pk),_pl);
+        return NaBoSt.of(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearing(_pl,0));
     }
 //
 //    public static Struct callPokemonBeanIsFirstRow(int _row) {
@@ -272,23 +272,23 @@ public abstract class InitDbPkOne extends InitDbPk {
 //    }
 
     public static NaSt callPokemonBeanIsMultiLayer(int _pl) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsMultiLayer(),dispPkOne(0),_pl);
+        return NaBoSt.of(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).isMultiLayer(_pl));
     }
 
     public static NaSt callPokemonBeanLayers(int _pl) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanLayers(),dispPkOne(0),_pl);
+        return PokemonStandards.getLayers(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).layers(_pl));
     }
 
     public static NaSt callPokemonBeanLevMovesGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanLevMovesGet(),dispPkOne(0));
+        return PokemonStandards.getLvMv(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getLevMoves());
     }
 
     public static NaSt callPokemonBeanMapVarsGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanMapVarsGet(),dispPkOne(0));
+        return PokemonStandards.getStrStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMapVars());
     }
 
     public static NaSt callPokemonBeanMoveTutorsGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanMoveTutorsGet(),dispPkOne(0));
+        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMoveTutors());
     }
 
 //    public static NaSt callPokemonBeanNameGet(NaSt _str, long... _args) {
@@ -296,40 +296,40 @@ public abstract class InitDbPkOne extends InitDbPk {
 //    }
 
     public static NaSt callPokemonBeanPlacesGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanPlacesGet(),dispPkOne(0));
+        return PokemonStandards.getPlInd(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPlaces());
     }
 
     public static NaSt callPokemonBeanPossibleGendersGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanPossibleGendersGet(),dispPkOne(0));
+        return PokemonStandards.getValues(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPossibleGenders());
     }
 
     public static NaSt callPokemonBeanRoundHeight() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanRoundHeight(),dispPkOne(0));
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).roundHeight());
     }
 
     public static NaSt callPokemonBeanRoundWeight() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanRoundWeight(),dispPkOne(0));
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).roundWeight());
     }
 
     public static NaSt callPokemonBeanStatisticsGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanStatisticsGet(),dispPkOne(0));
+        return PokemonStandards.getStatistic(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getStatistics());
     }
 
     public static NaSt callPokemonBeanTechnicalMovesGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanTechnicalMovesGet(),dispPkOne(0));
+        return PokemonStandards.getIntStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTechnicalMoves());
     }
 
     public static NaSt callPokemonBeanTypesGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanTypesGet(),dispPkOne(0));
+        return PokemonStandards.getValues(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTypes());
     }
 
     public static NaSt callPokemonBeanWeightGet() {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanWeightGet(),dispPkOne(0));
+        return new RtSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getWeight());
     }
 
 
     public static NaSt callEvolutionHappinessBeanMinGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionHappinessBeanMinGet(),dispPkOne(12,0));
+        return new NaNbSt(( (EvolutionHappinessBean) ((PokemonBeanStruct)dispPkOne(12,0)).getInstance()).getMin());
     }
 
     public static String callEvolutionItemBeanClickItem() {
@@ -337,7 +337,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callEvolutionItemBeanClickItem(NaSt _str) {
-        return navigateData(new EvolutionItemBeanClickItem(),_str);
+        return new NaStSt(( (EvolutionItemBean) ((PokemonBeanStruct)_str).getInstance()).clickItem()).getInstance();
     }
 
     public static String callEvolutionItemBeanClickItemId() {
@@ -347,15 +347,15 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callEvolutionItemBeanItemGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionItemBeanItemGet(),dispPkOne(9,0));
+        return new NaStSt(( (EvolutionItemBean) ((PokemonBeanStruct)dispPkOne(9,0)).getInstance()).getItem().getTranslation());
     }
 
     public static NaSt callEvolutionLevelBeanLevelGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionLevelBeanLevelGet(),dispPkOne(0,0));
+        return new NaNbSt(( (EvolutionLevelBean) ((PokemonBeanStruct)dispPkOne(0,0)).getInstance()).getLevel());
     }
 
     public static NaSt callEvolutionLevelGenderBeanGenderGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionLevelGenderBeanGenderGet(),dispPkOne(1,0));
+        return new NaStSt(( (EvolutionLevelGenderBean) ((PokemonBeanStruct)dispPkOne(1,0)).getInstance()).getGender());
     }
 
     public static String callEvolutionMoveBeanClickMove() {
@@ -363,7 +363,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callEvolutionMoveBeanClickMove(NaSt _str) {
-        return navigateData(new EvolutionMoveBeanClickMove(),_str);
+        return new NaStSt(( (EvolutionMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMove()).getInstance();
     }
 
     public static String callEvolutionMoveBeanClickMoveId() {
@@ -373,11 +373,11 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callEvolutionMoveBeanMoveGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionMoveBeanMoveGet(),dispPkOne(5,0));
+        return new NaStSt(( (EvolutionMoveBean) ((PokemonBeanStruct)dispPkOne(5,0)).getInstance()).getMove().getTranslation());
     }
 
     public static NaSt callEvolutionMoveTypeBeanTypeGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionMoveTypeBeanTypeGet(),dispPkOne(5,1));
+        return new NaStSt(( (EvolutionMoveTypeBean) ((PokemonBeanStruct)dispPkOne(5,1)).getInstance()).getType());
     }
 
     public static String callEvolutionStoneBeanClickStone() {
@@ -385,7 +385,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callEvolutionStoneBeanClickStone(NaSt _str) {
-        return navigateData(new EvolutionStoneBeanClickStone(),_str);
+        return new NaStSt(( (EvolutionStoneBean) ((PokemonBeanStruct)_str).getInstance()).clickStone()).getInstance();
     }
 
     public static String callEvolutionStoneBeanClickStoneId() {
@@ -395,11 +395,11 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callEvolutionStoneBeanStoneGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionStoneBeanStoneGet(),dispPkOne(3,0));
+        return new NaStSt(( (EvolutionStoneBean) ((PokemonBeanStruct)dispPkOne(3,0)).getInstance()).getStone().getTranslation());
     }
 
     public static NaSt callEvolutionStoneGenderBeanGenderGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionStoneGenderBeanGenderGet(),dispPkOne(4,0));
+        return new NaStSt(( (EvolutionStoneGenderBean) ((PokemonBeanStruct)dispPkOne(4,0)).getInstance()).getGender());
     }
 
     public static String callEvolutionTeamBeanClickTeam() {
@@ -407,7 +407,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callEvolutionTeamBeanClickTeam(NaSt _str) {
-        return navigateData(new EvolutionTeamBeanClickTeam(),_str);
+        return new NaStSt(( (EvolutionTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickTeam()).getInstance();
     }
 
     public static String callEvolutionTeamBeanClickTeamId() {
@@ -417,7 +417,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callEvolutionTeamBeanOtherGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanOtherGet(),dispPkOne(8,0));
+        return new NaStSt(( (EvolutionTeamBean) ((PokemonBeanStruct)dispPkOne(8,0)).getInstance()).getOther().getTranslation());
     }
 
     public static String callEvolutionBeanClickEvo() {
@@ -425,7 +425,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callEvolutionBeanClickEvo(NaSt _str) {
-        return navigateData(new EvolutionBeanClickEvo(),_str);
+        return new NaStSt(( (EvolutionBean) ((PokemonBeanStruct)_str).getInstance()).clickEvo()).getInstance();
     }
 
     public static String callEvolutionBeanClickEvoId() {
@@ -435,11 +435,11 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callEvolutionBeanDisplayBaseGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayBaseGet(),dispPkOne(1,0));
+        return new NaStSt(( (EvolutionBean) ((PokemonBeanStruct)dispPkOne(1,0)).getInstance()).getDisplayBase());
     }
 
     public static NaSt callEvolutionBeanDisplayNameGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayNameGet(),dispPkOne(12,0));
+        return new NaStSt(( (EvolutionBean) ((PokemonBeanStruct)dispPkOne(12,0)).getInstance()).getDisplayName());
     }
 
 //    public static NaSt callEvolutionBeanIndexGet(NaSt _str, long... _args) {
@@ -510,7 +510,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         PokemonBean pkBean_ = new PokemonBean();
         pkBean_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,pkBean_);
-        map_.addEntry(AikiBeansPokemonStd.BEAN_PK, _pk.bean(pkBean_, EN));
+        map_.addEntry(BEAN_PK, _pk.bean(pkBean_, EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_HAPPY,_pk.beanEvolutionHappinessBean(EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_ITEM,_pk.beanEvolutionItemBean(EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_LEVEL,_pk.beanEvolutionLevelBean(EN));

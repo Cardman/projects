@@ -35,6 +35,8 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class InitDbPk extends InitDbConstr {
+    public static final String BEAN_POKEDEX="pokedex";
+    public static final String BEAN_PK="pokemon";
 
     public static final String I_STONE = "I_STONE";
     public static final String I_HOLD = "I_HOLD";
@@ -133,77 +135,77 @@ public abstract class InitDbPk extends InitDbConstr {
     public static final int IMG_2 = IMG_1 + STEP;
     public static final int IMG_3 = IMG_2 + STEP;
 
-    public static NaSt callPokemonLineDisplayNameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonLineDisplayNameGet(),_str,_args);
+    public static NaSt callPokemonLineDisplayNameGet(NaSt _str, int... _args) {
+        return new NaStSt(( ((PkLineStruct) _str).getWildPk()).getDisplayName());
     }
 
 
-    public static NaSt callPokemonLineTypesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonLineTypesGet(),_str,_args);
+    public static NaSt callPokemonLineTypesGet(NaSt _str, int... _args) {
+        return BeanNatCommonLgNames.getStringArray(( ((PkLineStruct) _str).getWildPk()).getTypes());
     }
-    public static NaSt callPokemonLineEvolutionsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonLineEvolutionsGet(),_str,_args);
+    public static NaSt callPokemonLineEvolutionsGet(NaSt _str, int... _args) {
+        return new NaNbSt(( ((PkLineStruct) _str).getWildPk()).getEvolutions());
     }
     public static NaSt callPokedexBeanBooleansGet() {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanBooleansGet(),dispAllPks());
+        return PokemonStandards.getStrStr(( (PokedexBean) ((PokemonBeanStruct)dispAllPks()).getInstance()).getBooleans());
     }
 
-    public static String callPokedexBeanClickLink(NaSt _str, long... _args) {
-        return navigateData(new PokedexBeanClickLink(),_str,_args);
+    public static String callPokedexBeanClickLink(NaSt _str, int... _args) {
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0])).getInstance();
     }
 
-    public static String callPokedexBeanClickLink(long... _args) {
+    public static String callPokedexBeanClickLink(int... _args) {
         return callPokedexBeanClickLink(dispAllPksSearch(),_args);
     }
 
-    public static String callPokedexBeanClickLinkId(long... _args) {
+    public static String callPokedexBeanClickLinkId(int... _args) {
         NaSt bean_ = dispAllPksSearch();
         callPokedexBeanClickLink(bean_,_args);
         return getValPkId(bean_);
     }
 
-    public static NaSt callPokedexBeanGetMiniImage(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanGetMiniImage(),_str,_args);
+    public static NaSt callPokedexBeanGetMiniImage(NaSt _str, int... _args) {
+        return new NaImgSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImagePk(_args[0]));
     }
 
-    public static NaSt callPokedexBeanIsEvoGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanIsEvoGet(),_str,_args);
+    public static NaSt callPokedexBeanIsEvoGet(NaSt _str, int... _args) {
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().tryRet());
     }
 
-    public static NaSt callPokedexBeanHasEvoGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanHasEvoGet(),_str,_args);
+    public static NaSt callPokedexBeanHasEvoGet(NaSt _str, int... _args) {
+        return new NaStSt(( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().tryRet());
     }
 
-    public static NaSt callPokedexBeanIsLegGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanIsLegGet(),_str,_args);
+    public static NaSt callPokedexBeanIsLegGet(NaSt _str, int... _args) {
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet());
     }
 
-    public static NaSt callPokedexBeanPokedexGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanPokedexGet(),_str,_args);
+    public static NaSt callPokedexBeanPokedexGet(NaSt _str, int... _args) {
+        return PokemonStandards.getPkLine(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex());
     }
 
 //    public static NaSt callPokedexBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new PokedexBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callPokedexBeanTypedMaxNbPossEvosGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanTypedMaxNbPossEvosGet(),_str,_args);
+    public static NaSt callPokedexBeanTypedMaxNbPossEvosGet(NaSt _str, int... _args) {
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMaxNbPossEvos().tryRet());
     }
 
-    public static NaSt callPokedexBeanTypedMinNbPossEvosGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanTypedMinNbPossEvosGet(),_str,_args);
+    public static NaSt callPokedexBeanTypedMinNbPossEvosGet(NaSt _str, int... _args) {
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMinNbPossEvos().tryRet());
     }
 
-    public static NaSt callPokedexBeanTypedNameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanTypedNameGet(),_str,_args);
+    public static NaSt callPokedexBeanTypedNameGet(NaSt _str, int... _args) {
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet());
     }
 
-    public static NaSt callPokedexBeanTypedTypeGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanTypedTypeGet(),_str,_args);
+    public static NaSt callPokedexBeanTypedTypeGet(NaSt _str, int... _args) {
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet());
     }
 
-    public static NaSt callPokedexBeanWholeWordGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanWholeWordGet(),_str,_args);
+    public static NaSt callPokedexBeanWholeWordGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected());
     }
 
     public static void callPokedexBeanIsEvoSet(NaSt _str, String _args) {
@@ -251,7 +253,7 @@ public abstract class InitDbPk extends InitDbConstr {
         StringMap<NaSt> all_ = beanToPk(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
+        NaSt moves_ = all_.getVal(BEAN_POKEDEX);
         transit(_pk,new WelcomeBeanClickPokedex(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
@@ -266,8 +268,8 @@ public abstract class InitDbPk extends InitDbConstr {
     protected static NaSt transitToAllPks(PkData _pk, StringMap<NaSt> _all,int _index) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt pks_ = _all.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
-        NaSt pk_ = _all.getVal(AikiBeansPokemonStd.BEAN_PK);
+        NaSt pks_ = _all.getVal(BEAN_POKEDEX);
+        NaSt pk_ = _all.getVal(BEAN_PK);
         transit(_pk,new WelcomeBeanClickPokedex(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,pks_);
         transit(_pk,new PokedexBeanSearch(((PokedexBean) ((PokemonBeanStruct)pks_).getBean())),pks_,pks_);
         transit(_pk,new EntityClickFormEvent(((PokedexBean) ((PokemonBeanStruct)pks_).getBean()),((PokedexBean) ((PokemonBeanStruct)pks_).getBean()).getPokedex().get(_index).getKey()),pks_,pk_);
@@ -285,15 +287,15 @@ public abstract class InitDbPk extends InitDbConstr {
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
         w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,pkDex_);
-        map_.addEntry(AikiBeansPokemonStd.BEAN_POKEDEX, _pk.bean(pkDex_, EN));
+        map_.addEntry(BEAN_POKEDEX, _pk.bean(pkDex_, EN));
         return map_;
     }
-    public static StringMap<String> mappingToPk() {
-        StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
-        map_.addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
-        return map_;
-    }
+//    public static StringMap<String> mappingToPk() {
+//        StringMap<String> map_ = new StringMap<String>();
+//        map_.addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+//        map_.addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
+//        return map_;
+//    }
 
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
