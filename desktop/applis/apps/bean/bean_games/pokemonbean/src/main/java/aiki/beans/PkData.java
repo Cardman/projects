@@ -1,7 +1,6 @@
 package aiki.beans;
 
 import aiki.beans.facade.solution.dto.*;
-import aiki.beans.help.*;
 import aiki.beans.solution.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
@@ -37,7 +36,7 @@ public final class PkData extends PokemonStandards {
 //        AikiBeansFacadeMapDtoStd.build(this);
 //        AikiBeansFacadeSimulationDtoStd.build(this);
         AikiBeansFacadeSolutionDtoStd.build(this);
-        AikiBeansHelpStd.build(this);
+//        AikiBeansHelpStd.build(this);
 //        AikiBeansItemsStd.build(this);
 //        AikiBeansItemsEffectsStd.build(this);
 //        AikiBeansMapCharactersStd.build(this);
