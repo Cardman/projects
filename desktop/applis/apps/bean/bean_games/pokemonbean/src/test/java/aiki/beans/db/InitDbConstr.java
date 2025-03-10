@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.beans.effects.*;
 import aiki.beans.facade.map.dto.PlaceIndexGetPlace;
 import aiki.beans.facade.map.dto.PlaceIndexIndexGet;
-import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -483,10 +482,10 @@ public abstract class InitDbConstr extends InitDbBean {
     public static NaSt callEffectWhileSendingBeanSwapBoostStatisGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanSwapBoostStatisGet(),_str,_args);
     }
-
-    public static NaSt callSimulationBeanSelectedTeamNumberGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str,_args);
-    }
+//
+//    public static NaSt callSimulationBeanSelectedTeamNumberGet(NaSt _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str,_args);
+//    }
 
     public static NaSt callBoostHpRateGetBoost(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostHpRateGetBoost(),_str,_args);

@@ -2,7 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 
-public class SimulationBeanValidateMovesAfterFight implements IntBeanAction {
+public final class SimulationBeanValidateMovesAfterFight implements IntBeanAction {
     private final SimulationBean bean;
 
     public SimulationBeanValidateMovesAfterFight(SimulationBean _b) {
