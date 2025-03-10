@@ -1,9 +1,6 @@
 package aiki.beans.items;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.CommonBean;
-import aiki.beans.PkData;
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.HealingItem;
 import aiki.fight.items.HealingPp;
@@ -24,28 +21,28 @@ public abstract class InitDbItem extends InitDbItems{
         return navigateData(new ItemBeanClickItems(((ItemBean) ((PokemonBeanStruct)_str).getBean())),_str);
     }
 
-    public static NaSt callItemBeanDescriptionGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemBeanDescriptionGet(),_str,_args);
+    public static NaSt callItemBeanDescriptionGet(NaSt _str, int... _args) {
+        return new NaStSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDescription());
     }
 
-    public static NaSt callItemBeanDisplayNameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemBeanDisplayNameGet(),_str,_args);
+    public static NaSt callItemBeanDisplayNameGet(NaSt _str, int... _args) {
+        return new NaStSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName());
     }
 
 //    public static NaSt callItemBeanItemBeanGet(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new ItemBeanItemBeanGet(),_str,_args);
 //    }
 
-    public static NaSt callItemBeanItemImageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemBeanItemImageGet(),_str,_args);
+    public static NaSt callItemBeanItemImageGet(NaSt _str, int... _args) {
+        return new NaImgSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getItemImage());
     }
 
-    public static NaSt callItemBeanNameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemBeanNameGet(),_str,_args);
+    public static NaSt callItemBeanNameGet(NaSt _str, int... _args) {
+        return new NaStSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getName());
     }
 
-    public static NaSt callItemBeanPriceGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemBeanPriceGet(),_str,_args);
+    public static NaSt callItemBeanPriceGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getPrice());
     }
 //    public static NaSt callItemBeanNameSet(NaSt _str, String _args) {
 //        return BeanPokemonCommonTs.callString(new ItemBeanNameSet(),_str,_args);
@@ -53,7 +50,7 @@ public abstract class InitDbItem extends InitDbItems{
     public static StringMap<NaSt> beanToItemSample(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
         BoostBean b_ = new BoostBean();
-        map_.addEntry(AikiBeansItemsStd.BEAN_BOOST, _pk.bean(b_, EN));
+        map_.addEntry(InitDbItems.BEAN_BOOST, _pk.bean(b_, EN));
         b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
@@ -61,7 +58,7 @@ public abstract class InitDbItem extends InitDbItems{
         return map_;
     }
     protected static NaSt itemLineSample() {
-        return dispLineSample(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
+        return dispLineSample(feedDbItem(), InitDbItems.BEAN_BOOST);
     }
 
 //    protected static NaSt dispLine(FacadeGame _fac, String _key) {

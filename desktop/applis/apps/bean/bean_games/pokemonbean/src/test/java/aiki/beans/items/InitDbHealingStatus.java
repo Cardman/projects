@@ -14,39 +14,39 @@ import code.util.StringMap;
 
 public abstract class InitDbHealingStatus extends InitDbHealing {
 
-    public static String callHealingStatusBeanClickStatus(NaSt _str, long... _args) {
-        return navigateData(new HealingStatusBeanClickStatus(),_str,_args);
+    public static String callHealingStatusBeanClickStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0])).getInstance();
     }
 
-    public static String callHealingStatusBeanClickStatusId(NaSt _str, long... _args) {
+    public static String callHealingStatusBeanClickStatusId(NaSt _str, int... _args) {
         callHealingStatusBeanClickStatus(_str,_args);
         return getValStatusId(_str);
     }
 
-    public static NaSt callHealingStatusBeanGetTrStatus(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingStatusBeanGetTrStatus(),_str,_args);
+    public static NaSt callHealingStatusBeanGetTrStatus(NaSt _str, int... _args) {
+        return new NaStSt(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]));
     }
 
-    public static NaSt callHealingStatusBeanHealedHpRateGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingStatusBeanHealedHpRateGet(),_str,_args);
+    public static NaSt callHealingStatusBeanHealedHpRateGet(NaSt _str, int... _args) {
+        return new RtSt(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getHealedHpRate());
     }
 
-    public static NaSt callHealingStatusBeanHealingKoGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingStatusBeanHealingKoGet(),_str,_args);
+    public static NaSt callHealingStatusBeanHealingKoGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getHealingKo());
     }
 
-    public static NaSt callHealingStatusBeanHealingStatusBeanGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingStatusBeanHealingStatusBeanGet(),_str,_args);
+    public static NaSt callHealingStatusBeanHealingStatusBeanGet(NaSt _str, int... _args) {
+        return new NaStSt(HealingStatusBean.HEALING_STATUS_BEAN);
     }
 
-    public static NaSt callHealingStatusBeanStatusGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingStatusBeanStatusGet(),_str,_args);
+    public static NaSt callHealingStatusBeanStatusGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getStatus());
     }
 
     public static StringMap<NaSt> beanToHealingStatus(PkData _pk) {
         StringMap<NaSt> map_ = beanToHealing(_pk);
         HealingStatusBean s_ = new HealingStatusBean();
-        map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGSTATUS, _pk.bean(s_, EN));
+        map_.addEntry(InitDbItems.BEAN_HEALINGSTATUS, _pk.bean(s_, EN));
         s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
@@ -59,8 +59,8 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
     protected static NaSt statusDb(HealingStatus _heal) {
         PkData pk_ = pkDataByFacade(feedDbStatus(_heal));
         StringMap<NaSt> all_ = beanToHealingStatus(pk_);
-        callHealingStatusBeanHealingStatusBeanGet(all_.getVal(AikiBeansItemsStd.BEAN_HEALINGSTATUS));
-        return dispLineClick(AikiBeansItemsStd.BEAN_HEALINGSTATUS, pk_, all_);
+        callHealingStatusBeanHealingStatusBeanGet(all_.getVal(InitDbItems.BEAN_HEALINGSTATUS));
+        return dispLineClick(InitDbItems.BEAN_HEALINGSTATUS, pk_, all_);
     }
 
     private static FacadeGame feedDbStatus(HealingStatus _heal) {

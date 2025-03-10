@@ -17,26 +17,28 @@ import code.util.*;
 
 public abstract class InitDbAbilities extends InitDbConstr {
 
+    public static final String BEAN_ABILITIES="abilities";
+    public static final String BEAN_ABILITY="ability";
     protected static final String A_ABILITY2="B_ABILITY";
     protected static final String A_ABILITY2_TR="B_ABILITY_TR";
-    public static NaSt callAbilitiesBeanClickAbility(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilitiesBeanClickAbility(),_str,_args);
+    public static NaSt callAbilitiesBeanClickAbility(NaSt _str, int... _args) {
+        return new NaStSt(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_args[0]));
     }
 
-    public static NaSt callAbilitiesBeanGetTrAbility(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilitiesBeanGetTrAbility(),_str,_args);
+    public static NaSt callAbilitiesBeanGetTrAbility(NaSt _str, int... _args) {
+        return new NaStSt(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTrSortedAbility(_args[0]));
     }
 
 //    public static Struct callAbilitiesBeanSearch(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new AbilitiesBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callAbilitiesBeanSortedAbilitiesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilitiesBeanSortedAbilitiesGet(),_str,_args);
+    public static NaSt callAbilitiesBeanSortedAbilitiesGet(NaSt _str, int... _args) {
+        return PokemonStandards.getKeys(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).sortedAbilitiesGet());
     }
 
-    public static NaSt callAbilitiesBeanTypedAbilityGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilitiesBeanTypedAbilityGet(),_str,_args);
+    public static NaSt callAbilitiesBeanTypedAbilityGet(NaSt _str, int... _args) {
+        return new NaStSt(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedAbility().tryRet());
     }
 //    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
 //        callEffectWhileSendingBeanEffectSet(_update,callAbilityBeanGetEffectSending(_use));
@@ -54,10 +56,10 @@ public abstract class InitDbAbilities extends InitDbConstr {
     protected static NaSt transitToAllAbilities(PkData _pk, StringMap<NaSt> _all, int _index) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt items_ = _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITIES);
+        NaSt items_ = _all.getVal(BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,items_);
         transit(_pk,new AbilitiesBeanSearch(((AbilitiesBean) ((PokemonBeanStruct)items_).getBean())),items_,items_);
-        NaSt itData_ = _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITY);
+        NaSt itData_ = _all.getVal(BEAN_ABILITY);
 //        setFormsBy(_pk,itData_,items_);
         transit(_pk,new EntityClickFormEvent(((AbilitiesBean) ((PokemonBeanStruct)items_).getBean()),((AbilitiesBean) ((PokemonBeanStruct)items_).getBean()).sortedAbilitiesGet().get(_index)),items_,itData_);
 //        transit(_pk,new AbilitiesBeanClickAbility(),items_, itData_,_index);
@@ -67,10 +69,10 @@ public abstract class InitDbAbilities extends InitDbConstr {
     protected static NaSt transitToAllAbilitiesQuick(PkData _pk, StringMap<NaSt> _all, int _index) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt items_ = _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITIES);
+        NaSt items_ = _all.getVal(BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,items_);
         transit(_pk,new AbilitiesBeanSearch(((AbilitiesBean) ((PokemonBeanStruct)items_).getBean())),items_,items_);
-        return _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITY);
+        return _all.getVal(BEAN_ABILITY);
     }
     protected static NaSt dispAllAbilities(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
@@ -81,7 +83,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         StringMap<NaSt> all_ = beanToAbilities(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(AikiBeansAbilitiesStd.BEAN_ABILITIES);
+        NaSt moves_ = all_.getVal(BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
         return moves_;
     }
@@ -94,7 +96,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
         w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,pkDex_);
-        map_.addEntry(AikiBeansAbilitiesStd.BEAN_ABILITIES, _pk.bean(pkDex_, EN));
+        map_.addEntry(BEAN_ABILITIES, _pk.bean(pkDex_, EN));
         return map_;
     }
 
@@ -105,7 +107,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.AB_DATA,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.AB_DATA,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,ab_);
-        map_.addEntry(AikiBeansAbilitiesStd.BEAN_ABILITY, _pk.bean(ab_, EN));
+        map_.addEntry(BEAN_ABILITY, _pk.bean(ab_, EN));
         return map_;
     }
     protected static FacadeGame feedDb() {

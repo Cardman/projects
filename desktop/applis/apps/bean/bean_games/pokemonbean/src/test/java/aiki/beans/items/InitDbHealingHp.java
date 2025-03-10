@@ -1,9 +1,6 @@
 package aiki.beans.items;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.CommonBean;
-import aiki.beans.PkData;
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.HealingHp;
@@ -18,12 +15,12 @@ import code.util.StringMap;
 public abstract class InitDbHealingHp extends InitDbHealing {
 
     public static NaSt callHealingHpBeanHpGet() {
-        return BeanPokemonCommonTs.callLongs(new HealingHpBeanHpGet(),ppDb());
+        return new RtSt(( (HealingHpBean) ((PokemonBeanStruct)ppDb()).getInstance()).getHp());
     }
     public static StringMap<NaSt> beanToHealingHp(PkData _pk) {
         StringMap<NaSt> map_ = beanToHealing(_pk);
         HealingHpBean s_ = new HealingHpBean();
-        map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGHP, _pk.bean(s_, EN));
+        map_.addEntry(InitDbItems.BEAN_HEALINGHP, _pk.bean(s_, EN));
         s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHP,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHP,new TranslationsFile());
@@ -33,7 +30,7 @@ public abstract class InitDbHealingHp extends InitDbHealing {
     protected static NaSt ppDb() {
         PkData pk_ = pkDataByFacade(feedDbHp());
         StringMap<NaSt> all_ = beanToHealingHp(pk_);
-        return dispLineClick(AikiBeansItemsStd.BEAN_HEALINGHP, pk_, all_);
+        return dispLineClick(InitDbItems.BEAN_HEALINGHP, pk_, all_);
     }
 
     private static FacadeGame feedDbHp() {

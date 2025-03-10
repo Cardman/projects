@@ -1,9 +1,6 @@
 package aiki.beans.items;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.CommonBean;
-import aiki.beans.PkData;
-import aiki.beans.PokemonBeanStruct;
+import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
@@ -15,34 +12,34 @@ import code.util.StringMap;
 
 public abstract class InitDbHealingPp extends InitDbHealing {
 
-    public static NaSt callHealingPpBeanHealedMovePpGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealedMovePpGet(),_str,_args);
+    public static NaSt callHealingPpBeanHealedMovePpGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealedMovePp());
     }
 
-    public static NaSt callHealingPpBeanHealingAllMovesFullppGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealingAllMovesFullppGet(),_str,_args);
+    public static NaSt callHealingPpBeanHealingAllMovesFullppGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesFullpp());
     }
 
-    public static NaSt callHealingPpBeanHealingAllMovesPpGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealingAllMovesPpGet(),_str,_args);
+    public static NaSt callHealingPpBeanHealingAllMovesPpGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesPp());
     }
 
-    public static NaSt callHealingPpBeanHealingMoveFullppGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealingMoveFullppGet(),_str,_args);
+    public static NaSt callHealingPpBeanHealingMoveFullppGet(NaSt _str, int... _args) {
+        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingMoveFullpp());
     }
 
-    public static NaSt callHealingPpBeanLimitedPpMove(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingPpBeanLimitedPpMove(),_str,_args);
+    public static NaSt callHealingPpBeanLimitedPpMove(NaSt _str, int... _args) {
+        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMove());
     }
 
-    public static NaSt callHealingPpBeanLimitedPpMoves(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new HealingPpBeanLimitedPpMoves(),_str,_args);
+    public static NaSt callHealingPpBeanLimitedPpMoves(NaSt _str, int... _args) {
+        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMoves());
     }
 
     public static StringMap<NaSt> beanToHealingPp(PkData _pk) {
         StringMap<NaSt> map_ = beanToHealing(_pk);
         HealingPpBean s_ = new HealingPpBean();
-        map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGPP, _pk.bean(s_, EN));
+        map_.addEntry(InitDbItems.BEAN_HEALINGPP, _pk.bean(s_, EN));
         s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
@@ -52,7 +49,7 @@ public abstract class InitDbHealingPp extends InitDbHealing {
     protected static NaSt ppDb(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {
         PkData pk_ = pkDataByFacade(feedDbPp(_healingMoveFullpp, _healingAllMovesPp, _healingAllMovesFullpp, _healedMovePp));
         StringMap<NaSt> all_ = beanToHealingPp(pk_);
-        return dispLineClick(AikiBeansItemsStd.BEAN_HEALINGPP, pk_, all_);
+        return dispLineClick(InitDbItems.BEAN_HEALINGPP, pk_, all_);
     }
 
     private static FacadeGame feedDbPp(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {

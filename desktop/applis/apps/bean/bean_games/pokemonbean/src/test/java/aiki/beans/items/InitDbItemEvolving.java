@@ -23,7 +23,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static String callEvolvingItemBeanClickPokemon(NaSt _str) {
-        return navigateData(new EvolvingItemBeanClickPokemon(),_str,0);
+        return new NaStSt(( (EvolvingItemBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0)).getInstance();
     }
 
     public static String callEvolvingItemBeanClickPokemonId() {
@@ -33,11 +33,11 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static NaSt callEvolvingItemBeanGetTrPokemon() {
-        return BeanPokemonCommonTs.callLongs(new EvolvingItemBeanGetTrPokemon(),healEvoItem(),0);
+        return new NaStSt(( (EvolvingItemBean) ((PokemonBeanStruct)healEvoItem()).getInstance()).getTrPokemon(0));
     }
 
     public static NaSt callEvolvingItemBeanPokemonGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolvingItemBeanPokemonGet(),healEvoItem());
+        return PokemonStandards.getKeys(( (EvolvingItemBean) ((PokemonBeanStruct)healEvoItem()).getInstance()).getPokemon());
     }
 
     public static String callEvolvingStoneBeanClickPokemon() {
@@ -45,7 +45,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static String callEvolvingStoneBeanClickPokemon(NaSt _str) {
-        return navigateData(new EvolvingStoneBeanClickPokemon(),_str,0);
+        return new NaStSt(( (EvolvingStoneBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0)).getInstance();
     }
 
     public static String callEvolvingStoneBeanClickPokemonId() {
@@ -55,11 +55,11 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static NaSt callEvolvingStoneBeanGetTrPokemon() {
-        return BeanPokemonCommonTs.callLongs(new EvolvingStoneBeanGetTrPokemon(),healEvoStone(),0);
+        return new NaStSt(( (EvolvingStoneBean) ((PokemonBeanStruct)healEvoStone()).getInstance()).getTrPokemon(0));
     }
 
     public static NaSt callEvolvingStoneBeanPokemonGet() {
-        return BeanPokemonCommonTs.callLongs(new EvolvingStoneBeanPokemonGet(),healEvoStone());
+        return PokemonStandards.getKeys(( (EvolvingStoneBean) ((PokemonBeanStruct)healEvoStone()).getInstance()).getPokemon());
     }
 
     public static String callFossilBeanClickPokemon() {
@@ -67,7 +67,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static String callFossilBeanClickPokemon(NaSt _str) {
-        return navigateData(new FossilBeanClickPokemon(),_str,0);
+        return new NaStSt(( (FossilBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon()).getInstance();
     }
 
     public static String callFossilBeanClickPokemonId() {
@@ -77,17 +77,17 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static NaSt callFossilBeanGetTrPokemon() {
-        return BeanPokemonCommonTs.callLongs(new FossilBeanGetTrPokemon(),healFossil(),0);
+        return new NaStSt(( (FossilBean) ((PokemonBeanStruct)healFossil()).getInstance()).getTrPokemon());
     }
 
     public static NaSt callFossilBeanLevelGet() {
-        return BeanPokemonCommonTs.callLongs(new FossilBeanLevelGet(),healFossil());
+        return new NaNbSt(( (FossilBean) ((PokemonBeanStruct)healFossil()).getInstance()).getLevel());
     }
 
     public static StringMap<NaSt> beanToEvoItem(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
         EvolvingItemBean b_ = new EvolvingItemBean();
-        map_.addEntry(AikiBeansItemsStd.BEAN_EVO_ITEM, _pk.bean(b_, EN));
+        map_.addEntry(InitDbItems.BEAN_EVO_ITEM, _pk.bean(b_, EN));
         b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOITEM,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOITEM,new TranslationsFile());
@@ -98,7 +98,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     protected static NaSt healEvoItem() {
         PkData pk_ = pkDataByFacade(feedDbEvoItem());
         StringMap<NaSt> all_ = beanToEvoItem(pk_);
-        return dispLineQuick(AikiBeansItemsStd.BEAN_EVO_ITEM, pk_, all_);
+        return dispLineQuick(InitDbItems.BEAN_EVO_ITEM, pk_, all_);
     }
 
     private static FacadeGame feedDbEvoItem() {
@@ -120,7 +120,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     public static StringMap<NaSt> beanToEvoStone(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
         EvolvingStoneBean b_ = new EvolvingStoneBean();
-        map_.addEntry(AikiBeansItemsStd.BEAN_EVO_STONE, _pk.bean(b_, EN));
+        map_.addEntry(InitDbItems.BEAN_EVO_STONE, _pk.bean(b_, EN));
         b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOSTONE,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOSTONE,new TranslationsFile());
@@ -131,7 +131,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     protected static NaSt healEvoStone() {
         PkData pk_ = pkDataByFacade(feedDbEvoStone());
         StringMap<NaSt> all_ = beanToEvoStone(pk_);
-        return dispLineQuick(AikiBeansItemsStd.BEAN_EVO_STONE, pk_, all_);
+        return dispLineQuick(InitDbItems.BEAN_EVO_STONE, pk_, all_);
     }
 
     private static FacadeGame feedDbEvoStone() {
@@ -153,7 +153,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     public static StringMap<NaSt> beanToFossil(PkData _pk) {
         StringMap<NaSt> map_ = beanToItem(_pk);
         FossilBean b_ = new FossilBean();
-        map_.addEntry(AikiBeansItemsStd.BEAN_FOSSIL, _pk.bean(b_, EN));
+        map_.addEntry(InitDbItems.BEAN_FOSSIL, _pk.bean(b_, EN));
         b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_FOSSIL,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_FOSSIL,new TranslationsFile());
@@ -164,7 +164,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     protected static NaSt healFossil() {
         PkData pk_ = pkDataByFacade(feedDbFossil());
         StringMap<NaSt> all_ = beanToFossil(pk_);
-        return dispLineQuick(AikiBeansItemsStd.BEAN_FOSSIL, pk_, all_);
+        return dispLineQuick(InitDbItems.BEAN_FOSSIL, pk_, all_);
     }
 
     private static FacadeGame feedDbFossil() {

@@ -2,7 +2,6 @@ package aiki.beans.items;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
-import aiki.beans.facade.dto.*;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -28,6 +27,22 @@ import code.util.core.BoolVal;
 
 public abstract class InitDbItems extends InitDbConstr {
 
+    public static final String BEAN_BALL="ball";
+    public static final String BEAN_BERRY="berry";
+    public static final String BEAN_BOOST="boost";
+    public static final String BEAN_EVO_ITEM="evo_item";
+    public static final String BEAN_EVO_STONE="evo_stone";
+    public static final String BEAN_FOSSIL="fossil";
+    public static final String BEAN_HEALINGHP="healinghp";
+    public static final String BEAN_HEALINGHPSTATUS="healinghpstatus";
+    public static final String BEAN_HEALINGITEM="healingitem";
+    public static final String BEAN_HEALINGPP="healingpp";
+    public static final String BEAN_HEALINGSTATUS="healingstatus";
+    public static final String BEAN_ITEMS="items";
+    //    public static final String BEAN_ITEM="item";
+    public static final String BEAN_ITEMFORBATTLE="itemforbattle";
+    public static final String BEAN_REPEL="repel";
+    public static final String BEAN_SELLINGITEM="sellingitem";
     protected static final int IMG_MAX_RAI = 143;
     protected static final int IMG_MAX_RAI2 = 144;
 
@@ -75,43 +90,43 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static final String I_REPEL = "I_REPEL";
     protected static final String I_SELLING = "I_SELLING";
 
-    public static NaSt callItemLineDescriptionClassGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemLineDescriptionClassGet(),_str,_args);
+    public static NaSt callItemLineDescriptionClassGet(NaSt _str, int... _args) {
+        return new NaStSt(( ((ItLineStruct) _str).getWildPk()).getDescriptionClass());
     }
 
-    public static NaSt callItemLineDisplayNameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemLineDisplayNameGet(),_str,_args);
+    public static NaSt callItemLineDisplayNameGet(NaSt _str, int... _args) {
+        return new NaStSt(( ((ItLineStruct) _str).getWildPk()).getDisplayName());
     }
 
-    public static NaSt callItemLinePriceGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemLinePriceGet(),_str,_args);
+    public static NaSt callItemLinePriceGet(NaSt _str, int... _args) {
+        return new NaNbSt(( ((ItLineStruct) _str).getWildPk()).getPrice());
     }
-    public static String callItemsBeanClickLink(NaSt _str, long... _args) {
-        return navigateData(new ItemsBeanClickLink(),_str,_args);
-    }
-
-    public static NaSt callItemsBeanGetMiniImage(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemsBeanGetMiniImage(),_str,_args);
+    public static String callItemsBeanClickLink(NaSt _str, int... _args) {
+        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0])).getInstance();
     }
 
-    public static NaSt callItemsBeanItemsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemsBeanItemsGet(),_str,_args);
+    public static NaSt callItemsBeanGetMiniImage(NaSt _str, int... _args) {
+        return new NaImgSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImage(_args[0]));
+    }
+
+    public static NaSt callItemsBeanItemsGet(NaSt _str, int... _args) {
+        return PokemonStandards.getItLine(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getItems());
     }
 
 //    public static Struct callItemsBeanSearch(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new ItemsBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callItemsBeanTypedClassGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedClassGet(),_str,_args);
+    public static NaSt callItemsBeanTypedClassGet(NaSt _str, int... _args) {
+        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().tryRet());
     }
 
-    public static NaSt callItemsBeanTypedNameGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedNameGet(),_str,_args);
+    public static NaSt callItemsBeanTypedNameGet(NaSt _str, int... _args) {
+        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet());
     }
 
-    public static NaSt callItemsBeanTypedPriceGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedPriceGet(),_str,_args);
+    public static NaSt callItemsBeanTypedPriceGet(NaSt _str, int... _args) {
+        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().tryRet());
     }
     public static void callItemsBeanTypedClassSet(NaSt _str, String _args) {
         ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().setupValue(_args);
@@ -152,7 +167,7 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static NaSt transitToAllItemsQuick(PkData _pk, StringMap<NaSt> _all, String _it) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        NaSt items_ = _all.getVal(BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,items_);
         transit(_pk,new ItemsBeanSearch((ItemsBean) ((PokemonBeanStruct)items_).getBean()),items_,items_);
         NaSt itData_ = _all.getVal(_it);
@@ -164,7 +179,7 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static NaSt transitToAllItemsClick(PkData _pk, StringMap<NaSt> _all, String _it) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        NaSt items_ = _all.getVal(BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,items_);
         transit(_pk,new ItemsBeanSearch((ItemsBean) ((PokemonBeanStruct)items_).getBean()),items_,items_);
         NaSt itData_ = _all.getVal(_it);
@@ -181,7 +196,7 @@ public abstract class InitDbItems extends InitDbConstr {
         StringMap<NaSt> all_ = beanToItems(_pk);
         NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        NaSt moves_ = all_.getVal(BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,moves_);
         return moves_;
     }
@@ -190,7 +205,7 @@ public abstract class InitDbItems extends InitDbConstr {
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
         ItemsBean its_ = new ItemsBean();
         its_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        map_.addEntry(AikiBeansItemsStd.BEAN_ITEMS, _pk.bean(its_, EN));
+        map_.addEntry(BEAN_ITEMS, _pk.bean(its_, EN));
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,its_);
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
         ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());

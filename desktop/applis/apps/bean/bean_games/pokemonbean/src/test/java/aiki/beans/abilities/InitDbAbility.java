@@ -1,6 +1,6 @@
 package aiki.beans.abilities;
 
-import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.*;
 import aiki.beans.CommonBean;
 import aiki.beans.PkData;
 import aiki.beans.PokemonBeanStruct;
@@ -26,52 +26,52 @@ import code.util.StringMap;
 
 public abstract class InitDbAbility extends InitDbAbilities {
 
-    public static NaSt callAbilityBeanAchievedDisappearedPkGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanAchievedDisappearedPkGet(),_str,_args);
+    public static NaSt callAbilityBeanAchievedDisappearedPkGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getAchievedDisappearedPk());
     }
 
     public static NaSt callAbilityBeanBonusStatRankGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBonusStatRankGet(),directCase());
+        return PokemonStandards.getStaByte(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getBonusStatRank());
     }
 
     public static NaSt callAbilityBeanBoostStatRankEndRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBoostStatRankEndRoundGet(),directCase());
+        return PokemonStandards.getStaByte(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getBoostStatRankEndRound());
     }
 
     public static NaSt callAbilityBeanBoostStatRankProtectedGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBoostStatRankProtectedGet(),directCase());
+        return PokemonStandards.getStaByte(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getBoostStatRankProtected());
     }
 
     public static NaSt callAbilityBeanBreakFoeImmuneGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakFoeImmuneGet(),directCase());
+        return PokemonStandards.getTypesDuo(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getBreakFoeImmune());
     }
 
-    public static NaSt callAbilityBeanBreakProtectionGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakProtectionGet(),_str,_args);
+    public static NaSt callAbilityBeanBreakProtectionGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getBreakProtection());
     }
 
     public static NaSt callAbilityBeanBreakProtectionMovesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakProtectionMovesGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getBreakProtectionMoves());
     }
 
-    public static NaSt callAbilityBeanCancelSecEffectOtherGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanCancelSecEffectOtherGet(),_str,_args);
+    public static NaSt callAbilityBeanCancelSecEffectOtherGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getCancelSecEffectOther());
     }
 
-    public static NaSt callAbilityBeanCancelSecEffectOwnerGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanCancelSecEffectOwnerGet(),_str,_args);
+    public static NaSt callAbilityBeanCancelSecEffectOwnerGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getCancelSecEffectOwner());
     }
 
     public static NaSt callAbilityBeanChangingBoostTypesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanChangingBoostTypesGet(),directCase());
+        return PokemonStandards.getStrTpDam(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getChangingBoostTypes());
     }
 
-    public static NaSt callAbilityBeanChgtTypeByDamageGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanChgtTypeByDamageGet(),_str,_args);
+    public static NaSt callAbilityBeanChgtTypeByDamageGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getChgtTypeByDamage());
     }
 
     public static NaSt callAbilityBeanChgtTypeByWeatherGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanChgtTypeByWeatherGet(),directCase());
+        return PokemonStandards.getStrStrKey(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getChgtTypeByWeather());
     }
 
     public static String callAbilityBeanClickBreakProtectionMoves() {
@@ -79,7 +79,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static String callAbilityBeanClickBreakProtectionMoves(NaSt _str) {
-        return navigateData(new AbilityBeanClickBreakProtectionMoves(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickBreakProtectionMoves(0)).getInstance();
     }
 
     public static String callAbilityBeanClickBreakProtectionMovesId() {
@@ -87,11 +87,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickBreakProtectionMoves(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickChgtTypeByWeatherKey() {
         return callAbilityBeanClickChgtTypeByWeatherKey(directCase());
     }
+
     public static String callAbilityBeanClickChgtTypeByWeatherKey(NaSt _str) {
-        return navigateData(new AbilityBeanClickChgtTypeByWeatherKey(),_str,1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickChgtTypeByWeatherKey(1)).getInstance();
     }
 
     public static String callAbilityBeanClickChgtTypeByWeatherKeyId() {
@@ -99,11 +101,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickChgtTypeByWeatherKey(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickDivideStatusRoundKey() {
         return callAbilityBeanClickDivideStatusRoundKey(directCase());
     }
+
     public static String callAbilityBeanClickDivideStatusRoundKey(NaSt _str) {
-        return navigateData(new AbilityBeanClickDivideStatusRoundKey(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickDivideStatusRoundKey(0)).getInstance();
     }
 
     public static String callAbilityBeanClickDivideStatusRoundKeyId() {
@@ -111,11 +115,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickDivideStatusRoundKey(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickFailStatus() {
         return callAbilityBeanClickFailStatus(directCase());
     }
+
     public static String callAbilityBeanClickFailStatus(NaSt _str) {
-        return navigateData(new AbilityBeanClickFailStatus(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickFailStatus(0)).getInstance();
     }
 
     public static String callAbilityBeanClickFailStatusId() {
@@ -123,11 +129,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickFailStatus(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickForwardStatusKey() {
         return callAbilityBeanClickForwardStatusKey(directCase());
     }
+
     public static String callAbilityBeanClickForwardStatusKey(NaSt _str) {
-        return navigateData(new AbilityBeanClickForwardStatusKey(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickForwardStatusKey(0)).getInstance();
     }
 
     public static String callAbilityBeanClickForwardStatusKeyId() {
@@ -135,11 +143,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickForwardStatusKey(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickForwardStatusValue() {
         return callAbilityBeanClickForwardStatusValue(directCase());
     }
+
     public static String callAbilityBeanClickForwardStatusValue(NaSt _str) {
-        return navigateData(new AbilityBeanClickForwardStatusValue(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickForwardStatusValue(0)).getInstance();
     }
 
     public static String callAbilityBeanClickForwardStatusValueId() {
@@ -147,11 +157,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickForwardStatusValue(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickHealHpByTypeIfWeatherKey() {
         return callAbilityBeanClickHealHpByTypeIfWeatherKey(directCase());
     }
+
     public static String callAbilityBeanClickHealHpByTypeIfWeatherKey(NaSt _str) {
-        return navigateData(new AbilityBeanClickHealHpByTypeIfWeatherKey(),_str,1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickHealHpByTypeIfWeatherKey(1)).getInstance();
     }
 
     public static String callAbilityBeanClickHealHpByTypeIfWeatherKeyId() {
@@ -159,11 +171,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickHealHpByTypeIfWeatherKey(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickHealHpByWeatherKey() {
         return callAbilityBeanClickHealHpByWeatherKey(directCase());
     }
+
     public static String callAbilityBeanClickHealHpByWeatherKey(NaSt _str) {
-        return navigateData(new AbilityBeanClickHealHpByWeatherKey(),_str,1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickHealHpByWeatherKey(1)).getInstance();
     }
 
     public static String callAbilityBeanClickHealHpByWeatherKeyId() {
@@ -171,11 +185,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickHealHpByWeatherKey(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickIgnAbility() {
         return callAbilityBeanClickIgnAbility(directCase());
     }
+
     public static String callAbilityBeanClickIgnAbility(NaSt _str) {
-        return navigateData(new AbilityBeanClickIgnAbility(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickIgnAbility(0)).getInstance();
     }
 
     public static String callAbilityBeanClickIgnAbilityId() {
@@ -183,11 +199,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickIgnAbility(b_);
         return getValAbilityId(b_);
     }
+
     public static String callAbilityBeanClickIgnFoeTeamMove() {
         return callAbilityBeanClickIgnFoeTeamMove(directCase());
     }
+
     public static String callAbilityBeanClickIgnFoeTeamMove(NaSt _str) {
-        return navigateData(new AbilityBeanClickIgnFoeTeamMove(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickIgnFoeTeamMove(0)).getInstance();
     }
 
     public static String callAbilityBeanClickIgnFoeTeamMoveId() {
@@ -195,11 +213,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickIgnFoeTeamMove(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickImmuAbility() {
         return callAbilityBeanClickImmuAbility(directCase());
     }
+
     public static String callAbilityBeanClickImmuAbility(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuAbility(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuAbility(0)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuAbilityId() {
@@ -207,11 +227,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuAbility(b_);
         return getValAbilityId(b_);
     }
+
     public static String callAbilityBeanClickImmuAllyFromMoves() {
         return callAbilityBeanClickImmuAllyFromMoves(directCase());
     }
+
     public static String callAbilityBeanClickImmuAllyFromMoves(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuAllyFromMoves(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuAllyFromMoves(0)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuAllyFromMovesId() {
@@ -219,11 +241,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuAllyFromMoves(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickImmuLowStatIfStatusKey() {
         return callAbilityBeanClickImmuLowStatIfStatusKey(directCase());
     }
+
     public static String callAbilityBeanClickImmuLowStatIfStatusKey(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuLowStatIfStatusKey(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuLowStatIfStatusKey(0)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuLowStatIfStatusKeyId() {
@@ -231,12 +255,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuLowStatIfStatusKey(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickImmuMove() {
         return callAbilityBeanClickImmuMove(directCase());
     }
 
     public static String callAbilityBeanClickImmuMove(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuMove(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuMove(0)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuMoveId() {
@@ -248,8 +273,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
     public static String callAbilityBeanClickImmuMoveByWeather() {
         return callAbilityBeanClickImmuMoveByWeather(directCase());
     }
+
     public static String callAbilityBeanClickImmuMoveByWeather(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuMoveByWeather(),_str,1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuMoveByWeather(1)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuMoveByWeatherId() {
@@ -257,11 +283,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuMoveByWeather(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickImmuRechargeRoundMoves() {
         return callAbilityBeanClickImmuRechargeRoundMoves(directCase());
     }
+
     public static String callAbilityBeanClickImmuRechargeRoundMoves(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuRechargeRoundMoves(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuRechargeRoundMoves(0)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuRechargeRoundMovesId() {
@@ -269,11 +297,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuRechargeRoundMoves(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickImmuStatus() {
         return callAbilityBeanClickImmuStatus(directCase());
     }
+
     public static String callAbilityBeanClickImmuStatus(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuStatus(),_str,1,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuStatus(1)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuStatusId() {
@@ -281,11 +311,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuStatus(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickImmuStatusBeginRound() {
         return callAbilityBeanClickImmuStatusBeginRound(directCase());
     }
+
     public static String callAbilityBeanClickImmuStatusBeginRound(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuStatusBeginRound(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuStatusBeginRound(0)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuStatusBeginRoundId() {
@@ -293,11 +325,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuStatusBeginRound(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickImmuStatusTypes() {
         return callAbilityBeanClickImmuStatusTypes(directCase());
     }
+
     public static String callAbilityBeanClickImmuStatusTypes(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuStatusTypes(),_str,0,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuStatusTypes(0)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuStatusTypesId() {
@@ -305,11 +339,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuStatusTypes(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickImmuStatusWeather() {
         return callAbilityBeanClickImmuStatusWeather(directCase());
     }
+
     public static String callAbilityBeanClickImmuStatusWeather(NaSt _str) {
-        return navigateData(new AbilityBeanClickImmuStatusWeather(),_str,1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickImmuStatusWeather(1)).getInstance();
     }
 
     public static String callAbilityBeanClickImmuStatusWeatherId() {
@@ -317,16 +353,18 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickImmuStatusWeather(b_);
         return getValMoveId(b_);
     }
+
     public static String callAbilityBeanClickIndex() {
         NaSt b_ = directCase();
-        return navigateData(new AbilityBeanClickIndex((AbilityBean) ((PokemonBeanStruct)b_).getBean()), b_);
+        return navigateData(new AbilityBeanClickIndex((AbilityBean) ((PokemonBeanStruct) b_).getBean()), b_);
     }
 
     public static String callAbilityBeanClickMultStatIfStatutRankSec() {
         return callAbilityBeanClickMultStatIfStatutRankSec(directCase());
     }
+
     public static String callAbilityBeanClickMultStatIfStatutRankSec(NaSt _str) {
-        return navigateData(new AbilityBeanClickMultStatIfStatutRankSec(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickMultStatIfStatutRankSec(0)).getInstance();
     }
 
     public static String callAbilityBeanClickMultStatIfStatutRankSecId() {
@@ -334,11 +372,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickMultStatIfStatutRankSec(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickPokemon() {
         return callAbilityBeanClickPokemon(directCase());
     }
+
     public static String callAbilityBeanClickPokemon(NaSt _str) {
-        return navigateData(new AbilityBeanClickPokemon(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickPokemon(0)).getInstance();
     }
 
     public static String callAbilityBeanClickPokemonId() {
@@ -346,12 +386,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickPokemon(b_);
         return getValPkId(b_);
     }
+
     public static String callAbilityBeanClickReversePowerTypesAbilities() {
         return callAbilityBeanClickReversePowerTypesAbilities(reverseCase());
     }
 
     public static String callAbilityBeanClickReversePowerTypesAbilities(NaSt _str) {
-        return navigateData(new AbilityBeanClickReversePowerTypesAbilities(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickReversePowerTypesAbilities(0)).getInstance();
     }
 
     public static String callAbilityBeanClickReversePowerTypesAbilitiesId() {
@@ -363,8 +404,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
     public static String callAbilityBeanClickSingleStatus() {
         return callAbilityBeanClickSingleStatus(directCase());
     }
+
     public static String callAbilityBeanClickSingleStatus(NaSt _str) {
-        return navigateData(new AbilityBeanClickSingleStatus(),_str,1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickSingleStatus(1)).getInstance();
     }
 
     public static String callAbilityBeanClickSingleStatusId() {
@@ -372,11 +414,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickSingleStatus(b_);
         return getValStatusId(b_);
     }
+
     public static String callAbilityBeanClickWeather() {
         return callAbilityBeanClickWeather(directCase());
     }
+
     public static String callAbilityBeanClickWeather(NaSt _str) {
-        return navigateData(new AbilityBeanClickWeather(),_str,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).clickWeather(0)).getInstance();
     }
 
     public static String callAbilityBeanClickWeatherId() {
@@ -384,28 +428,29 @@ public abstract class InitDbAbility extends InitDbAbilities {
         callAbilityBeanClickWeather(b_);
         return getValMoveId(b_);
     }
-    public static NaSt callAbilityBeanCopyMovesTypesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanCopyMovesTypesGet(),_str,_args);
+
+    public static NaSt callAbilityBeanCopyMovesTypesGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getCopyMovesTypes());
     }
 
     public static NaSt callAbilityBeanDecreaseNecStepsHatchGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDecreaseNecStepsHatchGet(),directCase());
+        return new NaNbSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getDecreaseNecStepsHatch());
     }
 
-    public static NaSt callAbilityBeanDecreaseNecStepsHatchInt(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDecreaseNecStepsHatchInt(),_str,_args);
+    public static NaSt callAbilityBeanDecreaseNecStepsHatchInt(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).decreaseNecStepsHatchInt());
     }
 
     public static NaSt callAbilityBeanDefEffGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDefEffGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getDefEff());
     }
 
     public static NaSt callAbilityBeanDisplayNameGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDisplayNameGet(),directCase());
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getDisplayName());
     }
 
     public static NaSt callAbilityBeanDivideStatusRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDivideStatusRoundGet(),directCase());
+        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getDivideStatusRound());
     }
 
 //    public static NaSt callAbilityBeanEffectSendBeanGet(NaSt _str, long... _args) {
@@ -413,31 +458,31 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //    }
 
     public static NaSt callAbilityBeanEndRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundGet(),directCaseEndRound());
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCaseEndRound()).getInstance()).getEndRoundCommon().getEndRound());
     }
 
     public static NaSt callAbilityBeanEndRoundRankGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundRankGet(),directCaseEndRound());
+        return new NaNbSt(((AbilityBean) ((PokemonBeanStruct) directCaseEndRound()).getInstance()).getEndRoundCommon().getEndRoundRank());
     }
 
     public static NaSt callAbilityBeanEndRoundGetNo() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundGet(),directCase());
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getEndRoundCommon().getEndRound());
     }
 
     public static NaSt callAbilityBeanEndRoundRankGetNo() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundRankGet(),directCase());
+        return new NaNbSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getEndRoundCommon().getEndRoundRank());
     }
 
     public static NaSt callAbilityBeanFailStatusGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanFailStatusGet(),directCase());
+        return PokemonStandards.getStrStrOnly(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getFailStatus());
     }
 
-    public static NaSt callAbilityBeanForbidUseBerryAgainstFoesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanForbidUseBerryAgainstFoesGet(),_str,_args);
+    public static NaSt callAbilityBeanForbidUseBerryAgainstFoesGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getForbidUseBerryAgainstFoes());
     }
 
     public static NaSt callAbilityBeanForwardStatusGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanForwardStatusGet(),directCase());
+        return PokemonStandards.getStrStrKey(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getForwardStatus());
     }
 
 //    public static NaSt callAbilityBeanGetEffectSending(NaSt _str, long... _args) {
@@ -445,499 +490,499 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //    }
 
     public static NaSt callAbilityBeanGetTrBonusStatRank() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBonusStatRank(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrBonusStatRank(0));
     }
 
     public static NaSt callAbilityBeanGetTrBoostStatRankEndRound() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBoostStatRankEndRound(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrBoostStatRankEndRound(0));
     }
 
     public static NaSt callAbilityBeanGetTrBoostStatRankProtected() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBoostStatRankProtected(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrBoostStatRankProtected(0));
     }
 
     public static NaSt callAbilityBeanGetTrBreakFoeImmuneKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakFoeImmuneKey(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrBreakFoeImmuneKey(0));
     }
 
     public static NaSt callAbilityBeanGetTrBreakFoeImmuneValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakFoeImmuneValue(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrBreakFoeImmuneValue(0));
     }
 
     public static NaSt callAbilityBeanGetTrBreakProtectionMoves() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakProtectionMoves(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrBreakProtectionMoves(0));
     }
 
     public static NaSt callAbilityBeanGetTrChangingBoostTypesNew() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChangingBoostTypesNew(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrChangingBoostTypesNew(0));
     }
 
     public static NaSt callAbilityBeanGetTrChangingBoostTypesOld() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChangingBoostTypesOld(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrChangingBoostTypesOld(0));
     }
 
     public static NaSt callAbilityBeanGetTrChgtTypeByWeatherKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherKey(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrChgtTypeByWeatherKey(1));
     }
 
     public static NaSt callAbilityBeanGetTrChgtTypeByWeatherValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherValue(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrChgtTypeByWeatherValue(1));
     }
 
     public static NaSt callAbilityBeanGetTrDivideStatusRoundKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrDivideStatusRoundKey(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrDivideStatusRoundKey(0));
     }
 
     public static NaSt callAbilityBeanGetTrFailStatus() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrFailStatus(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrFailStatus(0));
     }
 
     public static NaSt callAbilityBeanGetTrForwardStatusKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrForwardStatusKey(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrForwardStatusKey(0));
     }
 
     public static NaSt callAbilityBeanGetTrForwardStatusValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrForwardStatusValue(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrForwardStatusValue(0));
     }
 
     public static NaSt callAbilityBeanGetTrHealHpByTypeIfWeatherKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKey(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrHealHpByTypeIfWeatherKey(1));
     }
 
     public static NaSt callAbilityBeanGetTrHealHpByTypeIfWeatherKeySec() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKeySec(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrHealHpByTypeIfWeatherKeySec(1));
     }
 
     public static NaSt callAbilityBeanGetTrHealHpByWeatherKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByWeatherKey(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrHealHpByWeatherKey(1));
     }
 
     public static NaSt callAbilityBeanGetTrIgnAbility() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIgnAbility(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrIgnAbility(0));
     }
 
     public static NaSt callAbilityBeanGetTrIgnFoeTeamMove() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIgnFoeTeamMove(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrIgnFoeTeamMove(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuAbility() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuAbility(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuAbility(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuAllyFromMoves() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuAllyFromMoves(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuAllyFromMoves(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuLowStat() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStat(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuLowStat(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuLowStatIfStatusKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatIfStatusKey(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuLowStatIfStatusKey(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuLowStatIfStatusValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatIfStatusValue(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuLowStatIfStatusValue(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuLowStatisTypes() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisTypes(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuLowStatisTypes(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuLowStatisValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisValue(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuLowStatisValue(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuMove() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMove(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuMove(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuMoveByWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMoveByWeather(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuMoveByWeather(1));
     }
 
     public static NaSt callAbilityBeanGetTrImmuRechargeRoundMoves() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuRechargeRoundMoves(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuRechargeRoundMoves(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuStatus() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatus(),directCase(),1,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuStatus(1));
     }
 
     public static NaSt callAbilityBeanGetTrImmuStatusBeginRound() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusBeginRound(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuStatusBeginRound(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuStatusTypes() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusTypes(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuStatusTypes(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuStatusValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusValue(),directCase(),0,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuStatusValue(0));
     }
 
     public static NaSt callAbilityBeanGetTrImmuStatusWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusWeather(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuStatusWeather(1));
     }
 
     public static NaSt callAbilityBeanGetTrImmuTypeByWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuTypeByWeather(),directCase(),1,0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrImmuTypeByWeather(1));
     }
 
     public static NaSt callAbilityBeanGetTrIncreasedPrio() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIncreasedPrio(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrIncreasedPrio(0));
     }
 
     public static NaSt callAbilityBeanGetTrIncreasedPrioTypes() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIncreasedPrioTypes(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrIncreasedPrioTypes(0));
     }
 
     public static NaSt callAbilityBeanGetTrLowStatFoeHit() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrLowStatFoeHit(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrLowStatFoeHit(0));
     }
 
     public static NaSt callAbilityBeanGetTrMaxStatisticsIfCh() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMaxStatisticsIfCh(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMaxStatisticsIfCh(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultDamageFoe() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultDamageFoe(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultDamageFoe(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultPowerMovesTypesGlobalKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultPowerMovesTypesGlobalKey(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultPowerMovesTypesGlobalKey(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStat() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStat(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStat(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatAlly() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatAlly(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatAlly(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfCatKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfCatKey(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfCatKey(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfCatKeySec() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfCatKeySec(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfCatKeySec(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfDamageCatKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamageCatKey(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfDamageCatKey(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfDamageCatKeySec() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamageCatKeySec(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfDamageCatKeySec(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfDamgeType() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamgeType(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfDamgeType(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfDamgeTypeSec() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamgeTypeSec(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfDamgeTypeSec(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfKoFoe() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfKoFoe(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfKoFoe(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfLowStat() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfLowStat(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfLowStat(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfStatutRank() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfStatutRank(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfStatutRank(0));
     }
 
     public static NaSt callAbilityBeanGetTrMultStatIfStatutRankSec() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfStatutRankSec(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrMultStatIfStatutRankSec(0));
     }
 
     public static NaSt callAbilityBeanGetTrPokemon() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrPokemon(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrPokemon(0));
     }
 
     public static NaSt callAbilityBeanGetTrReversePowerTypesAbilities() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrReversePowerTypesAbilities(),reverseCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) reverseCase()).getInstance()).getTrReversePowerTypesAbilities(0));
     }
 
     public static NaSt callAbilityBeanGetTrSingleStatus() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrSingleStatus(),directCase(),1);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrSingleStatus(1));
     }
 
     public static NaSt callAbilityBeanGetTrWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrWeather(),directCase(),0);
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getTrWeather(0));
     }
 
-    public static NaSt callAbilityBeanGiveItemToAllyHavingUsedGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGiveItemToAllyHavingUsedGet(),_str,_args);
+    public static NaSt callAbilityBeanGiveItemToAllyHavingUsedGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getGiveItemToAllyHavingUsed());
     }
 
     public static NaSt callAbilityBeanHealHpByTypeIfWeatherGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpByTypeIfWeatherGet(),directCase());
+        return PokemonStandards.getWeatherTypeRateMap(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getHealHpByTypeIfWeather());
     }
 
     public static NaSt callAbilityBeanHealHpByWeatherGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpByWeatherGet(),directCase());
+        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getHealHpByWeather());
     }
 
     public static NaSt callAbilityBeanHealHpWhileUsingBerryGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpWhileUsingBerryGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getHealHpWhileUsingBerry());
     }
 
     public static NaSt callAbilityBeanHealedHpRateBySwitchGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealedHpRateBySwitchGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getHealedHpRateBySwitch());
     }
 
-    public static NaSt callAbilityBeanHealedStatusBySwitchGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealedStatusBySwitchGet(),_str,_args);
+    public static NaSt callAbilityBeanHealedStatusBySwitchGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getHealedStatusBySwitch());
     }
 
     public static NaSt callAbilityBeanIgnAbilityGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnAbilityGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getIgnAbility());
     }
 
-    public static NaSt callAbilityBeanIgnFoeStatisBoostGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnFoeStatisBoostGet(),_str,_args);
+    public static NaSt callAbilityBeanIgnFoeStatisBoostGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getIgnFoeStatisBoost());
     }
 
     public static NaSt callAbilityBeanIgnFoeTeamMoveGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnFoeTeamMoveGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getIgnFoeTeamMove());
     }
 
     public static NaSt callAbilityBeanImmuAbilityGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuAbilityGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuAbility());
     }
 
     public static NaSt callAbilityBeanImmuAllyFromMovesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuAllyFromMovesGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuAllyFromMoves());
     }
 
-    public static NaSt callAbilityBeanImmuChGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuChGet(),_str,_args);
+    public static NaSt callAbilityBeanImmuChGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getImmuCh());
     }
 
-    public static NaSt callAbilityBeanImmuDamageAllyMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuDamageAllyMovesGet(),_str,_args);
+    public static NaSt callAbilityBeanImmuDamageAllyMovesGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getImmuDamageAllyMoves());
     }
 
-    public static NaSt callAbilityBeanImmuDamageRecoilGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuDamageRecoilGet(),_str,_args);
+    public static NaSt callAbilityBeanImmuDamageRecoilGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getImmuDamageRecoil());
     }
 
-    public static NaSt callAbilityBeanImmuDamageTrappingMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuDamageTrappingMovesGet(),_str,_args);
+    public static NaSt callAbilityBeanImmuDamageTrappingMovesGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getImmuDamageTrappingMoves());
     }
 
     public static NaSt callAbilityBeanImmuLowStatGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuLowStat());
     }
 
     public static NaSt callAbilityBeanImmuLowStatIfStatusGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatIfStatusGet(),directCase());
+        return PokemonStandards.arrId(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuLowStatIfStatus().size());
     }
 
     public static NaSt callAbilityBeanImmuLowStatisTypesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatisTypesGet(),directCase());
+        return PokemonStandards.getStrListStaList(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuLowStatisTypes());
     }
 
     public static NaSt callAbilityBeanImmuMoveGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuMoveGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuMove());
     }
 
     public static NaSt callAbilityBeanImmuMoveTypesByWeatherGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuMoveTypesByWeatherGet(),directCase());
+        return PokemonStandards.getStrListStaList(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuMoveTypesByWeather());
     }
 
-    public static NaSt callAbilityBeanImmuRechargeRoundGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuRechargeRoundGet(),_str,_args);
+    public static NaSt callAbilityBeanImmuRechargeRoundGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getImmuRechargeRound());
     }
 
     public static NaSt callAbilityBeanImmuRechargeRoundMovesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuRechargeRoundMovesGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuRechargeRoundMoves());
     }
 
     public static NaSt callAbilityBeanImmuStatusBeginRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusBeginRoundGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuStatusBeginRound());
     }
 
     public static NaSt callAbilityBeanImmuStatusGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusGet(),directCase());
+        return PokemonStandards.getStrListStaList(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuStatus());
     }
 
     public static NaSt callAbilityBeanImmuStatusTypesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusTypesGet(),directCase());
+        return PokemonStandards.getStrListStaList(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuStatusTypes());
     }
 
-    public static NaSt callAbilityBeanImmuSufferedDamageLowEffGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuSufferedDamageLowEffGet(),_str,_args);
+    public static NaSt callAbilityBeanImmuSufferedDamageLowEffGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getImmuSufferedDamageLowEff());
     }
 
     public static NaSt callAbilityBeanImmuWeatherGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuWeatherGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuWeather());
     }
 
     public static NaSt callAbilityBeanIncreasedPrioGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIncreasedPrioGet(),directCase());
+        return PokemonStandards.getStrLong(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getIncreasedPrio());
     }
 
     public static NaSt callAbilityBeanIncreasedPrioTypesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIncreasedPrioTypesGet(),directCase());
+        return PokemonStandards.getStrLong(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getIncreasedPrioTypes());
     }
 
-    public static NaSt callAbilityBeanInflictingDamageInsteadOfSufferingGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanInflictingDamageInsteadOfSufferingGet(),_str,_args);
+    public static NaSt callAbilityBeanInflictingDamageInsteadOfSufferingGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getInflictingDamageInsteadOfSuffering());
     }
 
     public static NaSt callAbilityBeanIsChgtTypeByWeather(int _v) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsChgtTypeByWeather(),directCase(),_v);
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).isChgtTypeByWeather(_v));
     }
 
     public static NaSt callAbilityBeanIsHealHpByTypeIfWeather(int _v) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByTypeIfWeather(),directCase(),_v);
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).isHealHpByTypeIfWeather(_v));
     }
 
     public static NaSt callAbilityBeanIsHealHpByWeather(int _v) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByWeather(),directCase(),_v);
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).isHealHpByWeather(_v));
     }
 
     public static NaSt callAbilityBeanIsMoveByStatus(int _v) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByStatus(),directCase(),_v);
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).isMoveByStatus(_v));
     }
 
     public static NaSt callAbilityBeanIsMoveByWeather(int _v) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByWeather(),directCase(),_v);
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).isMoveByWeather(_v));
     }
 
     public static NaSt callAbilityBeanIsStatus(int _v) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsStatus(),directCase(),_v);
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).isStatus(_v));
     }
 
     public static NaSt callAbilityBeanLowStatFoeHitGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanLowStatFoeHitGet(),directCase());
+        return PokemonStandards.getStaByte(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getLowStatFoeHit());
     }
 
     public static NaSt callAbilityBeanMapVarsFailEndRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMapVarsFailEndRoundGet(),directCaseEndRound());
+        return PokemonStandards.getStrStr(((AbilityBean) ((PokemonBeanStruct) directCaseEndRound()).getInstance()).getEndRoundCommon().getMapVarsFailEndRound());
     }
 
     public static NaSt callAbilityBeanMapVarsGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMapVarsGet(),directCase());
+        return PokemonStandards.getStrStr(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMapVars());
     }
 
     public static NaSt callAbilityBeanMaxHpForUsingBerryGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMaxHpForUsingBerryGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMaxHpForUsingBerry());
     }
 
     public static NaSt callAbilityBeanMaxStatisticsIfChGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMaxStatisticsIfChGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMaxStatisticsIfCh());
     }
 
     public static NaSt callAbilityBeanMultAllyDamageGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultAllyDamageGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultAllyDamage());
     }
 
     public static NaSt callAbilityBeanMultDamageChGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageChGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultDamageCh());
     }
 
     public static NaSt callAbilityBeanMultDamageFoeGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageFoeGet(),directCase());
+        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultDamageFoe());
     }
 
     public static NaSt callAbilityBeanMultDamageGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageGet(),directCase());
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultDamage());
     }
 
     public static NaSt callAbilityBeanMultEvtRateChGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultEvtRateChGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultEvtRateCh());
     }
 
     public static NaSt callAbilityBeanMultEvtRateSecEffectOwnerGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultEvtRateSecEffectOwnerGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultEvtRateSecEffectOwner());
     }
 
     public static NaSt callAbilityBeanMultPowerGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerGet(),directCase());
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultPower());
     }
 
     public static NaSt callAbilityBeanMultPowerMovesTypesGlobalGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerMovesTypesGlobalGet(),directCase());
+        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultPowerMovesTypesGlobal());
     }
 
     public static NaSt callAbilityBeanMultStabGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStabGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStab());
     }
 
     public static NaSt callAbilityBeanMultStatAllyGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatAllyGet(),directCase());
+        return PokemonStandards.getStaRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStatAlly());
     }
 
     public static NaSt callAbilityBeanMultStatGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatGet(),directCase());
+        return PokemonStandards.getStaStr(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStat());
     }
 
     public static NaSt callAbilityBeanMultStatIfCatGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfCatGet(),directCase());
+        return PokemonStandards.getWcRateMap(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStatIfCat());
     }
 
     public static NaSt callAbilityBeanMultStatIfDamageCatGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfDamageCatGet(),directCase());
+        return PokemonStandards.getWcByteMap(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStatIfDamageCat());
     }
 
     public static NaSt callAbilityBeanMultStatIfDamgeTypeGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfDamgeTypeGet(),directCase());
+        return PokemonStandards.getWcByteMap(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStatIfDamgeType());
     }
 
     public static NaSt callAbilityBeanMultStatIfKoFoeGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfKoFoeGet(),directCase());
+        return PokemonStandards.getStaByte(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStatIfKoFoe());
     }
 
     public static NaSt callAbilityBeanMultStatIfLowStatGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfLowStatGet(),directCase());
+        return PokemonStandards.getStaByte(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStatIfLowStat());
     }
 
     public static NaSt callAbilityBeanMultStatIfStatutRankGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfStatutRankGet(),directCase());
+        return PokemonStandards.getWcByteMap(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultStatIfStatutRank());
     }
 
     public static NaSt callAbilityBeanMultSufferedDamageSuperEffGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultSufferedDamageSuperEffGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultSufferedDamageSuperEff());
     }
 
     public static NaSt callAbilityBeanMultVarBoostGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultVarBoostGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultVarBoost());
     }
 
-    public static NaSt callAbilityBeanMumyGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMumyGet(),_str,_args);
+    public static NaSt callAbilityBeanMumyGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getMumy());
     }
 
-    public static NaSt callAbilityBeanNbHitsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanNbHitsGet(),_str,_args);
+    public static NaSt callAbilityBeanNbHitsGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getNbHits());
     }
 
     public static NaSt callAbilityBeanNbUsedPpGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanNbUsedPpGet(),directCase());
+        return new NaNbSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getNbUsedPp());
     }
 
-    public static NaSt callAbilityBeanNbUsedPpInt(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanNbUsedPpInt(),_str,_args);
+    public static NaSt callAbilityBeanNbUsedPpInt(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).nbUsedPpInt());
     }
 
-    public static NaSt callAbilityBeanPlateGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanPlateGet(),_str,_args);
+    public static NaSt callAbilityBeanPlateGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getPlate());
     }
 
     public static NaSt callAbilityBeanPokemonGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanPokemonGet(),directCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getPokemon());
     }
 
     public static NaSt callAbilityBeanReasonsEndRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanReasonsEndRoundGet(),directCaseEndRound());
+        return BeanNatCommonLgNames.getStringArray(((AbilityBean) ((PokemonBeanStruct) directCaseEndRound()).getInstance()).getEndRoundCommon().getReasonsEndRound());
     }
 
 //    public static Struct callAbilityBeanRecoilDamageFoeByKoOwnerGet() {
@@ -945,47 +990,46 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //    }
 
     public static NaSt callAbilityBeanRecoilDamageFoeGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanRecoilDamageFoeGet(),directCase());
+        return new RtSt(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getRecoilDamageFoe());
     }
 
     public static NaSt callAbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet(),reverseCase());
+        return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) reverseCase()).getInstance()).getReverseEffectsPowerMovesTypesGlobalAbilities());
     }
 
-    public static NaSt callAbilityBeanReverseEffectsPowerMovesTypesGlobalGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanReverseEffectsPowerMovesTypesGlobalGet(),_str,_args);
+    public static NaSt callAbilityBeanReverseEffectsPowerMovesTypesGlobalGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getReverseEffectsPowerMovesTypesGlobal());
     }
 
     public static NaSt callAbilityBeanSendingNoGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanSendingGet(),directCase());
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getSending());
     }
 
     public static NaSt callAbilityBeanSendingGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanSendingGet(),abNoStatSend());
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) abNoStatSend()).getInstance()).getSending());
     }
 
     public static NaSt callAbilityBeanSingleStatusGet() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanSingleStatusGet(),directCase());
+        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getSingleStatus());
     }
 
-    public static NaSt callAbilityBeanSlowingGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanSlowingGet(),_str,_args);
+    public static NaSt callAbilityBeanSlowingGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getSlowing());
     }
 
-    public static NaSt callAbilityBeanTakeItemByDamagingMoveGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanTakeItemByDamagingMoveGet(),_str,_args);
+    public static NaSt callAbilityBeanTakeItemByDamagingMoveGet(NaSt _str, int... _args) {
+        return NaBoSt.of(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getTakeItemByDamagingMove());
     }
 
-    public static NaSt callAbilityBeanTypeForMovesGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanTypeForMovesGet(),_str,_args);
+    public static NaSt callAbilityBeanTypeForMovesGet(NaSt _str, int... _args) {
+        return new NaStSt(((AbilityBean) ((PokemonBeanStruct) _str).getInstance()).getTypeForMoves().getTranslation());
     }
-
 
 
     public static StringMap<NaSt> beanToItBaseSend(PkData _pk) {
         StringMap<NaSt> map_ = beanToAbility(_pk);
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
+        ((CommonBean) ((PokemonBeanStruct) map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING, new TranslationsFile());
+        ((CommonBean) ((PokemonBeanStruct) map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING, new TranslationsFile());
 //        EffectWhileSendingBean send_ = new EffectWhileSendingBean();
 //        send_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
 //        map_.addEntry(AikiBeansEffectsStd.EFFECT_SENDING, _pk.bean(send_, EN));
@@ -1003,28 +1047,30 @@ public abstract class InitDbAbility extends InitDbAbilities {
     protected static NaSt reverseCase() {
         PkData pk_ = pkDataByFacade(feedDbAbilityReverse());
         StringMap<NaSt> all_ = beanToAbility(pk_);
-        return transitToAllAbilities(pk_,all_,0);
+        return transitToAllAbilities(pk_, all_, 0);
     }
 
     protected static NaSt directCase() {
         PkData pk_ = pkDataByFacade(feedDbAbility());
         StringMap<NaSt> all_ = beanToAbility(pk_);
-        return transitToAllAbilities(pk_,all_,0);
+        return transitToAllAbilities(pk_, all_, 0);
     }
+
     protected static NaSt directCase(boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
         PkData pk_ = pkDataByFacade(feedDbAbility(_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves));
         StringMap<NaSt> all_ = beanToAbility(pk_);
-        return transitToAllAbilities(pk_,all_,0);
+        return transitToAllAbilities(pk_, all_, 0);
     }
 
     protected static NaSt directCaseEndRound() {
         PkData pk_ = pkDataByFacade(feedDbAbilityEndRound());
         StringMap<NaSt> all_ = beanToAbility(pk_);
-        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
-        return transitToAllAbilitiesQuick(pk_,all_,0);
+        ((CommonBean) ((PokemonBeanStruct) all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND, new TranslationsFile());
+        ((CommonBean) ((PokemonBeanStruct) all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND, new TranslationsFile());
+        return transitToAllAbilitiesQuick(pk_, all_, 0);
     }
-//
+
+    //
 //    protected static Struct healSimpleNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
 //        PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
 //        StringMap<Struct> all_ = beanToItBaseSend(pk_);
@@ -1042,17 +1088,18 @@ public abstract class InitDbAbility extends InitDbAbilities {
     public static NaSt healSimpleNoStatSend() {
         PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        NaSt res_ = transitToAllAbilitiesQuick(pk_, all_,0);
+        NaSt res_ = transitToAllAbilitiesQuick(pk_, all_, 0);
 //        callAbilityBeanEffectSendBeanGet(res_);
 //        NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
 //        callEffectWhileSendingBeanEffectSet(send_,callAbilityBeanGetEffectSending(res_));
 //        beforeDisplaying(send_);
-        return new PokemonBeanStruct(((PokemonBeanStruct)res_).getInstance().effSending(((AbilityBean)((PokemonBeanStruct)res_).getInstance()).getEffectSending()));
+        return new PokemonBeanStruct(((PokemonBeanStruct) res_).getInstance().effSending(((AbilityBean) ((PokemonBeanStruct) res_).getInstance()).getEffectSending()));
     }
+
     public static NaSt abNoStatSend() {
         PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
-        return transitToAllAbilitiesQuick(pk_, all_,0);
+        return transitToAllAbilitiesQuick(pk_, all_, 0);
     }
 //
 //    public static Struct healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
@@ -1077,7 +1124,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //        return res_;
 //    }
 
-//    protected static FacadeGame feedDbItem(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+    //    protected static FacadeGame feedDbItem(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
 //        FacadeGame facade_ = facade();
 //        facade_.getData().completeMembers(I_BASE,itemForBattle(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
 //        otherElts(facade_);
@@ -1092,11 +1139,13 @@ public abstract class InitDbAbility extends InitDbAbilities {
     protected static FacadeGame feedDbAbilityNoStat() {
         return feedDbAbilityStat();
     }
-//
+
+    //
     protected static FacadeGame feedDbAbilityEndRound() {
         return feedDbAbility(effEndRound());
     }
-//
+
+    //
     protected static FacadeGame feedDbAbilityStat() {
         FacadeGame facade_ = facade();
         AbilityData it_ = ability();
@@ -1107,7 +1156,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         facade_.getData().completeMembers(A_ABILITY, it_);
         return common(true, A_ABILITY, facade_);
     }
-//
+
+    //
     protected static FacadeGame feedDbAbility(EffectEndRound _eff) {
         FacadeGame facade_ = facade();
         AbilityData it_ = ability();
@@ -1118,17 +1168,18 @@ public abstract class InitDbAbility extends InitDbAbilities {
 
 
     protected static FacadeGame feedDbAbility() {
-        return feedDbAbility(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,"");
+        return feedDbAbility(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, 1, 1, "");
     }
 
     protected static FacadeGame feedDbAbility(boolean _rech, String _ab) {
-        return feedDbAbility(_rech,_ab,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,"");
+        return feedDbAbility(_rech, _ab, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, 1, 1, "");
     }
 
     protected static FacadeGame feedDbAbility(boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
-        return feedDbAbility(true,A_ABILITY,_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves);
+        return feedDbAbility(true, A_ABILITY, _forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves);
     }
-    protected static FacadeGame feedDbAbility(boolean _rech, String _ab,boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
+
+    protected static FacadeGame feedDbAbility(boolean _rech, String _ab, boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(A_ABILITY, ability(_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves));
         AbilityData ab_ = ability();
@@ -1136,6 +1187,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         facade_.getData().completeMembers(A_ABILITY2, ab_);
         return common(_rech, _ab, facade_);
     }
+
     protected static FacadeGame feedDbAbilityReverse() {
         FacadeGame facade_ = facade();
         AbilityData d_ = ability();
@@ -1147,8 +1199,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     private static FacadeGame common(boolean _rech, String _ab, FacadeGame _facade) {
-        _facade.getData().completeMembers(S_STA_REL,staRel(""));
-        _facade.getData().completeMembers(S_STA_SIM,staSimple(""));
+        _facade.getData().completeMembers(S_STA_REL, staRel(""));
+        _facade.getData().completeMembers(S_STA_SIM, staSimple(""));
         DamagingMoveData rech_ = moveDam(TargetChoice.ANY_FOE);
         rech_.setRechargeRound(_rech);
         EffectProtection e_ = Instances.newEffectProtection();
@@ -1165,7 +1217,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 
     protected static EffectEndRound effEndRound() {
         EffectEndRound e_ = lawEndRound();
-        e_.setFailEndRound(VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR);
+        e_.setFailEndRound(VAR_PREFIX + MessagesDataBaseConstants.DEF_TEMPS_TOUR);
         e_.setEndRoundRank(1);
         return e_;
     }

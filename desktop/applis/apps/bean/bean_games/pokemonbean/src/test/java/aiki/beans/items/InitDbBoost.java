@@ -1,6 +1,6 @@
 package aiki.beans.items;
 
-import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
@@ -10,44 +10,44 @@ import code.util.StringMap;
 
 public abstract class InitDbBoost extends InitDbItem {
 
-    public static String callBoostBeanClickHappiness(NaSt _str, long... _args) {
-        return navigateData(new BoostBeanClickHappiness(),_str,_args);
+    public static String callBoostBeanClickHappiness(NaSt _str, int... _args) {
+        return new NaStSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).clickHappiness(_args[0])).getInstance();
     }
 
-    public static String callBoostBeanClickHappinessId(NaSt _str, long... _args) {
+    public static String callBoostBeanClickHappinessId(NaSt _str, int... _args) {
         callBoostBeanClickHappiness(_str,_args);
         return getValItemId(_str);
     }
 
-    public static NaSt callBoostBeanEvsGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new BoostBeanEvsGet(),_str,_args);
+    public static NaSt callBoostBeanEvsGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStaByte(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getEvs());
     }
 
-    public static NaSt callBoostBeanGetTrEv(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new BoostBeanGetTrEv(),_str,_args);
+    public static NaSt callBoostBeanGetTrEv(NaSt _str, int... _args) {
+        return new NaStSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getTrEv(_args[0]));
     }
 
-    public static NaSt callBoostBeanGetTrHappiness(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new BoostBeanGetTrHappiness(),_str,_args);
+    public static NaSt callBoostBeanGetTrHappiness(NaSt _str, int... _args) {
+        return new NaStSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getTrHappiness(_args[0]));
     }
 
-    public static NaSt callBoostBeanHappinessGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new BoostBeanHappinessGet(),_str,_args);
+    public static NaSt callBoostBeanHappinessGet(NaSt _str, int... _args) {
+        return PokemonStandards.getStrLong(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness());
     }
 
-    public static NaSt callBoostBeanIsBall(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new BoostBeanIsBall(),_str,_args);
+    public static NaSt callBoostBeanIsBall(NaSt _str, int... _args) {
+        return NaBoSt.of(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).isBall(_args[0]));
     }
 
-    public static NaSt callBoostBeanMaxEvGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new BoostBeanMaxEvGet(),_str,_args);
+    public static NaSt callBoostBeanMaxEvGet(NaSt _str, int... _args) {
+        return new NaNbSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getMaxEv());
     }
 
-    public static NaSt callBoostBeanWinPpGet(NaSt _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new BoostBeanWinPpGet(),_str,_args);
+    public static NaSt callBoostBeanWinPpGet(NaSt _str, int... _args) {
+        return new RtSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getWinPp());
     }
     protected static NaSt boostDb() {
-        return dispLineSample(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
+        return dispLineSample(feedDbItem(), InitDbItems.BEAN_BOOST);
     }
 
     private static FacadeGame feedDbItem() {
