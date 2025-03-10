@@ -12,7 +12,6 @@ import aiki.beans.map.*;
 import aiki.beans.map.characters.*;
 import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.*;
-import aiki.beans.moves.*;
 import aiki.beans.moves.effects.*;
 import aiki.beans.solution.*;
 import aiki.beans.status.*;
@@ -59,7 +58,7 @@ public final class PkData extends PokemonStandards {
         AikiBeansMapStd.build(this);
         AikiBeansMapPokemonStd.build(this);
         AikiBeansMovesEffectsStd.build(this);
-        AikiBeansMovesStd.build(this);
+//        AikiBeansMovesStd.build(this);
 //        AikiBeansPokemonEvolutionsStd.build(this);
 //        AikiBeansPokemonStd.build(this);
 //        AikiBeansSimulationStd.build(this);
