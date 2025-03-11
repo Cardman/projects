@@ -47,12 +47,12 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrLinkDeleted(_args[0]);
     }
 
-    public static NaSt callEffectStatusBeanIsStatus(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).isStatus(_args[0]));
+    public static boolean callEffectStatusBeanIsStatus(NaSt _str, int... _args) {
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).isStatus(_args[0]);
     }
 
-    public static NaSt callEffectStatusBeanKoUserHealSubstGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getKoUserHealSubst());
+    public static boolean callEffectStatusBeanKoUserHealSubstGet(NaSt _str, int... _args) {
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getKoUserHealSubst();
     }
 
     public static NaSt callEffectStatusBeanLawStatusGet(NaSt _str, int... _args) {
@@ -63,8 +63,8 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         return PokemonStandards.getStrStr(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsStatus());
     }
 
-    public static NaSt callEffectStatusBeanStatusFromUserGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getStatusFromUser());
+    public static boolean callEffectStatusBeanStatusFromUserGet(NaSt _str, int... _args) {
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getStatusFromUser();
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectStatus _eff) {

@@ -177,8 +177,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanAllowedSwitchPlacesEndRoundGet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanAllyChoiceGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAllyChoice().isSelected());
+    public static boolean callSimulationBeanAllyChoiceGet(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAllyChoice().isSelected();
     }
 
     public static NaSt callSimulationBeanAllyTeamGet(NaSt _str, int... _args) {
@@ -285,8 +285,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanDisplayEvolutions(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanDisplayIfErrorGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayIfError());
+    public static boolean callSimulationBeanDisplayIfErrorGet(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayIfError();
     }
 
 //    public static Struct callSimulationBeanEnabledClosingGet(Struct _str, long... _args) {
@@ -317,8 +317,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return PokemonStandards.getPkTrDto(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getFoeTeam());
     }
 
-    public static NaSt callSimulationBeanFreeTeamsGet(int _team) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)initByTeam(_team)).getInstance()).getFreeTeams());
+    public static boolean callSimulationBeanFreeTeamsGet(int _team) {
+        return ( (SimulationBean) ((PokemonBeanStruct)initByTeam(_team)).getInstance()).getFreeTeams();
     }
 
     public static String callSimulationBeanGetAbility(NaSt _str, int _index) {
@@ -393,20 +393,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKoPlayers());
     }
 
-    public static NaSt callSimulationBeanGetLevel(NaSt _str, int _index) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevel(_index));
+    public static long callSimulationBeanGetLevel(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevel(_index);
     }
 
-    public static NaSt callSimulationBeanGetLevelAfterFight(NaSt _str, int _index) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelAfterFight(_index));
+    public static long callSimulationBeanGetLevelAfterFight(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelAfterFight(_index);
     }
 
-    public static NaSt callSimulationBeanGetLevelAlly(NaSt _str, int _index) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelAlly(_index));
+    public static long callSimulationBeanGetLevelAlly(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelAlly(_index);
     }
 
-    public static NaSt callSimulationBeanGetLevelFoe(NaSt _str, int _index) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelFoe(_index));
+    public static long callSimulationBeanGetLevelFoe(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelFoe(_index);
     }
 
     public static NaSt callSimulationBeanGetMoves(NaSt _str, int _index) {
@@ -445,8 +445,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNotKoFrontFoes());
     }
 
-    public static NaSt callSimulationBeanGetRealStepNumber(NaSt _str) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRealStepNumber());
+    public static long callSimulationBeanGetRealStepNumber(NaSt _str) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRealStepNumber();
     }
 
     public static NaSt callSimulationBeanGetRemainingLifeRate(NaSt _str, int _index) {
@@ -461,64 +461,64 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanHideComments(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanIndexTeamGet(NaSt _str) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getIndexTeam());
+    public static long callSimulationBeanIndexTeamGet(NaSt _str) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getIndexTeam();
     }
 
-    public static NaSt callSimulationBeanIsAvailableAbilities(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isAvailableAbilities());
+    public static boolean callSimulationBeanIsAvailableAbilities(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isAvailableAbilities();
     }
 
-    public static NaSt callSimulationBeanIsAvailableMoves(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isAvailableMoves());
+    public static boolean callSimulationBeanIsAvailableMoves(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isAvailableMoves();
     }
 
-    public static NaSt callSimulationBeanIsDiffState(NaSt _str) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isDiffState());
+    public static boolean callSimulationBeanIsDiffState(NaSt _str) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isDiffState();
     }
 
-    public static NaSt callSimulationBeanIsEvolutionAfterFightState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isEvolutionAfterFightState());
+    public static boolean callSimulationBeanIsEvolutionAfterFightState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isEvolutionAfterFightState();
     }
 
-    public static NaSt callSimulationBeanIsEvolutionsState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isEvolutionsState());
+    public static boolean callSimulationBeanIsEvolutionsState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isEvolutionsState();
     }
 
-    public static NaSt callSimulationBeanIsFightAfter(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFightAfter());
+    public static boolean callSimulationBeanIsFightAfter(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFightAfter();
     }
 
-    public static NaSt callSimulationBeanIsFoeState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFoeState());
+    public static boolean callSimulationBeanIsFoeState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFoeState();
     }
 
-    public static NaSt callSimulationBeanIsFrontState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFrontState());
+    public static boolean callSimulationBeanIsFrontState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFrontState();
     }
 
     //    public static Struct callSimulationBeanIsHardSimulationIssue(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsHardSimulationIssue(),_str,_args);
 //    }
 //
-    public static NaSt callSimulationBeanIsIssue(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isIssue());
+    public static boolean callSimulationBeanIsIssue(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isIssue();
     }
 
 //    public static Struct callSimulationBeanIsIssueAfterFight(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssueAfterFight(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanIsMovesFightState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMovesFightState());
+    public static boolean callSimulationBeanIsMovesFightState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMovesFightState();
     }
 
-    public static NaSt callSimulationBeanIsMovesState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMovesState());
+    public static boolean callSimulationBeanIsMovesState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMovesState();
     }
 
-    public static NaSt callSimulationBeanIsMultiLayer(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMultiLayer(_args[0]));
+    public static boolean callSimulationBeanIsMultiLayer(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMultiLayer(_args[0]);
     }
 //
 //    public static Struct callSimulationBeanIsRandomIssue(Struct _str, long... _args) {
@@ -545,12 +545,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsSendingIssue(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanIsSimulationState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isSimulationState());
+    public static boolean callSimulationBeanIsSimulationState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isSimulationState();
     }
 
-    public static NaSt callSimulationBeanIsTeamState(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isTeamState());
+    public static boolean callSimulationBeanIsTeamState(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isTeamState();
     }
 
 //    public static Struct callSimulationBeanIsUsingIssue(Struct _str, long... _args) {
@@ -577,24 +577,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return PokemonStandards.getLayers(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).layers(_args[0]));
     }
 
-    public static NaSt callSimulationBeanLevelEvoGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelEvo().valueLong());
+    public static long callSimulationBeanLevelEvoGet(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelEvo().valueLong();
     }
 
     public static NaSt callSimulationBeanMovesSetGet(NaSt _str, int... _args) {
         return PokemonStandards.getRdMvLine(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesSet());
     }
 
-    public static NaSt callSimulationBeanMultiplicityGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).multiplicity());
+    public static long callSimulationBeanMultiplicityGet(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).multiplicity();
     }
 
-    public static NaSt callSimulationBeanNbTeamsGet(int _team) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)initByTeam(_team)).getInstance()).getNbTeams());
+    public static long callSimulationBeanNbTeamsGet(int _team) {
+        return ( (SimulationBean) ((PokemonBeanStruct)initByTeam(_team)).getInstance()).getNbTeams();
     }
 
-    public static NaSt callSimulationBeanSelectedTeamNumberGet(NaSt _str) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedTeamNumber());
+    public static long callSimulationBeanSelectedTeamNumberGet(NaSt _str) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedTeamNumber();
     }
 
 //    public static NaSt callSimulationBeanNextFight(NaSt _str, long... _args) {
@@ -609,8 +609,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return PokemonStandards.getIntArray(( (SimulationBean) ((PokemonBeanStruct)validateDiff(_teams)).getInstance()).getNumbers());
     }
 
-    public static NaSt callSimulationBeanOkGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getOk());
+    public static boolean callSimulationBeanOkGet(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getOk();
     }
 
     public static String callSimulationBeanPlaceFightGet(NaSt _str, int... _args) {
@@ -701,20 +701,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedFoePkGet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanSelectedIndex(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedIndex());
+    public static boolean callSimulationBeanSelectedIndex(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedIndex();
     }
 
-    public static NaSt callSimulationBeanSelectedIndexForMoves(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedIndexForMoves());
+    public static boolean callSimulationBeanSelectedIndexForMoves(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedIndexForMoves();
     }
 
-    public static NaSt callSimulationBeanSelectedMoveGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getSelectedMove());
+    public static long callSimulationBeanSelectedMoveGet(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getSelectedMove();
     }
 
-    public static NaSt callSimulationBeanSelectedPkGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getSelectedPk());
+    public static long callSimulationBeanSelectedPkGet(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getSelectedPk();
     }
 
     public static String callSimulationBeanSelectedRoundGet(NaSt _str, int... _args) {
@@ -1164,8 +1164,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanLevelIndexGet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationLevelBeanNoFightGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).getNoFight().valueLong());
+    public static long callSimulationLevelBeanNoFightGet(NaSt _str, int... _args) {
+        return ( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).getNoFight().valueLong();
     }
 
 //    public static Struct callSimulationLevelBeanOutsideGet(Struct _str, long... _args) {
@@ -1237,8 +1237,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet();
     }
 
-    public static NaSt callAddPokemonBeanLevelGet(NaSt _str, int... _args) {
-        return new NaNbSt(((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getLevel().valueLong());
+    public static long callAddPokemonBeanLevelGet(NaSt _str, int... _args) {
+        return ((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getLevel().valueLong();
     }
 
     public static String callAddPokemonBeanNamePkGet(NaSt _str, int... _args) {
@@ -1261,8 +1261,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
     }
 
-    public static NaSt callAddPokemonBeanWholeWordGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected());
+    public static boolean callAddPokemonBeanWholeWordGet(NaSt _str, int... _args) {
+        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
     }
 
 //    public static NaSt callEditPokemonBeanAddMoves(NaSt _str, long... _args) {
@@ -1305,16 +1305,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatistic(_args[0]);
     }
 
-    public static NaSt callEditPokemonBeanHappinessGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness().valueLong());
+    public static long callEditPokemonBeanHappinessGet(NaSt _str, int... _args) {
+        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness().valueLong();
     }
 
-    public static NaSt callEditPokemonBeanHealGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHeal().isSelected());
+    public static boolean callEditPokemonBeanHealGet(NaSt _str, int... _args) {
+        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHeal().isSelected();
     }
 
-    public static NaSt callEditPokemonBeanLevelGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getLevel());
+    public static long callEditPokemonBeanLevelGet(NaSt _str, int... _args) {
+        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getLevel();
     }
 
     public static NaSt callEditPokemonBeanMovesGet(NaSt _str, int... _args) {
@@ -1341,8 +1341,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanAddMoves(),_str,_args);
 //    }
 
-    public static NaSt callEditPokemonMovesBeanAvailableMovesOnlyGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableMovesOnly().isSelected());
+    public static boolean callEditPokemonMovesBeanAvailableMovesOnlyGet(NaSt _str, int... _args) {
+        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableMovesOnly().isSelected();
     }
 
 //    public static NaSt callEditPokemonMovesBeanCancel(NaSt _str, long... _args) {
@@ -1361,8 +1361,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return PokemonStandards.getSelectLineMove(( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
     }
 
-    public static NaSt callEditPokemonMovesBeanPlayerGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getPlayer());
+    public static boolean callEditPokemonMovesBeanPlayerGet(NaSt _str, int... _args) {
+        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getPlayer();
     }
 
 //    public static NaSt callEditPokemonMovesBeanSearch(NaSt _str, long... _args) {
@@ -1377,20 +1377,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
     }
 
-    public static NaSt callEditPokemonMovesBeanWholeWordGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected());
+    public static boolean callEditPokemonMovesBeanWholeWordGet(NaSt _str, int... _args) {
+        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
     }
 
-    public static NaSt callEditTrainerPokemonBeanAddGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAdd());
+    public static boolean callEditTrainerPokemonBeanAddGet(NaSt _str, int... _args) {
+        return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAdd();
     }
 
 //    public static NaSt callEditTrainerPokemonBeanAddMoves(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAddMoves(),_str,_args);
 //    }
 
-    public static NaSt callEditTrainerPokemonBeanAllyPkGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAllyPk().isSelected());
+    public static boolean callEditTrainerPokemonBeanAllyPkGet(NaSt _str, int... _args) {
+        return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAllyPk().isSelected();
     }
 
 //    public static NaSt callEditTrainerPokemonBeanCancel(NaSt _str, long... _args) {
@@ -1433,8 +1433,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedName();
     }
 
-    public static NaSt callEditTrainerPokemonBeanLevelGet(NaSt _str, int... _args) {
-        return new NaNbSt(((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getLevel().valueLong());
+    public static long callEditTrainerPokemonBeanLevelGet(NaSt _str, int... _args) {
+        return ((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getLevel().valueLong();
     }
 
     public static NaSt callEditTrainerPokemonBeanMovesGet(NaSt _str) {
@@ -1549,8 +1549,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
     }
 
-    public static NaSt callSelectPokemonBeanWholeWordGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected());
+    public static boolean callSelectPokemonBeanWholeWordGet(NaSt _str, int... _args) {
+        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
     }
     protected static String quit(){
         PkData pk_ = pkDataByFacade(db());

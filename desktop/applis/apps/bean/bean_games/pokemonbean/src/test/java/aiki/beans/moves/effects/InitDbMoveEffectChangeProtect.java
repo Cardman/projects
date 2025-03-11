@@ -70,24 +70,24 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return new RtSt(( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtSingleAgainstKo());
     }
 
-    public static NaSt callEffectProtectionBeanProtSingleGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtSingle());
+    public static boolean callEffectProtectionBeanProtSingleGet(NaSt _str, int... _args) {
+        return ( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtSingle();
     }
 
-    public static NaSt callEffectProtectionBeanProtTeamAgainstDamageMovesGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstDamageMoves());
+    public static boolean callEffectProtectionBeanProtTeamAgainstDamageMovesGet(NaSt _str, int... _args) {
+        return ( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstDamageMoves();
     }
 
-    public static NaSt callEffectProtectionBeanProtTeamAgainstMultTargetsGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstMultTargets());
+    public static boolean callEffectProtectionBeanProtTeamAgainstMultTargetsGet(NaSt _str, int... _args) {
+        return ( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstMultTargets();
     }
 
-    public static NaSt callEffectProtectionBeanProtTeamAgainstPrioGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstPrio());
+    public static boolean callEffectProtectionBeanProtTeamAgainstPrioGet(NaSt _str, int... _args) {
+        return ( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstPrio();
     }
 
-    public static NaSt callEffectProtectionBeanProtTeamAgainstStatusMovesGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstStatusMoves());
+    public static boolean callEffectProtectionBeanProtTeamAgainstStatusMovesGet(NaSt _str, int... _args) {
+        return ( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtTeamAgainstStatusMoves();
     }
     protected static NaSt dispMoveEffProtection(boolean _protSingle, boolean _protTeamAgainstPrio, boolean _protTeamAgainstStatusMoves, boolean _protTeamAgainstDamageMoves, boolean _protTeamAgainstMultTargets) {
         return dispMoveEffProtection(feedDbMoveEffDataProtection(_protSingle, _protTeamAgainstPrio, _protTeamAgainstStatusMoves, _protTeamAgainstDamageMoves, _protTeamAgainstMultTargets));

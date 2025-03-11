@@ -35,12 +35,12 @@ public abstract class InitDbBoost extends InitDbItem {
         return PokemonStandards.getStrLong(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness());
     }
 
-    public static NaSt callBoostBeanIsBall(NaSt _str, int... _args) {
-        return NaBoSt.of(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).isBall(_args[0]));
+    public static boolean callBoostBeanIsBall(NaSt _str, int... _args) {
+        return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).isBall(_args[0]);
     }
 
-    public static NaSt callBoostBeanMaxEvGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getMaxEv());
+    public static long callBoostBeanMaxEvGet(NaSt _str, int... _args) {
+        return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getMaxEv();
     }
 
     public static NaSt callBoostBeanWinPpGet(NaSt _str, int... _args) {

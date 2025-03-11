@@ -23,20 +23,20 @@ import code.util.StringMap;
 
 public abstract class InitDbItemsItemForBattle extends InitDbItem {
 
-    public static NaSt callItemForBattleBeanAgainstEvoGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getAgainstEvo());
+    public static boolean callItemForBattleBeanAgainstEvoGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getAgainstEvo();
     }
 
-    public static NaSt callItemForBattleBeanAttackLastGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getAttackLast());
+    public static boolean callItemForBattleBeanAttackLastGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getAttackLast();
     }
 
-    public static NaSt callItemForBattleBeanAttacksSoonGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getAttacksSoon());
+    public static boolean callItemForBattleBeanAttacksSoonGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getAttacksSoon();
     }
 
-    public static NaSt callItemForBattleBeanBoostExpGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getBoostExp());
+    public static boolean callItemForBattleBeanBoostExpGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getBoostExp();
     }
 
     public static NaSt callItemForBattleBeanBoostStatisSuperEffGet() {
@@ -47,8 +47,8 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return PokemonStandards.getBigNatMapSta(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getBoostStatisTypes());
     }
 
-    public static NaSt callItemForBattleBeanCancelImmuTypeGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getCancelImmuType());
+    public static boolean callItemForBattleBeanCancelImmuTypeGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getCancelImmuType();
     }
 
     public static String callItemForBattleBeanClickFailStatus() {
@@ -186,8 +186,8 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return new RtSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getDamageRecoil());
     }
 
-    public static NaSt callItemForBattleBeanDeterminated(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).determinated());
+    public static boolean callItemForBattleBeanDeterminated(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).determinated();
     }
 
     public static NaSt callItemForBattleBeanDrainedHpByDamageRateGet() {
@@ -198,20 +198,20 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
 //        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanEffectSendBeanGet(),_str,_args);
 //    }
 
-    public static NaSt callItemForBattleBeanEndRoundGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRound());
+    public static boolean callItemForBattleBeanEndRoundGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRound();
     }
 
-    public static NaSt callItemForBattleBeanEndRoundRankGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return new NaNbSt(((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRoundRank());
+    public static long callItemForBattleBeanEndRoundRankGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRoundRank();
     }
 
-    public static NaSt callItemForBattleBeanEndRoundGetNo(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(((ItemForBattleBean) ((PokemonBeanStruct) healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRound());
+    public static boolean callItemForBattleBeanEndRoundGetNo(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ((ItemForBattleBean) ((PokemonBeanStruct) healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRound();
     }
 
-    public static NaSt callItemForBattleBeanEndRoundRankGetNo(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return new NaNbSt(((ItemForBattleBean) ((PokemonBeanStruct) healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRoundRank());
+    public static long callItemForBattleBeanEndRoundRankGetNo(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ((ItemForBattleBean) ((PokemonBeanStruct) healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRoundRank();
     }
 
     public static NaSt callItemForBattleBeanFailStatusGet() {
@@ -298,8 +298,8 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrWinEvFight(0);
     }
 
-    public static NaSt callItemForBattleBeanImmuLowStatisGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getImmuLowStatis());
+    public static boolean callItemForBattleBeanImmuLowStatisGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getImmuLowStatis();
     }
 
     public static NaSt callItemForBattleBeanImmuMovesGet() {
@@ -402,16 +402,16 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
 //        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanRepellingWildPkGet(),_str,_args);
 //    }
 
-    public static NaSt callItemForBattleBeanSendingGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getSending());
+    public static boolean callItemForBattleBeanSendingGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getSending();
     }
 
-    public static NaSt callItemForBattleBeanSendingGetNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimpleNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, true, true)).getInstance()).getSending());
+    public static boolean callItemForBattleBeanSendingGetNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimpleNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, true, true)).getInstance()).getSending();
     }
 
-    public static NaSt callItemForBattleBeanSendingGetStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        return NaBoSt.of(( (ItemForBattleBean) ((PokemonBeanStruct)healSimpleStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getSending());
+    public static boolean callItemForBattleBeanSendingGetStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimpleStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getSending();
     }
 
     public static NaSt callItemForBattleBeanSynchroStatusGet() {

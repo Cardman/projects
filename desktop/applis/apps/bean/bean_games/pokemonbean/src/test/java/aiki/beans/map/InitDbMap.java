@@ -210,8 +210,8 @@ public abstract class InitDbMap extends InitDbConstr {
         callMapBeanClickLevelZero(bean_,_place);
         return getValPlaceLevelId(bean_);
     }
-    public static NaSt callMapBeanIsMultiLayer(int _place) {
-        return NaBoSt.of(( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).isMultiLayer(_place));
+    public static boolean callMapBeanIsMultiLayer(int _place) {
+        return ( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).isMultiLayer(_place);
     }
 
     public static NaSt callMapBeanLayers(int _place) {

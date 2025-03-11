@@ -55,8 +55,8 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
         return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getItem();
     }
 
-    public static NaSt callLegendaryPokemonBeanGetLevel(int _pk) {
-        return new NaNbSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getLevel());
+    public static long callLegendaryPokemonBeanGetLevel(int _pk) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getLevel();
     }
 
     public static String callLegendaryPokemonBeanGetMove(int _pk, int _move) {

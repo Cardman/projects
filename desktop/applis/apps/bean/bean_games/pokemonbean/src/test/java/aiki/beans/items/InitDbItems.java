@@ -98,8 +98,8 @@ public abstract class InitDbItems extends InitDbConstr {
         return ( ((ItLineStruct) _str).getWildPk()).getDisplayName();
     }
 
-    public static NaSt callItemLinePriceGet(NaSt _str, int... _args) {
-        return new NaNbSt(( ((ItLineStruct) _str).getWildPk()).getPrice());
+    public static long callItemLinePriceGet(NaSt _str, int... _args) {
+        return ( ((ItLineStruct) _str).getWildPk()).getPrice();
     }
     public static String callItemsBeanClickLink(NaSt _str, int... _args) {
         return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);

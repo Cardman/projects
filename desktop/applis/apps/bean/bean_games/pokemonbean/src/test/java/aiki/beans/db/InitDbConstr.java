@@ -397,16 +397,16 @@ public abstract class InitDbConstr extends InitDbBean {
         return PokemonStandards.getValues(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCopyBoost());
     }
 
-    public static NaSt callEffectWhileSendingBeanCopyingAbilityGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingAbility());
+    public static boolean callEffectWhileSendingBeanCopyingAbilityGet(NaSt _str, int... _args) {
+        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingAbility();
     }
 
-    public static NaSt callEffectWhileSendingBeanDefaultBoostGet(NaSt _str, int... _args) {
-        return new NaNbSt(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getDefaultBoost());
+    public static long callEffectWhileSendingBeanDefaultBoostGet(NaSt _str, int... _args) {
+        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getDefaultBoost();
     }
 
-    public static NaSt callEffectWhileSendingBeanDisableWeatherGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getDisableWeather());
+    public static boolean callEffectWhileSendingBeanDisableWeatherGet(NaSt _str, int... _args) {
+        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getDisableWeather();
     }
 
     public static String callEffectWhileSendingBeanEnabledWeatherGet(NaSt _str, int... _args) {
@@ -437,8 +437,8 @@ public abstract class InitDbConstr extends InitDbBean {
         return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getTrWeather();
     }
 
-    public static NaSt callEffectWhileSendingBeanIsAlwaysEnabled(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().isAlwaysEnabled());
+    public static boolean callEffectWhileSendingBeanIsAlwaysEnabled(NaSt _str, int... _args) {
+        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().isAlwaysEnabled();
     }
 
     public static NaSt callEffectWhileSendingBeanMapVarsFailGet(NaSt _str, int... _args) {
@@ -453,16 +453,16 @@ public abstract class InitDbConstr extends InitDbBean {
         return new RtSt(( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getMultWeight());
     }
 
-    public static NaSt callEffectWhileSendingBeanNotEmptyVarBoost(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().notEmptyVarBoost());
+    public static boolean callEffectWhileSendingBeanNotEmptyVarBoost(NaSt _str, int... _args) {
+        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().notEmptyVarBoost();
     }
 
 //    public static Struct callEffectWhileSendingBeanPlateGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanPlateGet(),_str,_args);
 //    }
 
-    public static NaSt callEffectWhileSendingBeanRandomStatis(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().randomStatis());
+    public static boolean callEffectWhileSendingBeanRandomStatis(NaSt _str, int... _args) {
+        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().randomStatis();
     }
 
     public static NaSt callEffectWhileSendingBeanReasonsGet(NaSt _str, int... _args) {
@@ -473,8 +473,8 @@ public abstract class InitDbConstr extends InitDbBean {
         return PokemonStandards.getStrLongStat(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getStatisVarRank());
     }
 
-    public static NaSt callEffectWhileSendingBeanStatisticGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getStatistic());
+    public static boolean callEffectWhileSendingBeanStatisticGet(NaSt _str, int... _args) {
+        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getStatistic();
     }
 
     public static NaSt callEffectWhileSendingBeanSwapBoostStatisGet(NaSt _str, int... _args) {
@@ -485,8 +485,8 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str,_args);
 //    }
 
-    public static NaSt callBoostHpRateGetBoost(NaSt _str, int... _args) {
-        return new NaNbSt(( ((BoostHpRateStruct) _str).getBoostHpRate()).getBoost());
+    public static long callBoostHpRateGetBoost(NaSt _str, int... _args) {
+        return ( ((BoostHpRateStruct) _str).getBoostHpRate()).getBoost();
     }
 
     public static NaSt callBoostHpRateGetHpRate(NaSt _str, int... _args) {
@@ -497,8 +497,8 @@ public abstract class InitDbConstr extends InitDbBean {
         return ( ((CategoryMultStruct) _str).getCategoryMult()).getCategory();
     }
 
-    public static NaSt callCategoryMultGetMult(NaSt _str, int... _args) {
-        return new NaNbSt(( ((CategoryMultStruct) _str).getCategoryMult()).getMult());
+    public static long callCategoryMultGetMult(NaSt _str, int... _args) {
+        return ( ((CategoryMultStruct) _str).getCategoryMult()).getMult();
     }
 
     public static NaSt callEfficiencyRateGetEff(NaSt _str, int... _args) {
@@ -516,16 +516,16 @@ public abstract class InitDbConstr extends InitDbBean {
         return new RtSt(( ((EffectPartnerStatusStruct) _str).getEffectPartnerStatus()).getRestoredHpRateLovedAlly());
     }
 
-    public static NaSt callEffectPartnerStatusGetWeddingAlly(NaSt _str, int... _args) {
-        return NaBoSt.of(( ((EffectPartnerStatusStruct) _str).getEffectPartnerStatus()).getWeddingAlly());
+    public static boolean callEffectPartnerStatusGetWeddingAlly(NaSt _str, int... _args) {
+        return ( ((EffectPartnerStatusStruct) _str).getEffectPartnerStatus()).getWeddingAlly();
     }
 
     public static String callPkTrainerGetItem(NaSt _str, int... _args) {
         return ( (PkTrainer) ((PkStruct)_str).getWildPk()).getItem();
     }
 
-    public static NaSt callPkTrainerGetLevel(NaSt _str, int... _args) {
-        return new NaNbSt(( (PkTrainer) ((PkStruct)_str).getWildPk()).getLevel());
+    public static long callPkTrainerGetLevel(NaSt _str, int... _args) {
+        return ( (PkTrainer) ((PkStruct)_str).getWildPk()).getLevel();
     }
 
     public static NaSt callPkTrainerGetMoves(NaSt _str, int... _args) {
@@ -535,8 +535,8 @@ public abstract class InitDbConstr extends InitDbBean {
         return ( ((PlaceStruct) _str).getWildPk()).getName();
     }
 
-    public static NaSt callPokemonPlayerGetHappiness(NaSt _str, int... _args) {
-        return new NaNbSt(( (PokemonPlayer) ((PkStruct)_str).getWildPk()).getHappiness());
+    public static long callPokemonPlayerGetHappiness(NaSt _str, int... _args) {
+        return ( (PokemonPlayer) ((PkStruct)_str).getWildPk()).getHappiness();
     }
 
     public static String callPokemonPlayerGetItem(NaSt _str, int... _args) {
@@ -564,8 +564,8 @@ public abstract class InitDbConstr extends InitDbBean {
         return (((PkStruct)_str).getWildPk()).getItem();
     }
 
-    public static NaSt callWildPkGetLevel(NaSt _str, int... _args) {
-        return new NaNbSt((((PkStruct)_str).getWildPk()).getLevel());
+    public static long callWildPkGetLevel(NaSt _str, int... _args) {
+        return (((PkStruct)_str).getWildPk()).getLevel();
     }
 
     protected static String getValItemId(NaSt _bean) {
@@ -621,8 +621,8 @@ public abstract class InitDbConstr extends InitDbBean {
         return new PlaceStruct(( ((PlaceIndexStruct) _str).getPlaceIndex()).getPlace());
     }
 
-    public static NaSt callPlaceIndexIndexGet(NaSt _str, int... _args) {
-        return new NaNbSt(( ((PlaceIndexStruct) _str).getPlaceIndex()).getIndex());
+    public static long callPlaceIndexIndexGet(NaSt _str, int... _args) {
+        return ( ((PlaceIndexStruct) _str).getPlaceIndex()).getIndex();
     }
     protected static WelcomeBean beanWelcomeBean(PkData _pk,String _lg) {
         WelcomeBean b_ = new WelcomeBean();

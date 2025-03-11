@@ -33,12 +33,12 @@ public abstract class InitDbHealing extends InitDbItem {
         return HealingItemBean.HEALING_ITEM_BEAN;
     }
 
-    public static NaSt callHealingItemBeanHealingTeamGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getHealingTeam());
+    public static boolean callHealingItemBeanHealingTeamGet(NaSt _str, int... _args) {
+        return ( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getHealingTeam();
     }
 
-    public static NaSt callHealingItemBeanIsBall(NaSt _str, int... _args) {
-        return NaBoSt.of(( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).isBall(_args[0]));
+    public static boolean callHealingItemBeanIsBall(NaSt _str, int... _args) {
+        return ( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).isBall(_args[0]);
     }
 
     public static StringMap<NaSt> beanToHealing(PkData _pk) {

@@ -5,7 +5,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
 import code.util.CustList;
-import code.util.Longs;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Countable;
@@ -82,10 +81,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //        _caller.re(_str,new NaSt[]{_args});
 //        return _str;
 //    }
-
-    public static int toInt(NaSt _str) {
-        return NaPa.convertToNumber(_str).intStruct();
-    }
+//
+//    public static int toInt(NaSt _str) {
+//        return NaPa.convertToNumber(_str).intStruct();
+//    }
 
 //    public static NaSt byStr(StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _resultAsString) {
 //        return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
@@ -115,9 +114,9 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    public static void setBeanFormsBy(PokemonStandards _pk, Struct _to, Struct _from) {
 //        _pk.setBeanForms(_from,_to);
 //    }
-    public static NaSt[] getLongArray(long... _ls){
-        return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
-    }
+//    public static NaSt[] getLongArray(long... _ls){
+//        return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
+//    }
 
 //    public static void assertSizeLongsEq(int _exp, Struct _result, int _index) {
 //        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));

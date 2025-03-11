@@ -29,8 +29,8 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         return PokemonStandards.getValues(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCopyBoost());
     }
 
-    public static NaSt callEffectStatisticBeanDefaultBoostGet(NaSt _str, int... _args) {
-        return new NaNbSt(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getDefaultBoost());
+    public static long callEffectStatisticBeanDefaultBoostGet(NaSt _str, int... _args) {
+        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getDefaultBoost();
     }
 
     public static NaSt callEffectStatisticBeanEvtRateGet(NaSt _str, int... _args) {
@@ -53,20 +53,20 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getSwapFail(_args[0]);
     }
 
-    public static NaSt callEffectStatisticBeanIsAlwaysEnabled(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().isAlwaysEnabled());
+    public static boolean callEffectStatisticBeanIsAlwaysEnabled(NaSt _str, int... _args) {
+        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().isAlwaysEnabled();
     }
 
     public static NaSt callEffectStatisticBeanMapVarsStatisticsGet(NaSt _str, int... _args) {
         return PokemonStandards.getStrStr(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getMapVarsStatistics());
     }
 
-    public static NaSt callEffectStatisticBeanNotEmptyVarBoost(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().notEmptyVarBoost());
+    public static boolean callEffectStatisticBeanNotEmptyVarBoost(NaSt _str, int... _args) {
+        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().notEmptyVarBoost();
     }
 
-    public static NaSt callEffectStatisticBeanRandomStatis(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().randomStatis());
+    public static boolean callEffectStatisticBeanRandomStatis(NaSt _str, int... _args) {
+        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().randomStatis();
     }
 
     public static NaSt callEffectStatisticBeanStatisVarRankGet(NaSt _str, int... _args) {

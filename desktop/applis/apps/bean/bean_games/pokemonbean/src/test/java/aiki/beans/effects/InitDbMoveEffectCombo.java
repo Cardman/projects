@@ -19,12 +19,12 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
         return getValMoveId(bean_);
     }
 
-    public static NaSt callEffectComboBeanEndRoundGet(int _index) {
-        return NaBoSt.of(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getEndRound());
+    public static boolean callEffectComboBeanEndRoundGet(int _index) {
+        return ( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getEndRound();
     }
 
-    public static NaSt callEffectComboBeanEndRoundRankGet(int _index) {
-        return new NaNbSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getEndRoundRank());
+    public static long callEffectComboBeanEndRoundRankGet(int _index) {
+        return ( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getEndRoundRank();
     }
 
     public static String callEffectComboBeanGetTrStatistic(int _index, int... _args) {
@@ -51,8 +51,8 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
         return PokemonStandards.getStaRate(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMultStatisticFoe());
     }
 
-    public static NaSt callEffectComboBeanRankIncrementNbRoundGet(int _index) {
-        return new NaNbSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getRankIncrementNbRound());
+    public static long callEffectComboBeanRankIncrementNbRoundGet(int _index) {
+        return ( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getRankIncrementNbRound();
     }
 
     public static NaSt callEffectComboBeanReasonsEndRoundGet(int _index) {

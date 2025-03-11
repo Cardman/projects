@@ -12,28 +12,28 @@ import code.util.StringMap;
 
 public abstract class InitDbHealingPp extends InitDbHealing {
 
-    public static NaSt callHealingPpBeanHealedMovePpGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealedMovePp());
+    public static long callHealingPpBeanHealedMovePpGet(NaSt _str, int... _args) {
+        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealedMovePp();
     }
 
-    public static NaSt callHealingPpBeanHealingAllMovesFullppGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesFullpp());
+    public static long callHealingPpBeanHealingAllMovesFullppGet(NaSt _str, int... _args) {
+        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesFullpp();
     }
 
-    public static NaSt callHealingPpBeanHealingAllMovesPpGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesPp());
+    public static boolean callHealingPpBeanHealingAllMovesPpGet(NaSt _str, int... _args) {
+        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesPp();
     }
 
-    public static NaSt callHealingPpBeanHealingMoveFullppGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingMoveFullpp());
+    public static boolean callHealingPpBeanHealingMoveFullppGet(NaSt _str, int... _args) {
+        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingMoveFullpp();
     }
 
-    public static NaSt callHealingPpBeanLimitedPpMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMove());
+    public static boolean callHealingPpBeanLimitedPpMove(NaSt _str, int... _args) {
+        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMove();
     }
 
-    public static NaSt callHealingPpBeanLimitedPpMoves(NaSt _str, int... _args) {
-        return NaBoSt.of(( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMoves());
+    public static boolean callHealingPpBeanLimitedPpMoves(NaSt _str, int... _args) {
+        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMoves();
     }
 
     public static StringMap<NaSt> beanToHealingPp(PkData _pk) {

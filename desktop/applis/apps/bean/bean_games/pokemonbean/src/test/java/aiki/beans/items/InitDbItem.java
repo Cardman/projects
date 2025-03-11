@@ -41,8 +41,8 @@ public abstract class InitDbItem extends InitDbItems{
         return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getName();
     }
 
-    public static NaSt callItemBeanPriceGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getPrice());
+    public static long callItemBeanPriceGet(NaSt _str, int... _args) {
+        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getPrice();
     }
 //    public static NaSt callItemBeanNameSet(NaSt _str, String _args) {
 //        return BeanPokemonCommonTs.callString(new ItemBeanNameSet(),_str,_args);

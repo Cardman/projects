@@ -23,11 +23,11 @@ public abstract class InitDbItemOther extends InitDbItem {
         return PokemonStandards.getStrStr(( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getMapVars());
     }
 
-    public static NaSt callRepelBeanStepsGet() {
-        return new NaNbSt(( (RepelBean) ((PokemonBeanStruct)repelBean()).getInstance()).getSteps());
+    public static long callRepelBeanStepsGet() {
+        return ( (RepelBean) ((PokemonBeanStruct)repelBean()).getInstance()).getSteps();
     }
 
-    protected static NaSt sellBean() {
+    protected static long sellBean() {
         PkData pk_ = pkDataByFacade(feedDbSell());
         StringMap<NaSt> all_ = beanToSell(pk_);
         return callItemBeanPriceGet(dispLineQuick(InitDbItems.BEAN_SELLINGITEM, pk_, all_));

@@ -173,8 +173,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanEndRoundHtmlGet(),_str,_args);
 //    }
 
-    public static NaSt callEffectEndRoundBeanEndRoundRankGet(int _ev) {
-        return new NaNbSt(( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getEndRoundRank());
+    public static long callEffectEndRoundBeanEndRoundRankGet(int _ev) {
+        return ( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getEndRoundRank();
     }
 
     public static String callEffectEndRoundBeanGetTrMoves(int _ev, int _ind) {
@@ -240,8 +240,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return PokemonStandards.getValues(( (EffectEndRoundGlobalBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getImmuneTypes());
     }
 
-    public static NaSt callEffectEndRoundGlobalBeanPuttingKoGet(int _ev) {
-        return NaBoSt.of(( (EffectEndRoundGlobalBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getPuttingKo());
+    public static boolean callEffectEndRoundGlobalBeanPuttingKoGet(int _ev) {
+        return ( (EffectEndRoundGlobalBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getPuttingKo();
     }
 
     public static String callEffectEndRoundIndividualBeanClickDamageStatus(int _ev, int _ind) {
@@ -295,8 +295,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return new RtSt(( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getHealHp());
     }
 
-    public static NaSt callEffectEndRoundIndividualBeanIsType(int _ev,int _ind) {
-        return NaBoSt.of(( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).isType(_ind));
+    public static boolean callEffectEndRoundIndividualBeanIsType(int _ev,int _ind) {
+        return ( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).isType(_ind);
     }
 
     public static NaSt callEffectEndRoundIndividualBeanMultDamageStatusGet(int _ev) {

@@ -70,20 +70,20 @@ public abstract class InitDbBerry extends InitDbItem {
         return new RtSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealHpRate());
     }
 
-    public static NaSt callBerryBeanHealPpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new NaNbSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealPp());
+    public static long callBerryBeanHealPpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealPp();
     }
 
     public static NaSt callBerryBeanHealStatusGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
         return PokemonStandards.getKeys(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealStatus());
     }
 
-    public static NaSt callBerryBeanIsHealingPp(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return NaBoSt.of(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).isHealingPp());
+    public static boolean callBerryBeanIsHealingPp(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).isHealingPp();
     }
 
-    public static NaSt callBerryBeanLawForAttackFirstGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return NaBoSt.of(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getLawForAttackFirst());
+    public static boolean callBerryBeanLawForAttackFirstGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getLawForAttackFirst();
     }
 
     public static NaSt callBerryBeanMaxHpHealingHpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
@@ -102,8 +102,8 @@ public abstract class InitDbBerry extends InitDbItem {
         return PokemonStandards.getStaBoost(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getMultStat());
     }
 
-    public static NaSt callBerryBeanWithoutFailGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return NaBoSt.of(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getWithoutFail());
+    public static boolean callBerryBeanWithoutFailGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getWithoutFail();
     }
 
     public static StringMap<NaSt> beanToBerry(PkData _pk) {

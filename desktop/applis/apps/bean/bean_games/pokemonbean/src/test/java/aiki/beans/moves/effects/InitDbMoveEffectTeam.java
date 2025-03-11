@@ -58,8 +58,8 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
         callEffectTeamBeanClickUnusableMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static NaSt callEffectTeamBeanDefaultBoostGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDefaultBoost());
+    public static long callEffectTeamBeanDefaultBoostGet(NaSt _str, int... _args) {
+        return ( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDefaultBoost();
     }
 
     public static NaSt callEffectTeamBeanDisableFoeTeamEffectsGet(NaSt _str, int... _args) {
@@ -74,8 +74,8 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
         return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getForbiddenBoost());
     }
 
-    public static NaSt callEffectTeamBeanForbiddingHealingGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getForbiddingHealing());
+    public static boolean callEffectTeamBeanForbiddingHealingGet(NaSt _str, int... _args) {
+        return ( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getForbiddingHealing();
     }
 
     public static String callEffectTeamBeanGetTrDisableFoeTeamEffects(NaSt _str, int... _args) {
@@ -106,8 +106,8 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
         return PokemonStandards.getStrRateVal(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatistic());
     }
 
-    public static NaSt callEffectTeamBeanProtectAgainstChGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstCh());
+    public static boolean callEffectTeamBeanProtectAgainstChGet(NaSt _str, int... _args) {
+        return ( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstCh();
     }
 
     public static NaSt callEffectTeamBeanProtectAgainstLowStatGet(NaSt _str, int... _args) {

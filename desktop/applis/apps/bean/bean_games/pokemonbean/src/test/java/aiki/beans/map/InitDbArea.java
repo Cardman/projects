@@ -7,8 +7,8 @@ import code.util.StringMap;
 
 public abstract class InitDbArea extends InitDbLevelMap{
 
-    public static NaSt callAreaApparitionGetAvgNbSteps(int _area) {
-        return new NaNbSt(( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getAvgNbSteps());
+    public static long callAreaApparitionGetAvgNbSteps(int _area) {
+        return ( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getAvgNbSteps();
     }
 
     public static NaSt callAreaApparitionGetWildPokemon(int _area) {

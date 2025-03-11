@@ -11,8 +11,8 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
 
-    public static NaSt callEffectCopyFighterBeanPpForMovesGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EffectCopyFighterBean) ((PokemonBeanStruct)_str).getInstance()).getPpForMoves());
+    public static long callEffectCopyFighterBeanPpForMovesGet(NaSt _str, int... _args) {
+        return ( (EffectCopyFighterBean) ((PokemonBeanStruct)_str).getInstance()).getPpForMoves();
     }
 
     public static String callEffectCopyMoveBeanClickDefaultMove(NaSt _str, int... _args) {
@@ -41,16 +41,16 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveTrans(_args[0]);
     }
 
-    public static NaSt callEffectCopyMoveBeanCopyMoveForUser(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).copyMoveForUser());
+    public static boolean callEffectCopyMoveBeanCopyMoveForUser(NaSt _str, int... _args) {
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).copyMoveForUser();
     }
 
-    public static NaSt callEffectCopyMoveBeanCopyingMoveForUserDefGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingMoveForUserDef());
+    public static boolean callEffectCopyMoveBeanCopyingMoveForUserDefGet(NaSt _str, int... _args) {
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingMoveForUserDef();
     }
 
-    public static NaSt callEffectCopyMoveBeanCopyingMoveForUserGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingMoveForUser());
+    public static long callEffectCopyMoveBeanCopyingMoveForUserGet(NaSt _str, int... _args) {
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingMoveForUser();
     }
 
     public static String callEffectCopyMoveBeanDisplayNameGet(NaSt _str, int... _args) {

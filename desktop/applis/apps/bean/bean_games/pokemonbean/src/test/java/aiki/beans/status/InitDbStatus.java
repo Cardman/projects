@@ -30,8 +30,8 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return StringUtil.nullToEmpty(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getDefense());
     }
 
-    public static NaSt callStatusBeanDisabledEffIfSwitchGet(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getDisabledEffIfSwitch());
+    public static boolean callStatusBeanDisabledEffIfSwitchGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getDisabledEffIfSwitch();
     }
 
     public static String callStatusBeanDisplayNameGet(int _str, int... _args) {
@@ -42,12 +42,12 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return PokemonStandards.getEffPartStat(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEffectsPartner());
     }
 
-    public static NaSt callStatusBeanEndRoundGet(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEndRound());
+    public static boolean callStatusBeanEndRoundGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEndRound();
     }
 
-    public static NaSt callStatusBeanEndRoundRankGet(int _str, int... _args) {
-        return new NaNbSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEndRoundRank());
+    public static long callStatusBeanEndRoundRankGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEndRoundRank();
     }
 
     public static NaSt callStatusBeanGetEffectPartner(int _str, int... _args) {
@@ -58,24 +58,24 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getTrMultStat(_args[0]);
     }
 
-    public static NaSt callStatusBeanIncrementEndRoundGet(int _str, int... _args) {
-        return new NaNbSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getIncrementEndRound());
+    public static long callStatusBeanIncrementEndRoundGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getIncrementEndRound();
     }
 
-    public static NaSt callStatusBeanIncrementEndRoundInt(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).incrementEndRoundInt());
+    public static boolean callStatusBeanIncrementEndRoundInt(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).incrementEndRoundInt();
     }
 
-    public static NaSt callStatusBeanIncrementingDamageByRoundsGet(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getIncrementingDamageByRounds());
+    public static boolean callStatusBeanIncrementingDamageByRoundsGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getIncrementingDamageByRounds();
     }
 
-    public static NaSt callStatusBeanIncrementingEndRoundGet(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getIncrementingEndRound());
+    public static boolean callStatusBeanIncrementingEndRoundGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getIncrementingEndRound();
     }
 
-    public static NaSt callStatusBeanIsSingle(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).isSingle());
+    public static boolean callStatusBeanIsSingle(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).isSingle();
     }
 
     public static NaSt callStatusBeanLawForUsingAMoveNbRoundGet(int _str, int... _args) {
@@ -94,12 +94,12 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return PokemonStandards.getStaRate(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getMultStat());
     }
 
-    public static NaSt callStatusBeanNotAttackFoeGet(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getNotAttackFoe());
+    public static boolean callStatusBeanNotAttackFoeGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getNotAttackFoe();
     }
 
-    public static NaSt callStatusBeanNotAttackGet(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getNotAttack());
+    public static boolean callStatusBeanNotAttackGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getNotAttack();
     }
 
     public static NaSt callStatusBeanPowerGet(int _str, int... _args) {
@@ -126,8 +126,8 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return BeanNatCommonLgNames.getStringArray(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getReasons());
     }
 
-    public static NaSt callStatusBeanSingleStatusGet(int _str, int... _args) {
-        return NaBoSt.of(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getSingleStatus());
+    public static boolean callStatusBeanSingleStatusGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getSingleStatus();
     }
     protected static NaSt dispStatusOne(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());

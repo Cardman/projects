@@ -32,8 +32,8 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getCancelProtectingAbilities());
     }
 
-    public static NaSt callEffectGlobalBeanCanceledIfUsedGet(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getCanceledIfUsed());
+    public static boolean callEffectGlobalBeanCanceledIfUsedGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getCanceledIfUsed();
     }
 
     public static NaSt callEffectGlobalBeanChangedTypesTerrainGet(NaSt _str, int... _args) {
@@ -225,24 +225,24 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getPreventStatus());
     }
 
-    public static NaSt callEffectGlobalBeanPuttingKoGet(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getPuttingKo());
+    public static boolean callEffectGlobalBeanPuttingKoGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getPuttingKo();
     }
 
-    public static NaSt callEffectGlobalBeanReverseOrderOfSortBySpeedGet(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getReverseOrderOfSortBySpeed());
+    public static boolean callEffectGlobalBeanReverseOrderOfSortBySpeedGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getReverseOrderOfSortBySpeed();
     }
 
-    public static NaSt callEffectGlobalBeanUnusableItemGet(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getUnusableItem());
+    public static boolean callEffectGlobalBeanUnusableItemGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getUnusableItem();
     }
 
     public static NaSt callEffectGlobalBeanUnusableMovesGet(NaSt _str, int... _args) {
         return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getUnusableMoves());
     }
 
-    public static NaSt callEffectGlobalBeanWeatherGet(NaSt _str, int... _args) {
-        return NaBoSt.of(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getWeather());
+    public static boolean callEffectGlobalBeanWeatherGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getWeather();
     }
     protected static NaSt dispMoveEffGlobal(FacadeGame _fac, int _index) {
         return dispMoveEffGlobal(_fac, _index,0);

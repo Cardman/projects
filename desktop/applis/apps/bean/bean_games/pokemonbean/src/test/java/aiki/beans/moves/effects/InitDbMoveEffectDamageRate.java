@@ -18,8 +18,8 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
         return new RtSt(( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateDamage());
     }
 
-    public static NaSt callEffectDamageRateBeanWinHpGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getWinHp());
+    public static boolean callEffectDamageRateBeanWinHpGet(NaSt _str, int... _args) {
+        return ( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getWinHp();
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(Rate _dam) {

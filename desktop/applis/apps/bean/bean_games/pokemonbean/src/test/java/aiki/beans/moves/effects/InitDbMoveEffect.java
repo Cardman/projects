@@ -19,56 +19,56 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return EffectBeanTest.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFF_HTML;
     }
 
-    public static NaSt callEffectBeanIndexGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getIndex());
+    public static long callEffectBeanIndexGet(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getIndex();
     }
 
-    public static NaSt callEffectBeanIsAdjAdv(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjAdv());
+    public static boolean callEffectBeanIsAdjAdv(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjAdv();
     }
 
-    public static NaSt callEffectBeanIsAdjMult(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjMult());
+    public static boolean callEffectBeanIsAdjMult(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjMult();
     }
 
-    public static NaSt callEffectBeanIsAdjUniq(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjUniq());
+    public static boolean callEffectBeanIsAdjUniq(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAdjUniq();
     }
 
-    public static NaSt callEffectBeanIsAllie(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAllie());
+    public static boolean callEffectBeanIsAllie(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAllie();
     }
 
-    public static NaSt callEffectBeanIsAllies(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAllies());
+    public static boolean callEffectBeanIsAllies(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAllies();
     }
 
-    public static NaSt callEffectBeanIsAnyFoe(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAnyFoe());
+    public static boolean callEffectBeanIsAnyFoe(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAnyFoe();
     }
 
-    public static NaSt callEffectBeanIsAutreUniq(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAutreUniq());
+    public static boolean callEffectBeanIsAutreUniq(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isAutreUniq();
     }
 
-    public static NaSt callEffectBeanIsGlobale(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isGlobale());
+    public static boolean callEffectBeanIsGlobale(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isGlobale();
     }
 
-    public static NaSt callEffectBeanIsLanceur(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isLanceur());
+    public static boolean callEffectBeanIsLanceur(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isLanceur();
     }
 
-    public static NaSt callEffectBeanIsPseudoGlobale(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isPseudoGlobale());
+    public static boolean callEffectBeanIsPseudoGlobale(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isPseudoGlobale();
     }
 
-    public static NaSt callEffectBeanIsTousAdv(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isTousAdv());
+    public static boolean callEffectBeanIsTousAdv(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isTousAdv();
     }
 
-    public static NaSt callEffectBeanIsUniqueImporte(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isUniqueImporte());
+    public static boolean callEffectBeanIsUniqueImporte(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isUniqueImporte();
     }
 
     public static NaSt callEffectBeanMapVarsFailGet(NaSt _str, int... _args) {
@@ -79,8 +79,8 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMove();
     }
 
-    public static NaSt callEffectBeanNeedSuccessFirstEffectGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getNeedSuccessFirstEffect());
+    public static boolean callEffectBeanNeedSuccessFirstEffectGet(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getNeedSuccessFirstEffect();
     }
 
     public static NaSt callEffectBeanReasonsGet(NaSt _str, int... _args) {

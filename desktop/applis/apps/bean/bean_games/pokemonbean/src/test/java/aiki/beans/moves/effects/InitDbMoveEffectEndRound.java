@@ -15,8 +15,8 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
 
-    public static NaSt callEffectEndRoundMoveBeanEndRoundRankGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getEndRoundRank());
+    public static long callEffectEndRoundMoveBeanEndRoundRankGet(NaSt _str, int... _args) {
+        return ( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getEndRoundRank();
     }
 
     public static NaSt callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(NaSt _str, int... _args) {

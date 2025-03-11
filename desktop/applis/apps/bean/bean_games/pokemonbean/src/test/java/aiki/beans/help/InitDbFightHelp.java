@@ -192,152 +192,152 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesUserTargetDamage());
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanAbilityAllyMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultAccuracyAny());
+    public static boolean callFightHelpBeanAbilityAllyMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanAbilityAllyMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultEvasinessAny());
+    public static boolean callFightHelpBeanAbilityAllyMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultNormal(_args[0]));
+    public static boolean callFightHelpBeanAbilityAllyMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultNormalAny());
+    public static boolean callFightHelpBeanAbilityAllyMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanAbilityAllyMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityAllyMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultSpeedAny());
+    public static boolean callFightHelpBeanAbilityAllyMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultSpeedAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostAccuracy(_args[0]));
+    public static boolean callFightHelpBeanAbilityBoostAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostAccuracyAny());
+    public static boolean callFightHelpBeanAbilityBoostAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostCh(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostCh(_args[0]));
+    public static boolean callFightHelpBeanAbilityBoostCh(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostCh(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostChAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostChAny());
+    public static boolean callFightHelpBeanAbilityBoostChAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostChAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostEvasiness(_args[0]));
+    public static boolean callFightHelpBeanAbilityBoostEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostEvasinessAny());
+    public static boolean callFightHelpBeanAbilityBoostEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostNormal(_args[0]));
+    public static boolean callFightHelpBeanAbilityBoostNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostNormalAny());
+    public static boolean callFightHelpBeanAbilityBoostNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostNormalAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostSpeed(_args[0]));
+    public static boolean callFightHelpBeanAbilityBoostSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityBoostSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostSpeedAny());
+    public static boolean callFightHelpBeanAbilityBoostSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostSpeedAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanAbilityImmuMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultAccuracyAny());
+    public static boolean callFightHelpBeanAbilityImmuMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanAbilityImmuMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultEvasinessAny());
+    public static boolean callFightHelpBeanAbilityImmuMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultNormal(_args[0]));
+    public static boolean callFightHelpBeanAbilityImmuMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultNormalAny());
+    public static boolean callFightHelpBeanAbilityImmuMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanAbilityImmuMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityImmuMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultSpeedAny());
+    public static boolean callFightHelpBeanAbilityImmuMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultSpeedAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanAbilityMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultAccuracyAny());
+    public static boolean callFightHelpBeanAbilityMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanAbilityMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultEvasinessAny());
+    public static boolean callFightHelpBeanAbilityMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultNormal(_args[0]));
+    public static boolean callFightHelpBeanAbilityMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultNormalAny());
+    public static boolean callFightHelpBeanAbilityMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanAbilityMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanAbilityMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAbilityMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultSpeedAny());
+    public static boolean callFightHelpBeanAbilityMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultSpeedAny();
     }
 
-    public static NaSt callFightHelpBeanAttackFirst(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackFirst());
+    public static boolean callFightHelpBeanAttackFirst(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackFirst();
     }
 
-    public static NaSt callFightHelpBeanAttackLast(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackLast(_args[0]));
+    public static boolean callFightHelpBeanAttackLast(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackLast(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanAttackLastAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackLastAny());
+    public static boolean callFightHelpBeanAttackLastAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackLastAny();
     }
 
     public static NaSt callFightHelpBeanAutoDamageGet(NaSt _str, int... _args) {
@@ -932,36 +932,36 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getStrList(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getComboEvtStat());
     }
 
-    public static NaSt callFightHelpBeanComboMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanComboMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanComboMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultAccuracyAny());
+    public static boolean callFightHelpBeanComboMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanComboMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanComboMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanComboMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultEvasinessAny());
+    public static boolean callFightHelpBeanComboMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanComboMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultNormal(_args[0]));
+    public static boolean callFightHelpBeanComboMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanComboMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultNormalAny());
+    public static boolean callFightHelpBeanComboMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanComboMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanComboMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanComboMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultSpeedAny());
+    public static boolean callFightHelpBeanComboMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultSpeedAny();
     }
 
     public static NaSt callFightHelpBeanComboMultStatGet(NaSt _str, int... _args) {
@@ -984,8 +984,8 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDamgeFormula();
     }
 
-    public static NaSt callFightHelpBeanDefaultBoostValueGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDefaultBoostValue());
+    public static long callFightHelpBeanDefaultBoostValueGet(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDefaultBoostValue();
     }
 
     public static NaSt callFightHelpBeanDeleteStatusMoveGet(NaSt _str, int... _args) {
@@ -1596,100 +1596,100 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMovesStatus());
     }
 
-    public static NaSt callFightHelpBeanHappinessPointsGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getHappinessPoints());
+    public static long callFightHelpBeanHappinessPointsGet(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getHappinessPoints();
     }
 
-    public static NaSt callFightHelpBeanHasLawForAttack(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForAttack(_args[0]));
+    public static boolean callFightHelpBeanHasLawForAttack(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForAttack(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanHasLawForAttackAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForAttackAny());
+    public static boolean callFightHelpBeanHasLawForAttackAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForAttackAny();
     }
 
-    public static NaSt callFightHelpBeanHasLawForHeal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForHeal(_args[0]));
+    public static boolean callFightHelpBeanHasLawForHeal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForHeal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanHasLawForHealAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForHealAny());
+    public static boolean callFightHelpBeanHasLawForHealAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForHealAny();
     }
 
-    public static NaSt callFightHelpBeanImmuChTeamMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuChTeamMove(_args[0]));
+    public static boolean callFightHelpBeanImmuChTeamMove(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuChTeamMove(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanImmuChTeamMoveAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuChTeamMoveAny());
+    public static boolean callFightHelpBeanImmuChTeamMoveAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuChTeamMoveAny();
     }
 
     public static NaSt callFightHelpBeanImmuRechargingGet(NaSt _str, int... _args) {
         return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getImmuRecharging());
     }
 
-    public static NaSt callFightHelpBeanImmuStatisTeamMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatisTeamMove(_args[0]));
+    public static boolean callFightHelpBeanImmuStatisTeamMove(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatisTeamMove(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanImmuStatisTeamMoveAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatisTeamMoveAny());
+    public static boolean callFightHelpBeanImmuStatisTeamMoveAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatisTeamMoveAny();
     }
 
     public static NaSt callFightHelpBeanImmuStatusAbilityGet(NaSt _str, int... _args) {
         return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getImmuStatusAbility());
     }
 
-    public static NaSt callFightHelpBeanImmuStatusTeamMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatusTeamMove(_args[0]));
+    public static boolean callFightHelpBeanImmuStatusTeamMove(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatusTeamMove(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanImmuStatusTeamMoveAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatusTeamMoveAny());
+    public static boolean callFightHelpBeanImmuStatusTeamMoveAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatusTeamMoveAny();
     }
 
-    public static NaSt callFightHelpBeanIsDisappearingUser(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).isDisappearingUser(_args[0]));
+    public static boolean callFightHelpBeanIsDisappearingUser(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).isDisappearingUser(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanItemBoostAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostAccuracy(_args[0]));
+    public static boolean callFightHelpBeanItemBoostAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanItemBoostAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostAccuracyAny());
+    public static boolean callFightHelpBeanItemBoostAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanItemBoostCh(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostCh(_args[0]));
+    public static boolean callFightHelpBeanItemBoostCh(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostCh(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanItemBoostChAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostChAny());
+    public static boolean callFightHelpBeanItemBoostChAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostChAny();
     }
 
-    public static NaSt callFightHelpBeanItemBoostEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostEvasiness(_args[0]));
+    public static boolean callFightHelpBeanItemBoostEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanItemBoostEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostEvasinessAny());
+    public static boolean callFightHelpBeanItemBoostEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanItemBoostNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostNormal(_args[0]));
+    public static boolean callFightHelpBeanItemBoostNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanItemBoostNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostNormalAny());
+    public static boolean callFightHelpBeanItemBoostNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostNormalAny();
     }
 
-    public static NaSt callFightHelpBeanItemBoostSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostSpeed(_args[0]));
+    public static boolean callFightHelpBeanItemBoostSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanItemBoostSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostSpeedAny());
+    public static boolean callFightHelpBeanItemBoostSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostSpeedAny();
     }
 
 //    public static NaSt callFightHelpBeanItemBoostSpeed(NaSt _str, long... _args) {
@@ -1700,40 +1700,40 @@ public abstract class InitDbFightHelp extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemBoostSpeedAny(),_str,_args);
 //    }
 
-    public static NaSt callFightHelpBeanItemMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.ACCURACY));
+    public static boolean callFightHelpBeanItemMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.ACCURACY);
     }
 
-    public static NaSt callFightHelpBeanItemMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.EVASINESS));
+    public static boolean callFightHelpBeanItemMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.EVASINESS);
     }
 
-    public static NaSt callFightHelpBeanItemMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultAccuracyAny());
+    public static boolean callFightHelpBeanItemMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanItemMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultEvasinessAny());
+    public static boolean callFightHelpBeanItemMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanItemMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultNormal(_args[0]));
+    public static boolean callFightHelpBeanItemMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanItemMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultNormalAny());
+    public static boolean callFightHelpBeanItemMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanItemMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.SPEED));
+    public static boolean callFightHelpBeanItemMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.SPEED);
     }
 //
 //    public static NaSt callFightHelpBeanItemMultSpeedAny(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemMultSpeedAny(),_str,_args);
 //    }
 
-    public static NaSt callFightHelpBeanItemMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultSpeedAny());
+    public static boolean callFightHelpBeanItemMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultSpeedAny();
     }
 
     public static NaSt callFightHelpBeanItemSpeedGet(NaSt _str, int... _args) {
@@ -1816,100 +1816,100 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return new RtSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMinHpNotKo());
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanMoveFoeTeamMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultAccuracyAny());
+    public static boolean callFightHelpBeanMoveFoeTeamMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanMoveFoeTeamMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultEvasinessAny());
+    public static boolean callFightHelpBeanMoveFoeTeamMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultNormal(_args[0]));
+    public static boolean callFightHelpBeanMoveFoeTeamMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultNormalAny());
+    public static boolean callFightHelpBeanMoveFoeTeamMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanMoveFoeTeamMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveFoeTeamMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultSpeedAny());
+    public static boolean callFightHelpBeanMoveFoeTeamMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultSpeedAny();
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanMoveGlobalMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultAccuracyAny());
+    public static boolean callFightHelpBeanMoveGlobalMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanMoveGlobalMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultEvasinessAny());
+    public static boolean callFightHelpBeanMoveGlobalMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultNormal(_args[0]));
+    public static boolean callFightHelpBeanMoveGlobalMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultNormalAny());
+    public static boolean callFightHelpBeanMoveGlobalMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanMoveGlobalMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveGlobalMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultSpeedAny());
+    public static boolean callFightHelpBeanMoveGlobalMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultSpeedAny();
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanMoveTeamMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultAccuracyAny());
+    public static boolean callFightHelpBeanMoveTeamMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanMoveTeamMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultEvasinessAny());
+    public static boolean callFightHelpBeanMoveTeamMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultNormal(_args[0]));
+    public static boolean callFightHelpBeanMoveTeamMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultNormalAny());
+    public static boolean callFightHelpBeanMoveTeamMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanMoveTeamMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanMoveTeamMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultSpeedAny());
+    public static boolean callFightHelpBeanMoveTeamMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultSpeedAny();
     }
 
     public static NaSt callFightHelpBeanMovesAttractingGet(NaSt _str, int... _args) {
@@ -2056,8 +2056,8 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesUserPower());
     }
 
-    public static NaSt callFightHelpBeanNextRowAfter(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).nextRowAfter(_args[0]));
+    public static boolean callFightHelpBeanNextRowAfter(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).nextRowAfter(_args[0]);
     }
 
     public static NaSt callFightHelpBeanPrepaRoundMovesGet(NaSt _str, int... _args) {
@@ -2135,36 +2135,36 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStatusDamage());
     }
 
-    public static NaSt callFightHelpBeanStatusMultAccuracy(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultAccuracy(_args[0]));
+    public static boolean callFightHelpBeanStatusMultAccuracy(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultAccuracy(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanStatusMultAccuracyAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultAccuracyAny());
+    public static boolean callFightHelpBeanStatusMultAccuracyAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultAccuracyAny();
     }
 
-    public static NaSt callFightHelpBeanStatusMultEvasiness(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultEvasiness(_args[0]));
+    public static boolean callFightHelpBeanStatusMultEvasiness(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultEvasiness(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanStatusMultEvasinessAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultEvasinessAny());
+    public static boolean callFightHelpBeanStatusMultEvasinessAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultEvasinessAny();
     }
 
-    public static NaSt callFightHelpBeanStatusMultNormal(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultNormal(_args[0]));
+    public static boolean callFightHelpBeanStatusMultNormal(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultNormal(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanStatusMultNormalAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultNormalAny());
+    public static boolean callFightHelpBeanStatusMultNormalAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultNormalAny();
     }
 
-    public static NaSt callFightHelpBeanStatusMultSpeed(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultSpeed(_args[0]));
+    public static boolean callFightHelpBeanStatusMultSpeed(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultSpeed(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanStatusMultSpeedAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultSpeedAny());
+    public static boolean callFightHelpBeanStatusMultSpeedAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultSpeedAny();
     }
 
     public static NaSt callFightHelpBeanStatusMultStatGet(NaSt _str, int... _args) {
@@ -2199,28 +2199,28 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getStrStr(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getVarRates());
     }
 
-    public static NaSt callFightHelpBeanWithConstDamage(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withConstDamage(_args[0]));
+    public static boolean callFightHelpBeanWithConstDamage(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withConstDamage(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanWithConstDamageAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withConstDamageAny());
+    public static boolean callFightHelpBeanWithConstDamageAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withConstDamageAny();
     }
 
-    public static NaSt callFightHelpBeanWithMultDamage(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withMultDamage(_args[0]));
+    public static boolean callFightHelpBeanWithMultDamage(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withMultDamage(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanWithMultDamageAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withMultDamageAny());
+    public static boolean callFightHelpBeanWithMultDamageAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withMultDamageAny();
     }
 
-    public static NaSt callFightHelpBeanWithRandDamage(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withRandDamage(_args[0]));
+    public static boolean callFightHelpBeanWithRandDamage(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withRandDamage(_args[0]);
     }
 
-    public static NaSt callFightHelpBeanWithRandDamageAny(NaSt _str, int... _args) {
-        return NaBoSt.of(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withRandDamageAny());
+    public static boolean callFightHelpBeanWithRandDamageAny(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withRandDamageAny();
     }
 
     public static NaSt callFightHelpBeanWonHappinessPointsLevelGet(NaSt _str, int... _args) {

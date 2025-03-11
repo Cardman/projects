@@ -14,32 +14,32 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
 
-    public static NaSt callEffectRestrictionBeanForbid(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbid());
+    public static boolean callEffectRestrictionBeanForbid(NaSt _str, int... _args) {
+        return ( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbid();
     }
 
-    public static NaSt callEffectRestrictionBeanForbidLastMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidLastMove());
+    public static boolean callEffectRestrictionBeanForbidLastMove(NaSt _str, int... _args) {
+        return ( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidLastMove();
     }
 
-    public static NaSt callEffectRestrictionBeanForbidStatusMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidStatusMove());
+    public static boolean callEffectRestrictionBeanForbidStatusMove(NaSt _str, int... _args) {
+        return ( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidStatusMove();
     }
 
-    public static NaSt callEffectRestrictionBeanForbidTargetUsingItemGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).getForbidTargetUsingItem());
+    public static boolean callEffectRestrictionBeanForbidTargetUsingItemGet(NaSt _str, int... _args) {
+        return ( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).getForbidTargetUsingItem();
     }
 
-    public static NaSt callEffectRestrictionBeanForbidUseMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidUseMove());
+    public static boolean callEffectRestrictionBeanForbidUseMove(NaSt _str, int... _args) {
+        return ( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidUseMove();
     }
 
-    public static NaSt callEffectRestrictionBeanForbidUserMoves(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidUserMoves());
+    public static boolean callEffectRestrictionBeanForbidUserMoves(NaSt _str, int... _args) {
+        return ( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forbidUserMoves();
     }
 
-    public static NaSt callEffectRestrictionBeanForceUseMove(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forceUseMove());
+    public static boolean callEffectRestrictionBeanForceUseMove(NaSt _str, int... _args) {
+        return ( (EffectRestrictionBean) ((PokemonBeanStruct)_str).getInstance()).forceUseMove();
     }
     protected static NaSt dispMoveEffRestriction(boolean _targetAttacksLast, MoveChoiceRestrictionType _res) {
         return dispMoveEffRestriction(feedDbMoveEffDataRestriction(_targetAttacksLast, _res));

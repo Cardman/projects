@@ -143,8 +143,8 @@ public abstract class InitDbPk extends InitDbConstr {
     public static NaSt callPokemonLineTypesGet(NaSt _str, int... _args) {
         return BeanNatCommonLgNames.getStringArray(( ((PkLineStruct) _str).getWildPk()).getTypes());
     }
-    public static NaSt callPokemonLineEvolutionsGet(NaSt _str, int... _args) {
-        return new NaNbSt(( ((PkLineStruct) _str).getWildPk()).getEvolutions());
+    public static long callPokemonLineEvolutionsGet(NaSt _str, int... _args) {
+        return ( ((PkLineStruct) _str).getWildPk()).getEvolutions();
     }
     public static NaSt callPokedexBeanBooleansGet() {
         return PokemonStandards.getStrStr(( (PokedexBean) ((PokemonBeanStruct)dispAllPks()).getInstance()).getBooleans());
@@ -204,8 +204,8 @@ public abstract class InitDbPk extends InitDbConstr {
         return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
     }
 
-    public static NaSt callPokedexBeanWholeWordGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected());
+    public static boolean callPokedexBeanWholeWordGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
     }
 
     public static void callPokedexBeanIsEvoSet(NaSt _str, String _args) {

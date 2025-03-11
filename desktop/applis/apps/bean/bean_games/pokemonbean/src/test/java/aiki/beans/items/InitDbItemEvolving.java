@@ -80,8 +80,8 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return ( (FossilBean) ((PokemonBeanStruct)healFossil()).getInstance()).getTrPokemon();
     }
 
-    public static NaSt callFossilBeanLevelGet() {
-        return new NaNbSt(( (FossilBean) ((PokemonBeanStruct)healFossil()).getInstance()).getLevel());
+    public static long callFossilBeanLevelGet() {
+        return ( (FossilBean) ((PokemonBeanStruct)healFossil()).getInstance()).getLevel();
     }
 
     public static StringMap<NaSt> beanToEvoItem(PkData _pk) {

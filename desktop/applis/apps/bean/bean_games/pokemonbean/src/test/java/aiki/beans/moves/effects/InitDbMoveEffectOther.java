@@ -171,8 +171,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return PokemonStandards.getStrRate(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
     }
 
-    public static NaSt callEffectOrderBeanTargetAttacksLastGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectOrderBean) ((PokemonBeanStruct)_str).getInstance()).getTargetAttacksLast());
+    public static boolean callEffectOrderBeanTargetAttacksLastGet(NaSt _str, int... _args) {
+        return ( (EffectOrderBean) ((PokemonBeanStruct)_str).getInstance()).getTargetAttacksLast();
     }
 
 
@@ -180,14 +180,14 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return new RtSt(( (EffectRemainedHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateHp());
     }
 
-    public static NaSt callEffectRemainedHpRateBeanWinHpGet(NaSt _str, int... _args) {
-        return NaBoSt.of(( (EffectRemainedHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getWinHp());
+    public static boolean callEffectRemainedHpRateBeanWinHpGet(NaSt _str, int... _args) {
+        return ( (EffectRemainedHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getWinHp();
     }
 
 
 
-    public static NaSt callEffectVarPPBeanDeletePpGet(NaSt _str, int... _args) {
-        return new NaNbSt(( (EffectVarPPBean) ((PokemonBeanStruct)_str).getInstance()).getDeletePp());
+    public static long callEffectVarPPBeanDeletePpGet(NaSt _str, int... _args) {
+        return ( (EffectVarPPBean) ((PokemonBeanStruct)_str).getInstance()).getDeletePp();
     }
 
     public static NaSt callEffectWinMoneyBeanWinningRateBySumTargetUserGet(NaSt _str, int... _args) {

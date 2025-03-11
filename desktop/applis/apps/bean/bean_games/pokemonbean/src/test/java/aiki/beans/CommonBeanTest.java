@@ -240,12 +240,12 @@ public final class CommonBeanTest extends InitDbWelcome {
         return new RtSt(( ((RtSt) _str).getInstance()).absNb());
     }
 
-    public static NaSt callRateIsZero(NaSt _str, int... _args) {
-        return NaBoSt.of(( ((RtSt) _str).getInstance()).isZero());
+    public static boolean callRateIsZero(NaSt _str, int... _args) {
+        return ( ((RtSt) _str).getInstance()).isZero();
     }
 
-    public static NaSt callRateIsZeroOrGt(NaSt _str, int... _args) {
-        return NaBoSt.of(( ((RtSt) _str).getInstance()).isZeroOrGt());
+    public static boolean callRateIsZeroOrGt(NaSt _str, int... _args) {
+        return ( ((RtSt) _str).getInstance()).isZeroOrGt();
     }
     private String value(StringMapObject _forms) {
         return _forms.getValStr(KEY);
