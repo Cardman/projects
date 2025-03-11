@@ -366,16 +366,12 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callTrainerBeanGetName(displayTrainer(_place, _level, _tile));
     }
 
-    public static NaSt callTrainerBeanGetTeamsRewards(NaSt _str) {
-        return PokemonStandards.arrId(( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getTeamsRewards().size());
-    }
-
     public static NaSt callTrainerBeanGetTeamsRewardsLevelZero(int _place, int _tile, int _second) {
-        return callTrainerBeanGetTeamsRewards(displayTrainerLevelZero(_place, _tile, _second));
+        return PokemonStandards.arrId(( (TrainerBean) ((PokemonBeanStruct) displayTrainerLevelZero(_place, _tile, _second)).getInstance()).getTeamsRewards().size());
     }
 
     public static NaSt callTrainerBeanGetTeamsRewardsOtherLevel(int _place, int _level, int _tile) {
-        return callTrainerBeanGetTeamsRewards(displayTrainer(_place, _level, _tile));
+        return PokemonStandards.arrId(( (TrainerBean) ((PokemonBeanStruct) displayTrainer(_place, _level, _tile)).getInstance()).getTeamsRewards().size());
     }
 
     public static String callTrainerBeanGetTrMove(int _place, int _tile, int _second) {

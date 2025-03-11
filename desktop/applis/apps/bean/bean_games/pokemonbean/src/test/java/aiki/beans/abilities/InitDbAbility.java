@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.beans.CommonBean;
 import aiki.beans.PkData;
 import aiki.beans.PokemonBeanStruct;
+import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
@@ -1085,7 +1086,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //    public static Struct healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
 //        return healSimpleNoStatSend(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff,true,true);
 //    }
-    public static NaSt healSimpleNoStatSend() {
+    public static EffectWhileSendingBean healSimpleNoStatSend() {
         PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
         NaSt res_ = transitToAllAbilitiesQuick(pk_, all_, 0);
@@ -1093,7 +1094,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //        NaSt send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
 //        callEffectWhileSendingBeanEffectSet(send_,callAbilityBeanGetEffectSending(res_));
 //        beforeDisplaying(send_);
-        return new PokemonBeanStruct(((PokemonBeanStruct) res_).getInstance().effSending(((AbilityBean) ((PokemonBeanStruct) res_).getInstance()).getEffectSending()));
+        return ((PokemonBeanStruct) res_).getInstance().effSending(((AbilityBean) ((PokemonBeanStruct) res_).getInstance()).getEffectSending());
     }
 
     public static NaSt abNoStatSend() {

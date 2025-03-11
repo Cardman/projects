@@ -2,6 +2,7 @@ package aiki.beans.items;
 
 import aiki.beans.PkData;
 import aiki.beans.*;
+import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.*;
@@ -483,10 +484,10 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return res_;
     }
 
-    public static NaSt healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+    public static EffectWhileSendingBean healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
         return healSimpleNoStatSend(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff,true,true);
     }
-    public static NaSt healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
+    public static EffectWhileSendingBean healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
         PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
         NaSt res_ = dispLineQuick(InitDbItems.BEAN_ITEMFORBATTLE, pk_, all_);
@@ -497,7 +498,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return effSend(res_);
     }
 
-    public static NaSt healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+    public static EffectWhileSendingBean healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
         PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<NaSt> all_ = beanToItBaseSend(pk_);
         ((CommonBean)((PokemonBeanStruct)all_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
@@ -522,9 +523,9 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
 //        beforeDisplaying(send_);
         return res_;
     }
-    protected static NaSt effSend(NaSt _it) {
+    protected static EffectWhileSendingBean effSend(NaSt _it) {
         ItemForBattleBean it_ = (ItemForBattleBean) ((PokemonBeanStruct) _it).getInstance();
-        return new PokemonBeanStruct(it_.effSending(it_.getEffectSending()));
+        return it_.effSending(it_.getEffectSending());
     }
 
     protected static FacadeGame feedDbItem(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {

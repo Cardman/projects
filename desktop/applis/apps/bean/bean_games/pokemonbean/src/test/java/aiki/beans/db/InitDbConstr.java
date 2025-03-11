@@ -378,109 +378,109 @@ public abstract class InitDbConstr extends InitDbBean {
         return pk_;
     }
 
-    public static NaSt callEffectWhileSendingBeanCancelChgtStatGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelChgtStat());
+    public static NaSt callEffectWhileSendingBeanCancelChgtStatGet(EffectWhileSendingBean _str, int... _args) {
+        return PokemonStandards.getValues(_str.getEffectStatisticCommon().getCancelChgtStat());
     }
 
-    public static NaSt callEffectWhileSendingBeanCancelLowStatGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelLowStat());
+    public static NaSt callEffectWhileSendingBeanCancelLowStatGet(EffectWhileSendingBean _str, int... _args) {
+        return PokemonStandards.getValues(_str.getEffectStatisticCommon().getCancelLowStat());
     }
 
-    public static String callEffectWhileSendingBeanClickWeather(NaSt _str, int... _args) {
-        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).clickWeather();
+    public static String callEffectWhileSendingBeanClickWeather(EffectWhileSendingBean _str, int... _args) {
+        return _str.clickWeather();
     }
 
-    public static String callEffectWhileSendingBeanClickWeatherId(NaSt _str, int... _args) {
+    public static String callEffectWhileSendingBeanClickWeatherId(EffectWhileSendingBean _str, int... _args) {
         callEffectWhileSendingBeanClickWeather(_str, _args);
         return getValMoveId(_str);
     }
 
-    public static NaSt callEffectWhileSendingBeanCopyBoostGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCopyBoost());
+    public static NaSt callEffectWhileSendingBeanCopyBoostGet(EffectWhileSendingBean _str, int... _args) {
+        return PokemonStandards.getValues(_str.getEffectStatisticCommon().getCopyBoost());
     }
 
-    public static boolean callEffectWhileSendingBeanCopyingAbilityGet(NaSt _str, int... _args) {
-        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingAbility();
+    public static boolean callEffectWhileSendingBeanCopyingAbilityGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getCopyingAbility();
     }
 
-    public static long callEffectWhileSendingBeanDefaultBoostGet(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getDefaultBoost();
+    public static long callEffectWhileSendingBeanDefaultBoostGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getDefaultBoost();
     }
 
-    public static boolean callEffectWhileSendingBeanDisableWeatherGet(NaSt _str, int... _args) {
-        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getDisableWeather();
+    public static boolean callEffectWhileSendingBeanDisableWeatherGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getDisableWeather();
     }
 
-    public static String callEffectWhileSendingBeanEnabledWeatherGet(NaSt _str, int... _args) {
-        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getEnabledWeather().getKey();
+    public static String callEffectWhileSendingBeanEnabledWeatherGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEnabledWeather().getKey();
     }
 
-    public static Rate callEffectWhileSendingBeanEvtRateGet(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getEvtRate();
+    public static Rate callEffectWhileSendingBeanEvtRateGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getEvtRate();
     }
 
-    public static String callEffectWhileSendingBeanEvtRatePerCentGet(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getEvtRatePerCent();
+    public static String callEffectWhileSendingBeanEvtRatePerCentGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getEvtRatePerCent();
     }
 
-    public static String callEffectWhileSendingBeanGetFail(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getFail(_args[0]);
+    public static String callEffectWhileSendingBeanGetFail(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getFail(_args[0]);
     }
 
-    public static Rate callEffectWhileSendingBeanGetRate(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getRate(_args[0]);
+    public static Rate callEffectWhileSendingBeanGetRate(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getRate(_args[0]);
     }
 
-    public static String callEffectWhileSendingBeanGetSwapFail(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getSwapFail(_args[0]);
+    public static String callEffectWhileSendingBeanGetSwapFail(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getSwapFail(_args[0]);
     }
 
-    public static String callEffectWhileSendingBeanGetTrWeather(NaSt _str, int... _args) {
-        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getTrWeather();
+    public static String callEffectWhileSendingBeanGetTrWeather(EffectWhileSendingBean _str, int... _args) {
+        return _str.getTrWeather();
     }
 
-    public static boolean callEffectWhileSendingBeanIsAlwaysEnabled(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().isAlwaysEnabled();
+    public static boolean callEffectWhileSendingBeanIsAlwaysEnabled(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().isAlwaysEnabled();
     }
 
-    public static NaSt callEffectWhileSendingBeanMapVarsFailGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFail());
+    public static NaSt callEffectWhileSendingBeanMapVarsFailGet(EffectWhileSendingBean _str, int... _args) {
+        return PokemonStandards.getStrStr(_str.getMapVarsFail());
     }
 
-    public static NaSt callEffectWhileSendingBeanMapVarsStatisticsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getMapVarsStatistics());
+    public static NaSt callEffectWhileSendingBeanMapVarsStatisticsGet(EffectWhileSendingBean _str, int... _args) {
+        return PokemonStandards.getStrStr(_str.getEffectStatisticCommon().getMapVarsStatistics());
     }
 
-    public static Rate callEffectWhileSendingBeanMultWeightGet(NaSt _str, int... _args) {
-        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getMultWeight();
+    public static Rate callEffectWhileSendingBeanMultWeightGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getMultWeight();
     }
 
-    public static boolean callEffectWhileSendingBeanNotEmptyVarBoost(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().notEmptyVarBoost();
+    public static boolean callEffectWhileSendingBeanNotEmptyVarBoost(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().notEmptyVarBoost();
     }
 
 //    public static Struct callEffectWhileSendingBeanPlateGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanPlateGet(),_str,_args);
 //    }
 
-    public static boolean callEffectWhileSendingBeanRandomStatis(NaSt _str, int... _args) {
-        return ((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().randomStatis();
+    public static boolean callEffectWhileSendingBeanRandomStatis(EffectWhileSendingBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().randomStatis();
     }
 
-    public static NaSt callEffectWhileSendingBeanReasonsGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getReasons());
+    public static NaSt callEffectWhileSendingBeanReasonsGet(EffectWhileSendingBean _str, int... _args) {
+        return BeanNatCommonLgNames.getStringArray(_str.getReasons());
     }
 
-    public static NaSt callEffectWhileSendingBeanStatisVarRankGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrLongStat(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getStatisVarRank());
+    public static NaSt callEffectWhileSendingBeanStatisVarRankGet(EffectWhileSendingBean _str, int... _args) {
+        return PokemonStandards.getStrLongStat(_str.getEffectStatisticCommon().getStatisVarRank());
     }
 
-    public static boolean callEffectWhileSendingBeanStatisticGet(NaSt _str, int... _args) {
-        return ( (EffectWhileSendingBean) ((PokemonBeanStruct)_str).getInstance()).getStatistic();
+    public static boolean callEffectWhileSendingBeanStatisticGet(EffectWhileSendingBean _str, int... _args) {
+        return _str.getStatistic();
     }
 
-    public static NaSt callEffectWhileSendingBeanSwapBoostStatisGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectWhileSendingBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getSwapBoostStatis().getKeys());
+    public static NaSt callEffectWhileSendingBeanSwapBoostStatisGet(EffectWhileSendingBean _str, int... _args) {
+        return PokemonStandards.getValues(_str.getEffectStatisticCommon().getSwapBoostStatis().getKeys());
     }
 //
 //    public static NaSt callSimulationBeanSelectedTeamNumberGet(NaSt _str, long... _args) {

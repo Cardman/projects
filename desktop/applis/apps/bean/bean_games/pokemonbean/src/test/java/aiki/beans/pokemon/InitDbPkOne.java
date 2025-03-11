@@ -181,11 +181,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callPokemonBeanEvolutionsGet() {
-        return callPokemonBeanEvolutionsGet(dispPkOne(0));
-    }
-
-    public static NaSt callPokemonBeanEvolutionsGet(NaSt _str) {
-        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutions());
+        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct) dispPkOne(0)).getInstance()).getEvolutions());
     }
 
     public static String callPokemonBeanExpEvoGet() {
