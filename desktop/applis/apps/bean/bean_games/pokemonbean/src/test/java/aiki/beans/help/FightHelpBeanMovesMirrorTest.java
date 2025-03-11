@@ -38,7 +38,7 @@ public final class FightHelpBeanMovesMirrorTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickMovesMirror(b_,0));
+        return callFightHelpBeanClickMovesMirror(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

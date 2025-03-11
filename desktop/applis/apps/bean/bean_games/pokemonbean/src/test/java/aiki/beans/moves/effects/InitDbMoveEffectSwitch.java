@@ -18,7 +18,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     public static final String ROAD_TR = "ROAD_TR";
 
     public static String callEffectSwitchAbilitiesBeanClickAbility(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility()).getInstance();
+        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility();
     }
 
     public static String callEffectSwitchAbilitiesBeanClickAbilityId(NaSt _str, int... _args) {
@@ -26,8 +26,8 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return getValAbilityId(_str);
     }
 
-    public static NaSt callEffectSwitchAbilitiesBeanGetTrAbility(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbility());
+    public static String callEffectSwitchAbilitiesBeanGetTrAbility(NaSt _str, int... _args) {
+        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbility();
     }
 
     public static NaSt callEffectSwitchAbilitiesBeanGiveConst(NaSt _str, int... _args) {
@@ -82,12 +82,12 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return PokemonStandards.getStrStr(( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getChangeTypes());
     }
 
-    public static NaSt callEffectSwitchMoveTypesBeanGetTrChangedTypes(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrChangedTypes(_args[0]));
+    public static String callEffectSwitchMoveTypesBeanGetTrChangedTypes(NaSt _str, int... _args) {
+        return ( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrChangedTypes(_args[0]);
     }
 
-    public static NaSt callEffectSwitchMoveTypesBeanGetTrReplacingTypes(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrReplacingTypes(_args[0]));
+    public static String callEffectSwitchMoveTypesBeanGetTrReplacingTypes(NaSt _str, int... _args) {
+        return ( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrReplacingTypes(_args[0]);
     }
 
     public static NaSt callEffectSwitchMoveTypesBeanReplacingTypesGet(NaSt _str, int... _args) {
@@ -115,7 +115,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     }
 
     public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnv(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).clickGlobalMoveFctEnv(_args[0])).getInstance();
+        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).clickGlobalMoveFctEnv(_args[0]);
     }
 
     public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnvId(NaSt _str, int... _args) {
@@ -127,20 +127,20 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getConstTypes());
     }
 
-    public static NaSt callEffectSwitchTypesBeanGetTrAddedType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAddedType(_args[0]));
+    public static String callEffectSwitchTypesBeanGetTrAddedType(NaSt _str, int... _args) {
+        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAddedType(_args[0]);
     }
 
-    public static NaSt callEffectSwitchTypesBeanGetTrConstType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrConstType(_args[0]));
+    public static String callEffectSwitchTypesBeanGetTrConstType(NaSt _str, int... _args) {
+        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrConstType(_args[0]);
     }
 
-    public static NaSt callEffectSwitchTypesBeanGetTrEnv(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrEnv(_args[0]));
+    public static String callEffectSwitchTypesBeanGetTrEnv(NaSt _str, int... _args) {
+        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrEnv(_args[0]);
     }
 
-    public static NaSt callEffectSwitchTypesBeanGetTrGlobalMoveFctEnv(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrGlobalMoveFctEnv(_args[0]));
+    public static String callEffectSwitchTypesBeanGetTrGlobalMoveFctEnv(NaSt _str, int... _args) {
+        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrGlobalMoveFctEnv(_args[0]);
     }
 
     public static NaSt callEffectSwitchTypesBeanGiveConst(NaSt _str, int... _args) {

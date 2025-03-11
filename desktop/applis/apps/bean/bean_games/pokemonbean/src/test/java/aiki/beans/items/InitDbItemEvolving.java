@@ -23,7 +23,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static String callEvolvingItemBeanClickPokemon(NaSt _str) {
-        return new NaStSt(( (EvolvingItemBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0)).getInstance();
+        return ( (EvolvingItemBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0);
     }
 
     public static String callEvolvingItemBeanClickPokemonId() {
@@ -32,8 +32,8 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return getValPkId(it_);
     }
 
-    public static NaSt callEvolvingItemBeanGetTrPokemon() {
-        return new NaStSt(( (EvolvingItemBean) ((PokemonBeanStruct)healEvoItem()).getInstance()).getTrPokemon(0));
+    public static String callEvolvingItemBeanGetTrPokemon() {
+        return ( (EvolvingItemBean) ((PokemonBeanStruct)healEvoItem()).getInstance()).getTrPokemon(0);
     }
 
     public static NaSt callEvolvingItemBeanPokemonGet() {
@@ -45,7 +45,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static String callEvolvingStoneBeanClickPokemon(NaSt _str) {
-        return new NaStSt(( (EvolvingStoneBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0)).getInstance();
+        return ( (EvolvingStoneBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0);
     }
 
     public static String callEvolvingStoneBeanClickPokemonId() {
@@ -54,8 +54,8 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return getValPkId(it_);
     }
 
-    public static NaSt callEvolvingStoneBeanGetTrPokemon() {
-        return new NaStSt(( (EvolvingStoneBean) ((PokemonBeanStruct)healEvoStone()).getInstance()).getTrPokemon(0));
+    public static String callEvolvingStoneBeanGetTrPokemon() {
+        return ( (EvolvingStoneBean) ((PokemonBeanStruct)healEvoStone()).getInstance()).getTrPokemon(0);
     }
 
     public static NaSt callEvolvingStoneBeanPokemonGet() {
@@ -67,7 +67,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     public static String callFossilBeanClickPokemon(NaSt _str) {
-        return new NaStSt(( (FossilBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon()).getInstance();
+        return ( (FossilBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon();
     }
 
     public static String callFossilBeanClickPokemonId() {
@@ -76,8 +76,8 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return getValPkId(it_);
     }
 
-    public static NaSt callFossilBeanGetTrPokemon() {
-        return new NaStSt(( (FossilBean) ((PokemonBeanStruct)healFossil()).getInstance()).getTrPokemon());
+    public static String callFossilBeanGetTrPokemon() {
+        return ( (FossilBean) ((PokemonBeanStruct)healFossil()).getInstance()).getTrPokemon();
     }
 
     public static NaSt callFossilBeanLevelGet() {

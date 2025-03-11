@@ -38,7 +38,7 @@ public final class FightHelpBeanMovesGlobalPrepaDamageTest extends InitDbFightHe
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickMovesGlobalPrepaDamage(b_,0));
+        return callFightHelpBeanClickMovesGlobalPrepaDamage(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

@@ -35,7 +35,7 @@ public final class FightHelpBeanAbilitiesChangingTypesDamageTest extends InitDbF
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAbilitiesChangingTypesDamage(b_,0));
+        return callFightHelpBeanClickAbilitiesChangingTypesDamage(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

@@ -38,7 +38,7 @@ public final class FightHelpBeanMovesInvokDamageTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickMovesInvokDamage(b_,0));
+        return callFightHelpBeanClickMovesInvokDamage(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

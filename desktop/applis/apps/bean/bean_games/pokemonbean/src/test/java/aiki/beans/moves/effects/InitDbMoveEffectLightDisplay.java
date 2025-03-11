@@ -1,7 +1,6 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.PkData;
-import aiki.beans.moves.InitDbMoves;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
@@ -12,10 +11,10 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
     protected static String dispEffectSwitchPosition() {
-        return toStr(callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectSwitchPosition()))));
+        return callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectSwitchPosition())));
     }
     protected static String dispMoveEffAccuracy() {
-        return toStr(callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectAccuracy()))));
+        return callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectAccuracy())));
     }
     protected static NaSt dispMoveEffAccuracy(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);

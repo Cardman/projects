@@ -63,7 +63,7 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAutoDamage(b_,0));
+        return callFightHelpBeanClickAutoDamage(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

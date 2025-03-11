@@ -35,7 +35,7 @@ public final class FightHelpBeanAbilitiesBreakProtectMovesTest extends InitDbFig
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAbilitiesBreakProtectMoves(b_,0));
+        return callFightHelpBeanClickAbilitiesBreakProtectMoves(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

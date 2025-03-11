@@ -36,7 +36,7 @@ public final class FightHelpBeanItemsSentBeginWeatherTest extends InitDbFightHel
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickItemsSentBegin(b_,0));
+        return callFightHelpBeanClickItemsSentBegin(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

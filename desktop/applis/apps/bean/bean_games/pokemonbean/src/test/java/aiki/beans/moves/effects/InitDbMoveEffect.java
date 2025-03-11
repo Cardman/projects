@@ -15,8 +15,8 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffect extends InitDbMove {
 
-    public static NaSt callEffectBeanEffectBeanGet(NaSt _str, int... _args) {
-        return new NaStSt(EffectBeanTest.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFF_HTML);
+    public static String callEffectBeanEffectBeanGet(NaSt _str, int... _args) {
+        return EffectBeanTest.REN_ADD_WEB_HTML_MOVES_EFFECTS_EFF_HTML;
     }
 
     public static NaSt callEffectBeanIndexGet(NaSt _str, int... _args) {
@@ -75,8 +75,8 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return PokemonStandards.getStrStr(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFail());
     }
 
-    public static NaSt callEffectBeanMoveGet(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMove());
+    public static String callEffectBeanMoveGet(NaSt _str, int... _args) {
+        return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMove();
     }
 
     public static NaSt callEffectBeanNeedSuccessFirstEffectGet(NaSt _str, int... _args) {

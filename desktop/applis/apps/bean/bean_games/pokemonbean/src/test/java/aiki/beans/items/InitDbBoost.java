@@ -11,7 +11,7 @@ import code.util.StringMap;
 public abstract class InitDbBoost extends InitDbItem {
 
     public static String callBoostBeanClickHappiness(NaSt _str, int... _args) {
-        return new NaStSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).clickHappiness(_args[0])).getInstance();
+        return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).clickHappiness(_args[0]);
     }
 
     public static String callBoostBeanClickHappinessId(NaSt _str, int... _args) {
@@ -23,12 +23,12 @@ public abstract class InitDbBoost extends InitDbItem {
         return PokemonStandards.getStaByte(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getEvs());
     }
 
-    public static NaSt callBoostBeanGetTrEv(NaSt _str, int... _args) {
-        return new NaStSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getTrEv(_args[0]));
+    public static String callBoostBeanGetTrEv(NaSt _str, int... _args) {
+        return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getTrEv(_args[0]);
     }
 
-    public static NaSt callBoostBeanGetTrHappiness(NaSt _str, int... _args) {
-        return new NaStSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getTrHappiness(_args[0]));
+    public static String callBoostBeanGetTrHappiness(NaSt _str, int... _args) {
+        return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getTrHappiness(_args[0]);
     }
 
     public static NaSt callBoostBeanHappinessGet(NaSt _str, int... _args) {

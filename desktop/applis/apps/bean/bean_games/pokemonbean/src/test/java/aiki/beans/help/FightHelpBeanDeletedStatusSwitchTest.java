@@ -43,7 +43,7 @@ public final class FightHelpBeanDeletedStatusSwitchTest extends InitDbFightHelp 
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickDeletedStatusSwitch(b_,0));
+        return callFightHelpBeanClickDeletedStatusSwitch(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

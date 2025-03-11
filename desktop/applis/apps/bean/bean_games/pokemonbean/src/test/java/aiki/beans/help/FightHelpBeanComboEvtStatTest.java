@@ -31,7 +31,7 @@ public final class FightHelpBeanComboEvtStatTest extends InitDbFightHelp {
         assertEq(CommonBean.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,clickDest());
     }
     private static String clickDest() {
-        return toStr(callFightHelpBeanClickComboEvtStat(bean(db()),0));
+        return callFightHelpBeanClickComboEvtStat(bean(db()),0);
     }
     private static FacadeGame dbTr() {
         FacadeGame f_ = db();

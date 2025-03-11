@@ -16,7 +16,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
 
     public static String callEffectCopyMoveBeanClickDefaultMove(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickDefaultMove()).getInstance();
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickDefaultMove();
     }
 
     public static String callEffectCopyMoveBeanClickDefaultMoveId(NaSt _str, int... _args) {
@@ -25,7 +25,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
 
     public static String callEffectCopyMoveBeanClickMove(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args[0])).getInstance();
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args[0]);
     }
 
     public static String callEffectCopyMoveBeanClickMoveId(NaSt _str, int... _args) {
@@ -38,7 +38,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
 
     public static String callEffectCopyMoveBeanClickMoveTrans(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveTrans(_args[0])).getInstance();
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveTrans(_args[0]);
     }
 
     public static NaSt callEffectCopyMoveBeanCopyMoveForUser(NaSt _str, int... _args) {
@@ -53,20 +53,20 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         return new NaNbSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingMoveForUser());
     }
 
-    public static NaSt callEffectCopyMoveBeanDisplayNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName());
+    public static String callEffectCopyMoveBeanDisplayNameGet(NaSt _str, int... _args) {
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName();
     }
 
-    public static NaSt callEffectCopyMoveBeanGetTrDefaultMove(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrDefaultMove());
+    public static String callEffectCopyMoveBeanGetTrDefaultMove(NaSt _str, int... _args) {
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrDefaultMove();
     }
 
-    public static NaSt callEffectCopyMoveBeanGetTrMove(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMove(_args[0]));
+    public static String callEffectCopyMoveBeanGetTrMove(NaSt _str, int... _args) {
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMove(_args[0]);
     }
 
-    public static NaSt callEffectCopyMoveBeanGetTrMoveTrans(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMoveTrans(_args[0]));
+    public static String callEffectCopyMoveBeanGetTrMoveTrans(NaSt _str, int... _args) {
+        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMoveTrans(_args[0]);
     }
 
     public static NaSt callEffectCopyMoveBeanMovesNotToBeCopiedGet(NaSt _str, int... _args) {

@@ -116,7 +116,7 @@ public final class FightHelpBeanAbilitiesBoostingStatTest extends InitDbFightHel
     }
     private String click() {
         NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
-        return toStr(callFightHelpBeanClickAbilitiesBoostingStat(b_,0));
+        return callFightHelpBeanClickAbilitiesBoostingStat(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db(Statistic.CRITICAL_HIT));

@@ -47,8 +47,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     public static final int IMG_0 = 0;
     public static final int IMG_1 = 1;
 
-    public static NaSt callGeneralHelpBeanBeginGet() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getBegin());
+    public static String callGeneralHelpBeanBeginGet() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getBegin();
     }
 
     public static String callGeneralHelpBeanClickAbility() {
@@ -56,7 +56,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     }
 
     public static String callGeneralHelpBeanClickAbility(NaSt _str) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility()).getInstance();
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility();
     }
 
     public static String callGeneralHelpBeanClickAbilityId() {
@@ -70,7 +70,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return callGeneralHelpBeanClickHm(with());
     }
     public static String callGeneralHelpBeanClickHm(NaSt _str) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickHm(0)).getInstance();
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickHm(0);
     }
 
     public static String callGeneralHelpBeanClickHmId() {
@@ -84,7 +84,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     }
 
     public static String callGeneralHelpBeanClickItem(NaSt _str) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItem()).getInstance();
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItem();
     }
 
     public static String callGeneralHelpBeanClickItemId() {
@@ -98,7 +98,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     }
 
     public static String callGeneralHelpBeanClickMove(NaSt _str) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveFirstPk(0)).getInstance();
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveFirstPk(0);
     }
 
     public static String callGeneralHelpBeanClickMoveId() {
@@ -112,7 +112,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     }
 
     public static String callGeneralHelpBeanClickName(NaSt _str) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickName()).getInstance();
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickName();
     }
 
     public static String callGeneralHelpBeanClickNameId() {
@@ -126,7 +126,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     }
 
     public static String callGeneralHelpBeanClickPokemon(NaSt _str) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0)).getInstance();
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(0);
     }
 
     public static String callGeneralHelpBeanClickPokemonId() {
@@ -140,7 +140,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     }
 
     public static String callGeneralHelpBeanClickTm(NaSt _str, int _tm) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickTm(_tm)).getInstance();
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickTm(_tm);
     }
 
     public static String callGeneralHelpBeanClickTmId(int _tm) {
@@ -160,16 +160,16 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return NaBoSt.of(( (GeneralHelpBean) ((PokemonBeanStruct)without()).getInstance()).firstPokemonHasItem());
     }
 
-    public static NaSt callGeneralHelpBeanGetAbility() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getAbility());
+    public static String callGeneralHelpBeanGetAbility() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getAbility();
     }
 
     public static NaSt callGeneralHelpBeanGetColorType() {
         return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getColorType(0));
     }
 
-    public static NaSt callGeneralHelpBeanGetGender() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getGender());
+    public static String callGeneralHelpBeanGetGender() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getGender();
     }
 
     public static NaSt callGeneralHelpBeanGetImage() {
@@ -180,8 +180,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getImageType(0));
     }
 
-    public static NaSt callGeneralHelpBeanGetItem() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getItem());
+    public static String callGeneralHelpBeanGetItem() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getItem();
     }
 
     public static NaSt callGeneralHelpBeanGetLevel() {
@@ -200,40 +200,40 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMiniMapImage(_index));
     }
 
-    public static NaSt callGeneralHelpBeanGetMove() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMoveFirstPk(0));
+    public static String callGeneralHelpBeanGetMove() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMoveFirstPk(0);
     }
 
     public static NaSt callGeneralHelpBeanGetMovesAtLevel() {
         return PokemonStandards.getKeys(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMovesAtLevelFirstPk());
     }
 
-    public static NaSt callGeneralHelpBeanGetName() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getName());
+    public static String callGeneralHelpBeanGetName() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getName();
     }
 
-    public static NaSt callGeneralHelpBeanGetPlaceName(int _index) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getPlaceName(_index));
+    public static String callGeneralHelpBeanGetPlaceName(int _index) {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getPlaceName(_index);
     }
 
-    public static NaSt callGeneralHelpBeanGetTmPrice(int _move) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTmPrice(_move));
+    public static String callGeneralHelpBeanGetTmPrice(int _move) {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTmPrice(_move);
     }
 
-    public static NaSt callGeneralHelpBeanGetTrHm() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrHm(0));
+    public static String callGeneralHelpBeanGetTrHm() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrHm(0);
     }
 
-    public static NaSt callGeneralHelpBeanGetTrPokemon() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrPokemon(0));
+    public static String callGeneralHelpBeanGetTrPokemon() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrPokemon(0);
     }
 
-    public static NaSt callGeneralHelpBeanGetTrTm(int _tm) {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrTm(_tm));
+    public static String callGeneralHelpBeanGetTrTm(int _tm) {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrTm(_tm);
     }
 
-    public static NaSt callGeneralHelpBeanGetTrType() {
-        return new NaStSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrType(0));
+    public static String callGeneralHelpBeanGetTrType() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTrType(0);
     }
 
     public static NaSt callGeneralHelpBeanHappinessMaxGet() {

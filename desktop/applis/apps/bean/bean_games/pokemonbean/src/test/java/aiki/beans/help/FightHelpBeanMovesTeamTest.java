@@ -89,7 +89,7 @@ public final class FightHelpBeanMovesTeamTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(dbProtectAgainstLowStat());
-        return toStr(callFightHelpBeanClickMovesTeam(b_,0));
+        return callFightHelpBeanClickMovesTeam(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(dbProtectAgainstLowStat());

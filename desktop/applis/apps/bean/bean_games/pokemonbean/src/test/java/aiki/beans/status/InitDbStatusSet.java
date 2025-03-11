@@ -67,7 +67,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     }
 
     public static String callStatusSetBeanClickStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0])).getInstance();
+        return ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0]);
     }
 
     public static String callStatusSetBeanClickStatusId(int... _args) {
@@ -76,8 +76,8 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         return getValStatusId(bean_);
     }
 
-    public static NaSt callStatusSetBeanGetTrStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]));
+    public static String callStatusSetBeanGetTrStatus(NaSt _str, int... _args) {
+        return ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]);
     }
 
 //    public static NaSt callStatusSetBeanSearch(NaSt _str, long... _args) {
@@ -88,8 +88,8 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         return PokemonStandards.getKeys(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getSortedStatus());
     }
 
-    public static NaSt callStatusSetBeanTypedStatusGet(NaSt _str, int... _args) {
-        return new NaStSt(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTypedStatus().tryRet());
+    public static String callStatusSetBeanTypedStatusGet(NaSt _str, int... _args) {
+        return ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTypedStatus().tryRet();
     }
 
     public static void callStatusSetBeanTypedStatusSet(NaSt _str, String _args) {

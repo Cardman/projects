@@ -37,7 +37,7 @@ public final class FightHelpBeanAbilitiesPartStatisTest extends InitDbFightHelp 
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAbilitiesPartStatis(b_,0));
+        return callFightHelpBeanClickAbilitiesPartStatis(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

@@ -163,16 +163,16 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return PokemonStandards.getStrStr(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getWinPointsFight());
     }
 
-    public static NaSt callDifficultyBeanDamageRateLawFoeGet(NaSt _str, int... _args) {
-        return new NaStSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRateLawFoe());
+    public static String callDifficultyBeanDamageRateLawFoeGet(NaSt _str, int... _args) {
+        return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRateLawFoe();
     }
 
-    public static NaSt callDifficultyBeanDamageRatePlayerGet(NaSt _str, int... _args) {
-        return new NaStSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRatePlayer());
+    public static String callDifficultyBeanDamageRatePlayerGet(NaSt _str, int... _args) {
+        return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRatePlayer();
     }
 
-    public static NaSt callDifficultyBeanDiffWinningExpPtsFightGet(NaSt _str, int... _args) {
-        return new NaStSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDiffWinningExpPtsFight());
+    public static String callDifficultyBeanDiffWinningExpPtsFightGet(NaSt _str, int... _args) {
+        return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDiffWinningExpPtsFight();
     }
 
     public static NaSt callDifficultyBeanIvFoeGet(NaSt _str, int... _args) {

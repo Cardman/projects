@@ -44,7 +44,7 @@ public final class FightHelpBeanProtectAbilitiesTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickProtectAbilities(b_,0));
+        return callFightHelpBeanClickProtectAbilities(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

@@ -16,8 +16,8 @@ public abstract class InitDbBerry extends InitDbItem {
         return PokemonStandards.getStaByte(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getBoostStatis());
     }
 
-    public static NaSt callBerryBeanCategoryBoostingGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new NaStSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getCategoryBoosting().getTranslation());
+    public static String callBerryBeanCategoryBoostingGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getCategoryBoosting().getTranslation();
     }
 
     public static String callBerryBeanClickStatus(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
@@ -25,7 +25,7 @@ public abstract class InitDbBerry extends InitDbItem {
     }
 
     public static String callBerryBeanClickStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (BerryBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0])).getInstance();
+        return ( (BerryBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0]);
     }
 
     public static String callBerryBeanClickStatusId(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
@@ -38,24 +38,24 @@ public abstract class InitDbBerry extends InitDbItem {
         return PokemonStandards.getStrRate(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getDamageRateRecoilFoe());
     }
 
-    public static NaSt callBerryBeanGetTrBoostStat(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new NaStSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrBoostStat(_args[0]));
+    public static String callBerryBeanGetTrBoostStat(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrBoostStat(_args[0]);
     }
 
-    public static NaSt callBerryBeanGetTrCategRecoil(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new NaStSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrCategRecoil(_args[0]));
+    public static String callBerryBeanGetTrCategRecoil(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrCategRecoil(_args[0]);
     }
 
-    public static NaSt callBerryBeanGetTrMultFoesDamage(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new NaStSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrMultFoesDamage(_args[0]));
+    public static String callBerryBeanGetTrMultFoesDamage(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrMultFoesDamage(_args[0]);
     }
 
-    public static NaSt callBerryBeanGetTrMultStat(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new NaStSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrMultStat(_args[0]));
+    public static String callBerryBeanGetTrMultStat(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrMultStat(_args[0]);
     }
 
-    public static NaSt callBerryBeanGetTrStatus(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new NaStSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrStatus(_args[0]));
+    public static String callBerryBeanGetTrStatus(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrStatus(_args[0]);
     }
 
     public static NaSt callBerryBeanHealHpBySuperEffMoveGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {

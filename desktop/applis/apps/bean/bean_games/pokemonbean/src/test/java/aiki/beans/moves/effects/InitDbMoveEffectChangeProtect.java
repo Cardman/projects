@@ -18,7 +18,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
 
     public static String callEffectUnprotectFromTypesBeanClickMove(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args[0])).getInstance();
+        return ( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args[0]);
     }
 
     public static String callEffectUnprotectFromTypesBeanClickMoveId(NaSt _str, int... _args) {
@@ -34,32 +34,32 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getDisableImmuFromMoves());
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanGetTrAttackTargetType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAttackTargetType(_args[0]));
+    public static String callEffectUnprotectFromTypesBeanGetTrAttackTargetType(NaSt _str, int... _args) {
+        return ( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAttackTargetType(_args[0]);
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanGetTrDamageType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrDamageType(_args[0]));
+    public static String callEffectUnprotectFromTypesBeanGetTrDamageType(NaSt _str, int... _args) {
+        return ( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrDamageType(_args[0]);
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanGetTrDisableImmuMove(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrDisableImmuMove(_args[0]));
+    public static String callEffectUnprotectFromTypesBeanGetTrDisableImmuMove(NaSt _str, int... _args) {
+        return ( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrDisableImmuMove(_args[0]);
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanGetTrDisableImmuType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrDisableImmuType(_args[0]));
+    public static String callEffectUnprotectFromTypesBeanGetTrDisableImmuType(NaSt _str, int... _args) {
+        return ( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrDisableImmuType(_args[0]);
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanGetTrPokemonType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonType(_args[0]));
+    public static String callEffectUnprotectFromTypesBeanGetTrPokemonType(NaSt _str, int... _args) {
+        return ( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonType(_args[0]);
     }
 
     public static NaSt callEffectUnprotectFromTypesBeanTypesGet(NaSt _str, int... _args) {
         return PokemonStandards.getTypesDuo(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTypes());
     }
 
-    public static NaSt callEffectProtectFromTypesBeanGetTrType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectProtectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrType(_args[0]));
+    public static String callEffectProtectFromTypesBeanGetTrType(NaSt _str, int... _args) {
+        return ( (EffectProtectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrType(_args[0]);
     }
 
     public static NaSt callEffectProtectFromTypesBeanImmuAgainstTypesGet(NaSt _str, int... _args) {

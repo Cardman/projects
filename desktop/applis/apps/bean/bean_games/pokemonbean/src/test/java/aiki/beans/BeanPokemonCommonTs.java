@@ -7,7 +7,6 @@ import code.scripts.confs.EquallablePkBeanUtil;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 import code.util.ints.Countable;
 
@@ -91,10 +90,6 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    public static NaSt byStr(StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _resultAsString) {
 //        return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
 //    }
-
-    protected static String toStr(NaSt _resultAsString) {
-        return BeanNatCommonLgNames.processString(_resultAsString);
-    }
 
     public NaSt displaying(NaSt _b) {
         beforeDisplaying(_b);

@@ -171,7 +171,7 @@ public final class FightHelpBeanMovesTeamMultStatTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
-        return toStr(callFightHelpBeanClickMovesTeamMultStat(b_,0));
+        return callFightHelpBeanClickMovesTeamMultStat(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db(Statistic.CRITICAL_HIT));

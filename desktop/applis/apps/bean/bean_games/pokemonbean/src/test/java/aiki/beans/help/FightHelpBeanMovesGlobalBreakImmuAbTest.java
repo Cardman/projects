@@ -45,7 +45,7 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
     }
     private String clickMv() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickMovesGlobalBreakImmuAb(b_,0));
+        return callFightHelpBeanClickMovesGlobalBreakImmuAb(b_,0);
     }
     private String clickMvId() {
         NaSt b_ = bean(db());
@@ -70,7 +70,7 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
     }
     private String clickAb() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAbilitiesBreakable(b_,0));
+        return callFightHelpBeanClickAbilitiesBreakable(b_,0);
     }
     private String clickAbId() {
         NaSt b_ = bean(db());

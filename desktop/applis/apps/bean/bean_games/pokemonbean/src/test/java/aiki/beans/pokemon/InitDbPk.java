@@ -135,8 +135,8 @@ public abstract class InitDbPk extends InitDbConstr {
     public static final int IMG_2 = IMG_1 + STEP;
     public static final int IMG_3 = IMG_2 + STEP;
 
-    public static NaSt callPokemonLineDisplayNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( ((PkLineStruct) _str).getWildPk()).getDisplayName());
+    public static String callPokemonLineDisplayNameGet(NaSt _str, int... _args) {
+        return ( ((PkLineStruct) _str).getWildPk()).getDisplayName();
     }
 
 
@@ -151,7 +151,7 @@ public abstract class InitDbPk extends InitDbConstr {
     }
 
     public static String callPokedexBeanClickLink(NaSt _str, int... _args) {
-        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0])).getInstance();
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
     }
 
     public static String callPokedexBeanClickLink(int... _args) {
@@ -168,16 +168,16 @@ public abstract class InitDbPk extends InitDbConstr {
         return new NaImgSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImagePk(_args[0]));
     }
 
-    public static NaSt callPokedexBeanIsEvoGet(NaSt _str, int... _args) {
-        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().tryRet());
+    public static String callPokedexBeanIsEvoGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().tryRet();
     }
 
-    public static NaSt callPokedexBeanHasEvoGet(NaSt _str, int... _args) {
-        return new NaStSt(( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().tryRet());
+    public static String callPokedexBeanHasEvoGet(NaSt _str, int... _args) {
+        return ( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().tryRet();
     }
 
-    public static NaSt callPokedexBeanIsLegGet(NaSt _str, int... _args) {
-        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet());
+    public static String callPokedexBeanIsLegGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet();
     }
 
     public static NaSt callPokedexBeanPokedexGet(NaSt _str, int... _args) {
@@ -188,20 +188,20 @@ public abstract class InitDbPk extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new PokedexBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callPokedexBeanTypedMaxNbPossEvosGet(NaSt _str, int... _args) {
-        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMaxNbPossEvos().tryRet());
+    public static String callPokedexBeanTypedMaxNbPossEvosGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMaxNbPossEvos().tryRet();
     }
 
-    public static NaSt callPokedexBeanTypedMinNbPossEvosGet(NaSt _str, int... _args) {
-        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMinNbPossEvos().tryRet());
+    public static String callPokedexBeanTypedMinNbPossEvosGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMinNbPossEvos().tryRet();
     }
 
-    public static NaSt callPokedexBeanTypedNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet());
+    public static String callPokedexBeanTypedNameGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
     }
 
-    public static NaSt callPokedexBeanTypedTypeGet(NaSt _str, int... _args) {
-        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet());
+    public static String callPokedexBeanTypedTypeGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
     }
 
     public static NaSt callPokedexBeanWholeWordGet(NaSt _str, int... _args) {

@@ -35,7 +35,7 @@ public final class FightHelpBeanDeleteStatusMoveTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickDeleteStatusMove(b_,0));
+        return callFightHelpBeanClickDeleteStatusMove(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

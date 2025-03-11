@@ -13,7 +13,7 @@ import code.util.StringMap;
 public abstract class InitDbHealing extends InitDbItem {
 
     public static String callHealingItemBeanClickHappiness(NaSt _str, int... _args) {
-        return new NaStSt(( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).clickHappiness(_args[0])).getInstance();
+        return ( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).clickHappiness(_args[0]);
     }
 
     public static String callHealingItemBeanClickHappinessId(NaSt _str, int... _args) {
@@ -21,16 +21,16 @@ public abstract class InitDbHealing extends InitDbItem {
         return getValItemId(_str);
     }
 
-    public static NaSt callHealingItemBeanGetTrHappiness(NaSt _str, int... _args) {
-        return new NaStSt(( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getTrHappiness(_args[0]));
+    public static String callHealingItemBeanGetTrHappiness(NaSt _str, int... _args) {
+        return ( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getTrHappiness(_args[0]);
     }
 
     public static NaSt callHealingItemBeanHappinessGet(NaSt _str, int... _args) {
         return PokemonStandards.getStrLong(( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness());
     }
 
-    public static NaSt callHealingItemBeanHealingItemBeanGet(NaSt _str, int... _args) {
-        return new NaStSt(HealingItemBean.HEALING_ITEM_BEAN);
+    public static String callHealingItemBeanHealingItemBeanGet(NaSt _str, int... _args) {
+        return HealingItemBean.HEALING_ITEM_BEAN;
     }
 
     public static NaSt callHealingItemBeanHealingTeamGet(NaSt _str, int... _args) {

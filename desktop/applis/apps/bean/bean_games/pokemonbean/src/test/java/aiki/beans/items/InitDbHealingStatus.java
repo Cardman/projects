@@ -15,7 +15,7 @@ import code.util.StringMap;
 public abstract class InitDbHealingStatus extends InitDbHealing {
 
     public static String callHealingStatusBeanClickStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0])).getInstance();
+        return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0]);
     }
 
     public static String callHealingStatusBeanClickStatusId(NaSt _str, int... _args) {
@@ -23,8 +23,8 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
         return getValStatusId(_str);
     }
 
-    public static NaSt callHealingStatusBeanGetTrStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]));
+    public static String callHealingStatusBeanGetTrStatus(NaSt _str, int... _args) {
+        return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]);
     }
 
     public static NaSt callHealingStatusBeanHealedHpRateGet(NaSt _str, int... _args) {
@@ -35,8 +35,8 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
         return NaBoSt.of(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getHealingKo());
     }
 
-    public static NaSt callHealingStatusBeanHealingStatusBeanGet(NaSt _str, int... _args) {
-        return new NaStSt(HealingStatusBean.HEALING_STATUS_BEAN);
+    public static String callHealingStatusBeanHealingStatusBeanGet(NaSt _str, int... _args) {
+        return HealingStatusBean.HEALING_STATUS_BEAN;
     }
 
     public static NaSt callHealingStatusBeanStatusGet(NaSt _str, int... _args) {

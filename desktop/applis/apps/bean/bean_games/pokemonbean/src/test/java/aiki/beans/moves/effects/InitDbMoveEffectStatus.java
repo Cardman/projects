@@ -15,7 +15,7 @@ import code.util.StringMap;
 public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
 
     public static String callEffectStatusBeanClickLink(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0])).getInstance();
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
     }
 
     public static String callEffectStatusBeanClickLinkId(NaSt _str, int... _args) {
@@ -23,7 +23,7 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         return getValStatusId(_str);
     }
     public static String callEffectStatusBeanClickLinkDeleted(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickLinkDeleted(_args[0])).getInstance();
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickLinkDeleted(_args[0]);
     }
 
     public static String callEffectStatusBeanClickLinkDeletedId(NaSt _str, int... _args) {
@@ -35,16 +35,16 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus());
     }
 
-    public static NaSt callEffectStatusBeanGetFail(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getFail(_args[0]));
+    public static String callEffectStatusBeanGetFail(NaSt _str, int... _args) {
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getFail(_args[0]);
     }
 
-    public static NaSt callEffectStatusBeanGetTrLink(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrLink(_args[0]));
+    public static String callEffectStatusBeanGetTrLink(NaSt _str, int... _args) {
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrLink(_args[0]);
     }
 
-    public static NaSt callEffectStatusBeanGetTrLinkDeleted(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrLinkDeleted(_args[0]));
+    public static String callEffectStatusBeanGetTrLinkDeleted(NaSt _str, int... _args) {
+        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrLinkDeleted(_args[0]);
     }
 
     public static NaSt callEffectStatusBeanIsStatus(NaSt _str, int... _args) {

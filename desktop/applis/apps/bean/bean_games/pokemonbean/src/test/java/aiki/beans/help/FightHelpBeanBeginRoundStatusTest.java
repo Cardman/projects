@@ -74,7 +74,7 @@ public final class FightHelpBeanBeginRoundStatusTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickBeginRoundStatus(b_,0));
+        return callFightHelpBeanClickBeginRoundStatus(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

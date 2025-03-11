@@ -109,7 +109,7 @@ public final class FightHelpBeanComboMultStatTest extends InitDbFightHelp {
         assertEq(CommonBean.REN_ADD_WEB_HTML_COMBO_COMBOS_HTML,clickDest());
     }
     private static String clickDest() {
-        return toStr(callFightHelpBeanClickComboMultStat(bean(db(Statistic.ATTACK)),0));
+        return callFightHelpBeanClickComboMultStat(bean(db(Statistic.ATTACK)),0);
     }
     private static FacadeGame dbTr(Statistic _st) {
         FacadeGame f_ = db(_st);

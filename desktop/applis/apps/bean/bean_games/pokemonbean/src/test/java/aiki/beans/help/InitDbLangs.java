@@ -131,8 +131,8 @@ public abstract class InitDbLangs extends InitDbConstr {
         return BeanNatCommonLgNames.getStringArray(( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowType(_args));
     }
 
-    public static NaSt callLangsBeanGetTrLang(int _args) {
-        return new NaStSt(( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getTrLang(_args));
+    public static String callLangsBeanGetTrLang(int _args) {
+        return ( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getTrLang(_args);
     }
 
     public static NaSt callLangsBeanLanguagesGet() {

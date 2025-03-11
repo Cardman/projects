@@ -181,7 +181,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        return translationsPokemon_.getVal(namePk);
+        return StringUtil.nullToEmpty(translationsPokemon_.getVal(namePk));
     }
     public String translateItem() {
 //        if (item.isEmpty()) {
@@ -190,7 +190,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translationsItems_.getVal(item);
+        return StringUtil.nullToEmpty(translationsItems_.getVal(item));
     }
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);

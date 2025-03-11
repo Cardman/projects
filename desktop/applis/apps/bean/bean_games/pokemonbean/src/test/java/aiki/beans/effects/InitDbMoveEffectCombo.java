@@ -10,7 +10,7 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
     }
 
     public static String callEffectComboBeanClickMove(NaSt _combo, int _move) {
-        return new NaStSt(( (EffectComboBean) ((PokemonBeanStruct)_combo).getInstance()).clickMove(_move)).getInstance();
+        return ( (EffectComboBean) ((PokemonBeanStruct)_combo).getInstance()).clickMove(_move);
     }
 
     public static String callEffectComboBeanClickMoveId(int _combo, int _move) {
@@ -27,8 +27,8 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
         return new NaNbSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getEndRoundRank());
     }
 
-    public static NaSt callEffectComboBeanGetTrStatistic(int _index, int... _args) {
-        return new NaStSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getTrStatistic(_args[0]));
+    public static String callEffectComboBeanGetTrStatistic(int _index, int... _args) {
+        return ( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getTrStatistic(_args[0]);
     }
 //
 //    public static NaSt callEffectComboBeanIndexGet(NaSt _str, long... _args) {

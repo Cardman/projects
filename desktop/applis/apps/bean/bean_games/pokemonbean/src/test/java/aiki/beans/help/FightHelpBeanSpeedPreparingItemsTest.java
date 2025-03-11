@@ -35,7 +35,7 @@ public final class FightHelpBeanSpeedPreparingItemsTest extends InitDbFightHelp 
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickSpeedPreparingItems(b_,0));
+        return callFightHelpBeanClickSpeedPreparingItems(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

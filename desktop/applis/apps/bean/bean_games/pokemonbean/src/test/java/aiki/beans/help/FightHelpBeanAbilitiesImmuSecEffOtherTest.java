@@ -35,7 +35,7 @@ public final class FightHelpBeanAbilitiesImmuSecEffOtherTest extends InitDbFight
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAbilitiesImmuSecEffOther(b_,0));
+        return callFightHelpBeanClickAbilitiesImmuSecEffOther(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

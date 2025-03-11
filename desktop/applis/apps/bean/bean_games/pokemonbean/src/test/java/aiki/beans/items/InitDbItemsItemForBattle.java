@@ -62,7 +62,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     public static String callItemForBattleBeanClickFailStatus(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickFailStatus(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickFailStatus(0);
     }
 
     public static String callItemForBattleBeanClickGlobalMove() {
@@ -75,7 +75,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValMoveId(b_);
     }
     public static String callItemForBattleBeanClickGlobalMove(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickGlobalMove(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickGlobalMove(0);
     }
 
     public static String callItemForBattleBeanClickImmuMove() {
@@ -88,7 +88,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValMoveId(b_);
     }
     public static String callItemForBattleBeanClickImmuMove(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickImmuMove(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickImmuMove(0);
     }
 
     public static String callItemForBattleBeanClickImmuStatus() {
@@ -101,7 +101,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValStatusId(b_);
     }
     public static String callItemForBattleBeanClickImmuStatus(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickImmuStatus(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickImmuStatus(0);
     }
 
     public static String callItemForBattleBeanClickMultStatPk() {
@@ -114,7 +114,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValPkId(b_);
     }
     public static String callItemForBattleBeanClickMultStatPk(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickMultStatPk(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickMultStatPk(0);
     }
 
     public static String callItemForBattleBeanClickSynchroStatus() {
@@ -127,7 +127,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValStatusId(b_);
     }
     public static String callItemForBattleBeanClickSynchroStatus(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickSynchroStatus(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickSynchroStatus(0);
     }
 
     public static String callItemForBattleBeanClickTeamMove() {
@@ -140,7 +140,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValMoveId(b_);
     }
     public static String callItemForBattleBeanClickTeamMove(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickTeamMove(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickTeamMove(0);
     }
 
     public static String callItemForBattleBeanClickTrapMove() {
@@ -153,7 +153,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValMoveId(b_);
     }
     public static String callItemForBattleBeanClickTrapMove(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickTrapMove(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickTrapMove(0);
     }
 
     public static String callItemForBattleBeanClickTypesPkAbility() {
@@ -166,7 +166,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValAbilityId(b_);
     }
     public static String callItemForBattleBeanClickTypesPkAbility(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickTypesPkAbility(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickTypesPkAbility(0);
     }
 
     public static String callItemForBattleBeanClickWeather() {
@@ -179,7 +179,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return getValMoveId(b_);
     }
     public static String callItemForBattleBeanClickWeather(NaSt _str) {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickWeather(0)).getInstance();
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)_str).getInstance()).clickWeather(0);
     }
 
     public static NaSt callItemForBattleBeanDamageRecoilGet() {
@@ -222,80 +222,80 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
 //        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetEffectSending(),_str,_args);
 //    }
 
-    public static NaSt callItemForBattleBeanGetTrFailStatus() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrFailStatus(0));
+    public static String callItemForBattleBeanGetTrFailStatus() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrFailStatus(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrGlobalMove() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrGlobalMove(0));
+    public static String callItemForBattleBeanGetTrGlobalMove() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrGlobalMove(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrImmuMove() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrImmuMove(0));
+    public static String callItemForBattleBeanGetTrImmuMove() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrImmuMove(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrImmuStatus() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrImmuStatus(0));
+    public static String callItemForBattleBeanGetTrImmuStatus() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrImmuStatus(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrImmuTypes() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrImmuTypes(0));
+    public static String callItemForBattleBeanGetTrImmuTypes() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrImmuTypes(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrMultStat() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStat(0));
+    public static String callItemForBattleBeanGetTrMultStat() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStat(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrMultStatPk() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatPk(0));
+    public static String callItemForBattleBeanGetTrMultStatPk() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatPk(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrMultStatPkRank() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatPkRank(0));
+    public static String callItemForBattleBeanGetTrMultStatPkRank() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatPkRank(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrMultStatRank() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatRank(0));
+    public static String callItemForBattleBeanGetTrMultStatRank() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatRank(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrMultStatisSuperEff() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatisSuperEff(0));
+    public static String callItemForBattleBeanGetTrMultStatisSuperEff() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatisSuperEff(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrMultStatisTypes() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatisTypes(0));
+    public static String callItemForBattleBeanGetTrMultStatisTypes() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatisTypes(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrMultStatisTypesStat() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatisTypesStat(0,0));
+    public static String callItemForBattleBeanGetTrMultStatisTypesStat() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrMultStatisTypesStat(0,0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrSynchroStatus() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrSynchroStatus(0));
+    public static String callItemForBattleBeanGetTrSynchroStatus() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrSynchroStatus(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrTeamMove() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTeamMove(0));
+    public static String callItemForBattleBeanGetTrTeamMove() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTeamMove(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrTrapMove() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTrapMove(0));
+    public static String callItemForBattleBeanGetTrTrapMove() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTrapMove(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrTypesPk() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTypesPk(0));
+    public static String callItemForBattleBeanGetTrTypesPk() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTypesPk(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrTypesPkAbility() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTypesPkAbility(0));
+    public static String callItemForBattleBeanGetTrTypesPkAbility() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrTypesPkAbility(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrWeather() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrWeather(0));
+    public static String callItemForBattleBeanGetTrWeather() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrWeather(0);
     }
 
-    public static NaSt callItemForBattleBeanGetTrWinEvFight() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrWinEvFight(0));
+    public static String callItemForBattleBeanGetTrWinEvFight() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTrWinEvFight(0);
     }
 
     public static NaSt callItemForBattleBeanImmuLowStatisGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
@@ -338,16 +338,16 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return PokemonStandards.getStrStr(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMapVars());
     }
 
-    public static NaSt callItemForBattleBeanMultDamageGet() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultDamage());
+    public static String callItemForBattleBeanMultDamageGet() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultDamage();
     }
 
     public static NaSt callItemForBattleBeanMultDrainedHpGet() {
         return new RtSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultDrainedHp());
     }
 
-    public static NaSt callItemForBattleBeanMultPowerGet() {
-        return new NaStSt(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultPower());
+    public static String callItemForBattleBeanMultPowerGet() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultPower();
     }
 
     public static NaSt callItemForBattleBeanMultStatGet() {

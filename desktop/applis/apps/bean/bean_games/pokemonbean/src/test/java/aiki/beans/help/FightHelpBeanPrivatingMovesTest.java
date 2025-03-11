@@ -38,7 +38,7 @@ public final class FightHelpBeanPrivatingMovesTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickPrivatingMoves(b_,0));
+        return callFightHelpBeanClickPrivatingMoves(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

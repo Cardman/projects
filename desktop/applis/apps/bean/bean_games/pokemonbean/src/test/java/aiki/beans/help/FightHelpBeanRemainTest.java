@@ -142,7 +142,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click1() {
         NaSt b_ = bean(db1());
-        return toStr(callFightHelpBeanClickMovesHealingSubstitute(b_,0));
+        return callFightHelpBeanClickMovesHealingSubstitute(b_,0);
     }
     private String clickId1() {
         NaSt b_ = bean(db1());
@@ -163,7 +163,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click2() {
         NaSt b_ = bean(db2());
-        return toStr(callFightHelpBeanClickEntryHazard(b_,0));
+        return callFightHelpBeanClickEntryHazard(b_,0);
     }
     private String clickId2() {
         NaSt b_ = bean(db2());
@@ -183,7 +183,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click3() {
         NaSt b_ = bean(db3());
-        return toStr(callFightHelpBeanClickMovesInvoking(b_,0));
+        return callFightHelpBeanClickMovesInvoking(b_,0);
     }
     private String clickId3() {
         NaSt b_ = bean(db3());
@@ -203,7 +203,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click4() {
         NaSt b_ = bean(db4());
-        return toStr(callFightHelpBeanClickProtectMoves(b_,0));
+        return callFightHelpBeanClickProtectMoves(b_,0);
     }
     private String clickId4() {
         NaSt b_ = bean(db4());
@@ -223,7 +223,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click5() {
         NaSt b_ = bean(db5());
-        return toStr(callFightHelpBeanClickMovesProtAgainstKo(b_,0));
+        return callFightHelpBeanClickMovesProtAgainstKo(b_,0);
     }
     private String clickId5() {
         NaSt b_ = bean(db5());
@@ -244,7 +244,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click6() {
         NaSt b_ = bean(db6());
-        return toStr(callFightHelpBeanClickMovesProtectingTypes(b_,0));
+        return callFightHelpBeanClickMovesProtectingTypes(b_,0);
     }
     private String clickId6() {
         NaSt b_ = bean(db6());
@@ -264,7 +264,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click7() {
         NaSt b_ = bean(db7());
-        return toStr(callFightHelpBeanClickMovesUnprotectingTypes(b_,0));
+        return callFightHelpBeanClickMovesUnprotectingTypes(b_,0);
     }
     private String clickId7() {
         NaSt b_ = bean(db7());
@@ -284,7 +284,7 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
     }
     private String click8() {
         NaSt b_ = bean(db8());
-        return toStr(callFightHelpBeanClickMovesProtecting(b_,0));
+        return callFightHelpBeanClickMovesProtecting(b_,0);
     }
     private String clickId8() {
         NaSt b_ = bean(db8());

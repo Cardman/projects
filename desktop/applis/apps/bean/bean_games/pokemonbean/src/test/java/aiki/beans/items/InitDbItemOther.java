@@ -15,8 +15,8 @@ import code.util.StringMap;
 public abstract class InitDbItemOther extends InitDbItem {
 
 
-    public static NaSt callBallBeanCatchingRateGet() {
-        return new NaStSt(( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getCatchingRate());
+    public static String callBallBeanCatchingRateGet() {
+        return ( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getCatchingRate();
     }
 
     public static NaSt callBallBeanMapVarsGet() {

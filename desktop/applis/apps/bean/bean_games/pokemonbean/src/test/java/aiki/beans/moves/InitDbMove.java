@@ -34,8 +34,8 @@ public abstract class InitDbMove extends InitDbMoves {
         return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
     }
 
-    public static NaSt callMoveBeanAccuracyGet(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAccuracy());
+    public static String callMoveBeanAccuracyGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAccuracy();
     }
 
     public static NaSt callMoveBeanAchieveDisappearedPkUsingMoveGet(NaSt _str, int... _args) {
@@ -58,12 +58,12 @@ public abstract class InitDbMove extends InitDbMoves {
         return NaBoSt.of(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getCannotKo());
     }
 
-    public static NaSt callMoveBeanCategoryGet(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getCategory().getTranslation());
+    public static String callMoveBeanCategoryGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getCategory().getTranslation();
     }
 
     public static String callMoveBeanClickAbility(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_args[0]);
     }
 
     public static String callMoveBeanClickAbilityId(NaSt _str, int... _args) {
@@ -72,7 +72,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickDeletedStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickDeletedStatus(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickDeletedStatus(_args[0]);
     }
 
     public static String callMoveBeanClickDeletedStatusId(NaSt _str, int... _args) {
@@ -81,7 +81,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickItem(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_args[0]);
     }
 
     public static String callMoveBeanClickItemId(NaSt _str, int... _args) {
@@ -90,7 +90,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickItemSecEffect(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickItemSecEffect(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickItemSecEffect(_args[0]);
     }
 
     public static String callMoveBeanClickItemSecEffectId(NaSt _str, int... _args) {
@@ -99,7 +99,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickMove(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args[0]);
     }
 
     public static String callMoveBeanClickMoveId(NaSt _str, int... _args) {
@@ -111,7 +111,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickPokemon(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(_args[0],_args[1])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemon(_args[0],_args[1]);
     }
 
     public static String callMoveBeanClickPokemonId(NaSt _str, int... _args) {
@@ -124,7 +124,7 @@ public abstract class InitDbMove extends InitDbMoves {
 //    }
 
     public static String callMoveBeanClickPokemonTm(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemonTm(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemonTm(_args[0]);
     }
 
     public static String callMoveBeanClickPokemonTmId(NaSt _str, int... _args) {
@@ -133,7 +133,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickPokemonHm(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemonHm(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemonHm(_args[0]);
     }
 
     public static String callMoveBeanClickPokemonHmId(NaSt _str, int... _args) {
@@ -142,7 +142,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickPokemonMt(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemonMt(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickPokemonMt(_args[0]);
     }
 
     public static String callMoveBeanClickPokemonMtId(NaSt _str, int... _args) {
@@ -151,7 +151,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickRequiredStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickRequiredStatus(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickRequiredStatus(_args[0]);
     }
 
     public static String callMoveBeanClickRequiredStatusId(NaSt _str, int... _args) {
@@ -160,7 +160,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickTypesByOwnedItems(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickTypesByOwnedItems(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickTypesByOwnedItems(_args[0]);
     }
 
     public static String callMoveBeanClickTypesByOwnedItemsId(NaSt _str, int... _args) {
@@ -169,7 +169,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickTypesByWeathers(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickTypesByWeathers(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickTypesByWeathers(_args[0]);
     }
 
     public static String callMoveBeanClickTypesByWeathersId(NaSt _str, int... _args) {
@@ -188,72 +188,72 @@ public abstract class InitDbMove extends InitDbMoves {
         return NaBoSt.of(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDisappearBeforeUse());
     }
 
-    public static NaSt callMoveBeanDisplayNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName());
+    public static String callMoveBeanDisplayNameGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName();
     }
 
     public static NaSt callMoveBeanEffectsGet(NaSt _str, int... _args) {
         return PokemonStandards.getIntArray(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getEffects());
     }
 
-    public static NaSt callMoveBeanGetDeletedStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus(_args[0]));
+    public static String callMoveBeanGetDeletedStatus(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus(_args[0]);
     }
 
 //    public static NaSt callMoveBeanGetPage(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new MoveBeanGetPage(),_str,_args);
 //    }
 
-    public static NaSt callMoveBeanGetRequiredStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getRequiredStatus(_args[0]));
+    public static String callMoveBeanGetRequiredStatus(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getRequiredStatus(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrAbility(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbility(_args[0]));
+    public static String callMoveBeanGetTrAbility(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbility(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrAchieveDisappearedPkUsingMove(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrAchieveDisappearedPkUsingMove(_args[0]));
+    public static String callMoveBeanGetTrAchieveDisappearedPkUsingMove(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrAchieveDisappearedPkUsingMove(_args[0]);
     }
 
     public static String callMoveBeanClickAchieveDisappearedPkUsingMove(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickAchieveDisappearedPkUsingMove(_args[0])).getInstance();
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).clickAchieveDisappearedPkUsingMove(_args[0]);
     }
 
     public static String callMoveBeanClickAchieveDisappearedPkUsingMoveId(NaSt _str, int... _args) {
         callMoveBeanClickAchieveDisappearedPkUsingMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static NaSt callMoveBeanGetTrItem(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrItem(_args[0]));
+    public static String callMoveBeanGetTrItem(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrItem(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrMove(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMove(_args[0]));
+    public static String callMoveBeanGetTrMove(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMove(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrPokemon(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemon(_args[0],_args[1]));
+    public static String callMoveBeanGetTrPokemon(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemon(_args[0],_args[1]);
     }
 
-    public static NaSt callMoveBeanGetTrPokemonHm(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonHm(_args[0]));
+    public static String callMoveBeanGetTrPokemonHm(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonHm(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrPokemonMt(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonMt(_args[0]));
+    public static String callMoveBeanGetTrPokemonMt(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonMt(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrPokemonTm(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonTm(_args[0]));
+    public static String callMoveBeanGetTrPokemonTm(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonTm(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrTypesByOwnedItems(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrTypesByOwnedItems(_args[0]));
+    public static String callMoveBeanGetTrTypesByOwnedItems(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrTypesByOwnedItems(_args[0]);
     }
 
-    public static NaSt callMoveBeanGetTrTypesByWeathers(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrTypesByWeathers(_args[0]));
+    public static String callMoveBeanGetTrTypesByWeathers(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrTypesByWeathers(_args[0]);
     }
 
     public static NaSt callMoveBeanHasDefaultTypesGet(NaSt _str, int... _args) {
@@ -388,8 +388,8 @@ public abstract class InitDbMove extends InitDbMoves {
         return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTmLearntByPokemon());
     }
 
-    public static NaSt callMoveBeanNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getName());
+    public static String callMoveBeanNameGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getName();
     }
 
     public static NaSt callMoveBeanNbPrepaRoundGet(NaSt _str, int... _args) {
@@ -432,8 +432,8 @@ public abstract class InitDbMove extends InitDbMoves {
         return NaBoSt.of(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).switchAfterUsingMove());
     }
 
-    public static NaSt callMoveBeanTranslateItemSecEffect(NaSt _str, int... _args) {
-        return new NaStSt(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).translateItemSecEffect(_args[0]));
+    public static String callMoveBeanTranslateItemSecEffect(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).translateItemSecEffect(_args[0]);
     }
 
     public static NaSt callMoveBeanTypesByOwnedItemsGet(NaSt _str, int... _args) {

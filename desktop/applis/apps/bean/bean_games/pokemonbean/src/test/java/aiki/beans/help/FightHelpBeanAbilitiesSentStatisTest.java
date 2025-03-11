@@ -110,7 +110,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     private String click1() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickCopyAbilities(b_,0));
+        return callFightHelpBeanClickCopyAbilities(b_,0);
     }
     private String clickId1() {
         NaSt b_ = bean(db());
@@ -119,7 +119,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     private String click2() {
         NaSt b_ = bean(dbGlobal());
-        return toStr(callFightHelpBeanClickAbilitiesSentBeginOth(b_,0));
+        return callFightHelpBeanClickAbilitiesSentBeginOth(b_,0);
     }
     private String clickId2() {
         NaSt b_ = bean(dbGlobal());
@@ -128,7 +128,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     private String click3() {
         NaSt b_ = bean(dbGlobalWea());
-        return toStr(callFightHelpBeanClickAbilitiesSentBegin(b_,0));
+        return callFightHelpBeanClickAbilitiesSentBegin(b_,0);
     }
     private String clickId3() {
         NaSt b_ = bean(dbGlobalWea());
@@ -137,7 +137,7 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     }
     private String click4() {
         NaSt b_ = bean(dbGlobalWea());
-        return toStr(callFightHelpBeanClickAbilitiesSentStatis(b_,0));
+        return callFightHelpBeanClickAbilitiesSentStatis(b_,0);
     }
     private String clickId4() {
         NaSt b_ = bean(dbGlobalWea());

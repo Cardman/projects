@@ -233,8 +233,8 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return NaBoSt.of(( (MapLevelBean) ((PokemonBeanStruct)bean_).getInstance()).getOutside());
     }
 
-    public static NaSt callMapLevelBeanPlaceNameGet(int _place, int _level) {
-        return new NaStSt(( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getPlaceName());
+    public static String callMapLevelBeanPlaceNameGet(int _place, int _level) {
+        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getPlaceName();
     }
 
     public static NaSt callMapLevelBeanPokemonCenterGet(int _place, int _tile) {

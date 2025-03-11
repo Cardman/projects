@@ -41,7 +41,7 @@ public final class FightHelpBeanAbilitiesPrioTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAbilitiesPrio(b_,0));
+        return callFightHelpBeanClickAbilitiesPrio(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

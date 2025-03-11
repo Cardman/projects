@@ -37,7 +37,7 @@ public final class FightHelpBeanMovesTypeDefMovesTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickMovesTypeDefMoves(b_,0));
+        return callFightHelpBeanClickMovesTypeDefMoves(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

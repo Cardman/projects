@@ -17,31 +17,31 @@ import code.util.StringMap;
 public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect {
 
     public static String callEffectTeamWhileSendFoeBeanClickStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0])).getInstance();
+        return ( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0]);
     }
 
     public static String callEffectTeamWhileSendFoeBeanClickStatusId(NaSt _str, int... _args) {
         callEffectTeamWhileSendFoeBeanClickStatus(_str, _args);
         return getValStatusId(_str);
     }
-    public static NaSt callEffectTeamWhileSendFoeBeanDamageRateAgainstFoeGet(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getDamageRateAgainstFoe());
+    public static String callEffectTeamWhileSendFoeBeanDamageRateAgainstFoeGet(NaSt _str, int... _args) {
+        return ( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getDamageRateAgainstFoe();
     }
 
     public static NaSt callEffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(NaSt _str, int... _args) {
         return PokemonStandards.getKeys(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedByFoeTypes());
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanGetTranslatedStatistic(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatistic(_args[0]));
+    public static String callEffectTeamWhileSendFoeBeanGetTranslatedStatistic(NaSt _str, int... _args) {
+        return ( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatistic(_args[0]);
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanGetTranslatedStatus(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatus(_args[0]));
+    public static String callEffectTeamWhileSendFoeBeanGetTranslatedStatus(NaSt _str, int... _args) {
+        return ( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatus(_args[0]);
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanGetTranslatedType(NaSt _str, int... _args) {
-        return new NaStSt(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedType(_args[0]));
+    public static String callEffectTeamWhileSendFoeBeanGetTranslatedType(NaSt _str, int... _args) {
+        return ( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedType(_args[0]);
     }
 
     public static NaSt callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(NaSt _str, int... _args) {

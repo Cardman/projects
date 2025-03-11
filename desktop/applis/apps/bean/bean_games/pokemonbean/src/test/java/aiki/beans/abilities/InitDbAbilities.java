@@ -21,12 +21,12 @@ public abstract class InitDbAbilities extends InitDbConstr {
     public static final String BEAN_ABILITY="ability";
     protected static final String A_ABILITY2="B_ABILITY";
     protected static final String A_ABILITY2_TR="B_ABILITY_TR";
-    public static NaSt callAbilitiesBeanClickAbility(NaSt _str, int... _args) {
-        return new NaStSt(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_args[0]));
+    public static String callAbilitiesBeanClickAbility(NaSt _str, int... _args) {
+        return ( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_args[0]);
     }
 
-    public static NaSt callAbilitiesBeanGetTrAbility(NaSt _str, int... _args) {
-        return new NaStSt(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTrSortedAbility(_args[0]));
+    public static String callAbilitiesBeanGetTrAbility(NaSt _str, int... _args) {
+        return ( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTrSortedAbility(_args[0]);
     }
 
 //    public static Struct callAbilitiesBeanSearch(Struct _str, long... _args) {
@@ -37,8 +37,8 @@ public abstract class InitDbAbilities extends InitDbConstr {
         return PokemonStandards.getKeys(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).sortedAbilitiesGet());
     }
 
-    public static NaSt callAbilitiesBeanTypedAbilityGet(NaSt _str, int... _args) {
-        return new NaStSt(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedAbility().tryRet());
+    public static String callAbilitiesBeanTypedAbilityGet(NaSt _str, int... _args) {
+        return ( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedAbility().tryRet();
     }
 //    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
 //        callEffectWhileSendingBeanEffectSet(_update,callAbilityBeanGetEffectSending(_use));

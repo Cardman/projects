@@ -61,7 +61,7 @@ public final class FightHelpBeanMovesChangingAttOrderTest extends InitDbFightHel
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickMovesChangingAttOrder(b_,0));
+        return callFightHelpBeanClickMovesChangingAttOrder(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

@@ -21,12 +21,12 @@ public abstract class InitDbItem extends InitDbItems{
         return navigateData(new ItemBeanClickItems(((ItemBean) ((PokemonBeanStruct)_str).getBean())),_str);
     }
 
-    public static NaSt callItemBeanDescriptionGet(NaSt _str, int... _args) {
-        return new NaStSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDescription());
+    public static String callItemBeanDescriptionGet(NaSt _str, int... _args) {
+        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDescription();
     }
 
-    public static NaSt callItemBeanDisplayNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName());
+    public static String callItemBeanDisplayNameGet(NaSt _str, int... _args) {
+        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName();
     }
 
 //    public static NaSt callItemBeanItemBeanGet(NaSt _str, long... _args) {
@@ -37,8 +37,8 @@ public abstract class InitDbItem extends InitDbItems{
         return new NaImgSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getItemImage());
     }
 
-    public static NaSt callItemBeanNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getName());
+    public static String callItemBeanNameGet(NaSt _str, int... _args) {
+        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getName();
     }
 
     public static NaSt callItemBeanPriceGet(NaSt _str, int... _args) {

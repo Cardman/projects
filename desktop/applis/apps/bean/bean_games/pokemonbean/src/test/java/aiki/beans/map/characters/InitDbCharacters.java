@@ -74,7 +74,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callDealerBeanClickItem(displayDealer(3,1,12),0);
     }
     public static String callDealerBeanClickItem(NaSt _str, int _item) {
-        return new NaStSt(( (DealerBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_item)).getInstance();
+        return ( (DealerBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_item);
     }
     public static String callDealerBeanClickItemId() {
         NaSt bean_ = displayDealer(3, 1, 12);
@@ -87,7 +87,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callDealerBeanClickTm(NaSt _str, int _tm) {
-        return new NaStSt(( (DealerBean) ((PokemonBeanStruct)_str).getInstance()).clickTm(_tm)).getInstance();
+        return ( (DealerBean) ((PokemonBeanStruct)_str).getInstance()).clickTm(_tm);
     }
 
     public static String callDealerBeanClickTmId() {
@@ -100,16 +100,16 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return PokemonStandards.getKeys(( (DealerBean) ((PokemonBeanStruct)displayDealer(3,1,17)).getInstance()).getAllTmDealer());
     }
 
-    public static NaSt callDealerBeanGetItem() {
-        return new NaStSt(( (DealerBean) ((PokemonBeanStruct)displayDealer(3,1,12)).getInstance()).getItem(0));
+    public static String callDealerBeanGetItem() {
+        return ( (DealerBean) ((PokemonBeanStruct)displayDealer(3,1,12)).getInstance()).getItem(0);
     }
 
     public static NaSt callDealerBeanGetItems() {
         return PokemonStandards.getKeys(( (DealerBean) ((PokemonBeanStruct)displayDealer(3,1,12)).getInstance()).getItemsDealer());
     }
 
-    public static NaSt callDealerBeanGetTm() {
-        return new NaStSt(( (DealerBean) ((PokemonBeanStruct)displayDealer(3,1,17)).getInstance()).getTmDealer(0));
+    public static String callDealerBeanGetTm() {
+        return ( (DealerBean) ((PokemonBeanStruct)displayDealer(3,1,17)).getInstance()).getTmDealer(0);
     }
 
 
@@ -118,7 +118,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callSellerBeanClickItem(NaSt _str, int _item) {
-        return new NaStSt(( (SellerBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_item)).getInstance();
+        return ( (SellerBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_item);
     }
 
     public static String callSellerBeanClickItemId() {
@@ -132,7 +132,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callSellerBeanClickTm(NaSt _str, int _tm) {
-        return new NaStSt(( (SellerBean) ((PokemonBeanStruct)_str).getInstance()).clickTm(_tm)).getInstance();
+        return ( (SellerBean) ((PokemonBeanStruct)_str).getInstance()).clickTm(_tm);
     }
 
     public static String callSellerBeanClickTmId() {
@@ -145,16 +145,16 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return PokemonStandards.getKeys(( (SellerBean) ((PokemonBeanStruct)displaySellerLevelZero(1,12,18)).getInstance()).getAllTm());
     }
 
-    public static NaSt callSellerBeanGetItem() {
-        return new NaStSt(( (SellerBean) ((PokemonBeanStruct)displaySellerLevelZero(1,12,13)).getInstance()).getItem(0));
+    public static String callSellerBeanGetItem() {
+        return ( (SellerBean) ((PokemonBeanStruct)displaySellerLevelZero(1,12,13)).getInstance()).getItem(0);
     }
 
     public static NaSt callSellerBeanGetItems() {
         return PokemonStandards.getKeys(( (SellerBean) ((PokemonBeanStruct)displaySellerLevelZero(1,12,13)).getInstance()).getItems());
     }
 
-    public static NaSt callSellerBeanGetTm() {
-        return new NaStSt(( (SellerBean) ((PokemonBeanStruct)displaySellerLevelZero(1,12,18)).getInstance()).getTm(0));
+    public static String callSellerBeanGetTm() {
+        return ( (SellerBean) ((PokemonBeanStruct)displaySellerLevelZero(1,12,18)).getInstance()).getTm(0);
     }
 
     public static NaSt displayDual() {
@@ -233,7 +233,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callAllyBeanClickAbility(NaSt _str, int _pk) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_pk)).getInstance();
+        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_pk);
     }
 
     public static String callAllyBeanClickAbilityId(int _pk) {
@@ -247,7 +247,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callAllyBeanClickItem(NaSt _str, int _pk) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_pk)).getInstance();
+        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_pk);
     }
 
     public static String callAllyBeanClickItemId(int _pk) {
@@ -261,7 +261,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callAllyBeanClickMove(NaSt _str, int _pk, int _move) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_pk,_move)).getInstance();
+        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_pk,_move);
     }
 
     public static String callAllyBeanClickMoveId(int _pk, int _move) {
@@ -275,7 +275,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callAllyBeanClickName(NaSt _str, int _pk) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickName(_pk)).getInstance();
+        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickName(_pk);
     }
 
     public static String callAllyBeanClickNameId(int _pk) {
@@ -284,28 +284,28 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return getValPkId(bean_);
     }
 
-    public static NaSt callAllyBeanGetAbility(int _pk) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getAbility(_pk));
+    public static String callAllyBeanGetAbility(int _pk) {
+        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getAbility(_pk);
     }
 
     public static NaSt callAllyBeanGetImage(int _pk) {
         return new NaImgSt(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getImage(_pk));
     }
 
-    public static NaSt callAllyBeanGetGender() {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getGender(0));
+    public static String callAllyBeanGetGender() {
+        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getGender(0);
     }
 
-    public static NaSt callAllyBeanGetItem(int _pk) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getItem(_pk));
+    public static String callAllyBeanGetItem(int _pk) {
+        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getItem(_pk);
     }
 
-    public static NaSt callAllyBeanGetMove(int _pk, int _move) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getMove(_pk,_move));
+    public static String callAllyBeanGetMove(int _pk, int _move) {
+        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getMove(_pk,_move);
     }
 
-    public static NaSt callAllyBeanGetName(int _pk) {
-        return new NaStSt(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getName(_pk));
+    public static String callAllyBeanGetName(int _pk) {
+        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getName(_pk);
     }
 
     public static NaSt callAllyBeanTeamGet() {
@@ -345,7 +345,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callTrainerBeanClickMove(NaSt _str) {
-        return new NaStSt(( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).clickMove()).getInstance();
+        return ( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).clickMove();
     }
 
     public static String callTrainerBeanClickMoveId(int _place, int _tile, int _second) {
@@ -354,15 +354,15 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return getValMoveId(bean_);
     }
 
-    public static NaSt callTrainerBeanGetName(NaSt _str) {
-        return new NaStSt(( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getName());
+    public static String callTrainerBeanGetName(NaSt _str) {
+        return ( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getName();
     }
 
-    public static NaSt callTrainerBeanGetNameLevelZero(int _place, int _tile, int _second) {
+    public static String callTrainerBeanGetNameLevelZero(int _place, int _tile, int _second) {
         return callTrainerBeanGetName(displayTrainerLevelZero(_place, _tile, _second));
     }
 
-    public static NaSt callTrainerBeanGetNameOtherLevel(int _place, int _level, int _tile) {
+    public static String callTrainerBeanGetNameOtherLevel(int _place, int _level, int _tile) {
         return callTrainerBeanGetName(displayTrainer(_place, _level, _tile));
     }
 
@@ -378,8 +378,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callTrainerBeanGetTeamsRewards(displayTrainer(_place, _level, _tile));
     }
 
-    public static NaSt callTrainerBeanGetTrMove(int _place, int _tile, int _second) {
-        return new NaStSt(( (TrainerBean) ((PokemonBeanStruct)displayTrainerLevelZero(_place, _tile, _second)).getInstance()).getTrMove());
+    public static String callTrainerBeanGetTrMove(int _place, int _tile, int _second) {
+        return ( (TrainerBean) ((PokemonBeanStruct)displayTrainerLevelZero(_place, _tile, _second)).getInstance()).getTrMove();
     }
 
     public static NaSt callTrainerBeanImageGet(NaSt _str) {
@@ -406,15 +406,15 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callTrainerBeanImageMiniGet(displayTrainer(_place, _level, _tile));
     }
 
-    public static NaSt callTrainerBeanMoveGet(NaSt _str) {
-        return new NaStSt(( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getMove());
+    public static String callTrainerBeanMoveGet(NaSt _str) {
+        return ( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getMove();
     }
 
-    public static NaSt callTrainerBeanMoveGetLevelZero(int _place, int _tile, int _second) {
+    public static String callTrainerBeanMoveGetLevelZero(int _place, int _tile, int _second) {
         return callTrainerBeanMoveGet(displayTrainerLevelZero(_place, _tile, _second));
     }
 
-    public static NaSt callTrainerBeanMoveGetOtherLevel(int _place, int _level, int _tile) {
+    public static String callTrainerBeanMoveGetOtherLevel(int _place, int _level, int _tile) {
         return callTrainerBeanMoveGet(displayTrainer(_place, _level, _tile));
     }
 
@@ -431,7 +431,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callPokemonTeamBeanClickAbility(NaSt _str, int _pk) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk)).getInstance();
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk);
     }
 
     public static String callPokemonTeamBeanClickAbilityId(int _no, int _pk) {
@@ -445,7 +445,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callPokemonTeamBeanClickItem(NaSt _str, int _pk) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk)).getInstance();
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk);
     }
 
     public static String callPokemonTeamBeanClickItemId(int _no, int _pk) {
@@ -459,7 +459,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callPokemonTeamBeanClickMove(NaSt _str, int _pk, int _move) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk,_move)).getInstance();
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk,_move);
     }
 
     public static String callPokemonTeamBeanClickMoveId(int _no, int _pk, int _move) {
@@ -473,7 +473,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callPokemonTeamBeanClickName(NaSt _str, int _pk) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickName(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk)).getInstance();
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickName(toInt(callPokemonTeamBeanNoFightGet(_str)),_pk);
     }
 
     public static String callPokemonTeamBeanClickNameId(int _no, int _pk) {
@@ -482,8 +482,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return getValPkId(bean_);
     }
 
-    public static NaSt callPokemonTeamBeanGetAbility(int _no, int _pk) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getAbility(_pk));
+    public static String callPokemonTeamBeanGetAbility(int _no, int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getAbility(_pk);
     }
 
     public static NaSt callPokemonTeamBeanGetImageTempTrainer(int _pk) {
@@ -506,19 +506,19 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return new NaImgSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getImage(_pk));
     }
 
-    public static NaSt callPokemonTeamBeanGetGender() {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getGender(0));
+    public static String callPokemonTeamBeanGetGender() {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getGender(0);
     }
-    public static NaSt callPokemonTeamBeanGetItem(int _no, int _pk) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getItem(_pk));
-    }
-
-    public static NaSt callPokemonTeamBeanGetMove(int _no, int _pk, int _move) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getMove(_pk,_move));
+    public static String callPokemonTeamBeanGetItem(int _no, int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getItem(_pk);
     }
 
-    public static NaSt callPokemonTeamBeanGetName(int _no, int _pk) {
-        return new NaStSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getName(_pk));
+    public static String callPokemonTeamBeanGetMove(int _no, int _pk, int _move) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getMove(_pk,_move);
+    }
+
+    public static String callPokemonTeamBeanGetName(int _no, int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getName(_pk);
     }
 
     public static NaSt callPokemonTeamBeanMultiplicityGetMult() {

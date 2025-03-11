@@ -44,11 +44,11 @@ public abstract class InitDbArea extends InitDbLevelMap{
     }
 
     public static String callAreaBeanClickItem(NaSt _str, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_pk)).getInstance();
+        return ( (AreaBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_pk);
     }
 
     public static String callAreaBeanClickItemFishing(NaSt _str, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)_str).getInstance()).clickItemFishing(_pk)).getInstance();
+        return ( (AreaBean) ((PokemonBeanStruct)_str).getInstance()).clickItemFishing(_pk);
     }
 
     public static String callAreaBeanClickItemId(int _area, int _pk) {
@@ -87,20 +87,20 @@ public abstract class InitDbArea extends InitDbLevelMap{
         return getValPkId(bean_);
     }
 
-    public static NaSt callAreaBeanGetAbility(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getAbility(_pk));
+    public static String callAreaBeanGetAbility(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getAbility(_pk);
     }
 
-    public static NaSt callAreaBeanGetAbilityFishing(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getAbilityFishing(_pk));
+    public static String callAreaBeanGetAbilityFishing(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getAbilityFishing(_pk);
     }
 
-    public static NaSt callAreaBeanGetGender(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getGender(_pk));
+    public static String callAreaBeanGetGender(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getGender(_pk);
     }
 
-    public static NaSt callAreaBeanGetGenderFishing(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getGenderFishing(_pk));
+    public static String callAreaBeanGetGenderFishing(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getGenderFishing(_pk);
     }
 
     public static NaSt callAreaBeanGetImage(int _area, int _pk) {
@@ -111,20 +111,20 @@ public abstract class InitDbArea extends InitDbLevelMap{
         return new NaImgSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getImageFishing(_pk));
     }
 
-    public static NaSt callAreaBeanGetItem(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getItem(_pk));
+    public static String callAreaBeanGetItem(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getItem(_pk);
     }
 
-    public static NaSt callAreaBeanGetItemFishing(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getItemFishing(_pk));
+    public static String callAreaBeanGetItemFishing(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getItemFishing(_pk);
     }
 
-    public static NaSt callAreaBeanGetMove(int _area, int _pk, int _move) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMove(_pk,_move));
+    public static String callAreaBeanGetMove(int _area, int _pk, int _move) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMove(_pk,_move);
     }
 
-    public static NaSt callAreaBeanGetMoveFishing(int _area, int _pk, int _move) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMoveFishing(_pk,_move));
+    public static String callAreaBeanGetMoveFishing(int _area, int _pk, int _move) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMoveFishing(_pk,_move);
     }
 
     public static NaSt callAreaBeanGetMovesAtLevel(int _area, int _pk) {
@@ -135,12 +135,12 @@ public abstract class InitDbArea extends InitDbLevelMap{
         return PokemonStandards.getKeys(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMovesAtLevelFishing(_pk));
     }
 
-    public static NaSt callAreaBeanGetName(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getName(_pk));
+    public static String callAreaBeanGetName(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getName(_pk);
     }
 
-    public static NaSt callAreaBeanGetNameFishing(int _area, int _pk) {
-        return new NaStSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getNameFishing(_pk));
+    public static String callAreaBeanGetNameFishing(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getNameFishing(_pk);
     }
     public static NaSt displayArea(int _area){
         PkData pk_ = pkDataByFacade(db());

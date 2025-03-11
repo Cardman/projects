@@ -189,7 +189,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     public static String callMapBeanClickLevel(NaSt _str, int _place, int _level) {
-        return new NaStSt(( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,_level)).getInstance();
+        return ( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,_level);
     }
 
     public static Coords callMapBeanClickLevelId(int _place, int _level) {
@@ -202,7 +202,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     public static String callMapBeanClickLevelZero(NaSt _str, int  _place) {
-        return new NaStSt(( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,0)).getInstance();
+        return ( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,0);
     }
 
     public static Coords callMapBeanClickLevelZeroId(int _place) {

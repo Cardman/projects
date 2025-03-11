@@ -36,7 +36,7 @@ public final class FightHelpBeanAbilitiesMultEvtChTest extends InitDbFightHelp {
     }
     private String click() {
         NaSt b_ = bean(db());
-        return toStr(callFightHelpBeanClickAbilitiesMultEvtCh(b_,0));
+        return callFightHelpBeanClickAbilitiesMultEvtCh(b_,0);
     }
     private String clickId() {
         NaSt b_ = bean(db());

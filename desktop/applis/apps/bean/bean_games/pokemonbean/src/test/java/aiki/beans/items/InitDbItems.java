@@ -90,19 +90,19 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static final String I_REPEL = "I_REPEL";
     protected static final String I_SELLING = "I_SELLING";
 
-    public static NaSt callItemLineDescriptionClassGet(NaSt _str, int... _args) {
-        return new NaStSt(( ((ItLineStruct) _str).getWildPk()).getDescriptionClass());
+    public static String callItemLineDescriptionClassGet(NaSt _str, int... _args) {
+        return ( ((ItLineStruct) _str).getWildPk()).getDescriptionClass();
     }
 
-    public static NaSt callItemLineDisplayNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( ((ItLineStruct) _str).getWildPk()).getDisplayName());
+    public static String callItemLineDisplayNameGet(NaSt _str, int... _args) {
+        return ( ((ItLineStruct) _str).getWildPk()).getDisplayName();
     }
 
     public static NaSt callItemLinePriceGet(NaSt _str, int... _args) {
         return new NaNbSt(( ((ItLineStruct) _str).getWildPk()).getPrice());
     }
     public static String callItemsBeanClickLink(NaSt _str, int... _args) {
-        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0])).getInstance();
+        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
     }
 
     public static NaSt callItemsBeanGetMiniImage(NaSt _str, int... _args) {
@@ -117,16 +117,16 @@ public abstract class InitDbItems extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new ItemsBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callItemsBeanTypedClassGet(NaSt _str, int... _args) {
-        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().tryRet());
+    public static String callItemsBeanTypedClassGet(NaSt _str, int... _args) {
+        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().tryRet();
     }
 
-    public static NaSt callItemsBeanTypedNameGet(NaSt _str, int... _args) {
-        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet());
+    public static String callItemsBeanTypedNameGet(NaSt _str, int... _args) {
+        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
     }
 
-    public static NaSt callItemsBeanTypedPriceGet(NaSt _str, int... _args) {
-        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().tryRet());
+    public static String callItemsBeanTypedPriceGet(NaSt _str, int... _args) {
+        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().tryRet();
     }
     public static void callItemsBeanTypedClassSet(NaSt _str, String _args) {
         ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().setupValue(_args);

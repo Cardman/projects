@@ -18,7 +18,7 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
     }
 
     public static String callLegendaryPokemonBeanClickItem(NaSt _str) {
-        return new NaStSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickItem()).getInstance();
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickItem();
     }
 
     public static String callLegendaryPokemonBeanClickItemId(int _pk) {
@@ -39,36 +39,36 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
         return getValPkId(bean_);
     }
 
-    public static NaSt callLegendaryPokemonBeanGetAbility(int _pk) {
-        return new NaStSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getAbility());
+    public static String callLegendaryPokemonBeanGetAbility(int _pk) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getAbility();
     }
 
-    public static NaSt callLegendaryPokemonBeanGetGender(int _pk) {
-        return new NaStSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getGender());
+    public static String callLegendaryPokemonBeanGetGender(int _pk) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getGender();
     }
 
     public static NaSt callLegendaryPokemonBeanGetImage(int _pk) {
         return new NaImgSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getImage());
     }
 
-    public static NaSt callLegendaryPokemonBeanGetItem(int _pk) {
-        return new NaStSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getItem());
+    public static String callLegendaryPokemonBeanGetItem(int _pk) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getItem();
     }
 
     public static NaSt callLegendaryPokemonBeanGetLevel(int _pk) {
         return new NaNbSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getLevel());
     }
 
-    public static NaSt callLegendaryPokemonBeanGetMove(int _pk, int _move) {
-        return new NaStSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getMove(_move));
+    public static String callLegendaryPokemonBeanGetMove(int _pk, int _move) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getMove(_move);
     }
 
     public static NaSt callLegendaryPokemonBeanGetMovesAtLevel(int _pk) {
         return PokemonStandards.getKeys(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getMovesAtLevel());
     }
 
-    public static NaSt callLegendaryPokemonBeanGetName(int _pk) {
-        return new NaStSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getName());
+    public static String callLegendaryPokemonBeanGetName(int _pk) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getName();
     }
 
     public static NaSt callLegendaryPokemonBeanPokemonGet(int _pk) {
