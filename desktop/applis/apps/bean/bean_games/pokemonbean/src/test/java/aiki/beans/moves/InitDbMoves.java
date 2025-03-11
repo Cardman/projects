@@ -2,6 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
+import aiki.beans.facade.dto.MoveLine;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -17,6 +18,7 @@ import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
+import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -90,8 +92,8 @@ public abstract class InitDbMoves extends InitDbConstr {
         return PokemonStandards.getStrStr(( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
     }
 
-    public static NaSt callMovesBeanMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getMvLine(( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<MoveLine> callMovesBeanMovesGet(NaSt _str, int... _args) {
+        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMoves();
     }
 
 //    public static NaSt callMovesBeanSearch(NaSt _str, long... _args) {
@@ -111,15 +113,15 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     public static String callMoveLineBeanAccuracyGet(int _index, int... _args) {
-        return ( ((MvLineStruct) dispLine(feedDb(), _index)).getWildPk()).getAccuracy();
+        return dispLine(feedDb(), _index).getAccuracy();
     }
 
     public static String callMoveLineBeanCategoryGet(int _index, int... _args) {
-        return ( ((MvLineStruct) dispLine(feedDb(), _index)).getWildPk()).getCategory();
+        return dispLine(feedDb(), _index).getCategory();
     }
 
     public static String callMoveLineBeanDisplayNameGet(int _index, int... _args) {
-        return ( ((MvLineStruct) dispLine(feedDb(), _index)).getWildPk()).getDisplayName();
+        return dispLine(feedDb(), _index).getDisplayName();
     }
 
 //    private static int callMoveLineBeanIndexGet(Struct _str, long... _args) {
@@ -127,19 +129,19 @@ public abstract class InitDbMoves extends InitDbConstr {
 //    }
 
     public static String callMoveLineBeanPowerGet(int _index, int... _args) {
-        return ( ((MvLineStruct) dispLine(feedDb(), _index)).getWildPk()).getPower();
+        return dispLine(feedDb(), _index).getPower();
     }
 
     public static long callMoveLineBeanPpGet(int _index, int... _args) {
-        return ( ((MvLineStruct) dispLine(feedDb(), _index)).getWildPk()).getPp();
+        return dispLine(feedDb(), _index).getPp();
     }
 
     public static long callMoveLineBeanPriorityGet(int _index, int... _args) {
-        return ( ((MvLineStruct) dispLine(feedDb(), _index)).getWildPk()).getPriority();
+        return dispLine(feedDb(), _index).getPriority();
     }
 
     public static NaSt callMoveLineBeanTypesGet(int _index, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( ((MvLineStruct) dispLine(feedDb(), _index)).getWildPk()).getTypes());
+        return BeanNatCommonLgNames.getStringArray(dispLine(feedDb(), _index).getTypes());
     }
 
     public static String callMovesBeanLearntGet(NaSt _str, int... _args) {
@@ -162,13 +164,16 @@ public abstract class InitDbMoves extends InitDbConstr {
         return transitToAllMoves(pk_, all_, _index);
     }
 
-    protected static NaSt dispLine(FacadeGame _fac, int _index) {
+    protected static MoveLine dispLine(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMoves(pk_);
         NaSt moves_ = transitToAllMoves(pk_, all_, _index);
-        return elt(callMovesBeanMovesGet(moves_),_index);
+        return eltMvLine(callMovesBeanMovesGet(moves_),_index);
     }
 
+    private static MoveLine eltMvLine(CustList<MoveLine> _ls, int _i) {
+        return _ls.get(_i);
+    }
     protected static NaSt transitToAllMoves(PkData _pk, StringMap<NaSt> _all, int _index) {
         NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
@@ -256,36 +261,36 @@ public abstract class InitDbMoves extends InitDbConstr {
 //    private static Struct callMoveLineBeanIndexSet(Struct _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new MoveLineBeanIndexSet(),_str,_args);
 //    }
-    public static NaSt callMoveLineBeanMoveLineGet(int _index, long... _args) {
+    public static MoveLine callMoveLineBeanMoveLineGet(int _index, long... _args) {
         return dispLine(feedDb(), _index);
 //        return BeanPokemonCommonTs.callLongs(new MoveLineBeanMoveLineGet(),dispLine(feedDb(), _index),_args);
     }
-    public static boolean callMoveLineIsDamageMove(NaSt _str, int... _args) {
-        return ( ((MvLineStruct) _str).getWildPk()).isDamageMove();
+    public static boolean callMoveLineIsDamageMove(MoveLine _str, int... _args) {
+        return _str.isDamageMove();
     }
 
-    public static String callMoveLineCategoryGet(NaSt _str, int... _args) {
-        return ( ((MvLineStruct) _str).getWildPk()).getCategory();
+    public static String callMoveLineCategoryGet(MoveLine _str, int... _args) {
+        return _str.getCategory();
     }
 
-    public static String callMoveLineDisplayNameGet(NaSt _str, int... _args) {
-        return ( ((MvLineStruct) _str).getWildPk()).getDisplayName();
+    public static String callMoveLineDisplayNameGet(MoveLine _str, int... _args) {
+        return _str.getDisplayName();
     }
 
-    public static NaSt callMoveLineGetTypes(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( ((MvLineStruct) _str).getWildPk()).getTypes());
+    public static NaSt callMoveLineGetTypes(MoveLine _str, int... _args) {
+        return BeanNatCommonLgNames.getStringArray(_str.getTypes());
     }
 
-    public static long callMoveLinePpGet(NaSt _str, int... _args) {
-        return ( ((MvLineStruct) _str).getWildPk()).getPp();
+    public static long callMoveLinePpGet(MoveLine _str, int... _args) {
+        return _str.getPp();
     }
 
-    public static long callMoveLinePriorityGet(NaSt _str, int... _args) {
-        return ( ((MvLineStruct) _str).getWildPk()).getPriority();
+    public static long callMoveLinePriorityGet(MoveLine _str, int... _args) {
+        return _str.getPriority();
     }
 
-    public static boolean callMoveLineIsDirect(NaSt _str, int... _args) {
-        return ( ((MvLineStruct) _str).getWildPk()).isDirect();
+    public static boolean callMoveLineIsDirect(MoveLine _str, int... _args) {
+        return _str.isDirect();
     }
     //    private static Struct callMoveLineBeanMoveLineSet(Struct _str, Struct _args) {
 //        return BeanPokemonCommonTs.callStruct(new MoveLineBeanMoveLineSet(),_str,_args);

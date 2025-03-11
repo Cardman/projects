@@ -746,15 +746,15 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getMvLine(CustList<MoveLine> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (MoveLine s:_ls) {
-            arr_.set(j_,newMoveLine(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getMvLine(CustList<MoveLine> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (MoveLine s:_ls) {
+//            arr_.set(j_,newMoveLine(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
     public static NatArrayStruct getRdMvLine(CustList<RadioLineMove> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
