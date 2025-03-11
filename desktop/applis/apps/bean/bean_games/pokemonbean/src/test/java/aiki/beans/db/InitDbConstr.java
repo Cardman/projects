@@ -597,6 +597,62 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static Coords getValPlaceLevelId(NaSt _bean) {
         return forms(_bean).getValCoords(CST_COORDS);
     }
+
+    protected static String getValItemId(CommonBean _bean) {
+        return _bean.getForms().getValStr(CST_ITEM);
+    }
+
+    protected static String getValMoveId(CommonBean _bean) {
+        return _bean.getForms().getValStr(CST_MOVE);
+    }
+
+    protected static String getValPkId(CommonBean _bean) {
+        return _bean.getForms().getValStr(CST_PK);
+    }
+
+    protected static String getValStatusId(CommonBean _bean) {
+        return _bean.getForms().getValStr(CST_STATUS);
+    }
+
+    protected static String getValAbilityId(CommonBean _bean) {
+        return _bean.getForms().getValStr(CST_ABILITY);
+    }
+
+    protected static boolean containsPlaceLevelId(CommonBean _bean) {
+        return _bean.getForms().contains(CST_COORDS);
+    }
+
+    protected static Coords getValPlaceLevelId(CommonBean _bean) {
+        return _bean.getForms().getValCoords(CST_COORDS);
+    }
+
+    protected static String getValItemId(StringMapObject _bean) {
+        return _bean.getValStr(CST_ITEM);
+    }
+
+    protected static String getValMoveId(StringMapObject _bean) {
+        return _bean.getValStr(CST_MOVE);
+    }
+
+    protected static String getValPkId(StringMapObject _bean) {
+        return _bean.getValStr(CST_PK);
+    }
+
+    protected static String getValStatusId(StringMapObject _bean) {
+        return _bean.getValStr(CST_STATUS);
+    }
+
+    protected static String getValAbilityId(StringMapObject _bean) {
+        return _bean.getValStr(CST_ABILITY);
+    }
+
+    protected static boolean containsPlaceLevelId(StringMapObject _bean) {
+        return _bean.contains(CST_COORDS);
+    }
+
+    protected static Coords getValPlaceLevelId(StringMapObject _bean) {
+        return _bean.getValCoords(CST_COORDS);
+    }
 //
 //    protected static Point getValPointInside(Struct _bean) {
 //        return forms(_bean).getValPt(CST_INSIDE);
@@ -606,18 +662,18 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return forms(_bean).getValPt(CST_CURRENT_TILE);
 //    }
 
-    protected static AbsAreaApparition getValArea(NaSt _bean) {
-        return forms(_bean).getValArea(CST_AREA);
-    }
-    protected static Person getValPers(NaSt _key){
-        return forms(_key).getValPers(CST_PERSON);
-    }
-    protected static Ally getValAlly(NaSt _key){
-        return forms(_key).getValAlly(CST_ALLY);
-    }
-    protected static WildPk getValPk(NaSt _key){
-        return forms(_key).getValPk(CST_LEG_PK);
-    }
+//    protected static AbsAreaApparition getValArea(NaSt _bean) {
+//        return forms(_bean).getValArea(CST_AREA);
+//    }
+//    protected static Person getValPers(NaSt _key){
+//        return forms(_key).getValPers(CST_PERSON);
+//    }
+//    protected static Ally getValAlly(NaSt _key){
+//        return forms(_key).getValAlly(CST_ALLY);
+//    }
+//    protected static WildPk getValPk(NaSt _key){
+//        return forms(_key).getValPk(CST_LEG_PK);
+//    }
 
     public static Place callPlaceIndexGetPlace(NaSt _str, int... _args) {
         return ( ((PlaceIndexStruct) _str).getPlaceIndex()).getPlace();

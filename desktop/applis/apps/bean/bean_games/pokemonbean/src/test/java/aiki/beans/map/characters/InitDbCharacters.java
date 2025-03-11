@@ -166,50 +166,50 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return transitDual(pk_, all_);
     }
 
-    public static NaSt displayAlly() {
+    public static AllyBean displayAlly() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt dual_ = transitDual(pk_, all_);
 //        NaSt ally_ = new PokemonBeanStruct(new AllyBean());
 //        fwdAlly(ally_,dual_);
 //        beforeDisplaying(ally_);
-        return new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getAllyTeam());
+        return ((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getAllyTeam();
     }
 
-    public static NaSt displayTempTrainer() {
+    public static PokemonTeamBean displayTempTrainer() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt dual_ = transitDual(pk_, all_);
 //        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
 //        fwdTrainerDual(pkTeam_,dual_);
 //        beforeDisplaying(pkTeam_);
-        return new PokemonBeanStruct(((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getFoeTeam());
+        return ((DualFightBean)((PokemonBeanStruct)dual_).getBean()).getFoeTeam();
     }
 
-    public static NaSt displayGymTrainer() {
+    public static PokemonTeamBean displayGymTrainer() {
         return displayGym(7);
     }
 
-    public static NaSt displayGymLeader() {
+    public static PokemonTeamBean displayGymLeader() {
         return displayGym(4);
     }
-    public static NaSt displayGym(int _tile) {
+    public static PokemonTeamBean displayGym(int _tile) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainerLevelZero(0,12,_tile,pk_, all_);
 //        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
 //        fwdTrainer(pkTeam_,trainer_);
 //        beforeDisplaying(pkTeam_);
-        return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
+        return ((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0);
     }
-    public static NaSt displayLeague(int _level) {
+    public static PokemonTeamBean displayLeague(int _level) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<NaSt> all_ = beanToMap(pk_);
         NaSt trainer_ = transitTrainer(8,_level,12,pk_, all_);
 //        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
 //        fwdTrainer(pkTeam_,trainer_);
 //        beforeDisplaying(pkTeam_);
-        return new PokemonBeanStruct(((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0));
+        return ((TrainerBean)((PokemonBeanStruct)trainer_).getBean()).getBeans().get(0);
     }
     public static NaSt displayMult(int _no) {
         PkData pk_ = pkDataByFacade(db());
@@ -232,12 +232,12 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callAllyBeanClickAbility(displayAlly(),_pk);
     }
 
-    public static String callAllyBeanClickAbility(NaSt _str, int _pk) {
-        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(_pk);
+    public static String callAllyBeanClickAbility(AllyBean _str, int _pk) {
+        return _str.clickAbility(_pk);
     }
 
     public static String callAllyBeanClickAbilityId(int _pk) {
-        NaSt bean_ = displayAlly();
+        AllyBean bean_ = displayAlly();
         callAllyBeanClickAbility(bean_,_pk);
         return getValAbilityId(bean_);
     }
@@ -246,12 +246,12 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callAllyBeanClickItem(displayAlly(),_pk);
     }
 
-    public static String callAllyBeanClickItem(NaSt _str, int _pk) {
-        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickItem(_pk);
+    public static String callAllyBeanClickItem(AllyBean _str, int _pk) {
+        return _str.clickItem(_pk);
     }
 
     public static String callAllyBeanClickItemId(int _pk) {
-        NaSt bean_ = displayAlly();
+        AllyBean bean_ = displayAlly();
         callAllyBeanClickItem(bean_,_pk);
         return getValItemId(bean_);
     }
@@ -260,12 +260,12 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callAllyBeanClickMove(displayAlly(),_pk,_move);
     }
 
-    public static String callAllyBeanClickMove(NaSt _str, int _pk, int _move) {
-        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_pk,_move);
+    public static String callAllyBeanClickMove(AllyBean _str, int _pk, int _move) {
+        return _str.clickMove(_pk,_move);
     }
 
     public static String callAllyBeanClickMoveId(int _pk, int _move) {
-        NaSt bean_ = displayAlly();
+        AllyBean bean_ = displayAlly();
         callAllyBeanClickMove(bean_,_pk,_move);
         return getValMoveId(bean_);
     }
@@ -274,42 +274,42 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return callAllyBeanClickName(displayAlly(),_pk);
     }
 
-    public static String callAllyBeanClickName(NaSt _str, int _pk) {
-        return ( (AllyBean) ((PokemonBeanStruct)_str).getInstance()).clickName(_pk);
+    public static String callAllyBeanClickName(AllyBean _str, int _pk) {
+        return _str.clickName(_pk);
     }
 
     public static String callAllyBeanClickNameId(int _pk) {
-        NaSt bean_ = displayAlly();
+        AllyBean bean_ = displayAlly();
         callAllyBeanClickName(bean_,_pk);
         return getValPkId(bean_);
     }
 
     public static String callAllyBeanGetAbility(int _pk) {
-        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getAbility(_pk);
+        return displayAlly().getAbility(_pk);
     }
 
     public static int[][] callAllyBeanGetImage(int _pk) {
-        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getImage(_pk);
+        return displayAlly().getImage(_pk);
     }
 
     public static String callAllyBeanGetGender() {
-        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getGender(0);
+        return displayAlly().getGender(0);
     }
 
     public static String callAllyBeanGetItem(int _pk) {
-        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getItem(_pk);
+        return displayAlly().getItem(_pk);
     }
 
     public static String callAllyBeanGetMove(int _pk, int _move) {
-        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getMove(_pk,_move);
+        return displayAlly().getMove(_pk,_move);
     }
 
     public static String callAllyBeanGetName(int _pk) {
-        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getName(_pk);
+        return displayAlly().getName(_pk);
     }
 
     public static NaSt callAllyBeanTeamGet() {
-        return PokemonStandards.getPkTrainerArray(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getTeam());
+        return PokemonStandards.getPkTrainerArray(displayAlly().getTeam());
     }
 
 //    public static Struct callDualFightBeanAllyGet(Struct _str, long... _args) {
@@ -487,19 +487,19 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static int[][] callPokemonTeamBeanGetImageTempTrainer(int _pk) {
-        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getImage(_pk);
+        return displayTempTrainer().getImage(_pk);
     }
 
     public static int[][] callPokemonTeamBeanGetImageGymTrainer(int _pk) {
-        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayGymTrainer()).getInstance()).getImage(_pk);
+        return displayGymTrainer().getImage(_pk);
     }
 
     public static int[][] callPokemonTeamBeanGetImageGymLeader(int _pk) {
-        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayGymLeader()).getInstance()).getImage(_pk);
+        return displayGymLeader().getImage(_pk);
     }
 
     public static int[][] callPokemonTeamBeanGetImageTrainerLeague(int _level,int _pk) {
-        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayLeague(_level)).getInstance()).getImage(_pk);
+        return displayLeague(_level).getImage(_pk);
     }
 
     public static int[][] callPokemonTeamBeanGetImageMulti(int _no,int _pk) {
@@ -507,7 +507,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static String callPokemonTeamBeanGetGender() {
-        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getGender(0);
+        return displayTempTrainer().getGender(0);
     }
     public static String callPokemonTeamBeanGetItem(int _no, int _pk) {
         return ( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getItem(_pk);
@@ -526,7 +526,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static long callPokemonTeamBeanMultiplicityGet() {
-        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayGymLeader()).getInstance()).getMultiplicity();
+        return displayGymLeader().getMultiplicity();
     }
 
     public static int callPokemonTeamBeanNoFightGet(NaSt _str) {
@@ -538,23 +538,23 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static long callPokemonTeamBeanRewardGet() {
-        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getReward();
+        return displayTempTrainer().getReward();
     }
 
     public static NaSt callPokemonTeamBeanTeamGetTempTrainer() {
-        return PokemonStandards.getPkTrainerArray(( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getTeam());
+        return PokemonStandards.getPkTrainerArray(displayTempTrainer().getTeam());
     }
 
     public static NaSt callPokemonTeamBeanTeamGetGymTrainer() {
-        return PokemonStandards.getPkTrainerArray(( (PokemonTeamBean) ((PokemonBeanStruct)displayGymTrainer()).getInstance()).getTeam());
+        return PokemonStandards.getPkTrainerArray(displayGymTrainer().getTeam());
     }
 
     public static NaSt callPokemonTeamBeanTeamGetGymLeader() {
-        return PokemonStandards.getPkTrainerArray(( (PokemonTeamBean) ((PokemonBeanStruct)displayGymLeader()).getInstance()).getTeam());
+        return PokemonStandards.getPkTrainerArray(displayGymLeader().getTeam());
     }
 
     public static NaSt callPokemonTeamBeanTeamGetTrainerLeague(int _level) {
-        return PokemonStandards.getPkTrainerArray(( (PokemonTeamBean) ((PokemonBeanStruct)displayLeague(_level)).getInstance()).getTeam());
+        return PokemonStandards.getPkTrainerArray(displayLeague(_level).getTeam());
     }
 
     public static NaSt callPokemonTeamBeanTeamGetMulti(int _no) {
