@@ -119,8 +119,8 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
         return PokemonStandards.getKeys(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getMovesNotToBeInvoked());
     }
 
-    public static NaSt callEffectInvokeBeanRateInvokationMoveGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getRateInvokationMove());
+    public static Rate callEffectInvokeBeanRateInvokationMoveGet(NaSt _str, int... _args) {
+        return ( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getRateInvokationMove();
     }
     protected static NaSt dispMoveEffInvoke(boolean _invokingAllyMove, boolean _invokingMoveButUser, boolean _invokingSufferedMove, boolean _invokingTargetChosenMove, boolean _invokingTargetSuccesfulMove, boolean _invokingUserMoveWhileSleep) {
         return dispMoveEffInvoke(feedDbMoveEffDataInvoke(_invokingAllyMove, _invokingMoveButUser, _invokingSufferedMove, _invokingTargetChosenMove, _invokingTargetSuccesfulMove, _invokingUserMoveWhileSleep));

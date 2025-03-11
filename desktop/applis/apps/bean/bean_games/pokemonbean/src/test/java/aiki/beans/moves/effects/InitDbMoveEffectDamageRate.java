@@ -14,8 +14,8 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
 
-    public static NaSt callEffectDamageRateBeanRateDamageGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateDamage());
+    public static Rate callEffectDamageRateBeanRateDamageGet(NaSt _str, int... _args) {
+        return ( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateDamage();
     }
 
     public static boolean callEffectDamageRateBeanWinHpGet(NaSt _str, int... _args) {

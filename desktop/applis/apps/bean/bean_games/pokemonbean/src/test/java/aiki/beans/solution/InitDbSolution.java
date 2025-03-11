@@ -92,8 +92,8 @@ public abstract class InitDbSolution extends InitDbConstr {
         return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getGender();
     }
 
-    public static NaSt callWildPokemonDtoImageGet(NaSt _str) {
-        return new NaImgSt(( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getImage());
+    public static int[][] callWildPokemonDtoImageGet(NaSt _str) {
+        return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getImage();
     }
 
     public static String callWildPokemonDtoNameGet(NaSt _str) {

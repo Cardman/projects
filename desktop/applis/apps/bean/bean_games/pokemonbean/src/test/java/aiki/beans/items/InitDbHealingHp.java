@@ -14,8 +14,8 @@ import code.util.StringMap;
 
 public abstract class InitDbHealingHp extends InitDbHealing {
 
-    public static NaSt callHealingHpBeanHpGet() {
-        return new RtSt(( (HealingHpBean) ((PokemonBeanStruct)ppDb()).getInstance()).getHp());
+    public static Rate callHealingHpBeanHpGet() {
+        return ( (HealingHpBean) ((PokemonBeanStruct)ppDb()).getInstance()).getHp();
     }
     public static StringMap<NaSt> beanToHealingHp(PkData _pk) {
         StringMap<NaSt> map_ = beanToHealing(_pk);

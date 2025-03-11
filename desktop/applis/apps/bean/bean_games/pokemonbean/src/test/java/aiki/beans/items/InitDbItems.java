@@ -105,8 +105,8 @@ public abstract class InitDbItems extends InitDbConstr {
         return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
     }
 
-    public static NaSt callItemsBeanGetMiniImage(NaSt _str, int... _args) {
-        return new NaImgSt(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImage(_args[0]));
+    public static int[][] callItemsBeanGetMiniImage(NaSt _str, int... _args) {
+        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImage(_args[0]);
     }
 
     public static NaSt callItemsBeanItemsGet(NaSt _str, int... _args) {

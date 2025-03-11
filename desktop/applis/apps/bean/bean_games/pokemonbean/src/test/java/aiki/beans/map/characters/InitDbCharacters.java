@@ -288,8 +288,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getAbility(_pk);
     }
 
-    public static NaSt callAllyBeanGetImage(int _pk) {
-        return new NaImgSt(( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getImage(_pk));
+    public static int[][] callAllyBeanGetImage(int _pk) {
+        return ( (AllyBean) ((PokemonBeanStruct)displayAlly()).getInstance()).getImage(_pk);
     }
 
     public static String callAllyBeanGetGender() {
@@ -316,16 +316,16 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
 //        return BeanPokemonCommonTs.callLongs(new DualFightBeanAllyGet(),_str,_args);
 //    }
 
-    public static NaSt callDualFightBeanImageGet() {
-        return new NaImgSt(( (DualFightBean) ((PokemonBeanStruct)displayDual()).getInstance()).getImage());
+    public static int[][] callDualFightBeanImageGet() {
+        return ( (DualFightBean) ((PokemonBeanStruct)displayDual()).getInstance()).getImage();
     }
 
-    public static NaSt callDualFightBeanImageMiniGet() {
-        return new NaImgSt(( (DualFightBean) ((PokemonBeanStruct)displayDual()).getInstance()).getImageMini());
+    public static int[][] callDualFightBeanImageMiniGet() {
+        return ( (DualFightBean) ((PokemonBeanStruct)displayDual()).getInstance()).getImageMini();
     }
 
-    public static NaSt callDualFightBeanImageMiniSecondGet() {
-        return new NaImgSt(( (DualFightBean) ((PokemonBeanStruct)displayDual()).getInstance()).getImageMiniSecond());
+    public static int[][] callDualFightBeanImageMiniSecondGet() {
+        return ( (DualFightBean) ((PokemonBeanStruct)displayDual()).getInstance()).getImageMiniSecond();
     }
 
 //    public static Struct callDualFightBeanPageAllyGet(Struct _str, long... _args) {
@@ -382,27 +382,27 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return ( (TrainerBean) ((PokemonBeanStruct)displayTrainerLevelZero(_place, _tile, _second)).getInstance()).getTrMove();
     }
 
-    public static NaSt callTrainerBeanImageGet(NaSt _str) {
-        return new NaImgSt(( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getImage());
+    public static int[][] callTrainerBeanImageGet(NaSt _str) {
+        return ( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getImage();
     }
 
-    public static NaSt callTrainerBeanImageGetLevelZero(int _place, int _tile, int _second) {
+    public static int[][] callTrainerBeanImageGetLevelZero(int _place, int _tile, int _second) {
         return callTrainerBeanImageGet(displayTrainerLevelZero(_place, _tile, _second));
     }
 
-    public static NaSt callTrainerBeanImageGetOtherLevel(int _place, int _level, int _tile) {
+    public static int[][] callTrainerBeanImageGetOtherLevel(int _place, int _level, int _tile) {
         return callTrainerBeanImageGet(displayTrainer(_place, _level, _tile));
     }
 
-    public static NaSt callTrainerBeanImageMiniGet(NaSt _str, int... _args) {
-        return new NaImgSt(( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getImageMini());
+    public static int[][] callTrainerBeanImageMiniGet(NaSt _str, int... _args) {
+        return ( (TrainerBean) ((PokemonBeanStruct)_str).getInstance()).getImageMini();
     }
 
-    public static NaSt callTrainerBeanImageMiniGetLevelZero(int _place, int _tile, int _second) {
+    public static int[][] callTrainerBeanImageMiniGetLevelZero(int _place, int _tile, int _second) {
         return callTrainerBeanImageMiniGet(displayTrainerLevelZero(_place, _tile, _second));
     }
 
-    public static NaSt callTrainerBeanImageMiniGetOtherLevel(int _place, int _level, int _tile) {
+    public static int[][] callTrainerBeanImageMiniGetOtherLevel(int _place, int _level, int _tile) {
         return callTrainerBeanImageMiniGet(displayTrainer(_place, _level, _tile));
     }
 
@@ -486,24 +486,24 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return ( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getAbility(_pk);
     }
 
-    public static NaSt callPokemonTeamBeanGetImageTempTrainer(int _pk) {
-        return new NaImgSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getImage(_pk));
+    public static int[][] callPokemonTeamBeanGetImageTempTrainer(int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayTempTrainer()).getInstance()).getImage(_pk);
     }
 
-    public static NaSt callPokemonTeamBeanGetImageGymTrainer(int _pk) {
-        return new NaImgSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayGymTrainer()).getInstance()).getImage(_pk));
+    public static int[][] callPokemonTeamBeanGetImageGymTrainer(int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayGymTrainer()).getInstance()).getImage(_pk);
     }
 
-    public static NaSt callPokemonTeamBeanGetImageGymLeader(int _pk) {
-        return new NaImgSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayGymLeader()).getInstance()).getImage(_pk));
+    public static int[][] callPokemonTeamBeanGetImageGymLeader(int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayGymLeader()).getInstance()).getImage(_pk);
     }
 
-    public static NaSt callPokemonTeamBeanGetImageTrainerLeague(int _level,int _pk) {
-        return new NaImgSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayLeague(_level)).getInstance()).getImage(_pk));
+    public static int[][] callPokemonTeamBeanGetImageTrainerLeague(int _level,int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayLeague(_level)).getInstance()).getImage(_pk);
     }
 
-    public static NaSt callPokemonTeamBeanGetImageMulti(int _no,int _pk) {
-        return new NaImgSt(( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getImage(_pk));
+    public static int[][] callPokemonTeamBeanGetImageMulti(int _no,int _pk) {
+        return ( (PokemonTeamBean) ((PokemonBeanStruct)displayMult(_no)).getInstance()).getImage(_pk);
     }
 
     public static String callPokemonTeamBeanGetGender() {

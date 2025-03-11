@@ -31,27 +31,27 @@ public final class AreaBeanTest extends InitDbArea {
     }
     @Test
     public void getWpLevel1() {
-        assertEq(4,callWildPkGetLevel(elt(callAreaApparitionGetWildPokemon(0),0)));
+        assertEq(4,callWildPkGetLevel(eltWild(callAreaApparitionGetWildPokemon(0),0)));
     }
     @Test
     public void getWpLevel2() {
-        assertEq(4,callWildPkGetLevel(elt(callAreaApparitionGetWildPokemon(1),0)));
+        assertEq(4,callWildPkGetLevel(eltWild(callAreaApparitionGetWildPokemon(1),0)));
     }
     @Test
     public void getWpItem1() {
-        assertEq(I_FOSSIL,callWildPkGetItem(elt(callAreaApparitionGetWildPokemon(0),0)));
+        assertEq(I_FOSSIL,callWildPkGetItem(eltWild(callAreaApparitionGetWildPokemon(0),0)));
     }
     @Test
     public void getWpItem2() {
-        assertEq(I_HEAL_STATUS,callWildPkGetItem(elt(callAreaApparitionGetWildPokemon(1),1)));
+        assertEq(I_HEAL_STATUS,callWildPkGetItem(eltWild(callAreaApparitionGetWildPokemon(1),1)));
     }
     @Test
     public void getWpItem3() {
-        assertEq(I_EVO_ITEM,callWildPkGetItem(elt(callAreaApparitionGetWildPokemonFishing(0),0)));
+        assertEq(I_EVO_ITEM,callWildPkGetItem(eltWild(callAreaApparitionGetWildPokemonFishing(0),0)));
     }
     @Test
     public void getWpItem4() {
-        assertEq(I_EVO_STONE,callWildPkGetItem(elt(callAreaApparitionGetWildPokemonFishing(1),1)));
+        assertEq(I_EVO_STONE,callWildPkGetItem(eltWild(callAreaApparitionGetWildPokemonFishing(1),1)));
     }
     @Test
     public void getImage1() {

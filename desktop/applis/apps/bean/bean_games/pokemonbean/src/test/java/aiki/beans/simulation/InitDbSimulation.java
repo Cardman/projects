@@ -353,20 +353,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getGenderFoe(_index);
     }
 
-    public static NaSt callSimulationBeanGetImage(NaSt _str, int _index) {
-        return new NaImgSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImage(_index));
+    public static int[][] callSimulationBeanGetImage(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImage(_index);
     }
 
-    public static NaSt callSimulationBeanGetImageAfterFight(NaSt _str, int _index) {
-        return new NaImgSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageAfterFight(_index));
+    public static int[][] callSimulationBeanGetImageAfterFight(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageAfterFight(_index);
     }
 
-    public static NaSt callSimulationBeanGetImageAlly(NaSt _str, int _index) {
-        return new NaImgSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageAlly(_index));
+    public static int[][] callSimulationBeanGetImageAlly(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageAlly(_index);
     }
 
-    public static NaSt callSimulationBeanGetImageFoe(NaSt _str, int _index) {
-        return new NaImgSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageFoe(_index));
+    public static int[][] callSimulationBeanGetImageFoe(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageFoe(_index);
     }
 
     public static String callSimulationBeanGetItem(NaSt _str, int _index) {
@@ -449,8 +449,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRealStepNumber();
     }
 
-    public static NaSt callSimulationBeanGetRemainingLifeRate(NaSt _str, int _index) {
-        return new LgSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingLifeRate(_index));
+    public static LgInt callSimulationBeanGetRemainingLifeRate(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingLifeRate(_index);
     }
 
     public static String callSimulationBeanGetTrainerName(NaSt _str, int... _args) {
@@ -601,8 +601,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanNextFight(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanNumberNecessaryPointsForGrowingLevel(NaSt _str, int _index) {
-        return new RtSt(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).numberNecessaryPointsForGrowingLevel(_index));
+    public static Rate callSimulationBeanNumberNecessaryPointsForGrowingLevel(NaSt _str, int _index) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).numberNecessaryPointsForGrowingLevel(_index);
     }
 
     public static NaSt callSimulationBeanNumbers(int _teams) {
@@ -1221,8 +1221,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return PokemonStandards.getStrStr(((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGenders());
     }
 
-    public static NaSt callAddPokemonBeanGetMiniImage() {
-        return new NaImgSt(( (AddPokemonBean) ((PokemonBeanStruct)pkPlayerSelectPkName(DataBase.EMPTY_STRING)).getInstance()).getMiniImagePk(0));
+    public static int[][] callAddPokemonBeanGetMiniImage() {
+        return ( (AddPokemonBean) ((PokemonBeanStruct)pkPlayerSelectPkName(DataBase.EMPTY_STRING)).getInstance()).getMiniImagePk(0);
     }
 
     public static String callAddPokemonBeanHasEvoGet(NaSt _str, int... _args) {
@@ -1297,8 +1297,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return PokemonStandards.getEvLine(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getEv());
     }
 
-    public static NaSt callEditPokemonBeanExperienceGet(NaSt _str, int... _args) {
-        return new RtSt(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getExperience().valueRate());
+    public static Rate callEditPokemonBeanExperienceGet(NaSt _str, int... _args) {
+        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getExperience().valueRate();
     }
 
     public static String callEditPokemonBeanGetTranslatedStatistic(NaSt _str, int... _args) {
@@ -1325,8 +1325,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getNamePk();
     }
 
-    public static NaSt callEditPokemonBeanRemainingHpGet(NaSt _str, int... _args) {
-        return new RtSt(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingHp().valueRate());
+    public static Rate callEditPokemonBeanRemainingHpGet(NaSt _str, int... _args) {
+        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingHp().valueRate();
     }
 
     public static String callEditPokemonBeanTranslateItem(NaSt _str, int... _args) {
@@ -1481,8 +1481,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SelectItemBeanClickLink(),_str,_args);
 //    }
 
-    public static NaSt callSelectItemBeanGetMiniImage() {
-        return new NaImgSt(( (SelectItemBean) ((PokemonBeanStruct)pkTrainerSelectItName(DataBase.EMPTY_STRING)).getInstance()).getMiniImage(0));
+    public static int[][] callSelectItemBeanGetMiniImage() {
+        return ( (SelectItemBean) ((PokemonBeanStruct)pkTrainerSelectItName(DataBase.EMPTY_STRING)).getInstance()).getMiniImage(0);
     }
 
     public static NaSt callSelectItemBeanItemsGet(NaSt _str) {
@@ -1517,8 +1517,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanClickLink(),_str,_args);
 //    }
 
-    public static NaSt callSelectPokemonBeanGetMiniImage() {
-        return new NaImgSt(( (SelectPokemonBean) ((PokemonBeanStruct)pkTrainerSelectPkName(DataBase.EMPTY_STRING)).getInstance()).getMiniImagePk(0));
+    public static int[][] callSelectPokemonBeanGetMiniImage() {
+        return ( (SelectPokemonBean) ((PokemonBeanStruct)pkTrainerSelectPkName(DataBase.EMPTY_STRING)).getInstance()).getMiniImagePk(0);
     }
 
     public static String callSelectPokemonBeanHasEvoGet(NaSt _str, int... _args) {

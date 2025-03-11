@@ -7,6 +7,7 @@ import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.StringMap;
+import code.maths.*;
 
 public abstract class InitDbPkOne extends InitDbPk {
 
@@ -22,8 +23,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getAbilities());
     }
 
-    public static NaSt callPokemonBeanBackImageGet() {
-        return new NaImgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getBackImage());
+    public static int[][] callPokemonBeanBackImageGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getBackImage();
     }
 
     public static long callPokemonBeanCatchingRateGet() {
@@ -195,8 +196,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getExpRate();
     }
 
-    public static NaSt callPokemonBeanFrontImageGet() {
-        return new NaImgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getFrontImage());
+    public static int[][] callPokemonBeanFrontImageGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getFrontImage();
     }
 
     public static long callPokemonBeanGetBase() {
@@ -215,8 +216,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMapWidth();
     }
 
-    public static NaSt callPokemonBeanGetMiniMapImage(int _tile) {
-        return new NaImgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMiniMapImage(_tile));
+    public static int[][] callPokemonBeanGetMiniMapImage(int _tile) {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMiniMapImage(_tile);
     }
 
     public static String callPokemonBeanGetMoveTutor() {
@@ -235,12 +236,12 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTrAbility(0);
     }
 
-    public static NaSt callPokemonBeanHatchingStepsGet() {
-        return new LgSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHatchingSteps());
+    public static LgInt callPokemonBeanHatchingStepsGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHatchingSteps();
     }
 
-    public static NaSt callPokemonBeanHeightGet() {
-        return new RtSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHeight());
+    public static Rate callPokemonBeanHeightGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHeight();
     }
 
     public static NaSt callPokemonBeanHiddenMovesGet() {
@@ -323,8 +324,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return PokemonStandards.getValues(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTypes());
     }
 
-    public static NaSt callPokemonBeanWeightGet() {
-        return new RtSt(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getWeight());
+    public static Rate callPokemonBeanWeightGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getWeight();
     }
 
 

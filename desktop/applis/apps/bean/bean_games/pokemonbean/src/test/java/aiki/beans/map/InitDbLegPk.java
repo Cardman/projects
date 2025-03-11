@@ -2,6 +2,7 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.map.elements.*;
+import aiki.map.pokemon.Pokemon;
 import code.bean.nat.*;
 import code.util.*;
 
@@ -47,8 +48,8 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
         return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getGender();
     }
 
-    public static NaSt callLegendaryPokemonBeanGetImage(int _pk) {
-        return new NaImgSt(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getImage());
+    public static int[][] callLegendaryPokemonBeanGetImage(int _pk) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getImage();
     }
 
     public static String callLegendaryPokemonBeanGetItem(int _pk) {
@@ -71,8 +72,8 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
         return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getName();
     }
 
-    public static NaSt callLegendaryPokemonBeanPokemonGet(int _pk) {
-        return new PkStruct(( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getPokemon());
+    public static Pokemon callLegendaryPokemonBeanPokemonGet(int _pk) {
+        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getPokemon();
     }
     public static NaSt displayPk(int _pk){
         PkData pk_ = pkDataByFacade(db());

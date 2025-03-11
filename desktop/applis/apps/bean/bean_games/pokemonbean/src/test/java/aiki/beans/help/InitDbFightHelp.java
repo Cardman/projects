@@ -7,6 +7,7 @@ import aiki.beans.db.InitDbConstr;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import code.bean.nat.*;
+import code.maths.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 
@@ -1016,12 +1017,12 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getFleeingFormula();
     }
 
-    public static NaSt callFightHelpBeanGetAnimAbsorb(NaSt _str, int... _args) {
-        return new NaImgSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAnimAbsorb());
+    public static int[][] callFightHelpBeanGetAnimAbsorb(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAnimAbsorb();
     }
 
-    public static NaSt callFightHelpBeanGetAnimStatistic(NaSt _str, int... _args) {
-        return new NaImgSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAnimStatistic(_args[0]));
+    public static int[][] callFightHelpBeanGetAnimStatistic(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAnimStatistic(_args[0]);
     }
 
     public static String callFightHelpBeanGetEfficiency(NaSt _str, int... _args) {
@@ -1812,8 +1813,8 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getStrStr(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMapVar());
     }
 
-    public static NaSt callFightHelpBeanMinHpNotKoGet(NaSt _str, int... _args) {
-        return new RtSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMinHpNotKo());
+    public static Rate callFightHelpBeanMinHpNotKoGet(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMinHpNotKo();
     }
 
     public static boolean callFightHelpBeanMoveFoeTeamMultAccuracy(NaSt _str, int... _args) {
@@ -2171,8 +2172,8 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return PokemonStandards.getKeys(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStatusMultStat());
     }
 
-    public static NaSt callFightHelpBeanStrongMoveGet(NaSt _str, int... _args) {
-        return new RtSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStrongMove());
+    public static Rate callFightHelpBeanStrongMoveGet(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStrongMove();
     }
 
     public static NaSt callFightHelpBeanSubstitutingMovesGet(NaSt _str, int... _args) {
@@ -2223,8 +2224,8 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withRandDamageAny();
     }
 
-    public static NaSt callFightHelpBeanWonHappinessPointsLevelGet(NaSt _str, int... _args) {
-        return new RtSt(( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getWonHappinessPointsLevel());
+    public static Rate callFightHelpBeanWonHappinessPointsLevelGet(NaSt _str, int... _args) {
+        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getWonHappinessPointsLevel();
     }
     protected static NaSt bean(FacadeGame _f) {
         PkData pk_ = pkDataByFacade(_f);

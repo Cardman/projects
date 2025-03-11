@@ -33,8 +33,8 @@ public abstract class InitDbItem extends InitDbItems{
 //        return BeanPokemonCommonTs.callLongs(new ItemBeanItemBeanGet(),_str,_args);
 //    }
 
-    public static NaSt callItemBeanItemImageGet(NaSt _str, int... _args) {
-        return new NaImgSt(( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getItemImage());
+    public static int[][] callItemBeanItemImageGet(NaSt _str, int... _args) {
+        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getItemImage();
     }
 
     public static String callItemBeanNameGet(NaSt _str, int... _args) {

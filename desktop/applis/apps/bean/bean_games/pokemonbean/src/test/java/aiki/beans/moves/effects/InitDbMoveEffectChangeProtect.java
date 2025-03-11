@@ -66,8 +66,8 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectProtectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getImmuAgainstTypes());
     }
 
-    public static NaSt callEffectProtectionBeanProtSingleAgainstKoGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtSingleAgainstKo());
+    public static Rate callEffectProtectionBeanProtSingleAgainstKoGet(NaSt _str, int... _args) {
+        return ( (EffectProtectionBean) ((PokemonBeanStruct)_str).getInstance()).getProtSingleAgainstKo();
     }
 
     public static boolean callEffectProtectionBeanProtSingleGet(NaSt _str, int... _args) {

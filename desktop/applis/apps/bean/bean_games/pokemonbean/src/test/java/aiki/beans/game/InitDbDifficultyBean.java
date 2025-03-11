@@ -183,20 +183,20 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getIvPlayer();
     }
 
-    public static NaSt callDifficultyBeanRateLooseMoneyWinGet(NaSt _str, int... _args) {
-        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateLooseMoneyWin());
+    public static Rate callDifficultyBeanRateLooseMoneyWinGet(NaSt _str, int... _args) {
+        return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateLooseMoneyWin();
     }
 
-    public static NaSt callDifficultyBeanRateWinMoneyBaseGet(NaSt _str, int... _args) {
-        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateWinMoneyBase());
+    public static Rate callDifficultyBeanRateWinMoneyBaseGet(NaSt _str, int... _args) {
+        return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateWinMoneyBase();
     }
 
-    public static NaSt callDifficultyBeanRateWinningExpPtsFightGet(NaSt _str, int... _args) {
-        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateWinningExpPtsFight());
+    public static Rate callDifficultyBeanRateWinningExpPtsFightGet(NaSt _str, int... _args) {
+        return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getRateWinningExpPtsFight();
     }
 
-    public static NaSt callDifficultyBeanWinTrainerExpGet(NaSt _str, int... _args) {
-        return new RtSt(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getWinTrainerExp());
+    public static Rate callDifficultyBeanWinTrainerExpGet(NaSt _str, int... _args) {
+        return ((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getWinTrainerExp();
     }
 
     public static boolean callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(NaSt _str, int... _args) {

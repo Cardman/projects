@@ -19,8 +19,8 @@ import code.util.StringMap;
 public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
 
 
-    public static NaSt callEffectAllyBeanMultAllyDamageGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectAllyBean) ((PokemonBeanStruct)_str).getInstance()).getMultAllyDamage());
+    public static Rate callEffectAllyBeanMultAllyDamageGet(NaSt _str, int... _args) {
+        return ( (EffectAllyBean) ((PokemonBeanStruct)_str).getInstance()).getMultAllyDamage();
     }
 
     public static String callEffectBatonPassBeanClickMove(NaSt _str, int... _args) {
@@ -76,8 +76,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesSending(_args[0]);
     }
 
-    public static NaSt callEffectCloneBeanHpRateCloneGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getHpRateClone());
+    public static Rate callEffectCloneBeanHpRateCloneGet(NaSt _str, int... _args) {
+        return ( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getHpRateClone();
     }
 
     public static NaSt callEffectCloneBeanMovesBatonPassGet(NaSt _str, int... _args) {
@@ -129,20 +129,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return BeanNatCommonLgNames.getStringArray(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsProtect());
     }
 
-    public static NaSt callEffectCounterAttackBeanSufferingDamageDirectMoveGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageDirectMove());
+    public static Rate callEffectCounterAttackBeanSufferingDamageDirectMoveGet(NaSt _str, int... _args) {
+        return ( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageDirectMove();
     }
 
     public static NaSt callEffectCounterAttackBeanSufferingDamageTypesGet(NaSt _str, int... _args) {
         return PokemonStandards.getStrRate(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageTypes());
     }
 
-    public static NaSt callEffectFullHpRateBeanClosestFoeDamageRateHpGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectFullHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getClosestFoeDamageRateHp());
+    public static Rate callEffectFullHpRateBeanClosestFoeDamageRateHpGet(NaSt _str, int... _args) {
+        return ( (EffectFullHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getClosestFoeDamageRateHp();
     }
 
-    public static NaSt callEffectFullHpRateBeanLeftUserHpGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectFullHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getLeftUserHp());
+    public static Rate callEffectFullHpRateBeanLeftUserHpGet(NaSt _str, int... _args) {
+        return ( (EffectFullHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getLeftUserHp();
     }
 
     public static NaSt callEffectFullHpRateBeanMapVarsRestoredGet(NaSt _str, int... _args) {
@@ -176,8 +176,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
 
 
-    public static NaSt callEffectRemainedHpRateBeanRateHpGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectRemainedHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateHp());
+    public static Rate callEffectRemainedHpRateBeanRateHpGet(NaSt _str, int... _args) {
+        return ( (EffectRemainedHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateHp();
     }
 
     public static boolean callEffectRemainedHpRateBeanWinHpGet(NaSt _str, int... _args) {
@@ -190,8 +190,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ( (EffectVarPPBean) ((PokemonBeanStruct)_str).getInstance()).getDeletePp();
     }
 
-    public static NaSt callEffectWinMoneyBeanWinningRateBySumTargetUserGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectWinMoneyBean) ((PokemonBeanStruct)_str).getInstance()).getWinningRateBySumTargetUser());
+    public static Rate callEffectWinMoneyBeanWinningRateBySumTargetUserGet(NaSt _str, int... _args) {
+        return ( (EffectWinMoneyBean) ((PokemonBeanStruct)_str).getInstance()).getWinningRateBySumTargetUser();
     }
     protected static NaSt dispMoveEffFullHpRate() {
         return dispMoveEffFullHpRate(feedDbMoveEffDataFullHpRate());

@@ -27,8 +27,8 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
         return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]);
     }
 
-    public static NaSt callHealingStatusBeanHealedHpRateGet(NaSt _str, int... _args) {
-        return new RtSt(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getHealedHpRate());
+    public static Rate callHealingStatusBeanHealedHpRateGet(NaSt _str, int... _args) {
+        return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getHealedHpRate();
     }
 
     public static boolean callHealingStatusBeanHealingKoGet(NaSt _str, int... _args) {

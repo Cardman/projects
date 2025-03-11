@@ -236,8 +236,8 @@ public final class CommonBeanTest extends InitDbWelcome {
         return new RedirectSt(_key, DEF_DIR);
     }
 
-    public static NaSt callRateAbsNb(NaSt _str, int... _args) {
-        return new RtSt(( ((RtSt) _str).getInstance()).absNb());
+    public static Rate callRateAbsNb(NaSt _str, int... _args) {
+        return ( ((RtSt) _str).getInstance()).absNb();
     }
 
     public static boolean callRateIsZero(NaSt _str, int... _args) {

@@ -2,25 +2,31 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.map.elements.*;
+import aiki.map.levels.AbsAreaApparition;
+import aiki.map.pokemon.WildPk;
 import code.bean.nat.*;
+import code.util.CustList;
 import code.util.StringMap;
 
 public abstract class InitDbArea extends InitDbLevelMap{
 
     public static long callAreaApparitionGetAvgNbSteps(int _area) {
-        return ( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getAvgNbSteps();
+        return callAreaBeanAreaGet(_area).getAvgNbSteps();
     }
 
-    public static NaSt callAreaApparitionGetWildPokemon(int _area) {
-        return PokemonStandards.getWildPkArray(( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getWildPokemon());
+    public static CustList<WildPk> callAreaApparitionGetWildPokemon(int _area) {
+        return callAreaBeanAreaGet(_area).getWildPokemon();
     }
 
-    public static NaSt callAreaApparitionGetWildPokemonFishing(int _area) {
-        return PokemonStandards.getWildPkArray(( ((AreaApparitionStruct) callAreaBeanAreaGet(_area)).getWildPk()).getWildPokemonFishing());
+    public static CustList<WildPk> callAreaApparitionGetWildPokemonFishing(int _area) {
+        return callAreaBeanAreaGet(_area).getWildPokemonFishing();
     }
 
-    public static NaSt callAreaBeanAreaGet(int _area) {
-        return new AreaApparitionStruct(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getArea());
+    public static WildPk eltWild(CustList<WildPk> _a, int _i) {
+        return _a.get(_i);
+    }
+    public static AbsAreaApparition callAreaBeanAreaGet(int _area) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getArea();
     }
 
     public static String callAreaBeanClickAbilityId(int _area, int _pk) {
@@ -103,12 +109,12 @@ public abstract class InitDbArea extends InitDbLevelMap{
         return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getGenderFishing(_pk);
     }
 
-    public static NaSt callAreaBeanGetImage(int _area, int _pk) {
-        return new NaImgSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getImage(_pk));
+    public static int[][] callAreaBeanGetImage(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getImage(_pk);
     }
 
-    public static NaSt callAreaBeanGetImageFishing(int _area, int _pk) {
-        return new NaImgSt(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getImageFishing(_pk));
+    public static int[][] callAreaBeanGetImageFishing(int _area, int _pk) {
+        return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getImageFishing(_pk);
     }
 
     public static String callAreaBeanGetItem(int _area, int _pk) {

@@ -33,8 +33,8 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getDefaultBoost();
     }
 
-    public static NaSt callEffectStatisticBeanEvtRateGet(NaSt _str, int... _args) {
-        return new RtSt(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getEvtRate());
+    public static Rate callEffectStatisticBeanEvtRateGet(NaSt _str, int... _args) {
+        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getEvtRate();
     }
 
     public static String callEffectStatisticBeanEvtRatePerCentGet(NaSt _str, int... _args) {
@@ -45,8 +45,8 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getFail(_args[0]);
     }
 
-    public static NaSt callEffectStatisticBeanGetRate(NaSt _str, int... _args) {
-        return new RtSt(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getRate(_args[0]));
+    public static Rate callEffectStatisticBeanGetRate(NaSt _str, int... _args) {
+        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getRate(_args[0]);
     }
 
     public static String callEffectStatisticBeanGetSwapFail(NaSt _str, int... _args) {

@@ -164,8 +164,8 @@ public abstract class InitDbPk extends InitDbConstr {
         return getValPkId(bean_);
     }
 
-    public static NaSt callPokedexBeanGetMiniImage(NaSt _str, int... _args) {
-        return new NaImgSt(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImagePk(_args[0]));
+    public static int[][] callPokedexBeanGetMiniImage(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImagePk(_args[0]);
     }
 
     public static String callPokedexBeanIsEvoGet(NaSt _str, int... _args) {

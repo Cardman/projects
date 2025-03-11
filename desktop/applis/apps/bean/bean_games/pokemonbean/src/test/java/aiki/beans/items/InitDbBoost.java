@@ -43,8 +43,8 @@ public abstract class InitDbBoost extends InitDbItem {
         return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getMaxEv();
     }
 
-    public static NaSt callBoostBeanWinPpGet(NaSt _str, int... _args) {
-        return new RtSt(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getWinPp());
+    public static Rate callBoostBeanWinPpGet(NaSt _str, int... _args) {
+        return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getWinPp();
     }
     protected static NaSt boostDb() {
         return dispLineSample(feedDbItem(), InitDbItems.BEAN_BOOST);

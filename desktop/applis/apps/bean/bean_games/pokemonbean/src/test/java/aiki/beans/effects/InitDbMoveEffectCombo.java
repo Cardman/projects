@@ -2,7 +2,7 @@ package aiki.beans.effects;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-
+import code.maths.*;
 public abstract class InitDbMoveEffectCombo extends InitDbEffects {
 
     public static String callEffectComboBeanClickMove(int _combo, int _move) {
@@ -43,8 +43,8 @@ public abstract class InitDbMoveEffectCombo extends InitDbEffects {
         return PokemonStandards.getValues(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMoves());
     }
 
-    public static NaSt callEffectComboBeanMultEvtRateSecEffGet(int _index) {
-        return new RtSt(( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMultEvtRateSecEff());
+    public static Rate callEffectComboBeanMultEvtRateSecEffGet(int _index) {
+        return ( (EffectComboBean) ((PokemonBeanStruct)dispAllCombos(_index)).getInstance()).getMultEvtRateSecEff();
     }
 
     public static NaSt callEffectComboBeanMultStatisticFoeGet(int _index) {

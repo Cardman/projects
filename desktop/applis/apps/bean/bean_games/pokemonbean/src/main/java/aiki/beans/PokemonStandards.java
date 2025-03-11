@@ -13,7 +13,6 @@ import aiki.facade.*;
 import aiki.facade.enums.*;
 import aiki.fight.*;
 import aiki.fight.enums.*;
-import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
 import aiki.game.params.enums.*;
 import aiki.map.levels.*;
@@ -702,15 +701,15 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getWildPkArray(CustList<WildPk> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (WildPk s:_ls) {
-            arr_.set(j_,new PkStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getWildPkArray(CustList<WildPk> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (WildPk s:_ls) {
+//            arr_.set(j_,new PkStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
     public static NatArrayStruct getPkPlayerArray(CustList<PokemonPlayer> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
@@ -783,15 +782,15 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
         return new MvLineStruct(_s);
     }
-    public static NatArrayStruct getEffPartStat(CustList<EffectPartnerStatus> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (EffectPartnerStatus s:_ls) {
-            arr_.set(j_,new EffectPartnerStatusStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getEffPartStat(CustList<EffectPartnerStatus> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (EffectPartnerStatus s:_ls) {
+//            arr_.set(j_,new EffectPartnerStatusStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
     public static NatArrayStruct getEvLine(AbsMap<Statistic, EvLine> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;

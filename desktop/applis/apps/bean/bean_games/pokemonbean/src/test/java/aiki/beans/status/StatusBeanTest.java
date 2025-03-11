@@ -125,11 +125,11 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getWeddingAlly3() {
-        assertFalse(callEffectPartnerStatusGetWeddingAlly(elt(callStatusBeanEffectsPartnerGet(12),0)));
+        assertFalse(callEffectPartnerStatusGetWeddingAlly(eltPart(callStatusBeanEffectsPartnerGet(12),0)));
     }
     @Test
     public void getWeddingAlly4() {
-        assertTrue(callEffectPartnerStatusGetWeddingAlly(elt(callStatusBeanEffectsPartnerGet(11),0)));
+        assertTrue(callEffectPartnerStatusGetWeddingAlly(eltPart(callStatusBeanEffectsPartnerGet(11),0)));
     }
     @Test
     public void getAnimStatus() {

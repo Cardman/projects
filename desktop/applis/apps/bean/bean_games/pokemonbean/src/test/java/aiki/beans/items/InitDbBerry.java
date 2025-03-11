@@ -58,16 +58,16 @@ public abstract class InitDbBerry extends InitDbItem {
         return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getTrStatus(_args[0]);
     }
 
-    public static NaSt callBerryBeanHealHpBySuperEffMoveGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new RtSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealHpBySuperEffMove());
+    public static Rate callBerryBeanHealHpBySuperEffMoveGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealHpBySuperEffMove();
     }
 
-    public static NaSt callBerryBeanHealHpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new RtSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealHp());
+    public static Rate callBerryBeanHealHpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealHp();
     }
 
-    public static NaSt callBerryBeanHealHpRateGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new RtSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealHpRate());
+    public static Rate callBerryBeanHealHpRateGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getHealHpRate();
     }
 
     public static long callBerryBeanHealPpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
@@ -86,12 +86,12 @@ public abstract class InitDbBerry extends InitDbItem {
         return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getLawForAttackFirst();
     }
 
-    public static NaSt callBerryBeanMaxHpHealingHpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new RtSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getMaxHpHealingHp());
+    public static Rate callBerryBeanMaxHpHealingHpGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getMaxHpHealingHp();
     }
 
-    public static NaSt callBerryBeanMaxHpHealingHpRateGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
-        return new RtSt(( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getMaxHpHealingHpRate());
+    public static Rate callBerryBeanMaxHpHealingHpRateGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {
+        return ( (BerryBean) ((PokemonBeanStruct)healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail)).getInstance()).getMaxHpHealingHpRate();
     }
 
     public static NaSt callBerryBeanMultFoesDamageGet(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail, int... _args) {

@@ -1,24 +1,27 @@
 package aiki.beans.status;
 
 import aiki.beans.*;
+import aiki.fight.status.effects.*;
 import code.bean.nat.*;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
+import code.maths.*;
 
 public abstract class InitDbStatus extends InitDbStatusSet {
 
-    public static NaSt callStatusBeanAnimStatusGet(int _str, int... _args) {
-        return new NaImgSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getAnimStatus());
+    public static int[][] callStatusBeanAnimStatusGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getAnimStatus();
     }
 
     public static String callStatusBeanAttackGet(int _str, int... _args) {
         return StringUtil.nullToEmpty(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getAttack());
     }
 
-    public static NaSt callStatusBeanCatchingRateGet(int _str, int... _args) {
-        return new RtSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getCatchingRate());
+    public static Rate callStatusBeanCatchingRateGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getCatchingRate();
     }
 
     public static String callStatusBeanClickIndex(int _str, long... _args) {
@@ -38,8 +41,8 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getDisplayName();
     }
 
-    public static NaSt callStatusBeanEffectsPartnerGet(int _str, int... _args) {
-        return PokemonStandards.getEffPartStat(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEffectsPartner());
+    public static CustList<EffectPartnerStatus> callStatusBeanEffectsPartnerGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEffectsPartner();
     }
 
     public static boolean callStatusBeanEndRoundGet(int _str, int... _args) {
@@ -50,8 +53,8 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEndRoundRank();
     }
 
-    public static NaSt callStatusBeanGetEffectPartner(int _str, int... _args) {
-        return new EffectPartnerStatusStruct(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEffectPartner());
+    public static EffectPartnerStatus callStatusBeanGetEffectPartner(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getEffectPartner();
     }
 
     public static String callStatusBeanGetTrMultStat(int _str, int... _args) {
@@ -102,20 +105,20 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getNotAttack();
     }
 
-    public static NaSt callStatusBeanPowerGet(int _str, int... _args) {
-        return new RtSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getPower());
+    public static Rate callStatusBeanPowerGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getPower();
     }
 
-    public static NaSt callStatusBeanRateForFullHealIfMoveGet(int _str, int... _args) {
-        return new RtSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getRateForFullHealIfMove());
+    public static Rate callStatusBeanRateForFullHealIfMoveGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getRateForFullHealIfMove();
     }
 
-    public static NaSt callStatusBeanRateForUsingAMoveGet(int _str, int... _args) {
-        return new RtSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getRateForUsingAMove());
+    public static Rate callStatusBeanRateForUsingAMoveGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getRateForUsingAMove();
     }
 
-    public static NaSt callStatusBeanRateForUsingAMoveIfFoeGet(int _str, int... _args) {
-        return new RtSt(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getRateForUsingAMoveIfFoe());
+    public static Rate callStatusBeanRateForUsingAMoveIfFoeGet(int _str, int... _args) {
+        return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getRateForUsingAMoveIfFoe();
     }
 
     public static NaSt callStatusBeanReasonsEndRoundGet(int _str, int... _args) {
@@ -126,6 +129,9 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return BeanNatCommonLgNames.getStringArray(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getReasons());
     }
 
+    public static EffectPartnerStatus eltPart(CustList<EffectPartnerStatus> _l, int _i) {
+        return _l.get(_i);
+    }
     public static boolean callStatusBeanSingleStatusGet(int _str, int... _args) {
         return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getSingleStatus();
     }

@@ -113,8 +113,8 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         callEffectGlobalBeanClickUnusableMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static NaSt callEffectGlobalBeanDamageEndRoundGet(NaSt _str, int... _args) {
-        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getDamageEndRound());
+    public static Rate callEffectGlobalBeanDamageEndRoundGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getDamageEndRound();
     }
 
     public static NaSt callEffectGlobalBeanDisableImmuAgainstTypesGet(NaSt _str, int... _args) {
@@ -169,12 +169,12 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return ( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getTrUnusableMoves(_args[0]);
     }
 
-    public static NaSt callEffectGlobalBeanHealingEndRoundGet(NaSt _str, int... _args) {
-        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getHealingEndRound());
+    public static Rate callEffectGlobalBeanHealingEndRoundGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getHealingEndRound();
     }
 
-    public static NaSt callEffectGlobalBeanHealingEndRoundGroundGet(NaSt _str, int... _args) {
-        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getHealingEndRoundGround());
+    public static Rate callEffectGlobalBeanHealingEndRoundGroundGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getHealingEndRoundGround();
     }
 
     public static NaSt callEffectGlobalBeanImmuneTypesGet(NaSt _str, int... _args) {
@@ -197,8 +197,8 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMovesUsedByTargetedFighters());
     }
 
-    public static NaSt callEffectGlobalBeanMultAccuracyGet(NaSt _str, int... _args) {
-        return new RtSt(((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getMultAccuracy());
+    public static Rate callEffectGlobalBeanMultAccuracyGet(NaSt _str, int... _args) {
+        return ((EffectGlobalBean) ((PokemonBeanStruct) _str).getInstance()).getEffectGlobalCore().getMultAccuracy();
     }
 
     public static NaSt callEffectGlobalBeanMultDamagePrepaRoundGet(NaSt _str, int... _args) {
@@ -209,8 +209,8 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return PokemonStandards.getStrRateVal(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamageTypesMoves());
     }
 
-    public static NaSt callEffectGlobalBeanMultEffectLovingAllyGet(NaSt _str, int... _args) {
-        return new RtSt(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultEffectLovingAlly());
+    public static Rate callEffectGlobalBeanMultEffectLovingAllyGet(NaSt _str, int... _args) {
+        return ( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultEffectLovingAlly();
     }
 
     public static NaSt callEffectGlobalBeanMultPowerMovesGet(NaSt _str, int... _args) {

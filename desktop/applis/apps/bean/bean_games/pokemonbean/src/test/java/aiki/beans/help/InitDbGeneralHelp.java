@@ -148,8 +148,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         callGeneralHelpBeanClickTm(bean_,_tm);
         return getValMoveId(bean_);
     }
-    public static NaSt callGeneralHelpBeanDefaultMoneyGet() {
-        return new RtSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getDefaultMoney());
+    public static Rate callGeneralHelpBeanDefaultMoneyGet() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getDefaultMoney();
     }
 
     public static boolean callGeneralHelpBeanFirstPokemonHasItem() {
@@ -164,20 +164,20 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getAbility();
     }
 
-    public static NaSt callGeneralHelpBeanGetColorType() {
-        return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getColorType(0));
+    public static int[][] callGeneralHelpBeanGetColorType() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getColorType(0);
     }
 
     public static String callGeneralHelpBeanGetGender() {
         return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getGender();
     }
 
-    public static NaSt callGeneralHelpBeanGetImage() {
-        return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getImage());
+    public static int[][] callGeneralHelpBeanGetImage() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getImage();
     }
 
-    public static NaSt callGeneralHelpBeanGetImageType() {
-        return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getImageType(0));
+    public static int[][] callGeneralHelpBeanGetImageType() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getImageType(0);
     }
 
     public static String callGeneralHelpBeanGetItem() {
@@ -196,8 +196,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMapWidth();
     }
 
-    public static NaSt callGeneralHelpBeanGetMiniMapImage(int _index) {
-        return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMiniMapImage(_index));
+    public static int[][] callGeneralHelpBeanGetMiniMapImage(int _index) {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMiniMapImage(_index);
     }
 
     public static String callGeneralHelpBeanGetMove() {
@@ -304,8 +304,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return PokemonStandards.getKeys(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTypes());
     }
 
-    public static NaSt callGeneralHelpBeanUnlockedCityGet() {
-        return new NaImgSt(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getUnlockedCity());
+    public static int[][] callGeneralHelpBeanUnlockedCityGet() {
+        return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getUnlockedCity();
     }
     protected static NaSt with() {
         return str(I_BALL);
