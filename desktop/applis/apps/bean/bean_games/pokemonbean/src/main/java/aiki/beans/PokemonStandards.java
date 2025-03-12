@@ -6,8 +6,6 @@ import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.map.elements.*;
-import aiki.beans.pokemon.LevelMoveTranslatedKey;
-import aiki.beans.pokemon.StringStatBaseEv;
 import aiki.comparators.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
@@ -618,15 +616,15 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return arr_;
     }
 
-    public static NatArrayStruct getLvMv(CustList<LevelMoveTranslatedKey> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (LevelMoveTranslatedKey s:_ls) {
-            arr_.set(j_,new LevelMoveStruct(s.lm()));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getLvMv(CustList<LevelMoveTranslatedKey> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (LevelMoveTranslatedKey s:_ls) {
+//            arr_.set(j_,new LevelMoveStruct(s.lm()));
+//            j_++;
+//        }
+//        return arr_;
+//    }
     public static NatArrayStruct getPlTr(CustList<PlaceTrainerDto> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
@@ -645,15 +643,15 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getStatistic(CustList<StringStatBaseEv> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (StringStatBaseEv e:_map) {
-            arr_.set(j_,new NaStSt(e.getName().getTranslation()));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getStatistic(CustList<StringStatBaseEv> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (StringStatBaseEv e:_map) {
+//            arr_.set(j_,new NaStSt(e.getName().getTranslation()));
+//            j_++;
+//        }
+//        return arr_;
+//    }
 //    public static NatArrayStruct getPkTeam(CustList<PokemonTeam> _ls) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
 //        int j_ = 0;
@@ -708,24 +706,24 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getPkLine(CustList<PokemonLine> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (PokemonLine s:_ls) {
-            arr_.set(j_,new PkLineStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getItLine(CustList<ItemLine> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (ItemLine s:_ls) {
-            arr_.set(j_,new ItLineStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getPkLine(CustList<PokemonLine> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (PokemonLine s:_ls) {
+//            arr_.set(j_,new PkLineStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getItLine(CustList<ItemLine> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (ItemLine s:_ls) {
+//            arr_.set(j_,new ItLineStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
 //    public static NatArrayStruct getMvLine(CustList<MoveLine> _ls) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
 //        int j_ = 0;

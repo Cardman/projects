@@ -30,6 +30,7 @@ import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
+import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -135,16 +136,16 @@ public abstract class InitDbPk extends InitDbConstr {
     public static final int IMG_2 = IMG_1 + STEP;
     public static final int IMG_3 = IMG_2 + STEP;
 
-    public static String callPokemonLineDisplayNameGet(NaSt _str, int... _args) {
-        return ( ((PkLineStruct) _str).getWildPk()).getDisplayName();
+    public static String callPokemonLineDisplayNameGet(PokemonLine _str, int... _args) {
+        return _str.getDisplayName();
     }
 
 
-    public static NaSt callPokemonLineTypesGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( ((PkLineStruct) _str).getWildPk()).getTypes());
+    public static StringList callPokemonLineTypesGet(PokemonLine _str, int... _args) {
+        return _str.getTypes();
     }
-    public static long callPokemonLineEvolutionsGet(NaSt _str, int... _args) {
-        return ( ((PkLineStruct) _str).getWildPk()).getEvolutions();
+    public static long callPokemonLineEvolutionsGet(PokemonLine _str, int... _args) {
+        return _str.getEvolutions();
     }
     public static NaSt callPokedexBeanBooleansGet() {
         return PokemonStandards.getStrStr(( (PokedexBean) ((PokemonBeanStruct)dispAllPks()).getInstance()).getBooleans());
@@ -180,8 +181,8 @@ public abstract class InitDbPk extends InitDbConstr {
         return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet();
     }
 
-    public static NaSt callPokedexBeanPokedexGet(NaSt _str, int... _args) {
-        return PokemonStandards.getPkLine(( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex());
+    public static CustList<PokemonLine> callPokedexBeanPokedexGet(NaSt _str, int... _args) {
+        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex();
     }
 
 //    public static NaSt callPokedexBeanSearch(NaSt _str, long... _args) {
@@ -240,8 +241,8 @@ public abstract class InitDbPk extends InitDbConstr {
         ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
     }
 
-    protected static NaSt eltPkLine(NaSt _arr, int _index) {
-        return ((NatArrayStruct)_arr).get(_index);
+    protected static PokemonLine eltPkLine(CustList<PokemonLine> _arr, int _index) {
+        return _arr.get(_index);
     }
 
     protected static NaSt dispAllPks() {

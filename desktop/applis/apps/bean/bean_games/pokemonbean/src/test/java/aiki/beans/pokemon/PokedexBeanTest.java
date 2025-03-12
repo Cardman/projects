@@ -379,7 +379,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void lineTypes2() {
-        assertEq(T_TYPE1_TR,eltStrTr(callPokemonLineTypesGet(eltPkLine(callPokedexBeanPokedexGet(dispAllPksSearch()),0)),0));
+        assertEq(T_TYPE1_TR,elt(callPokemonLineTypesGet(eltPkLine(callPokedexBeanPokedexGet(dispAllPksSearch()),0)),0));
     }
     @Test
     public void lineEvos() {

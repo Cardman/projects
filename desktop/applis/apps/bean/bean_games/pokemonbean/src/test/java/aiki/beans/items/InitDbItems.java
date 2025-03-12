@@ -2,6 +2,7 @@ package aiki.beans.items;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
+import aiki.beans.facade.dto.ItemLine;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -20,6 +21,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;
+import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -90,16 +92,16 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static final String I_REPEL = "I_REPEL";
     protected static final String I_SELLING = "I_SELLING";
 
-    public static String callItemLineDescriptionClassGet(NaSt _str, int... _args) {
-        return ( ((ItLineStruct) _str).getWildPk()).getDescriptionClass();
+    public static String callItemLineDescriptionClassGet(ItemLine _str, int... _args) {
+        return _str.getDescriptionClass();
     }
 
-    public static String callItemLineDisplayNameGet(NaSt _str, int... _args) {
-        return ( ((ItLineStruct) _str).getWildPk()).getDisplayName();
+    public static String callItemLineDisplayNameGet(ItemLine _str, int... _args) {
+        return _str.getDisplayName();
     }
 
-    public static long callItemLinePriceGet(NaSt _str, int... _args) {
-        return ( ((ItLineStruct) _str).getWildPk()).getPrice();
+    public static long callItemLinePriceGet(ItemLine _str, int... _args) {
+        return _str.getPrice();
     }
     public static String callItemsBeanClickLink(NaSt _str, int... _args) {
         return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
@@ -109,8 +111,8 @@ public abstract class InitDbItems extends InitDbConstr {
         return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImage(_args[0]);
     }
 
-    public static NaSt callItemsBeanItemsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getItLine(( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getItems());
+    public static CustList<ItemLine> callItemsBeanItemsGet(NaSt _str, int... _args) {
+        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getItems();
     }
 
 //    public static Struct callItemsBeanSearch(Struct _str, long... _args) {

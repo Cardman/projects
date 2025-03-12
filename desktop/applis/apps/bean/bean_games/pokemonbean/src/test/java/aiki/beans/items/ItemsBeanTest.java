@@ -321,9 +321,9 @@ public final class ItemsBeanTest extends InitDbItems {
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValItemData(CST_ITEMS_SET).getKeys());
         assertEq(14,keys_.size());
-        assertEq(I_BALL_TR,callItemLineDisplayNameGet(elt(callItemsBeanItemsGet(bean_),0)));
-        assertEq(CI_BALL_TR,callItemLineDescriptionClassGet(elt(callItemsBeanItemsGet(bean_),0)));
-        assertEq(1,callItemLinePriceGet(elt(callItemsBeanItemsGet(bean_),0)));
+        assertEq(I_BALL_TR,callItemLineDisplayNameGet(eltItemLine(callItemsBeanItemsGet(bean_),0)));
+        assertEq(CI_BALL_TR,callItemLineDescriptionClassGet(eltItemLine(callItemsBeanItemsGet(bean_),0)));
+        assertEq(1,callItemLinePriceGet(eltItemLine(callItemsBeanItemsGet(bean_),0)));
     }
     @Test
     public void clickLink() {

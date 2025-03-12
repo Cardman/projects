@@ -227,27 +227,27 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void getStatistics2() {
-        assertEq(ST_HP_TR,eltStrTr(callPokemonBeanStatisticsGet(),0));
+        assertEq(ST_HP_TR,eltStringStatBaseEv(callPokemonBeanStatisticsGet(),0));
     }
     @Test
     public void getStatistics3() {
-        assertEq(ST_ATT_TR,eltStrTr(callPokemonBeanStatisticsGet(),1));
+        assertEq(ST_ATT_TR,eltStringStatBaseEv(callPokemonBeanStatisticsGet(),1));
     }
     @Test
     public void getStatistics4() {
-        assertEq(ST_DEF_TR,eltStrTr(callPokemonBeanStatisticsGet(),2));
+        assertEq(ST_DEF_TR,eltStringStatBaseEv(callPokemonBeanStatisticsGet(),2));
     }
     @Test
     public void getStatistics5() {
-        assertEq(ST_ATT_SPE_TR,eltStrTr(callPokemonBeanStatisticsGet(),3));
+        assertEq(ST_ATT_SPE_TR,eltStringStatBaseEv(callPokemonBeanStatisticsGet(),3));
     }
     @Test
     public void getStatistics6() {
-        assertEq(ST_DEF_SPE_TR,eltStrTr(callPokemonBeanStatisticsGet(),4));
+        assertEq(ST_DEF_SPE_TR,eltStringStatBaseEv(callPokemonBeanStatisticsGet(),4));
     }
     @Test
     public void getStatistics7() {
-        assertEq(ST_SPEED_TR,eltStrTr(callPokemonBeanStatisticsGet(),5));
+        assertEq(ST_SPEED_TR,eltStringStatBaseEv(callPokemonBeanStatisticsGet(),5));
     }
     @Test
     public void getBase() {

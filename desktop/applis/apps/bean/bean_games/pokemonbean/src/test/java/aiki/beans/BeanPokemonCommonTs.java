@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.facade.dto.*;
 import aiki.comparators.DictionaryComparator;
 import code.bean.nat.*;
 import code.maths.LgInt;
@@ -171,9 +172,9 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static NaSt elt(NaSt _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
     }
-    public static NaSt eltStrTr(NaSt _arr, int _index) {
-        return ((NatArrayStruct)_arr).get(_index);
-    }
+//    public static NaSt eltStrTr(NaSt _arr, int _index) {
+//        return ((NatArrayStruct)_arr).get(_index);
+//    }
     public static NaSt eltStrKey(NaSt _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
     }
@@ -221,5 +222,14 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
     public static StringList indexesAll(){
         return new StringList(EN,FR);
+    }
+    public static String eltStrTr(CustList<TranslatedKey> _arr, int _index) {
+        return _arr.get(_index).getTranslation();
+    }
+    public static String eltStrKey(CustList<TranslatedKey> _arr, int _index) {
+        return _arr.get(_index).getKey();
+    }
+    public static ItemLine eltItemLine(CustList<ItemLine> _ls, int _i){
+        return _ls.get(_i);
     }
 }

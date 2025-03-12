@@ -1245,8 +1245,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getNamePk();
     }
 
-    public static NaSt callAddPokemonBeanPokedexGet(NaSt _str, int... _args) {
-        return PokemonStandards.getPkLine(( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex());
+    public static int callAddPokemonBeanPokedexGet(NaSt _str, int... _args) {
+        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex().size();
     }
 
 //    public static NaSt callAddPokemonBeanSearch(NaSt _str, long... _args) {
@@ -1485,8 +1485,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SelectItemBean) ((PokemonBeanStruct)pkTrainerSelectItName(DataBase.EMPTY_STRING)).getInstance()).getMiniImage(0);
     }
 
-    public static NaSt callSelectItemBeanItemsGet(NaSt _str) {
-        return PokemonStandards.getItLine(( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getItems());
+    public static int callSelectItemBeanItemsGet(NaSt _str) {
+        return ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getItems().size();
     }
 
 //    public static NaSt callSelectItemBeanSearch(NaSt _str, long... _args) {
@@ -1533,8 +1533,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet();
     }
 
-    public static NaSt callSelectPokemonBeanPokedexGet(NaSt _str) {
-        return PokemonStandards.getPkLine(( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex());
+    public static int callSelectPokemonBeanPokedexGet(NaSt _str) {
+        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex().size();
     }
 
 //    public static NaSt callSelectPokemonBeanSearch(NaSt _str, long... _args) {

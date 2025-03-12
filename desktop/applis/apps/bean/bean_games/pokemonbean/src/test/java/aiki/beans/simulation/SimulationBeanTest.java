@@ -103,7 +103,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedex() {
-        assertSizeEq(10,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkName("")));
+        assertEq(10,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkName("")));
     }
     @Test
     public void getSelectedPk() {
@@ -123,11 +123,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexWholeWord1() {
-        assertSizeEq(0,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkType("T_*",true)));
+        assertEq(0,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkType("T_*",true)));
     }
     @Test
     public void getPokedexWholeWord2() {
-        assertSizeEq(10,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkType("T_*",false)));
+        assertEq(10,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkType("T_*",false)));
     }
     @Test
     public void getMiniImagePk() {
@@ -143,11 +143,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexHasEvo1() {
-        assertSizeEq(3,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkHasEvo(SelectedBoolean.YES.getBoolName())));
+        assertEq(3,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkHasEvo(SelectedBoolean.YES.getBoolName())));
     }
     @Test
     public void getPokedexHasEvo2() {
-        assertSizeEq(7,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkHasEvo(SelectedBoolean.NO.getBoolName())));
+        assertEq(7,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkHasEvo(SelectedBoolean.NO.getBoolName())));
     }
     @Test
     public void isEvoSelPk() {
@@ -155,11 +155,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexIsEvo1() {
-        assertSizeEq(3,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsEvo(SelectedBoolean.YES.getBoolName())));
+        assertEq(3,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsEvo(SelectedBoolean.YES.getBoolName())));
     }
     @Test
     public void getPokedexIsEvo2() {
-        assertSizeEq(7,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsEvo(SelectedBoolean.NO.getBoolName())));
+        assertEq(7,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsEvo(SelectedBoolean.NO.getBoolName())));
     }
     @Test
     public void isLegPk() {
@@ -167,11 +167,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexIsLeg1() {
-        assertSizeEq(2,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsLeg(SelectedBoolean.YES.getBoolName())));
+        assertEq(2,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsLeg(SelectedBoolean.YES.getBoolName())));
     }
     @Test
     public void getPokedexIsLeg2() {
-        assertSizeEq(8,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsLeg(SelectedBoolean.NO.getBoolName())));
+        assertEq(8,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsLeg(SelectedBoolean.NO.getBoolName())));
     }
     @Test
     public void cancelSelPk() {
@@ -215,7 +215,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getSelectedItemsName() {
-        assertSizeEq(4,callSelectItemBeanItemsGet(pkTrainerSelectItName("")));
+        assertEq(4,callSelectItemBeanItemsGet(pkTrainerSelectItName("")));
     }
     @Test
     public void typePriceSelIt() {
@@ -223,7 +223,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getSelectedItemsPrice() {
-        assertSizeEq(4,callSelectItemBeanItemsGet(pkTrainerSelectItPrice()));
+        assertEq(4,callSelectItemBeanItemsGet(pkTrainerSelectItPrice()));
     }
     @Test
     public void typeClassSelIt() {
@@ -231,7 +231,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getSelectedItemsClass() {
-        assertSizeEq(2,callSelectItemBeanItemsGet(pkTrainerSelectItCl(CI_BATTLE)));
+        assertEq(2,callSelectItemBeanItemsGet(pkTrainerSelectItCl(CI_BATTLE)));
     }
     @Test
     public void getSelectedIt() {
@@ -593,7 +593,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexPkPlayer() {
-        assertSizeEq(10,callAddPokemonBeanPokedexGet(pkPlayerSelectPkName("")));
+        assertEq(10,callAddPokemonBeanPokedexGet(pkPlayerSelectPkName("")));
     }
     @Test
     public void getSelectedPkPlayer() {
@@ -613,11 +613,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexPkPlayerWholeWord1() {
-        assertSizeEq(0,callAddPokemonBeanPokedexGet(pkPlayerSelectPkType("T_*",true)));
+        assertEq(0,callAddPokemonBeanPokedexGet(pkPlayerSelectPkType("T_*",true)));
     }
     @Test
     public void getPokedexPkPlayerWholeWord2() {
-        assertSizeEq(10,callAddPokemonBeanPokedexGet(pkPlayerSelectPkType("T_*",false)));
+        assertEq(10,callAddPokemonBeanPokedexGet(pkPlayerSelectPkType("T_*",false)));
     }
     @Test
     public void getMiniImagePkPlayer() {
@@ -633,11 +633,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexPkPlayerHasEvo1() {
-        assertSizeEq(3,callAddPokemonBeanPokedexGet(pkPlayerSelectPkHasEvo(SelectedBoolean.YES.getBoolName())));
+        assertEq(3,callAddPokemonBeanPokedexGet(pkPlayerSelectPkHasEvo(SelectedBoolean.YES.getBoolName())));
     }
     @Test
     public void getPokedexPkPlayerHasEvo2() {
-        assertSizeEq(7,callAddPokemonBeanPokedexGet(pkPlayerSelectPkHasEvo(SelectedBoolean.NO.getBoolName())));
+        assertEq(7,callAddPokemonBeanPokedexGet(pkPlayerSelectPkHasEvo(SelectedBoolean.NO.getBoolName())));
     }
     @Test
     public void isEvoSelPkPlayer() {
@@ -645,11 +645,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexIsEvoPkPlayer1() {
-        assertSizeEq(3,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsEvo(SelectedBoolean.YES.getBoolName())));
+        assertEq(3,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsEvo(SelectedBoolean.YES.getBoolName())));
     }
     @Test
     public void getPokedexIsEvoPkPlayer2() {
-        assertSizeEq(7,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsEvo(SelectedBoolean.NO.getBoolName())));
+        assertEq(7,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsEvo(SelectedBoolean.NO.getBoolName())));
     }
     @Test
     public void isLegPkPlayer() {
@@ -657,11 +657,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getPokedexIsLegPkPlayer1() {
-        assertSizeEq(2,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsLeg(SelectedBoolean.YES.getBoolName())));
+        assertEq(2,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsLeg(SelectedBoolean.YES.getBoolName())));
     }
     @Test
     public void getPokedexIsLegPkPlayer2() {
-        assertSizeEq(8,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsLeg(SelectedBoolean.NO.getBoolName())));
+        assertEq(8,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsLeg(SelectedBoolean.NO.getBoolName())));
     }
     @Test
     public void cancelSelPkPlayer() {

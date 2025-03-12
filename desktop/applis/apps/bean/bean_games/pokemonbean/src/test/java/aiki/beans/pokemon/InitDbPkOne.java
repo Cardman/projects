@@ -2,21 +2,23 @@ package aiki.beans.pokemon;
 
 import aiki.beans.*;
 import aiki.beans.pokemon.evolutions.*;
+import aiki.fight.util.LevelMove;
 import aiki.util.Coords;
 import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
+import code.util.CustList;
 import code.util.StringMap;
 import code.maths.*;
 
 public abstract class InitDbPkOne extends InitDbPk {
 
-    public static long callLevelMoveGetLevel(NaSt _str, int... _args) {
-        return ( ((LevelMoveStruct) _str).getLevelMove()).getLevel();
+    public static long callLevelMoveGetLevel(LevelMove _str, int... _args) {
+        return _str.getLevel();
     }
 
-    public static String callLevelMoveGetMove(NaSt _str, int... _args) {
-        return ( ((LevelMoveStruct) _str).getLevelMove()).getMove();
+    public static String callLevelMoveGetMove(LevelMove _str, int... _args) {
+        return _str.getMove();
     }
 
     public static NaSt callPokemonBeanAbilitiesGet() {
@@ -276,8 +278,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).layers(_pl).size();
     }
 
-    public static NaSt callPokemonBeanLevMovesGet() {
-        return PokemonStandards.getLvMv(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getLevMoves());
+    public static CustList<LevelMoveTranslatedKey> callPokemonBeanLevMovesGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getLevMoves();
     }
 
     public static NaSt callPokemonBeanMapVarsGet() {
@@ -296,8 +298,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return PokemonStandards.getPlInd(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPlaces());
     }
 
-    public static NaSt callPokemonBeanPossibleGendersGet() {
-        return PokemonStandards.getValues(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPossibleGenders());
+    public static CustList<TranslatedKey> callPokemonBeanPossibleGendersGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPossibleGenders();
     }
 
     public static String callPokemonBeanRoundHeight() {
@@ -308,16 +310,16 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).roundWeight();
     }
 
-    public static NaSt callPokemonBeanStatisticsGet() {
-        return PokemonStandards.getStatistic(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getStatistics());
+    public static CustList<StringStatBaseEv> callPokemonBeanStatisticsGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getStatistics();
     }
 
     public static NaSt callPokemonBeanTechnicalMovesGet() {
         return PokemonStandards.getIntStrTk(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTechnicalMoves());
     }
 
-    public static NaSt callPokemonBeanTypesGet() {
-        return PokemonStandards.getValues(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTypes());
+    public static CustList<TranslatedKey> callPokemonBeanTypesGet() {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTypes();
     }
 
     public static Rate callPokemonBeanWeightGet() {
@@ -454,8 +456,11 @@ public abstract class InitDbPkOne extends InitDbPk {
 //        return BeanPokemonCommonTs.callInt(new EvolutionBeanIndexSet(),_str,_args);
 //    }
 
-    public static NaSt eltLvMv(NaSt _arr, int _index) {
-        return ((NatArrayStruct)_arr).get(_index);
+    public static LevelMove eltLvMv(CustList<LevelMoveTranslatedKey> _arr, int _index) {
+        return _arr.get(_index).lm();
+    }
+    public static String eltStringStatBaseEv(CustList<StringStatBaseEv> _ls, int _i){
+        return _ls.get(_i).getName().getTranslation();
     }
 
     public static NaSt eltImg(NaSt _arr, int _index) {

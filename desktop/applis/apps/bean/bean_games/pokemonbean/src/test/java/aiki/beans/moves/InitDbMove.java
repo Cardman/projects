@@ -47,8 +47,8 @@ public abstract class InitDbMove extends InitDbMoves {
         return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAffectedByMoves());
     }
 
-    public static NaSt callMoveBeanBoostedTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getBoostedTypes());
+    public static CustList<TranslatedKey> callMoveBeanBoostedTypesGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getBoostedTypes();
     }
 
     public static boolean callMoveBeanCanBeLearnt(NaSt _str, int... _args) {
@@ -457,8 +457,8 @@ public abstract class InitDbMove extends InitDbMoves {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).typesDependOnlyOnWeather();
     }
 
-    public static NaSt callMoveBeanTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTypes());
+    public static CustList<TranslatedKey> callMoveBeanTypesGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTypes();
     }
 
     public static boolean callMoveBeanEffPrimOrBeforeNotEndRound(NaSt _str, int... _args) {
