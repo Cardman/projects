@@ -442,8 +442,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, AbsBasicTreeMap<Rate, Rate>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getRateRate(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new NaStSt(e.getKey()),getRateRate(e.getValue())));
             j_++;
         }
         return arr_;
@@ -452,8 +451,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),getStaByte(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),getStaByte(e.getValue())));
             j_++;
         }
         return arr_;
@@ -463,8 +461,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKey, BoostHpRate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new BoostHpRateStruct(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new BoostHpRateStruct(e.getValue())));
             j_++;
         }
         return arr_;
@@ -474,8 +471,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<MiniMapCoords, int[][]> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue())));
             j_++;
         }
         return arr_;
@@ -484,8 +480,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<Point, int[][]> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue())));
             j_++;
         }
         return arr_;
@@ -495,8 +490,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKey, EfficiencyRate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),new EfficiencyRateStruct(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),new EfficiencyRateStruct(e.getValue())));
             j_++;
         }
         return arr_;
@@ -506,8 +500,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKeyPair, Long> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue())));
             j_++;
         }
         return arr_;
@@ -517,8 +510,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new CategoryMultStruct(new CategoryMult(e.getKey().getFirst().getTranslation(),NumberUtil.parseInt(e.getKey().getSecond().getKey()))),new RtSt(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new CategoryMultStruct(new CategoryMult(e.getKey().getFirst().getTranslation(),NumberUtil.parseInt(e.getKey().getSecond().getKey()))),new RtSt(e.getValue())));
             j_++;
         }
         return arr_;
@@ -527,8 +519,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue())));
             j_++;
         }
         return arr_;
@@ -537,8 +528,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new TypesDuoStruct(new TypesDuo(e.getKey().getFirst().getTranslation(),e.getKey().getSecond().getTranslation())),new RtSt(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new TypesDuoStruct(new TypesDuo(e.getKey().getFirst().getTranslation(),e.getKey().getSecond().getTranslation())),new RtSt(e.getValue())));
             j_++;
         }
         return arr_;
@@ -547,8 +537,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (TranslatedKeyPair e:_map) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getFirst().getKey()),new NaStSt(e.getSecond().getKey()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new NaStSt(e.getFirst().getKey()),new NaStSt(e.getSecond().getKey())));
             j_++;
         }
         return arr_;
@@ -557,8 +546,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<Long, CustList<TranslatedKey>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),getKeys(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new NaNbSt(e.getKey()),getKeys(e.getValue())));
             j_++;
         }
         return arr_;
@@ -568,8 +556,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKey, Ints> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),getIntArray(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),getIntArray(e.getValue())));
             j_++;
         }
         return arr_;
@@ -579,8 +566,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<TranslatedKey, TypeDamageBoostKey> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new NaStSt(e.getKey().getKey()),new TypeDamageBoostStruct(new TypeDamageBoost(e.getValue().getType().getKey(),e.getValue().getBoost())));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),new TypeDamageBoostStruct(new TypeDamageBoost(e.getValue().getType().getKey(),e.getValue().getBoost()))));
             j_++;
         }
         return arr_;
@@ -590,8 +576,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<PlaceLevel, CustList<WildPokemonDto>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,getWildPkDto(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,getWildPkDto(e.getValue())));
             j_++;
         }
         return arr_;
@@ -790,8 +775,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<Statistic, EvLine> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new EvLineStruct(e.getValue()));
-            arr_.set(j_,p_);
+            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new EvLineStruct(e.getValue())));
             j_++;
         }
         return arr_;
@@ -800,8 +784,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String,String> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
             i_++;
         }
         return arr_;
@@ -820,8 +803,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,TranslatedKey> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey())));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey()))));
             i_++;
         }
         return arr_;
@@ -830,8 +812,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,String> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
             i_++;
         }
         return arr_;
@@ -869,8 +850,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String,Rate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new RtSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new RtSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -880,8 +860,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,Rate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -891,8 +870,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,Rate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new RtSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new RtSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -902,8 +880,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,StatRankRate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue().getRate()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue().getRate())));
             i_++;
         }
         return arr_;
@@ -912,8 +889,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,StatRankRate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue().getRank()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue().getRank())));
             i_++;
         }
         return arr_;
@@ -922,8 +898,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,Long> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -932,8 +907,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey,Long> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaNbSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaNbSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -943,8 +917,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey, Long> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -954,8 +927,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey, String> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaStSt(StringUtil.nullToEmpty(e.getValue())));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
             i_++;
         }
         return arr_;
@@ -964,8 +936,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<TranslatedKey, Rate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -974,8 +945,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<Integer,String> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue())));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
             i_++;
         }
         return arr_;
@@ -984,8 +954,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<Integer,TranslatedKey> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getTranslation())));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getTranslation()))));
             i_++;
         }
         return arr_;
@@ -994,8 +963,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<Long,TranslatedKey> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey())));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey()))));
             i_++;
         }
         return arr_;
@@ -1004,8 +972,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<LgInt,Rate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new LgSt(e.getKey()),new RtSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new LgSt(e.getKey()),new RtSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -1014,8 +981,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<Long,Rate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new RtSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new RtSt(e.getValue())));
             i_++;
         }
         return arr_;
@@ -1024,8 +990,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<Rate,Rate> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new RtSt(e.getKey()),new RtSt(e.getValue()));
-            arr_.set(i_,p_);
+            arr_.set(i_,new PairStruct(new RtSt(e.getKey()),new RtSt(e.getValue())));
             i_++;
         }
         return arr_;
