@@ -214,8 +214,8 @@ public abstract class InitDbMap extends InitDbConstr {
         return ( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).isMultiLayer(_place);
     }
 
-    public static NaSt callMapBeanLayers(int _place) {
-        return PokemonStandards.getLayers(( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).layers(_place));
+    public static int callMapBeanLayers(int _place) {
+        return ( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).layers(_place).size();
     }
 
     public static NaSt callMapBeanPlacesGet() {

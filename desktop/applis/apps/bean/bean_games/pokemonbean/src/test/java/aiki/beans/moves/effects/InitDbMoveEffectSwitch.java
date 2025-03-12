@@ -1,6 +1,7 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.*;
+import aiki.comparators.DictionaryComparator;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
@@ -78,8 +79,8 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).useItemAsPossible();
     }
 
-    public static NaSt callEffectSwitchMoveTypesBeanChangeTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getChangeTypes());
+    public static DictionaryComparator<TranslatedKey, TranslatedKey> callEffectSwitchMoveTypesBeanChangeTypesGet(NaSt _str, int... _args) {
+        return ( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getChangeTypes();
     }
 
     public static String callEffectSwitchMoveTypesBeanGetTrChangedTypes(NaSt _str, int... _args) {
@@ -110,8 +111,8 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return PokemonStandards.getKeys(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getAddedTypes());
     }
 
-    public static NaSt callEffectSwitchTypesBeanChgtTypeByEnvGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getChgtTypeByEnv());
+    public static DictionaryComparator<TranslatedKey, TranslatedKey> callEffectSwitchTypesBeanChgtTypeByEnvGet(NaSt _str, int... _args) {
+        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getChgtTypeByEnv();
     }
 
     public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnv(NaSt _str, int... _args) {

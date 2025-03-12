@@ -96,7 +96,7 @@ public final class AddPokemonBean extends WithFilterBean {
         pk_.setName(namePk);
         pk_.setLevel(common.getLevel().valueLong());
         pk_.setAbility(ability.tryRet());
-        pk_.setGender(PokemonStandards.getGenderByName(common.getGender().tryRet()));
+        pk_.setGender(Gender.getGenderByName(common.getGender().tryRet()));
         PokemonData pkData_ = data_.getPokemon(namePk);
         PokemonPlayerDto pkDto_ = new PokemonPlayerDto();
         pkDto_.setPokemon(pk_);

@@ -70,11 +70,11 @@ public final class TrainerBeanTest extends InitDbCharacters {
     }
     @Test
     public void getTeamsRewards1() {
-        assertSizeEq(0,callTrainerBeanGetTeamsRewardsLevelZero(8,1,12));
+        assertEq(0,callTrainerBeanGetTeamsRewardsLevelZero(8,1,12));
     }
     @Test
     public void getTeamsRewards2() {
-        assertSizeEq(2,callTrainerBeanGetTeamsRewardsOtherLevel(3,1,7));
+        assertEq(2,callTrainerBeanGetTeamsRewardsOtherLevel(3,1,7));
     }
     @Test
     public void getTrMove() {

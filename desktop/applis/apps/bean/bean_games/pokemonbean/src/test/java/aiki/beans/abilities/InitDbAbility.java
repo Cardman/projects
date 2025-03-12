@@ -451,7 +451,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static NaSt callAbilityBeanDivideStatusRoundGet() {
-        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getDivideStatusRound());
+        return PokemonStandards.getStrRateTk(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getDivideStatusRound());
     }
 
 //    public static NaSt callAbilityBeanEffectSendBeanGet(NaSt _str, long... _args) {
@@ -727,7 +727,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static NaSt callAbilityBeanHealHpByWeatherGet() {
-        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getHealHpByWeather());
+        return PokemonStandards.getStrRateTk(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getHealHpByWeather());
     }
 
     public static Rate callAbilityBeanHealHpWhileUsingBerryGet() {
@@ -782,8 +782,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return PokemonStandards.getKeys(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuLowStat());
     }
 
-    public static NaSt callAbilityBeanImmuLowStatIfStatusGet() {
-        return PokemonStandards.arrId(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuLowStatIfStatus().size());
+    public static int callAbilityBeanImmuLowStatIfStatusGet() {
+        return ((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getImmuLowStatIfStatus().size();
     }
 
     public static NaSt callAbilityBeanImmuLowStatisTypesGet() {
@@ -891,7 +891,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static NaSt callAbilityBeanMultDamageFoeGet() {
-        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultDamageFoe());
+        return PokemonStandards.getStrRateTk(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultDamageFoe());
     }
 
     public static String callAbilityBeanMultDamageGet() {
@@ -911,7 +911,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static NaSt callAbilityBeanMultPowerMovesTypesGlobalGet() {
-        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultPowerMovesTypesGlobal());
+        return PokemonStandards.getStrRateTk(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getMultPowerMovesTypesGlobal());
     }
 
     public static Rate callAbilityBeanMultStabGet() {
@@ -1011,7 +1011,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static NaSt callAbilityBeanSingleStatusGet() {
-        return PokemonStandards.getStrRate(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getSingleStatus());
+        return PokemonStandards.getStrRateTk(((AbilityBean) ((PokemonBeanStruct) directCase()).getInstance()).getSingleStatus());
     }
 
     public static boolean callAbilityBeanSlowingGet(NaSt _str, int... _args) {

@@ -55,7 +55,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void layers() {
-        assertSizeEq(2,callPokemonBeanLayers(0));
+        assertEq(2,callPokemonBeanLayers(0));
     }
     @Test
     public void isMultiLayer1() {

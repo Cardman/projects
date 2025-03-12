@@ -13,7 +13,7 @@ public final class BeanDisplayStringDifficultyWinPointsFight implements BeanDisp
 
     @Override
     public int display(CommonBean _rend, String _info, int _index) {
-        DifficultyWinPointsFight diff_ = PokemonStandards.getDiffWonPtsByName(_info);
+        DifficultyWinPointsFight diff_ = DifficultyWinPointsFight.getDiffWonPtsByName(_info);
         _rend.formatMessageDirCts(StringUtil.nullToEmpty(dataBase.getTranslatedDiffWinPts().getVal(diff_)));
         return 1;
     }

@@ -281,7 +281,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void getWildPokemonAreas() {
-        assertSizeEq(2,callMapLevelBeanAreas(2));
+        assertEq(2,callMapLevelBeanAreas(2));
     }
     @Test
     public void getNeighbours1() {

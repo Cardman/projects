@@ -534,7 +534,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         elementOrd(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_0);
         for(EntryCust<String,AbsBasicTreeMap<Rate,Rate>> e:lawsRates.entryList()){
             getBuilder().setIndent(1);
-            formatMessageDirIndent(getDataBase().getTranslatedDiffModelLaw().getVal(getLanguage()).getVal(PokemonStandards.getModelByName(e.getKey())));
+            formatMessageDirIndent(getDataBase().getTranslatedDiffModelLaw().getVal(getLanguage()).getVal(DifficultyModelLaw.getModelByName(e.getKey())));
             getBuilder().setIndent(0);
             new BeanDisplayMap<Rate,Rate>(new BeanDisplayRate(),new BeanDisplayRate()).displayGrid(this,e.getValue(),MessagesPkBean.ROUND,DataBase.EMPTY_STRING,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_1,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_2);
         }
@@ -3347,12 +3347,12 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         return data_.getAnimAbsorb().getImage();
     }
     public String getTrLawRate(int _index) {
-        DifficultyModelLaw d_ = PokemonStandards.getModelByName(lawsRates.getKey(_index));
+        DifficultyModelLaw d_ = DifficultyModelLaw.getModelByName(lawsRates.getKey(_index));
         DataBase data_ = getDataBase();
         return data_.getTranslatedDiffModelLaw().getVal(getLanguage()).getVal(d_);
     }
     public String getTrDifficulty(int _index) {
-        DifficultyWinPointsFight diff_ = PokemonStandards.getDiffWonPtsByName(rates.getKey(_index));
+        DifficultyWinPointsFight diff_ = DifficultyWinPointsFight.getDiffWonPtsByName(rates.getKey(_index));
         DataBase data_ = getDataBase();
 //        return XmlParser.transformSpecialChars(data_.getTranslatedDiffWinPts().getVal(getLanguage()).getVal(diff_));
         return data_.getTranslatedDiffWinPts().getVal(getLanguage()).getVal(diff_);

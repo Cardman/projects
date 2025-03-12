@@ -242,7 +242,7 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
                 continue;
             }
             PokemonData pkData_ = k.getValue();
-            if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos().tryRet())) && (getTypedMaxNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos().tryRet())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getHasEvo().tryRet()), !pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsEvo().tryRet()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsLeg().tryRet()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
+            if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos().tryRet())) && (getTypedMaxNbPossEvos().tryRet().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos().tryRet())) && CriteriaForSearching.match(SelectedBoolean.getBoolByName(getHasEvo().tryRet()), !pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(SelectedBoolean.getBoolByName(getIsEvo().tryRet()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(SelectedBoolean.getBoolByName(getIsLeg().tryRet()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
                 pokedex_.put(buildPk(getFacade(),k.getKey()),k.getValue());
             }
         }
@@ -266,7 +266,7 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
                 continue;
             }
             MoveData moveData_ = k.getValue();
-            if (CriteriaForSearching.match(PokemonStandards.getBoolByName(getLearnt().tryRet()), StringUtil.contains(list_, k.getKey()))&&atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory().tryRet(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory().tryRet(), getDataBase().getCategory(moveData_))) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
+            if (CriteriaForSearching.match(SelectedBoolean.getBoolByName(getLearnt().tryRet()), StringUtil.contains(list_, k.getKey()))&&atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory().tryRet(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory().tryRet(), getDataBase().getCategory(moveData_))) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
                 moves_.put(buildMv(getFacade(),k.getKey()),k.getValue());
             }
         }

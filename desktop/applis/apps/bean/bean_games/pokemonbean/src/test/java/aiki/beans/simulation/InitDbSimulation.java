@@ -573,8 +573,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return PokemonStandards.getSelectLineMove(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKeptMoves());
     }
 
-    public static NaSt callSimulationBeanLayers(NaSt _str, int... _args) {
-        return PokemonStandards.getLayers(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).layers(_args[0]));
+    public static int callSimulationBeanLayers(NaSt _str, int... _args) {
+        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).layers(_args[0]).size();
     }
 
     public static long callSimulationBeanLevelEvoGet(NaSt _str, int... _args) {

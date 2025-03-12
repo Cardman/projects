@@ -11,7 +11,7 @@ public final class MapBeanTest extends InitDbMap {
     }
     @Test
     public void layers() {
-        assertSizeEq(2,callMapBeanLayers(3));
+        assertEq(2,callMapBeanLayers(3));
     }
     @Test
     public void isMultiLayer1() {

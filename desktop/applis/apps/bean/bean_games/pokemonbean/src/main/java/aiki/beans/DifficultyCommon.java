@@ -62,11 +62,11 @@ public final class DifficultyCommon {
         skipLearningMovesWhileNotGrowingLevel = _diff.isSkipLearningMovesWhileNotGrowingLevel();
         damageRatePlayer = _diff.getDamageRatePlayer().getModelName();
         damageRateLawFoe = _diff.getDamageRateLawFoe().getModelName();
-        damageRatePlayerTable = DictionaryComparatorUtil.feedRateRate(_data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw());
-        damageRateFoeTable = DictionaryComparatorUtil.feedRateRate(_data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw());
+        damageRatePlayerTable = DictionaryComparatorUtil.feedRateRate(_data.getLawsDamageRate().getVal(DifficultyModelLaw.getModelByName(damageRatePlayer)).getLaw());
+        damageRateFoeTable = DictionaryComparatorUtil.feedRateRate(_data.getLawsDamageRate().getVal(DifficultyModelLaw.getModelByName(damageRateLawFoe)).getLaw());
     }
     public void apply(DataBase _data, Difficulty _diff) {
-        _diff.setDiffWinningExpPtsFight(PokemonStandards.getDiffWonPtsByName(diffWinningExpPtsFight));
+        _diff.setDiffWinningExpPtsFight(DifficultyWinPointsFight.getDiffWonPtsByName(diffWinningExpPtsFight));
         _diff.setAllowCatchingKo(allowCatchingKo);
         _diff.setAllowedSwitchPlacesEndRound(allowedSwitchPlacesEndRound);
         _diff.setWinTrainerExp(winTrainerExp);
@@ -81,8 +81,8 @@ public final class DifficultyCommon {
         _diff.setRandomWildFight(randomWildFight);
         _diff.setStillPossibleFlee(stillPossibleFlee);
         _diff.setSkipLearningMovesWhileNotGrowingLevel(skipLearningMovesWhileNotGrowingLevel);
-        _diff.setDamageRateLawFoe(PokemonStandards.getModelByName(damageRateLawFoe));
-        _diff.setDamageRatePlayer(PokemonStandards.getModelByName(damageRatePlayer));
+        _diff.setDamageRateLawFoe(DifficultyModelLaw.getModelByName(damageRateLawFoe));
+        _diff.setDamageRatePlayer(DifficultyModelLaw.getModelByName(damageRatePlayer));
         _diff.validate(_data);
     }
 

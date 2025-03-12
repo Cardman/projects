@@ -1585,11 +1585,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void layersSingle() {
-        assertSizeEq(1,callSimulationBeanLayers(chooseTrainer(),0));
+        assertEq(1,callSimulationBeanLayers(chooseTrainer(),0));
     }
     @Test
     public void layersMult() {
-        assertSizeEq(2,callSimulationBeanLayers(chooseTrainer(),2));
+        assertEq(2,callSimulationBeanLayers(chooseTrainer(),2));
     }
     @Test
     public void multLayersSingle() {

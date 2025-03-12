@@ -220,7 +220,7 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         getForms().put(CST_POKEMON_NAME_EDIT, namePk);
         getForms().put(CST_POKEMON_LEVEL_EDIT, common.getLevel().valueLong());
         getForms().put(CST_ITEM_EDIT, item);
-        getForms().put(CST_POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(common.getGender().tryRet()));
+        getForms().put(CST_POKEMON_GENDER_EDIT, Gender.getGenderByName(common.getGender().tryRet()));
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
         getForms().put(CST_POKEMON_ABILITY_EDIT, ability);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;

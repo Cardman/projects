@@ -214,7 +214,7 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
     }
 
     public static NaSt callEffectGlobalBeanMultPowerMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRate(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultPowerMoves());
+        return PokemonStandards.getStrRateTk(( (EffectGlobalBean) ((PokemonBeanStruct)_str).getInstance()).getMultPowerMoves());
     }
 
     public static NaSt callEffectGlobalBeanMultStatIfContainsTypeGet(NaSt _str, int... _args) {

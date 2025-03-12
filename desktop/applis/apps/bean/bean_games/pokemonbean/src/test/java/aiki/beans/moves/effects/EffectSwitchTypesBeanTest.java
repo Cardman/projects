@@ -120,11 +120,11 @@ public final class EffectSwitchTypesBeanTest extends InitDbMoveEffectSwitch {
     }
     @Test
     public void getChgtTypeByEnv2() {
-        assertEq(EnvironmentType.ROAD.getEnvName(),first(elt(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0)));
+        assertEq(EnvironmentType.ROAD.getEnvName(),firstEntryTkTk(eltEntryTkTk(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0)));
     }
     @Test
     public void getChgtTypeByEnv3() {
-        assertEq(T_TYPE1_TR,second(elt(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0)));
+        assertEq(T_TYPE1_TR,secondEntryTkTk(eltEntryTkTk(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0)));
     }
     @Test
     public void getTrEnv() {

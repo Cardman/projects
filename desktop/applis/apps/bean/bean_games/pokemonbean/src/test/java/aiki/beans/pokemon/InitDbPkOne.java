@@ -241,7 +241,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callPokemonBeanHiddenMovesGet() {
-        return PokemonStandards.getIntStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHiddenMoves());
+        return PokemonStandards.getIntStrTk(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHiddenMoves());
     }
 
     public static NaSt callPokemonBeanImagesGet() {
@@ -272,8 +272,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).isMultiLayer(_pl);
     }
 
-    public static NaSt callPokemonBeanLayers(int _pl) {
-        return PokemonStandards.getLayers(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).layers(_pl));
+    public static int callPokemonBeanLayers(int _pl) {
+        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).layers(_pl).size();
     }
 
     public static NaSt callPokemonBeanLevMovesGet() {
@@ -313,7 +313,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static NaSt callPokemonBeanTechnicalMovesGet() {
-        return PokemonStandards.getIntStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTechnicalMoves());
+        return PokemonStandards.getIntStrTk(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTechnicalMoves());
     }
 
     public static NaSt callPokemonBeanTypesGet() {

@@ -209,8 +209,8 @@ public abstract class InitDbLevelMap extends InitDbMap {
         NaSt lev_ = dispMapLevelZero(_place);
         return navigateData(new MapLevelBeanClickNeighbour((AbsLevelBean) ((PokemonBeanStruct)lev_).getBean(),_index), lev_);
     }
-    public static NaSt callMapLevelBeanAreas(int _place) {
-        return PokemonStandards.arrId(( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getWildPokemonAreas().size());
+    public static int callMapLevelBeanAreas(int _place) {
+        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getWildPokemonAreas().size();
     }
     public static boolean callMapLevelBeanOutsideGet(int _place, int _tile) {
         return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).getOutside();

@@ -1,10 +1,12 @@
 package aiki.beans;
 
+import aiki.comparators.DictionaryComparator;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.Countable;
@@ -205,14 +207,14 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static NaSt second(NaSt _arr) {
         return ((PairStruct)_arr).getSecond();
     }
-    public static NaSt eltEntryTkTk(NaSt _arr, int _index) {
-        return ((NatArrayStruct)_arr).get(_index);
+    public static EntryCust<TranslatedKey, TranslatedKey> eltEntryTkTk(DictionaryComparator<TranslatedKey, TranslatedKey> _arr, int _index) {
+        return _arr.getEntry(_index);
     }
-    public static NaSt firstEntryTkTk(NaSt _arr) {
-        return ((PairStruct)_arr).getFirst();
+    public static String firstEntryTkTk(EntryCust<TranslatedKey, TranslatedKey> _arr) {
+        return _arr.getKey().getKey();
     }
-    public static NaSt secondEntryTkTk(NaSt _arr) {
-        return ((PairStruct)_arr).getSecond();
+    public static String secondEntryTkTk(EntryCust<TranslatedKey, TranslatedKey> _arr) {
+        return _arr.getValue().getTranslation();
     }
     public static StringList indexes(){
         return new StringList(EN);

@@ -134,7 +134,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
 
     public static NaSt callEffectCounterAttackBeanSufferingDamageTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRate(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageTypes());
+        return PokemonStandards.getStrRateTk(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageTypes());
     }
 
     public static Rate callEffectFullHpRateBeanClosestFoeDamageRateHpGet(NaSt _str, int... _args) {
@@ -160,7 +160,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
 
     public static NaSt callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRate(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
+        return PokemonStandards.getStrRateTk(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
     }
 
     public static String callEffectMultUsedMovePowerBeanGetTrType(NaSt _str, int... _args) {
@@ -168,7 +168,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
 
     public static NaSt callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRate(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
+        return PokemonStandards.getStrRateTk(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
     }
 
     public static boolean callEffectOrderBeanTargetAttacksLastGet(NaSt _str, int... _args) {

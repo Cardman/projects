@@ -1,6 +1,7 @@
 package aiki.beans.moves;
 
 import aiki.beans.*;
+import aiki.comparators.DictionaryComparator;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -436,12 +437,12 @@ public abstract class InitDbMove extends InitDbMoves {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).translateItemSecEffect(_args[0]);
     }
 
-    public static NaSt callMoveBeanTypesByOwnedItemsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTypesByOwnedItems());
+    public static DictionaryComparator<TranslatedKey, TranslatedKey> callMoveBeanTypesByOwnedItemsGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTypesByOwnedItems();
     }
 
-    public static NaSt callMoveBeanTypesByWeathersGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTypesByWeathers());
+    public static DictionaryComparator<TranslatedKey, TranslatedKey> callMoveBeanTypesByWeathersGet(NaSt _str, int... _args) {
+        return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getTypesByWeathers();
     }
 
     public static boolean callMoveBeanTypesDependOnWeatherAndItem(NaSt _str, int... _args) {

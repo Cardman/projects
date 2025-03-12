@@ -8,7 +8,7 @@ import org.junit.Test;
 public final class EndRoundBeanTest extends InitDbEndRound {
     @Test
     public void evts() {
-        assertSizeEq(32,dispEndRoundEvts());
+        assertEq(32,dispEndRoundEvts());
     }
     @Test
     public void global1() {

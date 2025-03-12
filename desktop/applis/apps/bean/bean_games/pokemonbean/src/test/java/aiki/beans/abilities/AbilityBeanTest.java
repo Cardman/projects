@@ -879,7 +879,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuLowStatIfStatus() {
-        assertSizeEq(1,callAbilityBeanImmuLowStatIfStatusGet());
+        assertEq(1,callAbilityBeanImmuLowStatIfStatusGet());
     }
     @Test
     public void getTrImmuLowStatIfStatusKey() {
