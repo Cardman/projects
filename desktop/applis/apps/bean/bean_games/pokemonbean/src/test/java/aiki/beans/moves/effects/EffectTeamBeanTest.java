@@ -31,7 +31,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getForbiddenBoost2() {
-        assertEq(ST_SPEED_TR,elt(callEffectTeamBeanForbiddenBoostGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectTeamBeanForbiddenBoostGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getCancelChgtStatTeam1() {
@@ -39,7 +39,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getCancelChgtStatTeam2() {
-        assertEq(ST_SPEED_TR,elt(callEffectTeamBeanCancelChgtStatTeamGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectTeamBeanCancelChgtStatTeamGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getCancelChgtStatFoeTeam1() {
@@ -47,7 +47,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getCancelChgtStatFoeTeam2() {
-        assertEq(ST_SPEED_TR,elt(callEffectTeamBeanCancelChgtStatFoeTeamGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectTeamBeanCancelChgtStatFoeTeamGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getProtectAgainstLowStat1() {
@@ -55,7 +55,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getProtectAgainstLowStat2() {
-        assertEq(ST_SPEED_TR,elt(callEffectTeamBeanProtectAgainstLowStatGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectTeamBeanProtectAgainstLowStatGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getProtectAgainstStatus1() {
@@ -63,7 +63,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getProtectAgainstStatus2() {
-        assertEq(S_STA_SIM,elt(callEffectTeamBeanProtectAgainstStatusGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(S_STA_SIM,eltTkKey(callEffectTeamBeanProtectAgainstStatusGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getDisableFoeTeamStatus1() {
@@ -71,7 +71,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getDisableFoeTeamStatus2() {
-        assertEq(S_STA_SIM,elt(callEffectTeamBeanDisableFoeTeamStatusGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(S_STA_SIM,eltTkKey(callEffectTeamBeanDisableFoeTeamStatusGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getUnusableMoves1() {
@@ -79,7 +79,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getUnusableMoves2() {
-        assertEq(M_STA,elt(callEffectTeamBeanUnusableMovesGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(M_STA,eltTkKey(callEffectTeamBeanUnusableMovesGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getDisableFoeTeamEffects1() {
@@ -87,7 +87,7 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getDisableFoeTeamEffects2() {
-        assertEq(M_STA,elt(callEffectTeamBeanDisableFoeTeamEffectsGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
+        assertEq(M_STA,eltTkKey(callEffectTeamBeanDisableFoeTeamEffectsGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0));
     }
     @Test
     public void getMultStatistic1() {
@@ -95,11 +95,11 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getMultStatistic2() {
-        assertEq(ST_SPEED_TR,first(elt(callEffectTeamBeanMultStatisticGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
+        assertEq(ST_SPEED_TR,firstTkRtTr(eltTkRtKey(callEffectTeamBeanMultStatisticGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
     }
     @Test
     public void getMultStatistic3() {
-        assertEq(Rate.one(),second(elt(callEffectTeamBeanMultStatisticGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectTeamBeanMultStatisticGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
     }
     @Test
     public void getMultStatisticFoe1() {
@@ -107,11 +107,11 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getMultStatisticFoe2() {
-        assertEq(ST_SPEED_TR,first(elt(callEffectTeamBeanMultStatisticFoeGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
+        assertEq(ST_SPEED_TR,firstTkRtTr(eltTkRtKey(callEffectTeamBeanMultStatisticFoeGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
     }
     @Test
     public void getMultStatisticFoe3() {
-        assertEq(Rate.one(),second(elt(callEffectTeamBeanMultStatisticFoeGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectTeamBeanMultStatisticFoeGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
     }
     @Test
     public void getMultDamage1() {
@@ -119,15 +119,15 @@ public final class EffectTeamBeanTest extends InitDbMoveEffectTeam {
     }
     @Test
     public void getMultDamage2() {
-        assertEq(C_CAT2_TR,callCategoryMultGetCategory(first(elt(callEffectTeamBeanMultDamageGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0))));
+        assertEq(C_CAT2_TR,callCategoryMultGetCategory(firstTkPairRt(eltTkPairRt(callEffectTeamBeanMultDamageGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0))));
     }
     @Test
     public void getMultDamage3() {
-        assertEq(1,callCategoryMultGetMult(first(elt(callEffectTeamBeanMultDamageGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0))));
+        assertEq(1,callCategoryMultGetMult(firstTkPairRt(eltTkPairRt(callEffectTeamBeanMultDamageGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0))));
     }
     @Test
     public void getMultDamage4() {
-        assertEq(Rate.one(),second(elt(callEffectTeamBeanMultDamageGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
+        assertEq(Rate.one(),secondTkPairRt(eltTkPairRt(callEffectTeamBeanMultDamageGet(dispMoveEffTeam(feedDbMoveEffDataDam(eff(true,true)),0)),0)));
     }
     @Test
     public void getTrStatus() {

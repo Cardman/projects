@@ -8,13 +8,14 @@ import aiki.fight.moves.enums.*;
 import aiki.fight.util.TypesDuo;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.maths.Rate;
-import code.util.StringMap;
+import aiki.beans.abilities.*;
+import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
 
-    public static NaSt callEffectUnprotectFromTypesBeanAttackTargetWithTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getAttackTargetWithTypes());
+    public static CustList<TranslatedKey> callEffectUnprotectFromTypesBeanAttackTargetWithTypesGet(NaSt _str, int... _args) {
+        return (( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getAttackTargetWithTypes());
     }
 
     public static String callEffectUnprotectFromTypesBeanClickMove(NaSt _str, int... _args) {
@@ -26,12 +27,12 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return getValMoveId(_str);
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanDisableImmuAgainstTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getDisableImmuAgainstTypes());
+    public static CustList<TranslatedKey> callEffectUnprotectFromTypesBeanDisableImmuAgainstTypesGet(NaSt _str, int... _args) {
+        return (( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getDisableImmuAgainstTypes());
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanDisableImmuFromMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getDisableImmuFromMoves());
+    public static CustList<TranslatedKey> callEffectUnprotectFromTypesBeanDisableImmuFromMovesGet(NaSt _str, int... _args) {
+        return (( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getDisableImmuFromMoves());
     }
 
     public static String callEffectUnprotectFromTypesBeanGetTrAttackTargetType(NaSt _str, int... _args) {
@@ -54,16 +55,16 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return ( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrPokemonType(_args[0]);
     }
 
-    public static NaSt callEffectUnprotectFromTypesBeanTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getTypesDuo(( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTypes());
+    public static CustList<TranslatedKeyPair> callEffectUnprotectFromTypesBeanTypesGet(NaSt _str, int... _args) {
+        return (( (EffectUnprotectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTypes());
     }
 
     public static String callEffectProtectFromTypesBeanGetTrType(NaSt _str, int... _args) {
         return ( (EffectProtectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrType(_args[0]);
     }
 
-    public static NaSt callEffectProtectFromTypesBeanImmuAgainstTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectProtectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getImmuAgainstTypes());
+    public static CustList<TranslatedKey> callEffectProtectFromTypesBeanImmuAgainstTypesGet(NaSt _str, int... _args) {
+        return (( (EffectProtectFromTypesBean) ((PokemonBeanStruct)_str).getInstance()).getImmuAgainstTypes());
     }
 
     public static Rate callEffectProtectionBeanProtSingleAgainstKoGet(NaSt _str, int... _args) {

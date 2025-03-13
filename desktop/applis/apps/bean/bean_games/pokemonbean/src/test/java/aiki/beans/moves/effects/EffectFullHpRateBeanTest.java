@@ -23,10 +23,10 @@ public final class EffectFullHpRateBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMapVarsRestored2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectFullHpRateBeanMapVarsRestoredGet(dispMoveEffFullHpRate()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectFullHpRateBeanMapVarsRestoredGet(dispMoveEffFullHpRate()),0)));
     }
     @Test
     public void getMapVarsRestored3() {
-        assertEq(TIME,second(elt(callEffectFullHpRateBeanMapVarsRestoredGet(dispMoveEffFullHpRate()),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectFullHpRateBeanMapVarsRestoredGet(dispMoveEffFullHpRate()),0)));
     }
 }

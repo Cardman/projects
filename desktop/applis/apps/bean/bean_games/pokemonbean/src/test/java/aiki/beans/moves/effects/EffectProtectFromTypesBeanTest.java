@@ -9,7 +9,7 @@ public final class EffectProtectFromTypesBeanTest extends InitDbMoveEffectChange
     }
     @Test
     public void getImmuAgainstTypes2() {
-        assertEq(T_TYPE1,elt(callEffectProtectFromTypesBeanImmuAgainstTypesGet(dispMoveEffProtectFromTypes()),0));
+        assertEq(T_TYPE1,eltTkKey(callEffectProtectFromTypesBeanImmuAgainstTypesGet(dispMoveEffProtectFromTypes()),0));
     }
     @Test
     public void getTrType() {

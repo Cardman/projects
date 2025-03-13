@@ -10,7 +10,7 @@ public final class SellerBeanTest extends InitDbCharacters {
     }
     @Test
     public void getAllTmSeller1() {
-        assertEq(M_POK_03,elt(callSellerBeanGetAllTm(),0));
+        assertEq(M_POK_03,eltTkKey(callSellerBeanGetAllTm(),0));
     }
     @Test
     public void getTmSeller() {
@@ -30,7 +30,7 @@ public final class SellerBeanTest extends InitDbCharacters {
     }
     @Test
     public void getItemsSeller1() {
-        assertEq(I_ITEMBATTLE,elt(callSellerBeanGetItems(),0));
+        assertEq(I_ITEMBATTLE,eltTkKey(callSellerBeanGetItems(),0));
     }
     @Test
     public void getItem() {

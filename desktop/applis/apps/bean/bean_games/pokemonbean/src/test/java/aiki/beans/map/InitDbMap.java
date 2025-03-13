@@ -2,6 +2,7 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.db.*;
+import aiki.beans.facade.map.dto.*;
 import aiki.beans.map.characters.*;
 import aiki.beans.map.elements.AreaBean;
 import aiki.beans.map.elements.LegendaryPokemonBean;
@@ -218,8 +219,8 @@ public abstract class InitDbMap extends InitDbConstr {
         return ( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).layers(_place).size();
     }
 
-    public static NaSt callMapBeanPlacesGet() {
-        return PokemonStandards.getPlInd(( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).getPlaces());
+    public static CustList<PlaceIndex> callMapBeanPlacesGet() {
+        return (( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).getPlaces());
     }
 
     protected static NaSt dispMap() {

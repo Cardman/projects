@@ -64,40 +64,68 @@ public abstract class InitDbSolution extends InitDbConstr {
         return ( (SolutionBean) ((PokemonBeanStruct)dispSol()).getInstance()).getPlace(_step,_place);
     }
 
-    public static NaSt callSolutionBeanStepsGet() {
-        return PokemonStandards.getSteDto(( (SolutionBean) ((PokemonBeanStruct)dispSol()).getInstance()).getSteps());
+    public static CustList<StepDto> callSolutionBeanStepsGet() {
+        return (( (SolutionBean) ((PokemonBeanStruct)dispSol()).getInstance()).getSteps());
     }
 
-    public static NaSt callSolutionBeanStepsTwiceGet() {
-        return PokemonStandards.getSteDto(( (SolutionBean) ((PokemonBeanStruct)dispSolTwice()).getInstance()).getSteps());
+    public static CustList<StepDto> callSolutionBeanStepsTwiceGet() {
+        return (( (SolutionBean) ((PokemonBeanStruct)dispSolTwice()).getInstance()).getSteps());
+    }
+//
+//    public static String callPlaceTrainerDtoPlaceGet(NaSt _str) {
+//        return ( ((PlaceTrainerDtoStruct) _str).getPlaceTrainerDto()).getPlace();
+//    }
+//
+//    public static String callPlaceTrainerDtoTrainerGet(NaSt _str) {
+//        return ( ((PlaceTrainerDtoStruct) _str).getPlaceTrainerDto()).getTrainer();
+//    }
+
+    public static String callPlaceTrainerDtoPlaceGet(PlaceTrainerDto _str) {
+        return _str.getPlace();
     }
 
-    public static String callPlaceTrainerDtoPlaceGet(NaSt _str) {
-        return ( ((PlaceTrainerDtoStruct) _str).getPlaceTrainerDto()).getPlace();
+    public static String callPlaceTrainerDtoTrainerGet(PlaceTrainerDto _str) {
+        return _str.getTrainer();
+    }
+//
+//    public static CustList<PlaceTrainerDto> callStepDtoGetNames(NaSt _str) {
+//        return (( ((StepDtoStruct) _str).getStepDto()).getNames());
+//    }
+//
+//    public static AbsMap<PlaceLevel,CustList<WildPokemonDto>> callStepDtoGetPokemon(NaSt _str) {
+//        return (( ((StepDtoStruct) _str).getStepDto()).getPokemon());
+//    }
+
+    public static CustList<PlaceTrainerDto> callStepDtoGetNames(StepDto _str) {
+        return (_str.getNames());
     }
 
-    public static String callPlaceTrainerDtoTrainerGet(NaSt _str) {
-        return ( ((PlaceTrainerDtoStruct) _str).getPlaceTrainerDto()).getTrainer();
+    public static AbsMap<PlaceLevel,CustList<WildPokemonDto>> callStepDtoGetPokemon(StepDto _str) {
+        return (_str.getPokemon());
+    }
+//
+//    public static String callWildPokemonDtoGenderGet(NaSt _str) {
+//        return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getGender();
+//    }
+//
+//    public static int[][] callWildPokemonDtoImageGet(NaSt _str) {
+//        return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getImage();
+//    }
+//
+//    public static String callWildPokemonDtoNameGet(NaSt _str) {
+//        return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getName();
+//    }
+
+    public static String callWildPokemonDtoGenderGet(WildPokemonDto _str) {
+        return _str.getGender();
     }
 
-    public static NaSt callStepDtoGetNames(NaSt _str) {
-        return PokemonStandards.getPlTr(( ((StepDtoStruct) _str).getStepDto()).getNames());
+    public static int[][] callWildPokemonDtoImageGet(WildPokemonDto _str) {
+        return _str.getImage();
     }
 
-    public static NaSt callStepDtoGetPokemon(NaSt _str) {
-        return PokemonStandards.getPlLevWildPkDto(( ((StepDtoStruct) _str).getStepDto()).getPokemon());
-    }
-
-    public static String callWildPokemonDtoGenderGet(NaSt _str) {
-        return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getGender();
-    }
-
-    public static int[][] callWildPokemonDtoImageGet(NaSt _str) {
-        return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getImage();
-    }
-
-    public static String callWildPokemonDtoNameGet(NaSt _str) {
-        return ( ((WildPokemonDtoStruct) _str).getWildPokemonDto()).getName();
+    public static String callWildPokemonDtoNameGet(WildPokemonDto _str) {
+        return _str.getName();
     }
     protected static NaSt dispSol() {
         PkData pk_ = pkDataByFacade(db());

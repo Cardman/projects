@@ -41,7 +41,7 @@ public final class EffectCopyMoveBeanTest extends InitDbMoveEffectCopy {
     }
     @Test
     public void getMovesTransforming2() {
-        assertEq(M_STA,elt(callEffectCopyMoveBeanMovesTransformingGet(dispMoveEffCopyMove(true, 1)),0));
+        assertEq(M_STA,eltTkKey(callEffectCopyMoveBeanMovesTransformingGet(dispMoveEffCopyMove(true, 1)),0));
     }
     @Test
     public void getMovesNotToBeCopied1() {
@@ -49,7 +49,7 @@ public final class EffectCopyMoveBeanTest extends InitDbMoveEffectCopy {
     }
     @Test
     public void getMovesNotToBeCopied2() {
-        assertEq(M_WEA,elt(callEffectCopyMoveBeanMovesNotToBeCopiedGet(dispMoveEffCopyMove(true, 1)),0));
+        assertEq(M_WEA,eltTkKey(callEffectCopyMoveBeanMovesNotToBeCopiedGet(dispMoveEffCopyMove(true, 1)),0));
     }
     @Test
     public void getDisplayName() {

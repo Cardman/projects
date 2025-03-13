@@ -20,8 +20,8 @@ import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.util.*;
 
 public abstract class InitDbEndRound extends InitDbConstr {
 
@@ -189,20 +189,20 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return ( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getItem();
     }
 
-    public static NaSt callEffectEndRoundBeanMapVarsFailEndRoundGet(int _ev) {
-        return PokemonStandards.getStrStr(( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMapVarsFailEndRound());
+    public static AbsMap<String,String> callEffectEndRoundBeanMapVarsFailEndRoundGet(int _ev) {
+        return (( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMapVarsFailEndRound());
     }
 
     public static String callEffectEndRoundBeanMoveGet(int _ev) {
         return ( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMove();
     }
 
-    public static NaSt callEffectEndRoundBeanMovesGet(int _ev) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMoves());
+    public static CustList<String> callEffectEndRoundBeanMovesGet(int _ev) {
+        return (( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMoves());
     }
 
-    public static NaSt callEffectEndRoundBeanReasonsEndRoundGet(int _ev) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getReasonsEndRound());
+    public static CustList<String> callEffectEndRoundBeanReasonsEndRoundGet(int _ev) {
+        return (( (EffectEndRoundBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getReasonsEndRound());
     }
 
     public static String callEffectEndRoundBeanStatusGet(int _ev) {
@@ -236,8 +236,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return ( (EffectEndRoundGlobalBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getHealingEndRoundGround();
     }
 
-    public static NaSt callEffectEndRoundGlobalBeanImmuneTypesGet(int _ev) {
-        return PokemonStandards.getValues(( (EffectEndRoundGlobalBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getImmuneTypes());
+    public static CustList<TranslatedKey> callEffectEndRoundGlobalBeanImmuneTypesGet(int _ev) {
+        return (( (EffectEndRoundGlobalBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getImmuneTypes());
     }
 
     public static boolean callEffectEndRoundGlobalBeanPuttingKoGet(int _ev) {
@@ -287,8 +287,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return ( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getTrUserStatus();
     }
 
-    public static NaSt callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(int _ev) {
-        return PokemonStandards.getStrRateTk(( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getHealHpByOwnerTypes());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(int _ev) {
+        return (( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getHealHpByOwnerTypes());
     }
 
     public static Rate callEffectEndRoundIndividualBeanHealHpGet(int _ev) {
@@ -299,8 +299,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return ( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).isType(_ind);
     }
 
-    public static NaSt callEffectEndRoundIndividualBeanMultDamageStatusGet(int _ev) {
-        return PokemonStandards.getStrRateTk(( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMultDamageStatus());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectEndRoundIndividualBeanMultDamageStatusGet(int _ev) {
+        return (( (EffectEndRoundIndividualBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMultDamageStatus());
     }
 
     public static Rate callEffectEndRoundIndividualBeanRecoilDamageGet(int _ev) {
@@ -326,8 +326,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return ( (EffectEndRoundMultiRelationBean) ((PokemonBeanStruct)_str).getInstance()).clickDamageStatus(_ind);
     }
 
-    public static NaSt callEffectEndRoundMultiRelationBeanDamageByStatusGet(int _ev) {
-        return PokemonStandards.getStrRateTk(( (EffectEndRoundMultiRelationBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getDamageByStatus());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectEndRoundMultiRelationBeanDamageByStatusGet(int _ev) {
+        return (( (EffectEndRoundMultiRelationBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getDamageByStatus());
     }
 
     public static String callEffectEndRoundMultiRelationBeanGetTrDamageStatus(int _ev, int _ind) {
@@ -351,20 +351,20 @@ public abstract class InitDbEndRound extends InitDbConstr {
         callEffectEndRoundPositionTargetBeanClickTargetRelationMove(bean_,_ind);
         return getValMoveId(bean_);
     }
-    public static NaSt callEffectEndRoundPositionTargetBeanGetMovesSameCategory(int _ev) {
-        return PokemonStandards.getKeys(( (EffectEndRoundPositionTargetBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMovesSameCategory());
+    public static CustList<TranslatedKey> callEffectEndRoundPositionTargetBeanGetMovesSameCategory(int _ev) {
+        return (( (EffectEndRoundPositionTargetBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getMovesSameCategory());
     }
 
     public static String callEffectEndRoundPositionTargetBeanGetTrTargetRelationMove(int _ev, int _ind) {
         return ( (EffectEndRoundPositionTargetBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getTrTargetRelationMove(_ind);
     }
 
-    public static NaSt callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(int _ev) {
-        return PokemonStandards.getLgIntRate(( (EffectEndRoundSingleRelationBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getLawForEnablingEffect());
+    public static AbsMap<LgInt,Rate> callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(int _ev) {
+        return (( (EffectEndRoundSingleRelationBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getLawForEnablingEffect());
     }
 
-    public static NaSt callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(int _ev) {
-        return PokemonStandards.getLongRate(( (EffectEndRoundSingleRelationBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getRateDamageFunctionOfNbRounds());
+    public static AbsMap<Long,Rate> callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(int _ev) {
+        return (( (EffectEndRoundSingleRelationBean) ((PokemonBeanStruct)dispEndRound(_ev)).getInstance()).getRateDamageFunctionOfNbRounds());
     }
 //
 //    public static Struct callEffectEndRoundStatusBeanEndRoundStatusHtmlGet(Struct _str, long... _args) {

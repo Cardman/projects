@@ -27,7 +27,7 @@ public final class HealingStatusBeanTest extends InitDbHealingStatus {
     }
     @Test
     public void getStatus2() {
-        assertEq(S_STA_SIM,elt(callHealingStatusBeanStatusGet(statusDb(full(false))),0));
+        assertEq(S_STA_SIM,eltTkKey(callHealingStatusBeanStatusGet(statusDb(full(false))),0));
     }
     @Test
     public void getTrStatus() {

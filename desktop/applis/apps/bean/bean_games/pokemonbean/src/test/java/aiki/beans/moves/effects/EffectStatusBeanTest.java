@@ -29,19 +29,19 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     }
     @Test
     public void getLawStatus2() {
-        assertEq(S_STA_REL,first(elt(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),0)));
+        assertEq(S_STA_REL,firstTkStRtKey(eltTkStRtKey(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),0)));
     }
     @Test
     public void getLawStatus3() {
-        assertEq(Rate.newRate("3/4"),second(elt(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),0)));
+        assertEq(Rate.newRate("3/4"),secondTkStRt(eltTkStRtKey(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),0)));
     }
     @Test
     public void getLawStatus4() {
-        assertEq(S_STA_SIM,first(elt(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),1)));
+        assertEq(S_STA_SIM,firstTkStRtKey(eltTkStRtKey(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),1)));
     }
     @Test
     public void getLawStatus5() {
-        assertEq(Rate.newRate("1/4"),second(elt(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),1)));
+        assertEq(Rate.newRate("1/4"),secondTkStRt(eltTkStRtKey(callEffectStatusBeanLawStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0)),1)));
     }
     @Test
     public void isStatus1() {
@@ -89,11 +89,11 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     }
     @Test
     public void getDeletedStatus2() {
-        assertEq(S_STA_REL,elt(callEffectStatusBeanDeletedStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0)),0));
+        assertEq(S_STA_REL,eltTkKey(callEffectStatusBeanDeletedStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0)),0));
     }
     @Test
     public void getDeletedStatus3() {
-        assertEq(S_STA_SIM,elt(callEffectStatusBeanDeletedStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0)),1));
+        assertEq(S_STA_SIM,eltTkKey(callEffectStatusBeanDeletedStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0)),1));
     }
     @Test
     public void getTrLinkDeleted1() {
@@ -125,10 +125,10 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     }
     @Test
     public void getMapVarsStatus2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR)),0),1),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR)),0),1),0)));
     }
     @Test
     public void getMapVarsStatus3() {
-        assertEq(TIME,second(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR)),0),1),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR)),0),1),0)));
     }
 }

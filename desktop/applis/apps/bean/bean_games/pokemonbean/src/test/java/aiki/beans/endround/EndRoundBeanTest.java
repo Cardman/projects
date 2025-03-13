@@ -44,7 +44,7 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getImmuneTypes2() {
-        assertEq(T_TYPE_ROUND_1_TR,elt(callEffectEndRoundGlobalBeanImmuneTypesGet(5),0));
+        assertEq(T_TYPE_ROUND_1_TR,eltTkTr(callEffectEndRoundGlobalBeanImmuneTypesGet(5),0));
     }
     @Test
     public void getMovesSameCategory1() {
@@ -52,11 +52,11 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getMovesSameCategory2() {
-        assertEq(M_END_5,elt(callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7),0));
+        assertEq(M_END_5,eltTkKey(callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7),0));
     }
     @Test
     public void getMovesSameCategory3() {
-        assertEq(M_END_6,elt(callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7),1));
+        assertEq(M_END_6,eltTkKey(callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7),1));
     }
     @Test
     public void getTrTargetRelationMove1() {
@@ -88,11 +88,11 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getDamageByStatus2() {
-        assertEq(S_STA_RELATION,first(elt(callEffectEndRoundMultiRelationBeanDamageByStatusGet(11),0)));
+        assertEq(S_STA_RELATION,firstTkRtKey(eltTkRtKey(callEffectEndRoundMultiRelationBeanDamageByStatusGet(11),0)));
     }
     @Test
     public void getDamageByStatus3() {
-        assertEq(Rate.one(),second(elt(callEffectEndRoundMultiRelationBeanDamageByStatusGet(11),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectEndRoundMultiRelationBeanDamageByStatusGet(11),0)));
     }
     @Test
     public void getTrDamageStatus() {
@@ -112,19 +112,19 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getRateDamageFunctionOfNbRounds2() {
-        assertEq(1,first(elt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),0)));
+        assertEq(1,firstLgRtKey(eltLgRt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),0)));
     }
     @Test
     public void getRateDamageFunctionOfNbRounds3() {
-        assertEq(Rate.one(),second(elt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),0)));
+        assertEq(Rate.one(),secondLgRt(eltLgRt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),0)));
     }
     @Test
     public void getRateDamageFunctionOfNbRounds4() {
-        assertEq(3,first(elt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),1)));
+        assertEq(3,firstLgRtKey(eltLgRt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),1)));
     }
     @Test
     public void getRateDamageFunctionOfNbRounds5() {
-        assertEq(Rate.newRate("5"),second(elt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),1)));
+        assertEq(Rate.newRate("5"),secondLgRt(eltLgRt(callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(15),1)));
     }
     @Test
     public void getLawForEnablingEffect1() {
@@ -132,19 +132,19 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getLawForEnablingEffect2() {
-        assertEq(LgInt.newLgInt("5"),first(elt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),0)));
+        assertEq(LgInt.newLgInt("5"),firstLtRtKey(eltLtRt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),0)));
     }
     @Test
     public void getLawForEnablingEffect3() {
-        assertEq(Rate.newRate("5/9"),second(elt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),0)));
+        assertEq(Rate.newRate("5/9"),secondLtRt(eltLtRt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),0)));
     }
     @Test
     public void getLawForEnablingEffect4() {
-        assertEq(LgInt.newLgInt("7"),first(elt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),1)));
+        assertEq(LgInt.newLgInt("7"),firstLtRtKey(eltLtRt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),1)));
     }
     @Test
     public void getLawForEnablingEffect5() {
-        assertEq(Rate.newRate("4/9"),second(elt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),1)));
+        assertEq(Rate.newRate("4/9"),secondLtRt(eltLtRt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),1)));
     }
     @Test
     public void getDeleteAllStatus() {
@@ -164,19 +164,19 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getHealHpByOwnerTypes2() {
-        assertEq(NULL_REF,first(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),0)));
+        assertEq(NULL_REF,firstTkRtKey(eltTkRtKey(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),0)));
     }
     @Test
     public void getHealHpByOwnerTypes3() {
-        assertEq(Rate.newRate("2"),second(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),0)));
+        assertEq(Rate.newRate("2"),secondTkRtKey(eltTkRtKey(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),0)));
     }
     @Test
     public void getHealHpByOwnerTypes4() {
-        assertEq(T_TYPE_HEAL,first(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),1)));
+        assertEq(T_TYPE_HEAL,firstTkRtKey(eltTkRtKey(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),1)));
     }
     @Test
     public void getHealHpByOwnerTypes5() {
-        assertEq(Rate.one(),second(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),1)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),1)));
     }
     @Test
     public void isType1() {
@@ -212,11 +212,11 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getMultDamageByStatus2() {
-        assertEq(S_STA_DAM,first(elt(callEffectEndRoundIndividualBeanMultDamageStatusGet(9),0)));
+        assertEq(S_STA_DAM,firstTkRtKey(eltTkRtKey(callEffectEndRoundIndividualBeanMultDamageStatusGet(9),0)));
     }
     @Test
     public void getMultDamageByStatus3() {
-        assertEq(Rate.one(),second(elt(callEffectEndRoundIndividualBeanMultDamageStatusGet(9),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectEndRoundIndividualBeanMultDamageStatusGet(9),0)));
     }
     @Test
     public void getTrMultDamageStatus() {
@@ -272,11 +272,11 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
-        assertEq(TIME,second(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
     }
     @Test
     public void getAbility() {

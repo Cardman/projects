@@ -11,22 +11,22 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
     protected static final String ST_ACC_TR="ST_ACC_TR";
-    public static NaSt callEffectStatisticBeanCancelChgtStatGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelChgtStat());
+    public static CustList<TranslatedKey> callEffectStatisticBeanCancelChgtStatGet(NaSt _str, int... _args) {
+        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelChgtStat());
     }
 
-    public static NaSt callEffectStatisticBeanCancelLowStatGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelLowStat());
+    public static CustList<TranslatedKey> callEffectStatisticBeanCancelLowStatGet(NaSt _str, int... _args) {
+        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelLowStat());
     }
 
-    public static NaSt callEffectStatisticBeanCopyBoostGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCopyBoost());
+    public static CustList<TranslatedKey> callEffectStatisticBeanCopyBoostGet(NaSt _str, int... _args) {
+        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCopyBoost());
     }
 
     public static long callEffectStatisticBeanDefaultBoostGet(NaSt _str, int... _args) {
@@ -57,8 +57,8 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().isAlwaysEnabled();
     }
 
-    public static NaSt callEffectStatisticBeanMapVarsStatisticsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getMapVarsStatistics());
+    public static AbsMap<String,String> callEffectStatisticBeanMapVarsStatisticsGet(NaSt _str, int... _args) {
+        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getMapVarsStatistics());
     }
 
     public static boolean callEffectStatisticBeanNotEmptyVarBoost(NaSt _str, int... _args) {
@@ -69,12 +69,12 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().randomStatis();
     }
 
-    public static NaSt callEffectStatisticBeanStatisVarRankGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrLongStat(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getStatisVarRank());
+    public static DictionaryComparator<TranslatedKey,StatRankRate> callEffectStatisticBeanStatisVarRankGet(NaSt _str, int... _args) {
+        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getStatisVarRank());
     }
 
-    public static NaSt callEffectStatisticBeanSwapBoostStatisGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getSwapBoostStatis().getKeys());
+    public static CustList<TranslatedKey> callEffectStatisticBeanSwapBoostStatisGet(NaSt _str, int... _args) {
+        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getSwapBoostStatis().getKeys());
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectStatistic _eff) {

@@ -167,7 +167,7 @@ public abstract class InitDbItems extends InitDbConstr {
 //    }
 
     protected static NaSt transitToAllItemsQuick(PkData _pk, StringMap<NaSt> _all, String _it) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt items_ = _all.getVal(BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,items_);
@@ -179,7 +179,7 @@ public abstract class InitDbItems extends InitDbConstr {
 
 
     protected static NaSt transitToAllItemsClick(PkData _pk, StringMap<NaSt> _all, String _it) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt items_ = _all.getVal(BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,items_);
@@ -196,7 +196,7 @@ public abstract class InitDbItems extends InitDbConstr {
 
     private static NaSt dispAllItems(PkData _pk) {
         StringMap<NaSt> all_ = beanToItems(_pk);
-        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,moves_);
@@ -204,7 +204,7 @@ public abstract class InitDbItems extends InitDbConstr {
     }
     public static StringMap<NaSt> beanToItems(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
         ItemsBean its_ = new ItemsBean();
         its_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
         map_.addEntry(BEAN_ITEMS, _pk.bean(its_, EN));

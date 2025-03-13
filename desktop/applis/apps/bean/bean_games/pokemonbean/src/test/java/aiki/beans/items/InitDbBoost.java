@@ -5,8 +5,9 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
 import code.bean.nat.*;
-import code.maths.Rate;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbBoost extends InitDbItem {
 
@@ -19,8 +20,8 @@ public abstract class InitDbBoost extends InitDbItem {
         return getValItemId(_str);
     }
 
-    public static NaSt callBoostBeanEvsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStaByte(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getEvs());
+    public static DictionaryComparator<TranslatedKey,Long> callBoostBeanEvsGet(NaSt _str, int... _args) {
+        return (( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getEvs());
     }
 
     public static String callBoostBeanGetTrEv(NaSt _str, int... _args) {
@@ -31,8 +32,8 @@ public abstract class InitDbBoost extends InitDbItem {
         return ( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getTrHappiness(_args[0]);
     }
 
-    public static NaSt callBoostBeanHappinessGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrLong(( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness());
+    public static DictionaryComparator<TranslatedKey,Long> callBoostBeanHappinessGet(NaSt _str, int... _args) {
+        return (( (BoostBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness());
     }
 
     public static boolean callBoostBeanIsBall(NaSt _str, int... _args) {

@@ -10,7 +10,7 @@ import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbHealingStatus extends InitDbHealing {
 
@@ -39,8 +39,8 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
         return HealingStatusBean.HEALING_STATUS_BEAN;
     }
 
-    public static NaSt callHealingStatusBeanStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getStatus());
+    public static CustList<TranslatedKey> callHealingStatusBeanStatusGet(NaSt _str, int... _args) {
+        return (( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getStatus());
     }
 
     public static StringMap<NaSt> beanToHealingStatus(PkData _pk) {

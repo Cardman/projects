@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.beans.PokemonBeanStruct;
 import aiki.util.Coords;
 import code.bean.nat.*;
+import code.util.*;
 
 public abstract class InitDbLevelMap extends InitDbMap {
 
@@ -197,12 +198,12 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return navigateData(new MapLevelBeanClickAreaOnMap((AbsLevelBean)((PokemonBeanStruct)level_).getBean(),_tile), level_);
     }
 
-    public static NaSt callMapLevelBeanWhiteTilesGet(int _place) {
-        return PokemonStandards.getPtStr(( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getWhiteTiles());
+    public static int callMapLevelBeanWhiteTilesGet(int _place) {
+        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getWhiteTiles().size();
     }
 
-    public static NaSt callMapLevelBeanNeighboursGet(int _place) {
-        return PokemonStandards.getIntStr(( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getNeighbours());
+    public static AbsMap<Integer,String> callMapLevelBeanNeighboursGet(int _place) {
+        return (( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getNeighbours());
     }
 
     public static String callMapLevelBeanClickNeighbour(int _place, int _index) {
@@ -256,12 +257,12 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanSeeAreaGet(),_str,_args);
 //    }
 
-    public static NaSt callMapLevelBeanTilesGet(int _place, int _level) {
-        return PokemonStandards.getPtStr(( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getTiles());
-    }
+//    public static NaSt callMapLevelBeanTilesGet(int _place, int _level) {
+//        return PokemonStandards.getPtStr(( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getTiles());
+//    }
 
-    public static NaSt callMapLevelBeanTilesGet(int _place) {
-        return PokemonStandards.getPtStr(( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getTiles());
+    public static int callMapLevelBeanTilesGet(int _place) {
+        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getTiles().size();
     }
 
     public static boolean callMapLevelBeanWithoutTitle(int _place, int _tile, int _cell) {

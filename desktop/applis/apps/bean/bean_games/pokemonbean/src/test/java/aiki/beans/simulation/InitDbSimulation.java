@@ -37,8 +37,8 @@ import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
+import aiki.beans.facade.map.dto.*;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public abstract class InitDbSimulation extends InitDbConstr {
     public static final String M_POK_00 = "M_POK00";
@@ -149,12 +149,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final int IMG_SI = IMG_DUAL2 + 1;
     public static final int IMG_ITEM = 16777215;
 
-    public static NaSt callSimulationBeanAbilitiesAfterFightGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesAfterFight());
+    public static AbsMap<String,String> callSimulationBeanAbilitiesAfterFightGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesAfterFight());
     }
 
-    public static NaSt callSimulationBeanAbilitiesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
+    public static AbsMap<String,String> callSimulationBeanAbilitiesGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
     }
 
     public static String callSimulationBeanAbilityAfterFightGet(NaSt _str, int... _args) {
@@ -181,12 +181,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAllyChoice().isSelected();
     }
 
-    public static NaSt callSimulationBeanAllyTeamGet(NaSt _str, int... _args) {
-        return PokemonStandards.getPkTrDto(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAllyTeam());
+    public static CustList<PokemonTrainerDto> callSimulationBeanAllyTeamGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAllyTeam());
     }
 
-    public static NaSt callSimulationBeanAvailableEvosGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableEvos());
+    public static AbsMap<String,String> callSimulationBeanAvailableEvosGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableEvos());
     }
 
 //    public static NaSt callSimulationBeanCancelDiffChoice(NaSt _str, long... _args) {
@@ -245,8 +245,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevelZero(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanCommentsGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getComments());
+    public static CustList<String> callSimulationBeanCommentsGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getComments());
     }
 
     public static String callSimulationBeanCurrentAbilityGet(NaSt _str, int... _args) {
@@ -301,20 +301,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).environment();
     }
 
-    public static NaSt callSimulationBeanEnvironmentsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEnvironments());
+    public static AbsMap<String,String> callSimulationBeanEnvironmentsGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEnvironments());
     }
 
     public static String callSimulationBeanEvolutionAfterFightGet(NaSt _str, int... _args) {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutionAfterFight().tryRet();
     }
 
-    public static NaSt callSimulationBeanEvolutionsAfterFightGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutionsAfterFight());
+    public static AbsMap<String,String> callSimulationBeanEvolutionsAfterFightGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutionsAfterFight());
     }
 
-    public static NaSt callSimulationBeanFoeTeamGet(NaSt _str) {
-        return PokemonStandards.getPkTrDto(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getFoeTeam());
+    public static CustList<PokemonTrainerDto> callSimulationBeanFoeTeamGet(NaSt _str) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getFoeTeam());
     }
 
     public static boolean callSimulationBeanFreeTeamsGet(int _team) {
@@ -385,12 +385,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getItemFoe(_index);
     }
 
-    public static NaSt callSimulationBeanGetKoFoes(NaSt _str) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKoFoes());
+    public static CustList<String> callSimulationBeanGetKoFoes(NaSt _str) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKoFoes());
     }
 
-    public static NaSt callSimulationBeanGetKoPlayers(NaSt _str) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKoPlayers());
+    public static CustList<String> callSimulationBeanGetKoPlayers(NaSt _str) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKoPlayers());
     }
 
     public static long callSimulationBeanGetLevel(NaSt _str, int _index) {
@@ -409,20 +409,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelFoe(_index);
     }
 
-    public static NaSt callSimulationBeanGetMoves(NaSt _str, int _index) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMoves(_index));
+    public static CustList<String> callSimulationBeanGetMoves(NaSt _str, int _index) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMoves(_index));
     }
 
-    public static NaSt callSimulationBeanGetMovesAfterFight(NaSt _str, int _index) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesAfterFight(_index));
+    public static CustList<String> callSimulationBeanGetMovesAfterFight(NaSt _str, int _index) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesAfterFight(_index));
     }
 
-    public static NaSt callSimulationBeanGetMovesAlly(NaSt _str, int _index) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesAlly(_index));
+    public static CustList<String> callSimulationBeanGetMovesAlly(NaSt _str, int _index) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesAlly(_index));
     }
 
-    public static NaSt callSimulationBeanGetMovesFoe(NaSt _str, int _index) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesFoe(_index));
+    public static CustList<String> callSimulationBeanGetMovesFoe(NaSt _str, int _index) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesFoe(_index));
     }
 
     public static String callSimulationBeanGetName(NaSt _str, int _index) {
@@ -441,8 +441,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNameFoe(_index);
     }
 
-    public static NaSt callSimulationBeanGetNotKoFrontFoes(NaSt _str) {
-        return BeanNatCommonLgNames.getStringArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNotKoFrontFoes());
+    public static CustList<String> callSimulationBeanGetNotKoFrontFoes(NaSt _str) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNotKoFrontFoes());
     }
 
     public static long callSimulationBeanGetRealStepNumber(NaSt _str) {
@@ -565,12 +565,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIvPlayerGet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanKeptMovesAfterFightGet(NaSt _str, int... _args) {
-        return PokemonStandards.getSelectLineMove(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKeptMovesAfterFight());
+    public static CustList<SelectLineMove> callSimulationBeanKeptMovesAfterFightGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKeptMovesAfterFight());
     }
 
-    public static NaSt callSimulationBeanKeptMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getSelectLineMove(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKeptMoves());
+    public static CustList<SelectLineMove> callSimulationBeanKeptMovesGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKeptMoves());
     }
 
     public static int callSimulationBeanLayers(NaSt _str, int... _args) {
@@ -581,8 +581,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelEvo().valueLong();
     }
 
-    public static NaSt callSimulationBeanMovesSetGet(NaSt _str, int... _args) {
-        return PokemonStandards.getRdMvLine(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesSet());
+    public static CustList<RadioLineMove> callSimulationBeanMovesSetGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesSet());
     }
 
     public static long callSimulationBeanMultiplicityGet(NaSt _str, int... _args) {
@@ -605,8 +605,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).numberNecessaryPointsForGrowingLevel(_index);
     }
 
-    public static NaSt callSimulationBeanNumbers(int _teams) {
-        return PokemonStandards.getIntArray(( (SimulationBean) ((PokemonBeanStruct)validateDiff(_teams)).getInstance()).getNumbers());
+    public static CustList<Integer> callSimulationBeanNumbers(int _teams) {
+        return (( (SimulationBean) ((PokemonBeanStruct)validateDiff(_teams)).getInstance()).getNumbers());
     }
 
     public static boolean callSimulationBeanOkGet(NaSt _str, int... _args) {
@@ -617,12 +617,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return Long.toString(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlaceFight().valueInt());
     }
 
-    public static NaSt callSimulationBeanPlacesFightGet(NaSt _str, int... _args) {
-        return PokemonStandards.getIntStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlacesFight());
+    public static AbsMap<Integer,String> callSimulationBeanPlacesFightGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlacesFight());
     }
 
-    public static NaSt callSimulationBeanPlacesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getPlInd(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlaces());
+    public static CustList<PlaceIndex> callSimulationBeanPlacesGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlaces());
     }
 
 //    public static NaSt callSimulationBeanQuit(NaSt _str, long... _args) {
@@ -649,8 +649,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanRestoredMovesEndFightGet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanRoundGet(NaSt _str, int... _args) {
-        return PokemonStandards.getIntStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRound());
+    public static AbsMap<Integer,String> callSimulationBeanRoundGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRound());
     }
 
 //    public static NaSt callSimulationBeanSelectAllyPk(NaSt _str, long... _args) {
@@ -733,20 +733,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanStillPossibleFleeGet(),_str,_args);
 //    }
 
-    public static NaSt callSimulationBeanTargetFightGet(NaSt _str, int... _args) {
-        return PokemonStandards.getIntStr(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTargetFight());
+    public static AbsMap<Integer,String> callSimulationBeanTargetFightGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTargetFight());
     }
 
     public static String callSimulationBeanTargetGet(NaSt _str, int... _args) {
         return Long.toString(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTarget().valueInt());
     }
 
-    public static NaSt callSimulationBeanTeamAfterFightGet(NaSt _str, int... _args) {
-        return PokemonStandards.getPkPlayerArray(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTeamAfterFight());
+    public static CustList<PokemonPlayer> callSimulationBeanTeamAfterFightGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTeamAfterFight());
     }
 
-    public static NaSt callSimulationBeanTeamGet(NaSt _str, int... _args) {
-        return PokemonStandards.getPkPlDto(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTeam());
+    public static CustList<PokemonPlayerDto> callSimulationBeanTeamGet(NaSt _str, int... _args) {
+        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTeam());
     }
 
 //    public static NaSt callSimulationBeanValidateDiffChoice(NaSt _str, long... _args) {
@@ -1076,8 +1076,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         ( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).getNoFight().valueLong(_args);
     }
 
-    public static void callSelectLineMoveSelectedSet(NaSt _str, boolean _args) {
-        ( (SelectLineMove) ((MvLineStruct) _str).getWildPk()).getSelected().setSelected(_args);
+    public static void callSelectLineMoveSelectedSet(SelectLineMove _str, boolean _args) {
+        _str.getSelected().setSelected(_args);
     }
 
 
@@ -1113,8 +1113,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingHp().valueRate(_args);
     }
 
-    public static long callEvLineEvGet(NaSt _str, long... _args) {
-        return (((EvLineStruct) _str).getEvLine()).getEv().valueLong();
+//    public static long callEvLineEvGet(NaSt _str, long... _args) {
+//        return (((EvLineStruct) _str).getEvLine()).getEv().valueLong();
+//    }
+
+    public static long callEvLineEvGet(EvLine _str, long... _args) {
+        return _str.getEv().valueLong();
     }
 //    public static NaSt callEvLineEvSet(NaSt _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new EvLineEvSet(),_str,_args);
@@ -1125,20 +1129,35 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    public static NaSt callDifficultyBeanComSet(NaSt _str, NaSt _diffCom) {
 //        return BeanPokemonCommonTs.callStruct(new DifficultyBeanComSet(),_str,_diffCom);
 //    }
+//
+//    public static long callPokemonPlayerDtoIndexGet(NaSt _str, long... _args) {
+//        return ( ((PokemonPlayerDtoStruct) _str).getPokemonPlayerDto()).getIndex();
+//    }
+//
+//    public static long callPokemonTrainerDtoIndexGet(NaSt _str, long... _args) {
+//        return ( ((PokemonTrainerDtoStruct) _str).getPokemonTrainerDto()).getIndex();
+//    }
+//    public static long callRadioLineMoveIndexGet(NaSt _str, long... _args) {
+//        return ( (RadioLineMove) ((MvLineStruct) _str).getWildPk()).getIndex();
+//    }
+//
+//    public static boolean callSelectLineMoveSelectedGet(NaSt _str, long... _args) {
+//        return ((SelectLineMove) ((MvLineStruct) _str).getWildPk()).isSelected();
+//    }
 
-    public static long callPokemonPlayerDtoIndexGet(NaSt _str, long... _args) {
-        return ( ((PokemonPlayerDtoStruct) _str).getPokemonPlayerDto()).getIndex();
+    public static long callPokemonPlayerDtoIndexGet(PokemonPlayerDto _str, long... _args) {
+        return _str.getIndex();
     }
 
-    public static long callPokemonTrainerDtoIndexGet(NaSt _str, long... _args) {
-        return ( ((PokemonTrainerDtoStruct) _str).getPokemonTrainerDto()).getIndex();
+    public static long callPokemonTrainerDtoIndexGet(PokemonTrainerDto _str, long... _args) {
+        return _str.getIndex();
     }
-    public static long callRadioLineMoveIndexGet(NaSt _str, long... _args) {
-        return ( (RadioLineMove) ((MvLineStruct) _str).getWildPk()).getIndex();
+    public static long callRadioLineMoveIndexGet(RadioLineMove _str, long... _args) {
+        return _str.getIndex();
     }
 
-    public static boolean callSelectLineMoveSelectedGet(NaSt _str, long... _args) {
-        return ((SelectLineMove) ((MvLineStruct) _str).getWildPk()).isSelected();
+    public static boolean callSelectLineMoveSelectedGet(SelectLineMove _str, long... _args) {
+        return _str.isSelected();
     }
 //    public static Struct callSimulationLevelBeanCancel(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanCancel(),_str,_args);
@@ -1193,8 +1212,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
 
-    public static NaSt callAddPokemonBeanAbilitiesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
+    public static AbsMap<String,String> callAddPokemonBeanAbilitiesGet(NaSt _str, int... _args) {
+        return (( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
     }
 
     public static String callAddPokemonBeanAbilityGet(NaSt _str, int... _args) {
@@ -1205,8 +1224,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAdd(),_str,_args);
 //    }
 
-    public static NaSt callAddPokemonBeanBooleansGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
+    public static AbsMap<String,String> callAddPokemonBeanBooleansGet(NaSt _str, int... _args) {
+        return (( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
     }
 
 //    public static NaSt callAddPokemonBeanCancel(NaSt _str, long... _args) {
@@ -1217,8 +1236,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGender().tryRet();
     }
 
-    public static NaSt callAddPokemonBeanGendersGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGenders());
+    public static AbsMap<String,String> callAddPokemonBeanGendersGet(NaSt _str, int... _args) {
+        return (((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGenders());
     }
 
     public static int[][] callAddPokemonBeanGetMiniImage() {
@@ -1273,8 +1292,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBall().tryRet();
     }
 
-    public static NaSt callEditPokemonBeanBallsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBalls());
+    public static AbsMap<String,String> callEditPokemonBeanBallsGet(NaSt _str, int... _args) {
+        return (( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBalls());
     }
 
 //    public static NaSt callEditPokemonBeanCancel(NaSt _str, long... _args) {
@@ -1293,8 +1312,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanEdit(),_str,_args);
 //    }
 
-    public static NaSt callEditPokemonBeanEvGet(NaSt _str, int... _args) {
-        return PokemonStandards.getEvLine(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getEv());
+    public static AbsMap<Statistic,EvLine> callEditPokemonBeanEvGet(NaSt _str, int... _args) {
+        return (( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getEv());
     }
 
     public static Rate callEditPokemonBeanExperienceGet(NaSt _str, int... _args) {
@@ -1317,8 +1336,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getLevel();
     }
 
-    public static NaSt callEditPokemonBeanMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getSelectLineMove(( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<SelectLineMove> callEditPokemonBeanMovesGet(NaSt _str, int... _args) {
+        return (( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
     }
 
     public static String callEditPokemonBeanNamePkGet(NaSt _str, int... _args) {
@@ -1349,16 +1368,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCancel(),_str,_args);
 //    }
 
-    public static NaSt callEditPokemonMovesBeanCategoriesGet(NaSt _str) {
-        return PokemonStandards.getStrStr(( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getCategories());
+    public static AbsMap<String,String> callEditPokemonMovesBeanCategoriesGet(NaSt _str) {
+        return (( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getCategories());
     }
 
     public static String callEditPokemonMovesBeanCategoryGet(NaSt _str, int... _args) {
         return ((EditPokemonMovesBean) ((PokemonBeanStruct) _str).getInstance()).getTypedCategory().tryRet();
     }
 
-    public static NaSt callEditPokemonMovesBeanMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getSelectLineMove(( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<SelectLineMove> callEditPokemonMovesBeanMovesGet(NaSt _str, int... _args) {
+        return (( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
     }
 
     public static boolean callEditPokemonMovesBeanPlayerGet(NaSt _str, int... _args) {
@@ -1417,8 +1436,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGender().tryRet();
     }
 
-    public static NaSt callEditTrainerPokemonBeanGendersGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGenders());
+    public static AbsMap<String,String> callEditTrainerPokemonBeanGendersGet(NaSt _str, int... _args) {
+        return (((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGenders());
     }
 
     public static String callEditTrainerPokemonBeanGetTranslatedAbility(NaSt _str) {
@@ -1437,8 +1456,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getLevel().valueLong();
     }
 
-    public static NaSt callEditTrainerPokemonBeanMovesGet(NaSt _str) {
-        return PokemonStandards.getSelectLineMove(( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<SelectLineMove> callEditTrainerPokemonBeanMovesGet(NaSt _str) {
+        return (( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
     }
 
 //    public static NaSt callEditTrainerPokemonBeanValidateTrainerPk(NaSt _str, long... _args) {
@@ -1461,8 +1480,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callSelectAbilityBeanSortedAbilitiesGet(NaSt _str) {
-        return PokemonStandards.getKeys(( (SelectAbilityBean) ((PokemonBeanStruct)_str).getInstance()).sortedAbilitiesGet());
+    public static CustList<TranslatedKey> callSelectAbilityBeanSortedAbilitiesGet(NaSt _str) {
+        return (( (SelectAbilityBean) ((PokemonBeanStruct)_str).getInstance()).sortedAbilitiesGet());
     }
 
     public static String callSelectAbilityBeanTypedAbilityGet(NaSt _str) {
@@ -1505,8 +1524,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().tryRet();
     }
 
-    public static NaSt callSelectPokemonBeanBooleansGet(NaSt _str) {
-        return PokemonStandards.getStrStr(( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
+    public static AbsMap<String,String> callSelectPokemonBeanBooleansGet(NaSt _str) {
+        return (( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
     }
 
 //    public static NaSt callSelectPokemonBeanCancel(NaSt _str, long... _args) {
@@ -1871,7 +1890,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PkData pk_ = pkDataByFacade(db());
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(editPkTrainer_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(editPkTrainer_),0),true);
         PokemonBeanStruct after_ =transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
         callEditTrainerPokemonBeanAllyPkSet(after_,false);
         return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) after_.getBean()), simu_.getInstance().getBuilder());
@@ -2141,7 +2160,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
         PokemonBeanStruct re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
-        callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         return transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
     }
     protected static PokemonBeanStruct addPkTrainerChangeMoves(boolean _ally) {
@@ -2149,7 +2168,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
         PokemonBeanStruct re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
-        callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         PokemonBeanStruct afterDel_ =transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
         callEditTrainerPokemonBeanAllyPkSet(afterDel_,_ally);
         return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) afterDel_.getBean()), simu_.getInstance().getBuilder());
@@ -2190,7 +2209,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static PokemonBeanStruct addMoveGene(String _name, int _row, PokemonBeanStruct _editMoves) {
         callEditPokemonMovesBeanTypedNameSet(_editMoves, _name);
         PokemonBeanStruct foundMoves_ =transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) _editMoves.getBean()), _editMoves.getInstance().getBuilder());
-        callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
         return transitSimu(new EditPokemonMovesBeanAddMoves((EditPokemonMovesBean) foundMoves_.getBean()), _editMoves.getInstance().getBuilder());
     }
     protected static PokemonBeanStruct pkTrainerSetMovesType(String _type, boolean _wholeWord) {
@@ -2212,7 +2231,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PkData pk_ = pkDataByFacade(db());
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         PokemonBeanStruct edit_ = goToAddPkTrainer(simu_);
-        callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
         return edit_;
     }
     protected static String editNoPlayerPk() {
@@ -2277,7 +2296,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callEditPokemonBeanExperienceSet(editing_, _exp);
         callEditPokemonBeanHappinessSet(editing_,1);
         callEditPokemonBeanRemainingHpSet(editing_, _hp);
-        ( ((EvLineStruct) second(elt(callEditPokemonBeanEvGet(editing_),2))).getEvLine()).getEv().valueLong(33);
+        secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editing_),2)).getEv().valueLong(33);
 //        callEvLineEvSet(second(elt(callEditPokemonBeanEvGet(editing_),2)),33);
         return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
     }
@@ -2286,7 +2305,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(editing_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(editing_),0),true);
         transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
         return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
     }
@@ -2295,7 +2314,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(editing_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(editing_),0),true);
         transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
         return transitSimu(new EditPokemonBeanCancel((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
     }
@@ -2377,7 +2396,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(simu_);
         PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         PokemonBeanStruct se_ = searchMovePlayer(M_POK_04_TR, editing_, false);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(se_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonMovesBeanMovesGet(se_),0),true);
         return transitSimu(new EditPokemonMovesBeanCancel((EditPokemonMovesBean) se_.getBean()), simu_.getInstance().getBuilder());
     }
 
@@ -2394,7 +2413,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(simu_);
         PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
         return transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
     }
     protected static String editForgetSelectedPlayerPk() {
@@ -2413,7 +2432,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
         PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
         PokemonBeanStruct afterDel_ =transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
         return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_.getBean()), simu_.getInstance().getBuilder());
     }
@@ -2688,7 +2707,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return oneFight(simu_);
     }
 
-    protected static NaSt pkPlayerFighterSimulateComment() {
+    protected static CustList<String> pkPlayerFighterSimulateComment() {
         PkData pk_ = pkDataByFacade(db());
         PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
@@ -2819,7 +2838,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
         PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
         PokemonBeanStruct afterDel_ =transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
         transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_.getBean()), simu_.getInstance().getBuilder());
         pkTrainerSelectPkPlayerNameCycle(P_POK_04_TR,A_SIM_1, simu_,41);
@@ -2902,9 +2921,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        callSimulationBeanSelectedPkSet(simu_, 1);
         assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getBean(), 1), simu_.getInstance().getBuilder()));
         callSimulationBeanCurrentAbilitySet(simu_, A_SIM_1);
-        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),0),true);
-        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),1),true);
-        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),2),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),1),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),2),true);
         transitSimu(new SimulationBeanValidateMoves((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
         return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
     }
@@ -2919,9 +2938,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        callSimulationBeanSelectedPkSet(simu_, 1);
         assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getBean(), 1), simu_.getInstance().getBuilder()));
         callSimulationBeanCurrentAbilitySet(simu_, A_SIM_1);
-        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),0),true);
-        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),1),true);
-        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),2),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),1),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),2),true);
         transitSimu(new SimulationBeanValidateMoves((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
         transitSimu(new SimulationBeanCancelMoves((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
         return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
@@ -4165,7 +4184,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         PokemonBeanStruct editing_ = editPkPlayer(_simu, P_POK_01_TR, A_SIM_1, _teamIndex, 41, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
         PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
         PokemonBeanStruct afterDel_ =transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), _simu.getInstance().getBuilder());
         PokemonBeanStruct af_ =transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_.getBean()), _simu.getInstance().getBuilder());
         assertSame(af_, _simu);
@@ -4180,7 +4199,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
 //        assertSame(editing_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,editing_));
 //        Struct re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
-//        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+//        callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
 //        Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves(), re_);
 //        return transitSimu(pk_, all_, mapping_,new EditPokemonBeanEdit(),afterDel_);
 //    }

@@ -134,26 +134,26 @@ public final class CommonBeanTest extends InitDbWelcome {
         t_.addQuickEvent(BoolVal.TRUE, LgInt.one());
         assertEq(Rate.one(),CommonBean.rateTrue(t_));
     }
-    @Test
-    public void rateAbs() {
-        assertEq(Rate.one(),callRateAbsNb(new RtSt(Rate.minusOne())));
-    }
-    @Test
-    public void rateZero1() {
-        assertFalse(callRateIsZero(new RtSt(Rate.one())));
-    }
-    @Test
-    public void rateZero2() {
-        assertTrue(callRateIsZero(new RtSt(Rate.zero())));
-    }
-    @Test
-    public void rateZeroGt1() {
-        assertTrue(callRateIsZeroOrGt(new RtSt(Rate.one())));
-    }
-    @Test
-    public void rateZeroGt2() {
-        assertFalse(callRateIsZeroOrGt(new RtSt(Rate.minusOne())));
-    }
+//    @Test
+//    public void rateAbs() {
+//        assertEq(Rate.one(),callRateAbsNb(new RtSt(Rate.minusOne())));
+//    }
+//    @Test
+//    public void rateZero1() {
+//        assertFalse(callRateIsZero(new RtSt(Rate.one())));
+//    }
+//    @Test
+//    public void rateZero2() {
+//        assertTrue(callRateIsZero(new RtSt(Rate.zero())));
+//    }
+//    @Test
+//    public void rateZeroGt1() {
+//        assertTrue(callRateIsZeroOrGt(new RtSt(Rate.one())));
+//    }
+//    @Test
+//    public void rateZeroGt2() {
+//        assertFalse(callRateIsZeroOrGt(new RtSt(Rate.minusOne())));
+//    }
 
     @Test
     public void forms1() {
@@ -236,17 +236,17 @@ public final class CommonBeanTest extends InitDbWelcome {
         return new RedirectSt(_key, DEF_DIR);
     }
 
-    public static Rate callRateAbsNb(NaSt _str, int... _args) {
-        return ( ((RtSt) _str).getInstance()).absNb();
-    }
-
-    public static boolean callRateIsZero(NaSt _str, int... _args) {
-        return ( ((RtSt) _str).getInstance()).isZero();
-    }
-
-    public static boolean callRateIsZeroOrGt(NaSt _str, int... _args) {
-        return ( ((RtSt) _str).getInstance()).isZeroOrGt();
-    }
+//    public static Rate callRateAbsNb(NaSt _str, int... _args) {
+//        return ( ((RtSt) _str).getInstance()).absNb();
+//    }
+//
+//    public static boolean callRateIsZero(NaSt _str, int... _args) {
+//        return ( ((RtSt) _str).getInstance()).isZero();
+//    }
+//
+//    public static boolean callRateIsZeroOrGt(NaSt _str, int... _args) {
+//        return ( ((RtSt) _str).getInstance()).isZeroOrGt();
+//    }
     private String value(StringMapObject _forms) {
         return _forms.getValStr(KEY);
     }

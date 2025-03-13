@@ -11,8 +11,7 @@ import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbItemEvolving extends InitDbItem {
 
@@ -36,8 +35,8 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return ( (EvolvingItemBean) ((PokemonBeanStruct)healEvoItem()).getInstance()).getTrPokemon(0);
     }
 
-    public static NaSt callEvolvingItemBeanPokemonGet() {
-        return PokemonStandards.getKeys(( (EvolvingItemBean) ((PokemonBeanStruct)healEvoItem()).getInstance()).getPokemon());
+    public static CustList<TranslatedKey> callEvolvingItemBeanPokemonGet() {
+        return (( (EvolvingItemBean) ((PokemonBeanStruct)healEvoItem()).getInstance()).getPokemon());
     }
 
     public static String callEvolvingStoneBeanClickPokemon() {
@@ -58,8 +57,8 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return ( (EvolvingStoneBean) ((PokemonBeanStruct)healEvoStone()).getInstance()).getTrPokemon(0);
     }
 
-    public static NaSt callEvolvingStoneBeanPokemonGet() {
-        return PokemonStandards.getKeys(( (EvolvingStoneBean) ((PokemonBeanStruct)healEvoStone()).getInstance()).getPokemon());
+    public static CustList<TranslatedKey> callEvolvingStoneBeanPokemonGet() {
+        return (( (EvolvingStoneBean) ((PokemonBeanStruct)healEvoStone()).getInstance()).getPokemon());
     }
 
     public static String callFossilBeanClickPokemon() {

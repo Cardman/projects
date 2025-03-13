@@ -31,11 +31,11 @@ public final class EffectCounterAttackBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMapVarsFailCounter2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffCounterAttack()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffCounterAttack()),0)));
     }
     @Test
     public void getMapVarsFailCounter3() {
-        assertEq(TIME,second(elt(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffCounterAttack()),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectCounterAttackBeanGetMapVarsFailCounter(dispMoveEffCounterAttack()),0)));
     }
     @Test
     public void getSufferingDamageTypes1() {
@@ -43,11 +43,11 @@ public final class EffectCounterAttackBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getSufferingDamageTypes2() {
-        assertEq(T_TYPE1,first(elt(callEffectCounterAttackBeanSufferingDamageTypesGet(dispMoveEffCounterAttack()),0)));
+        assertEq(T_TYPE1,firstTkRtKey(eltTkRtKey(callEffectCounterAttackBeanSufferingDamageTypesGet(dispMoveEffCounterAttack()),0)));
     }
     @Test
     public void getSufferingDamageTypes3() {
-        assertEq(Rate.one(),second(elt(callEffectCounterAttackBeanSufferingDamageTypesGet(dispMoveEffCounterAttack()),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectCounterAttackBeanSufferingDamageTypesGet(dispMoveEffCounterAttack()),0)));
     }
     @Test
     public void getTrSufferingDamageTypes() {
@@ -59,7 +59,7 @@ public final class EffectCounterAttackBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getDroppedStatDirectMove2() {
-        assertEq(1,second(elt(callEffectCounterAttackBeanDroppedStatDirectMoveGet(dispMoveEffCounterAttack()),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callEffectCounterAttackBeanDroppedStatDirectMoveGet(dispMoveEffCounterAttack()),0)));
     }
     @Test
     public void getTrDroppedStatDirectMove() {

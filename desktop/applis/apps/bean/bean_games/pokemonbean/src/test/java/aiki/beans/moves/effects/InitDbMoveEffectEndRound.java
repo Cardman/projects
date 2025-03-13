@@ -11,7 +11,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
 
@@ -19,12 +19,12 @@ public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
         return ( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getEndRoundRank();
     }
 
-    public static NaSt callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailEndRound());
+    public static AbsMap<String,String> callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(NaSt _str, int... _args) {
+        return (( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailEndRound());
     }
 
-    public static NaSt callEffectEndRoundMoveBeanReasonsEndRoundGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsEndRound());
+    public static CustList<String> callEffectEndRoundMoveBeanReasonsEndRoundGet(NaSt _str, int... _args) {
+        return (( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsEndRound());
     }
     protected static NaSt dispMoveEffEndRound() {
         return dispMoveEffEndRound(feedDbMoveEffDataDam());

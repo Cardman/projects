@@ -12,9 +12,9 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
-import code.maths.Rate;
-import code.util.IdMap;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
 
@@ -75,8 +75,8 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
         return ( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getTrUserTypes(_args[0]);
     }
 
-    public static NaSt callEffectInvokeBeanGlobalMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMoves());
+    public static CustList<TranslatedKey> callEffectInvokeBeanGlobalMovesGet(NaSt _str, int... _args) {
+        return (( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMoves());
     }
 
     public static boolean callEffectInvokeBeanInvokingAllyMoveGet(NaSt _str, int... _args) {
@@ -87,8 +87,8 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
         return ( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingMoveButUser();
     }
 
-    public static NaSt callEffectInvokeBeanInvokingMoveByUserTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStrKey(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingMoveByUserTypes());
+    public static DictionaryComparator<TranslatedKey,TranslatedKey> callEffectInvokeBeanInvokingMoveByUserTypesGet(NaSt _str, int... _args) {
+        return (( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getInvokingMoveByUserTypes());
     }
 
     public static boolean callEffectInvokeBeanInvokingSufferedMoveGet(NaSt _str, int... _args) {
@@ -111,12 +111,12 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
         return ( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).isType(_args[0]);
     }
 
-    public static NaSt callEffectInvokeBeanMoveFctEnvGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStrKey(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getMoveFctEnv());
+    public static DictionaryComparator<TranslatedKey,TranslatedKey> callEffectInvokeBeanMoveFctEnvGet(NaSt _str, int... _args) {
+        return (( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getMoveFctEnv());
     }
 
-    public static NaSt callEffectInvokeBeanMovesNotToBeInvokedGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getMovesNotToBeInvoked());
+    public static CustList<TranslatedKey> callEffectInvokeBeanMovesNotToBeInvokedGet(NaSt _str, int... _args) {
+        return (( (EffectInvokeBean) ((PokemonBeanStruct)_str).getInstance()).getMovesNotToBeInvoked());
     }
 
     public static Rate callEffectInvokeBeanRateInvokationMoveGet(NaSt _str, int... _args) {

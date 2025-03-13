@@ -18,10 +18,7 @@ import aiki.instances.Instances;
 import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbMoves extends InitDbConstr {
 
@@ -64,8 +61,8 @@ public abstract class InitDbMoves extends InitDbConstr {
         ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getLearnt().setupValue(_args);
     }
 
-    public static NaSt callMovesBeanCategoriesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getCategories());
+    public static AbsMap<String,String> callMovesBeanCategoriesGet(NaSt _str, int... _args) {
+        return (( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getCategories());
     }
 
     public static String callMovesBeanCategoryGet(NaSt _str, int... _args) {
@@ -88,8 +85,8 @@ public abstract class InitDbMoves extends InitDbConstr {
         return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMinPower().tryRet();
     }
 
-    public static NaSt callMovesBeanBooleansGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
+    public static AbsMap<String,String> callMovesBeanBooleansGet(NaSt _str, int... _args) {
+        return (( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
     }
 
     public static CustList<MoveLine> callMovesBeanMovesGet(NaSt _str, int... _args) {
@@ -140,8 +137,8 @@ public abstract class InitDbMoves extends InitDbConstr {
         return dispLine(feedDb(), _index).getPriority();
     }
 
-    public static NaSt callMoveLineBeanTypesGet(int _index, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(dispLine(feedDb(), _index).getTypes());
+    public static CustList<String> callMoveLineBeanTypesGet(int _index, int... _args) {
+        return (dispLine(feedDb(), _index).getTypes());
     }
 
     public static String callMovesBeanLearntGet(NaSt _str, int... _args) {
@@ -175,7 +172,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         return _ls.get(_i);
     }
     protected static NaSt transitToAllMoves(PkData _pk, StringMap<NaSt> _all, int _index) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = _all.getVal(BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,moves_);
@@ -195,7 +192,7 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     private static NaSt dispAllMoves(PkData _pk) {
         StringMap<NaSt> all_ = beanToMoves(_pk);
-        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
@@ -205,7 +202,7 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     private static NaSt dispAllMoveslMovesTutors(PkData _pk) {
         StringMap<NaSt> all_ = beanToMoves(_pk);
-        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         _pk.getDataBase().getData().completeMoveTutors();
         _pk.getDataBase().getData().setView(_pk.getDataBase().getData().computeLearn());
         beforeDisplaying(welcome_);
@@ -277,8 +274,8 @@ public abstract class InitDbMoves extends InitDbConstr {
         return _str.getDisplayName();
     }
 
-    public static NaSt callMoveLineGetTypes(MoveLine _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(_str.getTypes());
+    public static CustList<String> callMoveLineGetTypes(MoveLine _str, int... _args) {
+        return (_str.getTypes());
     }
 
     public static long callMoveLinePpGet(MoveLine _str, int... _args) {
@@ -304,7 +301,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     public static StringMap<NaSt> beanToMoves(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
         WelcomeBean w_ = beanWelcomeBean(_pk, EN);
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME, new PokemonBeanStruct(w_));
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME, new PokemonBeanStruct(w_));
         MovesBean moves_ = new MovesBean();
         moves_.setBuilder(w_.getBuilder());
         map_.addEntry(BEAN_MOVES, _pk.bean(moves_, EN));

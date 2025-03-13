@@ -9,8 +9,9 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.maths.LgInt;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
 
@@ -31,8 +32,8 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         return getValStatusId(_str);
     }
 
-    public static NaSt callEffectStatusBeanDeletedStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus());
+    public static CustList<TranslatedKey> callEffectStatusBeanDeletedStatusGet(NaSt _str, int... _args) {
+        return (( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus());
     }
 
     public static String callEffectStatusBeanGetFail(NaSt _str, int... _args) {
@@ -55,12 +56,12 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getKoUserHealSubst();
     }
 
-    public static NaSt callEffectStatusBeanLawStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrLongStatKey(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getLawStatus());
+    public static DictionaryComparator<TranslatedKey,StatRankRate> callEffectStatusBeanLawStatusGet(NaSt _str, int... _args) {
+        return (( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getLawStatus());
     }
 
-    public static NaSt callEffectStatusBeanMapVarsStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsStatus());
+    public static AbsMap<String,String> callEffectStatusBeanMapVarsStatusGet(NaSt _str, int... _args) {
+        return (( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsStatus());
     }
 
     public static boolean callEffectStatusBeanStatusFromUserGet(NaSt _str, int... _args) {

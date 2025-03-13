@@ -14,10 +14,10 @@ public final class BallBeanTest extends InitDbItemOther {
     }
     @Test
     public void getMapVars2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callBallBeanMapVarsGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callBallBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {
-        assertEq(TIME,second(elt(callBallBeanMapVarsGet(),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callBallBeanMapVarsGet(),0)));
     }
 }

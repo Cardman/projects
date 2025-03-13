@@ -1,26 +1,12 @@
 package aiki.beans;
 
-import aiki.beans.abilities.*;
-import aiki.beans.facade.dto.*;
-import aiki.beans.facade.map.dto.*;
-import aiki.beans.facade.simulation.dto.*;
-import aiki.beans.facade.solution.dto.*;
-import aiki.beans.map.elements.*;
-import aiki.comparators.*;
 import aiki.facade.*;
-import aiki.fight.enums.*;
-import aiki.fight.util.*;
-import aiki.map.pokemon.*;
-import aiki.map.util.*;
-import aiki.util.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.*;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.maths.*;
 import code.sml.*;
-import code.util.*;
 import code.util.core.*;
 public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, WithPageInfos {
 
@@ -76,30 +62,31 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     }
     @Override
     public void buildOther() {
-        buildAddon();
-        buildRate(this);
-        buildLgInt(this);
+//        buildAddon();
+        getStds().clear();
+//        buildRate(this);
+//        buildLgInt(this);
 //        buildRateValidator(this);
 //        buildPositiveRateValidator(this);
 //        buildShortValidator(this);
 //        buildUnselectedRadio(this);
     }
-    protected abstract void buildAddon();
-    private static void buildRate(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
-//        methods_.add( new SpecNatMethod(IS_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZero()));
-//        methods_.add( new SpecNatMethod(IS_ZERO_OR_GT,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZeroOrGt()));
-//        methods_.add( new SpecNatMethod(ABS_NB,BeanNatCommonLgNames.TYPE_RATE, new RateAbsNb()));
-        _std.getStds().addEntry(TYPE_RATE, type_);
-    }
-    private static void buildLgInt(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_LG_INT, type_);
-    }
+//    protected abstract void buildAddon();
+//    private static void buildRate(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+////        methods_.add( new SpecNatMethod(IS_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZero()));
+////        methods_.add( new SpecNatMethod(IS_ZERO_OR_GT,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZeroOrGt()));
+////        methods_.add( new SpecNatMethod(ABS_NB,BeanNatCommonLgNames.TYPE_RATE, new RateAbsNb()));
+//        _std.getStds().addEntry(TYPE_RATE, type_);
+//    }
+//    private static void buildLgInt(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+//        _std.getStds().addEntry(TYPE_LG_INT, type_);
+//    }
 //    private static void buildRateValidator(PokemonStandards _std){
 //        CustList<StandardField> fields_=new CustList<StandardField>();
 //        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
@@ -436,185 +423,185 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //    public PokemonBeanStruct beanDiffCommon(String _language) {
 //        return bean(new DifficultyCommonBean(), _language);
 //    }
-    public static NatArrayStruct getBigNatMap(AbsMap<String, AbsBasicTreeMap<Rate, Rate>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, AbsBasicTreeMap<Rate, Rate>> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new NaStSt(e.getKey()),getRateRate(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getBigNatMapSta(AbsMap<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),getStaByte(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStaBoost(AbsMap<TranslatedKey, BoostHpRate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKey, BoostHpRate> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new BoostHpRateStruct(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getWcStr(AbsMap<MiniMapCoords, int[][]> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<MiniMapCoords, int[][]> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getPtStr(AbsMap<Point, int[][]> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<Point, int[][]> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getEffRateStr(AbsMap<TranslatedKey, EfficiencyRate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKey, EfficiencyRate> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),new EfficiencyRateStruct(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getWcByteMap(AbsMap<TranslatedKeyPair, Long> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKeyPair, Long> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getCatMultRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new CategoryMultStruct(new CategoryMult(e.getKey().getFirst().getTranslation(),NumberUtil.parseInt(e.getKey().getSecond().getKey()))),new RtSt(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getWcRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getWeatherTypeRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new TypesDuoStruct(new TypesDuo(e.getKey().getFirst().getTranslation(),e.getKey().getSecond().getTranslation())),new RtSt(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStrListStaList(CustList<TranslatedKeyPair> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (TranslatedKeyPair e:_map) {
-            arr_.set(j_,new PairStruct(new NaStSt(e.getFirst().getKey()),new NaStSt(e.getSecond().getKey())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getShStrList(AbsMap<Long, CustList<TranslatedKey>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<Long, CustList<TranslatedKey>> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new NaNbSt(e.getKey()),getKeys(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStrInts(AbsMap<TranslatedKey, Ints> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKey, Ints> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),getIntArray(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStrTpDam(AbsMap<TranslatedKey, TypeDamageBoostKey> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<TranslatedKey, TypeDamageBoostKey> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),new TypeDamageBoostStruct(new TypeDamageBoost(e.getValue().getType().getKey(),e.getValue().getBoost()))));
-            j_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getPlLevWildPkDto(AbsMap<PlaceLevel, CustList<WildPokemonDto>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<PlaceLevel, CustList<WildPokemonDto>> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,getWildPkDto(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getWildPkDto(CustList<WildPokemonDto> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (WildPokemonDto s:_ls) {
-            arr_.set(j_,new WildPokemonDtoStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getSteDto(CustList<StepDto> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (StepDto s:_ls) {
-            arr_.set(j_,new StepDtoStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getPkPlDto(CustList<PokemonPlayerDto> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (PokemonPlayerDto s:_ls) {
-            arr_.set(j_,new PokemonPlayerDtoStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getPkTrDto(CustList<PokemonTrainerDto> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (PokemonTrainerDto s:_ls) {
-            arr_.set(j_,new PokemonTrainerDtoStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getBigNatMap(AbsMap<String, AbsBasicTreeMap<Rate, Rate>> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<String, AbsBasicTreeMap<Rate, Rate>> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new NaStSt(e.getKey()),getRateRate(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getBigNatMapSta(AbsMap<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),getStaByte(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStaBoost(AbsMap<TranslatedKey, BoostHpRate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKey, BoostHpRate> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new BoostHpRateStruct(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getWcStr(AbsMap<MiniMapCoords, int[][]> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<MiniMapCoords, int[][]> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getPtStr(AbsMap<Point, int[][]> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<Point, int[][]> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaImgSt(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getEffRateStr(AbsMap<TranslatedKey, EfficiencyRate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKey, EfficiencyRate> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),new EfficiencyRateStruct(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getWcByteMap(AbsMap<TranslatedKeyPair, Long> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKeyPair, Long> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getCatMultRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new CategoryMultStruct(new CategoryMult(e.getKey().getFirst().getTranslation(),NumberUtil.parseInt(e.getKey().getSecond().getKey()))),new RtSt(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getWcRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getWeatherTypeRateMap(AbsMap<TranslatedKeyPair, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKeyPair, Rate> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new TypesDuoStruct(new TypesDuo(e.getKey().getFirst().getTranslation(),e.getKey().getSecond().getTranslation())),new RtSt(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStrListStaList(CustList<TranslatedKeyPair> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (TranslatedKeyPair e:_map) {
+//            arr_.set(j_,new PairStruct(new NaStSt(e.getFirst().getKey()),new NaStSt(e.getSecond().getKey())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getShStrList(AbsMap<Long, CustList<TranslatedKey>> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<Long, CustList<TranslatedKey>> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new NaNbSt(e.getKey()),getKeys(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStrInts(AbsMap<TranslatedKey, Ints> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKey, Ints> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),getIntArray(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStrTpDam(AbsMap<TranslatedKey, TypeDamageBoostKey> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<TranslatedKey, TypeDamageBoostKey> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(new NaStSt(e.getKey().getKey()),new TypeDamageBoostStruct(new TypeDamageBoost(e.getValue().getType().getKey(),e.getValue().getBoost()))));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getPlLevWildPkDto(AbsMap<PlaceLevel, CustList<WildPokemonDto>> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<PlaceLevel, CustList<WildPokemonDto>> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,getWildPkDto(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getWildPkDto(CustList<WildPokemonDto> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (WildPokemonDto s:_ls) {
+//            arr_.set(j_,new WildPokemonDtoStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getSteDto(CustList<StepDto> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (StepDto s:_ls) {
+//            arr_.set(j_,new StepDtoStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getPkPlDto(CustList<PokemonPlayerDto> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (PokemonPlayerDto s:_ls) {
+//            arr_.set(j_,new PokemonPlayerDtoStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getPkTrDto(CustList<PokemonTrainerDto> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (PokemonTrainerDto s:_ls) {
+//            arr_.set(j_,new PokemonTrainerDtoStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
 
 //    public static NatArrayStruct getLvMv(CustList<LevelMoveTranslatedKey> _ls) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
@@ -625,24 +612,24 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getPlTr(CustList<PlaceTrainerDto> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (PlaceTrainerDto s:_ls) {
-            arr_.set(j_,new PlaceTrainerDtoStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getTypesDuo(CustList<TranslatedKeyPair> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (TranslatedKeyPair s:_ls) {
-            arr_.set(j_,new TypesDuoStruct(new TypesDuo(s.getFirst().getKey(),s.getSecond().getKey())));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getPlTr(CustList<PlaceTrainerDto> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (PlaceTrainerDto s:_ls) {
+//            arr_.set(j_,new PlaceTrainerDtoStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getTypesDuo(CustList<TranslatedKeyPair> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (TranslatedKeyPair s:_ls) {
+//            arr_.set(j_,new TypesDuoStruct(new TypesDuo(s.getFirst().getKey(),s.getSecond().getKey())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
 //    public static NatArrayStruct getStatistic(CustList<StringStatBaseEv> _map) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
 //        int j_ = 0;
@@ -670,15 +657,15 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getPlInd(CustList<PlaceIndex> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (PlaceIndex s:_ls) {
-            arr_.set(j_,new PlaceIndexStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getPlInd(CustList<PlaceIndex> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (PlaceIndex s:_ls) {
+//            arr_.set(j_,new PlaceIndexStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
 //    public static NatArrayStruct getWildPkArray(CustList<WildPk> _ls) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
 //        int j_ = 0;
@@ -688,24 +675,24 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getPkPlayerArray(CustList<PokemonPlayer> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (PokemonPlayer s:_ls) {
-            arr_.set(j_,new PkStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getPkTrainerArray(CustList<TranslatedPkElements> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (TranslatedPkElements s:_ls) {
-            arr_.set(j_,new PkStruct(s.getTrained()));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getPkPlayerArray(CustList<PokemonPlayer> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (PokemonPlayer s:_ls) {
+//            arr_.set(j_,new PkStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getPkTrainerArray(CustList<TranslatedPkElements> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (TranslatedPkElements s:_ls) {
+//            arr_.set(j_,new PkStruct(s.getTrained()));
+//            j_++;
+//        }
+//        return arr_;
+//    }
 //    public static NatArrayStruct getPkLine(CustList<PokemonLine> _ls) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
 //        int j_ = 0;
@@ -733,33 +720,33 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getRdMvLine(CustList<RadioLineMove> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (MoveLine s:_ls) {
-            arr_.set(j_,newMoveLine(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getSelectLineMove(CustList<SelectLineMove> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (MoveLine s:_ls) {
-            arr_.set(j_,newMoveLine(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NaSt newMoveLine(MoveLine _s) {
-//        if (_s instanceof SelectLineMove) {
-//            return new MvLineStruct(_s);
+//    public static NatArrayStruct getRdMvLine(CustList<RadioLineMove> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (MoveLine s:_ls) {
+//            arr_.set(j_,newMoveLine(s));
+//            j_++;
 //        }
-//        if (_s instanceof RadioLineMove) {
-//            return new MvLineStruct(_s);
+//        return arr_;
+//    }
+//    public static NatArrayStruct getSelectLineMove(CustList<SelectLineMove> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (MoveLine s:_ls) {
+//            arr_.set(j_,newMoveLine(s));
+//            j_++;
 //        }
-        return new MvLineStruct(_s);
-    }
+//        return arr_;
+//    }
+//    public static NaSt newMoveLine(MoveLine _s) {
+////        if (_s instanceof SelectLineMove) {
+////            return new MvLineStruct(_s);
+////        }
+////        if (_s instanceof RadioLineMove) {
+////            return new MvLineStruct(_s);
+////        }
+//        return new MvLineStruct(_s);
+//    }
 //    public static NatArrayStruct getEffPartStat(CustList<EffectPartnerStatus> _ls) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
 //        int j_ = 0;
@@ -769,24 +756,24 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getEvLine(AbsMap<Statistic, EvLine> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<Statistic, EvLine> e:_map.entryList()) {
-            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new EvLineStruct(e.getValue())));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStrStr(AbsMap<String, String> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<String,String> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
-            i_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getEvLine(AbsMap<Statistic, EvLine> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int j_ = 0;
+//        for (EntryCust<Statistic, EvLine> e:_map.entryList()) {
+//            arr_.set(j_,new PairStruct(NaNu.NULL_VALUE,new EvLineStruct(e.getValue())));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStrStr(AbsMap<String, String> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<String,String> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
+//            i_++;
+//        }
+//        return arr_;
+//    }
 //    public static NatArrayStruct getStrStrTk(DictionaryComparator<TranslatedKey, TranslatedKey> _map) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
 //        int i_ = 0;
@@ -797,24 +784,24 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getStrStrKey(DictionaryComparator<TranslatedKey, TranslatedKey> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,TranslatedKey> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey()))));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStrStrOnly(DictionaryComparator<TranslatedKey, String> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,String> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
-            i_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getStrStrKey(DictionaryComparator<TranslatedKey, TranslatedKey> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,TranslatedKey> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey()))));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStrStrOnly(DictionaryComparator<TranslatedKey, String> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,String> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
+//            i_++;
+//        }
+//        return arr_;
+//    }
 //    public static NatArrayStruct getStrStr(NatStringTreeMap<String> _map) {
 //        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
 //        int i_ = 0;
@@ -825,174 +812,174 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getKeys(CustList<TranslatedKey> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (TranslatedKey e: _map){
-            arr_.set(i_,new NaStSt(e.getKey()));
-            i_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getValues(CustList<TranslatedKey> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (TranslatedKey e: _map){
-            arr_.set(i_,new NaStSt(e.getTranslation()));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStrRate(AbsMap<String, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<String,Rate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new RtSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStrRateTk(DictionaryComparator<TranslatedKey, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,Rate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStrRateVal(DictionaryComparator<TranslatedKey, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,Rate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new RtSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStrLongStatKey(DictionaryComparator<TranslatedKey, StatRankRate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,StatRankRate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue().getRate())));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStrLongStat(DictionaryComparator<TranslatedKey, StatRankRate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,StatRankRate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue().getRank())));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStrLongVal(DictionaryComparator<TranslatedKey, Long> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,Long> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStrLong(DictionaryComparator<TranslatedKey, Long> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey,Long> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaNbSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStaByte(DictionaryComparator<TranslatedKey, Long> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey, Long> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getStaStr(DictionaryComparator<TranslatedKey, String> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey, String> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStaRate(AbsMap<TranslatedKey, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<TranslatedKey, Rate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getIntStr(AbsMap<Integer, String> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<Integer,String> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getIntStrTk(IntTreeMap<TranslatedKey> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<Integer,TranslatedKey> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getTranslation()))));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getLongStr(AbsMap<Long, TranslatedKey> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<Long,TranslatedKey> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey()))));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getLgIntRate(AbsMap<LgInt, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<LgInt,Rate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new LgSt(e.getKey()),new RtSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getLongRate(AbsMap<Long, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<Long,Rate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new RtSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getRateRate(AbsMap<Rate, Rate> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (EntryCust<Rate,Rate> e: _map.entryList()){
-            arr_.set(i_,new PairStruct(new RtSt(e.getKey()),new RtSt(e.getValue())));
-            i_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getKeys(CustList<TranslatedKey> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (TranslatedKey e: _map){
+//            arr_.set(i_,new NaStSt(e.getKey()));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getValues(CustList<TranslatedKey> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (TranslatedKey e: _map){
+//            arr_.set(i_,new NaStSt(e.getTranslation()));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStrRate(AbsMap<String, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<String,Rate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new RtSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStrRateTk(DictionaryComparator<TranslatedKey, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,Rate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStrRateVal(DictionaryComparator<TranslatedKey, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,Rate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new RtSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStrLongStatKey(DictionaryComparator<TranslatedKey, StatRankRate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,StatRankRate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new RtSt(e.getValue().getRate())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStrLongStat(DictionaryComparator<TranslatedKey, StatRankRate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,StatRankRate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue().getRank())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStrLongVal(DictionaryComparator<TranslatedKey, Long> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,Long> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getTranslation())),new NaNbSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStrLong(DictionaryComparator<TranslatedKey, Long> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey,Long> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey().getKey())),new NaNbSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStaByte(DictionaryComparator<TranslatedKey, Long> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey, Long> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getStaStr(DictionaryComparator<TranslatedKey, String> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey, String> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getStaRate(AbsMap<TranslatedKey, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<TranslatedKey, Rate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(NaNu.NULL_VALUE,new RtSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getIntStr(AbsMap<Integer, String> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<Integer,String> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue()))));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getIntStrTk(AbsMap<Integer, TranslatedKey> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<Integer,TranslatedKey> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getTranslation()))));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getLongStr(AbsMap<Long, TranslatedKey> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<Long,TranslatedKey> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new NaStSt(StringUtil.nullToEmpty(e.getValue().getKey()))));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getLgIntRate(AbsMap<LgInt, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<LgInt,Rate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new LgSt(e.getKey()),new RtSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getLongRate(AbsMap<Long, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<Long,Rate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new NaNbSt(e.getKey()),new RtSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getRateRate(AbsMap<Rate, Rate> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (EntryCust<Rate,Rate> e: _map.entryList()){
+//            arr_.set(i_,new PairStruct(new RtSt(e.getKey()),new RtSt(e.getValue())));
+//            i_++;
+//        }
+//        return arr_;
+//    }
 
 //    public static NatArrayStruct getLayers(CustList<Level> _map) {
 //        int len_ = _map.size();
@@ -1010,25 +997,25 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        }
 //        return arr_;
 //    }
-    public static NatArrayStruct getStrList(CustList<CustList<TranslatedKey>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (CustList<TranslatedKey> e: _map){
-            arr_.set(i_,getKeys(e));
-            i_++;
-        }
-        return arr_;
-    }
-
-    public static NatArrayStruct getIntArray(CustList<Integer> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (Integer s:_ls) {
-            arr_.set(j_,new NaNbSt(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getStrList(CustList<CustList<TranslatedKey>> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (CustList<TranslatedKey> e: _map){
+//            arr_.set(i_,getKeys(e));
+//            i_++;
+//        }
+//        return arr_;
+//    }
+//
+//    public static NatArrayStruct getIntArray(CustList<Integer> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (Integer s:_ls) {
+//            arr_.set(j_,new NaNbSt(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
 
     public FacadeGame getDataBase() {
         return dataBase;

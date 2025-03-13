@@ -76,7 +76,7 @@ public final class EffectSwitchTypesBeanTest extends InitDbMoveEffectSwitch {
     }
     @Test
     public void getGlobalMoves2() {
-        assertEq(M_WEA,elt(callEffectSwitchTypesBeanGlobalMovesGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0));
+        assertEq(M_WEA,eltTkKey(callEffectSwitchTypesBeanGlobalMovesGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0));
     }
     @Test
     public void getTrGlobalMoveFctEnv() {
@@ -96,7 +96,7 @@ public final class EffectSwitchTypesBeanTest extends InitDbMoveEffectSwitch {
     }
     @Test
     public void getAddedTypes2() {
-        assertEq(T_TYPE1,elt(callEffectSwitchTypesBeanAddedTypesGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0));
+        assertEq(T_TYPE1,eltTkKey(callEffectSwitchTypesBeanAddedTypesGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0));
     }
     @Test
     public void getTrAddedType() {
@@ -108,7 +108,7 @@ public final class EffectSwitchTypesBeanTest extends InitDbMoveEffectSwitch {
     }
     @Test
     public void getConstTypes2() {
-        assertEq(T_TYPE1,elt(callEffectSwitchTypesBeanConstTypesGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0));
+        assertEq(T_TYPE1,eltTkKey(callEffectSwitchTypesBeanConstTypesGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0));
     }
     @Test
     public void getTrConstType() {
@@ -120,11 +120,11 @@ public final class EffectSwitchTypesBeanTest extends InitDbMoveEffectSwitch {
     }
     @Test
     public void getChgtTypeByEnv2() {
-        assertEq(EnvironmentType.ROAD.getEnvName(),firstEntryTkTk(eltEntryTkTk(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0)));
+        assertEq(EnvironmentType.ROAD.getEnvName(), firstTkTk(eltTkTk(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING, ExchangeType.NOTHING)), 0)));
     }
     @Test
     public void getChgtTypeByEnv3() {
-        assertEq(T_TYPE1_TR,secondEntryTkTk(eltEntryTkTk(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING,ExchangeType.NOTHING)),0)));
+        assertEq(T_TYPE1_TR,secondEntryTkTk(eltTkTk(callEffectSwitchTypesBeanChgtTypeByEnvGet(dispMoveEffCopyMove(ConstValuesType.NOTHING, ExchangeType.NOTHING)), 0)));
     }
     @Test
     public void getTrEnv() {

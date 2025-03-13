@@ -10,7 +10,7 @@ public final class EffectBatonPassBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMoves2() {
-        assertEq(M_WEA,elt(callEffectBatonPassBeanMovesGet(dispMoveEffBatonPass()),0));
+        assertEq(M_WEA,eltTkKey(callEffectBatonPassBeanMovesGet(dispMoveEffBatonPass()),0));
     }
     @Test
     public void getTrMove() {

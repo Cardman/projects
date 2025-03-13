@@ -3,6 +3,7 @@ package aiki.beans.items;
 import aiki.beans.PkData;
 import aiki.beans.*;
 import aiki.beans.effects.EffectWhileSendingBean;
+import aiki.comparators.DictionaryComparator;
 import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.*;
@@ -19,8 +20,8 @@ import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.util.TranslationsFile;
-import code.util.StringList;
-import code.util.StringMap;
+import aiki.beans.abilities.*;
+import code.util.*;
 
 public abstract class InitDbItemsItemForBattle extends InitDbItem {
 
@@ -40,12 +41,12 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getBoostExp();
     }
 
-    public static NaSt callItemForBattleBeanBoostStatisSuperEffGet() {
-        return PokemonStandards.getStaByte(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getBoostStatisSuperEff());
+    public static DictionaryComparator<TranslatedKey,Long> callItemForBattleBeanBoostStatisSuperEffGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getBoostStatisSuperEff());
     }
 
-    public static NaSt callItemForBattleBeanBoostStatisTypesGet() {
-        return PokemonStandards.getBigNatMapSta(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getBoostStatisTypes());
+    public static AbsMap<TranslatedKey, DictionaryComparator<TranslatedKey, Long>> callItemForBattleBeanBoostStatisTypesGet() {
+        return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getBoostStatisTypes();
     }
 
     public static boolean callItemForBattleBeanCancelImmuTypeGet(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
@@ -215,8 +216,8 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return ((ItemForBattleBean) ((PokemonBeanStruct) healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getEndRoundCommon().getEndRoundRank();
     }
 
-    public static NaSt callItemForBattleBeanFailStatusGet() {
-        return PokemonStandards.getStrStrOnly(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getFailStatus());
+    public static DictionaryComparator<TranslatedKey,String> callItemForBattleBeanFailStatusGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getFailStatus());
     }
 
 //    public static NaSt callItemForBattleBeanGetEffectSending(NaSt _str, long... _args) {
@@ -303,40 +304,40 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getImmuLowStatis();
     }
 
-    public static NaSt callItemForBattleBeanImmuMovesGet() {
-        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuMoves());
+    public static CustList<TranslatedKey> callItemForBattleBeanImmuMovesGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuMoves());
     }
 
-    public static NaSt callItemForBattleBeanImmuStatusGet() {
-        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuStatus());
+    public static CustList<TranslatedKey> callItemForBattleBeanImmuStatusGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuStatus());
     }
 
-    public static NaSt callItemForBattleBeanImmuTypesGet() {
-        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuTypes());
+    public static CustList<TranslatedKey> callItemForBattleBeanImmuTypesGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuTypes());
     }
 
-    public static NaSt callItemForBattleBeanImmuWeatherGet() {
-        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuWeather());
+    public static CustList<TranslatedKey> callItemForBattleBeanImmuWeatherGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getImmuWeather());
     }
 
-    public static NaSt callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet() {
-        return PokemonStandards.getStrLong(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getIncreasingMaxNbRoundGlobalMove());
+    public static DictionaryComparator<TranslatedKey,Long> callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getIncreasingMaxNbRoundGlobalMove());
     }
 
-    public static NaSt callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet() {
-        return PokemonStandards.getStrLong(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getIncreasingMaxNbRoundTeamMove());
+    public static DictionaryComparator<TranslatedKey,Long> callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getIncreasingMaxNbRoundTeamMove());
     }
 
-    public static NaSt callItemForBattleBeanIncreasingMaxNbRoundTrapGet() {
-        return PokemonStandards.getStrLong(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getIncreasingMaxNbRoundTrap());
+    public static DictionaryComparator<TranslatedKey,Long> callItemForBattleBeanIncreasingMaxNbRoundTrapGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getIncreasingMaxNbRoundTrap());
     }
 
-    public static NaSt callItemForBattleBeanMapVarsFailEndRoundGet() {
-        return PokemonStandards.getStrStr(((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound()).getInstance()).getEndRoundCommon().getMapVarsFailEndRound());
+    public static AbsMap<String,String> callItemForBattleBeanMapVarsFailEndRoundGet() {
+        return (((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound()).getInstance()).getEndRoundCommon().getMapVarsFailEndRound());
     }
 
-    public static NaSt callItemForBattleBeanMapVarsGet() {
-        return PokemonStandards.getStrStr(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMapVars());
+    public static AbsMap<String,String> callItemForBattleBeanMapVarsGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMapVars());
     }
 
     public static String callItemForBattleBeanMultDamageGet() {
@@ -351,16 +352,16 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultPower();
     }
 
-    public static NaSt callItemForBattleBeanMultStatGet() {
-        return PokemonStandards.getStaStr(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultStat());
+    public static DictionaryComparator<TranslatedKey,String> callItemForBattleBeanMultStatGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultStat());
     }
 
-    public static NaSt callItemForBattleBeanMultStatPokemonRankGet() {
-        return PokemonStandards.getWcByteMap(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultStatPokemonRank());
+    public static AbsMap<TranslatedKeyPair,Long> callItemForBattleBeanMultStatPokemonRankGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultStatPokemonRank());
     }
 
-    public static NaSt callItemForBattleBeanMultStatRankGet() {
-        return PokemonStandards.getStaByte(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultStatRank());
+    public static DictionaryComparator<TranslatedKey,Long> callItemForBattleBeanMultStatRankGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getMultStatRank());
     }
 
     public static Rate callItemForBattleBeanMultTrappingDamageGet() {
@@ -395,8 +396,8 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimple(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).rateForAttackFirst();
     }
 
-    public static NaSt callItemForBattleBeanReasonsEndRoundGet() {
-        return BeanNatCommonLgNames.getStringArray(((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound()).getInstance()).getEndRoundCommon().getReasonsEndRound());
+    public static CustList<String> callItemForBattleBeanReasonsEndRoundGet() {
+        return (((ItemForBattleBean) ((PokemonBeanStruct) healSimpleEndRound()).getInstance()).getEndRoundCommon().getReasonsEndRound());
     }
 
 //    public static Struct callItemForBattleBeanRepellingWildPkGet(Struct _str, long... _args) {
@@ -415,20 +416,20 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return ( (ItemForBattleBean) ((PokemonBeanStruct)healSimpleStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff)).getInstance()).getSending();
     }
 
-    public static NaSt callItemForBattleBeanSynchroStatusGet() {
-        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getSynchroStatus());
+    public static CustList<TranslatedKey> callItemForBattleBeanSynchroStatusGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getSynchroStatus());
     }
 
-    public static NaSt callItemForBattleBeanTypesPkAbilitiesGet() {
-        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTypesPkAbilities());
+    public static CustList<TranslatedKey> callItemForBattleBeanTypesPkAbilitiesGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTypesPkAbilities());
     }
 
-    public static NaSt callItemForBattleBeanTypesPkGet() {
-        return PokemonStandards.getKeys(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTypesPk());
+    public static CustList<TranslatedKey> callItemForBattleBeanTypesPkGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getTypesPk());
     }
 
-    public static NaSt callItemForBattleBeanWinEvFightGet() {
-        return PokemonStandards.getStaByte(( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getWinEvFight());
+    public static DictionaryComparator<TranslatedKey,Long> callItemForBattleBeanWinEvFightGet() {
+        return (( (ItemForBattleBean) ((PokemonBeanStruct)healSimple()).getInstance()).getWinEvFight());
     }
 
     public static StringMap<NaSt> beanToItBaseSend(PkData _pk) {

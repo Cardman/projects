@@ -7,7 +7,7 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
 
@@ -69,12 +69,12 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMoveTrans(_args[0]);
     }
 
-    public static NaSt callEffectCopyMoveBeanMovesNotToBeCopiedGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesNotToBeCopied());
+    public static CustList<TranslatedKey> callEffectCopyMoveBeanMovesNotToBeCopiedGet(NaSt _str, int... _args) {
+        return (( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesNotToBeCopied());
     }
 
-    public static NaSt callEffectCopyMoveBeanMovesTransformingGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTransforming());
+    public static CustList<TranslatedKey> callEffectCopyMoveBeanMovesTransformingGet(NaSt _str, int... _args) {
+        return (( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTransforming());
     }
     protected static NaSt dispMoveEffCopyMove(boolean _copyingMoveForUserDef, int _copy) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_copyingMoveForUserDef, _copy));

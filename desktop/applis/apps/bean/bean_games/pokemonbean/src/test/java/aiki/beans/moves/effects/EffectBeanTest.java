@@ -142,11 +142,11 @@ public final class EffectBeanTest extends InitDbMoveEffect {
     }
     @Test
     public void mapFail2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),0)));
     }
     @Test
     public void mapFail3() {
-        assertEq(TIME,second(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +")|"+ VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +"|"+VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR),0)),0)));
     }
     @Test
     public void refBase() {

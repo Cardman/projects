@@ -11,8 +11,7 @@ import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
-import code.util.IdMap;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
 
@@ -91,8 +90,8 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return ( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrReplacingTypes(_args[0]);
     }
 
-    public static NaSt callEffectSwitchMoveTypesBeanReplacingTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getReplacingTypes());
+    public static CustList<TranslatedKey> callEffectSwitchMoveTypesBeanReplacingTypesGet(NaSt _str, int... _args) {
+        return (( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getReplacingTypes());
     }
 
     public static boolean callEffectSwitchPointViewBeanAttractDamageMoves(NaSt _str, int... _args) {
@@ -107,8 +106,8 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return ( (EffectSwitchPointViewBean) ((PokemonBeanStruct)_str).getInstance()).thieveBonus();
     }
 
-    public static NaSt callEffectSwitchTypesBeanAddedTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getAddedTypes());
+    public static CustList<TranslatedKey> callEffectSwitchTypesBeanAddedTypesGet(NaSt _str, int... _args) {
+        return (( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getAddedTypes());
     }
 
     public static DictionaryComparator<TranslatedKey, TranslatedKey> callEffectSwitchTypesBeanChgtTypeByEnvGet(NaSt _str, int... _args) {
@@ -124,8 +123,8 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return getValMoveId(_str);
     }
 
-    public static NaSt callEffectSwitchTypesBeanConstTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getConstTypes());
+    public static CustList<TranslatedKey> callEffectSwitchTypesBeanConstTypesGet(NaSt _str, int... _args) {
+        return (( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getConstTypes());
     }
 
     public static String callEffectSwitchTypesBeanGetTrAddedType(NaSt _str, int... _args) {
@@ -156,8 +155,8 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).giveToUser();
     }
 
-    public static NaSt callEffectSwitchTypesBeanGlobalMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMoves());
+    public static CustList<TranslatedKey> callEffectSwitchTypesBeanGlobalMovesGet(NaSt _str, int... _args) {
+        return (( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMoves());
     }
 
     public static boolean callEffectSwitchTypesBeanIsConstTypes(NaSt _str, int... _args) {

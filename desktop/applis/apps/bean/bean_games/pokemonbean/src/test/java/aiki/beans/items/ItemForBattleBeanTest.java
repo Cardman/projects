@@ -170,7 +170,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getTypesPk2() {
-        assertEq(T_TYPE1,elt(callItemForBattleBeanTypesPkGet(),0));
+        assertEq(T_TYPE1,eltTkKey(callItemForBattleBeanTypesPkGet(),0));
     }
     @Test
     public void getTrTypesPk() {
@@ -182,7 +182,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getImmuTypes2() {
-        assertEq(T_TYPE1,elt(callItemForBattleBeanImmuTypesGet(),0));
+        assertEq(T_TYPE1,eltTkKey(callItemForBattleBeanImmuTypesGet(),0));
     }
     @Test
     public void getTrImmuTypes() {
@@ -194,7 +194,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getTypesPkAbilities2() {
-        assertEq(A_ABILITY,elt(callItemForBattleBeanTypesPkAbilitiesGet(),0));
+        assertEq(A_ABILITY,eltTkKey(callItemForBattleBeanTypesPkAbilitiesGet(),0));
     }
     @Test
     public void getTrTypesPkAbility() {
@@ -214,7 +214,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getImmuStatus2() {
-        assertEq(S_STA_SIM,elt(callItemForBattleBeanImmuStatusGet(),0));
+        assertEq(S_STA_SIM,eltTkKey(callItemForBattleBeanImmuStatusGet(),0));
     }
     @Test
     public void getTrImmuStatus() {
@@ -234,7 +234,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getSynchroStatus2() {
-        assertEq(S_STA_SIM,elt(callItemForBattleBeanSynchroStatusGet(),0));
+        assertEq(S_STA_SIM,eltTkKey(callItemForBattleBeanSynchroStatusGet(),0));
     }
     @Test
     public void getTrSynchroStatus() {
@@ -254,7 +254,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getImmuMoves2() {
-        assertEq(M_DAM,elt(callItemForBattleBeanImmuMovesGet(),0));
+        assertEq(M_DAM,eltTkKey(callItemForBattleBeanImmuMovesGet(),0));
     }
     @Test
     public void getTrImmuMove() {
@@ -274,7 +274,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getImmuWeather2() {
-        assertEq(M_DAM,elt(callItemForBattleBeanImmuWeatherGet(),0));
+        assertEq(M_DAM,eltTkKey(callItemForBattleBeanImmuWeatherGet(),0));
     }
     @Test
     public void getTrWeatherInd() {
@@ -294,7 +294,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMultStatRank2() {
-        assertEq(1,second(elt(callItemForBattleBeanMultStatRankGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callItemForBattleBeanMultStatRankGet(),0)));
     }
     @Test
     public void getTrMultStatRank() {
@@ -306,7 +306,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getBoostStatisSuperEff2() {
-        assertEq(1,second(elt(callItemForBattleBeanBoostStatisSuperEffGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callItemForBattleBeanBoostStatisSuperEffGet(),0)));
     }
     @Test
     public void getTrMultStatisSuperEff() {
@@ -318,7 +318,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getWinEvFight2() {
-        assertEq(1,second(elt(callItemForBattleBeanWinEvFightGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callItemForBattleBeanWinEvFightGet(),0)));
     }
     @Test
     public void getTrWinEvFight() {
@@ -330,7 +330,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMultStat2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callItemForBattleBeanMultStatGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,secondTkStr(eltTkStr(callItemForBattleBeanMultStatGet(),0)));
     }
     @Test
     public void getTrMultStat() {
@@ -342,11 +342,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVars2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callItemForBattleBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {
-        assertEq(TIME,second(elt(callItemForBattleBeanMapVarsGet(),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callItemForBattleBeanMapVarsGet(),0)));
     }
     @Test
     public void getIncreasingMaxNbRoundTrap1() {
@@ -354,11 +354,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getIncreasingMaxNbRoundTrap2() {
-        assertEq(M_DAM,first(elt(callItemForBattleBeanIncreasingMaxNbRoundTrapGet(),0)));
+        assertEq(M_DAM,firstTkLgKey(eltTkLgKey(callItemForBattleBeanIncreasingMaxNbRoundTrapGet(),0)));
     }
     @Test
     public void getIncreasingMaxNbRoundTrap3() {
-        assertEq(3,second(elt(callItemForBattleBeanIncreasingMaxNbRoundTrapGet(),0)));
+        assertEq(3,secondTkLgKey(eltTkLgKey(callItemForBattleBeanIncreasingMaxNbRoundTrapGet(),0)));
     }
     @Test
     public void getTrTrapMove() {
@@ -378,11 +378,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getIncreasingMaxNbRoundTeamMove2() {
-        assertEq(M_DAM,first(elt(callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),0)));
+        assertEq(M_DAM,firstTkLgKey(eltTkLgKey(callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),0)));
     }
     @Test
     public void getIncreasingMaxNbRoundTeamMove3() {
-        assertEq(3,second(elt(callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),0)));
+        assertEq(3,secondTkLgKey(eltTkLgKey(callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),0)));
     }
     @Test
     public void getTrTeamMove() {
@@ -402,11 +402,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getIncreasingMaxNbRoundGlobalMove2() {
-        assertEq(M_DAM,first(elt(callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),0)));
+        assertEq(M_DAM,firstTkLgKey(eltTkLgKey(callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),0)));
     }
     @Test
     public void getIncreasingMaxNbRoundGlobalMove3() {
-        assertEq(3,second(elt(callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),0)));
+        assertEq(3,secondTkLgKey(eltTkLgKey(callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),0)));
     }
     @Test
     public void getTrGlobalMove() {
@@ -426,11 +426,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getFailStatus2() {
-        assertEq(S_STA_SIM,first(elt(callItemForBattleBeanFailStatusGet(),0)));
+        assertEq(S_STA_SIM,firstTkStr(eltTkStr(callItemForBattleBeanFailStatusGet(),0)));
     }
     @Test
     public void getFailStatus3() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callItemForBattleBeanFailStatusGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,secondTkStr(eltTkStr(callItemForBattleBeanFailStatusGet(),0)));
     }
     @Test
     public void getTrFailStatus() {
@@ -450,7 +450,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMultStatPokemonRank2() {
-        assertEq(1,second(elt(callItemForBattleBeanMultStatPokemonRankGet(),0)));
+        assertEq(1,secondTkPairLg(eltTkPairLg(callItemForBattleBeanMultStatPokemonRankGet(),0)));
     }
     @Test
     public void getTrMultStatPkRank() {
@@ -474,15 +474,15 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getBoostStatisTypes2() {
-        assertEq(T_TYPE1,first(elt(callItemForBattleBeanBoostStatisTypesGet(),0)));
+        assertEq(T_TYPE1,firstTkMapTkLgKey(eltTkMapTkLg(callItemForBattleBeanBoostStatisTypesGet(),0)));
     }
     @Test
     public void getBoostStatisTypes3() {
-        assertSizeEq(1,second(elt(callItemForBattleBeanBoostStatisTypesGet(),0)));
+        assertSizeEq(1,secondTkMapTkLg(eltTkMapTkLg(callItemForBattleBeanBoostStatisTypesGet(),0)));
     }
     @Test
     public void getBoostStatisTypes4() {
-        assertEq(1,second(elt(second(elt(callItemForBattleBeanBoostStatisTypesGet(),0)),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(secondTkMapTkLg(eltTkMapTkLg(callItemForBattleBeanBoostStatisTypesGet(),0)),0)));
     }
     @Test
     public void getTrMultStatisTypes() {
@@ -498,11 +498,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
-        assertEq(TIME,second(elt(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
     }
     @Test
     public void getReasonsEndRound1() {
@@ -562,11 +562,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsFail2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsFail3() {
-        assertEq(TIME,second(elt(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getReasons1() {
@@ -626,7 +626,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getSwapBoostStatis2() {
-        assertEq(ST_SPEED_TR,elt(callEffectWhileSendingBeanSwapBoostStatisGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectWhileSendingBeanSwapBoostStatisGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
     }
     @Test
     public void getSwapBoostStatis3() {
@@ -638,7 +638,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getCancelLowStat2() {
-        assertEq(ST_SPEED_TR,elt(callEffectWhileSendingBeanCancelLowStatGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectWhileSendingBeanCancelLowStatGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
     }
     @Test
     public void getCancelLowStat3() {
@@ -650,7 +650,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getCancelChgtStat2() {
-        assertEq(ST_SPEED_TR,elt(callEffectWhileSendingBeanCancelChgtStatGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectWhileSendingBeanCancelChgtStatGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
     }
     @Test
     public void getCancelChgtStat3() {
@@ -662,7 +662,7 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getCopyBoost2() {
-        assertEq(ST_SPEED_TR,elt(callEffectWhileSendingBeanCopyBoostGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
+        assertEq(ST_SPEED_TR,eltTkTr(callEffectWhileSendingBeanCopyBoostGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
     }
     @Test
     public void getCopyBoost3() {
@@ -674,11 +674,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getStatisVarRank2() {
-        assertEq(ST_SPEED_TR,first(elt(callEffectWhileSendingBeanStatisVarRankGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(ST_SPEED_TR,firstTkStRtTr(eltTkStRtKey(callEffectWhileSendingBeanStatisVarRankGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getStatisVarRank3() {
-        assertEq(1,second(elt(callEffectWhileSendingBeanStatisVarRankGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(1,secondTkStRk(eltTkStRtKey(callEffectWhileSendingBeanStatisVarRankGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getStatisVarRank4() {
@@ -690,11 +690,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsStatistics2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsStatistics3() {
-        assertEq(TIME,second(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsStatistics4() {
@@ -702,11 +702,11 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     }
     @Test
     public void getMapVarsStatistics5() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsStatistics6() {
-        assertEq(TIME,second(elt(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectWhileSendingBeanMapVarsStatisticsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
     }
     @Test
     public void getMapVarsStatistics7() {

@@ -10,11 +10,11 @@ public final class EffectMultMovePowerBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMultMovePowerFctType2() {
-        assertEq(T_TYPE1,first(elt(callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(0)),0)));
+        assertEq(T_TYPE1,firstTkRtKey(eltTkRtKey(callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(0)),0)));
     }
     @Test
     public void getMultMovePowerFctType3() {
-        assertEq(Rate.one(),second(elt(callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(0)),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(0)),0)));
     }
     @Test
     public void getMultMovePowerFctType4() {
@@ -22,11 +22,11 @@ public final class EffectMultMovePowerBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMultMovePowerFctType5() {
-        assertEq(T_TYPE2,first(elt(callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(1)),0)));
+        assertEq(T_TYPE2,firstTkRtKey(eltTkRtKey(callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(1)),0)));
     }
     @Test
     public void getMultMovePowerFctType6() {
-        assertEq(Rate.newRate("2"),second(elt(callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(1)),0)));
+        assertEq(Rate.newRate("2"),secondTkRtKey(eltTkRtKey(callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(dispMoveEffMultMovePower(1)),0)));
     }
     @Test
     public void getTrType1() {

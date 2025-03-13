@@ -8,7 +8,8 @@ import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.util.*;
 
 public abstract class InitDbHealing extends InitDbItem {
 
@@ -25,8 +26,8 @@ public abstract class InitDbHealing extends InitDbItem {
         return ( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getTrHappiness(_args[0]);
     }
 
-    public static NaSt callHealingItemBeanHappinessGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrLong(( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness());
+    public static DictionaryComparator<TranslatedKey,Long> callHealingItemBeanHappinessGet(NaSt _str, int... _args) {
+        return (( (HealingItemBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness());
     }
 
     public static String callHealingItemBeanHealingItemBeanGet(NaSt _str, int... _args) {

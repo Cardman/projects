@@ -46,8 +46,8 @@ public abstract class InitDbEffects extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new CombosBeanComboGet(),_str,_args);
 //    }
 
-    public static NaSt callCombosBeanGetCombosKey() {
-        return PokemonStandards.getStrList(( (CombosBean) ((PokemonBeanStruct)dispAllCombos()).getInstance()).getCombosKey());
+    public static CustList<CustList<TranslatedKey>> callCombosBeanGetCombosKey() {
+        return (( (CombosBean) ((PokemonBeanStruct)dispAllCombos()).getInstance()).getCombosKey());
     }
 
     protected static NaSt dispAllCombos() {

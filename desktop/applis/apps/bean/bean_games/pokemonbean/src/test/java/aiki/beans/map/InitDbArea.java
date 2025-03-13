@@ -133,12 +133,12 @@ public abstract class InitDbArea extends InitDbLevelMap{
         return ( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMoveFishing(_pk,_move);
     }
 
-    public static NaSt callAreaBeanGetMovesAtLevel(int _area, int _pk) {
-        return PokemonStandards.getKeys(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMovesAtLevel(_pk));
+    public static CustList<TranslatedKey> callAreaBeanGetMovesAtLevel(int _area, int _pk) {
+        return (( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMovesAtLevel(_pk));
     }
 
-    public static NaSt callAreaBeanGetMovesAtLevelFishing(int _area, int _pk) {
-        return PokemonStandards.getKeys(( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMovesAtLevelFishing(_pk));
+    public static CustList<TranslatedKey> callAreaBeanGetMovesAtLevelFishing(int _area, int _pk) {
+        return (( (AreaBean) ((PokemonBeanStruct)displayArea(_area)).getInstance()).getMovesAtLevelFishing(_pk));
     }
 
     public static String callAreaBeanGetName(int _area, int _pk) {

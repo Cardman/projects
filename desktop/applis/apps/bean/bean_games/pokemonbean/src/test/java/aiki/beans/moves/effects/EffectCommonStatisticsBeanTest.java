@@ -10,7 +10,7 @@ public final class EffectCommonStatisticsBeanTest extends InitDbMoveEffectOther 
     }
     @Test
     public void getCommonValue2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callEffectCommonStatisticsBeanCommonValueGet(dispMoveEffCommonStatistics()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,secondTkStr(eltTkStr(callEffectCommonStatisticsBeanCommonValueGet(dispMoveEffCommonStatistics()),0)));
     }
     @Test
     public void getTrStatistic() {
@@ -22,10 +22,10 @@ public final class EffectCommonStatisticsBeanTest extends InitDbMoveEffectOther 
     }
     @Test
     public void getMapVarsCommonStatistics2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(dispMoveEffCommonStatistics()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(dispMoveEffCommonStatistics()),0)));
     }
     @Test
     public void getMapVarsCommonStatistics3() {
-        assertEq(TIME,second(elt(callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(dispMoveEffCommonStatistics()),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(dispMoveEffCommonStatistics()),0)));
     }
 }

@@ -36,19 +36,19 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     }
     @Test
     public void getMiniMap2() {
-        assertEq(two(IMG_MINI0),second(elt(callGeneralHelpBeanMiniMapGet(),0)));
+        assertEq(two(IMG_MINI0),secondMini(eltMini(callGeneralHelpBeanMiniMapGet(),0)));
     }
     @Test
     public void getMiniMap3() {
-        assertEq(two(IMG_MINI2),second(elt(callGeneralHelpBeanMiniMapGet(),1)));
+        assertEq(two(IMG_MINI2),secondMini(eltMini(callGeneralHelpBeanMiniMapGet(),1)));
     }
     @Test
     public void getMiniMap4() {
-        assertEq(two(IMG_MINI1),second(elt(callGeneralHelpBeanMiniMapGet(),2)));
+        assertEq(two(IMG_MINI1),secondMini(eltMini(callGeneralHelpBeanMiniMapGet(),2)));
     }
     @Test
     public void getMiniMap5() {
-        assertEq(two(IMG_MINI3),second(elt(callGeneralHelpBeanMiniMapGet(),3)));
+        assertEq(two(IMG_MINI3),secondMini(eltMini(callGeneralHelpBeanMiniMapGet(),3)));
     }
     @Test
     public void getMiniMapImage1() {

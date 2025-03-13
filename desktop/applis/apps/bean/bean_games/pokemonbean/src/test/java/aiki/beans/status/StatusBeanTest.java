@@ -233,11 +233,11 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getMapVarsFail2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callStatusBeanMapVarsFailGet(0),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callStatusBeanMapVarsFailGet(0),0)));
     }
     @Test
     public void getMapVarsFail3() {
-        assertEq(TIME,second(elt(callStatusBeanMapVarsFailGet(0),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callStatusBeanMapVarsFailGet(0),0)));
     }
     @Test
     public void getReasons1() {
@@ -253,11 +253,11 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callStatusBeanMapVarsFailEndRoundGet(3),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callStatusBeanMapVarsFailEndRoundGet(3),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
-        assertEq(TIME,second(elt(callStatusBeanMapVarsFailEndRoundGet(3),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callStatusBeanMapVarsFailEndRoundGet(3),0)));
     }
     @Test
     public void getReasonsEndRound1() {
@@ -277,7 +277,7 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getMultStat2() {
-        assertEq(Rate.one(),second(elt(callStatusBeanMultStatGet(0),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callStatusBeanMultStatGet(0),0)));
     }
     @Test
     public void getLawForUsingAMoveNbRound1() {
@@ -285,19 +285,19 @@ public final class StatusBeanTest extends InitDbStatus {
     }
     @Test
     public void getLawForUsingAMoveNbRound2() {
-        assertEq(LgInt.one(),first(elt(callStatusBeanLawForUsingAMoveNbRoundGet(7),0)));
+        assertEq(LgInt.one(),firstLtRtKey(eltLtRt(callStatusBeanLawForUsingAMoveNbRoundGet(7),0)));
     }
     @Test
     public void getLawForUsingAMoveNbRound3() {
-        assertEq(Rate.newRate("5/8"),second(elt(callStatusBeanLawForUsingAMoveNbRoundGet(7),0)));
+        assertEq(Rate.newRate("5/8"),secondLtRt(eltLtRt(callStatusBeanLawForUsingAMoveNbRoundGet(7),0)));
     }
     @Test
     public void getLawForUsingAMoveNbRound4() {
-        assertEq(LgInt.newLgInt("2"),first(elt(callStatusBeanLawForUsingAMoveNbRoundGet(7),1)));
+        assertEq(LgInt.newLgInt("2"),firstLtRtKey(eltLtRt(callStatusBeanLawForUsingAMoveNbRoundGet(7),1)));
     }
     @Test
     public void getLawForUsingAMoveNbRound5() {
-        assertEq(Rate.newRate("3/8"),second(elt(callStatusBeanLawForUsingAMoveNbRoundGet(7),1)));
+        assertEq(Rate.newRate("3/8"),secondLtRt(eltLtRt(callStatusBeanLawForUsingAMoveNbRoundGet(7),1)));
     }
     @Test
     public void getMultDamageAgainstFoe() {

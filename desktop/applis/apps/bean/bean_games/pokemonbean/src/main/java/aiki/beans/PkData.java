@@ -24,10 +24,10 @@ public final class PkData extends PokemonStandards {
 //    private static final String GET_RESTORED_HP_RATE_LOVED_ALLY = "getRestoredHpRateLovedAlly";
 //    private static final String GET_WEDDING_ALLY = "getWeddingAlly";
 //    private static final String GET_MULT_DAMAGE_AGAINST_FOE = "getMultDamageAgainstFoe";
-    @Override
-    public void buildAddon() {
+//    @Override
+//    public void buildAddon() {
 //        AikiBeansAbilitiesStd.build(this);
-        AikiBeansStd.build(this);
+//        AikiBeansStd.build(this);
 //        AikiBeansEffectsStd.build(this);
 //        AikiBeansEndroundStd.build(this);
 //        AikiBeansFacadeDtoStd.build(this);
@@ -61,7 +61,7 @@ public final class PkData extends PokemonStandards {
 //        buildPokemonPlayer(this);
 //        buildEffectPartnerStatus(this);
 //        AikiBeansGameStd.buildDifficultyCommonBean(this);
-    }
+//    }
 //
 //    private static void buildTypeDamageBoost(PokemonStandards _std){
 //        CustList<StandardField> fields_=new CustList<StandardField>();

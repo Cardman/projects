@@ -13,75 +13,75 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void getCombosKey2() {
-        assertSizeEq(2,elt(callCombosBeanGetCombosKey(),0));
+        assertSizeEq(2,eltListTk(callCombosBeanGetCombosKey(),0));
     }
     @Test
     public void getCombosKey3() {
-        assertEq(M_STA_00,elt(elt(callCombosBeanGetCombosKey(),0),0));
+        assertEq(M_STA_00,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),0),0));
     }
     @Test
     public void getCombosKey4() {
-        assertEq(M_STA_01,elt(elt(callCombosBeanGetCombosKey(),0),1));
+        assertEq(M_STA_01,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),0),1));
     }
     @Test
     public void getCombosKey5() {
-        assertSizeEq(2,elt(callCombosBeanGetCombosKey(),1));
+        assertSizeEq(2,eltListTk(callCombosBeanGetCombosKey(),1));
     }
     @Test
     public void getCombosKey6() {
-        assertEq(M_STA_00,elt(elt(callCombosBeanGetCombosKey(),1),0));
+        assertEq(M_STA_00,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),1),0));
     }
     @Test
     public void getCombosKey7() {
-        assertEq(M_STA_02,elt(elt(callCombosBeanGetCombosKey(),1),1));
+        assertEq(M_STA_02,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),1),1));
     }
     @Test
     public void getCombosKey8() {
-        assertSizeEq(2,elt(callCombosBeanGetCombosKey(),2));
+        assertSizeEq(2,eltListTk(callCombosBeanGetCombosKey(),2));
     }
     @Test
     public void getCombosKey9() {
-        assertEq(M_STA_00,elt(elt(callCombosBeanGetCombosKey(),2),0));
+        assertEq(M_STA_00,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),2),0));
     }
     @Test
     public void getCombosKey10() {
-        assertEq(M_STA_03,elt(elt(callCombosBeanGetCombosKey(),2),1));
+        assertEq(M_STA_03,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),2),1));
     }
     @Test
     public void getCombosKey11() {
-        assertSizeEq(2,elt(callCombosBeanGetCombosKey(),3));
+        assertSizeEq(2,eltListTk(callCombosBeanGetCombosKey(),3));
     }
     @Test
     public void getCombosKey12() {
-        assertEq(M_STA_01,elt(elt(callCombosBeanGetCombosKey(),3),0));
+        assertEq(M_STA_01,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),3),0));
     }
     @Test
     public void getCombosKey13() {
-        assertEq(M_STA_02,elt(elt(callCombosBeanGetCombosKey(),3),1));
+        assertEq(M_STA_02,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),3),1));
     }
     @Test
     public void getCombosKey14() {
-        assertSizeEq(2,elt(callCombosBeanGetCombosKey(),4));
+        assertSizeEq(2,eltListTk(callCombosBeanGetCombosKey(),4));
     }
     @Test
     public void getCombosKey15() {
-        assertEq(M_STA_01,elt(elt(callCombosBeanGetCombosKey(),4),0));
+        assertEq(M_STA_01,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),4),0));
     }
     @Test
     public void getCombosKey16() {
-        assertEq(M_STA_03,elt(elt(callCombosBeanGetCombosKey(),4),1));
+        assertEq(M_STA_03,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),4),1));
     }
     @Test
     public void getCombosKey17() {
-        assertSizeEq(2,elt(callCombosBeanGetCombosKey(),5));
+        assertSizeEq(2,eltListTk(callCombosBeanGetCombosKey(),5));
     }
     @Test
     public void getCombosKey18() {
-        assertEq(M_STA_02,elt(elt(callCombosBeanGetCombosKey(),5),0));
+        assertEq(M_STA_02,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),5),0));
     }
     @Test
     public void getCombosKey19() {
-        assertEq(M_STA_03,elt(elt(callCombosBeanGetCombosKey(),5),1));
+        assertEq(M_STA_03,eltTkKey(eltListTk(callCombosBeanGetCombosKey(),5),1));
     }
     @Test
     public void getEndRound1() {
@@ -113,11 +113,11 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void getMoves2() {
-        assertEq(M_STA_00_TR,elt(callEffectComboBeanMovesGet(0),0));
+        assertEq(M_STA_00_TR,eltTkTr(callEffectComboBeanMovesGet(0),0));
     }
     @Test
     public void getMoves3() {
-        assertEq(M_STA_01_TR,elt(callEffectComboBeanMovesGet(0),1));
+        assertEq(M_STA_01_TR,eltTkTr(callEffectComboBeanMovesGet(0),1));
     }
     @Test
     public void getMapVarsFailEndRound1() {
@@ -125,11 +125,11 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectComboBeanMapVarsFailEndRoundGet(1),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectComboBeanMapVarsFailEndRoundGet(1),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
-        assertEq(TIME,second(elt(callEffectComboBeanMapVarsFailEndRoundGet(1),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectComboBeanMapVarsFailEndRoundGet(1),0)));
     }
     @Test
     public void getReasonsEndRound1() {
@@ -149,7 +149,7 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void getMultStatisticFoe2() {
-        assertEq(Rate.one(),second(elt(callEffectComboBeanMultStatisticFoeGet(0),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callEffectComboBeanMultStatisticFoeGet(0),0)));
     }
     @Test
     public void getRepeatedRoundsLaw1() {
@@ -157,19 +157,19 @@ public final class EffectComboBeanTest extends InitDbMoveEffectCombo {
     }
     @Test
     public void getRepeatedRoundsLaw2() {
-        assertEq(LgInt.newLgInt("5"),first(elt(callEffectComboBeanRepeatedRoundsLawGet(2),0)));
+        assertEq(LgInt.newLgInt("5"),firstLtRtKey(eltLtRt(callEffectComboBeanRepeatedRoundsLawGet(2),0)));
     }
     @Test
     public void getRepeatedRoundsLaw3() {
-        assertEq(Rate.newRate("15/28"),second(elt(callEffectComboBeanRepeatedRoundsLawGet(2),0)));
+        assertEq(Rate.newRate("15/28"),secondLtRt(eltLtRt(callEffectComboBeanRepeatedRoundsLawGet(2),0)));
     }
     @Test
     public void getRepeatedRoundsLaw4() {
-        assertEq(LgInt.newLgInt("7"),first(elt(callEffectComboBeanRepeatedRoundsLawGet(2),1)));
+        assertEq(LgInt.newLgInt("7"),firstLtRtKey(eltLtRt(callEffectComboBeanRepeatedRoundsLawGet(2),1)));
     }
     @Test
     public void getRepeatedRoundsLaw5() {
-        assertEq(Rate.newRate("13/28"),second(elt(callEffectComboBeanRepeatedRoundsLawGet(2),1)));
+        assertEq(Rate.newRate("13/28"),secondLtRt(eltLtRt(callEffectComboBeanRepeatedRoundsLawGet(2),1)));
     }
     @Test
     public void clickMove1() {

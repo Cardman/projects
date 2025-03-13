@@ -10,7 +10,7 @@ public final class EffectUnprotectFromTypesBeanTest extends InitDbMoveEffectChan
     }
     @Test
     public void getDisableImmuAgainstTypes2() {
-        assertEq(T_TYPE1,elt(callEffectUnprotectFromTypesBeanDisableImmuAgainstTypesGet(dispMoveEffUnprotectFromTypes()),0));
+        assertEq(T_TYPE1,eltTkKey(callEffectUnprotectFromTypesBeanDisableImmuAgainstTypesGet(dispMoveEffUnprotectFromTypes()),0));
     }
     @Test
     public void getTrDisableImmuType() {
@@ -22,7 +22,7 @@ public final class EffectUnprotectFromTypesBeanTest extends InitDbMoveEffectChan
     }
     @Test
     public void getAttackTargetWithTypes2() {
-        assertEq(T_TYPE1,elt(callEffectUnprotectFromTypesBeanAttackTargetWithTypesGet(dispMoveEffUnprotectFromTypes()),0));
+        assertEq(T_TYPE1,eltTkKey(callEffectUnprotectFromTypesBeanAttackTargetWithTypesGet(dispMoveEffUnprotectFromTypes()),0));
     }
     @Test
     public void getTrAttackTargetType() {
@@ -34,7 +34,7 @@ public final class EffectUnprotectFromTypesBeanTest extends InitDbMoveEffectChan
     }
     @Test
     public void getDisableImmuFromMoves2() {
-        assertEq(M_STA,elt(callEffectUnprotectFromTypesBeanDisableImmuFromMovesGet(dispMoveEffUnprotectFromTypes()),0));
+        assertEq(M_STA,eltTkKey(callEffectUnprotectFromTypesBeanDisableImmuFromMovesGet(dispMoveEffUnprotectFromTypes()),0));
     }
     @Test
     public void getTrDisableImmuMove() {
@@ -54,11 +54,11 @@ public final class EffectUnprotectFromTypesBeanTest extends InitDbMoveEffectChan
     }
     @Test
     public void getTypes2() {
-        assertEq(T_TYPE1,callTypesDuoGetDamageType(elt(callEffectUnprotectFromTypesBeanTypesGet(dispMoveEffUnprotectFromTypes()),0)));
+        assertEq(T_TYPE1,callTypesDuoGetDamageType(eltTkPair(callEffectUnprotectFromTypesBeanTypesGet(dispMoveEffUnprotectFromTypes()),0)));
     }
     @Test
     public void getTypes3() {
-        assertEq(T_TYPE2,callTypesDuoGetPokemonType(elt(callEffectUnprotectFromTypesBeanTypesGet(dispMoveEffUnprotectFromTypes()),0)));
+        assertEq(T_TYPE2,callTypesDuoGetPokemonType(eltTkPair(callEffectUnprotectFromTypesBeanTypesGet(dispMoveEffUnprotectFromTypes()),0)));
     }
     @Test
     public void getTrDamageType() {

@@ -14,7 +14,7 @@ import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
-import code.util.IdMap;
+import code.util.*;
 
 public abstract class InitDbDifficultyBean extends InitDbBean {
 //    public static String navigateDiffChange(NaSt _str, long... _args) {
@@ -147,20 +147,20 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return _str;
     }
 
-    public static NaSt callDifficultyBeanDamageRatePlayerTableGet(NaSt _str, int... _args) {
-        return PokemonStandards.getRateRate(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRatePlayerTable());
+    public static AbsMap<Rate,Rate> callDifficultyBeanDamageRatePlayerTableGet(NaSt _str, int... _args) {
+        return (((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRatePlayerTable());
     }
 
-    public static NaSt callDifficultyBeanDamageRateFoeTableGet(NaSt _str, int... _args) {
-        return PokemonStandards.getRateRate(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRateFoeTable());
+    public static AbsMap<Rate,Rate> callDifficultyBeanDamageRateFoeTableGet(NaSt _str, int... _args) {
+        return (((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRateFoeTable());
     }
 
-    public static NaSt callDifficultyBeanDamageRatesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRates());
+    public static AbsMap<String,String> callDifficultyBeanDamageRatesGet(NaSt _str, int... _args) {
+        return (((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getDamageRates());
     }
 
-    public static NaSt callDifficultyBeanWinPointsFightGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getWinPointsFight());
+    public static AbsMap<String,String> callDifficultyBeanWinPointsFightGet(NaSt _str, int... _args) {
+        return (((DifficultyCommonBean)((PokemonBeanStruct)inner(_str)).getInstance()).getWinPointsFight());
     }
 
     public static String callDifficultyBeanDamageRateLawFoeGet(NaSt _str, int... _args) {

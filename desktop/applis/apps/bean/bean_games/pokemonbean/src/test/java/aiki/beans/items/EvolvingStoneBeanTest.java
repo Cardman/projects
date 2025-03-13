@@ -10,7 +10,7 @@ public final class EvolvingStoneBeanTest extends InitDbItemEvolving {
     }
     @Test
     public void getPokemon2() {
-        assertEq(P_POKEMON,elt(callEvolvingStoneBeanPokemonGet(),0));
+        assertEq(P_POKEMON,eltTkKey(callEvolvingStoneBeanPokemonGet(),0));
     }
     @Test
     public void getTrPokemon() {

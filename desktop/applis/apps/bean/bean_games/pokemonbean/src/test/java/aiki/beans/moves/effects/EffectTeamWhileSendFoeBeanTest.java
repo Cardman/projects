@@ -15,11 +15,11 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getMapVarsDamageSentFoe2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getMapVarsDamageSentFoe3() {
-        assertEq(TIME,second(elt(callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getReasonsSending1() {
@@ -35,11 +35,11 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getMapVarsFailSending2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getMapVarsFailSending3() {
-        assertEq(TIME,second(elt(callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getDeletedByFoeTypes1() {
@@ -47,7 +47,7 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getDeletedByFoeTypes2() {
-        assertEq(T_TYPE1,elt(callEffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0));
+        assertEq(T_TYPE1,eltTkKey(callEffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0));
     }
     @Test
     public void getTranslatedType() {
@@ -59,7 +59,7 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getStatistics2() {
-        assertEq(1,second(elt(callEffectTeamWhileSendFoeBeanStatisticsGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callEffectTeamWhileSendFoeBeanStatisticsGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getTranslatedStatistic() {
@@ -71,11 +71,11 @@ public final class EffectTeamWhileSendFoeBeanTest extends InitDbMoveEffectTeamWh
     }
     @Test
     public void getStatusByNbUses2() {
-        assertEq(1,first(elt(callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(1,firstLgTkKey(eltLgTk(callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getStatusByNbUses3() {
-        assertEq(S_STA_SIM,second(elt(callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
+        assertEq(S_STA_SIM,secondLgTk(eltLgTk(callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(dispMoveEffTeamSend(feedDbMoveEffDataDam(),0)),0)));
     }
     @Test
     public void getTranslatedStatus() {

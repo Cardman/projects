@@ -33,8 +33,8 @@ public abstract class InitDbAbilities extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new AbilitiesBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callAbilitiesBeanSortedAbilitiesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).sortedAbilitiesGet());
+    public static CustList<TranslatedKey> callAbilitiesBeanSortedAbilitiesGet(NaSt _str, int... _args) {
+        return (( (AbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).sortedAbilitiesGet());
     }
 
     public static String callAbilitiesBeanTypedAbilityGet(NaSt _str, int... _args) {
@@ -54,7 +54,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         return navigateData(new AbilitiesBeanSearch(((AbilitiesBean) ((PokemonBeanStruct)_moves).getBean())), _moves);
     }
     protected static NaSt transitToAllAbilities(PkData _pk, StringMap<NaSt> _all, int _index) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt items_ = _all.getVal(BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,items_);
@@ -67,7 +67,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
     }
 
     protected static NaSt transitToAllAbilitiesQuick(PkData _pk, StringMap<NaSt> _all, int _index) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt items_ = _all.getVal(BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,items_);
@@ -81,7 +81,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
 
     private static NaSt dispAllAbilities(PkData _pk) {
         StringMap<NaSt> all_ = beanToAbilities(_pk);
-        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
@@ -90,7 +90,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
     public static StringMap<NaSt> beanToAbilities(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
         WelcomeBean w_ = beanWelcomeBean(_pk,EN);
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME, _pk.bean(w_, EN));
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME, _pk.bean(w_, EN));
         AbilitiesBean pkDex_ = new AbilitiesBean();
         w_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());

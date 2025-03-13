@@ -62,7 +62,7 @@ public final class StatusSetBeanTest extends InitDbStatusSet {
     }
     @Test
     public void elt() {
-        assertEq(S_STA_00,elt(callStatusSetBeanSortedStatusGet(dispAllStatusSearch()),0));
+        assertEq(S_STA_00,eltTkKey(callStatusSetBeanSortedStatusGet(dispAllStatusSearch()),0));
     }
     @Test
     public void getTrStatus() {

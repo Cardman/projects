@@ -11,17 +11,19 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.CategoryMult;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.maths.Rate;
-import code.util.StringMap;
+import aiki.beans.abilities.*;
+import aiki.comparators.*;
+import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
 
-    public static NaSt callEffectTeamBeanCancelChgtStatFoeTeamGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getCancelChgtStatFoeTeam());
+    public static CustList<TranslatedKey> callEffectTeamBeanCancelChgtStatFoeTeamGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getCancelChgtStatFoeTeam());
     }
 
-    public static NaSt callEffectTeamBeanCancelChgtStatTeamGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getCancelChgtStatTeam());
+    public static CustList<TranslatedKey> callEffectTeamBeanCancelChgtStatTeamGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getCancelChgtStatTeam());
     }
 
     public static String callEffectTeamBeanClickDisableFoeTeamEffects(NaSt _str, int... _args) {
@@ -62,16 +64,16 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
         return ( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDefaultBoost();
     }
 
-    public static NaSt callEffectTeamBeanDisableFoeTeamEffectsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDisableFoeTeamEffects());
+    public static CustList<TranslatedKey> callEffectTeamBeanDisableFoeTeamEffectsGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDisableFoeTeamEffects());
     }
 
-    public static NaSt callEffectTeamBeanDisableFoeTeamStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDisableFoeTeamStatus());
+    public static CustList<TranslatedKey> callEffectTeamBeanDisableFoeTeamStatusGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getDisableFoeTeamStatus());
     }
 
-    public static NaSt callEffectTeamBeanForbiddenBoostGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getForbiddenBoost());
+    public static CustList<TranslatedKey> callEffectTeamBeanForbiddenBoostGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getForbiddenBoost());
     }
 
     public static boolean callEffectTeamBeanForbiddingHealingGet(NaSt _str, int... _args) {
@@ -94,32 +96,32 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
         return ( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getTrUnusableMove(_args[0]);
     }
 
-    public static NaSt callEffectTeamBeanMultDamageGet(NaSt _str, int... _args) {
-        return PokemonStandards.getCatMultRateMap(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamage());
+    public static AbsMap<TranslatedKeyPair,Rate> callEffectTeamBeanMultDamageGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamage());
     }
 
-    public static NaSt callEffectTeamBeanMultStatisticFoeGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRateVal(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatisticFoe());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectTeamBeanMultStatisticFoeGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatisticFoe());
     }
 
-    public static NaSt callEffectTeamBeanMultStatisticGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRateVal(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatistic());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectTeamBeanMultStatisticGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getMultStatistic());
     }
 
     public static boolean callEffectTeamBeanProtectAgainstChGet(NaSt _str, int... _args) {
         return ( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstCh();
     }
 
-    public static NaSt callEffectTeamBeanProtectAgainstLowStatGet(NaSt _str, int... _args) {
-        return PokemonStandards.getValues(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstLowStat());
+    public static CustList<TranslatedKey> callEffectTeamBeanProtectAgainstLowStatGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstLowStat());
     }
 
-    public static NaSt callEffectTeamBeanProtectAgainstStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstStatus());
+    public static CustList<TranslatedKey> callEffectTeamBeanProtectAgainstStatusGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAgainstStatus());
     }
 
-    public static NaSt callEffectTeamBeanUnusableMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getUnusableMoves());
+    public static CustList<TranslatedKey> callEffectTeamBeanUnusableMovesGet(NaSt _str, int... _args) {
+        return (( (EffectTeamBean) ((PokemonBeanStruct)_str).getInstance()).getUnusableMoves());
     }
     protected static NaSt dispMoveEffTeam(FacadeGame _fac, int _index) {
         return dispMoveEffTeam(_fac, _index,0);

@@ -366,11 +366,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getEfficiencyMoves2() {
-        assertEq(T_TYPE1,callTypesDuoGetDamageType(elt(callAbilityBeanBreakFoeImmuneGet(),0)));
+        assertEq(T_TYPE1,callTypesDuoGetDamageType(eltTkPair(callAbilityBeanBreakFoeImmuneGet(),0)));
     }
     @Test
     public void getEfficiencyMoves3() {
-        assertEq(T_TYPE2,callTypesDuoGetPokemonType(elt(callAbilityBeanBreakFoeImmuneGet(),0)));
+        assertEq(T_TYPE2,callTypesDuoGetPokemonType(eltTkPair(callAbilityBeanBreakFoeImmuneGet(),0)));
     }
     @Test
     public void getTrBreakFoeImmuneKey() {
@@ -386,7 +386,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getBonusStatRank2() {
-        assertEq(1,second(elt(callAbilityBeanBonusStatRankGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanBonusStatRankGet(),0)));
     }
     @Test
     public void getTrBonusStatRank() {
@@ -398,7 +398,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getBoostStatRankEndRound2() {
-        assertEq(1,second(elt(callAbilityBeanBoostStatRankEndRoundGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanBoostStatRankEndRoundGet(),0)));
     }
     @Test
     public void getTrBoostStatRankEndRound() {
@@ -410,7 +410,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getBoostStatRankProtected2() {
-        assertEq(1,second(elt(callAbilityBeanBoostStatRankProtectedGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanBoostStatRankProtectedGet(),0)));
     }
     @Test
     public void getTrBoostStatRankProtected() {
@@ -422,7 +422,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getLowStatFoeHit2() {
-        assertEq(1,second(elt(callAbilityBeanLowStatFoeHitGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanLowStatFoeHitGet(),0)));
     }
     @Test
     public void getTrLowStatFoeHit() {
@@ -434,7 +434,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStatIfKoFoe2() {
-        assertEq(1,second(elt(callAbilityBeanMultStatIfKoFoeGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanMultStatIfKoFoeGet(),0)));
     }
     @Test
     public void getTrMultStatIfKoFoe() {
@@ -446,7 +446,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStatIfLowStat2() {
-        assertEq(1,second(elt(callAbilityBeanMultStatIfLowStatGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanMultStatIfLowStatGet(),0)));
     }
     @Test
     public void getTrMultStatIfLowStat() {
@@ -458,7 +458,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStatAlly2() {
-        assertEq(Rate.one(),second(elt(callAbilityBeanMultStatAllyGet(),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callAbilityBeanMultStatAllyGet(),0)));
     }
     @Test
     public void getTrMultStatAlly() {
@@ -470,7 +470,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStat2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callAbilityBeanMultStatGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,secondTkStr(eltTkStr(callAbilityBeanMultStatGet(),0)));
     }
     @Test
     public void getTrMultStat() {
@@ -482,7 +482,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuMove2() {
-        assertEq(M_DAM,elt(callAbilityBeanImmuMoveGet(),0));
+        assertEq(M_DAM,eltTkKey(callAbilityBeanImmuMoveGet(),0));
     }
     @Test
     public void getTrImmuMove() {
@@ -502,7 +502,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getBreakProtectionMoves2() {
-        assertEq(M_DAM,elt(callAbilityBeanBreakProtectionMovesGet(),0));
+        assertEq(M_DAM,eltTkKey(callAbilityBeanBreakProtectionMovesGet(),0));
     }
     @Test
     public void getTrBreakProtectionMoves() {
@@ -522,7 +522,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuRechargeRoundMoves2() {
-        assertEq(M_DAM,elt(callAbilityBeanImmuRechargeRoundMovesGet(),0));
+        assertEq(M_DAM,eltTkKey(callAbilityBeanImmuRechargeRoundMovesGet(),0));
     }
     @Test
     public void getTrImmuRechargeRoundMoves() {
@@ -542,7 +542,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuAllyFromMoves2() {
-        assertEq(M_DAM,elt(callAbilityBeanImmuAllyFromMovesGet(),0));
+        assertEq(M_DAM,eltTkKey(callAbilityBeanImmuAllyFromMovesGet(),0));
     }
     @Test
     public void getTrImmuAllyFromMoves() {
@@ -562,7 +562,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getIgnFoeTeamMove2() {
-        assertEq(M_DAM,elt(callAbilityBeanIgnFoeTeamMoveGet(),0));
+        assertEq(M_DAM,eltTkKey(callAbilityBeanIgnFoeTeamMoveGet(),0));
     }
     @Test
     public void getTrIgnFoeTeamMove() {
@@ -582,7 +582,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuWeather2() {
-        assertEq(M_DAM,elt(callAbilityBeanImmuWeatherGet(),0));
+        assertEq(M_DAM,eltTkKey(callAbilityBeanImmuWeatherGet(),0));
     }
     @Test
     public void getTrImmuWeather() {
@@ -602,7 +602,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getIgnAbility2() {
-        assertEq(A_ABILITY2,elt(callAbilityBeanIgnAbilityGet(),0));
+        assertEq(A_ABILITY2,eltTkKey(callAbilityBeanIgnAbilityGet(),0));
     }
     @Test
     public void getTrIgnAbility() {
@@ -622,7 +622,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuAbility2() {
-        assertEq(A_ABILITY2,elt(callAbilityBeanImmuAbilityGet(),0));
+        assertEq(A_ABILITY2,eltTkKey(callAbilityBeanImmuAbilityGet(),0));
     }
     @Test
     public void getTrImmuAbility() {
@@ -642,7 +642,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuStatusBeginRound2() {
-        assertEq(S_STA_SIM,elt(callAbilityBeanImmuStatusBeginRoundGet(),0));
+        assertEq(S_STA_SIM,eltTkKey(callAbilityBeanImmuStatusBeginRoundGet(),0));
     }
     @Test
     public void getTrImmuStatusBeginRound() {
@@ -662,7 +662,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getPokemon2() {
-        assertEq(P_POKEMON,elt(callAbilityBeanPokemonGet(),0));
+        assertEq(P_POKEMON,eltTkKey(callAbilityBeanPokemonGet(),0));
     }
     @Test
     public void getTrPokemon() {
@@ -682,11 +682,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultPowerMovesTypesGlobal2() {
-        assertEq(T_TYPE1,first(elt(callAbilityBeanMultPowerMovesTypesGlobalGet(),0)));
+        assertEq(T_TYPE1,firstTkRtKey(eltTkRtKey(callAbilityBeanMultPowerMovesTypesGlobalGet(),0)));
     }
     @Test
     public void getMultPowerMovesTypesGlobal3() {
-        assertEq(Rate.one(),second(elt(callAbilityBeanMultPowerMovesTypesGlobalGet(),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callAbilityBeanMultPowerMovesTypesGlobalGet(),0)));
     }
     @Test
     public void getTrMultPowerMovesTypesGlobalKey() {
@@ -698,11 +698,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultDamageFoe2() {
-        assertEq(T_TYPE1,first(elt(callAbilityBeanMultDamageFoeGet(),0)));
+        assertEq(T_TYPE1,firstTkRtKey(eltTkRtKey(callAbilityBeanMultDamageFoeGet(),0)));
     }
     @Test
     public void getMultDamageFoe3() {
-        assertEq(Rate.one(),second(elt(callAbilityBeanMultDamageFoeGet(),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callAbilityBeanMultDamageFoeGet(),0)));
     }
     @Test
     public void getTrMultDamageFoe() {
@@ -714,11 +714,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getIncreasedPrioTypes2() {
-        assertEq(T_TYPE1,first(elt(callAbilityBeanIncreasedPrioTypesGet(),0)));
+        assertEq(T_TYPE1,firstTkLgKey(eltTkLgKey(callAbilityBeanIncreasedPrioTypesGet(),0)));
     }
     @Test
     public void getIncreasedPrioTypes3() {
-        assertEq(1,second(elt(callAbilityBeanIncreasedPrioTypesGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanIncreasedPrioTypesGet(),0)));
     }
     @Test
     public void getTrIncreasedPrioTypes() {
@@ -730,11 +730,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getIncreasedPrio2() {
-        assertEq(C_CAT,first(elt(callAbilityBeanIncreasedPrioGet(),0)));
+        assertEq(C_CAT,firstTkLgKey(eltTkLgKey(callAbilityBeanIncreasedPrioGet(),0)));
     }
     @Test
     public void getIncreasedPrio3() {
-        assertEq(1,second(elt(callAbilityBeanIncreasedPrioGet(),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callAbilityBeanIncreasedPrioGet(),0)));
     }
     @Test
     public void getTrIncreasedPrio() {
@@ -746,7 +746,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getReverseEffectsPowerMovesTypesGlobalAbilities2() {
-        assertEq(A_ABILITY2,elt(callAbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet(),0));
+        assertEq(A_ABILITY2,eltTkKey(callAbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet(),0));
     }
     @Test
     public void getTrReversePowerTypesAbilities() {
@@ -766,11 +766,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getDivideStatusRound2() {
-        assertEq(S_STA_SIM,first(elt(callAbilityBeanDivideStatusRoundGet(),0)));
+        assertEq(S_STA_SIM,firstTkRtKey(eltTkRtKey(callAbilityBeanDivideStatusRoundGet(),0)));
     }
     @Test
     public void getDivideStatusRound3() {
-        assertEq(Rate.one(),second(elt(callAbilityBeanDivideStatusRoundGet(),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callAbilityBeanDivideStatusRoundGet(),0)));
     }
     @Test
     public void getTrDivideStatusRoundKey() {
@@ -790,11 +790,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getFailStatus2() {
-        assertEq(S_STA_SIM,first(elt(callAbilityBeanFailStatusGet(),0)));
+        assertEq(S_STA_SIM,firstTkStr(eltTkStr(callAbilityBeanFailStatusGet(),0)));
     }
     @Test
     public void getFailStatus3() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,second(elt(callAbilityBeanFailStatusGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,secondTkStr(eltTkStr(callAbilityBeanFailStatusGet(),0)));
     }
     @Test
     public void getTrFailStatus() {
@@ -814,11 +814,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getForwardStatus2() {
-        assertEq(S_STA_SIM,first(elt(callAbilityBeanForwardStatusGet(),0)));
+        assertEq(S_STA_SIM,firstTkTk(eltTkTk(callAbilityBeanForwardStatusGet(),0)));
     }
     @Test
     public void getForwardStatus3() {
-        assertEq(S_STA_REL,second(elt(callAbilityBeanForwardStatusGet(),0)));
+        assertEq(S_STA_REL,secondTkTk(eltTkTk(callAbilityBeanForwardStatusGet(),0)));
     }
     @Test
     public void getTrForwardStatusKey() {
@@ -850,12 +850,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuStatusTypes2() {
-        assertEq(T_TYPE1,first(elt(callAbilityBeanImmuStatusTypesGet(),0)));
+        assertEq(T_TYPE1, eltTkPairFirst(callAbilityBeanImmuStatusTypesGet(), 0));
     }
     @Test
     public void getImmuStatusTypes3() {
-//        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusTypesGet(),0)));
-        assertEq(S_STA_SIM,second(elt(callAbilityBeanImmuStatusTypesGet(),0)));
+        assertEq(S_STA_SIM, eltTkPairSecond(callAbilityBeanImmuStatusTypesGet(), 0));
     }
 //    @Test
 //    public void getImmuStatusTypes4() {
@@ -903,12 +902,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuLowStatisTypes2() {
-        assertEq(T_TYPE1,first(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
+        assertEq(T_TYPE1, eltTkPairFirst(callAbilityBeanImmuLowStatisTypesGet(), 0));
     }
     @Test
     public void getImmuLowStatisTypes3() {
-//        assertSizeEq(1,second(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
-        assertEq(Statistic.SPEED.getStatName(),second(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
+        assertEq(Statistic.SPEED.getStatName(), eltTkPairSecond(callAbilityBeanImmuLowStatisTypesGet(), 0));
     }
     @Test
     public void getTrImmuLowStatisTypes() {
@@ -924,11 +922,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getChangingBoostTypes2() {
-        assertEq(T_TYPE1,first(elt(callAbilityBeanChangingBoostTypesGet(),0)));
+        assertEq(T_TYPE1,firstDamKey(eltDam(callAbilityBeanChangingBoostTypesGet(),0)));
     }
     @Test
     public void getChangingBoostTypes3() {
-        assertEq(Rate.one(),callTypeDamageBoostGetBoost(second(elt(callAbilityBeanChangingBoostTypesGet(),0))));
+        assertEq(Rate.one(),callTypeDamageBoostGetBoost(secondDam(eltDam(callAbilityBeanChangingBoostTypesGet(),0))));
     }
     @Test
     public void getTrChangingBoostTypesOld() {
@@ -944,7 +942,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStatIfDamageCat2() {
-        assertEq(1,second(elt(callAbilityBeanMultStatIfDamageCatGet(),0)));
+        assertEq(1,secondTkPairLg(eltTkPairLg(callAbilityBeanMultStatIfDamageCatGet(),0)));
     }
     @Test
     public void getTrMultStatIfDamageCatKey() {
@@ -960,7 +958,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStatIfCat2() {
-        assertEq(Rate.one(),second(elt(callAbilityBeanMultStatIfCatGet(),0)));
+        assertEq(Rate.one(),secondTkPairRt(eltTkPairRt(callAbilityBeanMultStatIfCatGet(),0)));
     }
     @Test
     public void getTrMultStatIfCatKey() {
@@ -976,7 +974,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStatIfDamgeType2() {
-        assertEq(1,second(elt(callAbilityBeanMultStatIfDamgeTypeGet(),0)));
+        assertEq(1,secondTkPairLg(eltTkPairLg(callAbilityBeanMultStatIfDamgeTypeGet(),0)));
     }
     @Test
     public void getTrMultStatIfDamgeType() {
@@ -992,7 +990,7 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMultStatIfStatutRank2() {
-        assertEq(1,second(elt(callAbilityBeanMultStatIfStatutRankGet(),0)));
+        assertEq(1,secondTkPairLg(eltTkPairLg(callAbilityBeanMultStatIfStatutRankGet(),0)));
     }
     @Test
     public void getTrMultStatIfStatutRank() {
@@ -1016,19 +1014,19 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getChgtTypeByWeather2() {
-        assertEq(NULL_REF,first(elt(callAbilityBeanChgtTypeByWeatherGet(),0)));
+        assertEq(NULL_REF,firstTkTk(eltTkTk(callAbilityBeanChgtTypeByWeatherGet(),0)));
     }
     @Test
     public void getChgtTypeByWeather3() {
-        assertEq(T_TYPE1,second(elt(callAbilityBeanChgtTypeByWeatherGet(),0)));
+        assertEq(T_TYPE1,secondTkTk(eltTkTk(callAbilityBeanChgtTypeByWeatherGet(),0)));
     }
     @Test
     public void getChgtTypeByWeather4() {
-        assertEq(M_DAM,first(elt(callAbilityBeanChgtTypeByWeatherGet(),1)));
+        assertEq(M_DAM,firstTkTk(eltTkTk(callAbilityBeanChgtTypeByWeatherGet(),1)));
     }
     @Test
     public void getChgtTypeByWeather5() {
-        assertEq(T_TYPE2,second(elt(callAbilityBeanChgtTypeByWeatherGet(),1)));
+        assertEq(T_TYPE2,secondTkTk(eltTkTk(callAbilityBeanChgtTypeByWeatherGet(),1)));
     }
     @Test
     public void isChgtTypeByWeather1() {
@@ -1060,11 +1058,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getHealHpByTypeIfWeather2() {
-        assertEq(Rate.one(),second(elt(callAbilityBeanHealHpByTypeIfWeatherGet(),0)));
+        assertEq(Rate.one(),secondTkPairRt(eltTkPairRt(callAbilityBeanHealHpByTypeIfWeatherGet(),0)));
     }
     @Test
     public void getHealHpByTypeIfWeather3() {
-        assertEq(Rate.newRate("2"),second(elt(callAbilityBeanHealHpByTypeIfWeatherGet(),1)));
+        assertEq(Rate.newRate("2"),secondTkPairRt(eltTkPairRt(callAbilityBeanHealHpByTypeIfWeatherGet(),1)));
     }
 
     @Test
@@ -1097,19 +1095,19 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getHealHpByWeather2() {
-        assertEq(NULL_REF,first(elt(callAbilityBeanHealHpByWeatherGet(),0)));
+        assertEq(NULL_REF,firstTkRtKey(eltTkRtKey(callAbilityBeanHealHpByWeatherGet(),0)));
     }
     @Test
     public void getHealHpByWeather3() {
-        assertEq(Rate.one(),second(elt(callAbilityBeanHealHpByWeatherGet(),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callAbilityBeanHealHpByWeatherGet(),0)));
     }
     @Test
     public void getHealHpByWeather4() {
-        assertEq(M_DAM,first(elt(callAbilityBeanHealHpByWeatherGet(),1)));
+        assertEq(M_DAM,firstTkRtKey(eltTkRtKey(callAbilityBeanHealHpByWeatherGet(),1)));
     }
     @Test
     public void getHealHpByWeather5() {
-        assertEq(Rate.newRate("2"),second(elt(callAbilityBeanHealHpByWeatherGet(),1)));
+        assertEq(Rate.newRate("2"),secondTkRtKey(eltTkRtKey(callAbilityBeanHealHpByWeatherGet(),1)));
     }
 
     @Test
@@ -1138,21 +1136,19 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuStatus2() {
-        assertEq(NULL_REF,first(elt(callAbilityBeanImmuStatusGet(),0)));
+        assertEq(NULL_REF, eltTkPairFirst(callAbilityBeanImmuStatusGet(), 0));
     }
     @Test
     public void getImmuStatus3() {
-//        assertSizeEq(0,second(elt(callAbilityBeanImmuStatusGet(),0)));
-        assertEq(S_STA_SIM,second(elt(callAbilityBeanImmuStatusGet(),0)));
+        assertEq(S_STA_SIM, eltTkPairSecond(callAbilityBeanImmuStatusGet(), 0));
     }
     @Test
     public void getImmuStatus4() {
-        assertEq(M_DAM,first(elt(callAbilityBeanImmuStatusGet(),1)));
+        assertEq(M_DAM, eltTkPairFirst(callAbilityBeanImmuStatusGet(), 1));
     }
     @Test
     public void getImmuStatus5() {
-//        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusGet(),1)));
-        assertEq(S_STA_SIM,second(elt(callAbilityBeanImmuStatusGet(),1)));
+        assertEq(S_STA_SIM, eltTkPairSecond(callAbilityBeanImmuStatusGet(), 1));
     }
 //    @Test
 //    public void getImmuStatus6() {
@@ -1196,21 +1192,19 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getImmuMoveTypesByWeather2() {
-        assertEq(NULL_REF,first(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
+        assertEq(NULL_REF, eltTkPairFirst(callAbilityBeanImmuMoveTypesByWeatherGet(), 0));
     }
     @Test
     public void getImmuMoveTypesByWeather3() {
-//        assertSizeEq(0,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
-        assertEq(T_TYPE1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
+        assertEq(T_TYPE1, eltTkPairSecond(callAbilityBeanImmuMoveTypesByWeatherGet(), 0));
     }
     @Test
     public void getImmuMoveTypesByWeather4() {
-        assertEq(M_DAM,first(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
+        assertEq(M_DAM, eltTkPairFirst(callAbilityBeanImmuMoveTypesByWeatherGet(), 1));
     }
     @Test
     public void getImmuMoveTypesByWeather5() {
-//        assertSizeEq(1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
-        assertEq(T_TYPE1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
+        assertEq(T_TYPE1, eltTkPairSecond(callAbilityBeanImmuMoveTypesByWeatherGet(), 1));
     }
 //    @Test
 //    public void getImmuMoveTypesByWeather6() {
@@ -1246,19 +1240,19 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getSingleStatus2() {
-        assertEq(NULL_REF,first(elt(callAbilityBeanSingleStatusGet(),0)));
+        assertEq(NULL_REF,firstTkRtKey(eltTkRtKey(callAbilityBeanSingleStatusGet(),0)));
     }
     @Test
     public void getSingleStatus3() {
-        assertEq(Rate.newRate("1/4"),second(elt(callAbilityBeanSingleStatusGet(),0)));
+        assertEq(Rate.newRate("1/4"),secondTkRtKey(eltTkRtKey(callAbilityBeanSingleStatusGet(),0)));
     }
     @Test
     public void getSingleStatus4() {
-        assertEq(S_STA_SIM,first(elt(callAbilityBeanSingleStatusGet(),1)));
+        assertEq(S_STA_SIM,firstTkRtKey(eltTkRtKey(callAbilityBeanSingleStatusGet(),1)));
     }
     @Test
     public void getSingleStatus5() {
-        assertEq(Rate.newRate("3/4"),second(elt(callAbilityBeanSingleStatusGet(),1)));
+        assertEq(Rate.newRate("3/4"),secondTkRtKey(eltTkRtKey(callAbilityBeanSingleStatusGet(),1)));
     }
     @Test
     public void isStatus1() {
@@ -1286,11 +1280,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMapVars2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callAbilityBeanMapVarsGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callAbilityBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVars3() {
-        assertEq(TIME,second(elt(callAbilityBeanMapVarsGet(),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callAbilityBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVarsFailEndRound1() {
@@ -1298,11 +1292,11 @@ public final class AbilityBeanTest extends InitDbAbility {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callAbilityBeanMapVarsFailEndRoundGet(),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callAbilityBeanMapVarsFailEndRoundGet(),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
-        assertEq(TIME,second(elt(callAbilityBeanMapVarsFailEndRoundGet(),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callAbilityBeanMapVarsFailEndRoundGet(),0)));
     }
     @Test
     public void getReasonsEndRound1() {

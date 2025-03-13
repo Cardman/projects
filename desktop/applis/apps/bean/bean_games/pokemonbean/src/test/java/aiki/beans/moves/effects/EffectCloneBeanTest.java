@@ -28,7 +28,7 @@ public final class EffectCloneBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMovesSending2() {
-        assertEq(M_WEA,elt(callEffectCloneBeanMovesSendingGet(dispMoveEffClone()),0));
+        assertEq(M_WEA,eltTkKey(callEffectCloneBeanMovesSendingGet(dispMoveEffClone()),0));
     }
     @Test
     public void getTrMovesSending() {
@@ -48,7 +48,7 @@ public final class EffectCloneBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMovesBatonPass2() {
-        assertEq(M_STA,elt(callEffectCloneBeanMovesBatonPassGet(dispMoveEffClone()),0));
+        assertEq(M_STA,eltTkKey(callEffectCloneBeanMovesBatonPassGet(dispMoveEffClone()),0));
     }
     @Test
     public void getTrMovesBatonPass() {
@@ -68,7 +68,7 @@ public final class EffectCloneBeanTest extends InitDbMoveEffectOther {
     }
     @Test
     public void getMovesEndRound2() {
-        assertEq(M_DAM_VERY_BAD,elt(callEffectCloneBeanMovesEndRoundGet(dispMoveEffClone()),0));
+        assertEq(M_DAM_VERY_BAD,eltTkKey(callEffectCloneBeanMovesEndRoundGet(dispMoveEffClone()),0));
     }
     @Test
     public void getTrMovesEndRound() {

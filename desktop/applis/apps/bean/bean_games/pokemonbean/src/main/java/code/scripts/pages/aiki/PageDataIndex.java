@@ -1,10 +1,9 @@
 package code.scripts.pages.aiki;
-import aiki.beans.AikiBeansStd;
 import code.sml.*;
 import code.util.*;
 final class PageDataIndex extends PageCardsCommon{
 private static final String C_P_114_0="javahtml";
-private static final String C_P_114_1=AikiBeansStd.BEAN_WELCOME;
+private static final String C_P_114_1="welcome";
 private static final String C_P_114_2="msg_index,title";
 private static final String C_P_114_3="$g()";
 private static final String C_P_114_4="";

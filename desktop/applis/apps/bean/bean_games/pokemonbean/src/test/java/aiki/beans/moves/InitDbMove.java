@@ -31,20 +31,20 @@ import code.util.*;
 public abstract class InitDbMove extends InitDbMoves {
 
 
-    public static NaSt callMoveBeanAbilitiesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
+    public static CustList<TranslatedKey> callMoveBeanAbilitiesGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
     }
 
     public static String callMoveBeanAccuracyGet(NaSt _str, int... _args) {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAccuracy();
     }
 
-    public static NaSt callMoveBeanAchieveDisappearedPkUsingMoveGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAchieveDisappearedPkUsingMove());
+    public static CustList<TranslatedKey> callMoveBeanAchieveDisappearedPkUsingMoveGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAchieveDisappearedPkUsingMove());
     }
 
-    public static NaSt callMoveBeanAffectedByMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAffectedByMoves());
+    public static CustList<TranslatedKey> callMoveBeanAffectedByMovesGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getAffectedByMoves());
     }
 
     public static CustList<TranslatedKey> callMoveBeanBoostedTypesGet(NaSt _str, int... _args) {
@@ -181,8 +181,8 @@ public abstract class InitDbMove extends InitDbMoves {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getConstUserChoice();
     }
 
-    public static NaSt callMoveBeanDeletedStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus());
+    public static CustList<TranslatedKey> callMoveBeanDeletedStatusGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus());
     }
 
     public static boolean callMoveBeanDisappearBeforeUseGet(NaSt _str, int... _args) {
@@ -193,8 +193,8 @@ public abstract class InitDbMove extends InitDbMoves {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName();
     }
 
-    public static NaSt callMoveBeanEffectsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getIntArray(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getEffects());
+    public static CustList<Integer> callMoveBeanEffectsGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getEffects());
     }
 
     public static String callMoveBeanGetDeletedStatus(NaSt _str, int... _args) {
@@ -365,28 +365,28 @@ public abstract class InitDbMove extends InitDbMoves {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).isZeroPriority();
     }
 
-    public static NaSt callMoveBeanItemsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getItems());
+    public static CustList<TranslatedKey> callMoveBeanItemsGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getItems());
     }
 
-    public static NaSt callMoveBeanMapVarsAccuracyGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsAccuracy());
+    public static AbsMap<String,String> callMoveBeanMapVarsAccuracyGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsAccuracy());
     }
 
-    public static NaSt callMoveBeanMovesHmLearntByPokemonGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesHmLearntByPokemon());
+    public static CustList<TranslatedKey> callMoveBeanMovesHmLearntByPokemonGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesHmLearntByPokemon());
     }
 
-    public static NaSt callMoveBeanMovesLevelLearntByPokemonGet(NaSt _str, int... _args) {
-        return PokemonStandards.getShStrList(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesLevelLearntByPokemon());
+    public static AbsMap<Long,CustList<TranslatedKey>> callMoveBeanMovesLevelLearntByPokemonGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesLevelLearntByPokemon());
     }
 
-    public static NaSt callMoveBeanMovesMtLearntByPokemonGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesMtLearntByPokemon());
+    public static CustList<TranslatedKey> callMoveBeanMovesMtLearntByPokemonGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesMtLearntByPokemon());
     }
 
-    public static NaSt callMoveBeanMovesTmLearntByPokemonGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTmLearntByPokemon());
+    public static CustList<TranslatedKey> callMoveBeanMovesTmLearntByPokemonGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTmLearntByPokemon());
     }
 
     public static String callMoveBeanNameGet(NaSt _str, int... _args) {
@@ -413,20 +413,20 @@ public abstract class InitDbMove extends InitDbMoves {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getRechargeRound();
     }
 
-    public static NaSt callMoveBeanRepeatRoundLawGet(NaSt _str, int... _args) {
-        return PokemonStandards.getLgIntRate(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getRepeatRoundLaw());
+    public static AbsMap<LgInt,Rate> callMoveBeanRepeatRoundLawGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getRepeatRoundLaw());
     }
 
-    public static NaSt callMoveBeanRequiredStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getRequiredStatus());
+    public static CustList<TranslatedKey> callMoveBeanRequiredStatusGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getRequiredStatus());
     }
 
     public static boolean callMoveBeanSecEffectIfNoDamageGet(NaSt _str, int... _args) {
         return ( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getSecEffectIfNoDamage();
     }
 
-    public static NaSt callMoveBeanSecEffectsByItemGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrInts(( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getSecEffectsByItem());
+    public static AbsMap<TranslatedKey,Ints> callMoveBeanSecEffectsByItemGet(NaSt _str, int... _args) {
+        return (( (MoveBean) ((PokemonBeanStruct)_str).getInstance()).getSecEffectsByItem());
     }
 
     public static boolean callMoveBeanSwitchAfterUsingMove(NaSt _str, int... _args) {

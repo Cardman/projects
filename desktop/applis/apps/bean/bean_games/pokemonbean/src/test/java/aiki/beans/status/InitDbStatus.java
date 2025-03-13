@@ -9,6 +9,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbStatus extends InitDbStatusSet {
 
@@ -81,20 +82,20 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).isSingle();
     }
 
-    public static NaSt callStatusBeanLawForUsingAMoveNbRoundGet(int _str, int... _args) {
-        return PokemonStandards.getLgIntRate(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getLawForUsingAMoveNbRound());
+    public static AbsMap<LgInt,Rate> callStatusBeanLawForUsingAMoveNbRoundGet(int _str, int... _args) {
+        return (( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getLawForUsingAMoveNbRound());
     }
 
-    public static NaSt callStatusBeanMapVarsFailEndRoundGet(int _str, int... _args) {
-        return PokemonStandards.getStrStr(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getMapVarsFailEndRound());
+    public static AbsMap<String,String> callStatusBeanMapVarsFailEndRoundGet(int _str, int... _args) {
+        return (( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getMapVarsFailEndRound());
     }
 
-    public static NaSt callStatusBeanMapVarsFailGet(int _str, int... _args) {
-        return PokemonStandards.getStrStr(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getMapVarsFail());
+    public static AbsMap<String,String> callStatusBeanMapVarsFailGet(int _str, int... _args) {
+        return (( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getMapVarsFail());
     }
 
-    public static NaSt callStatusBeanMultStatGet(int _str, int... _args) {
-        return PokemonStandards.getStaRate(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getMultStat());
+    public static AbsMap<TranslatedKey,Rate> callStatusBeanMultStatGet(int _str, int... _args) {
+        return (( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getMultStat());
     }
 
     public static boolean callStatusBeanNotAttackFoeGet(int _str, int... _args) {
@@ -121,12 +122,12 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return ( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getRateForUsingAMoveIfFoe();
     }
 
-    public static NaSt callStatusBeanReasonsEndRoundGet(int _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getReasonsEndRound());
+    public static CustList<String> callStatusBeanReasonsEndRoundGet(int _str, int... _args) {
+        return (( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getReasonsEndRound());
     }
 
-    public static NaSt callStatusBeanReasonsGet(int _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getReasons());
+    public static CustList<String> callStatusBeanReasonsGet(int _str, int... _args) {
+        return (( (StatusBean) ((PokemonBeanStruct)dispStatusOne(_str)).getInstance()).getReasons());
     }
 
     public static EffectPartnerStatus eltPart(CustList<EffectPartnerStatus> _l, int _i) {

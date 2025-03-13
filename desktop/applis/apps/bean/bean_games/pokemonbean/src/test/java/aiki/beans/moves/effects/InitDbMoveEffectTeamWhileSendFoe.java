@@ -11,8 +11,9 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.maths.Rate;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect {
 
@@ -28,8 +29,8 @@ public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect 
         return ( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getDamageRateAgainstFoe();
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedByFoeTypes());
+    public static CustList<TranslatedKey> callEffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(NaSt _str, int... _args) {
+        return (( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedByFoeTypes());
     }
 
     public static String callEffectTeamWhileSendFoeBeanGetTranslatedStatistic(NaSt _str, int... _args) {
@@ -44,24 +45,24 @@ public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect 
         return ( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedType(_args[0]);
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsDamageSentFoe());
+    public static AbsMap<String,String> callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(NaSt _str, int... _args) {
+        return (( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsDamageSentFoe());
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailSending());
+    public static AbsMap<String,String> callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(NaSt _str, int... _args) {
+        return (( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailSending());
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanReasonsSendingGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsSending());
+    public static CustList<String> callEffectTeamWhileSendFoeBeanReasonsSendingGet(NaSt _str, int... _args) {
+        return (( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsSending());
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanStatisticsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrLong(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getStatistics());
+    public static DictionaryComparator<TranslatedKey,Long> callEffectTeamWhileSendFoeBeanStatisticsGet(NaSt _str, int... _args) {
+        return (( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getStatistics());
     }
 
-    public static NaSt callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getLongStr(( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getStatusByNbUses());
+    public static AbsMap<Long,TranslatedKey> callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(NaSt _str, int... _args) {
+        return (( (EffectTeamWhileSendFoeBean) ((PokemonBeanStruct)_str).getInstance()).getStatusByNbUses());
     }
     protected static NaSt dispMoveEffTeamSend(FacadeGame _fac, int _index) {
         return dispMoveEffTeamSend(_fac, _index,0);

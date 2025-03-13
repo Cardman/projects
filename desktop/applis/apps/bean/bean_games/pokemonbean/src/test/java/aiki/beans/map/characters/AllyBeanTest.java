@@ -10,43 +10,43 @@ public final class AllyBeanTest extends InitDbCharacters {
     }
     @Test
     public void getTeam2() {
-        assertEq(18,callPkTrainerGetLevel(elt(callAllyBeanTeamGet(),0)));
+        assertEq(18,callPkTrainerGetLevel(eltTrPkElts(callAllyBeanTeamGet(),0)));
     }
     @Test
     public void getTeam3() {
-        assertEq(I_HEAL_HP_STATUS,callPkTrainerGetItem(elt(callAllyBeanTeamGet(),0)));
+        assertEq(I_HEAL_HP_STATUS,callPkTrainerGetItem(eltTrPkElts(callAllyBeanTeamGet(),0)));
     }
     @Test
     public void getTeam4() {
-        assertSizeEq(2,callPkTrainerGetMoves(elt(callAllyBeanTeamGet(),0)));
+        assertSizeEq(2,callPkTrainerGetMoves(eltTrPkElts(callAllyBeanTeamGet(),0)));
     }
     @Test
     public void getTeam5() {
-        assertEq(M_POK_04,elt(callPkTrainerGetMoves(elt(callAllyBeanTeamGet(),0)),0));
+        assertEq(M_POK_04,elt(callPkTrainerGetMoves(eltTrPkElts(callAllyBeanTeamGet(),0)),0));
     }
     @Test
     public void getTeam6() {
-        assertEq(M_POK_05,elt(callPkTrainerGetMoves(elt(callAllyBeanTeamGet(),0)),1));
+        assertEq(M_POK_05,elt(callPkTrainerGetMoves(eltTrPkElts(callAllyBeanTeamGet(),0)),1));
     }
     @Test
     public void getTeam7() {
-        assertEq(19,callPkTrainerGetLevel(elt(callAllyBeanTeamGet(),1)));
+        assertEq(19,callPkTrainerGetLevel(eltTrPkElts(callAllyBeanTeamGet(),1)));
     }
     @Test
     public void getTeam8() {
-        assertEq(I_HEAL_PP,callPkTrainerGetItem(elt(callAllyBeanTeamGet(),1)));
+        assertEq(I_HEAL_PP,callPkTrainerGetItem(eltTrPkElts(callAllyBeanTeamGet(),1)));
     }
     @Test
     public void getTeam9() {
-        assertSizeEq(2,callPkTrainerGetMoves(elt(callAllyBeanTeamGet(),1)));
+        assertSizeEq(2,callPkTrainerGetMoves(eltTrPkElts(callAllyBeanTeamGet(),1)));
     }
     @Test
     public void getTeam10() {
-        assertEq(M_POK_06,elt(callPkTrainerGetMoves(elt(callAllyBeanTeamGet(),1)),0));
+        assertEq(M_POK_06,elt(callPkTrainerGetMoves(eltTrPkElts(callAllyBeanTeamGet(),1)),0));
     }
     @Test
     public void getTeam11() {
-        assertEq(M_POK_07,elt(callPkTrainerGetMoves(elt(callAllyBeanTeamGet(),1)),1));
+        assertEq(M_POK_07,elt(callPkTrainerGetMoves(eltTrPkElts(callAllyBeanTeamGet(),1)),1));
     }
     @Test
     public void getImage1() {

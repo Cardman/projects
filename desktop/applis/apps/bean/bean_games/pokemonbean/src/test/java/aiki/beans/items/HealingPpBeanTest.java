@@ -10,19 +10,19 @@ public final class HealingPpBeanTest extends InitDbHealingPp {
     }
     @Test
     public void getHappiness2() {
-        assertEq(I_BALL,first(elt(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),0)));
+        assertEq(I_BALL,firstTkLgKey(eltTkLgKey(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),0)));
     }
     @Test
     public void getHappiness3() {
-        assertEq(1,second(elt(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),0)));
     }
     @Test
     public void getHappiness4() {
-        assertEq(I_BOOST,first(elt(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),1)));
+        assertEq(I_BOOST,firstTkLgKey(eltTkLgKey(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),1)));
     }
     @Test
     public void getHappiness5() {
-        assertEq(2,second(elt(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),1)));
+        assertEq(2,secondTkLgKey(eltTkLgKey(callHealingItemBeanHappinessGet(ppDb(true,true,1,1)),1)));
     }
     @Test
     public void isBall1() {

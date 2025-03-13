@@ -111,7 +111,7 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void getGlobalMoves2() {
-        assertEq(M_STA,elt(callEffectInvokeBeanGlobalMovesGet(dispMoveEffInvoke(true,true,true,true,true,true)),0));
+        assertEq(M_STA,eltTkKey(callEffectInvokeBeanGlobalMovesGet(dispMoveEffInvoke(true,true,true,true,true,true)),0));
     }
     @Test
     public void getTrGlobalMoveFctEnv() {
@@ -131,7 +131,7 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void getMovesNotToBeInvoked2() {
-        assertEq(M_STA,elt(callEffectInvokeBeanMovesNotToBeInvokedGet(dispMoveEffInvoke(true,true,true,true,true,true)),0));
+        assertEq(M_STA,eltTkKey(callEffectInvokeBeanMovesNotToBeInvokedGet(dispMoveEffInvoke(true,true,true,true,true,true)),0));
     }
     @Test
     public void getTrMoveNotInvok() {
@@ -151,19 +151,19 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void getInvokingMoveByUserTypes2() {
-        assertEq(NULL_REF,first(elt(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
+        assertEq(NULL_REF,firstTkTk(eltTkTk(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
     }
     @Test
     public void getInvokingMoveByUserTypes3() {
-        assertEq(M_WEA,second(elt(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
+        assertEq(M_WEA,secondTkTk(eltTkTk(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
     }
     @Test
     public void getInvokingMoveByUserTypes4() {
-        assertEq(T_TYPE1,first(elt(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),1)));
+        assertEq(T_TYPE1,firstTkTk(eltTkTk(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),1)));
     }
     @Test
     public void getInvokingMoveByUserTypes5() {
-        assertEq(M_STA,second(elt(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),1)));
+        assertEq(M_STA,secondTkTk(eltTkTk(callEffectInvokeBeanInvokingMoveByUserTypesGet(dispMoveEffInvoke(true,true,true,true,true,true)),1)));
     }
     @Test
     public void getMoveFctEnv1() {
@@ -171,11 +171,11 @@ public final class EffectInvokeBeanTest extends InitDbMoveEffectInvoke {
     }
     @Test
     public void getMoveFctEnv2() {
-        assertEq(EnvironmentType.ROAD.getEnvName(),first(elt(callEffectInvokeBeanMoveFctEnvGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
+        assertEq(EnvironmentType.ROAD.getEnvName(),firstTkTk(eltTkTk(callEffectInvokeBeanMoveFctEnvGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
     }
     @Test
     public void getMoveFctEnv3() {
-        assertEq(M_WEA,second(elt(callEffectInvokeBeanMoveFctEnvGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
+        assertEq(M_WEA,secondTkTk(eltTkTk(callEffectInvokeBeanMoveFctEnvGet(dispMoveEffInvoke(true,true,true,true,true,true)),0)));
     }
     @Test
     public void getTrMoveFctEnv() {

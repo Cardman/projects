@@ -43,11 +43,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getNumbers2() {
-        assertEq(1,elt(callSimulationBeanNumbers(2),0));
+        assertEq(1,eltInt(callSimulationBeanNumbers(2),0));
     }
     @Test
     public void getNumbers3() {
-        assertEq(2,elt(callSimulationBeanNumbers(2),1));
+        assertEq(2,eltInt(callSimulationBeanNumbers(2),1));
     }
     @Test
     public void getFreeTeams1() {
@@ -263,15 +263,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getMovesPkTrainerElt1() {
-        assertFalse(callSelectLineMoveSelectedGet(elt(callEditTrainerPokemonBeanMovesGet(pkTrainer()),0)));
+        assertFalse(callSelectLineMoveSelectedGet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(pkTrainer()),0)));
     }
     @Test
     public void getMovesPkTrainerElt2() {
-        assertFalse(callSelectLineMoveSelectedGet(elt(callEditTrainerPokemonBeanMovesGet(pkTrainer(false)),0)));
+        assertFalse(callSelectLineMoveSelectedGet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(pkTrainer(false)),0)));
     }
     @Test
     public void getMovesPkTrainerElt3() {
-        assertTrue(callSelectLineMoveSelectedGet(elt(callEditTrainerPokemonBeanMovesGet(pkTrainer(true)),0)));
+        assertTrue(callSelectLineMoveSelectedGet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(pkTrainer(true)),0)));
     }
     @Test
     public void getCategoriesSelMoves1() {
@@ -431,7 +431,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void pkTrainerIndexValue() {
-        assertEq(1,callPokemonTrainerDtoIndexGet(elt(callSimulationBeanFoeTeamGet(pkTrainerIndex()),1)));
+        assertEq(1,callPokemonTrainerDtoIndexGet(eltPkTraDto(callSimulationBeanFoeTeamGet(pkTrainerIndex()),1)));
     }
     @Test
     public void cancelAddPkTrainer() {
@@ -474,7 +474,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void pkTrainerFoeIndexAfterRemove() {
-        assertEq(0,callPokemonTrainerDtoIndexGet(elt(callSimulationBeanFoeTeamGet(pkTrainerFoeRemove()),0)));
+        assertEq(0,callPokemonTrainerDtoIndexGet(eltPkTraDto(callSimulationBeanFoeTeamGet(pkTrainerFoeRemove()),0)));
     }
     @Test
     public void pkTrainerNameFoeAfterRemove() {
@@ -525,7 +525,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void pkTrainerAllyIndexAfterRemove() {
-        assertEq(0,callPokemonTrainerDtoIndexGet(elt(callSimulationBeanAllyTeamGet(pkTrainerAllyRemove()),0)));
+        assertEq(0,callPokemonTrainerDtoIndexGet(eltPkTraDto(callSimulationBeanAllyTeamGet(pkTrainerAllyRemove()),0)));
     }
     @Test
     public void pkTrainerNameAllyAfterRemove() {
@@ -765,7 +765,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void pkPlayerIndexAfterRemove() {
-        assertEq(0,callPokemonPlayerDtoIndexGet(elt(callSimulationBeanTeamGet(pkPlayerRemove()),0)));
+        assertEq(0,callPokemonPlayerDtoIndexGet(eltPkPlDto(callSimulationBeanTeamGet(pkPlayerRemove()),0)));
     }
     @Test
     public void pkPlayerNameAfterRemove() {
@@ -849,11 +849,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getBallsEditKey() {
-        assertEq(I_BALL,first(elt(callEditPokemonBeanBallsGet(editEditSelectedPlayerPk()),0)));
+        assertEq(I_BALL,firstStrStr(eltStrStr(callEditPokemonBeanBallsGet(editEditSelectedPlayerPk()),0)));
     }
     @Test
     public void getBallsEditValue() {
-        assertEq(I_BALL_TR,second(elt(callEditPokemonBeanBallsGet(editEditSelectedPlayerPk()),0)));
+        assertEq(I_BALL_TR,secondStrStr(eltStrStr(callEditPokemonBeanBallsGet(editEditSelectedPlayerPk()),0)));
     }
     @Test
     public void getHappinessEdit() {
@@ -873,7 +873,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvEditHp() {
-        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),0))));
+        assertEq(0,callEvLineEvGet(secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),0))));
     }
     @Test
     public void getEvEditAttackTr() {
@@ -881,7 +881,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvEditAttack() {
-        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),1))));
+        assertEq(0,callEvLineEvGet(secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),1))));
     }
     @Test
     public void getEvEditDefenseTr() {
@@ -889,7 +889,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvEditDefense() {
-        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),2))));
+        assertEq(0,callEvLineEvGet(secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),2))));
     }
     @Test
     public void getEvEditSpecAttackTr() {
@@ -897,7 +897,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvEditSpecAttack() {
-        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),3))));
+        assertEq(0,callEvLineEvGet(secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),3))));
     }
     @Test
     public void getEvEditSpecDefenseTr() {
@@ -905,7 +905,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvEditSpecDefense() {
-        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),4))));
+        assertEq(0,callEvLineEvGet(secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),4))));
     }
     @Test
     public void getEvEditSpeedTr() {
@@ -913,7 +913,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvEditSpeed() {
-        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),5))));
+        assertEq(0,callEvLineEvGet(secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),5))));
     }
     @Test
     public void getHealEditOk() {
@@ -969,11 +969,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void evoSelKey() {
-        assertEq(P_POK_03,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelect()),0)));
+        assertEq(P_POK_03,firstStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelect()),0)));
     }
     @Test
     public void evoSelValue() {
-        assertEq(P_POK_03_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelect()),0)));
+        assertEq(P_POK_03_TR,secondStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelect()),0)));
     }
     @Test
     public void levelEvo() {
@@ -1005,19 +1005,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void roundsFirstKey() {
-        assertEq(0,first(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
+        assertEq(0,firstIntStrKey(eltIntStr(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
     }
     @Test
     public void roundsFirstValue() {
-        assertEq("0",second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
+        assertEq("0",secondIntStr(eltIntStr(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
     }
     @Test
     public void roundsSecondKey() {
-        assertEq(1,first(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
+        assertEq(1,firstIntStrKey(eltIntStr(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
     }
     @Test
     public void roundsSecondValue() {
-        assertEq("1",second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
+        assertEq("1",secondIntStr(eltIntStr(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
     }
     @Test
     public void placesFights() {
@@ -1025,27 +1025,27 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void placesFightsFirstKey() {
-        assertEq(Fighter.BACK,first(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),0)));
+        assertEq(Fighter.BACK,firstIntStrKey(eltIntStr(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),0)));
     }
     @Test
     public void placesFightsFirstValue() {
-        assertEq(NULL_REF,second(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),0)));
+        assertEq(NULL_REF,secondIntStr(eltIntStr(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),0)));
     }
     @Test
     public void placesFightsSecondKey() {
-        assertEq(0,first(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),1)));
+        assertEq(0,firstIntStrKey(eltIntStr(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),1)));
     }
     @Test
     public void placesFightsSecondValue() {
-        assertEq("0",second(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),1)));
+        assertEq("0",secondIntStr(eltIntStr(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),1)));
     }
     @Test
     public void placesFightsThirdKey() {
-        assertEq(1,first(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),2)));
+        assertEq(1,firstIntStrKey(eltIntStr(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),2)));
     }
     @Test
     public void placesFightsThirdValue() {
-        assertEq("1",second(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),2)));
+        assertEq("1",secondIntStr(eltIntStr(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),2)));
     }
     @Test
     public void round() {
@@ -1109,19 +1109,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void abilitiesFirstKey() {
-        assertEq(A_SIM_1,first(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),0)));
+        assertEq(A_SIM_1,firstStrStr(eltStrStr(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),0)));
     }
     @Test
     public void abilitiesFirstValue() {
-        assertEq(A_SIM_1_TR,second(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),0)));
+        assertEq(A_SIM_1_TR,secondStrStr(eltStrStr(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),0)));
     }
     @Test
     public void abilitiesSecondKey() {
-        assertEq(A_SIM_2,first(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),1)));
+        assertEq(A_SIM_2,firstStrStr(eltStrStr(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),1)));
     }
     @Test
     public void abilitiesSecondValue() {
-        assertEq(A_SIM_2_TR,second(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),1)));
+        assertEq(A_SIM_2_TR,secondStrStr(eltStrStr(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),1)));
     }
     @Test
     public void keptMoves() {
@@ -1165,19 +1165,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void targetsFightFirstKey() {
-        assertEq(0,first(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),0)));
+        assertEq(0,firstIntStrKey(eltIntStr(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),0)));
     }
     @Test
     public void targetsFightFirstValue() {
-        assertEq("0",second(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),0)));
+        assertEq("0",secondIntStr(eltIntStr(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),0)));
     }
     @Test
     public void targetsFightSecondKey() {
-        assertEq(1,first(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),1)));
+        assertEq(1,firstIntStrKey(eltIntStr(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),1)));
     }
     @Test
     public void targetsFightSecondValue() {
-        assertEq("1",second(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),1)));
+        assertEq("1",secondIntStr(eltIntStr(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),1)));
     }
     @Test
     public void moveSetFrontFighterChoiceRound1() {
@@ -1185,11 +1185,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void moveSetFrontFighterChoiceRound1IndexFirst() {
-        assertEq(0,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,0)),0)));
+        assertEq(0,callRadioLineMoveIndexGet(eltRadioMove(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,0)),0)));
     }
     @Test
     public void moveSetFrontFighterChoiceRound1IndexSecond() {
-        assertEq(1,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,0)),1)));
+        assertEq(1,callRadioLineMoveIndexGet(eltRadioMove(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,0)),1)));
     }
     @Test
     public void moveSetFrontFighterChoiceRound2() {
@@ -1197,11 +1197,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void moveSetFrontFighterChoiceRound2IndexFirst() {
-        assertEq(0,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)),0)));
+        assertEq(0,callRadioLineMoveIndexGet(eltRadioMove(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)),0)));
     }
     @Test
     public void moveSetFrontFighterChoiceRound2IndexSecond() {
-        assertEq(1,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)),1)));
+        assertEq(1,callRadioLineMoveIndexGet(eltRadioMove(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)),1)));
     }
     @Test
     public void allyChoiceSet1() {
@@ -1281,15 +1281,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void pokemonPlayerGetItem() {
-        assertEq(I_BALL,callPokemonPlayerGetItem(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
+        assertEq(I_BALL,callPokemonPlayerGetItem(eltPkPl(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
     }
     @Test
     public void pokemonPlayerGetHappiness() {
-        assertEq(48,callPokemonPlayerGetHappiness(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
+        assertEq(48,callPokemonPlayerGetHappiness(eltPkPl(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
     }
     @Test
     public void pokemonPlayergetWonExpSinceLastLevel() {
-        assertEq(Rate.newRate("0"),callPokemonPlayerGetWonExpSinceLastLevel(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
+        assertEq(Rate.newRate("0"),callPokemonPlayerGetWonExpSinceLastLevel(eltPkPl(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
     }
     @Test
     public void getImageAfterFight() {
@@ -1349,19 +1349,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvolutionsAfterFightFirstKey() {
-        assertEq(P_POK_04,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+        assertEq(P_POK_04,firstStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
     }
     @Test
     public void getEvolutionsAfterFightFirstValue() {
-        assertEq(P_POK_04_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+        assertEq(P_POK_04_TR,secondStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
     }
     @Test
     public void getEvolutionsAfterFightSecondKey() {
-        assertEq(P_POK_05,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+        assertEq(P_POK_05,firstStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
     }
     @Test
     public void getEvolutionsAfterFightSecondValue() {
-        assertEq(P_POK_05_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+        assertEq(P_POK_05_TR,secondStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
     }
     @Test
     public void getKeptMovesAfterFight() {
@@ -1373,19 +1373,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getAbilitiesAfterFightFirstKey() {
-        assertEq(A_SIM_1,first(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+        assertEq(A_SIM_1,firstStrStr(eltStrStr(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
     }
     @Test
     public void getAbilitiesAfterFightFirstValue() {
-        assertEq(A_SIM_1_TR,second(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+        assertEq(A_SIM_1_TR,secondStrStr(eltStrStr(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
     }
     @Test
     public void getAbilitiesAfterFightSecondKey() {
-        assertEq(A_SIM_2,first(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+        assertEq(A_SIM_2,firstStrStr(eltStrStr(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
     }
     @Test
     public void getAbilitiesAfterFightSecondValue() {
-        assertEq(A_SIM_2_TR,second(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+        assertEq(A_SIM_2_TR,secondStrStr(eltStrStr(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
     }
     @Test
     public void getEvolutionAfterFight() {
@@ -1493,11 +1493,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void evoSelKeyFirst() {
-        assertEq(P_POK_01,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwo()),0)));
+        assertEq(P_POK_01,firstStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwo()),0)));
     }
     @Test
     public void evoSelValueFirst() {
-        assertEq(P_POK_01_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwo()),0)));
+        assertEq(P_POK_01_TR,secondStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwo()),0)));
     }
     @Test
     public void evoSelSecond() {
@@ -1505,11 +1505,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void evoSelKeySecond() {
-        assertEq(P_POK_02,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoOnce()),0)));
+        assertEq(P_POK_02,firstStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoOnce()),0)));
     }
     @Test
     public void evoSelValueSecond() {
-        assertEq(P_POK_02_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoOnce()),0)));
+        assertEq(P_POK_02_TR,secondStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoOnce()),0)));
     }
     @Test
     public void evoSelThird() {
@@ -1517,11 +1517,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void evoSelKeyThird() {
-        assertEq(P_POK_03,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoTwice()),0)));
+        assertEq(P_POK_03,firstStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoTwice()),0)));
     }
     @Test
     public void evoSelValueThird() {
-        assertEq(P_POK_03_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoTwice()),0)));
+        assertEq(P_POK_03_TR,secondStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoTwice()),0)));
     }
     @Test
     public void evoSelFourth() {
@@ -1533,19 +1533,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void evoSelTreeKeyFirst() {
-        assertEq(P_POK_01,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),0)));
+        assertEq(P_POK_01,firstStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),0)));
     }
     @Test
     public void evoSelTreeValueFirst() {
-        assertEq(P_POK_01_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),0)));
+        assertEq(P_POK_01_TR,secondStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),0)));
     }
     @Test
     public void evoSelTreeKeySecond() {
-        assertEq(P_POK_02,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),1)));
+        assertEq(P_POK_02,firstStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),1)));
     }
     @Test
     public void evoSelTreeValueSecond() {
-        assertEq(P_POK_02_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),1)));
+        assertEq(P_POK_02_TR,secondStrStr(eltStrStr(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),1)));
     }
     @Test
     public void getEvolutionsAfterFightTree() {
@@ -1553,27 +1553,27 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getEvolutionsAfterFightTreeFirstKey() {
-        assertEq(P_POK_00,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),0)));
+        assertEq(P_POK_00,firstStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),0)));
     }
     @Test
     public void getEvolutionsAfterFightTreeFirstValue() {
-        assertEq(P_POK_00_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),0)));
+        assertEq(P_POK_00_TR,secondStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),0)));
     }
     @Test
     public void getEvolutionsAfterFightTreeSecondKey() {
-        assertEq(P_POK_01,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),1)));
+        assertEq(P_POK_01,firstStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),1)));
     }
     @Test
     public void getEvolutionsAfterFightTreeSecondValue() {
-        assertEq(P_POK_01_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),1)));
+        assertEq(P_POK_01_TR,secondStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),1)));
     }
     @Test
     public void getEvolutionsAfterFightTreeThirdKey() {
-        assertEq(P_POK_02,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),2)));
+        assertEq(P_POK_02,firstStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),2)));
     }
     @Test
     public void getEvolutionsAfterFightTreeThirdValue() {
-        assertEq(P_POK_02_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),2)));
+        assertEq(P_POK_02_TR,secondStrStr(eltStrStr(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),2)));
     }
     @Test
     public void getPlaces() {

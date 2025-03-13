@@ -737,9 +737,6 @@ public abstract class InitDbFight extends InitDbBean {
     public static DictionaryComparator<MoveTeamPositionFighterName, Integer> callFighterBeanIncrUserAccuracyGet(FighterBean _str, int... _args) {
         return _str.getIncrUserAccuracy();
     }
-    public static int eltInt(CustList<Integer> _ls, int _i) {
-        return _ls.get(_i);
-    }
     public static EntryCust<MoveTeamPositionFighterName,Integer> eltIntAcc(DictionaryComparator<MoveTeamPositionFighterName,Integer> _ls, int _i) {
         return _ls.getEntry(_i);
     }

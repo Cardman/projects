@@ -10,7 +10,7 @@ import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbItemOther extends InitDbItem {
 
@@ -19,8 +19,8 @@ public abstract class InitDbItemOther extends InitDbItem {
         return ( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getCatchingRate();
     }
 
-    public static NaSt callBallBeanMapVarsGet() {
-        return PokemonStandards.getStrStr(( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getMapVars());
+    public static AbsMap<String,String> callBallBeanMapVarsGet() {
+        return (( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getMapVars());
     }
 
     public static long callRepelBeanStepsGet() {

@@ -11,19 +11,19 @@ public final class BoostBeanTest extends InitDbBoost {
     }
     @Test
     public void getHappiness2() {
-        assertEq(I_BALL,first(elt(callBoostBeanHappinessGet(boostDb()),0)));
+        assertEq(I_BALL,firstTkLgKey(eltTkLgKey(callBoostBeanHappinessGet(boostDb()),0)));
     }
     @Test
     public void getHappiness3() {
-        assertEq(1,second(elt(callBoostBeanHappinessGet(boostDb()),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callBoostBeanHappinessGet(boostDb()),0)));
     }
     @Test
     public void getHappiness4() {
-        assertEq(I_BOOST,first(elt(callBoostBeanHappinessGet(boostDb()),1)));
+        assertEq(I_BOOST,firstTkLgKey(eltTkLgKey(callBoostBeanHappinessGet(boostDb()),1)));
     }
     @Test
     public void getHappiness5() {
-        assertEq(2,second(elt(callBoostBeanHappinessGet(boostDb()),1)));
+        assertEq(2,secondTkLgKey(eltTkLgKey(callBoostBeanHappinessGet(boostDb()),1)));
     }
     @Test
     public void isBall1() {
@@ -63,7 +63,7 @@ public final class BoostBeanTest extends InitDbBoost {
     }
     @Test
     public void getEvs2() {
-        assertEq(1,second(elt(callBoostBeanEvsGet(boostDb()),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callBoostBeanEvsGet(boostDb()),0)));
     }
     @Test
     public void getTrEv() {

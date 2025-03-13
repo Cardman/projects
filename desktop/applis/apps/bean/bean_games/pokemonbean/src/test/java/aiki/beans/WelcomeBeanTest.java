@@ -264,7 +264,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
 //        NatImgAttr n_ = new NatImgAttr("");
 //        n_.setAnim(new CustList<int[][]>());
 //        n_.copy();
-        assertEq(0,NaImgSt.tryGet(null).length);
+//        assertEq(0,NaImgSt.tryGet(null).length);
         WelcomeBean w2_ = new WelcomeBean();
         MockBeanBuilderHelper tmp_ = new MockBeanBuilderHelper();
         tmp_.setFacade(f_);

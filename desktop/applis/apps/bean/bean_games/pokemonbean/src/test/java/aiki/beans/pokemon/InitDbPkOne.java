@@ -9,7 +9,10 @@ import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringMap;
+import aiki.beans.facade.map.dto.*;
+import aiki.map.util.*;
 import code.maths.*;
+import code.util.*;
 
 public abstract class InitDbPkOne extends InitDbPk {
 
@@ -21,8 +24,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return _str.getMove();
     }
 
-    public static NaSt callPokemonBeanAbilitiesGet() {
-        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getAbilities());
+    public static CustList<TranslatedKey> callPokemonBeanAbilitiesGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getAbilities());
     }
 
     public static int[][] callPokemonBeanBackImageGet() {
@@ -174,16 +177,16 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_args)).getInstance()).getDisplayName();
     }
 
-    public static NaSt callPokemonBeanEggGroupsPkGet(int _line) {
-        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_line)).getInstance()).getEggGroupsPk());
+    public static CustList<TranslatedKey> callPokemonBeanEggGroupsPkGet(int _line) {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_line)).getInstance()).getEggGroupsPk());
     }
 
     public static String callPokemonBeanEvoBaseGet() {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(1)).getInstance()).getEvoBase();
     }
 
-    public static NaSt callPokemonBeanEvolutionsGet() {
-        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct) dispPkOne(0)).getInstance()).getEvolutions());
+    public static CustList<TranslatedKey> callPokemonBeanEvolutionsGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct) dispPkOne(0)).getInstance()).getEvolutions());
     }
 
     public static String callPokemonBeanExpEvoGet() {
@@ -242,12 +245,12 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHeight();
     }
 
-    public static NaSt callPokemonBeanHiddenMovesGet() {
-        return PokemonStandards.getIntStrTk(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHiddenMoves());
+    public static AbsMap<Integer,TranslatedKey> callPokemonBeanHiddenMovesGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHiddenMoves());
     }
 
-    public static NaSt callPokemonBeanImagesGet() {
-        return PokemonStandards.getWcStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getImages());
+    public static AbsMap<MiniMapCoords,int[][]> callPokemonBeanImagesGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getImages());
     }
 
     public static boolean callPokemonBeanIsAppearing(int _pk,int _pl, int _lev) {
@@ -282,20 +285,20 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getLevMoves();
     }
 
-    public static NaSt callPokemonBeanMapVarsGet() {
-        return PokemonStandards.getStrStr(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMapVars());
+    public static AbsMap<String,String> callPokemonBeanMapVarsGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMapVars());
     }
 
-    public static NaSt callPokemonBeanMoveTutorsGet() {
-        return PokemonStandards.getKeys(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMoveTutors());
+    public static CustList<TranslatedKey> callPokemonBeanMoveTutorsGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMoveTutors());
     }
 
 //    public static NaSt callPokemonBeanNameGet(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new PokemonBeanNameGet(),_str,_args);
 //    }
 
-    public static NaSt callPokemonBeanPlacesGet() {
-        return PokemonStandards.getPlInd(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPlaces());
+    public static CustList<PlaceIndex> callPokemonBeanPlacesGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPlaces());
     }
 
     public static CustList<TranslatedKey> callPokemonBeanPossibleGendersGet() {
@@ -314,8 +317,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getStatistics();
     }
 
-    public static NaSt callPokemonBeanTechnicalMovesGet() {
-        return PokemonStandards.getIntStrTk(( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTechnicalMoves());
+    public static AbsMap<Integer,TranslatedKey> callPokemonBeanTechnicalMovesGet() {
+        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTechnicalMoves());
     }
 
     public static CustList<TranslatedKey> callPokemonBeanTypesGet() {
@@ -462,13 +465,13 @@ public abstract class InitDbPkOne extends InitDbPk {
     public static String eltStringStatBaseEv(CustList<StringStatBaseEv> _ls, int _i){
         return _ls.get(_i).getName().getTranslation();
     }
-
-    public static NaSt eltImg(NaSt _arr, int _index) {
-        return ((NatArrayStruct)_arr).get(_index);
-    }
-    public static NaSt secondImg(NaSt _arr) {
-        return ((PairStruct)_arr).getSecond();
-    }
+//
+//    public static NaSt eltImg(NaSt _arr, int _index) {
+//        return ((NatArrayStruct)_arr).get(_index);
+//    }
+//    public static NaSt secondImg(NaSt _arr) {
+//        return ((PairStruct)_arr).getSecond();
+//    }
     protected static NaSt dispPkOne(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToPkOne(pk_);

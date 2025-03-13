@@ -16,6 +16,7 @@ import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;
+import aiki.comparators.*;
 import code.util.*;
 
 public abstract class InitDbGeneralHelp extends InitDbConstr {
@@ -204,8 +205,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMoveFirstPk(0);
     }
 
-    public static NaSt callGeneralHelpBeanGetMovesAtLevel() {
-        return PokemonStandards.getKeys(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMovesAtLevelFirstPk());
+    public static CustList<TranslatedKey> callGeneralHelpBeanGetMovesAtLevel() {
+        return (( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMovesAtLevelFirstPk());
     }
 
     public static String callGeneralHelpBeanGetName() {
@@ -240,8 +241,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getHappinessMax();
     }
 
-    public static NaSt callGeneralHelpBeanHmGet() {
-        return PokemonStandards.getKeys(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getHm());
+    public static CustList<TranslatedKey> callGeneralHelpBeanHmGet() {
+        return (( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getHm());
     }
 
 //    public static Struct callGeneralHelpBeanIsFirstRow(Struct _str, long... _args) {
@@ -268,8 +269,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMinLevel();
     }
 
-    public static NaSt callGeneralHelpBeanMiniMapGet() {
-        return PokemonStandards.getWcStr(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMiniMap());
+    public static AbsMap<MiniMapCoords,int[][]> callGeneralHelpBeanMiniMapGet() {
+        return (( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getMiniMap());
     }
 
     public static long callGeneralHelpBeanNbMaxMovesGet() {
@@ -292,16 +293,16 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return ( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getNbNecStepsIncrHappiness();
     }
 
-    public static NaSt callGeneralHelpBeanPokemonDefaultEggGroupGet() {
-        return PokemonStandards.getKeys(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getPokemonDefaultEggGroup());
+    public static CustList<TranslatedKey> callGeneralHelpBeanPokemonDefaultEggGroupGet() {
+        return (( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getPokemonDefaultEggGroup());
     }
 
-    public static NaSt callGeneralHelpBeanTmGet() {
-        return PokemonStandards.getStrStrOnly(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTm());
+    public static DictionaryComparator<TranslatedKey,String> callGeneralHelpBeanTmGet() {
+        return (( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTm());
     }
 
-    public static NaSt callGeneralHelpBeanTypesGet() {
-        return PokemonStandards.getKeys(( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTypes());
+    public static CustList<TranslatedKey> callGeneralHelpBeanTypesGet() {
+        return (( (GeneralHelpBean) ((PokemonBeanStruct)with()).getInstance()).getTypes());
     }
 
     public static int[][] callGeneralHelpBeanUnlockedCityGet() {

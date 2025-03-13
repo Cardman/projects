@@ -11,7 +11,7 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import code.bean.nat.*;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbMoveEffect extends InitDbMove {
 
@@ -71,8 +71,8 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).isUniqueImporte();
     }
 
-    public static NaSt callEffectBeanMapVarsFailGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFail());
+    public static AbsMap<String,String> callEffectBeanMapVarsFailGet(NaSt _str, int... _args) {
+        return (( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFail());
     }
 
     public static String callEffectBeanMoveGet(NaSt _str, int... _args) {
@@ -83,8 +83,8 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return ( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getNeedSuccessFirstEffect();
     }
 
-    public static NaSt callEffectBeanReasonsGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getReasons());
+    public static CustList<String> callEffectBeanReasonsGet(NaSt _str, int... _args) {
+        return (( (EffectBean) ((PokemonBeanStruct)_str).getInstance()).getReasons());
     }
 
     //    public static NaSt callEffectBeanMoveSet(NaSt _str, String _args) {

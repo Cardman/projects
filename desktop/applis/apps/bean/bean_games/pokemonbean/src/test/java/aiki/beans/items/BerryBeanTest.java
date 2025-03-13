@@ -67,7 +67,7 @@ public final class BerryBeanTest extends InitDbBerry {
     }
     @Test
     public void getHealStatus2() {
-        assertEq(S_STA_SIM,elt(callBerryBeanHealStatusGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0));
+        assertEq(S_STA_SIM,eltTkKey(callBerryBeanHealStatusGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0));
     }
     @Test
     public void getTrStatus() {
@@ -87,7 +87,7 @@ public final class BerryBeanTest extends InitDbBerry {
     }
     @Test
     public void getBoostStatis2() {
-        assertEq(1,second(elt(callBerryBeanBoostStatisGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
+        assertEq(1,secondTkLgKey(eltTkLgKey(callBerryBeanBoostStatisGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
     }
     @Test
     public void getTrBoostStat() {
@@ -99,11 +99,11 @@ public final class BerryBeanTest extends InitDbBerry {
     }
     @Test
     public void getDamageRateRecoilFoe2() {
-        assertEq(C_CAT,first(elt(callBerryBeanDamageRateRecoilFoeGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
+        assertEq(C_CAT,firstTkRtKey(eltTkRtKey(callBerryBeanDamageRateRecoilFoeGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
     }
     @Test
     public void getDamageRateRecoilFoe3() {
-        assertEq(Rate.one(),second(elt(callBerryBeanDamageRateRecoilFoeGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
+        assertEq(Rate.one(),secondTkRtKey(eltTkRtKey(callBerryBeanDamageRateRecoilFoeGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
     }
     @Test
     public void getTrCategRecoil() {
@@ -115,11 +115,11 @@ public final class BerryBeanTest extends InitDbBerry {
     }
     @Test
     public void getMultStat2() {
-        assertEq(1,callBoostHpRateGetBoost(second(elt(callBerryBeanMultStatGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
+        assertEq(1,callBoostHpRateGetBoost(secondTkBoost(eltTkBoost(callBerryBeanMultStatGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
     }
     @Test
     public void getMultStat3() {
-        assertEq(Rate.one(),callBoostHpRateGetHpRate(second(elt(callBerryBeanMultStatGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
+        assertEq(Rate.one(),callBoostHpRateGetHpRate(secondTkBoost(eltTkBoost(callBerryBeanMultStatGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
     }
     @Test
     public void getTrMultStat() {
@@ -131,15 +131,15 @@ public final class BerryBeanTest extends InitDbBerry {
     }
     @Test
     public void getMultFoesDamage2() {
-        assertEq(T_TYPE1,first(elt(callBerryBeanMultFoesDamageGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
+        assertEq(T_TYPE1,firstTkEffRtKey(eltTkEffRt(callBerryBeanMultFoesDamageGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0)));
     }
     @Test
     public void getMultFoesDamage3() {
-        assertEq(Rate.one(),callEfficiencyRateGetEff(second(elt(callBerryBeanMultFoesDamageGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
+        assertEq(Rate.one(),callEfficiencyRateGetEff(secondTkEffRt(eltTkEffRt(callBerryBeanMultFoesDamageGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
     }
     @Test
     public void getMultFoesDamage4() {
-        assertEq(Rate.one(),callEfficiencyRateGetHpRate(second(elt(callBerryBeanMultFoesDamageGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
+        assertEq(Rate.one(),callEfficiencyRateGetHpRate(secondTkEffRt(eltTkEffRt(callBerryBeanMultFoesDamageGet(Rate.one(),1,Rate.one(),Rate.one(),NULL_REF,true,true),0))));
     }
     @Test
     public void getTrMultFoesDamage() {

@@ -14,7 +14,8 @@ import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
 import code.bean.nat.*;
 import code.maths.Rate;
-import code.util.StringMap;
+import aiki.comparators.*;
+import code.util.*;
 
 public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
 
@@ -36,8 +37,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ( (EffectBatonPassBean) ((PokemonBeanStruct)_str).getInstance()).getTrMove(_args[0]);
     }
 
-    public static NaSt callEffectBatonPassBeanMovesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectBatonPassBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<TranslatedKey> callEffectBatonPassBeanMovesGet(NaSt _str, int... _args) {
+        return (( (EffectBatonPassBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
     }
 
     public static String callEffectCloneBeanClickMoveBatonPass(NaSt _str, int... _args) {
@@ -80,37 +81,37 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getHpRateClone();
     }
 
-    public static NaSt callEffectCloneBeanMovesBatonPassGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getMovesBatonPass());
+    public static CustList<TranslatedKey> callEffectCloneBeanMovesBatonPassGet(NaSt _str, int... _args) {
+        return (( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getMovesBatonPass());
     }
 
-    public static NaSt callEffectCloneBeanMovesEndRoundGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getMovesEndRound());
+    public static CustList<TranslatedKey> callEffectCloneBeanMovesEndRoundGet(NaSt _str, int... _args) {
+        return (( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getMovesEndRound());
     }
 
-    public static NaSt callEffectCloneBeanMovesSendingGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getMovesSending());
+    public static CustList<TranslatedKey> callEffectCloneBeanMovesSendingGet(NaSt _str, int... _args) {
+        return (( (EffectCloneBean) ((PokemonBeanStruct)_str).getInstance()).getMovesSending());
     }
 
-    public static NaSt callEffectCommonStatisticsBeanCommonValueGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStrOnly(( (EffectCommonStatisticsBean) ((PokemonBeanStruct)_str).getInstance()).getCommonValue());
+    public static DictionaryComparator<TranslatedKey,String> callEffectCommonStatisticsBeanCommonValueGet(NaSt _str, int... _args) {
+        return (( (EffectCommonStatisticsBean) ((PokemonBeanStruct)_str).getInstance()).getCommonValue());
     }
 
     public static String callEffectCommonStatisticsBeanGetTrStatistic(NaSt _str, int... _args) {
         return ( (EffectCommonStatisticsBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatistic(_args[0]);
     }
 
-    public static NaSt callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectCommonStatisticsBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsCommonStatistics());
+    public static AbsMap<String,String> callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(NaSt _str, int... _args) {
+        return (( (EffectCommonStatisticsBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsCommonStatistics());
     }
 
 
-    public static NaSt callEffectCounterAttackBeanDroppedStatDirectMoveGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrLong(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getDroppedStatDirectMove());
+    public static DictionaryComparator<TranslatedKey,Long> callEffectCounterAttackBeanDroppedStatDirectMoveGet(NaSt _str, int... _args) {
+        return (( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getDroppedStatDirectMove());
     }
 
-    public static NaSt callEffectCounterAttackBeanGetMapVarsFailCounter(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailCounter());
+    public static AbsMap<String,String> callEffectCounterAttackBeanGetMapVarsFailCounter(NaSt _str, int... _args) {
+        return (( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailCounter());
     }
 
     public static String callEffectCounterAttackBeanGetTrDroppedStatDirectMove(NaSt _str, int... _args) {
@@ -121,20 +122,20 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getTrSufferingDamageTypes(_args[0]);
     }
 
-    public static NaSt callEffectCounterAttackBeanReasonsCounterGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsCounter());
+    public static CustList<String> callEffectCounterAttackBeanReasonsCounterGet(NaSt _str, int... _args) {
+        return (( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsCounter());
     }
 
-    public static NaSt callEffectCounterAttackBeanReasonsProtectGet(NaSt _str, int... _args) {
-        return BeanNatCommonLgNames.getStringArray(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsProtect());
+    public static CustList<String> callEffectCounterAttackBeanReasonsProtectGet(NaSt _str, int... _args) {
+        return (( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsProtect());
     }
 
     public static Rate callEffectCounterAttackBeanSufferingDamageDirectMoveGet(NaSt _str, int... _args) {
         return ( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageDirectMove();
     }
 
-    public static NaSt callEffectCounterAttackBeanSufferingDamageTypesGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRateTk(( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageTypes());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectCounterAttackBeanSufferingDamageTypesGet(NaSt _str, int... _args) {
+        return (( (EffectCounterAttackBean) ((PokemonBeanStruct)_str).getInstance()).getSufferingDamageTypes());
     }
 
     public static Rate callEffectFullHpRateBeanClosestFoeDamageRateHpGet(NaSt _str, int... _args) {
@@ -145,8 +146,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ( (EffectFullHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getLeftUserHp();
     }
 
-    public static NaSt callEffectFullHpRateBeanMapVarsRestoredGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrStr(( (EffectFullHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsRestored());
+    public static AbsMap<String,String> callEffectFullHpRateBeanMapVarsRestoredGet(NaSt _str, int... _args) {
+        return (( (EffectFullHpRateBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsRestored());
     }
 
     public static String callEffectFullHpRateBeanRestoredHpGet(NaSt _str, int... _args) {
@@ -159,16 +160,16 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return ( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getTrType(_args[0]);
     }
 
-    public static NaSt callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRateTk(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, int... _args) {
+        return (( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
     }
 
     public static String callEffectMultUsedMovePowerBeanGetTrType(NaSt _str, int... _args) {
         return ( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getTrType(_args[0]);
     }
 
-    public static NaSt callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, int... _args) {
-        return PokemonStandards.getStrRateTk(( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, int... _args) {
+        return (( (EffectMultMovePowerBean) ((PokemonBeanStruct)_str).getInstance()).getMultMovePowerFctType());
     }
 
     public static boolean callEffectOrderBeanTargetAttacksLastGet(NaSt _str, int... _args) {

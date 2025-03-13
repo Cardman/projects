@@ -9,7 +9,7 @@ public final class EffectSwitchMoveTypesBeanTest extends InitDbMoveEffectSwitch 
     }
     @Test
     public void getReplacingTypes2() {
-        assertEq(T_TYPE1,elt(callEffectSwitchMoveTypesBeanReplacingTypesGet(dispMoveEffSwitchMoveTypes()),0));
+        assertEq(T_TYPE1,eltTkKey(callEffectSwitchMoveTypesBeanReplacingTypesGet(dispMoveEffSwitchMoveTypes()),0));
     }
     @Test
     public void getTrReplacingTypes() {
@@ -21,11 +21,11 @@ public final class EffectSwitchMoveTypesBeanTest extends InitDbMoveEffectSwitch 
     }
     @Test
     public void getChangeTypes2() {
-        assertEq(T_TYPE1,firstEntryTkTk(eltEntryTkTk(callEffectSwitchMoveTypesBeanChangeTypesGet(dispMoveEffSwitchMoveTypes()),0)));
+        assertEq(T_TYPE1, firstTkTk(eltTkTk(callEffectSwitchMoveTypesBeanChangeTypesGet(dispMoveEffSwitchMoveTypes()), 0)));
     }
     @Test
     public void getChangeTypes3() {
-        assertEq(T_TYPE2_TR,secondEntryTkTk(eltEntryTkTk(callEffectSwitchMoveTypesBeanChangeTypesGet(dispMoveEffSwitchMoveTypes()),0)));
+        assertEq(T_TYPE2_TR,secondEntryTkTk(eltTkTk(callEffectSwitchMoveTypesBeanChangeTypesGet(dispMoveEffSwitchMoveTypes()), 0)));
     }
     @Test
     public void getTrChangedTypes() {

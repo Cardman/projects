@@ -7,7 +7,7 @@ import org.junit.Test;
 public final class MapLevelBeanTest extends InitDbLevelMap {
     @Test
     public void getTiles() {
-        assertSizeEq(25,callMapLevelBeanTilesGet(0));
+        assertEq(25,callMapLevelBeanTilesGet(0));
     }
     @Test
     public void getMapWidth() {
@@ -289,19 +289,19 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void getNeighbours2() {
-        assertEq(0,first(elt(callMapLevelBeanNeighboursGet(2),0)));
+        assertEq(0,firstIntStrKey(eltIntStr(callMapLevelBeanNeighboursGet(2),0)));
     }
     @Test
     public void getNeighbours3() {
-        assertEq(PL_1,second(elt(callMapLevelBeanNeighboursGet(2),0)));
+        assertEq(PL_1,secondIntStr(eltIntStr(callMapLevelBeanNeighboursGet(2),0)));
     }
     @Test
     public void getNeighbours4() {
-        assertEq(1,first(elt(callMapLevelBeanNeighboursGet(2),1)));
+        assertEq(1,firstIntStrKey(eltIntStr(callMapLevelBeanNeighboursGet(2),1)));
     }
     @Test
     public void getNeighbours5() {
-        assertEq(PL_2,second(elt(callMapLevelBeanNeighboursGet(2),1)));
+        assertEq(PL_2,secondIntStr(eltIntStr(callMapLevelBeanNeighboursGet(2),1)));
     }
     @Test
     public void getLevelIndex() {
@@ -329,7 +329,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void getWhiteTiles() {
-        assertSizeEq(25,callMapLevelBeanWhiteTilesGet(0));
+        assertEq(25,callMapLevelBeanWhiteTilesGet(0));
     }
     @Test
     public void isStorage1() {

@@ -199,122 +199,102 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
 
     @Test
     public void getWinPointsFight1() {
-        FacadeGame fac_ = facTr();
-        assertSizeEq(4,callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))));
+        assertSizeEq(4,callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))));
     }
 
     @Test
     public void getWinPointsFight2() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyWinPointsFight.TRES_FACILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),0)));
+        assertEq(DifficultyWinPointsFight.TRES_FACILE.getWinName(),firstStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),0)));
     }
 
     @Test
     public void getWinPointsFight3() {
-        FacadeGame fac_ = facTr();
-        assertEq("W1",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),0)));
+        assertEq("W1",secondStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),0)));
     }
 
     @Test
     public void getWinPointsFight4() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),1)));
+        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),firstStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),1)));
     }
 
     @Test
     public void getWinPointsFight5() {
-        FacadeGame fac_ = facTr();
-        assertEq("W2",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),1)));
+        assertEq("W2",secondStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),1)));
     }
 
     @Test
     public void getWinPointsFight6() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyWinPointsFight.DIFFICILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),2)));
+        assertEq(DifficultyWinPointsFight.DIFFICILE.getWinName(),firstStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),2)));
     }
 
     @Test
     public void getWinPointsFight7() {
-        FacadeGame fac_ = facTr();
-        assertEq("W3",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),2)));
+        assertEq("W3",secondStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),2)));
     }
 
     @Test
     public void getWinPointsFight8() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyWinPointsFight.TRES_DIFFICILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),3)));
+        assertEq(DifficultyWinPointsFight.TRES_DIFFICILE.getWinName(),firstStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),3)));
     }
 
     @Test
     public void getWinPointsFight9() {
-        FacadeGame fac_ = facTr();
-        assertEq("W4",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),3)));
+        assertEq("W4",secondStrStr(eltStrStr(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, facTr()))),3)));
     }
 
     @Test
     public void getDamageRates1() {
-        FacadeGame fac_ = facTr();
-        assertSizeEq(5,callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))));
+        assertSizeEq(5,callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))));
     }
 
     @Test
     public void getDamageRates2() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyModelLaw.CONSTANT_MIN.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),0)));
+        assertEq(DifficultyModelLaw.CONSTANT_MIN.getModelName(),firstStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),0)));
     }
 
     @Test
     public void getDamageRates3() {
-        FacadeGame fac_ = facTr();
-        assertEq("M1",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),0)));
+        assertEq("M1",secondStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),0)));
     }
 
     @Test
     public void getDamageRates4() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyModelLaw.CROISSANT.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),1)));
+        assertEq(DifficultyModelLaw.CROISSANT.getModelName(),firstStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),1)));
     }
 
     @Test
     public void getDamageRates5() {
-        FacadeGame fac_ = facTr();
-        assertEq("M2",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),1)));
+        assertEq("M2",secondStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),1)));
     }
 
     @Test
     public void getDamageRates6() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyModelLaw.UNIFORME.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),2)));
+        assertEq(DifficultyModelLaw.UNIFORME.getModelName(),firstStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),2)));
     }
 
     @Test
     public void getDamageRates7() {
-        FacadeGame fac_ = facTr();
-        assertEq("M3",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),2)));
+        assertEq("M3",secondStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),2)));
     }
 
     @Test
     public void getDamageRates8() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyModelLaw.DECROISSANT.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),3)));
+        assertEq(DifficultyModelLaw.DECROISSANT.getModelName(),firstStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),3)));
     }
 
     @Test
     public void getDamageRates9() {
-        FacadeGame fac_ = facTr();
-        assertEq("M4",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),3)));
+        assertEq("M4",secondStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),3)));
     }
 
     @Test
     public void getDamageRates10() {
-        FacadeGame fac_ = facTr();
-        assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),4)));
+        assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),firstStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),4)));
     }
 
     @Test
     public void getDamageRates11() {
-        FacadeGame fac_ = facTr();
-        assertEq("M5",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),4)));
+        assertEq("M5",secondStrStr(eltStrStr(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, facTr()))),4)));
     }
 
     @Test
@@ -328,14 +308,14 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     public void getDamageRatePlayerTable2() {
         FacadeGame fac_ = facTr();
         diff(fac_).setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
-        assertEq(fac_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.CONSTANT_MIN).getLaw().getEvent(0),first(elt(callDifficultyBeanDamageRatePlayerTableGet(beanSimu(EN, fac_)),0)));
+        assertEq(fac_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.CONSTANT_MIN).getLaw().getEvent(0),firstRtRtKey(eltRtRt(callDifficultyBeanDamageRatePlayerTableGet(beanSimu(EN, fac_)),0)));
     }
 
     @Test
     public void getDamageRatePlayerTable3() {
         FacadeGame fac_ = facTr();
         diff(fac_).setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
-        assertEq(Rate.one(),second(elt(callDifficultyBeanDamageRatePlayerTableGet(beanSimu(EN, fac_)),0)));
+        assertEq(Rate.one(),secondRtRt(eltRtRt(callDifficultyBeanDamageRatePlayerTableGet(beanSimu(EN, fac_)),0)));
     }
 
     @Test
@@ -349,14 +329,14 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     public void getDamageRateLawFoe2() {
         FacadeGame fac_ = facTr();
         diff(fac_).setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MIN);
-        assertEq(fac_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.CONSTANT_MIN).getLaw().getEvent(0),first(elt(callDifficultyBeanDamageRateFoeTableGet(beanSimu(EN, fac_)),0)));
+        assertEq(fac_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.CONSTANT_MIN).getLaw().getEvent(0),firstRtRtKey(eltRtRt(callDifficultyBeanDamageRateFoeTableGet(beanSimu(EN, fac_)),0)));
     }
 
     @Test
     public void getDamageRateLawFoe3() {
         FacadeGame fac_ = facTr();
         diff(fac_).setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MIN);
-        assertEq(Rate.one(),second(elt(callDifficultyBeanDamageRateFoeTableGet(beanSimu(EN, fac_)),0)));
+        assertEq(Rate.one(),secondRtRt(eltRtRt(callDifficultyBeanDamageRateFoeTableGet(beanSimu(EN, fac_)),0)));
     }
 //
 //    @Test

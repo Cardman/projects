@@ -84,8 +84,8 @@ public abstract class InitDbStatusSet extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new StatusSetBeanSearch(),_str,_args);
 //    }
 
-    public static NaSt callStatusSetBeanSortedStatusGet(NaSt _str, int... _args) {
-        return PokemonStandards.getKeys(( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getSortedStatus());
+    public static CustList<TranslatedKey> callStatusSetBeanSortedStatusGet(NaSt _str, int... _args) {
+        return (( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getSortedStatus());
     }
 
     public static String callStatusSetBeanTypedStatusGet(NaSt _str, int... _args) {
@@ -103,7 +103,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
 
     private static NaSt dispAllStatus(PkData _pk) {
         StringMap<NaSt> all_ = beanToStatusSet(_pk);
-        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(BEAN_STATUS_SET);
         transit(_pk,new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
@@ -118,7 +118,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     }
 
     protected static NaSt transitToAllStatus(PkData _pk, StringMap<NaSt> _all,int _index) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt pks_ = _all.getVal(BEAN_STATUS_SET);
         NaSt pk_ = _all.getVal(BEAN_STATUS);
@@ -132,7 +132,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     }
     public static StringMap<NaSt> beanToStatusSet(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
         StatusSetBean s_ = new StatusSetBean();
         map_.addEntry(BEAN_STATUS_SET, _pk.bean(s_, EN));
         s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());

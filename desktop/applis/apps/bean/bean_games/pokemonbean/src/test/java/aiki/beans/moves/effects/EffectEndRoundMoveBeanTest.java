@@ -22,10 +22,10 @@ public final class EffectEndRoundMoveBeanTest extends InitDbMoveEffectEndRound {
     }
     @Test
     public void getMapVarsFailEndRound2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(dispMoveEffEndRound()),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(dispMoveEffEndRound()),0)));
     }
     @Test
     public void getMapVarsFailEndRound3() {
-        assertEq(TIME,second(elt(callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(dispMoveEffEndRound()),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(dispMoveEffEndRound()),0)));
     }
 }

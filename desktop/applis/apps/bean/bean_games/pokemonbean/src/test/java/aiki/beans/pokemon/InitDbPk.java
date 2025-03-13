@@ -30,10 +30,7 @@ import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbPk extends InitDbConstr {
     public static final String BEAN_POKEDEX="pokedex";
@@ -147,8 +144,8 @@ public abstract class InitDbPk extends InitDbConstr {
     public static long callPokemonLineEvolutionsGet(PokemonLine _str, int... _args) {
         return _str.getEvolutions();
     }
-    public static NaSt callPokedexBeanBooleansGet() {
-        return PokemonStandards.getStrStr(( (PokedexBean) ((PokemonBeanStruct)dispAllPks()).getInstance()).getBooleans());
+    public static AbsMap<String,String> callPokedexBeanBooleansGet() {
+        return (( (PokedexBean) ((PokemonBeanStruct)dispAllPks()).getInstance()).getBooleans());
     }
 
     public static String callPokedexBeanClickLink(NaSt _str, int... _args) {
@@ -252,7 +249,7 @@ public abstract class InitDbPk extends InitDbConstr {
 
     private static NaSt dispAllPks(PkData _pk) {
         StringMap<NaSt> all_ = beanToPk(_pk);
-        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt moves_ = all_.getVal(BEAN_POKEDEX);
         transit(_pk,new WelcomeBeanClickPokedex(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
@@ -267,7 +264,7 @@ public abstract class InitDbPk extends InitDbConstr {
     }
 
     protected static NaSt transitToAllPks(PkData _pk, StringMap<NaSt> _all,int _index) {
-        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         NaSt pks_ = _all.getVal(BEAN_POKEDEX);
         NaSt pk_ = _all.getVal(BEAN_PK);
@@ -282,7 +279,7 @@ public abstract class InitDbPk extends InitDbConstr {
     public static StringMap<NaSt> beanToPk(PkData _pk) {
         StringMap<NaSt> map_ = new StringMap<NaSt>();
         WelcomeBean w_ = beanWelcomeBean(_pk, EN);
-        map_.addEntry(AikiBeansStd.BEAN_WELCOME,new PokemonBeanStruct(w_));
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,new PokemonBeanStruct(w_));
         PokedexBean pkDex_ = new PokedexBean();
         w_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());

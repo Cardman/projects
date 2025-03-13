@@ -295,23 +295,23 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getMovesLevelLearntByPokemon2() {
-        assertEq(3,first(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)));
+        assertEq(3,firstLgListTkKey(eltLgListTk(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)));
     }
     @Test
     public void getMovesLevelLearntByPokemon3() {
-        assertEq(1,first(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)),0)));
+        assertEq(1,firstLgListTkKey(eltLgListTk(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)),0)));
     }
     @Test
     public void getMovesLevelLearntByPokemon4() {
-        assertSizeEq(2,second(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)));
+        assertSizeEq(2,secondLgListTk(eltLgListTk(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)));
     }
     @Test
     public void getMovesLevelLearntByPokemon5() {
-        assertEq(P_PIKA,elt(second(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)),0));
+        assertEq(P_PIKA,eltTkKey(secondLgListTk(eltLgListTk(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)),0));
     }
     @Test
     public void getMovesLevelLearntByPokemon6() {
-        assertEq(P_POKEMON,elt(second(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)),1));
+        assertEq(P_POKEMON,eltTkKey(secondLgListTk(eltLgListTk(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)),1));
     }
     @Test
     public void getTrPokemon1() {
@@ -355,63 +355,63 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void affectedByMoves5() {
-        assertEq(M_DAM_BAD,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),0));
+        assertEq(M_DAM_BAD,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),0));
     }
     @Test
     public void affectedByMoves6() {
-        assertEq(M_DAM_POW,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),1));
+        assertEq(M_DAM_POW,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),1));
     }
     @Test
     public void affectedByMoves7() {
-        assertEq(M_DAM_VERY_BAD,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),2));
+        assertEq(M_DAM_VERY_BAD,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),2));
     }
     @Test
     public void affectedByMoves8() {
-        assertEq(M_STA,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),3));
+        assertEq(M_STA,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),3));
     }
     @Test
     public void affectedByMoves9() {
-        assertEq(M_WEA,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),4));
+        assertEq(M_WEA,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),4));
     }
     @Test
     public void affectedByMoves10() {
-        assertEq(M_DAM_POW,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,false,false,false,false,true, true, "1"),2)),0));
+        assertEq(M_DAM_POW,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,false,false,false,false,true, true, "1"),2)),0));
     }
     @Test
     public void affectedByMoves11() {
-        assertEq(M_DAM_BAD,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),0));
+        assertEq(M_DAM_BAD,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),0));
     }
     @Test
     public void affectedByMoves12() {
-        assertEq(M_DAM_POW,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),1));
+        assertEq(M_DAM_POW,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),1));
     }
     @Test
     public void affectedByMoves13() {
-        assertEq(M_DAM,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),2));
+        assertEq(M_DAM,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),2));
     }
     @Test
     public void affectedByMoves14() {
-        assertEq(M_DAM_VAR,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),3));
+        assertEq(M_DAM_VAR,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),3));
     }
     @Test
     public void affectedByMoves15() {
-        assertEq(M_DAM_VERY_BAD,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),4));
+        assertEq(M_DAM_VERY_BAD,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),4));
     }
     @Test
     public void affectedByMoves16() {
-        assertEq(M_WEA,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),5));
+        assertEq(M_WEA,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),5));
     }
     @Test
     public void affectedByMoves17() {
-        assertEq(M_DAM,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),0));
+        assertEq(M_DAM,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),0));
     }
     @Test
     public void affectedByMoves18() {
-        assertEq(M_DAM_VAR,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),1));
+        assertEq(M_DAM_VAR,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),1));
     }
     @Test
     public void affectedByMoves19() {
-        assertEq(M_WEA,eltStrKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),2));
+        assertEq(M_WEA,eltTkKey(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),2));
     }
     @Test
     public void abilities1() {
@@ -419,7 +419,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void abilities2() {
-        assertEq(A_ABILITY,eltStrKey(callMoveBeanAbilitiesGet(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(A_ABILITY,eltTkKey(callMoveBeanAbilitiesGet(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
     }
     @Test
     public void items1() {
@@ -431,7 +431,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void items3() {
-        assertEq(I_ITEM,eltStrKey(callMoveBeanItemsGet(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(I_ITEM,eltTkKey(callMoveBeanItemsGet(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
     }
     @Test
     public void accVar1() {
@@ -439,11 +439,11 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void accVar2() {
-        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,first(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(MessagesDataBaseConstants.DEF_TEMPS_TOUR,firstStrStr(eltStrStr(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void accVar3() {
-        assertEq(TIME,second(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(TIME,secondStrStr(eltStrStr(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, VAR_PREFIX+ MessagesDataBaseConstants.DEF_TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void switchAfterUsingMove1() {
@@ -583,7 +583,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void boost2() {
-        assertEq(T_TYPE1_TR,eltStrTr(callMoveBeanBoostedTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(T_TYPE1_TR, eltTkTr(callMoveBeanBoostedTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, "1", SwitchType.NOTHING, 1, true, true, true, true, true, true, true, true, true, true, true, true, "1"), 0)), 0));
     }
     @Test
     public void types1() {
@@ -591,7 +591,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void types2() {
-        assertEq(T_TYPE1_TR,eltStrTr(callMoveBeanTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(T_TYPE1_TR, eltTkTr(callMoveBeanTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, "1", SwitchType.NOTHING, 1, true, true, true, true, true, true, true, true, true, true, true, true, "1"), 0)), 0));
     }
     @Test
     public void deletedStatus1() {
@@ -599,7 +599,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void deletedStatus2() {
-        assertEq(S_STA_SIM,eltStrKey(callMoveBeanDeletedStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(S_STA_SIM,eltTkKey(callMoveBeanDeletedStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
     }
     @Test
     public void requiredStatus1() {
@@ -607,7 +607,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void requiredStatus2() {
-        assertEq(S_STA_REL,eltStrKey(callMoveBeanRequiredStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(S_STA_REL,eltTkKey(callMoveBeanRequiredStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
     }
     @Test
     public void achieveDisappearedPkUsingMove1() {
@@ -615,7 +615,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void achieveDisappearedPkUsingMove2() {
-        assertEq(M_STA,eltStrKey(callMoveBeanAchieveDisappearedPkUsingMoveGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(M_STA,eltTkKey(callMoveBeanAchieveDisappearedPkUsingMoveGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
     }
     @Test
     public void getEffects() {
@@ -627,11 +627,11 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getRepeatRoundLaw2() {
-        assertEq(LgInt.one(),first(elt(callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(LgInt.one(),firstLtRtKey(eltLtRt(callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void getRepeatRoundLaw3() {
-        assertEq(Rate.one(),second(elt(callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(Rate.one(),secondLtRt(eltLtRt(callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void getTrAchieveDisappearedPkUsingMove() {
@@ -675,15 +675,15 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getSecEffectsByItem2() {
-        assertEq(I_ITEM,first(elt(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(I_ITEM,firstTkIntsKey(eltTkInts(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void getSecEffectsByItem3() {
-        assertSizeEq(1,second(elt(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertSizeEq(1,secondTkInts(eltTkInts(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
     @Test
     public void getSecEffectsByItem4() {
-        assertEq(0,elt(second(elt(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)),0));
+        assertEq(0,eltInt(secondTkInts(eltTkInts(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)),0));
     }
     @Test
     public void getTypesByOwnedItems1() {
@@ -691,11 +691,11 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getTypesByOwnedItems2() {
-        assertEq(I_ITEM,firstEntryTkTk(eltEntryTkTk(callMoveBeanTypesByOwnedItemsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(I_ITEM, firstTkTk(eltTkTk(callMoveBeanTypesByOwnedItemsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, true, true, true, "1"), 0)), 0)));
     }
     @Test
     public void getTypesByOwnedItems3() {
-        assertEq(T_TYPE1_TR,secondEntryTkTk(eltEntryTkTk(callMoveBeanTypesByOwnedItemsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(T_TYPE1_TR,secondEntryTkTk(eltTkTk(callMoveBeanTypesByOwnedItemsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, true, true, true, "1"), 0)), 0)));
     }
     @Test
     public void getTypesByWeathers1() {
@@ -703,11 +703,11 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getTypesByWeathers2() {
-        assertEq(M_WEA,firstEntryTkTk(eltEntryTkTk(callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(M_WEA, firstTkTk(eltTkTk(callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, true, true, true, "1"), 0)), 0)));
     }
     @Test
     public void getTypesByWeathers3() {
-        assertEq(T_TYPE1_TR,secondEntryTkTk(eltEntryTkTk(callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+        assertEq(T_TYPE1_TR,secondEntryTkTk(eltTkTk(callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, true, true, true, "1"), 0)), 0)));
     }
     @Test
     public void getMovesTmLearntByPokemon1() {
@@ -715,7 +715,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getMovesTmLearntByPokemon2() {
-        assertEq(P_POKEMON,eltStrKey(callMoveBeanMovesTmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(P_POKEMON,eltTkKey(callMoveBeanMovesTmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
     }
     @Test
     public void getTrPokemonTm() {
@@ -735,7 +735,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getMovesMtLearntByPokemon2() {
-        assertEq(P_POKEMON,eltStrKey(callMoveBeanMovesMtLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+        assertEq(P_POKEMON,eltTkKey(callMoveBeanMovesMtLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
     }
     @Test
     public void getTrPokemonMt() {
@@ -755,7 +755,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void getMovesHmLearntByPokemon2() {
-        assertEq(P_POKEMON,eltStrKey(callMoveBeanMovesHmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1)),0));
+        assertEq(P_POKEMON,eltTkKey(callMoveBeanMovesHmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1)),0));
     }
     @Test
     public void getTrPokemonHm() {
