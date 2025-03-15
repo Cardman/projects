@@ -331,117 +331,117 @@ public abstract class InitDbPkOne extends InitDbPk {
 
 
     public static long callEvolutionHappinessBeanMinGet() {
-        return ( (EvolutionHappinessBean) ((PokemonBeanStruct)dispPkOne(12,0)).getInstance()).getMin();
+        return ((EvolutionHappinessBean) dispPkOne(12,0)).getMin();
     }
 
     public static String callEvolutionItemBeanClickItem() {
         return callEvolutionItemBeanClickItem(dispPkOne(9,0));
     }
 
-    public static String callEvolutionItemBeanClickItem(NaSt _str) {
-        return ( (EvolutionItemBean) ((PokemonBeanStruct)_str).getInstance()).clickItem();
+    public static String callEvolutionItemBeanClickItem(EvolutionBean _str) {
+        return ((EvolutionItemBean) _str).clickItem();
     }
 
     public static String callEvolutionItemBeanClickItemId() {
-        NaSt bean_ = dispPkOne(9, 0);
+        EvolutionBean bean_ = dispPkOne(9, 0);
         callEvolutionItemBeanClickItem(bean_);
         return getValItemId(bean_);
     }
 
     public static String callEvolutionItemBeanItemGet() {
-        return ( (EvolutionItemBean) ((PokemonBeanStruct)dispPkOne(9,0)).getInstance()).getItem().getTranslation();
+        return ((EvolutionItemBean) dispPkOne(9,0)).getItem().getTranslation();
     }
 
     public static long callEvolutionLevelBeanLevelGet() {
-        return ( (EvolutionLevelBean) ((PokemonBeanStruct)dispPkOne(0,0)).getInstance()).getLevel();
+        return ((EvolutionLevelBean) dispPkOne(0,0)).getLevel();
     }
 
     public static String callEvolutionLevelGenderBeanGenderGet() {
-        return ( (EvolutionLevelGenderBean) ((PokemonBeanStruct)dispPkOne(1,0)).getInstance()).getGender();
+        return ((EvolutionLevelGenderBean) dispPkOne(1,0)).getGender();
     }
 
     public static String callEvolutionMoveBeanClickMove() {
         return callEvolutionMoveBeanClickMove(dispPkOne(5,0));
     }
 
-    public static String callEvolutionMoveBeanClickMove(NaSt _str) {
-        return ( (EvolutionMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMove();
+    public static String callEvolutionMoveBeanClickMove(EvolutionBean _str) {
+        return ((EvolutionMoveBean) _str).clickMove();
     }
 
     public static String callEvolutionMoveBeanClickMoveId() {
-        NaSt bean_ = dispPkOne(5, 0);
+        EvolutionBean bean_ = dispPkOne(5, 0);
         callEvolutionMoveBeanClickMove(bean_);
         return getValMoveId(bean_);
     }
 
     public static String callEvolutionMoveBeanMoveGet() {
-        return ( (EvolutionMoveBean) ((PokemonBeanStruct)dispPkOne(5,0)).getInstance()).getMove().getTranslation();
+        return ((EvolutionMoveBean) dispPkOne(5,0)).getMove().getTranslation();
     }
 
     public static String callEvolutionMoveTypeBeanTypeGet() {
-        return ( (EvolutionMoveTypeBean) ((PokemonBeanStruct)dispPkOne(5,1)).getInstance()).getType();
+        return ((EvolutionMoveTypeBean) dispPkOne(5,1)).getType();
     }
 
     public static String callEvolutionStoneBeanClickStone() {
         return callEvolutionStoneBeanClickStone(dispPkOne(3,0));
     }
 
-    public static String callEvolutionStoneBeanClickStone(NaSt _str) {
-        return ( (EvolutionStoneBean) ((PokemonBeanStruct)_str).getInstance()).clickStone();
+    public static String callEvolutionStoneBeanClickStone(EvolutionBean _str) {
+        return ((EvolutionStoneBean) _str).clickStone();
     }
 
     public static String callEvolutionStoneBeanClickStoneId() {
-        NaSt bean_ = dispPkOne(3, 0);
+        EvolutionBean bean_ = dispPkOne(3, 0);
         callEvolutionStoneBeanClickStone(bean_);
         return getValItemId(bean_);
     }
 
     public static String callEvolutionStoneBeanStoneGet() {
-        return ( (EvolutionStoneBean) ((PokemonBeanStruct)dispPkOne(3,0)).getInstance()).getStone().getTranslation();
+        return ((EvolutionStoneBean) dispPkOne(3,0)).getStone().getTranslation();
     }
 
     public static String callEvolutionStoneGenderBeanGenderGet() {
-        return ( (EvolutionStoneGenderBean) ((PokemonBeanStruct)dispPkOne(4,0)).getInstance()).getGender();
+        return ((EvolutionStoneGenderBean) dispPkOne(4,0)).getGender();
     }
 
     public static String callEvolutionTeamBeanClickTeam() {
         return callEvolutionTeamBeanClickTeam(dispPkOne(8,0));
     }
 
-    public static String callEvolutionTeamBeanClickTeam(NaSt _str) {
-        return ( (EvolutionTeamBean) ((PokemonBeanStruct)_str).getInstance()).clickTeam();
+    public static String callEvolutionTeamBeanClickTeam(EvolutionBean _str) {
+        return ((EvolutionTeamBean) _str).clickTeam();
     }
 
     public static String callEvolutionTeamBeanClickTeamId() {
-        NaSt bean_ = dispPkOne(8, 0);
+        EvolutionBean bean_ = dispPkOne(8, 0);
         callEvolutionTeamBeanClickTeam(bean_);
         return getValPkId(bean_);
     }
 
     public static String callEvolutionTeamBeanOtherGet() {
-        return ( (EvolutionTeamBean) ((PokemonBeanStruct)dispPkOne(8,0)).getInstance()).getOther().getTranslation();
+        return ((EvolutionTeamBean) dispPkOne(8,0)).getOther().getTranslation();
     }
 
     public static String callEvolutionBeanClickEvo() {
         return callEvolutionBeanClickEvo(dispPkOne(12,0));
     }
 
-    public static String callEvolutionBeanClickEvo(NaSt _str) {
-        return ( (EvolutionBean) ((PokemonBeanStruct)_str).getInstance()).clickEvo();
+    public static String callEvolutionBeanClickEvo(EvolutionBean _str) {
+        return _str.clickEvo();
     }
 
     public static String callEvolutionBeanClickEvoId() {
-        NaSt bean_ = dispPkOne(12, 0);
+        EvolutionBean bean_ = dispPkOne(12, 0);
         callEvolutionBeanClickEvo(bean_);
         return getValPkId(bean_);
     }
 
     public static String callEvolutionBeanDisplayBaseGet() {
-        return ( (EvolutionBean) ((PokemonBeanStruct)dispPkOne(1,0)).getInstance()).getDisplayBase();
+        return dispPkOne(1,0).getDisplayBase();
     }
 
     public static String callEvolutionBeanDisplayNameGet() {
-        return ( (EvolutionBean) ((PokemonBeanStruct)dispPkOne(12,0)).getInstance()).getDisplayName();
+        return dispPkOne(12,0).getDisplayName();
     }
 
 //    public static NaSt callEvolutionBeanIndexGet(NaSt _str, long... _args) {
@@ -477,7 +477,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         StringMap<NaSt> all_ = beanToPkOne(pk_);
         return transitToAllPks(pk_, all_, _index);
     }
-    protected static NaSt dispPkOne(int _index, int _evo) {
+    protected static EvolutionBean dispPkOne(int _index, int _evo) {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToPkOne(pk_);
 //        StringMap<String> mapping_ = mappingToPkOne();
@@ -488,7 +488,7 @@ public abstract class InitDbPkOne extends InitDbPk {
 //        callEvolutionBeanNameSet(evobean_,toStr(elt(callPokemonBeanEvolutionsGet(pkbean_),_evo)));
 //        setFormsBy(pk_,evobean_,pkbean_);
 //        beforeDisplaying(evobean_);
-        return new PokemonBeanStruct(((PokemonBean)((PokemonBeanStruct)pkbean_).getBean()).getBeans().get(_evo));
+        return ((PokemonBean)((PokemonBeanStruct)pkbean_).getBean()).getBeans().get(_evo);
     }
     public static StringMap<NaSt> beanToPkOne(PkData _pk) {
         StringMap<NaSt> map_ = beanToPk(_pk);
