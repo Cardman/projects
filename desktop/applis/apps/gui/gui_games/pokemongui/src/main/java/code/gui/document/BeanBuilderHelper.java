@@ -174,9 +174,9 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     @Override
     public void paintNb(int _nb) {
-        AbstractImage img_ = api.getImageFactory().newImageArgb(32, 16);
+        AbstractImage img_ = api.getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);
-        img_.fillRect(0, 0, 32, 16);
+        img_.fillRect(0, 0, 16, 16);
         img_.setColor(GuiConstants.BLACK);
         img_.drawString(Long.toString(_nb),0,16);
         stack.last().add(api.getCompoFactory().newPreparedLabel(img_));
