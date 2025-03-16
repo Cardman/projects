@@ -5,8 +5,6 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.instances.Instances;
 import aiki.map.pokemon.enums.Gender;
-import code.bean.nat.RtSt;
-import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;

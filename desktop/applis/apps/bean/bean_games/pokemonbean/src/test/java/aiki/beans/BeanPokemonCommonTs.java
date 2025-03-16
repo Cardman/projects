@@ -12,7 +12,6 @@ import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import aiki.map.pokemon.*;
 import aiki.map.util.*;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.confs.*;
 import code.util.*;
@@ -116,20 +115,20 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    public static NaSt byStr(StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _resultAsString) {
 //        return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
 //    }
-
-    public NaSt displaying(NaSt _b) {
-        beforeDisplaying(_b);
-        return _b;
-    }
+//
+//    public NaSt displaying(NaSt _b) {
+//        beforeDisplaying(_b);
+//        return _b;
+//    }
 
     public WelcomeBean displaying(WelcomeBean _b) {
         beforeDisplaying(_b);
         return _b;
     }
-
-    public static void beforeDisplaying(NaSt _bean) {
-        beforeDisplaying((CommonBean)((BeanStruct) _bean).getBean());
-    }
+//
+//    public static void beforeDisplaying(NaSt _bean) {
+//        beforeDisplaying((CommonBean)((BeanStruct) _bean).getBean());
+//    }
 
     public static void beforeDisplaying(CommonBean _bean) {
         ((BeanRenderWithAppName)_bean).build(_bean.getFacade());
@@ -160,15 +159,15 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    public static void assertEq(int[][] _exp, NaSt _result) {
 //        assertEq(_exp, NaImgSt.tryGet(_result));
 //    }
-    public static void assertEq(String _exp, NaSt _result) {
-        assertEq(_exp,((NaStSt)_result).getInstance());
-    }
-    public static void assertEq(LgInt _exp, NaSt _result) {
-        assertEq(_exp,((LgSt)_result).getInstance());
-    }
-    public static void assertEq(Rate _exp, NaSt _result) {
-        assertEq(_exp,((RtSt)_result).getInstance());
-    }
+//    public static void assertEq(String _exp, NaSt _result) {
+//        assertEq(_exp,((NaStSt)_result).getInstance());
+//    }
+//    public static void assertEq(LgInt _exp, NaSt _result) {
+//        assertEq(_exp,((LgSt)_result).getInstance());
+//    }
+//    public static void assertEq(Rate _exp, NaSt _result) {
+//        assertEq(_exp,((RtSt)_result).getInstance());
+//    }
     public static void assertEq(LgInt _exp, LgInt _result) {
         assertEq(_exp.toNumberString(),_result.toNumberString());
         assertTrue(_exp.eq(_result));
@@ -177,9 +176,9 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         assertEq(_exp.toNumberString(),_result.toNumberString());
         assertTrue(_exp.eq(_result));
     }
-    public static void assertEq(long _exp, NaSt _result) {
-        assertEq(_exp,(((NaNbSt)_result).longStruct()));
-    }
+//    public static void assertEq(long _exp, NaSt _result) {
+//        assertEq(_exp,(((NaNbSt)_result).longStruct()));
+//    }
     public static void assertTrue(int _value) {
         assertEq(CommonBean.TRUE_VALUE,_value);
     }
@@ -192,9 +191,9 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //    public static void assertFalse(NaSt _value) {
 //        assertSame(NaBoSt.of(false),_value);
 //    }
-    public static void assertSizeEq(int _exp, NaSt _result) {
-        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
-    }
+//    public static void assertSizeEq(int _exp, NaSt _result) {
+//        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
+//    }
     public static void assertSizeEq(int _exp, Countable _result) {
         assertEq(_exp,_result.size());
     }

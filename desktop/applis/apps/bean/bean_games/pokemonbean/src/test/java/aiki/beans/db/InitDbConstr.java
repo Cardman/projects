@@ -24,7 +24,6 @@ import aiki.instances.Instances;
 import aiki.map.places.Place;
 import aiki.map.pokemon.*;
 import aiki.util.Coords;
-import code.bean.nat.*;
 //import code.formathtml.Configuration;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -175,12 +174,12 @@ public abstract class InitDbConstr extends InitDbBean {
 //        PkScriptPagesInit.initConfData(new NatConfigurationCore());
 //        return _caller.actionBean();
 //    }
-    public static String navigateData(IntBeanAction _caller, NaSt _str) {
-        String url_ = _caller.actionBean();
+//    public static String navigateData(IntBeanAction _caller, NaSt _str) {
+//        String url_ = _caller.actionBean();
 //        _caller.getBean();
 //        _caller.getBean().getBuilder().build(url_,_caller.getBean().getForms());
-        return url_;
-    }
+//        return url_;
+//    }
     public static String navigateData(IntBeanAction _caller, CommonBean _str) {
         String url_ = _caller.actionBean();
 //        _caller.getBean();

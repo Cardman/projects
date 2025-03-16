@@ -8,17 +8,7 @@ import aiki.game.Game;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.instances.Instances;
-import aiki.map.levels.enums.EnvironmentType;
-import code.bean.nat.NatNavigation;
-import code.bean.nat.*;
 import code.maths.Rate;
-import code.scripts.confs.PkScriptPages;
-import code.scripts.pages.aiki.PagesInit;
-import code.sml.util.*;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
 import org.junit.Test;
 
 public final class DifficultyBeanTest extends InitDbDifficultyBean {
