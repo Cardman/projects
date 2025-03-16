@@ -180,7 +180,6 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         nav_.setLanguage(EN);
         pk_.setDataBase(f_);
         pk_.initializeRendSessionDoc(nav_);
-        pk_.getPage();
         assertFalse(nav_.getHtmlText().isEmpty());
 //        goToPage(pk_,nav_,0);
         NatRendStackCall r_ = new NatRendStackCall();

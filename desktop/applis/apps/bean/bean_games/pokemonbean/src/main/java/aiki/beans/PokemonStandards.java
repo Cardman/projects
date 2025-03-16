@@ -8,7 +8,7 @@ import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
 import code.sml.*;
 import code.util.core.*;
-public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, WithPageInfos {
+public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesInt {
 
     public static final String ON = SetupableAnalyzingDoc.ON;
 
@@ -111,11 +111,10 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
 //        _std.getStds().addEntry(TYPE_UNSELECTED_RADIO, type_);
 //    }
-
-    @Override
-    public HtmlPageInt getPage() {
-        return null;
-    }
+//
+//    public HtmlPageInt getPage() {
+//        return null;
+//    }
 
 
     //    public void processRendFormRequest(NatNavigation _nav) {
