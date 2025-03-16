@@ -1,7 +1,6 @@
 package aiki.beans.status;
 
 import aiki.beans.*;
-import code.bean.nat.*;
 import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
@@ -17,13 +16,13 @@ public final class StatusSetBeanTest extends InitDbStatusSet {
     }
     @Test
     public void typedNameSet() {
-        NaSt bean_ = dispAllStatus();
+        StatusSetBean bean_ = dispAllStatus();
         callStatusSetBeanTypedStatusSet(bean_,M_DAM_TR);
         assertEq(M_DAM_TR,callStatusSetBeanTypedStatusGet(bean_));
     }
     @Test
     public void search1() {
-        NaSt bean_ = dispAllStatus();
+        StatusSetBean bean_ = dispAllStatus();
         assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML, navigateStatusSearch(bean_));
         assertTrue(forms(bean_).contains(CST_STATUS_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValStatusData(CST_STATUS_SET).getKeys());
@@ -44,7 +43,7 @@ public final class StatusSetBeanTest extends InitDbStatusSet {
     }
     @Test
     public void search2() {
-        NaSt bean_ = dispAllStatus();
+        StatusSetBean bean_ = dispAllStatus();
         callStatusSetBeanTypedStatusSet(bean_,S_STA_00_TR);
         assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_DATA_HTML, navigateStatusSearch(bean_));
         assertTrue(forms(bean_).contains(CST_STATUS_SET));

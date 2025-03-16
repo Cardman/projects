@@ -10,7 +10,6 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;
@@ -66,79 +65,80 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         return callStatusSetBeanClickStatus(dispAllStatusSearch(),_args);
     }
 
-    public static String callStatusSetBeanClickStatus(NaSt _str, int... _args) {
-        return ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0]);
+    public static String callStatusSetBeanClickStatus(StatusSetBean _str, int... _args) {
+        return _str.clickStatus(_args[0]);
     }
 
     public static String callStatusSetBeanClickStatusId(int... _args) {
-        NaSt bean_ = dispAllStatusSearch();
+        StatusSetBean bean_ = dispAllStatusSearch();
         callStatusSetBeanClickStatus(bean_,_args);
         return getValStatusId(bean_);
     }
 
-    public static String callStatusSetBeanGetTrStatus(NaSt _str, int... _args) {
-        return ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]);
+    public static String callStatusSetBeanGetTrStatus(StatusSetBean _str, int... _args) {
+        return _str.getTrStatus(_args[0]);
     }
 
 //    public static NaSt callStatusSetBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new StatusSetBeanSearch(),_str,_args);
 //    }
 
-    public static CustList<TranslatedKey> callStatusSetBeanSortedStatusGet(NaSt _str, int... _args) {
-        return (( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getSortedStatus());
+    public static CustList<TranslatedKey> callStatusSetBeanSortedStatusGet(StatusSetBean _str, int... _args) {
+        return _str.getSortedStatus();
     }
 
-    public static String callStatusSetBeanTypedStatusGet(NaSt _str, int... _args) {
-        return ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTypedStatus().tryRet();
+    public static String callStatusSetBeanTypedStatusGet(StatusSetBean _str, int... _args) {
+        return _str.getTypedStatus().tryRet();
     }
 
-    public static void callStatusSetBeanTypedStatusSet(NaSt _str, String _args) {
-        ( (StatusSetBean) ((PokemonBeanStruct)_str).getInstance()).getTypedStatus().setupValue(_args);
+    public static void callStatusSetBeanTypedStatusSet(StatusSetBean _str, String _args) {
+        _str.getTypedStatus().setupValue(_args);
     }
 
-    protected static NaSt dispAllStatus() {
+    protected static StatusSetBean dispAllStatus() {
         PkData pk_ = pkDataByFacade(feedDb());
         return dispAllStatus(pk_);
     }
 
-    private static NaSt dispAllStatus(PkData _pk) {
-        StringMap<NaSt> all_ = beanToStatusSet(_pk);
-        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    private static StatusSetBean dispAllStatus(PkData _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToStatusSet(_pk);
+        WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(BEAN_STATUS_SET);
-        transit(_pk,new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
+        StatusSetBean moves_ = (StatusSetBean) all_.getVal(BEAN_STATUS_SET);
+        transit(_pk,new WelcomeBeanClickStatus(welcome_),welcome_,moves_);
         return moves_;
     }
 
-    protected static NaSt dispAllStatusSearch() {
+    protected static StatusSetBean dispAllStatusSearch() {
         PkData pk_ = pkDataByFacade(feedDb());
-        NaSt moves_ = dispAllStatus(pk_);
-        transit(pk_,new StatusSetBeanSearch(((StatusSetBean) ((PokemonBeanStruct)moves_).getBean())),moves_,moves_);
+        StatusSetBean moves_ = dispAllStatus(pk_);
+        transit(pk_,new StatusSetBeanSearch(moves_),moves_,moves_);
         return moves_;
     }
 
-    protected static NaSt transitToAllStatus(PkData _pk, StringMap<NaSt> _all,int _index) {
-        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    protected static StatusBean transitToAllStatus(PkData _pk, StringMap<BeanRenderWithAppName> _all,int _index) {
+        WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt pks_ = _all.getVal(BEAN_STATUS_SET);
-        NaSt pk_ = _all.getVal(BEAN_STATUS);
-        transit(_pk,new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,pks_);
-        transit(_pk,new StatusSetBeanSearch(((StatusSetBean) ((PokemonBeanStruct)pks_).getBean())),pks_,pks_);
-        transit(_pk,new EntityClickFormEvent(((StatusBean) ((PokemonBeanStruct)pk_).getBean()),((StatusSetBean) ((PokemonBeanStruct)pks_).getBean()).getSortedStatus().get(_index)),pks_,pk_);
+        StatusSetBean pks_ = (StatusSetBean) _all.getVal(BEAN_STATUS_SET);
+        StatusBean pk_ = (StatusBean) _all.getVal(BEAN_STATUS);
+        transit(_pk,new WelcomeBeanClickStatus(welcome_),welcome_,pks_);
+        transit(_pk,new StatusSetBeanSearch(pks_),pks_,pks_);
+        transit(_pk,new EntityClickFormEvent(pk_,pks_.getSortedStatus().get(_index)),pks_,pk_);
         return pk_;
     }
-    protected static String navigateStatusSearch(NaSt _moves) {
-        return navigateData(new StatusSetBeanSearch(((StatusSetBean) ((PokemonBeanStruct)_moves).getBean())), _moves);
+    protected static String navigateStatusSearch(StatusSetBean _moves) {
+        return navigateData(new StatusSetBeanSearch(_moves), _moves);
     }
-    public static StringMap<NaSt> beanToStatusSet(PkData _pk) {
-        StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
+    public static StringMap<BeanRenderWithAppName> beanToStatusSet(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,beanWelcomeBean(_pk,EN));
         StatusSetBean s_ = new StatusSetBean();
-        map_.addEntry(BEAN_STATUS_SET, _pk.bean(s_, EN));
-        s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,s_);
+        initBean(s_,EN,_pk.getDataBase());
+        map_.addEntry(BEAN_STATUS_SET, s_);
+        s_.setBuilder(map_.getValue(0).getBuilder());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,s_);
         return map_;
     }
     protected static FacadeGame feedDb() {
