@@ -20,11 +20,9 @@ import aiki.beans.solution.*;
 import aiki.facade.FacadeGame;
 import aiki.sml.*;
 import aiki.gui.WindowAiki;
-import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
 import code.gui.document.*;
 import code.gui.events.ClosingChildFrameEvent;
-import code.gui.images.MetaDimension;
 
 public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.framehtmldata";
@@ -33,13 +31,13 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 
 //    private static final String SEARCH_LABEL = "searchLabel";
 
-    private final RenderedPage session;
+//    private final RenderedPage session;
 
 //    private StringMap<String> messages;
 
     private final AbsButton search;
 
-    private final ProgressingWebDialog dialog;
+//    private final ProgressingWebDialog dialog;
     private final EnabledMenu menuItem;
     private final WindowAiki window;
     private final WrapBeanRender wrapBeanRender;
@@ -51,14 +49,14 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent.getCommonFrame());
         getCommonFrame().setLocationRelativeTo(_parent.getCommonFrame());
-        dialog = new ProgressingWebDialog(_parent.getFrames());
+//        dialog = new ProgressingWebDialog(_parent.getFrames());
         setFocusableWindowState(true);
-        RenderedPage session_;
-        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), _parent.getFrames(),new FixCharacterCaseConverter(), _parent.getGuardRender());
+//        RenderedPage session_;
+//        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), _parent.getFrames(),new FixCharacterCaseConverter(), _parent.getGuardRender());
 //        session_.setBase(GamesPk.baseEncode(_parent.getFrames().getTranslations()));
-        session = session_;
-        session.setFrame(getCommonFrame());
-        session.setDialog(getDialog());
+//        session = session_;
+//        session.setFrame(getCommonFrame());
+//        session.setDialog(getDialog());
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
         wrapBeanRender = new WrapBeanRender(panel_);
         AbsPlainLabel area_ = _parent.getCompoFactory().newPlainLabel(TEXT);
@@ -66,10 +64,10 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
         search = _parent.getCompoFactory().newPlainButton();
 //        search = _parent.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _parent.getCompoFactory().newTextField(20);
-        session.addFinder(field_,search);
-        AbsScrollPane scrollSession_ = session.getScroll();
-        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
-        panel_.add(scrollSession_);
+//        session.addFinder(field_,search);
+//        AbsScrollPane scrollSession_ = session.getScroll();
+//        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
+//        panel_.add(scrollSession_);
         panel_.add(area_);
         panel_.add(field_);
         panel_.add(search);
@@ -197,23 +195,23 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 //        session.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames(), window.getVideoBase()));
 //        initializeOnlyConf(_pr, _lg, _pr.getBeanNatLgNames(), session);
 //    }
-
-    public ProgressingWebDialog getDialog() {
-        return dialog;
-    }
+//
+//    public ProgressingWebDialog getDialog() {
+//        return dialog;
+//    }
 
     public void refresh() {
 //        String key_ = _window.getLanguageKey();
 //        setLanguageKey(key_);
 //        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
         search.setText(MessagesPkGame.getPkGameDetailContentTr(MessagesPkGame.getAppliTr(window.getFrames().currentLg())).getMapping().getVal(MessagesRenderPkGameDetail.SEARCH_LABEL));
-        session.setLanguage(window.getFrames().getLanguage(),getFrames().getLanguages());
+//        session.setLanguage(window.getFrames().getLanguage(),getFrames().getLanguages());
 //        session.refresh();
     }
 
-    public RenderedPage getSession() {
-        return session;
-    }
+//    public RenderedPage getSession() {
+//        return session;
+//    }
 
     public WrapBeanRender getWrapBeanRender() {
         return wrapBeanRender;

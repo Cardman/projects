@@ -47,7 +47,6 @@ import code.maths.litteral.*;
 import code.mock.*;
 import code.scripts.pages.aiki.MessagesDataIndex;
 import code.scripts.pages.aiki.MessagesPkBean;
-import code.sml.NavigationCore;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
@@ -1142,7 +1141,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         assertTrue(window_.getCommonFrame().isVisible());
 //        window_.getCore().getAikiFactory().getTaskNav().attendreResultat();
 //        window_.setPreparedDataWebTask(window_.getCore().getAikiFactory().getTaskNav());
-        window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
+//        window_.getRenderDataWeb().getSession().setNavCore(new NavigationCore());
         window_.getDataWeb().getActionListeners().get(0).action();
         window_.getRenderDataWeb().getWrapBeanRender().getField().setText("");
         tryClick(window_.getRenderDataWeb().getWrapBeanRender().getSearch());
@@ -1207,7 +1206,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         assertTrue(window_.getCommonFrame().isVisible());
 //        window_.getCore().getAikiFactory().getTaskNavDataSimu().attendreResultat();
 //        window_.setPreparedDataWebTask(window_.getCore().getAikiFactory().getTaskNav());
-        window_.getRenderDataWebSimu().getSession().setNavCore(new NavigationCore());
+//        window_.getRenderDataWebSimu().getSession().setNavCore(new NavigationCore());
         window_.getDataWebSimu().getActionListeners().get(0).action();
 //        window_.getDataWeb().getActionListeners().get(0).action();
         new LoadGame(window_,new ConcreteInteger()).run();

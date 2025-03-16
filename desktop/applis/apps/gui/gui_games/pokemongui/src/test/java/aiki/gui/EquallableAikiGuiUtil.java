@@ -12,8 +12,6 @@ import aiki.gui.listeners.MouseTask;
 import aiki.main.AikiFactory;
 import aiki.map.levels.enums.*;
 import aiki.sml.*;
-import code.bean.nat.NatNavigation;
-import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
 import code.gui.document.DefBeanChgSubmit;
 import code.maths.LgInt;
@@ -561,11 +559,11 @@ public abstract class EquallableAikiGuiUtil {
         Assert.assertEquals(_expected.toNumberString(), _result.toNumberString());
     }
 
-    public static NatNavigation nav() {
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
-        return nav_;
-    }
+//    public static NatNavigation nav() {
+//        NatNavigation nav_ = new NatNavigation();
+//        nav_.setSession(new NatConfigurationCore());
+//        return nav_;
+//    }
 
     public static ImageArrayBaseSixtyFour instance(int[][] _img) {
         return ImageArrayBaseSixtyFour.instance(_img,"");

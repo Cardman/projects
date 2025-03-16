@@ -223,12 +223,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     private final DialogHeros dialogHeros = new DialogHeros(getFrames(),this);
     private final FrameHtmlData renderDataWeb;
     private final FrameHtmlData renderDataWebSimu;
-    private final AbsActionListenerAct guardRender;
+//    private final AbsActionListenerAct guardRender;
     private final LanguagesButtonsPair mainButton;
     public WindowAiki(AbstractProgramInfos _list, AikiFactory _fact, LanguagesButtonsPair _pair, AbstractImage _icon) {
         super(_list);
         mainButton = _pair;
-        guardRender = new AlwaysActionListenerAct();
+//        guardRender = new AlwaysActionListenerAct();
         setTaskEnabled(new DefTaskEnabled());
         modal = _list.getThreadFactory().newAtomicBoolean();
         dataWeb = _fact.getGeneralHelp();
@@ -1994,10 +1994,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
     public WindowAikiCore getCore() {
         return core;
     }
-
-    public AbsActionListenerAct getGuardRender() {
-        return guardRender;
-    }
+//
+//    public AbsActionListenerAct getGuardRender() {
+//        return guardRender;
+//    }
 
     public StringMap<int[][]> getVideoBase() {
         return core.getVideoBase();
