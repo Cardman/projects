@@ -12,7 +12,6 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.status.*;
 import aiki.fight.util.ListEffectCombo;
 import aiki.instances.*;
-import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
@@ -98,7 +97,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static final String M_END_28_TR="M_END_28_TR";
     public static final String M_END_29_TR="M_END_29_TR";
     public static final String M_END_30_TR="M_END_30_TR";
-    public static final String BEAN_ENDROUND="endround";
+//    public static final String BEAN_ENDROUND="endround";
 
     public static String callEffectEndRoundBeanAbilityGet(int _ev) {
         return dispEndRound(_ev).getAbility();
@@ -209,8 +208,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return dispEndRound(_ev).getStatus();
     }
 
-    public static int callEndRoundBeanGetEvts(NaSt _str, int... _args) {
-        return ( (EndRoundBean) ((PokemonBeanStruct)_str).getInstance()).getEvts().size();
+    public static int callEndRoundBeanGetEvts(EndRoundBean _str, int... _args) {
+        return _str.getEvts().size();
     }
 
 //    public static NaSt callEndRoundBeanGetPage(NaSt _str, long... _args) {
@@ -388,24 +387,23 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     protected static int dispEndRoundEvts() {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<NaSt> all_ = beanToEndRound(pk_);
+        EndRoundBean all_ = beanToEndRound(pk_);
         return callEndRoundBeanGetEvts(transitToAllPks(all_));
     }
     protected static EffectEndRoundBean dispEndRound(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<NaSt> all_ = beanToEndRound(pk_);
-        NaSt pkbean_ = transitToAllPks(all_);
+        EndRoundBean all_ = beanToEndRound(pk_);
+        EndRoundBean pkbean_ = transitToAllPks(all_);
 //        NaSt evobean_ = new PokemonBeanStruct(new EffectEndRoundBean());
 //        callEndRoundBeanGetPage(pkbean_, _index);
 ////        NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
 //        setFormsBy(pk_,evobean_,pkbean_);
 //        callEffectEndRoundBeanIndexSet(evobean_,_index);
 //        beforeDisplaying(evobean_);
-        return ((EndRoundBean)((PokemonBeanStruct)pkbean_).getBean()).getEffects().get(_index);
+        return pkbean_.getEffects().get(_index);
     }
 
-    protected static NaSt transitToAllPks(StringMap<NaSt> _all) {
-        NaSt welcome_ = _all.getVal(BEAN_ENDROUND);
+    protected static EndRoundBean transitToAllPks(EndRoundBean _all) {
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
         TranslationsLg en_ = new TranslationsLg();
@@ -417,42 +415,44 @@ public abstract class InitDbEndRound extends InitDbConstr {
         fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
         tr_.getMapping().addEntry(FR, fr_);
         bu_.setTranslations(tr_);
-        bu_.setFacade(((BeanRenderWithAppName) ((PokemonBeanStruct)welcome_).getBean()).getFacade());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).setBuilder(bu_);
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_GLOBAL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_ENDROUND,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_EVENT,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_FOE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_INDIVIDUAL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_MULTIRELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONRELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONTARGET,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_SINGLERELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_GLOBAL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_ENDROUND,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_EVENT,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_FOE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_INDIVIDUAL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_MULTIRELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONRELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONTARGET,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_SINGLERELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)welcome_).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
-        ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).setBuilder(bu_);
-        ((BeanRenderWithAppName)((PokemonBeanStruct)welcome_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)welcome_).getBean()).getFacade());
+        bu_.setFacade(_all.getFacade());
+        _all.setBuilder(bu_);
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_GLOBAL,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_ENDROUND,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_EVENT,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_FOE,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_INDIVIDUAL,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_MULTIRELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONRELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONTARGET,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_SINGLERELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUS,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_GLOBAL,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_ENDROUND,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_EVENT,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_FOE,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_INDIVIDUAL,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_MULTIRELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONRELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_POSITIONTARGET,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_SINGLERELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUS,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_STATUSRELATION,new TranslationsFile());
+        _all.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ENDROUND_TEAM,new TranslationsFile());
+        _all.setBuilder(bu_);
+        _all.build(_all.getFacade());
 //        beforeDisplaying(welcome_);
-        return welcome_;
+        return _all;
     }
-    public static StringMap<NaSt> beanToEndRound(PkData _pk) {
-        StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(BEAN_ENDROUND,_pk.bean(new EndRoundBean(),EN));
+    public static EndRoundBean beanToEndRound(PkData _pk) {
+//        StringMap<NaSt> map_ = new StringMap<NaSt>();
+        EndRoundBean b_ = new EndRoundBean();
+        initBean(b_,EN,_pk.getDataBase());
+//        map_.addEntry(BEAN_ENDROUND,_pk.bean(b_,EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END,_pk.beanEffectEndRoundBean(EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_FOE,_pk.beanEffectEndRoundFoeBean(EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_GLOBAL,_pk.beanEffectEndRoundGlobalBean(EN));
@@ -464,7 +464,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUS,_pk.beanEffectEndRoundSingleStatusBean(EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_STATUSRELATION,_pk.beanEffectEndRoundStatusRelationBean(EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_TEAM,_pk.beanEffectEndRoundTeamBean(EN));
-        return map_;
+        return b_;
     }
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();

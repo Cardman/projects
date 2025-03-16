@@ -739,6 +739,10 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return ( ((PlaceIndexStruct) _str).getPlaceIndex()).getIndex();
 //    }
 
+    public static void initBean(CommonBean _bean, String _lg, FacadeGame _fac) {
+        _bean.setDataBase(_fac);
+        _bean.setLanguage(_lg);
+    }
     public static Place callPlaceIndexGetPlace(PlaceIndex _str, int... _args) {
         return _str.getPlace();
     }
