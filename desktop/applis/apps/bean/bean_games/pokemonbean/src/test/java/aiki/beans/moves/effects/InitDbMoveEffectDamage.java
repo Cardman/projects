@@ -9,7 +9,6 @@ import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import aiki.comparators.*;

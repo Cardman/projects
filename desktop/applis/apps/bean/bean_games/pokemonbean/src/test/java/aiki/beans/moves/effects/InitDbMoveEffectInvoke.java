@@ -11,7 +11,6 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
-import code.bean.nat.*;
 import aiki.comparators.*;
 import code.maths.*;
 import code.util.*;
@@ -127,7 +126,7 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
     }
     protected static EffectInvokeBean dispMoveEffInvoke(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectInvoke();
         return (EffectInvokeBean)transitEffect(0,0,pk_,all_);
     }

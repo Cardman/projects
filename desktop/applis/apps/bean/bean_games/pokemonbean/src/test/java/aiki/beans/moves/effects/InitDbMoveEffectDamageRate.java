@@ -8,7 +8,6 @@ import aiki.fight.moves.effects.EffectDamageRate;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringMap;
 
@@ -32,7 +31,7 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
     }
     protected static EffectDamageRateBean dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectDamageRate();
         return (EffectDamageRateBean)transitEffect(_index,_indexEff,pk_,all_);
     }

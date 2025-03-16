@@ -7,7 +7,6 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.util.TypesDuo;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import aiki.beans.abilities.*;
 import code.maths.*;
 import code.util.*;
@@ -95,7 +94,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     protected static EffectProtectionBean dispMoveEffProtection(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectProtection();
         return (EffectProtectionBean)transitEffect(0,0,pk_,all_);
     }
@@ -146,7 +145,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     protected static EffectProtectFromTypesBean dispMoveEffProtectFromTypes(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectProtectFromTypes();
         return (EffectProtectFromTypesBean)transitEffect(0,0,pk_,all_);
     }
@@ -192,7 +191,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
     }
     protected static EffectUnprotectFromTypesBean dispMoveEffUnprotectFromTypes(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectUnprotectFromTypes();
         return (EffectUnprotectFromTypesBean)transitEffect(0,0,pk_,all_);
     }

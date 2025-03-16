@@ -9,7 +9,6 @@ import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
@@ -46,7 +45,7 @@ public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
     }
     protected static EffectRestrictionBean dispMoveEffRestriction(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectRestriction();
         return (EffectRestrictionBean)transitEffect(0,0,pk_,all_);
     }

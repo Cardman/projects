@@ -15,7 +15,6 @@ import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.*;
@@ -25,88 +24,88 @@ public abstract class InitDbMoves extends InitDbConstr {
     public static final String BEAN_MOVES="moves";
     public static final String BEAN_MOVE="move";
 
-    public static void callMovesBeanCategorySet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getTypedCategory().setupValue(_args);
+    public static void callMovesBeanCategorySet(MovesBean _str, String _args) {
+        _str.getTypedCategory().setupValue(_args);
     }
 
-    public static void callMovesBeanMaxAccuracySet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMaxAccuracy().setupValue(_args);
+    public static void callMovesBeanMaxAccuracySet(MovesBean _str, String _args) {
+        _str.getMaxAccuracy().setupValue(_args);
     }
 
-    public static void callMovesBeanMaxPowerSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMaxPower().setupValue(_args);
+    public static void callMovesBeanMaxPowerSet(MovesBean _str, String _args) {
+        _str.getMaxPower().setupValue(_args);
     }
 
-    public static void callMovesBeanMinAccuracySet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMinAccuracy().setupValue(_args);
+    public static void callMovesBeanMinAccuracySet(MovesBean _str, String _args) {
+        _str.getMinAccuracy().setupValue(_args);
     }
 
-    public static void callMovesBeanMinPowerSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getMinPower().setupValue(_args);
+    public static void callMovesBeanMinPowerSet(MovesBean _str, String _args) {
+        _str.getMinPower().setupValue(_args);
     }
 
-    public static void callMovesBeanTypedNameSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
+    public static void callMovesBeanTypedNameSet(MovesBean _str, String _args) {
+        _str.getTypedName().setupValue(_args);
     }
 
-    public static void callMovesBeanTypedTypeSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
+    public static void callMovesBeanTypedTypeSet(MovesBean _str, String _args) {
+        _str.getTypedType().setupValue(_args);
     }
 
-    public static void callMovesBeanWholeWordSet(NaSt _str, boolean _args) {
-        ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
+    public static void callMovesBeanWholeWordSet(MovesBean _str, boolean _args) {
+        _str.getWholeWord().setSelected(_args);
     }
 
-    public static void callMovesBeanLearntSet(NaSt _str, String _args) {
-        ((MovesBean)((PokemonBeanStruct)_str).getInstance()).getLearnt().setupValue(_args);
+    public static void callMovesBeanLearntSet(MovesBean _str, String _args) {
+        _str.getLearnt().setupValue(_args);
     }
 
-    public static AbsMap<String,String> callMovesBeanCategoriesGet(NaSt _str, int... _args) {
-        return (( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getCategories());
+    public static AbsMap<String,String> callMovesBeanCategoriesGet(MovesBean _str, int... _args) {
+        return (_str.getCategories());
     }
 
-    public static String callMovesBeanCategoryGet(NaSt _str, int... _args) {
-        return ((MovesBean) ((PokemonBeanStruct) _str).getInstance()).getTypedCategory().tryRet();
+    public static String callMovesBeanCategoryGet(MovesBean _str, int... _args) {
+        return _str.getTypedCategory().tryRet();
     }
 
-    public static String callMovesBeanMaxAccuracyGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMaxAccuracy().tryRet();
+    public static String callMovesBeanMaxAccuracyGet(MovesBean _str, int... _args) {
+        return _str.getMaxAccuracy().tryRet();
     }
 
-    public static String callMovesBeanMaxPowerGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMaxPower().tryRet();
+    public static String callMovesBeanMaxPowerGet(MovesBean _str, int... _args) {
+        return _str.getMaxPower().tryRet();
     }
 
-    public static String callMovesBeanMinAccuracyGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMinAccuracy().tryRet();
+    public static String callMovesBeanMinAccuracyGet(MovesBean _str, int... _args) {
+        return _str.getMinAccuracy().tryRet();
     }
 
-    public static String callMovesBeanMinPowerGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMinPower().tryRet();
+    public static String callMovesBeanMinPowerGet(MovesBean _str, int... _args) {
+        return _str.getMinPower().tryRet();
     }
 
-    public static AbsMap<String,String> callMovesBeanBooleansGet(NaSt _str, int... _args) {
-        return (( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
+    public static AbsMap<String,String> callMovesBeanBooleansGet(MovesBean _str, int... _args) {
+        return _str.getBooleans();
     }
 
-    public static CustList<MoveLine> callMovesBeanMovesGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getMoves();
+    public static CustList<MoveLine> callMovesBeanMovesGet(MovesBean _str, int... _args) {
+        return _str.getMoves();
     }
 
-//    public static NaSt callMovesBeanSearch(NaSt _str, long... _args) {
+//    public static NaSt callMovesBeanSearch(MovesBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new MovesBeanSearch(),_str,_args);
 //    }
 
-    public static String callMovesBeanTypedNameGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
+    public static String callMovesBeanTypedNameGet(MovesBean _str, int... _args) {
+        return _str.getTypedName().tryRet();
     }
 
-    public static String callMovesBeanTypedTypeGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
+    public static String callMovesBeanTypedTypeGet(MovesBean _str, int... _args) {
+        return _str.getTypedType().tryRet();
     }
 
-    public static boolean callMovesBeanWholeWordGet(NaSt _str, int... _args) {
-        return ( (MovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
+    public static boolean callMovesBeanWholeWordGet(MovesBean _str, int... _args) {
+        return _str.getWholeWord().isSelected();
     }
 
     public static String callMoveLineBeanAccuracyGet(int _index, int... _args) {
@@ -141,85 +140,85 @@ public abstract class InitDbMoves extends InitDbConstr {
         return (dispLine(feedDb(), _index).getTypes());
     }
 
-    public static String callMovesBeanLearntGet(NaSt _str, int... _args) {
-        return ( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getLearnt().tryRet();
+    public static String callMovesBeanLearntGet(MovesBean _str, int... _args) {
+        return _str.getLearnt().tryRet();
     }
 
     public static String goToLine(int _index) {
-        return ( (MovesBean) ((PokemonBeanStruct) moveLine(_index)).getInstance()).clickLink( _index);
+        return moveLine(_index).clickLink( _index);
     }
 
     public static String goToLineId(int _index) {
-        NaSt moveline_ = moveLine(_index);
-        ( (MovesBean) ((PokemonBeanStruct) moveline_).getInstance()).clickLink( _index);
+        MovesBean moveline_ = moveLine(_index);
+        moveline_.clickLink( _index);
         return getValMoveId(moveline_);
     }
 
-    private static NaSt moveLine(int _index) {
+    private static MovesBean moveLine(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<NaSt> all_ = beanToMoves(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMoves(pk_);
         return transitToAllMoves(pk_, all_, _index);
     }
 
     protected static MoveLine dispLine(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMoves(pk_);
-        NaSt moves_ = transitToAllMoves(pk_, all_, _index);
+        StringMap<BeanRenderWithAppName> all_ = beanToMoves(pk_);
+        MovesBean moves_ = transitToAllMoves(pk_, all_, _index);
         return eltMvLine(callMovesBeanMovesGet(moves_),_index);
     }
 
     private static MoveLine eltMvLine(CustList<MoveLine> _ls, int _i) {
         return _ls.get(_i);
     }
-    protected static NaSt transitToAllMoves(PkData _pk, StringMap<NaSt> _all, int _index) {
-        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    protected static MovesBean transitToAllMoves(PkData _pk, StringMap<BeanRenderWithAppName> _all, int _index) {
+        WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = _all.getVal(BEAN_MOVES);
-        transit(_pk,new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,moves_);
-        transit(_pk,new MovesBeanSearch((MovesBean) ((PokemonBeanStruct)moves_).getBean()),moves_,moves_);
+        MovesBean moves_ = (MovesBean) _all.getVal(BEAN_MOVES);
+        transit(_pk,new WelcomeBeanSeeAllMoves(welcome_),welcome_,moves_);
+        transit(_pk,new MovesBeanSearch(moves_),moves_,moves_);
         return moves_;
     }
 
-    protected static NaSt dispAllMoves(FacadeGame _fac) {
+    protected static MovesBean dispAllMoves(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllMoves(pk_);
     }
 
-    protected static NaSt dispAllMovesTutors(FacadeGame _fac) {
+    protected static MovesBean dispAllMovesTutors(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllMoveslMovesTutors(pk_);
     }
 
-    private static NaSt dispAllMoves(PkData _pk) {
-        StringMap<NaSt> all_ = beanToMoves(_pk);
-        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    private static MovesBean dispAllMoves(PkData _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToMoves(_pk);
+        WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(BEAN_MOVES);
-        transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
+        MovesBean moves_ = (MovesBean) all_.getVal(BEAN_MOVES);
+        transit(_pk,new WelcomeBeanSeeAllMoves(welcome_),welcome_,moves_);
         return moves_;
     }
 
 
-    private static NaSt dispAllMoveslMovesTutors(PkData _pk) {
-        StringMap<NaSt> all_ = beanToMoves(_pk);
-        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    private static MovesBean dispAllMoveslMovesTutors(PkData _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToMoves(_pk);
+        WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         _pk.getDataBase().getData().completeMoveTutors();
         _pk.getDataBase().getData().setView(_pk.getDataBase().getData().computeLearn());
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(BEAN_MOVES);
-        transit(_pk,new WelcomeBeanSeeAllMoves(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
+        MovesBean moves_ = (MovesBean) all_.getVal(BEAN_MOVES);
+        transit(_pk,new WelcomeBeanSeeAllMoves(welcome_),welcome_,moves_);
         return moves_;
     }
 
-    protected static NaSt dispAllMovesSearch(FacadeGame _fac) {
+    protected static MovesBean dispAllMovesSearch(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        NaSt moves_ = dispAllMoves(pk_);
-        transit(pk_,new MovesBeanSearch((MovesBean) ((PokemonBeanStruct)moves_).getBean()),moves_,moves_);
+        MovesBean moves_ = dispAllMoves(pk_);
+        transit(pk_,new MovesBeanSearch(moves_),moves_,moves_);
         return moves_;
     }
 
-    protected static String navigateMovesSearch(NaSt _moves) {
-        return navigateData(new MovesBeanSearch((MovesBean) ((PokemonBeanStruct)_moves).getBean()), _moves);
+    protected static String navigateMovesSearch(MovesBean _moves) {
+        return navigateData(new MovesBeanSearch(_moves), _moves);
     }
 
 //    private static NaSt displayMoveLine(StringMap<NaSt> _all, int _index, StringMap<String> _mapping) {
@@ -298,15 +297,16 @@ public abstract class InitDbMoves extends InitDbConstr {
 //    private static Struct callMoveLineBeanSortedMovesSet(Struct _str, Struct _args) {
 //        return BeanPokemonCommonTs.callStruct(new MoveLineBeanSortedMovesSet(),_str,_args);
 //    }
-    public static StringMap<NaSt> beanToMoves(PkData _pk) {
-        StringMap<NaSt> map_ = new StringMap<NaSt>();
+    public static StringMap<BeanRenderWithAppName> beanToMoves(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         WelcomeBean w_ = beanWelcomeBean(_pk, EN);
-        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME, new PokemonBeanStruct(w_));
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME, w_);
         MovesBean moves_ = new MovesBean();
         moves_.setBuilder(w_.getBuilder());
-        map_.addEntry(BEAN_MOVES, _pk.bean(moves_, EN));
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
+        initBean(moves_,EN,_pk.getDataBase());
+        map_.addEntry(BEAN_MOVES, moves_);
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
         w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,moves_);
 //        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE_LINE,_pk.beanMoveLineBean(EN));
         return map_;
@@ -395,17 +395,16 @@ public abstract class InitDbMoves extends InitDbConstr {
         _dam.getEffects().add(_ef);
     }
 
-    protected static NaSt transitMove(int _index, PkData _pk, StringMap<NaSt> _all) {
-        NaSt moveline_ = transitToAllMoves(_pk, _all, _index);
-        NaSt mbean_ = _all.getVal(BEAN_MOVE);
-        MovesBean moves_ = (MovesBean) ((PokemonBeanStruct)moveline_).getBean();
-        transit(_pk,new EntityClickFormEvent(moves_,moves_.getMoves().get(_index).getTranslatedKey()), moveline_, mbean_);
+    protected static MoveBean transitMove(int _index, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        MovesBean moveline_ = transitToAllMoves(_pk, _all, _index);
+        MoveBean mbean_ = (MoveBean) _all.getVal(BEAN_MOVE);
+        transit(_pk,new EntityClickFormEvent(moveline_,moveline_.getMoves().get(_index).getTranslatedKey()), moveline_, mbean_);
         return mbean_;
     }
 
-    protected static NaSt transitMoveQuick(int _index, PkData _pk, StringMap<NaSt> _all) {
+    protected static MoveBean transitMoveQuick(int _index, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
 //        return transitMove(_index, _pk, _all, _mapping);
         transitToAllMoves(_pk, _all, _index);
-        return _all.getVal(BEAN_MOVE);
+        return (MoveBean) _all.getVal(BEAN_MOVE);
     }
 }

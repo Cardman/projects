@@ -12,7 +12,6 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
-import code.bean.nat.*;
 import code.maths.Rate;
 import aiki.comparators.*;
 import code.util.*;
@@ -199,7 +198,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffFullHpRate(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectFullHpRate();
         return transitEffect(0,0,pk_,all_);
     }
@@ -256,7 +255,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffCounterAttack(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCounterAttack();
         return transitEffect(0,0,pk_,all_);
     }
@@ -315,7 +314,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffAlly(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectAlly();
         return transitEffect(0,0,pk_,all_);
     }
@@ -370,7 +369,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffBatonPass(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectBatonPass();
         return transitEffect(0,0,pk_,all_);
     }
@@ -417,7 +416,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffClone(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectClone();
         return transitEffect(0,0,pk_,all_);
     }
@@ -499,7 +498,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffCommonStatistics(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCommonStatistics();
         return transitEffect(0,0,pk_,all_);
     }
@@ -547,7 +546,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffOrder(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectOrder();
         return transitEffect(0,0,pk_,all_);
     }
@@ -595,7 +594,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffRemainedHpRate(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectRemainedHpRate();
         return transitEffect(0,0,pk_,all_);
     }
@@ -644,7 +643,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffMultMovePower(FacadeGame _fac, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectMultMovePower();
         return transitEffect(0, _indexEff,pk_,all_);
     }
@@ -708,7 +707,7 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
 
     protected static EffectBean dispMoveEffOther(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectOther();
         return transitEffectQuick(0,0,pk_,all_);
     }

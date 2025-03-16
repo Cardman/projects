@@ -1,12 +1,12 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.BeanRenderWithAppName;
 import aiki.beans.PkData;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
@@ -18,7 +18,7 @@ public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
     }
     protected static EffectBean dispMoveEffAccuracy(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectAccuracy();
         return transitEffectQuick(0,0,pk_,all_);
     }

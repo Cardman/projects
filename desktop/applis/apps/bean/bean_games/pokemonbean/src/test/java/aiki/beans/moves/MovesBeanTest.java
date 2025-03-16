@@ -2,7 +2,6 @@ package aiki.beans.moves;
 
 import aiki.beans.*;
 import aiki.facade.enums.*;
-import code.bean.nat.*;
 import code.util.*;
 import code.util.core.*;
 import org.junit.Test;
@@ -82,73 +81,73 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void wholeWordSet1() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanWholeWordSet(bean_,false);
         assertFalse(callMovesBeanWholeWordGet(bean_));
     }
     @Test
     public void wholeWordSet2() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanWholeWordSet(bean_,true);
         assertTrue(callMovesBeanWholeWordGet(bean_));
     }
     @Test
     public void typedCatSet() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanCategorySet(bean_,C_CAT);
         assertEq(C_CAT,callMovesBeanCategoryGet(bean_));
     }
     @Test
     public void maxAccSet() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMaxAccuracySet(bean_,"1");
         assertEq("1",callMovesBeanMaxAccuracyGet(bean_));
     }
     @Test
     public void minAccSet() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMinAccuracySet(bean_,"1");
         assertEq("1",callMovesBeanMinAccuracyGet(bean_));
     }
     @Test
     public void maxPowSet() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMaxPowerSet(bean_,"1");
         assertEq("1",callMovesBeanMaxPowerGet(bean_));
     }
     @Test
     public void minPowSet() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMinPowerSet(bean_,"1");
         assertEq("1",callMovesBeanMinPowerGet(bean_));
     }
     @Test
     public void typedNameSet() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedNameSet(bean_,M_DAM_TR);
         assertEq(M_DAM_TR,callMovesBeanTypedNameGet(bean_));
     }
     @Test
     public void typedTypeSet() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedTypeSet(bean_, T_TYPE1_TR);
         assertEq(T_TYPE1_TR,callMovesBeanTypedTypeGet(bean_));
     }
     @Test
     public void learntSet1() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(SelectedBoolean.YES.getBoolName(), callMovesBeanLearntGet(bean_));
     }
     @Test
     public void learntSet2() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(SelectedBoolean.NO.getBoolName(), callMovesBeanLearntGet(bean_));
     }
     @Test
     public void search1() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_MOVES_SET).getKeys());
@@ -163,7 +162,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search2() {
-        NaSt bean_ = dispAllMovesTutors(feedDb());
+        MovesBean bean_ = dispAllMovesTutors(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -177,7 +176,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search3() {
-        NaSt bean_ = dispAllMovesTutors(feedDb());
+        MovesBean bean_ = dispAllMovesTutors(feedDb());
         callMovesBeanLearntSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -188,7 +187,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search4() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedTypeSet(bean_,"__");
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -197,7 +196,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search5() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedTypeSet(bean_, T_TYPE1_TR);
         callMovesBeanWholeWordSet(bean_,true);
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
@@ -214,7 +213,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search6() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedTypeSet(bean_,"__");
         callMovesBeanWholeWordSet(bean_,true);
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
@@ -224,7 +223,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search7() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanCategorySet(bean_,C_CAT);
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -238,7 +237,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search8() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMinAccuracySet(bean_,"4/5");
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -252,7 +251,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search9() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMaxAccuracySet(bean_,"4/5");
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -263,7 +262,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search10() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMinPowerSet(bean_,"0");
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -277,7 +276,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search11() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMinPowerSet(bean_,"1");
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -288,7 +287,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search12() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMaxPowerSet(bean_,"1");
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -303,7 +302,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search13() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanMinPowerSet(bean_,"11");
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -312,7 +311,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void search14() {
-        NaSt bean_ = dispAllMoves(feedDb());
+        MovesBean bean_ = dispAllMoves(feedDb());
         callMovesBeanTypedNameSet(bean_,M_DAM_TR);
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -323,7 +322,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void afterSearch() {
-        NaSt bean_ = dispAllMovesSearch(feedDb());
+        MovesBean bean_ = dispAllMovesSearch(feedDb());
         assertSizeEq(7,callMovesBeanMovesGet(bean_));
     }
     @Test

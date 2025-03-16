@@ -8,7 +8,6 @@ import aiki.fight.moves.effects.EffectStatus;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import aiki.comparators.*;
 import code.maths.*;
 import code.util.*;
@@ -78,7 +77,7 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
     }
     protected static EffectStatusBean dispMoveEffStatus(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectStatus();
         return (EffectStatusBean)transitEffect(_index,_indexEff,pk_,all_);
     }

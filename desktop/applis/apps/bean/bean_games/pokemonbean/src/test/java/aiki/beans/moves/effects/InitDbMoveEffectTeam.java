@@ -10,7 +10,6 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.CategoryMult;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import aiki.beans.abilities.*;
 import aiki.comparators.*;
 import code.maths.*;
@@ -128,7 +127,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
     }
     protected static EffectTeamBean dispMoveEffTeam(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectTeam();
         return (EffectTeamBean)transitEffect(_index,_indexEff,pk_,all_);
     }

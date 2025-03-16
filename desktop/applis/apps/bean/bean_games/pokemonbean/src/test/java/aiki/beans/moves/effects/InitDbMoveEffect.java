@@ -10,7 +10,6 @@ import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.*;
 
 public abstract class InitDbMoveEffect extends InitDbMove {
@@ -99,31 +98,31 @@ public abstract class InitDbMoveEffect extends InitDbMove {
     }
     protected static EffectDamageBean dispMoveEffDamage(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectDamage();
         return (EffectDamageBean)transitEffect(_index, _indexEff, pk_, all_);
     }
 
-    protected static EffectBean transitEffect(int _index, int _indexEff, PkData _pk, StringMap<NaSt> _all) {
-        NaSt mbean_ = transitMove(_index, _pk, _all);
+    protected static EffectBean transitEffect(int _index, int _indexEff, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        MoveBean mbean_ = transitMove(_index, _pk, _all);
 //        int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
 //        NaSt eff_ = new PokemonBeanStruct(new EffectBean());
 //        callMoveBeanGetPage(mbean_, noEff_);
 //        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
 //        fwdEffect(_pk,eff_,mbean_, noEff_);
 //        beforeDisplaying(eff_);
-        return ((MoveBean)((PokemonBeanStruct)mbean_).getBean()).getBeans().get(_indexEff);
+        return mbean_.getBeans().get(_indexEff);
     }
 
-    protected static EffectBean transitEffectQuick(int _index, int _indexEff, PkData _pk, StringMap<NaSt> _all) {
-        NaSt mbean_ = transitMoveQuick(_index, _pk, _all);
+    protected static EffectBean transitEffectQuick(int _index, int _indexEff, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        MoveBean mbean_ = transitMoveQuick(_index, _pk, _all);
 //        int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
 //        NaSt eff_ = new PokemonBeanStruct(new EffectBean());
 //        callMoveBeanGetPage(mbean_, noEff_);
 //        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
 //        fwdEffect(_pk,eff_,mbean_, noEff_);
 //        beforeDisplaying(eff_);
-        return ((MoveBean)((PokemonBeanStruct)mbean_).getBean()).getBeans().get(_indexEff);
+        return mbean_.getBeans().get(_indexEff);
     }
 
 //    public static void fwdEffect(PkData _pk, NaSt _update, NaSt _use, int _index) {

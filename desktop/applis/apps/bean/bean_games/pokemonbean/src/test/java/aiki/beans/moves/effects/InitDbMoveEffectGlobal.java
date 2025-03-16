@@ -14,7 +14,6 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
-import code.bean.nat.*;
 import aiki.beans.abilities.*;
 import aiki.comparators.*;
 import code.maths.*;
@@ -251,7 +250,7 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
     }
     protected static EffectGlobalBean dispMoveEffGlobal(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectGlobal();
         return (EffectGlobalBean)transitEffect(_index,_indexEff,pk_,all_);
     }

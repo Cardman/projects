@@ -6,7 +6,6 @@ import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.*;
 
 public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
@@ -78,13 +77,13 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
     protected static EffectCopyMoveBean dispMoveEffCopyMove(boolean _copyingMoveForUserDef, int _copy) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_copyingMoveForUserDef, _copy));
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyMove();
         return (EffectCopyMoveBean)transitEffect(0,0,pk_,all_);
     }
     protected static EffectCopyMoveBean dispMoveEffCopyMoveNoFighter(boolean _copyingMoveForUserDef, int _copy) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDamNoFighter(_copyingMoveForUserDef, _copy));
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyMove();
         return (EffectCopyMoveBean)transitEffect(0,0,pk_,all_);
     }
@@ -151,7 +150,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
     }
     protected static EffectCopyFighterBean dispMoveEffCopyFighter() {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam());
-        StringMap<NaSt> all_ = beanToMove(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyFighter();
         return (EffectCopyFighterBean)transitEffect(0,0,pk_,all_);
     }
