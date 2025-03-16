@@ -7,7 +7,6 @@ import aiki.fight.items.HealingPp;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.StringList;
@@ -17,47 +16,48 @@ public abstract class InitDbItem extends InitDbItems{
     public static final String I_BASE_TR = "B_BASE_TR";
     public static final String I_BASE = "B_BASE";
 
-    public static String callItemBeanClickItems(NaSt _str, long... _args) {
-        return navigateData(new ItemBeanClickItems(((ItemBean) ((PokemonBeanStruct)_str).getBean())),_str);
+    public static String callItemBeanClickItems(ItemBean _str, long... _args) {
+        return navigateData(new ItemBeanClickItems(_str),_str);
     }
 
-    public static String callItemBeanDescriptionGet(NaSt _str, int... _args) {
-        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDescription();
+    public static String callItemBeanDescriptionGet(ItemBean _str, int... _args) {
+        return _str.getDescription();
     }
 
-    public static String callItemBeanDisplayNameGet(NaSt _str, int... _args) {
-        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName();
+    public static String callItemBeanDisplayNameGet(ItemBean _str, int... _args) {
+        return _str.getDisplayName();
     }
 
 //    public static NaSt callItemBeanItemBeanGet(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new ItemBeanItemBeanGet(),_str,_args);
 //    }
 
-    public static int[][] callItemBeanItemImageGet(NaSt _str, int... _args) {
-        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getItemImage();
+    public static int[][] callItemBeanItemImageGet(ItemBean _str, int... _args) {
+        return _str.getItemImage();
     }
 
-    public static String callItemBeanNameGet(NaSt _str, int... _args) {
-        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getName();
+    public static String callItemBeanNameGet(ItemBean _str, int... _args) {
+        return _str.getName();
     }
 
-    public static long callItemBeanPriceGet(NaSt _str, int... _args) {
-        return ( (ItemBean) ((PokemonBeanStruct)_str).getInstance()).getPrice();
+    public static long callItemBeanPriceGet(ItemBean _str, int... _args) {
+        return _str.getPrice();
     }
 //    public static NaSt callItemBeanNameSet(NaSt _str, String _args) {
 //        return BeanPokemonCommonTs.callString(new ItemBeanNameSet(),_str,_args);
 //    }
-    public static StringMap<NaSt> beanToItemSample(PkData _pk) {
-        StringMap<NaSt> map_ = beanToItem(_pk);
+    public static StringMap<BeanRenderWithAppName> beanToItemSample(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         BoostBean b_ = new BoostBean();
-        map_.addEntry(InitDbItems.BEAN_BOOST, _pk.bean(b_, EN));
-        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,b_);
+        initBean(b_,EN,_pk.getDataBase());
+        map_.addEntry(InitDbItems.BEAN_BOOST, b_);
+        b_.setBuilder(map_.getValue(0).getBuilder());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_BOOST_HTML,b_);
         return map_;
     }
-    protected static NaSt itemLineSample() {
+    protected static ItemBean itemLineSample() {
         return dispLineSample(feedDbItem(), InitDbItems.BEAN_BOOST);
     }
 
@@ -67,9 +67,9 @@ public abstract class InitDbItem extends InitDbItems{
 //        return dispLine(_key, pk_, all_);
 //    }
 
-    protected static NaSt dispLineSample(FacadeGame _fac, String _key) {
+    protected static ItemBean dispLineSample(FacadeGame _fac, String _key) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<NaSt> all_ = beanToItemSample(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToItemSample(pk_);
         return dispLineClick(_key, pk_, all_);
     }
 
@@ -80,15 +80,15 @@ public abstract class InitDbItem extends InitDbItems{
 //        return res_;
 //    }
 
-    protected static NaSt dispLineQuick(String _key, PkData _pk, StringMap<NaSt> _all) {
-        NaSt res_ = transitToAllItemsQuick(_pk, _all, _key);
+    protected static ItemBean dispLineQuick(String _key, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        ItemBean res_ = transitToAllItemsQuick(_pk, _all, _key);
 //        callItemBeanItemBeanGet(res_);
 //        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;
     }
 
-    protected static NaSt dispLineClick(String _key, PkData _pk, StringMap<NaSt> _all) {
-        NaSt res_ = transitToAllItemsClick(_pk, _all, _key);
+    protected static ItemBean dispLineClick(String _key, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        ItemBean res_ = transitToAllItemsClick(_pk, _all, _key);
 //        callItemBeanItemBeanGet(res_);
 //        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;

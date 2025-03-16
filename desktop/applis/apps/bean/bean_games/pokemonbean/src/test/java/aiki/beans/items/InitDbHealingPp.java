@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
@@ -12,44 +11,45 @@ import code.util.StringMap;
 
 public abstract class InitDbHealingPp extends InitDbHealing {
 
-    public static long callHealingPpBeanHealedMovePpGet(NaSt _str, int... _args) {
-        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealedMovePp();
+    public static long callHealingPpBeanHealedMovePpGet(HealingPpBean _str, int... _args) {
+        return _str.getHealedMovePp();
     }
 
-    public static long callHealingPpBeanHealingAllMovesFullppGet(NaSt _str, int... _args) {
-        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesFullpp();
+    public static long callHealingPpBeanHealingAllMovesFullppGet(HealingPpBean _str, int... _args) {
+        return _str.getHealingAllMovesFullpp();
     }
 
-    public static boolean callHealingPpBeanHealingAllMovesPpGet(NaSt _str, int... _args) {
-        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingAllMovesPp();
+    public static boolean callHealingPpBeanHealingAllMovesPpGet(HealingPpBean _str, int... _args) {
+        return _str.getHealingAllMovesPp();
     }
 
-    public static boolean callHealingPpBeanHealingMoveFullppGet(NaSt _str, int... _args) {
-        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).getHealingMoveFullpp();
+    public static boolean callHealingPpBeanHealingMoveFullppGet(HealingPpBean _str, int... _args) {
+        return _str.getHealingMoveFullpp();
     }
 
-    public static boolean callHealingPpBeanLimitedPpMove(NaSt _str, int... _args) {
-        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMove();
+    public static boolean callHealingPpBeanLimitedPpMove(HealingPpBean _str, int... _args) {
+        return _str.limitedPpMove();
     }
 
-    public static boolean callHealingPpBeanLimitedPpMoves(NaSt _str, int... _args) {
-        return ( (HealingPpBean) ((PokemonBeanStruct)_str).getInstance()).limitedPpMoves();
+    public static boolean callHealingPpBeanLimitedPpMoves(HealingPpBean _str, int... _args) {
+        return _str.limitedPpMoves();
     }
 
-    public static StringMap<NaSt> beanToHealingPp(PkData _pk) {
-        StringMap<NaSt> map_ = beanToHealing(_pk);
+    public static StringMap<BeanRenderWithAppName> beanToHealingPp(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToHealing(_pk);
         HealingPpBean s_ = new HealingPpBean();
-        map_.addEntry(InitDbItems.BEAN_HEALINGPP, _pk.bean(s_, EN));
-        s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,s_);
+        initBean(s_,EN,_pk.getDataBase());
+        map_.addEntry(InitDbItems.BEAN_HEALINGPP, s_);
+        s_.setBuilder(map_.getValue(0).getBuilder());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGPP,new TranslationsFile());
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGPP_HTML,s_);
         return map_;
     }
-    protected static NaSt ppDb(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {
+    protected static HealingPpBean ppDb(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {
         PkData pk_ = pkDataByFacade(feedDbPp(_healingMoveFullpp, _healingAllMovesPp, _healingAllMovesFullpp, _healedMovePp));
-        StringMap<NaSt> all_ = beanToHealingPp(pk_);
-        return dispLineClick(InitDbItems.BEAN_HEALINGPP, pk_, all_);
+        StringMap<BeanRenderWithAppName> all_ = beanToHealingPp(pk_);
+        return (HealingPpBean) dispLineClick(InitDbItems.BEAN_HEALINGPP, pk_, all_);
     }
 
     private static FacadeGame feedDbPp(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {

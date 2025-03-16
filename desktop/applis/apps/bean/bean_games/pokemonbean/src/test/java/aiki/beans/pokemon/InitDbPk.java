@@ -26,7 +26,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;

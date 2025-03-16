@@ -6,7 +6,6 @@ import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.*;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
@@ -16,27 +15,28 @@ public abstract class InitDbItemOther extends InitDbItem {
 
 
     public static String callBallBeanCatchingRateGet() {
-        return ( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getCatchingRate();
+        return ballBean().getCatchingRate();
     }
 
     public static AbsMap<String,String> callBallBeanMapVarsGet() {
-        return (( (BallBean) ((PokemonBeanStruct)ballBean()).getInstance()).getMapVars());
+        return ballBean().getMapVars();
     }
 
     public static long callRepelBeanStepsGet() {
-        return ( (RepelBean) ((PokemonBeanStruct)repelBean()).getInstance()).getSteps();
+        return repelBean().getSteps();
     }
 
     protected static long sellBean() {
         PkData pk_ = pkDataByFacade(feedDbSell());
-        StringMap<NaSt> all_ = beanToSell(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToSell(pk_);
         return callItemBeanPriceGet(dispLineQuick(InitDbItems.BEAN_SELLINGITEM, pk_, all_));
     }
-    public static StringMap<NaSt> beanToSell(PkData _pk) {
-        StringMap<NaSt> map_ = beanToItem(_pk);
+    public static StringMap<BeanRenderWithAppName> beanToSell(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         SellingItemBean b_ = new SellingItemBean();
-        map_.addEntry(InitDbItems.BEAN_SELLINGITEM, _pk.bean(b_, EN));
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML,b_);
+        initBean(b_,EN,_pk.getDataBase());
+        map_.addEntry(InitDbItems.BEAN_SELLINGITEM, b_);
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML,b_);
         return map_;
     }
 
@@ -45,19 +45,20 @@ public abstract class InitDbItemOther extends InitDbItem {
         s_.setPrice(1);
         return feedDbItem(s_);
     }
-    protected static NaSt repelBean() {
+    protected static RepelBean repelBean() {
         PkData pk_ = pkDataByFacade(feedDbRepel());
-        StringMap<NaSt> all_ = beanToRepel(pk_);
-        return dispLineQuick(InitDbItems.BEAN_REPEL, pk_, all_);
+        StringMap<BeanRenderWithAppName> all_ = beanToRepel(pk_);
+        return (RepelBean) dispLineQuick(InitDbItems.BEAN_REPEL, pk_, all_);
     }
-    public static StringMap<NaSt> beanToRepel(PkData _pk) {
-        StringMap<NaSt> map_ = beanToItem(_pk);
+    public static StringMap<BeanRenderWithAppName> beanToRepel(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         RepelBean b_ = new RepelBean();
-        map_.addEntry(InitDbItems.BEAN_REPEL, _pk.bean(b_, EN));
-        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_REPEL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_REPEL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_REPEL_HTML,b_);
+        initBean(b_,EN,_pk.getDataBase());
+        map_.addEntry(InitDbItems.BEAN_REPEL, b_);
+        b_.setBuilder(map_.getValue(0).getBuilder());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_REPEL,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_REPEL,new TranslationsFile());
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_REPEL_HTML,b_);
         return map_;
     }
 
@@ -66,19 +67,20 @@ public abstract class InitDbItemOther extends InitDbItem {
         r_.setSteps(1);
         return feedDbItem(r_);
     }
-    protected static NaSt ballBean() {
+    protected static BallBean ballBean() {
         PkData pk_ = pkDataByFacade(feedDbBall());
-        StringMap<NaSt> all_ = beanToBall(pk_);
-        return dispLineQuick(InitDbItems.BEAN_BALL, pk_, all_);
+        StringMap<BeanRenderWithAppName> all_ = beanToBall(pk_);
+        return (BallBean) dispLineQuick(InitDbItems.BEAN_BALL, pk_, all_);
     }
-    public static StringMap<NaSt> beanToBall(PkData _pk) {
-        StringMap<NaSt> map_ = beanToItem(_pk);
+    public static StringMap<BeanRenderWithAppName> beanToBall(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         BallBean b_ = new BallBean();
-        map_.addEntry(InitDbItems.BEAN_BALL, _pk.bean(b_, EN));
-        b_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BALL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BALL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,b_);
+        initBean(b_,EN,_pk.getDataBase());
+        map_.addEntry(InitDbItems.BEAN_BALL, b_);
+        b_.setBuilder(map_.getValue(0).getBuilder());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BALL,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BALL,new TranslationsFile());
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_BALL_HTML,b_);
         return map_;
     }
 

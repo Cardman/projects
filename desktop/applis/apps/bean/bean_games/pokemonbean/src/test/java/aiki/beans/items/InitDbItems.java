@@ -16,7 +16,6 @@ import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
 import aiki.fight.util.StatisticPokemon;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.pages.aiki.*;
@@ -103,43 +102,43 @@ public abstract class InitDbItems extends InitDbConstr {
     public static long callItemLinePriceGet(ItemLine _str, int... _args) {
         return _str.getPrice();
     }
-    public static String callItemsBeanClickLink(NaSt _str, int... _args) {
-        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
+    public static String callItemsBeanClickLink(ItemsBean _str, int... _args) {
+        return _str.clickLink(_args[0]);
     }
 
-    public static int[][] callItemsBeanGetMiniImage(NaSt _str, int... _args) {
-        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImage(_args[0]);
+    public static int[][] callItemsBeanGetMiniImage(ItemsBean _str, int... _args) {
+        return _str.getMiniImage(_args[0]);
     }
 
-    public static CustList<ItemLine> callItemsBeanItemsGet(NaSt _str, int... _args) {
-        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getItems();
+    public static CustList<ItemLine> callItemsBeanItemsGet(ItemsBean _str, int... _args) {
+        return _str.getItems();
     }
 
 //    public static Struct callItemsBeanSearch(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new ItemsBeanSearch(),_str,_args);
 //    }
 
-    public static String callItemsBeanTypedClassGet(NaSt _str, int... _args) {
-        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().tryRet();
+    public static String callItemsBeanTypedClassGet(ItemsBean _str, int... _args) {
+        return _str.getTypedClass().tryRet();
     }
 
-    public static String callItemsBeanTypedNameGet(NaSt _str, int... _args) {
-        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
+    public static String callItemsBeanTypedNameGet(ItemsBean _str, int... _args) {
+        return _str.getTypedName().tryRet();
     }
 
-    public static String callItemsBeanTypedPriceGet(NaSt _str, int... _args) {
-        return ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().tryRet();
+    public static String callItemsBeanTypedPriceGet(ItemsBean _str, int... _args) {
+        return _str.getTypedPrice().tryRet();
     }
-    public static void callItemsBeanTypedClassSet(NaSt _str, String _args) {
-        ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().setupValue(_args);
-    }
-
-    public static void callItemsBeanTypedNameSet(NaSt _str, String _args) {
-        ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
+    public static void callItemsBeanTypedClassSet(ItemsBean _str, String _args) {
+        _str.getTypedClass().setupValue(_args);
     }
 
-    public static void callItemsBeanTypedPriceSet(NaSt _str, String _args) {
-        ( (ItemsBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().setupValue(_args);
+    public static void callItemsBeanTypedNameSet(ItemsBean _str, String _args) {
+        _str.getTypedName().setupValue(_args);
+    }
+
+    public static void callItemsBeanTypedPriceSet(ItemsBean _str, String _args) {
+        _str.getTypedPrice().setupValue(_args);
     }
 //    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
 //        callEffectWhileSendingBeanEffectSet(_update,callItemForBattleBeanGetEffectSending(_use));
@@ -148,10 +147,10 @@ public abstract class InitDbItems extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetEffectSending(),_str,_args);
 //    }
 
-    protected static String navigateItemsSearch(NaSt _moves) {
-        ItemsBean its_ = (ItemsBean) ((PokemonBeanStruct) _moves).getBean();
-        String res_ = navigateData(new ItemsBeanSearch(its_), _moves);
-        its_.build(its_.getFacade());
+    protected static String navigateItemsSearch(ItemsBean _moves) {
+//        ItemsBean its_ = (ItemsBean) ((PokemonBeanStruct) _moves).getBean();
+        String res_ = navigateData(new ItemsBeanSearch(_moves), _moves);
+        _moves.build(_moves.getFacade());
         return res_;
     }
 
@@ -166,51 +165,52 @@ public abstract class InitDbItems extends InitDbConstr {
 //        return itData_;
 //    }
 
-    protected static NaSt transitToAllItemsQuick(PkData _pk, StringMap<NaSt> _all, String _it) {
-        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    protected static ItemBean transitToAllItemsQuick(PkData _pk, StringMap<BeanRenderWithAppName> _all, String _it) {
+        WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt items_ = _all.getVal(BEAN_ITEMS);
-        transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,items_);
-        transit(_pk,new ItemsBeanSearch((ItemsBean) ((PokemonBeanStruct)items_).getBean()),items_,items_);
-        NaSt itData_ = _all.getVal(_it);
+        ItemsBean items_ = (ItemsBean) _all.getVal(BEAN_ITEMS);
+        transit(_pk,new WelcomeBeanClickItems(welcome_),welcome_,items_);
+        transit(_pk,new ItemsBeanSearch(items_),items_,items_);
+        ItemBean itData_ = (ItemBean) _all.getVal(_it);
 //        transit(_pk,new EntityClickFormEvent((CommonBean) ((PokemonBeanStruct)items_).getBean(),((ItemsBean)((PokemonBeanStruct)items_).getBean()).getItemsTr().get(0)),items_, itData_);
         return itData_;
     }
 
 
-    protected static NaSt transitToAllItemsClick(PkData _pk, StringMap<NaSt> _all, String _it) {
-        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    protected static ItemBean transitToAllItemsClick(PkData _pk, StringMap<BeanRenderWithAppName> _all, String _it) {
+        WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt items_ = _all.getVal(BEAN_ITEMS);
-        transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,items_);
-        transit(_pk,new ItemsBeanSearch((ItemsBean) ((PokemonBeanStruct)items_).getBean()),items_,items_);
-        NaSt itData_ = _all.getVal(_it);
-        transit(_pk,new EntityClickFormEvent((CommonBean) ((PokemonBeanStruct)items_).getBean(),((ItemsBean)((PokemonBeanStruct)items_).getBean()).getItemsTr().get(0)),items_, itData_);
+        ItemsBean items_ = (ItemsBean) _all.getVal(BEAN_ITEMS);
+        transit(_pk,new WelcomeBeanClickItems(welcome_),welcome_,items_);
+        transit(_pk,new ItemsBeanSearch(items_),items_,items_);
+        ItemBean itData_ = (ItemBean) _all.getVal(_it);
+        transit(_pk,new EntityClickFormEvent(items_,items_.getItemsTr().get(0)),items_, itData_);
         return itData_;
     }
 
-    protected static NaSt dispAllItems(FacadeGame _fac) {
+    protected static ItemsBean dispAllItems(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllItems(pk_);
     }
 
-    private static NaSt dispAllItems(PkData _pk) {
-        StringMap<NaSt> all_ = beanToItems(_pk);
-        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    private static ItemsBean dispAllItems(PkData _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToItems(_pk);
+        WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(BEAN_ITEMS);
-        transit(_pk,new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean()),welcome_,moves_);
+        ItemsBean moves_ = (ItemsBean) all_.getVal(BEAN_ITEMS);
+        transit(_pk,new WelcomeBeanClickItems(welcome_),welcome_,moves_);
         return moves_;
     }
-    public static StringMap<NaSt> beanToItems(PkData _pk) {
-        StringMap<NaSt> map_ = new StringMap<NaSt>();
-        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,new PokemonBeanStruct(beanWelcomeBean(_pk,EN)));
+    public static StringMap<BeanRenderWithAppName> beanToItems(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,beanWelcomeBean(_pk,EN));
         ItemsBean its_ = new ItemsBean();
-        its_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        map_.addEntry(BEAN_ITEMS, _pk.bean(its_, EN));
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,its_);
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
+        its_.setBuilder(map_.getValue(0).getBuilder());
+        initBean(its_,EN,_pk.getDataBase());
+        map_.addEntry(BEAN_ITEMS, its_);
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,its_);
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
         return map_;
     }
 
@@ -271,11 +271,11 @@ public abstract class InitDbItems extends InitDbConstr {
         return facade_;
     }
 
-    public static StringMap<NaSt> beanToItem(PkData _pk) {
-        StringMap<NaSt> map_ = beanToItems(_pk);
+    public static StringMap<BeanRenderWithAppName> beanToItem(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToItems(_pk);
 //        map_.addEntry(AikiBeansItemsStd.BEAN_ITEM, _pk.bean(new SellingItemBean(), EN));
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEM,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEM,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEM,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEM,new TranslationsFile());
         return map_;
     }
     protected static void trsCore(FacadeGame _facade) {

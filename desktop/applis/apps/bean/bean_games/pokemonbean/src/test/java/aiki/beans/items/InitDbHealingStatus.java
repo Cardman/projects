@@ -6,7 +6,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.items.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
@@ -14,53 +13,54 @@ import code.util.*;
 
 public abstract class InitDbHealingStatus extends InitDbHealing {
 
-    public static String callHealingStatusBeanClickStatus(NaSt _str, int... _args) {
-        return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickStatus(_args[0]);
+    public static String callHealingStatusBeanClickStatus(HealingStatusBean _str, int... _args) {
+        return _str.clickStatus(_args[0]);
     }
 
-    public static String callHealingStatusBeanClickStatusId(NaSt _str, int... _args) {
+    public static String callHealingStatusBeanClickStatusId(HealingStatusBean _str, int... _args) {
         callHealingStatusBeanClickStatus(_str,_args);
         return getValStatusId(_str);
     }
 
-    public static String callHealingStatusBeanGetTrStatus(NaSt _str, int... _args) {
-        return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatus(_args[0]);
+    public static String callHealingStatusBeanGetTrStatus(HealingStatusBean _str, int... _args) {
+        return _str.getTrStatus(_args[0]);
     }
 
-    public static Rate callHealingStatusBeanHealedHpRateGet(NaSt _str, int... _args) {
-        return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getHealedHpRate();
+    public static Rate callHealingStatusBeanHealedHpRateGet(HealingStatusBean _str, int... _args) {
+        return _str.getHealedHpRate();
     }
 
-    public static boolean callHealingStatusBeanHealingKoGet(NaSt _str, int... _args) {
-        return ( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getHealingKo();
+    public static boolean callHealingStatusBeanHealingKoGet(HealingStatusBean _str, int... _args) {
+        return _str.getHealingKo();
     }
 
-    public static String callHealingStatusBeanHealingStatusBeanGet(NaSt _str, int... _args) {
+    public static String callHealingStatusBeanHealingStatusBeanGet(BeanRenderWithAppName _str, int... _args) {
         return HealingStatusBean.HEALING_STATUS_BEAN;
     }
 
-    public static CustList<TranslatedKey> callHealingStatusBeanStatusGet(NaSt _str, int... _args) {
-        return (( (HealingStatusBean) ((PokemonBeanStruct)_str).getInstance()).getStatus());
+    public static CustList<TranslatedKey> callHealingStatusBeanStatusGet(HealingStatusBean _str, int... _args) {
+        return _str.getStatus();
     }
 
-    public static StringMap<NaSt> beanToHealingStatus(PkData _pk) {
-        StringMap<NaSt> map_ = beanToHealing(_pk);
+    public static StringMap<BeanRenderWithAppName> beanToHealingStatus(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToHealing(_pk);
         HealingStatusBean s_ = new HealingStatusBean();
-        map_.addEntry(InitDbItems.BEAN_HEALINGSTATUS, _pk.bean(s_, EN));
-        s_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHPSTATUS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHPSTATUS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML,s_);
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML,s_);
+        initBean(s_,EN,_pk.getDataBase());
+        map_.addEntry(InitDbItems.BEAN_HEALINGSTATUS, s_);
+        s_.setBuilder(map_.getValue(0).getBuilder());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHPSTATUS,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHPSTATUS,new TranslationsFile());
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGSTATUS_HTML,s_);
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML,s_);
         return map_;
     }
-    protected static NaSt statusDb(HealingStatus _heal) {
+    protected static HealingStatusBean statusDb(HealingStatus _heal) {
         PkData pk_ = pkDataByFacade(feedDbStatus(_heal));
-        StringMap<NaSt> all_ = beanToHealingStatus(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToHealingStatus(pk_);
         callHealingStatusBeanHealingStatusBeanGet(all_.getVal(InitDbItems.BEAN_HEALINGSTATUS));
-        return dispLineClick(InitDbItems.BEAN_HEALINGSTATUS, pk_, all_);
+        return (HealingStatusBean) dispLineClick(InitDbItems.BEAN_HEALINGSTATUS, pk_, all_);
     }
 
     private static FacadeGame feedDbStatus(HealingStatus _heal) {
