@@ -5,7 +5,6 @@ import aiki.beans.simulation.SimulationBean;
 import aiki.facade.FacadeGame;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import code.bean.nat.*;
 //import code.formathtml.Configuration;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesDataSimulation;
@@ -147,93 +146,93 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return _str;
     }
 
-    public static AbsMap<Rate,Rate> callDifficultyBeanDamageRatePlayerTableGet(NaSt _str, int... _args) {
+    public static AbsMap<Rate,Rate> callDifficultyBeanDamageRatePlayerTableGet(SimulationBean _str, int... _args) {
         return inner(_str).getDamageRatePlayerTable();
     }
 
-    public static AbsMap<Rate,Rate> callDifficultyBeanDamageRateFoeTableGet(NaSt _str, int... _args) {
+    public static AbsMap<Rate,Rate> callDifficultyBeanDamageRateFoeTableGet(SimulationBean _str, int... _args) {
         return inner(_str).getDamageRateFoeTable();
     }
 
-    public static AbsMap<String,String> callDifficultyBeanDamageRatesGet(NaSt _str, int... _args) {
+    public static AbsMap<String,String> callDifficultyBeanDamageRatesGet(SimulationBean _str, int... _args) {
         return inner(_str).getDamageRates();
     }
 
-    public static AbsMap<String,String> callDifficultyBeanWinPointsFightGet(NaSt _str, int... _args) {
+    public static AbsMap<String,String> callDifficultyBeanWinPointsFightGet(SimulationBean _str, int... _args) {
         return inner(_str).getWinPointsFight();
     }
 
-    public static String callDifficultyBeanDamageRateLawFoeGet(NaSt _str, int... _args) {
+    public static String callDifficultyBeanDamageRateLawFoeGet(SimulationBean _str, int... _args) {
         return inner(_str).getDamageRateLawFoe();
     }
 
-    public static String callDifficultyBeanDamageRatePlayerGet(NaSt _str, int... _args) {
+    public static String callDifficultyBeanDamageRatePlayerGet(SimulationBean _str, int... _args) {
         return inner(_str).getDamageRatePlayer();
     }
 
-    public static String callDifficultyBeanDiffWinningExpPtsFightGet(NaSt _str, int... _args) {
+    public static String callDifficultyBeanDiffWinningExpPtsFightGet(SimulationBean _str, int... _args) {
         return inner(_str).getDiffWinningExpPtsFight();
     }
 
-    public static long callDifficultyBeanIvFoeGet(NaSt _str, int... _args) {
+    public static long callDifficultyBeanIvFoeGet(SimulationBean _str, int... _args) {
         return inner(_str).getIvFoe();
     }
 
-    public static long callDifficultyBeanIvPlayerGet(NaSt _str, int... _args) {
+    public static long callDifficultyBeanIvPlayerGet(SimulationBean _str, int... _args) {
         return inner(_str).getIvPlayer();
     }
 
-    public static Rate callDifficultyBeanRateLooseMoneyWinGet(NaSt _str, int... _args) {
+    public static Rate callDifficultyBeanRateLooseMoneyWinGet(SimulationBean _str, int... _args) {
         return inner(_str).getRateLooseMoneyWin();
     }
 
-    public static Rate callDifficultyBeanRateWinMoneyBaseGet(NaSt _str, int... _args) {
+    public static Rate callDifficultyBeanRateWinMoneyBaseGet(SimulationBean _str, int... _args) {
         return inner(_str).getRateWinMoneyBase();
     }
 
-    public static Rate callDifficultyBeanRateWinningExpPtsFightGet(NaSt _str, int... _args) {
+    public static Rate callDifficultyBeanRateWinningExpPtsFightGet(SimulationBean _str, int... _args) {
         return inner(_str).getRateWinningExpPtsFight();
     }
 
-    public static Rate callDifficultyBeanWinTrainerExpGet(NaSt _str, int... _args) {
+    public static Rate callDifficultyBeanWinTrainerExpGet(SimulationBean _str, int... _args) {
         return inner(_str).getWinTrainerExp();
     }
 
-    public static boolean callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(SimulationBean _str, int... _args) {
         return inner(_str).getSkipLearningMovesWhileNotGrowingLevel();
     }
 
-    public static boolean callDifficultyBeanStillPossibleFleeGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanStillPossibleFleeGet(SimulationBean _str, int... _args) {
         return inner(_str).getStillPossibleFlee();
     }
 
-    public static boolean callDifficultyBeanRandomWildFightGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanRandomWildFightGet(SimulationBean _str, int... _args) {
         return inner(_str).getRandomWildFight();
     }
 
-    public static boolean callDifficultyBeanEnabledClosingGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanEnabledClosingGet(SimulationBean _str, int... _args) {
         return inner(_str).getEnabledClosing();
     }
 
-    public static boolean callDifficultyBeanRestoredMovesEndFightGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanRestoredMovesEndFightGet(SimulationBean _str, int... _args) {
         return inner(_str).getRestoredMovesEndFight();
     }
 
-    public static boolean callDifficultyBeanAllowedSwitchPlacesEndRoundGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanAllowedSwitchPlacesEndRoundGet(SimulationBean _str, int... _args) {
         return inner(_str).getAllowedSwitchPlacesEndRound();
     }
 
-    public static boolean callDifficultyBeanEndFightIfOneTeamKoGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanEndFightIfOneTeamKoGet(SimulationBean _str, int... _args) {
         return inner(_str).getEndFightIfOneTeamKo();
     }
 
-    public static boolean callDifficultyBeanAllowCatchingKoGet(NaSt _str, int... _args) {
+    public static boolean callDifficultyBeanAllowCatchingKoGet(SimulationBean _str, int... _args) {
         return inner(_str).getAllowCatchingKo();
     }
 
-    private static DifficultyCommonBean inner(NaSt _str) {
+    private static DifficultyCommonBean inner(SimulationBean _str) {
         DifficultyCommonBean b_ = new DifficultyCommonBean();
-        b_.setOwner(((SimulationBean)((PokemonBeanStruct)_str).getInstance()));
+        b_.setOwner(_str);
         b_.beforeDisplaying();
         return b_;
     }
@@ -245,7 +244,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return _str.getDifficultyCommon();
     }
 
-    public static NaSt beanDiff(String _language, FacadeGame _dataBase) {
+    public static SimulationBean beanDiff(String _language, FacadeGame _dataBase) {
         PkData stds_ = new PkData();
         stds_.setDataBase(_dataBase);
         SimulationBean si_ = new SimulationBean();
@@ -269,16 +268,16 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         _dataBase.getData().getTranslatedDiffModelLaw().tryAdd(_language,new IdMap<DifficultyModelLaw, String>());
         _dataBase.getData().getTranslatedDiffWinPts().tryAdd(_language,new IdMap<DifficultyWinPointsFight, String>());
         _dataBase.updateTrs();
-        return new PokemonBeanStruct(si_);
+        return si_;
     }
 
-    public static NaSt beanSimu(String _language, FacadeGame _dataBase) {
+    public static SimulationBean beanSimu(String _language, FacadeGame _dataBase) {
         PkData stds_ = new PkData();
         stds_.setDataBase(_dataBase);
         SimulationBean si_ = new SimulationBean();
         si_.setBuilder(new MockBeanBuilderHelper());
 //        si_.getDifficultyCommon().
-        PokemonBeanStruct b_ = stds_.bean(si_, _language);
+        stds_.bean(si_, _language);
         si_.beforeDisplaying();
         si_.getDifficultyCommon().setRateWinningExpPtsFight(_dataBase.getGame().getDifficulty().getRateWinningExpPtsFight());
         si_.getDifficultyCommon().setWinTrainerExp(_dataBase.getGame().getDifficulty().getWinTrainerExp());
@@ -298,7 +297,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         si_.getDifficultyCommon().setIvPlayer(_dataBase.getGame().getDifficulty().getIvPlayer());
         si_.getDifficultyCommon().setIvFoe(_dataBase.getGame().getDifficulty().getIvFoe());
         si_.getDifficultyCommon().init(_dataBase.getData(),EN,_dataBase.getGame().getDifficulty());
-        return b_;
+        return si_;
     }
     public static String navigateDiffChange(DifficultyBean _str, long... _args) {
         _str.getBuilder().getRenders().addEntry("",_str);

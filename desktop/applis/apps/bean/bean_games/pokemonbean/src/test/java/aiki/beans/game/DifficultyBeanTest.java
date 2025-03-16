@@ -1,6 +1,7 @@
 package aiki.beans.game;
 
 import aiki.beans.*;
+import aiki.beans.simulation.SimulationBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
@@ -670,6 +671,10 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
 //        return (((DifficultyCommonBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon()).getDifficultyCommon();
 //    }
 
+    public SimulationBean displaying(SimulationBean _b) {
+        beforeDisplaying(_b);
+        return _b;
+    }
     private DifficultyCommon result(DifficultyBean _str) {
         return _str.getDifficultyCommon();
     }
