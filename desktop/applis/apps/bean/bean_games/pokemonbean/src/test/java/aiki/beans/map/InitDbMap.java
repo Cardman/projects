@@ -23,7 +23,6 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.Coords;
 import aiki.util.Point;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
@@ -176,9 +175,9 @@ public abstract class InitDbMap extends InitDbConstr {
     public static final int IMG_ITEM = 16777215;
     public static final String BEAN_GAME_MAP="game_map";
     public static final String BEAN_LEVEL_MAP="level_map";
-    public static final String BEAN_PK_TEAM="pk_team";
+//    public static final String BEAN_PK_TEAM="pk_team";
     public static final String BEAN_TRAINER_FIGHT="trainer_fight";
-    public static final String BEAN_ALLY="ally";
+//    public static final String BEAN_ALLY="ally";
     public static final String BEAN_DUAL="dual";
     public static final String BEAN_AREA="area";
     public static final String BEAN_LEG_PK="leg_pk";
@@ -189,12 +188,12 @@ public abstract class InitDbMap extends InitDbConstr {
         return callMapBeanClickLevel(dispMap(),_place,_level);
     }
 
-    public static String callMapBeanClickLevel(NaSt _str, int _place, int _level) {
-        return ( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,_level);
+    public static String callMapBeanClickLevel(MapBean _str, int _place, int _level) {
+        return _str.clickLevel(_place,_level);
     }
 
     public static Coords callMapBeanClickLevelId(int _place, int _level) {
-        NaSt bean_ = dispMap();
+        MapBean bean_ = dispMap();
         callMapBeanClickLevel(bean_,_place,_level);
         return getValPlaceLevelId(bean_);
     }
@@ -202,67 +201,67 @@ public abstract class InitDbMap extends InitDbConstr {
         return callMapBeanClickLevelZero(dispMap(),_place);
     }
 
-    public static String callMapBeanClickLevelZero(NaSt _str, int  _place) {
-        return ( (MapBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(_place,0);
+    public static String callMapBeanClickLevelZero(MapBean _str, int  _place) {
+        return _str.clickLevel(_place,0);
     }
 
     public static Coords callMapBeanClickLevelZeroId(int _place) {
-        NaSt bean_ = dispMap();
+        MapBean bean_ = dispMap();
         callMapBeanClickLevelZero(bean_,_place);
         return getValPlaceLevelId(bean_);
     }
     public static boolean callMapBeanIsMultiLayer(int _place) {
-        return ( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).isMultiLayer(_place);
+        return dispMap().isMultiLayer(_place);
     }
 
     public static int callMapBeanLayers(int _place) {
-        return ( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).layers(_place).size();
+        return dispMap().layers(_place).size();
     }
 
     public static CustList<PlaceIndex> callMapBeanPlacesGet() {
-        return (( (MapBean) ((PokemonBeanStruct)dispMap()).getInstance()).getPlaces());
+        return dispMap().getPlaces();
     }
 
-    protected static NaSt dispMap() {
+    protected static MapBean dispMap() {
         PkData pk_ = pkDataByFacade(db());
         return dispMap(pk_);
     }
 
-    private static NaSt dispMap(PkData _pk) {
-        StringMap<NaSt> all_ = beanToMap(_pk);
-        NaSt welcome_ = all_.getVal(BEAN_GAME_MAP);
+    private static MapBean dispMap(PkData _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToMap(_pk);
+        MapBean welcome_ = (MapBean) all_.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
-        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
+        welcome_.build(welcome_.getFacade());
         return welcome_;
     }
 
-    protected static NaSt dispMapLevel(int _place, int _level) {
+    protected static MapLevelBean dispMapLevel(int _place, int _level) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<NaSt> all_ = beanToMap(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         return transitLevel(_place, _level, pk_, all_);
     }
 
-    protected static NaSt transitLevel(int _place, int _level, PkData _pk, StringMap<NaSt> _all) {
-        NaSt welcome_ = _all.getVal(BEAN_GAME_MAP);
+    protected static MapLevelBean transitLevel(int _place, int _level, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        MapBean welcome_ = (MapBean) _all.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
-        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
-        NaSt moves_ = _all.getVal(BEAN_LEVEL_MAP);
-        transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,_level),welcome_,moves_);
+        welcome_.build(welcome_.getFacade());
+        MapLevelBean moves_ = (MapLevelBean) _all.getVal(BEAN_LEVEL_MAP);
+        transit(_pk,new MapBeanClickLevelBeanAction(welcome_,_place,_level),welcome_,moves_);
         return moves_;
     }
 
-    protected static NaSt dispMapLevelZero(int _place) {
+    protected static MapLevelBean dispMapLevelZero(int _place) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<NaSt> all_ = beanToMap(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         return transitLevelZero(_place, pk_, all_);
     }
 
-    protected static NaSt transitLevelZero(int _place, PkData _pk, StringMap<NaSt> _all) {
-        NaSt welcome_ = _all.getVal(BEAN_GAME_MAP);
+    protected static MapLevelBean transitLevelZero(int _place, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        MapBean welcome_ = (MapBean) _all.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
-        ((MapBean)((PokemonBeanStruct)welcome_).getBean()).build(((MapBean)((PokemonBeanStruct)welcome_).getBean()).getFacade());
-        NaSt moves_ = _all.getVal(BEAN_LEVEL_MAP);
-        transit(_pk,new MapBeanClickLevelBeanAction(((MapBean)((PokemonBeanStruct)welcome_).getBean()),_place,0),welcome_,moves_);
+        welcome_.build(welcome_.getFacade());
+        MapLevelBean moves_ = (MapLevelBean) _all.getVal(BEAN_LEVEL_MAP);
+        transit(_pk,new MapBeanClickLevelBeanAction(welcome_,_place,0),welcome_,moves_);
         return moves_;
     }
 
@@ -276,8 +275,8 @@ public abstract class InitDbMap extends InitDbConstr {
         transit(_pk,new PokedexBeanClickLink(),pks_,pk_,_index);
         return pk_;
     }*/
-    public static StringMap<NaSt> beanToMap(PkData _pk) {
-        StringMap<NaSt> map_ = new StringMap<NaSt>();
+    public static StringMap<BeanRenderWithAppName> beanToMap(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         MapBean welcome_ = new MapBean();
         welcome_.setFacade(_pk.getDataBase());
         welcome_.setLanguage(EN);
@@ -298,31 +297,32 @@ public abstract class InitDbMap extends InitDbConstr {
         bu_.setTranslations(tr_);
         bu_.setFacade(welcome_.getFacade());
         welcome_.setBuilder(bu_);
-        map_.addEntry(BEAN_GAME_MAP, _pk.bean(welcome_, EN));
-        map_.addEntry(BEAN_LEVEL_MAP, _pk.bean(build(new MapLevelBean(), CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,bu_), EN));
+        map_.addEntry(BEAN_GAME_MAP, welcome_);
+        map_.addEntry(BEAN_LEVEL_MAP, build(new MapLevelBean(), CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML,bu_));
 //        map_.addEntry(AikiBeansMapStd.BEAN_PK_TEAM, _pk.bean(build(new PokemonTeamBean(),bu_), EN));
         TrainerBean trainer_ = new TrainerBean();
-        map_.addEntry(BEAN_TRAINER_FIGHT, _pk.bean(build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,bu_), EN));
-        _pk.bean(build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,bu_), EN);
+        map_.addEntry(BEAN_TRAINER_FIGHT, build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML,bu_));
+        build(trainer_, CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,bu_);
 //        map_.addEntry(AikiBeansMapStd.BEAN_ALLY, _pk.bean(build(new AllyBean(),bu_), EN));
-        map_.addEntry(BEAN_DUAL, _pk.bean(build(new DualFightBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,bu_), EN));
-        map_.addEntry(BEAN_AREA, _pk.bean(build(new AreaBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,bu_), EN));
-        map_.addEntry(BEAN_LEG_PK, _pk.bean(build(new LegendaryPokemonBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,bu_), EN));
-        map_.addEntry(BEAN_DEALER, _pk.bean(build(new DealerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,bu_), EN));
-        map_.addEntry(BEAN_SELLER, _pk.bean(build(new SellerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,bu_), EN));
+        map_.addEntry(BEAN_DUAL, build(new DualFightBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML,bu_));
+        map_.addEntry(BEAN_AREA, build(new AreaBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_AREA_HTML,bu_));
+        map_.addEntry(BEAN_LEG_PK, build(new LegendaryPokemonBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML,bu_));
+        map_.addEntry(BEAN_DEALER, build(new DealerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_DEALER_HTML,bu_));
+        map_.addEntry(BEAN_SELLER, build(new SellerBean(), CommonBean.REN_ADD_WEB_HTML_MAP_ELEMENTS_SELLER_HTML,bu_));
         bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MAP_MAP_HTML,welcome_);
         return map_;
     }
-    protected static MapBean mainBean(StringMap<NaSt> _all) {
-        return (MapBean) ((PokemonBeanStruct)_all.getVal(BEAN_GAME_MAP)).getBean();
+    protected static MapBean mainBean(StringMap<BeanRenderWithAppName> _all) {
+        return (MapBean) _all.getVal(BEAN_GAME_MAP);
     }
-    protected static BeanRenderWithAppName bean(StringMap<NaSt> _all, String _lk) {
+    protected static BeanRenderWithAppName bean(StringMap<BeanRenderWithAppName> _all, String _lk) {
         return mainBean(_all).getBuilder().getRenders().getVal(_lk);
     }
-    private static CommonBean build(BeanRenderWithAppName _c,String _k, MockBeanBuilderHelper _bu) {
+    private static BeanRenderWithAppName build(BeanRenderWithAppName _c,String _k, MockBeanBuilderHelper _bu) {
         _c.setBuilder(_bu);
         _bu.getRenders().addEntry(_k,_c);
-        return (CommonBean) _c;
+        initBean((CommonBean) _c,EN,_bu.getFacade());
+        return _c;
     }
     //    public static StringMap<String> mappingToMap() {
 //        StringMap<String> map_ = new StringMap<String>();

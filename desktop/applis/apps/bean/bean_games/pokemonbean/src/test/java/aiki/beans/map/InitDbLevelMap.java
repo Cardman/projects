@@ -1,9 +1,6 @@
 package aiki.beans.map;
 
-import aiki.beans.*;
-import aiki.beans.PokemonBeanStruct;
 import aiki.util.Coords;
-import code.bean.nat.*;
 import code.util.*;
 
 public abstract class InitDbLevelMap extends InitDbMap {
@@ -32,13 +29,13 @@ public abstract class InitDbLevelMap extends InitDbMap {
     }
 
     public static String callMapLevelBeanClickTileOnMapMv(int _place, int _level, int _tile) {
-        NaSt bean_ = dispMapLevel(_place, _level);
+        MapLevelBean bean_ = dispMapLevel(_place, _level);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValMoveId(bean_);
     }
 
     public static String callMapLevelBeanClickTileOnMapIt(int _place, int _level, int _tile) {
-        NaSt bean_ = dispMapLevel(_place, _level);
+        MapLevelBean bean_ = dispMapLevel(_place, _level);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValItemId(bean_);
     }
@@ -68,23 +65,23 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return getValPlaceLevelId(bean_);
 //    }
     public static String callMapLevelBeanClickTileOnMapTwice(int _place, int _tile, int _second) {
-        NaSt bean_ = tileOnMap(_place, _tile);
+        MapLevelBean bean_ = tileOnMap(_place, _tile);
         return callMapLevelBeanClickTileOnMap(bean_,_second);
     }
 
     public static Coords callMapLevelBeanClickTileOnMapId(int _place, int _tile) {
-        NaSt bean_ = dispMapLevelZero(_place);
+        MapLevelBean bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValPlaceLevelId(bean_);
     }
 
     public static Coords callMapLevelBeanClickTileOnMapId(int _place, int _level, int _tile) {
-        NaSt bean_ = dispMapLevel(_place,_level);
+        MapLevelBean bean_ = dispMapLevel(_place,_level);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValPlaceLevelId(bean_);
     }
-    public static String callMapLevelBeanClickTileOnMap(NaSt _str, int _tile) {
-        return navigateData(new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)_str).getBean(),_tile),_str);
+    public static String callMapLevelBeanClickTileOnMap(MapLevelBean _str, int _tile) {
+        return navigateData(new MapLevelBeanClickTileOnMap(_str,_tile),_str);
     }
 
 //    public static NaSt callMapLevelBeanClickTileOnMapStruct(NaSt _str, int _tile) {
@@ -102,15 +99,15 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static long callMapLevelBeanGetMapWidth(int _place) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getMapWidth();
+        return dispMapLevelZero(_place).getMapWidth();
     }
 
     public static boolean callMapLevelBeanGymGet(int _place, int _tile) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).getGym();
+        return tileOnMap(_place, _tile).getGym();
     }
 
     public static boolean callMapLevelBeanIsAccessibleByBeatingSomeTrainers(int _place, int _level, int _tile) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).isAccessibleByBeatingSomeTrainers(_tile);
+        return dispMapLevel(_place, _level).isAccessibleByBeatingSomeTrainers(_tile);
     }
 
 //    public static Struct callMapLevelBeanIsDown(int _place, int _tile, int _second) {
@@ -125,15 +122,15 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static boolean callMapLevelBeanIsFossile(int _place, int _tile, int _cell) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).isFossile(_cell);
+        return tileOnMap(_place, _tile).isFossile(_cell);
     }
 
     public static boolean callMapLevelBeanIsHealer(int _place, int _tile, int _cell) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).isHealer(_cell);
+        return tileOnMap(_place, _tile).isHealer(_cell);
     }
 
     public static boolean callMapLevelBeanIsHost(int _place, int _tile, int _cell) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).isHost(_cell);
+        return tileOnMap(_place, _tile).isHost(_cell);
     }
 
 //    public static Struct callMapLevelBeanIsLeft(int _place, int _tile, int _second) {
@@ -144,7 +141,7 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static boolean callMapLevelBeanIsMoveTutors(int _place, int _tile, int _cell) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).isMoveTutors(_cell);
+        return tileOnMap(_place, _tile).isMoveTutors(_cell);
     }
 
 //    public static Struct callMapLevelBeanIsRight(int _place, int _tile, int _second) {
@@ -155,18 +152,18 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static boolean callMapLevelBeanIsStorage(int _place, int _tile, int _cell) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).isStorage(_cell);
+        return tileOnMap(_place, _tile).isStorage(_cell);
     }
 
-    private static NaSt tileOnMap(int _place, int _tile) {
-        NaSt bean_ = dispMapLevelZero(_place);
+    private static MapLevelBean tileOnMap(int _place, int _tile) {
+        MapLevelBean bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_, _tile);
         beforeDisplaying(bean_);
         return bean_;
     }
 
     public static boolean callMapLevelBeanIsStorage(int _place, int _cell) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).isStorage(_cell);
+        return dispMapLevelZero(_place).isStorage(_cell);
     }
 
 //    public static Struct callMapLevelBeanIsUp(int _place, int _tile, int _second) {
@@ -177,11 +174,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static long callMapLevelBeanLevelIndexGet(int _place, int _level) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getLevelIndex();
+        return dispMapLevel(_place, _level).getLevelIndex();
     }
 
     public static boolean callMapLevelBeanOutsideGet(int _place) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getOutside();
+        return dispMapLevelZero(_place).getOutside();
     }
 
 //    public static NaSt callMapLevelBeanClickArea(NaSt _str, int _index) {
@@ -189,48 +186,48 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static String callMapLevelBeanClickArea(int _place, int _index) {
-        NaSt str_ = dispMapLevelZero(_place);
-        return navigateData(new MapLevelBeanClickArea((AbsLevelBean) ((PokemonBeanStruct)str_).getBean(),_index),str_);
+        MapLevelBean str_ = dispMapLevelZero(_place);
+        return navigateData(new MapLevelBeanClickArea(str_,_index),str_);
     }
 
     public static String callMapLevelBeanClickAreaOnMap(int _place, int _tile) {
-        NaSt level_ = dispMapLevelZero(_place);
-        return navigateData(new MapLevelBeanClickAreaOnMap((AbsLevelBean)((PokemonBeanStruct)level_).getBean(),_tile), level_);
+        MapLevelBean level_ = dispMapLevelZero(_place);
+        return navigateData(new MapLevelBeanClickAreaOnMap(level_,_tile), level_);
     }
 
     public static int callMapLevelBeanWhiteTilesGet(int _place) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getWhiteTiles().size();
+        return dispMapLevelZero(_place).getWhiteTiles().size();
     }
 
     public static AbsMap<Integer,String> callMapLevelBeanNeighboursGet(int _place) {
-        return (( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getNeighbours());
+        return dispMapLevelZero(_place).getNeighbours();
     }
 
     public static String callMapLevelBeanClickNeighbour(int _place, int _index) {
-        NaSt lev_ = dispMapLevelZero(_place);
-        return navigateData(new MapLevelBeanClickNeighbour((AbsLevelBean) ((PokemonBeanStruct)lev_).getBean(),_index), lev_);
+        MapLevelBean lev_ = dispMapLevelZero(_place);
+        return navigateData(new MapLevelBeanClickNeighbour(lev_,_index), lev_);
     }
     public static int callMapLevelBeanAreas(int _place) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getWildPokemonAreas().size();
+        return dispMapLevelZero(_place).getWildPokemonAreas().size();
     }
     public static boolean callMapLevelBeanOutsideGet(int _place, int _tile) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).getOutside();
+        return tileOnMap(_place, _tile).getOutside();
     }
 
     public static String callMapLevelBeanPlaceNameGet(int _place, int _level) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getPlaceName();
+        return dispMapLevel(_place, _level).getPlaceName();
     }
 
     public static boolean callMapLevelBeanPokemonCenterGet(int _place, int _tile) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).getPokemonCenter();
+        return tileOnMap(_place, _tile).getPokemonCenter();
     }
 
     public static boolean callMapLevelBeanPossibleMultiLayerGet(int _place) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getPossibleMultiLayer();
+        return dispMapLevelZero(_place).getPossibleMultiLayer();
     }
 
     public static boolean callMapLevelBeanPossibleMultiLayerGet(int _place, int _level) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getPossibleMultiLayer();
+        return dispMapLevel(_place, _level).getPossibleMultiLayer();
     }
 
 //    public static Struct callMapLevelBeanProponeLinkGet(Struct _str, long... _args) {
@@ -242,11 +239,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static boolean callMapLevelBeanRoadGet(int _place, int _level) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevel(_place, _level)).getInstance()).getRoad();
+        return dispMapLevel(_place, _level).getRoad();
     }
 
     public static boolean callMapLevelBeanRoadGet(int _place) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getRoad();
+        return dispMapLevelZero(_place).getRoad();
     }
 
 //    public static Struct callMapLevelBeanSeeArea(Struct _str, long... _args) {
@@ -262,11 +259,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //    }
 
     public static int callMapLevelBeanTilesGet(int _place) {
-        return ( (AbsLevelBean) ((PokemonBeanStruct)dispMapLevelZero(_place)).getInstance()).getTiles().size();
+        return dispMapLevelZero(_place).getTiles().size();
     }
 
     public static boolean callMapLevelBeanWithoutTitle(int _place, int _tile, int _cell) {
-        return ( (MapLevelBean) ((PokemonBeanStruct)tileOnMap(_place, _tile)).getInstance()).withoutTitle(_cell);
+        return tileOnMap(_place, _tile).withoutTitle(_cell);
     }
 
 }

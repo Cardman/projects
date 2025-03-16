@@ -3,14 +3,13 @@ package aiki.beans.map;
 import aiki.beans.*;
 import aiki.beans.map.elements.*;
 import aiki.map.pokemon.Pokemon;
-import code.bean.nat.*;
 import code.util.*;
 
 public abstract class InitDbLegPk extends InitDbLevelMap{
 
     public static String callLegendaryPokemonBeanClickAbilityId(int _pk) {
-        NaSt bean_ = displayPk(_pk);
-        ( (LegendaryPokemonBean) ((PokemonBeanStruct)bean_).getInstance()).clickAbility();
+        LegendaryPokemonBean bean_ = displayPk(_pk);
+        bean_.clickAbility();
         return getValAbilityId(bean_);
     }
 
@@ -18,73 +17,73 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
         return callLegendaryPokemonBeanClickItem(displayPk(_pk));
     }
 
-    public static String callLegendaryPokemonBeanClickItem(NaSt _str) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickItem();
+    public static String callLegendaryPokemonBeanClickItem(LegendaryPokemonBean _str) {
+        return _str.clickItem();
     }
 
     public static String callLegendaryPokemonBeanClickItemId(int _pk) {
-        NaSt bean_ = displayPk(_pk);
+        LegendaryPokemonBean bean_ = displayPk(_pk);
         callLegendaryPokemonBeanClickItem(bean_);
         return getValItemId(bean_);
     }
 
     public static String callLegendaryPokemonBeanClickMoveId(int _pk, int _move) {
-        NaSt bean_ = displayPk(_pk);
-        ( (LegendaryPokemonBean) ((PokemonBeanStruct)bean_).getInstance()).clickMove(_move);
+        LegendaryPokemonBean bean_ = displayPk(_pk);
+        bean_.clickMove(_move);
         return getValMoveId(bean_);
     }
 
     public static String callLegendaryPokemonBeanClickNameId(int _pk) {
-        NaSt bean_ = displayPk(_pk);
-        ( (LegendaryPokemonBean) ((PokemonBeanStruct)bean_).getInstance()).clickName();
+        LegendaryPokemonBean bean_ = displayPk(_pk);
+        bean_.clickName();
         return getValPkId(bean_);
     }
 
     public static String callLegendaryPokemonBeanGetAbility(int _pk) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getAbility();
+        return displayPk(_pk).getAbility();
     }
 
     public static String callLegendaryPokemonBeanGetGender(int _pk) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getGender();
+        return displayPk(_pk).getGender();
     }
 
     public static int[][] callLegendaryPokemonBeanGetImage(int _pk) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getImage();
+        return displayPk(_pk).getImage();
     }
 
     public static String callLegendaryPokemonBeanGetItem(int _pk) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getItem();
+        return displayPk(_pk).getItem();
     }
 
     public static long callLegendaryPokemonBeanGetLevel(int _pk) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getLevel();
+        return displayPk(_pk).getLevel();
     }
 
     public static String callLegendaryPokemonBeanGetMove(int _pk, int _move) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getMove(_move);
+        return displayPk(_pk).getMove(_move);
     }
 
     public static CustList<TranslatedKey> callLegendaryPokemonBeanGetMovesAtLevel(int _pk) {
-        return (( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getMovesAtLevel());
+        return displayPk(_pk).getMovesAtLevel();
     }
 
     public static String callLegendaryPokemonBeanGetName(int _pk) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getName();
+        return displayPk(_pk).getName();
     }
 
     public static Pokemon callLegendaryPokemonBeanPokemonGet(int _pk) {
-        return ( (LegendaryPokemonBean) ((PokemonBeanStruct)displayPk(_pk)).getInstance()).getPokemon();
+        return displayPk(_pk).getPokemon();
     }
-    public static NaSt displayPk(int _pk){
+    public static LegendaryPokemonBean displayPk(int _pk){
         PkData pk_ = pkDataByFacade(db());
-        StringMap<NaSt> all_ = beanToMap(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         return transitPk(mapInts().get(_pk),pk_,all_);
     }
 
-    private static NaSt transitPk(int _tile,PkData _pk, StringMap<NaSt> _all) {
-        NaSt bean_ = transitLevel(3,0, _pk, _all);
-        NaSt area_ = _all.getVal(InitDbMap.BEAN_LEG_PK);
-        transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)((PokemonBeanStruct)bean_).getBean(),_tile),bean_,area_);
+    private static LegendaryPokemonBean transitPk(int _tile,PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+        MapLevelBean bean_ = transitLevel(3,0, _pk, _all);
+        LegendaryPokemonBean area_ = (LegendaryPokemonBean) _all.getVal(InitDbMap.BEAN_LEG_PK);
+        transit(_pk,new MapLevelBeanClickTileOnMap(bean_,_tile),bean_,area_);
         return area_;
     }
     private static Ints mapInts() {
