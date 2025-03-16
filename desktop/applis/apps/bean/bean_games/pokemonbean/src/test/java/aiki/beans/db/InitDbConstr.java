@@ -637,33 +637,33 @@ public abstract class InitDbConstr extends InitDbBean {
         return _str.getLevel();
     }
 
-    protected static String getValItemId(NaSt _bean) {
-        return forms(_bean).getValStr(CST_ITEM);
-    }
-
-    protected static String getValMoveId(NaSt _bean) {
-        return forms(_bean).getValStr(CST_MOVE);
-    }
-
-    protected static String getValPkId(NaSt _bean) {
-        return forms(_bean).getValStr(CST_PK);
-    }
-
-    protected static String getValStatusId(NaSt _bean) {
-        return forms(_bean).getValStr(CST_STATUS);
-    }
-
-    protected static String getValAbilityId(NaSt _bean) {
-        return forms(_bean).getValStr(CST_ABILITY);
-    }
-
-    protected static boolean containsPlaceLevelId(NaSt _bean) {
-        return forms(_bean).contains(CST_COORDS);
-    }
-
-    protected static Coords getValPlaceLevelId(NaSt _bean) {
-        return forms(_bean).getValCoords(CST_COORDS);
-    }
+//    protected static String getValItemId(NaSt _bean) {
+//        return forms(_bean).getValStr(CST_ITEM);
+//    }
+//
+//    protected static String getValMoveId(NaSt _bean) {
+//        return forms(_bean).getValStr(CST_MOVE);
+//    }
+//
+//    protected static String getValPkId(NaSt _bean) {
+//        return forms(_bean).getValStr(CST_PK);
+//    }
+//
+//    protected static String getValStatusId(NaSt _bean) {
+//        return forms(_bean).getValStr(CST_STATUS);
+//    }
+//
+//    protected static String getValAbilityId(NaSt _bean) {
+//        return forms(_bean).getValStr(CST_ABILITY);
+//    }
+//
+//    protected static boolean containsPlaceLevelId(NaSt _bean) {
+//        return forms(_bean).contains(CST_COORDS);
+//    }
+//
+//    protected static Coords getValPlaceLevelId(NaSt _bean) {
+//        return forms(_bean).getValCoords(CST_COORDS);
+//    }
 
     protected static String getValItemId(CommonBean _bean) {
         return _bean.getForms().getValStr(CST_ITEM);

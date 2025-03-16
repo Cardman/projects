@@ -245,8 +245,6 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
 
     public static SimulationBean beanDiff(String _language, FacadeGame _dataBase) {
-        PkData stds_ = new PkData();
-        stds_.setDataBase(_dataBase);
         SimulationBean si_ = new SimulationBean();
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
@@ -264,7 +262,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         bu_.setFacade(_dataBase);
         si_.setBuilder(bu_);
         _dataBase.setLanguage(_language);
-        stds_.bean(si_, _language);
+        initBean(si_,_language,_dataBase);
         _dataBase.getData().getTranslatedDiffModelLaw().tryAdd(_language,new IdMap<DifficultyModelLaw, String>());
         _dataBase.getData().getTranslatedDiffWinPts().tryAdd(_language,new IdMap<DifficultyWinPointsFight, String>());
         _dataBase.updateTrs();
@@ -272,12 +270,10 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
 
     public static SimulationBean beanSimu(String _language, FacadeGame _dataBase) {
-        PkData stds_ = new PkData();
-        stds_.setDataBase(_dataBase);
         SimulationBean si_ = new SimulationBean();
         si_.setBuilder(new MockBeanBuilderHelper());
 //        si_.getDifficultyCommon().
-        stds_.bean(si_, _language);
+        initBean(si_,_language,_dataBase);
         si_.beforeDisplaying();
         si_.getDifficultyCommon().setRateWinningExpPtsFight(_dataBase.getGame().getDifficulty().getRateWinningExpPtsFight());
         si_.getDifficultyCommon().setWinTrainerExp(_dataBase.getGame().getDifficulty().getWinTrainerExp());
@@ -298,6 +294,11 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         si_.getDifficultyCommon().setIvFoe(_dataBase.getGame().getDifficulty().getIvFoe());
         si_.getDifficultyCommon().init(_dataBase.getData(),EN,_dataBase.getGame().getDifficulty());
         return si_;
+    }
+
+    public static void initBean(CommonBean _bean, String _lg, FacadeGame _fac) {
+        _bean.setDataBase(_fac);
+        _bean.setLanguage(_lg);
     }
     public static String navigateDiffChange(DifficultyBean _str, long... _args) {
         _str.getBuilder().getRenders().addEntry("",_str);

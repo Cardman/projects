@@ -33,11 +33,11 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //        beforeDisplaying(_second);
 //    }
 
-    public static void transit(PokemonStandards _stds, IntBeanAction _caller, NaSt _first, NaSt _second) {
-        IntBeanBuilderHelper bu_ = ((PokemonBeanStruct) _second).getInstance().getBuilder();
-//        setFormsBy(_stds,_second,_first);
-        bu_.build(_caller);
-    }
+//    public static void transit(PokemonStandards _stds, IntBeanAction _caller, NaSt _first, NaSt _second) {
+//        IntBeanBuilderHelper bu_ = ((PokemonBeanStruct) _second).getInstance().getBuilder();
+////        setFormsBy(_stds,_second,_first);
+//        bu_.build(_caller);
+//    }
 
     public static void transit(PokemonStandards _stds, IntBeanAction _caller, CommonBean _first, CommonBean _second) {
         IntBeanBuilderHelper bu_ = _second.getBuilder();
