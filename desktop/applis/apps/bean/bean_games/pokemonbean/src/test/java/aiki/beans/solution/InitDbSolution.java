@@ -142,7 +142,7 @@ public abstract class InitDbSolution extends InitDbConstr {
         sol_.setBuilder(builder(_pk.getDataBase()));
         sol_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
         sol_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
-        _pk.bean(sol_, EN);
+        initBean(sol_,EN,_pk.getDataBase());
         beforeDisplaying(sol_);
         return sol_;
     }

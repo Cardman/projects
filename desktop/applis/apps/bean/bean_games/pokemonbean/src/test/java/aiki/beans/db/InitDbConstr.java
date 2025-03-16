@@ -373,11 +373,16 @@ public abstract class InitDbConstr extends InitDbBean {
     public static PkData pkDataByFacade(FacadeGame _dataBase) {
         PkData pk_ = new PkData();
         pk_.setDataBase(_dataBase);
+        init(_dataBase);
+//        pk_.setBaseEncode(BASE);
+        return pk_;
+    }
+
+    private static FacadeGame init(FacadeGame _dataBase) {
         _dataBase.getData().getTranslatedStatistics().tryAdd(EN,new IdMap<Statistic, String>());
         _dataBase.getData().getLitterals().tryAdd(EN,new StringMap<String>());
         _dataBase.updateTrs();
-//        pk_.setBaseEncode(BASE);
-        return pk_;
+        return _dataBase;
     }
 
     public static CustList<TranslatedKey> callEffectWhileSendingBeanCancelChgtStatGet(EffectWhileSendingBean _str, int... _args) {
@@ -758,7 +763,7 @@ public abstract class InitDbConstr extends InitDbBean {
     }
     protected static WelcomeBean beanWelcomeBean(PkData _pk,String _lg) {
         WelcomeBean b_ = new WelcomeBean();
-        _pk.bean(b_, _lg);
+        initBean(b_,_lg,_pk.getDataBase());
         MockBeanBuilderHelper bu_ = builder(_pk.getDataBase());
         bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,b_);
         b_.setBuilder(bu_);

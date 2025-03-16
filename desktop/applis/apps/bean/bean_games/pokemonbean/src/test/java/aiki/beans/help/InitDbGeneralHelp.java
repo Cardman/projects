@@ -324,14 +324,14 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     }
 
     private static GeneralHelpBean bean(FacadeGame _db) {
-        PkData pk_ = pkDataByFacade(_db);
+        pkDataByFacade(_db);
         GeneralHelpBean g_ = new GeneralHelpBean();
         g_.setBuilder(builder(_db));
         g_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.GENERAL,new TranslationsFile());
         g_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.GENERAL,new TranslationsFile());
         g_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.NPC,new TranslationsFile());
         g_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.NPC,new TranslationsFile());
-        pk_.bean(g_, EN);
+        initBean(g_,EN,_db);
         beforeDisplaying(g_);
         return g_;
     }

@@ -139,12 +139,12 @@ public abstract class InitDbLangs extends InitDbConstr {
     }
     protected static LangsBean str() {
         FacadeGame db_ = db();
-        PkData pk_ = pkDataByFacade(db_);
+        pkDataByFacade(db_);
         LangsBean g_ = new LangsBean();
         g_.setBuilder(builder(db_));
         g_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.LANGS,new TranslationsFile());
         g_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.LANGS,new TranslationsFile());
-        pk_.bean(g_, EN);
+        initBean(g_,EN,db_);
         beforeDisplaying(g_);
         return g_;
     }

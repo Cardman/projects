@@ -2229,13 +2229,13 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return _str.getWonHappinessPointsLevel();
     }
     protected static FightHelpBean bean(FacadeGame _f) {
-        PkData pk_ = pkDataByFacade(_f);
+        pkDataByFacade(_f);
         FightHelpBean help_ = new FightHelpBean();
         help_.setBuilder(builder(_f));
         help_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ROUND,new TranslationsFile());
         help_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ROUND,new TranslationsFile());
 
-        pk_.bean(help_, EN);
+        initBean(help_,EN,_f);
         beforeDisplaying(help_);
         return help_;
     }
