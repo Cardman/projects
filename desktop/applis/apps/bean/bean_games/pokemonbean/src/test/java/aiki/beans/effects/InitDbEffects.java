@@ -10,7 +10,6 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.*;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.Translations;
@@ -20,7 +19,7 @@ import code.sml.util.TranslationsLg;
 import code.util.*;
 
 public abstract class InitDbEffects extends InitDbConstr {
-    public static final String BEAN_COMBOS = "combos";
+//    public static final String BEAN_COMBOS = "combos";
     public static final String M_STA_00 = "M_STA_00";
     public static final String M_STA_01 = "M_STA_01";
     public static final String M_STA_02 = "M_STA_02";
@@ -47,41 +46,43 @@ public abstract class InitDbEffects extends InitDbConstr {
 //    }
 
     public static CustList<CustList<TranslatedKey>> callCombosBeanGetCombosKey() {
-        return (( (CombosBean) ((PokemonBeanStruct)dispAllCombos()).getInstance()).getCombosKey());
+        return dispAllCombos().getCombosKey();
     }
 
-    protected static NaSt dispAllCombos() {
+    protected static CombosBean dispAllCombos() {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<NaSt> all_ = beanToCombosSet(pk_);
-        NaSt combos_ = all_.getVal(BEAN_COMBOS);
+        CombosBean all_ = beanToCombosSet(pk_);
+//        NaSt combos_ = all_.getVal(BEAN_COMBOS);
 //        beforeDisplaying(combos_);
-        ((BeanRenderWithAppName)((PokemonBeanStruct)combos_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)combos_).getBean()).getFacade());
-        return combos_;
+        all_.build(all_.getFacade());
+        return all_;
     }
 
     protected static EffectComboBean dispAllCombos(int _ind) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<NaSt> all_ = beanToCombosSet(pk_);
-        NaSt combos_ = all_.getVal(BEAN_COMBOS);
+        CombosBean all_ = beanToCombosSet(pk_);
+//        NaSt combos_ = all_.getVal(BEAN_COMBOS);
 //        NaSt combo_ = new PokemonBeanStruct(new EffectComboBean());
-        ((BeanRenderWithAppName)((PokemonBeanStruct)combos_).getBean()).build(((BeanRenderWithAppName) ((PokemonBeanStruct)combos_).getBean()).getFacade());
+        all_.build(all_.getFacade());
 //        beforeDisplaying(combos_);
 //        callCombosBeanComboGet(combos_);
 //        fwdComboDto(combo_,combos_);
 ////        callEffectComboBeanIndexSet(combo_,_ind);
 //        setFormsBy(pk_,combo_,combos_);
 //        beforeDisplaying(combo_);
-        return ((CombosBean) ((PokemonBeanStruct)combos_).getBean()).getList().get(_ind);
+        return all_.getList().get(_ind);
     }
 
 //    public static NaSt callEffectComboBeanIndexSet(NaSt _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new EffectComboBeanIndexSet(),_str,_args);
 //    }
 
-    public static StringMap<NaSt> beanToCombosSet(PkData _pk) {
-        StringMap<NaSt> map_ = new StringMap<NaSt>();
+    public static CombosBean beanToCombosSet(PkData _pk) {
+//        StringMap<NaSt> map_ = new StringMap<NaSt>();
 //        map_.addEntry(AikiBeansEffectsStd.BEAN_COMBO,_pk.beanEffectComboBean(EN));
-        map_.addEntry(BEAN_COMBOS,_pk.bean(new CombosBean(),EN));
+        CombosBean bean_ = new CombosBean();
+        initBean(bean_,EN,_pk.getDataBase());
+//        map_.addEntry(BEAN_COMBOS,_pk.bean(bean_,EN));
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();
         TranslationsLg en_ = new TranslationsLg();
@@ -93,13 +94,13 @@ public abstract class InitDbEffects extends InitDbConstr {
         fr_.getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
         tr_.getMapping().addEntry(FR, fr_);
         bu_.setTranslations(tr_);
-        bu_.setFacade(((BeanRenderWithAppName) ((PokemonBeanStruct)map_.getValue(0)).getBean()).getFacade());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).setBuilder(bu_);
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.COMBO,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.COMBO,new TranslationsFile());
-        return map_;
+        bu_.setFacade(bean_.getFacade());
+        bean_.setBuilder(bu_);
+        bean_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        bean_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.COMBO,new TranslationsFile());
+        bean_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
+        bean_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.COMBO,new TranslationsFile());
+        return bean_;
     }
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();

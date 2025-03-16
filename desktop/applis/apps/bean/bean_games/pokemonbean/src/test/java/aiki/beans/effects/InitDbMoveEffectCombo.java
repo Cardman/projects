@@ -1,7 +1,6 @@
 package aiki.beans.effects;
 
 import aiki.beans.*;
-import code.bean.nat.*;
 import code.maths.*;
 import code.util.*;
 public abstract class InitDbMoveEffectCombo extends InitDbEffects {
