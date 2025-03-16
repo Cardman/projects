@@ -18,108 +18,108 @@ import code.util.*;
 
 public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
 
-    public static DictionaryComparator<TranslatedKey,Long> callEffectDamageBeanBoostStatisOnceKoFoeGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getBoostStatisOnceKoFoe());
+    public static DictionaryComparator<TranslatedKey,Long> callEffectDamageBeanBoostStatisOnceKoFoeGet(EffectDamageBean _str, int... _args) {
+        return _str.getBoostStatisOnceKoFoe();
     }
 
-    public static AbsMap<Rate,Rate> callEffectDamageBeanChLawGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getChLaw());
+    public static AbsMap<Rate,Rate> callEffectDamageBeanChLawGet(EffectDamageBean _str, int... _args) {
+        return _str.getChLaw();
     }
 
-    public static long callEffectDamageBeanChRateGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getChRate();
+    public static long callEffectDamageBeanChRateGet(EffectDamageBean _str, int... _args) {
+        return _str.getChRate();
     }
 
-    public static boolean callEffectDamageBeanConstDamageGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getConstDamage();
+    public static boolean callEffectDamageBeanConstDamageGet(EffectDamageBean _str, int... _args) {
+        return _str.getConstDamage();
     }
 
-    public static boolean callEffectDamageBeanConstPower(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).constPower();
+    public static boolean callEffectDamageBeanConstPower(EffectDamageBean _str, int... _args) {
+        return _str.constPower();
     }
 
-    public static boolean callEffectDamageBeanCounterDamageCat(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).counterDamageCat();
+    public static boolean callEffectDamageBeanCounterDamageCat(EffectDamageBean _str, int... _args) {
+        return _str.counterDamageCat();
     }
 
-    public static AbsMap<String,Rate> callEffectDamageBeanDamageLawGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getDamageLaw());
+    public static AbsMap<String,Rate> callEffectDamageBeanDamageLawGet(EffectDamageBean _str, int... _args) {
+        return _str.getDamageLaw();
     }
 
-    public static String callEffectDamageBeanGetTranslatedStatisKo(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatisKo(_args[0]);
+    public static String callEffectDamageBeanGetTranslatedStatisKo(EffectDamageBean _str, int... _args) {
+        return _str.getTranslatedStatisKo(_args[0]);
     }
 
-    public static String callEffectDamageBeanGetTranslatedStatisTarget(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatisTarget(_args[0]);
+    public static String callEffectDamageBeanGetTranslatedStatisTarget(EffectDamageBean _str, int... _args) {
+        return _str.getTranslatedStatisTarget(_args[0]);
     }
 
-    public static String callEffectDamageBeanGetTranslatedStatisUser(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatisUser(_args[0]);
+    public static String callEffectDamageBeanGetTranslatedStatisUser(EffectDamageBean _str, int... _args) {
+        return _str.getTranslatedStatisUser(_args[0]);
     }
 
-    public static boolean callEffectDamageBeanHasConstPower(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).hasConstPower();
+    public static boolean callEffectDamageBeanHasConstPower(EffectDamageBean _str, int... _args) {
+        return _str.hasConstPower();
     }
 
-    public static boolean callEffectDamageBeanHasDeterminatedLawForDamage(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).hasDeterminatedLawForDamage();
+    public static boolean callEffectDamageBeanHasDeterminatedLawForDamage(EffectDamageBean _str, int... _args) {
+        return _str.hasDeterminatedLawForDamage();
     }
 
-    public static boolean callEffectDamageBeanHasLawForDamage(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForDamage();
+    public static boolean callEffectDamageBeanHasLawForDamage(EffectDamageBean _str, int... _args) {
+        return _str.hasLawForDamage();
     }
 
-    public static AbsMap<Long,Rate> callEffectDamageBeanHitsLawGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getHitsLaw());
+    public static AbsMap<Long,Rate> callEffectDamageBeanHitsLawGet(EffectDamageBean _str, int... _args) {
+        return _str.getHitsLaw();
     }
 
-    public static CustList<TranslatedKey> callEffectDamageBeanIgnVarStatTargetPosGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getIgnVarStatTargetPos());
+    public static CustList<TranslatedKey> callEffectDamageBeanIgnVarStatTargetPosGet(EffectDamageBean _str, int... _args) {
+        return _str.getIgnVarStatTargetPos();
     }
 
-    public static CustList<TranslatedKey> callEffectDamageBeanIgnVarStatUserNegGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getIgnVarStatUserNeg());
+    public static CustList<TranslatedKey> callEffectDamageBeanIgnVarStatUserNegGet(EffectDamageBean _str, int... _args) {
+        return _str.getIgnVarStatUserNeg();
     }
 
-    public static AbsMap<String,String> callEffectDamageBeanMapVarsDamageGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsDamage());
+    public static AbsMap<String,String> callEffectDamageBeanMapVarsDamageGet(EffectDamageBean _str, int... _args) {
+        return _str.getMapVarsDamage();
     }
 
-    public static DictionaryComparator<TranslatedKey,Rate> callEffectDamageBeanMultDamageAgainstGet(NaSt _str, int... _args) {
-        return (( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getMultDamageAgainst());
+    public static DictionaryComparator<TranslatedKey,Rate> callEffectDamageBeanMultDamageAgainstGet(EffectDamageBean _str, int... _args) {
+        return _str.getMultDamageAgainst();
     }
 
-    public static long callEffectDamageBeanNbHitsGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getNbHits();
+    public static long callEffectDamageBeanNbHitsGet(EffectDamageBean _str, int... _args) {
+        return _str.getNbHits();
     }
 
-    public static String callEffectDamageBeanPowerGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getPower();
+    public static String callEffectDamageBeanPowerGet(EffectDamageBean _str, int... _args) {
+        return _str.getPower();
     }
 
-    public static boolean callEffectDamageBeanRandMaxGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getRandMax();
+    public static boolean callEffectDamageBeanRandMaxGet(EffectDamageBean _str, int... _args) {
+        return _str.getRandMax();
     }
 
-    public static String callEffectDamageBeanStatisAttGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getStatisAtt();
+    public static String callEffectDamageBeanStatisAttGet(EffectDamageBean _str, int... _args) {
+        return _str.getStatisAtt();
     }
 
-    public static String callEffectDamageBeanStatisDefGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getStatisDef();
+    public static String callEffectDamageBeanStatisDefGet(EffectDamageBean _str, int... _args) {
+        return _str.getStatisDef();
     }
 
-    public static boolean callEffectDamageBeanSummingUserTeamOkFighterGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getSummingUserTeamOkFighter();
+    public static boolean callEffectDamageBeanSummingUserTeamOkFighterGet(EffectDamageBean _str, int... _args) {
+        return _str.getSummingUserTeamOkFighter();
     }
 
-    public static boolean callEffectDamageBeanTargetDefenseGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getTargetDefense();
+    public static boolean callEffectDamageBeanTargetDefenseGet(EffectDamageBean _str, int... _args) {
+        return _str.getTargetDefense();
     }
 
-    public static boolean callEffectDamageBeanUserAttackGet(NaSt _str, int... _args) {
-        return ( (EffectDamageBean) ((PokemonBeanStruct)_str).getInstance()).getUserAttack();
+    public static boolean callEffectDamageBeanUserAttackGet(EffectDamageBean _str, int... _args) {
+        return _str.getUserAttack();
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectDamage _dam) {

@@ -16,7 +16,7 @@ public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
     protected static String dispMoveEffAccuracy() {
         return callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectAccuracy())));
     }
-    protected static NaSt dispMoveEffAccuracy(FacadeGame _fac) {
+    protected static EffectBean dispMoveEffAccuracy(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectAccuracy();

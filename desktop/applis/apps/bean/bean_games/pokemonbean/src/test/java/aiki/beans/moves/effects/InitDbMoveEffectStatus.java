@@ -15,57 +15,57 @@ import code.util.*;
 
 public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
 
-    public static String callEffectStatusBeanClickLink(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
+    public static String callEffectStatusBeanClickLink(EffectStatusBean _str, int... _args) {
+        return _str.clickLink(_args[0]);
     }
 
-    public static String callEffectStatusBeanClickLinkId(NaSt _str, int... _args) {
+    public static String callEffectStatusBeanClickLinkId(EffectStatusBean _str, int... _args) {
         callEffectStatusBeanClickLink(_str, _args);
         return getValStatusId(_str);
     }
-    public static String callEffectStatusBeanClickLinkDeleted(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).clickLinkDeleted(_args[0]);
+    public static String callEffectStatusBeanClickLinkDeleted(EffectStatusBean _str, int... _args) {
+        return _str.clickLinkDeleted(_args[0]);
     }
 
-    public static String callEffectStatusBeanClickLinkDeletedId(NaSt _str, int... _args) {
+    public static String callEffectStatusBeanClickLinkDeletedId(EffectStatusBean _str, int... _args) {
         callEffectStatusBeanClickLinkDeleted(_str, _args);
         return getValStatusId(_str);
     }
 
-    public static CustList<TranslatedKey> callEffectStatusBeanDeletedStatusGet(NaSt _str, int... _args) {
-        return (( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatus());
+    public static CustList<TranslatedKey> callEffectStatusBeanDeletedStatusGet(EffectStatusBean _str, int... _args) {
+        return _str.getDeletedStatus();
     }
 
-    public static String callEffectStatusBeanGetFail(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getFail(_args[0]);
+    public static String callEffectStatusBeanGetFail(EffectStatusBean _str, int... _args) {
+        return _str.getFail(_args[0]);
     }
 
-    public static String callEffectStatusBeanGetTrLink(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrLink(_args[0]);
+    public static String callEffectStatusBeanGetTrLink(EffectStatusBean _str, int... _args) {
+        return _str.getTrLink(_args[0]);
     }
 
-    public static String callEffectStatusBeanGetTrLinkDeleted(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getTrLinkDeleted(_args[0]);
+    public static String callEffectStatusBeanGetTrLinkDeleted(EffectStatusBean _str, int... _args) {
+        return _str.getTrLinkDeleted(_args[0]);
     }
 
-    public static boolean callEffectStatusBeanIsStatus(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).isStatus(_args[0]);
+    public static boolean callEffectStatusBeanIsStatus(EffectStatusBean _str, int... _args) {
+        return _str.isStatus(_args[0]);
     }
 
-    public static boolean callEffectStatusBeanKoUserHealSubstGet(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getKoUserHealSubst();
+    public static boolean callEffectStatusBeanKoUserHealSubstGet(EffectStatusBean _str, int... _args) {
+        return _str.getKoUserHealSubst();
     }
 
-    public static DictionaryComparator<TranslatedKey,StatRankRate> callEffectStatusBeanLawStatusGet(NaSt _str, int... _args) {
-        return (( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getLawStatus());
+    public static DictionaryComparator<TranslatedKey,StatRankRate> callEffectStatusBeanLawStatusGet(EffectStatusBean _str, int... _args) {
+        return _str.getLawStatus();
     }
 
-    public static AbsMap<String,String> callEffectStatusBeanMapVarsStatusGet(NaSt _str, int... _args) {
-        return (( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsStatus());
+    public static AbsMap<String,String> callEffectStatusBeanMapVarsStatusGet(EffectStatusBean _str, int... _args) {
+        return _str.getMapVarsStatus();
     }
 
-    public static boolean callEffectStatusBeanStatusFromUserGet(NaSt _str, int... _args) {
-        return ( (EffectStatusBean) ((PokemonBeanStruct)_str).getInstance()).getStatusFromUser();
+    public static boolean callEffectStatusBeanStatusFromUserGet(EffectStatusBean _str, int... _args) {
+        return _str.getStatusFromUser();
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectStatus _eff) {
@@ -73,14 +73,14 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
-    protected static NaSt dispMoveEffStatus(FacadeGame _fac, int _index) {
+    protected static EffectStatusBean dispMoveEffStatus(FacadeGame _fac, int _index) {
         return dispMoveEffStatus(_fac, _index,0);
     }
-    protected static NaSt dispMoveEffStatus(FacadeGame _fac, int _index, int _indexEff) {
+    protected static EffectStatusBean dispMoveEffStatus(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectStatus();
-        return transitEffect(_index,_indexEff,pk_,all_);
+        return (EffectStatusBean)transitEffect(_index,_indexEff,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectStatus(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);

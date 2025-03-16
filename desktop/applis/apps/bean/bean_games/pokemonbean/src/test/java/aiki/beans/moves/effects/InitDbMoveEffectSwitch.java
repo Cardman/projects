@@ -17,168 +17,168 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
 
     public static final String ROAD_TR = "ROAD_TR";
 
-    public static String callEffectSwitchAbilitiesBeanClickAbility(NaSt _str, int... _args) {
-        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility();
+    public static String callEffectSwitchAbilitiesBeanClickAbility(EffectSwitchAbilitiesBean _str, int... _args) {
+        return _str.clickAbility();
     }
 
-    public static String callEffectSwitchAbilitiesBeanClickAbilityId(NaSt _str, int... _args) {
+    public static String callEffectSwitchAbilitiesBeanClickAbilityId(EffectSwitchAbilitiesBean _str, int... _args) {
         callEffectSwitchAbilitiesBeanClickAbility(_str,_args);
         return getValAbilityId(_str);
     }
 
-    public static String callEffectSwitchAbilitiesBeanGetTrAbility(NaSt _str, int... _args) {
-        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbility();
+    public static String callEffectSwitchAbilitiesBeanGetTrAbility(EffectSwitchAbilitiesBean _str, int... _args) {
+        return _str.getTrAbility();
     }
 
-    public static boolean callEffectSwitchAbilitiesBeanGiveConst(NaSt _str, int... _args) {
-        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).giveConst();
+    public static boolean callEffectSwitchAbilitiesBeanGiveConst(EffectSwitchAbilitiesBean _str, int... _args) {
+        return _str.giveConst();
     }
 
-    public static boolean callEffectSwitchAbilitiesBeanGiveToTarget(NaSt _str, int... _args) {
-        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).giveToTarget();
+    public static boolean callEffectSwitchAbilitiesBeanGiveToTarget(EffectSwitchAbilitiesBean _str, int... _args) {
+        return _str.giveToTarget();
     }
 
-    public static boolean callEffectSwitchAbilitiesBeanGiveToUser(NaSt _str, int... _args) {
-        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).giveToUser();
+    public static boolean callEffectSwitchAbilitiesBeanGiveToUser(EffectSwitchAbilitiesBean _str, int... _args) {
+        return _str.giveToUser();
     }
 
-    public static boolean callEffectSwitchAbilitiesBeanIsDefAbility(NaSt _str, int... _args) {
-        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).isDefAbility();
+    public static boolean callEffectSwitchAbilitiesBeanIsDefAbility(EffectSwitchAbilitiesBean _str, int... _args) {
+        return _str.isDefAbility();
     }
 
-    public static boolean callEffectSwitchAbilitiesBeanSwitchAbilities(NaSt _str, int... _args) {
-        return ( (EffectSwitchAbilitiesBean) ((PokemonBeanStruct)_str).getInstance()).switchAbilities();
+    public static boolean callEffectSwitchAbilitiesBeanSwitchAbilities(EffectSwitchAbilitiesBean _str, int... _args) {
+        return _str.switchAbilities();
     }
 
-    public static boolean callEffectSwitchItemsBeanDeleteTargetBerry(NaSt _str, int... _args) {
-        return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).deleteTargetBerry();
+    public static boolean callEffectSwitchItemsBeanDeleteTargetBerry(EffectSwitchItemsBean _str, int... _args) {
+        return _str.deleteTargetBerry();
     }
 
-    public static boolean callEffectSwitchItemsBeanGiveTargetItem(NaSt _str, int... _args) {
-        return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).giveTargetItem();
+    public static boolean callEffectSwitchItemsBeanGiveTargetItem(EffectSwitchItemsBean _str, int... _args) {
+        return _str.giveTargetItem();
     }
 
-    public static boolean callEffectSwitchItemsBeanRemoveTargetItem(NaSt _str, int... _args) {
-        return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).removeTargetItem();
+    public static boolean callEffectSwitchItemsBeanRemoveTargetItem(EffectSwitchItemsBean _str, int... _args) {
+        return _str.removeTargetItem();
     }
 
-    public static boolean callEffectSwitchItemsBeanResuseLastItem(NaSt _str, int... _args) {
-        return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).resuseLastItem();
+    public static boolean callEffectSwitchItemsBeanResuseLastItem(EffectSwitchItemsBean _str, int... _args) {
+        return _str.resuseLastItem();
     }
 
-    public static boolean callEffectSwitchItemsBeanSwitchItems(NaSt _str, int... _args) {
-        return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).switchItems();
+    public static boolean callEffectSwitchItemsBeanSwitchItems(EffectSwitchItemsBean _str, int... _args) {
+        return _str.switchItems();
     }
 
-    public static boolean callEffectSwitchItemsBeanTakeItem(NaSt _str, int... _args) {
-        return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).takeItem();
+    public static boolean callEffectSwitchItemsBeanTakeItem(EffectSwitchItemsBean _str, int... _args) {
+        return _str.takeItem();
     }
 
-    public static boolean callEffectSwitchItemsBeanUseItemAsPossible(NaSt _str, int... _args) {
-        return ( (EffectSwitchItemsBean) ((PokemonBeanStruct)_str).getInstance()).useItemAsPossible();
+    public static boolean callEffectSwitchItemsBeanUseItemAsPossible(EffectSwitchItemsBean _str, int... _args) {
+        return _str.useItemAsPossible();
     }
 
-    public static DictionaryComparator<TranslatedKey, TranslatedKey> callEffectSwitchMoveTypesBeanChangeTypesGet(NaSt _str, int... _args) {
-        return ( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getChangeTypes();
+    public static DictionaryComparator<TranslatedKey, TranslatedKey> callEffectSwitchMoveTypesBeanChangeTypesGet(EffectSwitchMoveTypesBean _str, int... _args) {
+        return _str.getChangeTypes();
     }
 
-    public static String callEffectSwitchMoveTypesBeanGetTrChangedTypes(NaSt _str, int... _args) {
-        return ( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrChangedTypes(_args[0]);
+    public static String callEffectSwitchMoveTypesBeanGetTrChangedTypes(EffectSwitchMoveTypesBean _str, int... _args) {
+        return _str.getTrChangedTypes(_args[0]);
     }
 
-    public static String callEffectSwitchMoveTypesBeanGetTrReplacingTypes(NaSt _str, int... _args) {
-        return ( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrReplacingTypes(_args[0]);
+    public static String callEffectSwitchMoveTypesBeanGetTrReplacingTypes(EffectSwitchMoveTypesBean _str, int... _args) {
+        return _str.getTrReplacingTypes(_args[0]);
     }
 
-    public static CustList<TranslatedKey> callEffectSwitchMoveTypesBeanReplacingTypesGet(NaSt _str, int... _args) {
-        return (( (EffectSwitchMoveTypesBean) ((PokemonBeanStruct)_str).getInstance()).getReplacingTypes());
+    public static CustList<TranslatedKey> callEffectSwitchMoveTypesBeanReplacingTypesGet(EffectSwitchMoveTypesBean _str, int... _args) {
+        return _str.getReplacingTypes();
     }
 
-    public static boolean callEffectSwitchPointViewBeanAttractDamageMoves(NaSt _str, int... _args) {
-        return ( (EffectSwitchPointViewBean) ((PokemonBeanStruct)_str).getInstance()).attractDamageMoves();
+    public static boolean callEffectSwitchPointViewBeanAttractDamageMoves(EffectSwitchPointViewBean _str, int... _args) {
+        return _str.attractDamageMoves();
     }
 
-    public static boolean callEffectSwitchPointViewBeanMirrorAgainstUser(NaSt _str, int... _args) {
-        return ( (EffectSwitchPointViewBean) ((PokemonBeanStruct)_str).getInstance()).mirrorAgainstUser();
+    public static boolean callEffectSwitchPointViewBeanMirrorAgainstUser(EffectSwitchPointViewBean _str, int... _args) {
+        return _str.mirrorAgainstUser();
     }
 
-    public static boolean callEffectSwitchPointViewBeanThieveBonus(NaSt _str, int... _args) {
-        return ( (EffectSwitchPointViewBean) ((PokemonBeanStruct)_str).getInstance()).thieveBonus();
+    public static boolean callEffectSwitchPointViewBeanThieveBonus(EffectSwitchPointViewBean _str, int... _args) {
+        return _str.thieveBonus();
     }
 
-    public static CustList<TranslatedKey> callEffectSwitchTypesBeanAddedTypesGet(NaSt _str, int... _args) {
-        return (( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getAddedTypes());
+    public static CustList<TranslatedKey> callEffectSwitchTypesBeanAddedTypesGet(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getAddedTypes();
     }
 
-    public static DictionaryComparator<TranslatedKey, TranslatedKey> callEffectSwitchTypesBeanChgtTypeByEnvGet(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getChgtTypeByEnv();
+    public static DictionaryComparator<TranslatedKey, TranslatedKey> callEffectSwitchTypesBeanChgtTypeByEnvGet(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getChgtTypeByEnv();
     }
 
-    public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnv(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).clickGlobalMoveFctEnv(_args[0]);
+    public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnv(EffectSwitchTypesBean _str, int... _args) {
+        return _str.clickGlobalMoveFctEnv(_args[0]);
     }
 
-    public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnvId(NaSt _str, int... _args) {
+    public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnvId(EffectSwitchTypesBean _str, int... _args) {
         callEffectSwitchTypesBeanClickGlobalMoveFctEnv(_str,_args);
         return getValMoveId(_str);
     }
 
-    public static CustList<TranslatedKey> callEffectSwitchTypesBeanConstTypesGet(NaSt _str, int... _args) {
-        return (( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getConstTypes());
+    public static CustList<TranslatedKey> callEffectSwitchTypesBeanConstTypesGet(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getConstTypes();
     }
 
-    public static String callEffectSwitchTypesBeanGetTrAddedType(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrAddedType(_args[0]);
+    public static String callEffectSwitchTypesBeanGetTrAddedType(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getTrAddedType(_args[0]);
     }
 
-    public static String callEffectSwitchTypesBeanGetTrConstType(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrConstType(_args[0]);
+    public static String callEffectSwitchTypesBeanGetTrConstType(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getTrConstType(_args[0]);
     }
 
-    public static String callEffectSwitchTypesBeanGetTrEnv(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrEnv(_args[0]);
+    public static String callEffectSwitchTypesBeanGetTrEnv(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getTrEnv(_args[0]);
     }
 
-    public static String callEffectSwitchTypesBeanGetTrGlobalMoveFctEnv(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getTrGlobalMoveFctEnv(_args[0]);
+    public static String callEffectSwitchTypesBeanGetTrGlobalMoveFctEnv(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getTrGlobalMoveFctEnv(_args[0]);
     }
 
-    public static boolean callEffectSwitchTypesBeanGiveConst(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).giveConst();
+    public static boolean callEffectSwitchTypesBeanGiveConst(EffectSwitchTypesBean _str, int... _args) {
+        return _str.giveConst();
     }
 
-    public static boolean callEffectSwitchTypesBeanGiveToTarget(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).giveToTarget();
+    public static boolean callEffectSwitchTypesBeanGiveToTarget(EffectSwitchTypesBean _str, int... _args) {
+        return _str.giveToTarget();
     }
 
-    public static boolean callEffectSwitchTypesBeanGiveToUser(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).giveToUser();
+    public static boolean callEffectSwitchTypesBeanGiveToUser(EffectSwitchTypesBean _str, int... _args) {
+        return _str.giveToUser();
     }
 
-    public static CustList<TranslatedKey> callEffectSwitchTypesBeanGlobalMovesGet(NaSt _str, int... _args) {
-        return (( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMoves());
+    public static CustList<TranslatedKey> callEffectSwitchTypesBeanGlobalMovesGet(EffectSwitchTypesBean _str, int... _args) {
+        return _str.getGlobalMoves();
     }
 
-    public static boolean callEffectSwitchTypesBeanIsConstTypes(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).isConstTypes();
+    public static boolean callEffectSwitchTypesBeanIsConstTypes(EffectSwitchTypesBean _str, int... _args) {
+        return _str.isConstTypes();
     }
 
-    public static boolean callEffectSwitchTypesBeanIsResTypes(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).isResTypes();
+    public static boolean callEffectSwitchTypesBeanIsResTypes(EffectSwitchTypesBean _str, int... _args) {
+        return _str.isResTypes();
     }
 
-    public static boolean callEffectSwitchTypesBeanIsUserTypes(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).isUserTypes();
+    public static boolean callEffectSwitchTypesBeanIsUserTypes(EffectSwitchTypesBean _str, int... _args) {
+        return _str.isUserTypes();
     }
 
-    public static boolean callEffectSwitchTypesBeanSwitchTypes(NaSt _str, int... _args) {
-        return ( (EffectSwitchTypesBean) ((PokemonBeanStruct)_str).getInstance()).switchTypes();
+    public static boolean callEffectSwitchTypesBeanSwitchTypes(EffectSwitchTypesBean _str, int... _args) {
+        return _str.switchTypes();
     }
-    protected static NaSt dispMoveEffCopyMove(ConstValuesType _cst, ExchangeType _exc) {
+    protected static EffectSwitchTypesBean dispMoveEffCopyMove(ConstValuesType _cst, ExchangeType _exc) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_cst, _exc));
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchTypes();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectSwitchTypesBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectSwitchTypes(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
@@ -231,11 +231,11 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         e_.getConstTypes().add(T_TYPE1);
         return e_;
     }
-    protected static NaSt dispMoveEffSwitchMoveTypes() {
+    protected static EffectSwitchMoveTypesBean dispMoveEffSwitchMoveTypes() {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataSwitchMoveTypes());
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchMoveTypes();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectSwitchMoveTypesBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectSwitchMoveTypes(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
@@ -285,14 +285,14 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         e_.getReplacingTypes().add(T_TYPE1);
         return e_;
     }
-    protected static NaSt dispMoveEffSwitchAbilities(String _targetAttacksLast, ExchangeType _res) {
+    protected static EffectSwitchAbilitiesBean dispMoveEffSwitchAbilities(String _targetAttacksLast, ExchangeType _res) {
         return dispMoveEffSwitchAbilities(feedDbMoveEffDataSwitchAbilities(_targetAttacksLast, _res));
     }
-    protected static NaSt dispMoveEffSwitchAbilities(FacadeGame _fac) {
+    protected static EffectSwitchAbilitiesBean dispMoveEffSwitchAbilities(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchAbilities();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectSwitchAbilitiesBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectSwitchAbilities(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
@@ -334,14 +334,14 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         cl_.setExchangeAbility(_res);
         return cl_;
     }
-    protected static NaSt dispMoveEffSwitchItems(MoveItemType _res) {
+    protected static EffectSwitchItemsBean dispMoveEffSwitchItems(MoveItemType _res) {
         return dispMoveEffSwitchItems(feedDbMoveEffDataSwitchItems(_res));
     }
-    protected static NaSt dispMoveEffSwitchItems(FacadeGame _fac) {
+    protected static EffectSwitchItemsBean dispMoveEffSwitchItems(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchItems();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectSwitchItemsBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectSwitchItems(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
@@ -382,14 +382,14 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         cl_.setMoveObject(_res);
         return cl_;
     }
-    protected static NaSt dispMoveEffSwitchPointView(PointViewChangementType _res) {
+    protected static EffectSwitchPointViewBean dispMoveEffSwitchPointView(PointViewChangementType _res) {
         return dispMoveEffSwitchPointView(feedDbMoveEffDataSwitchPointView(_res));
     }
-    protected static NaSt dispMoveEffSwitchPointView(FacadeGame _fac) {
+    protected static EffectSwitchPointViewBean dispMoveEffSwitchPointView(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchPointView();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectSwitchPointViewBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectSwitchPointView(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);

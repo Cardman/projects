@@ -15,25 +15,25 @@ import code.util.*;
 
 public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
 
-    public static long callEffectEndRoundMoveBeanEndRoundRankGet(NaSt _str, int... _args) {
-        return ( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getEndRoundRank();
+    public static long callEffectEndRoundMoveBeanEndRoundRankGet(EffectEndRoundMoveBean _str, int... _args) {
+        return _str.getEndRoundRank();
     }
 
-    public static AbsMap<String,String> callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(NaSt _str, int... _args) {
-        return (( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMapVarsFailEndRound());
+    public static AbsMap<String,String> callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(EffectEndRoundMoveBean _str, int... _args) {
+        return _str.getMapVarsFailEndRound();
     }
 
-    public static CustList<String> callEffectEndRoundMoveBeanReasonsEndRoundGet(NaSt _str, int... _args) {
-        return (( (EffectEndRoundMoveBean) ((PokemonBeanStruct)_str).getInstance()).getReasonsEndRound());
+    public static CustList<String> callEffectEndRoundMoveBeanReasonsEndRoundGet(EffectEndRoundMoveBean _str, int... _args) {
+        return _str.getReasonsEndRound();
     }
-    protected static NaSt dispMoveEffEndRound() {
+    protected static EffectEndRoundMoveBean dispMoveEffEndRound() {
         return dispMoveEffEndRound(feedDbMoveEffDataDam());
     }
-    protected static NaSt dispMoveEffEndRound(FacadeGame _fac) {
+    protected static EffectEndRoundMoveBean dispMoveEffEndRound(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectEndRound();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectEndRoundMoveBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectEndRound(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);

@@ -14,12 +14,12 @@ import code.util.StringMap;
 
 public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
 
-    public static Rate callEffectDamageRateBeanRateDamageGet(NaSt _str, int... _args) {
-        return ( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getRateDamage();
+    public static Rate callEffectDamageRateBeanRateDamageGet(EffectDamageRateBean _str, int... _args) {
+        return _str.getRateDamage();
     }
 
-    public static boolean callEffectDamageRateBeanWinHpGet(NaSt _str, int... _args) {
-        return ( (EffectDamageRateBean) ((PokemonBeanStruct)_str).getInstance()).getWinHp();
+    public static boolean callEffectDamageRateBeanWinHpGet(EffectDamageRateBean _str, int... _args) {
+        return _str.getWinHp();
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(Rate _dam) {
@@ -27,14 +27,14 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
-    protected static NaSt dispMoveEffDamageRate(FacadeGame _fac, int _index) {
+    protected static EffectDamageRateBean dispMoveEffDamageRate(FacadeGame _fac, int _index) {
         return dispMoveEffDamageRate(_fac, _index,0);
     }
-    protected static NaSt dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
+    protected static EffectDamageRateBean dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectDamageRate();
-        return transitEffect(_index,_indexEff,pk_,all_);
+        return (EffectDamageRateBean)transitEffect(_index,_indexEff,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectDamageRate(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);

@@ -17,64 +17,64 @@ import code.util.*;
 
 public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
     protected static final String ST_ACC_TR="ST_ACC_TR";
-    public static CustList<TranslatedKey> callEffectStatisticBeanCancelChgtStatGet(NaSt _str, int... _args) {
-        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelChgtStat());
+    public static CustList<TranslatedKey> callEffectStatisticBeanCancelChgtStatGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getCancelChgtStat();
     }
 
-    public static CustList<TranslatedKey> callEffectStatisticBeanCancelLowStatGet(NaSt _str, int... _args) {
-        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCancelLowStat());
+    public static CustList<TranslatedKey> callEffectStatisticBeanCancelLowStatGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getCancelLowStat();
     }
 
-    public static CustList<TranslatedKey> callEffectStatisticBeanCopyBoostGet(NaSt _str, int... _args) {
-        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getCopyBoost());
+    public static CustList<TranslatedKey> callEffectStatisticBeanCopyBoostGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getCopyBoost();
     }
 
-    public static long callEffectStatisticBeanDefaultBoostGet(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getDefaultBoost();
+    public static long callEffectStatisticBeanDefaultBoostGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getDefaultBoost();
     }
 
-    public static Rate callEffectStatisticBeanEvtRateGet(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getEvtRate();
+    public static Rate callEffectStatisticBeanEvtRateGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getEvtRate();
     }
 
-    public static String callEffectStatisticBeanEvtRatePerCentGet(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getEvtRatePerCent();
+    public static String callEffectStatisticBeanEvtRatePerCentGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getEvtRatePerCent();
     }
 
-    public static String callEffectStatisticBeanGetFail(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getFail(_args[0]);
+    public static String callEffectStatisticBeanGetFail(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getFail(_args[0]);
     }
 
-    public static Rate callEffectStatisticBeanGetRate(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getRate(_args[0]);
+    public static Rate callEffectStatisticBeanGetRate(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getRate(_args[0]);
     }
 
-    public static String callEffectStatisticBeanGetSwapFail(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getSwapFail(_args[0]);
+    public static String callEffectStatisticBeanGetSwapFail(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getSwapFail(_args[0]);
     }
 
-    public static boolean callEffectStatisticBeanIsAlwaysEnabled(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().isAlwaysEnabled();
+    public static boolean callEffectStatisticBeanIsAlwaysEnabled(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().isAlwaysEnabled();
     }
 
-    public static AbsMap<String,String> callEffectStatisticBeanMapVarsStatisticsGet(NaSt _str, int... _args) {
-        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getMapVarsStatistics());
+    public static AbsMap<String,String> callEffectStatisticBeanMapVarsStatisticsGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getMapVarsStatistics();
     }
 
-    public static boolean callEffectStatisticBeanNotEmptyVarBoost(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().notEmptyVarBoost();
+    public static boolean callEffectStatisticBeanNotEmptyVarBoost(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().notEmptyVarBoost();
     }
 
-    public static boolean callEffectStatisticBeanRandomStatis(NaSt _str, int... _args) {
-        return ((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().randomStatis();
+    public static boolean callEffectStatisticBeanRandomStatis(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().randomStatis();
     }
 
-    public static DictionaryComparator<TranslatedKey,StatRankRate> callEffectStatisticBeanStatisVarRankGet(NaSt _str, int... _args) {
-        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getStatisVarRank());
+    public static DictionaryComparator<TranslatedKey,StatRankRate> callEffectStatisticBeanStatisVarRankGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getStatisVarRank();
     }
 
-    public static CustList<TranslatedKey> callEffectStatisticBeanSwapBoostStatisGet(NaSt _str, int... _args) {
-        return (((EffectStatisticBean) ((PokemonBeanStruct) _str).getInstance()).getEffectStatisticCommon().getSwapBoostStatis().getKeys());
+    public static CustList<TranslatedKey> callEffectStatisticBeanSwapBoostStatisGet(EffectStatisticBean _str, int... _args) {
+        return _str.getEffectStatisticCommon().getSwapBoostStatis().getKeys();
     }
 
     protected static FacadeGame feedDbMoveEffDataDamComp(EffectStatistic _eff) {
@@ -82,14 +82,14 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         f_.getData().getLitterals().getVal(EN).addEntry(MessagesDataBaseConstants.DEF_TEMPS_TOUR, TAB+ MessagesDataBaseConstants.DEF_TEMPS_TOUR +TAB+TIME);
         return f_;
     }
-    protected static NaSt dispMoveEffStatis(FacadeGame _fac, int _index) {
+    protected static EffectStatisticBean dispMoveEffStatis(FacadeGame _fac, int _index) {
         return dispMoveEffStatis(_fac, _index,0);
     }
-    protected static NaSt dispMoveEffStatis(FacadeGame _fac, int _index, int _indexEff) {
+    protected static EffectStatisticBean dispMoveEffStatis(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectStatis();
-        return transitEffect(_index,_indexEff,pk_,all_);
+        return (EffectStatisticBean)transitEffect(_index,_indexEff,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectStatis(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);

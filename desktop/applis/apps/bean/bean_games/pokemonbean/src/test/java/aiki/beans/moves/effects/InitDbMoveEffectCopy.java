@@ -11,82 +11,82 @@ import code.util.*;
 
 public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
 
-    public static long callEffectCopyFighterBeanPpForMovesGet(NaSt _str, int... _args) {
-        return ( (EffectCopyFighterBean) ((PokemonBeanStruct)_str).getInstance()).getPpForMoves();
+    public static long callEffectCopyFighterBeanPpForMovesGet(EffectCopyFighterBean _str, int... _args) {
+        return _str.getPpForMoves();
     }
 
-    public static String callEffectCopyMoveBeanClickDefaultMove(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickDefaultMove();
+    public static String callEffectCopyMoveBeanClickDefaultMove(EffectCopyMoveBean _str, int... _args) {
+        return _str.clickDefaultMove();
     }
 
-    public static String callEffectCopyMoveBeanClickDefaultMoveId(NaSt _str, int... _args) {
+    public static String callEffectCopyMoveBeanClickDefaultMoveId(EffectCopyMoveBean _str, int... _args) {
         callEffectCopyMoveBeanClickDefaultMove(_str, _args);
         return getValMoveId(_str);
     }
 
-    public static String callEffectCopyMoveBeanClickMove(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args[0]);
+    public static String callEffectCopyMoveBeanClickMove(EffectCopyMoveBean _str, int... _args) {
+        return _str.clickMove(_args[0]);
     }
 
-    public static String callEffectCopyMoveBeanClickMoveId(NaSt _str, int... _args) {
+    public static String callEffectCopyMoveBeanClickMoveId(EffectCopyMoveBean _str, int... _args) {
         callEffectCopyMoveBeanClickMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectCopyMoveBeanClickMoveTransId(NaSt _str, int... _args) {
+    public static String callEffectCopyMoveBeanClickMoveTransId(EffectCopyMoveBean _str, int... _args) {
         callEffectCopyMoveBeanClickMoveTrans(_str, _args);
         return getValMoveId(_str);
     }
 
-    public static String callEffectCopyMoveBeanClickMoveTrans(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveTrans(_args[0]);
+    public static String callEffectCopyMoveBeanClickMoveTrans(EffectCopyMoveBean _str, int... _args) {
+        return _str.clickMoveTrans(_args[0]);
     }
 
-    public static boolean callEffectCopyMoveBeanCopyMoveForUser(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).copyMoveForUser();
+    public static boolean callEffectCopyMoveBeanCopyMoveForUser(EffectCopyMoveBean _str, int... _args) {
+        return _str.copyMoveForUser();
     }
 
-    public static boolean callEffectCopyMoveBeanCopyingMoveForUserDefGet(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingMoveForUserDef();
+    public static boolean callEffectCopyMoveBeanCopyingMoveForUserDefGet(EffectCopyMoveBean _str, int... _args) {
+        return _str.getCopyingMoveForUserDef();
     }
 
-    public static long callEffectCopyMoveBeanCopyingMoveForUserGet(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getCopyingMoveForUser();
+    public static long callEffectCopyMoveBeanCopyingMoveForUserGet(EffectCopyMoveBean _str, int... _args) {
+        return _str.getCopyingMoveForUser();
     }
 
-    public static String callEffectCopyMoveBeanDisplayNameGet(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayName();
+    public static String callEffectCopyMoveBeanDisplayNameGet(EffectCopyMoveBean _str, int... _args) {
+        return _str.getDisplayName();
     }
 
-    public static String callEffectCopyMoveBeanGetTrDefaultMove(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrDefaultMove();
+    public static String callEffectCopyMoveBeanGetTrDefaultMove(EffectCopyMoveBean _str, int... _args) {
+        return _str.getTrDefaultMove();
     }
 
-    public static String callEffectCopyMoveBeanGetTrMove(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMove(_args[0]);
+    public static String callEffectCopyMoveBeanGetTrMove(EffectCopyMoveBean _str, int... _args) {
+        return _str.getTrMove(_args[0]);
     }
 
-    public static String callEffectCopyMoveBeanGetTrMoveTrans(NaSt _str, int... _args) {
-        return ( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getTrMoveTrans(_args[0]);
+    public static String callEffectCopyMoveBeanGetTrMoveTrans(EffectCopyMoveBean _str, int... _args) {
+        return _str.getTrMoveTrans(_args[0]);
     }
 
-    public static CustList<TranslatedKey> callEffectCopyMoveBeanMovesNotToBeCopiedGet(NaSt _str, int... _args) {
-        return (( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesNotToBeCopied());
+    public static CustList<TranslatedKey> callEffectCopyMoveBeanMovesNotToBeCopiedGet(EffectCopyMoveBean _str, int... _args) {
+        return _str.getMovesNotToBeCopied();
     }
 
-    public static CustList<TranslatedKey> callEffectCopyMoveBeanMovesTransformingGet(NaSt _str, int... _args) {
-        return (( (EffectCopyMoveBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTransforming());
+    public static CustList<TranslatedKey> callEffectCopyMoveBeanMovesTransformingGet(EffectCopyMoveBean _str, int... _args) {
+        return _str.getMovesTransforming();
     }
-    protected static NaSt dispMoveEffCopyMove(boolean _copyingMoveForUserDef, int _copy) {
+    protected static EffectCopyMoveBean dispMoveEffCopyMove(boolean _copyingMoveForUserDef, int _copy) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_copyingMoveForUserDef, _copy));
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyMove();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectCopyMoveBean)transitEffect(0,0,pk_,all_);
     }
-    protected static NaSt dispMoveEffCopyMoveNoFighter(boolean _copyingMoveForUserDef, int _copy) {
+    protected static EffectCopyMoveBean dispMoveEffCopyMoveNoFighter(boolean _copyingMoveForUserDef, int _copy) {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDamNoFighter(_copyingMoveForUserDef, _copy));
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyMove();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectCopyMoveBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectCopyMove(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
@@ -149,11 +149,11 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         e_.getMovesNotToBeCopied().add(M_WEA);
         return e_;
     }
-    protected static NaSt dispMoveEffCopyFighter() {
+    protected static EffectCopyFighterBean dispMoveEffCopyFighter() {
         PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam());
         StringMap<NaSt> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyFighter();
-        return transitEffect(0,0,pk_,all_);
+        return (EffectCopyFighterBean)transitEffect(0,0,pk_,all_);
     }
     //    public static StringMap<NaSt> beanToEffectCopyFighter(PkData _pk) {
 //        StringMap<NaSt> map_ = beanToEffect(_pk);
