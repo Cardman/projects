@@ -20,7 +20,6 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.Coords;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
@@ -61,15 +60,15 @@ public abstract class InitDbSolution extends InitDbConstr {
     public static final int IMG_OTHER = 16777215;
 
     public static String callSolutionBeanGetPlace(int _step, int _place) {
-        return ( (SolutionBean) ((PokemonBeanStruct)dispSol()).getInstance()).getPlace(_step,_place);
+        return dispSol().getPlace(_step,_place);
     }
 
     public static CustList<StepDto> callSolutionBeanStepsGet() {
-        return (( (SolutionBean) ((PokemonBeanStruct)dispSol()).getInstance()).getSteps());
+        return dispSol().getSteps();
     }
 
     public static CustList<StepDto> callSolutionBeanStepsTwiceGet() {
-        return (( (SolutionBean) ((PokemonBeanStruct)dispSolTwice()).getInstance()).getSteps());
+        return dispSolTwice().getSteps();
     }
 //
 //    public static String callPlaceTrainerDtoPlaceGet(NaSt _str) {
@@ -127,25 +126,25 @@ public abstract class InitDbSolution extends InitDbConstr {
     public static String callWildPokemonDtoNameGet(WildPokemonDto _str) {
         return _str.getName();
     }
-    protected static NaSt dispSol() {
+    protected static SolutionBean dispSol() {
         PkData pk_ = pkDataByFacade(db());
         return dispSol(pk_);
     }
-    protected static NaSt dispSolTwice() {
+    protected static SolutionBean dispSolTwice() {
         PkData pk_ = pkDataByFacade(db());
-        NaSt bean_ = dispSol(pk_);
+        SolutionBean bean_ = dispSol(pk_);
         beforeDisplaying(bean_);
         return bean_;
     }
 
-    private static NaSt dispSol(PkData _pk) {
+    private static SolutionBean dispSol(PkData _pk) {
         SolutionBean sol_ = new SolutionBean();
         sol_.setBuilder(builder(_pk.getDataBase()));
         sol_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
         sol_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
         _pk.bean(sol_, EN);
         beforeDisplaying(sol_);
-        return new PokemonBeanStruct(sol_);
+        return sol_;
     }
 
     private static FacadeGame db() {
