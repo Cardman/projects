@@ -5,7 +5,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusType;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -35,11 +34,11 @@ public final class FightHelpBeanBeginRoundStatusFoeTest extends InitDbFightHelp 
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickBeginRoundStatusFoe(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickBeginRoundStatusFoe(b_,0);
         return getValStatusId(b_);
     }

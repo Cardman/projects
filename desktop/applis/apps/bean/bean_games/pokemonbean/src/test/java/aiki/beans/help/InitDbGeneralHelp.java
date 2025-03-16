@@ -12,7 +12,6 @@ import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;

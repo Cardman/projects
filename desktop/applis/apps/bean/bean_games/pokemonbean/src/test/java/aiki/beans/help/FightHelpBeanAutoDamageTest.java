@@ -7,7 +7,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.NatStringTreeMap;
@@ -62,11 +61,11 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickAutoDamage(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickAutoDamage(b_,0);
         return getValStatusId(b_);
     }

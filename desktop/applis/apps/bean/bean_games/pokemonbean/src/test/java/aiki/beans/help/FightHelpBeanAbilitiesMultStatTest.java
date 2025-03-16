@@ -6,7 +6,6 @@ import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticCategory;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -175,11 +174,11 @@ public final class FightHelpBeanAbilitiesMultStatTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
+        FightHelpBean b_ = bean(db(Statistic.CRITICAL_HIT));
         return callFightHelpBeanClickAbilitiesMultStat(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
+        FightHelpBean b_ = bean(db(Statistic.CRITICAL_HIT));
         callFightHelpBeanClickAbilitiesMultStat(b_,0);
         return getValAbilityId(b_);
     }

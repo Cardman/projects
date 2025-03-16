@@ -8,7 +8,6 @@ import aiki.fight.items.ItemForBattle;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.StatisticPokemon;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -215,11 +214,11 @@ public final class FightHelpBeanItemsBoostingStatTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
+        FightHelpBean b_ = bean(db(Statistic.CRITICAL_HIT));
         return callFightHelpBeanClickItemsBoostingStat(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
+        FightHelpBean b_ = bean(db(Statistic.CRITICAL_HIT));
         callFightHelpBeanClickItemsBoostingStat(b_,0);
         return getValItemId(b_);
     }

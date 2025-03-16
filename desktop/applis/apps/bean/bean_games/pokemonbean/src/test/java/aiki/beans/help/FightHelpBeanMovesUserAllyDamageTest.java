@@ -6,7 +6,6 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectAlly;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -37,11 +36,11 @@ public final class FightHelpBeanMovesUserAllyDamageTest extends InitDbFightHelp 
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickMovesUserAllyaDamage(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickMovesUserAllyaDamage(b_,0);
         return getValMoveId(b_);
     }

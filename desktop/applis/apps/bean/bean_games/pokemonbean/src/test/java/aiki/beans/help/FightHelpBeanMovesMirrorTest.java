@@ -7,7 +7,6 @@ import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectSwitchPointView;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -37,11 +36,11 @@ public final class FightHelpBeanMovesMirrorTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickMovesMirror(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickMovesMirror(b_,0);
         return getValMoveId(b_);
     }

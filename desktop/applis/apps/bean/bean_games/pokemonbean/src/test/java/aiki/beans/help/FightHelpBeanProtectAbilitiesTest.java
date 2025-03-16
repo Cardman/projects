@@ -6,7 +6,6 @@ import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.WeatherType;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -43,11 +42,11 @@ public final class FightHelpBeanProtectAbilitiesTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickProtectAbilities(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickProtectAbilities(b_,0);
         return getValAbilityId(b_);
     }

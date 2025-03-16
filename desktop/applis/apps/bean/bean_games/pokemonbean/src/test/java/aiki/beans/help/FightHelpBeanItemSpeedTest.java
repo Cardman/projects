@@ -4,7 +4,6 @@ import aiki.beans.CommonBean;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.ItemForBattle;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.LgInt;
 import code.util.StringList;
 import code.util.StringMap;
@@ -36,11 +35,11 @@ public final class FightHelpBeanItemSpeedTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickItemSpeed(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickItemSpeed(b_,0);
         return getValItemId(b_);
     }

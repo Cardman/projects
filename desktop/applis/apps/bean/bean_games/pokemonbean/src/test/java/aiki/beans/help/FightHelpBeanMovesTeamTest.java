@@ -6,7 +6,6 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -88,11 +87,11 @@ public final class FightHelpBeanMovesTeamTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(dbProtectAgainstLowStat());
+        FightHelpBean b_ = bean(dbProtectAgainstLowStat());
         return callFightHelpBeanClickMovesTeam(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(dbProtectAgainstLowStat());
+        FightHelpBean b_ = bean(dbProtectAgainstLowStat());
         callFightHelpBeanClickMovesTeam(b_,0);
         return getValMoveId(b_);
     }

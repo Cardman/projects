@@ -7,7 +7,6 @@ import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -170,11 +169,11 @@ public final class FightHelpBeanStatusMultStatTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
+        FightHelpBean b_ = bean(db(Statistic.CRITICAL_HIT));
         return callFightHelpBeanClickStatusMultStat(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
+        FightHelpBean b_ = bean(db(Statistic.CRITICAL_HIT));
         callFightHelpBeanClickStatusMultStat(b_,0);
         return getValStatusId(b_);
     }

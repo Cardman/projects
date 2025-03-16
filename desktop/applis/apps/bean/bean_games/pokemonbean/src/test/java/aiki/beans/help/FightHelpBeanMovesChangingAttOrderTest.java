@@ -6,7 +6,6 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectOrder;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -60,11 +59,11 @@ public final class FightHelpBeanMovesChangingAttOrderTest extends InitDbFightHel
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickMovesChangingAttOrder(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickMovesChangingAttOrder(b_,0);
         return getValMoveId(b_);
     }

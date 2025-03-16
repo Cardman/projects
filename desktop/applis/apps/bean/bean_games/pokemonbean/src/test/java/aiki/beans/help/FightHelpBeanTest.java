@@ -6,7 +6,6 @@ import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -94,11 +93,11 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickDefaultMove(b_,0);
     }
     private String clickId() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickDefaultMove(b_,0);
         return getValMoveId(b_);
     }

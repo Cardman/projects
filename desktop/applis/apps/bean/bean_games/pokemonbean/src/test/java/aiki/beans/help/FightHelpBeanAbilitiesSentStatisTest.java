@@ -5,7 +5,6 @@ import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -109,38 +108,38 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
         assertEq(M_DAM,clickId4());
     }
     private String click1() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         return callFightHelpBeanClickCopyAbilities(b_,0);
     }
     private String clickId1() {
-        NaSt b_ = bean(db());
+        FightHelpBean b_ = bean(db());
         callFightHelpBeanClickCopyAbilities(b_,0);
         return getValAbilityId(b_);
     }
     private String click2() {
-        NaSt b_ = bean(dbGlobal());
+        FightHelpBean b_ = bean(dbGlobal());
         return callFightHelpBeanClickAbilitiesSentBeginOth(b_,0);
     }
     private String clickId2() {
-        NaSt b_ = bean(dbGlobal());
+        FightHelpBean b_ = bean(dbGlobal());
         callFightHelpBeanClickAbilitiesSentBeginOth(b_,0);
         return getValAbilityId(b_);
     }
     private String click3() {
-        NaSt b_ = bean(dbGlobalWea());
+        FightHelpBean b_ = bean(dbGlobalWea());
         return callFightHelpBeanClickAbilitiesSentBegin(b_,0);
     }
     private String clickId3() {
-        NaSt b_ = bean(dbGlobalWea());
+        FightHelpBean b_ = bean(dbGlobalWea());
         callFightHelpBeanClickAbilitiesSentBegin(b_,0);
         return getValAbilityId(b_);
     }
     private String click4() {
-        NaSt b_ = bean(dbGlobalWea());
+        FightHelpBean b_ = bean(dbGlobalWea());
         return callFightHelpBeanClickAbilitiesSentStatis(b_,0);
     }
     private String clickId4() {
-        NaSt b_ = bean(dbGlobalWea());
+        FightHelpBean b_ = bean(dbGlobalWea());
         callFightHelpBeanClickAbilitiesSentStatis(b_,0);
         return getValAbilityId(b_);
     }

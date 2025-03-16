@@ -6,7 +6,6 @@ import aiki.beans.PokemonBeanStruct;
 import aiki.beans.db.InitDbConstr;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
-import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
@@ -15,2221 +14,2221 @@ import code.util.*;
 
 public abstract class InitDbFightHelp extends InitDbConstr {
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitesMultEvtChGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitesMultEvtCh());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitesMultEvtChGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitesMultEvtCh();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitesMultRateChGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitesMultRateCh());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitesMultRateChGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitesMultRateCh();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesAchieveTargetGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesAchieveTarget());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesAchieveTargetGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesAchieveTarget();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesAllyMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesAllyMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesAllyMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesAllyMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBoostingStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesBoostingStat());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBoostingStatGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesBoostingStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBreakImmuGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesBreakImmu());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBreakImmuGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesBreakImmu();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBreakProtectMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesBreakProtectMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBreakProtectMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesBreakProtectMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBreakableGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesBreakable());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesBreakableGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesBreakable();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesChangingTypesDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesChangingTypesDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesChangingTypesDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesChangingTypesDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesCopyAbGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesCopyAb());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesCopyAbGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesCopyAb();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesDamageStatisGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesDamageStatis());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesDamageStatisGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesDamageStatis();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesEndRoundGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesEndRound());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesEndRoundGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesEndRound();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesFighterStatisGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesFighterStatis());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesFighterStatisGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesFighterStatis();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesFighterStatisVarGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesFighterStatisVar());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesFighterStatisVarGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesFighterStatisVar();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesFighterStatusGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesFighterStatus());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesFighterStatusGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesFighterStatus();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesGlobalGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesGlobal());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesGlobalGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesGlobal();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuAlliesDamGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmuAlliesDam());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuAlliesDamGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmuAlliesDam();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuAlliesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmuAllies());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuAlliesGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmuAllies();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuChGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmuCh());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuChGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmuCh();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmu());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmu();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmuMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmuMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuSecEffOtherGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmuSecEffOther());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuSecEffOtherGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmuSecEffOther();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuSecEffOwnerGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmuSecEffOwner());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuSecEffOwnerGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmuSecEffOwner();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuTypesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesImmuTypes());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesImmuTypesGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesImmuTypes();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesKoTargetGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesKoTarget());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesKoTargetGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesKoTarget();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesPartStatisGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesPartStatis());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesPartStatisGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesPartStatis();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesPartStatusGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesPartStatus());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesPartStatusGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesPartStatus();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesPrioGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesPrio());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesPrioGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesPrio();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesRateStatisGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesRateStatis());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesRateStatisGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesRateStatis();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesRevAbsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesRevAbs());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesRevAbsGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesRevAbs();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSentBeginWeatherGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesSentBeginWeather());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSentBeginWeatherGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesSentBeginWeather();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSentBeginOtherGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesSentBeginOther());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSentBeginOtherGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesSentBeginOther();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSentStatisGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesSentStatis());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSentStatisGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesSentStatis();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesStatisVarUserGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesStatisVarUser());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesStatisVarUserGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesStatisVarUser();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesStatusGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesStatus());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesStatusGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesStatus();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSwitchGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesSwitch());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesSwitchGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesSwitch();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesTakingItemGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesTakingItem());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesTakingItemGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesTakingItem();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesTargetDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesTargetDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesTargetDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesTargetDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesTypeDefMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesTypeDefMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesTypeDefMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesTypeDefMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesUserDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesUserDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserIgnTargetTeamGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesUserIgnTargetTeam());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserIgnTargetTeamGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesUserIgnTargetTeam();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserPowerGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesUserPower());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserPowerGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesUserPower();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserStabDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesUserStabDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserStabDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesUserStabDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserTargetDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesUserTargetDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanAbilitiesUserTargetDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getAbilitiesUserTargetDamage();
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanAbilityAllyMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultAccuracyAny();
+    public static boolean callFightHelpBeanAbilityAllyMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanAbilityAllyMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultEvasinessAny();
+    public static boolean callFightHelpBeanAbilityAllyMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultNormal(_args[0]);
+    public static boolean callFightHelpBeanAbilityAllyMultNormal(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultNormalAny();
+    public static boolean callFightHelpBeanAbilityAllyMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanAbilityAllyMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityAllyMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityAllyMultSpeedAny();
+    public static boolean callFightHelpBeanAbilityAllyMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.abilityAllyMultSpeedAny();
     }
 
-    public static boolean callFightHelpBeanAbilityBoostAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostAccuracy(_args[0]);
+    public static boolean callFightHelpBeanAbilityBoostAccuracy(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityBoostAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostAccuracyAny();
+    public static boolean callFightHelpBeanAbilityBoostAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanAbilityBoostCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostCh(_args[0]);
+    public static boolean callFightHelpBeanAbilityBoostCh(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostCh(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityBoostChAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostChAny();
+    public static boolean callFightHelpBeanAbilityBoostChAny(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostChAny();
     }
 
-    public static boolean callFightHelpBeanAbilityBoostEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostEvasiness(_args[0]);
+    public static boolean callFightHelpBeanAbilityBoostEvasiness(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityBoostEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostEvasinessAny();
+    public static boolean callFightHelpBeanAbilityBoostEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanAbilityBoostNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostNormal(_args[0]);
+    public static boolean callFightHelpBeanAbilityBoostNormal(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityBoostNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostNormalAny();
+    public static boolean callFightHelpBeanAbilityBoostNormalAny(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostNormalAny();
     }
 
-    public static boolean callFightHelpBeanAbilityBoostSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostSpeed(_args[0]);
+    public static boolean callFightHelpBeanAbilityBoostSpeed(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityBoostSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityBoostSpeedAny();
+    public static boolean callFightHelpBeanAbilityBoostSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.abilityBoostSpeedAny();
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanAbilityImmuMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultAccuracyAny();
+    public static boolean callFightHelpBeanAbilityImmuMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanAbilityImmuMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultEvasinessAny();
+    public static boolean callFightHelpBeanAbilityImmuMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultNormal(_args[0]);
+    public static boolean callFightHelpBeanAbilityImmuMultNormal(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultNormalAny();
+    public static boolean callFightHelpBeanAbilityImmuMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanAbilityImmuMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityImmuMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityImmuMultSpeedAny();
+    public static boolean callFightHelpBeanAbilityImmuMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.abilityImmuMultSpeedAny();
     }
 
-    public static boolean callFightHelpBeanAbilityMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanAbilityMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.abilityMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultAccuracyAny();
+    public static boolean callFightHelpBeanAbilityMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.abilityMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanAbilityMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanAbilityMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.abilityMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultEvasinessAny();
+    public static boolean callFightHelpBeanAbilityMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.abilityMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanAbilityMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultNormal(_args[0]);
+    public static boolean callFightHelpBeanAbilityMultNormal(FightHelpBean _str, int... _args) {
+        return _str.abilityMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultNormalAny();
+    public static boolean callFightHelpBeanAbilityMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.abilityMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanAbilityMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanAbilityMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.abilityMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAbilityMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).abilityMultSpeedAny();
+    public static boolean callFightHelpBeanAbilityMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.abilityMultSpeedAny();
     }
 
-    public static boolean callFightHelpBeanAttackFirst(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackFirst();
+    public static boolean callFightHelpBeanAttackFirst(FightHelpBean _str, int... _args) {
+        return _str.attackFirst();
     }
 
-    public static boolean callFightHelpBeanAttackLast(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackLast(_args[0]);
+    public static boolean callFightHelpBeanAttackLast(FightHelpBean _str, int... _args) {
+        return _str.attackLast(_args[0]);
     }
 
-    public static boolean callFightHelpBeanAttackLastAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).attackLastAny();
+    public static boolean callFightHelpBeanAttackLastAny(FightHelpBean _str, int... _args) {
+        return _str.attackLastAny();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanAutoDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAutoDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanAutoDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getAutoDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanBeginRoundStatusFoeGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBeginRoundStatusFoe());
+    public static CustList<TranslatedKey> callFightHelpBeanBeginRoundStatusFoeGet(FightHelpBean _str, int... _args) {
+        return _str.getBeginRoundStatusFoe();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanBeginRoundStatusGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBeginRoundStatus());
+    public static CustList<TranslatedKey> callFightHelpBeanBeginRoundStatusGet(FightHelpBean _str, int... _args) {
+        return _str.getBeginRoundStatus();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanBerryEndRoundGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBerryEndRound());
+    public static CustList<TranslatedKey> callFightHelpBeanBerryEndRoundGet(FightHelpBean _str, int... _args) {
+        return _str.getBerryEndRound();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanBerrySpeedGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBerrySpeed());
+    public static CustList<TranslatedKey> callFightHelpBeanBerrySpeedGet(FightHelpBean _str, int... _args) {
+        return _str.getBerrySpeed();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanBerryTargetGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBerryTarget());
+    public static CustList<TranslatedKey> callFightHelpBeanBerryTargetGet(FightHelpBean _str, int... _args) {
+        return _str.getBerryTarget();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanBerryUserGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBerryUser());
+    public static CustList<TranslatedKey> callFightHelpBeanBerryUserGet(FightHelpBean _str, int... _args) {
+        return _str.getBerryUser();
     }
 
-    public static AbsMap<Long,Rate> callFightHelpBeanBoostsChGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBoostsCh());
+    public static AbsMap<Long,Rate> callFightHelpBeanBoostsChGet(FightHelpBean _str, int... _args) {
+        return _str.getBoostsCh();
     }
 
-    public static AbsMap<Long,Rate> callFightHelpBeanBoostsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBoosts());
+    public static AbsMap<Long,Rate> callFightHelpBeanBoostsGet(FightHelpBean _str, int... _args) {
+        return _str.getBoosts();
     }
 
-    public static String callFightHelpBeanCatchingFormulaGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getCatchingFormula();
+    public static String callFightHelpBeanCatchingFormulaGet(FightHelpBean _str, int... _args) {
+        return _str.getCatchingFormula();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanChangingTypesAbilitiesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getChangingTypesAbilities());
+    public static CustList<TranslatedKey> callFightHelpBeanChangingTypesAbilitiesGet(FightHelpBean _str, int... _args) {
+        return _str.getChangingTypesAbilities();
     }
 
-    public static String callFightHelpBeanClickAbilitiesAchieveTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesAchieveTarget(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesAchieveTarget(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesAchieveTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesAllyMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesAllyMultStat(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesAllyMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesAllyMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesBoostingStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesBoostingStat(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesBoostingStat(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesBoostingStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesBreakImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesBreakImmu(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesBreakImmu(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesBreakImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesBreakProtectMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesBreakProtectMoves(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesBreakProtectMoves(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesBreakProtectMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesBreakable(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesBreakable(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesBreakable(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesBreakable(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesChangeTypeMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesChangeTypeMoves(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesChangeTypeMoves(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesChangeTypeMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesChangingTypesDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesChangingTypesDamage(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesChangingTypesDamage(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesChangingTypesDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesCopyAb(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesCopyAb(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesCopyAb(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesCopyAb(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesDamageStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesDamageStatis(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesDamageStatis(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesDamageStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesEndRound(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesEndRound(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesEndRound(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesEndRound(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesFighterStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesFighterStatis(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesFighterStatis(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesFighterStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesFighterStatisVar(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesFighterStatisVar(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesFighterStatisVar(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesFighterStatisVar(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesFighterStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesFighterStatus(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesFighterStatus(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesFighterStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesGlobal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesGlobal(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesGlobal(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesGlobal(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmu(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmu(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmuAllies(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmuAllies(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmuAllies(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmuAllies(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmuAlliesDam(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmuAlliesDam(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmuAlliesDam(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmuAlliesDam(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmuCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmuCh(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmuCh(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmuCh(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmuMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmuMultStat(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmuMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmuMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmuSecEffOther(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmuSecEffOther(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmuSecEffOther(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmuSecEffOther(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmuSecEffOwner(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmuSecEffOwner(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmuSecEffOwner(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmuSecEffOwner(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesImmuTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesImmuTypes(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesImmuTypes(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesImmuTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesKoTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesKoTarget(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesKoTarget(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesKoTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesMultEvtCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesMultEvtCh(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesMultEvtCh(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesMultEvtCh(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesMultRateCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesMultRateCh(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesMultRateCh(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesMultRateCh(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesMultStat(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesPartStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesPartStatis(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesPartStatis(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesPartStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesPartStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesPartStatus(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesPartStatus(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesPartStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesPrio(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesPrio(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesPrio(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesPrio(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesRateStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesRateStatis(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesRateStatis(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesRateStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesRevAbs(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesRevAbs(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesRevAbs(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesRevAbs(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesSentBegin(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesSentBegin(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesSentBegin(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesSentBegin(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesSentBeginOth(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesSentBeginOth(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesSentBeginOth(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesSentBeginOth(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesSentStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesSentStatis(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesSentStatis(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesSentStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesStatisVarUser(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesStatisVarUser(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesStatisVarUser(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesStatisVarUser(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesStatus(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesStatus(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesSwitch(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesSwitch(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesSwitch(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesSwitch(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesTakingItem(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesTakingItem(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesTakingItem(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesTakingItem(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesTargetDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesTargetDamage(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesTargetDamage(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesTargetDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesTypeDefMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesTypeDefMoves(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesTypeDefMoves(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesTypeDefMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesUserDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesUserDamage(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesUserDamage(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesUserDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesUserIgnTargetTeam(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesUserIgnTargetTeam(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesUserIgnTargetTeam(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesUserIgnTargetTeam(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesUserPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesUserPower(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesUserPower(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesUserPower(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesUserStabDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesUserStabDamage(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesUserStabDamage(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesUserStabDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAbilitiesUserTargetDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAbilitiesUserTargetDamage(_args[0]);
+    public static String callFightHelpBeanClickAbilitiesUserTargetDamage(FightHelpBean _str, int... _args) {
+        return _str.clickAbilitiesUserTargetDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickAutoDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickAutoDamage(_args[0]);
+    public static String callFightHelpBeanClickAutoDamage(FightHelpBean _str, int... _args) {
+        return _str.clickAutoDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickBeginRoundStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickBeginRoundStatus(_args[0]);
+    public static String callFightHelpBeanClickBeginRoundStatus(FightHelpBean _str, int... _args) {
+        return _str.clickBeginRoundStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanClickBeginRoundStatusFoe(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickBeginRoundStatusFoe(_args[0]);
+    public static String callFightHelpBeanClickBeginRoundStatusFoe(FightHelpBean _str, int... _args) {
+        return _str.clickBeginRoundStatusFoe(_args[0]);
     }
 
-    public static String callFightHelpBeanClickBerryEndRound(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickBerryEndRound(_args[0]);
+    public static String callFightHelpBeanClickBerryEndRound(FightHelpBean _str, int... _args) {
+        return _str.clickBerryEndRound(_args[0]);
     }
 
-    public static String callFightHelpBeanClickBerrySpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickBerrySpeed(_args[0]);
+    public static String callFightHelpBeanClickBerrySpeed(FightHelpBean _str, int... _args) {
+        return _str.clickBerrySpeed(_args[0]);
     }
 
-    public static String callFightHelpBeanClickBerryTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickBerryTarget(_args[0]);
+    public static String callFightHelpBeanClickBerryTarget(FightHelpBean _str, int... _args) {
+        return _str.clickBerryTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanClickBerryUser(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickBerryUser(_args[0]);
+    public static String callFightHelpBeanClickBerryUser(FightHelpBean _str, int... _args) {
+        return _str.clickBerryUser(_args[0]);
     }
 
-    public static String callFightHelpBeanClickChangingTypesAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickChangingTypesAbilities(_args[0]);
+    public static String callFightHelpBeanClickChangingTypesAbilities(FightHelpBean _str, int... _args) {
+        return _str.clickChangingTypesAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanClickComboEvtStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickComboEvtStat(_args[0]);
+    public static String callFightHelpBeanClickComboEvtStat(FightHelpBean _str, int... _args) {
+        return _str.clickComboEvtStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickComboMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickComboMultStat(_args[0]);
+    public static String callFightHelpBeanClickComboMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickComboMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickCopyAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickCopyAbilities(_args[0]);
+    public static String callFightHelpBeanClickCopyAbilities(FightHelpBean _str, int... _args) {
+        return _str.clickCopyAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanClickCopyMoveTypesAb(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickCopyMoveTypesAb(_args[0]);
+    public static String callFightHelpBeanClickCopyMoveTypesAb(FightHelpBean _str, int... _args) {
+        return _str.clickCopyMoveTypesAb(_args[0]);
     }
 
-    public static String callFightHelpBeanClickDamagingMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickDamagingMoves(_args[0]);
+    public static String callFightHelpBeanClickDamagingMoves(FightHelpBean _str, int... _args) {
+        return _str.clickDamagingMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickDefaultMove(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickDefaultMove();
+    public static String callFightHelpBeanClickDefaultMove(FightHelpBean _str, int... _args) {
+        return _str.clickDefaultMove();
     }
 
-    public static String callFightHelpBeanClickDeleteStatusMove(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickDeleteStatusMove(_args[0]);
+    public static String callFightHelpBeanClickDeleteStatusMove(FightHelpBean _str, int... _args) {
+        return _str.clickDeleteStatusMove(_args[0]);
     }
 
-    public static String callFightHelpBeanClickDeletedStatusSwitch(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickDeletedStatusSwitch(_args[0]);
+    public static String callFightHelpBeanClickDeletedStatusSwitch(FightHelpBean _str, int... _args) {
+        return _str.clickDeletedStatusSwitch(_args[0]);
     }
 
-    public static String callFightHelpBeanClickEffMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickEffMoves(_args[0]);
+    public static String callFightHelpBeanClickEffMoves(FightHelpBean _str, int... _args) {
+        return _str.clickEffMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickEntryHazard(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickEntryHazard(_args[0]);
+    public static String callFightHelpBeanClickEntryHazard(FightHelpBean _str, int... _args) {
+        return _str.clickEntryHazard(_args[0]);
     }
 
-    public static String callFightHelpBeanClickGlobalMovesStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickGlobalMovesStatus(_args[0]);
+    public static String callFightHelpBeanClickGlobalMovesStatus(FightHelpBean _str, int... _args) {
+        return _str.clickGlobalMovesStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanClickImmuRecharging(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickImmuRecharging(_args[0]);
+    public static String callFightHelpBeanClickImmuRecharging(FightHelpBean _str, int... _args) {
+        return _str.clickImmuRecharging(_args[0]);
     }
 
-    public static String callFightHelpBeanClickImmuStatusAbility(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickImmuStatusAbility(_args[0]);
+    public static String callFightHelpBeanClickImmuStatusAbility(FightHelpBean _str, int... _args) {
+        return _str.clickImmuStatusAbility(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemSpeed(_args[0]);
+    public static String callFightHelpBeanClickItemSpeed(FightHelpBean _str, int... _args) {
+        return _str.clickItemSpeed(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsAbs(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsAbs(_args[0]);
+    public static String callFightHelpBeanClickItemsAbs(FightHelpBean _str, int... _args) {
+        return _str.clickItemsAbs(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsBoostingStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsBoostingStat(_args[0]);
+    public static String callFightHelpBeanClickItemsBoostingStat(FightHelpBean _str, int... _args) {
+        return _str.clickItemsBoostingStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsCancelImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsCancelImmu(_args[0]);
+    public static String callFightHelpBeanClickItemsCancelImmu(FightHelpBean _str, int... _args) {
+        return _str.clickItemsCancelImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsFighterStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsFighterStatis(_args[0]);
+    public static String callFightHelpBeanClickItemsFighterStatis(FightHelpBean _str, int... _args) {
+        return _str.clickItemsFighterStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsFighterStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsFighterStatus(_args[0]);
+    public static String callFightHelpBeanClickItemsFighterStatus(FightHelpBean _str, int... _args) {
+        return _str.clickItemsFighterStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsImmu(_args[0]);
+    public static String callFightHelpBeanClickItemsImmu(FightHelpBean _str, int... _args) {
+        return _str.clickItemsImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsImmuTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsImmuTypes(_args[0]);
+    public static String callFightHelpBeanClickItemsImmuTypes(FightHelpBean _str, int... _args) {
+        return _str.clickItemsImmuTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsMultStat(_args[0]);
+    public static String callFightHelpBeanClickItemsMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickItemsMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsProtAgainstKo(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsProtAgainstKo(_args[0]);
+    public static String callFightHelpBeanClickItemsProtAgainstKo(FightHelpBean _str, int... _args) {
+        return _str.clickItemsProtAgainstKo(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsSentBegin(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsSentBegin(_args[0]);
+    public static String callFightHelpBeanClickItemsSentBegin(FightHelpBean _str, int... _args) {
+        return _str.clickItemsSentBegin(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsSentBeginOth(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsSentBeginOth(_args[0]);
+    public static String callFightHelpBeanClickItemsSentBeginOth(FightHelpBean _str, int... _args) {
+        return _str.clickItemsSentBeginOth(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsTargetDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsTargetDamage(_args[0]);
+    public static String callFightHelpBeanClickItemsTargetDamage(FightHelpBean _str, int... _args) {
+        return _str.clickItemsTargetDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsTypesDef(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsTypesDef(_args[0]);
+    public static String callFightHelpBeanClickItemsTypesDef(FightHelpBean _str, int... _args) {
+        return _str.clickItemsTypesDef(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsUserDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsUserDamage(_args[0]);
+    public static String callFightHelpBeanClickItemsUserDamage(FightHelpBean _str, int... _args) {
+        return _str.clickItemsUserDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickItemsUserPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickItemsUserPower(_args[0]);
+    public static String callFightHelpBeanClickItemsUserPower(FightHelpBean _str, int... _args) {
+        return _str.clickItemsUserPower(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesAttracting(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesAttracting(_args[0]);
+    public static String callFightHelpBeanClickMovesAttracting(FightHelpBean _str, int... _args) {
+        return _str.clickMovesAttracting(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesBoostCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesBoostCh(_args[0]);
+    public static String callFightHelpBeanClickMovesBoostCh(FightHelpBean _str, int... _args) {
+        return _str.clickMovesBoostCh(_args[0]);
     }
 
-    public static String callFightHelpBeanClickChangeTypeMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesChangeTypeMoves(_args[0]);
+    public static String callFightHelpBeanClickChangeTypeMoves(FightHelpBean _str, int... _args) {
+        return _str.clickMovesChangeTypeMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesCannotKo(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesCannotKo(_args[0]);
+    public static String callFightHelpBeanClickMovesCannotKo(FightHelpBean _str, int... _args) {
+        return _str.clickMovesCannotKo(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesChangingAttOrder(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesChangingAttOrder(_args[0]);
+    public static String callFightHelpBeanClickMovesChangingAttOrder(FightHelpBean _str, int... _args) {
+        return _str.clickMovesChangingAttOrder(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesFoeTeamMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesFoeTeamMultStat(_args[0]);
+    public static String callFightHelpBeanClickMovesFoeTeamMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickMovesFoeTeamMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesGlobal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesGlobal(_args[0]);
+    public static String callFightHelpBeanClickMovesGlobal(FightHelpBean _str, int... _args) {
+        return _str.clickMovesGlobal(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesGlobalAcc(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesGlobalAcc(_args[0]);
+    public static String callFightHelpBeanClickMovesGlobalAcc(FightHelpBean _str, int... _args) {
+        return _str.clickMovesGlobalAcc(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesGlobalBreakImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesGlobalBreakImmu(_args[0]);
+    public static String callFightHelpBeanClickMovesGlobalBreakImmu(FightHelpBean _str, int... _args) {
+        return _str.clickMovesGlobalBreakImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesGlobalBreakImmuAb(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesGlobalBreakImmuAb(_args[0]);
+    public static String callFightHelpBeanClickMovesGlobalBreakImmuAb(FightHelpBean _str, int... _args) {
+        return _str.clickMovesGlobalBreakImmuAb(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesGlobalMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesGlobalMultStat(_args[0]);
+    public static String callFightHelpBeanClickMovesGlobalMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickMovesGlobalMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesGlobalPrepaDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesGlobalPrepaDamage(_args[0]);
+    public static String callFightHelpBeanClickMovesGlobalPrepaDamage(FightHelpBean _str, int... _args) {
+        return _str.clickMovesGlobalPrepaDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesHealingSubstitute(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesHealingSubstitute(_args[0]);
+    public static String callFightHelpBeanClickMovesHealingSubstitute(FightHelpBean _str, int... _args) {
+        return _str.clickMovesHealingSubstitute(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesIgnAcc(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesIgnAcc(_args[0]);
+    public static String callFightHelpBeanClickMovesIgnAcc(FightHelpBean _str, int... _args) {
+        return _str.clickMovesIgnAcc(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesIgnEva(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesIgnEva(_args[0]);
+    public static String callFightHelpBeanClickMovesIgnEva(FightHelpBean _str, int... _args) {
+        return _str.clickMovesIgnEva(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesIgnIncDef(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesIgnIncDef(_args[0]);
+    public static String callFightHelpBeanClickMovesIgnIncDef(FightHelpBean _str, int... _args) {
+        return _str.clickMovesIgnIncDef(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesIgnLowAtt(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesIgnLowAtt(_args[0]);
+    public static String callFightHelpBeanClickMovesIgnLowAtt(FightHelpBean _str, int... _args) {
+        return _str.clickMovesIgnLowAtt(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesInvokDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesInvokDamage(_args[0]);
+    public static String callFightHelpBeanClickMovesInvokDamage(FightHelpBean _str, int... _args) {
+        return _str.clickMovesInvokDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesInvoking(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesInvoking(_args[0]);
+    public static String callFightHelpBeanClickMovesInvoking(FightHelpBean _str, int... _args) {
+        return _str.clickMovesInvoking(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesKoTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesKoTarget(_args[0]);
+    public static String callFightHelpBeanClickMovesKoTarget(FightHelpBean _str, int... _args) {
+        return _str.clickMovesKoTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesMirror(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesMirror(_args[0]);
+    public static String callFightHelpBeanClickMovesMirror(FightHelpBean _str, int... _args) {
+        return _str.clickMovesMirror(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesProtAgainstKo(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesProtAgainstKo(_args[0]);
+    public static String callFightHelpBeanClickMovesProtAgainstKo(FightHelpBean _str, int... _args) {
+        return _str.clickMovesProtAgainstKo(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesProtecting(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesProtecting(_args[0]);
+    public static String callFightHelpBeanClickMovesProtecting(FightHelpBean _str, int... _args) {
+        return _str.clickMovesProtecting(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesProtectingTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesProtectingTypes(_args[0]);
+    public static String callFightHelpBeanClickMovesProtectingTypes(FightHelpBean _str, int... _args) {
+        return _str.clickMovesProtectingTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesSecEffItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesSecEffItems(_args[0]);
+    public static String callFightHelpBeanClickMovesSecEffItems(FightHelpBean _str, int... _args) {
+        return _str.clickMovesSecEffItems(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesTargetPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTargetPower(_args[0]);
+    public static String callFightHelpBeanClickMovesTargetPower(FightHelpBean _str, int... _args) {
+        return _str.clickMovesTargetPower(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesTargetTeamDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTargetTeamDamage(_args[0]);
+    public static String callFightHelpBeanClickMovesTargetTeamDamage(FightHelpBean _str, int... _args) {
+        return _str.clickMovesTargetTeamDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesTeam(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTeam(_args[0]);
+    public static String callFightHelpBeanClickMovesTeam(FightHelpBean _str, int... _args) {
+        return _str.clickMovesTeam(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesTeamMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTeamMultStat(_args[0]);
+    public static String callFightHelpBeanClickMovesTeamMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickMovesTeamMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesThieving(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesThieving(_args[0]);
+    public static String callFightHelpBeanClickMovesThieving(FightHelpBean _str, int... _args) {
+        return _str.clickMovesThieving(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesTypeDefMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTypeDefMoves(_args[0]);
+    public static String callFightHelpBeanClickMovesTypeDefMoves(FightHelpBean _str, int... _args) {
+        return _str.clickMovesTypeDefMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesTypesDefItem(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTypesDefItem(_args[0]);
+    public static String callFightHelpBeanClickMovesTypesDefItem(FightHelpBean _str, int... _args) {
+        return _str.clickMovesTypesDefItem(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesTypesDefWeather(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesTypesDefWeather(_args[0]);
+    public static String callFightHelpBeanClickMovesTypesDefWeather(FightHelpBean _str, int... _args) {
+        return _str.clickMovesTypesDefWeather(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesUnprotectingTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesUnprotectingTypes(_args[0]);
+    public static String callFightHelpBeanClickMovesUnprotectingTypes(FightHelpBean _str, int... _args) {
+        return _str.clickMovesUnprotectingTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesUserAllyaDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesUserAllyaDamage(_args[0]);
+    public static String callFightHelpBeanClickMovesUserAllyaDamage(FightHelpBean _str, int... _args) {
+        return _str.clickMovesUserAllyaDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickMovesUserPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickMovesUserPower(_args[0]);
+    public static String callFightHelpBeanClickMovesUserPower(FightHelpBean _str, int... _args) {
+        return _str.clickMovesUserPower(_args[0]);
     }
 
-    public static String callFightHelpBeanClickRechargeMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickRechargeMoves(_args[0]);
+    public static String callFightHelpBeanClickRechargeMoves(FightHelpBean _str, int... _args) {
+        return _str.clickRechargeMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickPrepaRoundMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickPrepaRoundMoves(_args[0]);
+    public static String callFightHelpBeanClickPrepaRoundMoves(FightHelpBean _str, int... _args) {
+        return _str.clickPrepaRoundMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickPressureAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickPressureAbilities(_args[0]);
+    public static String callFightHelpBeanClickPressureAbilities(FightHelpBean _str, int... _args) {
+        return _str.clickPressureAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanClickPrivatingMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickPrivatingMoves(_args[0]);
+    public static String callFightHelpBeanClickPrivatingMoves(FightHelpBean _str, int... _args) {
+        return _str.clickPrivatingMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickProtectAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickProtectAbilities(_args[0]);
+    public static String callFightHelpBeanClickProtectAbilities(FightHelpBean _str, int... _args) {
+        return _str.clickProtectAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanClickProtectItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickProtectItems(_args[0]);
+    public static String callFightHelpBeanClickProtectItems(FightHelpBean _str, int... _args) {
+        return _str.clickProtectItems(_args[0]);
     }
 
-    public static String callFightHelpBeanClickProtectMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickProtectMoves(_args[0]);
+    public static String callFightHelpBeanClickProtectMoves(FightHelpBean _str, int... _args) {
+        return _str.clickProtectMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickRecoilAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickRecoilAbilities(_args[0]);
+    public static String callFightHelpBeanClickRecoilAbilities(FightHelpBean _str, int... _args) {
+        return _str.clickRecoilAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanClickRecoilItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickRecoilItems(_args[0]);
+    public static String callFightHelpBeanClickRecoilItems(FightHelpBean _str, int... _args) {
+        return _str.clickRecoilItems(_args[0]);
     }
 
-    public static String callFightHelpBeanClickReverseSpeedMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickReverseSpeedMoves(_args[0]);
+    public static String callFightHelpBeanClickReverseSpeedMoves(FightHelpBean _str, int... _args) {
+        return _str.clickReverseSpeedMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickSlowAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickSlowAbilities(_args[0]);
+    public static String callFightHelpBeanClickSlowAbilities(FightHelpBean _str, int... _args) {
+        return _str.clickSlowAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanClickSlowItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickSlowItems(_args[0]);
+    public static String callFightHelpBeanClickSlowItems(FightHelpBean _str, int... _args) {
+        return _str.clickSlowItems(_args[0]);
     }
 
-    public static String callFightHelpBeanClickSpeedPreparingItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickSpeedPreparingItems(_args[0]);
+    public static String callFightHelpBeanClickSpeedPreparingItems(FightHelpBean _str, int... _args) {
+        return _str.clickSpeedPreparingItems(_args[0]);
     }
 
-    public static String callFightHelpBeanClickStatusDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickStatusDamage(_args[0]);
+    public static String callFightHelpBeanClickStatusDamage(FightHelpBean _str, int... _args) {
+        return _str.clickStatusDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanClickStatusMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickStatusMultStat(_args[0]);
+    public static String callFightHelpBeanClickStatusMultStat(FightHelpBean _str, int... _args) {
+        return _str.clickStatusMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanClickSubstitutingMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickSubstitutingMoves(_args[0]);
+    public static String callFightHelpBeanClickSubstitutingMoves(FightHelpBean _str, int... _args) {
+        return _str.clickSubstitutingMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanClickSuccessfulStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).clickSuccessfulStatus(_args[0]);
+    public static String callFightHelpBeanClickSuccessfulStatus(FightHelpBean _str, int... _args) {
+        return _str.clickSuccessfulStatus(_args[0]);
     }
 
-    public static CustList<CustList<TranslatedKey>> callFightHelpBeanComboEvtStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getComboEvtStat());
+    public static CustList<CustList<TranslatedKey>> callFightHelpBeanComboEvtStatGet(FightHelpBean _str, int... _args) {
+        return _str.getComboEvtStat();
     }
 
-    public static boolean callFightHelpBeanComboMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanComboMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.comboMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanComboMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultAccuracyAny();
+    public static boolean callFightHelpBeanComboMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.comboMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanComboMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanComboMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.comboMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanComboMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultEvasinessAny();
+    public static boolean callFightHelpBeanComboMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.comboMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanComboMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultNormal(_args[0]);
+    public static boolean callFightHelpBeanComboMultNormal(FightHelpBean _str, int... _args) {
+        return _str.comboMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanComboMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultNormalAny();
+    public static boolean callFightHelpBeanComboMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.comboMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanComboMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanComboMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.comboMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanComboMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).comboMultSpeedAny();
+    public static boolean callFightHelpBeanComboMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.comboMultSpeedAny();
     }
 
-    public static CustList<CustList<TranslatedKey>> callFightHelpBeanComboMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getComboMultStat());
+    public static CustList<CustList<TranslatedKey>> callFightHelpBeanComboMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getComboMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanCopyAbilitiesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getCopyAbilities());
+    public static CustList<TranslatedKey> callFightHelpBeanCopyAbilitiesGet(FightHelpBean _str, int... _args) {
+        return _str.getCopyAbilities();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanCopyMoveTypesAbGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getCopyMoveTypesAb());
+    public static CustList<TranslatedKey> callFightHelpBeanCopyMoveTypesAbGet(FightHelpBean _str, int... _args) {
+        return _str.getCopyMoveTypesAb();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanDamagingMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDamagingMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanDamagingMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getDamagingMoves();
     }
 
-    public static String callFightHelpBeanDamgeFormulaGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDamgeFormula();
+    public static String callFightHelpBeanDamgeFormulaGet(FightHelpBean _str, int... _args) {
+        return _str.getDamgeFormula();
     }
 
-    public static long callFightHelpBeanDefaultBoostValueGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDefaultBoostValue();
+    public static long callFightHelpBeanDefaultBoostValueGet(FightHelpBean _str, int... _args) {
+        return _str.getDefaultBoostValue();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanDeleteStatusMoveGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDeleteStatusMove());
+    public static CustList<TranslatedKey> callFightHelpBeanDeleteStatusMoveGet(FightHelpBean _str, int... _args) {
+        return _str.getDeleteStatusMove();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanDeletedStatusSwitchGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDeletedStatusSwitch());
+    public static CustList<TranslatedKey> callFightHelpBeanDeletedStatusSwitchGet(FightHelpBean _str, int... _args) {
+        return _str.getDeletedStatusSwitch();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanDisappearingRoundMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getDisappearingRoundMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanDisappearingRoundMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getDisappearingRoundMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanEffMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getEffMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanEffMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getEffMoves();
     }
 
-    public static AbsMap<TranslatedKeyPair,Rate> callFightHelpBeanEfficiencyGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getEfficiency());
+    public static AbsMap<TranslatedKeyPair,Rate> callFightHelpBeanEfficiencyGet(FightHelpBean _str, int... _args) {
+        return _str.getEfficiency();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanEntryHazardGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getEntryHazard());
+    public static CustList<TranslatedKey> callFightHelpBeanEntryHazardGet(FightHelpBean _str, int... _args) {
+        return _str.getEntryHazard();
     }
 
-    public static String callFightHelpBeanFleeingFormulaGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getFleeingFormula();
+    public static String callFightHelpBeanFleeingFormulaGet(FightHelpBean _str, int... _args) {
+        return _str.getFleeingFormula();
     }
 
-    public static int[][] callFightHelpBeanGetAnimAbsorb(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAnimAbsorb();
+    public static int[][] callFightHelpBeanGetAnimAbsorb(FightHelpBean _str, int... _args) {
+        return _str.getAnimAbsorb();
     }
 
-    public static int[][] callFightHelpBeanGetAnimStatistic(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getAnimStatistic(_args[0]);
+    public static int[][] callFightHelpBeanGetAnimStatistic(FightHelpBean _str, int... _args) {
+        return _str.getAnimStatistic(_args[0]);
     }
 
-    public static String callFightHelpBeanGetEfficiency(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getEfficiency(_args[0],_args[1]);
+    public static String callFightHelpBeanGetEfficiency(FightHelpBean _str, int... _args) {
+        return _str.getEfficiency(_args[0],_args[1]);
     }
 
-    public static String callFightHelpBeanGetFomula(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getFomula(_args[0]);
+    public static String callFightHelpBeanGetFomula(FightHelpBean _str, int... _args) {
+        return _str.getFomula(_args[0]);
     }
 
-    public static String callFightHelpBeanGetStab(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStab();
+    public static String callFightHelpBeanGetStab(FightHelpBean _str, int... _args) {
+        return _str.getStab();
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesAchieveTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesAchieveTarget(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesAchieveTarget(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesAchieveTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesAllyMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesAllyMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesAllyMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesAllyMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesBoostingStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesBoostingStat(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesBoostingStat(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesBoostingStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesBreakImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesBreakImmu(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesBreakImmu(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesBreakImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesBreakProtectMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesBreakProtectMoves(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesBreakProtectMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesBreakProtectMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesBreakable(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesBreakable(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesBreakable(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesBreakable(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesChangeTypeMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesChangeTypeMoves(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesChangeTypeMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesChangeTypeMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesChangingTypesDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesChangingTypesDamage(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesChangingTypesDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesChangingTypesDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesCopyAb(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesCopyAb(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesCopyAb(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesCopyAb(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesDamageStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesDamageStatis(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesDamageStatis(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesDamageStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesEndRound(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesEndRound(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesEndRound(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesEndRound(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesFighterStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesFighterStatis(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesFighterStatis(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesFighterStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesFighterStatisVar(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesFighterStatisVar(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesFighterStatisVar(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesFighterStatisVar(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesFighterStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesFighterStatus(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesFighterStatus(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesFighterStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesGlobal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesGlobal(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesGlobal(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesGlobal(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmu(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmu(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmuAllies(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmuAllies(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmuAllies(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmuAllies(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmuAlliesDam(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmuAlliesDam(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmuAlliesDam(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmuAlliesDam(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmuCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmuCh(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmuCh(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmuCh(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmuMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmuMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmuMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmuMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmuSecEffOther(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmuSecEffOther(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmuSecEffOther(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmuSecEffOther(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmuSecEffOwner(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmuSecEffOwner(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmuSecEffOwner(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmuSecEffOwner(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesImmuTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesImmuTypes(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesImmuTypes(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesImmuTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesKoTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesKoTarget(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesKoTarget(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesKoTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesMultEvtCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesMultEvtCh(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesMultEvtCh(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesMultEvtCh(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesMultRateCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesMultRateCh(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesMultRateCh(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesMultRateCh(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesPartStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesPartStatis(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesPartStatis(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesPartStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesPartStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesPartStatus(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesPartStatus(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesPartStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesPrio(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesPrio(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesPrio(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesPrio(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesRateStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesRateStatis(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesRateStatis(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesRateStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesRevAbs(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesRevAbs(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesRevAbs(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesRevAbs(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesSentBegin(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesSentBegin(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesSentBegin(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesSentBegin(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesSentBeginOth(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesSentBeginOth(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesSentBeginOth(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesSentBeginOth(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesSentStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesSentStatis(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesSentStatis(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesSentStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesStatisVarUser(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesStatisVarUser(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesStatisVarUser(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesStatisVarUser(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesStatus(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesStatus(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesSwitch(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesSwitch(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesSwitch(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesSwitch(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesTakingItem(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesTakingItem(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesTakingItem(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesTakingItem(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesTargetDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesTargetDamage(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesTargetDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesTargetDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesTypeDefMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesTypeDefMoves(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesTypeDefMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesTypeDefMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesUserDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesUserDamage(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesUserDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesUserDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesUserIgnTargetTeam(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesUserIgnTargetTeam(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesUserIgnTargetTeam(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesUserIgnTargetTeam(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesUserPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesUserPower(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesUserPower(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesUserPower(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesUserStabDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesUserStabDamage(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesUserStabDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesUserStabDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAbilitiesUserTargetDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAbilitiesUserTargetDamage(_args[0]);
+    public static String callFightHelpBeanGetTrAbilitiesUserTargetDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrAbilitiesUserTargetDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrAutoDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrAutoDamage(_args[0]);
+    public static String callFightHelpBeanGetTrAutoDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrAutoDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrBeginRoundStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrBeginRoundStatus(_args[0]);
+    public static String callFightHelpBeanGetTrBeginRoundStatus(FightHelpBean _str, int... _args) {
+        return _str.getTrBeginRoundStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrBeginRoundStatusFoe(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrBeginRoundStatusFoe(_args[0]);
+    public static String callFightHelpBeanGetTrBeginRoundStatusFoe(FightHelpBean _str, int... _args) {
+        return _str.getTrBeginRoundStatusFoe(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrBerryEndRound(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrBerryEndRound(_args[0]);
+    public static String callFightHelpBeanGetTrBerryEndRound(FightHelpBean _str, int... _args) {
+        return _str.getTrBerryEndRound(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrBerrySpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrBerrySpeed(_args[0]);
+    public static String callFightHelpBeanGetTrBerrySpeed(FightHelpBean _str, int... _args) {
+        return _str.getTrBerrySpeed(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrBerryTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrBerryTarget(_args[0]);
+    public static String callFightHelpBeanGetTrBerryTarget(FightHelpBean _str, int... _args) {
+        return _str.getTrBerryTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrBerryUser(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrBerryUser(_args[0]);
+    public static String callFightHelpBeanGetTrBerryUser(FightHelpBean _str, int... _args) {
+        return _str.getTrBerryUser(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrChangingTypesAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrChangingTypesAbilities(_args[0]);
+    public static String callFightHelpBeanGetTrChangingTypesAbilities(FightHelpBean _str, int... _args) {
+        return _str.getTrChangingTypesAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrComboEvtStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrComboEvtStat(_args[0]);
+    public static String callFightHelpBeanGetTrComboEvtStat(FightHelpBean _str, int... _args) {
+        return _str.getTrComboEvtStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrComboMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrComboMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrComboMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrComboMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrCopyAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrCopyAbilities(_args[0]);
+    public static String callFightHelpBeanGetTrCopyAbilities(FightHelpBean _str, int... _args) {
+        return _str.getTrCopyAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrCopyMoveTypesAb(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrCopyMoveTypesAb(_args[0]);
+    public static String callFightHelpBeanGetTrCopyMoveTypesAb(FightHelpBean _str, int... _args) {
+        return _str.getTrCopyMoveTypesAb(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrDamagingMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrDamagingMoves(_args[0]);
+    public static String callFightHelpBeanGetTrDamagingMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrDamagingMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrDefaultMove(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrDefaultMove();
+    public static String callFightHelpBeanGetTrDefaultMove(FightHelpBean _str, int... _args) {
+        return _str.getTrDefaultMove();
     }
 
-    public static String callFightHelpBeanGetTrDeleteStatusMove(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrDeleteStatusMove(_args[0]);
+    public static String callFightHelpBeanGetTrDeleteStatusMove(FightHelpBean _str, int... _args) {
+        return _str.getTrDeleteStatusMove(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrDeletedStatusSwitch(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrDeletedStatusSwitch(_args[0]);
+    public static String callFightHelpBeanGetTrDeletedStatusSwitch(FightHelpBean _str, int... _args) {
+        return _str.getTrDeletedStatusSwitch(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrDifficulty(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrDifficulty(_args[0]);
+    public static String callFightHelpBeanGetTrDifficulty(FightHelpBean _str, int... _args) {
+        return _str.getTrDifficulty(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrEffMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrEffMoves(_args[0]);
+    public static String callFightHelpBeanGetTrEffMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrEffMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrEntryHazard(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrEntryHazard(_args[0]);
+    public static String callFightHelpBeanGetTrEntryHazard(FightHelpBean _str, int... _args) {
+        return _str.getTrEntryHazard(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrGlobalMovesStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrGlobalMovesStatus(_args[0]);
+    public static String callFightHelpBeanGetTrGlobalMovesStatus(FightHelpBean _str, int... _args) {
+        return _str.getTrGlobalMovesStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrImmuRecharging(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrImmuRecharging(_args[0]);
+    public static String callFightHelpBeanGetTrImmuRecharging(FightHelpBean _str, int... _args) {
+        return _str.getTrImmuRecharging(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrImmuStatusAbility(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrImmuStatusAbility(_args[0]);
+    public static String callFightHelpBeanGetTrImmuStatusAbility(FightHelpBean _str, int... _args) {
+        return _str.getTrImmuStatusAbility(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemSpeed(_args[0]);
+    public static String callFightHelpBeanGetTrItemSpeed(FightHelpBean _str, int... _args) {
+        return _str.getTrItemSpeed(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsAbs(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsAbs(_args[0]);
+    public static String callFightHelpBeanGetTrItemsAbs(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsAbs(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsBoostingStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsBoostingStat(_args[0]);
+    public static String callFightHelpBeanGetTrItemsBoostingStat(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsBoostingStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsCancelImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsCancelImmu(_args[0]);
+    public static String callFightHelpBeanGetTrItemsCancelImmu(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsCancelImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsFighterStatis(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsFighterStatis(_args[0]);
+    public static String callFightHelpBeanGetTrItemsFighterStatis(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsFighterStatis(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsFighterStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsFighterStatus(_args[0]);
+    public static String callFightHelpBeanGetTrItemsFighterStatus(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsFighterStatus(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsImmu(_args[0]);
+    public static String callFightHelpBeanGetTrItemsImmu(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsImmuTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsImmuTypes(_args[0]);
+    public static String callFightHelpBeanGetTrItemsImmuTypes(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsImmuTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrItemsMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsProtAgainstKo(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsProtAgainstKo(_args[0]);
+    public static String callFightHelpBeanGetTrItemsProtAgainstKo(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsProtAgainstKo(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsSentBegin(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsSentBegin(_args[0]);
+    public static String callFightHelpBeanGetTrItemsSentBegin(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsSentBegin(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsSentBeginOth(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsSentBeginOth(_args[0]);
+    public static String callFightHelpBeanGetTrItemsSentBeginOth(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsSentBeginOth(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsTargetDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsTargetDamage(_args[0]);
+    public static String callFightHelpBeanGetTrItemsTargetDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsTargetDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsTypesDef(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsTypesDef(_args[0]);
+    public static String callFightHelpBeanGetTrItemsTypesDef(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsTypesDef(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsUserDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsUserDamage(_args[0]);
+    public static String callFightHelpBeanGetTrItemsUserDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsUserDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrItemsUserPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrItemsUserPower(_args[0]);
+    public static String callFightHelpBeanGetTrItemsUserPower(FightHelpBean _str, int... _args) {
+        return _str.getTrItemsUserPower(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrLawRate(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrLawRate(_args[0]);
+    public static String callFightHelpBeanGetTrLawRate(FightHelpBean _str, int... _args) {
+        return _str.getTrLawRate(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesAttracting(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesAttracting(_args[0]);
+    public static String callFightHelpBeanGetTrMovesAttracting(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesAttracting(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesBoostCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesBoostCh(_args[0]);
+    public static String callFightHelpBeanGetTrMovesBoostCh(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesBoostCh(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesCannotKo(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesCannotKo(_args[0]);
+    public static String callFightHelpBeanGetTrMovesCannotKo(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesCannotKo(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesChangeTypeMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesChangeTypeMoves(_args[0]);
+    public static String callFightHelpBeanGetTrMovesChangeTypeMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesChangeTypeMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesChangingAttOrder(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesChangingAttOrder(_args[0]);
+    public static String callFightHelpBeanGetTrMovesChangingAttOrder(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesChangingAttOrder(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesFoeTeamMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesFoeTeamMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrMovesFoeTeamMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesFoeTeamMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesGlobal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesGlobal(_args[0]);
+    public static String callFightHelpBeanGetTrMovesGlobal(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesGlobal(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesGlobalAcc(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesGlobalAcc(_args[0]);
+    public static String callFightHelpBeanGetTrMovesGlobalAcc(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesGlobalAcc(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesGlobalBreakImmu(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesGlobalBreakImmu(_args[0]);
+    public static String callFightHelpBeanGetTrMovesGlobalBreakImmu(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesGlobalBreakImmu(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesGlobalBreakImmuAb(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesGlobalBreakImmuAb(_args[0]);
+    public static String callFightHelpBeanGetTrMovesGlobalBreakImmuAb(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesGlobalBreakImmuAb(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesGlobalMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesGlobalMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrMovesGlobalMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesGlobalMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesGlobalPrepaDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesGlobalPrepaDamage(_args[0]);
+    public static String callFightHelpBeanGetTrMovesGlobalPrepaDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesGlobalPrepaDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesHealingSubstitute(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesHealingSubstitute(_args[0]);
+    public static String callFightHelpBeanGetTrMovesHealingSubstitute(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesHealingSubstitute(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesIgnAcc(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesIgnAcc(_args[0]);
+    public static String callFightHelpBeanGetTrMovesIgnAcc(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesIgnAcc(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesIgnEva(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesIgnEva(_args[0]);
+    public static String callFightHelpBeanGetTrMovesIgnEva(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesIgnEva(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesIgnIncDef(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesIgnIncDef(_args[0]);
+    public static String callFightHelpBeanGetTrMovesIgnIncDef(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesIgnIncDef(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesIgnLowAtt(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesIgnLowAtt(_args[0]);
+    public static String callFightHelpBeanGetTrMovesIgnLowAtt(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesIgnLowAtt(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesInvokDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesInvokDamage(_args[0]);
+    public static String callFightHelpBeanGetTrMovesInvokDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesInvokDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesInvoking(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesInvoking(_args[0]);
+    public static String callFightHelpBeanGetTrMovesInvoking(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesInvoking(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesKoTarget(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesKoTarget(_args[0]);
+    public static String callFightHelpBeanGetTrMovesKoTarget(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesKoTarget(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesMirror(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesMirror(_args[0]);
+    public static String callFightHelpBeanGetTrMovesMirror(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesMirror(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesProtAgainstKo(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesProtAgainstKo(_args[0]);
+    public static String callFightHelpBeanGetTrMovesProtAgainstKo(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesProtAgainstKo(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesProtecting(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesProtecting(_args[0]);
+    public static String callFightHelpBeanGetTrMovesProtecting(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesProtecting(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesProtectingTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesProtectingTypes(_args[0]);
+    public static String callFightHelpBeanGetTrMovesProtectingTypes(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesProtectingTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesSecEffItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesSecEffItems(_args[0]);
+    public static String callFightHelpBeanGetTrMovesSecEffItems(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesSecEffItems(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesTargetPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTargetPower(_args[0]);
+    public static String callFightHelpBeanGetTrMovesTargetPower(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesTargetPower(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesTargetTeamDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTargetTeamDamage(_args[0]);
+    public static String callFightHelpBeanGetTrMovesTargetTeamDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesTargetTeamDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesTeam(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTeam(_args[0]);
+    public static String callFightHelpBeanGetTrMovesTeam(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesTeam(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesTeamMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTeamMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrMovesTeamMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesTeamMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesThieving(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesThieving(_args[0]);
+    public static String callFightHelpBeanGetTrMovesThieving(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesThieving(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesTypeDefMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTypeDefMoves(_args[0]);
+    public static String callFightHelpBeanGetTrMovesTypeDefMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesTypeDefMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesTypesDefItem(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTypesDefItem(_args[0]);
+    public static String callFightHelpBeanGetTrMovesTypesDefItem(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesTypesDefItem(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesTypesDefWeather(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesTypesDefWeather(_args[0]);
+    public static String callFightHelpBeanGetTrMovesTypesDefWeather(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesTypesDefWeather(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesUnprotectingTypes(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesUnprotectingTypes(_args[0]);
+    public static String callFightHelpBeanGetTrMovesUnprotectingTypes(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesUnprotectingTypes(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesUserAllyDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesUserAllyDamage(_args[0]);
+    public static String callFightHelpBeanGetTrMovesUserAllyDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesUserAllyDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrMovesUserPower(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrMovesUserPower(_args[0]);
+    public static String callFightHelpBeanGetTrMovesUserPower(FightHelpBean _str, int... _args) {
+        return _str.getTrMovesUserPower(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrPrepaRoundMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrPrepaRoundMoves(_args[0]);
+    public static String callFightHelpBeanGetTrPrepaRoundMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrPrepaRoundMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrPressureAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrPressureAbilities(_args[0]);
+    public static String callFightHelpBeanGetTrPressureAbilities(FightHelpBean _str, int... _args) {
+        return _str.getTrPressureAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrPrivatingMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrPrivatingMoves(_args[0]);
+    public static String callFightHelpBeanGetTrPrivatingMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrPrivatingMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrProtectAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrProtectAbilities(_args[0]);
+    public static String callFightHelpBeanGetTrProtectAbilities(FightHelpBean _str, int... _args) {
+        return _str.getTrProtectAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrProtectItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrProtectItems(_args[0]);
+    public static String callFightHelpBeanGetTrProtectItems(FightHelpBean _str, int... _args) {
+        return _str.getTrProtectItems(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrProtectMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrProtectMoves(_args[0]);
+    public static String callFightHelpBeanGetTrProtectMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrProtectMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrRechargeMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrRechargeMoves(_args[0]);
+    public static String callFightHelpBeanGetTrRechargeMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrRechargeMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrRecoilAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrRecoilAbilities(_args[0]);
+    public static String callFightHelpBeanGetTrRecoilAbilities(FightHelpBean _str, int... _args) {
+        return _str.getTrRecoilAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrRecoilItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrRecoilItems(_args[0]);
+    public static String callFightHelpBeanGetTrRecoilItems(FightHelpBean _str, int... _args) {
+        return _str.getTrRecoilItems(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrReverseSpeedMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrReverseSpeedMoves(_args[0]);
+    public static String callFightHelpBeanGetTrReverseSpeedMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrReverseSpeedMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrSlowAbilities(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrSlowAbilities(_args[0]);
+    public static String callFightHelpBeanGetTrSlowAbilities(FightHelpBean _str, int... _args) {
+        return _str.getTrSlowAbilities(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrSlowItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrSlowItems(_args[0]);
+    public static String callFightHelpBeanGetTrSlowItems(FightHelpBean _str, int... _args) {
+        return _str.getTrSlowItems(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrSpeedPreparingItems(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrSpeedPreparingItems(_args[0]);
+    public static String callFightHelpBeanGetTrSpeedPreparingItems(FightHelpBean _str, int... _args) {
+        return _str.getTrSpeedPreparingItems(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrStatistic(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatistic(_args[0]);
+    public static String callFightHelpBeanGetTrStatistic(FightHelpBean _str, int... _args) {
+        return _str.getTrStatistic(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrStatusDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatusDamage(_args[0]);
+    public static String callFightHelpBeanGetTrStatusDamage(FightHelpBean _str, int... _args) {
+        return _str.getTrStatusDamage(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrStatusMultStat(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrStatusMultStat(_args[0]);
+    public static String callFightHelpBeanGetTrStatusMultStat(FightHelpBean _str, int... _args) {
+        return _str.getTrStatusMultStat(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrSubstitutingMoves(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrSubstitutingMoves(_args[0]);
+    public static String callFightHelpBeanGetTrSubstitutingMoves(FightHelpBean _str, int... _args) {
+        return _str.getTrSubstitutingMoves(_args[0]);
     }
 
-    public static String callFightHelpBeanGetTrSuccessfulStatus(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTrSuccessfulStatus(_args[0]);
+    public static String callFightHelpBeanGetTrSuccessfulStatus(FightHelpBean _str, int... _args) {
+        return _str.getTrSuccessfulStatus(_args[0]);
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanGlobalMovesStatusGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getGlobalMovesStatus());
+    public static CustList<TranslatedKey> callFightHelpBeanGlobalMovesStatusGet(FightHelpBean _str, int... _args) {
+        return _str.getGlobalMovesStatus();
     }
 
-    public static long callFightHelpBeanHappinessPointsGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getHappinessPoints();
+    public static long callFightHelpBeanHappinessPointsGet(FightHelpBean _str, int... _args) {
+        return _str.getHappinessPoints();
     }
 
-    public static boolean callFightHelpBeanHasLawForAttack(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForAttack(_args[0]);
+    public static boolean callFightHelpBeanHasLawForAttack(FightHelpBean _str, int... _args) {
+        return _str.hasLawForAttack(_args[0]);
     }
 
-    public static boolean callFightHelpBeanHasLawForAttackAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForAttackAny();
+    public static boolean callFightHelpBeanHasLawForAttackAny(FightHelpBean _str, int... _args) {
+        return _str.hasLawForAttackAny();
     }
 
-    public static boolean callFightHelpBeanHasLawForHeal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForHeal(_args[0]);
+    public static boolean callFightHelpBeanHasLawForHeal(FightHelpBean _str, int... _args) {
+        return _str.hasLawForHeal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanHasLawForHealAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).hasLawForHealAny();
+    public static boolean callFightHelpBeanHasLawForHealAny(FightHelpBean _str, int... _args) {
+        return _str.hasLawForHealAny();
     }
 
-    public static boolean callFightHelpBeanImmuChTeamMove(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuChTeamMove(_args[0]);
+    public static boolean callFightHelpBeanImmuChTeamMove(FightHelpBean _str, int... _args) {
+        return _str.immuChTeamMove(_args[0]);
     }
 
-    public static boolean callFightHelpBeanImmuChTeamMoveAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuChTeamMoveAny();
+    public static boolean callFightHelpBeanImmuChTeamMoveAny(FightHelpBean _str, int... _args) {
+        return _str.immuChTeamMoveAny();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanImmuRechargingGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getImmuRecharging());
+    public static CustList<TranslatedKey> callFightHelpBeanImmuRechargingGet(FightHelpBean _str, int... _args) {
+        return _str.getImmuRecharging();
     }
 
-    public static boolean callFightHelpBeanImmuStatisTeamMove(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatisTeamMove(_args[0]);
+    public static boolean callFightHelpBeanImmuStatisTeamMove(FightHelpBean _str, int... _args) {
+        return _str.immuStatisTeamMove(_args[0]);
     }
 
-    public static boolean callFightHelpBeanImmuStatisTeamMoveAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatisTeamMoveAny();
+    public static boolean callFightHelpBeanImmuStatisTeamMoveAny(FightHelpBean _str, int... _args) {
+        return _str.immuStatisTeamMoveAny();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanImmuStatusAbilityGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getImmuStatusAbility());
+    public static CustList<TranslatedKey> callFightHelpBeanImmuStatusAbilityGet(FightHelpBean _str, int... _args) {
+        return _str.getImmuStatusAbility();
     }
 
-    public static boolean callFightHelpBeanImmuStatusTeamMove(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatusTeamMove(_args[0]);
+    public static boolean callFightHelpBeanImmuStatusTeamMove(FightHelpBean _str, int... _args) {
+        return _str.immuStatusTeamMove(_args[0]);
     }
 
-    public static boolean callFightHelpBeanImmuStatusTeamMoveAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).immuStatusTeamMoveAny();
+    public static boolean callFightHelpBeanImmuStatusTeamMoveAny(FightHelpBean _str, int... _args) {
+        return _str.immuStatusTeamMoveAny();
     }
 
-    public static boolean callFightHelpBeanIsDisappearingUser(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).isDisappearingUser(_args[0]);
+    public static boolean callFightHelpBeanIsDisappearingUser(FightHelpBean _str, int... _args) {
+        return _str.isDisappearingUser(_args[0]);
     }
 
-    public static boolean callFightHelpBeanItemBoostAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostAccuracy(_args[0]);
+    public static boolean callFightHelpBeanItemBoostAccuracy(FightHelpBean _str, int... _args) {
+        return _str.itemBoostAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanItemBoostAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostAccuracyAny();
+    public static boolean callFightHelpBeanItemBoostAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.itemBoostAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanItemBoostCh(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostCh(_args[0]);
+    public static boolean callFightHelpBeanItemBoostCh(FightHelpBean _str, int... _args) {
+        return _str.itemBoostCh(_args[0]);
     }
 
-    public static boolean callFightHelpBeanItemBoostChAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostChAny();
+    public static boolean callFightHelpBeanItemBoostChAny(FightHelpBean _str, int... _args) {
+        return _str.itemBoostChAny();
     }
 
-    public static boolean callFightHelpBeanItemBoostEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostEvasiness(_args[0]);
+    public static boolean callFightHelpBeanItemBoostEvasiness(FightHelpBean _str, int... _args) {
+        return _str.itemBoostEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanItemBoostEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostEvasinessAny();
+    public static boolean callFightHelpBeanItemBoostEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.itemBoostEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanItemBoostNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostNormal(_args[0]);
+    public static boolean callFightHelpBeanItemBoostNormal(FightHelpBean _str, int... _args) {
+        return _str.itemBoostNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanItemBoostNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostNormalAny();
+    public static boolean callFightHelpBeanItemBoostNormalAny(FightHelpBean _str, int... _args) {
+        return _str.itemBoostNormalAny();
     }
 
-    public static boolean callFightHelpBeanItemBoostSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostSpeed(_args[0]);
+    public static boolean callFightHelpBeanItemBoostSpeed(FightHelpBean _str, int... _args) {
+        return _str.itemBoostSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanItemBoostSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemBoostSpeedAny();
+    public static boolean callFightHelpBeanItemBoostSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.itemBoostSpeedAny();
     }
 
-//    public static NaSt callFightHelpBeanItemBoostSpeed(NaSt _str, long... _args) {
+//    public static NaSt callFightHelpBeanItemBoostSpeed(FightHelpBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemBoostSpeed(),_str,_args);
 //    }
 //
-//    public static NaSt callFightHelpBeanItemBoostSpeedAny(NaSt _str, long... _args) {
+//    public static NaSt callFightHelpBeanItemBoostSpeedAny(FightHelpBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemBoostSpeedAny(),_str,_args);
 //    }
 
-    public static boolean callFightHelpBeanItemMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.ACCURACY);
+    public static boolean callFightHelpBeanItemMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.itemMult(_args[0], Statistic.ACCURACY);
     }
 
-    public static boolean callFightHelpBeanItemMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.EVASINESS);
+    public static boolean callFightHelpBeanItemMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.itemMult(_args[0], Statistic.EVASINESS);
     }
 
-    public static boolean callFightHelpBeanItemMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultAccuracyAny();
+    public static boolean callFightHelpBeanItemMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.itemMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanItemMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultEvasinessAny();
+    public static boolean callFightHelpBeanItemMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.itemMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanItemMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultNormal(_args[0]);
+    public static boolean callFightHelpBeanItemMultNormal(FightHelpBean _str, int... _args) {
+        return _str.itemMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanItemMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultNormalAny();
+    public static boolean callFightHelpBeanItemMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.itemMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanItemMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMult(_args[0], Statistic.SPEED);
+    public static boolean callFightHelpBeanItemMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.itemMult(_args[0], Statistic.SPEED);
     }
 //
-//    public static NaSt callFightHelpBeanItemMultSpeedAny(NaSt _str, long... _args) {
+//    public static NaSt callFightHelpBeanItemMultSpeedAny(FightHelpBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new FightHelpBeanItemMultSpeedAny(),_str,_args);
 //    }
 
-    public static boolean callFightHelpBeanItemMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).itemMultSpeedAny();
+    public static boolean callFightHelpBeanItemMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.itemMultSpeedAny();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemSpeedGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemSpeed());
+    public static CustList<TranslatedKey> callFightHelpBeanItemSpeedGet(FightHelpBean _str, int... _args) {
+        return _str.getItemSpeed();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsAbsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsAbs());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsAbsGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsAbs();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsBoostingStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsBoostingStat());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsBoostingStatGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsBoostingStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsCancelImmuGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsCancelImmu());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsCancelImmuGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsCancelImmu();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsFighterStatisGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsFighterStatis());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsFighterStatisGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsFighterStatis();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsFighterStatusGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsFighterStatus());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsFighterStatusGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsFighterStatus();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsImmuGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsImmu());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsImmuGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsImmu();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsImmuTypesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsImmuTypes());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsImmuTypesGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsImmuTypes();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsProtAgainstKoGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsProtAgainstKo());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsProtAgainstKoGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsProtAgainstKo();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsSentBeginOtherGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsSentBeginOther());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsSentBeginOtherGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsSentBeginOther();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsSentBeginWeatherGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsSentBeginWeather());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsSentBeginWeatherGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsSentBeginWeather();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsTargetDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsTargetDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsTargetDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsTargetDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsTypesDefGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsTypesDef());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsTypesDefGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsTypesDef();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsUserDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsUserDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsUserDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsUserDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanItemsUserPowerGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getItemsUserPower());
+    public static CustList<TranslatedKey> callFightHelpBeanItemsUserPowerGet(FightHelpBean _str, int... _args) {
+        return _str.getItemsUserPower();
     }
 
-    public static AbsMap<String,AbsBasicTreeMap<Rate,Rate>> callFightHelpBeanLawsRatesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getLawsRates());
+    public static AbsMap<String,AbsBasicTreeMap<Rate,Rate>> callFightHelpBeanLawsRatesGet(FightHelpBean _str, int... _args) {
+        return _str.getLawsRates();
     }
 
-    public static AbsMap<String,String> callFightHelpBeanMapAutoDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMapAutoDamage());
+    public static AbsMap<String,String> callFightHelpBeanMapAutoDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getMapAutoDamage();
     }
 
-    public static AbsMap<String,String> callFightHelpBeanMapVarGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMapVar());
+    public static AbsMap<String,String> callFightHelpBeanMapVarGet(FightHelpBean _str, int... _args) {
+        return _str.getMapVar();
     }
 
-    public static Rate callFightHelpBeanMinHpNotKoGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMinHpNotKo();
+    public static Rate callFightHelpBeanMinHpNotKoGet(FightHelpBean _str, int... _args) {
+        return _str.getMinHpNotKo();
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanMoveFoeTeamMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultAccuracyAny();
+    public static boolean callFightHelpBeanMoveFoeTeamMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanMoveFoeTeamMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultEvasinessAny();
+    public static boolean callFightHelpBeanMoveFoeTeamMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultNormal(_args[0]);
+    public static boolean callFightHelpBeanMoveFoeTeamMultNormal(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultNormalAny();
+    public static boolean callFightHelpBeanMoveFoeTeamMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanMoveFoeTeamMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveFoeTeamMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveFoeTeamMultSpeedAny();
+    public static boolean callFightHelpBeanMoveFoeTeamMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.moveFoeTeamMultSpeedAny();
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanMoveGlobalMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultAccuracyAny();
+    public static boolean callFightHelpBeanMoveGlobalMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanMoveGlobalMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultEvasinessAny();
+    public static boolean callFightHelpBeanMoveGlobalMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultNormal(_args[0]);
+    public static boolean callFightHelpBeanMoveGlobalMultNormal(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultNormalAny();
+    public static boolean callFightHelpBeanMoveGlobalMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanMoveGlobalMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveGlobalMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveGlobalMultSpeedAny();
+    public static boolean callFightHelpBeanMoveGlobalMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.moveGlobalMultSpeedAny();
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanMoveTeamMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultAccuracyAny();
+    public static boolean callFightHelpBeanMoveTeamMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanMoveTeamMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultEvasinessAny();
+    public static boolean callFightHelpBeanMoveTeamMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultNormal(_args[0]);
+    public static boolean callFightHelpBeanMoveTeamMultNormal(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultNormalAny();
+    public static boolean callFightHelpBeanMoveTeamMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanMoveTeamMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanMoveTeamMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).moveTeamMultSpeedAny();
+    public static boolean callFightHelpBeanMoveTeamMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.moveTeamMultSpeedAny();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesAttractingGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesAttracting());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesAttractingGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesAttracting();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesBoostChGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesBoostCh());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesBoostChGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesBoostCh();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesCannotKoGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesCannotKo());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesCannotKoGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesCannotKo();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesChangeTypeMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesChangeTypeMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesChangeTypeMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesChangeTypeMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesChangingAttOrderGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesChangingAttOrder());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesChangingAttOrderGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesChangingAttOrder();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesFoeTeamMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesFoeTeamMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesFoeTeamMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesFoeTeamMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalAccGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesGlobalAcc());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalAccGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesGlobalAcc();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalBreakImmuAbGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesGlobalBreakImmuAb());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalBreakImmuAbGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesGlobalBreakImmuAb();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalBreakImmuGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesGlobalBreakImmu());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalBreakImmuGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesGlobalBreakImmu();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesGlobal());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesGlobal();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesGlobalMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesGlobalMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalPrepaDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesGlobalPrepaDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesGlobalPrepaDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesGlobalPrepaDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesHealingSubstituteGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesHealingSubstitute());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesHealingSubstituteGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesHealingSubstitute();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnAccGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesIgnAcc());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnAccGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesIgnAcc();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnEvaGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesIgnEva());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnEvaGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesIgnEva();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnIncDefGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesIgnIncDef());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnIncDefGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesIgnIncDef();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnLowAttGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesIgnLowAtt());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesIgnLowAttGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesIgnLowAtt();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesInvokDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesInvokDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesInvokDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesInvokDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesInvokingGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesInvoking());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesInvokingGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesInvoking();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesKoTargetGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesKoTarget());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesKoTargetGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesKoTarget();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesMirrorGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesMirror());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesMirrorGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesMirror();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesProtAgainstKoGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesProtAgainstKo());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesProtAgainstKoGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesProtAgainstKo();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesProtectingGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesProtecting());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesProtectingGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesProtecting();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesProtectingTypesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesProtectingTypes());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesProtectingTypesGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesProtectingTypes();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesSecEffItemsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesSecEffItems());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesSecEffItemsGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesSecEffItems();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesTargetPowerGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTargetPower());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesTargetPowerGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesTargetPower();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesTargetTeamDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTargetTeamDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesTargetTeamDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesTargetTeamDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesTeamGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTeam());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesTeamGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesTeam();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesTeamMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTeamMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesTeamMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesTeamMultStat();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesThievingGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesThieving());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesThievingGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesThieving();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesTypeDefMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTypeDefMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesTypeDefMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesTypeDefMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesTypesDefItemGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTypesDefItem());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesTypesDefItemGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesTypesDefItem();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesTypesDefWeatherGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesTypesDefWeather());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesTypesDefWeatherGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesTypesDefWeather();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesUnprotectingTypesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesUnprotectingTypes());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesUnprotectingTypesGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesUnprotectingTypes();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesUserAllyDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesUserAllyDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesUserAllyDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesUserAllyDamage();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanMovesUserPowerGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getMovesUserPower());
+    public static CustList<TranslatedKey> callFightHelpBeanMovesUserPowerGet(FightHelpBean _str, int... _args) {
+        return _str.getMovesUserPower();
     }
 
-    public static boolean callFightHelpBeanNextRowAfter(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).nextRowAfter(_args[0]);
+    public static boolean callFightHelpBeanNextRowAfter(FightHelpBean _str, int... _args) {
+        return _str.nextRowAfter(_args[0]);
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanPrepaRoundMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getPrepaRoundMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanPrepaRoundMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getPrepaRoundMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanPressureAbilitiesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getPressureAbilities());
+    public static CustList<TranslatedKey> callFightHelpBeanPressureAbilitiesGet(FightHelpBean _str, int... _args) {
+        return _str.getPressureAbilities();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanPrivatingMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getPrivatingMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanPrivatingMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getPrivatingMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanProtectAbilitiesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getProtectAbilities());
+    public static CustList<TranslatedKey> callFightHelpBeanProtectAbilitiesGet(FightHelpBean _str, int... _args) {
+        return _str.getProtectAbilities();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanProtectItemsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getProtectItems());
+    public static CustList<TranslatedKey> callFightHelpBeanProtectItemsGet(FightHelpBean _str, int... _args) {
+        return _str.getProtectItems();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanProtectMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getProtectMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanProtectMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getProtectMoves();
     }
 
-    public static String callFightHelpBeanRateFormulaChGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getRateFormulaCh();
+    public static String callFightHelpBeanRateFormulaChGet(FightHelpBean _str, int... _args) {
+        return _str.getRateFormulaCh();
     }
 
-    public static String callFightHelpBeanRateFormulaGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getRateFormula();
+    public static String callFightHelpBeanRateFormulaGet(FightHelpBean _str, int... _args) {
+        return _str.getRateFormula();
     }
 
-    public static String callFightHelpBeanBoostVarGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getBoostVar();
+    public static String callFightHelpBeanBoostVarGet(FightHelpBean _str, int... _args) {
+        return _str.getBoostVar();
     }
-    public static AbsMap<String,String> callFightHelpBeanRatesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getRates());
+    public static AbsMap<String,String> callFightHelpBeanRatesGet(FightHelpBean _str, int... _args) {
+        return _str.getRates();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanRechargeMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getRechargeMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanRechargeMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getRechargeMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanRecoilAbilitiesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getRecoilAbilities());
+    public static CustList<TranslatedKey> callFightHelpBeanRecoilAbilitiesGet(FightHelpBean _str, int... _args) {
+        return _str.getRecoilAbilities();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanRecoilItemsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getRecoilItems());
+    public static CustList<TranslatedKey> callFightHelpBeanRecoilItemsGet(FightHelpBean _str, int... _args) {
+        return _str.getRecoilItems();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanReverseSpeedMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getReverseSpeedMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanReverseSpeedMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getReverseSpeedMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanSlowAbilitiesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getSlowAbilities());
+    public static CustList<TranslatedKey> callFightHelpBeanSlowAbilitiesGet(FightHelpBean _str, int... _args) {
+        return _str.getSlowAbilities();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanSlowItemsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getSlowItems());
+    public static CustList<TranslatedKey> callFightHelpBeanSlowItemsGet(FightHelpBean _str, int... _args) {
+        return _str.getSlowItems();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanSpeedPreparingItemsGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getSpeedPreparingItems());
+    public static CustList<TranslatedKey> callFightHelpBeanSpeedPreparingItemsGet(FightHelpBean _str, int... _args) {
+        return _str.getSpeedPreparingItems();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanStatisticAnimGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStatisticAnim());
+    public static CustList<TranslatedKey> callFightHelpBeanStatisticAnimGet(FightHelpBean _str, int... _args) {
+        return _str.getStatisticAnim();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanStatusDamageGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStatusDamage());
+    public static CustList<TranslatedKey> callFightHelpBeanStatusDamageGet(FightHelpBean _str, int... _args) {
+        return _str.getStatusDamage();
     }
 
-    public static boolean callFightHelpBeanStatusMultAccuracy(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultAccuracy(_args[0]);
+    public static boolean callFightHelpBeanStatusMultAccuracy(FightHelpBean _str, int... _args) {
+        return _str.statusMultAccuracy(_args[0]);
     }
 
-    public static boolean callFightHelpBeanStatusMultAccuracyAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultAccuracyAny();
+    public static boolean callFightHelpBeanStatusMultAccuracyAny(FightHelpBean _str, int... _args) {
+        return _str.statusMultAccuracyAny();
     }
 
-    public static boolean callFightHelpBeanStatusMultEvasiness(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultEvasiness(_args[0]);
+    public static boolean callFightHelpBeanStatusMultEvasiness(FightHelpBean _str, int... _args) {
+        return _str.statusMultEvasiness(_args[0]);
     }
 
-    public static boolean callFightHelpBeanStatusMultEvasinessAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultEvasinessAny();
+    public static boolean callFightHelpBeanStatusMultEvasinessAny(FightHelpBean _str, int... _args) {
+        return _str.statusMultEvasinessAny();
     }
 
-    public static boolean callFightHelpBeanStatusMultNormal(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultNormal(_args[0]);
+    public static boolean callFightHelpBeanStatusMultNormal(FightHelpBean _str, int... _args) {
+        return _str.statusMultNormal(_args[0]);
     }
 
-    public static boolean callFightHelpBeanStatusMultNormalAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultNormalAny();
+    public static boolean callFightHelpBeanStatusMultNormalAny(FightHelpBean _str, int... _args) {
+        return _str.statusMultNormalAny();
     }
 
-    public static boolean callFightHelpBeanStatusMultSpeed(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultSpeed(_args[0]);
+    public static boolean callFightHelpBeanStatusMultSpeed(FightHelpBean _str, int... _args) {
+        return _str.statusMultSpeed(_args[0]);
     }
 
-    public static boolean callFightHelpBeanStatusMultSpeedAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).statusMultSpeedAny();
+    public static boolean callFightHelpBeanStatusMultSpeedAny(FightHelpBean _str, int... _args) {
+        return _str.statusMultSpeedAny();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanStatusMultStatGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStatusMultStat());
+    public static CustList<TranslatedKey> callFightHelpBeanStatusMultStatGet(FightHelpBean _str, int... _args) {
+        return _str.getStatusMultStat();
     }
 
-    public static Rate callFightHelpBeanStrongMoveGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getStrongMove();
+    public static Rate callFightHelpBeanStrongMoveGet(FightHelpBean _str, int... _args) {
+        return _str.getStrongMove();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanSubstitutingMovesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getSubstitutingMoves());
+    public static CustList<TranslatedKey> callFightHelpBeanSubstitutingMovesGet(FightHelpBean _str, int... _args) {
+        return _str.getSubstitutingMoves();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanSuccessfulStatusGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getSuccessfulStatus());
+    public static CustList<TranslatedKey> callFightHelpBeanSuccessfulStatusGet(FightHelpBean _str, int... _args) {
+        return _str.getSuccessfulStatus();
     }
 
-    public static CustList<TranslatedKey> callFightHelpBeanTypesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getTypes());
+    public static CustList<TranslatedKey> callFightHelpBeanTypesGet(FightHelpBean _str, int... _args) {
+        return _str.getTypes();
     }
 
-    public static AbsMap<String,String> callFightHelpBeanVarCatchingFormulaGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getVarCatchingFormula());
+    public static AbsMap<String,String> callFightHelpBeanVarCatchingFormulaGet(FightHelpBean _str, int... _args) {
+        return _str.getVarCatchingFormula();
     }
 
-    public static AbsMap<String,String> callFightHelpBeanVarFleeingFormulaGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getVarFleeingFormula());
+    public static AbsMap<String,String> callFightHelpBeanVarFleeingFormulaGet(FightHelpBean _str, int... _args) {
+        return _str.getVarFleeingFormula();
     }
 
-    public static AbsMap<String,String> callFightHelpBeanVarRatesGet(NaSt _str, int... _args) {
-        return (( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getVarRates());
+    public static AbsMap<String,String> callFightHelpBeanVarRatesGet(FightHelpBean _str, int... _args) {
+        return _str.getVarRates();
     }
 
-    public static boolean callFightHelpBeanWithConstDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withConstDamage(_args[0]);
+    public static boolean callFightHelpBeanWithConstDamage(FightHelpBean _str, int... _args) {
+        return _str.withConstDamage(_args[0]);
     }
 
-    public static boolean callFightHelpBeanWithConstDamageAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withConstDamageAny();
+    public static boolean callFightHelpBeanWithConstDamageAny(FightHelpBean _str, int... _args) {
+        return _str.withConstDamageAny();
     }
 
-    public static boolean callFightHelpBeanWithMultDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withMultDamage(_args[0]);
+    public static boolean callFightHelpBeanWithMultDamage(FightHelpBean _str, int... _args) {
+        return _str.withMultDamage(_args[0]);
     }
 
-    public static boolean callFightHelpBeanWithMultDamageAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withMultDamageAny();
+    public static boolean callFightHelpBeanWithMultDamageAny(FightHelpBean _str, int... _args) {
+        return _str.withMultDamageAny();
     }
 
-    public static boolean callFightHelpBeanWithRandDamage(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withRandDamage(_args[0]);
+    public static boolean callFightHelpBeanWithRandDamage(FightHelpBean _str, int... _args) {
+        return _str.withRandDamage(_args[0]);
     }
 
-    public static boolean callFightHelpBeanWithRandDamageAny(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).withRandDamageAny();
+    public static boolean callFightHelpBeanWithRandDamageAny(FightHelpBean _str, int... _args) {
+        return _str.withRandDamageAny();
     }
 
-    public static Rate callFightHelpBeanWonHappinessPointsLevelGet(NaSt _str, int... _args) {
-        return ( (FightHelpBean) ((PokemonBeanStruct)_str).getInstance()).getWonHappinessPointsLevel();
+    public static Rate callFightHelpBeanWonHappinessPointsLevelGet(FightHelpBean _str, int... _args) {
+        return _str.getWonHappinessPointsLevel();
     }
-    protected static NaSt bean(FacadeGame _f) {
+    protected static FightHelpBean bean(FacadeGame _f) {
         PkData pk_ = pkDataByFacade(_f);
         FightHelpBean help_ = new FightHelpBean();
         help_.setBuilder(builder(_f));
@@ -2238,7 +2237,7 @@ public abstract class InitDbFightHelp extends InitDbConstr {
 
         pk_.bean(help_, EN);
         beforeDisplaying(help_);
-        return new PokemonBeanStruct(help_);
+        return help_;
     }
 }
 
