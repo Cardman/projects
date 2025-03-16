@@ -61,7 +61,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     public static AbsMap<String,String> callMovesBeanCategoriesGet(MovesBean _str, int... _args) {
-        return (_str.getCategories());
+        return _str.getCategories();
     }
 
     public static String callMovesBeanCategoryGet(MovesBean _str, int... _args) {
@@ -137,7 +137,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     public static CustList<String> callMoveLineBeanTypesGet(int _index, int... _args) {
-        return (dispLine(feedDb(), _index).getTypes());
+        return dispLine(feedDb(), _index).getTypes();
     }
 
     public static String callMovesBeanLearntGet(MovesBean _str, int... _args) {
@@ -274,7 +274,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     public static CustList<String> callMoveLineGetTypes(MoveLine _str, int... _args) {
-        return (_str.getTypes());
+        return _str.getTypes();
     }
 
     public static long callMoveLinePpGet(MoveLine _str, int... _args) {
