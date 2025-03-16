@@ -59,7 +59,7 @@ public abstract class InitDbEffects extends InitDbConstr {
         return combos_;
     }
 
-    protected static NaSt dispAllCombos(int _ind) {
+    protected static EffectComboBean dispAllCombos(int _ind) {
         PkData pk_ = pkDataByFacade(feedDb());
         StringMap<NaSt> all_ = beanToCombosSet(pk_);
         NaSt combos_ = all_.getVal(BEAN_COMBOS);
@@ -71,7 +71,7 @@ public abstract class InitDbEffects extends InitDbConstr {
 ////        callEffectComboBeanIndexSet(combo_,_ind);
 //        setFormsBy(pk_,combo_,combos_);
 //        beforeDisplaying(combo_);
-        return new PokemonBeanStruct(((CombosBean) ((PokemonBeanStruct)combos_).getBean()).getList().get(_ind));
+        return ((CombosBean) ((PokemonBeanStruct)combos_).getBean()).getList().get(_ind);
     }
 
 //    public static NaSt callEffectComboBeanIndexSet(NaSt _str, int _args) {
