@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.beans.pokemon.evolutions.*;
 import aiki.fight.util.LevelMove;
 import aiki.util.Coords;
-import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
@@ -25,33 +24,33 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static CustList<TranslatedKey> callPokemonBeanAbilitiesGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getAbilities());
+        return dispPkOne(0).getAbilities();
     }
 
     public static int[][] callPokemonBeanBackImageGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getBackImage();
+        return dispPkOne(0).getBackImage();
     }
 
     public static long callPokemonBeanCatchingRateGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getCatchingRate();
+        return dispPkOne(0).getCatchingRate();
     }
 
     public static String callPokemonBeanClickAbility() {
         return callPokemonBeanClickAbility(dispPkOne(0));
     }
 
-    public static String callPokemonBeanClickAbility(NaSt _str) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickAbility(0);
+    public static String callPokemonBeanClickAbility(PokemonBean _str) {
+        return _str.clickAbility(0);
     }
 
     public static String callPokemonBeanClickAbilityId() {
-        NaSt bean_ = dispPkOne(0);
+        PokemonBean bean_ = dispPkOne(0);
         callPokemonBeanClickAbility(bean_);
         return getValAbilityId(bean_);
     }
 
-    public static String callPokemonBeanClickBase(NaSt _str) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickBase();
+    public static String callPokemonBeanClickBase(PokemonBean _str) {
+        return _str.clickBase();
     }
 
     public static String callPokemonBeanClickBase() {
@@ -59,7 +58,7 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
     public static String callPokemonBeanClickBaseId() {
-        NaSt bean_ = dispPkOne(1);
+        PokemonBean bean_ = dispPkOne(1);
         callPokemonBeanClickBase(bean_);
         return getValPkId(bean_);
     }
@@ -68,12 +67,12 @@ public abstract class InitDbPkOne extends InitDbPk {
         return callPokemonBeanClickEggPk(dispPkOne(_row),_args);
     }
 
-    public static String callPokemonBeanClickEggPk(NaSt _str, int _ind) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickEggPk(_ind);
+    public static String callPokemonBeanClickEggPk(PokemonBean _str, int _ind) {
+        return _str.clickEggPk(_ind);
     }
 
     public static String callPokemonBeanClickEggPkId(int _row,int _args) {
-        NaSt bean_ = dispPkOne(_row);
+        PokemonBean bean_ = dispPkOne(_row);
         callPokemonBeanClickEggPk(bean_,_args);
         return getValPkId(bean_);
     }
@@ -82,12 +81,12 @@ public abstract class InitDbPkOne extends InitDbPk {
         return callPokemonBeanClickHiddenMove(dispPkOne(0));
     }
 
-    public static String callPokemonBeanClickHiddenMove(NaSt _str) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickHiddenMove(0);
+    public static String callPokemonBeanClickHiddenMove(PokemonBean _str) {
+        return _str.clickHiddenMove(0);
     }
 
     public static String callPokemonBeanClickHiddenMoveId() {
-        NaSt bean_ = dispPkOne(0);
+        PokemonBean bean_ = dispPkOne(0);
         callPokemonBeanClickHiddenMove(bean_);
         return getValMoveId(bean_);
     }
@@ -96,15 +95,15 @@ public abstract class InitDbPkOne extends InitDbPk {
         return callPokemonBeanClickLevel(dispPkOne(10));
     }
 
-    public static String callPokemonBeanClickLevel(NaSt _str) {
+    public static String callPokemonBeanClickLevel(PokemonBean _str) {
         PokemonBean pk_ = new PokemonBean();
-        pk_.setBuilder(((PokemonBeanStruct)_str).getInstance().getBuilder());
+        pk_.setBuilder(_str.getBuilder());
 //        navigateData(new PokemonBeanClickLevel(),new PokemonBeanStruct(pk_),2,1);
-        return navigateData(new MapBeanClickLevelBeanAction((CommonBean) ((PokemonBeanStruct)_str).getBean(),2,1),_str);
+        return navigateData(new MapBeanClickLevelBeanAction(_str,2,1),_str);
     }
 
     public static Coords callPokemonBeanClickLevelId() {
-        NaSt bean_ = dispPkOne(10);
+        PokemonBean bean_ = dispPkOne(10);
         callPokemonBeanClickLevel(bean_);
         assertTrue(containsPlaceLevelId(bean_));
         return getValPlaceLevelId(bean_);
@@ -114,12 +113,12 @@ public abstract class InitDbPkOne extends InitDbPk {
         return callPokemonBeanClickLevelZero(dispPkOne(1));
     }
 
-    public static String callPokemonBeanClickLevelZero(NaSt _str) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickLevel(0,0);
+    public static String callPokemonBeanClickLevelZero(PokemonBean _str) {
+        return _str.clickLevel(0,0);
     }
 
     public static Coords callPokemonBeanClickLevelZeroId() {
-        NaSt bean_ = dispPkOne(1);
+        PokemonBean bean_ = dispPkOne(1);
         callPokemonBeanClickLevelZero(bean_);
         assertTrue(containsPlaceLevelId(bean_));
         return getValPlaceLevelId(bean_);
@@ -128,12 +127,12 @@ public abstract class InitDbPkOne extends InitDbPk {
         return callPokemonBeanClickMove(dispPkOne(0),_args);
     }
 
-    public static String callPokemonBeanClickMove(NaSt _str, int _args) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickMove(_args);
+    public static String callPokemonBeanClickMove(PokemonBean _str, int _args) {
+        return _str.clickMove(_args);
     }
 
     public static String callPokemonBeanClickMoveId(int _args) {
-        NaSt bean_ = dispPkOne(0);
+        PokemonBean bean_ = dispPkOne(0);
         callPokemonBeanClickMove(bean_,_args);
         return getValMoveId(bean_);
     }
@@ -142,19 +141,19 @@ public abstract class InitDbPkOne extends InitDbPk {
         return callPokemonBeanClickMoveTutors(dispPkOne(0));
     }
 
-    public static String callPokemonBeanClickMoveTutors(NaSt _str) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickMoveTutors(0);
+    public static String callPokemonBeanClickMoveTutors(PokemonBean _str) {
+        return _str.clickMoveTutors(0);
     }
 
     public static String callPokemonBeanClickMoveTutorsId() {
-        NaSt bean_ = dispPkOne(0);
+        PokemonBean bean_ = dispPkOne(0);
         callPokemonBeanClickMoveTutors(bean_);
         return getValMoveId(bean_);
     }
 
     public static String callPokemonBeanClickPokedex() {
-        NaSt bean_ = dispPkOne(0);
-        String value_ = navigateData(new PokemonBeanClickPokedex(((PokemonBean) ((PokemonBeanStruct)bean_).getBean())),bean_);
+        PokemonBean bean_ = dispPkOne(0);
+        String value_ = navigateData(new PokemonBeanClickPokedex(bean_),bean_);
         assertFalse(containsPlaceLevelId(bean_));
         return value_;
     }
@@ -163,110 +162,110 @@ public abstract class InitDbPkOne extends InitDbPk {
         return callPokemonBeanClickTechnicalMove(dispPkOne(0));
     }
 
-    public static String callPokemonBeanClickTechnicalMove(NaSt _str) {
-        return ( (PokemonBean) ((PokemonBeanStruct)_str).getInstance()).clickTechnicalMove(0);
+    public static String callPokemonBeanClickTechnicalMove(PokemonBean _str) {
+        return _str.clickTechnicalMove(0);
     }
 
     public static String callPokemonBeanClickTechnicalMoveId() {
-        NaSt bean_ = dispPkOne(0);
+        PokemonBean bean_ = dispPkOne(0);
         callPokemonBeanClickTechnicalMove(bean_);
         return getValMoveId(bean_);
     }
 
     public static String callPokemonBeanDisplayNameGet(int _args) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_args)).getInstance()).getDisplayName();
+        return dispPkOne(_args).getDisplayName();
     }
 
     public static CustList<TranslatedKey> callPokemonBeanEggGroupsPkGet(int _line) {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_line)).getInstance()).getEggGroupsPk());
+        return dispPkOne(_line).getEggGroupsPk();
     }
 
     public static String callPokemonBeanEvoBaseGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(1)).getInstance()).getEvoBase();
+        return dispPkOne(1).getEvoBase();
     }
 
     public static CustList<TranslatedKey> callPokemonBeanEvolutionsGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct) dispPkOne(0)).getInstance()).getEvolutions());
+        return dispPkOne(0).getEvolutions();
     }
 
     public static String callPokemonBeanExpEvoGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getExpEvo();
+        return dispPkOne(0).getExpEvo();
     }
 
     public static long callPokemonBeanExpRateGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getExpRate();
+        return dispPkOne(0).getExpRate();
     }
 
     public static int[][] callPokemonBeanFrontImageGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getFrontImage();
+        return dispPkOne(0).getFrontImage();
     }
 
     public static long callPokemonBeanGetBase() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getBase(0);
+        return dispPkOne(0).getBase(0);
     }
 
     public static String callPokemonBeanGetEggPk(int _line, int _ind) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_line)).getInstance()).getEggPk(_ind);
+        return dispPkOne(_line).getEggPk(_ind);
     }
 
     public static long callPokemonBeanGetEv() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getEv(0);
+        return dispPkOne(0).getEv(0);
     }
 
     public static long callPokemonBeanGetMapWidth() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMapWidth();
+        return dispPkOne(0).getMapWidth();
     }
 
     public static int[][] callPokemonBeanGetMiniMapImage(int _tile) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMiniMapImage(_tile);
+        return dispPkOne(0).getMiniMapImage(_tile);
     }
 
     public static String callPokemonBeanGetMoveTutor() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMoveTutor(0);
+        return dispPkOne(0).getMoveTutor(0);
     }
 
-//    public static NaSt callPokemonBeanGetPage(NaSt _str, long... _args) {
+//    public static NaSt callPokemonBeanGetPage(PokemonBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetPage(),_str,_args);
 //    }
 
     public static String callPokemonBeanGetPlaceName(int _tile) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPlaceName(_tile);
+        return dispPkOne(0).getPlaceName(_tile);
     }
 
     public static String callPokemonBeanGetTrAbility() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTrAbility(0);
+        return dispPkOne(0).getTrAbility(0);
     }
 
     public static LgInt callPokemonBeanHatchingStepsGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHatchingSteps();
+        return dispPkOne(0).getHatchingSteps();
     }
 
     public static Rate callPokemonBeanHeightGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHeight();
+        return dispPkOne(0).getHeight();
     }
 
     public static AbsMap<Integer,TranslatedKey> callPokemonBeanHiddenMovesGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getHiddenMoves());
+        return dispPkOne(0).getHiddenMoves();
     }
 
     public static AbsMap<MiniMapCoords,int[][]> callPokemonBeanImagesGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getImages());
+        return dispPkOne(0).getImages();
     }
 
     public static boolean callPokemonBeanIsAppearing(int _pk,int _pl, int _lev) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearing(_pl,_lev);
+        return dispPkOne(_pk).isAppearing(_pl,_lev);
     }
 
     public static boolean callPokemonBeanIsAppearingAnyWhere(int _pk) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearingAnyWhere();
+        return dispPkOne(_pk).isAppearingAnyWhere();
     }
 
     public static boolean callPokemonBeanIsAppearingPlace(int _pk,int _pl) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearingPlace(_pl);
+        return dispPkOne(_pk).isAppearingPlace(_pl);
     }
 
     public static boolean callPokemonBeanIsAppearingZero(int _pk,int _pl) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(_pk)).getInstance()).isAppearing(_pl,0);
+        return dispPkOne(_pk).isAppearing(_pl,0);
     }
 //
 //    public static Struct callPokemonBeanIsFirstRow(int _row) {
@@ -274,59 +273,59 @@ public abstract class InitDbPkOne extends InitDbPk {
 //    }
 
     public static boolean callPokemonBeanIsMultiLayer(int _pl) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).isMultiLayer(_pl);
+        return dispPkOne(0).isMultiLayer(_pl);
     }
 
     public static int callPokemonBeanLayers(int _pl) {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).layers(_pl).size();
+        return dispPkOne(0).layers(_pl).size();
     }
 
     public static CustList<LevelMoveTranslatedKey> callPokemonBeanLevMovesGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getLevMoves();
+        return dispPkOne(0).getLevMoves();
     }
 
     public static AbsMap<String,String> callPokemonBeanMapVarsGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMapVars());
+        return dispPkOne(0).getMapVars();
     }
 
     public static CustList<TranslatedKey> callPokemonBeanMoveTutorsGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getMoveTutors());
+        return dispPkOne(0).getMoveTutors();
     }
 
-//    public static NaSt callPokemonBeanNameGet(NaSt _str, long... _args) {
+//    public static NaSt callPokemonBeanNameGet(PokemonBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new PokemonBeanNameGet(),_str,_args);
 //    }
 
     public static CustList<PlaceIndex> callPokemonBeanPlacesGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPlaces());
+        return dispPkOne(0).getPlaces();
     }
 
     public static CustList<TranslatedKey> callPokemonBeanPossibleGendersGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getPossibleGenders();
+        return dispPkOne(0).getPossibleGenders();
     }
 
     public static String callPokemonBeanRoundHeight() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).roundHeight();
+        return dispPkOne(0).roundHeight();
     }
 
     public static String callPokemonBeanRoundWeight() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).roundWeight();
+        return dispPkOne(0).roundWeight();
     }
 
     public static CustList<StringStatBaseEv> callPokemonBeanStatisticsGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getStatistics();
+        return dispPkOne(0).getStatistics();
     }
 
     public static AbsMap<Integer,TranslatedKey> callPokemonBeanTechnicalMovesGet() {
-        return (( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTechnicalMoves());
+        return dispPkOne(0).getTechnicalMoves();
     }
 
     public static CustList<TranslatedKey> callPokemonBeanTypesGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getTypes();
+        return dispPkOne(0).getTypes();
     }
 
     public static Rate callPokemonBeanWeightGet() {
-        return ( (PokemonBean) ((PokemonBeanStruct)dispPkOne(0)).getInstance()).getWeight();
+        return dispPkOne(0).getWeight();
     }
 
 
@@ -444,18 +443,18 @@ public abstract class InitDbPkOne extends InitDbPk {
         return dispPkOne(12,0).getDisplayName();
     }
 
-//    public static NaSt callEvolutionBeanIndexGet(NaSt _str, long... _args) {
+//    public static NaSt callEvolutionBeanIndexGet(PokemonBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EvolutionBeanIndexGet(),_str,_args);
 //    }
-//    public static NaSt callEvolutionBeanBaseSet(NaSt _str, String _args) {
+//    public static NaSt callEvolutionBeanBaseSet(PokemonBean _str, String _args) {
 //        return BeanPokemonCommonTs.callString(new EvolutionBeanBaseSet(),_str,_args);
 //    }
 //
-//    public static NaSt callEvolutionBeanNameSet(NaSt _str, String _args) {
+//    public static NaSt callEvolutionBeanNameSet(PokemonBean _str, String _args) {
 //        return BeanPokemonCommonTs.callString(new EvolutionBeanNameSet(),_str,_args);
 //    }
 //
-//    public static NaSt callEvolutionBeanIndexSet(NaSt _str, int _args) {
+//    public static NaSt callEvolutionBeanIndexSet(PokemonBean _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new EvolutionBeanIndexSet(),_str,_args);
 //    }
 
@@ -472,50 +471,51 @@ public abstract class InitDbPkOne extends InitDbPk {
 //    public static NaSt secondImg(NaSt _arr) {
 //        return ((PairStruct)_arr).getSecond();
 //    }
-    protected static NaSt dispPkOne(int _index) {
+    protected static PokemonBean dispPkOne(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<NaSt> all_ = beanToPkOne(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToPkOne(pk_);
         return transitToAllPks(pk_, all_, _index);
     }
     protected static EvolutionBean dispPkOne(int _index, int _evo) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<NaSt> all_ = beanToPkOne(pk_);
+        StringMap<BeanRenderWithAppName> all_ = beanToPkOne(pk_);
 //        StringMap<String> mapping_ = mappingToPkOne();
-        NaSt pkbean_ = transitToAllPks(pk_, all_, _index);
+        PokemonBean pkbean_ = transitToAllPks(pk_, all_, _index);
 //        NaSt evobean_ = byStr(all_, mapping_, callPokemonBeanGetPage(pkbean_, _evo));
 //        callEvolutionBeanBaseSet(evobean_,toStr(callPokemonBeanNameGet(pkbean_)));
 //        callEvolutionBeanIndexSet(evobean_,_evo);
 //        callEvolutionBeanNameSet(evobean_,toStr(elt(callPokemonBeanEvolutionsGet(pkbean_),_evo)));
 //        setFormsBy(pk_,evobean_,pkbean_);
 //        beforeDisplaying(evobean_);
-        return ((PokemonBean)((PokemonBeanStruct)pkbean_).getBean()).getBeans().get(_evo);
+        return pkbean_.getBeans().get(_evo);
     }
-    public static StringMap<NaSt> beanToPkOne(PkData _pk) {
-        StringMap<NaSt> map_ = beanToPk(_pk);
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_HAPPINESS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_ITEM,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL_GENDER,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_MOVE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE_GENDER,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TEAM,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TYPE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_HAPPINESS,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_ITEM,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL_GENDER,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_MOVE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE_GENDER,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TEAM,new TranslationsFile());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TYPE,new TranslationsFile());
+    public static StringMap<BeanRenderWithAppName> beanToPkOne(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = beanToPk(_pk);
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_HAPPINESS,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_ITEM,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL_GENDER,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_MOVE,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE_GENDER,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TEAM,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TYPE,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_HAPPINESS,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_ITEM,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_LEVEL_GENDER,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_MOVE,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_STONE_GENDER,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TEAM,new TranslationsFile());
+        map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EVO_TYPE,new TranslationsFile());
         PokemonBean pkBean_ = new PokemonBean();
-        pkBean_.setBuilder(((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder());
-        ((CommonBean)((PokemonBeanStruct)map_.getValue(0)).getBean()).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,pkBean_);
-        map_.addEntry(BEAN_PK, _pk.bean(pkBean_, EN));
+        pkBean_.setBuilder(map_.getValue(0).getBuilder());
+        map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,pkBean_);
+        initBean(pkBean_,EN,_pk.getDataBase());
+        map_.addEntry(BEAN_PK, pkBean_);
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_HAPPY,_pk.beanEvolutionHappinessBean(EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_ITEM,_pk.beanEvolutionItemBean(EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_LEVEL,_pk.beanEvolutionLevelBean(EN));

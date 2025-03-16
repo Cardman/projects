@@ -3,7 +3,6 @@ package aiki.beans.pokemon;
 import aiki.beans.CommonBean;
 import aiki.beans.WithFilterBean;
 import aiki.facade.enums.SelectedBoolean;
-import code.bean.nat.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -51,79 +50,79 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void wholeWordSet1() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanWholeWordSet(bean_,false);
         assertFalse(callPokedexBeanWholeWordGet(bean_));
     }
     @Test
     public void wholeWordSet2() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanWholeWordSet(bean_,true);
         assertTrue(callPokedexBeanWholeWordGet(bean_));
     }
     @Test
     public void maxAccSet() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedMaxNbPossEvosSet(bean_,"1");
         assertEq("1",callPokedexBeanTypedMaxNbPossEvosGet(bean_));
     }
     @Test
     public void minAccSet() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedMinNbPossEvosSet(bean_,"1");
         assertEq("1",callPokedexBeanTypedMinNbPossEvosGet(bean_));
     }
     @Test
     public void typedNameSet() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedNameSet(bean_,M_DAM_TR);
         assertEq(M_DAM_TR,callPokedexBeanTypedNameGet(bean_));
     }
     @Test
     public void typedTypeSet() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedTypeSet(bean_, T_TYPE1_TR);
         assertEq(T_TYPE1_TR,callPokedexBeanTypedTypeGet(bean_));
     }
     @Test
     public void evoSet1() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsEvoSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(SelectedBoolean.YES.getBoolName(), callPokedexBeanIsEvoGet(bean_));
     }
     @Test
     public void evoSet2() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsEvoSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(SelectedBoolean.NO.getBoolName(), callPokedexBeanIsEvoGet(bean_));
     }
     @Test
     public void evoSet3() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanHasEvoSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(SelectedBoolean.YES.getBoolName(), callPokedexBeanHasEvoGet(bean_));
     }
     @Test
     public void evoSet4() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanHasEvoSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(SelectedBoolean.NO.getBoolName(), callPokedexBeanHasEvoGet(bean_));
     }
     @Test
     public void legSet1() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsLegSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(SelectedBoolean.YES.getBoolName(), callPokedexBeanIsLegGet(bean_));
     }
     @Test
     public void legSet2() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsLegSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(SelectedBoolean.NO.getBoolName(), callPokedexBeanIsLegGet(bean_));
     }
     @Test
     public void search1() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValPokemonData(CST_POKEMON_SET).getKeys());
@@ -147,7 +146,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search2() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedNameSet(bean_,"*0_TR");
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -158,7 +157,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search3() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedTypeSet(bean_,"*3*");
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -167,7 +166,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search4() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedTypeSet(bean_,"*2*");
         callPokedexBeanWholeWordSet(bean_, false);
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
@@ -179,7 +178,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search5() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedTypeSet(bean_,"*3*");
         callPokedexBeanWholeWordSet(bean_, true);
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
@@ -189,7 +188,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search6() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedMinNbPossEvosSet(bean_,"1");
         callPokedexBeanTypedMaxNbPossEvosSet(bean_,"1");
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
@@ -206,7 +205,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search7() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedMaxNbPossEvosSet(bean_,"1");
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -230,7 +229,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search8() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedMinNbPossEvosSet(bean_,"1");
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -247,7 +246,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search9() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanHasEvoSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -264,7 +263,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search10() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanHasEvoSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -281,7 +280,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search11() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsEvoSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -299,7 +298,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search12() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsEvoSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -315,7 +314,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search14() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsLegSet(bean_,SelectedBoolean.YES.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -326,7 +325,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search15() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanIsLegSet(bean_,SelectedBoolean.NO.getBoolName());
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
@@ -349,7 +348,7 @@ public final class PokedexBeanTest extends InitDbPk {
     }
     @Test
     public void search16() {
-        NaSt bean_ = dispAllPks();
+        PokedexBean bean_ = dispAllPks();
         callPokedexBeanTypedNameSet(bean_,P_POK_00_TR);
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML, navigatePkSearch(bean_));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));

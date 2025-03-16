@@ -39,8 +39,18 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         bu_.build(_caller);
     }
 
+    public static void transit(PokemonStandards _stds, IntBeanAction _caller, CommonBean _first, CommonBean _second) {
+        IntBeanBuilderHelper bu_ = _second.getBuilder();
+//        setFormsBy(_stds,_second,_first);
+        bu_.build(_caller);
+    }
+
     public static StringMapObject forms(NaSt _str) {
         return ((CommonBean)((PokemonBeanStruct)_str).getInstance()).getForms();
+    }
+
+    public static StringMapObject forms(CommonBean _str) {
+        return _str.getForms();
     }
 
 

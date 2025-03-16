@@ -145,11 +145,11 @@ public abstract class InitDbPk extends InitDbConstr {
         return _str.getEvolutions();
     }
     public static AbsMap<String,String> callPokedexBeanBooleansGet() {
-        return (( (PokedexBean) ((PokemonBeanStruct)dispAllPks()).getInstance()).getBooleans());
+        return dispAllPks().getBooleans();
     }
 
-    public static String callPokedexBeanClickLink(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).clickLink(_args[0]);
+    public static String callPokedexBeanClickLink(PokedexBean _str, int... _args) {
+        return _str.clickLink(_args[0]);
     }
 
     public static String callPokedexBeanClickLink(int... _args) {
@@ -157,135 +157,136 @@ public abstract class InitDbPk extends InitDbConstr {
     }
 
     public static String callPokedexBeanClickLinkId(int... _args) {
-        NaSt bean_ = dispAllPksSearch();
+        PokedexBean bean_ = dispAllPksSearch();
         callPokedexBeanClickLink(bean_,_args);
         return getValPkId(bean_);
     }
 
-    public static int[][] callPokedexBeanGetMiniImage(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getMiniImagePk(_args[0]);
+    public static int[][] callPokedexBeanGetMiniImage(PokedexBean _str, int... _args) {
+        return _str.getMiniImagePk(_args[0]);
     }
 
-    public static String callPokedexBeanIsEvoGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().tryRet();
+    public static String callPokedexBeanIsEvoGet(PokedexBean _str, int... _args) {
+        return _str.getIsEvo().tryRet();
     }
 
-    public static String callPokedexBeanHasEvoGet(NaSt _str, int... _args) {
-        return ( (WithFilterBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().tryRet();
+    public static String callPokedexBeanHasEvoGet(PokedexBean _str, int... _args) {
+        return _str.getHasEvo().tryRet();
     }
 
-    public static String callPokedexBeanIsLegGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet();
+    public static String callPokedexBeanIsLegGet(PokedexBean _str, int... _args) {
+        return _str.getIsLeg().tryRet();
     }
 
-    public static CustList<PokemonLine> callPokedexBeanPokedexGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex();
+    public static CustList<PokemonLine> callPokedexBeanPokedexGet(PokedexBean _str, int... _args) {
+        return _str.getPokedex();
     }
 
-//    public static NaSt callPokedexBeanSearch(NaSt _str, long... _args) {
+//    public static NaSt callPokedexBeanSearch(PokedexBean _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new PokedexBeanSearch(),_str,_args);
 //    }
 
-    public static String callPokedexBeanTypedMaxNbPossEvosGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMaxNbPossEvos().tryRet();
+    public static String callPokedexBeanTypedMaxNbPossEvosGet(PokedexBean _str, int... _args) {
+        return _str.getTypedMaxNbPossEvos().tryRet();
     }
 
-    public static String callPokedexBeanTypedMinNbPossEvosGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMinNbPossEvos().tryRet();
+    public static String callPokedexBeanTypedMinNbPossEvosGet(PokedexBean _str, int... _args) {
+        return _str.getTypedMinNbPossEvos().tryRet();
     }
 
-    public static String callPokedexBeanTypedNameGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
+    public static String callPokedexBeanTypedNameGet(PokedexBean _str, int... _args) {
+        return _str.getTypedName().tryRet();
     }
 
-    public static String callPokedexBeanTypedTypeGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
+    public static String callPokedexBeanTypedTypeGet(PokedexBean _str, int... _args) {
+        return _str.getTypedType().tryRet();
     }
 
-    public static boolean callPokedexBeanWholeWordGet(NaSt _str, int... _args) {
-        return ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
+    public static boolean callPokedexBeanWholeWordGet(PokedexBean _str, int... _args) {
+        return _str.getWholeWord().isSelected();
     }
 
-    public static void callPokedexBeanIsEvoSet(NaSt _str, String _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().setupValue(_args);
+    public static void callPokedexBeanIsEvoSet(PokedexBean _str, String _args) {
+        _str.getIsEvo().setupValue(_args);
     }
 
-    public static void callPokedexBeanHasEvoSet(NaSt _str, String _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().setupValue(_args);
+    public static void callPokedexBeanHasEvoSet(PokedexBean _str, String _args) {
+        _str.getHasEvo().setupValue(_args);
     }
 
-    public static void callPokedexBeanIsLegSet(NaSt _str, String _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().setupValue(_args);
+    public static void callPokedexBeanIsLegSet(PokedexBean _str, String _args) {
+        _str.getIsLeg().setupValue(_args);
     }
 
-    public static void callPokedexBeanTypedMaxNbPossEvosSet(NaSt _str, String _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMaxNbPossEvos().setupValue(_args);
+    public static void callPokedexBeanTypedMaxNbPossEvosSet(PokedexBean _str, String _args) {
+        _str.getTypedMaxNbPossEvos().setupValue(_args);
     }
 
-    public static void callPokedexBeanTypedMinNbPossEvosSet(NaSt _str, String _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedMinNbPossEvos().setupValue(_args);
+    public static void callPokedexBeanTypedMinNbPossEvosSet(PokedexBean _str, String _args) {
+        _str.getTypedMinNbPossEvos().setupValue(_args);
     }
 
-    public static void callPokedexBeanTypedNameSet(NaSt _str, String _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
+    public static void callPokedexBeanTypedNameSet(PokedexBean _str, String _args) {
+        _str.getTypedName().setupValue(_args);
     }
 
-    public static void callPokedexBeanTypedTypeSet(NaSt _str, String _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
+    public static void callPokedexBeanTypedTypeSet(PokedexBean _str, String _args) {
+        _str.getTypedType().setupValue(_args);
     }
 
-    public static void callPokedexBeanWholeWordSet(NaSt _str, boolean _args) {
-        ( (PokedexBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
+    public static void callPokedexBeanWholeWordSet(PokedexBean _str, boolean _args) {
+        _str.getWholeWord().setSelected(_args);
     }
 
     protected static PokemonLine eltPkLine(CustList<PokemonLine> _arr, int _index) {
         return _arr.get(_index);
     }
 
-    protected static NaSt dispAllPks() {
+    protected static PokedexBean dispAllPks() {
         PkData pk_ = pkDataByFacade(feedDb());
         return dispAllPks(pk_);
     }
 
-    private static NaSt dispAllPks(PkData _pk) {
-        StringMap<NaSt> all_ = beanToPk(_pk);
-        NaSt welcome_ = all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    private static PokedexBean dispAllPks(PkData _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToPk(_pk);
+        WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt moves_ = all_.getVal(BEAN_POKEDEX);
-        transit(_pk,new WelcomeBeanClickPokedex(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,moves_);
+        PokedexBean moves_ = (PokedexBean) all_.getVal(BEAN_POKEDEX);
+        transit(_pk,new WelcomeBeanClickPokedex(welcome_),welcome_,moves_);
         return moves_;
     }
 
-    protected static NaSt dispAllPksSearch() {
+    protected static PokedexBean dispAllPksSearch() {
         PkData pk_ = pkDataByFacade(feedDb());
-        NaSt moves_ = dispAllPks(pk_);
-        transit(pk_,new PokedexBeanSearch((PokedexBean) ((PokemonBeanStruct) moves_).getBean()),moves_,moves_);
+        PokedexBean moves_ = dispAllPks(pk_);
+        transit(pk_,new PokedexBeanSearch(moves_),moves_,moves_);
         return moves_;
     }
 
-    protected static NaSt transitToAllPks(PkData _pk, StringMap<NaSt> _all,int _index) {
-        NaSt welcome_ = _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
+    protected static PokemonBean transitToAllPks(PkData _pk, StringMap<BeanRenderWithAppName> _all,int _index) {
+        WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        NaSt pks_ = _all.getVal(BEAN_POKEDEX);
-        NaSt pk_ = _all.getVal(BEAN_PK);
-        transit(_pk,new WelcomeBeanClickPokedex(((WelcomeBean) ((PokemonBeanStruct)welcome_).getBean())),welcome_,pks_);
-        transit(_pk,new PokedexBeanSearch(((PokedexBean) ((PokemonBeanStruct)pks_).getBean())),pks_,pks_);
-        transit(_pk,new EntityClickFormEvent(((PokedexBean) ((PokemonBeanStruct)pks_).getBean()),((PokedexBean) ((PokemonBeanStruct)pks_).getBean()).getPokedex().get(_index).getKey()),pks_,pk_);
+        PokedexBean pks_ = (PokedexBean) _all.getVal(BEAN_POKEDEX);
+        PokemonBean pk_ = (PokemonBean) _all.getVal(BEAN_PK);
+        transit(_pk,new WelcomeBeanClickPokedex(welcome_),welcome_,pks_);
+        transit(_pk,new PokedexBeanSearch(pks_),pks_,pks_);
+        transit(_pk,new EntityClickFormEvent(pks_,pks_.getPokedex().get(_index).getKey()),pks_,pk_);
         return pk_;
     }
-    protected static String navigatePkSearch(NaSt _moves) {
-        return navigateData(new PokedexBeanSearch((PokedexBean) ((PokemonBeanStruct) _moves).getBean()),_moves);
+    protected static String navigatePkSearch(PokedexBean _moves) {
+        return navigateData(new PokedexBeanSearch(_moves),_moves);
     }
-    public static StringMap<NaSt> beanToPk(PkData _pk) {
-        StringMap<NaSt> map_ = new StringMap<NaSt>();
+    public static StringMap<BeanRenderWithAppName> beanToPk(PkData _pk) {
+        StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         WelcomeBean w_ = beanWelcomeBean(_pk, EN);
-        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,new PokemonBeanStruct(w_));
+        map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,w_);
         PokedexBean pkDex_ = new PokedexBean();
         w_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
         w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,pkDex_);
-        map_.addEntry(BEAN_POKEDEX, _pk.bean(pkDex_, EN));
+        initBean(pkDex_,EN,_pk.getDataBase());
+        map_.addEntry(BEAN_POKEDEX, pkDex_);
         return map_;
     }
 //    public static StringMap<String> mappingToPk() {
