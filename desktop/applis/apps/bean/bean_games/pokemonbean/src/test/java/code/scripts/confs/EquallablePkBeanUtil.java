@@ -1,12 +1,10 @@
 package code.scripts.confs;
 
 import aiki.beans.CommonBean;
-import aiki.beans.PokemonBeanStruct;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.fight.enums.Statistic;
 import aiki.util.Coords;
-import code.bean.nat.*;
 //import code.formathtml.structs.Message;
 import code.util.StringMap;
 import org.junit.Assert;
@@ -25,12 +23,12 @@ public abstract class EquallablePkBeanUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(NaBoSt _expected, NaSt _result) {
-        Assert.assertSame(_expected, _result);
-    }
-    public static void assertSame(NaSt _expected, NaSt _result) {
-        Assert.assertSame(((PokemonBeanStruct)_expected).getBean(), ((PokemonBeanStruct)_result).getBean());
-    }
+//    public static void assertSame(NaBoSt _expected, NaSt _result) {
+//        Assert.assertSame(_expected, _result);
+//    }
+//    public static void assertSame(NaSt _expected, NaSt _result) {
+//        Assert.assertSame(((PokemonBeanStruct)_expected).getBean(), ((PokemonBeanStruct)_result).getBean());
+//    }
     public static void assertSame(CommonBean _expected, CommonBean _result) {
         Assert.assertSame(_expected, _result);
     }

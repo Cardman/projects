@@ -242,11 +242,11 @@ public abstract class InitDbPk extends InitDbConstr {
     }
 
     protected static PokedexBean dispAllPks() {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         return dispAllPks(pk_);
     }
 
-    private static PokedexBean dispAllPks(PkData _pk) {
+    private static PokedexBean dispAllPks(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> all_ = beanToPk(_pk);
         WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
@@ -256,13 +256,13 @@ public abstract class InitDbPk extends InitDbConstr {
     }
 
     protected static PokedexBean dispAllPksSearch() {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         PokedexBean moves_ = dispAllPks(pk_);
         transit(pk_,new PokedexBeanSearch(moves_),moves_,moves_);
         return moves_;
     }
 
-    protected static PokemonBean transitToAllPks(PkData _pk, StringMap<BeanRenderWithAppName> _all,int _index) {
+    protected static PokemonBean transitToAllPks(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all,int _index) {
         WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         PokedexBean pks_ = (PokedexBean) _all.getVal(BEAN_POKEDEX);
@@ -275,7 +275,7 @@ public abstract class InitDbPk extends InitDbConstr {
     protected static String navigatePkSearch(PokedexBean _moves) {
         return navigateData(new PokedexBeanSearch(_moves),_moves);
     }
-    public static StringMap<BeanRenderWithAppName> beanToPk(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToPk(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         WelcomeBean w_ = beanWelcomeBean(_pk, EN);
         map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,w_);
@@ -284,7 +284,7 @@ public abstract class InitDbPk extends InitDbConstr {
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.POKEDEX,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
         w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,pkDex_);
-        initBean(pkDex_,EN,_pk.getDataBase());
+        initBean(pkDex_,EN,_pk);
         map_.addEntry(BEAN_POKEDEX, pkDex_);
         return map_;
     }

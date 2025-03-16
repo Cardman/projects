@@ -1,6 +1,5 @@
 package aiki.beans.items;
 
-import aiki.beans.PkData;
 import aiki.beans.*;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.comparators.DictionaryComparator;
@@ -431,7 +430,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return healSimple().getWinEvFight();
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToItBaseSend(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToItBaseSend(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItBase(_pk);
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING,new TranslationsFile());
@@ -441,10 +440,10 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return map_;
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToItBase(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToItBase(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         ItemForBattleBean it_ = new ItemForBattleBean();
-        initBean(it_,EN,_pk.getDataBase());
+        initBean(it_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_ITEMFORBATTLE, it_);
         it_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEMFORBATTLE,new TranslationsFile());
@@ -461,13 +460,13 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return healSimple(true,true,true,true,true,true,LgInt.one(),LgInt.one());
     }
     protected static ItemForBattleBean healSimple(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        PkData pk_ = pkDataByFacade(feedDbItem(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+        FacadeGame pk_ = pkDataByFacade(feedDbItem(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<BeanRenderWithAppName> all_ = beanToItBase(pk_);
         return (ItemForBattleBean) dispLineQuick(InitDbItems.BEAN_ITEMFORBATTLE, pk_, all_);
     }
 
     protected static ItemForBattleBean healSimpleEndRound(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        PkData pk_ = pkDataByFacade(feedDbItemEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+        FacadeGame pk_ = pkDataByFacade(feedDbItemEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<BeanRenderWithAppName> all_ = beanToItBase(pk_);
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND,new TranslationsFile());
@@ -475,7 +474,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     protected static ItemForBattleBean healSimpleNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
-        PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
+        FacadeGame pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
         StringMap<BeanRenderWithAppName> all_ = beanToItBaseSend(pk_);
         ItemForBattleBean res_ = (ItemForBattleBean) dispLineQuick(InitDbItems.BEAN_ITEMFORBATTLE, pk_, all_);
 //        callItemForBattleBeanEffectSendBeanGet(res_);
@@ -489,7 +488,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return healSimpleNoStatSend(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff,true,true);
     }
     public static EffectWhileSendingBean healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
-        PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
+        FacadeGame pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
         StringMap<BeanRenderWithAppName> all_ = beanToItBaseSend(pk_);
         ItemForBattleBean res_ = (ItemForBattleBean) dispLineQuick(InitDbItems.BEAN_ITEMFORBATTLE, pk_, all_);
 //        callItemForBattleBeanEffectSendBeanGet(res_);
@@ -500,7 +499,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     public static EffectWhileSendingBean healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+        FacadeGame pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<BeanRenderWithAppName> all_ = beanToItBaseSend(pk_);
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
@@ -513,7 +512,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     protected static ItemForBattleBean healSimpleStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-        PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+        FacadeGame pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
         StringMap<BeanRenderWithAppName> all_ = beanToItBaseSend(pk_);
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_STATIS,new TranslationsFile());

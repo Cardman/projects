@@ -386,12 +386,12 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return ((EffectEndRoundTeamBean) dispEndRound(_ev)).getDeleteAllStatus();
     }
     protected static int dispEndRoundEvts() {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         EndRoundBean all_ = beanToEndRound(pk_);
         return callEndRoundBeanGetEvts(transitToAllPks(all_));
     }
     protected static EffectEndRoundBean dispEndRound(int _index) {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         EndRoundBean all_ = beanToEndRound(pk_);
         EndRoundBean pkbean_ = transitToAllPks(all_);
 //        NaSt evobean_ = new PokemonBeanStruct(new EffectEndRoundBean());
@@ -448,10 +448,10 @@ public abstract class InitDbEndRound extends InitDbConstr {
 //        beforeDisplaying(welcome_);
         return _all;
     }
-    public static EndRoundBean beanToEndRound(PkData _pk) {
+    public static EndRoundBean beanToEndRound(FacadeGame _pk) {
 //        StringMap<NaSt> map_ = new StringMap<NaSt>();
         EndRoundBean b_ = new EndRoundBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
 //        map_.addEntry(BEAN_ENDROUND,_pk.bean(b_,EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END,_pk.beanEffectEndRoundBean(EN));
 //        map_.addEntry(AikiBeansEndroundStd.BEAN_END_FOE,_pk.beanEffectEndRoundFoeBean(EN));

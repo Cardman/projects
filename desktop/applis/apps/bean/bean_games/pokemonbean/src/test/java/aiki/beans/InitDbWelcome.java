@@ -6,30 +6,29 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
-import code.bean.nat.*;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class InitDbWelcome extends InitDbConstr {
 
-    public static String navigateAbilities(NaSt _str) {
-        return navigateData(new WelcomeBeanClickAbilities((WelcomeBean) (((PokemonBeanStruct)_str)).getBean()),_str);
+    public static String navigateAbilities(WelcomeBean _str) {
+        return navigateData(new WelcomeBeanClickAbilities(_str),_str);
     }
-    public static String navigateItems(NaSt _str) {
-        return navigateData(new WelcomeBeanClickItems((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);
+    public static String navigateItems(WelcomeBean _str) {
+        return navigateData(new WelcomeBeanClickItems(_str),_str);
     }
-    public static String navigatePokedex(NaSt _str) {
-        return navigateData(new WelcomeBeanClickPokedex((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);
+    public static String navigatePokedex(WelcomeBean _str) {
+        return navigateData(new WelcomeBeanClickPokedex(_str),_str);
     }
 //    public static String navigateSimulation(NaSt _str) {
 //        return navigateData(new CstNatCaller(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML),_str);
 //    }
-    public static String navigateStatus(NaSt _str) {
-        return navigateData(new WelcomeBeanClickStatus(((WelcomeBean) ((PokemonBeanStruct)_str).getBean())),_str);
+    public static String navigateStatus(WelcomeBean _str) {
+        return navigateData(new WelcomeBeanClickStatus((_str)),_str);
     }
-    public static String navigateAllMoves(NaSt _str) {
-        return navigateData(new WelcomeBeanSeeAllMoves((WelcomeBean) ((PokemonBeanStruct)_str).getBean()),_str);
+    public static String navigateAllMoves(WelcomeBean _str) {
+        return navigateData(new WelcomeBeanSeeAllMoves(_str),_str);
     }
 
 //    public static String navigateLearntMoves(NaSt _str) {
@@ -39,13 +38,14 @@ public abstract class InitDbWelcome extends InitDbConstr {
 //    public static String navigateNotLearntMoves(NaSt _str) {
 //        return navigateData(new WelcomeBeanSeeNotLearntMoves(),_str);
 //    }
-    public static NaSt beanWelcome(FacadeGame _dataBase) {
-        PkData pk_ = pkDataByFacade(_dataBase);
-        pk_.getDataBase().getData().completeMoveTutors();
-        pk_.getDataBase().getData().setView(pk_.getDataBase().getData().computeLearn());
+    public static WelcomeBean beanWelcome(FacadeGame _dataBase) {
+        FacadeGame pk_ = pkDataByFacade(_dataBase);
+        pk_.getData().completeMoveTutors();
+        pk_.getData().setView(pk_.getData().computeLearn());
         WelcomeBean w_ = new WelcomeBean();
         w_.setBuilder(builder(_dataBase));
-        return pk_.bean(w_, EN);
+        initBean(w_,EN,_dataBase);
+        return w_;
     }
 //    public static NaSt callWelcomeBeanClickAbilities(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickAbilities(),_str,_args);

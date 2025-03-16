@@ -370,12 +370,12 @@ public abstract class InitDbConstr extends InitDbBean {
         _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv(1,1));
     }
 
-    public static PkData pkDataByFacade(FacadeGame _dataBase) {
-        PkData pk_ = new PkData();
-        pk_.setDataBase(_dataBase);
+    public static FacadeGame pkDataByFacade(FacadeGame _dataBase) {
+//        PkData pk_ = new PkData();
+//        pk_.setDataBase(_dataBase);
         init(_dataBase);
 //        pk_.setBaseEncode(BASE);
-        return pk_;
+        return _dataBase;
     }
 
     private static FacadeGame init(FacadeGame _dataBase) {
@@ -761,10 +761,10 @@ public abstract class InitDbConstr extends InitDbBean {
     public static long callPlaceIndexIndexGet(PlaceIndex _str, int... _args) {
         return _str.getIndex();
     }
-    protected static WelcomeBean beanWelcomeBean(PkData _pk,String _lg) {
+    protected static WelcomeBean beanWelcomeBean(FacadeGame _pk,String _lg) {
         WelcomeBean b_ = new WelcomeBean();
-        initBean(b_,_lg,_pk.getDataBase());
-        MockBeanBuilderHelper bu_ = builder(_pk.getDataBase());
+        initBean(b_,_lg,_pk);
+        MockBeanBuilderHelper bu_ = builder(_pk);
         bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_INDEX_HTML,b_);
         b_.setBuilder(bu_);
         return b_;

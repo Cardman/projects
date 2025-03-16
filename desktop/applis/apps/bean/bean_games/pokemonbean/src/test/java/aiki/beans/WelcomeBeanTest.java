@@ -1,6 +1,5 @@
 package aiki.beans;
 
-import aiki.beans.facade.simulation.enums.*;
 import aiki.facade.*;
 import aiki.facade.enums.*;
 import aiki.fight.enums.Statistic;
@@ -30,7 +29,7 @@ import org.junit.Test;
 public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
     public void display1() {
-        NaSt bean_ = beanWelcome(feedDb());
+        WelcomeBean bean_ = beanWelcome(feedDb());
         displaying(bean_);
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
         assertEq(2,keys_.size());
@@ -39,7 +38,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void display2() {
-        NaSt bean_ = beanWelcome(feedDbBase());
+        WelcomeBean bean_ = beanWelcome(feedDbBase());
         displaying(bean_);
         CustList<String> keys_ = WithFilterBean.keys(forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys());
         assertEq(2,keys_.size());
@@ -48,7 +47,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void allMoves1() {
-        NaSt bean_ = beanWelcome(feedDb());
+        WelcomeBean bean_ = beanWelcome(feedDb());
         assertEq(CommonBean.REN_ADD_WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertFalse(forms(bean_).contains(CST_LEARNT));
@@ -93,28 +92,28 @@ public final class WelcomeBeanTest extends InitDbWelcome {
 //    }
     @Test
     public void abilities() {
-        NaSt bean_ = beanWelcome(feedDb());
+        WelcomeBean bean_ = beanWelcome(feedDb());
         assertEq(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,navigateAbilities(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_ABILITIES_SET));
         assertTrue(forms(bean_).getValAbilityData(CST_ABILITIES_SET).isEmpty());
     }
     @Test
     public void items() {
-        NaSt bean_ = beanWelcome(feedDb());
+        WelcomeBean bean_ = beanWelcome(feedDb());
         assertEq(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,navigateItems(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
         assertTrue(forms(bean_).getValItemData(CST_ITEMS_SET).isEmpty());
     }
     @Test
     public void pokedex() {
-        NaSt bean_ = beanWelcome(feedDb());
+        WelcomeBean bean_ = beanWelcome(feedDb());
         assertEq(CommonBean.REN_ADD_WEB_HTML_POKEMON_POKEDEX_HTML,navigatePokedex(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
         assertTrue(forms(bean_).getValPokemonData(CST_POKEMON_SET).isEmpty());
     }
     @Test
     public void status() {
-        NaSt bean_ = beanWelcome(feedDb());
+        WelcomeBean bean_ = beanWelcome(feedDb());
         assertEq(CommonBean.REN_ADD_WEB_HTML_STATUS_STATUS_HTML,navigateStatus(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_STATUS_SET));
         assertTrue(forms(bean_).getValStatusData(CST_STATUS_SET).isEmpty());
@@ -178,7 +177,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         StringMap<Document> b_ = PagesInit.build();
         NatNavigation nav_ = pk_.nav(new StringList(EN,FR), new DataGameInit(), b_,new StringMap<String>(),builtMessages_);
         nav_.setLanguage(EN);
-        pk_.setDataBase(f_);
+//        pk_.setDataBase(f_);
         pk_.initializeRendSessionDoc(nav_);
         assertFalse(nav_.getHtmlText().isEmpty());
 //        goToPage(pk_,nav_,0);
@@ -240,7 +239,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
 //        NatRendElementForm.nullValueToEmpty();
         NatDotOperation root_ = new NatDotOperation(1);
         root_.appendChild(new NatSettableFieldOperation(false,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
-        PokemonBeanStruct.castDottedTo(root_);
+//        PokemonBeanStruct.castDottedTo(root_);
         StringMapObject s_ = new StringMapObject();
         s_.put("0",0);
         s_.put("1",false);
@@ -279,15 +278,15 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         w2_.build(f_);
         pk_.initBeans(null,EN);
     }
-    @Test
-    public void alt() {
-        StringList list_ = new StringList();
-        list_.add("_");
-        list_.add("__");
-        StringList a_ = PokemonBeanStruct.arg(list_);
-        assertEq(1,a_.size());
-        assertEq("__",a_.get(0));
-    }
+//    @Test
+//    public void alt() {
+//        StringList list_ = new StringList();
+//        list_.add("_");
+//        list_.add("__");
+//        StringList a_ = PokemonBeanStruct.arg(list_);
+//        assertEq(1,a_.size());
+//        assertEq("__",a_.get(0));
+//    }
 
     private TileMiniMap tile() {
         TileMiniMap tile_ = Instances.newTileMiniMap();

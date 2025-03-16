@@ -76,13 +76,13 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         return _str.getMovesTransforming();
     }
     protected static EffectCopyMoveBean dispMoveEffCopyMove(boolean _copyingMoveForUserDef, int _copy) {
-        PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_copyingMoveForUserDef, _copy));
+        FacadeGame pk_ = pkDataByFacade(feedDbMoveEffDataDam(_copyingMoveForUserDef, _copy));
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyMove();
         return (EffectCopyMoveBean)transitEffect(0,0,pk_,all_);
     }
     protected static EffectCopyMoveBean dispMoveEffCopyMoveNoFighter(boolean _copyingMoveForUserDef, int _copy) {
-        PkData pk_ = pkDataByFacade(feedDbMoveEffDataDamNoFighter(_copyingMoveForUserDef, _copy));
+        FacadeGame pk_ = pkDataByFacade(feedDbMoveEffDataDamNoFighter(_copyingMoveForUserDef, _copy));
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyMove();
         return (EffectCopyMoveBean)transitEffect(0,0,pk_,all_);
@@ -149,7 +149,7 @@ public abstract class InitDbMoveEffectCopy extends InitDbMoveEffect {
         return e_;
     }
     protected static EffectCopyFighterBean dispMoveEffCopyFighter() {
-        PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam());
+        FacadeGame pk_ = pkDataByFacade(feedDbMoveEffDataDam());
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectCopyFighter();
         return (EffectCopyFighterBean)transitEffect(0,0,pk_,all_);

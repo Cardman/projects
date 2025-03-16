@@ -27,14 +27,14 @@ public abstract class InitDbItemOther extends InitDbItem {
     }
 
     protected static long sellBean() {
-        PkData pk_ = pkDataByFacade(feedDbSell());
+        FacadeGame pk_ = pkDataByFacade(feedDbSell());
         StringMap<BeanRenderWithAppName> all_ = beanToSell(pk_);
         return callItemBeanPriceGet(dispLineQuick(InitDbItems.BEAN_SELLINGITEM, pk_, all_));
     }
-    public static StringMap<BeanRenderWithAppName> beanToSell(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToSell(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         SellingItemBean b_ = new SellingItemBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_SELLINGITEM, b_);
         map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_SELLINGITEM_HTML,b_);
         return map_;
@@ -46,14 +46,14 @@ public abstract class InitDbItemOther extends InitDbItem {
         return feedDbItem(s_);
     }
     protected static RepelBean repelBean() {
-        PkData pk_ = pkDataByFacade(feedDbRepel());
+        FacadeGame pk_ = pkDataByFacade(feedDbRepel());
         StringMap<BeanRenderWithAppName> all_ = beanToRepel(pk_);
         return (RepelBean) dispLineQuick(InitDbItems.BEAN_REPEL, pk_, all_);
     }
-    public static StringMap<BeanRenderWithAppName> beanToRepel(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToRepel(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         RepelBean b_ = new RepelBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_REPEL, b_);
         b_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_REPEL,new TranslationsFile());
@@ -68,14 +68,14 @@ public abstract class InitDbItemOther extends InitDbItem {
         return feedDbItem(r_);
     }
     protected static BallBean ballBean() {
-        PkData pk_ = pkDataByFacade(feedDbBall());
+        FacadeGame pk_ = pkDataByFacade(feedDbBall());
         StringMap<BeanRenderWithAppName> all_ = beanToBall(pk_);
         return (BallBean) dispLineQuick(InitDbItems.BEAN_BALL, pk_, all_);
     }
-    public static StringMap<BeanRenderWithAppName> beanToBall(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToBall(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         BallBean b_ = new BallBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_BALL, b_);
         b_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BALL,new TranslationsFile());

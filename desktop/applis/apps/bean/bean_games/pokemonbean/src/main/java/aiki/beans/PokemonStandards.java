@@ -1,6 +1,5 @@
 package aiki.beans;
 
-import aiki.facade.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.*;
 import code.bean.nat.exec.*;
@@ -48,7 +47,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     private static final String REF_TAG = "#";
 
 
-    private FacadeGame dataBase;
+//    private FacadeGame dataBase;
 //    private String baseEncode;
 
 //    private final StringMap<Validator> validators = new StringMap<Validator>();
@@ -412,18 +411,18 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        return Instances.newPokemonPlayer();
 //    }
 
-    public PokemonBeanStruct bean(CommonBean _bean, String _lg) {
-        _bean.setDataBase(dataBase);
-//        _bean.setBaseEncode(baseEncode);
-        _bean.setLanguage(_lg);
-        return new PokemonBeanStruct(_bean);
-    }
+//    public PokemonBeanStruct bean(CommonBean _bean, String _lg) {
+//        _bean.setDataBase(dataBase);
+////        _bean.setBaseEncode(baseEncode);
+//        _bean.setLanguage(_lg);
+//        return new PokemonBeanStruct(_bean);
+//    }
 
 //    public PokemonBeanStruct beanDiffCommon(String _language) {
 //        return bean(new DifficultyCommonBean(), _language);
 //    }
 //    public static NatArrayStruct getBigNatMap(AbsMap<String, AbsBasicTreeMap<Rate, Rate>> _map) {
-//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());gget
 //        int j_ = 0;
 //        for (EntryCust<String, AbsBasicTreeMap<Rate, Rate>> e:_map.entryList()) {
 //            arr_.set(j_,new PairStruct(new NaStSt(e.getKey()),getRateRate(e.getValue())));
@@ -1016,13 +1015,13 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        return arr_;
 //    }
 
-    public FacadeGame getDataBase() {
-        return dataBase;
-    }
-
-    public void setDataBase(FacadeGame _dataBase){
-        dataBase = _dataBase;
-    }
+//    public FacadeGame getDataBase() {
+//        return dataBase;
+//    }
+//
+//    public void setDataBase(FacadeGame _dataBase){
+//        dataBase = _dataBase;
+//    }
 
 //    public void setBaseEncode(String _p) {
 //        this.baseEncode = _p;

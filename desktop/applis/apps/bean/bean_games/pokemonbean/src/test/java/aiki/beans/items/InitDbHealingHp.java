@@ -16,10 +16,10 @@ public abstract class InitDbHealingHp extends InitDbHealing {
     public static Rate callHealingHpBeanHpGet() {
         return ppDb().getHp();
     }
-    public static StringMap<BeanRenderWithAppName> beanToHealingHp(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToHealingHp(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToHealing(_pk);
         HealingHpBean s_ = new HealingHpBean();
-        initBean(s_,EN,_pk.getDataBase());
+        initBean(s_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_HEALINGHP, s_);
         s_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGHP,new TranslationsFile());
@@ -28,7 +28,7 @@ public abstract class InitDbHealingHp extends InitDbHealing {
         return map_;
     }
     protected static HealingHpBean ppDb() {
-        PkData pk_ = pkDataByFacade(feedDbHp());
+        FacadeGame pk_ = pkDataByFacade(feedDbHp());
         StringMap<BeanRenderWithAppName> all_ = beanToHealingHp(pk_);
         return (HealingHpBean) dispLineClick(InitDbItems.BEAN_HEALINGHP, pk_, all_);
     }

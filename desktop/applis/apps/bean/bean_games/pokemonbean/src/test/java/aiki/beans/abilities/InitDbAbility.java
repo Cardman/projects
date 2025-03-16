@@ -1,8 +1,6 @@
 package aiki.beans.abilities;
 
 import aiki.beans.*;
-import aiki.beans.CommonBean;
-import aiki.beans.PkData;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.db.MessagesDataBaseConstants;
 import aiki.facade.FacadeGame;
@@ -1031,7 +1029,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
 
-    public static StringMap<BeanRenderWithAppName> beanToItBaseSend(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToItBaseSend(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToAbility(_pk);
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING, new TranslationsFile());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SENDING, new TranslationsFile());
@@ -1050,25 +1048,25 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //    }
 
     protected static AbilityBean reverseCase() {
-        PkData pk_ = pkDataByFacade(feedDbAbilityReverse());
+        FacadeGame pk_ = pkDataByFacade(feedDbAbilityReverse());
         StringMap<BeanRenderWithAppName> all_ = beanToAbility(pk_);
         return transitToAllAbilities(pk_, all_, 0);
     }
 
     protected static AbilityBean directCase() {
-        PkData pk_ = pkDataByFacade(feedDbAbility());
+        FacadeGame pk_ = pkDataByFacade(feedDbAbility());
         StringMap<BeanRenderWithAppName> all_ = beanToAbility(pk_);
         return transitToAllAbilities(pk_, all_, 0);
     }
 
     protected static AbilityBean directCase(boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
-        PkData pk_ = pkDataByFacade(feedDbAbility(_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves));
+        FacadeGame pk_ = pkDataByFacade(feedDbAbility(_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves));
         StringMap<BeanRenderWithAppName> all_ = beanToAbility(pk_);
         return transitToAllAbilities(pk_, all_, 0);
     }
 
     protected static AbilityBean directCaseEndRound() {
-        PkData pk_ = pkDataByFacade(feedDbAbilityEndRound());
+        FacadeGame pk_ = pkDataByFacade(feedDbAbilityEndRound());
         StringMap<BeanRenderWithAppName> all_ = beanToAbility(pk_);
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND, new TranslationsFile());
         all_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_ENDROUND, new TranslationsFile());
@@ -1091,7 +1089,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //        return healSimpleNoStatSend(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff,true,true);
 //    }
     public static EffectWhileSendingBean healSimpleNoStatSend() {
-        PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
+        FacadeGame pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<BeanRenderWithAppName> all_ = beanToItBaseSend(pk_);
         AbilityBean res_ = transitToAllAbilitiesQuick(pk_, all_, 0);
 //        callAbilityBeanEffectSendBeanGet(res_);
@@ -1102,7 +1100,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static AbilityBean abNoStatSend() {
-        PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
+        FacadeGame pk_ = pkDataByFacade(feedDbAbilityNoStat());
         StringMap<BeanRenderWithAppName> all_ = beanToItBaseSend(pk_);
         return transitToAllAbilitiesQuick(pk_, all_, 0);
     }

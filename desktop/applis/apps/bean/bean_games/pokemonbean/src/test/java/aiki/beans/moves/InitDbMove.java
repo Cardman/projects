@@ -468,13 +468,13 @@ public abstract class InitDbMove extends InitDbMoves {
         return _str.effSecNotEndRound(_args[0]);
     }
     protected static MoveBean dispMove(FacadeGame _fac, int _index) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToMove();
         return transitMove(_index, pk_, all_);
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToMove(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToMove(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToMoves(_pk);
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MV_DATA,new TranslationsFile());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF,new TranslationsFile());
@@ -550,7 +550,7 @@ public abstract class InitDbMove extends InitDbMoves {
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.EFF_WINMONEY,new TranslationsFile());
         MoveBean move_ = new MoveBean();
         move_.setBuilder(map_.getValue(0).getBuilder());
-        initBean(move_,EN,_pk.getDataBase());
+        initBean(move_,EN,_pk);
         map_.addEntry(BEAN_MOVE, move_);
         map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_MOVES_DATA_HTML,move_);
         return map_;

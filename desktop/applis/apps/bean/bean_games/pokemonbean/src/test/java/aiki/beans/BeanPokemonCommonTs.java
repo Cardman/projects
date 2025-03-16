@@ -7,6 +7,7 @@ import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.map.elements.*;
 import aiki.comparators.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.enums.*;
 import aiki.fight.util.*;
 import aiki.map.pokemon.*;
@@ -39,15 +40,21 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //        bu_.build(_caller);
 //    }
 
-    public static void transit(PokemonStandards _stds, IntBeanAction _caller, CommonBean _first, CommonBean _second) {
+//    public static void transit(PokemonStandards _stds, IntBeanAction _caller, CommonBean _first, CommonBean _second) {
+//        IntBeanBuilderHelper bu_ = _second.getBuilder();
+////        setFormsBy(_stds,_second,_first);
+//        bu_.build(_caller);
+//    }
+
+    public static void transit(FacadeGame _stds, IntBeanAction _caller, CommonBean _first, CommonBean _second) {
         IntBeanBuilderHelper bu_ = _second.getBuilder();
 //        setFormsBy(_stds,_second,_first);
         bu_.build(_caller);
     }
 
-    public static StringMapObject forms(NaSt _str) {
-        return ((CommonBean)((PokemonBeanStruct)_str).getInstance()).getForms();
-    }
+//    public static StringMapObject forms(NaSt _str) {
+//        return ((CommonBean)((PokemonBeanStruct)_str).getInstance()).getForms();
+//    }
 
     public static StringMapObject forms(CommonBean _str) {
         return _str.getForms();
@@ -115,6 +122,11 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return _b;
     }
 
+    public WelcomeBean displaying(WelcomeBean _b) {
+        beforeDisplaying(_b);
+        return _b;
+    }
+
     public static void beforeDisplaying(NaSt _bean) {
         beforeDisplaying((CommonBean)((BeanStruct) _bean).getBean());
     }
@@ -174,12 +186,12 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static void assertFalse(int _value) {
         assertEq(CommonBean.FALSE_VALUE,_value);
     }
-    public static void assertTrue(NaSt _value) {
-        assertSame(NaBoSt.of(true),_value);
-    }
-    public static void assertFalse(NaSt _value) {
-        assertSame(NaBoSt.of(false),_value);
-    }
+//    public static void assertTrue(NaSt _value) {
+//        assertSame(NaBoSt.of(true),_value);
+//    }
+//    public static void assertFalse(NaSt _value) {
+//        assertSame(NaBoSt.of(false),_value);
+//    }
     public static void assertSizeEq(int _exp, NaSt _result) {
         assertEq(_exp,(((NatArrayStruct)_result).getLength()));
     }

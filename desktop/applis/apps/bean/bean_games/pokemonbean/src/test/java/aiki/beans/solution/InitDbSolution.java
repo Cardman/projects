@@ -127,22 +127,22 @@ public abstract class InitDbSolution extends InitDbConstr {
         return _str.getName();
     }
     protected static SolutionBean dispSol() {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         return dispSol(pk_);
     }
     protected static SolutionBean dispSolTwice() {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         SolutionBean bean_ = dispSol(pk_);
         beforeDisplaying(bean_);
         return bean_;
     }
 
-    private static SolutionBean dispSol(PkData _pk) {
+    private static SolutionBean dispSol(FacadeGame _pk) {
         SolutionBean sol_ = new SolutionBean();
-        sol_.setBuilder(builder(_pk.getDataBase()));
+        sol_.setBuilder(builder(_pk));
         sol_.getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
         sol_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.SOLUTION,new TranslationsFile());
-        initBean(sol_,EN,_pk.getDataBase());
+        initBean(sol_,EN,_pk);
         beforeDisplaying(sol_);
         return sol_;
     }

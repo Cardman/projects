@@ -249,7 +249,7 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return dispMoveEffGlobal(_fac, _index,0);
     }
     protected static EffectGlobalBean dispMoveEffGlobal(FacadeGame _fac, int _index, int _indexEff) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectGlobal();
         return (EffectGlobalBean)transitEffect(_index,_indexEff,pk_,all_);

@@ -97,13 +97,13 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return dispMoveEffDamage(_fac, _index,0);
     }
     protected static EffectDamageBean dispMoveEffDamage(FacadeGame _fac, int _index, int _indexEff) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectDamage();
         return (EffectDamageBean)transitEffect(_index, _indexEff, pk_, all_);
     }
 
-    protected static EffectBean transitEffect(int _index, int _indexEff, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static EffectBean transitEffect(int _index, int _indexEff, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MoveBean mbean_ = transitMove(_index, _pk, _all);
 //        int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
 //        NaSt eff_ = new PokemonBeanStruct(new EffectBean());
@@ -114,7 +114,7 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return mbean_.getBeans().get(_indexEff);
     }
 
-    protected static EffectBean transitEffectQuick(int _index, int _indexEff, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static EffectBean transitEffectQuick(int _index, int _indexEff, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MoveBean mbean_ = transitMoveQuick(_index, _pk, _all);
 //        int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
 //        NaSt eff_ = new PokemonBeanStruct(new EffectBean());

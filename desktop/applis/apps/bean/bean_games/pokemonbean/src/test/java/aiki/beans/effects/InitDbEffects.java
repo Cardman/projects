@@ -50,7 +50,7 @@ public abstract class InitDbEffects extends InitDbConstr {
     }
 
     protected static CombosBean dispAllCombos() {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         CombosBean all_ = beanToCombosSet(pk_);
 //        NaSt combos_ = all_.getVal(BEAN_COMBOS);
 //        beforeDisplaying(combos_);
@@ -59,7 +59,7 @@ public abstract class InitDbEffects extends InitDbConstr {
     }
 
     protected static EffectComboBean dispAllCombos(int _ind) {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         CombosBean all_ = beanToCombosSet(pk_);
 //        NaSt combos_ = all_.getVal(BEAN_COMBOS);
 //        NaSt combo_ = new PokemonBeanStruct(new EffectComboBean());
@@ -77,11 +77,11 @@ public abstract class InitDbEffects extends InitDbConstr {
 //        return BeanPokemonCommonTs.callInt(new EffectComboBeanIndexSet(),_str,_args);
 //    }
 
-    public static CombosBean beanToCombosSet(PkData _pk) {
+    public static CombosBean beanToCombosSet(FacadeGame _pk) {
 //        StringMap<NaSt> map_ = new StringMap<NaSt>();
 //        map_.addEntry(AikiBeansEffectsStd.BEAN_COMBO,_pk.beanEffectComboBean(EN));
         CombosBean bean_ = new CombosBean();
-        initBean(bean_,EN,_pk.getDataBase());
+        initBean(bean_,EN,_pk);
 //        map_.addEntry(BEAN_COMBOS,_pk.bean(bean_,EN));
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();

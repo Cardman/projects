@@ -1,6 +1,7 @@
 package aiki.beans.status;
 
 import aiki.beans.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.status.effects.*;
 import code.scripts.pages.aiki.*;
 import code.sml.util.*;
@@ -136,14 +137,14 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return dispStatusOne(_str).getSingleStatus();
     }
     protected static StatusBean dispStatusOne(int _index) {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         StringMap<BeanRenderWithAppName> all_ = beanToStatus(pk_);
         return transitToAllStatus(pk_, all_, _index);
     }
-    public static StringMap<BeanRenderWithAppName> beanToStatus(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToStatus(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToStatusSet(_pk);
         StatusBean s_ = new StatusBean();
-        initBean(s_,EN,_pk.getDataBase());
+        initBean(s_,EN,_pk);
         map_.addEntry(InitDbStatusSet.BEAN_STATUS, s_);
         s_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUS,new TranslationsFile());

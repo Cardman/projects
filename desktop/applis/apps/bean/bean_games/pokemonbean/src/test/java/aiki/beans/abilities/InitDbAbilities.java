@@ -52,7 +52,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
     protected static String navigateAbilitiesSearch(AbilitiesBean _moves) {
         return navigateData(new AbilitiesBeanSearch(_moves), _moves);
     }
-    protected static AbilityBean transitToAllAbilities(PkData _pk, StringMap<BeanRenderWithAppName> _all, int _index) {
+    protected static AbilityBean transitToAllAbilities(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all, int _index) {
         WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         AbilitiesBean items_ = (AbilitiesBean) _all.getVal(BEAN_ABILITIES);
@@ -65,7 +65,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         return itData_;
     }
 
-    protected static AbilityBean transitToAllAbilitiesQuick(PkData _pk, StringMap<BeanRenderWithAppName> _all, int _index) {
+    protected static AbilityBean transitToAllAbilitiesQuick(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all, int _index) {
         WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         AbilitiesBean items_ = (AbilitiesBean) _all.getVal(BEAN_ABILITIES);
@@ -73,20 +73,15 @@ public abstract class InitDbAbilities extends InitDbConstr {
         transit(_pk,new AbilitiesBeanSearch(items_),items_,items_);
         return (AbilityBean) _all.getVal(BEAN_ABILITY);
     }
-    protected static AbilitiesBean dispAllAbilities(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
-        return dispAllAbilities(pk_);
-    }
-
-    private static AbilitiesBean dispAllAbilities(PkData _pk) {
-        StringMap<BeanRenderWithAppName> all_ = beanToAbilities(_pk);
+    protected static AbilitiesBean dispAllAbilities(FacadeGame _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToAbilities(pkDataByFacade(_pk));
         WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         AbilitiesBean moves_ = (AbilitiesBean) all_.getVal(BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(welcome_),welcome_,moves_);
         return moves_;
     }
-    public static StringMap<BeanRenderWithAppName> beanToAbilities(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToAbilities(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         WelcomeBean w_ = beanWelcomeBean(_pk,EN);
         map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME, w_);
@@ -95,19 +90,19 @@ public abstract class InitDbAbilities extends InitDbConstr {
         w_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ABILITIES,new TranslationsFile());
         pkDex_.setBuilder(w_.getBuilder());
         w_.getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML,pkDex_);
-        initBean(pkDex_,EN,_pk.getDataBase());
+        initBean(pkDex_,EN,_pk);
         map_.addEntry(BEAN_ABILITIES, pkDex_);
         return map_;
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToAbility(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToAbility(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToAbilities(_pk);
         AbilityBean ab_ = new AbilityBean();
         ab_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.AB_DATA,new TranslationsFile());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.AB_DATA,new TranslationsFile());
         map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ABILITY_DATA_HTML,ab_);
-        initBean(ab_,EN,_pk.getDataBase());
+        initBean(ab_,EN,_pk);
         map_.addEntry(BEAN_ABILITY, ab_);
         return map_;
     }

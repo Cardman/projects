@@ -2,6 +2,7 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.map.elements.*;
+import aiki.facade.FacadeGame;
 import aiki.map.levels.AbsAreaApparition;
 import aiki.map.pokemon.WildPk;
 import code.util.CustList;
@@ -148,12 +149,12 @@ public abstract class InitDbArea extends InitDbLevelMap{
         return displayArea(_area).getNameFishing(_pk);
     }
     public static AreaBean displayArea(int _area){
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         return transitArea(_area,pk_,all_);
     }
 
-    private static AreaBean transitArea(int _no,PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    private static AreaBean transitArea(int _no,FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MapLevelBean bean_ = transitLevelZero(2, _pk, _all);
         AreaBean area_ = (AreaBean) _all.getVal(InitDbMap.BEAN_AREA);
         transit(_pk,new MapLevelBeanClickArea(bean_,_no),bean_,area_);

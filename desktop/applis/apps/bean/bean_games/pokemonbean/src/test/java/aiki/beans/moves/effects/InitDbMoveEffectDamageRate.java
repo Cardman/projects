@@ -30,7 +30,7 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
         return dispMoveEffDamageRate(_fac, _index,0);
     }
     protected static EffectDamageRateBean dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectDamageRate();
         return (EffectDamageRateBean)transitEffect(_index,_indexEff,pk_,all_);

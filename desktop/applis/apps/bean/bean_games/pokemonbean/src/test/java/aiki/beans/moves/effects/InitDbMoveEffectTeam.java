@@ -126,7 +126,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
         return dispMoveEffTeam(_fac, _index,0);
     }
     protected static EffectTeamBean dispMoveEffTeam(FacadeGame _fac, int _index, int _indexEff) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectTeam();
         return (EffectTeamBean)transitEffect(_index,_indexEff,pk_,all_);

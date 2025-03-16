@@ -42,10 +42,10 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
         return _str.getStatus();
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToHealingStatus(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToHealingStatus(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToHealing(_pk);
         HealingStatusBean s_ = new HealingStatusBean();
-        initBean(s_,EN,_pk.getDataBase());
+        initBean(s_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_HEALINGSTATUS, s_);
         s_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_HEALINGSTATUS,new TranslationsFile());
@@ -57,7 +57,7 @@ public abstract class InitDbHealingStatus extends InitDbHealing {
         return map_;
     }
     protected static HealingStatusBean statusDb(HealingStatus _heal) {
-        PkData pk_ = pkDataByFacade(feedDbStatus(_heal));
+        FacadeGame pk_ = pkDataByFacade(feedDbStatus(_heal));
         StringMap<BeanRenderWithAppName> all_ = beanToHealingStatus(pk_);
         callHealingStatusBeanHealingStatusBeanGet(all_.getVal(InitDbItems.BEAN_HEALINGSTATUS));
         return (HealingStatusBean) dispLineClick(InitDbItems.BEAN_HEALINGSTATUS, pk_, all_);

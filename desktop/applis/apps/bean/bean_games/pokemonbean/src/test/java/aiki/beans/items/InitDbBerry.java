@@ -107,10 +107,10 @@ public abstract class InitDbBerry extends InitDbItem {
         return healSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail).getWithoutFail();
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToBerry(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToBerry(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         BerryBean b_ = new BerryBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_BERRY, b_);
         b_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BERRY,new TranslationsFile());
@@ -120,7 +120,7 @@ public abstract class InitDbBerry extends InitDbItem {
     }
 
     protected static BerryBean healSimple(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail) {
-        PkData pk_ = pkDataByFacade(feedDbSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail));
+        FacadeGame pk_ = pkDataByFacade(feedDbSimple(_r, _pp, _hp, _eff, _cat, _lawForAttackFirst, _withoutFail));
         StringMap<BeanRenderWithAppName> all_ = beanToBerry(pk_);
         return (BerryBean) dispLineClick(InitDbItems.BEAN_BERRY, pk_, all_);
     }

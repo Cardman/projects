@@ -2,6 +2,7 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.map.elements.*;
+import aiki.facade.FacadeGame;
 import aiki.map.pokemon.Pokemon;
 import code.util.*;
 
@@ -75,12 +76,12 @@ public abstract class InitDbLegPk extends InitDbLevelMap{
         return displayPk(_pk).getPokemon();
     }
     public static LegendaryPokemonBean displayPk(int _pk){
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         return transitPk(mapInts().get(_pk),pk_,all_);
     }
 
-    private static LegendaryPokemonBean transitPk(int _tile,PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    private static LegendaryPokemonBean transitPk(int _tile,FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MapLevelBean bean_ = transitLevel(3,0, _pk, _all);
         LegendaryPokemonBean area_ = (LegendaryPokemonBean) _all.getVal(InitDbMap.BEAN_LEG_PK);
         transit(_pk,new MapLevelBeanClickTileOnMap(bean_,_tile),bean_,area_);

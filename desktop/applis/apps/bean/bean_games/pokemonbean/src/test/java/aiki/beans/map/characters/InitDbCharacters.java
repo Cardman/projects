@@ -4,12 +4,13 @@ import aiki.beans.*;
 import aiki.beans.map.*;
 import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.*;
+import aiki.facade.FacadeGame;
 import code.util.*;
 
 public abstract class InitDbCharacters extends InitDbLevelMap {
 
     public static TrainerBean displayTrainerLevelZero(int _place, int _tile, int _second) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
 //        Struct tr_ = transitTrainer(_place, _tile, _second, pk_, all_);
@@ -20,7 +21,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return transitTrainerLevelZero(_place, _tile, _second, pk_, all_);
     }
 
-    private static TrainerBean transitTrainerLevelZero(int _place, int _tile, int _second, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    private static TrainerBean transitTrainerLevelZero(int _place, int _tile, int _second, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MapLevelBean bean_ = transitLevelZero(_place, _pk, _all);
         transit(_pk,new MapLevelBeanClickTileOnMap(bean_,_tile),bean_,bean_);
         TrainerBean tr_ = (TrainerBean) _all.getVal(InitDbMap.BEAN_TRAINER_FIGHT);
@@ -29,7 +30,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static SellerBean displaySellerLevelZero(int _place, int _tile, int _second) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
         MapLevelBean bean_ = transitLevelZero(_place,pk_,all_);
@@ -44,13 +45,13 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static TrainerBean displayTrainer(int _place, int _level, int _tile) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
         return transitTrainer(_place, _level, _tile, pk_, all_);
     }
 
-    private static TrainerBean transitTrainer(int _place, int _level, int _tile, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    private static TrainerBean transitTrainer(int _place, int _level, int _tile, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MapLevelBean bean_ = transitLevel(_place, _level, _pk, _all);
         TrainerBean tr_ = (TrainerBean) _all.getVal(InitDbMap.BEAN_TRAINER_FIGHT);
         transit(_pk,new MapLevelBeanClickTileOnMap(bean_,_tile),bean_,tr_);
@@ -60,7 +61,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static DealerBean displayDealer(int _place, int _level, int _tile) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
         MapLevelBean bean_ = transitLevel(_place, _level,pk_,all_);
@@ -158,7 +159,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static DualFightBean displayDual() {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
 //        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _tile));
@@ -167,7 +168,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static AllyBean displayAlly() {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         DualFightBean dual_ = transitDual(pk_, all_);
 //        NaSt ally_ = new PokemonBeanStruct(new AllyBean());
@@ -177,7 +178,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
     public static PokemonTeamBean displayTempTrainer() {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         DualFightBean dual_ = transitDual(pk_, all_);
 //        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
@@ -194,7 +195,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return displayGym(4);
     }
     public static PokemonTeamBean displayGym(int _tile) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         TrainerBean trainer_ = transitTrainerLevelZero(0,12,_tile,pk_, all_);
 //        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
@@ -203,7 +204,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return trainer_.getBeans().get(0);
     }
     public static PokemonTeamBean displayLeague(int _level) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         TrainerBean trainer_ = transitTrainer(8,_level,12,pk_, all_);
 //        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
@@ -212,7 +213,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return trainer_.getBeans().get(0);
     }
     public static PokemonTeamBean displayMult(int _no) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         TrainerBean trainer_ = transitTrainer(3,1,7,pk_, all_);
 //        NaSt pkTeam_ = new PokemonBeanStruct(new PokemonTeamBean());
@@ -221,7 +222,7 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
 //        beforeDisplaying(pkTeam_);
         return trainer_.getBeans().get(_no);
     }
-    private static DualFightBean transitDual(PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    private static DualFightBean transitDual(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MapLevelBean bean_ = transitLevel(3, 0, _pk, _all);
         DualFightBean tr_ = (DualFightBean) _all.getVal(InitDbMap.BEAN_DUAL);
         transit(_pk,new MapLevelBeanClickTileOnMap((MapLevelBean)bean(_all, CommonBean.REN_ADD_WEB_HTML_MAP_LEVEL_HTML),8),bean_,tr_);

@@ -1571,18 +1571,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return ((SelectPokemonBean) _str).getWholeWord().isSelected();
     }
     protected static String quit(){
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = init(beanToSimu(pk_.getDataBase()));
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = init(beanToSimu(pk_));
         return navigateData(new SimulationBeanQuit((SimulationBean) simu_),simu_);
     }
     protected static CommonBean validateDiff(int _nbTeam){
-        PkData pk_ = pkDataByFacade(db());
-        return simBean(_nbTeam, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        return simBean(_nbTeam, pk_);
     }
 
     protected static CommonBean initByTeam(int _nbTeam) {
-        PkData pk_ = pkDataByFacade(db());
-        return init(_nbTeam, beanToSimu(pk_.getDataBase()));
+        FacadeGame pk_ = pkDataByFacade(db());
+        return init(_nbTeam, beanToSimu(pk_));
     }
     protected static CommonBean init(int _nbTeam, CommonBean _init) {
         CommonBean simu_ = init(_init);
@@ -1596,8 +1596,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return _simu;
     }
     protected static CommonBean pkTrainerTwoTeamsNextOk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, simu_, 4);
@@ -1613,8 +1613,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerTwoTeamsNextOkAlly() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(1, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(1, pk_);
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, simu_, 4);
@@ -1624,8 +1624,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerTwoTeamsNextAdjMult() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, simu_, 4);
@@ -1641,8 +1641,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerTwoTeamsNextKo() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(1, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(1, pk_);
         return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
     //    protected static NaSt pkTrainerTwoTeams() {
@@ -1656,8 +1656,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
 //    }
     protected static CommonBean dispSimu() {
-        PkData pk_ = pkDataByFacade(db());
-        return init(beanToSimu(pk_.getDataBase()));
+        FacadeGame pk_ = pkDataByFacade(db());
+        return init(beanToSimu(pk_));
     }
     public static SimulationBean beanDiffDis(String _language) {
         FacadeGame fac_ = db();
@@ -1705,13 +1705,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return simu_;
     }
     protected static CommonBean pkTrainer() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         return goToAddPkTrainer(simu_);
     }
     protected static String editNoFoePk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
 //        callSimulationBeanSelectedFoePkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_,((SimulationBean)simu_).getSelectedFoeAction(),-1),simu_);
     }
@@ -1734,12 +1734,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), TeamCrud.EDIT.getTeamCrudString(), -1), simu_.getInstance().getBuilder());
 //    }
     protected static CommonBean editNoFoePkState() {
-        PkData pk_ = pkDataByFacade(db());
-        return simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        return simBean(2, pk_);
     }
     protected static CommonBean pkTrainerFoeRemove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         CommonBean second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
 //        callSimulationBeanSelectedFoeActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
@@ -1747,16 +1747,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) second_, TeamCrud.REMOVE.getTeamCrudString(), 0), simu_.getBuilder());
     }
     protected static String editNoSelectedFoePk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,-1);
         return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
     }
     protected static CommonBean editEditSelectedFoePk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,0);
@@ -1771,8 +1771,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) added_.getBean(), TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
 //    }
     protected static CommonBean editEditSelectedFoePkAddMove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,0);
@@ -1781,16 +1781,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editing_), simu_.getBuilder());
     }
     protected static String editForgetSelectedFoePk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,0);
         return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),0),added_);
     }
     protected static String editNoAllyPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
 //        callSimulationBeanSelectedAllyPkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_,((SimulationBean)simu_).getSelectedAllyAction(),-1),simu_);
     }
@@ -1818,8 +1818,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
     protected static CommonBean pkTrainerAllyRemove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         CommonBean second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
 //        callSimulationBeanSelectedAllyActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
@@ -1827,16 +1827,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SimulationBeanSelectAllyPkValidation((SimulationBean) second_, TeamCrud.REMOVE.getTeamCrudString(), 0), simu_.getBuilder());
     }
     protected static String editNoSelectedAllyPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,-1);
         return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
     }
     protected static CommonBean editEditSelectedAllyPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,0);
@@ -1851,8 +1851,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return added_;
 //    }
     protected static CommonBean editEditSelectedAllyPkAddMove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,0);
@@ -1861,33 +1861,33 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editing_), simu_.getBuilder());
     }
     protected static String editForgetSelectedAllyPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,0);
         return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),0),added_);
     }
     protected static CommonBean pkTrainerIndex() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         return pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
     }
     protected static CommonBean pkTrainerLevel(int _level) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         return pkTrainerSelectPkNameCycle(false,P_POK_00_TR,A_SIM_1_TR, simu_, _level);
     }
     protected static CommonBean pkTrainerLevelCancelAdd() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return transitSimu(new EditTrainerPokemonBeanCancel((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerLevelRestoreMoves() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(editPkTrainer_),0),true);
         CommonBean after_ = transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
@@ -1954,48 +1954,48 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }*/
     protected static CommonBean pkTrainerSelectPkCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getBuilder());
     }
 
     protected static CommonBean pkTrainerSelectPkName(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
         return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectPkHasEvo(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanHasEvoSet(selPk_,_name);
         return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectPkIsEvo(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanIsEvoSet(selPk_,_name);
         return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectPkIsLeg(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanIsLegSet(selPk_,_name);
         return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectPkRow(int _row) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanTypedNameSet(selPk_,DataBase.EMPTY_STRING);
@@ -2003,8 +2003,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectPokemonBeanClickLink((SelectPokemonBean) rSe_, ((SelectPokemonBean) rSe_).getPokedex().get(_row).getName()), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectPkType(String _type, boolean _wholeWord) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanTypedTypeSet(selPk_,_type);
@@ -2012,28 +2012,28 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSelectPk(editPkTrainer_);
     }
     protected static CommonBean pkTrainerSelectPkAllyInfo(boolean _ally) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
         return editPkTrainer_;
     }
     protected static CommonBean pkTrainerSelectAbCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectAb(int _row) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectAbilityBeanTypedAbilitySet(selAb_,DataBase.EMPTY_STRING);
@@ -2041,22 +2041,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectAbilityBeanClickAbility((SelectAbilityBean) rSe_, _row), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectAb(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectAbilityBeanTypedAbilitySet(selAb_,_name);
         return transitSimu(new SelectAbilityBeanSearch((SelectAbilityBean) selAb_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectAb() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSelectAb(editPkTrainer_);
     }
     protected static CommonBean pkTrainerSelectItCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         CommonBean rSe_ = transitSimu(new SelectItemBeanCancelItem((SelectItemBean) selPk_), simu_.getBuilder());
@@ -2067,8 +2067,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectItemBeanCancel((SelectItemBean) nextIt_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectItCancelRem() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedNameSet(selPk_,DataBase.EMPTY_STRING);
@@ -2078,8 +2078,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectItemBeanCancelItem((SelectItemBean) nextIt_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectItName(int _row) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedNameSet(selAb_,DataBase.EMPTY_STRING);
@@ -2087,8 +2087,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectItemBeanClickLink((SelectItemBean) rSe_, ((SelectItemBean) rSe_).getItems().get(_row).getName()), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectItName(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return chooseItemPkTrainer(_name, editPkTrainer_);
     }
@@ -2108,31 +2108,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectItemBeanSearch((SelectItemBean) _selIt), _selIt.getBuilder());
     }
     protected static CommonBean pkTrainerSelectItPrice() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedPriceSet(selAb_,DataBase.EMPTY_STRING);
         return transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectItCl(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedClassSet(selAb_,_name);
         return transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSelectItName() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSelectIt(editPkTrainer_);
     }
 
     protected static CommonBean pkTrainerSetMovesName(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callEditPokemonMovesBeanTypedNameSet(selPk_,_name);
@@ -2140,31 +2140,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkTrainerSetMovesCat(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callEditPokemonMovesBeanCategorySet(selPk_,_name);
         return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSetMovesCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         return transitSimu(new EditPokemonMovesBeanCancel((EditPokemonMovesBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSetMovesRemove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         return transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) re_), simu_.getBuilder());
     }
     protected static CommonBean addPkTrainerChangeMoves(boolean _ally) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(re_),0),true);
@@ -2173,16 +2173,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) afterDel_), simu_.getBuilder());
     }
     protected static CommonBean addPkTrainerChangeItem(boolean _ally) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         assertSame(editPkTrainer_, chooseItemPkTrainer(I_BALL_TR, editPkTrainer_));
         callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
         return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSetMovesNameAdd(String _name, int _row) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return addMoveTrainer(_name, _row, editPkTrainer_);
     }
@@ -2212,8 +2212,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditPokemonMovesBeanAddMoves((EditPokemonMovesBean) foundMoves_), _editMoves.getBuilder());
     }
     protected static CommonBean pkTrainerSetMovesType(String _type, boolean _wholeWord) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callEditPokemonMovesBeanTypedTypeSet(selPk_,_type);
@@ -2221,35 +2221,35 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_), simu_.getBuilder());
     }
     protected static CommonBean pkTrainerSetMoves() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSetMovesTrainer(editPkTrainer_);
     }
     protected static CommonBean pkTrainer(boolean _select) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         CommonBean edit_ = goToAddPkTrainer(simu_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
         return edit_;
     }
     protected static String editNoPlayerPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectPkValidation((SimulationBean) simu_,((SimulationBean)simu_).getSelectedAction(),-1),simu_);
     }
     protected static CommonBean pkPlayerRemove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
         return editPkPlayer(simu_, P_POK_01_TR, A_SIM_2_TR, 0, 5, TeamCrud.REMOVE);
     }
     protected static String editNoSelectedPlayerPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
 //        callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
@@ -2280,14 +2280,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
     protected static CommonBean editEditSelectedPlayerPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         return editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
     }
     protected static CommonBean editEditSelectedPlayerPkForm(boolean _heal, Rate _exp, Rate _hp) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callEditPokemonBeanHealSet(editing_, _heal);
@@ -2300,8 +2300,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_), simu_.getBuilder());
     }
     protected static CommonBean editEditSelectedPlayerPkFormNoMove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(editing_),0),true);
@@ -2309,8 +2309,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_), simu_.getBuilder());
     }
     protected static CommonBean editEditSelectedPlayerPkFormCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(editing_),0),true);
@@ -2323,16 +2323,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return h_;
     }
     protected static CommonBean editEditSelectedPlayerPkItem() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(edit_, chooseItemPkPlayer(I_BALL_TR, edit_));
         return edit_;
     }
     protected static CommonBean editEditSelectedPlayerPkItemCancelItem() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         CommonBean chosen_ = chooseItemPkPlayer(I_BALL_TR, edit_);
@@ -2340,8 +2340,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SelectItemBeanCancelItem((SelectItemBean) redo_), simu_.getBuilder());
     }
     protected static CommonBean editEditSelectedPlayerPkItemCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         CommonBean first_ = transitSimu(new EditPokemonBeanChooseItem((EditPokemonBean) edit_), simu_.getBuilder());
@@ -2349,8 +2349,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return chooseItemPkPlayer(I_BALL_TR, back_);
     }
     protected static CommonBean editEditSelectedPlayerPkItemPart(int _row) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         CommonBean chosen_ = chooseItemPkPlayer(DataBase.EMPTY_STRING, edit_);
@@ -2376,22 +2376,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
 //    }
     protected static CommonBean editEditSelectedPlayerPkListMoves() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         return transitSimu(new EditPokemonBeanAddMoves((EditPokemonBean) editing_), simu_.getBuilder());
     }
     protected static CommonBean editEditSelectedPlayerPkListMoves(String _name, boolean _flag) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         return searchMovePlayer(_name, editing_,_flag);
     }
     protected static CommonBean editEditSelectedPlayerPkListMovesCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         CommonBean se_ = searchMovePlayer(M_POK_04_TR, editing_, false);
@@ -2407,8 +2407,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerSetMovesRemove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         CommonBean re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
@@ -2416,8 +2416,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_), simu_.getBuilder());
     }
     protected static String editForgetSelectedPlayerPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
 //        callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
@@ -2425,8 +2425,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return navigateData(new SimulationBeanSelectPkValidation((SimulationBean)added_,TeamCrud.NOTHING.getTeamCrudString(),0),added_);
     }
     protected static CommonBean addPkPlayerChangeMoves() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
@@ -2458,37 +2458,37 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return afterAddEdit_;
     }
     protected static CommonBean pkPlayerSelectPk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         return goToAddPkPlayer(simu_);
     }
     protected static CommonBean pkPlayerSelectPkCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
         return transitSimu(new AddPokemonBeanCancel((AddPokemonBean) addPk_), simu_.getBuilder());
     }
 
     protected static CommonBean pkPlayerSelectPkNameAbility(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         return pkPlAb(_name, simu_);
     }
 
     protected static CommonBean pkPlayerSelectPkNameTwice() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, simu_,40);
         return pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_2, simu_,39);
     }
 
     protected static CommonBean pkPlayerValidateEvosNoSelect() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,-1);
@@ -2496,8 +2496,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvosSelect() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
@@ -2505,8 +2505,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvoValues() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
@@ -2517,8 +2517,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvoValidate() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
@@ -2529,16 +2529,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoThenFighters() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         return validEvos(simu_);
     }
 
     protected static CommonBean pkPlayerEvoFightersImmediateValid() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2547,8 +2547,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersFormValid() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2556,8 +2556,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersWithoutFronts() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2565,8 +2565,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersSufficientFronts() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2574,8 +2574,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMove(int _index) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2586,8 +2586,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(int _index, String _ab) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2598,8 +2598,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuickTwice(int _index, String _ab) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2611,8 +2611,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2621,8 +2621,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFighterChoice(int _index, int _round) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2636,8 +2636,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFighterChoiceAfter(int _index, int _round, boolean _allyChoice, int _move, int _target) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2647,8 +2647,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFighterSimulate() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2658,8 +2658,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFighterSimulateStMove() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2670,8 +2670,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFighterSimulateStMoveCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2684,8 +2684,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFighterSimulateStMoveCancel2() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2699,16 +2699,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulate() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         return oneFight(simu_);
     }
 
     protected static CustList<String> pkPlayerFighterSimulateComment() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2718,8 +2718,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFight() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2728,8 +2728,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2738,8 +2738,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightCancel2() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2749,8 +2749,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightCancel3() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2761,8 +2761,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightCancel4() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2776,8 +2776,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightOne() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2787,8 +2787,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightOneValidate() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2803,8 +2803,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightCancelOne() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
@@ -2822,8 +2822,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateOneFight() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(1, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(1, pk_);
         foeTeamSample(simu_);
         playerTeamSampleSkip(simu_);
         fighterPositions(simu_);
@@ -2831,8 +2831,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSkipEvosStateBadNbCount() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
@@ -2845,15 +2845,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSkipEvosStateEmpty() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) simu_), simu_.getBuilder());
     }
 
     protected static CommonBean pkPlayerEvoFighterSimulateKo() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2864,8 +2864,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFighterSimulateKos() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSampleInv(simu_);
         playerTeamSampleInv(simu_);
         transitSimu(new SimulationBeanValidateEvolutions((SimulationBean) simu_), simu_.getBuilder());
@@ -2911,8 +2911,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2928,8 +2928,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -3020,8 +3020,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvoValidateThenCancel() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
@@ -3053,8 +3053,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
     protected static CommonBean pkPlayerValidateEvos() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         return playerTeamSample(simu_);
     }
@@ -3086,8 +3086,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvosKo() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         return transitSimu(new SimulationBeanValidateTeam((SimulationBean) simu_), simu_.getBuilder());
     }
@@ -3102,8 +3102,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerSelectPkNameAdded(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
 //        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
@@ -3113,8 +3113,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerSelectPkNameQuickAdded() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
@@ -3122,40 +3122,40 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new AddPokemonBeanAdd((AddPokemonBean) addPk_), simu_.getBuilder());
     }
     protected static CommonBean pkPlayerSelectPkName(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
         return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
     protected static CommonBean pkPlayerSelectPkHasEvo(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanHasEvoSet(addPk_,_name);
         return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
     protected static CommonBean pkPlayerSelectPkIsEvo(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanIsEvoSet(addPk_,_name);
         return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
     protected static CommonBean pkPlayerSelectPkIsLeg(String _name) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanIsLegSet(addPk_,_name);
         return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
     protected static CommonBean pkPlayerSelectPkRow(int _row) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanTypedNameSet(addPk_,DataBase.EMPTY_STRING);
@@ -3164,8 +3164,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new AddPokemonBeanClickLink(add_, add_.getPokedex().get(_row).getName()), simu_.getBuilder());
     }
     protected static CommonBean pkPlayerSelectPkType(String _type, boolean _wholeWord) {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanTypedTypeSet(addPk_,_type);
@@ -3173,8 +3173,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
     protected static CommonBean pkPlayer() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSample(simu_);
         return goToAddPkPlayer(simu_);
     }
@@ -3294,8 +3294,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (CommonBean) _builder.getRenders().getVal(url_);// _all.getVal(_mapping.getVal(url_));
     }
     protected static Rate integration() {
-        PkData pk_ = pkDataByFacade(db());
-        CommonBean simu_ = init(2, beanToSimu(pk_.getDataBase()));
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = init(2, beanToSimu(pk_));
 //        ((SimulationBean)((PokemonBeanStruct)simu_).getBean()).getDifficultyCommon().setWinTrainerExp(Rate.newRate("5/7"));
         ((SimulationBean) simu_).getForm().getWinTrainerExp().valueRate(Rate.newRate("5/7"));
 //        ((DifficultyCommonBean)((PokemonBeanStruct)all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON)).getBean()).setWinTrainerExp(Rate.newRate("5/7"));
@@ -3479,21 +3479,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvosSelectTwo() {
-        PkData pk_ = pkDataByFacade(dbLight());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbLight());
+        CommonBean simu_ = simBean(2, pk_);
         return evolutions(simu_);
     }
 
 
     protected static CommonBean pkPlayerValidateEvosSelectTree() {
-        PkData pk_ = pkDataByFacade(dbLightSec());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbLightSec());
+        CommonBean simu_ = simBean(2, pk_);
         return evolutionsTree(simu_);
     }
 
     protected static CommonBean pkPlayerValidateEvosSelectTwoOnce() {
-        PkData pk_ = pkDataByFacade(dbLight());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbLight());
+        CommonBean simu_ = simBean(2, pk_);
         evolutions(simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
@@ -3501,8 +3501,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvosSelectTwoTwice() {
-        PkData pk_ = pkDataByFacade(dbLight());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbLight());
+        CommonBean simu_ = simBean(2, pk_);
         evolutions(simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
@@ -3513,8 +3513,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerValidateEvosSelectTwoThreeTimes() {
-        PkData pk_ = pkDataByFacade(dbLight());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbLight());
+        CommonBean simu_ = simBean(2, pk_);
         evolutions(simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
@@ -3685,8 +3685,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean pkPlayerFighterSimulateAfterFightOneLight() {
-        PkData pk_ = pkDataByFacade(dbLightThree());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbLightThree());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSampleVeryLight(simu_);
         playerTeamSampleLightSkip(simu_);
         fighterPositionsLight(simu_);
@@ -4049,38 +4049,38 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return _set;
     }
     protected static CommonBean chooseTrainer() {
-        PkData pk_ = pkDataByFacade(dbFull());
-        return simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        return simBean(0, pk_);
     }
     protected static CommonBean chooseTrainerLevel(int _place, int _level) {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         return transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, _place, _level), simu_.getBuilder());
     }
     protected static CommonBean chooseTrainerLevelZero(int _place) {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         return transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, _place, 0), simu_.getBuilder());
     }
     protected static CommonBean chooseTrainerLevel(int _level, int _noFight, int _tile) {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         CommonBean sel_ = transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 2, _level), simu_.getBuilder());
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
         assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_), simu_.getBuilder()));
         return transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_, _tile), simu_.getBuilder());
     }
     protected static CommonBean chooseTrainerLevelZero(int _place, int _noFight, int _tile) {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         CommonBean sel_ = transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, _place, 0), simu_.getBuilder());
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
         assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_), simu_.getBuilder()));
         return transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_, _tile), simu_.getBuilder());
     }
     protected static CommonBean chooseTrainerLevelDualValidate() {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         CommonBean sel_ = transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 2, 0), simu_.getBuilder());
         callSimulationLevelBeanNoFightSet(sel_,0);
         assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_), simu_.getBuilder()));
@@ -4088,21 +4088,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
     }
     protected static CommonBean chooseTrainerLevelDualValidateKo() {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         return transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
     }
     protected static CommonBean simuLeagueReal() {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 3, 0), simu_.getBuilder());
         transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
         simpleTeam(simu_);
         return simu_;
     }
     protected static CommonBean simuLeagueRealSec() {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(0, pk_);
         transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 3, 1), simu_.getBuilder());
         transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
         simpleTeamLight(simu_);
@@ -4114,8 +4114,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     protected static CommonBean simuLeagueVirtual() {
-        PkData pk_ = pkDataByFacade(dbFull());
-        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        FacadeGame pk_ = pkDataByFacade(dbFull());
+        CommonBean simu_ = simBean(2, pk_);
         foeTeamsSampleSec(simu_);
         simpleTeam(simu_);
         return simu_;

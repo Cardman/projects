@@ -29,7 +29,7 @@ public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
         return dispMoveEffEndRound(feedDbMoveEffDataDam());
     }
     protected static EffectEndRoundMoveBean dispMoveEffEndRound(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectEndRound();
         return (EffectEndRoundMoveBean)transitEffect(0,0,pk_,all_);

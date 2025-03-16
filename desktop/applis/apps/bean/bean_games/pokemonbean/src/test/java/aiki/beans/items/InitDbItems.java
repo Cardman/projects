@@ -165,7 +165,7 @@ public abstract class InitDbItems extends InitDbConstr {
 //        return itData_;
 //    }
 
-    protected static ItemBean transitToAllItemsQuick(PkData _pk, StringMap<BeanRenderWithAppName> _all, String _it) {
+    protected static ItemBean transitToAllItemsQuick(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all, String _it) {
         WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         ItemsBean items_ = (ItemsBean) _all.getVal(BEAN_ITEMS);
@@ -177,7 +177,7 @@ public abstract class InitDbItems extends InitDbConstr {
     }
 
 
-    protected static ItemBean transitToAllItemsClick(PkData _pk, StringMap<BeanRenderWithAppName> _all, String _it) {
+    protected static ItemBean transitToAllItemsClick(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all, String _it) {
         WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         ItemsBean items_ = (ItemsBean) _all.getVal(BEAN_ITEMS);
@@ -188,25 +188,20 @@ public abstract class InitDbItems extends InitDbConstr {
         return itData_;
     }
 
-    protected static ItemsBean dispAllItems(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
-        return dispAllItems(pk_);
-    }
-
-    private static ItemsBean dispAllItems(PkData _pk) {
-        StringMap<BeanRenderWithAppName> all_ = beanToItems(_pk);
+    protected static ItemsBean dispAllItems(FacadeGame _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToItems(pkDataByFacade(_pk));
         WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         ItemsBean moves_ = (ItemsBean) all_.getVal(BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems(welcome_),welcome_,moves_);
         return moves_;
     }
-    public static StringMap<BeanRenderWithAppName> beanToItems(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToItems(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,beanWelcomeBean(_pk,EN));
         ItemsBean its_ = new ItemsBean();
         its_.setBuilder(map_.getValue(0).getBuilder());
-        initBean(its_,EN,_pk.getDataBase());
+        initBean(its_,EN,_pk);
         map_.addEntry(BEAN_ITEMS, its_);
         map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_ITEMS_ITEMS_HTML,its_);
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.ITEMS,new TranslationsFile());
@@ -271,7 +266,7 @@ public abstract class InitDbItems extends InitDbConstr {
         return facade_;
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToItem(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToItem(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItems(_pk);
 //        map_.addEntry(AikiBeansItemsStd.BEAN_ITEM, _pk.bean(new SellingItemBean(), EN));
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_ITEM,new TranslationsFile());

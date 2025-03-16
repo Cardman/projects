@@ -125,7 +125,7 @@ public abstract class InitDbMoveEffectInvoke extends InitDbMoveEffect{
         return dispMoveEffInvoke(feedDbMoveEffDataInvoke(_invokingAllyMove, _invokingMoveButUser, _invokingSufferedMove, _invokingTargetChosenMove, _invokingTargetSuccesfulMove, _invokingUserMoveWhileSleep));
     }
     protected static EffectInvokeBean dispMoveEffInvoke(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectInvoke();
         return (EffectInvokeBean)transitEffect(0,0,pk_,all_);

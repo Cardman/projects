@@ -67,7 +67,7 @@ public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect 
         return dispMoveEffTeamSend(_fac, _index,0);
     }
     protected static EffectTeamWhileSendFoeBean dispMoveEffTeamSend(FacadeGame _fac, int _index, int _indexEff) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectTeamSend();
         return (EffectTeamWhileSendFoeBean)transitEffect(_index,_indexEff,pk_,all_);

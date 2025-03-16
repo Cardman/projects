@@ -44,7 +44,7 @@ public abstract class InitDbMoveEffectRestriction extends InitDbMoveEffect {
         return dispMoveEffRestriction(feedDbMoveEffDataRestriction(_targetAttacksLast, _res));
     }
     protected static EffectRestrictionBean dispMoveEffRestriction(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectRestriction();
         return (EffectRestrictionBean)transitEffect(0,0,pk_,all_);

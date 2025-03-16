@@ -2,6 +2,7 @@ package aiki.beans.pokemon;
 
 import aiki.beans.*;
 import aiki.beans.pokemon.evolutions.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.util.LevelMove;
 import aiki.util.Coords;
 import code.scripts.pages.aiki.MessagesPkBean;
@@ -472,12 +473,12 @@ public abstract class InitDbPkOne extends InitDbPk {
 //        return ((PairStruct)_arr).getSecond();
 //    }
     protected static PokemonBean dispPkOne(int _index) {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         StringMap<BeanRenderWithAppName> all_ = beanToPkOne(pk_);
         return transitToAllPks(pk_, all_, _index);
     }
     protected static EvolutionBean dispPkOne(int _index, int _evo) {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         StringMap<BeanRenderWithAppName> all_ = beanToPkOne(pk_);
 //        StringMap<String> mapping_ = mappingToPkOne();
         PokemonBean pkbean_ = transitToAllPks(pk_, all_, _index);
@@ -489,7 +490,7 @@ public abstract class InitDbPkOne extends InitDbPk {
 //        beforeDisplaying(evobean_);
         return pkbean_.getBeans().get(_evo);
     }
-    public static StringMap<BeanRenderWithAppName> beanToPkOne(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToPkOne(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToPk(_pk);
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.PK_DATA,new TranslationsFile());
@@ -514,7 +515,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         PokemonBean pkBean_ = new PokemonBean();
         pkBean_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_POKEMON_DATA_HTML,pkBean_);
-        initBean(pkBean_,EN,_pk.getDataBase());
+        initBean(pkBean_,EN,_pk);
         map_.addEntry(BEAN_PK, pkBean_);
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_HAPPY,_pk.beanEvolutionHappinessBean(EN));
 //        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_ITEM,_pk.beanEvolutionItemBean(EN));

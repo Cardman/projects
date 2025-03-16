@@ -1,8 +1,6 @@
 package aiki.beans.help;
 
 import aiki.beans.*;
-import aiki.beans.PkData;
-import aiki.beans.PokemonBeanStruct;
 import aiki.beans.db.InitDbConstr;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;

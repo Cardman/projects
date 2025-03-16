@@ -96,11 +96,11 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     }
 
     protected static StatusSetBean dispAllStatus() {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         return dispAllStatus(pk_);
     }
 
-    private static StatusSetBean dispAllStatus(PkData _pk) {
+    private static StatusSetBean dispAllStatus(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> all_ = beanToStatusSet(_pk);
         WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
@@ -110,13 +110,13 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     }
 
     protected static StatusSetBean dispAllStatusSearch() {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         StatusSetBean moves_ = dispAllStatus(pk_);
         transit(pk_,new StatusSetBeanSearch(moves_),moves_,moves_);
         return moves_;
     }
 
-    protected static StatusBean transitToAllStatus(PkData _pk, StringMap<BeanRenderWithAppName> _all,int _index) {
+    protected static StatusBean transitToAllStatus(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all,int _index) {
         WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         StatusSetBean pks_ = (StatusSetBean) _all.getVal(BEAN_STATUS_SET);
@@ -129,11 +129,11 @@ public abstract class InitDbStatusSet extends InitDbConstr {
     protected static String navigateStatusSearch(StatusSetBean _moves) {
         return navigateData(new StatusSetBeanSearch(_moves), _moves);
     }
-    public static StringMap<BeanRenderWithAppName> beanToStatusSet(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToStatusSet(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME,beanWelcomeBean(_pk,EN));
         StatusSetBean s_ = new StatusSetBean();
-        initBean(s_,EN,_pk.getDataBase());
+        initBean(s_,EN,_pk);
         map_.addEntry(BEAN_STATUS_SET, s_);
         s_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.STATUSSET,new TranslationsFile());

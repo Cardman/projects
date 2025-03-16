@@ -46,10 +46,10 @@ public abstract class InitDbItem extends InitDbItems{
 //    public static NaSt callItemBeanNameSet(NaSt _str, String _args) {
 //        return BeanPokemonCommonTs.callString(new ItemBeanNameSet(),_str,_args);
 //    }
-    public static StringMap<BeanRenderWithAppName> beanToItemSample(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToItemSample(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         BoostBean b_ = new BoostBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_BOOST, b_);
         b_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_BOOST,new TranslationsFile());
@@ -68,7 +68,7 @@ public abstract class InitDbItem extends InitDbItems{
 //    }
 
     protected static ItemBean dispLineSample(FacadeGame _fac, String _key) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToItemSample(pk_);
         return dispLineClick(_key, pk_, all_);
     }
@@ -80,14 +80,14 @@ public abstract class InitDbItem extends InitDbItems{
 //        return res_;
 //    }
 
-    protected static ItemBean dispLineQuick(String _key, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static ItemBean dispLineQuick(String _key, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         ItemBean res_ = transitToAllItemsQuick(_pk, _all, _key);
 //        callItemBeanItemBeanGet(res_);
 //        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;
     }
 
-    protected static ItemBean dispLineClick(String _key, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static ItemBean dispLineClick(String _key, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         ItemBean res_ = transitToAllItemsClick(_pk, _all, _key);
 //        callItemBeanItemBeanGet(res_);
 //        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));

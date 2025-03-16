@@ -223,11 +223,11 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     protected static MapBean dispMap() {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         return dispMap(pk_);
     }
 
-    private static MapBean dispMap(PkData _pk) {
+    private static MapBean dispMap(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> all_ = beanToMap(_pk);
         MapBean welcome_ = (MapBean) all_.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
@@ -236,12 +236,12 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     protected static MapLevelBean dispMapLevel(int _place, int _level) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         return transitLevel(_place, _level, pk_, all_);
     }
 
-    protected static MapLevelBean transitLevel(int _place, int _level, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static MapLevelBean transitLevel(int _place, int _level, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MapBean welcome_ = (MapBean) _all.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
         welcome_.build(welcome_.getFacade());
@@ -251,12 +251,12 @@ public abstract class InitDbMap extends InitDbConstr {
     }
 
     protected static MapLevelBean dispMapLevelZero(int _place) {
-        PkData pk_ = pkDataByFacade(db());
+        FacadeGame pk_ = pkDataByFacade(db());
         StringMap<BeanRenderWithAppName> all_ = beanToMap(pk_);
         return transitLevelZero(_place, pk_, all_);
     }
 
-    protected static MapLevelBean transitLevelZero(int _place, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static MapLevelBean transitLevelZero(int _place, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MapBean welcome_ = (MapBean) _all.getVal(BEAN_GAME_MAP);
 //        beforeDisplaying(welcome_);
         welcome_.build(welcome_.getFacade());
@@ -275,10 +275,10 @@ public abstract class InitDbMap extends InitDbConstr {
         transit(_pk,new PokedexBeanClickLink(),pks_,pk_,_index);
         return pk_;
     }*/
-    public static StringMap<BeanRenderWithAppName> beanToMap(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToMap(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         MapBean welcome_ = new MapBean();
-        welcome_.setFacade(_pk.getDataBase());
+        welcome_.setFacade(_pk);
         welcome_.setLanguage(EN);
         MockBeanBuilderHelper bu_ = new MockBeanBuilderHelper();
         Translations tr_ = new Translations();

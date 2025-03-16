@@ -174,7 +174,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return _str.switchTypes();
     }
     protected static EffectSwitchTypesBean dispMoveEffCopyMove(ConstValuesType _cst, ExchangeType _exc) {
-        PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_cst, _exc));
+        FacadeGame pk_ = pkDataByFacade(feedDbMoveEffDataDam(_cst, _exc));
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchTypes();
         return (EffectSwitchTypesBean)transitEffect(0,0,pk_,all_);
@@ -231,7 +231,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return e_;
     }
     protected static EffectSwitchMoveTypesBean dispMoveEffSwitchMoveTypes() {
-        PkData pk_ = pkDataByFacade(feedDbMoveEffDataSwitchMoveTypes());
+        FacadeGame pk_ = pkDataByFacade(feedDbMoveEffDataSwitchMoveTypes());
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchMoveTypes();
         return (EffectSwitchMoveTypesBean)transitEffect(0,0,pk_,all_);
@@ -288,7 +288,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return dispMoveEffSwitchAbilities(feedDbMoveEffDataSwitchAbilities(_targetAttacksLast, _res));
     }
     protected static EffectSwitchAbilitiesBean dispMoveEffSwitchAbilities(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchAbilities();
         return (EffectSwitchAbilitiesBean)transitEffect(0,0,pk_,all_);
@@ -337,7 +337,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return dispMoveEffSwitchItems(feedDbMoveEffDataSwitchItems(_res));
     }
     protected static EffectSwitchItemsBean dispMoveEffSwitchItems(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchItems();
         return (EffectSwitchItemsBean)transitEffect(0,0,pk_,all_);
@@ -385,7 +385,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return dispMoveEffSwitchPointView(feedDbMoveEffDataSwitchPointView(_res));
     }
     protected static EffectSwitchPointViewBean dispMoveEffSwitchPointView(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectSwitchPointView();
         return (EffectSwitchPointViewBean)transitEffect(0,0,pk_,all_);

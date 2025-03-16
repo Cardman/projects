@@ -82,10 +82,10 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return healFossil().getLevel();
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToEvoItem(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToEvoItem(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         EvolvingItemBean b_ = new EvolvingItemBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_EVO_ITEM, b_);
         b_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOITEM,new TranslationsFile());
@@ -95,7 +95,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     protected static EvolvingItemBean healEvoItem() {
-        PkData pk_ = pkDataByFacade(feedDbEvoItem());
+        FacadeGame pk_ = pkDataByFacade(feedDbEvoItem());
         StringMap<BeanRenderWithAppName> all_ = beanToEvoItem(pk_);
         return (EvolvingItemBean) dispLineQuick(InitDbItems.BEAN_EVO_ITEM, pk_, all_);
     }
@@ -116,10 +116,10 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return facade_;
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToEvoStone(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToEvoStone(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         EvolvingStoneBean b_ = new EvolvingStoneBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_EVO_STONE, b_);
         b_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_EVOSTONE,new TranslationsFile());
@@ -129,7 +129,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     protected static EvolvingStoneBean healEvoStone() {
-        PkData pk_ = pkDataByFacade(feedDbEvoStone());
+        FacadeGame pk_ = pkDataByFacade(feedDbEvoStone());
         StringMap<BeanRenderWithAppName> all_ = beanToEvoStone(pk_);
         return (EvolvingStoneBean) dispLineQuick(InitDbItems.BEAN_EVO_STONE, pk_, all_);
     }
@@ -150,10 +150,10 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return facade_;
     }
 
-    public static StringMap<BeanRenderWithAppName> beanToFossil(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToFossil(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = beanToItem(_pk);
         FossilBean b_ = new FossilBean();
-        initBean(b_,EN,_pk.getDataBase());
+        initBean(b_,EN,_pk);
         map_.addEntry(InitDbItems.BEAN_FOSSIL, b_);
         b_.setBuilder(map_.getValue(0).getBuilder());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.IT_FOSSIL,new TranslationsFile());
@@ -163,7 +163,7 @@ public abstract class InitDbItemEvolving extends InitDbItem {
     }
 
     protected static FossilBean healFossil() {
-        PkData pk_ = pkDataByFacade(feedDbFossil());
+        FacadeGame pk_ = pkDataByFacade(feedDbFossil());
         StringMap<BeanRenderWithAppName> all_ = beanToFossil(pk_);
         return (FossilBean) dispLineQuick(InitDbItems.BEAN_FOSSIL, pk_, all_);
     }

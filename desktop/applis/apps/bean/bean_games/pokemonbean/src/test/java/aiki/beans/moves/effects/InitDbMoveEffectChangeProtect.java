@@ -93,7 +93,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return dispMoveEffProtection(feedDbMoveEffDataProtection(_protSingle, _protTeamAgainstPrio, _protTeamAgainstStatusMoves, _protTeamAgainstDamageMoves, _protTeamAgainstMultTargets));
     }
     protected static EffectProtectionBean dispMoveEffProtection(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectProtection();
         return (EffectProtectionBean)transitEffect(0,0,pk_,all_);
@@ -144,7 +144,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return dispMoveEffProtectFromTypes(feedDbMoveEffDataProtectFromTypes());
     }
     protected static EffectProtectFromTypesBean dispMoveEffProtectFromTypes(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectProtectFromTypes();
         return (EffectProtectFromTypesBean)transitEffect(0,0,pk_,all_);
@@ -190,7 +190,7 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return dispMoveEffUnprotectFromTypes(feedDbMoveEffDataUnprotectFromTypes());
     }
     protected static EffectUnprotectFromTypesBean dispMoveEffUnprotectFromTypes(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMove(pk_);
 //        StringMap<String> mapping_ = mappingToEffectUnprotectFromTypes();
         return (EffectUnprotectFromTypesBean)transitEffect(0,0,pk_,all_);

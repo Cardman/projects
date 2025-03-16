@@ -155,13 +155,13 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     private static MovesBean moveLine(int _index) {
-        PkData pk_ = pkDataByFacade(feedDb());
+        FacadeGame pk_ = pkDataByFacade(feedDb());
         StringMap<BeanRenderWithAppName> all_ = beanToMoves(pk_);
         return transitToAllMoves(pk_, all_, _index);
     }
 
     protected static MoveLine dispLine(FacadeGame _fac, int _index) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         StringMap<BeanRenderWithAppName> all_ = beanToMoves(pk_);
         MovesBean moves_ = transitToAllMoves(pk_, all_, _index);
         return eltMvLine(callMovesBeanMovesGet(moves_),_index);
@@ -170,7 +170,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     private static MoveLine eltMvLine(CustList<MoveLine> _ls, int _i) {
         return _ls.get(_i);
     }
-    protected static MovesBean transitToAllMoves(PkData _pk, StringMap<BeanRenderWithAppName> _all, int _index) {
+    protected static MovesBean transitToAllMoves(FacadeGame _pk, StringMap<BeanRenderWithAppName> _all, int _index) {
         WelcomeBean welcome_ = (WelcomeBean) _all.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         MovesBean moves_ = (MovesBean) _all.getVal(BEAN_MOVES);
@@ -179,18 +179,13 @@ public abstract class InitDbMoves extends InitDbConstr {
         return moves_;
     }
 
-    protected static MovesBean dispAllMoves(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
-        return dispAllMoves(pk_);
-    }
-
     protected static MovesBean dispAllMovesTutors(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         return dispAllMoveslMovesTutors(pk_);
     }
 
-    private static MovesBean dispAllMoves(PkData _pk) {
-        StringMap<BeanRenderWithAppName> all_ = beanToMoves(_pk);
+    protected static MovesBean dispAllMoves(FacadeGame _pk) {
+        StringMap<BeanRenderWithAppName> all_ = beanToMoves(pkDataByFacade(_pk));
         WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         MovesBean moves_ = (MovesBean) all_.getVal(BEAN_MOVES);
@@ -199,11 +194,11 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
 
-    private static MovesBean dispAllMoveslMovesTutors(PkData _pk) {
+    private static MovesBean dispAllMoveslMovesTutors(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> all_ = beanToMoves(_pk);
         WelcomeBean welcome_ = (WelcomeBean) all_.getVal(BeanPokemonCommonTs.BEAN_WELCOME);
-        _pk.getDataBase().getData().completeMoveTutors();
-        _pk.getDataBase().getData().setView(_pk.getDataBase().getData().computeLearn());
+        _pk.getData().completeMoveTutors();
+        _pk.getData().setView(_pk.getData().computeLearn());
         beforeDisplaying(welcome_);
         MovesBean moves_ = (MovesBean) all_.getVal(BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves(welcome_),welcome_,moves_);
@@ -211,7 +206,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     protected static MovesBean dispAllMovesSearch(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
+        FacadeGame pk_ = pkDataByFacade(_fac);
         MovesBean moves_ = dispAllMoves(pk_);
         transit(pk_,new MovesBeanSearch(moves_),moves_,moves_);
         return moves_;
@@ -297,13 +292,13 @@ public abstract class InitDbMoves extends InitDbConstr {
 //    private static Struct callMoveLineBeanSortedMovesSet(Struct _str, Struct _args) {
 //        return BeanPokemonCommonTs.callStruct(new MoveLineBeanSortedMovesSet(),_str,_args);
 //    }
-    public static StringMap<BeanRenderWithAppName> beanToMoves(PkData _pk) {
+    public static StringMap<BeanRenderWithAppName> beanToMoves(FacadeGame _pk) {
         StringMap<BeanRenderWithAppName> map_ = new StringMap<BeanRenderWithAppName>();
         WelcomeBean w_ = beanWelcomeBean(_pk, EN);
         map_.addEntry(BeanPokemonCommonTs.BEAN_WELCOME, w_);
         MovesBean moves_ = new MovesBean();
         moves_.setBuilder(w_.getBuilder());
-        initBean(moves_,EN,_pk.getDataBase());
+        initBean(moves_,EN,_pk);
         map_.addEntry(BEAN_MOVES, moves_);
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(EN).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
         map_.getValue(0).getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.MOVES,new TranslationsFile());
@@ -395,14 +390,14 @@ public abstract class InitDbMoves extends InitDbConstr {
         _dam.getEffects().add(_ef);
     }
 
-    protected static MoveBean transitMove(int _index, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static MoveBean transitMove(int _index, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
         MovesBean moveline_ = transitToAllMoves(_pk, _all, _index);
         MoveBean mbean_ = (MoveBean) _all.getVal(BEAN_MOVE);
         transit(_pk,new EntityClickFormEvent(moveline_,moveline_.getMoves().get(_index).getTranslatedKey()), moveline_, mbean_);
         return mbean_;
     }
 
-    protected static MoveBean transitMoveQuick(int _index, PkData _pk, StringMap<BeanRenderWithAppName> _all) {
+    protected static MoveBean transitMoveQuick(int _index, FacadeGame _pk, StringMap<BeanRenderWithAppName> _all) {
 //        return transitMove(_index, _pk, _all, _mapping);
         transitToAllMoves(_pk, _all, _index);
         return (MoveBean) _all.getVal(BEAN_MOVE);
