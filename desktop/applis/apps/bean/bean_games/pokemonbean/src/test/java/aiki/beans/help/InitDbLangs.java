@@ -10,7 +10,6 @@ import aiki.fight.moves.enums.*;
 import aiki.instances.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
-import code.bean.nat.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.sml.util.TranslationsFile;
 import code.util.*;
@@ -20,125 +19,125 @@ public abstract class InitDbLangs extends InitDbConstr {
     public static final String T_T = "T_T";
 
     public static CustList<String> callLangsBeanGetKeysAbilities() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysAbilities());
+        return str().getKeysAbilities();
     }
 
     public static CustList<String> callLangsBeanGetKeysBooleans() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysBooleans());
+        return str().getKeysBooleans();
     }
 
     public static CustList<String> callLangsBeanGetKeysCategories() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysCategories());
+        return str().getKeysCategories();
     }
 
     public static CustList<String> callLangsBeanGetKeysDesc() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysDesc());
+        return str().getKeysDesc();
     }
 
     public static CustList<String> callLangsBeanGetKeysEnvironments() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysEnvironments());
+        return str().getKeysEnvironments();
     }
 
     public static CustList<String> callLangsBeanGetKeysGenders() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysGenders());
+        return str().getKeysGenders();
     }
 
     public static CustList<String> callLangsBeanGetKeysItems() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysItems());
+        return str().getKeysItems();
     }
 
     public static CustList<String> callLangsBeanGetKeysMath() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysMath());
+        return str().getKeysMath();
     }
 
     public static CustList<String> callLangsBeanGetKeysMoves() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysMoves());
+        return str().getKeysMoves();
     }
 
     public static CustList<String> callLangsBeanGetKeysPokemon() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysPokemon());
+        return str().getKeysPokemon();
     }
 
     public static CustList<String> callLangsBeanGetKeysStatistics() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysStatistics());
+        return str().getKeysStatistics();
     }
 
     public static CustList<String> callLangsBeanGetKeysStatus() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysStatus());
+        return str().getKeysStatus();
     }
 
     public static CustList<String> callLangsBeanGetKeysTargets() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysTargets());
+        return str().getKeysTargets();
     }
 
     public static CustList<String> callLangsBeanGetKeysTypes() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getKeysTypes());
+        return str().getKeysTypes();
     }
 
     public static CustList<String> callLangsBeanGetRowAbility(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowAbility(_args));
+        return str().getRowAbility(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowBoolean(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowBoolean(_args));
+        return str().getRowBoolean(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowCategory(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowCategory(_args));
+        return str().getRowCategory(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowDesc(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowDesc(_args));
+        return str().getRowDesc(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowEnvironment(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowEnvironment(_args));
+        return str().getRowEnvironment(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowGender(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowGender(_args));
+        return str().getRowGender(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowItem(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowItem(_args));
+        return str().getRowItem(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowMath(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowMath(_args));
+        return str().getRowMath(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowMove(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowMove(_args));
+        return str().getRowMove(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowPokemon(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowPokemon(_args));
+        return str().getRowPokemon(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowStatistic(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowStatistic(_args));
+        return str().getRowStatistic(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowStatus(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowStatus(_args));
+        return str().getRowStatus(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowTarget(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowTarget(_args));
+        return str().getRowTarget(_args);
     }
 
     public static CustList<String> callLangsBeanGetRowType(int _args) {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getRowType(_args));
+        return str().getRowType(_args);
     }
 
     public static String callLangsBeanGetTrLang(int _args) {
-        return ( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getTrLang(_args);
+        return str().getTrLang(_args);
     }
 
     public static CustList<String> callLangsBeanLanguagesGet() {
-        return (( (LangsBean) ((PokemonBeanStruct)str()).getInstance()).getLanguages());
+        return str().getLanguages();
     }
-    protected static NaSt str() {
+    protected static LangsBean str() {
         FacadeGame db_ = db();
         PkData pk_ = pkDataByFacade(db_);
         LangsBean g_ = new LangsBean();
@@ -147,7 +146,7 @@ public abstract class InitDbLangs extends InitDbConstr {
         g_.getBuilder().getTranslations().getMapping().getVal(FR).getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().addEntry(MessagesPkBean.LANGS,new TranslationsFile());
         pk_.bean(g_, EN);
         beforeDisplaying(g_);
-        return new PokemonBeanStruct(g_);
+        return g_;
     }
     protected static FacadeGame db(){
         DataBase data_ = newData();
