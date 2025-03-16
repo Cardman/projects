@@ -28,7 +28,6 @@ import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
-import code.bean.nat.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.scripts.pages.aiki.MessagesDataSimulation;
@@ -149,16 +148,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final int IMG_SI = IMG_DUAL2 + 1;
     public static final int IMG_ITEM = 16777215;
 
-    public static AbsMap<String,String> callSimulationBeanAbilitiesAfterFightGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilitiesAfterFight());
+    public static AbsMap<String,String> callSimulationBeanAbilitiesAfterFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getAbilitiesAfterFight();
     }
 
-    public static AbsMap<String,String> callSimulationBeanAbilitiesGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
+    public static AbsMap<String,String> callSimulationBeanAbilitiesGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getAbilities();
     }
 
-    public static String callSimulationBeanAbilityAfterFightGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilityAfterFight().tryRet();
+    public static String callSimulationBeanAbilityAfterFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getAbilityAfterFight().tryRet();
     }
 
 //    public static NaSt callSimulationBeanAdd(NaSt _str, long... _args) {
@@ -177,16 +176,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanAllowedSwitchPlacesEndRoundGet(),_str,_args);
 //    }
 
-    public static boolean callSimulationBeanAllyChoiceGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAllyChoice().isSelected();
+    public static boolean callSimulationBeanAllyChoiceGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getAllyChoice().isSelected();
     }
 
-    public static CustList<PokemonTrainerDto> callSimulationBeanAllyTeamGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAllyTeam());
+    public static CustList<PokemonTrainerDto> callSimulationBeanAllyTeamGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getAllyTeam();
     }
 
-    public static AbsMap<String,String> callSimulationBeanAvailableEvosGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableEvos());
+    public static AbsMap<String,String> callSimulationBeanAvailableEvosGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getAvailableEvos();
     }
 
 //    public static NaSt callSimulationBeanCancelDiffChoice(NaSt _str, long... _args) {
@@ -233,8 +232,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanChangeFightWhileEnd(),_str,_args);
 //    }
 
-    public static String callSimulationBeanChosenEvoGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getChosenEvo().tryRet();
+    public static String callSimulationBeanChosenEvoGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getChosenEvo().tryRet();
     }
 
 //    public static NaSt callSimulationBeanClickLevel(NaSt _str, long... _args) {
@@ -245,12 +244,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevelZero(),_str,_args);
 //    }
 
-    public static CustList<String> callSimulationBeanCommentsGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getComments());
+    public static CustList<String> callSimulationBeanCommentsGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getComments();
     }
 
-    public static String callSimulationBeanCurrentAbilityGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getCurrentAbility().tryRet();
+    public static String callSimulationBeanCurrentAbilityGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getCurrentAbility().tryRet();
     }
 
 //    public static Struct callSimulationBeanDamageRateFoeTableGet(Struct _str, long... _args) {
@@ -285,8 +284,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanDisplayEvolutions(),_str,_args);
 //    }
 
-    public static boolean callSimulationBeanDisplayIfErrorGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getDisplayIfError();
+    public static boolean callSimulationBeanDisplayIfErrorGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getDisplayIfError();
     }
 
 //    public static Struct callSimulationBeanEnabledClosingGet(Struct _str, long... _args) {
@@ -297,228 +296,228 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanEndFightIfOneTeamKoGet(),_str,_args);
 //    }
 
-    public static String callSimulationBeanEnvironmentGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).environment();
+    public static String callSimulationBeanEnvironmentGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).environment();
     }
 
-    public static AbsMap<String,String> callSimulationBeanEnvironmentsGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEnvironments());
+    public static AbsMap<String,String> callSimulationBeanEnvironmentsGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getEnvironments();
     }
 
-    public static String callSimulationBeanEvolutionAfterFightGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutionAfterFight().tryRet();
+    public static String callSimulationBeanEvolutionAfterFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getEvolutionAfterFight().tryRet();
     }
 
-    public static AbsMap<String,String> callSimulationBeanEvolutionsAfterFightGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutionsAfterFight());
+    public static AbsMap<String,String> callSimulationBeanEvolutionsAfterFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getEvolutionsAfterFight();
     }
 
-    public static CustList<PokemonTrainerDto> callSimulationBeanFoeTeamGet(NaSt _str) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getFoeTeam());
+    public static CustList<PokemonTrainerDto> callSimulationBeanFoeTeamGet(CommonBean _str) {
+        return ((SimulationBean) _str).getFoeTeam();
     }
 
     public static boolean callSimulationBeanFreeTeamsGet(int _team) {
-        return ( (SimulationBean) ((PokemonBeanStruct)initByTeam(_team)).getInstance()).getFreeTeams();
+        return ((SimulationBean) initByTeam(_team)).getFreeTeams();
     }
 
-    public static String callSimulationBeanGetAbility(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbility(_index);
+    public static String callSimulationBeanGetAbility(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getAbility(_index);
     }
 
-    public static String callSimulationBeanGetAbilityAfterFight(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilityAfterFight(_index);
+    public static String callSimulationBeanGetAbilityAfterFight(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getAbilityAfterFight(_index);
     }
 
-    public static String callSimulationBeanGetAbilityAlly(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilityAlly(_index);
+    public static String callSimulationBeanGetAbilityAlly(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getAbilityAlly(_index);
     }
 
-    public static String callSimulationBeanGetAbilityFoe(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilityFoe(_index);
+    public static String callSimulationBeanGetAbilityFoe(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getAbilityFoe(_index);
     }
 
-    public static String callSimulationBeanGetGender(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getGender(_index);
+    public static String callSimulationBeanGetGender(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getGender(_index);
     }
 
-    public static String callSimulationBeanGetGenderAfterFight(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getGenderAfterFight(_index);
+    public static String callSimulationBeanGetGenderAfterFight(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getGenderAfterFight(_index);
     }
 
-    public static String callSimulationBeanGetGenderAlly(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getGenderAlly(_index);
+    public static String callSimulationBeanGetGenderAlly(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getGenderAlly(_index);
     }
 
-    public static String callSimulationBeanGetGenderFoe(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getGenderFoe(_index);
+    public static String callSimulationBeanGetGenderFoe(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getGenderFoe(_index);
     }
 
-    public static int[][] callSimulationBeanGetImage(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImage(_index);
+    public static int[][] callSimulationBeanGetImage(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getImage(_index);
     }
 
-    public static int[][] callSimulationBeanGetImageAfterFight(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageAfterFight(_index);
+    public static int[][] callSimulationBeanGetImageAfterFight(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getImageAfterFight(_index);
     }
 
-    public static int[][] callSimulationBeanGetImageAlly(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageAlly(_index);
+    public static int[][] callSimulationBeanGetImageAlly(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getImageAlly(_index);
     }
 
-    public static int[][] callSimulationBeanGetImageFoe(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getImageFoe(_index);
+    public static int[][] callSimulationBeanGetImageFoe(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getImageFoe(_index);
     }
 
-    public static String callSimulationBeanGetItem(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getItem(_index);
+    public static String callSimulationBeanGetItem(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getItem(_index);
     }
 
-    public static String callSimulationBeanGetItemAfterFight(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getItemAfterFight(_index);
+    public static String callSimulationBeanGetItemAfterFight(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getItemAfterFight(_index);
     }
 
-    public static String callSimulationBeanGetItemAlly(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getItemAlly(_index);
+    public static String callSimulationBeanGetItemAlly(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getItemAlly(_index);
     }
 
-    public static String callSimulationBeanGetItemFoe(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getItemFoe(_index);
+    public static String callSimulationBeanGetItemFoe(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getItemFoe(_index);
     }
 
-    public static CustList<String> callSimulationBeanGetKoFoes(NaSt _str) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKoFoes());
+    public static CustList<String> callSimulationBeanGetKoFoes(CommonBean _str) {
+        return ((SimulationBean) _str).getKoFoes();
     }
 
-    public static CustList<String> callSimulationBeanGetKoPlayers(NaSt _str) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKoPlayers());
+    public static CustList<String> callSimulationBeanGetKoPlayers(CommonBean _str) {
+        return ((SimulationBean) _str).getKoPlayers();
     }
 
-    public static long callSimulationBeanGetLevel(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevel(_index);
+    public static long callSimulationBeanGetLevel(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getLevel(_index);
     }
 
-    public static long callSimulationBeanGetLevelAfterFight(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelAfterFight(_index);
+    public static long callSimulationBeanGetLevelAfterFight(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getLevelAfterFight(_index);
     }
 
-    public static long callSimulationBeanGetLevelAlly(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelAlly(_index);
+    public static long callSimulationBeanGetLevelAlly(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getLevelAlly(_index);
     }
 
-    public static long callSimulationBeanGetLevelFoe(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelFoe(_index);
+    public static long callSimulationBeanGetLevelFoe(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getLevelFoe(_index);
     }
 
-    public static CustList<String> callSimulationBeanGetMoves(NaSt _str, int _index) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMoves(_index));
+    public static CustList<String> callSimulationBeanGetMoves(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getMoves(_index);
     }
 
-    public static CustList<String> callSimulationBeanGetMovesAfterFight(NaSt _str, int _index) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesAfterFight(_index));
+    public static CustList<String> callSimulationBeanGetMovesAfterFight(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getMovesAfterFight(_index);
     }
 
-    public static CustList<String> callSimulationBeanGetMovesAlly(NaSt _str, int _index) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesAlly(_index));
+    public static CustList<String> callSimulationBeanGetMovesAlly(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getMovesAlly(_index);
     }
 
-    public static CustList<String> callSimulationBeanGetMovesFoe(NaSt _str, int _index) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesFoe(_index));
+    public static CustList<String> callSimulationBeanGetMovesFoe(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getMovesFoe(_index);
     }
 
-    public static String callSimulationBeanGetName(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getName(_index);
+    public static String callSimulationBeanGetName(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getName(_index);
     }
 
-    public static String callSimulationBeanGetNameAfterFight(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNameAfterFight(_index);
+    public static String callSimulationBeanGetNameAfterFight(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getNameAfterFight(_index);
     }
 
-    public static String callSimulationBeanGetNameAlly(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNameAlly(_index);
+    public static String callSimulationBeanGetNameAlly(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getNameAlly(_index);
     }
 
-    public static String callSimulationBeanGetNameFoe(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNameFoe(_index);
+    public static String callSimulationBeanGetNameFoe(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getNameFoe(_index);
     }
 
-    public static CustList<String> callSimulationBeanGetNotKoFrontFoes(NaSt _str) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getNotKoFrontFoes());
+    public static CustList<String> callSimulationBeanGetNotKoFrontFoes(CommonBean _str) {
+        return ((SimulationBean) _str).getNotKoFrontFoes();
     }
 
-    public static long callSimulationBeanGetRealStepNumber(NaSt _str) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRealStepNumber();
+    public static long callSimulationBeanGetRealStepNumber(CommonBean _str) {
+        return ((SimulationBean) _str).getRealStepNumber();
     }
 
-    public static LgInt callSimulationBeanGetRemainingLifeRate(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingLifeRate(_index);
+    public static LgInt callSimulationBeanGetRemainingLifeRate(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).getRemainingLifeRate(_index);
     }
 
-    public static String callSimulationBeanGetTrainerName(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTrainerName();
+    public static String callSimulationBeanGetTrainerName(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getTrainerName();
     }
 
 //    public static NaSt callSimulationBeanHideComments(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanHideComments(),_str,_args);
 //    }
 
-    public static long callSimulationBeanIndexTeamGet(NaSt _str) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getIndexTeam();
+    public static long callSimulationBeanIndexTeamGet(CommonBean _str) {
+        return ((SimulationBean) _str).getIndexTeam();
     }
 
-    public static boolean callSimulationBeanIsAvailableAbilities(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isAvailableAbilities();
+    public static boolean callSimulationBeanIsAvailableAbilities(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isAvailableAbilities();
     }
 
-    public static boolean callSimulationBeanIsAvailableMoves(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isAvailableMoves();
+    public static boolean callSimulationBeanIsAvailableMoves(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isAvailableMoves();
     }
 
-    public static boolean callSimulationBeanIsDiffState(NaSt _str) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isDiffState();
+    public static boolean callSimulationBeanIsDiffState(CommonBean _str) {
+        return ((SimulationBean) _str).isDiffState();
     }
 
-    public static boolean callSimulationBeanIsEvolutionAfterFightState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isEvolutionAfterFightState();
+    public static boolean callSimulationBeanIsEvolutionAfterFightState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isEvolutionAfterFightState();
     }
 
-    public static boolean callSimulationBeanIsEvolutionsState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isEvolutionsState();
+    public static boolean callSimulationBeanIsEvolutionsState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isEvolutionsState();
     }
 
-    public static boolean callSimulationBeanIsFightAfter(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFightAfter();
+    public static boolean callSimulationBeanIsFightAfter(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isFightAfter();
     }
 
-    public static boolean callSimulationBeanIsFoeState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFoeState();
+    public static boolean callSimulationBeanIsFoeState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isFoeState();
     }
 
-    public static boolean callSimulationBeanIsFrontState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isFrontState();
+    public static boolean callSimulationBeanIsFrontState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isFrontState();
     }
 
     //    public static Struct callSimulationBeanIsHardSimulationIssue(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsHardSimulationIssue(),_str,_args);
 //    }
 //
-    public static boolean callSimulationBeanIsIssue(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isIssue();
+    public static boolean callSimulationBeanIsIssue(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isIssue();
     }
 
 //    public static Struct callSimulationBeanIsIssueAfterFight(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssueAfterFight(),_str,_args);
 //    }
 
-    public static boolean callSimulationBeanIsMovesFightState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMovesFightState();
+    public static boolean callSimulationBeanIsMovesFightState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isMovesFightState();
     }
 
-    public static boolean callSimulationBeanIsMovesState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMovesState();
+    public static boolean callSimulationBeanIsMovesState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isMovesState();
     }
 
-    public static boolean callSimulationBeanIsMultiLayer(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isMultiLayer(_args[0]);
+    public static boolean callSimulationBeanIsMultiLayer(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isMultiLayer(_args[0]);
     }
 //
 //    public static Struct callSimulationBeanIsRandomIssue(Struct _str, long... _args) {
@@ -545,12 +544,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsSendingIssue(),_str,_args);
 //    }
 
-    public static boolean callSimulationBeanIsSimulationState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isSimulationState();
+    public static boolean callSimulationBeanIsSimulationState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isSimulationState();
     }
 
-    public static boolean callSimulationBeanIsTeamState(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).isTeamState();
+    public static boolean callSimulationBeanIsTeamState(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).isTeamState();
     }
 
 //    public static Struct callSimulationBeanIsUsingIssue(Struct _str, long... _args) {
@@ -565,64 +564,64 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIvPlayerGet(),_str,_args);
 //    }
 
-    public static CustList<SelectLineMove> callSimulationBeanKeptMovesAfterFightGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKeptMovesAfterFight());
+    public static CustList<SelectLineMove> callSimulationBeanKeptMovesAfterFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getKeptMovesAfterFight();
     }
 
-    public static CustList<SelectLineMove> callSimulationBeanKeptMovesGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getKeptMoves());
+    public static CustList<SelectLineMove> callSimulationBeanKeptMovesGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getKeptMoves();
     }
 
-    public static int callSimulationBeanLayers(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).layers(_args[0]).size();
+    public static int callSimulationBeanLayers(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).layers(_args[0]).size();
     }
 
-    public static long callSimulationBeanLevelEvoGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelEvo().valueLong();
+    public static long callSimulationBeanLevelEvoGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getLevelEvo().valueLong();
     }
 
-    public static CustList<RadioLineMove> callSimulationBeanMovesSetGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMovesSet());
+    public static CustList<RadioLineMove> callSimulationBeanMovesSetGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getMovesSet();
     }
 
-    public static long callSimulationBeanMultiplicityGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).multiplicity();
+    public static long callSimulationBeanMultiplicityGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).multiplicity();
     }
 
     public static long callSimulationBeanNbTeamsGet(int _team) {
-        return ( (SimulationBean) ((PokemonBeanStruct)initByTeam(_team)).getInstance()).getNbTeams();
+        return ((SimulationBean) initByTeam(_team)).getNbTeams();
     }
 
-    public static long callSimulationBeanSelectedTeamNumberGet(NaSt _str) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedTeamNumber();
+    public static long callSimulationBeanSelectedTeamNumberGet(CommonBean _str) {
+        return ((SimulationBean) _str).selectedTeamNumber();
     }
 
 //    public static NaSt callSimulationBeanNextFight(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanNextFight(),_str,_args);
 //    }
 
-    public static Rate callSimulationBeanNumberNecessaryPointsForGrowingLevel(NaSt _str, int _index) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).numberNecessaryPointsForGrowingLevel(_index);
+    public static Rate callSimulationBeanNumberNecessaryPointsForGrowingLevel(CommonBean _str, int _index) {
+        return ((SimulationBean) _str).numberNecessaryPointsForGrowingLevel(_index);
     }
 
     public static CustList<Integer> callSimulationBeanNumbers(int _teams) {
-        return (( (SimulationBean) ((PokemonBeanStruct)validateDiff(_teams)).getInstance()).getNumbers());
+        return ((SimulationBean) validateDiff(_teams)).getNumbers();
     }
 
-    public static boolean callSimulationBeanOkGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getOk();
+    public static boolean callSimulationBeanOkGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getOk();
     }
 
-    public static String callSimulationBeanPlaceFightGet(NaSt _str, int... _args) {
-        return Long.toString(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlaceFight().valueInt());
+    public static String callSimulationBeanPlaceFightGet(CommonBean _str, int... _args) {
+        return Long.toString(((SimulationBean) _str).getPlaceFight().valueInt());
     }
 
-    public static AbsMap<Integer,String> callSimulationBeanPlacesFightGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlacesFight());
+    public static AbsMap<Integer,String> callSimulationBeanPlacesFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getPlacesFight();
     }
 
-    public static CustList<PlaceIndex> callSimulationBeanPlacesGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getPlaces());
+    public static CustList<PlaceIndex> callSimulationBeanPlacesGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getPlaces();
     }
 
 //    public static NaSt callSimulationBeanQuit(NaSt _str, long... _args) {
@@ -649,8 +648,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanRestoredMovesEndFightGet(),_str,_args);
 //    }
 
-    public static AbsMap<Integer,String> callSimulationBeanRoundGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getRound());
+    public static AbsMap<Integer,String> callSimulationBeanRoundGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getRound();
     }
 
 //    public static NaSt callSimulationBeanSelectAllyPk(NaSt _str, long... _args) {
@@ -701,24 +700,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedFoePkGet(),_str,_args);
 //    }
 
-    public static boolean callSimulationBeanSelectedIndex(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedIndex();
+    public static boolean callSimulationBeanSelectedIndex(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).selectedIndex();
     }
 
-    public static boolean callSimulationBeanSelectedIndexForMoves(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).selectedIndexForMoves();
+    public static boolean callSimulationBeanSelectedIndexForMoves(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).selectedIndexForMoves();
     }
 
-    public static long callSimulationBeanSelectedMoveGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getSelectedMove();
+    public static long callSimulationBeanSelectedMoveGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getSelectedMove();
     }
 
-    public static long callSimulationBeanSelectedPkGet(NaSt _str, int... _args) {
-        return ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getSelectedPk();
+    public static long callSimulationBeanSelectedPkGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getSelectedPk();
     }
 
-    public static String callSimulationBeanSelectedRoundGet(NaSt _str, int... _args) {
-        return Long.toString(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getSelectedRound().valueInt());
+    public static String callSimulationBeanSelectedRoundGet(CommonBean _str, int... _args) {
+        return Long.toString(((SimulationBean) _str).getSelectedRound().valueInt());
     }
 
 //    public static NaSt callSimulationBeanSimulateFight(NaSt _str, long... _args) {
@@ -733,20 +732,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanStillPossibleFleeGet(),_str,_args);
 //    }
 
-    public static AbsMap<Integer,String> callSimulationBeanTargetFightGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTargetFight());
+    public static AbsMap<Integer,String> callSimulationBeanTargetFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getTargetFight();
     }
 
-    public static String callSimulationBeanTargetGet(NaSt _str, int... _args) {
-        return Long.toString(( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTarget().valueInt());
+    public static String callSimulationBeanTargetGet(CommonBean _str, int... _args) {
+        return Long.toString(((SimulationBean) _str).getTarget().valueInt());
     }
 
-    public static CustList<PokemonPlayer> callSimulationBeanTeamAfterFightGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTeamAfterFight());
+    public static CustList<PokemonPlayer> callSimulationBeanTeamAfterFightGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getTeamAfterFight();
     }
 
-    public static CustList<PokemonPlayerDto> callSimulationBeanTeamGet(NaSt _str, int... _args) {
-        return (( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getTeam());
+    public static CustList<PokemonPlayerDto> callSimulationBeanTeamGet(CommonBean _str, int... _args) {
+        return ((SimulationBean) _str).getTeam();
     }
 
 //    public static NaSt callSimulationBeanValidateDiffChoice(NaSt _str, long... _args) {
@@ -809,16 +808,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateTeam(),_str,_args);
 //    }
 
-    public static void callSimulationBeanAbilityAfterFightSet(NaSt _str, String _args) {
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getAbilityAfterFight().setupValue(_args);
+    public static void callSimulationBeanAbilityAfterFightSet(CommonBean _str, String _args) {
+        ((SimulationBean) _str).getAbilityAfterFight().setupValue(_args);
     }
 
-    public static void callSimulationBeanChosenEvoSet(NaSt _str, String _args) {
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getChosenEvo().setupValue(_args);
+    public static void callSimulationBeanChosenEvoSet(CommonBean _str, String _args) {
+        ((SimulationBean) _str).getChosenEvo().setupValue(_args);
     }
 
-    public static void callSimulationBeanCurrentAbilitySet(NaSt _str, String _args) {
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getCurrentAbility().setupValue(_args);
+    public static void callSimulationBeanCurrentAbilitySet(CommonBean _str, String _args) {
+        ((SimulationBean) _str).getCurrentAbility().setupValue(_args);
     }
 
 //    public static Struct callSimulationBeanDamageRateLawFoeSet(Struct _str, String _args) {
@@ -833,13 +832,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callString(new SimulationBeanDiffWinningExpPtsFightSet(),_str,_args);
 //    }
 
-    public static void callSimulationBeanEnvironmentSet(NaSt _str, String _args) {
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEnvironment().setupValue(_args);
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).setEnvironment(_args);
+    public static void callSimulationBeanEnvironmentSet(CommonBean _str, String _args) {
+        ((SimulationBean) _str).getEnvironment().setupValue(_args);
+        ((SimulationBean) _str).setEnvironment(_args);
     }
 
-    public static void callSimulationBeanEvolutionAfterFightSet(NaSt _str, String _args) {
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getEvolutionAfterFight().setupValue(_args);
+    public static void callSimulationBeanEvolutionAfterFightSet(CommonBean _str, String _args) {
+        ((SimulationBean) _str).getEvolutionAfterFight().setupValue(_args);
     }
 //
 //    public static NaSt callSimulationBeanPlaceFightSet(NaSt _str, String _args) {
@@ -878,13 +877,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callInt(new SimulationBeanIvPlayerSet(),_str,_args);
 //    }
 
-    public static void callSimulationBeanLevelEvoSet(NaSt _str, int _args) {
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getLevelEvo().valueLong(_args);
+    public static void callSimulationBeanLevelEvoSet(CommonBean _str, int _args) {
+        ((SimulationBean) _str).getLevelEvo().valueLong(_args);
     }
 
-    public static void callSimulationBeanMultiplicitySet(NaSt _str, int _args) {
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).getMultiplicity().valueLong(_args);
-        ( (SimulationBean) ((PokemonBeanStruct)_str).getInstance()).setMultiplicity(_args);
+    public static void callSimulationBeanMultiplicitySet(CommonBean _str, int _args) {
+        ((SimulationBean) _str).getMultiplicity().valueLong(_args);
+        ((SimulationBean) _str).setMultiplicity(_args);
     }
 
 //    public static NaSt callSimulationBeanNbTeamsSet(NaSt _str, int _args) {
@@ -970,110 +969,110 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanWinTrainerExpGet(),_str,_args);
 //    }
 
-    public static void callAddPokemonBeanAbilitySet(NaSt _str, String _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAbility().setupValue(_args);
+    public static void callAddPokemonBeanAbilitySet(CommonBean _str, String _args) {
+        ((AddPokemonBean) _str).getAbility().setupValue(_args);
     }
 
-    public static void callAddPokemonBeanGenderSet(NaSt _str, String _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getGender().setupValue(_args);
+    public static void callAddPokemonBeanGenderSet(CommonBean _str, String _args) {
+        ((AddPokemonBean) _str).getCommon().getGender().setupValue(_args);
     }
 
-    public static void callAddPokemonBeanHasEvoSet(NaSt _str, String _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().setupValue(_args);
+    public static void callAddPokemonBeanHasEvoSet(CommonBean _str, String _args) {
+        ((AddPokemonBean) _str).getHasEvo().setupValue(_args);
     }
 
-    public static void callAddPokemonBeanIsEvoSet(NaSt _str, String _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().setupValue(_args);
+    public static void callAddPokemonBeanIsEvoSet(CommonBean _str, String _args) {
+        ((AddPokemonBean) _str).getIsEvo().setupValue(_args);
     }
 
-    public static void callAddPokemonBeanIsLegSet(NaSt _str, String _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().setupValue(_args);
+    public static void callAddPokemonBeanIsLegSet(CommonBean _str, String _args) {
+        ((AddPokemonBean) _str).getIsLeg().setupValue(_args);
     }
 
-    public static void callAddPokemonBeanTypedNameSet(NaSt _str, String _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
+    public static void callAddPokemonBeanTypedNameSet(CommonBean _str, String _args) {
+        ((AddPokemonBean) _str).getTypedName().setupValue(_args);
     }
 
-    public static void callAddPokemonBeanTypedTypeSet(NaSt _str, String _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
+    public static void callAddPokemonBeanTypedTypeSet(CommonBean _str, String _args) {
+        ((AddPokemonBean) _str).getTypedType().setupValue(_args);
     }
 
-    public static void callEditPokemonBeanBallSet(NaSt _str, String _args) {
-        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBall().setupValue(_args);
+    public static void callEditPokemonBeanBallSet(CommonBean _str, String _args) {
+        ((EditPokemonBean) _str).getBall().setupValue(_args);
     }
 
-    public static void callEditPokemonMovesBeanCategorySet(NaSt _str, String _args) {
-        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedCategory().setupValue(_args);
+    public static void callEditPokemonMovesBeanCategorySet(CommonBean _str, String _args) {
+        ((EditPokemonMovesBean) _str).getTypedCategory().setupValue(_args);
     }
 
-    public static void callEditPokemonMovesBeanTypedNameSet(NaSt _str, String _args) {
-        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
+    public static void callEditPokemonMovesBeanTypedNameSet(CommonBean _str, String _args) {
+        ((EditPokemonMovesBean) _str).getTypedName().setupValue(_args);
     }
 
-    public static void callEditPokemonMovesBeanTypedTypeSet(NaSt _str, String _args) {
-        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
+    public static void callEditPokemonMovesBeanTypedTypeSet(CommonBean _str, String _args) {
+        ((EditPokemonMovesBean) _str).getTypedType().setupValue(_args);
     }
 
-    public static void callEditTrainerPokemonBeanGenderSet(NaSt _str, String _args) {
-        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getGender().setupValue(_args);
+    public static void callEditTrainerPokemonBeanGenderSet(CommonBean _str, String _args) {
+        ((EditTrainerPokemonBean) _str).getCommon().getGender().setupValue(_args);
     }
 
-    public static void callSelectAbilityBeanTypedAbilitySet(NaSt _str, String _args) {
-        ( (SelectAbilityBean) ((PokemonBeanStruct)_str).getInstance()).getTypedAbility().setupValue(_args);
+    public static void callSelectAbilityBeanTypedAbilitySet(CommonBean _str, String _args) {
+        ((SelectAbilityBean) _str).getTypedAbility().setupValue(_args);
     }
 
-    public static void callSelectItemBeanTypedClassSet(NaSt _str, String _args) {
-        ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().setupValue(_args);
+    public static void callSelectItemBeanTypedClassSet(CommonBean _str, String _args) {
+        ((SelectItemBean) _str).getTypedClass().setupValue(_args);
     }
 
-    public static void callSelectItemBeanTypedNameSet(NaSt _str, String _args) {
-        ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
+    public static void callSelectItemBeanTypedNameSet(CommonBean _str, String _args) {
+        ((SelectItemBean) _str).getTypedName().setupValue(_args);
     }
 
-    public static void callSelectItemBeanTypedPriceSet(NaSt _str, String _args) {
-        ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().setupValue(_args);
+    public static void callSelectItemBeanTypedPriceSet(CommonBean _str, String _args) {
+        ((SelectItemBean) _str).getTypedPrice().setupValue(_args);
     }
 
-    public static void callSelectPokemonBeanHasEvoSet(NaSt _str, String _args) {
-        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().setupValue(_args);
+    public static void callSelectPokemonBeanHasEvoSet(CommonBean _str, String _args) {
+        ((SelectPokemonBean) _str).getHasEvo().setupValue(_args);
     }
 
-    public static void callSelectPokemonBeanIsEvoSet(NaSt _str, String _args) {
-        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().setupValue(_args);
+    public static void callSelectPokemonBeanIsEvoSet(CommonBean _str, String _args) {
+        ((SelectPokemonBean) _str).getIsEvo().setupValue(_args);
     }
 
-    public static void callSelectPokemonBeanIsLegSet(NaSt _str, String _args) {
-        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().setupValue(_args);
+    public static void callSelectPokemonBeanIsLegSet(CommonBean _str, String _args) {
+        ((SelectPokemonBean) _str).getIsLeg().setupValue(_args);
     }
 
-    public static void callSelectPokemonBeanTypedNameSet(NaSt _str, String _args) {
-        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().setupValue(_args);
+    public static void callSelectPokemonBeanTypedNameSet(CommonBean _str, String _args) {
+        ((SelectPokemonBean) _str).getTypedName().setupValue(_args);
     }
 
-    public static void callSelectPokemonBeanTypedTypeSet(NaSt _str, String _args) {
-        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().setupValue(_args);
+    public static void callSelectPokemonBeanTypedTypeSet(CommonBean _str, String _args) {
+        ((SelectPokemonBean) _str).getTypedType().setupValue(_args);
     }
 
 //    public static NaSt callAddPokemonBeanClickLink(NaSt _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new AddPokemonBeanClickLink(),_str,_args);
 //    }
 
-    public static void callAddPokemonBeanLevelSet(NaSt _str, int _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getLevel().valueLong(_args);
+    public static void callAddPokemonBeanLevelSet(CommonBean _str, int _args) {
+        ((AddPokemonBean) _str).getCommon().getLevel().valueLong(_args);
     }
 
-    public static void callEditPokemonBeanHappinessSet(NaSt _str, int _args) {
-        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness().valueLong(_args);
+    public static void callEditPokemonBeanHappinessSet(CommonBean _str, int _args) {
+        ((EditPokemonBean) _str).getHappiness().valueLong(_args);
     }
 
-    public static void callEditTrainerPokemonBeanLevelSet(NaSt _str, int _args) {
-        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getCommon().getLevel().valueLong(_args);
+    public static void callEditTrainerPokemonBeanLevelSet(CommonBean _str, int _args) {
+        ((EditTrainerPokemonBean) _str).getCommon().getLevel().valueLong(_args);
     }
 
 
-    public static void callSimulationLevelBeanNoFightSet(NaSt _str, int _args) {
-        ( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).noFight(_args);
-        ( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).getNoFight().valueLong(_args);
+    public static void callSimulationLevelBeanNoFightSet(CommonBean _str, int _args) {
+        ((SimulationLevelBean) _str).noFight(_args);
+        ((SimulationLevelBean) _str).getNoFight().valueLong(_args);
     }
 
     public static void callSelectLineMoveSelectedSet(SelectLineMove _str, boolean _args) {
@@ -1081,36 +1080,36 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
 
-    public static void callAddPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
-        ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
+    public static void callAddPokemonBeanWholeWordSet(CommonBean _str, boolean _args) {
+        ((AddPokemonBean) _str).getWholeWord().setSelected(_args);
     }
 
-    public static void callEditPokemonBeanHealSet(NaSt _str, boolean _args) {
-        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHeal().setSelected(_args);
+    public static void callEditPokemonBeanHealSet(CommonBean _str, boolean _args) {
+        ((EditPokemonBean) _str).getHeal().setSelected(_args);
     }
 
-    public static void callEditPokemonMovesBeanAvailableMovesOnlySet(NaSt _str, boolean _args) {
-        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableMovesOnly().setSelected(_args);
+    public static void callEditPokemonMovesBeanAvailableMovesOnlySet(CommonBean _str, boolean _args) {
+        ((EditPokemonMovesBean) _str).getAvailableMovesOnly().setSelected(_args);
     }
 
-    public static void callEditPokemonMovesBeanWholeWordSet(NaSt _str, boolean _args) {
-        ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
+    public static void callEditPokemonMovesBeanWholeWordSet(CommonBean _str, boolean _args) {
+        ((EditPokemonMovesBean) _str).getWholeWord().setSelected(_args);
     }
 
-    public static void callEditTrainerPokemonBeanAllyPkSet(NaSt _str, boolean _args) {
-        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAllyPk().setSelected(_args);
+    public static void callEditTrainerPokemonBeanAllyPkSet(CommonBean _str, boolean _args) {
+        ((EditTrainerPokemonBean) _str).getAllyPk().setSelected(_args);
     }
 
-    public static void callSelectPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
-        ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().setSelected(_args);
+    public static void callSelectPokemonBeanWholeWordSet(CommonBean _str, boolean _args) {
+        ((SelectPokemonBean) _str).getWholeWord().setSelected(_args);
     }
 
-    public static void callEditPokemonBeanExperienceSet(NaSt _str, Rate _args) {
-        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getExperience().valueRate(_args);
+    public static void callEditPokemonBeanExperienceSet(CommonBean _str, Rate _args) {
+        ((EditPokemonBean) _str).getExperience().valueRate(_args);
     }
 
-    public static void callEditPokemonBeanRemainingHpSet(NaSt _str, Rate _args) {
-        ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingHp().valueRate(_args);
+    public static void callEditPokemonBeanRemainingHpSet(CommonBean _str, Rate _args) {
+        ((EditPokemonBean) _str).getRemainingHp().valueRate(_args);
     }
 
 //    public static long callEvLineEvGet(NaSt _str, long... _args) {
@@ -1183,8 +1182,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanLevelIndexGet(),_str,_args);
 //    }
 
-    public static long callSimulationLevelBeanNoFightGet(NaSt _str, int... _args) {
-        return ( (SimulationLevelBean) ((PokemonBeanStruct)_str).getInstance()).getNoFight().valueLong();
+    public static long callSimulationLevelBeanNoFightGet(CommonBean _str, int... _args) {
+        return ((SimulationLevelBean) _str).getNoFight().valueLong();
     }
 
 //    public static Struct callSimulationLevelBeanOutsideGet(Struct _str, long... _args) {
@@ -1212,88 +1211,88 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
 
-    public static AbsMap<String,String> callAddPokemonBeanAbilitiesGet(NaSt _str, int... _args) {
-        return (( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAbilities());
+    public static AbsMap<String,String> callAddPokemonBeanAbilitiesGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getAbilities();
     }
 
-    public static String callAddPokemonBeanAbilityGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAbility().tryRet();
+    public static String callAddPokemonBeanAbilityGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getAbility().tryRet();
     }
 
 //    public static NaSt callAddPokemonBeanAdd(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAdd(),_str,_args);
 //    }
 
-    public static AbsMap<String,String> callAddPokemonBeanBooleansGet(NaSt _str, int... _args) {
-        return (( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
+    public static AbsMap<String,String> callAddPokemonBeanBooleansGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getBooleans();
     }
 
 //    public static NaSt callAddPokemonBeanCancel(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanCancel(),_str,_args);
 //    }
 
-    public static String callAddPokemonBeanGenderGet(NaSt _str, int... _args) {
-        return ((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGender().tryRet();
+    public static String callAddPokemonBeanGenderGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getCommon().getGender().tryRet();
     }
 
-    public static AbsMap<String,String> callAddPokemonBeanGendersGet(NaSt _str, int... _args) {
-        return (((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGenders());
+    public static AbsMap<String,String> callAddPokemonBeanGendersGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getCommon().getGenders();
     }
 
     public static int[][] callAddPokemonBeanGetMiniImage() {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)pkPlayerSelectPkName(DataBase.EMPTY_STRING)).getInstance()).getMiniImagePk(0);
+        return ((AddPokemonBean) pkPlayerSelectPkName(DataBase.EMPTY_STRING)).getMiniImagePk(0);
     }
 
-    public static String callAddPokemonBeanHasEvoGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().tryRet();
+    public static String callAddPokemonBeanHasEvoGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getHasEvo().tryRet();
     }
 
-    public static String callAddPokemonBeanIsEvoGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().tryRet();
+    public static String callAddPokemonBeanIsEvoGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getIsEvo().tryRet();
     }
 
-    public static String callAddPokemonBeanIsLegGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet();
+    public static String callAddPokemonBeanIsLegGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getIsLeg().tryRet();
     }
 
-    public static long callAddPokemonBeanLevelGet(NaSt _str, int... _args) {
-        return ((AddPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getLevel().valueLong();
+    public static long callAddPokemonBeanLevelGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getCommon().getLevel().valueLong();
     }
 
-    public static String callAddPokemonBeanNamePkGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getNamePk();
+    public static String callAddPokemonBeanNamePkGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getNamePk();
     }
 
-    public static int callAddPokemonBeanPokedexGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex().size();
+    public static int callAddPokemonBeanPokedexGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getPokedex().size();
     }
 
 //    public static NaSt callAddPokemonBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanSearch(),_str,_args);
 //    }
 
-    public static String callAddPokemonBeanTypedNameGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
+    public static String callAddPokemonBeanTypedNameGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getTypedName().tryRet();
     }
 
-    public static String callAddPokemonBeanTypedTypeGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
+    public static String callAddPokemonBeanTypedTypeGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getTypedType().tryRet();
     }
 
-    public static boolean callAddPokemonBeanWholeWordGet(NaSt _str, int... _args) {
-        return ( (AddPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
+    public static boolean callAddPokemonBeanWholeWordGet(CommonBean _str, int... _args) {
+        return ((AddPokemonBean) _str).getWholeWord().isSelected();
     }
 
 //    public static NaSt callEditPokemonBeanAddMoves(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanAddMoves(),_str,_args);
 //    }
 
-    public static String callEditPokemonBeanBallGet(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBall().tryRet();
+    public static String callEditPokemonBeanBallGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getBall().tryRet();
     }
 
-    public static AbsMap<String,String> callEditPokemonBeanBallsGet(NaSt _str, int... _args) {
-        return (( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBalls());
+    public static AbsMap<String,String> callEditPokemonBeanBallsGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getBalls();
     }
 
 //    public static NaSt callEditPokemonBeanCancel(NaSt _str, long... _args) {
@@ -1312,104 +1311,104 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanEdit(),_str,_args);
 //    }
 
-    public static AbsMap<Statistic,EvLine> callEditPokemonBeanEvGet(NaSt _str, int... _args) {
-        return (( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getEv());
+    public static AbsMap<Statistic,EvLine> callEditPokemonBeanEvGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getEv();
     }
 
-    public static Rate callEditPokemonBeanExperienceGet(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getExperience().valueRate();
+    public static Rate callEditPokemonBeanExperienceGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getExperience().valueRate();
     }
 
-    public static String callEditPokemonBeanGetTranslatedStatistic(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedStatistic(_args[0]);
+    public static String callEditPokemonBeanGetTranslatedStatistic(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getTranslatedStatistic(_args[0]);
     }
 
-    public static long callEditPokemonBeanHappinessGet(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHappiness().valueLong();
+    public static long callEditPokemonBeanHappinessGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getHappiness().valueLong();
     }
 
-    public static boolean callEditPokemonBeanHealGet(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHeal().isSelected();
+    public static boolean callEditPokemonBeanHealGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getHeal().isSelected();
     }
 
-    public static long callEditPokemonBeanLevelGet(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getLevel();
+    public static long callEditPokemonBeanLevelGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getLevel();
     }
 
-    public static CustList<SelectLineMove> callEditPokemonBeanMovesGet(NaSt _str, int... _args) {
-        return (( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<SelectLineMove> callEditPokemonBeanMovesGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getMoves();
     }
 
-    public static String callEditPokemonBeanNamePkGet(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getNamePk();
+    public static String callEditPokemonBeanNamePkGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getNamePk();
     }
 
-    public static Rate callEditPokemonBeanRemainingHpGet(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getRemainingHp().valueRate();
+    public static Rate callEditPokemonBeanRemainingHpGet(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).getRemainingHp().valueRate();
     }
 
-    public static String callEditPokemonBeanTranslateItem(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).translateItem();
+    public static String callEditPokemonBeanTranslateItem(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).translateItem();
     }
 
-    public static String callEditPokemonBeanTranslateName(NaSt _str, int... _args) {
-        return ( (EditPokemonBean) ((PokemonBeanStruct)_str).getInstance()).translateName();
+    public static String callEditPokemonBeanTranslateName(CommonBean _str, int... _args) {
+        return ((EditPokemonBean) _str).translateName();
     }
 
 //    public static NaSt callEditPokemonMovesBeanAddMoves(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanAddMoves(),_str,_args);
 //    }
 
-    public static boolean callEditPokemonMovesBeanAvailableMovesOnlyGet(NaSt _str, int... _args) {
-        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getAvailableMovesOnly().isSelected();
+    public static boolean callEditPokemonMovesBeanAvailableMovesOnlyGet(CommonBean _str, int... _args) {
+        return ((EditPokemonMovesBean) _str).getAvailableMovesOnly().isSelected();
     }
 
 //    public static NaSt callEditPokemonMovesBeanCancel(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCancel(),_str,_args);
 //    }
 
-    public static AbsMap<String,String> callEditPokemonMovesBeanCategoriesGet(NaSt _str) {
-        return (( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getCategories());
+    public static AbsMap<String,String> callEditPokemonMovesBeanCategoriesGet(CommonBean _str) {
+        return ((EditPokemonMovesBean) _str).getCategories();
     }
 
-    public static String callEditPokemonMovesBeanCategoryGet(NaSt _str, int... _args) {
-        return ((EditPokemonMovesBean) ((PokemonBeanStruct) _str).getInstance()).getTypedCategory().tryRet();
+    public static String callEditPokemonMovesBeanCategoryGet(CommonBean _str, int... _args) {
+        return ((EditPokemonMovesBean) _str).getTypedCategory().tryRet();
     }
 
-    public static CustList<SelectLineMove> callEditPokemonMovesBeanMovesGet(NaSt _str, int... _args) {
-        return (( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<SelectLineMove> callEditPokemonMovesBeanMovesGet(CommonBean _str, int... _args) {
+        return ((EditPokemonMovesBean) _str).getMoves();
     }
 
-    public static boolean callEditPokemonMovesBeanPlayerGet(NaSt _str, int... _args) {
-        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getPlayer();
+    public static boolean callEditPokemonMovesBeanPlayerGet(CommonBean _str, int... _args) {
+        return ((EditPokemonMovesBean) _str).getPlayer();
     }
 
 //    public static NaSt callEditPokemonMovesBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanSearch(),_str,_args);
 //    }
 
-    public static String callEditPokemonMovesBeanTypedNameGet(NaSt _str, int... _args) {
-        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
+    public static String callEditPokemonMovesBeanTypedNameGet(CommonBean _str, int... _args) {
+        return ((EditPokemonMovesBean) _str).getTypedName().tryRet();
     }
 
-    public static String callEditPokemonMovesBeanTypedTypeGet(NaSt _str, int... _args) {
-        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
+    public static String callEditPokemonMovesBeanTypedTypeGet(CommonBean _str, int... _args) {
+        return ((EditPokemonMovesBean) _str).getTypedType().tryRet();
     }
 
-    public static boolean callEditPokemonMovesBeanWholeWordGet(NaSt _str, int... _args) {
-        return ( (EditPokemonMovesBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
+    public static boolean callEditPokemonMovesBeanWholeWordGet(CommonBean _str, int... _args) {
+        return ((EditPokemonMovesBean) _str).getWholeWord().isSelected();
     }
 
-    public static boolean callEditTrainerPokemonBeanAddGet(NaSt _str, int... _args) {
-        return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAdd();
+    public static boolean callEditTrainerPokemonBeanAddGet(CommonBean _str, int... _args) {
+        return ((EditTrainerPokemonBean) _str).getAdd();
     }
 
 //    public static NaSt callEditTrainerPokemonBeanAddMoves(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAddMoves(),_str,_args);
 //    }
 
-    public static boolean callEditTrainerPokemonBeanAllyPkGet(NaSt _str, int... _args) {
-        return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getAllyPk().isSelected();
+    public static boolean callEditTrainerPokemonBeanAllyPkGet(CommonBean _str, int... _args) {
+        return ((EditTrainerPokemonBean) _str).getAllyPk().isSelected();
     }
 
 //    public static NaSt callEditTrainerPokemonBeanCancel(NaSt _str, long... _args) {
@@ -1432,32 +1431,32 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanDeleteMoves(),_str,_args);
 //    }
 
-    public static String callEditTrainerPokemonBeanGenderGet(NaSt _str, int... _args) {
-        return ((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGender().tryRet();
+    public static String callEditTrainerPokemonBeanGenderGet(CommonBean _str, int... _args) {
+        return ((EditTrainerPokemonBean) _str).getCommon().getGender().tryRet();
     }
 
-    public static AbsMap<String,String> callEditTrainerPokemonBeanGendersGet(NaSt _str, int... _args) {
-        return (((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getGenders());
+    public static AbsMap<String,String> callEditTrainerPokemonBeanGendersGet(CommonBean _str, int... _args) {
+        return ((EditTrainerPokemonBean) _str).getCommon().getGenders();
     }
 
-    public static String callEditTrainerPokemonBeanGetTranslatedAbility(NaSt _str) {
-        return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedAbility();
+    public static String callEditTrainerPokemonBeanGetTranslatedAbility(CommonBean _str) {
+        return ((EditTrainerPokemonBean) _str).getTranslatedAbility();
     }
 
-    public static String callEditTrainerPokemonBeanGetTranslatedItem(NaSt _str, int... _args) {
-        return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedItem();
+    public static String callEditTrainerPokemonBeanGetTranslatedItem(CommonBean _str, int... _args) {
+        return ((EditTrainerPokemonBean) _str).getTranslatedItem();
     }
 
-    public static String callEditTrainerPokemonBeanGetTranslatedName(NaSt _str) {
-        return ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTranslatedName();
+    public static String callEditTrainerPokemonBeanGetTranslatedName(CommonBean _str) {
+        return ((EditTrainerPokemonBean) _str).getTranslatedName();
     }
 
-    public static long callEditTrainerPokemonBeanLevelGet(NaSt _str, int... _args) {
-        return ((EditTrainerPokemonBean) ((PokemonBeanStruct) _str).getInstance()).getCommon().getLevel().valueLong();
+    public static long callEditTrainerPokemonBeanLevelGet(CommonBean _str, int... _args) {
+        return ((EditTrainerPokemonBean) _str).getCommon().getLevel().valueLong();
     }
 
-    public static CustList<SelectLineMove> callEditTrainerPokemonBeanMovesGet(NaSt _str) {
-        return (( (EditTrainerPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getMoves());
+    public static CustList<SelectLineMove> callEditTrainerPokemonBeanMovesGet(CommonBean _str) {
+        return ((EditTrainerPokemonBean) _str).getMoves();
     }
 
 //    public static NaSt callEditTrainerPokemonBeanValidateTrainerPk(NaSt _str, long... _args) {
@@ -1473,19 +1472,19 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
     public static String callSelectAbilityBeanGetTrAbility() {
-        return ( (SelectAbilityBean) ((PokemonBeanStruct)pkTrainerSelectAb(DataBase.EMPTY_STRING)).getInstance()).getTrSortedAbility(1);
+        return ((SelectAbilityBean) pkTrainerSelectAb(DataBase.EMPTY_STRING)).getTrSortedAbility(1);
     }
 
 //    public static NaSt callSelectAbilityBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanSearch(),_str,_args);
 //    }
 
-    public static CustList<TranslatedKey> callSelectAbilityBeanSortedAbilitiesGet(NaSt _str) {
-        return (( (SelectAbilityBean) ((PokemonBeanStruct)_str).getInstance()).sortedAbilitiesGet());
+    public static CustList<TranslatedKey> callSelectAbilityBeanSortedAbilitiesGet(CommonBean _str) {
+        return ((SelectAbilityBean) _str).sortedAbilitiesGet();
     }
 
-    public static String callSelectAbilityBeanTypedAbilityGet(NaSt _str) {
-        return ( (SelectAbilityBean) ((PokemonBeanStruct)_str).getInstance()).getTypedAbility().tryRet();
+    public static String callSelectAbilityBeanTypedAbilityGet(CommonBean _str) {
+        return ((SelectAbilityBean) _str).getTypedAbility().tryRet();
     }
 
 //    public static NaSt callSelectItemBeanCancel(NaSt _str, long... _args) {
@@ -1501,31 +1500,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
     public static int[][] callSelectItemBeanGetMiniImage() {
-        return ( (SelectItemBean) ((PokemonBeanStruct)pkTrainerSelectItName(DataBase.EMPTY_STRING)).getInstance()).getMiniImage(0);
+        return ((SelectItemBean) pkTrainerSelectItName(DataBase.EMPTY_STRING)).getMiniImage(0);
     }
 
-    public static int callSelectItemBeanItemsGet(NaSt _str) {
-        return ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getItems().size();
+    public static int callSelectItemBeanItemsGet(CommonBean _str) {
+        return ((SelectItemBean) _str).getItems().size();
     }
 
 //    public static NaSt callSelectItemBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SelectItemBeanSearch(),_str,_args);
 //    }
 
-    public static String callSelectItemBeanTypedClassGet(NaSt _str, int... _args) {
-        return ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedClass().tryRet();
+    public static String callSelectItemBeanTypedClassGet(CommonBean _str, int... _args) {
+        return ((SelectItemBean) _str).getTypedClass().tryRet();
     }
 
-    public static String callSelectItemBeanTypedNameGet(NaSt _str, int... _args) {
-        return ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
+    public static String callSelectItemBeanTypedNameGet(CommonBean _str, int... _args) {
+        return ((SelectItemBean) _str).getTypedName().tryRet();
     }
 
-    public static String callSelectItemBeanTypedPriceGet(NaSt _str, int... _args) {
-        return ( (SelectItemBean) ((PokemonBeanStruct)_str).getInstance()).getTypedPrice().tryRet();
+    public static String callSelectItemBeanTypedPriceGet(CommonBean _str, int... _args) {
+        return ((SelectItemBean) _str).getTypedPrice().tryRet();
     }
 
-    public static AbsMap<String,String> callSelectPokemonBeanBooleansGet(NaSt _str) {
-        return (( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getBooleans());
+    public static AbsMap<String,String> callSelectPokemonBeanBooleansGet(CommonBean _str) {
+        return ((SelectPokemonBean) _str).getBooleans();
     }
 
 //    public static NaSt callSelectPokemonBeanCancel(NaSt _str, long... _args) {
@@ -1537,68 +1536,68 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
     public static int[][] callSelectPokemonBeanGetMiniImage() {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)pkTrainerSelectPkName(DataBase.EMPTY_STRING)).getInstance()).getMiniImagePk(0);
+        return ((SelectPokemonBean) pkTrainerSelectPkName(DataBase.EMPTY_STRING)).getMiniImagePk(0);
     }
 
-    public static String callSelectPokemonBeanHasEvoGet(NaSt _str, int... _args) {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getHasEvo().tryRet();
+    public static String callSelectPokemonBeanHasEvoGet(CommonBean _str, int... _args) {
+        return ((SelectPokemonBean) _str).getHasEvo().tryRet();
     }
 
-    public static String callSelectPokemonBeanIsEvoGet(NaSt _str, int... _args) {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsEvo().tryRet();
+    public static String callSelectPokemonBeanIsEvoGet(CommonBean _str, int... _args) {
+        return ((SelectPokemonBean) _str).getIsEvo().tryRet();
     }
 
-    public static String callSelectPokemonBeanIsLegGet(NaSt _str, int... _args) {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getIsLeg().tryRet();
+    public static String callSelectPokemonBeanIsLegGet(CommonBean _str, int... _args) {
+        return ((SelectPokemonBean) _str).getIsLeg().tryRet();
     }
 
-    public static int callSelectPokemonBeanPokedexGet(NaSt _str) {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getPokedex().size();
+    public static int callSelectPokemonBeanPokedexGet(CommonBean _str) {
+        return ((SelectPokemonBean) _str).getPokedex().size();
     }
 
 //    public static NaSt callSelectPokemonBeanSearch(NaSt _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanSearch(),_str,_args);
 //    }
 
-    public static String callSelectPokemonBeanTypedNameGet(NaSt _str, int... _args) {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedName().tryRet();
+    public static String callSelectPokemonBeanTypedNameGet(CommonBean _str, int... _args) {
+        return ((SelectPokemonBean) _str).getTypedName().tryRet();
     }
 
-    public static String callSelectPokemonBeanTypedTypeGet(NaSt _str, int... _args) {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getTypedType().tryRet();
+    public static String callSelectPokemonBeanTypedTypeGet(CommonBean _str, int... _args) {
+        return ((SelectPokemonBean) _str).getTypedType().tryRet();
     }
 
-    public static boolean callSelectPokemonBeanWholeWordGet(NaSt _str, int... _args) {
-        return ( (SelectPokemonBean) ((PokemonBeanStruct)_str).getInstance()).getWholeWord().isSelected();
+    public static boolean callSelectPokemonBeanWholeWordGet(CommonBean _str, int... _args) {
+        return ((SelectPokemonBean) _str).getWholeWord().isSelected();
     }
     protected static String quit(){
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = init(beanToSimu(pk_.getDataBase()));
-        return navigateData(new SimulationBeanQuit((SimulationBean) simu_.getBean()),simu_);
+        CommonBean simu_ = init(beanToSimu(pk_.getDataBase()));
+        return navigateData(new SimulationBeanQuit((SimulationBean) simu_),simu_);
     }
-    protected static PokemonBeanStruct validateDiff(int _nbTeam){
+    protected static CommonBean validateDiff(int _nbTeam){
         PkData pk_ = pkDataByFacade(db());
         return simBean(_nbTeam, pk_.getDataBase());
     }
 
-    protected static PokemonBeanStruct initByTeam(int _nbTeam) {
+    protected static CommonBean initByTeam(int _nbTeam) {
         PkData pk_ = pkDataByFacade(db());
         return init(_nbTeam, beanToSimu(pk_.getDataBase()));
     }
-    protected static PokemonBeanStruct init(int _nbTeam, PokemonBeanStruct _init) {
-        PokemonBeanStruct simu_ = init(_init);
-        ((SimulationBean)simu_.getInstance()).setNbTeams(_nbTeam);
+    protected static CommonBean init(int _nbTeam, CommonBean _init) {
+        CommonBean simu_ = init(_init);
+        ((SimulationBean)simu_).setNbTeams(_nbTeam);
         return simu_;
     }
-    protected static PokemonBeanStruct selectTeam(PokemonBeanStruct _simu, int _indexTeam) {
+    protected static CommonBean selectTeam(CommonBean _simu, int _indexTeam) {
 //        callSimulationBeanIndexTeamSet(_simu, _indexTeam);
 //        beforeDisplaying(_simu);
-        assertSame(_simu,transitSimu(new SimulationBeanValidateIndexTeamAction((SimulationBean) _simu.getBean(), _indexTeam), _simu.getInstance().getBuilder()));
+        assertSame(_simu,transitSimu(new SimulationBeanValidateIndexTeamAction((SimulationBean) _simu, _indexTeam), _simu.getBuilder()));
         return _simu;
     }
-    protected static PokemonBeanStruct pkTrainerTwoTeamsNextOk() {
+    protected static CommonBean pkTrainerTwoTeamsNextOk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, simu_, 4);
@@ -1611,22 +1610,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR, simu_, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, simu_, 5);
         setMult(simu_,2);
-        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerTwoTeamsNextOkAlly() {
+    protected static CommonBean pkTrainerTwoTeamsNextOkAlly() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(1, pk_.getDataBase());
+        CommonBean simu_ = simBean(1, pk_.getDataBase());
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(true, P_POK_02_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(true, P_POK_03_TR, A_SIM_1_TR, simu_, 4);
         setMult(simu_,2);
-        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerTwoTeamsNextAdjMult() {
+    protected static CommonBean pkTrainerTwoTeamsNextAdjMult() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, simu_, 4);
@@ -1639,12 +1638,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR, simu_, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, simu_, 5);
         setMult(simu_,8);
-        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerTwoTeamsNextKo() {
+    protected static CommonBean pkTrainerTwoTeamsNextKo() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(1, pk_.getDataBase());
-        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(1, pk_.getDataBase());
+        return transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) simu_), simu_.getBuilder());
     }
     //    protected static NaSt pkTrainerTwoTeams() {
 //        PkData pk_ = pkDataByFacade(db());
@@ -1656,7 +1655,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        selectTeam(simu_,1);
 //        return pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
 //    }
-    protected static PokemonBeanStruct dispSimu() {
+    protected static CommonBean dispSimu() {
         PkData pk_ = pkDataByFacade(db());
         return init(beanToSimu(pk_.getDataBase()));
     }
@@ -1696,25 +1695,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return DataBase.EMPTY_STRING;
 //        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
     }
-    private static PokemonBeanStruct init(PokemonBeanStruct _main) {
-        PokemonBeanStruct from_ = _main;
+    private static CommonBean init(CommonBean _main) {
+        CommonBean from_ = _main;
 //        NaSt dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
         beforeDisplaying(from_);
-        PokemonBeanStruct simu_ =transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML), _main.getInstance().getBuilder());
+        CommonBean simu_ = transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML), _main.getBuilder());
 //        callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
 //        beforeDisplaying(dCom_);
         return simu_;
     }
-    protected static PokemonBeanStruct pkTrainer() {
+    protected static CommonBean pkTrainer() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         return goToAddPkTrainer(simu_);
     }
     protected static String editNoFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
 //        callSimulationBeanSelectedFoePkSet(simu_,-1);
-        return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(),((SimulationBean)simu_.getBean()).getSelectedFoeAction(),-1),simu_);
+        return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_,((SimulationBean)simu_).getSelectedFoeAction(),-1),simu_);
     }
     //    protected static PokemonBeanStruct editNoFoePkStateSelectZero() {
 //        PokemonBeanStruct simu_ = editNoFoePkState();
@@ -1734,34 +1733,34 @@ public abstract class InitDbSimulation extends InitDbConstr {
 ////        callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
 //        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(), TeamCrud.EDIT.getTeamCrudString(), -1), simu_.getInstance().getBuilder());
 //    }
-    protected static PokemonBeanStruct editNoFoePkState() {
+    protected static CommonBean editNoFoePkState() {
         PkData pk_ = pkDataByFacade(db());
         return simBean(2, pk_.getDataBase());
     }
-    protected static PokemonBeanStruct pkTrainerFoeRemove() {
+    protected static CommonBean pkTrainerFoeRemove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
-        PokemonBeanStruct second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
+        CommonBean second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
 //        callSimulationBeanSelectedFoeActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(second_,0);
-        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) second_.getBean(), TeamCrud.REMOVE.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) second_, TeamCrud.REMOVE.getTeamCrudString(), 0), simu_.getBuilder());
     }
     protected static String editNoSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,-1);
-        return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(),TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
+        return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
     }
-    protected static PokemonBeanStruct editEditSelectedFoePk() {
+    protected static CommonBean editEditSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,0);
-        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) added_.getBean(), TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) added_, TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getBuilder());
     }
     //    protected static PokemonBeanStruct formEditSelectedFoePk() {
 //        PkData pk_ = pkDataByFacade(db());
@@ -1771,29 +1770,29 @@ public abstract class InitDbSimulation extends InitDbConstr {
 ////        callSimulationBeanSelectedFoePkSet(added_,0);
 //        return transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) added_.getBean(), TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
 //    }
-    protected static PokemonBeanStruct editEditSelectedFoePkAddMove() {
+    protected static CommonBean editEditSelectedFoePkAddMove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,0);
-        PokemonBeanStruct editing_ =transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) added_.getBean(), TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+        CommonBean editing_ = transitSimu(new SimulationBeanSelectFoePkValidation((SimulationBean) added_, TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getBuilder());
         addMoveTrainer(M_POK_01_TR,0, editing_);
-        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editing_), simu_.getBuilder());
     }
     protected static String editForgetSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedFoePkSet(added_,0);
-        return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_.getBean(),TeamCrud.NOTHING.getTeamCrudString(),0),added_);
+        return navigateData(new SimulationBeanSelectFoePkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),0),added_);
     }
     protected static String editNoAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
 //        callSimulationBeanSelectedAllyPkSet(simu_,-1);
-        return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_.getBean(),((SimulationBean)simu_.getBean()).getSelectedAllyAction(),-1),simu_);
+        return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_,((SimulationBean)simu_).getSelectedAllyAction(),-1),simu_);
     }
 //    protected static PokemonBeanStruct editNoAllyPkStateSelectZero() {
 //        PokemonBeanStruct simu_ = editNoAllyPkState();
@@ -1818,30 +1817,30 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return simBean(2, pk_.getDataBase());
 //    }
 
-    protected static PokemonBeanStruct pkTrainerAllyRemove() {
+    protected static CommonBean pkTrainerAllyRemove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
-        PokemonBeanStruct second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
+        CommonBean second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
 //        callSimulationBeanSelectedAllyActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(second_,0);
-        return transitSimu(new SimulationBeanSelectAllyPkValidation((SimulationBean) second_.getBean(), TeamCrud.REMOVE.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectAllyPkValidation((SimulationBean) second_, TeamCrud.REMOVE.getTeamCrudString(), 0), simu_.getBuilder());
     }
     protected static String editNoSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,-1);
-        return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_.getBean(),TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
+        return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
     }
-    protected static PokemonBeanStruct editEditSelectedAllyPk() {
+    protected static CommonBean editEditSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,0);
-        return transitSimu(new SimulationBeanSelectAllyPkValidation((SimulationBean) added_.getBean(), TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectAllyPkValidation((SimulationBean) added_, TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getBuilder());
     }
     //    protected static PokemonBeanStruct formEditSelectedAllyPk() {
 //        PkData pk_ = pkDataByFacade(db());
@@ -1851,58 +1850,58 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        callSimulationBeanSelectedAllyPkSet(added_,0);
 //        return added_;
 //    }
-    protected static PokemonBeanStruct editEditSelectedAllyPkAddMove() {
+    protected static CommonBean editEditSelectedAllyPkAddMove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,0);
-        PokemonBeanStruct editing_ =transitSimu(new SimulationBeanSelectAllyPkValidation((SimulationBean) added_.getBean(), TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getInstance().getBuilder());
+        CommonBean editing_ = transitSimu(new SimulationBeanSelectAllyPkValidation((SimulationBean) added_, TeamCrud.EDIT.getTeamCrudString(), 0), simu_.getBuilder());
         addMoveTrainer(M_POK_01_TR,0, editing_);
-        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editing_), simu_.getBuilder());
     }
     protected static String editForgetSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
 //        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedAllyPkSet(added_,0);
-        return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_.getBean(),TeamCrud.NOTHING.getTeamCrudString(),0),added_);
+        return navigateData(new SimulationBeanSelectAllyPkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),0),added_);
     }
-    protected static PokemonBeanStruct pkTrainerIndex() {
+    protected static CommonBean pkTrainerIndex() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, simu_, 4);
         return pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR, simu_, 5);
     }
-    protected static PokemonBeanStruct pkTrainerLevel(int _level) {
+    protected static CommonBean pkTrainerLevel(int _level) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         return pkTrainerSelectPkNameCycle(false,P_POK_00_TR,A_SIM_1_TR, simu_, _level);
     }
-    protected static PokemonBeanStruct pkTrainerLevelCancelAdd() {
+    protected static CommonBean pkTrainerLevelCancelAdd() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        return transitSimu(new EditTrainerPokemonBeanCancel((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        return transitSimu(new EditTrainerPokemonBeanCancel((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerLevelRestoreMoves() {
+    protected static CommonBean pkTrainerLevelRestoreMoves() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(editPkTrainer_),0),true);
-        PokemonBeanStruct after_ =transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean after_ = transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callEditTrainerPokemonBeanAllyPkSet(after_,false);
-        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) after_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) after_), simu_.getBuilder());
     }
-    private static PokemonBeanStruct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, PokemonBeanStruct _simu, int _level) {
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(_simu);
-        PokemonBeanStruct retPk_ = chooseName(_name, editPkTrainer_);
-        PokemonBeanStruct selAb_ = chooseAbility(_ability, retPk_);
+    private static CommonBean pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, CommonBean _simu, int _level) {
+        CommonBean editPkTrainer_ = goToAddPkTrainer(_simu);
+        CommonBean retPk_ = chooseName(_name, editPkTrainer_);
+        CommonBean selAb_ = chooseAbility(_ability, retPk_);
         callEditTrainerPokemonBeanAllyPkSet(selAb_, _ally);
         callEditTrainerPokemonBeanLevelSet(selAb_, _level);
         genderSet(selAb_);
-        PokemonBeanStruct afterAddEdit_ =transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) selAb_.getBean()), _simu.getInstance().getBuilder());
+        CommonBean afterAddEdit_ = transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) selAb_), _simu.getBuilder());
         assertSame(afterAddEdit_, _simu);
         return afterAddEdit_;
     }
@@ -1920,26 +1919,26 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return afterAddEdit_;
 //    }
 
-    private static void genderSet(NaSt _str) {
+    private static void genderSet(CommonBean _str) {
         callEditTrainerPokemonBeanGenderSet(_str,Gender.NO_GENDER.getGenderName());
     }
 
-    private static void genderSetPl(NaSt _str) {
+    private static void genderSetPl(CommonBean _str) {
         callAddPokemonBeanGenderSet(_str,Gender.NO_GENDER.getGenderName());
     }
 
-    private static PokemonBeanStruct chooseName(String _name, PokemonBeanStruct _str) {
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) _str.getBean()), _str.getInstance().getBuilder());
+    private static CommonBean chooseName(String _name, CommonBean _str) {
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) _str), _str.getBuilder());
         callSelectPokemonBeanTypedNameSet(selPk_, _name);
-        PokemonBeanStruct afSel_ =transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_.getBean()), _str.getInstance().getBuilder());
+        CommonBean afSel_ = transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), _str.getBuilder());
         assertSame(afSel_, _str);
         return afSel_;
     }
 
-    private static PokemonBeanStruct chooseAbility(String _ability, PokemonBeanStruct _str) {
-        PokemonBeanStruct selAb_ =transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) _str.getBean()), _str.getInstance().getBuilder());
+    private static CommonBean chooseAbility(String _ability, CommonBean _str) {
+        CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) _str), _str.getBuilder());
         callSelectAbilityBeanTypedAbilitySet(selAb_, _ability);
-        PokemonBeanStruct afSel_ =transitSimu(new SelectAbilityBeanSearch((SelectAbilityBean) selAb_.getBean()), _str.getInstance().getBuilder());
+        CommonBean afSel_ = transitSimu(new SelectAbilityBeanSearch((SelectAbilityBean) selAb_), _str.getBuilder());
         assertSame(afSel_, _str);
         return afSel_;
     }
@@ -1954,308 +1953,308 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }*/
-    protected static PokemonBeanStruct pkTrainerSelectPkCancel() {
+    protected static CommonBean pkTrainerSelectPkCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
+        return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkTrainerSelectPkName(String _name) {
+    protected static CommonBean pkTrainerSelectPkName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
-        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectPkHasEvo(String _name) {
+    protected static CommonBean pkTrainerSelectPkHasEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanHasEvoSet(selPk_,_name);
-        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectPkIsEvo(String _name) {
+    protected static CommonBean pkTrainerSelectPkIsEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanIsEvoSet(selPk_,_name);
-        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectPkIsLeg(String _name) {
+    protected static CommonBean pkTrainerSelectPkIsLeg(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanIsLegSet(selPk_,_name);
-        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectPkRow(int _row) {
+    protected static CommonBean pkTrainerSelectPkRow(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanTypedNameSet(selPk_,DataBase.EMPTY_STRING);
-        PokemonBeanStruct rSe_ =transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SelectPokemonBeanClickLink((SelectPokemonBean) rSe_.getBean(), ((SelectPokemonBean) rSe_.getBean()).getPokedex().get(_row).getName()), simu_.getInstance().getBuilder());
+        CommonBean rSe_ = transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
+        return transitSimu(new SelectPokemonBeanClickLink((SelectPokemonBean) rSe_, ((SelectPokemonBean) rSe_).getPokedex().get(_row).getName()), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectPkType(String _type, boolean _wholeWord) {
+    protected static CommonBean pkTrainerSelectPkType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectPokemonBeanTypedTypeSet(selPk_,_type);
         callSelectPokemonBeanWholeWordSet(selPk_,_wholeWord);
-        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectPokemonBeanSearch((SelectPokemonBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectPk() {
+    protected static CommonBean pkTrainerSelectPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSelectPk(editPkTrainer_);
     }
-    protected static PokemonBeanStruct pkTrainerSelectPkAllyInfo(boolean _ally) {
+    protected static CommonBean pkTrainerSelectPkAllyInfo(boolean _ally) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
         return editPkTrainer_;
     }
-    protected static PokemonBeanStruct pkTrainerSelectAbCancel() {
+    protected static CommonBean pkTrainerSelectAbCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
+        return transitSimu(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectAb(int _row) {
+    protected static CommonBean pkTrainerSelectAb(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selAb_ =transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectAbilityBeanTypedAbilitySet(selAb_,DataBase.EMPTY_STRING);
-        PokemonBeanStruct rSe_ =transitSimu(new SelectAbilityBeanSearch((SelectAbilityBean) selAb_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SelectAbilityBeanClickAbility((SelectAbilityBean) rSe_.getBean(), _row), simu_.getInstance().getBuilder());
+        CommonBean rSe_ = transitSimu(new SelectAbilityBeanSearch((SelectAbilityBean) selAb_), simu_.getBuilder());
+        return transitSimu(new SelectAbilityBeanClickAbility((SelectAbilityBean) rSe_, _row), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectAb(String _name) {
+    protected static CommonBean pkTrainerSelectAb(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selAb_ =transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectAbilityBeanTypedAbilitySet(selAb_,_name);
-        return transitSimu(new SelectAbilityBeanSearch((SelectAbilityBean) selAb_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectAbilityBeanSearch((SelectAbilityBean) selAb_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectAb() {
+    protected static CommonBean pkTrainerSelectAb() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSelectAb(editPkTrainer_);
     }
-    protected static PokemonBeanStruct pkTrainerSelectItCancel() {
+    protected static CommonBean pkTrainerSelectItCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
-        PokemonBeanStruct rSe_ =transitSimu(new SelectItemBeanCancelItem((SelectItemBean) selPk_.getBean()), simu_.getInstance().getBuilder());
-        PokemonBeanStruct twice_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) rSe_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
+        CommonBean rSe_ = transitSimu(new SelectItemBeanCancelItem((SelectItemBean) selPk_), simu_.getBuilder());
+        CommonBean twice_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) rSe_), simu_.getBuilder());
         callSelectItemBeanTypedNameSet(twice_,I_BALL_TR);
-        PokemonBeanStruct againEditPk_ =transitSimu(new SelectItemBeanSearch((SelectItemBean) twice_.getBean()), simu_.getInstance().getBuilder());
-        PokemonBeanStruct nextIt_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) againEditPk_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SelectItemBeanCancel((SelectItemBean) nextIt_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean againEditPk_ = transitSimu(new SelectItemBeanSearch((SelectItemBean) twice_), simu_.getBuilder());
+        CommonBean nextIt_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) againEditPk_), simu_.getBuilder());
+        return transitSimu(new SelectItemBeanCancel((SelectItemBean) nextIt_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectItCancelRem() {
+    protected static CommonBean pkTrainerSelectItCancelRem() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedNameSet(selPk_,DataBase.EMPTY_STRING);
-        PokemonBeanStruct rSe_ =transitSimu(new SelectItemBeanSearch((SelectItemBean) selPk_.getBean()), simu_.getInstance().getBuilder());
-        PokemonBeanStruct againEditPk_ =transitSimu(new SelectItemBeanClickLink((SelectItemBean) rSe_.getBean(), ((SelectItemBean) rSe_.getBean()).getItems().get(0).getName()), simu_.getInstance().getBuilder());
-        PokemonBeanStruct nextIt_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) againEditPk_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SelectItemBeanCancelItem((SelectItemBean) nextIt_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean rSe_ = transitSimu(new SelectItemBeanSearch((SelectItemBean) selPk_), simu_.getBuilder());
+        CommonBean againEditPk_ = transitSimu(new SelectItemBeanClickLink((SelectItemBean) rSe_, ((SelectItemBean) rSe_).getItems().get(0).getName()), simu_.getBuilder());
+        CommonBean nextIt_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) againEditPk_), simu_.getBuilder());
+        return transitSimu(new SelectItemBeanCancelItem((SelectItemBean) nextIt_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectItName(int _row) {
+    protected static CommonBean pkTrainerSelectItName(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selAb_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedNameSet(selAb_,DataBase.EMPTY_STRING);
-        PokemonBeanStruct rSe_ =transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SelectItemBeanClickLink((SelectItemBean) rSe_.getBean(), ((SelectItemBean) rSe_.getBean()).getItems().get(_row).getName()), simu_.getInstance().getBuilder());
+        CommonBean rSe_ = transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_), simu_.getBuilder());
+        return transitSimu(new SelectItemBeanClickLink((SelectItemBean) rSe_, ((SelectItemBean) rSe_).getItems().get(_row).getName()), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectItName(String _name) {
+    protected static CommonBean pkTrainerSelectItName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return chooseItemPkTrainer(_name, editPkTrainer_);
     }
 
-    private static PokemonBeanStruct chooseItemPkTrainer(String _name, PokemonBeanStruct _editPkTrainer) {
-        PokemonBeanStruct selIt_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) _editPkTrainer.getBean()), _editPkTrainer.getInstance().getBuilder());
+    private static CommonBean chooseItemPkTrainer(String _name, CommonBean _editPkTrainer) {
+        CommonBean selIt_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) _editPkTrainer), _editPkTrainer.getBuilder());
         return chooseItemGene(_name, selIt_);
     }
 
-    private static PokemonBeanStruct chooseItemPkPlayer(String _name, PokemonBeanStruct _editPkTrainer) {
-        PokemonBeanStruct selIt_ =transitSimu(new EditPokemonBeanChooseItem((EditPokemonBean) _editPkTrainer.getBean()), _editPkTrainer.getInstance().getBuilder());
+    private static CommonBean chooseItemPkPlayer(String _name, CommonBean _editPkTrainer) {
+        CommonBean selIt_ = transitSimu(new EditPokemonBeanChooseItem((EditPokemonBean) _editPkTrainer), _editPkTrainer.getBuilder());
         return chooseItemGene(_name, selIt_);
     }
 
-    private static PokemonBeanStruct chooseItemGene(String _name, PokemonBeanStruct _selIt) {
+    private static CommonBean chooseItemGene(String _name, CommonBean _selIt) {
         callSelectItemBeanTypedNameSet(_selIt, _name);
-        return transitSimu(new SelectItemBeanSearch((SelectItemBean) _selIt.getBean()), _selIt.getInstance().getBuilder());
+        return transitSimu(new SelectItemBeanSearch((SelectItemBean) _selIt), _selIt.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectItPrice() {
+    protected static CommonBean pkTrainerSelectItPrice() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selAb_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedPriceSet(selAb_,DataBase.EMPTY_STRING);
-        return transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectItCl(String _name) {
+    protected static CommonBean pkTrainerSelectItCl(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selAb_ =transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selAb_ = transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callSelectItemBeanTypedClassSet(selAb_,_name);
-        return transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SelectItemBeanSearch((SelectItemBean) selAb_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSelectItName() {
+    protected static CommonBean pkTrainerSelectItName() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSelectIt(editPkTrainer_);
     }
 
-    protected static PokemonBeanStruct pkTrainerSetMovesName(String _name) {
+    protected static CommonBean pkTrainerSetMovesName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callEditPokemonMovesBeanTypedNameSet(selPk_,_name);
-        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkTrainerSetMovesCat(String _name) {
+    protected static CommonBean pkTrainerSetMovesCat(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callEditPokemonMovesBeanCategorySet(selPk_,_name);
-        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSetMovesCancel() {
+    protected static CommonBean pkTrainerSetMovesCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new EditPokemonMovesBeanCancel((EditPokemonMovesBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
+        return transitSimu(new EditPokemonMovesBeanCancel((EditPokemonMovesBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSetMovesRemove() {
+    protected static CommonBean pkTrainerSetMovesRemove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(re_),0),true);
-        return transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) re_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct addPkTrainerChangeMoves(boolean _ally) {
+    protected static CommonBean addPkTrainerChangeMoves(boolean _ally) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean re_ = addMoveTrainer(M_POK_01_TR, 0, editPkTrainer_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(re_),0),true);
-        PokemonBeanStruct afterDel_ =transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean afterDel_ = transitSimu(new EditTrainerPokemonBeanDeleteMoves((EditTrainerPokemonBean) re_), simu_.getBuilder());
         callEditTrainerPokemonBeanAllyPkSet(afterDel_,_ally);
-        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) afterDel_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) afterDel_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct addPkTrainerChangeItem(boolean _ally) {
+    protected static CommonBean addPkTrainerChangeItem(boolean _ally) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         assertSame(editPkTrainer_, chooseItemPkTrainer(I_BALL_TR, editPkTrainer_));
         callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
-        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditTrainerPokemonBeanValidateTrainerPk((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSetMovesNameAdd(String _name, int _row) {
+    protected static CommonBean pkTrainerSetMovesNameAdd(String _name, int _row) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return addMoveTrainer(_name, _row, editPkTrainer_);
     }
 
-    private static PokemonBeanStruct addMoveTrainer(String _name, int _row, PokemonBeanStruct _editPkTrainer) {
-        PokemonBeanStruct editMoves_ =transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) _editPkTrainer.getBean()), _editPkTrainer.getInstance().getBuilder());
+    private static CommonBean addMoveTrainer(String _name, int _row, CommonBean _editPkTrainer) {
+        CommonBean editMoves_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) _editPkTrainer), _editPkTrainer.getBuilder());
         return addMoveGene(_name, _row, editMoves_);
     }
 
-    private static PokemonBeanStruct addMovePlayer(String _name, int _row, PokemonBeanStruct _editPkPlayer) {
-        PokemonBeanStruct editMoves_ =transitSimu(new EditPokemonBeanAddMoves((EditPokemonBean) _editPkPlayer.getBean()), _editPkPlayer.getInstance().getBuilder());
+    private static CommonBean addMovePlayer(String _name, int _row, CommonBean _editPkPlayer) {
+        CommonBean editMoves_ = transitSimu(new EditPokemonBeanAddMoves((EditPokemonBean) _editPkPlayer), _editPkPlayer.getBuilder());
         callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_,false);
         return addMoveGene(_name, _row, editMoves_);
     }
 
-    private static PokemonBeanStruct searchMovePlayer(String _name, PokemonBeanStruct _editPkPlayer, boolean _flag) {
-        PokemonBeanStruct editMoves_ =transitSimu(new EditPokemonBeanAddMoves((EditPokemonBean) _editPkPlayer.getBean()), _editPkPlayer.getInstance().getBuilder());
+    private static CommonBean searchMovePlayer(String _name, CommonBean _editPkPlayer, boolean _flag) {
+        CommonBean editMoves_ = transitSimu(new EditPokemonBeanAddMoves((EditPokemonBean) _editPkPlayer), _editPkPlayer.getBuilder());
         callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_, _flag);
         callEditPokemonMovesBeanTypedNameSet(editMoves_, _name);
-        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) editMoves_.getBean()), _editPkPlayer.getInstance().getBuilder());
+        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) editMoves_), _editPkPlayer.getBuilder());
     }
 
-    private static PokemonBeanStruct addMoveGene(String _name, int _row, PokemonBeanStruct _editMoves) {
+    private static CommonBean addMoveGene(String _name, int _row, CommonBean _editMoves) {
         callEditPokemonMovesBeanTypedNameSet(_editMoves, _name);
-        PokemonBeanStruct foundMoves_ =transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) _editMoves.getBean()), _editMoves.getInstance().getBuilder());
+        CommonBean foundMoves_ = transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) _editMoves), _editMoves.getBuilder());
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
-        return transitSimu(new EditPokemonMovesBeanAddMoves((EditPokemonMovesBean) foundMoves_.getBean()), _editMoves.getInstance().getBuilder());
+        return transitSimu(new EditPokemonMovesBeanAddMoves((EditPokemonMovesBean) foundMoves_), _editMoves.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSetMovesType(String _type, boolean _wholeWord) {
+    protected static CommonBean pkTrainerSetMovesType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
-        PokemonBeanStruct selPk_ =transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean selPk_ = transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) editPkTrainer_), simu_.getBuilder());
         callEditPokemonMovesBeanTypedTypeSet(selPk_,_type);
         callEditPokemonMovesBeanWholeWordSet(selPk_,_wholeWord);
-        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditPokemonMovesBeanSearch((EditPokemonMovesBean) selPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkTrainerSetMoves() {
+    protected static CommonBean pkTrainerSetMoves() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct editPkTrainer_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean editPkTrainer_ = goToAddPkTrainer(simu_);
         return goToSetMovesTrainer(editPkTrainer_);
     }
-    protected static PokemonBeanStruct pkTrainer(boolean _select) {
+    protected static CommonBean pkTrainer(boolean _select) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
-        PokemonBeanStruct edit_ = goToAddPkTrainer(simu_);
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
+        CommonBean edit_ = goToAddPkTrainer(simu_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
         return edit_;
     }
     protected static String editNoPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,-1);
-        return navigateData(new SimulationBeanSelectPkValidation((SimulationBean) simu_.getBean(),((SimulationBean)simu_.getBean()).getSelectedAction(),-1),simu_);
+        return navigateData(new SimulationBeanSelectPkValidation((SimulationBean) simu_,((SimulationBean)simu_).getSelectedAction(),-1),simu_);
     }
-    protected static PokemonBeanStruct pkPlayerRemove() {
+    protected static CommonBean pkPlayerRemove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
         return editPkPlayer(simu_, P_POK_01_TR, A_SIM_2_TR, 0, 5, TeamCrud.REMOVE);
     }
     protected static String editNoSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
+        CommonBean added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
 //        callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedPkSet(added_,-1);
-        return navigateData(new SimulationBeanSelectPkValidation((SimulationBean) simu_.getBean(),TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
+        return navigateData(new SimulationBeanSelectPkValidation((SimulationBean) simu_,TeamCrud.NOTHING.getTeamCrudString(),-1),added_);
     }
 //    protected static PokemonBeanStruct editNoPkStateSelectZero() {
 //        PokemonBeanStruct simu_ = editNoPkState();
@@ -2280,17 +2279,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return simBean(2, pk_.getDataBase());
 //    }
 
-    protected static PokemonBeanStruct editEditSelectedPlayerPk() {
+    protected static CommonBean editEditSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         return editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkForm(boolean _heal, Rate _exp, Rate _hp) {
+    protected static CommonBean editEditSelectedPlayerPkForm(boolean _heal, Rate _exp, Rate _hp) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callEditPokemonBeanHealSet(editing_, _heal);
         callEditPokemonBeanBallSet(editing_,I_BALL);
         callEditPokemonBeanExperienceSet(editing_, _exp);
@@ -2298,64 +2297,64 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callEditPokemonBeanRemainingHpSet(editing_, _hp);
         secondStatisticEv(eltStatisticEv(callEditPokemonBeanEvGet(editing_),2)).getEv().valueLong(33);
 //        callEvLineEvSet(second(elt(callEditPokemonBeanEvGet(editing_),2)),33);
-        return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkFormNoMove() {
+    protected static CommonBean editEditSelectedPlayerPkFormNoMove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(editing_),0),true);
-        transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) editing_), simu_.getBuilder());
+        return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkFormCancel() {
+    protected static CommonBean editEditSelectedPlayerPkFormCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(editing_),0),true);
-        transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new EditPokemonBeanCancel((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) editing_), simu_.getBuilder());
+        return transitSimu(new EditPokemonBeanCancel((EditPokemonBean) editing_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkHeal(boolean _heal) {
-        PokemonBeanStruct h_ = editEditSelectedPlayerPk();
+    protected static CommonBean editEditSelectedPlayerPkHeal(boolean _heal) {
+        CommonBean h_ = editEditSelectedPlayerPk();
         callEditPokemonBeanHealSet(h_,_heal);
         return h_;
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkItem() {
+    protected static CommonBean editEditSelectedPlayerPkItem() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(edit_, chooseItemPkPlayer(I_BALL_TR, edit_));
         return edit_;
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkItemCancelItem() {
+    protected static CommonBean editEditSelectedPlayerPkItemCancelItem() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        PokemonBeanStruct chosen_ = chooseItemPkPlayer(I_BALL_TR, edit_);
-        PokemonBeanStruct redo_ =transitSimu(new EditPokemonBeanChooseItem((EditPokemonBean) chosen_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SelectItemBeanCancelItem((SelectItemBean) redo_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean chosen_ = chooseItemPkPlayer(I_BALL_TR, edit_);
+        CommonBean redo_ = transitSimu(new EditPokemonBeanChooseItem((EditPokemonBean) chosen_), simu_.getBuilder());
+        return transitSimu(new SelectItemBeanCancelItem((SelectItemBean) redo_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkItemCancel() {
+    protected static CommonBean editEditSelectedPlayerPkItemCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        PokemonBeanStruct first_ =transitSimu(new EditPokemonBeanChooseItem((EditPokemonBean) edit_.getBean()), simu_.getInstance().getBuilder());
-        PokemonBeanStruct back_ =transitSimu(new SelectItemBeanCancel((SelectItemBean) first_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean first_ = transitSimu(new EditPokemonBeanChooseItem((EditPokemonBean) edit_), simu_.getBuilder());
+        CommonBean back_ = transitSimu(new SelectItemBeanCancel((SelectItemBean) first_), simu_.getBuilder());
         return chooseItemPkPlayer(I_BALL_TR, back_);
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkItemPart(int _row) {
+    protected static CommonBean editEditSelectedPlayerPkItemPart(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        PokemonBeanStruct chosen_ = chooseItemPkPlayer(DataBase.EMPTY_STRING, edit_);
-        return transitSimu(new SelectItemBeanClickLink((SelectItemBean) chosen_.getBean(), ((SelectItemBean) chosen_.getBean()).getItems().get(_row).getName()), simu_.getInstance().getBuilder());
+        CommonBean edit_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean chosen_ = chooseItemPkPlayer(DataBase.EMPTY_STRING, edit_);
+        return transitSimu(new SelectItemBeanClickLink((SelectItemBean) chosen_, ((SelectItemBean) chosen_).getItems().get(_row).getName()), simu_.getBuilder());
     }
     //    protected static PokemonBeanStruct formEditSelectedPlayerPk() {
 //        PkData pk_ = pkDataByFacade(db());
@@ -2376,65 +2375,65 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        addMovePlayer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
 //        return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
 //    }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkListMoves() {
+    protected static CommonBean editEditSelectedPlayerPkListMoves() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        return transitSimu(new EditPokemonBeanAddMoves((EditPokemonBean) editing_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        return transitSimu(new EditPokemonBeanAddMoves((EditPokemonBean) editing_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkListMoves(String _name, boolean _flag) {
+    protected static CommonBean editEditSelectedPlayerPkListMoves(String _name, boolean _flag) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         return searchMovePlayer(_name, editing_,_flag);
     }
-    protected static PokemonBeanStruct editEditSelectedPlayerPkListMovesCancel() {
+    protected static CommonBean editEditSelectedPlayerPkListMovesCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        PokemonBeanStruct se_ = searchMovePlayer(M_POK_04_TR, editing_, false);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean se_ = searchMovePlayer(M_POK_04_TR, editing_, false);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonMovesBeanMovesGet(se_),0),true);
-        return transitSimu(new EditPokemonMovesBeanCancel((EditPokemonMovesBean) se_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditPokemonMovesBeanCancel((EditPokemonMovesBean) se_), simu_.getBuilder());
     }
 
-    private static PokemonBeanStruct editPkPlayer(PokemonBeanStruct _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
-        PokemonBeanStruct added_ = pkTrainerSelectPkPlayerNameCycle(_name, _ab, _simu, _level);
+    private static CommonBean editPkPlayer(CommonBean _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
+        CommonBean added_ = pkTrainerSelectPkPlayerNameCycle(_name, _ab, _simu, _level);
 //        callSimulationBeanSelectedActionSet(added_, _mode.getTeamCrudString());
 //        callSimulationBeanSelectedPkSet(added_, _index);
-        return transitSimu(new SimulationBeanSelectPkValidation((SimulationBean) added_.getBean(), _mode.getTeamCrudString(), _index), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkValidation((SimulationBean) added_, _mode.getTeamCrudString(), _index), _simu.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerSetMovesRemove() {
+    protected static CommonBean pkPlayerSetMovesRemove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
-        return transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_), simu_.getBuilder());
     }
     protected static String editForgetSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
+        CommonBean added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
 //        callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
 //        callSimulationBeanSelectedPkSet(added_,0);
-        return navigateData(new SimulationBeanSelectPkValidation((SimulationBean)added_.getBean(),TeamCrud.NOTHING.getTeamCrudString(),0),added_);
+        return navigateData(new SimulationBeanSelectPkValidation((SimulationBean)added_,TeamCrud.NOTHING.getTeamCrudString(),0),added_);
     }
-    protected static PokemonBeanStruct addPkPlayerChangeMoves() {
+    protected static CommonBean addPkPlayerChangeMoves() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
-        PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
+        CommonBean re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
-        PokemonBeanStruct afterDel_ =transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean afterDel_ = transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_), simu_.getBuilder());
+        return transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_), simu_.getBuilder());
     }
     //    protected static Struct editEditSelectedPlayerPkAddMove() {
 //        PkData pk_ = pkDataByFacade(db());
@@ -2448,172 +2447,172 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
 //        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
 //    }
-    private static PokemonBeanStruct pkTrainerSelectPkPlayerNameCycle(String _name, String _ability, PokemonBeanStruct _simu, int _level) {
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(_simu);
+    private static CommonBean pkTrainerSelectPkPlayerNameCycle(String _name, String _ability, CommonBean _simu, int _level) {
+        CommonBean addPk_ = goToAddPkPlayer(_simu);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
-        PokemonBeanStruct afSearch_ =transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), _simu.getInstance().getBuilder());
+        CommonBean afSearch_ = transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), _simu.getBuilder());
         callAddPokemonBeanAbilitySet(afSearch_,_ability);
         callAddPokemonBeanLevelSet(afSearch_,_level);
-        PokemonBeanStruct afterAddEdit_ =transitSimu(new AddPokemonBeanAdd((AddPokemonBean) afSearch_.getBean()), _simu.getInstance().getBuilder());
+        CommonBean afterAddEdit_ = transitSimu(new AddPokemonBeanAdd((AddPokemonBean) afSearch_), _simu.getBuilder());
         assertSame(afterAddEdit_, _simu);
         return afterAddEdit_;
     }
-    protected static PokemonBeanStruct pkPlayerSelectPk() {
+    protected static CommonBean pkPlayerSelectPk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         return goToAddPkPlayer(simu_);
     }
-    protected static PokemonBeanStruct pkPlayerSelectPkCancel() {
+    protected static CommonBean pkPlayerSelectPkCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
-        return transitSimu(new AddPokemonBeanCancel((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
+        return transitSimu(new AddPokemonBeanCancel((AddPokemonBean) addPk_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerSelectPkNameAbility(String _name) {
+    protected static CommonBean pkPlayerSelectPkNameAbility(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         return pkPlAb(_name, simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerSelectPkNameTwice() {
+    protected static CommonBean pkPlayerSelectPkNameTwice() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, simu_,40);
         return pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_2, simu_,39);
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosNoSelect() {
+    protected static CommonBean pkPlayerValidateEvosNoSelect() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,-1);
-        return transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) simu_.getBean()), -1), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) simu_, -1), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosSelect() {
+    protected static CommonBean pkPlayerValidateEvosSelect() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
-        return transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) simu_.getBean()), 1), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) simu_, 1), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvoValues() {
+    protected static CommonBean pkPlayerValidateEvoValues() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
-        transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) simu_.getBean()), 1), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) simu_, 1), simu_.getBuilder());
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,41);
         return simu_;
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvoValidate() {
+    protected static CommonBean pkPlayerValidateEvoValidate() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
-        transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) simu_.getBean()), 1), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) simu_, 1), simu_.getBuilder());
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,39);
-        return transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoThenFighters() {
+    protected static CommonBean pkPlayerEvoThenFighters() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         return validEvos(simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersImmediateValid() {
+    protected static CommonBean pkPlayerEvoFightersImmediateValid() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,-1);
-        return transitSimu(new SimulationBeanSelectPkFrontValidation(((SimulationBean) simu_.getBean()), -1), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkFrontValidation((SimulationBean) simu_, -1), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersFormValid() {
+    protected static CommonBean pkPlayerEvoFightersFormValid() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         return changeFighterPosition(simu_, 0, 0, 0);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersWithoutFronts() {
+    protected static CommonBean pkPlayerEvoFightersWithoutFronts() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
-        return transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersSufficientFronts() {
+    protected static CommonBean pkPlayerEvoFightersSufficientFronts() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         return fighterPositions(simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersSufficientFrontsFormMove(int _index) {
+    protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMove(int _index) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,_index);
-        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getBean(), _index), simu_.getInstance().getBuilder()));
+        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_, _index), simu_.getBuilder()));
         return simu_;
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(int _index, String _ab) {
+    protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(int _index, String _ab) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,_index);
-        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getBean(), _index), simu_.getInstance().getBuilder()));
+        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_, _index), simu_.getBuilder()));
         return movesAbilities(_ab, simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuickTwice(int _index, String _ab) {
+    protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuickTwice(int _index, String _ab) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,_index);
-        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getBean(), _index), simu_.getInstance().getBuilder()));
+        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_, _index), simu_.getBuilder()));
         movesAbilities(_ab, simu_);
         return movesAbilities(DataBase.EMPTY_STRING, simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk() {
+    protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2621,9 +2620,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return movesSet(simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterChoice(int _index, int _round) {
+    protected static CommonBean pkPlayerEvoFighterChoice(int _index, int _round) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2632,13 +2631,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getInstance(),_index),simu_.getInstance().getBuilder());
 //        callSimulationBeanSelectedPkSet(simu_,_index);
 //        callSimulationBeanSelectedRoundSet(simu_,Long.toString(_round));
-        ( (SimulationBean) simu_.getInstance()).getSelectedRound().valueInt(_round);
-        return transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getInstance(),_index),simu_.getInstance().getBuilder());
+        ((SimulationBean) simu_).getSelectedRound().valueInt(_round);
+        return transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_,_index),simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterChoiceAfter(int _index, int _round, boolean _allyChoice, int _move, int _target) {
+    protected static CommonBean pkPlayerEvoFighterChoiceAfter(int _index, int _round, boolean _allyChoice, int _move, int _target) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2647,9 +2646,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return moveChoice(_index, _round, _allyChoice, _move, _target, simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterSimulate() {
+    protected static CommonBean pkPlayerEvoFighterSimulate() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
@@ -2658,50 +2657,50 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return mvChs(simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterSimulateStMove() {
+    protected static CommonBean pkPlayerEvoFighterSimulateStMove() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
         movesSet(simu_);
         moveChoices(simu_);
-        return transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterSimulateStMoveCancel() {
+    protected static CommonBean pkPlayerEvoFighterSimulateStMoveCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
         movesSet(simu_);
         moveChoices(simu_);
-        transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanCancelMovesSets((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanCancelFrontFighters((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanCancelMovesSets((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanCancelFrontFighters((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterSimulateStMoveCancel2() {
+    protected static CommonBean pkPlayerEvoFighterSimulateStMoveCancel2() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
         movesSet(simu_);
         moveChoices(simu_);
-        transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanCancelMovesSets((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanCancelFrontFighters((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanCancelEvolutions((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanCancelMovesSets((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanCancelFrontFighters((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanCancelEvolutions((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulate() {
+    protected static CommonBean pkPlayerFighterSimulate() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         return oneFight(simu_);
@@ -2709,273 +2708,273 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static CustList<String> pkPlayerFighterSimulateComment() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanDisplayComments((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanHideComments((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanDisplayComments((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanHideComments((SimulationBean) simu_), simu_.getBuilder());
         return callSimulationBeanCommentsGet(simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFight() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFight() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_.getBean(), (((SimulationBean) simu_.getBean()).getSelectedPk())), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_, ((SimulationBean) simu_).getSelectedPk()), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightCancel() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightCancel2() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightCancel2() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanChangeFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanChangeFight((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightCancel3() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightCancel3() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanChangeFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanChangeFight((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightCancel4() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightCancel4() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanChangeFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanCancelFrontFighters((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanCancelTeam(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanCancelDiffChoice((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanChangeFightWhileEnd((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanChangeFight((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanCancelMovesEvos((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanCancelFrontFighters((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanCancelTeam((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanCancelDiffChoice((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightOne() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightOne() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
 //        callSimulationBeanSelectedPkSet(simu_,0);
-        return transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_.getBean(), 0), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_, 0), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightOneValidate() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightOneValidate() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
 //        callSimulationBeanSelectedPkSet(simu_,0);
-        transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_.getBean(), 0), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_, 0), simu_.getBuilder());
         callSimulationBeanEvolutionAfterFightSet(simu_,P_POK_05);
-        transitSimu(new SimulationBeanValidateEvolutionAfterFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvolutionAfterFight((SimulationBean) simu_), simu_.getBuilder());
         callSimulationBeanAbilityAfterFightSet(simu_,A_SIM_2);
-        transitSimu(new SimulationBeanValidateMovesAbilityAfterFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanValidateMovesAfterFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateMovesAbilityAfterFight((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanValidateMovesAfterFight((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightCancelOne() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightCancelOne() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSampleSkip(simu_);
         oneFight(simu_);
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
 //        callSimulationBeanSelectedPkSet(simu_,0);
-        transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_.getBean(), 0), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_, 0), simu_.getBuilder());
         callSimulationBeanEvolutionAfterFightSet(simu_,P_POK_05);
-        transitSimu(new SimulationBeanValidateEvolutionAfterFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanCancelEvolutionsAfterFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvolutionAfterFight((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanCancelEvolutionsAfterFight((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    private static PokemonBeanStruct oneFight(PokemonBeanStruct _simu) {
+    private static CommonBean oneFight(CommonBean _simu) {
         fighterPositions(_simu);
         return mvChs(_simu);
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateOneFight() {
+    protected static CommonBean pkPlayerFighterSimulateOneFight() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(1, pk_.getDataBase());
+        CommonBean simu_ = simBean(1, pk_.getDataBase());
         foeTeamSample(simu_);
         playerTeamSampleSkip(simu_);
         fighterPositions(simu_);
         return mvChs(simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSkipEvosStateBadNbCount() {
+    protected static CommonBean pkPlayerFighterSkipEvosStateBadNbCount() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        CommonBean editing_ = editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
-        PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
+        CommonBean re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
-        PokemonBeanStruct afterDel_ =transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean afterDel_ = transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_), simu_.getBuilder());
+        transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_), simu_.getBuilder());
         pkTrainerSelectPkPlayerNameCycle(P_POK_04_TR,A_SIM_1, simu_,41);
-        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSkipEvosStateEmpty() {
+    protected static CommonBean pkPlayerFighterSkipEvosStateEmpty() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterSimulateKo() {
+    protected static CommonBean pkPlayerEvoFighterSimulateKo() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
         movesSet(simu_);
-        PokemonBeanStruct koChs_ = moveChoicesKo(simu_);
-        return transitSimu(new SimulationBeanSimulateFight((SimulationBean) koChs_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean koChs_ = moveChoicesKo(simu_);
+        return transitSimu(new SimulationBeanSimulateFight((SimulationBean) koChs_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFighterSimulateKos() {
+    protected static CommonBean pkPlayerEvoFighterSimulateKos() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSampleInv(simu_);
         playerTeamSampleInv(simu_);
-        transitSimu(new SimulationBeanValidateEvolutions(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvolutions((SimulationBean) simu_), simu_.getBuilder());
         fighterPositions(simu_);
         movesSet(simu_);
         return mvChs(simu_);
     }
 
-    private static PokemonBeanStruct mvChs(PokemonBeanStruct _simu) {
-        PokemonBeanStruct first_ = moveChoices(_simu);
-        return transitSimu(new SimulationBeanSimulateFight((SimulationBean) first_.getBean()), _simu.getInstance().getBuilder());
+    private static CommonBean mvChs(CommonBean _simu) {
+        CommonBean first_ = moveChoices(_simu);
+        return transitSimu(new SimulationBeanSimulateFight((SimulationBean) first_), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct moveChoices(PokemonBeanStruct _simu) {
+    private static CommonBean moveChoices(CommonBean _simu) {
         moveChoice(0,0,0,0, _simu);
         moveChoice(1,0,0,1, _simu);
         moveChoice(0,1,0,0, _simu);
         return moveChoice(1,1,0,1, _simu);
     }
 
-    private static PokemonBeanStruct moveChoicesKo(PokemonBeanStruct _simu) {
+    private static CommonBean moveChoicesKo(CommonBean _simu) {
         moveChoice(0,0,0,0, _simu);
         moveChoice(1,0,0,1, _simu);
         moveChoice(0,0,0,0, _simu);
         return moveChoice(1,0,0,1, _simu);
     }
 
-    private static PokemonBeanStruct moveChoice(int _index, int _round, int _move, int _target, PokemonBeanStruct _simu) {
+    private static CommonBean moveChoice(int _index, int _round, int _move, int _target, CommonBean _simu) {
         return moveChoice(_index,_round,false,_move,_target, _simu);
     }
-    private static PokemonBeanStruct moveChoice(int _index, int _round, boolean _allyChoice, int _move, int _target, PokemonBeanStruct _simu) {
+    private static CommonBean moveChoice(int _index, int _round, boolean _allyChoice, int _move, int _target, CommonBean _simu) {
 //        callSimulationBeanSelectedPkSet(_simu, _index);
-        ( (SimulationBean) _simu.getInstance()).getSelectedRound().valueInt(_round);
-        transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) _simu.getInstance(),_index),_simu.getInstance().getBuilder());
+        ((SimulationBean) _simu).getSelectedRound().valueInt(_round);
+        transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) _simu,_index),_simu.getBuilder());
 //        callSimulationBeanSelectedRoundSet(_simu,Long.toString(_round));
 //        beforeDisplaying(_simu);
 //        callSimulationBeanAllyChoiceSet(_simu, _allyChoice);
-        ( (SimulationBean) _simu.getInstance()).getAllyChoice().setSelected(_allyChoice);
+        ((SimulationBean) _simu).getAllyChoice().setSelected(_allyChoice);
 //        callSimulationBeanSelectedMoveSet(_simu, _move);
 //        callSimulationBeanTargetSet(_simu, Long.toString(_target));
-        ( (SimulationBean) _simu.getInstance()).getTarget().valueInt(_target);
-        return transitSimu(new SimulationBeanSelectMovesValidation((SimulationBean) _simu.getBean(), _move), _simu.getInstance().getBuilder());
+        ((SimulationBean) _simu).getTarget().valueInt(_target);
+        return transitSimu(new SimulationBeanSelectMovesValidation((SimulationBean) _simu, _move), _simu.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {
+    protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
 //        callSimulationBeanSelectedPkSet(simu_, 1);
-        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getBean(), 1), simu_.getInstance().getBuilder()));
+        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_, 1), simu_.getBuilder()));
         callSimulationBeanCurrentAbilitySet(simu_, A_SIM_1);
         callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),0),true);
         callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),1),true);
         callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),2),true);
-        transitSimu(new SimulationBeanValidateMoves((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateMoves((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersCancel() {
+    protected static CommonBean pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
         validEvos(simu_);
         fighterPositions(simu_);
 //        callSimulationBeanSelectedPkSet(simu_, 1);
-        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_.getBean(), 1), simu_.getInstance().getBuilder()));
+        assertSame(simu_,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) simu_, 1), simu_.getBuilder()));
         callSimulationBeanCurrentAbilitySet(simu_, A_SIM_1);
         callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),0),true);
         callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),1),true);
         callSelectLineMoveSelectedSet(eltSelectMove(callSimulationBeanKeptMovesGet(simu_),2),true);
-        transitSimu(new SimulationBeanValidateMoves((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanCancelMoves((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateMoves((SimulationBean) simu_), simu_.getBuilder());
+        transitSimu(new SimulationBeanCancelMoves((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    private static PokemonBeanStruct movesSet(PokemonBeanStruct _simu) {
+    private static CommonBean movesSet(CommonBean _simu) {
         withoutAbility(0, _simu);
         withAbility(1,A_SIM_1, _simu);
         withoutAbility(2, _simu);
         withAbility(3,A_SIM_1, _simu);
-        return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateMovesSets((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct withAbility(int _index, String _ab, PokemonBeanStruct _simu) {
+    private static CommonBean withAbility(int _index, String _ab, CommonBean _simu) {
 //        callSimulationBeanSelectedPkSet(_simu, _index);
-        assertSame(_simu,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) _simu.getBean(), _index), _simu.getInstance().getBuilder()));
+        assertSame(_simu,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) _simu, _index), _simu.getBuilder()));
         movesAbilities(_ab, _simu);
         movesAbilities(DataBase.EMPTY_STRING, _simu);
         return movesAbilities(DataBase.EMPTY_STRING, _simu);
     }
 
-    private static PokemonBeanStruct withoutAbility(int _index, PokemonBeanStruct _simu) {
+    private static CommonBean withoutAbility(int _index, CommonBean _simu) {
 //        callSimulationBeanSelectedPkSet(_simu, _index);
-        assertSame(_simu,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) _simu.getBean(), _index), _simu.getInstance().getBuilder()));
+        assertSame(_simu,transitSimu(new SimulationBeanSelectPkMovesValidation((SimulationBean) _simu, _index), _simu.getBuilder()));
         movesAbilities(DataBase.EMPTY_STRING, _simu);
         movesAbilities(DataBase.EMPTY_STRING, _simu);
         return movesAbilities(DataBase.EMPTY_STRING, _simu);
     }
 
-    private static PokemonBeanStruct movesAbilities(String _ab, PokemonBeanStruct _simu) {
+    private static CommonBean movesAbilities(String _ab, CommonBean _simu) {
         callSimulationBeanCurrentAbilitySet(_simu, _ab);
-        return transitSimu(new SimulationBeanValidateMoves((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateMoves((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct fighterPositions(PokemonBeanStruct _simu) {
+    private static CommonBean fighterPositions(CommonBean _simu) {
         changeFighterPosition(_simu,0,0,0);
         changeFighterPosition(_simu,1,0,1);
         changeFighterPosition(_simu,2,0,Fighter.BACK);
@@ -2984,7 +2983,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         changeFighterPosition(_simu,1,1,1);
         changeFighterPosition(_simu,2,1,Fighter.BACK);
         changeFighterPosition(_simu,3,1,Fighter.BACK);
-        return transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu), _simu.getBuilder());
     }
 //
 //    private static PokemonBeanStruct changeFighterPosition(PokemonBeanStruct _simu, int _index, String _round, String _place) {
@@ -3005,39 +3004,39 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return transitSimu(new SimulationBeanSelectPkFrontValidation(((SimulationBean) _simu.getBean()), _index), _simu.getInstance().getBuilder());
 //    }
 
-    private static PokemonBeanStruct changeFighterPosition(PokemonBeanStruct _simu, int _index, int _round, int _place) {
+    private static CommonBean changeFighterPosition(CommonBean _simu, int _index, int _round, int _place) {
 //        callSimulationBeanSelectedPkSet(_simu, _index);
 //        callSimulationBeanSelectedRoundSet(_simu, _round);
-        ( (SimulationBean) _simu.getInstance()).getSelectedRound().valueInt(_round);
+        ((SimulationBean) _simu).getSelectedRound().valueInt(_round);
 //        callSimulationBeanPlaceFightSet(_simu, _place);
-        ( (SimulationBean) _simu.getInstance()).getPlaceFight().valueInt(_place);
-        return transitSimu(new SimulationBeanSelectPkFrontValidation(((SimulationBean) _simu.getBean()), _index), _simu.getInstance().getBuilder());
+        ((SimulationBean) _simu).getPlaceFight().valueInt(_place);
+        return transitSimu(new SimulationBeanSelectPkFrontValidation((SimulationBean) _simu, _index), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct validEvos(PokemonBeanStruct _simu) {
+    private static CommonBean validEvos(CommonBean _simu) {
         validEvo(_simu,1);
         validEvo(_simu,3);
-        return transitSimu(new SimulationBeanValidateEvolutions(((SimulationBean) _simu.getBean())), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateEvolutions((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvoValidateThenCancel() {
+    protected static CommonBean pkPlayerValidateEvoValidateThenCancel() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         playerTeamSample(simu_);
 //        callSimulationBeanSelectedPkSet(simu_,1);
-        transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) simu_.getBean()), 1), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) simu_, 1), simu_.getBuilder());
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,39);
-        transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanCancelEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
+        return transitSimu(new SimulationBeanCancelEvo((SimulationBean) simu_), simu_.getBuilder());
     }
-    private static void validEvo(PokemonBeanStruct _simu, int _index) {
+    private static void validEvo(CommonBean _simu, int _index) {
 //        callSimulationBeanSelectedPkSet(_simu,_index);
-        transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) _simu.getBean()), _index), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) _simu, _index), _simu.getBuilder());
         callSimulationBeanChosenEvoSet(_simu,P_POK_03);
         callSimulationBeanLevelEvoSet(_simu,41);
-        transitSimu(new SimulationBeanValidateEvo(((SimulationBean) _simu.getBean())), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvo((SimulationBean) _simu), _simu.getBuilder());
     }
 //
 //    protected static Struct pkPlayerValidateEvosSelect(int _index) {
@@ -3053,134 +3052,134 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return transitSimu();
 //    }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvos() {
+    protected static CommonBean pkPlayerValidateEvos() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         return playerTeamSample(simu_);
     }
 
-    private static PokemonBeanStruct playerTeamSample(PokemonBeanStruct _simu) {
+    private static CommonBean playerTeamSample(CommonBean _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _simu,41);
-        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct playerTeamSampleSkip(PokemonBeanStruct _simu) {
-        PokemonBeanStruct editing_ = editPkPlayer(_simu, P_POK_04_TR, A_SIM_1, 0, 41, TeamCrud.EDIT);
+    private static CommonBean playerTeamSampleSkip(CommonBean _simu) {
+        CommonBean editing_ = editPkPlayer(_simu, P_POK_04_TR, A_SIM_1, 0, 41, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
-        assertSame(_simu, transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_.getBean()), _simu.getInstance().getBuilder()));
+        assertSame(_simu, transitSimu(new EditPokemonBeanEdit((EditPokemonBean) editing_), _simu.getBuilder()));
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _simu,41);
-        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) _simu.getBean())), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct playerTeamSampleInv(PokemonBeanStruct _simu) {
+    private static CommonBean playerTeamSampleInv(CommonBean _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _simu,4);
-        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosKo() {
+    protected static CommonBean pkPlayerValidateEvosKo() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) simu_), simu_.getBuilder());
     }
-    private static PokemonBeanStruct pkPlAb(String _name, PokemonBeanStruct _simu) {
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(_simu);
+    private static CommonBean pkPlAb(String _name, CommonBean _simu) {
+        CommonBean addPk_ = goToAddPkPlayer(_simu);
         callAddPokemonBeanTypedNameSet(addPk_, _name);
-        PokemonBeanStruct afSearch_ =transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), _simu.getInstance().getBuilder());
+        CommonBean afSearch_ = transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), _simu.getBuilder());
         callAddPokemonBeanAbilitySet(afSearch_,A_SIM_2);
         callAddPokemonBeanLevelSet(afSearch_,40);
         genderSetPl(afSearch_);
         return afSearch_;
     }
 
-    protected static PokemonBeanStruct pkPlayerSelectPkNameAdded(String _name) {
+    protected static CommonBean pkPlayerSelectPkNameAdded(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
 //        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
 //        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
-        PokemonBeanStruct first_ = pkPlAb(_name, simu_);
-        return transitSimu(new AddPokemonBeanAdd((AddPokemonBean) first_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean first_ = pkPlAb(_name, simu_);
+        return transitSimu(new AddPokemonBeanAdd((AddPokemonBean) first_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerSelectPkNameQuickAdded() {
+    protected static CommonBean pkPlayerSelectPkNameQuickAdded() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
 //        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
-        return transitSimu(new AddPokemonBeanAdd((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new AddPokemonBeanAdd((AddPokemonBean) addPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkPlayerSelectPkName(String _name) {
+    protected static CommonBean pkPlayerSelectPkName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
-        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkPlayerSelectPkHasEvo(String _name) {
+    protected static CommonBean pkPlayerSelectPkHasEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanHasEvoSet(addPk_,_name);
-        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkPlayerSelectPkIsEvo(String _name) {
+    protected static CommonBean pkPlayerSelectPkIsEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanIsEvoSet(addPk_,_name);
-        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkPlayerSelectPkIsLeg(String _name) {
+    protected static CommonBean pkPlayerSelectPkIsLeg(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanIsLegSet(addPk_,_name);
-        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkPlayerSelectPkRow(int _row) {
+    protected static CommonBean pkPlayerSelectPkRow(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanTypedNameSet(addPk_,DataBase.EMPTY_STRING);
-        PokemonBeanStruct rSe_ =transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
-        AddPokemonBean add_ = (AddPokemonBean) rSe_.getBean();
-        return transitSimu(new AddPokemonBeanClickLink(add_, add_.getPokedex().get(_row).getName()), simu_.getInstance().getBuilder());
+        CommonBean rSe_ = transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
+        AddPokemonBean add_ = (AddPokemonBean) rSe_;
+        return transitSimu(new AddPokemonBeanClickLink(add_, add_.getPokedex().get(_row).getName()), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkPlayerSelectPkType(String _type, boolean _wholeWord) {
+    protected static CommonBean pkPlayerSelectPkType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
-        PokemonBeanStruct addPk_ = goToAddPkPlayer(simu_);
+        CommonBean addPk_ = goToAddPkPlayer(simu_);
         callAddPokemonBeanTypedTypeSet(addPk_,_type);
         callAddPokemonBeanWholeWordSet(addPk_,_wholeWord);
-        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_.getBean()), simu_.getInstance().getBuilder());
+        return transitSimu(new AddPokemonBeanSearch((AddPokemonBean) addPk_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct pkPlayer() {
+    protected static CommonBean pkPlayer() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSample(simu_);
         return goToAddPkPlayer(simu_);
     }
 
-    private static void foeTeamsSample(PokemonBeanStruct _simu) {
+    private static void foeTeamsSample(CommonBean _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _simu, 4);
@@ -3193,20 +3192,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, _simu, 5);
         setMult(_simu,2);
-        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static void foeTeamSample(PokemonBeanStruct _simu) {
+    private static void foeTeamSample(CommonBean _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _simu, 4);
         setMult(_simu,2);
-        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static void foeTeamsSampleInv(PokemonBeanStruct _simu) {
+    private static void foeTeamsSampleInv(CommonBean _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _simu, 40);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _simu, 40);
@@ -3219,33 +3218,33 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, _simu, 5);
         setMult(_simu,2);
-        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
     }
-    private static void setMult(PokemonBeanStruct _simu, int _value) {
+    private static void setMult(CommonBean _simu, int _value) {
         callSimulationBeanEnvironmentSet(_simu, EnvironmentType.ROAD.getEnvName());
         callSimulationBeanMultiplicitySet(_simu,_value);
-        assertSame(_simu, transitSimu(new SimulationBeanValidateMultiplicityEnvAction((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder()));
+        assertSame(_simu, transitSimu(new SimulationBeanValidateMultiplicityEnvAction((SimulationBean) _simu), _simu.getBuilder()));
 //        beforeDisplaying(_simu);
     }
 
-    private static PokemonBeanStruct goToSelectPk(PokemonBeanStruct _struct) {
-        return transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) _struct.getBean()), _struct.getInstance().getBuilder());
+    private static CommonBean goToSelectPk(CommonBean _struct) {
+        return transitSimu(new EditTrainerPokemonBeanChooseName((EditTrainerPokemonBean) _struct), _struct.getBuilder());
     }
-    private static PokemonBeanStruct goToSelectAb(PokemonBeanStruct _struct) {
-        return transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) _struct.getBean()), _struct.getInstance().getBuilder());
+    private static CommonBean goToSelectAb(CommonBean _struct) {
+        return transitSimu(new EditTrainerPokemonBeanChooseAbility((EditTrainerPokemonBean) _struct), _struct.getBuilder());
     }
-    private static PokemonBeanStruct goToSelectIt(PokemonBeanStruct _struct) {
-        return transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) _struct.getBean()), _struct.getInstance().getBuilder());
+    private static CommonBean goToSelectIt(CommonBean _struct) {
+        return transitSimu(new EditTrainerPokemonBeanChooseItem((EditTrainerPokemonBean) _struct), _struct.getBuilder());
     }
     //    private static NaSt goToSelectItPlayer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
 //        return transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _struct);
 //    }
-    private static PokemonBeanStruct goToSetMovesTrainer(PokemonBeanStruct _struct) {
-        return transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) _struct.getBean()), _struct.getInstance().getBuilder());
+    private static CommonBean goToSetMovesTrainer(CommonBean _struct) {
+        return transitSimu(new EditTrainerPokemonBeanAddMoves((EditTrainerPokemonBean) _struct), _struct.getBuilder());
     }
-    private static PokemonBeanStruct simu(int _nbTeam, PokemonBeanStruct _simu) {
-        PokemonBeanStruct simu_ = init(_nbTeam, _simu);
-        SimulationBean si_ = ((SimulationBean) simu_.getBean());
+    private static CommonBean simu(int _nbTeam, CommonBean _simu) {
+        CommonBean simu_ = init(_nbTeam, _simu);
+        SimulationBean si_ = ((SimulationBean) simu_);
         si_.getForm().getRateWinningExpPtsFight().valueRate(si_.getDifficultyCommon().getRateWinningExpPtsFight());
         si_.getForm().getWinTrainerExp().valueRate(si_.getDifficultyCommon().getWinTrainerExp());
         si_.getForm().getRateWinMoneyBase().valueRate(si_.getDifficultyCommon().getRateWinMoneyBase());
@@ -3264,16 +3263,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         si_.getForm().getIvPlayer().valueLong(si_.getDifficultyCommon().getIvPlayer());
         si_.getForm().getIvFoe().valueLong(si_.getDifficultyCommon().getIvFoe());
         si_.getNbTeamsField().valueLong(si_.getNbTeams());
-        transitSimu(new SimulationBeanValidateDiffChoice(si_, si_.getForm()), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateDiffChoice(si_, si_.getForm()), simu_.getBuilder());
         return simu_;
     }
 
-    protected static PokemonBeanStruct goToAddPkTrainer(PokemonBeanStruct _simu) {
-        return transitSimu(new SimulationBeanAddPkTrainer((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+    protected static CommonBean goToAddPkTrainer(CommonBean _simu) {
+        return transitSimu(new SimulationBeanAddPkTrainer((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    protected static PokemonBeanStruct goToAddPkPlayer(PokemonBeanStruct _simu) {
-        return transitSimu(new SimulationBeanAdd((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+    protected static CommonBean goToAddPkPlayer(CommonBean _simu) {
+        return transitSimu(new SimulationBeanAdd((SimulationBean) _simu), _simu.getBuilder());
     }
 
 //    public static NaSt transitSimu(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NatCaller _caller, NaSt _first, long... _args) {
@@ -3285,24 +3284,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return dest_;
 //    }
 
-    public static PokemonBeanStruct transitSimu(IntBeanAction _caller, IntBeanBuilderHelper _builder) {
+    public static CommonBean transitSimu(IntBeanAction _caller, IntBeanBuilderHelper _builder) {
         String url_ = _caller.actionBean();
         _builder.build(url_);
 //        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
 //        setFormsBy((CommonBean) ((PokemonBeanStruct)dest_).getBean(),_caller.getBean());
 //        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
 //        s_.build(_stds.getDataBase(), s_.getForms());
-        return new PokemonBeanStruct((CommonBean) _builder.getRenders().getVal(url_));// _all.getVal(_mapping.getVal(url_));
+        return (CommonBean) _builder.getRenders().getVal(url_);// _all.getVal(_mapping.getVal(url_));
     }
     protected static Rate integration() {
         PkData pk_ = pkDataByFacade(db());
-        PokemonBeanStruct simu_ = init(2, beanToSimu(pk_.getDataBase()));
+        CommonBean simu_ = init(2, beanToSimu(pk_.getDataBase()));
 //        ((SimulationBean)((PokemonBeanStruct)simu_).getBean()).getDifficultyCommon().setWinTrainerExp(Rate.newRate("5/7"));
-        ((SimulationBean) simu_.getBean()).getForm().getWinTrainerExp().valueRate(Rate.newRate("5/7"));
+        ((SimulationBean) simu_).getForm().getWinTrainerExp().valueRate(Rate.newRate("5/7"));
 //        ((DifficultyCommonBean)((PokemonBeanStruct)all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON)).getBean()).setWinTrainerExp(Rate.newRate("5/7"));
 //        callRate(new DifficultyCommonBeanWinTrainerExpSet(),all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON),Rate.newRate("5/7"));
-        PokemonBeanStruct result_ =transitSimu(new SimulationBeanValidateDiffChoice((SimulationBean) simu_.getBean(), ((SimulationBean) simu_.getBean()).getForm()), simu_.getInstance().getBuilder());
-        return ((SimulationBean) result_.getBean()).getDifficultyCommon().getWinTrainerExp();
+        CommonBean result_ = transitSimu(new SimulationBeanValidateDiffChoice((SimulationBean) simu_, ((SimulationBean) simu_).getForm()), simu_.getBuilder());
+        return ((SimulationBean) result_).getDifficultyCommon().getWinTrainerExp();
     }
 
     //    public static NaSt transitSimuRem(PokemonStandards _stds, NatCaller _caller, NaSt _first, long... _args) {
@@ -3313,7 +3312,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        beforeDisplaying(_first);
 //        return _first;
 //    }
-    public static PokemonBeanStruct beanToSimu(FacadeGame _facade) {
+    public static CommonBean beanToSimu(FacadeGame _facade) {
 //        StringMap<NaSt> map_ = new StringMap<NaSt>();
 //        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
 //        map_.addEntry(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,_pk.beanDiffCommon(EN));
@@ -3379,7 +3378,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML,editMv_);
         bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML,editTr_);
         bu_.getRenders().addEntry(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,level_);
-        return new PokemonBeanStruct(simu_);
+        return simu_;
     }
 
     protected static void update(FacadeGame _facade, CommonBean _bean) {
@@ -3479,70 +3478,70 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return facade_;
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosSelectTwo() {
+    protected static CommonBean pkPlayerValidateEvosSelectTwo() {
         PkData pk_ = pkDataByFacade(dbLight());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         return evolutions(simu_);
     }
 
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosSelectTree() {
+    protected static CommonBean pkPlayerValidateEvosSelectTree() {
         PkData pk_ = pkDataByFacade(dbLightSec());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         return evolutionsTree(simu_);
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosSelectTwoOnce() {
+    protected static CommonBean pkPlayerValidateEvosSelectTwoOnce() {
         PkData pk_ = pkDataByFacade(dbLight());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         evolutions(simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
-        return transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosSelectTwoTwice() {
+    protected static CommonBean pkPlayerValidateEvosSelectTwoTwice() {
         PkData pk_ = pkDataByFacade(dbLight());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         evolutions(simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
-        transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
         callSimulationBeanChosenEvoSet(simu_,P_POK_02);
         callSimulationBeanLevelEvoSet(simu_,41);
-        return transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    protected static PokemonBeanStruct pkPlayerValidateEvosSelectTwoThreeTimes() {
+    protected static CommonBean pkPlayerValidateEvosSelectTwoThreeTimes() {
         PkData pk_ = pkDataByFacade(dbLight());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         evolutions(simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
-        transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
         callSimulationBeanChosenEvoSet(simu_,P_POK_02);
         callSimulationBeanLevelEvoSet(simu_,41);
-        transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
         callSimulationBeanChosenEvoSet(simu_,P_POK_03);
         callSimulationBeanLevelEvoSet(simu_,41);
-        return transitSimu(new SimulationBeanValidateEvo(((SimulationBean) simu_.getBean())), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateEvo((SimulationBean) simu_), simu_.getBuilder());
     }
 
-    private static PokemonBeanStruct evolutions(PokemonBeanStruct _simu) {
+    private static CommonBean evolutions(CommonBean _simu) {
         foeTeamsSampleLight(_simu);
         playerTeamSampleLight(_simu);
 //        callSimulationBeanSelectedPkSet(_simu,0);
-        return transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) _simu.getBean()), 0), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) _simu, 0), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct evolutionsTree(PokemonBeanStruct _simu) {
+    private static CommonBean evolutionsTree(CommonBean _simu) {
         foeTeamsSampleLightTree(_simu);
         playerTeamSampleLight(_simu);
 //        callSimulationBeanSelectedPkSet(_simu,0);
-        return transitSimu(new SimulationBeanSelectPkEvosValidation(((SimulationBean) _simu.getBean()), 0), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkEvosValidation((SimulationBean) _simu, 0), _simu.getBuilder());
     }
 
-    private static void foeTeamsSampleLight(PokemonBeanStruct _simu) {
+    private static void foeTeamsSampleLight(CommonBean _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_04_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_04_TR, A_SIM_1_TR, _simu, 4);
@@ -3553,11 +3552,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _simu, 5);
-        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
     }
 
 
-    private static void foeTeamsSampleLightTree(PokemonBeanStruct _simu) {
+    private static void foeTeamsSampleLightTree(CommonBean _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _simu, 4);
@@ -3568,12 +3567,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _simu, 5);
-        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct playerTeamSampleLight(PokemonBeanStruct _simu) {
+    private static CommonBean playerTeamSampleLight(CommonBean _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR,A_SIM_1, _simu,41);
-        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateTeam((SimulationBean) _simu), _simu.getBuilder());
     }
     private static FacadeGame dbLight() {
         FacadeGame facade_ = facade();
@@ -3685,33 +3684,33 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return facade_;
     }
 
-    protected static PokemonBeanStruct pkPlayerFighterSimulateAfterFightOneLight() {
+    protected static CommonBean pkPlayerFighterSimulateAfterFightOneLight() {
         PkData pk_ = pkDataByFacade(dbLightThree());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSampleVeryLight(simu_);
         playerTeamSampleLightSkip(simu_);
         fighterPositionsLight(simu_);
-        PokemonBeanStruct light_ = moveChoicesLight(simu_);
-        transitSimu(new SimulationBeanSimulateFight((SimulationBean) light_.getBean()), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean light_ = moveChoicesLight(simu_);
+        transitSimu(new SimulationBeanSimulateFight((SimulationBean) light_), simu_.getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) simu_), simu_.getBuilder());
 //        callSimulationBeanSelectedPkSet(simu_,0);
-        return transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_.getBean(), 0), simu_.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanSelectPkEvosAfterValidation((SimulationBean) simu_, 0), simu_.getBuilder());
     }
 
-    private static PokemonBeanStruct moveChoicesLight(PokemonBeanStruct _simu) {
+    private static CommonBean moveChoicesLight(CommonBean _simu) {
         return moveChoice(0,0,0,0, _simu);
     }
-    private static void foeTeamsSampleVeryLight(PokemonBeanStruct _simu) {
+    private static void foeTeamsSampleVeryLight(CommonBean _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _simu, 4);
         selectTeam(_simu,1);
         pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _simu, 5);
-        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static PokemonBeanStruct playerTeamSampleLightSkip(PokemonBeanStruct _simu) {
+    private static CommonBean playerTeamSampleLightSkip(CommonBean _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR,A_SIM_1, _simu,41);
-        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) _simu.getBean())), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) _simu), _simu.getBuilder());
     }
     private static FacadeGame dbLightThree() {
         FacadeGame facade_ = facade();
@@ -3771,9 +3770,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return facade_;
     }
 
-    private static PokemonBeanStruct fighterPositionsLight(PokemonBeanStruct _simu) {
+    private static CommonBean fighterPositionsLight(CommonBean _simu) {
         changeFighterPosition(_simu,0,0,0);
-        return transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        return transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu), _simu.getBuilder());
     }
     private static MonteCarloNumber lawOne() {
         MonteCarloNumber mcn_ = new MonteCarloNumber();
@@ -4049,79 +4048,79 @@ public abstract class InitDbSimulation extends InitDbConstr {
         _set.add(new LevelMove(_level,_move));
         return _set;
     }
-    protected static PokemonBeanStruct chooseTrainer() {
+    protected static CommonBean chooseTrainer() {
         PkData pk_ = pkDataByFacade(dbFull());
         return simBean(0, pk_.getDataBase());
     }
-    protected static PokemonBeanStruct chooseTrainerLevel(int _place, int _level) {
+    protected static CommonBean chooseTrainerLevel(int _place, int _level) {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        return transitSimu(new SimulationBeanClickLevel(((SimulationBean) simu_.getBean()), _place, _level), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        return transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, _place, _level), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct chooseTrainerLevelZero(int _place) {
+    protected static CommonBean chooseTrainerLevelZero(int _place) {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        return transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_.getBean(), _place, 0), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        return transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, _place, 0), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct chooseTrainerLevel(int _level, int _noFight, int _tile) {
+    protected static CommonBean chooseTrainerLevel(int _level, int _noFight, int _tile) {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        PokemonBeanStruct sel_ =transitSimu(new SimulationBeanClickLevel(((SimulationBean) simu_.getBean()), 2, _level), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        CommonBean sel_ = transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 2, _level), simu_.getBuilder());
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
-        assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_.getBean()), simu_.getInstance().getBuilder()));
-        return transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_.getBean(), _tile), simu_.getInstance().getBuilder());
+        assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_), simu_.getBuilder()));
+        return transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_, _tile), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct chooseTrainerLevelZero(int _place, int _noFight, int _tile) {
+    protected static CommonBean chooseTrainerLevelZero(int _place, int _noFight, int _tile) {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        PokemonBeanStruct sel_ =transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_.getBean(), _place, 0), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        CommonBean sel_ = transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, _place, 0), simu_.getBuilder());
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
-        assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_.getBean()), simu_.getInstance().getBuilder()));
-        return transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_.getBean(), _tile), simu_.getInstance().getBuilder());
+        assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_), simu_.getBuilder()));
+        return transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_, _tile), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct chooseTrainerLevelDualValidate() {
+    protected static CommonBean chooseTrainerLevelDualValidate() {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        PokemonBeanStruct sel_ =transitSimu(new SimulationBeanClickLevel(((SimulationBean) simu_.getBean()), 2, 0), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        CommonBean sel_ = transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 2, 0), simu_.getBuilder());
         callSimulationLevelBeanNoFightSet(sel_,0);
-        assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_.getBean()), simu_.getInstance().getBuilder()));
-        transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_.getBean(), 1), simu_.getInstance().getBuilder());
-        return transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        assertSame(sel_,transitSimu(new SimulationLevelBeanValidateNoFightAction((SimulationLevelBean) sel_), simu_.getBuilder()));
+        transitSimu(new SimulationLevelBeanClickTile((SimulationLevelBean) sel_, 1), simu_.getBuilder());
+        return transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct chooseTrainerLevelDualValidateKo() {
+    protected static CommonBean chooseTrainerLevelDualValidateKo() {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        return transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        return transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
     }
-    protected static PokemonBeanStruct simuLeagueReal() {
+    protected static CommonBean simuLeagueReal() {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        transitSimu(new SimulationBeanClickLevel(((SimulationBean) simu_.getBean()), 3, 0), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 3, 0), simu_.getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
         simpleTeam(simu_);
         return simu_;
     }
-    protected static PokemonBeanStruct simuLeagueRealSec() {
+    protected static CommonBean simuLeagueRealSec() {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(0, pk_.getDataBase());
-        transitSimu(new SimulationBeanClickLevel(((SimulationBean) simu_.getBean()), 3, 1), simu_.getInstance().getBuilder());
-        transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_.getBean()), simu_.getInstance().getBuilder());
+        CommonBean simu_ = simBean(0, pk_.getDataBase());
+        transitSimu(new SimulationBeanClickLevel((SimulationBean) simu_, 3, 1), simu_.getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoice((SimulationBean) simu_), simu_.getBuilder());
         simpleTeamLight(simu_);
         return simu_;
     }
 
-    private static PokemonBeanStruct simBean(int _n, FacadeGame _facade) {
+    private static CommonBean simBean(int _n, FacadeGame _facade) {
         return simu(_n, beanToSimu(_facade));
     }
 
-    protected static PokemonBeanStruct simuLeagueVirtual() {
+    protected static CommonBean simuLeagueVirtual() {
         PkData pk_ = pkDataByFacade(dbFull());
-        PokemonBeanStruct simu_ = simBean(2, pk_.getDataBase());
+        CommonBean simu_ = simBean(2, pk_.getDataBase());
         foeTeamsSampleSec(simu_);
         simpleTeam(simu_);
         return simu_;
     }
-    private static void foeTeamsSampleSec(PokemonBeanStruct _simu) {
+    private static void foeTeamsSampleSec(CommonBean _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_2_TR, _simu, 4);
@@ -4134,59 +4133,59 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_1_TR, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, _simu, 5);
         setMult(_simu,2);
-        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceFree((SimulationBean) _simu), _simu.getBuilder());
     }
-    private static void simpleTeam(PokemonBeanStruct _simu) {
+    private static void simpleTeam(CommonBean _simu) {
         pk(_simu,0);
         pk(_simu,1);
-        transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) _simu.getBean())), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) _simu), _simu.getBuilder());
         changeFighterPosition(_simu,0,0,0);
         changeFighterPosition(_simu,1,0,1);
         changeFighterPosition(_simu,0,1,0);
         changeFighterPosition(_simu,1,1,1);
-        transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu), _simu.getBuilder());
         moveChoice(0,0,0,0, _simu);
         moveChoice(1,0,0,1, _simu);
         moveChoice(0,1,0,0, _simu);
         moveChoice(1,1,0,1, _simu);
-        transitSimu(new SimulationBeanSimulateFight((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
-        transitSimu(new SimulationBeanNextFight((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
-        transitSimu(new SimulationBeanValidateMovesAfterFight((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
-        transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) _simu.getBean())), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSimulateFight((SimulationBean) _simu), _simu.getBuilder());
+        transitSimu(new SimulationBeanNextFight((SimulationBean) _simu), _simu.getBuilder());
+        transitSimu(new SimulationBeanValidateMovesAfterFight((SimulationBean) _simu), _simu.getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) _simu), _simu.getBuilder());
         changeFighterPosition(_simu,0,0,0);
         changeFighterPosition(_simu,1,0,1);
         changeFighterPosition(_simu,0,1,0);
         changeFighterPosition(_simu,1,1,1);
-        transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu), _simu.getBuilder());
         moveChoice(0,0,0,0, _simu);
         moveChoice(1,0,0,1, _simu);
         moveChoice(0,1,0,0, _simu);
         moveChoice(1,1,0,1, _simu);
-        transitSimu(new SimulationBeanSimulateFight((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSimulateFight((SimulationBean) _simu), _simu.getBuilder());
     }
-    private static void simpleTeamLight(PokemonBeanStruct _simu) {
+    private static void simpleTeamLight(CommonBean _simu) {
         pk(_simu,0);
         pk(_simu,1);
-        transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions(((SimulationBean) _simu.getBean())), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFoeChoiceSkipEvolutions((SimulationBean) _simu), _simu.getBuilder());
         changeFighterPosition(_simu,0,0,0);
         changeFighterPosition(_simu,1,0,1);
         changeFighterPosition(_simu,0,1,0);
         changeFighterPosition(_simu,1,1,1);
-        transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanValidateFrontFighters((SimulationBean) _simu), _simu.getBuilder());
         moveChoice(0,0,0,0, _simu);
         moveChoice(1,0,0,1, _simu);
         moveChoice(0,1,0,0, _simu);
         moveChoice(1,1,0,1, _simu);
-        transitSimu(new SimulationBeanSimulateFight((SimulationBean) _simu.getBean()), _simu.getInstance().getBuilder());
+        transitSimu(new SimulationBeanSimulateFight((SimulationBean) _simu), _simu.getBuilder());
     }
 
-    private static void pk(PokemonBeanStruct _simu, int _teamIndex) {
-        PokemonBeanStruct editing_ = editPkPlayer(_simu, P_POK_01_TR, A_SIM_1, _teamIndex, 41, TeamCrud.EDIT);
+    private static void pk(CommonBean _simu, int _teamIndex) {
+        CommonBean editing_ = editPkPlayer(_simu, P_POK_01_TR, A_SIM_1, _teamIndex, 41, TeamCrud.EDIT);
         assertSame(editing_, chooseItemPkPlayer(I_BALL_TR, editing_));
-        PokemonBeanStruct re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
+        CommonBean re_ = addMovePlayer(M_POK_01_TR, 0, editing_);
         callSelectLineMoveSelectedSet(eltSelectMove(callEditPokemonBeanMovesGet(re_),0),true);
-        PokemonBeanStruct afterDel_ =transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_.getBean()), _simu.getInstance().getBuilder());
-        PokemonBeanStruct af_ =transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_.getBean()), _simu.getInstance().getBuilder());
+        CommonBean afterDel_ = transitSimu(new EditPokemonBeanDeleteMoves((EditPokemonBean) re_), _simu.getBuilder());
+        CommonBean af_ = transitSimu(new EditPokemonBeanEdit((EditPokemonBean) afterDel_), _simu.getBuilder());
         assertSame(af_, _simu);
     }
 

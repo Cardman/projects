@@ -1,7 +1,6 @@
 package aiki.beans.simulation;
 
 import aiki.beans.CommonBean;
-import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.game.fight.Fighter;
