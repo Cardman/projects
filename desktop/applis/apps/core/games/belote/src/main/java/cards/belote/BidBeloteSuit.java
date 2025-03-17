@@ -12,7 +12,7 @@ public final class BidBeloteSuit {
 
     private Suit suit = Suit.UNDEFINED;
 
-    private int points;
+    private long points;
     public static String toString(BidBeloteSuit _b, StringMap<String> _coreFile, StringMap<String> _file) {
         return toString(_b,"",_coreFile,"",_file);
     }
@@ -30,11 +30,11 @@ public final class BidBeloteSuit {
         return pts_.toString();
     }
 
-    public int getPoints() {
+    public long getPoints() {
         return points;
     }
 
-    public void setPoints(int _points) {
+    public void setPoints(long _points) {
         points = _points;
     }
 

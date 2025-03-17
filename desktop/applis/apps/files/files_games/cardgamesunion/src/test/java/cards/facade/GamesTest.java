@@ -24,6 +24,7 @@ import code.stream.core.TechStreams;
 import code.util.Bytes;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.Ints;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -534,7 +535,7 @@ public final class GamesTest extends EquallableCardsFileUtil {
     }
     @Test
     public void isSameTeam() {
-        assertTrue(new Games().isSameTeam(Bytes.newList()));
+        assertTrue(new Games().isSameTeam(Ints.newList()));
     }
     @Test
     public void saveAll1() {

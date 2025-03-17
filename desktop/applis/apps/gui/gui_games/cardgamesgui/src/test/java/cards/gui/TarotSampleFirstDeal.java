@@ -524,7 +524,7 @@ public final class TarotSampleFirstDeal implements IntFirstDealTarot {
         hand_.ajouter(CardTarot.CLUB_1);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
     private static DealTarot dealAutoCall(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
@@ -619,6 +619,6 @@ public final class TarotSampleFirstDeal implements IntFirstDealTarot {
         hand_.ajouter(CardTarot.HEART_KING);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 }

@@ -13,7 +13,7 @@ public final class DealtHandBelote {
 
     private CustList<BidBeloteSuit> allowedBids;
 
-    private byte dealer;
+    private int dealer;
 
 //    private DealingBelote rep;
 
@@ -43,11 +43,11 @@ public final class DealtHandBelote {
         allowedBids = _allowedBids;
     }
 
-    public byte getDealer() {
+    public int getDealer() {
         return dealer;
     }
 
-    public void setDealer(byte _dealer) {
+    public void setDealer(int _dealer) {
         dealer = _dealer;
     }
 

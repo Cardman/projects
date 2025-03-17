@@ -13,7 +13,7 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
     public void t1() {
         CustList<GamePresident> ls_ = new CustList<GamePresident>();
         GamePresident g_ = new GamePresident();
-        g_.setRanks(Bytes.newList((byte) 2));
+        g_.setRanks(Ints.newList(2));
         DealPresident d_ = new DealPresident();
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.HEART_1);
@@ -58,7 +58,7 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
     public void t2() {
         TricksHandsPresident t_ = new TricksHandsPresident();
         t_.setReversed(false);
-        t_.setRanks(Bytes.newList());
+        t_.setRanks(Ints.newList());
         t_.setTricks(new CustList<TrickPresident>());
         t_.setSwitchedCards(new CustList<HandPresident>());
         t_.setDistribution(new DealPresident());
@@ -71,7 +71,7 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
     public void t3() {
         TricksHandsPresident t_ = new TricksHandsPresident();
         t_.setReversed(true);
-        t_.setRanks(Bytes.newList());
+        t_.setRanks(Ints.newList());
         t_.setTricks(new CustList<TrickPresident>());
         t_.setSwitchedCards(new CustList<HandPresident>());
         t_.setDistribution(new DealPresident());
@@ -116,7 +116,7 @@ public final class DocumentPresidentTest extends EquallableCardsSerialUtil {
     public void t6() {
         ResultsPresident ls_ = new ResultsPresident();
         GamePresident g_ = new GamePresident();
-        g_.setRanks(Bytes.newList((byte) 2));
+        g_.setRanks(Ints.newList(2));
         DealPresident d_ = new DealPresident();
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.HEART_1);

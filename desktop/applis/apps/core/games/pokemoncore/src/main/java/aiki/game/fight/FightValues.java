@@ -148,8 +148,8 @@ final class FightValues {
         for(String c:equipeAdvLanceur_.getNbUsesMoves().getKeys()){
             _variables.put(_import.prefixEquipeAdvNbUtilisation(c),Long.toString(equipeAdvLanceur_.getNbUsesMoves().getVal(c)));
         }
-        _variables.put(_nbKoEquipe,Long.toString((long) equipeLanceur_.getNbKoRound()+ equipeLanceur_.getNbKoPreviousRound()));
-        _variables.put(_nbKoEquipeAdv,Long.toString((long)equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
+        _variables.put(_nbKoEquipe,Long.toString(equipeLanceur_.getNbKoRound() + equipeLanceur_.getNbKoPreviousRound()));
+        _variables.put(_nbKoEquipeAdv,Long.toString(equipeAdvLanceur_.getNbKoRound() +equipeAdvLanceur_.getNbKoPreviousRound()));
     }
 
     static void completeValuesWithRemaining(StringMap<String> _variables, Rate _coeffEff, LgInt _nbRepeatingSuccessfulMoves, DataBase _import) {
@@ -212,8 +212,8 @@ final class FightValues {
         Team equipeAdvCible_=_fight.getTeams().getVal(Fight.foe(_cible.getTeam()));
         variables_.put(_import.prefixCibleNiveau(),Long.toString(creatureCbtCible_.getLevel()));
         variables_.put(_import.prefixCibleBonheur(),Long.toString(creatureCbtCible_.getHappiness()));
-        variables_.put(_import.prefixNbKoEquipeCible(),Long.toString((long)equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
-        variables_.put(_import.prefixNbKoEquipeAdvCible(),Long.toString((long)equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
+        variables_.put(_import.prefixNbKoEquipeCible(),Long.toString(equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
+        variables_.put(_import.prefixNbKoEquipeAdvCible(),Long.toString(equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
         rateEff(_import, new PkVariableSuffixCoeffEffBaseTypesCible(_import), variables_, creatureCbtCible_);
         variables_.put(_import.prefixLanceurGenre(), creatureCbtLanceur_.getCurrentGender().getGenderName());
         for(String c:equipeLanceur_.getNbUsesMovesRound().getKeys()){

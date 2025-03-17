@@ -3,7 +3,7 @@ package cards.president;
 import code.maths.montecarlo.AbstractGenerator;
 
 public interface IntGamePresident {
-    HandPresident strategieEchange(GamePresident _game,byte _joueur);
+    HandPresident strategieEchange(GamePresident _game,int _joueur);
     HandPresident strategieEchangeUser(HandPresident _hand);
     HandPresident currentSwitch();
     HandPresident playedCards(GamePresident _game);

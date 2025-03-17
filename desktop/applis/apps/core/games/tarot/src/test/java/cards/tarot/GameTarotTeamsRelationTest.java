@@ -3,7 +3,7 @@ package cards.tarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.ModeTarot;
-import code.util.Bytes;
+import code.util.Ints;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.BoolVal;
@@ -16,14 +16,14 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_,(byte)taker_);
-        CustList<Bytes> teams_ = g_.teams();
+        GameTarotTeamsRelation g_ = teams(rules_,taker_);
+        CustList<Ints> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(1, teams_.get(0).size());
         assertEq(0, teams_.get(0).get(0));
@@ -37,11 +37,11 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(BidTarot.FOLD, rules_,(byte)taker_);
-        CustList<Bytes> teams_ = g_.teams();
+        GameTarotTeamsRelation g_ = teams(BidTarot.FOLD, rules_,taker_);
+        CustList<Ints> teams_ = g_.teams();
         assertEq(3, teams_.size());
         assertEq(2, teams_.get(0).size());
         assertEq(3, teams_.get(0).get(0));
@@ -59,15 +59,15 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_1_VS_3);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_,(byte)taker_);
-        CustList<Bytes> teams_ = g_.teams();
+        GameTarotTeamsRelation g_ = teams(rules_,taker_);
+        CustList<Ints> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(1, teams_.get(1).size());
         assertEq(3, teams_.get(1).get(0));
@@ -82,7 +82,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -90,9 +90,9 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, 1);
         g_.determinerConfiances();
-        CustList<Bytes> teams_ = g_.teams();
+        CustList<Ints> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(2, teams_.get(1).size());
         assertEq(3, teams_.get(1).get(0));
@@ -108,7 +108,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -116,9 +116,9 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)taker_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, taker_);
         g_.determinerConfiances();
-        CustList<Bytes> teams_ = g_.teams();
+        CustList<Ints> teams_ = g_.teams();
         assertEq(2, teams_.size());
         assertEq(1, teams_.get(1).size());
         assertEq(3, teams_.get(1).get(0));
@@ -135,7 +135,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -143,10 +143,10 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 1);
-        set_.add((byte) taker_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, 1);
+        Ints set_ = new Ints();
+        set_.add(1);
+        set_.add(taker_);
         assertTrue(g_.isSameTeam(set_));
     }
     @Test
@@ -155,7 +155,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -163,10 +163,10 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 2);
-        set_.add((byte) taker_);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, 1);
+        Ints set_ = new Ints();
+        set_.add(2);
+        set_.add(taker_);
         assertTrue(!g_.isSameTeam(set_));
     }
     @Test
@@ -175,7 +175,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -183,11 +183,11 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 0);
-        set_.add((byte) 2);
-        set_.add((byte) 4);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, 1);
+        Ints set_ = new Ints();
+        set_.add(0);
+        set_.add(2);
+        set_.add(4);
         assertTrue(g_.isSameTeam(set_));
     }
     @Test
@@ -196,7 +196,7 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -204,21 +204,21 @@ public final class GameTarotTeamsRelationTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         int taker_ = getTaker(rules_,dealer_,bids_);
-        GameTarotTeamsRelation g_ = teams(rules_, taker_, (byte)1);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 2);
-        set_.add((byte) 1);
+        GameTarotTeamsRelation g_ = teams(rules_, taker_, 1);
+        Ints set_ = new Ints();
+        set_.add(2);
+        set_.add(1);
         assertTrue(!g_.isSameTeam(set_));
     }
 
-    private GameTarotTeamsRelation teams(RulesTarot _r, int _t, byte... _c) {
+    private GameTarotTeamsRelation teams(RulesTarot _r, int _t, int... _c) {
         return teams(BidTarot.GUARD,_r,_t,_c);
     }
 
-    private GameTarotTeamsRelation teams(BidTarot _b, RulesTarot _r, int _t, byte... _c) {
+    private GameTarotTeamsRelation teams(BidTarot _b, RulesTarot _r, int _t, int... _c) {
         CustList<CustList<BoolVal>> conf_ = getConf(_b, _r, _t);
-        Bytes calledPlayers_ = Bytes.newList(_c);
-        return new GameTarotTeamsRelation((byte) _t, calledPlayers_,conf_, _r);
+        Ints calledPlayers_ = Ints.newList(_c);
+        return new GameTarotTeamsRelation(_t, calledPlayers_,conf_, _r);
     }
 
     private static CustList<CustList<BoolVal>> getConf(BidTarot _b, RulesTarot _r, int _taker){

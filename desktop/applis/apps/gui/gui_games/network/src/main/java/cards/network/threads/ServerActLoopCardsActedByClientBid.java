@@ -19,7 +19,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
     protected void loopBelote(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GameBelote game_ = Net.getGames(_instance).partieBelote();
         if (game_.keepBidding()) {
-            byte place_ = game_.playerHavingToBid();
+            int place_ = game_.playerHavingToBid();
             if (Net.isHumanPlayer(place_, _common)) {
 //            if (Net.isHumanPlayer(place_, _instance, _common))
                 AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
@@ -38,7 +38,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
             bid_.setBidBelote(Net.getGames(_instance).partieBelote().bid(_instance.getIa().getBelote()));
             //bid_.setLocale(Constants.getDefaultLanguage());
 //                bid_.setLocale("");
-            for (byte p : Net.activePlayers(_instance, _common)) {
+            for (int p : Net.activePlayers(_instance, _common)) {
                 NetGroupFrame.trySendString(Net.exportClientBiddingBelote(bid_), Net.getSocketByPlace(p, _common));
             }
             return;
@@ -54,7 +54,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
                 DiscardPhaseBelote dog_ = new DiscardPhaseBelote();
                 dog_.setDiscard(game_.getDistribution().derniereMain());
                 dog_.getDiscardPhase().setTakerIndex(game_.getPreneur());
-                for (byte p : Net.activePlayers(_instance, _common)) {
+                for (int p : Net.activePlayers(_instance, _common)) {
                     update(p, game_, dog_);
                     NetGroupFrame.trySendString(Net.exportDiscardPhaseBelote(dog_), Net.getSocketByPlace(p, _common));
                 }
@@ -70,7 +70,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
 //                        if (game_.completedDeal()) {
 //                            return;
 //                        }
-        for (byte p : Net.activePlayers(_instance, _common)) {
+        for (int p : Net.activePlayers(_instance, _common)) {
             RefreshHandBelote hand_ = new RefreshHandBelote();
             hand_.setRefreshedHand(game_.getDistribution().hand(p));
             //hand_.setLocale(Constants.getDefaultLanguage());
@@ -86,7 +86,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
             processAfterBidTarot(game_, _instance,_fct, _common);
             return;
         }
-        byte place_ = game_.playerHavingToBid();
+        int place_ = game_.playerHavingToBid();
         if (Net.isHumanPlayer(place_, _common)) {
 //        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
@@ -105,7 +105,7 @@ public final class ServerActLoopCardsActedByClientBid extends ServerActLoopCards
         bid_.setBid(Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot()));
         //bid_.setLocale(Constants.getDefaultLanguage());
 //            bid_.setLocale("");
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientBiddingTarot(bid_), Net.getSocketByPlace(p, _common));
         }
     }

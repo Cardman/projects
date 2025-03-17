@@ -10,14 +10,14 @@ import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
-import code.util.Bytes;
+import code.util.Ints;
 import code.util.CustList;
 
 public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClientAll {
 
     @Override
     protected void loopBelote(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
-        byte place_ = Net.getGames(_instance).partieBelote().playerHavingToBid();
+        int place_ = Net.getGames(_instance).partieBelote().playerHavingToBid();
         if (Net.isHumanPlayer(place_, _common)) {
 //        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
@@ -36,7 +36,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
         bid_.setBidBelote(Net.getGames(_instance).partieBelote().bid(_instance.getIa().getBelote()));
         //bid_.setLocale(Constants.getDefaultLanguage());
 //                bid_.setLocale("");
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientBiddingBelote(bid_), Net.getSocketByPlace(p, _common));
         }
     }
@@ -47,13 +47,13 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
         if (g_.availableSwitchingCards()) {
-            Bytes pl_ = Net.activePlayers(_instance, _common);
-            Bytes humWin_ = g_.getWinners(pl_);
-            Bytes humLos_ = g_.getLoosers(pl_);
+            Ints pl_ = Net.activePlayers(_instance, _common);
+            Ints humWin_ = g_.getWinners(pl_);
+            Ints humLos_ = g_.getLoosers(pl_);
             if (!humWin_.isEmpty()) {
                 //Display discarding
-                for (byte p: humWin_) {
-                    byte l_ = g_.getMatchingLoser(p);
+                for (int p: humWin_) {
+                    int l_ = g_.getMatchingLoser(p);
                     NetGroupFrame.trySendString(Net.exportAllowDiscarding(g_.getSwitchedCards().get(l_)), Net.getSocketByPlace(p, _common));
                 }
 //                        CustList<Byte> humLosReceiving_ = new CustList<>();
@@ -77,8 +77,8 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
             g_.giveWorstCards(_instance.getIa().getPresident());
             if (!humLos_.isEmpty()) {
                 //Display switched cards
-                for (byte p: humLos_) {
-                    byte w_ = g_.getMatchingWinner(p);
+                for (int p: humLos_) {
+                    int w_ = g_.getMatchingWinner(p);
                     NetGroupFrame.trySendString(Net.exportReceivedGivenCards(g_.getSwitchedCards().get(w_),g_.getSwitchedCards().get(p),g_.getDeal().hand(p)), Net.getSocketByPlace(p, _common));
                 }
                 return;
@@ -98,7 +98,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
             playingTarotCard(_instance,_fct, _common);
             return;
         }
-        byte place_ = Net.getGames(_instance).partieTarot().playerHavingToBid();
+        int place_ = Net.getGames(_instance).partieTarot().playerHavingToBid();
         if (Net.isHumanPlayer(place_, _common)) {
 //        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
@@ -117,7 +117,7 @@ public final class ServerActLoopCardsDealt extends ServerActLoopCardsActedByClie
         bid_.setBid(Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(_instance.getIa().getTarot()));
         //bid_.setLocale(Constants.getDefaultLanguage());
 //            bid_.setLocale("");
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientBiddingTarot(bid_), Net.getSocketByPlace(p, _common));
         }
     }

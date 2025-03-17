@@ -990,7 +990,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         return g_;
     }
     private GamePresident edited(DealPresident _deal, RulesPresident _rules) {
-        GamePresident g_ = new GamePresident(GameType.EDIT, _deal, _rules,Bytes.newList());
+        GamePresident g_ = new GamePresident(GameType.EDIT, _deal, _rules,Ints.newList());
         g_.setNombre();
         return g_;
     }
@@ -1028,7 +1028,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
 //    }
 
     private DealPresident mix(int _d) {
-        return new DealPresident(deal1(), (byte) _d);
+        return new DealPresident(deal1(), _d);
     }
     private RulesBelote rulesThreePlayers() {
         RulesBelote rules_ = new RulesBelote();
@@ -1040,7 +1040,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
 
     private DealBelote dealThreePlayersIa() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
                 CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
         db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
@@ -1211,7 +1211,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         hand_.ajouter(CardTarot.TRUMP_7);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
     private RulesTarot rules() {
         RulesTarot rules_ = new RulesTarot();

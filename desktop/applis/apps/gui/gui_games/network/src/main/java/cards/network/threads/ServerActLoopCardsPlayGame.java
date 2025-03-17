@@ -27,7 +27,7 @@ public final class ServerActLoopCardsPlayGame implements IntServerActLoopCards {
             hand_.setDeck(deal_.derniereMain());
             hand_.setDealer(Net.getGames(_instance).partieBelote().playerAfter(deal_.getDealer()));
             hand_.setAllowedBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
-            for (byte i:Net.activePlayers(_instance, _common)) {
+            for (int i:Net.activePlayers(_instance, _common)) {
                 hand_.setCards(deal_.hand(i));
                 NetGroupFrame.trySendString(Net.exportDealtHandBelote(hand_), Net.getSocketByPlace(i, _common));
             }
@@ -42,7 +42,7 @@ public final class ServerActLoopCardsPlayGame implements IntServerActLoopCards {
             hand_.setDealer(Net.getGames(_instance).partiePresident().getDeal().getDealer());
             hand_.setMaxCards(NumberUtil.min(nbSuits_ * nbStacks_, rules_.getNbMaxCardsPerPlayer()));
             hand_.setStatus(Net.getGames(_instance).partiePresident().getLastStatus());
-            for (byte i:Net.activePlayers(_instance, _common)) {
+            for (int i:Net.activePlayers(_instance, _common)) {
                 hand_.setCards(deal_.hand(i));
                 NetGroupFrame.trySendString(Net.exportDealtHandPresident(hand_), Net.getSocketByPlace(i, _common));
             }
@@ -54,7 +54,7 @@ public final class ServerActLoopCardsPlayGame implements IntServerActLoopCards {
             hand_.setDog(deal_.derniereMain());
             hand_.setDealer(Net.getGames(_instance).partieTarot().playerAfter(deal_.getDealer()));
             hand_.setAllowedBids(Net.getGames(_instance).partieTarot().allowedBids());
-            for (byte i:Net.activePlayers(_instance, _common)) {
+            for (int i:Net.activePlayers(_instance, _common)) {
                 hand_.setCards(deal_.hand(i));
                 NetGroupFrame.trySendString(Net.exportDealtHandTarot(hand_), Net.getSocketByPlace(i, _common));
             }

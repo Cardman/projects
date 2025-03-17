@@ -357,10 +357,10 @@ public final class HandBelote implements Iterable<CardBelote> {
         }
         HandBelote cartes_ = new HandBelote();
         Suit couleurAtout_ = premiereCarte().getId().getCouleur();
-        byte nombrePlis_=0;
-        byte cartesManquantes_=0;
-        byte cartesPossedees_=0;
-        byte indiceCarte_=0;
+        int nombrePlis_=0;
+        int cartesManquantes_=0;
+        int cartesPossedees_=0;
+        int indiceCarte_=0;
         for(CardBelote carte_: couleurComplete(couleurAtout_, _ordre)) {
             if(indiceCarte_<total()&&CardBelote.eq(carte(indiceCarte_), carte_)) {
                 if(nombrePlis_>0) {
@@ -378,7 +378,7 @@ public final class HandBelote implements Iterable<CardBelote> {
             }
             if(cartesPossedees_>cartesManquantes_) {
                 cartes_.ajouter(carte_);
-                nombrePlis_=(byte)(cartesPossedees_-cartesManquantes_);
+                nombrePlis_= cartesPossedees_-cartesManquantes_;
             }
         }
         return cartes_;
@@ -682,8 +682,8 @@ public final class HandBelote implements Iterable<CardBelote> {
         cards.addAllElts(nouvelleMain_);
     }
 
-    byte nombreCartesPoints(BidBeloteSuit _contrat) {
-        return (byte) cartesPoints(_contrat).total();
+    int nombreCartesPoints(BidBeloteSuit _contrat) {
+        return cartesPoints(_contrat).total();
     }
 
     HandBelote cartesPoints(BidBeloteSuit _contrat) {

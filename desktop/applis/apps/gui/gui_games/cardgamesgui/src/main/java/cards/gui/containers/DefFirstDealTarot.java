@@ -10,7 +10,7 @@ public final class DefFirstDealTarot implements IntFirstDealTarot {
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
         HandTarot pile_ = _container.chargerPileTarot();
         DealTarot donne_=new DealTarot(_nb);
-        donne_.setDealer((byte) MonteCarloUtil.randomLong(_rules.getDealing().getId().getNombreJoueurs(),_container.getOwner().getGenerator()));
+        donne_.setDealer((int) MonteCarloUtil.randomLong(_rules.getDealing().getId().getNombreJoueurs(),_container.getOwner().getGenerator()));
         donne_.initDonne(_rules, _container.getOwner().getGenerator(),pile_);
         return new GameTarot(GameType.RANDOM,donne_,_rules);
     }

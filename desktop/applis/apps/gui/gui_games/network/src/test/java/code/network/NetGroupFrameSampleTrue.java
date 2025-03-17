@@ -47,7 +47,7 @@ public final class NetGroupFrameSampleTrue extends NetGroupFrame {
         serv_.run();
         getSockets().getConnectionsServer().put(nb_ ,serv_);
         getSockets().getReadyPlayers().put(nb_ , BoolVal.FALSE);
-        getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
+        getSockets().getPlacesPlayers().put(nb_ , nb_);
         trySendString("_",_newSocket);
     }
 }

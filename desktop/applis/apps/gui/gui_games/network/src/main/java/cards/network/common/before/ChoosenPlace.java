@@ -6,7 +6,7 @@ public final class ChoosenPlace extends PlayerActionBeforeGameCards {
 
     private int place;
 
-    private IntTreeMap< Byte> placesPlayers;
+    private IntTreeMap< Integer> placesPlayers;
 
     public int getPlace() {
         return place;
@@ -16,11 +16,11 @@ public final class ChoosenPlace extends PlayerActionBeforeGameCards {
         place = _place;
     }
 
-    public IntTreeMap< Byte> getPlacesPlayers() {
+    public IntTreeMap< Integer> getPlacesPlayers() {
         return placesPlayers;
     }
 
-    public void setPlacesPlayers(IntTreeMap< Byte> _placesPlayers) {
+    public void setPlacesPlayers(IntTreeMap< Integer> _placesPlayers) {
         placesPlayers = _placesPlayers;
     }
 }

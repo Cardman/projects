@@ -5,15 +5,15 @@ public final class RankingPlayerVariantGame {
 
     private String nickname;
 
-    private short positionDiff;
+    private int positionDiff;
 
-    private short positionOudlers;
+    private int positionOudlers;
 
-    private short positionCharacters;
+    private int positionCharacters;
 
-    private short positionStrengthCharacters;
+    private int positionStrengthCharacters;
 
-    private short finalPosition;
+    private int finalPosition;
 
     public String getNickname() {
         return nickname;
@@ -23,43 +23,43 @@ public final class RankingPlayerVariantGame {
         nickname = _nickname;
     }
 
-    public short getPositionDiff() {
+    public int getPositionDiff() {
         return positionDiff;
     }
 
-    public void setPositionDiff(short _positionDiff) {
+    public void setPositionDiff(int _positionDiff) {
         positionDiff = _positionDiff;
     }
 
-    public short getPositionOudlers() {
+    public int getPositionOudlers() {
         return positionOudlers;
     }
 
-    public void setPositionOudlers(short _positionOudlers) {
+    public void setPositionOudlers(int _positionOudlers) {
         positionOudlers = _positionOudlers;
     }
 
-    public short getPositionCharacters() {
+    public int getPositionCharacters() {
         return positionCharacters;
     }
 
-    public void setPositionCharacters(short _positionCharacters) {
+    public void setPositionCharacters(int _positionCharacters) {
         positionCharacters = _positionCharacters;
     }
 
-    public short getPositionStrengthCharacters() {
+    public int getPositionStrengthCharacters() {
         return positionStrengthCharacters;
     }
 
-    public void setPositionStrengthCharacters(short _positionStrengthCharacters) {
+    public void setPositionStrengthCharacters(int _positionStrengthCharacters) {
         positionStrengthCharacters = _positionStrengthCharacters;
     }
 
-    public short getFinalPosition() {
+    public int getFinalPosition() {
         return finalPosition;
     }
 
-    public void setFinalPosition(short _finalPosition) {
+    public void setFinalPosition(int _finalPosition) {
         finalPosition = _finalPosition;
     }
 

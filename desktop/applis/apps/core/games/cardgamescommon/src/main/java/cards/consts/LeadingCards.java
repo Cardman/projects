@@ -9,7 +9,7 @@ public final class LeadingCards<T> {
 
     public void leading(CustList<T> _union, CustList<T> _current, CustList<T> _played, CustList<T> _full) {
         int nbPlayedOrOwnedCards_ = NumberUtil.min(_union.size(),_full.size());
-        for (byte c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
+        for (int c = IndexConstants.FIRST_INDEX; c < nbPlayedOrOwnedCards_; c++) {
             if (_union.get(c)!=
                     _full.get(c)) {
                 break;

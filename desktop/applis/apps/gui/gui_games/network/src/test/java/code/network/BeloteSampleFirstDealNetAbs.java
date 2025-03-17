@@ -55,7 +55,7 @@ public abstract class BeloteSampleFirstDealNetAbs implements IntFirstDealBelote 
         hands_.add(hand_);
         hand_ = new HandBelote();
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
     public static DealBelote dealStdClassic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
@@ -75,7 +75,7 @@ public abstract class BeloteSampleFirstDealNetAbs implements IntFirstDealBelote 
         hand_.ajouter(CardBelote.HEART_8);
         hand_.ajouter(CardBelote.HEART_7);
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
 
     private static void firstHands(CustList<HandBelote> _hands) {
@@ -152,7 +152,7 @@ public abstract class BeloteSampleFirstDealNetAbs implements IntFirstDealBelote 
         hand_.ajouter(CardBelote.CLUB_1);
         hand_.ajouter(CardBelote.HEART_10);
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
 
 }

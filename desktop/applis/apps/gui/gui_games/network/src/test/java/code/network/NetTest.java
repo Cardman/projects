@@ -79,31 +79,31 @@ public final class NetTest extends EquallableNetworkUtil {
         assertEq(2, res_.get(1).get(1));
     }
 
-    @Test
-    public void bytes1() {
-        assertTrue(saveBytes(new Bytes()).isEmpty());
-    }
-
-    @Test
-    public void bytes2() {
-        Bytes res_ = saveBytes(Bytes.newList((byte)1,(byte) 2,(byte) -3));
-        assertEq(3, res_.size());
-        assertEq(1, res_.get(0));
-        assertEq(2, res_.get(1));
-        assertEq(-3, res_.get(2));
-    }
+//    @Test
+//    public void bytes1() {
+//        assertTrue(saveBytes(new Bytes()).isEmpty());
+//    }
+//
+//    @Test
+//    public void bytes2() {
+//        Bytes res_ = saveBytes(Bytes.newList((byte)1,(byte) 2,(byte) -3));
+//        assertEq(3, res_.size());
+//        assertEq(1, res_.get(0));
+//        assertEq(2, res_.get(1));
+//        assertEq(-3, res_.get(2));
+//    }
 
     @Test
     public void bytes3() {
-        assertTrue(saveBytesList(new CustList<Bytes>()).isEmpty());
+        assertTrue(saveBytesList(new CustList<Ints>()).isEmpty());
     }
 
     @Test
     public void bytes4() {
-        CustList<Bytes> in_ = new CustList<Bytes>();
-        in_.add(Bytes.newList((byte)1,(byte) 2,(byte) -3));
-        in_.add(Bytes.newList((byte)-1,(byte) 2,(byte) 5));
-        CustList<Bytes> res_ = saveBytesList(in_);
+        CustList<Ints> in_ = new CustList<Ints>();
+        in_.add(Ints.newList(1,2, -3));
+        in_.add(Ints.newList(-1, 2, 5));
+        CustList<Ints> res_ = saveBytesList(in_);
         assertEq(2, res_.size());
         assertEq(3, res_.get(0).size());
         assertEq(1, res_.get(0).get(0));
@@ -117,10 +117,10 @@ public final class NetTest extends EquallableNetworkUtil {
 
     @Test
     public void bytes5() {
-        CustList<Bytes> in_ = new CustList<Bytes>();
-        in_.add(Bytes.newList((byte)1));
-        in_.add(Bytes.newList((byte)-1,(byte) 2));
-        CustList<Bytes> res_ = saveBytesList(in_);
+        CustList<Ints> in_ = new CustList<Ints>();
+        in_.add(Ints.newList(1));
+        in_.add(Ints.newList(-1, 2));
+        CustList<Ints> res_ = saveBytesList(in_);
         assertEq(2, res_.size());
         assertEq(1, res_.get(0).size());
         assertEq(1, res_.get(0).get(0));
@@ -130,13 +130,13 @@ public final class NetTest extends EquallableNetworkUtil {
     }
 
     @Test
-    public void shorts1() {
-        assertTrue(saveShorts(new Shorts()).isEmpty());
+    public void ints1() {
+        assertTrue(saveInts(new Ints()).isEmpty());
     }
 
     @Test
-    public void shorts2() {
-        Shorts res_ = saveShorts(Shorts.newList((short) 1,(short) 2,(short) -3));
+    public void ints2() {
+        Ints res_ = saveInts(Ints.newList(1,2,-3));
         assertEq(3, res_.size());
         assertEq(1, res_.get(0));
         assertEq(2, res_.get(1));
@@ -169,16 +169,16 @@ public final class NetTest extends EquallableNetworkUtil {
 
     @Test
     public void teams1() {
-        assertTrue(saveTeams(new CustList<Bytes>()).isEmpty());
+        assertTrue(saveTeams(new CustList<Ints>()).isEmpty());
     }
 
     @Test
     public void teams2() {
-        CustList<Bytes> bv_ = new CustList<Bytes>();
-        bv_.add(Bytes.newList((byte)1));
-        bv_.add(Bytes.newList((byte)-1,(byte) 2));
-        bv_.add(Bytes.newList((byte)4,(byte) -2, (byte) 0, (byte) 6));
-        CustList<Bytes> res_ = saveTeams(bv_);
+        CustList<Ints> bv_ = new CustList<Ints>();
+        bv_.add(Ints.newList(1));
+        bv_.add(Ints.newList(-1, 2));
+        bv_.add(Ints.newList(4, -2, 0, 6));
+        CustList<Ints> res_ = saveTeams(bv_);
         assertEq(3, res_.size());
         assertEq(1,res_.get(0).size());
         assertEq(1,res_.get(0).get(0));
@@ -194,12 +194,12 @@ public final class NetTest extends EquallableNetworkUtil {
 
     @Test
     public void teams3() {
-        CustList<Bytes> bv_ = new CustList<Bytes>();
-        bv_.add(Bytes.newList((byte)1));
-        bv_.add(Bytes.newList());
-        bv_.add(Bytes.newList());
-        bv_.add(Bytes.newList((byte)-1,(byte) 2));
-        CustList<Bytes> res_ = saveTeams(bv_);
+        CustList<Ints> bv_ = new CustList<Ints>();
+        bv_.add(Ints.newList(1));
+        bv_.add(Ints.newList());
+        bv_.add(Ints.newList());
+        bv_.add(Ints.newList(-1, 2));
+        CustList<Ints> res_ = saveTeams(bv_);
         assertEq(4, res_.size());
         assertEq(1,res_.get(0).size());
         assertEq(1,res_.get(0).get(0));
@@ -393,14 +393,14 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     @Test
     public void playingMap1() {
-        assertTrue(savePlayingMap(new ByteMap<Playing>()).isEmpty());
+        assertTrue(savePlayingMap(new IntMap<Playing>()).isEmpty());
     }
     @Test
     public void playingMap2() {
-        ByteMap<Playing> b_ = new ByteMap<Playing>();
-        b_.addEntry((byte)2,Playing.SKIPPED);
-        b_.addEntry((byte)4,Playing.PASS);
-        ByteMap<Playing> s_ = savePlayingMap(b_);
+        IntMap<Playing> b_ = new IntMap<Playing>();
+        b_.addEntry(2,Playing.SKIPPED);
+        b_.addEntry(4,Playing.PASS);
+        IntMap<Playing> s_ = savePlayingMap(b_);
         assertEq(2,s_.size());
         assertEq(2,s_.getKey(0));
         assertEq(Playing.SKIPPED,s_.getValue(0));
@@ -528,7 +528,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setNumber(2);
         g_.setTricks(new CustList<TrickBelote>());
         g_.setProgressingTrick(new TrickBelote());
-        g_.setScores(Shorts.newList());
+        g_.setScores(Longs.newList());
         g_.setDeclaresBeloteRebelote(new CustList<HandBelote>());
         g_.setDeclares(new CustList<DeclareHandBelote>());
         g_.setWonLastTrick(new CustList<BoolVal>());
@@ -536,7 +536,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setType(GameType.RANDOM);
         DealBelote deal_ = new DealBelote();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 3);
+        deal_.setDealer(3);
         deal_.setNbDeals(4);
         deal_.getDeal().add(HandBelote.create(new CardBelote[]{}));
         ResultsBelote out_ = saveResultsBelote(r_);
@@ -567,13 +567,13 @@ public final class NetTest extends EquallableNetworkUtil {
         TrickBelote b2_ = new TrickBelote();
         b2_.getCards().ajouter(CardBelote.HEART_10);
         g_.setProgressingTrick(b2_);
-        g_.setScores(Shorts.newList((short) 3));
+        g_.setScores(Longs.newList(3));
         g_.setDeclaresBeloteRebelote(new CustList<HandBelote>(new HandBelote()));
         CustList<DeclareHandBelote> dec_ = new CustList<DeclareHandBelote>();
         DeclareHandBelote dece_ = new DeclareHandBelote();
         dece_.setDeclare(DeclaresBelote.THIRTY);
         dece_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_8}));
-        dece_.setPlayer((byte) 6);
+        dece_.setPlayer(6);
         dec_.add(dece_);
         g_.setDeclares(dec_);
         g_.setWonLastTrick(new CustList<BoolVal>());
@@ -581,7 +581,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setType(GameType.RANDOM);
         DealBelote deal_ = new DealBelote();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 4);
+        deal_.setDealer(4);
         deal_.setNbDeals(5);
         deal_.getDeal().add(HandBelote.create(new CardBelote[]{CardBelote.HEART_9}));
         ResultsBelote out_ = saveResultsBelote(r_);
@@ -624,13 +624,13 @@ public final class NetTest extends EquallableNetworkUtil {
         TrickBelote b2_ = new TrickBelote();
         b2_.getCards().ajouter(CardBelote.HEART_10);
         g_.setProgressingTrick(b2_);
-        g_.setScores(Shorts.newList((short) 3));
+        g_.setScores(Longs.newList(3));
         g_.setDeclaresBeloteRebelote(new CustList<HandBelote>(new HandBelote()));
         CustList<DeclareHandBelote> dec_ = new CustList<DeclareHandBelote>();
         DeclareHandBelote dece_ = new DeclareHandBelote();
         dece_.setDeclare(DeclaresBelote.THIRTY);
         dece_.setHand(HandBelote.create(new CardBelote[]{}));
-        dece_.setPlayer((byte) 6);
+        dece_.setPlayer(6);
         dec_.add(dece_);
         g_.setDeclares(dec_);
         g_.setWonLastTrick(new CustList<BoolVal>());
@@ -638,7 +638,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setType(GameType.RANDOM);
         DealBelote deal_ = new DealBelote();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 4);
+        deal_.setDealer(4);
         deal_.setNbDeals(5);
         deal_.getDeal().add(HandBelote.create(new CardBelote[]{CardBelote.HEART_9}));
         ResultsBelote out_ = saveResultsBelote(r_);
@@ -675,13 +675,13 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setNumber(2);
         g_.setTricks(new CustList<TrickPresident>());
         g_.setProgressingTrick(new TrickPresident());
-        g_.setScores(Shorts.newList());
-        g_.setRanks(Bytes.newList());
+        g_.setScores(Longs.newList());
+        g_.setRanks(Ints.newList());
         g_.setSwitchedCards(new CustList<HandPresident>());
         g_.setType(GameType.RANDOM);
         DealPresident deal_ = new DealPresident();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 3);
+        deal_.setDealer(3);
         deal_.setNbDeals(4);
         deal_.getDeal().add(HandPresident.create(new CardPresident[]{}));
         ResultsPresident out_ = saveResultsPresident(r_);
@@ -713,13 +713,13 @@ public final class NetTest extends EquallableNetworkUtil {
         b2_.getCards().add(new HandPresident());
         b2_.getCards().last().ajouter(CardPresident.HEART_10);
         g_.setProgressingTrick(b2_);
-        g_.setScores(Shorts.newList((short) 3));
-        g_.setRanks(Bytes.newList((byte) 7));
+        g_.setScores(Longs.newList(3));
+        g_.setRanks(Ints.newList(7));
         g_.setSwitchedCards(new CustList<HandPresident>(HandPresident.create(new CardPresident[]{CardPresident.HEART_8})));
         g_.setType(GameType.RANDOM);
         DealPresident deal_ = new DealPresident();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 4);
+        deal_.setDealer(4);
         deal_.setNbDeals(5);
         deal_.getDeal().add(HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
         ResultsPresident out_ = saveResultsPresident(r_);
@@ -762,13 +762,13 @@ public final class NetTest extends EquallableNetworkUtil {
         b2_.getCards().add(new HandPresident());
         b2_.getCards().last().ajouter(CardPresident.HEART_10);
         g_.setProgressingTrick(b2_);
-        g_.setScores(Shorts.newList((short) 3));
-        g_.setRanks(Bytes.newList((byte) 7));
+        g_.setScores(Longs.newList(3));
+        g_.setRanks(Ints.newList(7));
         g_.setSwitchedCards(new CustList<HandPresident>(HandPresident.create(new CardPresident[]{})));
         g_.setType(GameType.RANDOM);
         DealPresident deal_ = new DealPresident();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 4);
+        deal_.setDealer(4);
         deal_.setNbDeals(5);
         deal_.getDeal().add(HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
         ResultsPresident out_ = saveResultsPresident(r_);
@@ -803,7 +803,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setNumber(2);
         g_.setTricks(new CustList<TrickTarot>());
         g_.setProgressingTrick(new TrickTarot());
-        g_.setScores(Shorts.newList());
+        g_.setScores(Longs.newList());
         g_.setDeclaresMiseres(new CustList<IdList<Miseres>>());
         g_.setDeclaresHandfuls(new CustList<IdList<Handfuls>>());
         g_.setHandfuls(new CustList<HandTarot>());
@@ -813,7 +813,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setBids(new IdList<BidTarot>());
         DealTarot deal_ = new DealTarot();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 3);
+        deal_.setDealer(3);
         deal_.setNbDeals(4);
         deal_.getDeal().add(HandTarot.create(new CardTarot[]{}));
         ResultsTarot out_ = saveResultsTarot(r_);
@@ -846,7 +846,7 @@ public final class NetTest extends EquallableNetworkUtil {
         TrickTarot b2_ = new TrickTarot();
         b2_.getCards().ajouter(CardTarot.HEART_10);
         g_.setProgressingTrick(b2_);
-        g_.setScores(Shorts.newList((short) 3));
+        g_.setScores(Longs.newList(3));
         CustList<IdList<Miseres>> mis_ = new CustList<IdList<Miseres>>();
         mis_.add(new IdList<Miseres>(Miseres.LOW_CARDS));
         g_.setDeclaresMiseres(mis_);
@@ -860,7 +860,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setBids(new IdList<BidTarot>());
         DealTarot deal_ = new DealTarot();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 4);
+        deal_.setDealer(4);
         deal_.setNbDeals(5);
         deal_.getDeal().add(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
         ResultsTarot out_ = saveResultsTarot(r_);
@@ -907,7 +907,7 @@ public final class NetTest extends EquallableNetworkUtil {
         TrickTarot b2_ = new TrickTarot();
         b2_.getCards().ajouter(CardTarot.HEART_10);
         g_.setProgressingTrick(b2_);
-        g_.setScores(Shorts.newList((short) 3));
+        g_.setScores(Longs.newList(3));
         CustList<IdList<Miseres>> mis_ = new CustList<IdList<Miseres>>();
         mis_.add(new IdList<Miseres>());
         g_.setDeclaresMiseres(mis_);
@@ -921,7 +921,7 @@ public final class NetTest extends EquallableNetworkUtil {
         g_.setBids(new IdList<BidTarot>());
         DealTarot deal_ = new DealTarot();
         g_.setDeal(deal_);
-        deal_.setDealer((byte) 4);
+        deal_.setDealer(4);
         deal_.setNbDeals(5);
         deal_.getDeal().add(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
         ResultsTarot out_ = saveResultsTarot(r_);
@@ -956,8 +956,8 @@ public final class NetTest extends EquallableNetworkUtil {
         TricksHandsBelote r_ = new TricksHandsBelote();
         r_.setDistribution(new DealBelote());
         r_.getDistribution().setNbDeals(6);
-        r_.getDistribution().setDealer((byte) 7);
-        r_.setPreneur((byte) 5);
+        r_.getDistribution().setDealer(7);
+        r_.setPreneur(5);
         r_.setTricks(new CustList<TrickBelote>());
         r_.setCardsHandsAtInitialState(new CustList<HandBelote>());
         r_.setBid(bidSuit(Suit.HEART,80,BidBelote.SUIT));
@@ -1009,11 +1009,11 @@ public final class NetTest extends EquallableNetworkUtil {
         TricksHandsPresident r_ = new TricksHandsPresident();
         r_.setDistribution(new DealPresident());
         r_.getDistribution().setNbDeals(6);
-        r_.getDistribution().setDealer((byte) 7);
+        r_.getDistribution().setDealer(7);
         r_.setTricks(new CustList<TrickPresident>());
         r_.setProgressingTrick(new TrickPresident());
         r_.setSwitchedCards(new CustList<HandPresident>());
-        r_.setRanks(new Bytes());
+        r_.setRanks(new Ints());
         r_.setCardsHandsAtInitialState(new CustList<HandPresident>());
         TricksHandsPresident out_ = saveTricksHandsPresident(r_);
         assertEq(0,out_.getCardsHandsAtInitialState().size());
@@ -1040,7 +1040,7 @@ public final class NetTest extends EquallableNetworkUtil {
         r_.setProgressingTrick(t2_);
         r_.setSwitchedCards(new CustList<HandPresident>());
         r_.getSwitchedCards().add(HandPresident.create(new CardPresident[]{CardPresident.HEART_9}));
-        r_.setRanks(Bytes.newList((byte) 6));
+        r_.setRanks(Ints.newList(6));
         r_.setCardsHandsAtInitialState(new CustList<HandPresident>());
         r_.getCardsHandsAtInitialState().add(HandPresident.create(new CardPresident[]{CardPresident.HEART_1}));
         TricksHandsPresident out_ = saveTricksHandsPresident(r_);
@@ -1080,7 +1080,7 @@ public final class NetTest extends EquallableNetworkUtil {
         r_.setProgressingTrick(t2_);
         r_.setSwitchedCards(new CustList<HandPresident>());
         r_.getSwitchedCards().add(HandPresident.create(new CardPresident[]{}));
-        r_.setRanks(Bytes.newList((byte) 6));
+        r_.setRanks(Ints.newList(6));
         r_.setCardsHandsAtInitialState(new CustList<HandPresident>());
         r_.getCardsHandsAtInitialState().add(HandPresident.create(new CardPresident[]{}));
         TricksHandsPresident out_ = saveTricksHandsPresident(r_);
@@ -1103,10 +1103,10 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void tricksTarot1() {
         TricksHandsTarot r_ = new TricksHandsTarot();
-        r_.setPreneur((byte) 5);
+        r_.setPreneur(5);
         r_.setDistribution(new DealTarot());
         r_.getDistribution().setNbDeals(6);
-        r_.getDistribution().setDealer((byte) 7);
+        r_.getDistribution().setDealer(7);
         r_.setTricks(new CustList<TrickTarot>());
         r_.setCardsHandsAtInitialState(new CustList<HandTarot>());
         TricksHandsTarot out_ = saveTricksHandsTarot(r_);
@@ -1120,7 +1120,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void tricksTarot2() {
         TricksHandsTarot r_ = new TricksHandsTarot();
-        r_.setPreneur((byte) 5);
+        r_.setPreneur(5);
         DealTarot deal_ = new DealTarot();
         deal_.getDeal().add(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
         r_.setDistribution(deal_);
@@ -1145,7 +1145,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void tricksTarot3() {
         TricksHandsTarot r_ = new TricksHandsTarot();
-        r_.setPreneur((byte) 5);
+        r_.setPreneur(5);
         DealTarot deal_ = new DealTarot();
         deal_.getDeal().add(HandTarot.create(new CardTarot[]{}));
         r_.setDistribution(deal_);
@@ -1173,8 +1173,8 @@ public final class NetTest extends EquallableNetworkUtil {
         belote_.setDealing(DealingBelote.CLASSIC_1_VS_2_24);
         g_.setRulesBelote(belote_);
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         IndexOfArrivingCards i_ = saveIndexArrive(1, 3, common_, g_, GameEnum.BELOTE);
@@ -1197,8 +1197,8 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void indexArrive2() {
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         Games g_ = new Games();
@@ -1259,8 +1259,8 @@ public final class NetTest extends EquallableNetworkUtil {
         president_.setNbPlayers(6);
         g_.setRulesPresident(president_);
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         IndexOfArrivingCards i_ = saveIndexArrive(1, 6, common_, g_, GameEnum.PRESIDENT);
@@ -1298,8 +1298,8 @@ public final class NetTest extends EquallableNetworkUtil {
         president_.setNbPlayers(6);
         g_.setRulesPresident(president_);
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         IndexOfArrivingCards i_ = saveIndexArrive(1, 6, common_, g_, GameEnum.PRESIDENT);
@@ -1337,8 +1337,8 @@ public final class NetTest extends EquallableNetworkUtil {
         tarot_.setAllowedBids(new IdMap<BidTarot, BoolVal>());
         g_.setRulesTarot(tarot_);
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         IndexOfArrivingCards i_ = saveIndexArrive(1, 5, common_, g_, GameEnum.TAROT);
@@ -1381,8 +1381,8 @@ public final class NetTest extends EquallableNetworkUtil {
         tarot_.setAllowedBids(bids_);
         g_.setRulesTarot(tarot_);
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         IndexOfArrivingCards i_ = saveIndexArrive(1, 5, common_, g_, GameEnum.TAROT);
@@ -1415,15 +1415,15 @@ public final class NetTest extends EquallableNetworkUtil {
     }
     @Test
     public void chosen1() {
-        ChoosenPlace ch_ = saveClientChoosenPlace(1, 2, new IdMap<Integer, Byte>());
+        ChoosenPlace ch_ = saveClientChoosenPlace(1, 2, new IdMap<Integer, Integer>());
         assertEq(1, ch_.getIndex());
         assertEq(2, ch_.getPlace());
         assertEq(0, ch_.getPlacesPlayers().size());
     }
     @Test
     public void chosen2() {
-        IdMap<Integer, Byte> id_ = new IdMap<Integer, Byte>();
-        id_.addEntry(3,(byte)4);
+        IdMap<Integer, Integer> id_ = new IdMap<Integer, Integer>();
+        id_.addEntry(3,4);
         ChoosenPlace ch_ = saveServerChoosenPlace(1, 2, id_);
         assertEq(1, ch_.getIndex());
         assertEq(2, ch_.getPlace());
@@ -1532,8 +1532,8 @@ public final class NetTest extends EquallableNetworkUtil {
         tarot_.setAllowedHandfuls(new IdMap<Handfuls, Integer>());
         tarot_.setAllowedBids(new IdMap<BidTarot, BoolVal>());
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         RulesTarot i_ = saveClientRulesTarot(tarot_);
@@ -1563,8 +1563,8 @@ public final class NetTest extends EquallableNetworkUtil {
         bids_.addEntry(BidTarot.SLAM_TAKE, BoolVal.FALSE);
         tarot_.setAllowedBids(bids_);
         NetCommon common_ = new NetCommon();
-        common_.getPlacesPlayers().addEntry(2,(byte)3);
-        common_.getPlacesPlayers().addEntry(4,(byte)5);
+        common_.getPlacesPlayers().addEntry(2,3);
+        common_.getPlacesPlayers().addEntry(4,5);
         common_.getReadyPlayers().addEntry(6,BoolVal.TRUE);
         common_.getReadyPlayers().addEntry(7,BoolVal.FALSE);
         RulesTarot i_ = saveServerRulesTarot(tarot_);
@@ -1613,7 +1613,7 @@ public final class NetTest extends EquallableNetworkUtil {
         DealtHandBelote belote_ = new DealtHandBelote();
         belote_.setDeck(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
         belote_.setCards(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
-        belote_.setDealer((byte) 2);
+        belote_.setDealer(2);
         belote_.setAllowedBids(new CustList<BidBeloteSuit>(bidSuit(Suit.HEART,80,BidBelote.OTHER_SUIT)));
         DealtHandBelote i_ = saveDealtHandBelote(belote_);
         assertEq(2,i_.getDealer());
@@ -1630,9 +1630,9 @@ public final class NetTest extends EquallableNetworkUtil {
     public void dealtHandPresident() {
         DealtHandPresident president_ = new DealtHandPresident();
         president_.setCards(HandPresident.create(new CardPresident[]{CardPresident.HEART_10}));
-        president_.setDealer((byte) 2);
-        ByteMap<Playing> st_ = new ByteMap<Playing>();
-        st_.addEntry((byte)1,Playing.SKIPPED);
+        president_.setDealer(2);
+        IntMap<Playing> st_ = new IntMap<Playing>();
+        st_.addEntry(1,Playing.SKIPPED);
         president_.setStatus(st_);
         president_.setMaxCards(3);
         DealtHandPresident i_ = saveDealtHandPresident(president_);
@@ -1649,9 +1649,9 @@ public final class NetTest extends EquallableNetworkUtil {
         DealtHandTarot tarot_ = new DealtHandTarot();
         tarot_.setDog(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
         tarot_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_10}));
-        tarot_.setDealer((byte) 2);
-        ByteMap<Playing> st_ = new ByteMap<Playing>();
-        st_.addEntry((byte)1,Playing.SKIPPED);
+        tarot_.setDealer(2);
+        IntMap<Playing> st_ = new IntMap<Playing>();
+        st_.addEntry(1,Playing.SKIPPED);
         tarot_.setAllowedBids(new IdList<BidTarot>(BidTarot.SLAM_GUARD));
         DealtHandTarot i_ = saveDealtHandTarot(tarot_);
         assertEq(2,i_.getDealer());
@@ -1679,7 +1679,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void biddingBelote1(){
         BiddingBelote a_ = new BiddingBelote();
-        a_.setPlace((byte) 2);
+        a_.setPlace(2);
         a_.setBidBelote(bidSuit(Suit.SPADE,90,BidBelote.OTHER_SUIT));
         BiddingBelote o_ = saveClientBiddingBelote(a_);
         assertEq(2,o_.getPlace());
@@ -1690,7 +1690,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void biddingBelote2(){
         BiddingBelote a_ = new BiddingBelote();
-        a_.setPlace((byte) 2);
+        a_.setPlace(2);
         a_.setBidBelote(bidSuit(Suit.SPADE,90,BidBelote.OTHER_SUIT));
         BiddingBelote o_ = saveServerBiddingBelote(a_);
         assertEq(2,o_.getPlace());
@@ -1713,7 +1713,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void discardedCardBelote(){
         DiscardedCardBelote a_ = new DiscardedCardBelote();
-        a_.setPlace((byte) 2);
+        a_.setPlace(2);
         a_.setCard(CardBelote.HEART_1);
         DiscardedCardBelote o_ = saveDiscardedCardBelote(a_);
         assertEq(2,o_.getPlace());
@@ -1722,8 +1722,8 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void refreshHandBelote(){
         RefreshHandBelote a_ = new RefreshHandBelote();
-        a_.setPlace((byte) 2);
-        a_.setTakerIndex((byte) 3);
+        a_.setPlace(2);
+        a_.setTakerIndex(3);
         a_.setRefreshedHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
         RefreshHandBelote o_ = saveRefreshHandBelote(a_);
         assertEq(2,o_.getPlace());
@@ -1767,7 +1767,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void biddingTarot1(){
         BiddingTarot a_ = new BiddingTarot();
-        a_.setPlace((byte) 2);
+        a_.setPlace(2);
         a_.setBid(BidTarot.SLAM_TAKE);
         BiddingTarot o_ = saveClientBiddingTarot(a_);
         assertEq(2,o_.getPlace());
@@ -1776,7 +1776,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void biddingTarot2(){
         BiddingTarot a_ = new BiddingTarot();
-        a_.setPlace((byte) 2);
+        a_.setPlace(2);
         a_.setBid(BidTarot.SLAM_TAKE);
         BiddingTarot o_ = saveServerBiddingTarot(a_);
         assertEq(2,o_.getPlace());
@@ -1819,7 +1819,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void discardedCardTarot(){
         DiscardedCardTarot a_ = new DiscardedCardTarot();
-        a_.setPlace((byte) 2);
+        a_.setPlace(2);
         a_.setCard(CardTarot.HEART_1);
         DiscardedCardTarot o_ = saveDiscardedCardTarot(a_);
         assertEq(2,o_.getPlace());
@@ -1828,7 +1828,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void callableCards1(){
         CallableCards a_ = new CallableCards();
-        a_.setTakerIndex((byte) 2);
+        a_.setTakerIndex(2);
         a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
         a_.setDiscarding(false);
         CallableCards o_ = saveCallableCards(a_);
@@ -1840,7 +1840,7 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void callableCards2(){
         CallableCards a_ = new CallableCards();
-        a_.setTakerIndex((byte) 2);
+        a_.setTakerIndex(2);
         a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_1}));
         a_.setDiscarding(true);
         CallableCards o_ = saveCallableCards(a_);
@@ -1898,7 +1898,7 @@ public final class NetTest extends EquallableNetworkUtil {
         AllowPlayingBelote a_ = new AllowPlayingBelote();
         DeclareHandBelote dec_ = new DeclareHandBelote();
         dec_.setDeclare(DeclaresBelote.THIRTY);
-        dec_.setPlayer((byte) 2);
+        dec_.setPlayer(2);
         dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
         a_.setDeclaration(dec_);
         a_.setBelReb(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
@@ -1907,7 +1907,7 @@ public final class NetTest extends EquallableNetworkUtil {
         a_.setAllowedBeloteRebelote(false);
         a_.setPossibleBeloteRebelote(false);
         a_.setFirstRoundPlaying(false);
-        a_.setTakerIndex((byte) 3);
+        a_.setTakerIndex(3);
         AllowPlayingBelote o_ = saveAllowPlayingBelote(a_);
         assertFalse(o_.isAllowedBeloteRebelote());
         assertFalse(o_.isPossibleBeloteRebelote());
@@ -1930,7 +1930,7 @@ public final class NetTest extends EquallableNetworkUtil {
         AllowPlayingBelote a_ = new AllowPlayingBelote();
         DeclareHandBelote dec_ = new DeclareHandBelote();
         dec_.setDeclare(DeclaresBelote.THIRTY);
-        dec_.setPlayer((byte) 2);
+        dec_.setPlayer(2);
         dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_1}));
         a_.setDeclaration(dec_);
         a_.setBelReb(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
@@ -1939,7 +1939,7 @@ public final class NetTest extends EquallableNetworkUtil {
         a_.setAllowedBeloteRebelote(true);
         a_.setPossibleBeloteRebelote(true);
         a_.setFirstRoundPlaying(true);
-        a_.setTakerIndex((byte) 3);
+        a_.setTakerIndex(3);
         AllowPlayingBelote o_ = saveAllowPlayingBelote(a_);
         assertTrue(o_.isAllowedBeloteRebelote());
         assertTrue(o_.isPossibleBeloteRebelote());
@@ -1960,15 +1960,15 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void playingCardBelote1(){
         PlayingCardBelote a_ = new PlayingCardBelote();
-        a_.setPlace((byte) 2);
-        a_.setTakerIndex((byte) 3);
+        a_.setPlace(2);
+        a_.setTakerIndex(3);
         a_.setDeclaring(false);
         a_.setRefreshing(false);
         a_.setDeclaringBeloteRebelote(false);
         a_.setPlayedCard(CardBelote.HEART_1);
         DeclareHandBelote dec_ = new DeclareHandBelote();
         dec_.setDeclare(DeclaresBelote.THIRTY);
-        dec_.setPlayer((byte) 4);
+        dec_.setPlayer(4);
         dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
         a_.setDeclare(dec_);
         PlayingCardBelote o_ = saveClientPlayingBelote(a_);
@@ -1986,15 +1986,15 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void playingCardBelote2(){
         PlayingCardBelote a_ = new PlayingCardBelote();
-        a_.setPlace((byte) 2);
-        a_.setTakerIndex((byte) 3);
+        a_.setPlace(2);
+        a_.setTakerIndex(3);
         a_.setDeclaring(true);
         a_.setRefreshing(true);
         a_.setDeclaringBeloteRebelote(true);
         a_.setPlayedCard(CardBelote.HEART_1);
         DeclareHandBelote dec_ = new DeclareHandBelote();
         dec_.setDeclare(DeclaresBelote.THIRTY);
-        dec_.setPlayer((byte) 4);
+        dec_.setPlayer(4);
         dec_.setHand(HandBelote.create(new CardBelote[]{CardBelote.HEART_10}));
         a_.setDeclare(dec_);
         PlayingCardBelote o_ = saveServerPlayingBelote(a_);
@@ -2040,16 +2040,16 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void playingCardPresident1(){
         PlayingCardPresident a_ = new PlayingCardPresident();
-        a_.setPlace((byte) 2);
-        a_.setNextPlayer((byte) 3);
-        a_.setIndex((byte) 4);
+        a_.setPlace(2);
+        a_.setNextPlayer(3);
+        a_.setIndex(4);
         a_.setRefreshing(false);
         a_.setReversed(false);
         a_.setPass(false);
         a_.setPlayedCard(CardPresident.HEART_1);
         a_.setPlayedHand(HandPresident.create(new CardPresident[]{CardPresident.HEART_10}));
-        ByteMap<Playing> st_ = new ByteMap<Playing>();
-        st_.addEntry((byte)5,Playing.FINISH);
+        IntMap<Playing> st_ = new IntMap<Playing>();
+        st_.addEntry(5,Playing.FINISH);
         a_.setStatus(st_);
         PlayingCardPresident o_ = saveClientPlayingPresident(a_);
         assertFalse(o_.isReversed());
@@ -2068,16 +2068,16 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void playingCardPresident2(){
         PlayingCardPresident a_ = new PlayingCardPresident();
-        a_.setPlace((byte) 2);
-        a_.setNextPlayer((byte) 3);
-        a_.setIndex((byte) 4);
+        a_.setPlace(2);
+        a_.setNextPlayer(3);
+        a_.setIndex(4);
         a_.setRefreshing(true);
         a_.setReversed(true);
         a_.setPass(true);
         a_.setPlayedCard(CardPresident.HEART_1);
         a_.setPlayedHand(HandPresident.create(new CardPresident[]{CardPresident.HEART_10}));
-        ByteMap<Playing> st_ = new ByteMap<Playing>();
-        st_.addEntry((byte)5,Playing.FINISH);
+        IntMap<Playing> st_ = new IntMap<Playing>();
+        st_.addEntry(5,Playing.FINISH);
         a_.setStatus(st_);
         PlayingCardPresident o_ = saveServerPlayingPresident(a_);
         assertTrue(o_.isReversed());
@@ -2101,7 +2101,7 @@ public final class NetTest extends EquallableNetworkUtil {
         a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
         a_.setCurrentBid(BidTarot.SLAM_GUARD);
         a_.setFirstRoundPlaying(false);
-        a_.setTakerIndex((byte) 3);
+        a_.setTakerIndex(3);
         AllowPlayingTarot o_ = saveAllowPlayingTarot(a_);
         assertFalse(o_.isFirstRoundPlaying());
         assertEq(1,o_.getCalledCards().total());
@@ -2121,7 +2121,7 @@ public final class NetTest extends EquallableNetworkUtil {
         a_.setCards(HandTarot.create(new CardTarot[]{CardTarot.HEART_9}));
         a_.setCurrentBid(BidTarot.SLAM_GUARD);
         a_.setFirstRoundPlaying(true);
-        a_.setTakerIndex((byte) 3);
+        a_.setTakerIndex(3);
         AllowPlayingTarot o_ = saveAllowPlayingTarot(a_);
         assertTrue(o_.isFirstRoundPlaying());
         assertEq(1,o_.getCalledCards().total());
@@ -2136,8 +2136,8 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void playingCardTarot1(){
         PlayingCardTarot a_ = new PlayingCardTarot();
-        a_.setPlace((byte) 2);
-        a_.setTakerIndex((byte) 3);
+        a_.setPlace(2);
+        a_.setTakerIndex(3);
         a_.setCalledCard(false);
         a_.setRefreshing(false);
         a_.setFirstRound(false);
@@ -2164,8 +2164,8 @@ public final class NetTest extends EquallableNetworkUtil {
     @Test
     public void playingCardTarot2(){
         PlayingCardTarot a_ = new PlayingCardTarot();
-        a_.setPlace((byte) 2);
-        a_.setTakerIndex((byte) 3);
+        a_.setPlace(2);
+        a_.setTakerIndex(3);
         a_.setCalledCard(true);
         a_.setRefreshing(true);
         a_.setFirstRound(true);
@@ -2196,20 +2196,20 @@ public final class NetTest extends EquallableNetworkUtil {
     public static CustList<Longs> saveLongsList(CustList<Longs> _l) {
         return Net.importLongsList(parse(Net.exportLongsList(_l, Net.SEP_1, Net.SEP_2)),Net.SEP_1, Net.SEP_2);
     }
-    public static Bytes saveBytes(Bytes _l) {
-        return Net.importByteList(parse(Net.exportByteList(_l, Net.SEP_1)),Net.SEP_1);
-    }
+//    public static Bytes saveBytes(Bytes _l) {
+//        return Net.importByteList(parse(Net.exportByteList(_l, Net.SEP_1)),Net.SEP_1);
+//    }
 
-    public static CustList<Bytes> saveBytesList(CustList<Bytes> _l) {
+    public static CustList<Ints> saveBytesList(CustList<Ints> _l) {
         return Net.importByteLists(parse(Net.exportByteLists(_l, Net.SEP_1, Net.SEP_2)),Net.SEP_1, Net.SEP_2);
     }
-    public static Shorts saveShorts(Shorts _l) {
-        return Net.importShortList(parse(Net.exportShortList(_l, Net.SEP_1)),Net.SEP_1);
+    public static Ints saveInts(Ints _l) {
+        return Net.importIntList(parse(Net.exportIntList(_l, Net.SEP_1)),Net.SEP_1);
     }
     public static CustList<BoolVal> saveBools(CustList<BoolVal> _l) {
         return Net.importBoolList(parse(Net.exportBoolList(_l)));
     }
-    public static CustList<Bytes> saveTeams(CustList<Bytes> _l) {
+    public static CustList<Ints> saveTeams(CustList<Ints> _l) {
         return Net.importTeams(parsePref(Net.exportTeams(_l)));
     }
     public static HandBelote saveHandBelote(HandBelote _l) {
@@ -2251,7 +2251,7 @@ public final class NetTest extends EquallableNetworkUtil {
     public static CustList<BidBeloteSuit> saveBidBeloteSuitList(CustList<BidBeloteSuit> _l) {
         return Net.importBidBeloteSuitList(parse(Net.exportBidBeloteSuitList(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
     }
-    public static ByteMap<Playing> savePlayingMap(ByteMap<Playing> _l) {
+    public static IntMap<Playing> savePlayingMap(IntMap<Playing> _l) {
         return Net.importPlayingMap(parse(Net.exportPlayingMap(_l,Net.SEP_1,Net.SEP_2)),Net.SEP_1,Net.SEP_2);
     }
     public static CustList<BidTarot> saveBidTarotList(CustList<BidTarot> _l) {
@@ -2290,10 +2290,10 @@ public final class NetTest extends EquallableNetworkUtil {
     public static IndexOfArrivingCards saveIndexArrive(int _index, int _nbPlayers, NetCommon _common, Games _instance, GameEnum _choice) {
         return Net.importIndexArrive(parseParts(Net.exportIndexArrive(_index, _nbPlayers, _common, _instance, _choice)));
     }
-    public static ChoosenPlace saveClientChoosenPlace(int _index, int _place, AbsMap<Integer,Byte> _map) {
+    public static ChoosenPlace saveClientChoosenPlace(int _index, int _place, AbsMap<Integer,Integer> _map) {
         return Net.importChosenPlace(parseParts(Net.exportClientChosenPlace(_index, _place, _map)));
     }
-    public static ChoosenPlace saveServerChoosenPlace(int _index, int _place, AbsMap<Integer,Byte> _map) {
+    public static ChoosenPlace saveServerChoosenPlace(int _index, int _place, AbsMap<Integer,Integer> _map) {
         return Net.importChosenPlace(parseParts(Net.exportServerChosenPlace(_index, _place, _map)));
     }
     public static RulesBelote saveClientRulesBelote(RulesBelote _rules) {

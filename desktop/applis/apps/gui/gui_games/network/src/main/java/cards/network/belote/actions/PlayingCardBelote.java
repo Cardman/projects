@@ -16,7 +16,7 @@ public final class PlayingCardBelote extends PlayerActionGame {
 
     private boolean refreshing;
 
-    private byte takerIndex;
+    private int takerIndex;
 
     public CardBelote getPlayedCard() {
         return playedCard;
@@ -58,11 +58,11 @@ public final class PlayingCardBelote extends PlayerActionGame {
         this.refreshing = _r;
     }
 
-    public byte getTakerIndex() {
+    public int getTakerIndex() {
         return takerIndex;
     }
 
-    public void setTakerIndex(byte _takerIndex) {
+    public void setTakerIndex(int _takerIndex) {
         takerIndex = _takerIndex;
     }
 }

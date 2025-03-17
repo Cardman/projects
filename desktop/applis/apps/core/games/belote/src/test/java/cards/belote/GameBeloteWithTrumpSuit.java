@@ -5,7 +5,7 @@ import cards.consts.Suit;
 public class GameBeloteWithTrumpSuit extends EquallableBeloteUtil {
 
     void biddingTrumpSuit(GameBelote _game, Suit _suit) {
-        byte playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
+        int playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
         addBids(_game,playerAfterDealer_);
 //        for (byte p: _game.orderedPlayers(playerAfterDealer_)) {
 //            addBid(_game, p);
@@ -19,13 +19,13 @@ public class GameBeloteWithTrumpSuit extends EquallableBeloteUtil {
         assertTrue(_game.getBid().getCouleurDominante());
     }
 
-    private void addBids(GameBelote _game, byte _f) {
+    private void addBids(GameBelote _game, int _f) {
         addBid(_game);
-        byte n_ = _game.playerAfter(_f);
+        int n_ = _game.playerAfter(_f);
         addBid(_game);
-        byte n1_ = _game.playerAfter(n_);
+        int n1_ = _game.playerAfter(n_);
         addBid(_game);
-        byte n2_ = _game.playerAfter(n1_);
+        int n2_ = _game.playerAfter(n1_);
         addBid(_game);
     }
     private void addBid(GameBelote _game) {
@@ -35,7 +35,7 @@ public class GameBeloteWithTrumpSuit extends EquallableBeloteUtil {
     }
 
     void biddingTrumpSuitFirst(GameBelote _game, Suit _suit) {
-        byte playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
+        int playerAfterDealer_ = _game.playerAfter(_game.getDistribution().getDealer());
         BidBeloteSuit contratTmp_ = new BidBeloteSuit();
         contratTmp_.setBid(BidBelote.SUIT);
         contratTmp_.setSuit(_suit);

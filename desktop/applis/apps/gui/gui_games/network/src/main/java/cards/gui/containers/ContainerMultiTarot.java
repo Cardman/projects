@@ -367,7 +367,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     }
 
     public void displayCalling(CallableCards _cards) {
-        byte relative_ = containerMultiContent.relative(_cards.getTakerIndex());
+        int relative_ = containerMultiContent.relative(_cards.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         callableCards = _cards.getCards();
 //        if (callableCards.estVide()) {
@@ -410,7 +410,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //        String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
         //getPanneauBoutonsJeu().validate();
-        byte relative_ = containerMultiContent.relative(_dog.getDiscardPhase().getTakerIndex());
+        int relative_ = containerMultiContent.relative(_dog.getDiscardPhase().getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         cardsInDog = _dog.getDiscardCard();
         callableCards = _dog.getCallableCards();
@@ -547,7 +547,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
             return;
         }
         if (_declaration.getCurrentBid().isFaireTousPlis()) {
-            byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
+            int relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
             getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
             getEvents().append(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex())),RETURN_LINE));
 //            getEvents().append(StringUtil.concat(containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
@@ -605,7 +605,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //        }
 //        getPanneauBoutonsJeu().add(miseres_);
         //getPanneauBoutonsJeu().validate();
-        byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
+        int relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         refreshDiscard(_declaration.getDiscardedTrumps());
         called(_declaration.getCalledCards(),containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex()));
@@ -613,7 +613,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     }
     public void displayPlayedCard(PlayingCardTarot _card) {
         containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
-        byte relative_ = containerMultiContent.relative(_card.getPlace());
+        int relative_ = containerMultiContent.relative(_card.getPlace());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,relative_, _card.getPlayedCard());
         String pseudo_ = containerMultiContent.getPseudoByPlace(_card.getPlace());
@@ -712,7 +712,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     @Override
     public void pauseBetweenTrick() {
 //        String lg_ = getOwner().getLanguageKey();
-        tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),getOwner().getFrames().currentLg(),(byte) containerMultiContent.getNbChoosenPlayers());
+        tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),getOwner().getFrames().currentLg(), containerMultiContent.getNbChoosenPlayers());
         pack();
         //PackingWindowAfter.pack(this, true);
         containerMultiContent.sendPause();
@@ -758,7 +758,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //        StringList list_ = new StringList(nicknames().values());
         WindowNetWork ow_ = containerMultiContent.window();
         DialogTricksTarot.setDialogTricksTarot(file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_TAROT), ow_);
-        DialogTricksTarot.init(_tricks, (byte) containerMultiContent.getNbChoosenPlayers(), nicknames(), getDisplayingTarot(),ow_);
+        DialogTricksTarot.init(_tricks, containerMultiContent.getNbChoosenPlayers(), nicknames(), getDisplayingTarot(),ow_);
     }
     public void showTeams(TeamsPlayers _teams) {
 //        ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
@@ -787,7 +787,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //    public boolean hasCreatedServer() {
 //        return hasCreatedServer;
 //    }
-    private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
+    private void placerIhmTarotMulti(HandTarot _dog, int _beginPlace) {
         getPane().removeAll();
         getContainerMultiContent().window().getMultiStop().setEnabled(false);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -811,7 +811,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         panneau2_.add(events());
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
 //        getEvents().setEditable(false);
-        byte relative_ = containerMultiContent.relative(_beginPlace);
+        int relative_ = containerMultiContent.relative(_beginPlace);
         getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY),list_.get(relative_),RETURN_LINE));
 //        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));
 //        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
@@ -829,8 +829,8 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         getScrollDeclaringHandful().setPreferredSize(new MetaDimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
-        setHandfuls(new ByteMap<AbsPlainLabel>());
-        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        setHandfuls(new IntMap<AbsPlainLabel>());
+        setDeclaredHandfuls(new IntMap<AbsPanel>());
 //        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
         int nbCh_ = containerMultiContent.getNbChoosenPlayers();
 //        AbsPanel declaredHandfuls_ = buildDeclHands(nbCh_,list_, getOwner().getFrames());
@@ -877,7 +877,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     }
 
     private StringList nicknames() {
-        return new StringList(containerMultiContent.nicknames(pseudosTarot((byte) containerMultiContent.getNbChoosenPlayers())).values());
+        return new StringList(containerMultiContent.nicknames(pseudosTarot(containerMultiContent.getNbChoosenPlayers())).values());
     }
 //    private String getPseudoByPlace(byte _place) {
 //        for (int i : playersPlacesForGame.getKeys()) {

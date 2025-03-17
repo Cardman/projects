@@ -74,7 +74,7 @@ public final class DocumentWriterBeloteUtil {
     private static void setBidBeloteSuit(BidBeloteSuit _object, Element _element, Document _document) {
         _element.appendChild(setBidBelote(_object.getBid(),FIELD_BID,_document));
         _element.appendChild(DocumentWriterCardsCommonUtil.setSuit(_object.getSuit(),FIELD_SUIT,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPoints(),FIELD_POINTS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getPoints(),FIELD_POINTS,_document));
     }
 
     private static Element setDealBelote(DealBelote _object, String _fieldName, Document _document) {
@@ -86,7 +86,7 @@ public final class DocumentWriterBeloteUtil {
 
     private static void setDealBelote(DealBelote _object, Element _element, Document _document) {
         _element.appendChild(setListHandBelote(_object.getDeal(),FIELD_DEAL,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getDealer(),FIELD_DEALER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getDealer(),FIELD_DEALER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getNbDeals(),FIELD_NB_DEALS,_document));
     }
 
@@ -100,7 +100,7 @@ public final class DocumentWriterBeloteUtil {
     private static void setDeclareHandBelote(DeclareHandBelote _object, Element _element, Document _document) {
         _element.appendChild(setDeclaresBelote(_object.getDeclare(),FIELD_DECLARE,_document));
         _element.appendChild(setHandBelote(_object.getHand(),FIELD_HAND,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPlayer(),FIELD_PLAYER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPlayer(),FIELD_PLAYER,_document));
     }
 
     public static String setDisplayingBelote(DisplayingBelote _object) {
@@ -148,7 +148,7 @@ public final class DocumentWriterBeloteUtil {
         _element.appendChild(setListTrickBelote(_object.getTricks(),FIELD_TRICKS,_document));
         _element.appendChild(setTrickBelote(_object.getProgressingTrick(),FIELD_PROGRESSING_TRICK,_document));
         _element.appendChild(setListBidBeloteSuit(_object.getBids(),FIELD_BIDS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListShort(_object.getScores(),FIELD_SCORES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getScores(),FIELD_SCORES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getNumber(),FIELD_NUMBER,_document));
         _element.appendChild(setRulesBelote(_object.getRules(),FIELD_RULES,_document));
     }
@@ -217,7 +217,7 @@ public final class DocumentWriterBeloteUtil {
     private static void setTricksHandsBelote(TricksHandsBelote _object, Element _element, Document _document) {
 //        _element.appendChild(setRulesBelote(_object.getRules(),FIELD_RULES,_document));
         _element.appendChild(setDealBelote(_object.getDistribution(),FIELD_DISTRIBUTION,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPreneur(),FIELD_PRENEUR,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getPreneur(),FIELD_PRENEUR,_document));
         _element.appendChild(setBidBeloteSuit(_object.getBid(),FIELD_BID,_document));
         _element.appendChild(setListTrickBelote(_object.getTricks(),FIELD_TRICKS,_document));
         _element.appendChild(setListHandBelote(_object.getCardsHandsAtInitialState(),FIELD_CARDS_HANDS_AT_INITIAL_STATE,_document));

@@ -8,9 +8,9 @@ public final class TarotSumDeclaringPlayer {
 
     private String status;
 
-    private StringMap<Short> handfuls;
+    private StringMap<Long> handfuls;
 
-    private StringMap<Short> miseres;
+    private StringMap<Long> miseres;
 
     private int sum;
 
@@ -30,19 +30,19 @@ public final class TarotSumDeclaringPlayer {
         status = _statut;
     }
 
-    public StringMap<Short> getHandfuls() {
+    public StringMap<Long> getHandfuls() {
         return handfuls;
     }
 
-    public void setHandfuls(StringMap<Short> _handfuls) {
+    public void setHandfuls(StringMap<Long> _handfuls) {
         handfuls = _handfuls;
     }
 
-    public StringMap<Short> getMiseres() {
+    public StringMap<Long> getMiseres() {
         return miseres;
     }
 
-    public void setMiseres(StringMap<Short> _miseres) {
+    public void setMiseres(StringMap<Long> _miseres) {
         miseres = _miseres;
     }
 

@@ -14,11 +14,11 @@ public final class ServerActLoopCardsActedByClientTeams extends ServerActLoopCar
 
     @Override
     protected void loopBelote(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
-        NetGroupFrame.trySendString(Net.exportTeams(Net.getGames(_instance).partieBelote().playersBelongingToSameTeam()), Net.getSocketByPlace((byte) NumberUtil.parseInt(_input.get(0)), _common));
+        NetGroupFrame.trySendString(Net.exportTeams(Net.getGames(_instance).partieBelote().playersBelongingToSameTeam()), Net.getSocketByPlace(NumberUtil.parseInt(_input.get(0)), _common));
     }
 
     @Override
     protected void loopTarot(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
-        NetGroupFrame.trySendString(Net.exportTeams(Net.getGames(_instance).partieTarot().getTeamsRelation().teams()), Net.getSocketByPlace((byte) NumberUtil.parseInt(_input.get(0)), _common));
+        NetGroupFrame.trySendString(Net.exportTeams(Net.getGames(_instance).partieTarot().getTeamsRelation().teams()), Net.getSocketByPlace(NumberUtil.parseInt(_input.get(0)), _common));
     }
 }

@@ -22,7 +22,7 @@ final class GameBeloteDeclaring {
         declares = _declares;
     }
     DeclareHandBelote strategieAnnonces() {
-        byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
+        int next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         IdList<DeclaresBelote> annoncesAutorisees_ = new IdList<DeclaresBelote>();
         for(DeclaresBelote a: teamsRelation.getRules().getAllowedDeclares().getKeys()) {
             if(teamsRelation.getRules().getAllowedDeclares().getVal(a) != BoolVal.TRUE) {
@@ -38,10 +38,10 @@ final class GameBeloteDeclaring {
         CustList<DeclareHandBelote> annoncesLoc_ = new CustList<DeclareHandBelote>(declares);
         DeclareHandBeloteComparator comparateur_ =
                 new DeclareHandBeloteComparator(doneTrickInfo.getBid());
-        Bytes takerTeam_ = teamsRelation.partenaires(teamsRelation.getTaker());
+        Ints takerTeam_ = teamsRelation.partenaires(teamsRelation.getTaker());
         takerTeam_.add(teamsRelation.getTaker());
         CustList<DeclareHandBelote> declarationsTakerTeam_ = filterSort(annoncesLoc_, comparateur_, takerTeam_);
-        Bytes takerFoesTeam_ = teamsRelation.adversaires(teamsRelation.getTaker());
+        Ints takerFoesTeam_ = teamsRelation.adversaires(teamsRelation.getTaker());
         CustList<DeclareHandBelote> declarationsTakerFoesTeam_ = filterSort(annoncesLoc_, comparateur_, takerFoesTeam_);
         //annuler les annonces de l'equipe les plus faibles a la fin du premier tour
         int diff_ = cmp(comparateur_, declarationsTakerTeam_, declarationsTakerFoesTeam_);
@@ -65,15 +65,15 @@ final class GameBeloteDeclaring {
         return _declarationsTakerFoesTeam.size() - _declarationsTakerTeam.size();
     }
 
-    private void cancelDeclaring(Bytes _team) {
-        for (byte p: _team) {
+    private void cancelDeclaring(Ints _team) {
+        for (int p: _team) {
             declares.get(p).setDeclare(DeclaresBelote.UNDEFINED);
         }
     }
 
-    private static CustList<DeclareHandBelote> filterSort(CustList<DeclareHandBelote> _annoncesLoc, DeclareHandBeloteComparator _comparateur, Bytes _team) {
+    private static CustList<DeclareHandBelote> filterSort(CustList<DeclareHandBelote> _annoncesLoc, DeclareHandBeloteComparator _comparateur, Ints _team) {
         CustList<DeclareHandBelote> declarationsTeam_ = new CustList<DeclareHandBelote>();
-        for (byte p: _team) {
+        for (int p: _team) {
             DeclareHandBelote annonceMainBelote_ = _annoncesLoc.get(p);
             if (annonceMainBelote_.getHand().estVide()) {
                 continue;

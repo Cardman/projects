@@ -2,8 +2,8 @@ package cards.president;
 
 import code.threads.AbstractAtomicInteger;
 import code.threads.ConcreteInteger;
-import code.util.Bytes;
 import code.util.CustList;
+import code.util.Ints;
 
 public abstract class AbstractSimulatingPresident implements SimulatingPresident {
     public static final int STATE_ALIVE = 0;
@@ -38,7 +38,7 @@ public abstract class AbstractSimulatingPresident implements SimulatingPresident
     }
 
     @Override
-    public byte displaySwitchedUserHand(GamePresident _g, Bytes _winners, Bytes _loosers, int _noDeal, CustList<HandPresident> _swtichedCards) {
+    public int  displaySwitchedUserHand(GamePresident _g, Ints _winners, Ints _loosers, int _noDeal, CustList<HandPresident> _swtichedCards) {
         return _g.getFirstLeader();
     }
 
@@ -48,12 +48,12 @@ public abstract class AbstractSimulatingPresident implements SimulatingPresident
     }
 
     @Override
-    public byte addCardsToCurrentTrickAndLoop(GamePresident _game, HandPresident _hand, HandPresident _userHand) {
+    public int  addCardsToCurrentTrickAndLoop(GamePresident _game, HandPresident _hand, HandPresident _userHand) {
         return _game.addCardsToCurrentTrickAndLoop(_hand);
     }
 
     @Override
-    public Bytes getNewRanks(GamePresident _g, int _no) {
+    public Ints getNewRanks(GamePresident _g, int _no) {
         return _g.getNewRanks();
     }
 

@@ -9,6 +9,6 @@ import cards.tarot.RulesTarot;
 public final class TarotSampleFirstDealNetFour extends TarotSampleFirstDealNetAbs {
     @Override
     public GameTarot deal(ContainerTarot _container, RulesTarot _rules, long _nb) {
-        return new GameTarot(GameType.RANDOM,new DealTarot(dealFourPlayers(), (byte)3),_rules);
+        return new GameTarot(GameType.RANDOM,new DealTarot(dealFourPlayers(), 3),_rules);
     }
 }

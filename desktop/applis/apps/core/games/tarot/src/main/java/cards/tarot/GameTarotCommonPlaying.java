@@ -42,22 +42,22 @@ public final class GameTarotCommonPlaying {
     }
     TarotInfoPliEnCours initInformations(
             HandTarot _cartes,
-            Bytes _confident, Bytes _notConfident) {
-        byte nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
+            Ints _confident, Ints _notConfident) {
+        int nextPlayer_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         IdMap<Suit,HandTarot> repartition_ = _cartes.couleurs();
-        Bytes joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
+        Ints joueursNonJoue_ = joueursNAyantPasJoue(nextPlayer_);
         CustList<TrickTarot> plisFaits_ = doneTrickInfo.getTricks();
 //        CustList<TrickTarot> plisFaits_ = unionPlis();
         HandTarot cartesJouees_ = doneTrickInfo.cartesJoueesEnCours();
         IdMap<Suit,HandTarot> repartitionCartesJouees_ = cartesJouees_.couleurs();
         boolean carteAppeleeJouee_ = cartesJouees_.contientCartes(doneTrickInfo.getCalledCards());
-        byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
+        int nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = doneTrickInfo.cartesPossibles(_cartes);
         IdMap<Hypothesis,IdMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = hypotheses_
                 .getVal(Hypothesis.SURE);
-        byte ramasseurVirtuel_ = doneTrickInfo.getProgressingTrick().getRamasseur(nombreDeJoueurs_);
+        int ramasseurVirtuel_ = doneTrickInfo.getProgressingTrick().getRamasseur(nombreDeJoueurs_);
         IdMap<Suit,CustList<HandTarot>> suitesTouteCouleur_ = _cartes.eclaterToutEnCours(repartitionCartesJouees_);
 
         boolean maitreAtout_ = GameTarotCommonPlaying.strictMaitreAtout(
@@ -129,10 +129,10 @@ public final class GameTarotCommonPlaying {
         }
         return couleurs_;
     }
-    Bytes joueursNAyantPasJoue(byte _numero) {
-        Bytes joueursNAyantPasJoue_ = new Bytes();
-        byte nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+    Ints joueursNAyantPasJoue(int _numero) {
+        Ints joueursNAyantPasJoue_ = new Ints();
+        int nombreJoueurs_ = teamsRelation.getNombreDeJoueurs();
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
             if (joueur_ != _numero && !doneTrickInfo.getProgressingTrick().aJoue(joueur_, nombreJoueurs_)) {
                 joueursNAyantPasJoue_.add(joueur_);
             }
@@ -145,8 +145,8 @@ public final class GameTarotCommonPlaying {
         cartes_.ajouterCartes(doneTrickInfo.getLastSeenHand());
         return cartes_;
     }
-    boolean appeleConnuDefenseur(byte _joueur, IdMap<Suit, CustList<HandTarot>> _cartesPossibles) {
-        byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
+    boolean appeleConnuDefenseur(int _joueur, IdMap<Suit, CustList<HandTarot>> _cartesPossibles) {
+        int nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         if (doneTrickInfo.getBid().getJeuChien() == PlayingDog.WITH) {
             return teamsRelation.joueursConfiance(_joueur, GameTarotTeamsRelation.tousJoueurs(nombreDeJoueurs_)).size() + 2 + teamsRelation.getCalledPlayers().size() == nombreDeJoueurs_;
         }
@@ -196,7 +196,7 @@ public final class GameTarotCommonPlaying {
     }
     static IdList<Suit> strictCouleursMaitres(
             IdMap<Suit,CustList<HandTarot>> _suites, IdMap<Suit,HandTarot> _cartesJouees,
-            IdMap<Suit,CustList<HandTarot>> _cartesPossibles, byte _numero) {
+            IdMap<Suit,CustList<HandTarot>> _cartesPossibles, int _numero) {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             HandTarot couleurComplete_ = HandTarot.couleurComplete(couleur_);
@@ -211,7 +211,7 @@ public final class GameTarotCommonPlaying {
         return couleurs_;
     }
 
-    private static void addSuit(IdMap<Suit, CustList<HandTarot>> _suites, IdMap<Suit, HandTarot> _cartesJouees, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, byte _numero, IdList<Suit> _couleurs, Suit _couleur) {
+    private static void addSuit(IdMap<Suit, CustList<HandTarot>> _suites, IdMap<Suit, HandTarot> _cartesJouees, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, int _numero, IdList<Suit> _couleurs, Suit _couleur) {
         int max_ = getNbMaxPossPlayerCards(_cartesPossibles, _numero, _couleur);
         boolean existeAtoutMaitre_ = true;
         CardTarot c = _suites.getVal(_couleur).first().premiereCarte();
@@ -232,7 +232,7 @@ public final class GameTarotCommonPlaying {
         }
     }
 
-    private static int getNbMaxPossPlayerCards(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, byte _numero, Suit _couleur) {
+    private static int getNbMaxPossPlayerCards(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, int _numero, Suit _couleur) {
         int max_ = IndexConstants.SIZE_EMPTY;
             /*
             max designe le nombre maximal de cartes probablement
@@ -254,7 +254,7 @@ public final class GameTarotCommonPlaying {
 
     static IdList<Suit> couleursMaitres(
             IdMap<Suit,CustList<HandTarot>> _suites, HandTarot _cartesJouees,
-            IdMap<Suit,CustList<HandTarot>> _cartesPossibles, byte _numero) {
+            IdMap<Suit,CustList<HandTarot>> _cartesPossibles, int _numero) {
         IdMap<Suit,HandTarot> cartesJouees_ = _cartesJouees.couleurs();
         IdList<Suit> couleurs_ = strictCouleursMaitres(_suites,cartesJouees_,_cartesPossibles,_numero);
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
@@ -287,7 +287,7 @@ public final class GameTarotCommonPlaying {
         }
         return couleurs_;
     }
-    byte playerAfter(byte _player) {
+    int playerAfter(int _player) {
         return teamsRelation.getRules().getDealing().getId().getNextPlayer(_player);
     }
     /**
@@ -305,7 +305,7 @@ public final class GameTarotCommonPlaying {
      */
     static boolean strictMaitreAtout(
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
-            byte _numero,
+            int _numero,
             CustList<HandTarot> _suites, HandTarot _cartesJouees) {
         IdMap<Suit,HandTarot> cartesJouees_ = _cartesJouees.couleurs();
         Suit couleurAtout_ = Suit.TRUMP;
@@ -411,7 +411,7 @@ public final class GameTarotCommonPlaying {
     }
 
     static IdList<Suit> coupesFranchesStrictes(
-            CustList<TrickTarot> _plisFaits, IdMap<Suit,HandTarot> _repartitionCouleur, byte _numero) {
+            CustList<TrickTarot> _plisFaits, IdMap<Suit,HandTarot> _repartitionCouleur, int _numero) {
         IdList<Suit> coupesFranchesStrictes_ = new IdList<Suit>();
         for (Suit c: Suit.couleursOrdinaires()) {
             if (!_repartitionCouleur.getVal(c).estVide()) {
@@ -444,7 +444,7 @@ public final class GameTarotCommonPlaying {
                     cards_.ajouterCartes(seqs_.first());
                 }
                 int nbSeqs_ = seqs_.size();
-                for (byte indiceSuite_ = IndexConstants.SECOND_INDEX; indiceSuite_ < nbSeqs_; indiceSuite_++) {
+                for (int indiceSuite_ = IndexConstants.SECOND_INDEX; indiceSuite_ < nbSeqs_; indiceSuite_++) {
                     cards_.ajouterCartes(seqs_.get(indiceSuite_));
                 }
             }
@@ -452,10 +452,10 @@ public final class GameTarotCommonPlaying {
         return cards_;
     }
     static Rate moyenneAtout(HandTarot _main, HandTarot _atoutsJoues,
-                             IdMap<Suit,CustList<HandTarot>> _cartesPossibles, byte _nombreJoueurs) {
+                             IdMap<Suit,CustList<HandTarot>> _cartesPossibles, int _nombreJoueurs) {
         CustList<HandTarot> repartitionAtout_ = _cartesPossibles
                 .getVal(Suit.TRUMP);
-        byte nombreDefausses_ = 0;
+        int nombreDefausses_ = 0;
         for (int i = 0; i < _nombreJoueurs; i++) {
             HandTarot main_ = repartitionAtout_.get(i);
             if (!main_.estVide()) {
@@ -464,8 +464,8 @@ public final class GameTarotCommonPlaying {
             nombreDefausses_++;
         }
         HandTarot atoutsNonJoues_ = new HandTarot();
-        byte nombreJoueursAvecAtout_ = (byte) (_nombreJoueurs
-                - nombreDefausses_ - 1);
+        int nombreJoueursAvecAtout_ = _nombreJoueurs
+                - nombreDefausses_ - 1;
         if (nombreJoueursAvecAtout_ == 0) {
             return Rate.zero();
         }
@@ -498,13 +498,13 @@ public final class GameTarotCommonPlaying {
         }
         return tricksNumbers_;
     }
-    static Bytes ramasseurs(CustList<TrickTarot> _plisFaits) {
-        Bytes ramasseurs_ = new Bytes();
+    static Ints ramasseurs(CustList<TrickTarot> _plisFaits) {
+        Ints ramasseurs_ = new Ints();
         for(TrickTarot pli_: _plisFaits.mid(1)) {
 //            if(!pli_.getVuParToutJoueur()) {
 //                continue;
 //            }
-            byte ramasseur_ = pli_.getRamasseur();
+            int ramasseur_ = pli_.getRamasseur();
             if (!ramasseurs_.containsObj(ramasseur_)) {
                 ramasseurs_.add(ramasseur_);
             }
@@ -512,39 +512,39 @@ public final class GameTarotCommonPlaying {
         return ramasseurs_;
     }
     static IdList<Suit> couleursLesPlusEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Bytes _joueurs, IdList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Ints _joueurs, IdList<Suit> _couleurs) {
         return couleursTrieesPlusEntameesParJoueurs(_plisFaits, _joueurs, _couleurs).first();
     }
 
     private static CustList<IdList<Suit>> couleursTrieesPlusEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Bytes _joueurs, IdList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Ints _joueurs, IdList<Suit> _couleurs) {
         return _couleurs.getGroupsSameCompare(new GameTarotMostDemandedSuitComparator(_plisFaits, _joueurs));
     }
 
     static IdList<Suit> couleursLesMoinsEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Bytes _joueurs, IdList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Ints _joueurs, IdList<Suit> _couleurs) {
         return couleursTrieesPlusEntameesParJoueurs(_plisFaits, _joueurs, _couleurs).last();
     }
 
     static CustList<HandTarot> cartesRelativementMaitreEncours(
             CustList<HandTarot> _suites,
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
-            Bytes _joueursNAyantPasJoue, Suit _couleurJoueur,
+            Ints _joueursNAyantPasJoue, Suit _couleurJoueur,
             Suit _couleurDemandee, IdMap<Suit,CustList<HandTarot>> _cartesCertaines,
             CardTarot _carteForte) {
         if (!Suit.couleursOrdinaires().containsObj(_couleurJoueur) && Suit.couleursOrdinaires().containsObj(_couleurDemandee) ) {
-            byte maxForce_ = maxForceCoupe(_cartesPossibles, _joueursNAyantPasJoue, _couleurJoueur, _couleurDemandee, _cartesCertaines, _carteForte);
+            int maxForce_ = maxForceCoupe(_cartesPossibles, _joueursNAyantPasJoue, _couleurJoueur, _couleurDemandee, _cartesCertaines, _carteForte);
             return filterSeq(_suites, _couleurDemandee, maxForce_);
         } else {
-            byte maxForce_ = maxForceFournnir(_cartesPossibles, _joueursNAyantPasJoue, _couleurJoueur, _couleurDemandee, _carteForte);
+            int maxForce_ = maxForceFournnir(_cartesPossibles, _joueursNAyantPasJoue, _couleurJoueur, _couleurDemandee, _carteForte);
             return filterSeq(_suites, _couleurDemandee, maxForce_);
         }
     }
 
-    private static byte maxForceFournnir(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _joueursNAyantPasJoue, Suit _couleurJoueur, Suit _couleurDemandee, CardTarot _carteForte) {
-        byte maxForce_ = 0;
+    private static int maxForceFournnir(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Ints _joueursNAyantPasJoue, Suit _couleurJoueur, Suit _couleurDemandee, CardTarot _carteForte) {
+        int maxForce_ = 0;
         /* Pour fournir a une demande couleur ordinaire ou a une demande atout */
-        for (byte joueur_ : _joueursNAyantPasJoue) {
+        for (int joueur_ : _joueursNAyantPasJoue) {
             if(_cartesPossibles.getVal(_couleurJoueur).get(joueur_).estVide()) {
                 //joueur ne fournit pas
                 continue;
@@ -555,14 +555,14 @@ public final class GameTarotCommonPlaying {
                         .get(joueur_).premiereCarte().strength(_couleurDemandee);
             }
         }
-        maxForce_ = (byte) NumberUtil.max(maxForce_, _carteForte.strength(_couleurDemandee));
+        maxForce_ = NumberUtil.max(maxForce_, _carteForte.strength(_couleurDemandee));
         return maxForce_;
     }
 
-    private static byte maxForceCoupe(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _joueursNAyantPasJoue, Suit _couleurJoueur, Suit _couleurDemandee, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, CardTarot _carteForte) {
-        byte maxForce_ = 0;
+    private static int maxForceCoupe(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Ints _joueursNAyantPasJoue, Suit _couleurJoueur, Suit _couleurDemandee, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, CardTarot _carteForte) {
+        int maxForce_ = 0;
         /* Pour une coupe */
-        for (byte joueur_ : _joueursNAyantPasJoue) {
+        for (int joueur_ : _joueursNAyantPasJoue) {
             if (_cartesPossibles.getVal(_couleurJoueur).get(joueur_).estVide() || !_cartesCertaines.getVal(_couleurDemandee).get(joueur_)
                     .estVide()) {
                 continue;
@@ -576,12 +576,12 @@ public final class GameTarotCommonPlaying {
             }
         }
         if (_carteForte.getId().getCouleur() == Suit.TRUMP) {
-            maxForce_ = (byte) NumberUtil.max(maxForce_, _carteForte.strength(_couleurDemandee));
+            maxForce_ = NumberUtil.max(maxForce_, _carteForte.strength(_couleurDemandee));
         }
         return maxForce_;
     }
 
-    private static CustList<HandTarot> filterSeq(CustList<HandTarot> _suites, Suit _couleurDemandee, byte _maxForce) {
+    private static CustList<HandTarot> filterSeq(CustList<HandTarot> _suites, Suit _couleurDemandee, int _maxForce) {
         CustList<HandTarot> suitesBis_ = new CustList<HandTarot>();
         for (HandTarot suite_ : _suites) {
             if (suite_.premiereCarte().strength(_couleurDemandee) <= _maxForce) {

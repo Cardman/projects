@@ -20,7 +20,7 @@ public final class ServerActLoopCardsActedByClientTricks extends ServerActLoopCa
     protected void loopBelote(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         TricksHandsBelote tricksHands_ = new TricksHandsBelote();
         tricksHands_.tricks(Net.getGames(_instance).partieBelote());
-        NetGroupFrame.trySendString(Net.exportTricksHandsBelote(tricksHands_), Net.getSocketByPlace((byte) NumberUtil.parseInt(_input.get(0)), _common));
+        NetGroupFrame.trySendString(Net.exportTricksHandsBelote(tricksHands_), Net.getSocketByPlace(NumberUtil.parseInt(_input.get(0)), _common));
     }
 
     @Override
@@ -34,13 +34,13 @@ public final class ServerActLoopCardsActedByClientTricks extends ServerActLoopCa
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         tricksHands_.setDistributionCopy(game_.getDeal());
-        NetGroupFrame.trySendString(Net.exportTricksHandsPresident(tricksHands_), Net.getSocketByPlace((byte) NumberUtil.parseInt(_input.get(0)), _common));
+        NetGroupFrame.trySendString(Net.exportTricksHandsPresident(tricksHands_), Net.getSocketByPlace(NumberUtil.parseInt(_input.get(0)), _common));
     }
 
     @Override
     protected void loopTarot(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         TricksHandsTarot tricksHands_ = new TricksHandsTarot();
         tricksHands_.tricks(Net.getGames(_instance).partieTarot());
-        NetGroupFrame.trySendString(Net.exportTricksHandsTarot(tricksHands_), Net.getSocketByPlace((byte) NumberUtil.parseInt(_input.get(0)), _common));
+        NetGroupFrame.trySendString(Net.exportTricksHandsTarot(tricksHands_), Net.getSocketByPlace(NumberUtil.parseInt(_input.get(0)), _common));
     }
 }

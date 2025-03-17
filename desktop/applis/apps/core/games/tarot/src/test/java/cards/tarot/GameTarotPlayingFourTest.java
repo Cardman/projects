@@ -15,9 +15,9 @@ public final class GameTarotPlayingFourTest extends CommonTarotGame {
     @Test
     public void playableCards_beginningTrickWithConstraint1Test() {
         RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(2), regles_);
         //game.resetNbPlisTotal();
-        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        biddingSix(BidTarot.GUARD_AGAINST, 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -34,9 +34,9 @@ public final class GameTarotPlayingFourTest extends CommonTarotGame {
     @Test
     public void playableCards_beginningFreeSecondTrickWithoutCall2Test() {
         RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(2), regles_);
         //game.resetNbPlisTotal();
-        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        biddingSix(BidTarot.GUARD_AGAINST, 4, game_);
         HandTarot cartesAppeler_ = new HandTarot();
         cartesAppeler_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(cartesAppeler_);
@@ -58,7 +58,7 @@ public final class GameTarotPlayingFourTest extends CommonTarotGame {
         assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
     }
 
-    static DealTarot initializeHands(byte _dealer) {
+    static DealTarot initializeHands(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.DIAMOND_KING);

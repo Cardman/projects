@@ -9,7 +9,7 @@ public final class MockGamePresidentTest extends EquallableCardsMockUtil {
         MockGamePresident m_ = new MockGamePresident();
         m_.getSw().add(new HandPresident());
         assertEq(0,m_.currentSwitch().total());
-        assertEq(0,m_.strategieEchange(null,(byte)0).total());
+        assertEq(0,m_.strategieEchange(null,0).total());
     }
     @Test
     public void bids2() {

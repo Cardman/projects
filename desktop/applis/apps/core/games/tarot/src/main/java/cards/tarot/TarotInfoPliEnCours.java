@@ -7,7 +7,7 @@ import code.util.*;
 
 public final class TarotInfoPliEnCours {
 
-    private Bytes joueursNonJoue;
+    private Ints joueursNonJoue;
     private CustList<TrickTarot> plisFaits;
     private TrickTarot progressingTrick;
     private HandTarot cartesJouees;
@@ -15,7 +15,7 @@ public final class TarotInfoPliEnCours {
     private boolean carteAppeleeJouee;
     private IdMap<Suit,CustList<HandTarot>> cartesPossibles;
     private IdMap<Suit,CustList<HandTarot>> cartesCertaines;
-    private byte ramasseurVirtuel;
+    private int ramasseurVirtuel;
     private IdMap<Suit,CustList<HandTarot>> suitesTouteCouleur;
     private boolean maitreAtout;
     private IdList<Suit> couleursMaitresses;
@@ -23,28 +23,28 @@ public final class TarotInfoPliEnCours {
     private boolean maitreJeu;
     private IdList<Suit> coupesFranches;
     private IdList<Suit> calledSuits;
-    private byte nbPlayers;
-    private byte currentPlayer;
-    private byte taker;
-    private Bytes joueursConfiance;
-    private Bytes joueursNonConfiance;
+    private int nbPlayers;
+    private int currentPlayer;
+    private int taker;
+    private Ints joueursConfiance;
+    private Ints joueursNonConfiance;
 
     TarotInfoPliEnCours() {
     }
 
-    public byte getCurrentPlayer() {
+    public int getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(byte _currentPlayer) {
+    public void setCurrentPlayer(int _currentPlayer) {
         currentPlayer = _currentPlayer;
     }
 
-    public Bytes getJoueursNonJoue() {
+    public Ints getJoueursNonJoue() {
         return joueursNonJoue;
     }
 
-    public void setJoueursNonJoue(Bytes _joueursNonJoue) {
+    public void setJoueursNonJoue(Ints _joueursNonJoue) {
         joueursNonJoue = _joueursNonJoue;
     }
 
@@ -104,11 +104,11 @@ public final class TarotInfoPliEnCours {
         cartesCertaines = _cartesCertaines;
     }
 
-    public byte getRamasseurVirtuel() {
+    public int getRamasseurVirtuel() {
         return ramasseurVirtuel;
     }
 
-    public void setRamasseurVirtuel(byte _ramasseurVirtuel) {
+    public void setRamasseurVirtuel(int _ramasseurVirtuel) {
         ramasseurVirtuel = _ramasseurVirtuel;
     }
 
@@ -168,35 +168,35 @@ public final class TarotInfoPliEnCours {
         calledSuits = _calledSuits;
     }
 
-    public byte getNbPlayers() {
+    public int getNbPlayers() {
         return nbPlayers;
     }
 
-    public void setNbPlayers(byte _nbPlayers) {
+    public void setNbPlayers(int _nbPlayers) {
         nbPlayers = _nbPlayers;
     }
 
-    public byte getTaker() {
+    public int getTaker() {
         return taker;
     }
 
-    public void setTaker(byte _taker) {
+    public void setTaker(int _taker) {
         taker = _taker;
     }
 
-    public Bytes getJoueursConfiance() {
+    public Ints getJoueursConfiance() {
         return joueursConfiance;
     }
 
-    public void setJoueursConfiance(Bytes _joueursConfiance) {
+    public void setJoueursConfiance(Ints _joueursConfiance) {
         joueursConfiance = _joueursConfiance;
     }
 
-    public Bytes getJoueursNonConfiance() {
+    public Ints getJoueursNonConfiance() {
         return joueursNonConfiance;
     }
 
-    public void setJoueursNonConfiance(Bytes _joueursNonConfiance) {
+    public void setJoueursNonConfiance(Ints _joueursNonConfiance) {
         joueursNonConfiance = _joueursNonConfiance;
     }
 }

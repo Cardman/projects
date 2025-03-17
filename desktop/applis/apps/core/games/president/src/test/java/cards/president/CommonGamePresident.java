@@ -10,7 +10,7 @@ public abstract class CommonGamePresident extends EquallablePresidentUtil {
     }
     protected static GamePresidentProg newGamePresidentProg(GamePresident _g) {
         int count_ = _g.getProgressingTrick().total();
-        byte player_ = _g.getProgressingTrick().getPlayer(count_, _g.getNombreDeJoueurs());
+        int player_ = _g.getProgressingTrick().getPlayer(count_, _g.getNombreDeJoueurs());
         HandPresident fullHand_ = _g.getDeal().hand(player_);
         HandPresident playable_ = _g.cartesJouables();
         return new GamePresidentProg(_g.getProgressingTrick(),_g.getTricks(),_g.isReversed(),_g.getRules(),playable_,fullHand_);
@@ -18,8 +18,8 @@ public abstract class CommonGamePresident extends EquallablePresidentUtil {
 
     protected static GamePresident newGamePresident(RulesPresident _r,
             CustList<HandPresident> _l, CustList<TrickPresident> _trs, TrickPresident _cur, int _dealer) {
-        DealPresident deal_ = new DealPresident(_l, (byte) _dealer);
-        GamePresident g_ = new GamePresident(GameType.EDIT,deal_,_r,new Bytes());
+        DealPresident deal_ = new DealPresident(_l, _dealer);
+        GamePresident g_ = new GamePresident(GameType.EDIT,deal_,_r,new Ints());
         g_.setProgressingTrick(_cur);
         g_.setTricks(_trs);
         g_.loadGame();

@@ -16,40 +16,40 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
     public void neFournitPas1Test() {
         RulesBelote r_ = new RulesBelote();
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        byte d_ = 2;
+        int d_ = 2;
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
         t_.ajouter(CardBelote.DIAMOND_KING);
         t_.ajouter(CardBelote.DIAMOND_10);
         t_.ajouter(CardBelote.DIAMOND_QUEEN);
         trs_.add(t_);
-        assertTrue(!GameBeloteTrickInfo.neFournitPas(Suit.DIAMOND, (byte) 3,trs_));
+        assertTrue(!GameBeloteTrickInfo.neFournitPas(Suit.DIAMOND, 3,trs_));
     }
     @Test
     public void neFournitPas2Test() {
         RulesBelote r_ = new RulesBelote();
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        byte d_ = 2;
+        int d_ = 2;
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
         t_.ajouter(CardBelote.DIAMOND_KING);
         t_.ajouter(CardBelote.DIAMOND_10);
         t_.ajouter(CardBelote.DIAMOND_QUEEN);
         trs_.add(t_);
-        assertTrue(!GameBeloteTrickInfo.neFournitPas(Suit.HEART, (byte) 3,trs_));
+        assertTrue(!GameBeloteTrickInfo.neFournitPas(Suit.HEART, 3,trs_));
     }
     @Test
     public void neFournitPas3Test() {
         RulesBelote r_ = new RulesBelote();
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        byte d_ = 2;
+        int d_ = 2;
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.DIAMOND_10);
         t_.ajouter(CardBelote.DIAMOND_QUEEN);
         trs_.add(t_);
-        assertTrue(GameBeloteTrickInfo.neFournitPas(Suit.DIAMOND, (byte) 0,trs_));
+        assertTrue(GameBeloteTrickInfo.neFournitPas(Suit.DIAMOND, 0,trs_));
     }
     @Test
     public void defausseBelote1Test() {
@@ -61,12 +61,12 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 1,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 1,trs_));
     }
     @Test
     public void defausseBelote2Test() {
@@ -78,7 +78,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -89,7 +89,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 1,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 1,trs_));
     }
     @Test
     public void defausseBelote3Test() {
@@ -101,7 +101,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -112,7 +112,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.DIAMOND, (byte) 0,trs_));
+        assertTrue(info_.defausseBelote(Suit.DIAMOND, 0,trs_));
     }
     @Test
     public void defausseBelote4Test() {
@@ -124,7 +124,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -141,7 +141,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.DIAMOND, (byte) 0,trs_));
+        assertTrue(info_.defausseBelote(Suit.DIAMOND, 0,trs_));
     }
     @Test
     public void defausseBelote5Test() {
@@ -153,7 +153,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -164,7 +164,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 0,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 0,trs_));
     }
     @Test
     public void defausseBelote6Test() {
@@ -176,7 +176,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -193,7 +193,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 0,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 0,trs_));
     }
     @Test
     public void defausseBelote7Test() {
@@ -205,7 +205,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -222,7 +222,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote8Test() {
@@ -234,7 +234,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.SPADE_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -251,7 +251,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote9Test() {
@@ -263,7 +263,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -280,7 +280,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote10Test() {
@@ -293,7 +293,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -310,7 +310,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote11Test() {
@@ -323,7 +323,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -340,7 +340,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote12Test() {
@@ -352,7 +352,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -369,7 +369,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote13Test() {
@@ -382,7 +382,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -399,7 +399,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote14Test() {
@@ -411,7 +411,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -428,7 +428,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote15Test() {
@@ -441,7 +441,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -458,7 +458,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote16Test() {
@@ -471,7 +471,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -488,7 +488,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote17Test() {
@@ -501,7 +501,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -518,7 +518,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote18Test() {
@@ -531,7 +531,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -548,7 +548,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote19Test() {
@@ -561,7 +561,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -578,7 +578,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.DIAMOND, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.DIAMOND, 2,trs_));
     }
     @Test
     public void defausseBelote20Test() {
@@ -590,7 +590,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -607,7 +607,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.HEART, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.HEART, 2,trs_));
     }
     @Test
     public void defausseBelote21Test() {
@@ -621,7 +621,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -638,7 +638,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.HEART, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.HEART, 2,trs_));
     }
     @Test
     public void defausseBelote22Test() {
@@ -652,7 +652,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_JACK);
@@ -669,7 +669,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(info_.defausseBelote(Suit.HEART, (byte) 2,trs_));
+        assertTrue(info_.defausseBelote(Suit.HEART, 2,trs_));
     }
     @Test
     public void defausseBelote23Test() {
@@ -681,7 +681,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -698,7 +698,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.CLUB, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.CLUB, 2,trs_));
     }
     @Test
     public void defausseBelote24Test() {
@@ -711,7 +711,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -728,7 +728,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         TrickBelote pr_ = new TrickBelote(t_.getRamasseur(b_));
         GameBelote game_ = newGameBelote(r_, trs_, pr_, d_, bids_, last_);
         GameBeloteTrickInfo info_ = newGameBeloteTrickInfo(game_);
-        assertTrue(!info_.defausseBelote(Suit.CLUB, (byte) 2,trs_));
+        assertTrue(!info_.defausseBelote(Suit.CLUB, 2,trs_));
     }
     @Test
     public void atoutsPossiblesRegles1Test() {
@@ -749,7 +749,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -811,7 +811,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -878,7 +878,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -940,7 +940,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1007,7 +1007,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1067,7 +1067,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1127,7 +1127,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1191,7 +1191,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1255,7 +1255,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1316,7 +1316,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1378,7 +1378,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1443,7 +1443,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1508,7 +1508,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1568,7 +1568,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1632,7 +1632,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1694,7 +1694,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1757,7 +1757,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1819,7 +1819,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1881,7 +1881,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -1944,7 +1944,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2006,7 +2006,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2067,7 +2067,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2129,7 +2129,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2190,7 +2190,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2248,7 +2248,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2304,7 +2304,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2360,7 +2360,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_JACK);
@@ -2412,7 +2412,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_7);
@@ -2464,7 +2464,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_7);
@@ -2513,7 +2513,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_7);
@@ -2562,7 +2562,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_7);
@@ -2613,7 +2613,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_7);
@@ -2669,7 +2669,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2697,7 +2697,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
         poss_.ajouter(CardBelote.HEART_7);
-        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), (byte) 1, poss_);
+        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), 1, poss_);
         assertEq(1, filter_.total());
         assertTrue(filter_.contient(CardBelote.HEART_1));
     }
@@ -2719,7 +2719,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2747,7 +2747,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
         poss_.ajouter(CardBelote.HEART_7);
-        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), (byte) 2, poss_);
+        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), 2, poss_);
         assertEq(4, filter_.total());
         assertTrue(filter_.contient(CardBelote.HEART_1));
         assertTrue(filter_.contient(CardBelote.HEART_KING));
@@ -2772,7 +2772,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2800,7 +2800,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.HEART_KING);
         poss_.ajouter(CardBelote.HEART_QUEEN);
         poss_.ajouter(CardBelote.HEART_7);
-        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), (byte) 0, poss_);
+        HandBelote filter_ = info_.sousCoupeBelote(game_.couleurAtout(), 0, poss_);
         assertEq(4, filter_.total());
         assertTrue(filter_.contient(CardBelote.HEART_1));
         assertTrue(filter_.contient(CardBelote.HEART_KING));
@@ -2826,7 +2826,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2888,7 +2888,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -2955,7 +2955,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3017,7 +3017,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3084,7 +3084,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3144,7 +3144,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3204,7 +3204,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3268,7 +3268,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3332,7 +3332,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3393,7 +3393,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3455,7 +3455,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3520,7 +3520,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3585,7 +3585,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3645,7 +3645,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3709,7 +3709,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3771,7 +3771,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3834,7 +3834,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3896,7 +3896,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -3958,7 +3958,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4021,7 +4021,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4083,7 +4083,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4144,7 +4144,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4206,7 +4206,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4264,7 +4264,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4320,7 +4320,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4374,7 +4374,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4429,7 +4429,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_JACK);
@@ -4481,7 +4481,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_7);
@@ -4534,7 +4534,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_7);
@@ -4583,7 +4583,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_7);
@@ -4632,7 +4632,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_7);
@@ -4683,7 +4683,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.HEART_7);
@@ -4740,7 +4740,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4792,7 +4792,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -4848,7 +4848,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -4902,7 +4902,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -4958,7 +4958,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -5015,7 +5015,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         HandBelote last_ = new HandBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -5066,7 +5066,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5088,7 +5088,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, (byte)2, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, 2, poss_);
         assertEq(1, filter_.total());
         assertTrue(filter_.contient(CardBelote.DIAMOND_10));
     }
@@ -5111,7 +5111,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5133,7 +5133,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, (byte)1, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, 1, poss_);
         assertEq(3, filter_.total());
         assertTrue(filter_.contient(CardBelote.DIAMOND_10));
         assertTrue(filter_.contient(CardBelote.DIAMOND_JACK));
@@ -5158,7 +5158,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5180,7 +5180,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.DIAMOND_10);
         poss_.ajouter(CardBelote.DIAMOND_JACK);
         poss_.ajouter(CardBelote.DIAMOND_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, (byte)2, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.DIAMOND, 2, poss_);
         assertEq(3, filter_.total());
         assertTrue(filter_.contient(CardBelote.DIAMOND_10));
         assertTrue(filter_.contient(CardBelote.DIAMOND_JACK));
@@ -5205,7 +5205,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5227,7 +5227,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         poss_.ajouter(CardBelote.CLUB_10);
         poss_.ajouter(CardBelote.CLUB_JACK);
         poss_.ajouter(CardBelote.CLUB_9);
-        HandBelote filter_ = info_.joueCartePoint(Suit.CLUB, (byte)2, poss_);
+        HandBelote filter_ = info_.joueCartePoint(Suit.CLUB, 2, poss_);
         assertEq(3, filter_.total());
         assertTrue(filter_.contient(CardBelote.CLUB_10));
         assertTrue(filter_.contient(CardBelote.CLUB_JACK));
@@ -5253,7 +5253,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5305,7 +5305,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -5361,7 +5361,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -5414,7 +5414,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5469,7 +5469,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -5525,7 +5525,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote pr_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         pr_.ajouter(CardBelote.DIAMOND_1);
@@ -5663,7 +5663,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.CLUB_10);
         curHand_.ajouter(CardBelote.HEART_7);
         curHand_.ajouter(CardBelote.SPADE_KING);
-        DealBelote deal_ = new DealBelote(new CustList<HandBelote>(), (byte) 2);
+        DealBelote deal_ = new DealBelote(new CustList<HandBelote>(), 2);
         deal_.getDeal().add(create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.SPADE_9,CardBelote.DIAMOND_KING));
         deal_.getDeal().add(create(CardBelote.HEART_7,CardBelote.SPADE_KING,CardBelote.DIAMOND_1,CardBelote.DIAMOND_10,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.CLUB_10));
         deal_.getDeal().add(create(CardBelote.HEART_9,CardBelote.HEART_1,CardBelote.HEART_10,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_8,CardBelote.DIAMOND_7,CardBelote.CLUB_1));
@@ -5707,7 +5707,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         curHand_.ajouter(CardBelote.CLUB_KING);
         curHand_.ajouter(CardBelote.CLUB_10);
         curHand_.ajouter(CardBelote.SPADE_KING);
-        DealBelote deal_ = new DealBelote(new CustList<HandBelote>(), (byte) 2);
+        DealBelote deal_ = new DealBelote(new CustList<HandBelote>(), 2);
         deal_.getDeal().add(create(CardBelote.SPADE_KING,CardBelote.DIAMOND_10,CardBelote.DIAMOND_JACK,CardBelote.DIAMOND_9,CardBelote.DIAMOND_8,CardBelote.CLUB_10,CardBelote.CLUB_KING));
         deal_.getDeal().add(create(CardBelote.SPADE_1,CardBelote.SPADE_10,CardBelote.SPADE_QUEEN,CardBelote.SPADE_JACK,CardBelote.DIAMOND_1,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN));
         deal_.getDeal().add(create(CardBelote.DIAMOND_7,CardBelote.CLUB_1,CardBelote.CLUB_QUEEN,CardBelote.CLUB_JACK,CardBelote.CLUB_9,CardBelote.CLUB_8,CardBelote.CLUB_7));
@@ -5744,7 +5744,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5785,7 +5785,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_1);
@@ -5826,7 +5826,7 @@ public final class GameBeloteTrickInfoTest extends CommonGameBelote {
         bids_.add(b_);
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
         TrickBelote t_ = new TrickBelote(r_.getDealing().getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.DIAMOND_JACK);

@@ -42,11 +42,11 @@ public final class HandTarotResult {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
             return new HandTarotResult(ReasonPlayTarot.TR_TRICK,cartesJouables_);
         }
-        byte nombreDeJoueurs_ = (byte) _nbPlayers.getDealing().getId().getNombreJoueurs();
-        byte ramasseurVirtuel_ = _progressingTrick.getRamasseur(nombreDeJoueurs_);
+        int nombreDeJoueurs_ = _nbPlayers.getDealing().getId().getNombreJoueurs();
+        int ramasseurVirtuel_ = _progressingTrick.getRamasseur(nombreDeJoueurs_);
         CardTarot carteForte_ = _progressingTrick.carteDuJoueur(
                 ramasseurVirtuel_, nombreDeJoueurs_);
-        byte valeurForte_ = carteForte_.strength(couleurDemandee_);
+        int valeurForte_ = carteForte_.strength(couleurDemandee_);
         if (_repartitionMain.getVal(Suit.TRUMP).premiereCarte().strength(couleurDemandee_) < valeurForte_) {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
             return new HandTarotResult(ReasonPlayTarot.UNDER_TR_TRICK,cartesJouables_);
@@ -55,7 +55,7 @@ public final class HandTarotResult {
             cartesJouables_.ajouterCartes(_repartitionMain.getVal(Suit.TRUMP));
             return new HandTarotResult(ReasonPlayTarot.OVER_TR_TRICK,cartesJouables_);
         }
-        byte indiceCarte_ = IndexConstants.FIRST_INDEX;
+        int indiceCarte_ = IndexConstants.FIRST_INDEX;
         HandTarot trumps_ = _repartitionMain.getVal(Suit.TRUMP);
         while (trumps_.carte(indiceCarte_)
                 .strength(couleurDemandee_) > valeurForte_) {

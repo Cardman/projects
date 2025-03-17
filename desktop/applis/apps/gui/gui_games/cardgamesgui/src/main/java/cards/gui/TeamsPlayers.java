@@ -5,13 +5,13 @@ import code.util.*;
 
 public final class TeamsPlayers {
 
-    private CustList<Bytes> teams;
+    private CustList<Ints> teams;
 
-    public CustList<Bytes> getTeams() {
+    public CustList<Ints> getTeams() {
         return teams;
     }
 
-    public void setTeams(CustList<Bytes> _teams) {
+    public void setTeams(CustList<Ints> _teams) {
         teams = _teams;
     }
 }

@@ -34,19 +34,19 @@ public final class Nicknames {
         String player_ = StringUtil.nullToEmpty(_nickname);
         int nBots_ = 4;
         nBots_--;
-        for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
+        for(int b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
             pseudosBelote.add(StringUtil.simpleNumberFormat(player_, b));
         }
         int maxJoueurs_ = DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getId().getNombreJoueurs();
         nBots_ = maxJoueurs_;
         nBots_--;
-        for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
+        for(int b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
             pseudosTarot.add(StringUtil.simpleNumberFormat(player_, b));
         }
         maxJoueurs_=RulesPresident.getNbMaxPlayers();
         nBots_ = maxJoueurs_;
         nBots_--;
-        for(byte b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
+        for(int b = IndexConstants.FIRST_INDEX; b<nBots_; b++){
             pseudosPresident.add(StringUtil.simpleNumberFormat(player_, b));
         }
     }

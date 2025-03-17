@@ -178,7 +178,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     @Override
-    public void discard(byte _index) {
+    public void discard(int _index) {
         super.discard(_index);
         updateCardsInPanelPresidentDiscard(this);
         updateDiscarding();
@@ -186,7 +186,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     @Override
-    public void cancelDiscard(byte _index) {
+    public void cancelDiscard(int _index) {
         super.cancelDiscard(_index);
         updateCardsInPanelPresidentDiscard(this);
         updateDiscarding();
@@ -377,7 +377,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         game_.initCartesEchanges();
         game_.donnerMeilleuresCartes();
         if (game_.availableSwitchingCards()) {
-            Bytes w_ = game_.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+            Ints w_ = game_.getWinners(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
             if (!w_.isEmpty()) {
                 game_.giveWorstCards(getOwner().baseWindow().getIa().getPresident(), w_);
                 discardPhase();
@@ -425,7 +425,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             getPar().jouerPresident(getOwner().baseWindow().getFirstDealPresident().deal(this, getReglesPresident(),nb_));
         } else {
             GamePresident partie_=partiePresident();
-            Bytes newRanks_ = partie_.getNewRanks();
+            Ints newRanks_ = partie_.getNewRanks();
             DealPresident donne_=getOwner().baseWindow().getIa().getPresident().empiler(nb_,partie_,getOwner().getGenerator());
             getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_, partie_.getRules(), newRanks_));
         }
@@ -482,7 +482,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         processUserActions(partie_.noPlay(getOwner().baseWindow().getIa().getPresident()));
     }
 
-    public void finPliPresident(CardPresident _carteJouee, byte _index) {
+    public void finPliPresident(CardPresident _carteJouee, int _index) {
         GamePresident partie_=partiePresident();
         /*L'utilisateur joue sa carte*/
         processUserActions(partie_.addCardsToCurrentTrick(getOwner().baseWindow().getIa().getPresident(), _carteJouee, _index));
@@ -544,7 +544,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (partie_.getType() == GameType.RANDOM && isChangerPileFin()) {
             changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDeal().getNbDeals(), getOwner().getFrames(), partie_.getRules().getNbStacks());
         }
-        byte nombreJoueurs_=partie_.getNombreDeJoueurs();
+        int nombreJoueurs_=partie_.getNombreDeJoueurs();
 
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(partie_);
@@ -686,7 +686,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         _panel.removeAll();
         int str_ = 0;
         int iter_ = IndexConstants.FIRST_INDEX;
-        byte index_ = IndexConstants.SECOND_INDEX;
+        int index_ = IndexConstants.SECOND_INDEX;
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GamePresident gamePresident_ = partiePresident();
         HandPresident playable_;
@@ -769,7 +769,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         GamePresident g_ = partiePresident();
         win.getDialogHelpPresident().setTitleDialog(win, StringUtil.concat(file().getVal(MessagesGuiCards.MAIN_HELP_GAME),SPACE,GameEnum.PRESIDENT.toString(lg_)));
-        AbsBasicTreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
+        AbsBasicTreeMap<CardPresident, Integer> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
         int nbStacks_ = g_.getRules().getNbStacks();
         win.getModal().set(true);
@@ -799,7 +799,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void keepPlayingEdited() {
         GamePresident partie_=partiePresident();
 //        HandPresident main_=getOwner().baseWindow().getIa().getPresident().empiler(partie_);
-        Bytes newRanks_ = partie_.getNewRanks();
+        Ints newRanks_ = partie_.getNewRanks();
         DealPresident donne_=getOwner().baseWindow().getIa().getPresident().empiler(0L,partie_,getOwner().getGenerator());
 //        DealPresident donne_=new DealPresident(0L,main_);
 //        donne_.donneurSuivant(partie_.getDeal().getDealer(), partie_.getRules());

@@ -449,7 +449,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private AbsMenuItem gameSave;
     private final WindowCardsCore netg;
 //    private boolean savedGame;
-    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private int indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean cards;
     private final LanguagesButtonsPair buttonClick;
     private final AbstractAtomicBoolean modal;
@@ -821,7 +821,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             int i_ = getSockets().getSockets().size() - 1;
             getSockets().getConnectionsServer().put(i_,sendReceiveServer_);
             getSockets().getReadyPlayers().put(i_, BoolVal.FALSE);
-            getSockets().getPlacesPlayers().put(i_,(byte) (i_));
+            getSockets().getPlacesPlayers().put(i_, i_);
             trySendString(NetAiki.exportIndexArrive(i_),_newSocket);
             return;
         }
@@ -864,7 +864,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        index_.setPlacesPlayers(getSockets().getPlacesPlayers());
 //        index_.setReadyPlayers(new IntMap<BoolVal>(getSockets().getReadyPlayers()));
         getSockets().getReadyPlayers().put(nb_ , BoolVal.FALSE);
-        getSockets().getPlacesPlayers().put(nb_ ,(byte)(nb_));
+        getSockets().getPlacesPlayers().put(nb_ , nb_);
         NetGroupFrame.trySendString(Net.exportIndexArrive(nb_, nbPlayers_, getSockets(), Net.getGames(getNet()), getDialogServerContent().getChosen()),_newSocket);
     }
 
@@ -968,11 +968,11 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         setIndexInGame(IndexConstants.INDEX_NOT_FOUND_ELT);
     }
 
-    public void setIndexInGame(byte _indexInGame) {
+    public void setIndexInGame(int _indexInGame) {
         indexInGame = _indexInGame;
     }
 
-    public byte getIndexInGame() {
+    public int getIndexInGame() {
         return indexInGame;
     }
     public void exitFromTrading() {

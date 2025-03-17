@@ -143,8 +143,8 @@ public final class Net {
 
     private final CustList<Longs> scores = new CustList<Longs>();
 
-    private ByteMap<BoolVal> activePlayers = new ByteMap<BoolVal>();
-    private ByteMap<BoolVal> received = new ByteMap<BoolVal>();
+    private IntMap<BoolVal> activePlayers = new IntMap<BoolVal>();
+    private IntMap<BoolVal> received = new IntMap<BoolVal>();
     private final IntArtCardGames ia;
     private final CustList<IntClientActLoopCards> clientAct = new CustList<IntClientActLoopCards>();
     private final CustList<IntServerActLoopCards> serverActLoopCards = new CustList<IntServerActLoopCards>();
@@ -588,13 +588,13 @@ public final class Net {
         rules_.setEndDealTarot(TarotCardsRetrieverUtil.toEndDealTarot(_info.get(6+_offset)));
         return rules_;
     }
-    public static String exportClientChosenPlace(int _index, int _place, AbsMap<Integer,Byte> _map) {
+    public static String exportClientChosenPlace(int _index, int _place, AbsMap<Integer,Integer> _map) {
         return exportChosenPlace(CLIENT_CHOSEN_PLACE,_index,_place,_map);
     }
-    public static String exportServerChosenPlace(int _index, int _place, AbsMap<Integer,Byte> _map) {
+    public static String exportServerChosenPlace(int _index, int _place, AbsMap<Integer,Integer> _map) {
         return exportChosenPlace(SERVER_CHOSEN_PLACE,_index,_place,_map);
     }
-    public static String exportChosenPlace(int _flag,int _index, int _place, AbsMap<Integer,Byte> _map) {
+    public static String exportChosenPlace(int _flag,int _index, int _place, AbsMap<Integer,Integer> _map) {
         StringBuilder out_ = new StringBuilder();
         out_.append(_flag);
         out_.append(SEP_0);
@@ -651,7 +651,7 @@ public final class Net {
 
     public static DealtHandBelote importDealtHandBelote(CustList<String> _info) {
         DealtHandBelote belote_ = new DealtHandBelote();
-        belote_.setDealer((byte) NumberUtil.parseInt(_info.get(0)));
+        belote_.setDealer(NumberUtil.parseInt(_info.get(0)));
         belote_.setAllowedBids(importBidBeloteSuitList(_info.get(1), SEP_1, SEP_2));
         belote_.setCards(importHandBelote(_info.get(2), SEP_1));
         belote_.setDeck(importHandBelote(_info.get(3), SEP_1));
@@ -673,7 +673,7 @@ public final class Net {
 
     public static DealtHandPresident importDealtHandPresident(CustList<String> _info) {
         DealtHandPresident president_ = new DealtHandPresident();
-        president_.setDealer((byte) NumberUtil.parseInt(_info.get(0)));
+        president_.setDealer(NumberUtil.parseInt(_info.get(0)));
         president_.setMaxCards(NumberUtil.parseInt(_info.get(1)));
         president_.setStatus(importPlayingMap(_info.get(2), SEP_1, SEP_2));
         president_.setCards(importHandPresident(_info.get(3), SEP_1));
@@ -695,7 +695,7 @@ public final class Net {
 
     public static DealtHandTarot importDealtHandTarot(CustList<String> _info) {
         DealtHandTarot tarot_ = new DealtHandTarot();
-        tarot_.setDealer((byte) NumberUtil.parseInt(_info.get(0)));
+        tarot_.setDealer(NumberUtil.parseInt(_info.get(0)));
         tarot_.setAllowedBids(importBidTarotList(_info.get(1), SEP_1));
         tarot_.setDog(importHandTarot(_info.get(2), SEP_1));
         tarot_.setCards(importHandTarot(_info.get(3), SEP_1));
@@ -739,7 +739,7 @@ public final class Net {
 
     public static BiddingBelote importBiddingBelote(CustList<String> _info) {
         BiddingBelote belote_ = new BiddingBelote();
-        belote_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        belote_.setPlace(NumberUtil.parseInt(_info.get(0)));
         belote_.setBidBelote(importBidBeloteSuit(SEP_1, _info.get(1)));
         return belote_;
     }
@@ -776,7 +776,7 @@ public final class Net {
 
     public static DiscardedCardBelote importDiscardedCardBelote(CustList<String> _info) {
         DiscardedCardBelote belote_ = new DiscardedCardBelote();
-        belote_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        belote_.setPlace(NumberUtil.parseInt(_info.get(0)));
         belote_.setCard(BeloteCardsRetrieverUtil.toCardBelote(_info.get(1)));
         return belote_;
     }
@@ -811,8 +811,8 @@ public final class Net {
 
     public static RefreshHandBelote importRefreshHandBelote(CustList<String> _info) {
         RefreshHandBelote belote_ = new RefreshHandBelote();
-        belote_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
-        belote_.setTakerIndex((byte) NumberUtil.parseInt(_info.get(1)));
+        belote_.setPlace(NumberUtil.parseInt(_info.get(0)));
+        belote_.setTakerIndex(NumberUtil.parseInt(_info.get(1)));
         belote_.setRefreshedHand(importHandBelote(_info.get(2), SEP_1));
         return belote_;
     }
@@ -863,7 +863,7 @@ public final class Net {
 
     public static DiscardedCardsPresident importDiscardedCardsPresident(CustList<String> _info) {
         DiscardedCardsPresident out_ = new DiscardedCardsPresident();
-        out_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        out_.setPlace(NumberUtil.parseInt(_info.get(0)));
         out_.setDiscarded(importHandPresident(_info.get(1), SEP_1));
         return out_;
     }
@@ -905,7 +905,7 @@ public final class Net {
 
     public static BiddingTarot importBiddingTarot(CustList<String> _info) {
         BiddingTarot tarot_ = new BiddingTarot();
-        tarot_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        tarot_.setPlace(NumberUtil.parseInt(_info.get(0)));
         tarot_.setBid(TarotCardsRetrieverUtil.toBidTarot(_info.get(1)));
         return tarot_;
     }
@@ -947,7 +947,7 @@ public final class Net {
 
     public static DiscardedCardTarot importDiscardedCardTarot(CustList<String> _info) {
         DiscardedCardTarot tarot_ = new DiscardedCardTarot();
-        tarot_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        tarot_.setPlace(NumberUtil.parseInt(_info.get(0)));
         tarot_.setCard(TarotCardsRetrieverUtil.toCardTarot(_info.get(1)));
         return tarot_;
     }
@@ -966,7 +966,7 @@ public final class Net {
         CallableCards c_ = new CallableCards();
         String i_ = _info.get(0);
         c_.setDiscarding(NetCommon.toBoolEquals(i_,0));
-        c_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(1)));
+        c_.setTakerIndex(NumberUtil.parseInt(i_.substring(1)));
         c_.setCards(importHandTarot(_info.get(1),SEP_1));
         return c_;
     }
@@ -1031,7 +1031,7 @@ public final class Net {
         belote_.setFirstRoundPlaying(NetCommon.toBoolEquals(i_,0));
         belote_.setPossibleBeloteRebelote(NetCommon.toBoolEquals(i_,1));
         belote_.setAllowedBeloteRebelote(NetCommon.toBoolEquals(i_,2));
-        belote_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(3)));
+        belote_.setTakerIndex(NumberUtil.parseInt(i_.substring(3)));
         belote_.setCurrentBid(importBidBeloteSuit(SEP_1, _info.get(1)));
         belote_.setBelReb(importHandBelote(_info.get(2), SEP_1));
         belote_.setCards(importHandBelote(_info.get(3), SEP_1));
@@ -1066,12 +1066,12 @@ public final class Net {
 
     public static PlayingCardBelote importPlayingBelote(CustList<String> _info) {
         PlayingCardBelote belote_ = new PlayingCardBelote();
-        belote_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        belote_.setPlace(NumberUtil.parseInt(_info.get(0)));
         String i_ = _info.get(1);
         belote_.setRefreshing(NetCommon.toBoolEquals(i_,0));
         belote_.setDeclaringBeloteRebelote(NetCommon.toBoolEquals(i_,1));
         belote_.setDeclaring(NetCommon.toBoolEquals(i_,2));
-        belote_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(3)));
+        belote_.setTakerIndex(NumberUtil.parseInt(i_.substring(3)));
         belote_.setPlayedCard(BeloteCardsRetrieverUtil.toCardBelote(_info.get(2)));
         belote_.setDeclare(importDeclareHandBelote(_info,3,SEP_1));
         return belote_;
@@ -1130,14 +1130,14 @@ public final class Net {
 
     public static PlayingCardPresident importPlayingPresident(CustList<String> _info) {
         PlayingCardPresident president_ = new PlayingCardPresident();
-        president_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        president_.setPlace(NumberUtil.parseInt(_info.get(0)));
         String i_ = _info.get(1);
         president_.setRefreshing(NetCommon.toBoolEquals(i_,0));
         president_.setPass(NetCommon.toBoolEquals(i_,1));
         president_.setReversed(NetCommon.toBoolEquals(i_,2));
         president_.setPlayedCard(PresidentCardsRetrieverUtil.toCardPresident(i_.substring(3)));
-        president_.setIndex((byte) NumberUtil.parseInt(_info.get(2)));
-        president_.setNextPlayer((byte) NumberUtil.parseInt(_info.get(3)));
+        president_.setIndex(NumberUtil.parseInt(_info.get(2)));
+        president_.setNextPlayer(NumberUtil.parseInt(_info.get(3)));
         president_.setPlayedHand(importHandPresident(_info.get(4),SEP_1));
         president_.setStatus(importPlayingMap(_info.get(5),SEP_1,SEP_2));
         return president_;
@@ -1164,7 +1164,7 @@ public final class Net {
         AllowPlayingTarot tarot_ = new AllowPlayingTarot();
         String i_ = _info.get(0);
         tarot_.setFirstRoundPlaying(NetCommon.toBoolEquals(i_,0));
-        tarot_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(1)));
+        tarot_.setTakerIndex(NumberUtil.parseInt(i_.substring(1)));
         tarot_.setCurrentBid(TarotCardsRetrieverUtil.toBidTarot(_info.get(1)));
         tarot_.setCards(importHandTarot(_info.get(2), SEP_1));
         tarot_.setCalledCards(importHandTarot(_info.get(3), SEP_1));
@@ -1205,12 +1205,12 @@ public final class Net {
 
     public static PlayingCardTarot importPlayingTarot(CustList<String> _info) {
         PlayingCardTarot tarot_ = new PlayingCardTarot();
-        tarot_.setPlace((byte) NumberUtil.parseInt(_info.get(0)));
+        tarot_.setPlace(NumberUtil.parseInt(_info.get(0)));
         String i_ = _info.get(1);
         tarot_.setRefreshing(NetCommon.toBoolEquals(i_,0));
         tarot_.setCalledCard(NetCommon.toBoolEquals(i_,1));
         tarot_.setFirstRound(NetCommon.toBoolEquals(i_,2));
-        tarot_.setTakerIndex((byte) NumberUtil.parseInt(i_.substring(3)));
+        tarot_.setTakerIndex(NumberUtil.parseInt(i_.substring(3)));
         tarot_.setPlayedCard(TarotCardsRetrieverUtil.toCardTarot(_info.get(2)));
         tarot_.setChoosenHandful(TarotCardsRetrieverUtil.toHandfuls(_info.get(3)));
         tarot_.setHandful(importHandTarot(_info.get(4),SEP_1));
@@ -1247,7 +1247,7 @@ public final class Net {
         out_.append(SEP_0);
         out_.append(exportBidBeloteSuitList(game_.getBids(),SEP_1,SEP_2));
         out_.append(SEP_0);
-        out_.append(exportShortList(game_.getScores(),SEP_1));
+        out_.append(exportLongList(game_.getScores(),SEP_1));
         out_.append(SEP_0);
         out_.append(game_.getNumber());
         return out_.toString();
@@ -1260,7 +1260,7 @@ public final class Net {
         game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
         DealBelote deal_ = importDealBelote(_info.get(4),SEP_1,SEP_2);
         deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
-        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        deal_.setDealer(NumberUtil.parseInt(_info.get(3)));
         game_.getGame().setDeal(deal_);
         game_.getGame().setDeclares(importDeclareHandBeloteList(_info.get(5), SEP_1,SEP_2,SEP_3));
         game_.getGame().setDeclaresBeloteRebelote(importHandBeloteList(_info.get(6), SEP_1,SEP_2));
@@ -1268,7 +1268,7 @@ public final class Net {
         game_.getGame().setTricks(importTrickBeloteList(_info.get(8), SEP_1, SEP_2));
         game_.getGame().setProgressingTrick(importTrickBelote(_info.get(9), SEP_1));
         game_.getGame().setBids(importBidBeloteSuitList(_info.get(10),SEP_1,SEP_2));
-        game_.getGame().setScores(importShortList(_info.get(11),SEP_1));
+        game_.getGame().setScores(importLongList(_info.get(11),SEP_1));
         game_.getGame().setNumber(NumberUtil.parseLongZero(_info.get(12)));
         return game_;
     }
@@ -1295,11 +1295,11 @@ public final class Net {
 
     public static TricksHandsBelote importTricksHandsBelote(CustList<String> _info) {
         TricksHandsBelote game_ = new TricksHandsBelote();
-        game_.setPreneur((byte)NumberUtil.parseInt(_info.get(0)));
+        game_.setPreneur(NumberUtil.parseInt(_info.get(0)));
         game_.setBid(importBidBeloteSuit(SEP_1, _info.get(1)));
         DealBelote deal_ = importDealBelote(_info.get(4),SEP_1,SEP_2);
         deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
-        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        deal_.setDealer(NumberUtil.parseInt(_info.get(3)));
         game_.setDistribution(deal_);
         game_.setTricks(importTrickBeloteList(_info.get(5), SEP_1, SEP_2));
         game_.setCardsHandsAtInitialState(importHandBeloteList(_info.get(6), SEP_1, SEP_2));
@@ -1335,7 +1335,7 @@ public final class Net {
 
     public static DeclareHandBelote importDeclareHandBelote(CustList<String> _info, int _off, char _sep) {
         DeclareHandBelote h_ = new DeclareHandBelote();
-        h_.setPlayer((byte) NumberUtil.parseInt(_info.get(_off)));
+        h_.setPlayer(NumberUtil.parseInt(_info.get(_off)));
         h_.setDeclare(BeloteCardsRetrieverUtil.toDeclaresBelote(_info.get(_off+1)));
         h_.setHand(importHandBelote(_info.get(_off+2), _sep));
         return h_;
@@ -1471,7 +1471,7 @@ public final class Net {
         out_.append(SEP_0);
         out_.append(exportDealPresident(game_.getDeal(),SEP_1,SEP_2));
         out_.append(SEP_0);
-        out_.append(exportByteList(game_.getRanks(),SEP_1));
+        out_.append(exportIntList(game_.getRanks(),SEP_1));
         out_.append(SEP_0);
         out_.append(exportTrickPresidentList(game_.getTricks(),SEP_1,SEP_2,SEP_3));
         out_.append(SEP_0);
@@ -1479,7 +1479,7 @@ public final class Net {
         out_.append(SEP_0);
         out_.append(exportHandPresidentList(game_.getSwitchedCards(),SEP_1,SEP_2));
         out_.append(SEP_0);
-        out_.append(exportShortList(game_.getScores(),SEP_1));
+        out_.append(exportLongList(game_.getScores(),SEP_1));
         out_.append(SEP_0);
         out_.append(game_.getNumber());
         return out_.toString();
@@ -1492,13 +1492,13 @@ public final class Net {
         game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
         DealPresident deal_ = importDealPresident(_info.get(4),SEP_1,SEP_2);
         deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
-        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        deal_.setDealer(NumberUtil.parseInt(_info.get(3)));
         game_.getGame().setDeal(deal_);
-        game_.getGame().setRanks(importByteList(_info.get(5), SEP_1));
+        game_.getGame().setRanks(importIntList(_info.get(5), SEP_1));
         game_.getGame().setTricks(importTrickPresidentList(_info.get(6), SEP_1, SEP_2,SEP_3));
         game_.getGame().setProgressingTrick(importTrickPresident(_info.get(7), SEP_1,SEP_2));
         game_.getGame().setSwitchedCards(importHandPresidentList(_info.get(8),SEP_1,SEP_2));
-        game_.getGame().setScores(importShortList(_info.get(9),SEP_1));
+        game_.getGame().setScores(importLongList(_info.get(9),SEP_1));
         game_.getGame().setNumber(NumberUtil.parseLongZero(_info.get(10)));
         return game_;
     }
@@ -1525,7 +1525,7 @@ public final class Net {
         out_.append(SEP_0);
         out_.append(exportHandPresidentList(_dealt.getSwitchedCards(),SEP_1,SEP_2));
         out_.append(SEP_0);
-        out_.append(exportByteList(_dealt.getRanks(),SEP_1));
+        out_.append(exportIntList(_dealt.getRanks(),SEP_1));
         return out_.toString();
     }
 
@@ -1535,13 +1535,13 @@ public final class Net {
         game_.setReversed(NetCommon.toBoolEquals(_info.get(1)));
         DealPresident deal_ = importDealPresident(_info.get(4),SEP_1,SEP_2);
         deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
-        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        deal_.setDealer(NumberUtil.parseInt(_info.get(3)));
         game_.setDistribution(deal_);
         game_.setTricks(importTrickPresidentList(_info.get(5), SEP_1, SEP_2,SEP_3));
         game_.setProgressingTrick(importTrickPresident(_info.get(6), SEP_1, SEP_2));
         game_.setCardsHandsAtInitialState(importHandPresidentList(_info.get(7), SEP_1, SEP_2));
         game_.setSwitchedCards(importHandPresidentList(_info.get(8), SEP_1, SEP_2));
-        game_.setRanks(importByteList(_info.get(9), SEP_1));
+        game_.setRanks(importIntList(_info.get(9), SEP_1));
         return game_;
     }
     public static String exportDealPresident(DealPresident _dealt, char _sep, char _sec) {
@@ -1633,22 +1633,22 @@ public final class Net {
         }
         return h_;
     }
-    public static String exportPlayingMap(ByteMap<Playing> _dealt, char _sep, char _sec) {
+    public static String exportPlayingMap(IntMap<Playing> _dealt, char _sep, char _sec) {
         CustList<String> ls_ = new CustList<String>();
-        for (EntryCust<Byte, Playing> b: _dealt.entryList()) {
+        for (EntryCust<Integer, Playing> b: _dealt.entryList()) {
             ls_.add(b.getKey()+ (_sec +b.getValue().getPlay()));
         }
         return StringUtil.join(ls_, _sep);
     }
 
-    public static ByteMap<Playing> importPlayingMap(String _info, char _sep, char _sec) {
-        ByteMap<Playing> h_ = new ByteMap<Playing>();
+    public static IntMap<Playing> importPlayingMap(String _info, char _sep, char _sec) {
+        IntMap<Playing> h_ = new IntMap<Playing>();
         if (_info.isEmpty()) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
             StringList playing_ = StringUtil.splitChar(s, _sec);
-            h_.addEntry((byte)NumberUtil.parseInt(playing_.get(0)),Playing.retrieve(playing_.get(1)));
+            h_.addEntry(NumberUtil.parseInt(playing_.get(0)),Playing.retrieve(playing_.get(1)));
         }
         return h_;
     }
@@ -1685,7 +1685,7 @@ public final class Net {
         out_.append(SEP_0);
         out_.append(exportBoolList(game_.getSmallBound()));
         out_.append(SEP_0);
-        out_.append(exportShortList(game_.getScores(),SEP_1));
+        out_.append(exportLongList(game_.getScores(),SEP_1));
         out_.append(SEP_0);
         out_.append(game_.getNumber());
         return out_.toString();
@@ -1698,7 +1698,7 @@ public final class Net {
         game_.getGame().setType(EnumCardsRetrieverUtil.toGameType(_info.get(1)));
         DealTarot deal_ = importDealTarot(_info.get(4),SEP_1,SEP_2);
         deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(2)));
-        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(3)));
+        deal_.setDealer(NumberUtil.parseInt(_info.get(3)));
         game_.getGame().setDeal(deal_);
         game_.getGame().setBids(importBidTarotList(_info.get(5), SEP_1));
         game_.getGame().setCalledCards(importHandTarot(_info.get(6), SEP_1));
@@ -1708,7 +1708,7 @@ public final class Net {
         game_.getGame().setDeclaresHandfuls(importHandfulsList(_info.get(10), SEP_1,SEP_2));
         game_.getGame().setDeclaresMiseres(importMiseresList(_info.get(11), SEP_1,SEP_2));
         game_.getGame().setSmallBound(importBoolList(_info.get(12)));
-        game_.getGame().setScores(importShortList(_info.get(13),SEP_1));
+        game_.getGame().setScores(importLongList(_info.get(13),SEP_1));
         game_.getGame().setNumber(NumberUtil.parseLongZero(_info.get(14)));
         return game_;
     }
@@ -1733,10 +1733,10 @@ public final class Net {
 
     public static TricksHandsTarot importTricksHandsTarot(CustList<String> _info) {
         TricksHandsTarot game_ = new TricksHandsTarot();
-        game_.setPreneur((byte)NumberUtil.parseInt(_info.get(0)));
+        game_.setPreneur(NumberUtil.parseInt(_info.get(0)));
         DealTarot deal_ = importDealTarot(_info.get(3),SEP_1,SEP_2);
         deal_.setNbDeals(NumberUtil.parseLongZero(_info.get(1)));
-        deal_.setDealer((byte) NumberUtil.parseInt(_info.get(2)));
+        deal_.setDealer(NumberUtil.parseInt(_info.get(2)));
         game_.setDistribution(deal_);
         game_.setTricks(importTrickTarotList(_info.get(4), SEP_1, SEP_2));
         game_.setCardsHandsAtInitialState(importHandTarotList(_info.get(5), SEP_1, SEP_2));
@@ -1923,33 +1923,33 @@ public final class Net {
         }
         return h_;
     }
-    private static String placesPlayers(AbsMap<Integer,Byte> _placesPlayers) {
+    private static String placesPlayers(AbsMap<Integer,Integer> _placesPlayers) {
         CustList<String> places_ = new CustList<String>();
-        for (EntryCust<Integer, Byte> e: _placesPlayers.entryList()) {
+        for (EntryCust<Integer, Integer> e: _placesPlayers.entryList()) {
             places_.add(""+e.getKey()+SEP_2+e.getValue());
         }
         return StringUtil.join(places_, SEP_1);
     }
-    private static IntTreeMap<Byte> placePlayers(String _info) {
-        IntTreeMap<Byte> placesPlayers_ = new IntTreeMap<Byte>();
+    private static IntTreeMap<Integer> placePlayers(String _info) {
+        IntTreeMap<Integer> placesPlayers_ = new IntTreeMap<Integer>();
         if (_info.isEmpty()) {
             return placesPlayers_;
         }
         for (String p: StringUtil.splitChar(_info,SEP_1)) {
             StringList kv_ = StringUtil.splitChar(p, SEP_2);
-            placesPlayers_.addEntry(NumberUtil.parseInt(kv_.first()), (byte) NumberUtil.parseInt(kv_.last()));
+            placesPlayers_.addEntry(NumberUtil.parseInt(kv_.first()), NumberUtil.parseInt(kv_.last()));
         }
         return placesPlayers_;
     }
 
-    public static String exportTeams(CustList<Bytes> _dealt) {
+    public static String exportTeams(CustList<Ints> _dealt) {
         StringBuilder out_ = new StringBuilder();
         out_.append(CLIENT_TRICKS_TEAMS);
         out_.append(SEP_0);
         out_.append(exportByteLists(_dealt,SEP_1,SEP_2));
         return out_.toString();
     }
-    public static CustList<Bytes> importTeams(String _info) {
+    public static CustList<Ints> importTeams(String _info) {
         return importByteLists(_info,SEP_1,SEP_2);
     }
 
@@ -1968,62 +1968,62 @@ public final class Net {
         return h_;
     }
 
-    public static String exportShortList(Shorts _dealt, char _sep) {
+    public static String exportIntList(Ints _dealt, char _sep) {
         CustList<String> ls_ = new CustList<String>();
-        for (short b: _dealt) {
+        for (int b: _dealt) {
             ls_.add(Integer.toString(b));
         }
         return StringUtil.join(ls_,_sep);
     }
-    public static Shorts importShortList(String _info, char _sep) {
-        Shorts h_ = new Shorts();
+    public static Ints importIntList(String _info, char _sep) {
+        Ints h_ = new Ints();
         if (_info.isEmpty()) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
-            h_.add((short)NumberUtil.parseInt(s));
+            h_.add(NumberUtil.parseInt(s));
         }
         return h_;
     }
 
-    public static String exportByteLists(CustList<Bytes> _dealt, char _sep, char _sec) {
+    public static String exportByteLists(CustList<Ints> _dealt, char _sep, char _sec) {
         if (_dealt.isEmpty()) {
             return EMPTY_LIST;
         }
         CustList<String> ls_ = new CustList<String>();
-        for (Bytes b: _dealt) {
-            ls_.add(exportByteList(b, _sec));
+        for (Ints b: _dealt) {
+            ls_.add(exportIntList(b, _sec));
         }
         return StringUtil.join(ls_,_sep);
     }
-    public static CustList<Bytes> importByteLists(String _info, char _sep, char _sec) {
-        CustList<Bytes> h_ = new CustList<Bytes>();
+    public static CustList<Ints> importByteLists(String _info, char _sep, char _sec) {
+        CustList<Ints> h_ = new CustList<Ints>();
         if (StringUtil.quickEq(_info, EMPTY_LIST)) {
             return h_;
         }
         for (String s: StringUtil.splitChar(_info,_sep)) {
-            h_.add(importByteList(s,_sec));
+            h_.add(importIntList(s,_sec));
         }
         return h_;
     }
-
-    public static String exportByteList(Bytes _dealt, char _sep) {
-        CustList<String> ls_ = new CustList<String>();
-        for (byte b: _dealt) {
-            ls_.add(Integer.toString(b));
-        }
-        return StringUtil.join(ls_,_sep);
-    }
-    public static Bytes importByteList(String _info, char _sep) {
-        Bytes h_ = new Bytes();
-        if (_info.isEmpty()) {
-            return h_;
-        }
-        for (String s: StringUtil.splitChar(_info,_sep)) {
-            h_.add((byte)NumberUtil.parseInt(s));
-        }
-        return h_;
-    }
+//
+//    public static String exportByteList(Bytes _dealt, char _sep) {
+//        CustList<String> ls_ = new CustList<String>();
+//        for (byte b: _dealt) {
+//            ls_.add(Integer.toString(b));
+//        }
+//        return StringUtil.join(ls_,_sep);
+//    }
+//    public static Bytes importByteList(String _info, char _sep) {
+//        Bytes h_ = new Bytes();
+//        if (_info.isEmpty()) {
+//            return h_;
+//        }
+//        for (String s: StringUtil.splitChar(_info,_sep)) {
+//            h_.add((int)NumberUtil.parseInt(s));
+//        }
+//        return h_;
+//    }
 
     public static String exportLongsList(CustList<Longs> _dealt, char _sep, char _sec) {
         if (_dealt.isEmpty()) {
@@ -2091,7 +2091,7 @@ public final class Net {
         String i_ = _info.get(0);
         q_.getContent().setClosing(NetCommon.toBoolEquals(i_,0));
         q_.getContent().setServer(NetCommon.toBoolEquals(i_,1));
-        q_.setPlace((byte)NumberUtil.parseInt(i_.substring(2)));
+        q_.setPlace(NumberUtil.parseInt(i_.substring(2)));
         return q_;
     }
 
@@ -2105,8 +2105,8 @@ public final class Net {
      * @param _common */
     public static boolean distinctPlaces(Net _instance, NetCommon _common) {
         boolean distinct_ = true;
-        Bytes places_ = new Bytes();
-        for (byte r: activePlayers(_instance, _common)) {
+        Ints places_ = new Ints();
+        for (int r: activePlayers(_instance, _common)) {
             if (places_.containsObj(r)) {
                 distinct_ = false;
                 break;
@@ -2120,8 +2120,8 @@ public final class Net {
      * @param _instance
      * @param _common*/
     static void initAllPresent(Net _instance, NetCommon _common) {
-        _instance.activePlayers = new ByteMap<BoolVal>();
-        for (byte r: _common.getPlacesPlayers().values()) {
+        _instance.activePlayers = new IntMap<BoolVal>();
+        for (int r: _common.getPlacesPlayers().values()) {
             _instance.activePlayers.put(r, BoolVal.TRUE);
         }
     }
@@ -2137,8 +2137,8 @@ public final class Net {
 //        if (_instance.received == null) {
 //            _instance.received = new ByteMap<BoolVal>();
 //        }
-        _instance.received = new ByteMap<BoolVal>();
-        for (byte r: _common.getPlacesPlayers().values()) {
+        _instance.received = new IntMap<BoolVal>();
+        for (int r: _common.getPlacesPlayers().values()) {
             _instance.received.put(r, BoolVal.FALSE);
 //            if (_instance.activePlayers.getVal(r) == BoolVal.TRUE) {
 //                _instance.received.put(r, BoolVal.FALSE);
@@ -2159,15 +2159,15 @@ public final class Net {
 //    }
     //bk: synchronized
     /**server*/
-    static void setReceivedForPlayer(byte _p, Net _instance) {
+    static void setReceivedForPlayer(int _p, Net _instance) {
         _instance.received.put(_p,BoolVal.TRUE);
     }
 
     //bk: synchronized
     /**server*/
-    static boolean allReceivedAmong(Bytes _players, Net _instance) {
+    static boolean allReceivedAmong(Ints _players, Net _instance) {
         boolean allReceived_ = true;
-        for (byte p: _instance.received.getKeys()) {
+        for (int p: _instance.received.getKeys()) {
             if (_players.containsObj(p) && _instance.received.getVal(p) != BoolVal.TRUE) {
                 allReceived_ = false;
                 break;
@@ -2191,7 +2191,7 @@ public final class Net {
      * @param _instance
      * @param _common */
     static boolean isSameTeam(Net _instance, NetCommon _common) {
-        Bytes players_ = new Bytes(activePlayers(_instance, _common));
+        Ints players_ = new Ints(activePlayers(_instance, _common));
         return Net.getGames(_instance).isSameTeam(players_);
     }
     /**server
@@ -2199,15 +2199,15 @@ public final class Net {
     @return the connected players
      * @param _instance
      * @param _common */
-    static Bytes activePlayers(Net _instance, NetCommon _common) {
+    static Ints activePlayers(Net _instance, NetCommon _common) {
         if (_instance.activePlayers.isEmpty()) {
-            Bytes activePlayers_ = new Bytes();
-            for (byte i: _common.getPlacesPlayers().values()) {
+            Ints activePlayers_ = new Ints();
+            for (int i: _common.getPlacesPlayers().values()) {
                 activePlayers_.add(i);
             }
             return activePlayers_;
         }
-        return new Bytes(_common.getPlacesPlayers().values());
+        return new Ints(_common.getPlacesPlayers().values());
 //        Bytes activePlayers_ = new Bytes();
 //        for (byte i: _common.getPlacesPlayers().values()) {
 //            if (_instance.activePlayers.getVal(i) != BoolVal.TRUE) {
@@ -2222,7 +2222,7 @@ public final class Net {
      @return true &hArr; if the <i>_place</i> match with a currently connected player
       * @param _place the place of a bot or a player
      * @param _common */
-    static boolean isHumanPlayer(byte _place, NetCommon _common) {
+    static boolean isHumanPlayer(int _place, NetCommon _common) {
         return !getPlacesPlayersByValue(_place, _common).isEmpty();
 //        return !getPlacesPlayersByValue(_place, _common).isEmpty() && _instance.activePlayers.getVal(_place) == BoolVal.TRUE;
     }
@@ -2234,7 +2234,7 @@ public final class Net {
      @return the associated socket of the place or null if it is an invalid place for a player
       * @param _place the place of a player around the table
      * @param _common */
-    public static AbstractSocket getSocketByPlace(byte _place, NetCommon _common) {
+    public static AbstractSocket getSocketByPlace(int _place, NetCommon _common) {
         for (int i: _common.getPlacesPlayers().getKeys()) {
             if (_common.getPlacesPlayers().getVal(i) == _place) {
                 return _common.getSockets().getVal(i);
@@ -2301,10 +2301,10 @@ public final class Net {
     }
 
     /**server*/
-    public static Ints getPlacesPlayersByValue(byte _value, NetCommon _common) {
+    public static Ints getPlacesPlayersByValue(int _value, NetCommon _common) {
         Ints l_;
         l_ = new Ints();
-        for (EntryCust<Integer, Byte> e: _common.getPlacesPlayers().entryList()) {
+        for (EntryCust<Integer, Integer> e: _common.getPlacesPlayers().entryList()) {
             if (e.getValue() != _value) {
                 continue;
             }

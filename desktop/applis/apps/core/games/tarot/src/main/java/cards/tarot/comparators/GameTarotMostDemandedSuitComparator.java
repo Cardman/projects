@@ -11,10 +11,10 @@ public final class GameTarotMostDemandedSuitComparator implements Comparing<Suit
 
     private final CustList<TrickTarot> tricks;
 
-    private final Bytes players;
+    private final Ints players;
 
     public GameTarotMostDemandedSuitComparator(CustList<TrickTarot> _tricks,
-            Bytes _players) {
+            Ints _players) {
         tricks = _tricks;
         players = _players;
     }
@@ -22,8 +22,8 @@ public final class GameTarotMostDemandedSuitComparator implements Comparing<Suit
     @Override
     public int compare(Suit _suit1, Suit _suit2) {
         int res_ = SortConstants.EQ_CMP;
-        byte nbEntamesCouleur1_ = IndexConstants.SIZE_EMPTY;
-        byte nbEntamesCouleur2_ = IndexConstants.SIZE_EMPTY;
+        int nbEntamesCouleur1_ = IndexConstants.SIZE_EMPTY;
+        int nbEntamesCouleur2_ = IndexConstants.SIZE_EMPTY;
         for(TrickTarot pli_: tricks.mid(1)){
 //            if (!pli_.getVuParToutJoueur()) {
 //                continue;

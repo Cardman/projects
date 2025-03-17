@@ -563,7 +563,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosTarot();
-        byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
+        int player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
         for(BidTarot b: partie_.getBids()) {
             String pseudo_ = pseudos_.get(player_);
             ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b, lg_),RETURN_LINE));
@@ -595,7 +595,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void retrieveInfos() {
         StringList pseudos_=pseudosTarot();
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        byte nombreDeJoueurs_;
+        int nombreDeJoueurs_;
         GameTarot partie_=partieTarot();
         nombreDeJoueurs_=partie_.getNombreDeJoueurs();
         //for (TrickTarot t: partie_.getTricks())
@@ -604,8 +604,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            if (!t.getVuParToutJoueur()) {
 //                continue;
 //            }
-            Bytes players_ = partie_.orderedPlayers(t.getEntameur());
-            for (byte p: players_) {
+            Ints players_ = partie_.orderedPlayers(t.getEntameur());
+            for (int p: players_) {
                 calledCard(t.carteDuJoueur(p, nombreDeJoueurs_), pseudos_.get(p), p);
 //                addTextInAreaByLoading(p, pseudos_.get(p),t.carteDuJoueur(p, nombreDeJoueurs_));
             }
@@ -615,11 +615,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            return;
 //        }
         TrickTarot pliEnCours_= partie_.getPliEnCours();
-        Bytes joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
-        for (byte p: joueurs_) {
+        Ints joueurs_=pliEnCours_.joueursAyantJoue(nombreDeJoueurs_);
+        for (int p: joueurs_) {
             addTextInAreaByLoading(p, pseudos_.get(p), partie_.getPliEnCours().carteDuJoueur(p, partie_.getNombreDeJoueurs()));
         }
-        for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
+        for(int p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
             tapisTarot().setCarteTarot(getWindow().getImageFactory(), lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
         }
         pack();
@@ -1016,7 +1016,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
     }
 
-    private void addTextInAreaByLoading(byte _joueur, String _pseudo, CardTarot _ct) {
+    private void addTextInAreaByLoading(int _joueur, String _pseudo, CardTarot _ct) {
 //        GameTarot partie_=partieTarot();
 //        if(partie_.premierTourNoMisere()) {
 //            firstRound(_joueur, _pseudo);
@@ -1026,7 +1026,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        pack();
     }
 
-    private void firstRound(byte _joueur, String _pseudo) {
+    private void firstRound(int _joueur, String _pseudo) {
         GameTarot partie_=partieTarot();
         HandTarot poignee_=partie_.getPoignee(_joueur);
         IdList<Handfuls> decHand_ = partie_.getAnnoncesPoignees(_joueur);
@@ -1052,7 +1052,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //        }
     }
 
-    public void jouerTarot(byte _joueur, String _pseudo) {
+    public void jouerTarot(int _joueur, String _pseudo) {
         GameTarot partie_=partieTarot();
         CardTarot ct_= partie_.currentPlayerHasPlayed(getOwner().baseWindow().getIa().getTarot());
 //        CardTarot ct_= getOwner().baseWindow().getIa().getTarot().changerConfianceJeuCarteUnique(partie_);
@@ -1082,7 +1082,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
 
-    private void callCard(byte _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {
+    private void callCard(int _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {
         callCard(this,partieTarot(),_joueur,_pseudo,_ct,_interceptor);
 //        GameTarot partie_=partieTarot();
 //        TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -1136,7 +1136,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     }
 
-    private void calledCard(CardTarot _playedCard, String _pseudo, byte _player) {
+    private void calledCard(CardTarot _playedCard, String _pseudo, int _player) {
         callCard(_player,_pseudo,_playedCard,new DirectCardsCallEvents());
 //        GameTarot partie_=partieTarot();
 //        TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -1169,7 +1169,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getType() == GameType.RANDOM && isChangerPileFin()) {
             changerNombreDeParties(GameEnum.TAROT, partie_.getDistribution().getNbDeals(), getOwner().getFrames(), 0);
         }
-        byte nombreJoueurs_=partie_.getNombreDeJoueurs();
+        int nombreJoueurs_=partie_.getNombreDeJoueurs();
 
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(partie_);

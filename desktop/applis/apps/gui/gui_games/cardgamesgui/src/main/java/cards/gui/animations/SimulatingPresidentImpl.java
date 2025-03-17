@@ -72,7 +72,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
     @Override
-    public byte displaySwitchedUserHand(GamePresident _g, Bytes _winners, Bytes _loosers, int _noDeal, CustList<HandPresident> _swtichedCards) {
+    public int displaySwitchedUserHand(GamePresident _g, Ints _winners, Ints _loosers, int _noDeal, CustList<HandPresident> _swtichedCards) {
         displaySwitchedUserHand(_winners, _loosers, _swtichedCards);
         return super.displaySwitchedUserHand(_g, _winners, _loosers, _noDeal, _swtichedCards);
     }
@@ -94,8 +94,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
     @Override
-    public byte addCardsToCurrentTrickAndLoop(GamePresident _game, HandPresident _hand, HandPresident _userHand) {
-        byte next_ = super.addCardsToCurrentTrickAndLoop(_game, _hand, _userHand);
+    public int addCardsToCurrentTrickAndLoop(GamePresident _game, HandPresident _hand, HandPresident _userHand) {
+        int next_ = super.addCardsToCurrentTrickAndLoop(_game, _hand, _userHand);
         displayPlayedHand(_hand);
         gearStatusChange(_game.getLastStatus(), _game.nextPlayer());
         displayPlayedHandMessage(_hand,next_);
@@ -103,7 +103,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         return next_;
     }
 
-    private void endCards(HandPresident _userHand, HandPresident _h, byte _nextPlayerBk) {
+    private void endCards(HandPresident _userHand, HandPresident _h, int _nextPlayerBk) {
         if (_nextPlayerBk == DealPresident.NUMERO_UTILISATEUR) {
             _userHand.supprimerCartes(_h);
             displayUserHand(new HandPresident(_userHand).getCards());
@@ -116,7 +116,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
     @Override
-    public Bytes getNewRanks(GamePresident _g, int _no) {
+    public Ints getNewRanks(GamePresident _g, int _no) {
 //        endDeal(_no);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new EndDealSimuPresident(this,_no));
         container.sleepThread(5000);
@@ -137,7 +137,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void displayLooserMessage(HandPresident _h, byte _l, byte _w) {
+    public void displayLooserMessage(HandPresident _h, int _l, int _w) {
         StringList nicknames_=pseudosSimuleePresident();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.fileSimu().getVal(MessagesGuiCards.SIMU_SWITCH_LOOSER),nicknames_.get(_l),Games.toString(_h,lg_),nicknames_.get(_w)),ContainerGame.RETURN_LINE);
@@ -145,7 +145,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void displayWinnerMessage(HandPresident _h, byte _l, byte _w) {
+    public void displayWinnerMessage(HandPresident _h, int _l, int _w) {
         StringList nicknames_=pseudosSimuleePresident();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.fileSimu().getVal(MessagesGuiCards.SIMU_SWITCH_WINNER),nicknames_.get(_w),Games.toString(_h,lg_),nicknames_.get(_l)),ContainerGame.RETURN_LINE);
@@ -197,8 +197,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(ContainerSingleImpl.readOnly(container,container.getEvents().getText()));
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
-        container.setHandfuls(new ByteMap<AbsPlainLabel>());
-        container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        container.setHandfuls(new IntMap<AbsPlainLabel>());
+        container.setDeclaredHandfuls(new IntMap<AbsPanel>());
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
 //        AbsPanel panelCards_ = container.getOwner().getCompoFactory().newLineBox();
         AbsPanel panelDiscard_ = container.getOwner().getCompoFactory().newLineBox();
@@ -307,19 +307,19 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 //    }
 
 //    @Override
-    public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
+    public void displaySwitchedUserHand(Ints _winners, Ints _loosers, CustList<HandPresident> _switchedCards) {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards));
     }
 
-    void displayGuiSwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
-        for (byte l: _loosers) {
-            byte w_ = GamePresident.getMatchingWinner(_winners, _loosers, l);
+    void displayGuiSwitchedUserHand(Ints _winners, Ints _loosers, CustList<HandPresident> _switchedCards) {
+        for (int l: _loosers) {
+            int w_ = GamePresident.getMatchingWinner(_winners, _loosers, l);
             HandPresident h_ = _switchedCards.get(l);
             displayLooserMessage(h_,l,w_);
         }
         displayLineReturn();
-        for (byte w: _winners) {
-            byte l_ = GamePresident.getMatchingLoser(_winners, _loosers, w);
+        for (int w: _winners) {
+            int l_ = GamePresident.getMatchingLoser(_winners, _loosers, w);
             HandPresident h_ = _switchedCards.get(w);
             displayWinnerMessage(h_,l_,w);
         }
@@ -353,7 +353,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void gearStatusChange(ByteMap<Playing> _status, byte _starter) {
+    public void gearStatusChange(IntMap<Playing> _status, int _starter) {
         container.getOwner().getFrames().getCompoFactory().invokeNow(new SettingPresidentStatus(container, _status, _starter));
     }
 
@@ -363,7 +363,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void displayPlayedHandMessage(HandPresident _hand, byte _nextPlayer) {
+    public void displayPlayedHandMessage(HandPresident _hand, int _nextPlayer) {
         StringList nicknames_=pseudosSimuleePresident();
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         String event_ = StringUtil.concat(nicknames_.get(_nextPlayer),ContainerGame.INTRODUCTION_PTS,Games.toString(_hand,lg_),ContainerGame.RETURN_LINE);
@@ -371,7 +371,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     }
 
 //    @Override
-    public void displayTrickLeader(byte _player) {
+    public void displayTrickLeader(int _player) {
         StringList nicknames_=pseudosSimuleePresident();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, nicknames_.get(_player)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);

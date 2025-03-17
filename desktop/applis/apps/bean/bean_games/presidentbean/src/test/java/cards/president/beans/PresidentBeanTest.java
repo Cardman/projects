@@ -15,7 +15,7 @@ import org.junit.Test;
 public final class PresidentBeanTest extends BeanPresidentCommonTs {
     @Test
     public void getNickNames() {
-        NaSt res_ = callPresidentBeanNicknames(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4))));
+        NaSt res_ = callPresidentBeanNicknames(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), 2, 1, 3, 4))));
         assertSizeEq(4,res_);
         assertEq("0",res_,0);
         assertEq("1",res_,1);
@@ -24,7 +24,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
     }
     @Test
     public void getLinesDeal() {
-        NaSt res_ = callPresidentBeanLinesDeal(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4))));
+        NaSt res_ = callPresidentBeanLinesDeal(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), 2,  1,  3, 4))));
         assertSizeEq(2,res_);
         assertSizeEq(4,res_,0);
         assertNumberEq(0,res_,0);
@@ -49,7 +49,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
         NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsPresidentLoader(),PagesPresidents.build(),other_,mes_);
         nav_.setLanguage(EN);
-        stds_.setDataBase(build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4));
+        stds_.setDataBase(build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), 2, 1, 3, 4));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+PresidentScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
                 "\tcolor:blue;\n" +
@@ -75,9 +75,9 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
     }
     private static GamePresident game() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.RANDOM, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -128,7 +128,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         return g_;
     }
     static void addCardsToCurrentTrick(GamePresident _g, CardPresident _card, int _nb) {
-        _g.addCardsToCurrentTrick(_card, (byte) _nb);
+        _g.addCardsToCurrentTrick(_card, _nb);
     }
 
     static void addCardsToCurrentTrick(GamePresident _g) {
@@ -217,9 +217,9 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         return ps_;
     }
 
-    private static ResultsPresident build(StringList _pseudos, CustList<Longs> _scores, byte... _r) {
+    private static ResultsPresident build(StringList _pseudos, CustList<Longs> _scores, int... _r) {
         ResultsPresident res_ = new ResultsPresident();
-        res_.initialize(_pseudos, _scores, Bytes.newList(_r));
+        res_.initialize(_pseudos, _scores, Ints.newList(_r));
         return res_;
     }
 

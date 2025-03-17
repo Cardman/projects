@@ -117,7 +117,7 @@ public final class Games {
         partiesSolitaire.add(_partiePresident);
     }
 
-    public boolean isSameTeam(Bytes _players) {
+    public boolean isSameTeam(Ints _players) {
         if (enCoursDePartieBelote()) {
             return partieBelote().isSameTeam(_players);
         }
@@ -183,10 +183,10 @@ public final class Games {
             return EMPTY;
         }
         if(_hand.total()>nbTrumps_) {
-            return formatter(ms_, MessagesTarot.TAROT_HANDFUL_TOO_MANY_TRUMPS, Long.toString((long)_hand.total()-nbTrumps_));
+            return formatter(ms_, MessagesTarot.TAROT_HANDFUL_TOO_MANY_TRUMPS, Integer.toString(_hand.total() -nbTrumps_));
         }
         if(_hand.total()<nbTrumps_) {
-            return formatter(ms_, MessagesTarot.TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Long.toString((long)nbTrumps_-_hand.total()));
+            return formatter(ms_, MessagesTarot.TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Integer.toString(nbTrumps_ -_hand.total()));
         }
         return formatter(ms_, MessagesTarot.TAROT_HANDFUL_EXCUSE);
     }
@@ -194,7 +194,7 @@ public final class Games {
     public static String autoriseBelote(GameBelote _g, TranslationsLg _tr) {
         Suit couleurDemandee_= _g.getProgressingTrick().couleurDemandee();
         Suit couleurAtout_=_g.couleurAtout();
-        byte ramasseurVirtuel_= _g.getProgressingTrick().getRamasseurPliEnCours(_g.getNombreDeJoueurs(), _g.getBid());
+        int ramasseurVirtuel_= _g.getProgressingTrick().getRamasseurPliEnCours(_g.getNombreDeJoueurs(), _g.getBid());
         CardBelote carteForte_= _g.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_,_g.getNombreDeJoueurs());
         StringMap<String> ms_ = MessagesCardGames.getAppliTr(_tr).getMapping().getVal(MessagesCardGames.GAME_BELOTE).getMapping();
 //        String file_ = ms_.getVal(beloteFileName(_loc));
@@ -220,7 +220,7 @@ public final class Games {
         return formatter(ms_, MessagesBelote.BELOTE_OVER_TRUMP_PARTNER, toString(couleurAtout_, _tr));
     }
 
-    public static StringBuilder autorisePresident(GamePresident _g, CardPresident _card, byte _nb, TranslationsLg _tr) {
+    public static StringBuilder autorisePresident(GamePresident _g, CardPresident _card, int _nb, TranslationsLg _tr) {
         Playing playing_ = _g.getStatus();
         StringMap<String> ms_ = MessagesCardGames.getAppliTr(_tr).getMapping().getVal(MessagesCardGames.GAME_PRESIDENT).getMapping();
         if (playing_ == Playing.PASS) {
@@ -231,7 +231,7 @@ public final class Games {
         }
         HandPresident l_ = _g.getProgressingTrick().getBestCards();
         StringBuilder errorPlaying_ = new StringBuilder();
-        byte str_ = l_.premiereCarte().strength(_g.isReversed());
+        int str_ = l_.premiereCarte().strength(_g.isReversed());
         if (playing_ == Playing.HAS_TO_EQUAL) {
             if (_card.strength(_g.isReversed()) != str_) {
                 errorPlaying_.append(formatter(ms_, MessagesPresident.PRESIDENT_HAS_TO_EQUAL_OR_SKIP, toString(l_.premiereCarte(),_tr))).append(RETURN_LINE);

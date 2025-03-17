@@ -366,17 +366,17 @@ public class CarpetBelote extends AbsCarpet<CardBelote> {
     }
 
     /**Place les dos des cartes (une pour chaque joueur) sur le tapis avant et apres chaque pli*/
-    public void setCartesBeloteJeu(AbstractImageFactory _fact, byte _nombreDeJoueurs, TranslationsLg _lg) {
-        for(byte joueur_=0;joueur_<_nombreDeJoueurs;joueur_++) {
-            GraphicCard<CardBelote> place_ = getCards().getVal((int) joueur_);
+    public void setCartesBeloteJeu(AbstractImageFactory _fact, int _nombreDeJoueurs, TranslationsLg _lg) {
+        for(int joueur_=0;joueur_<_nombreDeJoueurs;joueur_++) {
+            GraphicCard<CardBelote> place_ = getCards().getVal(joueur_);
             place_.setJeu(_lg);
             AbsMetaLabelCard.paintCard(_fact,place_);
         }
     }
     /**Met a jour la carte a jouer d'un joueur
     donne en fonction du nombre de joueurs*/
-    public void setCarteBelote(AbstractImageFactory _fact, TranslationsLg _lg, byte _joueur, CardBelote _m) {
-        GraphicCard<CardBelote> place_= getCards().getVal((int) _joueur);
+    public void setCarteBelote(AbstractImageFactory _fact, TranslationsLg _lg, int _joueur, CardBelote _m) {
+        GraphicCard<CardBelote> place_= getCards().getVal(_joueur);
         place_.setCarteEnJeu(_fact,_lg, _m);
         AbsMetaLabelCard.paintCard(_fact,place_);
     }

@@ -43,13 +43,13 @@ public enum CardBelote {
     CLUB_8(8,Suit.CLUB,OrderPoints.TRUMP_8,OrderPoints.SUIT_8,2),
     CLUB_7(7,Suit.CLUB,OrderPoints.TRUMP_7,OrderPoints.SUIT_7,1);
 
-    private final byte forceAtout;
-    private final byte forceCouleur;
-    private final byte forceAnnonce;
-    private final byte pointsAtout;
-    private final byte pointsCouleur;
-    private final byte pointsSansAt;
-    private final byte pointsToutAt;
+    private final int forceAtout;
+    private final int forceCouleur;
+    private final int forceAnnonce;
+    private final int pointsAtout;
+    private final int pointsCouleur;
+    private final int pointsSansAt;
+    private final int pointsToutAt;
     private final CouleurValeur id;
 
     CardBelote() {
@@ -60,31 +60,31 @@ public enum CardBelote {
         pointsCouleur = 0;
         pointsSansAt = 0;
         pointsToutAt = 0;
-        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.UNDEFINED,false);
+        id = new CouleurValeur(Suit.UNDEFINED,0,CardChar.UNDEFINED,false);
     }
     CardBelote(CardChar _figure, Suit _pcouleur,
                OrderPoints _pordreAtout, OrderPoints _pordreCouleur,
                int _pordreAnnonce) {
-        forceAtout = (byte) _pordreAtout.getOrder();
-        forceCouleur = (byte) _pordreCouleur.getOrder();
-        forceAnnonce = (byte) _pordreAnnonce;
-        pointsAtout = (byte) _pordreAtout.getPointsDomSuit();
-        pointsCouleur = (byte) _pordreCouleur.getPointsDomSuit();
-        pointsSansAt = (byte) _pordreCouleur.getPointsNoDomSuit();
-        pointsToutAt = (byte) _pordreAtout.getPointsNoDomSuit();
-        id = new CouleurValeur(_pcouleur,(byte)0,_figure,true);
+        forceAtout = _pordreAtout.getOrder();
+        forceCouleur = _pordreCouleur.getOrder();
+        forceAnnonce = _pordreAnnonce;
+        pointsAtout = _pordreAtout.getPointsDomSuit();
+        pointsCouleur = _pordreCouleur.getPointsDomSuit();
+        pointsSansAt = _pordreCouleur.getPointsNoDomSuit();
+        pointsToutAt = _pordreAtout.getPointsNoDomSuit();
+        id = new CouleurValeur(_pcouleur,0,_figure,true);
     }
     CardBelote(int _pvaleur, Suit _pcouleur,
                OrderPoints _pordreAtout, OrderPoints _pordreCouleur,
                int _pordreAnnonce) {
-        forceAtout = (byte) _pordreAtout.getOrder();
-        forceCouleur = (byte) _pordreCouleur.getOrder();
-        forceAnnonce = (byte) _pordreAnnonce;
-        pointsAtout = (byte) _pordreAtout.getPointsDomSuit();
-        pointsCouleur = (byte) _pordreCouleur.getPointsDomSuit();
-        pointsSansAt = (byte)  _pordreCouleur.getPointsNoDomSuit();
-        pointsToutAt = (byte) _pordreAtout.getPointsNoDomSuit();
-        id = new CouleurValeur(_pcouleur,(byte) _pvaleur,CardChar.UNDEFINED,true);
+        forceAtout = _pordreAtout.getOrder();
+        forceCouleur = _pordreCouleur.getOrder();
+        forceAnnonce = _pordreAnnonce;
+        pointsAtout = _pordreAtout.getPointsDomSuit();
+        pointsCouleur = _pordreCouleur.getPointsDomSuit();
+        pointsSansAt =  _pordreCouleur.getPointsNoDomSuit();
+        pointsToutAt = _pordreAtout.getPointsNoDomSuit();
+        id = new CouleurValeur(_pcouleur,_pvaleur,CardChar.UNDEFINED,true);
     }
     public static boolean eq(CardBelote _one, CardBelote _two) {
         return _one == _two;
@@ -100,7 +100,7 @@ public enum CardBelote {
         }
         return true;
     }
-    public byte strength(Suit _dem,BidBeloteSuit _contrat) {
+    public int strength(Suit _dem,BidBeloteSuit _contrat) {
         if(_contrat.getCouleurDominante()) {
             return strength(_contrat.getSuit(),_dem);
         }
@@ -112,33 +112,33 @@ public enum CardBelote {
         }
         return 0;
     }
-    public byte strength(Suit _atout,Suit _dem) {
+    public int strength(Suit _atout,Suit _dem) {
         if(_dem==_atout) {
             if(getId().getCouleur() ==_atout) {
                 return forceAtout;
             }
         } else {
             if(getId().getCouleur() ==_atout) {
-                return (byte) (forceAtout + 8);
+                return forceAtout + 8;
             }
             if(getId().getCouleur() ==_dem) {
                 return forceCouleur;
             }
         }
         //Si on_ n'a ni_ de_ l'atout_ ni_ la_ couleur demandee_
-        return (byte)0;
+        return 0;
     }
-    public byte forceAnnonce() {
+    public int forceAnnonce() {
         return forceAnnonce;
     }
 
-    private byte points(Suit _atout) {
+    private int points(Suit _atout) {
         if(_atout== getId().getCouleur()) {
             return pointsAtout;
         }
         return pointsCouleur;
     }
-    public byte points(BidBeloteSuit _contrat) {
+    public int points(BidBeloteSuit _contrat) {
         if(_contrat.ordreAtout()) {
             return pointsToutAt;
         }
@@ -147,12 +147,12 @@ public enum CardBelote {
         }
         return points(_contrat.getSuit());
     }
-    public byte forceValeurDansUnTri(boolean _decroissant,Order _ordre) {
+    public int forceValeurDansUnTri(boolean _decroissant,Order _ordre) {
         if(_decroissant) {
             if(_ordre == Order.TRUMP) {
-                return (byte)(9-strength(getId().getCouleur(), getId().getCouleur()));
+                return 9-strength(getId().getCouleur(), getId().getCouleur());
             }
-            return (byte)(9-strength(Suit.UNDEFINED, getId().getCouleur()));
+            return 9-strength(Suit.UNDEFINED, getId().getCouleur());
         }
         if(_ordre == Order.TRUMP) {
             return strength(getId().getCouleur(), getId().getCouleur());

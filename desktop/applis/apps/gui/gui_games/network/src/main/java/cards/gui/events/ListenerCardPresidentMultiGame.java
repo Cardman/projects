@@ -5,7 +5,7 @@ import cards.network.president.actions.PlayingCardPresident;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
-import code.util.ByteMap;
+import code.util.IntMap;
 
 public class ListenerCardPresidentMultiGame extends
         AbstractListenerCard<CardPresident> {
@@ -13,7 +13,7 @@ public class ListenerCardPresidentMultiGame extends
     private final ContainerMultiPresident container;
 
     public ListenerCardPresidentMultiGame(ContainerMultiPresident _container,
-            CardPresident _card, byte _index) {
+            CardPresident _card, int _index) {
         super(_container, _card, _index);
         container = _container;
     }
@@ -35,7 +35,7 @@ public class ListenerCardPresidentMultiGame extends
         pl_.setPass(false);
 //        String lg_ = container.getOwner().getLanguageKey();
 //        pl_.setLocale(lg_);
-        pl_.setStatus(new ByteMap< Playing>());
+        pl_.setStatus(new IntMap< Playing>());
         container.getContainerMultiContent().window().sendObject(pl_);
     }
 }

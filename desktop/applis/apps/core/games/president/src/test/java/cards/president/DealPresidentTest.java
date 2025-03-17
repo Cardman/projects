@@ -12,10 +12,10 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealPresident donne_ = dealRandPlayer(rules_, 0);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.hand((byte)0).total());
-        assertEq(13,donne_.hand((byte)1).total());
-        assertEq(13,donne_.hand((byte)2).total());
-        assertEq(13,donne_.hand((byte)3).total());
+        assertEq(13,donne_.hand(0).total());
+        assertEq(13,donne_.hand(1).total());
+        assertEq(13,donne_.hand(2).total());
+        assertEq(13,donne_.hand(3).total());
     }
     @Test
     public void initDonne2Test() {
@@ -23,10 +23,10 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         DealPresident donne_ = dealRandPlayer(rules_, 0);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.hand((byte)0).total());
-        assertEq(13,donne_.hand((byte)1).total());
-        assertEq(13,donne_.hand((byte)2).total());
-        assertEq(13,donne_.hand((byte)3).total());
+        assertEq(13,donne_.hand(0).total());
+        assertEq(13,donne_.hand(1).total());
+        assertEq(13,donne_.hand(2).total());
+        assertEq(13,donne_.hand(3).total());
     }
 
     @Test
@@ -35,10 +35,10 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         DealPresident donne_ = dealRandPlayer(rules_, 0);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.hand((byte)0).total());
-        assertEq(13,donne_.hand((byte)1).total());
-        assertEq(13,donne_.hand((byte)2).total());
-        assertEq(13,donne_.hand((byte)3).total());
+        assertEq(13,donne_.hand(0).total());
+        assertEq(13,donne_.hand(1).total());
+        assertEq(13,donne_.hand(2).total());
+        assertEq(13,donne_.hand(3).total());
     }
     @Test
     public void initDonne4Test() {
@@ -46,10 +46,10 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         DealPresident donne_ = dealRandPlayer(rules_, 1);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.hand((byte)0).total());
-        assertEq(13,donne_.hand((byte)1).total());
-        assertEq(13,donne_.hand((byte)2).total());
-        assertEq(13,donne_.hand((byte)3).total());
+        assertEq(13,donne_.hand(0).total());
+        assertEq(13,donne_.hand(1).total());
+        assertEq(13,donne_.hand(2).total());
+        assertEq(13,donne_.hand(3).total());
     }
     @Test
     public void initDonne5Test() {
@@ -57,10 +57,10 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         DealPresident donne_ = dealRandPlayer(rules_, 0);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.hand((byte)0).total());
-        assertEq(13,donne_.hand((byte)1).total());
-        assertEq(13,donne_.hand((byte)2).total());
-        assertEq(13,donne_.hand((byte)3).total());
+        assertEq(13,donne_.hand(0).total());
+        assertEq(13,donne_.hand(1).total());
+        assertEq(13,donne_.hand(2).total());
+        assertEq(13,donne_.hand(3).total());
     }
     @Test
     public void initDonne6Test() {
@@ -68,10 +68,10 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         DealPresident donne_ = dealRandPlayer(rules_, 1);
         assertEq(4,donne_.nombreDeMains());
-        assertEq(13,donne_.hand((byte)0).total());
-        assertEq(13,donne_.hand((byte)1).total());
-        assertEq(13,donne_.hand((byte)2).total());
-        assertEq(13,donne_.hand((byte)3).total());
+        assertEq(13,donne_.hand(0).total());
+        assertEq(13,donne_.hand(1).total());
+        assertEq(13,donne_.hand(2).total());
+        assertEq(13,donne_.hand(3).total());
     }
 
     @Test
@@ -80,11 +80,11 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealPresident donne_ = dealFixPlayer(rules_, 0, 4);
         assertEq(5,donne_.nombreDeMains());
-        assertEq(11,donne_.hand((byte)0).total());
-        assertEq(11,donne_.hand((byte)1).total());
-        assertEq(10,donne_.hand((byte)2).total());
-        assertEq(10,donne_.hand((byte)3).total());
-        assertEq(10,donne_.hand((byte)4).total());
+        assertEq(11,donne_.hand(0).total());
+        assertEq(11,donne_.hand(1).total());
+        assertEq(10,donne_.hand(2).total());
+        assertEq(10,donne_.hand(3).total());
+        assertEq(10,donne_.hand(4).total());
     }
 
     private DealPresident dealRandPlayer(RulesPresident _r, int _nb) {
@@ -97,7 +97,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
 
     private DealPresident dealFixPlayer(RulesPresident _r, int _nb, int _d) {
         DealPresident donne_=new DealPresident(_nb);
-        donne_.setDealer((byte) _d);
+        donne_.setDealer(_d);
         donne_.initDonne(_r, DefaultGenerator.oneElt(),HandPresident.stack(1));
         return donne_;
     }

@@ -10,7 +10,7 @@ import code.util.core.StringUtil;
 public final class NetCommon {
 
     private final IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
-    private final IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
+    private final IntTreeMap< Integer> placesPlayers = new IntTreeMap< Integer>();
     private final IntMap<BoolVal> readyPlayers = new IntMap<BoolVal>();
 
 //    private final IntMap<String> nicknames =new IntMap<String>();
@@ -92,7 +92,7 @@ public final class NetCommon {
 //        return nicknames;
 //    }
 
-    public IntTreeMap<Byte> getPlacesPlayers() {
+    public IntTreeMap<Integer> getPlacesPlayers() {
         return placesPlayers;
     }
 

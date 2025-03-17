@@ -60,7 +60,7 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
         main_.ajouter(CardBelote.HEART_JACK);
         main_.ajouter(CardBelote.CLUB_1);
         mains_.add(main_);
-        return new DealBelote(mains_,(byte)2);
+        return new DealBelote(mains_,2);
     }
     @Test
     public void playableCards_WhileDiscarding1Test(){
@@ -75,7 +75,7 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.DIAMOND_1));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         assertTrue(hand_.contient(CardBelote.DIAMOND_QUEEN));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
@@ -100,7 +100,7 @@ public class GameBeloteWithTrumpSuitThreeTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.DIAMOND_1));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         assertTrue(hand_.contient(CardBelote.DIAMOND_QUEEN));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);

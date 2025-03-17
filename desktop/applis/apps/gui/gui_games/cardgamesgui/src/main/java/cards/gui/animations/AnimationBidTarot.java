@@ -54,7 +54,7 @@ public final class AnimationBidTarot implements Runnable {
                 _container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPauseAfter(_container,CardAnimState.BID_TAROT));
                 return;
             }
-            byte player_ = partie_.playerHavingToBid();
+            int player_ = partie_.playerHavingToBid();
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {
                 break;
             }

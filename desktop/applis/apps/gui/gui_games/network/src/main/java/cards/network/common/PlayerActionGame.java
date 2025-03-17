@@ -3,15 +3,15 @@ package cards.network.common;
 
 public class PlayerActionGame {
 
-    private byte place;
+    private int place;
 
 //    private String locale;
 
-    public byte getPlace() {
+    public int getPlace() {
         return place;
     }
 
-    public void setPlace(byte _place) {
+    public void setPlace(int _place) {
         place = _place;
     }
 

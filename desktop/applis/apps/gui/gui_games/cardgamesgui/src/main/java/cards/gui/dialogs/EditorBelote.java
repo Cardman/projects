@@ -222,10 +222,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        }
 //        nombreDeJoueurs_=nombreDeMains_-1;
         int nombreDeJoueurs_ = getReglesBelote().getDealing().getId().getNombreJoueurs();
-        byte donneur_ = (byte) editorCards.getListe().getSelectedIndex();
+        int donneur_ = editorCards.getListe().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //          donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
-            donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
+            donneur_=(int)MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
         }
         DealBelote donne_=new DealBelote(mains_,donneur_);
         partie = new GameBelote(GameType.EDIT,donne_,getReglesBelote());

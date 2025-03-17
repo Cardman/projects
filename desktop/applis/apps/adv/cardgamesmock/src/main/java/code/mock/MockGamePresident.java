@@ -12,7 +12,7 @@ public final class MockGamePresident implements IntGamePresident {
     private int indexCard;
     private int indexStack;
     @Override
-    public HandPresident strategieEchange(GamePresident _game, byte _p) {
+    public HandPresident strategieEchange(GamePresident _game, int _p) {
         return incrSw();
     }
 

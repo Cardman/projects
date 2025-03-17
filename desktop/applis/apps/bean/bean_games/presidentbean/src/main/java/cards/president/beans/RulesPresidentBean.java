@@ -29,9 +29,9 @@ public final class RulesPresidentBean extends Bean {
 
     private boolean looserStartsFirst = true;
 
-    private byte nbCardsPerPlayerMin;
+    private int nbCardsPerPlayerMin;
 
-    private byte nbCardsPerPlayerMax;
+    private int nbCardsPerPlayerMax;
 
     private RulesPresident dataBase;
     public RulesPresident db() {
@@ -55,7 +55,7 @@ public final class RulesPresidentBean extends Bean {
         switchCards = rules_.isSwitchCards();
         looserStartsFirst = rules_.isLooserStartsFirst();
         int nbCards_ = HandPresident.pileBase().total() * nbStacks;
-        nbCardsPerPlayerMin = (byte) (nbCards_ / nbPlayers);
+        nbCardsPerPlayerMin = nbCards_ / nbPlayers;
         nbCardsPerPlayerMax = nbCardsPerPlayerMin;
         if (nbCards_ % nbPlayers > 0) {
             nbCardsPerPlayerMax++;
@@ -109,11 +109,11 @@ public final class RulesPresidentBean extends Bean {
         return looserStartsFirst;
     }
 
-    public byte getNbCardsPerPlayerMin() {
+    public int getNbCardsPerPlayerMin() {
         return nbCardsPerPlayerMin;
     }
 
-    public byte getNbCardsPerPlayerMax() {
+    public int getNbCardsPerPlayerMax() {
         return nbCardsPerPlayerMax;
     }
 

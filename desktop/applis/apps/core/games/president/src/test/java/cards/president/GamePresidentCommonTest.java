@@ -4,7 +4,7 @@ import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
-import code.util.ByteTreeMap;
+import code.util.*;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -34,9 +34,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void getPlayedCardsByStrength1Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -89,9 +89,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void getPlayedCardsByStrength2Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -146,9 +146,9 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void getNotFullPlayedCardsByStrengthTest() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -201,7 +201,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantGroup1Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -209,7 +209,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_KING);
         cur_.ajouter(CardPresident.CLUB_KING);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -234,13 +234,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_2.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,1,pl_,rep_));
     }
     @Test
     public void dominantGroup2Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -248,7 +248,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_KING);
         cur_.ajouter(CardPresident.CLUB_KING);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -273,13 +273,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_1.strength(false),false);
         assertTrue(!GamePresidentCommon.dominantGroup(false,r_,group_,1,pl_,rep_));
     }
     @Test
     public void dominantGroup3Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -290,7 +290,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.CLUB_KING);
         cur_.ajouter(CardPresident.DIAMOND_3);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -315,13 +315,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         trs_.add(t_);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(!GamePresidentCommon.dominantGroup(false,r_,group_,1,pl_,rep_));
     }
     @Test
     public void dominantGroup4Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -342,13 +342,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         GamePresidentCommon.filter(4,pl_,tree_);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
     }
     @Test
     public void dominantGroup5Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setEqualty(EqualtyPlaying.FORBIDDEN);
         HandPresident cur_ = new HandPresident();
@@ -370,13 +370,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         GamePresidentCommon.filter(4,pl_,tree_);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
     }
     @Test
     public void dominantGroup6Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setEqualty(EqualtyPlaying.FORBIDDEN);
         HandPresident cur_ = new HandPresident();
@@ -400,13 +400,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         GamePresidentCommon.filter(4,pl_,tree_);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
     }
     @Test
     public void dominantGroup7Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setEqualty(EqualtyPlaying.FORBIDDEN);
         HandPresident cur_ = new HandPresident();
@@ -430,13 +430,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         GamePresidentCommon.filter(4,pl_,tree_);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
     }
     @Test
     public void dominantGroup8Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -459,13 +459,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         HandPresidentRepartition tree_;
         tree_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
         GamePresidentCommon.filter(4,pl_,tree_);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_3.strength(false),false);
         assertTrue(!GamePresidentCommon.dominantGroup(false,r_,group_,2,tree_,rep_));
     }
     @Test
     public void dominantGroup9Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -476,7 +476,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.CLUB_KING);
         cur_.ajouter(CardPresident.DIAMOND_3);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -504,13 +504,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         h_.ajouter(CardPresident.SPADE_7);
         pr_.ajouter(h_);
         HandPresidentRepartition pl_ = GamePresidentCommon.getNotFullPlayedCardsByStrength(false, trs_, pr_,4);
-        ByteTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
+        IntTreeMap<HandPresident> rep_ = cur_.getCardsByStrength(false);
         HandPresident group_ = cur_.getCardsByStrength(CardPresident.DIAMOND_1.strength(false),false);
         assertTrue(GamePresidentCommon.dominantGroup(false,r_,group_,3,pl_,rep_));
     }
     @Test
     public void dominantHand1Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -518,7 +518,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_KING);
         cur_.ajouter(CardPresident.CLUB_KING);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -548,7 +548,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand2Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -560,7 +560,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -590,7 +590,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand3Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -606,7 +606,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -636,7 +636,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand4Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
@@ -651,7 +651,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -681,7 +681,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand5Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_QUEEN);
@@ -693,7 +693,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -723,7 +723,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand6Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_4);
@@ -734,7 +734,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -764,7 +764,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand7Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
@@ -776,7 +776,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -807,7 +807,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand8Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
@@ -819,7 +819,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_9);
         cur_.ajouter(CardPresident.SPADE_9);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -849,7 +849,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand9Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
@@ -857,7 +857,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.SPADE_1);
         cur_.ajouter(CardPresident.CLUB_1);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -887,7 +887,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand10Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_1);
@@ -900,7 +900,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -930,7 +930,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand11Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.SPADE_2);
@@ -938,7 +938,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.DIAMOND_2);
         cur_.ajouter(CardPresident.HEART_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -968,7 +968,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand12Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.SPADE_2);
@@ -977,7 +977,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.DIAMOND_10);
         cur_.ajouter(CardPresident.HEART_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -1007,7 +1007,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand13Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.SPADE_2);
@@ -1015,7 +1015,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_7);
         cur_.ajouter(CardPresident.HEART_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -1045,7 +1045,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand14Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.SPADE_2);
@@ -1053,7 +1053,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.HEART_4);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -1083,14 +1083,14 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand15Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.SPADE_2);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.HEART_4);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -1120,14 +1120,14 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand16Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.SPADE_2);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.HEART_4);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -1158,7 +1158,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand17Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -1170,7 +1170,7 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -1201,11 +1201,11 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
     }
     @Test
     public void dominantHand18Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         CustList<TrickPresident> trs_ = new CustList<TrickPresident>();
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -1244,8 +1244,8 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.CLUB_5);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte)0);
-        HandPresident out_ = GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, (byte) 2, cur_, false, pr_);
+        TrickPresident pr_ = new TrickPresident(0);
+        HandPresident out_ = GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, 2, cur_, false, pr_);
         assertEq(2,out_.total());
         assertSame(CardPresident.HEART_KING,out_.carte(0));
         assertSame(CardPresident.CLUB_KING,out_.carte(1));
@@ -1261,8 +1261,8 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.CLUB_5);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte)0);
-        HandPresident out_ = GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, (byte) 1,cur_,false,pr_);
+        TrickPresident pr_ = new TrickPresident(0);
+        HandPresident out_ = GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, 1,cur_,false,pr_);
         assertEq(1,out_.total());
         assertSame(CardPresident.HEART_KING,out_.carte(0));
     }
@@ -1277,11 +1277,11 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.CLUB_5);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte)0);
+        TrickPresident pr_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         pr_.ajouter(h_);
-        HandPresident out_ =  GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, (byte) 1,cur_,false,pr_);
+        HandPresident out_ =  GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, 1,cur_,false,pr_);
         assertEq(1,out_.total());
         assertSame(CardPresident.HEART_KING,out_.carte(0));
     }
@@ -1296,13 +1296,13 @@ public final class GamePresidentCommonTest extends EquallablePresidentUtil {
         cur_.ajouter(CardPresident.CLUB_5);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte)0);
+        TrickPresident pr_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
         h_.ajouter(CardPresident.DIAMOND_3);
         pr_.ajouter(h_);
-        HandPresident out_ = GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, (byte) 1,cur_,false,pr_);
+        HandPresident out_ = GamePresidentCommon.playHand(CardPresident.DIAMOND_KING, 1,cur_,false,pr_);
         assertEq(2,out_.total());
         assertSame(CardPresident.HEART_KING,out_.carte(0));
         assertSame(CardPresident.CLUB_KING,out_.carte(1));

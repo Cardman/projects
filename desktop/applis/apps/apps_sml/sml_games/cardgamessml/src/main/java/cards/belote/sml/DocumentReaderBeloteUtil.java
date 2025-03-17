@@ -46,7 +46,7 @@ public final class DocumentReaderBeloteUtil {
             _object.setSuit(DocumentReaderCardsCommonUtil.getSuit(_element));
             return;
         }
-        _object.setPoints(DocumentReaderCoreUtil.getInteger(_element));
+        _object.setPoints(DocumentReaderCoreUtil.getLong(_element));
     }
 
     private static DealBelote getDealBelote(Element _element) {
@@ -64,7 +64,7 @@ public final class DocumentReaderBeloteUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_DEALER)) {
-            _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
+            _object.setDealer(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         _object.setNbDeals(DocumentReaderCoreUtil.getLong(_element));
@@ -88,7 +88,7 @@ public final class DocumentReaderBeloteUtil {
             _object.setHand(getHandBelote(_element));
             return;
         }
-        _object.setPlayer(DocumentReaderCoreUtil.getByte(_element));
+        _object.setPlayer(DocumentReaderCoreUtil.getInteger(_element));
     }
 
     public static DisplayingBelote getDisplayingBelote(String _string) {
@@ -167,7 +167,7 @@ public final class DocumentReaderBeloteUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_SCORES)) {
-            _object.setScores(DocumentReaderCoreUtil.getListShort(_element));
+            _object.setScores(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_NUMBER)) {
@@ -276,7 +276,7 @@ public final class DocumentReaderBeloteUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_PRENEUR)) {
-            _object.setPreneur(DocumentReaderCoreUtil.getByte(_element));
+            _object.setPreneur(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterBeloteUtil.FIELD_BID)) {

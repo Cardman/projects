@@ -11,7 +11,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
 
     @Test
     public void getDefaultCards1Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -24,7 +24,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         cur_.ajouter(CardPresident.CLUB_7);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -38,7 +38,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void getDefaultCards2Test() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -51,7 +51,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         cur_.ajouter(CardPresident.CLUB_7);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident t_ = new TrickPresident((byte)0);
+        TrickPresident t_ = new TrickPresident(0);
         TrickPresident pr_ = new TrickPresident(t_.getRamasseur(nb_));
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -65,7 +65,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void getNotEmptyWorstTest() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -79,7 +79,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         cur_.ajouter(CardPresident.CLUB_5);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte)0);
+        TrickPresident pr_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -93,7 +93,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void getHandPresidentsTest() {
-        byte nb_ = 4;
+        int  nb_ = 4;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -107,7 +107,7 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         cur_.ajouter(CardPresident.CLUB_5);
         cur_.ajouter(CardPresident.HEART_5);
         cur_.ajouter(CardPresident.SPADE_5);
-        TrickPresident pr_ = new TrickPresident((byte)0);
+        TrickPresident pr_ = new TrickPresident(0);
         HandPresident h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         h_.ajouter(CardPresident.HEART_3);
@@ -121,8 +121,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void tryPlayWhenAllPossible1Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_2);
@@ -143,8 +143,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void tryPlayWhenAllPossible2Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_JACK);
@@ -162,8 +162,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void tryPlayWhenAllPossible3Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_1);
@@ -177,15 +177,15 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        possibleRep_.put(CardPresident.DIAMOND_2, (byte) 3);
+        possibleRep_.put(CardPresident.DIAMOND_2, 3);
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(2, out_.total());
         assertEq(out_.total(), out_.getCardsByStrength(CardPresident.CLUB_1.strength(false), false).total());
     }
     @Test
     public void tryPlayWhenAllPossible4Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_KING);
@@ -205,8 +205,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void tryPlayWhenAllPossible5Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_KING);
@@ -220,15 +220,15 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        possibleRep_.put(CardPresident.CLUB_2, (byte) 0);
-        possibleRep_.put(CardPresident.CLUB_1, (byte) 0);
+        possibleRep_.put(CardPresident.CLUB_2, 0);
+        possibleRep_.put(CardPresident.CLUB_1, 0);
         HandPresident out_ = GamePresidentProg.tryPlayWhenAllPossible(playable_, pr_, false, r_, possibleRep_);
         assertEq(0, out_.total());
     }
     @Test
     public void tryPlayWhenAllPossible6Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_2);
@@ -314,8 +314,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick1Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
@@ -390,8 +390,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick2Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
@@ -468,8 +468,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick3Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
@@ -545,8 +545,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick4Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();
@@ -622,8 +622,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick5Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         r_.setHasToPlay(true);
         CustList<HandPresident> deal_ = new CustList<HandPresident>();
@@ -700,8 +700,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick6Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.DIAMOND_2);
@@ -729,8 +729,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick7Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_1);
@@ -748,15 +748,15 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         pr_.ajouter(h_);
         HandPresident playable_ = GamePresidentCommon.getPlayable(cur_, Playing.CAN_PLAY, pr_, false, r_);
         HandPresidentRepartition possibleRep_ = new HandPresidentRepartition(new GameStrengthCardPresidentComparator(false, true));
-        possibleRep_.put(CardPresident.DIAMOND_2, (byte) 3);
+        possibleRep_.put(CardPresident.DIAMOND_2, 3);
         HandPresident out_ = GamePresidentProg.progressTrick(possibleRep_,playable_,cur_,pr_,false,r_);
         assertEq(3,out_.total());
         assertEq(out_.total(), out_.getCardsByStrength(CardPresident.SPADE_1.strength(false), false).total());
     }
     @Test
     public void progressTrick8Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_2);
@@ -786,8 +786,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick9Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_2);
@@ -808,8 +808,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick10Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         HandPresident cur_ = new HandPresident();
         cur_.ajouter(CardPresident.CLUB_KING);
@@ -832,8 +832,8 @@ public final class GamePresidentProgTest extends CommonGamePresident {
     }
     @Test
     public void progressTrick11Test() {
-        byte nb_ = 4;
-        byte dealer_ = 0;
+        int  nb_ = 4;
+        int  dealer_ = 0;
         RulesPresident r_ = new RulesPresident(nb_);
         CustList<HandPresident> deal_ = new CustList<HandPresident>();
         HandPresident cur_ = new HandPresident();

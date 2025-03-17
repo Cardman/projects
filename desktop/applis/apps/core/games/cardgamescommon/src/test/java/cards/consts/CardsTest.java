@@ -24,7 +24,7 @@ public final class CardsTest extends EquallableCardsUtil {
         assertNotNull(r_.getSpecific());
 //        r_.setLoc("");
 //        assertNotNull(r_.getLoc());
-        r_.setUser((byte) 0);
+        r_.setUser(0);
         assertEq(0, r_.getUser());
         r_.setNicknames(new StringList());
         RulesCommon rc_ = new RulesCommon(new RulesCommon());
@@ -76,24 +76,24 @@ public final class CardsTest extends EquallableCardsUtil {
         assertEq("5",EnumCardsExporterUtil.fromCardChar(CardChar.UNDEFINED));
         assertTrue(EnumCardsRetrieverUtil.toBool(Hypothesis.SURE));
         assertFalse(EnumCardsRetrieverUtil.toBool(Hypothesis.POSSIBLE));
-        assertFalse(CouleurValeur.fromCard(new CouleurValeur(Suit.UNDEFINED,(byte) 0,CardChar.UNDEFINED,true)).isEmpty());
-        assertTrue(CouleurValeur.fromCard(new CouleurValeur(Suit.UNDEFINED,(byte) 0,CardChar.UNDEFINED,false)).isEmpty());
+        assertFalse(CouleurValeur.fromCard(new CouleurValeur(Suit.UNDEFINED,0,CardChar.UNDEFINED,true)).isEmpty());
+        assertTrue(CouleurValeur.fromCard(new CouleurValeur(Suit.UNDEFINED,0,CardChar.UNDEFINED,false)).isEmpty());
     }
     @Test
     public void intersectionJoueurs1() {
-        Bytes sorted_ = SortedPlayers.intersectionJoueurs(Bytes.newList((byte)1),Bytes.newList((byte)2));
+        Ints sorted_ = SortedPlayers.intersectionJoueurs(Ints.newList(1),Ints.newList(2));
         assertEq(0, sorted_.size());
     }
     @Test
     public void intersectionJoueurs2() {
-        Bytes sorted_ = SortedPlayers.intersectionJoueurs(Bytes.newList((byte)1,(byte)3),Bytes.newList((byte)1,(byte)2));
+        Ints sorted_ = SortedPlayers.intersectionJoueurs(Ints.newList(1,3),Ints.newList(1,2));
         assertEq(1, sorted_.size());
         assertEq(1, sorted_.get(0));
     }
     @Test
     public void nextPlayers() {
-        Bytes joueursRepartitionInconnue_ = Bytes.newList();
-        SortedPlayers.nextPlayers(Bytes.newList((byte)1), joueursRepartitionInconnue_, (byte) 4);
+        Ints joueursRepartitionInconnue_ = Ints.newList();
+        SortedPlayers.nextPlayers(Ints.newList(1), joueursRepartitionInconnue_, 4);
         assertEq(3, joueursRepartitionInconnue_.size());
         assertEq(0, joueursRepartitionInconnue_.get(0));
         assertEq(2, joueursRepartitionInconnue_.get(1));
@@ -101,9 +101,9 @@ public final class CardsTest extends EquallableCardsUtil {
     }
     @Test
     public void shift() {
-        Bytes joueursRepartitionInconnue_ = Bytes.newList((byte)1);
-        Bytes joueursRepartitionConnue_ = Bytes.newList((byte)2);
-        Bytes joueursRepartitionConnue2_ = Bytes.newList((byte)3);
+        Ints joueursRepartitionInconnue_ = Ints.newList(1);
+        Ints joueursRepartitionConnue_ = Ints.newList(2);
+        Ints joueursRepartitionConnue2_ = Ints.newList(3);
         SortedPlayers.shift(joueursRepartitionConnue_, joueursRepartitionConnue2_, joueursRepartitionInconnue_);
         assertEq(0, joueursRepartitionInconnue_.size());
         assertEq(1, joueursRepartitionConnue_.size());
@@ -112,15 +112,20 @@ public final class CardsTest extends EquallableCardsUtil {
     }
     @Test
     public void autresJoueurs() {
-        Bytes sorted_ = SortedPlayers.autresJoueurs(Bytes.newList((byte)1,(byte)3), (byte) 5);
+        Ints sorted_ = SortedPlayers.autresJoueurs(Ints.newList(1,3), 5);
         assertEq(3, sorted_.size());
         assertEq(0, sorted_.get(0));
         assertEq(2, sorted_.get(1));
         assertEq(4, sorted_.get(2));
+        Ints sortedSh_ = SortedPlayers.autresJoueurs(Ints.newList(1,3), 5);
+        assertEq(3, sortedSh_.size());
+        assertEq(0, sortedSh_.get(0));
+        assertEq(2, sortedSh_.get(1));
+        assertEq(4, sortedSh_.get(2));
     }
     @Test
     public void getSortedPlayers() {
-        Bytes sorted_ = new SortedPlayers(4).getSortedPlayers(2);
+        Ints sorted_ = new SortedPlayers(4).getSortedPlayers(2);
         assertEq(4, sorted_.size());
         assertEq(2, sorted_.get(0));
         assertEq(3, sorted_.get(1));
@@ -149,7 +154,7 @@ public final class CardsTest extends EquallableCardsUtil {
     }
     @Test
     public void getSortedPlayersAfter() {
-        Bytes sorted_ = new SortedPlayers(4).getSortedPlayersAfter(2);
+        Ints sorted_ = new SortedPlayers(4).getSortedPlayersAfter(2);
         assertEq(4, sorted_.size());
         assertEq(3, sorted_.get(0));
         assertEq(0, sorted_.get(1));
@@ -158,14 +163,14 @@ public final class CardsTest extends EquallableCardsUtil {
     }
     @Test
     public void joueursAyantJoueAvant1() {
-        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(1,2,2);
+        Ints sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(1,2,2);
         assertEq(2, sorted_.size());
         assertEq(2, sorted_.get(0));
         assertEq(3, sorted_.get(1));
     }
     @Test
     public void joueursAyantJoueAvant2() {
-        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(1,2,3);
+        Ints sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(1,2,3);
         assertEq(3, sorted_.size());
         assertEq(2, sorted_.get(0));
         assertEq(3, sorted_.get(1));
@@ -173,14 +178,14 @@ public final class CardsTest extends EquallableCardsUtil {
     }
     @Test
     public void joueursAyantJoueAvant3() {
-        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(0,2,3);
+        Ints sorted_ = new SortedPlayers(4).joueursAyantJoueAvant(0,2,3);
         assertEq(2, sorted_.size());
         assertEq(2, sorted_.get(0));
         assertEq(3, sorted_.get(1));
     }
     @Test
     public void joueursAyantJoue() {
-        Bytes sorted_ = new SortedPlayers(4).joueursAyantJoue(2,3);
+        Ints sorted_ = new SortedPlayers(4).joueursAyantJoue(2,3);
         assertEq(3, sorted_.size());
         assertEq(2, sorted_.get(0));
         assertEq(3, sorted_.get(1));
@@ -322,7 +327,7 @@ public final class CardsTest extends EquallableCardsUtil {
     @Test
     public void calculateScores1() {
         ResultsGame r_ = new ResultsGame();
-        calculateScores2(r_, Shorts.newList((short)1,(short) 2));
+        calculateScores2(r_, Longs.newList(1, 2));
         assertEq(1, r_.getScores().size());
         assertEq(2, r_.getScores().get(0).size());
         assertEq(1, r_.getScores().get(0).get(0));
@@ -340,8 +345,8 @@ public final class CardsTest extends EquallableCardsUtil {
     @Test
     public void calculateScores2() {
         ResultsGame r_ = new ResultsGame();
-        calculateScores2(r_, Shorts.newList((short)1,(short) 2));
-        calculateScores2(r_, Shorts.newList((short) 2, (short) 1));
+        calculateScores2(r_, Longs.newList(1, 2));
+        calculateScores2(r_, Longs.newList(2, 1));
         assertEq(2, r_.getScores().size());
         assertEq(2, r_.getScores().get(0).size());
         assertEq(1, r_.getScores().get(0).get(0));
@@ -480,10 +485,10 @@ public final class CardsTest extends EquallableCardsUtil {
     }
 
     private void calculateScores1(ResultsGame _r, GameType _type, CustList<Longs> _previous) {
-        _r.calculateScores(_previous,Shorts.newList((short)1,(short) 2), _type,0,1);
+        _r.calculateScores(_previous,Longs.newList(1,2), _type,0,1);
     }
 
-    private void calculateScores2(ResultsGame _r, Shorts _ls) {
+    private void calculateScores2(ResultsGame _r, Longs _ls) {
         _r.calculateScores(_ls);
     }
 

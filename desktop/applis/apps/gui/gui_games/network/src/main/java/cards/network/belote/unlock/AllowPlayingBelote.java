@@ -12,7 +12,7 @@ public final class AllowPlayingBelote {
 
     private boolean allowedBeloteRebelote;
 
-    private byte takerIndex;
+    private int takerIndex;
 
     private BidBeloteSuit currentBid;
 
@@ -51,11 +51,11 @@ public final class AllowPlayingBelote {
         allowedBeloteRebelote = _allowedBeloteRebelote;
     }
 
-    public byte getTakerIndex() {
+    public int getTakerIndex() {
         return takerIndex;
     }
 
-    public void setTakerIndex(byte _takerIndex) {
+    public void setTakerIndex(int _takerIndex) {
         takerIndex = _takerIndex;
     }
 

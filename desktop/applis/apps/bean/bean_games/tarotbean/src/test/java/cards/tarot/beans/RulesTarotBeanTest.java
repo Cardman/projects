@@ -142,7 +142,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         return rules(DealingTarot.DEAL_1_VS_4, true, true);
     }
     private RulesTarot rules(DealingTarot _deal, boolean _allowPlayCalledSuit, boolean _discardAfterCall) {
-        RulesTarot rulesTarot_ = new RulesTarot((byte) _deal.getId().getNombreJoueurs());
+        RulesTarot rulesTarot_ = new RulesTarot(_deal.getId().getNombreJoueurs());
         rulesTarot_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         StringMap<String> m_ = new StringMap<String>();
         m_.addEntry(EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.EACH_LAUNCHING),AT_EACH_LAUNCHING);

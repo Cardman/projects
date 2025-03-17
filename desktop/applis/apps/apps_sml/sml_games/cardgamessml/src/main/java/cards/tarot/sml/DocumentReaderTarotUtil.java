@@ -39,7 +39,7 @@ public final class DocumentReaderTarotUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_DEALER)) {
-            _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
+            _object.setDealer(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         _object.setNbDeals(DocumentReaderCoreUtil.getLong(_element));
@@ -133,7 +133,7 @@ public final class DocumentReaderTarotUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_SCORES)) {
-            _object.setScores(DocumentReaderCoreUtil.getListShort(_element));
+            _object.setScores(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_NUMBER)) {
@@ -251,7 +251,7 @@ public final class DocumentReaderTarotUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_PRENEUR)) {
-            _object.setPreneur(DocumentReaderCoreUtil.getByte(_element));
+            _object.setPreneur(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterTarotUtil.FIELD_TRICKS)) {

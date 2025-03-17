@@ -12,17 +12,17 @@ public final class ResultsBelote {
 
     private EndGameState endBeloteGame = EndGameState.EQUALLITY;
 
-    private int differenceScoreTaker;
+    private long differenceScoreTaker;
 
     public void initialize(StringList _pseudos, CustList<Longs> _scores) {
         res.setNicknames(_pseudos);
-        Shorts scoresDeal_ = new Shorts();
+        Longs scoresDeal_ = new Longs();
         BidBeloteSuit bid_ = game.getBid();
         if(bid_.jouerDonne()) {
-            int pointsAttaqueTemporaire_;
-            int pointsAttaqueDefinitif_;
-            int pointsDefenseTemporaire_;
-            int pointsDefenseDefinitif_;
+            long pointsAttaqueTemporaire_;
+            long pointsAttaqueDefinitif_;
+            long pointsDefenseTemporaire_;
+            long pointsDefenseDefinitif_;
             EndBeloteGame end_ = game.getEndBeloteGame();
             pointsAttaqueTemporaire_ = end_.pointsAttackWithBonus();
             pointsDefenseTemporaire_ = end_.pointsDefenseWithBonus();
@@ -35,7 +35,7 @@ public final class ResultsBelote {
         } else {
             int nbPl_ = game.getNombreDeJoueurs();
             for (int i = 0; i < nbPl_; i++) {
-                scoresDeal_.add((short)0);
+                scoresDeal_.add(0L);
             }
         }
         GameType type_ = game.getType();
@@ -44,7 +44,7 @@ public final class ResultsBelote {
         calculateScores(_scores,scoresDeal_, type_, number_, nbDeals_);
     }
 
-    void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+    void calculateScores(CustList<Longs> _scores,Longs _scoresDeal, GameType _type, long _number, int _nbDeals) {
         res.calculateScores(_scores,_scoresDeal,_type,_number,_nbDeals);
     }
     public GameBelote getGame() {
@@ -62,7 +62,7 @@ public final class ResultsBelote {
         return endBeloteGame;
     }
 
-    public int getDifferenceScoreTaker() {
+    public long getDifferenceScoreTaker() {
         return differenceScoreTaker;
     }
 }

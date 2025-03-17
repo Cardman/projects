@@ -47,7 +47,7 @@ public final class ServerActLoopCardsPlayingBelote implements IntServerActLoopCa
         //p_.setLocale(Constants.getDefaultLanguage());
 //            p_.setLocale("");
         Net.initAllReceived(_instance, _common);
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientPlayingBelote(p_), Net.getSocketByPlace(p, _common));
         }
     }

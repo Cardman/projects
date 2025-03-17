@@ -265,10 +265,10 @@ public final class ContainerPauseTest extends EquallableCardsGuiUtil {
         return g_;
     }
     private GamePresident edited(DealPresident _deal, RulesPresident _rules) {
-        return edited(_deal,_rules,new Bytes());
+        return edited(_deal,_rules,new Ints());
     }
 
-    private GamePresident edited(DealPresident _deal, RulesPresident _rules, Bytes _rks) {
+    private GamePresident edited(DealPresident _deal, RulesPresident _rules, Ints _rks) {
         GamePresident g_ = new GamePresident(GameType.EDIT, _deal, _rules, _rks);
         g_.setNombre();
         return g_;
@@ -352,7 +352,7 @@ private void nextCall(MockGameTarot _m, CardTarot _bid) {
         hand_.ajouter(CardBelote.HEART_8);
         hand_.ajouter(CardBelote.HEART_7);
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
 
     private static void firstHands(CustList<HandBelote> _hands) {
@@ -388,7 +388,7 @@ private void nextCall(MockGameTarot _m, CardTarot _bid) {
     }
 
     private DealPresident mix(int _d) {
-        return new DealPresident(dealPresident(), (byte) _d);
+        return new DealPresident(dealPresident(), _d);
     }
 
     static CustList<HandPresident> dealPresident() {
@@ -550,7 +550,7 @@ private void nextCall(MockGameTarot _m, CardTarot _bid) {
         hand_.ajouter(CardTarot.TRUMP_7);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
     private RulesBelote rulesBelote() {
         RulesBelote rules_ = new RulesBelote();

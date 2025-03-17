@@ -1,11 +1,11 @@
 package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
-import code.util.Bytes;
+import code.util.Ints;
 
 public interface SimulatingBelote {
 
-    Bytes players(GameBelote _g);
+    Ints players(GameBelote _g);
     void bid(GameBelote _g);
     CardBelote play(GameBelote _g);
     int ajouterDixDeDerPliEnCours(GameBelote _g);
@@ -17,7 +17,7 @@ public interface SimulatingBelote {
     DisplayingBelote getDisplaying();
 //    void actingBid(byte _player);
 //    void actedBid(byte _player, BidBeloteSuit _bid);
-    int stoppedRound(int _nbBids,byte _nbPlayers);
+    int stoppedRound(int _nbBids,int _nbPlayers);
 //    void nextRound(int _nbBids,byte _nbPlayers);
 //    void secRound(byte _nbPlayers);
     boolean noBid(GameBelote _g);
@@ -55,9 +55,9 @@ public interface SimulatingBelote {
 //    void beginPlay();
 
 //    void dealCards(byte _donneur);
-    int dealCardsStep(byte _donneur);
+    int dealCardsStep(int _donneur);
 
-    int dealCardStep(int _step, int _gotCards, byte _p);
+    int dealCardStep(int _step, int _gotCards, int _p);
 //    void dealCard(int _step, int _gotCards, byte _p);
     int completerDonne(GameBelote _g);
 }

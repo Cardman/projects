@@ -10,7 +10,7 @@ public final class ResultsPresident {
     private final ResultsGame res = new ResultsGame();
     private GamePresident game;
 
-    public void initialize(StringList _pseudos, CustList<Longs> _scores, Bytes _r) {
+    public void initialize(StringList _pseudos, CustList<Longs> _scores, Ints _r) {
         res.scores(_scores);
         res.setNicknames(_pseudos);
         LineDeal ld_ = new LineDeal();
@@ -38,11 +38,11 @@ public final class ResultsPresident {
 
     public void initialize(StringList _pseudos, CustList<Longs> _scores) {
         res.setNicknames(_pseudos);
-        Shorts scoresDeal_ = new Shorts();
-        Bytes rk_ = game.getNewRanks();
+        Longs scoresDeal_ = new Longs();
+        Ints rk_ = game.getNewRanks();
         int s_ = rk_.size();
         for (int i = 0; i < s_; i++) {
-            scoresDeal_.add((short) rk_.get(i));
+            scoresDeal_.add((long)rk_.get(i));
         }
         GameType type_ = game.getType();
         long number_ = game.getNumber();
@@ -50,7 +50,7 @@ public final class ResultsPresident {
         calculateScores(_scores,scoresDeal_, type_, number_, nbDeals_);
     }
 
-    void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+    void calculateScores(CustList<Longs> _scores,Longs _scoresDeal, GameType _type, long _number, int _nbDeals) {
         res.calculateScores(_scores,_scoresDeal,_type,_number,_nbDeals);
     }
     public GamePresident getGame() {

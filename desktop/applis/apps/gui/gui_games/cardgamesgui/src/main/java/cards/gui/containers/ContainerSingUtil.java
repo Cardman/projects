@@ -25,7 +25,7 @@ public final class ContainerSingUtil<T> {
     public ContainerSingUtil(IntCardConverter<T> _conv) {
         converter = _conv;
     }
-    public void seeHand(ContainerSingleImpl _container,IdList<T> _calledCards, AbsPanel _center, byte _player, byte _user) {
+    public void seeHand(ContainerSingleImpl _container,IdList<T> _calledCards, AbsPanel _center, int _player, int _user) {
         if (_player != _user) {
             return;
         }
@@ -46,7 +46,7 @@ public final class ContainerSingUtil<T> {
         _container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(_container, event_));
         _container.getOwner().getFrames().getCompoFactory().invokeNow(new WithdrawCards(_container,_center));
     }
-    public void seeHandDog(ContainerSingleImpl _container, IdList<T> _takerHand, AbsPanel _panelHand, byte _player, byte _user) {
+    public void seeHandDog(ContainerSingleImpl _container, IdList<T> _takerHand, AbsPanel _panelHand, int _player, int _user) {
         seeHand(_container,_takerHand,_panelHand,_player, _user);
     }
     public void mergeDog(ContainerSingleImpl _container, AbsPanel _center, int _total) {
@@ -88,7 +88,7 @@ public final class ContainerSingUtil<T> {
 
         CustList<GraphicCard<T>> ls_ = getGraphicCardsGene(_compoFactory, _lg, _total);
         int s_ = ls_.size();
-        for (byte b = IndexConstants.FIRST_INDEX; b < s_; b++) {
+        for (int b = IndexConstants.FIRST_INDEX; b < s_; b++) {
             _center.add(ls_.get(b).getPaintableLabel());
         }
         _center.setSize(_center.getPreferredSizeValue());

@@ -82,7 +82,7 @@ public final class BeloteSampleFirstDealThreePlayersSec implements IntFirstDealB
 
     public static DealBelote dealThreePlayers() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
                 CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
         db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,

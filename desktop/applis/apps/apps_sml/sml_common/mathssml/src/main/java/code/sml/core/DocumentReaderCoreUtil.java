@@ -29,13 +29,13 @@ public final class DocumentReaderCoreUtil {
         return ComparatorBoolean.of(getBoolean(_elt));
     }
 
-    public static byte getByte(Element _elt) {
-        return (byte) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
-    }
-
-    public static short getShort(Element _elt) {
-        return (short) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
-    }
+//    public static byte getByte(Element _elt) {
+//        return (byte) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
+//    }
+//
+//    public static short getShort(Element _elt) {
+//        return (short) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
+//    }
 
     public static int getInteger(Element _elt) {
         return (int) NumberUtil.parseLongZero(_elt.getAttribute(VALUE));
@@ -69,25 +69,25 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static Bytes getListByte(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        Bytes list_ = new Bytes(new CollCapacity(len_));
-        for (Element c: childElements_) {
-            list_.add(getByte(c));
-        }
-        return list_;
-    }
-
-    public static Shorts getListShort(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        Shorts list_ = new Shorts(new CollCapacity(len_));
-        for (Element c: childElements_) {
-            list_.add(getShort(c));
-        }
-        return list_;
-    }
+//    public static Bytes getListByte(Element _elt) {
+//        ElementList childElements_ = _elt.getChildElements();
+//        int len_ = childElements_.getLength();
+//        Bytes list_ = new Bytes(new CollCapacity(len_));
+//        for (Element c: childElements_) {
+//            list_.add(getInteger(c));
+//        }
+//        return list_;
+//    }
+//
+//    public static Shorts getListShort(Element _elt) {
+//        ElementList childElements_ = _elt.getChildElements();
+//        int len_ = childElements_.getLength();
+//        Shorts list_ = new Shorts(new CollCapacity(len_));
+//        for (Element c: childElements_) {
+//            list_.add(getShort(c));
+//        }
+//        return list_;
+//    }
 
     public static Ints getListInteger(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
@@ -128,16 +128,16 @@ public final class DocumentReaderCoreUtil {
         }
         return list_;
     }
-
-    public static CustList<Bytes> getListListByte(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CustList<Bytes> list_ = new CustList<Bytes>(new CollCapacity(len_));
-        for (Element c: childElements_) {
-            list_.add(getListByte(c));
-        }
-        return list_;
-    }
+//
+//    public static CustList<Bytes> getListListByte(Element _elt) {
+//        ElementList childElements_ = _elt.getChildElements();
+//        int len_ = childElements_.getLength();
+//        CustList<Bytes> list_ = new CustList<Bytes>(new CollCapacity(len_));
+//        for (Element c: childElements_) {
+//            list_.add(getListByte(c));
+//        }
+//        return list_;
+//    }
 
     public static StringMap<BoolVal> getStringMapBoolean(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
@@ -243,27 +243,27 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-
-    public static IntTreeMap<Byte> getMapIntegerByte(Element _elt) {
-        ElementList childElements_ = _elt.getChildElements();
-        int len_ = childElements_.getLength();
-        CollCapacity cap_ = new CollCapacity(len_/2);
-        IntTreeMap<Byte> map_ = new IntTreeMap<Byte>(cap_);
-        Ints keys_ = new Ints(cap_);
-        Bytes values_ = new Bytes(cap_);
-        for (Element c: childElements_) {
-            if (hasKey(c)) {
-                keys_.add(getInteger(c));
-            } else {
-                values_.add(getByte(c));
-            }
-        }
-        int min_ = NumberUtil.min(keys_.size(), values_.size());
-        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
-        }
-        return map_;
-    }
+//
+//    public static IntTreeMap<Integer> getMapIntegerByte(Element _elt) {
+//        ElementList childElements_ = _elt.getChildElements();
+//        int len_ = childElements_.getLength();
+//        CollCapacity cap_ = new CollCapacity(len_/2);
+//        IntTreeMap<Integer> map_ = new IntTreeMap<Integer>(cap_);
+//        Ints keys_ = new Ints(cap_);
+//        Ints values_ = new Ints(cap_);
+//        for (Element c: childElements_) {
+//            if (hasKey(c)) {
+//                keys_.add(getInteger(c));
+//            } else {
+//                values_.add(getInteger(c));
+//            }
+//        }
+//        int min_ = NumberUtil.min(keys_.size(), values_.size());
+//        for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
+//            map_.put(keys_.get(i), values_.get(i));
+//        }
+//        return map_;
+//    }
     public static IntMap<Integer> getMapByteByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();

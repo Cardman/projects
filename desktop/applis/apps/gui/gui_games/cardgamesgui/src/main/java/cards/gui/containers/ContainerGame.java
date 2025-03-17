@@ -55,8 +55,8 @@ public abstract class ContainerGame {
     private DisplayingBelote displayingBelote;
     private DisplayingPresident displayingPresident;
     private DisplayingTarot displayingTarot;
-    private ByteMap<AbsPlainLabel> handfuls = new ByteMap<AbsPlainLabel>();
-    private ByteMap<AbsPanel> declaredHandfuls = new ByteMap<AbsPanel>();
+    private IntMap<AbsPlainLabel> handfuls = new IntMap<AbsPlainLabel>();
+    private IntMap<AbsPanel> declaredHandfuls = new IntMap<AbsPanel>();
     private final Carpet tapis = new Carpet();
     private boolean changerPileFin;
 //    protected ContainerGame(WindowCards _window) {
@@ -108,7 +108,7 @@ public abstract class ContainerGame {
     public AbsPanel buildDeclHands(int _nbPlayers, CustList<String> _pseudos, AbstractProgramInfos _api) {
         initHandfuls();
         AbsPanel handfuls_ = _api.getCompoFactory().newGrid();
-        for (byte i = IndexConstants.FIRST_INDEX; i<_nbPlayers; i++) {
+        for (int i = IndexConstants.FIRST_INDEX; i<_nbPlayers; i++) {
             AbsPlainLabel lab_ = _api.getCompoFactory().newPlainLabel(_pseudos.get(i));
             lab_.left();
             Carpet.add(_api.getCompoFactory(),handfuls_,lab_,false);
@@ -123,8 +123,8 @@ public abstract class ContainerGame {
     }
 
     public void initHandfuls() {
-        setHandfuls(new ByteMap<AbsPlainLabel>());
-        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        setHandfuls(new IntMap<AbsPlainLabel>());
+        setDeclaredHandfuls(new IntMap<AbsPanel>());
     }
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl, int _nbStacks) {
         FacadeCards.changerNombreDeParties(_game,_nbGames,WindowCards.getTempFolderSl(_tmpUserFolderSl),_tmpUserFolderSl, _nbStacks);
@@ -181,10 +181,10 @@ public abstract class ContainerGame {
 //    public void setCarteSortie(boolean _carteSortie) {
 //        carteSortie = _carteSortie;
 //    }
-    public ByteMap<AbsPanel> getDeclaredHandfuls() {
+    public IntMap<AbsPanel> getDeclaredHandfuls() {
         return declaredHandfuls;
     }
-    public void setDeclaredHandfuls(ByteMap<AbsPanel> _declaredHandfuls) {
+    public void setDeclaredHandfuls(IntMap<AbsPanel> _declaredHandfuls) {
         declaredHandfuls = _declaredHandfuls;
     }
 //    public StringMap<String> getMessages() {
@@ -206,10 +206,10 @@ public abstract class ContainerGame {
         return tapis;
     }
 
-    public ByteMap<AbsPlainLabel> getHandfuls() {
+    public IntMap<AbsPlainLabel> getHandfuls() {
         return handfuls;
     }
-    public void setHandfuls(ByteMap<AbsPlainLabel> _handfuls) {
+    public void setHandfuls(IntMap<AbsPlainLabel> _handfuls) {
         handfuls = _handfuls;
     }
     protected boolean isChangerPileFin() {

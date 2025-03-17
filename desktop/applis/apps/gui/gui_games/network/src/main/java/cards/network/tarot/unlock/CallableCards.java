@@ -8,7 +8,7 @@ public final class CallableCards {
 
     private boolean discarding;
 
-    private byte takerIndex;
+    private int takerIndex;
 
     public HandTarot getCards() {
         return cards;
@@ -26,11 +26,11 @@ public final class CallableCards {
         discarding = _discarding;
     }
 
-    public byte getTakerIndex() {
+    public int getTakerIndex() {
         return takerIndex;
     }
 
-    public void setTakerIndex(byte _takerIndex) {
+    public void setTakerIndex(int _takerIndex) {
         takerIndex = _takerIndex;
     }
 }

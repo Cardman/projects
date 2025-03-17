@@ -7,7 +7,7 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.Shorts;
+import code.util.Longs;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -15,36 +15,36 @@ import code.util.core.StringUtil;
 
 public final class ResultsTarotBean extends TarotBean {
 
-    private short scoreTaker;
+    private long scoreTaker;
 
 //    private short differenceScoreTaker;
 
     private String taker;
 
-    private short additionnalBonusesAttack;
+    private long additionnalBonusesAttack;
 
-    private short additionnalBonusesDefense;
+    private long additionnalBonusesDefense;
 
-    private short scoreTakerWithoutDeclaring;
+    private long scoreTakerWithoutDeclaring;
 
-    private short needlyScoresTaker;
+    private long needlyScoresTaker;
 
-    private short maxDoubledDifference;
+    private long maxDoubledDifference;
 
-    private short maxDifference;
+    private long maxDifference;
 
     private final TakerResult takerResult = new TakerResult();
 //    private EndGameState winEqualityLoose;
 
-    private byte numberOudlersTaker;
+    private int numberOudlersTaker;
 
     private StringList calledPlayers;
 
     private StringList calledCardsList;
 
-    private short initialUserPosition;
+    private int initialUserPosition;
 
-    private short finalUserPosition;
+    private int finalUserPosition;
 
     private CustList<LineDeal> linesDeal;
 
@@ -69,26 +69,26 @@ public final class ResultsTarotBean extends TarotBean {
     }
 
     private void noBid(ResultsTarot _bid) {
-        Shorts doubledScoresPlayersTricks_ = new Shorts();
-        Shorts needlyScoresPlayers_ = new Shorts();
-        Shorts doublesDifferencesPlayers_ = new Shorts();
+        Longs doubledScoresPlayersTricks_ = new Longs();
+        Longs needlyScoresPlayers_ = new Longs();
+        Longs doublesDifferencesPlayers_ = new Longs();
         EndTarotGame end_ = getGame().getEndTarotGame();
         end_.setupPlayersWonTricks();
         boolean pasJeuMisere_=getGame().pasJeuMisere();
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        int nombreJoueurs_ = getGame().getNombreDeJoueurs();
         if(pasJeuMisere_) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
                 needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                 doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                maxDoubledDifference=(short)NumberUtil.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+                maxDoubledDifference=NumberUtil.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
             }
         } else {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
                 needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                 doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
-                maxDoubledDifference=(short)NumberUtil.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
+                maxDoubledDifference=NumberUtil.max(maxDoubledDifference,doublesDifferencesPlayers_.last());
             }
         }
         maxDifference= _bid.getMaxDifference();
@@ -97,22 +97,22 @@ public final class ResultsTarotBean extends TarotBean {
     }
 
     private void bid(ResultsTarot _res) {
-        short doubledScoreTaker_;
+        long doubledScoreTaker_;
         EndTarotGame end_ = getGame().getEndTarotGame();
         end_.setupSlams();
         doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
         numberOudlersTaker=end_.nombreBoutsPreneur(getBid());
         needlyScoresTaker=end_.scoreNecessairePreneur(getBid());
-        short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker);
-        takerResult.setDifferenceScoreTaker((short) (scorePreneurPlis_ - needlyScoresTaker));
-        int diff_ = takerResult.getDifferenceScoreTaker();
-        scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces((short) diff_,end_.base(doubledScoreTaker_, (short) diff_));
+        long scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker);
+        takerResult.setDifferenceScoreTaker(scorePreneurPlis_ - needlyScoresTaker);
+        long diff_ = takerResult.getDifferenceScoreTaker();
+        scoreTakerWithoutDeclaring=end_.scorePreneurSansAnnonces(diff_,end_.base(doubledScoreTaker_, diff_));
         additionnalBonusesAttack = end_.additionnalBonusesAttack(getBid());
         additionnalBonusesDefense = end_.additionnalBonusesDefense();
         takerResult.setWinEqualityLoose(_res.getEndTarotGame());
-        scoreTaker = (short) (doubledScoreTaker_/2);
+        scoreTaker = doubledScoreTaker_/2;
         taker = getNicknames().get(getGame().getPreneur());
-        for (byte p: getGame().getAppele()) {
+        for (int p: getGame().getAppele()) {
             calledPlayers.add(getNicknames().get(p));
         }
         for (CardTarot c: getGame().getCarteAppelee()) {
@@ -154,7 +154,7 @@ public final class ResultsTarotBean extends TarotBean {
         return additionnalBonusesDefense > 0;
     }
 
-    public short getScoreTaker() {
+    public long getScoreTaker() {
         return scoreTaker;
     }
 
@@ -162,31 +162,31 @@ public final class ResultsTarotBean extends TarotBean {
         return taker;
     }
 
-    public short getAdditionnalBonusesAttack() {
+    public long getAdditionnalBonusesAttack() {
         return additionnalBonusesAttack;
     }
 
-    public short getAdditionnalBonusesDefense() {
+    public long getAdditionnalBonusesDefense() {
         return additionnalBonusesDefense;
     }
 
-    public short getScoreTakerWithoutDeclaring() {
+    public long getScoreTakerWithoutDeclaring() {
         return scoreTakerWithoutDeclaring;
     }
 
-    public short getNeedlyScoresTaker() {
+    public long getNeedlyScoresTaker() {
         return needlyScoresTaker;
     }
 
-    public short getMaxDoubledDifference() {
+    public long getMaxDoubledDifference() {
         return maxDoubledDifference;
     }
 
-    public short getMaxDifference() {
+    public long getMaxDifference() {
         return maxDifference;
     }
 
-    public byte getNumberOudlersTaker() {
+    public int getNumberOudlersTaker() {
         return numberOudlersTaker;
     }
 
@@ -198,11 +198,11 @@ public final class ResultsTarotBean extends TarotBean {
         return calledCardsList;
     }
 
-    public short getInitialUserPosition() {
+    public int getInitialUserPosition() {
         return initialUserPosition;
     }
 
-    public short getFinalUserPosition() {
+    public int getFinalUserPosition() {
         return finalUserPosition;
     }
 

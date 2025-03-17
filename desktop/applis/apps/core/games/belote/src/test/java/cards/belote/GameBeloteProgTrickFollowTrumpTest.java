@@ -11,7 +11,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void followTrumpPartner1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -50,7 +50,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void followTrumpPartner2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -89,7 +89,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void followTrumpPartner3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -128,7 +128,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void followTrumpPartner4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -165,7 +165,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void followTrumpPartner5Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -202,7 +202,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void playDefaultTrump1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -239,7 +239,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void playDefaultTrump2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -277,7 +277,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void fournirAtoutCouleurDominante1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -315,7 +315,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void fournirAtoutCouleurDominante2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -354,7 +354,7 @@ public final class GameBeloteProgTrickFollowTrumpTest extends CommonGameBelote {
     @Test
     public void fournirAtoutCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);

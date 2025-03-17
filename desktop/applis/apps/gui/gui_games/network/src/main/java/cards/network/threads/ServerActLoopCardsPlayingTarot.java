@@ -36,7 +36,7 @@ public final class ServerActLoopCardsPlayingTarot implements IntServerActLoopCar
         //p_.setLocale(Constants.getDefaultLanguage());
 //            p_.setLocale("");
         Net.initAllReceived(_instance, _common);
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientPlayingTarot(p_), Net.getSocketByPlace(p, _common));
         }
     }

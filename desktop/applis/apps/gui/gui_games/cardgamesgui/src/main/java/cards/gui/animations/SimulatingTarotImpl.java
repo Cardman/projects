@@ -43,7 +43,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     @Override
-    public byte dealer(GameTarot _gt) {
+    public int dealer(GameTarot _gt) {
         prepare();
         container.sleepThread(500);
         String event_;
@@ -55,7 +55,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void bid(GameTarot _gt) {
-        byte p_ = _gt.playerHavingToBid();
+        int p_ = _gt.playerHavingToBid();
         BidTarot contratTmp_ = getInt().strategieContrat(_gt);
         actingBid(p_);
         container.sleepThread(1000);
@@ -73,8 +73,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     @Override
-    public byte constCallPlayerCall(byte _called) {
-        byte n_ = super.constCallPlayerCall(_called);
+    public int constCallPlayerCall(int _called) {
+        int n_ = super.constCallPlayerCall(_called);
         constCallPlayer(n_);
         return n_;
     }
@@ -128,7 +128,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public CardTarot play(GameTarot _g) {
-        byte joueur_ = _g.playerHavingToPlay();
+        int joueur_ = _g.playerHavingToPlay();
         beforeCards(joueur_);
         container.sleepThread(1000);
 //                _simu.pause();
@@ -137,7 +137,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         return ct_;
     }
 
-    private void beforeCards(byte _joueur) {
+    private void beforeCards(int _joueur) {
         if (partieTarotSimulee().getProgressingTrick().estVide()) {
             firstCardPlaying(_joueur);
         } else {
@@ -145,7 +145,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         }
     }
 
-    private void endCards(byte _joueur, CardTarot _ct) {
+    private void endCards(int _joueur, CardTarot _ct) {
         if (partieTarotSimulee().premierTourNoMisere()) {
             declareHandfuls(_joueur,partieTarotSimulee().getAnnoncesPoignees(_joueur),partieTarotSimulee().getPoignee(_joueur));
             declareMiseres(_joueur,partieTarotSimulee().getAnnoncesMiseres(_joueur));
@@ -164,8 +164,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
     @Override
-    public byte ajouterPetitAuBoutPliEnCours(GameTarot _gt) {
-        byte w_ = super.ajouterPetitAuBoutPliEnCours(_gt);
+    public int ajouterPetitAuBoutPliEnCours(GameTarot _gt) {
+        int w_ = super.ajouterPetitAuBoutPliEnCours(_gt);
         displayTrickWinner(w_);
         displaySmallBound(_gt.getSmallBound(),w_);
         container.sleepThread(4000);
@@ -181,14 +181,14 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void actingBid(byte _player) {
+    public void actingBid(int _player) {
         StringList pseudos_=pseudosSimuleeTarot();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.fileSimu().getVal(MessagesGuiCards.SIMU_DECLARE_BID), pseudos_.get(_player)),ContainerGame.RETURN_LINE);
         container.getOwner().getFrames().getCompoFactory().invokeNow(new AddTextEvents(container, event_));
     }
 
 //    @Override
-    public void actedBid(byte _player, BidTarot _bid) {
+    public void actedBid(int _player, BidTarot _bid) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
@@ -205,7 +205,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void constCallPlayer(byte _called) {
+    public void constCallPlayer(int _called) {
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PARTNERS_TAKER);
         StringList pseudos_=pseudosSimuleeTarot();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_called)),ContainerGame.RETURN_LINE);
@@ -415,7 +415,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void callCard(byte _taker,HandTarot _calledCards) {
+    public void callCard(int _taker,HandTarot _calledCards) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
@@ -464,11 +464,11 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 //    @Override
 
     //    @Override
-    public void mergedDog(byte _taker, HandTarot _nextHand) {
+    public void mergedDog(int _taker, HandTarot _nextHand) {
         display(_taker, _nextHand.getCards());
     }
 
-    private void display(byte _player, IdList<CardTarot> _nextHand) {
+    private void display(int _player, IdList<CardTarot> _nextHand) {
         new ContainerSingUtil<CardTarot>(container.converter()).seeHand(container,_nextHand,container.getPanelHand(),_player,DealTarot.NUMERO_UTILISATEUR);
 //        if(_player ==DealTarot.NUMERO_UTILISATEUR) {
 //            afficherMainUtilisateurSimuTarot(_nextHand);
@@ -492,7 +492,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void firstCardPlaying(byte _joueur) {
+    public void firstCardPlaying(int _joueur) {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAY_CARD_FIRST);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
@@ -500,7 +500,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void nextCardPlaying(byte _joueur) {
+    public void nextCardPlaying(int _joueur) {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_PLAY_CARD_THEN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
@@ -508,7 +508,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void declareHandfuls(byte _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
+    public void declareHandfuls(int _joueur, IdList<Handfuls> _annoncesPoignees, HandTarot _poignee) {
         HandTarot handful_ = getInt().handfulCard(_poignee);
         if (!handful_.estVide()) {
             TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
@@ -521,7 +521,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void declareMiseres(byte _joueur, IdList<Miseres> _annoncesMiseres) {
+    public void declareMiseres(int _joueur, IdList<Miseres> _annoncesMiseres) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         for(Miseres annonce_: getInt().misere(_annoncesMiseres)) {
@@ -532,7 +532,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void displayCalled(byte _joueur) {
+    public void displayCalled(int _joueur) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_DEMO_ACTION);
@@ -542,7 +542,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void played(byte _joueur, CardTarot _playedCard) {
+    public void played(int _joueur, CardTarot _playedCard) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard);
     }
@@ -554,7 +554,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void displayTrickWinner(byte _trickWinner) {
+    public void displayTrickWinner(int _trickWinner) {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.fileSimu().getVal(MessagesGuiCards.SIMU_TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner)),ContainerGame.RETURN_LINE);
@@ -563,7 +563,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void displaySmallBound(CustList<BoolVal> _smallBound, byte _trickWinner) {
+    public void displaySmallBound(CustList<BoolVal> _smallBound, int _trickWinner) {
         if (_smallBound.get(_trickWinner) != BoolVal.TRUE) {
             return;
         }
@@ -581,7 +581,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     }
 
 //    @Override
-    public void clearCarpet(byte _nbPlayers) {
+    public void clearCarpet(int _nbPlayers) {
         TranslationsLg lg_ = container.getOwner().getFrames().currentLg();
         container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(),lg_,_nbPlayers);
     }

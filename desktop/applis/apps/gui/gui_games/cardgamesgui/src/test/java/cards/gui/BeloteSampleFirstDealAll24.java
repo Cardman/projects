@@ -26,7 +26,7 @@ public final class BeloteSampleFirstDealAll24 implements IntFirstDealBelote {
 
     private static DealBelote dealThreePlayers24Coinche() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1,
                 CardBelote.HEART_1,CardBelote.CLUB_1,CardBelote.DIAMOND_10));
         db_.getDeal().add(create(CardBelote.CLUB_9,

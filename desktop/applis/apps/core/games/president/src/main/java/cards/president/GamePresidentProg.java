@@ -73,11 +73,11 @@ final class GamePresidentProg {
     }
 
     static HandPresident tryPlayWhenAllPossible(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules, HandPresidentRepartition _rep) {
-        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        IntTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         CustList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
         if (notEmpty_.size() == 2) {
-            for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
+            for (EntryCust<Integer, HandPresident> b: m_.entryList()) {
                 HandPresident h_ = b.getValue();
                 if (h_.total() != nb_) {
                     continue;
@@ -93,7 +93,7 @@ final class GamePresidentProg {
         return new HandPresident();
     }
 
-    private static HandPresident oneElt(boolean _reversed, RulesPresident _rules, HandPresidentRepartition _rep, ByteTreeMap<HandPresident> _m, CustList<HandPresident> _notEmpty, int _nb) {
+    private static HandPresident oneElt(boolean _reversed, RulesPresident _rules, HandPresidentRepartition _rep, IntTreeMap<HandPresident> _m, CustList<HandPresident> _notEmpty, int _nb) {
         if (_notEmpty.first().total() == _nb) {
             return _notEmpty.first();
         }
@@ -112,26 +112,26 @@ final class GamePresidentProg {
     private static HandPresident tryPlayDomHand(HandPresident _fullHand, HandPresident _playable,
                                                 TrickPresident _progressingTrick, boolean _reversed, RulesPresident _rules,
                                                 HandPresidentRepartition _rep) {
-        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        IntTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         if (!GamePresidentCommon.dominantHand(_reversed, _rules, _fullHand, _rep).estVide()) {
             return lastGroup(_progressingTrick, m_);
         }
         return new HandPresident();
     }
 
-    private static HandPresident lastGroup(TrickPresident _progressingTrick, ByteTreeMap<HandPresident> _m) {
+    private static HandPresident lastGroup(TrickPresident _progressingTrick, IntTreeMap<HandPresident> _m) {
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
         return lastGroup(_m, nb_);
     }
 
-    static HandPresident lastGroup(ByteTreeMap<HandPresident> _m, int _nb) {
-        for (EntryCust<Byte, HandPresident> b: _m.entryList()) {
+    static HandPresident lastGroup(IntTreeMap<HandPresident> _m, int _nb) {
+        for (EntryCust<Integer, HandPresident> b: _m.entryList()) {
             HandPresident h_ = b.getValue();
             if (h_.total() == _nb) {
                 return h_;
             }
         }
-        for (EntryCust<Byte, HandPresident> b: _m.entryList()) {
+        for (EntryCust<Integer, HandPresident> b: _m.entryList()) {
             if (b.getKey() >= GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
                 continue;
             }
@@ -144,10 +144,10 @@ final class GamePresidentProg {
     }
 
     static CustList<HandPresident> getHandPresidents(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed) {
-        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        IntTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
         CustList<HandPresident> notEmptyWorst_ = new CustList<HandPresident>();
-        for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
+        for (EntryCust<Integer, HandPresident> b: m_.entryList()) {
             if (b.getKey() > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
                 continue;
             }
@@ -160,10 +160,10 @@ final class GamePresidentProg {
     }
 
     static CustList<HandPresident> getNotEmptyWorst(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed, int _str) {
-        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        IntTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         CustList<HandPresident> notEmptyWorst_ = new CustList<HandPresident>();
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
-        for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
+        for (EntryCust<Integer, HandPresident> b: m_.entryList()) {
             if (b.getKey() > _str) {
                 continue;
             }
@@ -175,10 +175,10 @@ final class GamePresidentProg {
         return notEmptyWorst_;
     }
     static HandPresident getDefaultCards(HandPresident _playable, TrickPresident _progressingTrick, boolean _reversed) {
-        ByteTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
+        IntTreeMap<HandPresident> m_ = _playable.getCardsByStrength(_reversed);
         CustList<HandPresident> notEmpty_ = GamePresidentCommon.getNotEmpty(m_);
         int nb_ = _progressingTrick.getNombreDeCartesParJoueur();
-        for (EntryCust<Byte, HandPresident> b: m_.entryList()) {
+        for (EntryCust<Integer, HandPresident> b: m_.entryList()) {
             if (b.getKey() > GameStrengthCardPresidentComparator.CARD_AVG_STRENGTH) {
                 continue;
             }

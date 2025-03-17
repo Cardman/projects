@@ -4,11 +4,11 @@ package cards.tarot.enumerations;
 public enum BonusTarot {
     SLAM(400),
     SMALL_BOUND(10);
-    private final int points;
+    private final long points;
     BonusTarot(int _points){
         points = _points;
     }
-    public int getPoints() {
+    public long getPoints() {
         return points;
     }
 

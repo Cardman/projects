@@ -17,8 +17,8 @@ public final class GameTarotMisere {
     private final IdMap<Suit, CustList<HandTarot>> cartesPossibles;
     private final IdMap<Suit, CustList<HandTarot>> cartesCertaines;
     private final CardTarot carteForte;
-    private final Bytes notPlayed;
-    private final Bytes notConfidentPlayers;
+    private final Ints notPlayed;
+    private final Ints notConfidentPlayers;
     private final CustList<TrickTarot> plisFaits;
     private final CustList<HandTarot> suitesAtoutsJouables;
     private final Suit couleurDemandee;
@@ -29,13 +29,13 @@ public final class GameTarotMisere {
                            HandTarot _currentHand) {
         currentHand = _currentHand;
         GameTarotCommonPlaying common_ = new GameTarotCommonPlaying(_done, _teamsRelation);
-        byte nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
+        int nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
         TrickTarot trTarot_ = _done.getProgressingTrick();
-        byte nextPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
+        int nextPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
         playableCards = HandTarotResult.cartesJouables(_teamsRelation.getRules(),_teamsRelation.getTaker(),currentHand.couleurs(),_done.getProgressingTrick(),_done.getTricks(),new HandTarot()).getPlayable();
         repartitionJouables = playableCards.couleurs();
-        Bytes confidentPlayers_ = _teamsRelation.joueursConfiance(nextPlayer_, GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
-        Bytes notConfidentPlayers_ = _teamsRelation.joueursNonConfiance(nextPlayer_, GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
+        Ints confidentPlayers_ = _teamsRelation.joueursConfiance(nextPlayer_, GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
+        Ints notConfidentPlayers_ = _teamsRelation.joueursNonConfiance(nextPlayer_, GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
         tarotInfoPliEnCours = common_.initInformations(currentHand, confidentPlayers_, notConfidentPlayers_);
         repartitionCartesJouees = tarotInfoPliEnCours.getRepartitionCartesJouees();
         cartesJouees = tarotInfoPliEnCours.getCartesJouees();
@@ -44,15 +44,15 @@ public final class GameTarotMisere {
         atoutsJouables = repartitionJouables.getVal(Suit.TRUMP);
         couleurDemandee = trTarot_.couleurDemandee();
         suitesAtoutsJouables = atoutsJouables.eclaterEnCours(repartitionCartesJouees, couleurDemandee);
-        byte ramasseurVirtuel_ = tarotInfoPliEnCours.getRamasseurVirtuel();
-        byte nombreDeJoueurs_ = _teamsRelation.getNombreDeJoueurs();
+        int ramasseurVirtuel_ = tarotInfoPliEnCours.getRamasseurVirtuel();
+        int nombreDeJoueurs_ = _teamsRelation.getNombreDeJoueurs();
         if (!_done.getProgressingTrick().estVide()) {
             carteForte = _done.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nombreDeJoueurs_);
         } else {
             carteForte = CardTarot.WHITE;
         }
-        Bytes played_ = trTarot_.joueursAyantJoue(nbPlayers_);
-        byte currentPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
+        Ints played_ = trTarot_.joueursAyantJoue(nbPlayers_);
+        int currentPlayer_ = trTarot_.getNextPlayer(nbPlayers_);
         notPlayed = GameTarotTeamsRelation.autresJoueurs(played_,nbPlayers_);
         notPlayed.removeObj(currentPlayer_);
         notConfidentPlayers = _teamsRelation.joueursNonConfiance(currentPlayer_,GameTarotTeamsRelation.tousJoueurs(nbPlayers_));
@@ -86,10 +86,10 @@ public final class GameTarotMisere {
         HandTarot atoutsMaitres_ = atoutsJouables
                 .atoutsMaitres(repartitionCartesJouees);
 
-        Bytes joueursNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(notPlayed, notConfidentPlayers);
+        Ints joueursNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(notPlayed, notConfidentPlayers);
         IdList<Suit> suits_  = new IdList<Suit>();
         for (Suit couleur_ : GameTarotCommon.couleursNonAtoutNonVides(playableCards,Suit.couleursOrdinaires())) {
-            for (byte joueur_ : joueursNonJoue_) {
+            for (int joueur_ : joueursNonJoue_) {
                 if (GameTarotTrickHypothesis.vaCouper(couleur_, joueur_, cartesPossibles, cartesCertaines)) {
                     suits_.add(couleur_);
                 }
@@ -217,9 +217,9 @@ public final class GameTarotMisere {
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
             return atoutsJouables.premiereCarte();
         }
-        Bytes joueursNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(notPlayed, notConfidentPlayers);
+        Ints joueursNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(notPlayed, notConfidentPlayers);
         boolean surcoupePro_ = false;
-        for (byte joueur_ : joueursNonJoue_) {
+        for (int joueur_ : joueursNonJoue_) {
             if (GameTarotTrickHypothesis.peutCouper(couleurDemandee, joueur_, cartesPossibles)) {
                 surcoupePro_ = true;
             }

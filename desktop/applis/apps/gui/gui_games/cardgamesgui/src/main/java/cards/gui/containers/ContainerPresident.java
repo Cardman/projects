@@ -86,7 +86,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
     }
     public static void updateCardsInPanelPresidentDiscard(ContainerPlayablePresident _cpp,AbsPanel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
-        byte index_ = IndexConstants.FIRST_INDEX;
+        int index_ = IndexConstants.FIRST_INDEX;
         for (GraphicCard<CardPresident> c: getGraphicCards(_cpp,_hand.getCards())) {
             c.addMouseListener(new ListenerCardPresidentDiscard(_cpp,c.getCard(),index_,_inHand));
             _panel.add(c.getPaintableLabel());
@@ -109,7 +109,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         }
         _panel.setSize(_panel.getPreferredSizeValue());
     }
-    public StringList pseudosPresident(byte _nbPlayers) {
+    public StringList pseudosPresident(int _nbPlayers) {
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());
         StringList pseudos_ = getPseudosJoueurs().getPseudosPresident();
@@ -130,20 +130,20 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
             getNoPlay().setText(file().getVal(MessagesGuiCards.MAIN_PASS_TRICK));
         }
     }
-    public void discard(byte _index) {
+    public void discard(int _index) {
         CardPresident c_ = virtualHand.carte(_index);
         virtualHand.supprimerCarte(_index);
         givenCards.ajouter(c_);
     }
 
-    public void cancelDiscard(byte _index) {
+    public void cancelDiscard(int _index) {
         CardPresident c_ = givenCards.carte(_index);
         givenCards.supprimerCarte(_index);
         virtualHand.ajouter(c_);
     }
 
     public static void fetchLooser(ContainerPresident _current,GamePresident _g) {
-        Bytes l_ = _g.getLoosers(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        Ints l_ = _g.getLoosers(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         if (!l_.isEmpty()) {
             _current.getReceivedCards().supprimerCartes();
             _current.getReceivedCards().ajouterCartes(_g.getSwitchedCards().get(_g.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
@@ -154,7 +154,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         }
     }
     public static void fetchWinner(ContainerPresident _current,GamePresident _g) {
-        Bytes w_ = _g.getWinners(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        Ints w_ = _g.getWinners(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         if (!w_.isEmpty()) {
             _current.getReceivedCards().supprimerCartes();
             _current.getReceivedCards().ajouterCartes(_g.getSwitchedCards().get(_g.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));

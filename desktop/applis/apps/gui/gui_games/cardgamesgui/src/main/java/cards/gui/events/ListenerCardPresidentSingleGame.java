@@ -11,7 +11,7 @@ public class ListenerCardPresidentSingleGame extends
     private final ContainerSinglePresident container;
 
     public ListenerCardPresidentSingleGame(ContainerSinglePresident _container,
-            CardPresident _card, byte _index) {
+            CardPresident _card, int _index) {
         super(_container, _card, _index);
         container = _container;
     }

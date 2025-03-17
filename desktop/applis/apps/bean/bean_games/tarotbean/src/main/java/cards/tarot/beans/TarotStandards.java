@@ -198,10 +198,10 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
         return arr_;
     }
 
-    public static NatArrayStruct getStringShortTree(StringMap<Short> _map) {
+    public static NatArrayStruct getStringShortTree(StringMap<Long> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<String, Short> e: _map.entryList()){
+        for (EntryCust<String, Long> e: _map.entryList()){
             PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaNbSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;

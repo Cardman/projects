@@ -7,13 +7,13 @@ public final class PointsPlayerVariantGame {
 
     private Rate pointsTricks;
 
-    private short minimumPoints;
+    private long minimumPoints;
 
     private Rate differenceScore;
 
-    private short rate;
+    private long rate;
 
-    private short score;
+    private long score;
 
     public String getNickname() {
         return nickname;
@@ -31,11 +31,11 @@ public final class PointsPlayerVariantGame {
         pointsTricks = _pointsTricks;
     }
 
-    public short getMinimumPoints() {
+    public long getMinimumPoints() {
         return minimumPoints;
     }
 
-    public void setMinimumPoints(short _minimumPoints) {
+    public void setMinimumPoints(long _minimumPoints) {
         minimumPoints = _minimumPoints;
     }
 
@@ -47,19 +47,19 @@ public final class PointsPlayerVariantGame {
         differenceScore = _differenceScore;
     }
 
-    public short getRate() {
+    public long getRate() {
         return rate;
     }
 
-    public void setRate(short _rate) {
+    public void setRate(long _rate) {
         rate = _rate;
     }
 
-    public short getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(short _score) {
+    public void setScore(long _score) {
         score = _score;
     }
 

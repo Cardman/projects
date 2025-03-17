@@ -10,15 +10,15 @@ public final class PlayingCardPresident extends PlayerActionGame {
 
     private CardPresident playedCard;
 
-    private byte index;
+    private int index;
 
     private boolean pass;
 
     private HandPresident playedHand;
 
-    private ByteMap<Playing> status;
+    private IntMap<Playing> status;
 
-    private byte nextPlayer;
+    private int nextPlayer;
 
     private boolean refreshing;
 
@@ -31,11 +31,11 @@ public final class PlayingCardPresident extends PlayerActionGame {
         playedCard = _playedCard;
     }
 
-    public byte getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(byte _index) {
+    public void setIndex(int _index) {
         index = _index;
     }
 
@@ -55,19 +55,19 @@ public final class PlayingCardPresident extends PlayerActionGame {
         playedHand = _playedHand;
     }
 
-    public ByteMap<Playing> getStatus() {
+    public IntMap<Playing> getStatus() {
         return status;
     }
 
-    public void setStatus(ByteMap<Playing> _status) {
+    public void setStatus(IntMap<Playing> _status) {
         status = _status;
     }
 
-    public byte getNextPlayer() {
+    public int getNextPlayer() {
         return nextPlayer;
     }
 
-    public void setNextPlayer(byte _nextPlayer) {
+    public void setNextPlayer(int _nextPlayer) {
         nextPlayer = _nextPlayer;
     }
 

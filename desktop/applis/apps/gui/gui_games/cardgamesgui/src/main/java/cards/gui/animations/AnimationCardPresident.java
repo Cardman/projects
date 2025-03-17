@@ -72,7 +72,7 @@ public final class AnimationCardPresident implements Runnable {
 //                container.tapisPresident().setTalonPresident();
 //                //validate container.pack();
 //            }
-            byte player_ = partie_.nextPlayer();
+            int player_ = partie_.nextPlayer();
             if (player_ == DealPresident.NUMERO_UTILISATEUR) {
                 _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardPresident(_container));
                 return;

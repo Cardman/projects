@@ -15,7 +15,7 @@ public final class GameTarotCallingCardTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -37,7 +37,7 @@ public final class GameTarotCallingCardTwoTest extends CommonTarotGame {
         game_.setCarteAppelee(cartesAppeler_);
         game_.initConfianceAppele();
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)1));
+        assertTrue(game_.getAppele().containsObj(1));
 //        assertTrue(game_.confiance((byte)1,(byte)4));
         //game.setContrat(contrat_tmp);
 
@@ -48,7 +48,7 @@ public final class GameTarotCallingCardTwoTest extends CommonTarotGame {
         regles_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -88,7 +88,7 @@ public final class GameTarotCallingCardTwoTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids();
         GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(), regles_);
         //game.resetNbPlisTotal();
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -195,7 +195,7 @@ public final class GameTarotCallingCardTwoTest extends CommonTarotGame {
         hand_.ajouter(CardTarot.TRUMP_6);
         hand_.ajouter(CardTarot.HEART_10);
         hands_.add(hand_);
-        return new DealTarot(hands_,(byte) 4);
+        return new DealTarot(hands_,4);
     }
     static RulesTarot initializeRulesWithBids() {
         RulesTarot regles_=new RulesTarot();

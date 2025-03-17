@@ -20,8 +20,8 @@ public final class DetailsResultsBeloteBean extends BeloteBean {
         BidBeloteSuit bid_ = getGame().getBid();
         declaring = new CustList<BeloteSumDeclaringPlayer>();
         if (bid_.jouerDonne()) {
-            byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
-            for (byte p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
+            int nombreJoueurs_ = getGame().getNombreDeJoueurs();
+            for (int p = IndexConstants.FIRST_INDEX; p<nombreJoueurs_; p++){
                 BeloteSumDeclaringPlayer sumDeclaring_ = new BeloteSumDeclaringPlayer();
                 sumDeclaring_.setNickname(getNicknames().get(p));
                 sumDeclaring_.setStatut(toString(getGame().getTeamsRelation().statutDe(p), res_.getRes().getGeneral()));

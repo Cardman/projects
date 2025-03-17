@@ -18,10 +18,10 @@ public enum DeclaresBelote {
     THIRTY(3,3,30,false,"_");
     private final boolean constante;
     private final CardChar figure;
-    private final byte valeur;
+    private final int valeur;
     private final int force;
-    private final int points;
-    private final byte taille;
+    private final long points;
+    private final int taille;
     private final String st;
 
     DeclaresBelote(){
@@ -47,9 +47,9 @@ public enum DeclaresBelote {
         constante = _constante;
         if(constante){
             taille = 0;
-            valeur = (byte) _valeur;
+            valeur = _valeur;
         }else{
-            taille = (byte) _valeur;
+            taille = _valeur;
             valeur = 0;
         }
         force = _force;
@@ -70,13 +70,13 @@ public enum DeclaresBelote {
     public CardChar getFigure() {
         return figure;
     }
-    public byte getValeur() {
+    public int getValeur() {
         return valeur;
     }
     public int getForce(){
         return force;
     }
-    public int getPoints() {
+    public long getPoints() {
         return points;
     }
 

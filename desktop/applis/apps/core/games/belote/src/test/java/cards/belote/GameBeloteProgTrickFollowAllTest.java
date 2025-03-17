@@ -12,7 +12,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
     public void fournirAtoutToutAtout1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -51,7 +51,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
     public void fournirAtoutToutAtout2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.ALL_TRUMP, BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -91,7 +91,7 @@ public final class GameBeloteProgTrickFollowAllTest extends CommonGameBelote {
     public void fournirAtoutToutAtout3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.ALL_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);

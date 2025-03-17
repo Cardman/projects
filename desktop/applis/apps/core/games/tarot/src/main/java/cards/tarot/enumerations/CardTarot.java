@@ -88,34 +88,34 @@ public enum CardTarot {
     CLUB_2(2,Suit.CLUB, 1),
     CLUB_1(1,Suit.CLUB, 1);
 
-    private final byte force;
+    private final int force;
     private final CouleurValeur id;
-    private final byte points;
+    private final int points;
 
     CardTarot() {
         force = 0;
         points = 0;
-        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.UNDEFINED,false);
+        id = new CouleurValeur(Suit.UNDEFINED,0,CardChar.UNDEFINED,false);
     }
     CardTarot(CardChar _figure, int _points) {
         force = 0;
-        points = (byte) _points;
-        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,_figure,true);
+        points = _points;
+        id = new CouleurValeur(Suit.UNDEFINED,0,_figure,true);
     }
     CardTarot(int _pvaleur, int _points) {
-        force = (byte) _pvaleur;
-        points = (byte) _points;
-        id = new CouleurValeur(Suit.TRUMP,(byte) _pvaleur,CardChar.UNDEFINED,true);
+        force = _pvaleur;
+        points = _points;
+        id = new CouleurValeur(Suit.TRUMP,_pvaleur,CardChar.UNDEFINED,true);
     }
     CardTarot(CardChar _figure, Suit _pcouleur, int _pordre, int _points) {
-        force = (byte) _pordre;
-        points = (byte) _points;
-        id = new CouleurValeur(_pcouleur,(byte)0,_figure,true);
+        force = _pordre;
+        points = _points;
+        id = new CouleurValeur(_pcouleur,0,_figure,true);
     }
     CardTarot(int _pvaleur, Suit _pcouleur, int _points) {
-        force = (byte) _pvaleur;
-        points = (byte) _points;
-        id = new CouleurValeur(_pcouleur,(byte) _pvaleur,CardChar.UNDEFINED,true);
+        force = _pvaleur;
+        points = _points;
+        id = new CouleurValeur(_pcouleur,_pvaleur,CardChar.UNDEFINED,true);
     }
     public static boolean eq(CardTarot _one, CardTarot _two) {
         return _one == _two;
@@ -141,23 +141,23 @@ public enum CardTarot {
         return TRUMP_21;
     }
 
-    public byte forceTri() {
+    public int forceTri() {
         return force;
     }
     /**Appele lors de la fin d'un pli pour determiner le ramasseur
     mais aussi pour dire qui est en train de prendre la main du pli qui est en cours d'etre joue
     si ce pli n'est pas reduit a l'Excuse
     @param _couleurDemande couleur demandee du pli*/
-    public byte strength(Suit _couleurDemande) {
+    public int strength(Suit _couleurDemande) {
         if(eq(this, excuse())) {
             return 0;
         }
         if(id.getCouleur() == Suit.TRUMP) {
             //L'atout_ est_ plus_ fort_ que_ n'importe_ quelle_ couleur
             if(_couleurDemande == Suit.TRUMP) {
-                return (byte)(force+21);
+                return force+21;
             }
-            return (byte)(force+14);
+            return force+14;
         }
         /*Maintenant on_ traite_ le_ cas_ d'une_ Excuse et_ des_ cartes_ de_ couleur*/
         if(_couleurDemande==id.getCouleur()) {
@@ -172,7 +172,7 @@ public enum CardTarot {
     }
     /**Retourne le nombre de points d'une carte (multiplie par 2)
     au tarot, on evite d utiliser les flottants car la valeur de chaque carte au tarot est un nombre non entier de points*/
-    public byte points() {
+    public int points() {
         return points;
     }
     public boolean isCharacter() {
@@ -182,12 +182,12 @@ public enum CardTarot {
     public boolean estUnBout() {
         return eq(this, excuse())||eq(this,petit())||eq(this,vingtEtUn());
     }
-    public byte forceValeurDansUnTri(boolean _decroissant) {
+    public int forceValeurDansUnTri(boolean _decroissant) {
         if(_decroissant) {
             if(id.getCouleur()==Suit.TRUMP) {
-                return (byte)(23-forceTri());
+                return 23-forceTri();
             }
-            return (byte)(15-forceTri());
+            return 15-forceTri();
         }
         return forceTri();
     }
@@ -200,7 +200,7 @@ public enum CardTarot {
         return CouleurValeur.vientAvant(getId().forceCouleurDansUnTri(_couleurs),forceValeurDansUnTri(_decroissant),_c.getId().forceCouleurDansUnTri(_couleurs),_c.forceValeurDansUnTri(_decroissant));
     }
 
-    public byte getForce() {
+    public int getForce() {
         return force;
     }
 }

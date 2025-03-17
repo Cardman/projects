@@ -240,7 +240,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteRebelote().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote(0).total());
         tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(8, tr2_.size());
@@ -275,7 +275,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteRebelote().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote(0).total());
         tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(8, tr2_.size());
@@ -310,7 +310,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteRebelote().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        assertEq(0,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        assertEq(0,csb_.partieBelote().getAnnoncesBeloteRebelote(0).total());
         tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(8, tr2_.size());
@@ -485,12 +485,12 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteRebelote().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote(0).total());
         tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         csb_.getBeloteRebelote().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        assertEq(2,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        assertEq(2,csb_.partieBelote().getAnnoncesBeloteRebelote(0).total());
         tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(6, tr2_.size());
@@ -527,12 +527,12 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         csb_.getBeloteRebelote().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        assertEq(1,csb_.partieBelote().getAnnoncesBeloteRebelote(0).total());
         tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         csb_.getBeloteRebelote().setSelected(true);
         tryClickCard(csb_,mock_);
         tryAnimate(csb_);
-        assertEq(2,csb_.partieBelote().getAnnoncesBeloteRebelote((byte) 0).total());
+        assertEq(2,csb_.partieBelote().getAnnoncesBeloteRebelote(0).total());
         tryClickNextPhase(csb_,csb_.getContentPausable().getNextTrick());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(6, tr2_.size());
@@ -2093,11 +2093,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         tryClick(csb_.getContentPausable().getReplayButton());
         assertEq(5,csb_.partieBelote().getDeal().nombreDeMains());
-        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 0).total());
-        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 1).total());
-        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 2).total());
-        assertEq(5,csb_.partieBelote().getDeal().hand((byte) 3).total());
-        assertEq(12,csb_.partieBelote().getDeal().hand((byte) 4).total());
+        assertEq(5,csb_.partieBelote().getDeal().hand(0).total());
+        assertEq(5,csb_.partieBelote().getDeal().hand(1).total());
+        assertEq(5,csb_.partieBelote().getDeal().hand(2).total());
+        assertEq(5,csb_.partieBelote().getDeal().hand(3).total());
+        assertEq(12,csb_.partieBelote().getDeal().hand(4).total());
     }
     @Test
     public void p81() {
@@ -4451,11 +4451,11 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
 
     private HandBelote hand(ContainerSingleBelote _csb, int _i) {
-        return _csb.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTricksHands().getDistribution().hand((byte) _i);
+        return _csb.window().getDialogTricksBelote().getPanelTricksHandsBelote().getTricksHands().getDistribution().hand(_i);
     }
 
     private void play(GameBelote _gb, CardBelote _card) {
-        byte nbPlayers_ = _gb.getNombreDeJoueurs();
+        int nbPlayers_ = _gb.getNombreDeJoueurs();
         _gb.ajouterUneCarteDansPliEnCoursJoue(_card);
     }
 
@@ -4759,7 +4759,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private DealBelote dealThreePlayers24Classic() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 2);
+        db_.setDealer(2);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
                 CardBelote.DIAMOND_9,CardBelote.SPADE_9));
@@ -4773,7 +4773,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
     private DealBelote dealThreePlayers24Coinche() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1,
                 CardBelote.HEART_1,CardBelote.CLUB_1,CardBelote.DIAMOND_10));
         db_.getDeal().add(create(CardBelote.CLUB_9,
@@ -4788,7 +4788,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
     private DealBelote dealTwoPlayers() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,
                 CardBelote.DIAMOND_9,CardBelote.SPADE_10));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_9,CardBelote.SPADE_QUEEN,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,
@@ -4817,7 +4817,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardBelote.HEART_8);
         hand_.ajouter(CardBelote.HEART_7);
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
     private static DealBelote dealStdClassicNext(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
@@ -4837,7 +4837,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardBelote.CLUB_8);
         hand_.ajouter(CardBelote.CLUB_7);
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
     private static void firstHands(CustList<HandBelote> _hands) {
         HandBelote hand_;
@@ -4916,7 +4916,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardBelote.HEART_JACK);
         hand_.ajouter(CardBelote.SPADE_1);
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte)_dealer);
+        return new DealBelote(hands_, _dealer);
     }
     private static DealBelote deal2Classic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
@@ -4963,7 +4963,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardBelote.SPADE_9);
         hand_.ajouter(CardBelote.DIAMOND_9);
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
     private static DealBelote dealStdAll(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
@@ -5010,7 +5010,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         hands_.add(hand_);
         hand_ = new HandBelote();
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
     private BidBeloteSuit bidSuit(Suit _suit, int _pts, BidBelote _bid) {
         BidBeloteSuit suit_ = new BidBeloteSuit();
@@ -5022,7 +5022,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private DealBelote dealThreePlayers() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
                 CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
@@ -5036,7 +5036,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 
     private DealBelote dealThreePlayersIa() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
                 CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
         db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,

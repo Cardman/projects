@@ -976,7 +976,7 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
+        Ints joueursNonJoue_ = new Ints();
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -996,8 +996,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1018,8 +1018,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_QUEEN);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1039,8 +1039,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_10);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1061,8 +1061,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_KNIGHT);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1083,8 +1083,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_JACK);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1104,8 +1104,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_7);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1125,8 +1125,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_7);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1147,8 +1147,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_7);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1169,8 +1169,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_KING);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         CustList<HandTarot> cartesRelMaitres_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(
                 suites_, possible_, joueursNonJoue_,
                 Suit.HEART, Suit.HEART, sure_,
@@ -1187,12 +1187,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(sure_,2,CardTarot.TRUMP_11);
         addCard(possible_,0,CardTarot.TRUMP_15);
         addCard(sure_,0,CardTarot.TRUMP_15);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
@@ -1204,12 +1204,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(sure_,2,CardTarot.TRUMP_11);
         addCard(possible_,0,CardTarot.TRUMP_15);
         addCard(sure_,0,CardTarot.TRUMP_15);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
@@ -1222,12 +1222,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,0,CardTarot.TRUMP_15);
         addCard(sure_,0,CardTarot.TRUMP_15);
         addCard(possible_,3,CardTarot.TRUMP_16);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(!GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
@@ -1242,12 +1242,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(sure_,0,CardTarot.TRUMP_15);
         addCard(possible_,3,CardTarot.TRUMP_21);
         addCard(possible_,3,CardTarot.TRUMP_14);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
@@ -1262,12 +1262,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(sure_,0,CardTarot.TRUMP_15);
         addCard(possible_,3,CardTarot.TRUMP_21);
         addCard(sure_,3,CardTarot.TRUMP_21);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
@@ -1280,24 +1280,24 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(sure_,0,CardTarot.TRUMP_15);
         addCard(possible_,3,CardTarot.TRUMP_21);
         addCard(sure_,3,CardTarot.TRUMP_21);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(GameTarotProgTrickClassic.peutRamasserDemandeAtoutNonMaitre(possible_,sure_, sure_.getVal(Suit.TRUMP).get(0).premiereCarte().strength(Suit.TRUMP), notPlayed_,played_));
     }
     @Test
     public void peutSauverFigureAppele1Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_14);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_));
     }
     @Test
@@ -1305,12 +1305,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_14);
         addCard(possible_,1,CardTarot.HEART_JACK);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART,new HandTarot(),notPlayed_));
     }
     @Test
@@ -1318,12 +1318,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_14);
         addCard(possible_,1,CardTarot.HEART_JACK);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.HEART_7);
         assertTrue(!GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
@@ -1333,12 +1333,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_14);
         addCard(possible_,1,CardTarot.HEART_JACK);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.HEART_KING);
         assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
@@ -1348,12 +1348,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_14);
         addCard(possible_,1,CardTarot.HEART_10);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.HEART_9);
         assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
@@ -1361,12 +1361,12 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
     @Test
     public void peutSauverFigureAppele6Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        Bytes played_ = new Bytes();
-        played_.add((byte) 3);
-        played_.add((byte) 4);
-        Bytes notPlayed_ = new Bytes();
-        notPlayed_.add((byte)1);
-        notPlayed_.add((byte)2);
+        Ints played_ = new Ints();
+        played_.add(3);
+        played_.add(4);
+        Ints notPlayed_ = new Ints();
+        notPlayed_.add(1);
+        notPlayed_.add(2);
         HandTarot last_ = new HandTarot();
         assertTrue(GameTarotProgTrickClassic.peutSauverFigureAppele(possible_,Suit.HEART, last_,notPlayed_));
     }
@@ -1440,116 +1440,116 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
     public void aucunePriseMainPossibleCouleur1Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_, 1, CardTarot.TRUMP_2);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(!GameTarotProgTrickClassic.aucunePriseMainPossibleCouleur(possible_,Suit.HEART,CardTarot.HEART_QUEEN,joueursNonJoue_));
     }
     @Test
     public void aucunePriseMainPossibleCouleur2Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.aucunePriseMainPossibleCouleur(possible_,Suit.HEART,CardTarot.HEART_QUEEN,joueursNonJoue_));
     }
     @Test
     public void aucunePriseMainPossibleCouleur3Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_, 1, CardTarot.HEART_KNIGHT);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.aucunePriseMainPossibleCouleur(possible_,Suit.HEART,CardTarot.HEART_QUEEN,joueursNonJoue_));
     }
     @Test
     public void aucunePriseMainPossibleCouleur4Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_, 1, CardTarot.HEART_KING);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(!GameTarotProgTrickClassic.aucunePriseMainPossibleCouleur(possible_,Suit.HEART,CardTarot.HEART_QUEEN,joueursNonJoue_));
     }
     @Test
     public void aucunePriseMainPossibleParFigure1Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.aucunePriseMainPossibleParFigure(possible_,Suit.HEART,joueursNonJoue_));
     }
     @Test
     public void aucunePriseMainPossibleParFigure2Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_, 1, CardTarot.HEART_10);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.aucunePriseMainPossibleParFigure(possible_,Suit.HEART,joueursNonJoue_));
     }
     @Test
     public void aucunePriseMainPossibleParFigure3Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_, 1, CardTarot.HEART_JACK);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(!GameTarotProgTrickClassic.aucunePriseMainPossibleParFigure(possible_,Suit.HEART,joueursNonJoue_));
     }
     @Test
     public void aucunePriseMainPossibleParFigure4Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_, 1, CardTarot.TRUMP_2);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.aucunePriseMainPossibleParFigure(possible_,Suit.HEART,joueursNonJoue_));
     }
     @Test
     public void joueurConfianceRamasseurProbaPli1Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.joueurConfianceRamasseurProbaPli(joueursNonJoue_,Suit.HEART,possible_,CardTarot.HEART_QUEEN));
     }
     @Test
     public void joueurConfianceRamasseurProbaPli2Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.HEART_9);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.joueurConfianceRamasseurProbaPli(joueursNonJoue_,Suit.HEART,possible_,CardTarot.HEART_QUEEN));
     }
     @Test
     public void joueurConfianceRamasseurProbaPli3Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.HEART_KING);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(!GameTarotProgTrickClassic.joueurConfianceRamasseurProbaPli(joueursNonJoue_,Suit.HEART,possible_,CardTarot.HEART_QUEEN));
     }
     @Test
     public void joueurConfianceRamasseurProbaPli4Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_2);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(!GameTarotProgTrickClassic.joueurConfianceRamasseurProbaPli(joueursNonJoue_,Suit.HEART,possible_,CardTarot.HEART_QUEEN));
     }
     @Test
     public void leadTrumps1Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.leadTrumps(possible_,CardTarot.TRUMP_12,joueursNonJoue_));
     }
     @Test
     public void leadTrumps2Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_2);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(GameTarotProgTrickClassic.leadTrumps(possible_,CardTarot.TRUMP_12,joueursNonJoue_));
     }
     @Test
     public void leadTrumps3Test() {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         addCard(possible_,1,CardTarot.TRUMP_21);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         assertTrue(!GameTarotProgTrickClassic.leadTrumps(possible_,CardTarot.TRUMP_12,joueursNonJoue_));
     }
     @Test
@@ -1566,8 +1566,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         addCard(possible_,1,CardTarot.HEART_KING);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         IdMap<Suit, HandTarot> repartition_ = hand_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 repartition_, played_);
@@ -1590,8 +1590,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         IdMap<Suit, HandTarot> repartition_ = hand_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 repartition_, played_);
@@ -1616,8 +1616,8 @@ public final class GameTarotProgTrickClassicUtilTest extends CommonGameTarot {
         IdMap<Suit, CustList<HandTarot>> possible_ = generate(5);
         IdMap<Suit, CustList<HandTarot>> sure_ = generate(5);
         CustList<HandTarot> suites_ = hand_.eclaterEnCours(played_, Suit.HEART);
-        Bytes joueursNonJoue_ = new Bytes();
-        joueursNonJoue_.add((byte) 1);
+        Ints joueursNonJoue_ = new Ints();
+        joueursNonJoue_.add(1);
         IdMap<Suit, HandTarot> repartition_ = hand_.couleurs();
         IdMap<Suit,HandTarot> cartesMaitresses_ = GameTarotCommon.cartesMaitresses(
                 repartition_, played_);

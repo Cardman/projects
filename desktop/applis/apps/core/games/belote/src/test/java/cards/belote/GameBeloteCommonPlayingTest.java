@@ -29,7 +29,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(sure_,2,CardBelote.SPADE_1,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar((byte) 2, b_, poss_, sure_, couleursNonVides_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar(2, b_, poss_, sure_, couleursNonVides_);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -52,7 +52,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(sure_,2,CardBelote.CLUB_9,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar((byte) 2, b_, poss_, sure_, couleursNonVides_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar(2, b_, poss_, sure_, couleursNonVides_);
         assertEq(0, suits_.size());
     }
     @Test
@@ -75,7 +75,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(sure_,2,CardBelote.SPADE_1,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar((byte) 2, b_, poss_, sure_, couleursNonVides_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursCoupeePar(2, b_, poss_, sure_, couleursNonVides_);
         assertEq(0, suits_.size());
     }
     @Test
@@ -98,7 +98,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(sure_,2,CardBelote.SPADE_1,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonCoupeeParJoueurs(Bytes.newList((byte) 2), b_, poss_, sure_, couleursNonVides_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursNonCoupeeParJoueurs(Ints.newList(2), b_, poss_, sure_, couleursNonVides_);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.CLUB));
     }
@@ -120,7 +120,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,0,CardBelote.HEART_10,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Bytes.newList((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Ints.newList(2,0), b_, poss_, couleursNonVides_);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.CLUB));
         assertTrue(suits_.containsObj(Suit.DIAMOND));
@@ -143,7 +143,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,0,CardBelote.HEART_10,b_);
         IdList<Suit> couleursNonAtouts_ = nonTrump(b_);
         IdList<Suit> couleursNonVides_ = GameBeloteCommon.couleursNonAtoutNonVides(cur_, couleursNonAtouts_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Bytes.newList((byte) 2,(byte) 0), b_, poss_, couleursNonVides_);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursDefausseeParJoueurs(Ints.newList(2,0), b_, poss_, couleursNonVides_);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -158,7 +158,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.CLUB_9,b_);
         addCard(poss_,2,CardBelote.SPADE_1,b_);
         addCard(poss_,2,CardBelote.HEART_7,b_);
-        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Bytes.newList((byte) 2));
+        Ints pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Ints.newList(2));
         assertEq(0, pls_.size());
     }
     @Test
@@ -168,7 +168,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setBid(BidBelote.SUIT);
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         addCard(poss_,2,CardBelote.CLUB_9,b_);
-        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Bytes.newList((byte) 2));
+        Ints pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_,Suit.HEART, b_.getSuit(),Ints.newList(2));
         assertEq(0, pls_.size());
     }
     @Test
@@ -179,7 +179,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, CustList<HandBelote>> poss_ = generate(4);
         addCard(poss_, 2, CardBelote.CLUB_9,b_);
         addCard(poss_, 2, CardBelote.SPADE_1,b_);
-        Bytes pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_, Suit.HEART, b_.getSuit(), Bytes.newList((byte) 2));
+        Ints pls_ = GameBeloteCommonPlaying.joueursSusceptiblesCoupe(poss_, Suit.HEART, b_.getSuit(), Ints.newList(2));
         assertEq(1, pls_.size());
         assertTrue(pls_.containsObj(2));
     }
@@ -193,7 +193,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.DIAMOND_8,b_);
         addCard(poss_,2,CardBelote.SPADE_1,b_);
         addCard(poss_,2,CardBelote.HEART_7,b_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Ints.newList(2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(0, suits_.size());
     }
     @Test
@@ -205,7 +205,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.HEART_7,b_);
         addCard(poss_,2,CardBelote.DIAMOND_8,b_);
         addCard(poss_,2,CardBelote.CLUB_9,b_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Ints.newList(2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(0, suits_.size());
     }
     @Test
@@ -217,7 +217,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         addCard(poss_,2,CardBelote.DIAMOND_8,b_);
         addCard(poss_,2,CardBelote.CLUB_9,b_);
         addCard(poss_,2,CardBelote.SPADE_1,b_);
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Bytes.newList((byte) 2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursPouvantEtreCoupees(Ints.newList(2),poss_, b_.getSuit(), GameBeloteCommon.couleurs());
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -500,7 +500,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres1();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -525,7 +525,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres2();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -547,7 +547,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres3();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(0, suits_.size());
     }
     @Test
@@ -569,7 +569,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres4();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
     }
@@ -591,7 +591,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres5();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -614,7 +614,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres6();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -636,7 +636,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres7();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(0, suits_.size());
     }
     @Test
@@ -658,7 +658,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres8();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
     }
@@ -680,7 +680,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres9();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -703,7 +703,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres10();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -725,7 +725,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres11();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(0, suits_.size());
     }
     @Test
@@ -747,7 +747,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictCouleursMaitres12();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.strictCouleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -769,7 +769,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres1();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -793,7 +793,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres2();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -816,7 +816,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres3();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
     }
@@ -839,7 +839,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres4();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
     }
@@ -861,7 +861,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres5();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -885,7 +885,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres6();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -908,7 +908,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres7();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
     }
@@ -931,7 +931,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres8();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
     }
@@ -953,7 +953,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres9();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -976,7 +976,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres10();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -998,7 +998,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres11();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(0, suits_.size());
     }
     @Test
@@ -1020,7 +1020,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = couleursMaitres12();
-        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, (byte) 0);
+        IdList<Suit> suits_ = GameBeloteCommonPlaying.couleursMaitres(b_, seqs_, rp_, poss_, 0);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -1043,7 +1043,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout1();
-        assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(!strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1066,7 +1066,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout2();
-        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1088,7 +1088,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout3();
-        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1109,7 +1109,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout4();
-        assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(!strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1130,7 +1130,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout5();
-        assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(!strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1152,7 +1152,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout6();
-        assertTrue(!strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(!strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1178,7 +1178,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout7();
-        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1205,7 +1205,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout8();
-        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1231,7 +1231,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout9();
-        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
 
     @Test
@@ -1259,7 +1259,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout10();
-        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
     @Test
     public void strictMaitreAtout11Test() {
@@ -1280,7 +1280,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         IdMap<Suit, HandBelote> rp_ = p_.couleurs(b_);
         IdMap<Suit, CustList<HandBelote>> seqs_ = cur_.eclaterTout(rp_, b_);
         IdMap<Suit, CustList<HandBelote>> poss_ = strictMaitreAtout11();
-        assertTrue(strictMaitreAtout(b_,poss_,(byte)0,seqs_,rp_));
+        assertTrue(strictMaitreAtout(b_,poss_,0,seqs_,rp_));
     }
     @Test
     public void carteMaitresseTest() {
@@ -1316,7 +1316,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        byte d_ = 2;
+        int d_ = 2;
         TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
@@ -1340,7 +1340,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        byte d_ = 2;
+        int d_ = 2;
         TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
@@ -1370,7 +1370,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         cur_.ajouter(CardBelote.DIAMOND_1);
         cur_.ajouter(CardBelote.DIAMOND_7);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        byte d_ = 2;
+        int d_ = 2;
         TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
@@ -1393,7 +1393,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         b_.setSuit(Suit.HEART);
         b_.setBid(BidBelote.SUIT);
         CustList<TrickBelote> trs_ = new CustList<TrickBelote>();
-        byte d_ = 2;
+        int d_ = 2;
         TrickBelote t_ = new TrickBelote(DealingBelote.CLASSIC_2_VS_2.getId().getNextPlayer(d_));
         t_.ajouter(CardBelote.SPADE_7);
         t_.ajouter(CardBelote.SPADE_1);
@@ -1410,7 +1410,7 @@ public final class GameBeloteCommonPlayingTest extends CommonGameBelote {
         assertEq(1, tours_.size());
         assertSame(Suit.CLUB, tours_.first().couleurDemandee());
     }
-    private static boolean strictMaitreAtout(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _cartesPossibles, byte _numero, IdMap<Suit, CustList<HandBelote>> _suites, IdMap<Suit, HandBelote> _cartesJouees) {
+    private static boolean strictMaitreAtout(BidBeloteSuit _bid, IdMap<Suit, CustList<HandBelote>> _cartesPossibles, int _numero, IdMap<Suit, CustList<HandBelote>> _suites, IdMap<Suit, HandBelote> _cartesJouees) {
         CustList<HandBelote> seqs_ = GameBeloteCommon.suite(_suites, _bid.getSuit());
         return GameBeloteCommonPlaying.strictMaitreAtout(_bid,_cartesPossibles,_numero,seqs_,_cartesJouees);
     }

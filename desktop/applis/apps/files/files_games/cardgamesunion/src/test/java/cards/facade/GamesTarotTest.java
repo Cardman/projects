@@ -6,7 +6,7 @@ import code.scripts.messages.cards.*;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
-import code.util.Bytes;
+import code.util.Ints;
 import code.util.core.*;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseMessEcartDe1() {
         GameTarot t_ = init();
-        t_.setPreneur((byte) 0);
+        t_.setPreneur(0);
         t_.getDeal().getDeal().get(0).ajouter(CardTarot.HEART_8);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseMessEcartDe(ReasonDiscard.TRUMP_CARD, CardTarot.TRUMP_2, StringUtil.EN)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseMessEcartDe(ReasonDiscard.TRUMP_CARD, CardTarot.TRUMP_2, StringUtil.FR)).isEmpty());
@@ -22,7 +22,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     @Test
     public void autoriseMessEcartDe2() {
         GameTarot t_ = init();
-        t_.setPreneur((byte) 0);
+        t_.setPreneur(0);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseMessEcartDe(ReasonDiscard.KING, CardTarot.HEART_KING, StringUtil.EN)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseMessEcartDe(ReasonDiscard.KING, CardTarot.HEART_KING, StringUtil.FR)).isEmpty());
     }
@@ -37,7 +37,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         t_.getRegles().setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         t_.getDeal().getDeal().get(0).ajouter(CardTarot.HEART_8);
         t_.getDeal().getDeal().get(0).ajouter(CardTarot.TRUMP_21);
-        t_.setPreneur((byte) 0);
+        t_.setPreneur(0);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_1);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_2);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_3);
@@ -50,7 +50,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         t_.getRegles().setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         t_.getDeal().getDeal().get(0).ajouter(CardTarot.HEART_8);
         t_.getDeal().getDeal().get(0).ajouter(CardTarot.TRUMP_20);
-        t_.setPreneur((byte) 0);
+        t_.setPreneur(0);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_1);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_2);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_3);
@@ -63,7 +63,7 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         t_.getRegles().setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         t_.getDeal().getDeal().get(0).ajouter(CardTarot.HEART_8);
         t_.getDeal().getDeal().get(0).ajouter(CardTarot.TRUMP_1);
-        t_.setPreneur((byte) 0);
+        t_.setPreneur(0);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_1);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_2);
         t_.getDeal().derniereMain().ajouter(CardTarot.HEART_3);
@@ -144,8 +144,8 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot1() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
-        t_.getDeal().hand((byte) 0).ajouter(CardTarot.HEART_8);
+        t_.getProgressingTrick().setStarter(0);
+        t_.getDeal().hand(0).ajouter(CardTarot.HEART_8);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.DIAMOND_1)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.DIAMOND_1)).isEmpty());
     }
@@ -153,10 +153,10 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot2() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.HEART_8);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_2);
+        t_.getDeal().hand(1).ajouter(CardTarot.HEART_8);
+        t_.getDeal().hand(1).ajouter(CardTarot.TRUMP_2);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.HEART_8)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.HEART_8)).isEmpty());
     }
@@ -164,9 +164,9 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot3() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_2);
+        t_.getDeal().hand(1).ajouter(CardTarot.TRUMP_2);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.DIAMOND_1)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.DIAMOND_1)).isEmpty());
     }
@@ -174,10 +174,10 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot4() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
-        t_.getDeal().hand((byte) 2).ajouter(CardTarot.TRUMP_2);
+        t_.getDeal().hand(2).ajouter(CardTarot.TRUMP_2);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.TRUMP_1)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.TRUMP_1)).isEmpty());
     }
@@ -185,9 +185,9 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot5() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_4);
+        t_.getDeal().hand(1).ajouter(CardTarot.TRUMP_4);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.TRUMP_2)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.TRUMP_2)).isEmpty());
     }
@@ -195,10 +195,10 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot6() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
-        t_.getDeal().hand((byte) 2).ajouter(CardTarot.TRUMP_4);
+        t_.getDeal().hand(2).ajouter(CardTarot.TRUMP_4);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.TRUMP_2)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.TRUMP_2)).isEmpty());
     }
@@ -206,10 +206,10 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot7() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_3);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_2);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_4);
+        t_.getDeal().hand(1).ajouter(CardTarot.TRUMP_2);
+        t_.getDeal().hand(1).ajouter(CardTarot.TRUMP_4);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.TRUMP_2)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.TRUMP_2)).isEmpty());
     }
@@ -217,9 +217,9 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot8() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.HEART_2);
+        t_.getDeal().hand(1).ajouter(CardTarot.HEART_2);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.DIAMOND_1)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.DIAMOND_1)).isEmpty());
     }
@@ -227,9 +227,9 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
     public void autoriseTarot9() {
         GameTarot t_ = init();
         //conf(t_);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.HEART_8);
-        t_.getDeal().hand((byte) 1).ajouter(CardTarot.TRUMP_2);
+        t_.getDeal().hand(1).ajouter(CardTarot.TRUMP_2);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.DIAMOND_1)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.DIAMOND_1)).isEmpty());
     }
@@ -240,8 +240,8 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         t_.getRegles().setAllowPlayCalledSuit(false);
         t_.getCalledCards().supprimerCartes();
         t_.getCalledCards().ajouter(CardTarot.HEART_KING);
-        t_.getProgressingTrick().setStarter((byte) 0);
-        t_.getDeal().hand((byte) 0).ajouter(CardTarot.TRUMP_2);
+        t_.getProgressingTrick().setStarter(0);
+        t_.getDeal().hand(0).ajouter(CardTarot.TRUMP_2);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.HEART_1)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.HEART_1)).isEmpty());
     }
@@ -251,9 +251,9 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         //conf(t_);
         t_.getCalledCards().supprimerCartes();
         t_.getCalledCards().ajouter(CardTarot.HEART_KING);
-        t_.getProgressingTrick().setStarter((byte) 0);
+        t_.getProgressingTrick().setStarter(0);
         t_.getProgressingTrick().getCards().ajouter(CardTarot.TRUMP_2);
-        t_.getDeal().hand((byte) 0).ajouter(CardTarot.TRUMP_1);
+        t_.getDeal().hand(0).ajouter(CardTarot.TRUMP_1);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.EN,CardTarot.TRUMP_1)).isEmpty());
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseTarot(t_, StringUtil.FR,CardTarot.TRUMP_1)).isEmpty());
     }
@@ -262,16 +262,16 @@ public final class GamesTarotTest extends EquallableCardsFileUtil {
         Games gs_ = new Games();
         gs_.jouerTarot(init());
         gs_.partieTarot().getRules().setDealing(DealingTarot.DEAL_1_VS_4);
-        gs_.partieTarot().setPreneur((byte) 0);
-        assertFalse(gs_.isSameTeam(Bytes.newList((byte)0,(byte)1)));
+        gs_.partieTarot().setPreneur(0);
+        assertFalse(gs_.isSameTeam(Ints.newList(0,1)));
     }
     @Test
     public void isSameTeam2() {
         Games gs_ = new Games();
         gs_.jouerTarot(init());
         gs_.partieTarot().getRules().setDealing(DealingTarot.DEAL_1_VS_4);
-        gs_.partieTarot().setPreneur((byte) 0);
-        assertTrue(gs_.isSameTeam(Bytes.newList((byte)1,(byte)2)));
+        gs_.partieTarot().setPreneur(0);
+        assertTrue(gs_.isSameTeam(Ints.newList(1,2)));
     }
 
     private String autoriseTarot(GameTarot _t, String _lg, CardTarot _c) {

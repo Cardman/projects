@@ -41,54 +41,54 @@ public final class DealTarotTest extends EquallableTarotUtil {
         assertTrue(donne_.hand().contient(CardTarot.HEART_3));
         assertTrue(donne_.hand().contient(CardTarot.HEART_2));
         assertTrue(donne_.hand().contient(CardTarot.HEART_1));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.SPADE_5));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.SPADE_4));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.SPADE_3));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.DIAMOND_9));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.DIAMOND_8));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.DIAMOND_7));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.CLUB_QUEEN));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.CLUB_KNIGHT));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.CLUB_JACK));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.CLUB_3));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.CLUB_2));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.CLUB_1));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.TRUMP_15));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.TRUMP_14));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.TRUMP_13));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.TRUMP_5));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.TRUMP_4));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.TRUMP_3));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.HEART_9));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.HEART_8));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.HEART_7));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.SPADE_KING));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.SPADE_QUEEN));
-        assertTrue(donne_.hand((byte)1).contient(CardTarot.SPADE_KNIGHT));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.SPADE_JACK));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.SPADE_10));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.SPADE_9));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.SPADE_1));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.DIAMOND_KING));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.DIAMOND_QUEEN));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.DIAMOND_5));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.DIAMOND_4));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.DIAMOND_3));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.CLUB_10));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.CLUB_9));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.CLUB_8));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.EXCUSE));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.TRUMP_21));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.TRUMP_20));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.TRUMP_12));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.TRUMP_11));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.TRUMP_10));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.TRUMP_2));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.TRUMP_1));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.HEART_KING));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.HEART_6));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.HEART_5));
-        assertTrue(donne_.hand((byte)2).contient(CardTarot.HEART_4));
+        assertTrue(donne_.hand(1).contient(CardTarot.SPADE_5));
+        assertTrue(donne_.hand(1).contient(CardTarot.SPADE_4));
+        assertTrue(donne_.hand(1).contient(CardTarot.SPADE_3));
+        assertTrue(donne_.hand(1).contient(CardTarot.DIAMOND_9));
+        assertTrue(donne_.hand(1).contient(CardTarot.DIAMOND_8));
+        assertTrue(donne_.hand(1).contient(CardTarot.DIAMOND_7));
+        assertTrue(donne_.hand(1).contient(CardTarot.CLUB_QUEEN));
+        assertTrue(donne_.hand(1).contient(CardTarot.CLUB_KNIGHT));
+        assertTrue(donne_.hand(1).contient(CardTarot.CLUB_JACK));
+        assertTrue(donne_.hand(1).contient(CardTarot.CLUB_3));
+        assertTrue(donne_.hand(1).contient(CardTarot.CLUB_2));
+        assertTrue(donne_.hand(1).contient(CardTarot.CLUB_1));
+        assertTrue(donne_.hand(1).contient(CardTarot.TRUMP_15));
+        assertTrue(donne_.hand(1).contient(CardTarot.TRUMP_14));
+        assertTrue(donne_.hand(1).contient(CardTarot.TRUMP_13));
+        assertTrue(donne_.hand(1).contient(CardTarot.TRUMP_5));
+        assertTrue(donne_.hand(1).contient(CardTarot.TRUMP_4));
+        assertTrue(donne_.hand(1).contient(CardTarot.TRUMP_3));
+        assertTrue(donne_.hand(1).contient(CardTarot.HEART_9));
+        assertTrue(donne_.hand(1).contient(CardTarot.HEART_8));
+        assertTrue(donne_.hand(1).contient(CardTarot.HEART_7));
+        assertTrue(donne_.hand(1).contient(CardTarot.SPADE_KING));
+        assertTrue(donne_.hand(1).contient(CardTarot.SPADE_QUEEN));
+        assertTrue(donne_.hand(1).contient(CardTarot.SPADE_KNIGHT));
+        assertTrue(donne_.hand(2).contient(CardTarot.SPADE_JACK));
+        assertTrue(donne_.hand(2).contient(CardTarot.SPADE_10));
+        assertTrue(donne_.hand(2).contient(CardTarot.SPADE_9));
+        assertTrue(donne_.hand(2).contient(CardTarot.SPADE_1));
+        assertTrue(donne_.hand(2).contient(CardTarot.DIAMOND_KING));
+        assertTrue(donne_.hand(2).contient(CardTarot.DIAMOND_QUEEN));
+        assertTrue(donne_.hand(2).contient(CardTarot.DIAMOND_5));
+        assertTrue(donne_.hand(2).contient(CardTarot.DIAMOND_4));
+        assertTrue(donne_.hand(2).contient(CardTarot.DIAMOND_3));
+        assertTrue(donne_.hand(2).contient(CardTarot.CLUB_10));
+        assertTrue(donne_.hand(2).contient(CardTarot.CLUB_9));
+        assertTrue(donne_.hand(2).contient(CardTarot.CLUB_8));
+        assertTrue(donne_.hand(2).contient(CardTarot.EXCUSE));
+        assertTrue(donne_.hand(2).contient(CardTarot.TRUMP_21));
+        assertTrue(donne_.hand(2).contient(CardTarot.TRUMP_20));
+        assertTrue(donne_.hand(2).contient(CardTarot.TRUMP_12));
+        assertTrue(donne_.hand(2).contient(CardTarot.TRUMP_11));
+        assertTrue(donne_.hand(2).contient(CardTarot.TRUMP_10));
+        assertTrue(donne_.hand(2).contient(CardTarot.TRUMP_2));
+        assertTrue(donne_.hand(2).contient(CardTarot.TRUMP_1));
+        assertTrue(donne_.hand(2).contient(CardTarot.HEART_KING));
+        assertTrue(donne_.hand(2).contient(CardTarot.HEART_6));
+        assertTrue(donne_.hand(2).contient(CardTarot.HEART_5));
+        assertTrue(donne_.hand(2).contient(CardTarot.HEART_4));
         assertTrue(donne_.derniereMain().contient(CardTarot.SPADE_2));
         assertTrue(donne_.derniereMain().contient(CardTarot.DIAMOND_6));
         assertTrue(donne_.derniereMain().contient(CardTarot.CLUB_7));
@@ -136,78 +136,78 @@ public final class DealTarotTest extends EquallableTarotUtil {
         HandTarot main_ = initPileTarot();
         DealTarot donne_ = dealTwoPlayers(main_, MixCardsChoice.NEVER, 0);
         assertEq(3,donne_.nombreDeMains());
-        assertEq(36,donne_.hand((byte) 0).total());
-        assertEq(36,donne_.hand((byte) 1).total());
-        assertEq(6,donne_.hand((byte) 2).total());
+        assertEq(36,donne_.hand(0).total());
+        assertEq(36,donne_.hand(1).total());
+        assertEq(6,donne_.hand(2).total());
     }
     @Test
     public void chosenTrumps1Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(489217092)));
     }
     @Test
     public void chosenTrumps2Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472757012+1)));
     }
     @Test
     public void chosenTrumps3Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(11, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472757012)));
     }
     @Test
     public void chosenTrumps4Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(11, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472404296+1)));
     }
     @Test
     public void chosenTrumps5Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(10, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(472404296)));
     }
     @Test
     public void chosenTrumps6Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(10, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(452652200+1)));
     }
     @Test
     public void chosenTrumps7Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(9, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(452652200)));
     }
     @Test
     public void chosenTrumps8Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(9, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(0)));
     }
     @Test
     public void chosenTrumps9Test(){
-        byte minAtout_ = 9;
-        byte maxAtout_ = 12;
+        int minAtout_ = 9;
+        int maxAtout_ = 12;
         int nbCards_ = 12;
         CustList<LgInt> fonctionRepartition_ = fonctionRepartition(minAtout_, maxAtout_, nbCards_);
         assertEq(12, DealTarot.chosenTrumps(minAtout_,maxAtout_,fonctionRepartition_,new LgInt(489217092 + 1)));
@@ -436,7 +436,7 @@ public final class DealTarotTest extends EquallableTarotUtil {
         RulesTarot regles_ = new RulesTarot();
         regles_.setDealing(DealingTarot.DEAL_1_VS_2);
         regles_.getCommon().setMixedCards(_m);
-        donne_.setDealer((byte) 1);
+        donne_.setDealer(1);
         initDonne(donne_,regles_,_main);
         return donne_;
     }
@@ -446,11 +446,11 @@ public final class DealTarotTest extends EquallableTarotUtil {
         RulesTarot regles_ = new RulesTarot();
         regles_.setDealing(DealingTarot.DEAL_1_VS_1);
         regles_.getCommon().setMixedCards(_m);
-        donne_.setDealer((byte) 1);
+        donne_.setDealer(1);
         initDonne(donne_,regles_,_main);
         return donne_;
     }
-    private CustList<LgInt> fonctionRepartition(byte _minAtout, byte _maxAtout, int _nbCards) {
+    private CustList<LgInt> fonctionRepartition(int _minAtout, int _maxAtout, int _nbCards) {
         return DealTarot.repartitionHunt(_nbCards, _minAtout, _maxAtout, _nbCards - _minAtout - 1L, 1L);
     }
 

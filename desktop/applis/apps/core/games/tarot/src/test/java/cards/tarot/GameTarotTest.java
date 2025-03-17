@@ -21,7 +21,7 @@ public final class GameTarotTest extends EquallableTarotUtil {
         h_.setCards(new IdList<CardTarot>());
         d_.getDeal().add(h_);
         RulesTarot rules_ = new RulesTarot();
-        d_.donneurSuivant((byte) 3, rules_);
+        d_.donneurSuivant(3, rules_);
         d_.setNbDeals(1);
         g_.setDeal(d_);
 //        g_.setDeclaresSlam(new CustList<BoolVal>());

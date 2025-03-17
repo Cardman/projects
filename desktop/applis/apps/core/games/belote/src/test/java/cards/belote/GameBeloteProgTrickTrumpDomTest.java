@@ -11,7 +11,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupe1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -48,7 +48,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupe2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -84,7 +84,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupe3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -120,7 +120,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupeObligatoireCouleurDominante1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -156,7 +156,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupeObligatoireCouleurDominante2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -206,7 +206,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupeObligatoireCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -256,7 +256,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupeObligatoireCouleurDominante4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -307,7 +307,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void coupeObligatoireCouleurDominante5Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(true);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -344,7 +344,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     @Test
     public void coupeObligatoireCouleurDominante6Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -395,7 +395,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void optTrump1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -433,7 +433,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void optTrump2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -471,7 +471,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void optTrump3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -509,7 +509,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void optTrump4Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -547,7 +547,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void optTrump5Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -585,7 +585,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void coupeFacultativeCouleurDominante1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -623,7 +623,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void coupeFacultativeCouleurDominante2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -662,7 +662,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void coupeFacultativeCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -700,7 +700,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void coupeCouleurDominante1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(false);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -738,7 +738,7 @@ public final class GameBeloteProgTrickTrumpDomTest extends CommonGameBelote {
     public void coupeCouleurDominante2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setSousCoupeAdv(true);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);

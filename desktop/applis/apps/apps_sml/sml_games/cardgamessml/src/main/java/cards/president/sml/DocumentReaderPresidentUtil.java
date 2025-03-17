@@ -44,7 +44,7 @@ public final class DocumentReaderPresidentUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterPresidentUtil.FIELD_DEALER)) {
-            _object.setDealer(DocumentReaderCoreUtil.getByte(_element));
+            _object.setDealer(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
         _object.setNbDeals(DocumentReaderCoreUtil.getLong(_element));
@@ -110,7 +110,7 @@ public final class DocumentReaderPresidentUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterPresidentUtil.FIELD_SCORES)) {
-            _object.setScores(DocumentReaderCoreUtil.getListShort(_element));
+            _object.setScores(DocumentReaderCoreUtil.getListLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterPresidentUtil.FIELD_NUMBER)) {
@@ -122,7 +122,7 @@ public final class DocumentReaderPresidentUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterPresidentUtil.FIELD_RANKS)) {
-            _object.setRanks(DocumentReaderCoreUtil.getListByte(_element));
+            _object.setRanks(DocumentReaderCoreUtil.getListInteger(_element));
             return;
         }
         _object.setSwitchedCards(getMapByteHandPresident(_element));
@@ -236,7 +236,7 @@ public final class DocumentReaderPresidentUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterPresidentUtil.FIELD_RANKS)) {
-            _object.setRanks(DocumentReaderCoreUtil.getListByte(_element));
+            _object.setRanks(DocumentReaderCoreUtil.getListInteger(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterPresidentUtil.FIELD_SWITCHED_CARDS)) {
@@ -303,11 +303,11 @@ public final class DocumentReaderPresidentUtil {
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
         CustList<HandPresident> map_ = new CustList<HandPresident>(cap_);
-        CustList<Byte> keys_ = new CustList<Byte>(cap_);
+        CustList<Integer> keys_ = new CustList<Integer>(cap_);
         CustList<HandPresident> values_ = new CustList<HandPresident>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getByte(c));
+                keys_.add(DocumentReaderCoreUtil.getInteger(c));
             } else {
                 values_.add(getHandPresident(c));
             }

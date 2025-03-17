@@ -17,12 +17,12 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 1);
-        set_.add((byte) taker_);
+        Ints calledPlayers_ = new Ints();
+        calledPlayers_.add(1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        Ints set_ = new Ints();
+        set_.add(1);
+        set_.add(taker_);
         assertTrue(g_.isSameTeam(set_));
     }
     @Test
@@ -34,12 +34,12 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 2);
-        set_.add((byte) taker_);
+        Ints calledPlayers_ = new Ints();
+        calledPlayers_.add(1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        Ints set_ = new Ints();
+        set_.add(2);
+        set_.add(taker_);
         assertTrue(!g_.isSameTeam(set_));
     }
     @Test
@@ -51,12 +51,12 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 0);
-        set_.add((byte) 2);
+        Ints calledPlayers_ = new Ints();
+        calledPlayers_.add(1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        Ints set_ = new Ints();
+        set_.add(0);
+        set_.add(2);
         assertTrue(g_.isSameTeam(set_));
     }
     @Test
@@ -68,12 +68,12 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 3;
-        Bytes calledPlayers_ = new Bytes();
-        calledPlayers_.add((byte) 1);
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 2);
-        set_.add((byte) 1);
+        Ints calledPlayers_ = new Ints();
+        calledPlayers_.add(1);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        Ints set_ = new Ints();
+        set_.add(2);
+        set_.add(1);
         assertTrue(!g_.isSameTeam(set_));
     }
     @Test
@@ -86,20 +86,20 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 1;
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 0);
-        set_.add((byte) 2);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        Ints set_ = new Ints();
+        set_.add(0);
+        set_.add(2);
         assertTrue(g_.isSameTeam(set_));
-        assertEq(0,g_.partenaires((byte) taker_).size());
-        Bytes defs_ = g_.adversaires((byte) taker_);
+        assertEq(0,g_.partenaires(taker_).size());
+        Ints defs_ = g_.adversaires(taker_);
         assertEq(2, defs_.size());
         assertTrue(defs_.contains(0));
         assertTrue(defs_.contains(2));
-        Bytes atts_ = g_.adversaires((byte) 0);
+        Ints atts_ = g_.adversaires(0);
         assertEq(1, atts_.size());
         assertTrue(atts_.contains(1));
-        Bytes parts_ = g_.partenaires((byte) 0);
+        Ints parts_ = g_.partenaires(0);
         assertEq(1, parts_.size());
         assertTrue(parts_.contains(2));
     }
@@ -113,20 +113,20 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         b_.setBid(BidBelote.SUIT);
         bids_.add(b_);
         int taker_ = 1;
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        Bytes set_ = new Bytes();
-        set_.add((byte) 0);
-        set_.add((byte) 2);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        Ints set_ = new Ints();
+        set_.add(0);
+        set_.add(2);
         assertTrue(g_.isSameTeam(set_));
-        assertEq(0,g_.partenaires((byte) taker_).size());
-        Bytes defs_ = g_.adversaires((byte) taker_);
+        assertEq(0,g_.partenaires(taker_).size());
+        Ints defs_ = g_.adversaires(taker_);
         assertEq(2, defs_.size());
         assertTrue(defs_.contains(0));
         assertTrue(defs_.contains(2));
-        Bytes atts_ = g_.adversaires((byte) 0);
+        Ints atts_ = g_.adversaires(0);
         assertEq(1, atts_.size());
         assertTrue(atts_.contains(1));
-        Bytes parts_ = g_.partenaires((byte) 0);
+        Ints parts_ = g_.partenaires(0);
         assertEq(1, parts_.size());
         assertTrue(parts_.contains(2));
     }
@@ -135,15 +135,15 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.CLASSIC_1_VS_1);
         int taker_ = 1;
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        assertEq(0,g_.partenaires((byte) taker_).size());
-        Bytes defs_ = g_.adversaires((byte) taker_);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        assertEq(0,g_.partenaires(taker_).size());
+        Ints defs_ = g_.adversaires(taker_);
         assertEq(1, defs_.size());
         assertTrue(defs_.contains(0));
-        Bytes atts_ = g_.adversaires((byte) 0);
+        Ints atts_ = g_.adversaires(0);
         assertEq(1, atts_.size());
         assertTrue(atts_.contains(1));
-        Bytes parts_ = g_.partenaires((byte) 0);
+        Ints parts_ = g_.partenaires(0);
         assertEq(0, parts_.size());
     }
     @Test
@@ -151,15 +151,15 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.CLASSIC_1_VS_1);
         int taker_ = 0;
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        assertEq(0,g_.partenaires((byte) taker_).size());
-        Bytes defs_ = g_.adversaires((byte) taker_);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        assertEq(0,g_.partenaires(taker_).size());
+        Ints defs_ = g_.adversaires(taker_);
         assertEq(1, defs_.size());
         assertTrue(defs_.contains(1));
-        Bytes atts_ = g_.adversaires((byte) 0);
+        Ints atts_ = g_.adversaires(0);
         assertEq(1, atts_.size());
         assertTrue(atts_.contains(1));
-        Bytes parts_ = g_.partenaires((byte) 0);
+        Ints parts_ = g_.partenaires(0);
         assertEq(0, parts_.size());
     }
     @Test
@@ -167,15 +167,15 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_1_VS_1);
         int taker_ = 1;
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        assertEq(0,g_.partenaires((byte) taker_).size());
-        Bytes defs_ = g_.adversaires((byte) taker_);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        assertEq(0,g_.partenaires(taker_).size());
+        Ints defs_ = g_.adversaires(taker_);
         assertEq(1, defs_.size());
         assertTrue(defs_.contains(0));
-        Bytes atts_ = g_.adversaires((byte) 0);
+        Ints atts_ = g_.adversaires(0);
         assertEq(1, atts_.size());
         assertTrue(atts_.contains(1));
-        Bytes parts_ = g_.partenaires((byte) 0);
+        Ints parts_ = g_.partenaires(0);
         assertEq(0, parts_.size());
     }
     @Test
@@ -183,15 +183,15 @@ public final class GameBeloteCommonTest extends EquallableBeloteUtil {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_1_VS_1);
         int taker_ = 0;
-        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation((byte)taker_, rules_);
-        assertEq(0,g_.partenaires((byte) taker_).size());
-        Bytes defs_ = g_.adversaires((byte) taker_);
+        GameBeloteTeamsRelation g_ = new GameBeloteTeamsRelation(taker_, rules_);
+        assertEq(0,g_.partenaires(taker_).size());
+        Ints defs_ = g_.adversaires(taker_);
         assertEq(1, defs_.size());
         assertTrue(defs_.contains(1));
-        Bytes atts_ = g_.adversaires((byte) 0);
+        Ints atts_ = g_.adversaires(0);
         assertEq(1, atts_.size());
         assertTrue(atts_.contains(1));
-        Bytes parts_ = g_.partenaires((byte) 0);
+        Ints parts_ = g_.partenaires(0);
         assertEq(0, parts_.size());
     }
     @Test

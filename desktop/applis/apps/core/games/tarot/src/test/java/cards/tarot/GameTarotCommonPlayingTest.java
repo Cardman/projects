@@ -24,7 +24,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_KING);
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
@@ -55,7 +55,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
         GameTarotCommonPlaying playing_ = gameTarotCommonPlayingTwoPlayers(g_);
-        assertTrue(playing_.appeleConnuDefenseur((byte) 3,new IdMap<Suit, CustList<HandTarot>>()));
+        assertTrue(playing_.appeleConnuDefenseur(3,new IdMap<Suit, CustList<HandTarot>>()));
     }
     @Test
     public void appeleConnuDefenseur2Test() {
@@ -71,7 +71,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_KING);
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
@@ -102,7 +102,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         calledCards_.ajouter(CardTarot.CLUB_KING);
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
         GameTarotCommonPlaying playing_ = gameTarotCommonPlayingOnePlayer(g_);
-        assertTrue(!playing_.appeleConnuDefenseur((byte) 3,new IdMap<Suit, CustList<HandTarot>>()));
+        assertTrue(!playing_.appeleConnuDefenseur(3,new IdMap<Suit, CustList<HandTarot>>()));
     }
     @Test
     public void appeleConnuDefenseur3Test() {
@@ -118,7 +118,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         bids_.add(BidTarot.GUARD_WITHOUT);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_KING);
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
@@ -160,7 +160,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hands_.add(new HandTarot());
         hands_.add(new HandTarot());
         rep_.put(Suit.CLUB, hands_);
-        assertTrue(playing_.appeleConnuDefenseur((byte) 3, rep_));
+        assertTrue(playing_.appeleConnuDefenseur(3, rep_));
     }
     @Test
     public void appeleConnuDefenseur4Test() {
@@ -176,7 +176,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         bids_.add(BidTarot.GUARD_WITHOUT);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_KING);
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
@@ -220,7 +220,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hands_.add(new HandTarot());
         hands_.add(new HandTarot());
         rep_.put(Suit.CLUB, hands_);
-        assertTrue(!playing_.appeleConnuDefenseur((byte) 3, rep_));
+        assertTrue(!playing_.appeleConnuDefenseur(3, rep_));
     }
     @Test
     public void appeleConnuDefenseur5Test() {
@@ -236,7 +236,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         bids_.add(BidTarot.GUARD_WITHOUT);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_KING);
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
@@ -278,7 +278,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         hands_.add(new HandTarot());
         hands_.add(new HandTarot());
         rep_.put(Suit.CLUB, hands_);
-        assertTrue(!playing_.appeleConnuDefenseur((byte) 3, rep_));
+        assertTrue(!playing_.appeleConnuDefenseur(3, rep_));
     }
     @Test
     public void appeleConnuDefenseur6Test() {
@@ -294,7 +294,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         bids_.add(BidTarot.GUARD_WITHOUT);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_KING);
         t_.ajouter(CardTarot.HEART_8);
         t_.ajouter(CardTarot.DIAMOND_KNIGHT);
@@ -325,7 +325,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarot g_ = newGameTarotWithourDecl(r_, trs_, pr_, 2, bids_, calledCards_, 1, last_);
         GameTarotCommonPlaying playing_ = gameTarotCommonPlayingOnePlayer(g_);
         IdMap<Suit, CustList<HandTarot>> rep_ = new IdMap<Suit, CustList<HandTarot>>();
-        assertTrue(playing_.appeleConnuDefenseur((byte) 3, rep_));
+        assertTrue(playing_.appeleConnuDefenseur(3, rep_));
     }
     @Test
     public void strictCouleursMaitres1Test() {
@@ -428,7 +428,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -534,7 +534,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -640,7 +640,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -746,7 +746,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, 2);
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
     }
@@ -852,7 +852,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.strictCouleursMaitres(seqs_, repPlayed_, rep_, 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -958,7 +958,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1065,7 +1065,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1172,7 +1172,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1279,7 +1279,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, 2);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -1386,7 +1386,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.SPADE_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, (byte) 2);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursMaitres(seqs_, played_, rep_, 2);
         assertEq(3, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.SPADE));
@@ -1449,7 +1449,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout2Test() {
@@ -1508,7 +1508,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout3Test() {
@@ -1567,7 +1567,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout4Test() {
@@ -1626,7 +1626,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout5Test() {
@@ -1685,7 +1685,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout6Test() {
@@ -1744,7 +1744,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(!GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout7Test() {
@@ -1803,7 +1803,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void strictMaitreAtout8Test() {
@@ -1866,7 +1866,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         CustList<HandTarot> suites_ = curHand_.couleur(Suit.TRUMP).eclaterEnCours(repPlayed_, Suit.TRUMP);
-        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, (byte) 2, suites_,played_));
+        assertTrue(GameTarotCommonPlaying.strictMaitreAtout(rep_, 2, suites_,played_));
     }
     @Test
     public void maitreAtout1Test() {
@@ -2246,9 +2246,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.SPADE);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.SPADE, Suit.SPADE, repSure_, CardTarot.SPADE_6);
         assertEq(2, handsTarot_.size());
@@ -2441,9 +2441,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.SPADE);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.SPADE, Suit.SPADE, repSure_, CardTarot.SPADE_6);
         assertEq(2, handsTarot_.size());
@@ -2636,9 +2636,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.EXCUSE);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.SPADE);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.SPADE, Suit.SPADE, repSure_, CardTarot.SPADE_6);
         assertEq(2, handsTarot_.size());
@@ -2888,9 +2888,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.TRUMP, Suit.SPADE, repSure_, CardTarot.TRUMP_10);
         assertEq(2, handsTarot_.size());
@@ -3137,9 +3137,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.TRUMP, Suit.SPADE, repSure_, CardTarot.TRUMP_10);
         assertEq(2, handsTarot_.size());
@@ -3384,9 +3384,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.TRUMP, Suit.SPADE, repSure_, CardTarot.TRUMP_10);
         assertEq(2, handsTarot_.size());
@@ -3631,9 +3631,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_7);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.TRUMP, Suit.SPADE, repSure_, CardTarot.SPADE_6);
         assertEq(3, handsTarot_.size());
@@ -3881,9 +3881,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_1);
         IdMap<Suit, HandTarot> repPlayed_ = played_.couleurs();
         IdMap<Suit,CustList<HandTarot>> seqs_ = curHand_.eclaterToutEnCours(repPlayed_);
-        Bytes players_ = new Bytes();
-        players_.add((byte) 0);
-        players_.add((byte) 1);
+        Ints players_ = new Ints();
+        players_.add(0);
+        players_.add(1);
         CustList<HandTarot> seq_ = seqs_.getVal(Suit.TRUMP);
         CustList<HandTarot> handsTarot_ = GameTarotCommonPlaying.cartesRelativementMaitreEncours(seq_, rep_, players_, Suit.TRUMP, Suit.TRUMP, repSure_, CardTarot.TRUMP_10);
         assertEq(2, handsTarot_.size());
@@ -4033,7 +4033,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         HandTarot repPlayed_ = played_.couleur(Suit.TRUMP);
-        Rate rate_ = GameTarotCommonPlaying.moyenneAtout(curHand_, repPlayed_, rep_, (byte) 5);
+        Rate rate_ = GameTarotCommonPlaying.moyenneAtout(curHand_, repPlayed_, rep_, 5);
         assertEq(new Rate("2"),rate_);
     }
     @Test
@@ -4175,7 +4175,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         played_.ajouter(CardTarot.TRUMP_2);
         played_.ajouter(CardTarot.TRUMP_1);
         HandTarot repPlayed_ = played_.couleur(Suit.TRUMP);
-        Rate rate_ = GameTarotCommonPlaying.moyenneAtout(curHand_, repPlayed_, rep_, (byte) 5);
+        Rate rate_ = GameTarotCommonPlaying.moyenneAtout(curHand_, repPlayed_, rep_, 5);
         assertEq(new Rate("0"),rate_);
     }
     @Test
@@ -4189,12 +4189,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         curHand_.ajouter(CardTarot.DIAMOND_2);
         curHand_.ajouter(CardTarot.DIAMOND_1);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4250,7 +4250,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.CLUB_3);
         t_.ajouter(CardTarot.CLUB_4);
         trs_.add(t_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.coupesFranchesStrictes(trs_, curHand_.couleurs(), (byte) 0);
+        IdList<Suit> suits_ = GameTarotCommonPlaying.coupesFranchesStrictes(trs_, curHand_.couleurs(), 0);
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.SPADE));
         assertTrue(suits_.containsObj(Suit.CLUB));
@@ -4278,12 +4278,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void couleursNonEntamees1Test() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4345,12 +4345,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void couleursNonEntamees2Test() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4413,12 +4413,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void toursTest() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4492,12 +4492,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void couleursLesPlusEntameesParJoueurs1Test() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4553,7 +4553,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(trs_, GameTarotTeamsRelation.tousJoueurs((byte) 5), Suit.couleursOrdinaires());
+        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(trs_, GameTarotTeamsRelation.tousJoueurs(5), Suit.couleursOrdinaires());
         assertEq(2, suits_.size());
         assertTrue(suits_.containsObj(Suit.HEART));
         assertTrue(suits_.containsObj(Suit.DIAMOND));
@@ -4561,12 +4561,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void couleursLesPlusEntameesParJoueurs2Test() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4622,7 +4622,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        Bytes all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
+        Ints all_ = GameTarotTeamsRelation.tousJoueurs(5);
         all_.removeAllLong(0);
         IdList<Suit> suits_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(trs_, all_, Suit.couleursOrdinaires());
         assertEq(2, suits_.size());
@@ -4632,12 +4632,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void couleursLesMoinsEntameesParJoueurs1Test() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4693,19 +4693,19 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursLesMoinsEntameesParJoueurs(trs_, GameTarotTeamsRelation.tousJoueurs((byte) 5), Suit.couleursOrdinaires());
+        IdList<Suit> suits_ = GameTarotCommonPlaying.couleursLesMoinsEntameesParJoueurs(trs_, GameTarotTeamsRelation.tousJoueurs(5), Suit.couleursOrdinaires());
         assertEq(1, suits_.size());
         assertTrue(suits_.containsObj(Suit.CLUB));
     }
     @Test
     public void couleursLesMoinsEntameesParJoueurs2Test() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4761,7 +4761,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        Bytes all_ = GameTarotTeamsRelation.tousJoueurs((byte) 5);
+        Ints all_ = GameTarotTeamsRelation.tousJoueurs(5);
         all_.removeAllLong(0);
         IdList<Suit> suits_ = GameTarotCommonPlaying.couleursLesMoinsEntameesParJoueurs(trs_, all_, Suit.couleursOrdinaires());
         assertEq(2, suits_.size());
@@ -4771,12 +4771,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
     @Test
     public void ramasseurs1Test() {
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        t_ = new TrickTarot((byte) 2);
+        t_ = new TrickTarot(2);
         t_.ajouter(CardTarot.HEART_1);
         t_.ajouter(CardTarot.HEART_2);
         t_.ajouter(CardTarot.HEART_3);
@@ -4832,7 +4832,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         t_.ajouter(CardTarot.TRUMP_8);
         t_.ajouter(CardTarot.TRUMP_9);
         trs_.add(t_);
-        Bytes winners_ = GameTarotCommonPlaying.ramasseurs(trs_);
+        Ints winners_ = GameTarotCommonPlaying.ramasseurs(trs_);
         assertEq(3, winners_.size());
         assertTrue(winners_.contains(0));
         assertTrue(winners_.contains(4));
@@ -4845,12 +4845,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         l_.ajouter(CardTarot.SPADE_10);
         l_.ajouter(CardTarot.SPADE_1);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) 0);
+        TrickTarot t_ = new TrickTarot(0);
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
         trs_.add(t_);
-        TrickTarot p_ = new TrickTarot((byte) 4);
+        TrickTarot p_ = new TrickTarot(4);
         p_.ajouter(CardTarot.TRUMP_5);
         p_.ajouter(CardTarot.TRUMP_6);
         p_.ajouter(CardTarot.TRUMP_7);
@@ -4863,12 +4863,12 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo gt_ = newGameTarotTrickInfo(trs_, p_, ls_);
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        CustList<CustList<BoolVal>> confidence_ = GameTarot.confidence((byte) 4);
-        Bytes calledPlayers_ = new Bytes();
-        GameTarotTeamsRelation rel_ = new GameTarotTeamsRelation((byte) 0, calledPlayers_, confidence_, r_);
+        CustList<CustList<BoolVal>> confidence_ = GameTarot.confidence(4);
+        Ints calledPlayers_ = new Ints();
+        GameTarotTeamsRelation rel_ = new GameTarotTeamsRelation(0, calledPlayers_, confidence_, r_);
         gt_.addSeenDeck(l_, rel_);
         GameTarotCommonPlaying g_ = new GameTarotCommonPlaying(gt_, rel_);
-        Bytes players_ = g_.joueursNAyantPasJoue((byte) 2);
+        Ints players_ = g_.joueursNAyantPasJoue(2);
         assertEq(1, players_.size());
         assertTrue(players_.contains(3));
     }
@@ -4901,8 +4901,8 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidenceCore());
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(_g,(byte)2, team_);
-        faireConfiance(_g,(byte)4, team_);
+        faireConfiance(_g,2, team_);
+        faireConfiance(_g,4, team_);
         return playing_;
     }
 
@@ -4910,7 +4910,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTeamsRelation team_ = _g.getTeamsRelation(_g.buildConfidenceCore());
         GameTarotTrickInfo info_ = newGameTarotTrickInfo(_g,team_);
         GameTarotCommonPlaying playing_ = new GameTarotCommonPlaying(info_, team_);
-        faireConfiance(_g,(byte)2, team_);
+        faireConfiance(_g,2, team_);
         return playing_;
     }
 

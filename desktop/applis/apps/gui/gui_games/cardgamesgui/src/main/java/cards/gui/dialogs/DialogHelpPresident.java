@@ -36,7 +36,7 @@ public final class DialogHelpPresident extends DialogHelpCards {
 ////        initMessageName(_fenetre);
 //    }
 
-    public void setDialoguePresident(AbsBasicTreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, TranslationsLg _lg) {
+    public void setDialoguePresident(AbsBasicTreeMap<CardPresident, Integer> _playedCards, boolean _reversed, int _nbStacks, TranslationsLg _lg) {
         StringMap<String> messages_ = ContainerSingleImpl.file(_lg);
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
         AbsPanel contentPane_ = getCompo().newPageBox();
@@ -44,7 +44,7 @@ public final class DialogHelpPresident extends DialogHelpCards {
         panelCards_.add(getCompo().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_LEVEL)));
         panelCards_.add(getCompo().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_NB_PLAYED)));
         panelCards_.add(getCompo().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_NB_REM)));
-        for (EntryCust<CardPresident, Byte> c: _playedCards.entryList()) {
+        for (EntryCust<CardPresident, Integer> c: _playedCards.entryList()) {
             panelCards_.add(getCompo().newPlainLabel(Games.toString(c.getKey(),_lg)));
             long pl_ = c.getValue();
             panelCards_.add(getCompo().newPlainLabel(Long.toString(pl_)));

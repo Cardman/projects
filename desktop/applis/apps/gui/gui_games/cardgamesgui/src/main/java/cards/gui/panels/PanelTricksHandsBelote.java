@@ -38,7 +38,7 @@ public final class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardB
     }
 
     @Override
-    protected CustList<CardBelote> list(byte _i) {
+    protected CustList<CardBelote> list(int _i) {
         return tricksHands.getDistribution().hand(_i).getCards();
     }
 
@@ -77,15 +77,15 @@ public final class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardB
 
     @Override
     protected int restituteFull() {
-        byte numeroPli_=(byte)(getTrickNumber().getSelectedIndex() - 1);
+        int numeroPli_= getTrickNumber().getSelectedIndex() - 1;
         tricksHands.restituerMains(displayingBelote, numeroPli_, rules);
         return numeroPli_;
     }
 
     @Override
     protected void restitute() {
-        byte numeroPli_=(byte)(getTrickNumber().getSelectedIndex() - 1);
-        byte numeroCarte_=(byte)getCardNumberTrick().getSelectedIndex();
+        int numeroPli_= getTrickNumber().getSelectedIndex() - 1;
+        int numeroCarte_= getCardNumberTrick().getSelectedIndex();
         numeroCarte_--;
         tricksHands.restituerMains(displayingBelote, numeroPli_,numeroCarte_, rules);
     }

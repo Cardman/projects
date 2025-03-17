@@ -884,7 +884,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
         etiquette2_.setBackground(GuiConstants.WHITE);
         return etiquette2_;
     }
-    public static AbsPlainLabel getBlankCard(WindowCardsInt _win,StringList _nicknames, byte _player) {
+    public static AbsPlainLabel getBlankCard(WindowCardsInt _win,StringList _nicknames, int _player) {
         AbsPlainLabel etiquette2_=_win.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
         etiquette2_.setBackground(GuiConstants.WHITE);

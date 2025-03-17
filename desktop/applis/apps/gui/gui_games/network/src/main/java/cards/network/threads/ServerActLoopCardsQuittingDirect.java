@@ -5,7 +5,7 @@ import code.network.Exiting;
 import code.network.NetCommon;
 import code.network.NetGroupFrame;
 import code.threads.AbstractThreadFactory;
-import code.util.Bytes;
+import code.util.Ints;
 import code.util.CustList;
 
 public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopCards {
@@ -13,8 +13,8 @@ public final class ServerActLoopCardsQuittingDirect implements IntServerActLoopC
     @Override
     public void loop(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         QuitCards q_ = Net.importQuitting(_input);
-        Bytes pls_ = Net.activePlayers(_instance, _common);
-        for (byte p: pls_) {
+        Ints pls_ = Net.activePlayers(_instance, _common);
+        for (int p: pls_) {
             Exiting forcedBye_ = new Exiting();
             forcedBye_.setForced(true);
             forcedBye_.setClosing(false);

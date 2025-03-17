@@ -144,7 +144,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return finalMessageHandful_;
     }
 
-    public void firstRound(byte _joueur, String _pseudo, IdList<Handfuls> _declHand, IdList<Miseres> _miseres, HandTarot _hand, IntCardsCallEvents _interceptor) {
+    public void firstRound(int _joueur, String _pseudo, IdList<Handfuls> _declHand, IdList<Miseres> _miseres, HandTarot _hand, IntCardsCallEvents _interceptor) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for(Handfuls annonce_: _declHand) {
             _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_, lg_),RETURN_LINE)));
@@ -266,7 +266,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
                 ContainerGame.INTRODUCTION_PTS,Games.toString(_called, lg_),ContainerGame.RETURN_LINE));
     }
 
-    public StringList pseudosTarot(byte _nbPlayers) {
+    public StringList pseudosTarot(int _nbPlayers) {
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());
         StringList pseudos_ = getPseudosJoueurs().getPseudosTarot();
@@ -303,7 +303,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //        return list_;
     }
 
-    public static void callCard(ContainerTarot _cont, GameTarot _gt,byte _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {
+    public static void callCard(ContainerTarot _cont, GameTarot _gt,int _joueur, String _pseudo, CardTarot _ct, IntCardsCallEvents _interceptor) {
         TranslationsLg lg_ = _cont.getOwner().getFrames().currentLg();
         if(_gt.getCarteAppelee().contient(_ct)) {
             _cont.getMini().setStatus(_cont.getWindow().getImageFactory(), Role.CALLED_PLAYER, _joueur);

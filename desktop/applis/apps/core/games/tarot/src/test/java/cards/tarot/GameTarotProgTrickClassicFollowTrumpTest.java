@@ -32,7 +32,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -40,7 +40,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -88,7 +88,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -96,7 +96,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -144,7 +144,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.TRUMP_6);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -152,7 +152,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -216,7 +216,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         curHand_.ajouter(CardTarot.TRUMP_1);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -224,7 +224,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -272,7 +272,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.TRUMP_8);
         curHand_.ajouter(CardTarot.CLUB_KING);
         curHand_.ajouter(CardTarot.TRUMP_2);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -280,7 +280,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -328,7 +328,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -336,7 +336,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -382,7 +382,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -390,7 +390,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -436,7 +436,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -444,7 +444,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -490,7 +490,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -498,7 +498,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -544,7 +544,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -552,7 +552,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -605,7 +605,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -613,7 +613,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -665,7 +665,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
@@ -673,7 +673,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -725,7 +725,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -733,7 +733,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -788,7 +788,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.TRUMP_3);
         curHand_.ajouter(CardTarot.TRUMP_9);
         curHand_.ajouter(CardTarot.TRUMP_12);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -796,7 +796,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -843,7 +843,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -851,7 +851,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -897,7 +897,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -905,7 +905,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -953,7 +953,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -961,7 +961,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1007,7 +1007,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1015,7 +1015,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1063,7 +1063,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1071,7 +1071,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1119,7 +1119,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_14);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1127,7 +1127,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.GUARD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1173,7 +1173,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1181,7 +1181,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1228,7 +1228,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1236,7 +1236,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1283,7 +1283,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         curHand_.ajouter(CardTarot.CLUB_1);
         curHand_.ajouter(CardTarot.TRUMP_4);
         curHand_.ajouter(CardTarot.TRUMP_8);
-        byte d_ = 2;
+        int d_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
@@ -1291,7 +1291,7 @@ public final class GameTarotProgTrickClassicFollowTrumpTest extends CommonGameTa
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,d_,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,d_,bids_));
         t_.ajouter(CardTarot.SPADE_QUEEN);
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_1);

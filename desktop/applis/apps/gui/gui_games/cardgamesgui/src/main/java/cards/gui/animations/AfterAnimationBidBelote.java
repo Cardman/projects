@@ -5,7 +5,7 @@ import cards.consts.Role;
 import cards.facade.IntArtCardGames;
 import cards.gui.containers.ContainerSingleBelote;
 import code.scripts.messages.cards.MessagesGuiCards;
-import code.util.Bytes;
+import code.util.Ints;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -48,7 +48,7 @@ public final class AfterAnimationBidBelote implements Runnable {
         _container.clearBids();
         if(gameBelote_.keepBidding()) {
             GameBelote partie_=_container.partieBelote();
-            byte debut_= partie_.playerHavingToBid();
+            int debut_= partie_.playerHavingToBid();
             if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
                 _container.pack();
                 _container.thread(new AnimationBidBelote(_container));
@@ -69,7 +69,7 @@ public final class AfterAnimationBidBelote implements Runnable {
             }
             _container.getOwner().getTeams().setEnabled(true);
             _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
-            Bytes partenaires_ = gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur());
+            Ints partenaires_ = gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur());
             if (!partenaires_.isEmpty()) {
                 _container.getMini().setStatus(_container.getWindow().getImageFactory(), Role.CALLED_PLAYER, partenaires_.first());
             }

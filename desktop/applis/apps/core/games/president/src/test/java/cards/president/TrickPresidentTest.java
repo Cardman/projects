@@ -11,7 +11,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getPlayer1Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 0);
+        TrickPresident tr_ = new TrickPresident(0);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -19,12 +19,12 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         tr_.ajouter(h_);
-        assertEq(0, tr_.getPlayer(0, (byte) 3));
+        assertEq(0, tr_.getPlayer(0, 3));
     }
 
     @Test
     public void getPlayer2Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -32,12 +32,12 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         tr_.ajouter(h_);
-        assertEq(1, tr_.getPlayer(0, (byte) 3));
+        assertEq(1, tr_.getPlayer(0, 3));
     }
 
     @Test
     public void getPlayer3Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -45,12 +45,12 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
         tr_.ajouter(h_);
-        assertEq(2, tr_.getPlayer(1, (byte) 3));
+        assertEq(2, tr_.getPlayer(1, 3));
     }
 
     @Test
     public void getPlayer4Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -64,12 +64,12 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_5);
         tr_.ajouter(h_);
-        assertEq(1, tr_.getPlayer(3, (byte) 3));
+        assertEq(1, tr_.getPlayer(3, 3));
     }
 
     @Test
     public void getPlayedCardsIndexes1Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -83,7 +83,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_5);
         tr_.ajouter(h_);
-        Ints indexes_ = tr_.getPlayedCardsIndexes((byte) 1, (byte) 3);
+        Ints indexes_ = tr_.getPlayedCardsIndexes(1, 3);
         assertEq(2, indexes_.size());
         assertEq(0, indexes_.get(0));
         assertEq(3, indexes_.get(1));
@@ -92,7 +92,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getPlayedCardsIndexes2Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -106,14 +106,14 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_5);
         tr_.ajouter(h_);
-        Ints indexes_ = tr_.getPlayedCardsIndexes((byte) 2, (byte) 3);
+        Ints indexes_ = tr_.getPlayedCardsIndexes(2, 3);
         assertEq(1, indexes_.size());
         assertEq(1, indexes_.get(0));
     }
 
     @Test
     public void getFilledHandsBefore1Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -135,7 +135,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getFilledHandsBefore2Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -163,7 +163,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getPlayedCards1Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -179,7 +179,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_6);
         tr_.ajouter(h_);
-        CustList<HandPresident> hs_ = tr_.getPlayedCards((byte) 1, (byte) 3);
+        CustList<HandPresident> hs_ = tr_.getPlayedCards(1, 3);
         assertEq(2, hs_.size());
         assertEq(1, hs_.get(0).total());
         assertEq(CardPresident.CLUB_3, hs_.get(0).carte(0));
@@ -188,7 +188,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getBestCards1Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -211,7 +211,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getBestCards2Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -233,7 +233,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getBestCards3Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         tr_.ajouter(h_);
@@ -251,7 +251,7 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
 
     @Test
     public void getRamasseur1Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -267,12 +267,12 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_6);
         tr_.ajouter(h_);
-        assertEq(2, tr_.getRamasseur((byte) 3));
+        assertEq(2, tr_.getRamasseur(3));
     }
 
     @Test
     public void getRamasseur2Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         h_.ajouter(CardPresident.CLUB_3);
@@ -287,12 +287,12 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         tr_.ajouter(h_);
         h_ = new HandPresident();
         tr_.ajouter(h_);
-        assertEq(0, tr_.getRamasseur((byte) 3));
+        assertEq(0, tr_.getRamasseur(3));
     }
 
     @Test
     public void getRamasseur3Test() {
-        TrickPresident tr_ = new TrickPresident((byte) 1);
+        TrickPresident tr_ = new TrickPresident(1);
         HandPresident h_;
         h_ = new HandPresident();
         tr_.ajouter(h_);
@@ -304,6 +304,6 @@ public class TrickPresidentTest extends EquallablePresidentUtil {
         tr_.ajouter(h_);
         h_ = new HandPresident();
         tr_.ajouter(h_);
-        assertEq(0, tr_.getRamasseur((byte) 3));
+        assertEq(0, tr_.getRamasseur(3));
     }
 }

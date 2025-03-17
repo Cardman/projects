@@ -105,7 +105,7 @@ public final class GameTarotCallDiscard {
     HandTarot strategieEcart(HandTarot _carteAppelee) {
         HandTarot mainPreneur_ = infosBid.getCurrentHand();
         IdMap<Suit,HandTarot> repartition_ = mainPreneur_.couleurs();
-        byte nombreJoueurs_ = infosBid.getNombreDeJoueurs();
+        int nombreJoueurs_ = infosBid.getNombreDeJoueurs();
         HandTarot ecartables_ = getCartesEcartables(tailleChien, repartition_);
         IdMap<Suit,HandTarot> repEcartables_ = ecartables_.couleurs();
         HandTarot ecart_ = new HandTarot();
@@ -118,7 +118,7 @@ public final class GameTarotCallDiscard {
             int reste_ = tailleChien - ecart_.total();
             HandTarot atoutsEcartables_ = repEcartables_.getVal(couleurAtout_);
             int nbAtoutsEcartables_ = atoutsEcartables_.total();
-            for (byte carte_ = IndexConstants.FIRST_INDEX; carte_ < reste_; carte_++) {
+            for (int carte_ = IndexConstants.FIRST_INDEX; carte_ < reste_; carte_++) {
                 ecart_.ajouter(atoutsEcartables_.carte(nbAtoutsEcartables_ - 1
                         - carte_));
             }
@@ -523,7 +523,7 @@ public final class GameTarotCallDiscard {
                 _mainPreneur, _couleursNonAppelees);
         couleursEntieresEcartables_ = GameTarotCommon.couleursNonAtoutNonVides(
                 _mainPreneur, couleursEntieresEcartables_);
-        byte nombreCartesAjoutees_ = (byte) (_tailleChien - _ecart.total());
+        int nombreCartesAjoutees_ = _tailleChien - _ecart.total();
         couleursEntieresEcartables_ = GameTarotCommon.couleursNonAtoutAyantNbCartesInfEg(
                 _mainPreneur, couleursEntieresEcartables_,
                 nombreCartesAjoutees_);

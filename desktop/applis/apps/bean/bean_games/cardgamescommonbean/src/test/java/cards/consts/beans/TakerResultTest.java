@@ -43,43 +43,43 @@ public class TakerResultTest extends EquallableCardConstBeanUtil {
     @Test
     public void suc1() {
         TakerResult tr_ = new TakerResult();
-        tr_.setDifferenceScoreTaker((short) 1);
+        tr_.setDifferenceScoreTaker(1);
         assertTrue(tr_.successfulBid());
     }
     @Test
     public void suc2() {
         TakerResult tr_ = new TakerResult();
-        tr_.setDifferenceScoreTaker((short) -1);
+        tr_.setDifferenceScoreTaker(-1);
         assertFalse(tr_.successfulBid());
     }
     @Test
     public void fail1() {
         TakerResult tr_ = new TakerResult();
-        tr_.setDifferenceScoreTaker((short) 1);
+        tr_.setDifferenceScoreTaker(1);
         assertFalse(tr_.failedBid());
     }
     @Test
     public void fail2() {
         TakerResult tr_ = new TakerResult();
-        tr_.setDifferenceScoreTaker((short) -1);
+        tr_.setDifferenceScoreTaker(-1);
         assertTrue(tr_.failedBid());
     }
     @Test
     public void mid1() {
         TakerResult tr_ = new TakerResult();
-        tr_.setDifferenceScoreTaker((short) 1);
+        tr_.setDifferenceScoreTaker(1);
         assertFalse(tr_.midBid());
     }
     @Test
     public void mid2() {
         TakerResult tr_ = new TakerResult();
-        tr_.setDifferenceScoreTaker((short) 0);
+        tr_.setDifferenceScoreTaker(0);
         assertTrue(tr_.midBid());
     }
     @Test
     public void pts() {
         TakerResult tr_ = new TakerResult();
-        tr_.setDifferenceScoreTaker((short) 1);
+        tr_.setDifferenceScoreTaker(1);
         assertEq(1, tr_.absoluteDiff());
         assertEq(1, tr_.getDifferenceScoreTaker());
     }

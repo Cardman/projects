@@ -25,7 +25,7 @@ public final class PlayingCardTarot extends PlayerActionGame {
 
     private boolean firstRound;
 
-    private byte takerIndex;
+    private int takerIndex;
 
     public CardTarot getPlayedCard() {
         return playedCard;
@@ -91,11 +91,11 @@ public final class PlayingCardTarot extends PlayerActionGame {
         this.firstRound = _f;
     }
 
-    public byte getTakerIndex() {
+    public int getTakerIndex() {
         return takerIndex;
     }
 
-    public void setTakerIndex(byte _takerIndex) {
+    public void setTakerIndex(int _takerIndex) {
         takerIndex = _takerIndex;
     }
 }

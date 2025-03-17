@@ -23,7 +23,7 @@ import code.util.core.StringUtil;
 public final class ContainerMultiContent {
     private StringMap<String> messages = new StringMap<String>();
     private int noClient;
-    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private int indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private NumComboBox choiceOfPlaceForPlayingGame;
     private AbsButton ready;
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -33,7 +33,7 @@ public final class ContainerMultiContent {
     private final CustList<AbsPlainLabel> playersPlaces = new CustList<AbsPlainLabel>();
     private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
     private RenderedPage editor;
-    private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
+    private IntTreeMap< Integer> playersPlacesForGame = new IntTreeMap< Integer>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private final AbsPlainLabel canPlayLabel;
     private final WindowNetWork win;
@@ -49,11 +49,11 @@ public final class ContainerMultiContent {
 //        if (readyToPlay) {
 //            return;
 //        }
-        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
+        indexInGame = NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         ChoosenPlace choice_ = new ChoosenPlace();
         choice_.setIndex(noClient);
         choice_.setPlace(indexInGame);
-        choice_.setPlacesPlayers(new IntTreeMap< Byte>());
+        choice_.setPlacesPlayers(new IntTreeMap< Integer>());
         window().sendObject(choice_);
     }
     public void changeReady() {
@@ -82,7 +82,7 @@ public final class ContainerMultiContent {
         choiceOfPlaceForPlayingGame.setItems(nbChoosenPlayers);
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getIndex());
         choiceOfPlaceForPlayingGame.getCombo().repaint();
-        indexInGame = (byte) NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
+        indexInGame = NumberUtil.parseInt(choiceOfPlaceForPlayingGame.getSelectedItem());
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(_cont));
         panel_.add(choiceOfPlaceForPlayingGame.self());
         ready = win.getFrames().getCompoFactory().newPlainButton(_cont.getContainerMultiContent().getMessages().getVal(MessagesGuiCards.READY));
@@ -122,7 +122,7 @@ public final class ContainerMultiContent {
 //    }
     public void updateAfter(PlayerCards _players) {
 //        playersPlacesForGame = _players.getPlacesPlayers();
-        playersPlacesForGame.put(_players.getIndex(), (byte) _players.getIndex());
+        playersPlacesForGame.put(_players.getIndex(), _players.getIndex());
         playersPlaces.get(_players.getIndex()).setText(Integer.toString(_players.getIndex()));
         playersPseudosForGame.put(_players.getIndex(),_players.getPseudo());
 //        update(_players.getPlacesPlayers(), _players.getReadyPlayers());
@@ -149,7 +149,7 @@ public final class ContainerMultiContent {
         window().pack();
     }
 
-    private void update(IntTreeMap<Byte> _places, IntMap<BoolVal> _ready) {
+    private void update(IntTreeMap<Integer> _places, IntMap<BoolVal> _ready) {
         for (int i: _places.getKeys()) {
             playersPlaces.get(i).setText(_places.getVal(i).toString());
         }
@@ -195,30 +195,30 @@ public final class ContainerMultiContent {
         window().getTeams().setEnabled(false);
     }
 
-    public ByteTreeMap<String> nicknames(CustList<String> _bots) {
-        ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
-        byte p_ = 0;
+    public IntTreeMap<String> nicknames(CustList<String> _bots) {
+        IntTreeMap< String> pseudos_ = new IntTreeMap< String>();
+        int p_ = 0;
         for (String s : _bots) {
             pseudos_.put(p_, s);
             p_++;
         }
-        for (byte p: getPlayersPlacesForGame().values()) {
-            byte relative_ = relative(p);
+        for (int p: getPlayersPlacesForGame().values()) {
+            int relative_ = relative(p);
             pseudos_.put(relative_, getPseudoByPlace(p));
         }
         return pseudos_;
     }
-    public byte relative(int _otherPlayerIndex) {
+    public int relative(int _otherPlayerIndex) {
         return relative(_otherPlayerIndex, indexInGame, nbChoosenPlayers);
     }
 
-    public static byte relative(int _otherPlayerIndex, int _indexInGame, int _nbChoosenPlayers) {
+    public static int relative(int _otherPlayerIndex, int _indexInGame, int _nbChoosenPlayers) {
         if (_otherPlayerIndex >= _indexInGame) {
-            return (byte)(_otherPlayerIndex - _indexInGame);
+            return _otherPlayerIndex - _indexInGame;
         }
-        return (byte) (_otherPlayerIndex + _nbChoosenPlayers - _indexInGame);
+        return _otherPlayerIndex + _nbChoosenPlayers - _indexInGame;
     }
-    public String getPseudoByPlace(byte _place) {
+    public String getPseudoByPlace(int _place) {
         for (int i : playersPlacesForGame.getKeys()) {
             if (playersPlacesForGame.getVal(i) == _place) {
                 return StringUtil.nullToEmpty(playersPseudosForGame.getVal(i));
@@ -281,7 +281,7 @@ public final class ContainerMultiContent {
     public boolean notAllReadyDistinct() {
         return !window().getSockets().allReady() || !Net.distinctPlaces(window().getNet(), window().getSockets());
     }
-    public IntTreeMap<Byte> getPlayersPlacesForGame() {
+    public IntTreeMap<Integer> getPlayersPlacesForGame() {
         return playersPlacesForGame;
     }
 
@@ -317,7 +317,7 @@ public final class ContainerMultiContent {
         return nbChoosenPlayers;
     }
 
-    public byte getIndexInGame() {
+    public int getIndexInGame() {
         return indexInGame;
     }
 

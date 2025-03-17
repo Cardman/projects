@@ -59,29 +59,29 @@ public enum CardSolitaire {
     CLUB_2(2,Suit.CLUB, CouleurValeur.BLACK),
     CLUB_1(1,Suit.CLUB, CouleurValeur.BLACK);
 
-    private final byte force;
+    private final int force;
     private final CouleurValeur id;
     private final int group;
 
     CardSolitaire() {
         force = 0;
-        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.UNDEFINED,false);
+        id = new CouleurValeur(Suit.UNDEFINED,0,CardChar.UNDEFINED,false);
         group = -1;
     }
 
     CardSolitaire(int _value, Suit _suit, int _g) {
-        force = (byte) _value;
-        id = new CouleurValeur(_suit,(byte)_value,CardChar.UNDEFINED,true);
+        force = _value;
+        id = new CouleurValeur(_suit,_value,CardChar.UNDEFINED,true);
         group = _g;
     }
 
     CardSolitaire(CardChar _char, Suit _suit, int _g, int _strength) {
-        force = (byte) _strength;
-        id = new CouleurValeur(_suit,(byte)0,_char,true);
+        force = _strength;
+        id = new CouleurValeur(_suit,0,_char,true);
         group = _g;
     }
 
-    public byte getForce() {
+    public int getForce() {
         return force;
     }
 

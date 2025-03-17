@@ -3,7 +3,7 @@ package cards.belote;
 import cards.belote.enumerations.CardBelote;
 import code.threads.AbstractAtomicInteger;
 import code.threads.ConcreteInteger;
-import code.util.Bytes;
+import code.util.Ints;
 
 public abstract class AbstractSimulatingBelote implements SimulatingBelote {
     public static final int STATE_ALIVE = 0;
@@ -26,7 +26,7 @@ public abstract class AbstractSimulatingBelote implements SimulatingBelote {
     }
 
     @Override
-    public Bytes players(GameBelote _g) {
+    public Ints players(GameBelote _g) {
         return _g.getDeal().orderedPlayersBegin(_g.getRegles());
     }
 
@@ -41,7 +41,7 @@ public abstract class AbstractSimulatingBelote implements SimulatingBelote {
     }
 
     @Override
-    public int stoppedRound(int _nbBids, byte _nbPlayers) {
+    public int stoppedRound(int _nbBids, int _nbPlayers) {
         return stopped();
     }
 
@@ -56,12 +56,12 @@ public abstract class AbstractSimulatingBelote implements SimulatingBelote {
 //    }
 
     @Override
-    public int dealCardsStep(byte _donneur) {
+    public int dealCardsStep(int _donneur) {
         return 1;
     }
 
     @Override
-    public int dealCardStep(int _step, int _gotCards, byte _p) {
+    public int dealCardStep(int _step, int _gotCards, int _p) {
         return _step + 1;
     }
 

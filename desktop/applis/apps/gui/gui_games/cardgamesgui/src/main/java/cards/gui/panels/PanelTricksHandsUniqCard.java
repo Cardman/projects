@@ -34,11 +34,11 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         container = window.getCompoFactory().newBorder();
         cards=window.getCompoFactory().newLineBox();
         AbsPanel players_ = window.getCompoFactory().newGrid();
-        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nbPlayers; joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<_nbPlayers; joueur_++) {
             players_.add(WindowCards.getBlankCard(window,_pseudos, joueur_),WindowCardsCore.ctsRem(window.getCompoFactory()));
         }
         int nbBots_ = _nbPlayers - 1;
-        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
             players_.add(WindowCards.getBlankCard(window,_pseudos, joueur_),WindowCardsCore.ctsRem(window.getCompoFactory()));
         }
         cards.add(players_);
@@ -63,14 +63,14 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_TRICK)));
         int off_ = offset();
         int nbTricksNumbers_ = tricksSize()+2-off_;
-        for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
+        for(int indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
             trickNumber.addItem(indicePli_);
         }
         trickNumber.getCombo().repaint();
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages_.getVal(MessagesGuiCards.MAIN_CARD)));
-        for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<= _nbPlayers; indiceJoueur_++) {
+        for(int indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<= _nbPlayers; indiceJoueur_++) {
             cardNumberTrick.addItem(indiceJoueur_);
         }
         cardNumberTrick.getCombo().repaint();
@@ -103,7 +103,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     }
 
     protected abstract int tricksSize();
-    protected abstract CustList<T> list(byte _i);
+    protected abstract CustList<T> list(int _i);
     protected abstract CustList<T> derniereMain();
     protected abstract int offset();
     protected abstract int nbPlayers();
@@ -136,7 +136,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         }
         cardNumberTrick.getCombo().repaint();
         tricks.removeAll();
-        for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
+        for(int indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
             AbsPanel g_ = window.getCompoFactory().newGrid();
             int indexTr_ = indicePli_ - 1 + offset_;
             buildTrickPanel(tricks_, indexTr_, g_);
@@ -149,7 +149,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     private void buildTrickPanel(CustList<TrickCardContentDto<T>> _tricks, int _indexTr, AbsPanel _g) {
         TrickCardContentDto<T> trick_ = _tricks.get(_indexTr);
         int entameur_= trick_.getStarter();
-        byte indice_ = begin(_g, entameur_);
+        int indice_ = begin(_g, entameur_);
         for(T carte_: trick_.getCards()) {
             addCard(carte_, _g);
             indice_++;
@@ -157,7 +157,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         end(indice_, _g);
     }
 
-    private AbsPlainLabel etiquette(long _nb) {
+    private AbsPlainLabel etiquette(int _nb) {
         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(_nb));
         etiquette2_.setPreferredSize(Carpet.getMaxDimension());
         etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
@@ -169,11 +169,11 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     @Override
     public void changeCard() {
 
-        byte numeroPli_=(byte)(trickNumber.getSelectedIndex() - 1);
+        int numeroPli_= trickNumber.getSelectedIndex() - 1;
         if(numeroPli_<1) {
             return;
         }
-        byte numeroCarte_=(byte)cardNumberTrick.getSelectedIndex();
+        int numeroCarte_= cardNumberTrick.getSelectedIndex();
         numeroCarte_--;
         CustList<TrickCardContentDto<T>> tricks_ = tricks();
         restitute();
@@ -185,8 +185,8 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         int indexTr_ = numeroPli_ - 1 + offset_;
         TrickCardContentDto<T> trick_ = tricks_.get(indexTr_);
         int entameur_= trick_.getStarter();
-        byte indice_ = begin(selectedTrick, entameur_);
-        byte indice2_ = 0;
+        int indice_ = begin(selectedTrick, entameur_);
+        int indice2_ = 0;
         for(T carte_: trick_.getCards()) {
             if(indice2_<=numeroCarte_) {
                 addCard(carte_, selectedTrick);
@@ -213,14 +213,14 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
         int nombreJoueurs_ = nbPlayers();
         int indice_ = _from;
         while(indice_ <2* nombreJoueurs_ -1) {
-            AbsPlainLabel etiquette2_ = etiquette((long) indice_ - nombreJoueurs_);
+            AbsPlainLabel etiquette2_ = etiquette(indice_ - nombreJoueurs_);
             _g.add(etiquette2_,WindowCardsCore.ctsRem(window.getCompoFactory()));
             indice_++;
         }
     }
 
-    private byte begin(AbsPanel _g, int _until) {
-        byte indice_= 0;
+    private int begin(AbsPanel _g, int _until) {
+        int indice_= 0;
         while(indice_< _until) {
             AbsPlainLabel etiquette2_ = etiquette(indice_);
             _g.add(etiquette2_,WindowCardsCore.ctsRem(window.getCompoFactory()));
@@ -231,7 +231,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
 
     private int updateHands() {
         int nombreJoueurs_ = nbPlayers();
-        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
             Carpet.add(window.getCompoFactory(), hands, buildHand(list(joueur_)), true);
         }
         return nombreJoueurs_;
@@ -249,7 +249,7 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
 
     private void updateBots(int _nb) {
         int nbBots_ = _nb - 1;
-        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
             AbsPanel line_ = window.getCompoFactory().newLineBox();
             AbsPlainLabel lab_ = WindowCards.whiteLabel(window, 1);
             lab_.setOpaque(false);

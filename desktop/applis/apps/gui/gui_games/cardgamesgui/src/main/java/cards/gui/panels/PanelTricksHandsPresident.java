@@ -31,14 +31,14 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     private final IntTreeComboBox cardNumberTrick;
     private final TricksHandsPresident tricksHands;
     private final ChangeableTitle parent;
-    private final byte numberPlayers;
+    private final int numberPlayers;
     private final DisplayingPresident displayingPresident;
     private final WindowCardsInt window;
     private final AbsPanel container;
 
     public PanelTricksHandsPresident(ChangeableTitle _parent,
             TricksHandsPresident _tricksHands,
-            byte _numberPlayers,
+            int _numberPlayers,
             StringList _pseudos,
             DisplayingPresident _displayingPresident, WindowCardsInt _window) {
         window = _window;
@@ -53,7 +53,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         container = window.getCompoFactory().newBorder();
         AbsPanel cards_ = window.getCompoFactory().newLineBox();
         AbsPanel players_ = window.getCompoFactory().newGrid();
-        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             Carpet.add(window.getCompoFactory(),players_,WindowCards.getBlankCard(window,_pseudos, joueur_),true);
         }
 //        int nbBots_ = _numberPlayers - 1;
@@ -67,7 +67,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         cards_.add(selectedTrick);
         hands=window.getCompoFactory().newGrid();
         //boolean entered_ = false;
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
 //            AbsPanel sousPanneau3_ = feedCards(dealt_.hand(joueur_).getCards());
 //            entered_ = false;
 //            for(CardPresident c: dealt_.main(joueur_))
@@ -292,7 +292,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        TranslationsLg lg_ = window.getFrames().currentLg();
         hands.removeAll();
         DealPresident dealt_ = tricksHands.getDistribution();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
 //            AbsPanel sousPanneau4_ = feedCards(dealt_.hand(joueur_).getCards());
 //            hands.add(sousPanneau4_);
             Carpet.add(window.getCompoFactory(), hands,feedCards(dealt_.hand(joueur_).getCards()),true);
@@ -324,7 +324,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
 //        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
         //            int sum_ = tricks_.get(numeroPli_-1).total() + tricks_.get(numeroPli_-1).getEntameur();
         int nb_ = _current.getNombreDeCartesParJoueur();
-        byte entameur_= _current.getEntameur();
+        int entameur_= _current.getEntameur();
         int row_ = row(panels_, nb_, entameur_);
         int col_ = 0;
         for(HandPresident h_: _current) {
@@ -517,7 +517,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         CoordsHandsMap panels_ = new CoordsHandsMap();
 //        TranslationsLg lg_ = window.getFrames().currentLg();
         int nb_ = _current.getNombreDeCartesParJoueur();
-        byte entameur_= _current.getEntameur();
+        int entameur_= _current.getEntameur();
         int row_ = row(panels_, nb_, entameur_);
         int col_ = 0;
         int indice2_ = 0;
@@ -575,7 +575,7 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
         return _col;
     }
 
-    private int row(CoordsHandsMap _panels, int _nb, byte _entameur) {
+    private int row(CoordsHandsMap _panels, int _nb, int _entameur) {
         int row_ = 0;
         int indice_=0;
         while(indice_< _entameur) {

@@ -5,7 +5,7 @@ public final class BonusesPlayers {
 
     private String nickname;
 
-    private short bonus;
+    private long bonus;
 
     public String getNickname() {
         return nickname;
@@ -15,11 +15,11 @@ public final class BonusesPlayers {
         nickname = _nickname;
     }
 
-    public short getBonus() {
+    public long getBonus() {
         return bonus;
     }
 
-    public void setBonus(short _bonus) {
+    public void setBonus(long _bonus) {
         bonus = _bonus;
     }
 

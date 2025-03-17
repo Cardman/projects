@@ -14,7 +14,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNormalSuitNoTrump1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -52,7 +52,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNormalSuitNoTrump2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -95,7 +95,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNormalSuitNoTrump3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -132,7 +132,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNormalSuitNoTrump4Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -170,7 +170,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsTaker1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -219,7 +219,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsTaker2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -258,7 +258,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsCalledPlayer1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
@@ -303,7 +303,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsCalledPlayer2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
@@ -348,7 +348,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsCalledPlayer3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
@@ -393,7 +393,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsCalledPlayer4Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
@@ -436,7 +436,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsCalledPlayer5Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
@@ -479,7 +479,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followNoTrumpAsCalledPlayer6Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
@@ -527,7 +527,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followDominantAsDefender1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -570,7 +570,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followDominantAsDefender2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -613,7 +613,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void followDominantAsDefender3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -656,7 +656,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void fournirCouleurOrdinaireSansAtout1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -695,7 +695,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void fournirCouleurOrdinaireSansAtout2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -734,7 +734,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void fournirCouleurOrdinaireSansAtout3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);
@@ -772,7 +772,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void fournirCouleurOrdinaireSansAtout4Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         BidBeloteSuit b_ = new BidBeloteSuit();
@@ -820,7 +820,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void fournirCouleurOrdinaireSansAtout5Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         bids_.add(new BidBeloteSuit());
         bids_.add(new BidBeloteSuit());
@@ -864,7 +864,7 @@ public final class GameBeloteProgTrickFollowNoTest extends CommonGameBelote {
     public void fournirCouleurOrdinaireSansAtout6Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.UNDEFINED);

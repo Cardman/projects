@@ -142,7 +142,7 @@ public abstract class EquallableTarotUtil {
 //        } else if (mode_ == ModeTarot.NORMAL_WITH_MISERE) {
 //            b_ = true;
 //        }
-        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
+        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         CustList<CustList<BoolVal>> confidence_ = GameTarot.confidence(nbPl_);
 //        if (!b_ || !_b.isJouerDonne()) {
 //            GameTarot.confSansPreneur(_r,confidence_);
@@ -191,14 +191,14 @@ public abstract class EquallableTarotUtil {
 ////                }
 ////            }
 //        }
-        GameTarot.defined(_b,_r,(byte) _taker,confidence_);
+        GameTarot.defined(_b,_r,_taker,confidence_);
         return confidence_;
     }
     public static Ints handLengths4(GameTarot _g) {
         Ints handLengths_ = new Ints();
         int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
-        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent(nbPl_, true);
         int nbTr_ = _g.getTricks().size() - 1;
         handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(0).total());
         handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(1).total());
@@ -211,7 +211,7 @@ public abstract class EquallableTarotUtil {
         Ints handLengths_ = new Ints();
         int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
-        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent(nbPl_, true);
         int nbTr_ = _g.getTricks().size() - 1;
         handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(0).total());
         handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(1).total());
@@ -225,7 +225,7 @@ public abstract class EquallableTarotUtil {
         Ints handLengths_ = new Ints();
         int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
-        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        CustList<HandTarot> hands_ = _g.getProgressingTrick().completeCurrent(nbPl_, true);
         int nbTr_ = _g.getTricks().size() - 1;
         handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(0).total());
         handLengths_.add(nombreCartesParJoueur_-nbTr_-hands_.get(1).total());

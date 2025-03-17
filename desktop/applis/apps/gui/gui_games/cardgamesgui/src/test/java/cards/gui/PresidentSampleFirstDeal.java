@@ -11,19 +11,19 @@ public final class PresidentSampleFirstDeal implements IntFirstDealPresident {
 
     @Override
     public GamePresident deal(ContainerPresident _container, RulesPresident _rules, long _nb) {
-        return new GamePresident(GameType.RANDOM,new DealPresident(deal2(), (byte) 0),_rules,new Bytes());
+        return new GamePresident(GameType.RANDOM,new DealPresident(deal2(), 0),_rules,new Ints());
     }
 
     @Override
     public GamePresident deal(ContainerPresident _container) {
         RulesPresident regles_ = _container.getWindow().getReglesPresident();
-        return new GamePresident(GameType.EDIT,new DealPresident(deal2(), (byte) 0),regles_,new Bytes());
+        return new GamePresident(GameType.EDIT,new DealPresident(deal2(), 0),regles_,new Ints());
     }
 
     public static void mockGameAfter(MockGamePresident _mock) {
         mockGame(_mock);
-        _mock.getStacks().add(new DealPresident(deal2(), (byte) 0));
-        _mock.getStacks().add(new DealPresident(deal2(), (byte) 0));
+        _mock.getStacks().add(new DealPresident(deal2(), 0));
+        _mock.getStacks().add(new DealPresident(deal2(), 0));
         _mock.getSw().add(create(CardPresident.SPADE_2,CardPresident.CLUB_2));
         _mock.getSw().add(create(CardPresident.DIAMOND_2));
         mockGame(_mock);

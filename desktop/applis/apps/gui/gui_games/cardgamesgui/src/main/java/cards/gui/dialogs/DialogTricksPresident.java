@@ -31,13 +31,13 @@ public final class DialogTricksPresident extends DialogHelpCards {
     }
 
     public static void init(TricksHandsPresident _tricksHands,
-            byte _numberPlayers, StringList _pseudos,
+                            int _numberPlayers, StringList _pseudos,
             DisplayingPresident _displayingPresident, WindowCardsInt _window) {
         _window.getDialogTricksPresident().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window);
     }
 
     private void setDialogue(TricksHandsPresident _tricksHands,
-            byte _numberPlayers, StringList _pseudos,
+            int _numberPlayers, StringList _pseudos,
             DisplayingPresident _displayingPresident, WindowCardsInt _window) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
         panelTricksHandsPresident = new PanelTricksHandsPresident(getAbsDialog(),

@@ -335,7 +335,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     private static ResultsTarot results(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(_g);
-        res_.getRes().setUser((byte) _user);
+        res_.getRes().setUser(_user);
         res_.initialize(fourPseudos("0","1","2","3"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
         res_.getRes().setGeneral(new StringMap<String>());
@@ -351,7 +351,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     private static ResultsTarot resultsFive(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(_g);
-        res_.getRes().setUser((byte) _user);
+        res_.getRes().setUser(_user);
         res_.initialize(fivePseudos("0","1","2","3","4"), new CustList<Longs>());
 //        res_.getRes().setGeneral(CoreResourcesAccess.key(Suit.SPADE)+SEP+ SPADE);
         StringMap<String> s_ = new StringMap<String>();
@@ -393,14 +393,14 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     }
 
     private static GameTarot game7() {
-        RulesTarot rules_ = new RulesTarot((byte) 5);
+        RulesTarot rules_ = new RulesTarot(5);
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.getMiseres().add(Miseres.SUIT);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         rules_.getMiseres().add(Miseres.CHARACTER);
         rules_.getAllowedHandfuls().put(Handfuls.FOUR,15);
-        DealTarot deal_ = dealFivePlayers((byte) 4);
+        DealTarot deal_ = dealFivePlayers(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.firstLead();
         handful(game_, Handfuls.FOUR,fifteen(CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,
@@ -415,10 +415,10 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     }
 
     private static GameTarot game8() {
-        RulesTarot rules_ = new RulesTarot((byte) 5);
+        RulesTarot rules_ = new RulesTarot(5);
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        DealTarot deal_ = dealFivePlayers((byte) 4);
+        DealTarot deal_ = dealFivePlayers(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.firstLead();
         playedCards(game_);
@@ -427,24 +427,24 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     }
 
     private static GameTarot game9() {
-        RulesTarot rules_ = new RulesTarot((byte) 5);
+        RulesTarot rules_ = new RulesTarot(5);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
-        DealTarot deal_ = dealFivePlayers((byte) 4);
+        DealTarot deal_ = dealFivePlayers(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         bidsFive3(deal_, game_);
         //CheckerGameTarotWithRules.check(game_);
         return game_;
     }
     private static GameTarot game4() {
-        RulesTarot rules_ = new RulesTarot((byte) 5);
+        RulesTarot rules_ = new RulesTarot(5);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_KING);
         rules_.getMiseres().add(Miseres.SUIT);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         rules_.getMiseres().add(Miseres.CHARACTER);
         rules_.getAllowedHandfuls().put(Handfuls.FOUR,15);
-        DealTarot deal_ = dealFivePlayers((byte) 4);
+        DealTarot deal_ = dealFivePlayers(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         bidsFive(deal_, game_);
         game_.initConfianceAppeleUtilisateur(single(CardTarot.HEART_KING));
@@ -616,13 +616,13 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     private static void bidsFive(DealTarot _deal, GameTarot _game) {
         int first_ = _game.playerAfter(_deal.getDealer());
         _game.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
     }
 //
@@ -642,30 +642,30 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
     private static void bidsFive3(DealTarot _deal, GameTarot _game) {
         int first_ = _game.playerAfter(_deal.getDealer());
         _game.ajouterContrat(BidTarot.FOLD);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
-        first_ = _game.playerAfter((byte) first_);
+        first_ = _game.playerAfter(first_);
         _game.ajouterContrat(BidTarot.FOLD);
     }
 
 
     private static GameTarot game3() {
-        RulesTarot rules_ = new RulesTarot((byte) 4);
+        RulesTarot rules_ = new RulesTarot(4);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_1_VS_3);
-        DealTarot deal_ = dealLoose((byte) 3);
+        DealTarot deal_ = dealLoose(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.TAKE);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
 //        game_.initDefense();
 
@@ -778,7 +778,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         _game.ajouterUneCarteDansPliEnCours(_card);
     }
 
-    private static DealTarot dealFivePlayers(byte _dealer) {
+    private static DealTarot dealFivePlayers(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -874,7 +874,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         return new DealTarot(hands_,_dealer);
     }
 
-    private static DealTarot dealLoose(byte _dealer) {
+    private static DealTarot dealLoose(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();

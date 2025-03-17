@@ -5,11 +5,11 @@ import code.util.core.NumberUtil;
 
 public final class TakerResult {
 
-    private int differenceScoreTaker;
+    private long differenceScoreTaker;
 
     private EndGameState winEqualityLoose;
 
-    public void setDifferenceScoreTaker(int _d) {
+    public void setDifferenceScoreTaker(long _d) {
         this.differenceScoreTaker = _d;
     }
 
@@ -41,11 +41,11 @@ public final class TakerResult {
         return differenceScoreTaker < 0;
     }
 
-    public int absoluteDiff() {
+    public long absoluteDiff() {
         return NumberUtil.abs(differenceScoreTaker);
     }
 
-    public int getDifferenceScoreTaker() {
+    public long getDifferenceScoreTaker() {
         return differenceScoreTaker;
     }
 }

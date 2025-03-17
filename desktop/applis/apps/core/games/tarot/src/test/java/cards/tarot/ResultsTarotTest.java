@@ -11,7 +11,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
     @Test
     public void calculateScoresTest() {
         ResultsTarot res_ = new ResultsTarot();
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
 //        res_.getRes().setScores(new CustList<Longs>());
         res_.getRes().setGlobalResultsPageTitle("");
         res_.getRes().setDetailResultsTitle("");
@@ -20,7 +20,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         res_.getRes().setNicknames(new StringList());
         res_.getRes().setRenderedPages(new StringMap<String>());
 //        res_.getRes().setLoc("");
-        res_.calculateScores(new CustList<Longs>(),new Shorts(),GameType.RANDOM,1,0);
+        res_.calculateScores(new CustList<Longs>(),new Longs(),GameType.RANDOM,1,0);
         assertEq(0, res_.getRes().getScores().size());
         assertEq(0, res_.getRes().getSums().size());
         assertEq(0, res_.getRes().getSigmas().size());
@@ -37,7 +37,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -182,7 +182,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>());
         assertSame(EndGameState.WIN,res_.getEndTarotGame());
         assertEq("",res_.getPlayerSmallBound());
@@ -195,7 +195,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_KNIGHT);
@@ -205,7 +205,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         last_.ajouter(CardTarot.CLUB_6);
         last_.ajouter(CardTarot.DIAMOND_JACK);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot dog_ = new TrickTarot((byte)3);
+        TrickTarot dog_ = new TrickTarot(3);
         dog_.ajouter(CardTarot.HEART_JACK);
         dog_.ajouter(CardTarot.SPADE_4);
         dog_.ajouter(CardTarot.CLUB_6);
@@ -336,7 +336,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>());
         assertEq(1,res_.getFinalUserPosition());
         assertEq(1,res_.getPositionsDiff().get(0));
@@ -353,7 +353,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         HandTarot last_ = new HandTarot();
         last_.ajouter(CardTarot.SPADE_KNIGHT);
@@ -363,7 +363,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         last_.ajouter(CardTarot.CLUB_6);
         last_.ajouter(CardTarot.DIAMOND_JACK);
         CustList<TrickTarot> trs_ = new CustList<TrickTarot>();
-        TrickTarot dog_ = new TrickTarot((byte)3);
+        TrickTarot dog_ = new TrickTarot(3);
         dog_.ajouter(CardTarot.HEART_JACK);
         dog_.ajouter(CardTarot.SPADE_4);
         dog_.ajouter(CardTarot.CLUB_6);
@@ -494,17 +494,17 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3"),new CustList<Longs>());
         assertEq(3,res_.getFinalUserPosition());
     }
     @Test
     public void initialize4Test() {
         RulesTarot regles_=GameTarotPlayingOneTest.initializeRulesWithBids();
-        GameTarot g_ = new GameTarot(GameType.RANDOM,GameTarotPlayingOneTest.initializeHands((byte) 0),regles_);
+        GameTarot g_ = new GameTarot(GameType.RANDOM,GameTarotPlayingOneTest.initializeHands(0),regles_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3","4","5"),new CustList<Longs>());
         assertEq(1, res_.getRes().getScores().size());
         assertEq(5, res_.getRes().getScores().first().size());
@@ -516,7 +516,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.NORMAL_WITH_ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        byte dealer_ = (byte) 2;
+        int dealer_ = 2;
         IdList<BidTarot> bids_ = new IdList<BidTarot>();
         bids_.add(BidTarot.GUARD);
         bids_.add(BidTarot.FOLD);
@@ -661,7 +661,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         GameTarot g_ = newEndedGameTarot(rules_, trs_, dealer_, bids_, last_);
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(g_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         Longs sc_ = new Longs();
         sc_.add(0L);
         sc_.add(0L);
@@ -670,7 +670,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
         assertSame(EndGameState.WIN,res_.getEndTarotGame());
     }
 
-    private GameTarot newEndedGameTarot(RulesTarot _rules, CustList<TrickTarot> _trs, byte _dealer, IdList<BidTarot> _bids, HandTarot _last) {
+    private GameTarot newEndedGameTarot(RulesTarot _rules, CustList<TrickTarot> _trs, int _dealer, IdList<BidTarot> _bids, HandTarot _last) {
         GameTarotContent triplet_ = new GameTarotContent(3);
         return newEndedGameTarot(_rules, _trs,triplet_.getDeclaresMiseres(),triplet_.getDeclaresHandfuls(),triplet_.getHandfuls(), _dealer, _bids, new HandTarot(), _last);
     }
@@ -679,7 +679,7 @@ public final class ResultsTarotTest extends CommonGameTarot {
                                                CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
-        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
+        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
 //        for (int i = 0; i < nbPl_; i++) {
 //            deal_.add(new HandTarot());
 //        }
@@ -690,10 +690,10 @@ public final class ResultsTarotTest extends CommonGameTarot {
                                                CustList<IdList<Miseres>> _m, CustList<IdList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                IdList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>(_deal);
-        byte nbPl_ = (byte) _r.getDealing().getId().getNombreJoueurs();
+        int nbPl_ = _r.getDealing().getId().getNombreJoueurs();
         deal_.add(_lastHand);
         TrickTarot last_ = _trs.last();
-        GameTarot g_ = new GameTarot(GameType.RANDOM,new DealTarot(deal_, (byte) _dealer),_r);
+        GameTarot g_ = new GameTarot(GameType.RANDOM,new DealTarot(deal_, _dealer),_r);
         g_.setProgressingTrick(new TrickTarot(new HandTarot(), last_.getStarter()));
         g_.setTricks(_trs);
         g_.setHandfuls(_h);

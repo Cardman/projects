@@ -15,9 +15,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -31,10 +31,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0, g_.getTricks().size());
@@ -47,9 +47,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -64,10 +64,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -80,9 +80,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check3Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_2));
@@ -97,10 +97,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(1,g_.getTricks().size());
@@ -115,9 +115,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check4Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -133,10 +133,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -149,9 +149,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check5Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -168,10 +168,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -184,9 +184,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check6Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -204,10 +204,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(1,g_.getTricks().size());
@@ -222,9 +222,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check6_Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -242,10 +242,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(1,g_.getTricks().size());
@@ -259,9 +259,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check7Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -280,10 +280,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(1,g_.getTricks().size());
@@ -298,9 +298,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check8Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -320,10 +320,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(2,g_.getTricks().size());
@@ -340,9 +340,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check9Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -378,10 +378,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(6,g_.getTricks().size());
@@ -406,9 +406,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check10Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -445,10 +445,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(0));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(6,g_.getTricks().size());
@@ -473,9 +473,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check11Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -513,10 +513,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(7,g_.getTricks().size());
@@ -543,9 +543,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check12Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -591,10 +591,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal(1));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(2));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(8,g_.getTricks().size());
@@ -623,9 +623,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check13Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -680,10 +680,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(12,g_.getTricks().size());
@@ -720,9 +720,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check14Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -778,10 +778,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(12,g_.getTricks().size());
@@ -818,9 +818,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check15Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -872,10 +872,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(9,g_.getTricks().size());
@@ -906,9 +906,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check16Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -960,10 +960,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.PASS, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(2));
+        assertEq(Playing.PASS, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(8,g_.getTricks().size());
@@ -992,9 +992,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check17Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -1054,10 +1054,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(2));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(17,g_.getTricks().size());
@@ -1103,9 +1103,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check18Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -1173,10 +1173,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1189,9 +1189,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check19Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -1246,7 +1246,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -1259,10 +1259,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1275,9 +1275,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check20Test() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -1290,9 +1290,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1305,16 +1305,16 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check21Test() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -1326,9 +1326,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1341,12 +1341,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check22Test() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -1362,9 +1362,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1377,17 +1377,17 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check23Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 3);
-        rk_.add((byte) 4);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(3);
+        rk_.add(4);
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -1400,10 +1400,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1417,12 +1417,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check24Test() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -1440,9 +1440,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1455,17 +1455,17 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check25Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 4);
-        rk_.add((byte) 3);
-        rk_.add((byte) 2);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(4);
+        rk_.add(3);
+        rk_.add(2);
         CustList<HandPresident> hs_ = deal5();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -1478,10 +1478,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1494,13 +1494,13 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check26Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 4);
-        rk_.add((byte) 3);
-        rk_.add((byte) 2);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(4);
+        rk_.add(3);
+        rk_.add(2);
         CustList<HandPresident> hs_ = deal5();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -1517,10 +1517,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(1, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1533,13 +1533,13 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check27Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 3);
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 4);
+        Ints rk_ = Ints.newList();
+        rk_.add(3);
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(4);
         CustList<HandPresident> hs_ = deal5();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -1556,10 +1556,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -1573,9 +1573,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check28Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -1635,10 +1635,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(2));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(17,g_.getTricks().size());
@@ -1685,9 +1685,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check29Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(false);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -1747,10 +1747,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(2));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(17,g_.getTricks().size());
@@ -1797,9 +1797,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check30Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLoosingIfFinishByBestCards(true);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -1859,10 +1859,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(2));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(17,g_.getTricks().size());
@@ -1911,9 +1911,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         r_.setPossibleReversing(true);
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal3();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -1991,10 +1991,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(2));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(20,g_.getTricks().size());
@@ -2049,9 +2049,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         r_.setPossibleReversing(true);
         r_.setLoosingIfFinishByBestCards(true);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal3();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2122,10 +2122,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.TRUE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.FINISH, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(0));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(1));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(2));
+        assertEq(Playing.FINISH, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(g_.isReversed());
         assertEq(19,g_.getTricks().size());
@@ -2176,9 +2176,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check33Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(false);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2246,10 +2246,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2263,9 +2263,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check34Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(false);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2320,7 +2320,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
@@ -2333,10 +2333,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2351,12 +2351,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(false);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -2374,9 +2374,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(1));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
         assertEq(3, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2389,9 +2389,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check36Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2408,10 +2408,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2425,9 +2425,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check37Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2443,10 +2443,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.SKIPPED, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.SKIPPED, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2460,9 +2460,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check37_Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2478,10 +2478,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.SKIPPED, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.SKIPPED, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertEq(3, g_.getProgressingTrick().total());
         assertTrue(!g_.isReversed());
@@ -2496,9 +2496,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check38Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.NO_SKIP);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2514,10 +2514,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(3, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2531,9 +2531,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check39Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setLooserStartsFirst(false);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2601,10 +2601,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2618,9 +2618,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check40Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2637,10 +2637,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.HAS_TO_EQUAL, g_.getLastStatus().getVal(0));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal(3));
         assertEq(0, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2654,9 +2654,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check41Test() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2675,10 +2675,10 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(2));
 //        assertEq(BoolVal.FALSE,g_.getPassOrFinish().get(3));
         assertEq(4, g_.getLastStatus().size());
-        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)0));
-        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)1));
-        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal((byte)2));
-        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal((byte)3));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal(0));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal(1));
+        assertEq(Playing.CAN_PLAY, g_.getLastStatus().getVal(2));
+        assertEq(Playing.DO_NOT_EQUAL, g_.getLastStatus().getVal(3));
         assertEq(2, g_.nextPlayer());
         assertTrue(!g_.isReversed());
         assertEq(0,g_.getTricks().size());
@@ -2690,9 +2690,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check1FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.CLUB_7));
@@ -2709,9 +2709,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check2FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2727,9 +2727,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check3FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -2745,9 +2745,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check4FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_4,CardPresident.HEART_4));
@@ -2764,9 +2764,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check5FailTest() {
         RulesPresident r_ = new RulesPresident(4);
         r_.setHasToPlay(true);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_4,CardPresident.HEART_4));
@@ -2784,12 +2784,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(false);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -2811,12 +2811,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -2827,7 +2827,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         transientFields(g_);
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
-        g_.getSwitchedCards().set((byte) 0, invalid_);
+        g_.getSwitchedCards().set(0, invalid_);
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -2838,23 +2838,23 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
         transientFields(g_);
         HandPresident invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 1).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
-        g_.getSwitchedCards().set((byte) 1, invalid_);
+        g_.getSwitchedCards().set(1, invalid_);
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -2865,12 +2865,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -2879,8 +2879,8 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 1).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(1).ajouterCartes(invalid_);
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -2891,23 +2891,23 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
         transientFields(g_);
         HandPresident invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 1).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
-        g_.getSwitchedCards().set((byte) 1, invalid_);
+        g_.getSwitchedCards().set(1, invalid_);
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -2918,12 +2918,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -2931,15 +2931,15 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 1).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
         invalid_.ajouter(CardPresident.SPADE_4);
-        g_.getSwitchedCards().set((byte) 1, invalid_);
-        g_.getDeal().hand((byte) 2).ajouterCartes(invalid_);
-        g_.getDeal().hand((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
-        g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getSwitchedCards().set(1, invalid_);
+        g_.getDeal().hand(2).ajouterCartes(invalid_);
+        g_.getDeal().hand(1).supprimerCartes(g_.getSwitchedCards().get(1));
+        g_.getDeal().hand(2).supprimerCartes(g_.getSwitchedCards().get(2));
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -2950,12 +2950,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 2);
-        rk_.add((byte) 1);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(2);
+        rk_.add(1);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -2963,14 +2963,14 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 1).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(1).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_3);
-        g_.getSwitchedCards().set((byte) 1, invalid_);
-        g_.getDeal().hand((byte) 2).ajouterCartes(invalid_);
-        g_.getDeal().hand((byte) 1).supprimerCartes(g_.getSwitchedCards().get((byte)1));
-        g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getSwitchedCards().set(1, invalid_);
+        g_.getDeal().hand(2).ajouterCartes(invalid_);
+        g_.getDeal().hand(1).supprimerCartes(g_.getSwitchedCards().get(1));
+        g_.getDeal().hand(2).supprimerCartes(g_.getSwitchedCards().get(2));
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -2979,9 +2979,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check13FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = badDeal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -2996,12 +2996,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3009,14 +3009,14 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.SPADE_1);
         invalid_.ajouter(CardPresident.CLUB_1);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 0).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.HEART_6);
-        g_.getSwitchedCards().set((byte) 0, invalid_);
-        g_.getDeal().hand((byte) 2).ajouterCartes(invalid_);
-        g_.getDeal().hand((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
-        g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getSwitchedCards().set(0, invalid_);
+        g_.getDeal().hand(2).ajouterCartes(invalid_);
+        g_.getDeal().hand(0).supprimerCartes(g_.getSwitchedCards().get(0));
+        g_.getDeal().hand(2).supprimerCartes(g_.getSwitchedCards().get(2));
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -3027,27 +3027,27 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
         transientFields(g_);
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 0).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.DIAMOND_3);
         invalid_.ajouter(CardPresident.CLUB_3);
-        g_.getSwitchedCards().set((byte) 0, invalid_);
-        g_.getDeal().hand((byte) 2).ajouterCartes(invalid_);
-        g_.getDeal().hand((byte) 0).supprimerCartes(g_.getSwitchedCards().get((byte)0));
-        g_.getDeal().hand((byte) 2).supprimerCartes(g_.getSwitchedCards().get((byte)2));
+        g_.getSwitchedCards().set(0, invalid_);
+        g_.getDeal().hand(2).ajouterCartes(invalid_);
+        g_.getDeal().hand(0).supprimerCartes(g_.getSwitchedCards().get(0));
+        g_.getDeal().hand(2).supprimerCartes(g_.getSwitchedCards().get(2));
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -3058,11 +3058,11 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -3078,12 +3078,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 2);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(2);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -3099,12 +3099,12 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 2);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(2);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -3120,9 +3120,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3139,16 +3139,16 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         HandPresident played_ = new HandPresident();
@@ -3164,20 +3164,20 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(3);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 3);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(3);
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         //
-        g_.getTricks().add(new TrickPresident((byte) 2));
+        g_.getTricks().add(new TrickPresident(2));
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -3187,9 +3187,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     public void check22FailTest() {
         RulesPresident r_ = new RulesPresident(3);
         r_.setNbStacks(2);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3204,27 +3204,27 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         RulesPresident r_ = new RulesPresident(4);
         r_.setSwitchCards(true);
         r_.setLooserStartsFirst(true);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 2);
-        rk_.add((byte) 3);
-        rk_.add((byte) 4);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(2);
+        rk_.add(3);
+        rk_.add(4);
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         //
         transientFields(g_);
         HandPresident invalid_ = new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_2);
-        g_.getSwitchedCards().set((byte) 2, invalid_);
-        g_.getDeal().hand((byte) 0).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(2, invalid_);
+        g_.getDeal().hand(0).ajouterCartes(invalid_);
         invalid_=new HandPresident();
         invalid_.ajouter(CardPresident.CLUB_3);
-        g_.getSwitchedCards().set((byte) 1, invalid_);
-        g_.getDeal().hand((byte) 2).ajouterCartes(invalid_);
+        g_.getSwitchedCards().set(1, invalid_);
+        g_.getDeal().hand(2).ajouterCartes(invalid_);
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -3233,9 +3233,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check24FailTest() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = badDeal2();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3248,9 +3248,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check25FailTest() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = badDeal3();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3263,17 +3263,17 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check26FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
-        rk_.add((byte) 1);
-        rk_.add((byte) 4);
-        rk_.add((byte) 3);
-        rk_.add((byte) 2);
+        Ints rk_ = Ints.newList();
+        rk_.add(1);
+        rk_.add(4);
+        rk_.add(3);
+        rk_.add(2);
         CustList<HandPresident> hs_ = deal5();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(Bytes.newList(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(Ints.newList(DealPresident.NUMERO_UTILISATEUR));
         HandPresident del_ = new HandPresident();
         del_.ajouter(CardPresident.DIAMOND_8);
         del_.ajouter(CardPresident.HEART_8);
@@ -3282,7 +3282,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         add_.ajouter(CardPresident.SPADE_7);
         add_.ajouter(CardPresident.CLUB_7);
         g_.getDeal().hand().ajouterCartes(add_);
-        g_.getSwitchedCards().set((byte) 1, add_);
+        g_.getSwitchedCards().set(1, add_);
         //
         transientFields(g_);
         //
@@ -3293,9 +3293,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check27FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -3340,7 +3340,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         played_.ajouter(CardPresident.HEART_5);
         played_.ajouter(CardPresident.SPADE_5);
         g_.getTricks().last().ajouter(played_);
-        g_.getDeal().hand((byte)2).supprimerCartes(played_);
+        g_.getDeal().hand(2).supprimerCartes(played_);
         transientFields(g_);
         //
         check(g_);
@@ -3350,9 +3350,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check28FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.getDeal().hand().ajouter(CardPresident.WHITE);
@@ -3365,9 +3365,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check29FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_2));
@@ -3382,9 +3382,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check30FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.HEART_3));
@@ -3399,9 +3399,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check31FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.DIAMOND_2));
@@ -3410,7 +3410,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
         HandPresident played_ = new HandPresident();
         played_.ajouter(CardPresident.HEART_3);
         g_.getTricks().last().ajouter(played_);
-        g_.getDeal().hand((byte)2).supprimerCartes(played_);
+        g_.getDeal().hand(2).supprimerCartes(played_);
         //
         check(g_);
         assertTrue(!g_.getError().isEmpty());
@@ -3419,9 +3419,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check32FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -3488,9 +3488,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check33FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -3557,9 +3557,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check34FailTest() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3573,9 +3573,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check35FailTest() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3589,9 +3589,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check36FailTest() {
         RulesPresident r_ = new RulesPresident(3);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal4();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //
@@ -3605,9 +3605,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check37FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));
@@ -3662,9 +3662,9 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     @Test
     public void check38FailTest() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.addCardsToCurrentTrickAndLoop(cards(CardPresident.SPADE_3));

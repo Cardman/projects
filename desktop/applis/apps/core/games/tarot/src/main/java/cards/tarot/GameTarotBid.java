@@ -50,7 +50,7 @@ public final class GameTarotBid {
         return end(atouts_, total_);
     }
     private int bouts(IdMap<Suit, HandTarot> _couleurs, int _atouts) {
-        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nombreJoueurs_ = getNombreDeJoueurs();
         int valeurVingtEtUnSeul_ = valeur(_atouts, NumberUtil.wrapIntArray(4, 6), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(6, 8), NumberUtil.wrapIntArray(8, 10));
         int valeurExcuseSeule_ = valeur(_atouts, NumberUtil.wrapIntArray(2, 3), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(3, 4), NumberUtil.wrapIntArray(5, 7));
         int valeurVingtEtUnExcuse_ = valeur(_atouts, NumberUtil.wrapIntArray(10, 14), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(12, 16), NumberUtil.wrapIntArray(16, 21));
@@ -95,7 +95,7 @@ public final class GameTarotBid {
     private BidTarot end(int _atouts, int _total) {
         int petite_ = rules.getDealing().getPetite();
         int garde_ = rules.getDealing().getGarde();
-        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nombreJoueurs_ = getNombreDeJoueurs();
         boolean sansAppel_ = rules.getDealing().getAppel() == CallingCard.DEFINED
                 || rules.getDealing().getAppel() == CallingCard.WITHOUT;
         int limTr_ = lim();
@@ -132,7 +132,7 @@ public final class GameTarotBid {
             valeurLongue_ = valeur(_atouts, NumberUtil.wrapIntArray(3, 6), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(4, 8), NumberUtil.wrapIntArray(5, 11));
             valeurCoupe_ = valeur(_atouts, NumberUtil.wrapIntArray(1, 2), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(2, 4), NumberUtil.wrapIntArray(3, 7));
         }
-        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nombreJoueurs_ = getNombreDeJoueurs();
         int totalCouleur_=0;
         for(Suit c: Suit.couleursOrdinaires()) {
             totalCouleur_+= HandTarot.couleurComplete(c).total();
@@ -205,7 +205,7 @@ public final class GameTarotBid {
     }
 
     private int lim() {
-        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nombreJoueurs_ = getNombreDeJoueurs();
         if (nombreJoueurs_ == 3) {
             return 12;
         }
@@ -225,7 +225,7 @@ public final class GameTarotBid {
         return _two;
     }
     private int valeur(int _atouts, int[] _one, int[] _two, int[] _three, int[] _four) {
-        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nombreJoueurs_ = getNombreDeJoueurs();
         if (nombreJoueurs_ == 3) {
             return valeurSing(_atouts,_one[0],_one[1]);
         }
@@ -264,16 +264,16 @@ public final class GameTarotBid {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
             return true;
         }
-        byte nbPlayers_ = (byte) _infos.getDealing().getId().getNombreJoueurs();
+        int nbPlayers_ = _infos.getDealing().getId().getNombreJoueurs();
         if (!maitreAtoutPourChelem(_couleurs,nbPlayers_)) {
             return false;
         }
-        byte nombreCouleursLargMait_ = nbCouleursLargementMaitresses(
+        int nombreCouleursLargMait_ = nbCouleursLargementMaitresses(
                 _couleurs, nbPlayers_);
         if (nbPlayers_ == DealingTarot.DEAL_1_VS_2.getId().getNombreJoueurs()) {
             return nombreCouleursLargMait_ == Suit.couleursOrdinaires().size();
         }
-        byte nombreCouleursPseuMait_ = nbCouleursPseudoMaitresses(_couleurs,
+        int nombreCouleursPseuMait_ = nbCouleursPseudoMaitresses(_couleurs,
                 _cartesAppeler,
                 nbPlayers_);
         boolean avecAppel_ = _infos.getDealing().getAppel() == CallingCard.KING;
@@ -287,9 +287,9 @@ public final class GameTarotBid {
         return nombreCouleursLargMait_ == Suit.couleursOrdinaires().size();
     }
     static boolean maitreAtoutPourChelem(IdMap<Suit,HandTarot> _couleurs,
-                                         byte _joueurs) {
-        byte atouts_ = (byte) (_couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total() + _couleurs.getVal(Suit.TRUMP).total());
-        byte atoutsMaitres_ = nbAtoutsMaitres(_couleurs);
+                                         int _joueurs) {
+        int atouts_ = _couleurs.getVal(CardTarot.excuse().getId().getCouleur()).total() + _couleurs.getVal(Suit.TRUMP).total();
+        int atoutsMaitres_ = nbAtoutsMaitres(_couleurs);
         int fr_ = 1;
         int to_ = 6;
         int nb_ = 14;
@@ -313,7 +313,7 @@ public final class GameTarotBid {
     BidTarot tryGetStrongBid(boolean _withoutCall) {
         IdMap<Suit,HandTarot> couleurs_ = currentHand.couleurs();
         HandTarot bouts_ = getOulderInHand(couleurs_);
-        byte nombreJoueurs_ = getNombreDeJoueurs();
+        int nombreJoueurs_ = getNombreDeJoueurs();
         int nbCouleurs_ = Suit.couleursOrdinaires().size();
         if (_withoutCall) {
             if (nbCouleursMaitresses(couleurs_, new HandTarot().couleurs()) == nbCouleurs_) {
@@ -382,12 +382,12 @@ public final class GameTarotBid {
         return false;
     }
 
-    static byte nbAtoutsMaitres(IdMap<Suit,HandTarot> _repartition) {
-        return (byte) _repartition.getVal(Suit.TRUMP).atoutsMaitres(new HandTarot().couleurs()).total();
+    static int nbAtoutsMaitres(IdMap<Suit,HandTarot> _repartition) {
+        return _repartition.getVal(Suit.TRUMP).atoutsMaitres(new HandTarot().couleurs()).total();
     }
 
-    static byte nbCouleursMaitresses(IdMap<Suit,HandTarot> _couleurs, IdMap<Suit,HandTarot> _cartesJouees) {
-        byte nb_ = 0;
+    static int nbCouleursMaitresses(IdMap<Suit,HandTarot> _couleurs, IdMap<Suit,HandTarot> _cartesJouees) {
+        int nb_ = 0;
         for (Suit b : Suit.couleursOrdinaires()) {
             if (maitreDansUneCouleur(_couleurs, _cartesJouees, b)) {
                 nb_++;
@@ -396,10 +396,10 @@ public final class GameTarotBid {
         return nb_;
     }
 
-    static byte nbCouleursPseudoMaitresses(IdMap<Suit,HandTarot> _couleurs,
+    static int nbCouleursPseudoMaitresses(IdMap<Suit,HandTarot> _couleurs,
                                                    HandTarot _cartesAppeler,
-                                                   byte _nombreJoueurs) {
-        byte nb_ = 0;
+                                                   int _nombreJoueurs) {
+        int nb_ = 0;
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             if (pseudoMaitreDansUneCouleurContrat(_couleurs, couleur_,_cartesAppeler, _nombreJoueurs)) {
                 nb_++;
@@ -408,9 +408,9 @@ public final class GameTarotBid {
         return nb_;
     }
 
-    static byte nbCouleursLargementMaitresses(
-            IdMap<Suit,HandTarot> _couleurs, byte _nombreJoueurs) {
-        byte nb_ = 0;
+    static int nbCouleursLargementMaitresses(
+            IdMap<Suit,HandTarot> _couleurs, int _nombreJoueurs) {
+        int nb_ = 0;
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             if (largementMaitreDansUneCouleurAuDebut(_couleurs, couleur_, _nombreJoueurs)) {
                 nb_++;
@@ -420,7 +420,7 @@ public final class GameTarotBid {
     }
 
     static boolean pseudoMaitreDansUneCouleurContrat(
-            IdMap<Suit,HandTarot> _couleurs, Suit _noCouleur, HandTarot _cartesAppeler, byte _nombreJoueurs) {
+            IdMap<Suit,HandTarot> _couleurs, Suit _noCouleur, HandTarot _cartesAppeler, int _nombreJoueurs) {
         if (largementMaitreDansUneCouleurAuDebut(_couleurs, _noCouleur, _nombreJoueurs)) {
             return false;
         }
@@ -428,7 +428,7 @@ public final class GameTarotBid {
     }
 
     static boolean largementMaitreDansUneCouleurAuDebut(
-            IdMap<Suit,HandTarot> _couleurs, Suit _noCouleur, byte _nombreJoueurs) {
+            IdMap<Suit,HandTarot> _couleurs, Suit _noCouleur, int _nombreJoueurs) {
         if (maitreDansUneCouleur(_couleurs, new HandTarot().couleurs(), _noCouleur)) {
             return true;
         }
@@ -447,7 +447,7 @@ public final class GameTarotBid {
         if (nombreCartesMaitresses_ == _couleurs.getVal(_noCouleur).total()) {
             return true;
         }
-        byte totalCouleur_ = (byte) HandTarot.couleurComplete(_noCouleur).total();
+        int totalCouleur_ = HandTarot.couleurComplete(_noCouleur).total();
         if (nombreCartesMaitresses_ >= totalCouleur_/2) {
             return true;
         }
@@ -543,8 +543,8 @@ public final class GameTarotBid {
     boolean contratAccepte(BidTarot _enchere) {
         return rules.getAllowedBids().getVal(_enchere) == BoolVal.TRUE;
     }
-    byte getNombreDeJoueurs() {
-        return (byte) rules.getDealing().getId().getNombreJoueurs();
+    int getNombreDeJoueurs() {
+        return rules.getDealing().getId().getNombreJoueurs();
     }
 
     HandTarot getCurrentHand() {

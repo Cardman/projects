@@ -198,9 +198,9 @@ public class CarpetTarot extends AbsCarpet<CardTarot> {
     Place les dos des cartes (une pour chaque joueur) sur le tapis avant et
     apres chaque pli
     */
-    public void setCartesTarotJeu(AbstractImageFactory _fact,TranslationsLg _lg, byte _nombreDeJoueurs) {
-        for (byte joueur_ = 0; joueur_ < _nombreDeJoueurs; joueur_++) {
-            GraphicCard<CardTarot> place_ = getCards().getVal((int) joueur_);
+    public void setCartesTarotJeu(AbstractImageFactory _fact,TranslationsLg _lg, int _nombreDeJoueurs) {
+        for (int joueur_ = 0; joueur_ < _nombreDeJoueurs; joueur_++) {
+            GraphicCard<CardTarot> place_ = getCards().getVal(joueur_);
             place_.setJeu(_lg);
             AbsMetaLabelCard.paintCard(_fact,place_);
         }
@@ -210,8 +210,8 @@ public class CarpetTarot extends AbsCarpet<CardTarot> {
     Met a jour la carte a jouer d'un joueur donne en fonction du nombre de
     joueurs
     */
-    public void setCarteTarot(AbstractImageFactory _fact, TranslationsLg _lg, byte _joueur, CardTarot _m) {
-        GraphicCard<CardTarot> place_ = getCards().getVal((int) _joueur);
+    public void setCarteTarot(AbstractImageFactory _fact, TranslationsLg _lg, int _joueur, CardTarot _m) {
+        GraphicCard<CardTarot> place_ = getCards().getVal(_joueur);
         place_.setCarteEnJeu(_fact,_lg,_m);
         AbsMetaLabelCard.paintCard(_fact,place_);
     }

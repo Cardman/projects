@@ -9,12 +9,12 @@ public final class SettingPresidentStatus implements Runnable {
 
     private final ContainerPresident container;
 
-    private final ByteMap<Playing> status;
+    private final IntMap<Playing> status;
 
-    private final byte nextPlayer;
+    private final int nextPlayer;
 
     public SettingPresidentStatus(ContainerPresident _container,
-            ByteMap<Playing> _status, byte _nextPlayer) {
+            IntMap<Playing> _status, int _nextPlayer) {
         container = _container;
         status = _status;
         nextPlayer = _nextPlayer;

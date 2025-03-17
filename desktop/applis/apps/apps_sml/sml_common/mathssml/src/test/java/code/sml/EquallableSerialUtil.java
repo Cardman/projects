@@ -13,16 +13,16 @@ public abstract class EquallableSerialUtil {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getBoolean(DocumentWriterCoreUtil.setBoolean(_i,"_",f_));
     }
-
-    public static int saveByte(int _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getByte(DocumentWriterCoreUtil.setByte((byte) _i,"_",f_));
-    }
-
-    public static int saveShort(long _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getShort(DocumentWriterCoreUtil.setShort((short) _i,"_",f_));
-    }
+//
+//    public static int saveByte(int _i) {
+//        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
+//        return DocumentReaderCoreUtil.getByte(DocumentWriterCoreUtil.setByte((byte) _i,"_",f_));
+//    }
+//
+//    public static int saveShort(long _i) {
+//        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
+//        return DocumentReaderCoreUtil.getShort(DocumentWriterCoreUtil.setShort((short) _i,"_",f_));
+//    }
     public static int saveInt(int _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getInteger(DocumentWriterCoreUtil.setInteger(_i,"_",f_));
@@ -52,15 +52,15 @@ public abstract class EquallableSerialUtil {
         return DocumentReaderCoreUtil.getBoolValList(DocumentWriterCoreUtil.setBoolValList(_i,"_",f_));
     }
 
-    public static Bytes saveBytes(Bytes _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getListByte(DocumentWriterCoreUtil.setListByte(_i,"_",f_));
-    }
+//    public static Bytes saveBytes(Bytes _i) {
+//        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
+//        return DocumentReaderCoreUtil.getListByte(DocumentWriterCoreUtil.setListByte(_i,"_",f_));
+//    }
 
-    public static Shorts saveShorts(Shorts _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getListShort(DocumentWriterCoreUtil.setListShort(_i,"_",f_));
-    }
+//    public static Shorts saveShorts(Shorts _i) {
+//        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
+//        return DocumentReaderCoreUtil.getListShort(DocumentWriterCoreUtil.setListShort(_i,"_",f_));
+//    }
     public static Ints saveInts(Ints _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getListInteger(DocumentWriterCoreUtil.setListInteger(_i,"_",f_));
@@ -75,11 +75,11 @@ public abstract class EquallableSerialUtil {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getListBooleanList(DocumentWriterCoreUtil.setListBooleanList(_i,"_",f_));
     }
-
-    public static CustList<Bytes> saveListBytes(CustList<Bytes> _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getListListByte(DocumentWriterCoreUtil.setListListByte(_i,"_",f_));
-    }
+//
+//    public static CustList<Bytes> saveListBytes(CustList<Bytes> _i) {
+//        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
+//        return DocumentReaderCoreUtil.getListListByte(DocumentWriterCoreUtil.setListListByte(_i,"_",f_));
+//    }
 
     public static CustList<Longs> saveListLongs(CustList<Longs> _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
@@ -110,11 +110,11 @@ public abstract class EquallableSerialUtil {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getStringMapStringList(DocumentWriterCoreUtil.setStringMapStringList(_i,"_",f_));
     }
-
-    public static IntTreeMap<Byte> saveMapIntByte(IntTreeMap<Byte> _i) {
-        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
-        return DocumentReaderCoreUtil.getMapIntegerByte(DocumentWriterCoreUtil.setMapIntegerByte(_i,"_",f_));
-    }
+//
+//    public static IntTreeMap<Byte> saveMapIntByte(IntTreeMap<Byte> _i) {
+//        FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
+//        return DocumentReaderCoreUtil.getMapIntegerByte(DocumentWriterCoreUtil.setMapIntegerByte(_i,"_",f_));
+//    }
 
     public static LongMap<String> saveMapIntString(LongMap<String> _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();

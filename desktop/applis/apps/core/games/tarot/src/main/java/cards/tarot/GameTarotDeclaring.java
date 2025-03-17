@@ -24,7 +24,7 @@ public final class GameTarotDeclaring {
     public IdList<Handfuls> strategieAnnoncesPoignees(HandTarot _calledCards) {
 
         IdList<Handfuls> va_ = new IdList<Handfuls>();
-        byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
+        int next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         // peuvent etre annoncees par le joueur si toutes les annonces etaient
         // autorisees
@@ -74,13 +74,13 @@ public final class GameTarotDeclaring {
     }
 
     public HandTarot strategiePoignee() {
-        byte next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
+        int next_ = doneTrickInfo.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
         IdMap<Suit,HandTarot> repartition_ = curHand.couleurs();
         HandTarot atouts_ = GameTarotCommonPlaying.atoutsPoignee(repartition_);
         HandTarot poignee_ = new HandTarot();
         for(Handfuls p: getAnnoncesPoignees(next_)) {
             int max_ = teamsRelation.getRules().getAllowedHandfuls().getVal(p);
-            byte trumpIndex_ = IndexConstants.FIRST_INDEX;
+            int trumpIndex_ = IndexConstants.FIRST_INDEX;
             if(atouts_.total() == max_) {
                 while (poignee_.total() < max_) {
                     poignee_.ajouter(atouts_.carte(trumpIndex_));
@@ -141,7 +141,7 @@ public final class GameTarotDeclaring {
         }
         return vainter_;
     }
-    IdList<Handfuls> getAnnoncesPoignees(byte _numero) {
+    IdList<Handfuls> getAnnoncesPoignees(int _numero) {
         return declaresHandfuls.get(_numero);
     }
 }

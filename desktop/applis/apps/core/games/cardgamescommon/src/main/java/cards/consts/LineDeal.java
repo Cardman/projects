@@ -18,7 +18,7 @@ public final class LineDeal {
             l_.setNumber(_copy.get(i).getNumber());
             Longs scores_ = new Longs();
             int nombreJoueurs_ = _copy.get(i).getScores().size();
-            for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+            for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
                 scores_.add(_copy.get(i).getScores().get(joueur_));
             }
             l_.setScores(scores_);

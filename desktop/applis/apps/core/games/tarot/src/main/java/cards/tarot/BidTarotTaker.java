@@ -4,10 +4,10 @@ import cards.tarot.enumerations.BidTarot;
 
 public final class BidTarotTaker {
     private final BidTarot bid;
-    private final byte taker;
-    private final byte index;
+    private final int taker;
+    private final int index;
 
-    public BidTarotTaker(BidTarot _b, byte _t, byte _i) {
+    public BidTarotTaker(BidTarot _b, int _t, int _i) {
         this.bid = _b;
         this.taker = _t;
         this.index = _i;
@@ -17,11 +17,11 @@ public final class BidTarotTaker {
         return bid;
     }
 
-    public byte getTaker() {
+    public int getTaker() {
         return taker;
     }
 
-    public byte getIndex() {
+    public int getIndex() {
         return index;
     }
 }

@@ -60,7 +60,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         main_.ajouter(CardBelote.SPADE_KING);
         main_.ajouter(CardBelote.DIAMOND_7);
         mains_.add(main_);
-        DealBelote donne_ = new DealBelote(mains_,(byte)3);
+        DealBelote donne_ = new DealBelote(mains_,3);
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return new GameBelote(GameType.RANDOM,donne_,regles_);
@@ -84,7 +84,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.SPADE_9));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -101,7 +101,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -116,7 +116,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -131,7 +131,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -146,7 +146,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -161,7 +161,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         assertTrue(game_.keepPlayingCurrentTrick());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertTrue(game_.keepPlayingCurrentTrick());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_8);
         assertTrue(game_.keepPlayingCurrentTrick());
         player_ = game_.playerAfter(player_);
@@ -205,7 +205,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     public void tryDeclareBeloteRebelote3Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -216,14 +216,14 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.tryDeclareBeloteRebelote(CardBelote.SPADE_KING);
-        assertEq(1,game_.getDeclaresBeloteRebelote().get((byte)1).total());
+        assertEq(1,game_.getDeclaresBeloteRebelote().get(1).total());
     }
 
     @Test
     public void currentPlayerHasPlayed1Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -243,15 +243,15 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_10);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
-        assertTrue(!game_.currentPlayerHasPlayed((byte) 0));
-        assertTrue(game_.currentPlayerHasPlayed((byte) 0));
+        assertTrue(!game_.currentPlayerHasPlayed(0));
+        assertTrue(game_.currentPlayerHasPlayed(0));
     }
 
     @Test
     public void currentPlayerHasPlayed2Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -260,34 +260,34 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
-        assertTrue(!game_.currentPlayerHasPlayed((byte) 0));
-        assertTrue(game_.currentPlayerHasPlayed((byte) 0));
+        assertTrue(!game_.currentPlayerHasPlayed(0));
+        assertTrue(game_.currentPlayerHasPlayed(0));
     }
     @Test
     public void playerHasAlreadyBidded1Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
-        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
-        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+        assertTrue(!game_.playerHasAlreadyBidded(first_));
+        assertTrue(game_.playerHasAlreadyBidded(first_));
     }
     @Test
     public void playerHasAlreadyBidded2Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(new BidBeloteSuit());
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(new BidBeloteSuit());
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(new BidBeloteSuit());
-        first_ = game_.playerAfter((byte) first_);
-        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
-        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+        first_ = game_.playerAfter(first_);
+        assertTrue(!game_.playerHasAlreadyBidded(first_));
+        assertTrue(game_.playerHasAlreadyBidded(first_));
     }
 
     @Test
@@ -298,8 +298,8 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         DealBelote deal_ = deal(rules_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
-        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
-        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+        assertTrue(!game_.playerHasAlreadyBidded(first_));
+        assertTrue(game_.playerHasAlreadyBidded(first_));
     }
 
     @Test
@@ -311,15 +311,15 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(new BidBeloteSuit());
-        first_ = game_.playerAfter((byte) first_);
-        assertTrue(!game_.playerHasAlreadyBidded((byte) first_));
-        assertTrue(game_.playerHasAlreadyBidded((byte) first_));
+        first_ = game_.playerAfter(first_);
+        assertTrue(!game_.playerHasAlreadyBidded(first_));
+        assertTrue(game_.playerHasAlreadyBidded(first_));
     }
     @Test
     public void completedDeal1Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_ = new BidBeloteSuit();
@@ -343,11 +343,11 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
         bid_.setPoints(80);
         bid_.setBid(BidBelote.SUIT);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(new BidBeloteSuit());
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(new BidBeloteSuit());
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(new BidBeloteSuit());
         assertTrue(!game_.completedDeal());
     }
@@ -370,12 +370,12 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
 
     private DealBelote deal(RulesBelote _rules) {
         DealBelote deal_ = new DealBelote(0);
-        deal_.setDealer((byte) 0);
+        deal_.setDealer(0);
         deal_.initDonne(_rules, DefaultGenerator.oneElt(), HandBelote.pileBase());
         return deal_;
     }
 
-    private static DealBelote deal2Classic(byte _dealer) {
+    private static DealBelote deal2Classic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();

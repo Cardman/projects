@@ -8,7 +8,7 @@ public final class DeclareHandBelote {
 
     private HandBelote hand = new HandBelote();
 
-    private byte player;
+    private int player;
 
     public DeclareHandBelote(){
     }
@@ -46,11 +46,11 @@ public final class DeclareHandBelote {
         hand = _hand;
     }
 
-    public byte getPlayer() {
+    public int getPlayer() {
         return player;
     }
 
-    public void setPlayer(byte _player) {
+    public void setPlayer(int _player) {
         player = _player;
     }
 }

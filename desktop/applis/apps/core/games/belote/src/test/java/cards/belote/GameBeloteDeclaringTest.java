@@ -10,7 +10,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -47,7 +47,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -81,7 +81,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -115,7 +115,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -146,7 +146,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces5Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -183,7 +183,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces6Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -221,7 +221,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces7Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);
@@ -261,7 +261,7 @@ public final class GameBeloteDeclaringTest extends CommonGameBelote {
     @Test
     public void annulerAnnonces8Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         CustList<BidBeloteSuit> bids_ = new CustList<BidBeloteSuit>();
         BidBeloteSuit b_ = new BidBeloteSuit();
         b_.setSuit(Suit.HEART);

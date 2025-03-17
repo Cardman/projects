@@ -59,22 +59,22 @@ public enum CardPresident {
     CLUB_4(4,Suit.CLUB, 2),
     CLUB_3(3,Suit.CLUB, 1);
 
-    private final byte force;
+    private final int force;
     private final CouleurValeur id;
 
     CardPresident() {
         force = 0;
-        id = new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.UNDEFINED,false);
+        id = new CouleurValeur(Suit.UNDEFINED,0,CardChar.UNDEFINED,false);
     }
 
     CardPresident(int _value, Suit _suit, int _strength) {
-        force = (byte) _strength;
-        id = new CouleurValeur(_suit,(byte)_value,CardChar.UNDEFINED,true);
+        force = _strength;
+        id = new CouleurValeur(_suit,_value,CardChar.UNDEFINED,true);
     }
 
     CardPresident(CardChar _char, Suit _suit, int _strength) {
-        force = (byte) _strength;
-        id = new CouleurValeur(_suit,(byte)0,_char,true);
+        force = _strength;
+        id = new CouleurValeur(_suit,0,_char,true);
     }
 
 //    public static byte getMaxStrength(boolean _reverse) {
@@ -95,9 +95,9 @@ public enum CardPresident {
         return CouleurValeur.vientAvant(getId().forceCouleurDansUnTri(_couleurs),forceValeurDansUnTri(_decroissant),_c.getId().forceCouleurDansUnTri(_couleurs),_c.forceValeurDansUnTri(_decroissant));
     }
 
-    public byte forceValeurDansUnTri(boolean _decroissant) {
+    public int forceValeurDansUnTri(boolean _decroissant) {
         if(_decroissant) {
-            return (byte) (14 - strength(false));
+            return 14 - strength(false);
         }
         return strength(false);
     }
@@ -106,14 +106,14 @@ public enum CardPresident {
     mais aussi pour dire qui est en train de prendre la main du pli qui est en cours d'etre joue
     si ce pli n'est pas reduit a l'Excuse
     @param _couleurDemande couleur demandee du pli*/
-    public byte strength(boolean _reverse) {
+    public int strength(boolean _reverse) {
         if(!_reverse) {
             return force;
         }
-        return (byte) (14 - force);
+        return 14 - force;
     }
 
-    public byte getForce() {
+    public int getForce() {
         return force;
     }
 

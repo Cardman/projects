@@ -25,7 +25,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
     protected static GameBelote newGameBeloteWithourDecl(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                                          int _dealer,
                                                          CustList<BidBeloteSuit> _bids, DealBelote _lastHand) {
-        byte nombreDeJoueurs_ = (byte) _r.getDealing().getId().getNombreJoueurs();
+        int nombreDeJoueurs_ = _r.getDealing().getId().getNombreJoueurs();
         return newGameBelote(_r,_trs,_prog,_dealer,_bids,nombreDeJoueurs_, _lastHand);
     }
     protected static GameBelote newGameBelote(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
@@ -38,7 +38,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
     protected static GameBelote newGameBelote(HandBelote _currentHand, RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog,
                                               int _dealer,
                                               CustList<BidBeloteSuit> _bids, DealBelote _lastHand) {
-        byte nombreDeJoueurs_ = (byte) _r.getDealing().getId().getNombreJoueurs();
+        int nombreDeJoueurs_ = _r.getDealing().getId().getNombreJoueurs();
         GameBelote g_ = newGameBelote(_r,_trs,_prog,_dealer,_bids, nombreDeJoueurs_,_lastHand);
 //        CheckerGameBeloteWithRules.check(g_);
 //        assertTrue("Error",g_.getError().isEmpty());
@@ -48,16 +48,16 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                                               int _dealer,
                                               CustList<BidBeloteSuit> _bids, HandBelote _lastHand) {
         CustList<HandBelote> deal_ = new CustList<HandBelote>();
-        byte nombreDeJoueurs_ = (byte) _r.getDealing().getId().getNombreJoueurs();
+        int nombreDeJoueurs_ = _r.getDealing().getId().getNombreJoueurs();
         DealBelote.ajouterMainVides(deal_,nombreDeJoueurs_);
 //        for (int i = 0; i< nombreDeJoueurs_; i++) {
 //            deal_.add(new HandBelote());
 //        }
         deal_.add(_lastHand);
-        return newGameBelote(_r, _trs, _prog, _dealer, _bids, nombreDeJoueurs_, new DealBelote(deal_, (byte) _dealer));
+        return newGameBelote(_r, _trs, _prog, _dealer, _bids, nombreDeJoueurs_, new DealBelote(deal_, _dealer));
     }
 
-    protected static GameBelote newGameBelote(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog, int _dealer, CustList<BidBeloteSuit> _bids, byte _nombreDeJoueurs, DealBelote _donne) {
+    protected static GameBelote newGameBelote(RulesBelote _r, CustList<TrickBelote> _trs, TrickBelote _prog, int _dealer, CustList<BidBeloteSuit> _bids, int _nombreDeJoueurs, DealBelote _donne) {
         GameBelote g_ = new GameBelote(GameType.RANDOM, _donne, _r);
         g_.setProgressingTrick(_prog);
         g_.setTricks(_trs);
@@ -121,7 +121,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                                                                        HandBelote _currentHand) {
 //        CheckerGameBeloteWithRules.check(_g);
 //        assertTrue("Error",_g.getError().isEmpty());
-        byte numero_=_g.playerHavingToPlay();
+        int numero_=_g.playerHavingToPlay();
         HandBelote mainJoueur_=_g.getDistribution().hand(numero_);
         return new GameBeloteProgTrick(_done,_teamsRelation,mainJoueur_);
     }
@@ -148,7 +148,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
                                                                   HandBelote _currentHand) {
 //        CheckerGameBeloteWithRules.check(_g);
 //        assertTrue("Error",_g.getError().isEmpty());
-        byte numero_=_g.playerHavingToPlay();
+        int numero_=_g.playerHavingToPlay();
         HandBelote mainJoueur_=_g.getDistribution().hand(numero_);
         return new GameBeloteBeginTrick(_done,_teamsRelation,mainJoueur_);
     }
@@ -327,7 +327,7 @@ public abstract class CommonGameBelote extends EquallableBeloteUtil {
         int nombreCartesParJoueur_ = _g.getRegles().getDealing().getNombreCartesParJoueur();
         int nbPl_ = _g.getRegles().getDealing().getId().getNombreJoueurs();
         int nbTr_ = _g.getTricks().size();
-        CustList<HandBelote> hands_ = _g.getProgressingTrick().completeCurrent((byte) nbPl_, true);
+        CustList<HandBelote> hands_ = _g.getProgressingTrick().completeCurrent(nbPl_, true);
         handLengths_.add(nombreCartesParJoueur_-nbTr_ - hands_.get(0).total());
         handLengths_.add(nombreCartesParJoueur_-nbTr_ - hands_.get(1).total());
         handLengths_.add(nombreCartesParJoueur_-nbTr_ - hands_.get(2).total());

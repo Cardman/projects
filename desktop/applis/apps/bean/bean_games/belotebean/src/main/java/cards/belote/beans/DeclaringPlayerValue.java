@@ -5,7 +5,7 @@ public final class DeclaringPlayerValue{
 
     private String declaring;
 
-    private int value;
+    private long value;
 
     public String getDeclaring() {
         return declaring;
@@ -15,11 +15,11 @@ public final class DeclaringPlayerValue{
         declaring = _declaring;
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
-    public void setValue(int _value) {
+    public void setValue(long _value) {
         value = _value;
     }
 

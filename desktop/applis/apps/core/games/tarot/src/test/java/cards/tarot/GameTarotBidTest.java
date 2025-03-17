@@ -336,7 +336,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_4);
         handSuit_.ajouter(CardTarot.CLUB_3);
         handSuit_.ajouter(CardTarot.CLUB_2);
-        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), (byte) 3));
+        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), 3));
     }
     @Test
     public void maitreAtoutPourChelem2Test() {
@@ -365,7 +365,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_4);
         handSuit_.ajouter(CardTarot.CLUB_3);
         handSuit_.ajouter(CardTarot.CLUB_2);
-        assertTrue(!GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), (byte) 3));
+        assertTrue(!GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), 3));
     }
     @Test
     public void maitreAtoutPourChelem3Test() {
@@ -388,7 +388,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
         handSuit_.ajouter(CardTarot.DIAMOND_4);
         handSuit_.ajouter(CardTarot.CLUB_KING);
-        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), (byte) 4));
+        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), 4));
     }
     @Test
     public void maitreAtoutPourChelem4Test() {
@@ -410,7 +410,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.DIAMOND_KING);
         handSuit_.ajouter(CardTarot.DIAMOND_KNIGHT);
         handSuit_.ajouter(CardTarot.CLUB_KING);
-        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), (byte) 5));
+        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), 5));
     }
     @Test
     public void maitreAtoutPourChelem5Test() {
@@ -429,7 +429,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
         handSuit_.ajouter(CardTarot.DIAMOND_KING);
         handSuit_.ajouter(CardTarot.CLUB_KING);
-        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), (byte) 6));
+        assertTrue(GameTarotBid.maitreAtoutPourChelem(handSuit_.couleurs(), 6));
     }
     @Test
     public void nbCouleursLargementMaitressesTest() {
@@ -446,7 +446,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.SPADE_KNIGHT);
         handSuit_.ajouter(CardTarot.CLUB_KING);
         handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
-        assertEq(3, GameTarotBid.nbCouleursLargementMaitresses(handSuit_.couleurs(), (byte) 6));
+        assertEq(3, GameTarotBid.nbCouleursLargementMaitresses(handSuit_.couleurs(), 6));
     }
     @Test
     public void cartesPseudoMaitresses1Test() {
@@ -650,7 +650,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
-        assertEq(0,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, (byte) 6));
+        assertEq(0,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, 6));
     }
     @Test
     public void nbCouleursPseudoMaitresses2Test() {
@@ -670,7 +670,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         HandTarot other_ = new HandTarot();
         other_.ajouter(CardTarot.SPADE_KING);
         IdMap<Suit, HandTarot> suits_ = handSuit_.couleurs();
-        assertEq(1,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, (byte) 6));
+        assertEq(1,GameTarotBid.nbCouleursPseudoMaitresses(suits_,other_, 6));
     }
     @Test
     public void estUnJeuDeChelem1Test() {
@@ -750,7 +750,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
         HandTarot plSuit_ = new HandTarot();
-        RulesTarot r_ = new RulesTarot((byte) 3);
+        RulesTarot r_ = new RulesTarot(3);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
         assertTrue(!GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,new HandTarot()));
     }
@@ -782,7 +782,7 @@ public final class GameTarotBidTest extends EquallableTarotUtil {
         handSuit_.ajouter(CardTarot.CLUB_QUEEN);
         handSuit_.ajouter(CardTarot.CLUB_KNIGHT);
         HandTarot plSuit_ = new HandTarot();
-        RulesTarot r_ = new RulesTarot((byte) 3);
+        RulesTarot r_ = new RulesTarot(3);
         r_.setDealing(DealingTarot.DEAL_1_VS_2);
         assertTrue(GameTarotBid.estUnJeuDeChelem(handSuit_.couleurs(),plSuit_.couleurs(),r_,new HandTarot()));
     }

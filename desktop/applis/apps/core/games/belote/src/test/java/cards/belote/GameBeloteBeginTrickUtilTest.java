@@ -106,7 +106,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         addCard(sure_,3,CardBelote.SPADE_1, b_);
         HandBelote p_ = new HandBelote();
         IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        assertTrue(!GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_));
+        assertTrue(!GameBeloteBeginTrick.playedLeading(b_,3, b_.getSuit(),pr_,sure_));
     }
     @Test
     public void playedLeading2Test() {
@@ -118,7 +118,7 @@ public final class GameBeloteBeginTrickUtilTest extends CommonGameBelote {
         HandBelote p_ = new HandBelote();
         p_.ajouter(CardBelote.SPADE_JACK);
         IdMap<Suit, HandBelote> pr_ = p_.couleurs(b_);
-        assertTrue(GameBeloteBeginTrick.playedLeading(b_,(byte)3, b_.getSuit(),pr_,sure_));
+        assertTrue(GameBeloteBeginTrick.playedLeading(b_,3, b_.getSuit(),pr_,sure_));
     }
     private static void addCard(IdMap<Suit, CustList<HandBelote>> _poss, int _p, CardBelote _c, BidBeloteSuit _b) {
         HandBelote h_ = _poss.getVal(_c.getId().getCouleur()).get(_p);

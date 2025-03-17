@@ -33,7 +33,7 @@ import code.util.core.NumberUtil;
 public abstract class ServerActLoopCardsActedByClientReceived implements IntServerActLoopCards {
     @Override
     public void loop(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
-        Net.setReceivedForPlayer((byte) NumberUtil.parseInt(_input.get(0)), _instance);
+        Net.setReceivedForPlayer(NumberUtil.parseInt(_input.get(0)), _instance);
         if (!Net.allReceived(_instance)) {
             return;
         }
@@ -119,7 +119,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //                    dog_.setHumanTaker(true);
                 callAfter(_game, dog_);
 //                    dog_.setCallAfter(true);
-                for (byte p: Net.activePlayers(_instance, _common)) {
+                for (int p: Net.activePlayers(_instance, _common)) {
 //                        dog_.setTaker(p == _game.getPreneur());
                     update(p, _game, dog_);
                     NetGroupFrame.trySendString(Net.exportDiscardPhaseTarot(dog_), Net.getSocketByPlace(p, _common));
@@ -211,7 +211,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
     }
     protected static void playingBeloteCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GameBelote game_ = Net.getGames(_instance).partieBelote();
-        byte place_ = game_.playerHavingToPlay();
+        int place_ = game_.playerHavingToPlay();
         if (Net.isHumanPlayer(place_, _common)) {
 //        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowPlayingBelote decla_ = new AllowPlayingBelote();
@@ -253,13 +253,13 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         //cardDto_.setLocale(Constants.getDefaultLanguage());
 //        cardDto_.setLocale("");
 //        Net.initAllReceived(_instance, _common);
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientPlayingBelote(cardDto_), Net.getSocketByPlace(p, _common));
         }
     }
     protected static void playingPresidentCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GamePresident game_ = Net.getGames(_instance).partiePresident();
-        byte place_ = game_.nextPlayer();
+        int place_ = game_.nextPlayer();
         if (Net.isHumanPlayer(place_, _common)) {
 //        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowPlayingPresident allow_ = new AllowPlayingPresident();
@@ -284,7 +284,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         //cardDto_.setLocale(Constants.getDefaultLanguage());
 //        cardDto_.setLocale("");
 //        Net.initAllReceived(_instance, _common);
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientPlayingPresident(cardDto_), Net.getSocketByPlace(p, _common));
         }
     }
@@ -299,7 +299,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
             dog_.setDiscardCard(game_.getDistribution().derniereMain());
             dog_.setCallableCards(new HandTarot());
             callAfter(game_,dog_);
-            for (byte p: Net.activePlayers(_instance, _common)) {
+            for (int p: Net.activePlayers(_instance, _common)) {
                 update(p, game_, dog_);
                 NetGroupFrame.trySendString(Net.exportDiscardPhaseTarot(dog_), Net.getSocketByPlace(p, _common));
             }
@@ -318,7 +318,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 
     protected static void playingTarotCard(Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         GameTarot game_ = Net.getGames(_instance).partieTarot();
-        byte place_ = game_.playerHavingToPlay();
+        int place_ = game_.playerHavingToPlay();
         if (Net.isHumanPlayer(place_, _common)) {
 //        if (Net.isHumanPlayer(place_, _instance, _common))
             AllowPlayingTarot decla_ = new AllowPlayingTarot();
@@ -384,7 +384,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //        cardDto_.setMiseres(annoncesMiseres_);
         cardDto_.setExcludedTrumps(new HandTarot());
 //        Net.initAllReceived(_instance, _common);
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientPlayingTarot(cardDto_), Net.getSocketByPlace(p, _common));
         }
     }
@@ -405,7 +405,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //        }
         res_.setGame(Net.getGames(_instance).partieBelote());
         res_.getRes().setScores(Net.getScores(_instance));
-        for (byte p: Net.activePlayers(_instance,_common)) {
+        for (int p: Net.activePlayers(_instance,_common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance,_common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
             NetGroupFrame.trySendString(Net.exportGameBelote(res_), Net.getSocketByPlace(p, _common));
@@ -428,7 +428,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //            list_.add(new Longs(v));
 //        }
         res_.getRes().setScores(Net.getScores(_instance));
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
             NetGroupFrame.trySendString(Net.exportGamePresident(res_), Net.getSocketByPlace(p, _common));
@@ -451,7 +451,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
 //            list_.add(new Longs(v));
 //        }
         res_.getRes().setScores(Net.getScores(_instance));
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
 //            String loc_ = Net.getLanguageByPlace(p, _instance, _common);
 //            Games.setMessages(res_.getRes(),_common.getProgramInfos().getTranslations().getMapping().getVal(loc_));
             NetGroupFrame.trySendString(Net.exportGameTarot(res_), Net.getSocketByPlace(p, _common));
@@ -461,7 +461,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         _dog.setCallAfter(!_game.getRegles().getDiscardAfterCall());
     }
 
-    protected static void update(byte _player, GameTarot _game, DiscardPhaseTarot _dog) {
+    protected static void update(int _player, GameTarot _game, DiscardPhaseTarot _dog) {
         if (_player == _game.getPreneur()) {
             _dog.getDiscardPhase().setTaker(DiscardPhaseTarot.TAKER_HUM_WRITE);
         } else {
@@ -469,7 +469,7 @@ public abstract class ServerActLoopCardsActedByClientReceived implements IntServ
         }
     }
 
-    protected static void update(byte _player, GameBelote _game, DiscardPhaseBelote _dog) {
+    protected static void update(int _player, GameBelote _game, DiscardPhaseBelote _dog) {
         if (_player == _game.getPreneur()) {
             _dog.getDiscardPhase().setTaker(DiscardPhaseBelote.TAKER_HUM_WRITE);
         } else {

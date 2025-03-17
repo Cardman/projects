@@ -96,8 +96,8 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
-        byte nbCartesPJ_ = (byte) getReglesTarot().getDealing().getNombreCartesParJoueur();
-        byte nbCartesC_ = (byte) getReglesTarot().getDealing().getNombreCartesChien();
+        int nbCartesPJ_ = getReglesTarot().getDealing().getNombreCartesParJoueur();
+        int nbCartesC_ = getReglesTarot().getDealing().getNombreCartesChien();
 
         HandTarot pile_=HandTarot.pileBase();
         panneau_=_parent.getCompoFactory().newLineBox();
@@ -216,10 +216,10 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         }
 //        nombreDeJoueurs_=nombreDeMains_-1;
         int nombreDeJoueurs_ = getReglesTarot().getDealing().getId().getNombreJoueurs();
-        byte donneur_ = (byte) editorCards.getListe().getSelectedIndex();
+        int donneur_ = editorCards.getListe().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
-            donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
+            donneur_=(int)MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
         }
         DealTarot donne_=new DealTarot(mains_,donneur_);
         partie = new GameTarot(GameType.EDIT,donne_,getReglesTarot());

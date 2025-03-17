@@ -81,7 +81,7 @@ public final class AnimationCardTarot implements Runnable {
                 _container.tapisTarot().setCartesTarotJeu(_container.getWindow().getImageFactory(), lg_, partie_.getNombreDeJoueurs());
                 //validate container.pack();
             }
-            byte player_ = partie_.playerHavingToPlay();
+            int player_ = partie_.playerHavingToPlay();
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {
                 _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardTarot(_container, ContainerGame.USER_INSTANT));
                 return;

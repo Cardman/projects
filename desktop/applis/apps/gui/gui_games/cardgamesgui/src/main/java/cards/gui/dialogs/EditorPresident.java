@@ -20,8 +20,8 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.scripts.messages.cards.MessagesEditorCards;
 import code.sml.util.TranslationsLg;
-import code.util.Bytes;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -107,7 +107,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         getAbsDialog().setTitle(editorCards.translate(MessagesEditorCards.DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
-        byte nbCartesPJ_;
+        int nbCartesPJ_;
 
         int nbCards_ = getReglesPresident().getNbStacks() * HandPresident.pileBase().total();
         int nbPlayers_ = getReglesPresident().getNbPlayers();
@@ -115,9 +115,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         boolean noRem_ = rem_ == 0;
         int nbCardsPerPlayer_ = nbCards_ / nbPlayers_;
         if (noRem_) {
-            nbCartesPJ_ = (byte) nbCardsPerPlayer_;
+            nbCartesPJ_ = nbCardsPerPlayer_;
         } else {
-            nbCartesPJ_ = (byte) (nbCardsPerPlayer_ + 1);
+            nbCartesPJ_ = nbCardsPerPlayer_ + 1;
         }
 
         int nbStacks_ = getReglesPresident().getNbStacks();
@@ -222,13 +222,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             mains_.add(m);
         }
         int nombreDeJoueurs_ = getReglesPresident().getNbPlayers();
-        byte donneur_ = (byte) editorCards.getListe().getSelectedIndex();
+        int donneur_ = editorCards.getListe().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
-            donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
+            donneur_=(int)MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
         }
         DealPresident donne_=new DealPresident(mains_,donneur_);
-        partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Bytes());
+        partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Ints());
         partie.setNombre();
     }
 

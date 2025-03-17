@@ -459,7 +459,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 //        String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
         //getPanneauBoutonsJeu().validate();
-        byte relative_ = containerMultiContent.relative(_dog.getDiscardPhase().getTakerIndex());
+        int relative_ = containerMultiContent.relative(_dog.getDiscardPhase().getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         cardsInDog = _dog.getDiscard();
         if (_dog.getDiscardPhase().getTaker() == DiscardPhaseBelote.TAKER_HUM_WRITE) {
@@ -621,7 +621,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
             return;
         }
         if (_declaration.getCurrentBid().getPoints() == RulesBelote.MOST) {
-            byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
+            int relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
             getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
             getEvents().append(StringUtil.concat(StringUtil.simpleStringsFormat(file().getVal(MessagesGuiCards.MAIN_DECLARING_SLAM), containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex())),RETURN_LINE));
 //            getEvents().append(StringUtil.concat(containerMultiContent.getPseudoByPlace(_declaration.getTakerIndex()),INTRODUCTION_PTS, WindowNetWork.SLAM,RETURN_LINE));
@@ -639,14 +639,14 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 //            caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
 //            panneau_.add(beloteDeclare_);
 //        }
-        byte relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
+        int relative_ = containerMultiContent.relative(_declaration.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         pack();
     }
 
     public void displayPlayedCard(PlayingCardBelote _card) {
         containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
-        byte relative_ = containerMultiContent.relative(_card.getPlace());
+        int relative_ = containerMultiContent.relative(_card.getPlace());
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, _card.getPlayedCard());
 
@@ -731,7 +731,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
 //        setCarteEntree(false);
 //        setCarteSortie(false);
-        byte relative_ = containerMultiContent.relative(_cards.getTakerIndex());
+        int relative_ = containerMultiContent.relative(_cards.getTakerIndex());
         getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
 
         /* On place les cartes de l'utilisateur */
@@ -774,7 +774,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public void pauseBetweenTrick() {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
-        tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), (byte) containerMultiContent.getNbChoosenPlayers(), lg_);
+        tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), containerMultiContent.getNbChoosenPlayers(), lg_);
         //pack();
         containerMultiContent.sendPause();
 //        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
@@ -851,7 +851,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 //        return noClient;
 //    }
 
-    private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
+    private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, int _beginPlace) {
         getPane().removeAll();
         getContainerMultiContent().window().getMultiStop().setEnabled(false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
@@ -872,14 +872,14 @@ public final class ContainerMultiBelote extends ContainerBelote implements
         AbsPanel panneau2_ = getOwner().getCompoFactory().newPageBox();
 //        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY, 8, 30));
         panneau2_.add(events());
-        byte relative_ = containerMultiContent.relative(_beginPlace);
+        int relative_ = containerMultiContent.relative(_beginPlace);
         getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY), list_.get(relative_), RETURN_LINE));
 //        getEvents().append(StringUtil.concat(containerMultiContent.getMessages().getVal(MessagesGuiCards.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
 //        getEvents().setEditable(false);
 //        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
-        setHandfuls(new ByteMap<AbsPlainLabel>());
-        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        setHandfuls(new IntMap<AbsPlainLabel>());
+        setDeclaredHandfuls(new IntMap<AbsPanel>());
         int nbCh_ = containerMultiContent.getNbChoosenPlayers();
 //        AbsPanel declaredHandfuls_ = buildDeclHands(nbCh_,list_, getOwner().getFrames());
 //        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newPageBox();
@@ -918,7 +918,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private StringList nicknames() {
-        return new StringList(containerMultiContent.nicknames(pseudosBelote((byte) containerMultiContent.getNbChoosenPlayers())).values());
+        return new StringList(containerMultiContent.nicknames(pseudosBelote(containerMultiContent.getNbChoosenPlayers())).values());
     }
 
 //    private String getPseudoByPlace(byte _place) {

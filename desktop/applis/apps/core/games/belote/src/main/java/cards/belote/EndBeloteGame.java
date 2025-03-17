@@ -12,7 +12,7 @@ import code.util.core.IndexConstants;
 public final class EndBeloteGame {
     private final GameBeloteTeamsRelation relations;
     private final CustList<DeclaresBelote> declares;
-    private final Shorts declaresBeloteRebelote;
+    private final Longs declaresBeloteRebelote;
     private final CustList<BoolVal> wonLastTrick;
     /**Le contrat permet de dire quel va etre le deroulement
      de la partie*/
@@ -21,7 +21,7 @@ public final class EndBeloteGame {
     private final CustList<TrickBelote> tricks;
 
     public EndBeloteGame(GameBeloteTeamsRelation _relations, CustList<DeclaresBelote> _declares,
-                         Shorts _declaresBeloteRebelote, CustList<BoolVal> _wonLastTrick,
+                         Longs _declaresBeloteRebelote, CustList<BoolVal> _wonLastTrick,
                          BidBeloteSuit _bid, CustList<TrickBelote> _tricks) {
         relations = _relations;
         declares = _declares;
@@ -31,15 +31,15 @@ public final class EndBeloteGame {
         tricks = _tricks;
     }
 
-    public int pointsAttaqueSansPrime() {
+    public long pointsAttaqueSansPrime() {
         return pointsSansPrime(getPlisAttaque(),bid);
     }
-    public int pointsAttackWithBonus() {
-        int nbPoints_ = pointsAttaqueSansPrime();
-        for (Bytes t: relations.playersBelongingToSameTeam()) {
+    public long pointsAttackWithBonus() {
+        long nbPoints_ = pointsAttaqueSansPrime();
+        for (Ints t: relations.playersBelongingToSameTeam()) {
             if (t.containsObj(relations.getTaker())) {
-                for (byte p: t) {
-                    for (short s: pointsAnnoncesPrimes(p)) {
+                for (int p: t) {
+                    for (long s: pointsAnnoncesPrimes(p)) {
                         nbPoints_+= s;
                     }
                 }
@@ -48,15 +48,15 @@ public final class EndBeloteGame {
         nbPoints_ += valeurCapot();
         return nbPoints_;
     }
-    public int pointsDefenseSansPrime() {
+    public long pointsDefenseSansPrime() {
         return pointsSansPrime(getPlisDefense(),bid);
     }
-    public int pointsDefenseWithBonus() {
-        int nbPoints_ = pointsDefenseSansPrime();
-        for (Bytes t: relations.playersBelongingToSameTeam()) {
+    public long pointsDefenseWithBonus() {
+        long nbPoints_ = pointsDefenseSansPrime();
+        for (Ints t: relations.playersBelongingToSameTeam()) {
             if (!t.containsObj(relations.getTaker())) {
-                for (byte p: t) {
-                    for (short s: pointsAnnoncesPrimes(p)) {
+                for (int p: t) {
+                    for (long s: pointsAnnoncesPrimes(p)) {
                         nbPoints_+= s;
                     }
                 }
@@ -64,38 +64,38 @@ public final class EndBeloteGame {
         }
         return nbPoints_;
     }
-    Shorts pointsAnnoncesPrimes(byte _joueur) {
-        Shorts totaux_=new Shorts();
+    Longs pointsAnnoncesPrimes(int _joueur) {
+        Longs totaux_=new Longs();
         totaux_.add(declaresBeloteRebelote.get(_joueur));
         if(wonLastTrick.get(_joueur) == BoolVal.TRUE) {
-            totaux_.add((short) BonusBelote.LAST_TRICK.getPoints());
+            totaux_.add(BonusBelote.LAST_TRICK.getPoints());
         }
-        totaux_.add((short) declares.get(_joueur).getPoints());
+        totaux_.add(declares.get(_joueur).getPoints());
         return totaux_;
     }
-    public int valeurCapot() {
+    public long valeurCapot() {
         return valeurCapot(getPlisDefense());
     }
-    static int valeurCapot(CustList<TrickBelote> _trs) {
+    static long valeurCapot(CustList<TrickBelote> _trs) {
         if(_trs.isEmpty()) {
             /*Le capot n est fait que si l attaque a fait tous les plis*/
             return 100;
         }
         return 0;
     }
-    public int getDiffAttackPointsMinusDefensePoints(Shorts _scores) {
-        int scoreDef_;
+    public long getDiffAttackPointsMinusDefensePoints(Longs _scores) {
+        long scoreDef_;
         int foe_ = relations.adversaires(relations.getTaker()).first();
         scoreDef_ = _scores.get(foe_);
         return _scores.get(relations.getTaker()) - scoreDef_;
     }
-    public int scoreDefinitifAttaque(int _scoreTmpAttaque, int _scoreTmpDefense) {
+    public long scoreDefinitifAttaque(long _scoreTmpAttaque, long _scoreTmpDefense) {
         RulesBelote rules_ = relations.getRules();
         CustList<TrickBelote> trs_ = getPlisDefense();
         return scoreDefinitifAttaque(_scoreTmpAttaque, _scoreTmpDefense, rules_, trs_, bid);
     }
 
-    static int scoreDefinitifAttaque(int _scoreTmpAttaque, int _scoreTmpDefense, RulesBelote _rules, CustList<TrickBelote> _trDef, BidBeloteSuit _bid) {
+    static long scoreDefinitifAttaque(long _scoreTmpAttaque, long _scoreTmpDefense, RulesBelote _rules, CustList<TrickBelote> _trDef, BidBeloteSuit _bid) {
         if (!_rules.getComptePointsClassique()) {
             return _scoreTmpAttaque;
         }
@@ -115,27 +115,27 @@ public final class EndBeloteGame {
         return 0;
     }
 
-    public static int scoreDefinitifDefense(int _scoreDefinitifAttaque, int _scoreTmpDefense) {
+    public static long scoreDefinitifDefense(long _scoreDefinitifAttaque, long _scoreTmpDefense) {
         if (_scoreDefinitifAttaque == 0) {
             return RulesBelote.MOST;
         }
         return _scoreTmpDefense;
     }
 
-    Shorts scores(int _scoreDefinitifAttaque,int _scoreDefinitifDefense) {
-        byte nombreJoueurs_=getNombreDeJoueurs();
+    Longs scores(long _scoreDefinitifAttaque,long _scoreDefinitifDefense) {
+        int nombreJoueurs_=getNombreDeJoueurs();
         int coeffPreneur_;
         if (nombreJoueurs_ == 3) {
             coeffPreneur_ = 2;
         } else {
             coeffPreneur_ = 1;
         }
-        Shorts scores_=new Shorts();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+        Longs scores_=new Longs();
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
             if(!relations.aPourDefenseur(joueur_)) {
-                scores_.add((short)(coeffPreneur_*_scoreDefinitifAttaque));
+                scores_.add(coeffPreneur_*_scoreDefinitifAttaque);
             } else {
-                scores_.add((short)_scoreDefinitifDefense);
+                scores_.add(_scoreDefinitifDefense);
             }
         }
         return scores_;
@@ -143,14 +143,14 @@ public final class EndBeloteGame {
     /**Renvoie 1, si l utilisateur gagne la partie,<br>
      0, s il y a match nul,<br>
      -1, sinon*/
-    public EndGameState getUserState(byte _user, Shorts _scores) {
-        Bytes foe_ = relations.adversaires(_user);
+    public EndGameState getUserState(int _user, Longs _scores) {
+        Ints foe_ = relations.adversaires(_user);
         return getUserState(_user, _scores, foe_);
     }
 
-    static EndGameState getUserState(byte _user, Shorts _scores, Bytes _foe) {
-        short userScore_ = _scores.get(_user);
-        for (byte p: _foe) {
+    static EndGameState getUserState(int _user, Longs _scores, Ints _foe) {
+        long userScore_ = _scores.get(_user);
+        for (int p: _foe) {
             if(userScore_<_scores.get(p)) {
                 return EndGameState.LOOSE;
             }
@@ -161,8 +161,8 @@ public final class EndBeloteGame {
         return EndGameState.WIN;
     }
 
-    static int pointsSansPrime(CustList<TrickBelote> _trs, BidBeloteSuit _bid) {
-        int nbPointsDef_=0;
+    static long pointsSansPrime(CustList<TrickBelote> _trs, BidBeloteSuit _bid) {
+        long nbPointsDef_=0;
         for (TrickBelote pli_:_trs) {
             for(CardBelote carte_:pli_) {
                 nbPointsDef_+=carte_.points(_bid);
@@ -171,19 +171,19 @@ public final class EndBeloteGame {
         return nbPointsDef_;
     }
     CustList<TrickBelote> getPlisAttaque() {
-        byte taker_ = relations.getTaker();
-        Bytes team_ = relations.partenaires(taker_);
+        int taker_ = relations.getTaker();
+        Ints team_ = relations.partenaires(taker_);
         team_.add(taker_);
         CustList<TrickBelote> all_ = tricks.left(RulesBelote.offset(relations.getRules()));
         all_.addAllElts(getTeamTrick(team_, tricks.mid(RulesBelote.offset(relations.getRules())), bid));
         return all_;
     }
     CustList<TrickBelote> getPlisDefense() {
-        Bytes team_ = relations.adversaires(relations.getTaker());
+        Ints team_ = relations.adversaires(relations.getTaker());
         return getTeamTrick(team_,tricks.mid(RulesBelote.offset(relations.getRules())),bid);
     }
 
-    static CustList<TrickBelote> getTeamTrick(Bytes _team, CustList<TrickBelote> _tricks, BidBeloteSuit _bid) {
+    static CustList<TrickBelote> getTeamTrick(Ints _team, CustList<TrickBelote> _tricks, BidBeloteSuit _bid) {
         CustList<TrickBelote> tricks_ = new CustList<TrickBelote>();
         for (TrickBelote t: _tricks) {
             if (!_team.contains(t.getRamasseur(_bid))) {
@@ -194,7 +194,7 @@ public final class EndBeloteGame {
         return tricks_;
     }
 
-    byte getNombreDeJoueurs() {
-        return (byte) relations.getRules().getDealing().getId().getNombreJoueurs();
+    int getNombreDeJoueurs() {
+        return relations.getRules().getDealing().getId().getNombreJoueurs();
     }
 }

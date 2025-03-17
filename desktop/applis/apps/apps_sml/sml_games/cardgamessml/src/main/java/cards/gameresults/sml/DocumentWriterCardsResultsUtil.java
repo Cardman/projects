@@ -22,7 +22,7 @@ public final class DocumentWriterCardsResultsUtil {
 
     public static void setResultsGame(Element _element, Document _document, ResultsGame _res) {
         _element.appendChild(DocumentWriterCoreUtil.setStringList(_res.getNicknames(),FIELD_NICKNAMES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_res.getUser(),FIELD_USER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_res.getUser(),FIELD_USER,_document));
 //        _element.appendChild(DocumentWriterCoreUtil.setString(_res.getLoc(),FIELD_LOC,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_res.getGlobalResultsPageTitle(),FIELD_GLOBAL_RESULTS_PAGE_TITLE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_res.getDetailResultsTitle(),FIELD_DETAIL_RESULTS_TITLE,_document));

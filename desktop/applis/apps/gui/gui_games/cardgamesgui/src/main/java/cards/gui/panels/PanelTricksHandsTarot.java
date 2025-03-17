@@ -19,11 +19,11 @@ public final class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTa
 
     private final TricksHandsTarot tricksHands;
 
-    private final byte numberPlayers;
+    private final int numberPlayers;
     private final DisplayingTarot displayingTarot;
     public PanelTricksHandsTarot(ChangeableTitle _parent,
             TricksHandsTarot _tricksHands,
-            byte _numberPlayers,
+                                 int _numberPlayers,
             StringList _pseudos,
             DisplayingTarot _displayingTarot, WindowCardsInt _window) {
         super(_parent,_pseudos,_window,_numberPlayers,new TarotCardConverter());
@@ -40,7 +40,7 @@ public final class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTa
     }
 
     @Override
-    protected CustList<CardTarot> list(byte _i) {
+    protected CustList<CardTarot> list(int _i) {
         return tricksHands.getDistribution().hand(_i).getCards();
     }
 
@@ -79,15 +79,15 @@ public final class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTa
 
     @Override
     protected int restituteFull() {
-        byte numeroPli_=(byte)(getTrickNumber().getSelectedIndex() - 1);
+        int numeroPli_= getTrickNumber().getSelectedIndex() - 1;
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingTarot, numberPlayers, numeroPli_);
         return numeroPli_;
     }
 
     @Override
     protected void restitute() {
-        byte numeroPli_=(byte)(getTrickNumber().getSelectedIndex() - 1);
-        byte numeroCarte_=(byte)getCardNumberTrick().getSelectedIndex();
+        int numeroPli_= getTrickNumber().getSelectedIndex() - 1;
+        int numeroCarte_=getCardNumberTrick().getSelectedIndex();
         numeroCarte_--;
         tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingTarot, numberPlayers, numeroPli_, numeroCarte_);
     }

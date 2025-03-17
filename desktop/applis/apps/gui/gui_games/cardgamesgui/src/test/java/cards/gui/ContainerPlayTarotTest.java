@@ -4802,12 +4802,12 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         ContainerSingleTarot cst_ = loadTarotOtherDisplay(gb_, mock_);
         tryClick(cst_.getContentPausable().getReplayButton());
         assertEq(6,cst_.partieTarot().getDeal().nombreDeMains());
-        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 0).total());
-        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 1).total());
-        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 2).total());
-        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 3).total());
-        assertEq(14,cst_.partieTarot().getDeal().hand((byte) 4).total());
-        assertEq(8,cst_.partieTarot().getDeal().hand((byte) 5).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand(0).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand(1).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand(2).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand(3).total());
+        assertEq(14,cst_.partieTarot().getDeal().hand(4).total());
+        assertEq(8,cst_.partieTarot().getDeal().hand(5).total());
     }
     @Test
     public void p148() {
@@ -5802,7 +5802,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
 
     private HandTarot hand(ContainerSingleTarot _csb, int _i) {
-        return _csb.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTricksHands().getDistribution().hand((byte) _i);
+        return _csb.window().getDialogTricksTarot().getPanelTricksHandsTarot().getTricksHands().getDistribution().hand(_i);
     }
 
     private void play(GameTarot _gb, CardTarot _card) {
@@ -6032,7 +6032,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
 
     private RulesTarot rulesDefinedTeams() {
-        RulesTarot rules_ = new RulesTarot((byte) 6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
@@ -6040,14 +6040,14 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
     }
 
     private RulesTarot rulesFour() {
-        RulesTarot rules_ = new RulesTarot((byte) 4);
+        RulesTarot rules_ = new RulesTarot(4);
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return rules_;
     }
 
     private RulesTarot rulesThree() {
-        RulesTarot rules_ = new RulesTarot((byte) 3);
+        RulesTarot rules_ = new RulesTarot(3);
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return rules_;
@@ -6146,7 +6146,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.TRUMP_7);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private static DealTarot deal2(int _dealer) {
@@ -6242,7 +6242,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.TRUMP_7);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private static DealTarot deal3(int _dealer) {
@@ -6340,7 +6340,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.TRUMP_7);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private static DealTarot deal4(int _dealer) {
@@ -6438,7 +6438,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.CLUB_6);
         hand_.ajouter(CardTarot.DIAMOND_JACK);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private static DealTarot deal5(int _dealer) {
@@ -6532,7 +6532,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.CLUB_6);
         hand_.ajouter(CardTarot.DIAMOND_JACK);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private static DealTarot deal6(int _dealer) {
@@ -6624,7 +6624,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.CLUB_6);
         hand_.ajouter(CardTarot.DIAMOND_JACK);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private static DealTarot deal7(int _dealer) {
@@ -6720,7 +6720,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.CLUB_1);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private static DealTarot deal8(int _dealer) {
@@ -6818,7 +6818,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.CLUB_6);
         hand_.ajouter(CardTarot.DIAMOND_JACK);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
     private static DealTarot dealWithout(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
@@ -6915,7 +6915,7 @@ public final class ContainerPlayTarotTest extends EquallableCardsGuiUtil {
         hand_.ajouter(CardTarot.CLUB_6);
         hand_.ajouter(CardTarot.DIAMOND_JACK);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 
     private void fullPlayedDeal(GameTarot _gt) {

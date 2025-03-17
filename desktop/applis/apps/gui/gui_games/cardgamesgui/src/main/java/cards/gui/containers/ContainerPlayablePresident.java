@@ -12,9 +12,9 @@ public interface ContainerPlayablePresident extends ContainerPlayableGame,Contai
 //
 //    CardPresident getCarteSurvoleePresident();
 
-    void discard(byte _i);
+    void discard(int _i);
 
-    void cancelDiscard(byte _i);
+    void cancelDiscard(int _i);
 
     HandPresident getReceivedCards();
 

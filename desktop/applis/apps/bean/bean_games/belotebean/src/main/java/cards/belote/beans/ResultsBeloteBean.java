@@ -10,19 +10,19 @@ import code.util.StringList;
 
 public final class ResultsBeloteBean extends BeloteBean {
 
-    private int capotAttaque;
+    private long capotAttaque;
 
-    private int pointsAttaqueSansPrime;
+    private long pointsAttaqueSansPrime;
 
-    private int pointsAttaqueTemporaire;
+    private long pointsAttaqueTemporaire;
 
-    private int pointsAttaqueDefinitif;
+    private long pointsAttaqueDefinitif;
 
-    private int pointsDefenseSansPrime;
+    private long pointsDefenseSansPrime;
 
-    private int pointsDefenseTemporaire;
+    private long pointsDefenseTemporaire;
 
-    private int pointsDefenseDefinitif;
+    private long pointsDefenseDefinitif;
 
     private final TakerResult takerResult = new TakerResult();
 
@@ -49,12 +49,12 @@ public final class ResultsBeloteBean extends BeloteBean {
         pointsDefenseTemporaire=pointsDefenseSansPrime;
         takerResult.setWinEqualityLoose(res_.getEndBeloteGame());
         if (playGame()) {
-            byte preneur_=getGame().getPreneur();
+            int preneur_=getGame().getPreneur();
             pointsAttaqueTemporaire = end_.pointsAttackWithBonus();
             pointsDefenseTemporaire = end_.pointsDefenseWithBonus();
             takerNickname = getNicknames().get(preneur_);
             calledPlayersList = new StringList();
-            for (byte p: getGame().getTeamsRelation().partenaires(preneur_)) {
+            for (int p: getGame().getTeamsRelation().partenaires(preneur_)) {
                 calledPlayersList.add(getNicknames().get(p));
             }
             bidString = toString(getBid(), res_.getRes().getGeneral(), res_.getRes().getSpecific());
@@ -73,27 +73,27 @@ public final class ResultsBeloteBean extends BeloteBean {
         return capotAttaque > 0;
     }
 
-    public int getPointsAttaqueSansPrime() {
+    public long getPointsAttaqueSansPrime() {
         return pointsAttaqueSansPrime;
     }
 
-    public int getPointsAttaqueTemporaire() {
+    public long getPointsAttaqueTemporaire() {
         return pointsAttaqueTemporaire;
     }
 
-    public int getPointsAttaqueDefinitif() {
+    public long getPointsAttaqueDefinitif() {
         return pointsAttaqueDefinitif;
     }
 
-    public int getPointsDefenseSansPrime() {
+    public long getPointsDefenseSansPrime() {
         return pointsDefenseSansPrime;
     }
 
-    public int getPointsDefenseTemporaire() {
+    public long getPointsDefenseTemporaire() {
         return pointsDefenseTemporaire;
     }
 
-    public int getPointsDefenseDefinitif() {
+    public long getPointsDefenseDefinitif() {
         return pointsDefenseDefinitif;
     }
 

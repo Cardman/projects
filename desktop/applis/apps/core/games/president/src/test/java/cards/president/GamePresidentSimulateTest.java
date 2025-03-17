@@ -3,18 +3,18 @@ package cards.president;
 import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
 import code.maths.montecarlo.DefaultGenerator;
-import code.util.Bytes;
 import code.util.CustList;
+import code.util.Ints;
 import org.junit.Test;
 
 public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
     @Test
     public void simuler0Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Ints rk_ = new Ints();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
-        d_.setDealer((byte) 3);
+        DealPresident d_ = new DealPresident(hs_, 0);
+        d_.setDealer(3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         AbstractSimulatingPresident s_ = new SimulatingPresidentAbrupt();
         simulateLoc(g_, s_);
@@ -23,10 +23,10 @@ public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
     @Test
     public void simuler1Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Ints rk_ = new Ints();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
-        d_.setDealer((byte) 3);
+        DealPresident d_ = new DealPresident(hs_, 0);
+        d_.setDealer(3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         AbstractSimulatingPresident s_ = new SimulatingPresidentAbruptFirst();
         simulateLoc(g_, s_);
@@ -35,10 +35,10 @@ public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
     @Test
     public void simuler2Test() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Ints rk_ = new Ints();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
-        d_.setDealer((byte) 3);
+        DealPresident d_ = new DealPresident(hs_, 0);
+        d_.setDealer(3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         AbstractSimulatingPresident s_ = new SimulatingPresidentNormal();
         simulateLoc(g_, s_);

@@ -130,7 +130,7 @@ public final class BeloteSampleFirstDealAll implements IntFirstDealBelote {
         HandBelote hand_;
         hand_ = new HandBelote();
         hands_.add(hand_);
-        return new DealBelote(hands_, (byte) _dealer);
+        return new DealBelote(hands_, _dealer);
     }
 
     private static void firstHands(CustList<HandBelote> _hands) {

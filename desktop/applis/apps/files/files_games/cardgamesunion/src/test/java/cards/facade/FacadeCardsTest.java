@@ -390,7 +390,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     public void load1() {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0);
-        deal_.setDealer((byte) 0);
+        deal_.setDealer(0);
         initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         MockProgramInfos pr_ = prAppli();
@@ -401,7 +401,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     @Test
     public void load2() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -422,9 +422,9 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     @Test
     public void load3() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident game_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         game_.initCartesEchanges();
         MockProgramInfos pr_ = prAppli();
@@ -435,9 +435,9 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     @Test
     public void load4() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = Bytes.newList();
+        Ints rk_ = Ints.newList();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident game_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         game_.initCartesEchanges();
         //
@@ -464,7 +464,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = new DealTarot(0);
-        deal_.setDealer((byte) 0);
+        deal_.setDealer(0);
         initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         MockProgramInfos pr_ = prAppli();
@@ -476,17 +476,17 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     public void load6() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.TAKE);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.intelligenceArtificielleAppel(new DefGameTarot());
         MockProgramInfos pr_ = prAppli();
@@ -646,7 +646,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
     private static void initDonneLoc(RulesTarot _rules, DealTarot _deal) {
         _deal.initDonne(_rules, DefaultGenerator.oneElt(), HandTarot.pileBase());
     }
-    private static DealBelote deal1Classic(byte _dealer) {
+    private static DealBelote deal1Classic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -761,7 +761,7 @@ public final class FacadeCardsTest extends EquallableCardsFileUtil {
         return hs_;
     }
 
-    private static DealTarot deal1(byte _dealer) {
+    private static DealTarot deal1(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();

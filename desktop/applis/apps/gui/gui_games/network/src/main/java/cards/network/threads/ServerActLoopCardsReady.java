@@ -29,7 +29,7 @@ public final class ServerActLoopCardsReady implements IntServerActLoopCards {
     }
 
     public static void sendOkToQuit(Net _instance, NetCommon _common) {
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportEnableQuit(), Net.getSocketByPlace(p, _common));
         }
     }

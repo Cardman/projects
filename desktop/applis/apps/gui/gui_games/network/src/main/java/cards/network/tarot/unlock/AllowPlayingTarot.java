@@ -11,7 +11,7 @@ public final class AllowPlayingTarot {
 
     private HandTarot calledCards;
 
-    private byte takerIndex;
+    private int takerIndex;
     private BidTarot currentBid;
     private HandTarot cards;
 
@@ -39,11 +39,11 @@ public final class AllowPlayingTarot {
         this.calledCards = _c;
     }
 
-    public byte getTakerIndex() {
+    public int getTakerIndex() {
         return takerIndex;
     }
 
-    public void setTakerIndex(byte _takerIndex) {
+    public void setTakerIndex(int _takerIndex) {
         takerIndex = _takerIndex;
     }
 

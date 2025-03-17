@@ -260,7 +260,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     }
 
     @Override
-    public void discard(byte _index) {
+    public void discard(int _index) {
         super.discard(_index);
         updateCardsInPanelPresidentDiscard(this);
         updateDis();
@@ -268,7 +268,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     }
 
     @Override
-    public void cancelDiscard(byte _index) {
+    public void cancelDiscard(int _index) {
         super.cancelDiscard(_index);
         updateCardsInPanelPresidentDiscard(this);
         updateDis();
@@ -354,8 +354,8 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     public void displayPlayedCard(PlayingCardPresident _card) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         containerMultiContent.getCanPlayLabel().setText(EMPTY_STRING);
-        byte relative_ = containerMultiContent.relative(_card.getNextPlayer());
-        ByteMap<Playing> status_ = status(_card.getStatus(), containerMultiContent);
+        int relative_ = containerMultiContent.relative(_card.getNextPlayer());
+        IntMap<Playing> status_ = status(_card.getStatus(), containerMultiContent);
         tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,_card.getPlayedHand());
 //        tapisPresident().repaintValidate();
         tapisPresident().setStatus(getWindow().getImageFactory(),lg_,status_, relative_);
@@ -383,7 +383,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         pl_.setPass(true);
         pl_.setPlayedCard(CardPresident.WHITE);
         pl_.setPlayedHand(new HandPresident());
-        pl_.setStatus(new ByteMap< Playing>());
+        pl_.setStatus(new IntMap< Playing>());
         getContainerMultiContent().window().sendObject(pl_);
     }
 
@@ -454,7 +454,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         WindowNetWork ow_ = containerMultiContent.window();
         DialogTricksPresident.setDialogTricksPresident(
                 file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS_PRESIDENT), ow_);
-        DialogTricksPresident.init(_tricks, (byte) containerMultiContent.getNbChoosenPlayers(), nicknames(),
+        DialogTricksPresident.init(_tricks, containerMultiContent.getNbChoosenPlayers(), nicknames(),
                 getDisplayingPresident(),ow_);
     }
 
@@ -468,7 +468,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 //        return noClient;
 //    }
 
-    private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
+    private void placerIhmPresidentMulti(IntMap<Playing> _status, int _nbMax) {
         getPane().removeAll();
         getContainerMultiContent().window().getMultiStop().setEnabled(false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
@@ -476,7 +476,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         CarpetPresident tapis_ = new CarpetPresident();
 //        ByteTreeMap<String> pseudos_ = nicknames();
-        ByteMap<Playing> status_ = status(_status, containerMultiContent);
+        IntMap<Playing> status_ = status(_status, containerMultiContent);
 //        StringList list_ = new StringList(pseudos_.values());
         StringList list_ = nicknames();
         tapis_.initTapisPresident(lg_,list_, status_, _nbMax, getOwner().getCompoFactory());
@@ -533,16 +533,16 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         setContentPane(panel_);
     }
 
-    private static ByteMap<Playing> status(ByteMap<Playing> _status, ContainerMultiContent _containerMultiContent) {
-        ByteMap<Playing> status_ = new ByteMap<Playing>();
-        for (byte p: _status.getKeys()) {
+    private static IntMap<Playing> status(IntMap<Playing> _status, ContainerMultiContent _containerMultiContent) {
+        IntMap<Playing> status_ = new IntMap<Playing>();
+        for (int p: _status.getKeys()) {
             status_.put(_containerMultiContent.relative(p), _status.getVal(p));
         }
         return status_;
     }
 
     private StringList nicknames() {
-        return new StringList(containerMultiContent.nicknames(pseudosPresident((byte) containerMultiContent.getNbChoosenPlayers())).values());
+        return new StringList(containerMultiContent.nicknames(pseudosPresident(containerMultiContent.getNbChoosenPlayers())).values());
     }
 
 //    private String getPseudoByPlace(byte _place) {
@@ -578,7 +578,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         _panel.removeAll();
         int str_ = 0;
         int iter_ = IndexConstants.FIRST_INDEX;
-        byte index_ = IndexConstants.SECOND_INDEX;
+        int index_ = IndexConstants.SECOND_INDEX;
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         for (GraphicCard<CardPresident> c: getGraphicCards(this,_hand.getCards())) {
             int curStr_ = c.getCard().strength(reversedGame);
@@ -721,7 +721,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 //        }
         GamePresident game_=Net.getGames(containerMultiContent.window().getNet()).partiePresident();
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames(), game_.getRules().getNbStacks());
-        Bytes rk_ = game_.getNewRanks();
+        Ints rk_ = game_.getNewRanks();
         DealPresident deal_=getOwner().baseWindow().getIa().getPresident().empiler(nb_,game_,getOwner().getGenerator());
 //        DealPresident deal_=new DealPresident(nb_,game_.empiler());
 //        deal_.donneurSuivant(game_.getDeal().getDealer(), game_.getRules());

@@ -7,7 +7,7 @@ public final class ScoresPlayers {
 
     private Rate rate;
 
-    private short score;
+    private long score;
 
     public String getNickname() {
         return nickname;
@@ -25,11 +25,11 @@ public final class ScoresPlayers {
         rate = _rate;
     }
 
-    public short getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(short _score) {
+    public void setScore(long _score) {
         score = _score;
     }
 

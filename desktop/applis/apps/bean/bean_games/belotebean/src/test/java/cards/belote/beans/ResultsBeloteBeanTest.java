@@ -219,7 +219,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
     private static ResultsBelote results(GameBelote _g, int _user) {
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(_g);
-        res_.getRes().setUser((byte) _user);
+        res_.getRes().setUser(_user);
         res_.initialize(fourPseudos("0","1","2","3"), new CustList<Longs>());
         StringMap<String> s_ = new StringMap<String>();
         s_.addEntry(EnumCardsExporterUtil.SUITS+Suit.SPADE.getSuitSt(),SPADE);
@@ -241,7 +241,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     private static GameBelote game5() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Loose((byte) 3);
+        DealBelote deal_ = deal1Loose(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         bid(game_);
         bid(game_);
@@ -261,7 +261,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     private static GameBelote game4() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Loose((byte) 3);
+        DealBelote deal_ = deal1Loose(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -314,7 +314,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
     }
     private static GameBelote game3() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Eq((byte) 3);
+        DealBelote deal_ = deal1Eq(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -368,7 +368,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     private static GameBelote game2() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Win((byte) 3);
+        DealBelote deal_ = deal1Win(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -421,7 +421,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
     }
     private static GameBelote game1() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Slam((byte) 3);
+        DealBelote deal_ = deal1Slam(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -481,7 +481,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         _game.ajouterUneCarteDansPliEnCoursJoue(_card);
     }
 
-    private static DealBelote deal1Slam(byte _dealer) {
+    private static DealBelote deal1Slam(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -529,7 +529,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         return new DealBelote(hands_,_dealer);
     }
 
-    private static DealBelote deal1Eq(byte _dealer) {
+    private static DealBelote deal1Eq(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -577,7 +577,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         return new DealBelote(hands_,_dealer);
     }
 
-    private static DealBelote deal1Loose(byte _dealer) {
+    private static DealBelote deal1Loose(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -625,7 +625,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         return new DealBelote(hands_,_dealer);
     }
 
-    private static DealBelote deal1Win(byte _dealer) {
+    private static DealBelote deal1Win(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();

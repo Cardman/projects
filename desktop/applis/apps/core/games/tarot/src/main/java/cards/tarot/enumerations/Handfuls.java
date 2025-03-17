@@ -5,7 +5,7 @@ import code.util.*;
 /**Poignees utilisees au tarot*/
 public enum Handfuls {
     NO,ONE(20, "0"),TWO(30, "1"),THREE(40, "2"),FOUR(50, "3");
-    private final int points;
+    private final long points;
     private final String st;
     Handfuls(){
         this(0, "");
@@ -19,7 +19,7 @@ public enum Handfuls {
         return st;
     }
 
-    public int getPoints(){
+    public long getPoints(){
         return points;
     }
     public static IdList<Handfuls> getDeclarableHandFuls() {

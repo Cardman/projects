@@ -39,7 +39,7 @@ public final class Graphic extends AbsMetaLabelCard {
         double esperance_;
         int nbDeals_ = scores.size();
 //        nbDealsMinusOne_--;
-        for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
+        for(int joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
             _g.setColor(GuiConstants.newColor(couleurs.get(joueur_)));
 //            esperance_=(double)sommes.first()/(double)nombreJoueurs_;
             int x_ = 0;

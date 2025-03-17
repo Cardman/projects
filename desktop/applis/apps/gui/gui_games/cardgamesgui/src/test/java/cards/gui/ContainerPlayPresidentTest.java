@@ -233,7 +233,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p9() {
         RulesPresident r_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
@@ -268,7 +268,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p11() {
         RulesPresident r_ = rules();
         r_.setPossibleReversing(true);
-        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        DealPresident deal_ = new DealPresident(deal3(),0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
         nextCard(mock_, create(CardPresident.CLUB_KING));
@@ -284,7 +284,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p12() {
         RulesPresident r_ = rules();
         r_.setPossibleReversing(true);
-        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        DealPresident deal_ = new DealPresident(deal3(),0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
         nextCard(mock_, create(CardPresident.CLUB_KING));
@@ -296,16 +296,16 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClick(csp_.window().getTricksHands());
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(13,th_.getDistribution().hand((byte) 1).total());
-        assertEq(13,th_.getDistribution().hand((byte) 2).total());
-        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(13,th_.getDistribution().hand(1).total());
+        assertEq(13,th_.getDistribution().hand(2).total());
+        assertEq(13,th_.getDistribution().hand(3).total());
     }
     @Test
     public void p13() {
         RulesPresident r_ = rules();
         r_.setPossibleReversing(true);
-        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        DealPresident deal_ = new DealPresident(deal3(),0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
         nextCard(mock_, create(CardPresident.CLUB_KING));
@@ -318,16 +318,16 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(9,th_.getDistribution().hand((byte) 1).total());
-        assertEq(13,th_.getDistribution().hand((byte) 2).total());
-        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(9,th_.getDistribution().hand(1).total());
+        assertEq(13,th_.getDistribution().hand(2).total());
+        assertEq(13,th_.getDistribution().hand(3).total());
     }
     @Test
     public void p14() {
         RulesPresident r_ = rules();
         r_.setPossibleReversing(true);
-        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        DealPresident deal_ = new DealPresident(deal3(),0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
         nextCard(mock_, create(CardPresident.HEART_1));
@@ -346,16 +346,16 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),3);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(8,th_.getDistribution().hand((byte) 1).total());
-        assertEq(13,th_.getDistribution().hand((byte) 2).total());
-        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(8,th_.getDistribution().hand(1).total());
+        assertEq(13,th_.getDistribution().hand(2).total());
+        assertEq(13,th_.getDistribution().hand(3).total());
     }
     @Test
     public void p15() {
         RulesPresident r_ = rules();
         r_.setPossibleReversing(true);
-        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        DealPresident deal_ = new DealPresident(deal3(),0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
         nextCard(mock_, create(CardPresident.CLUB_KING));
@@ -368,16 +368,16 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),1);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(13,th_.getDistribution().hand((byte) 1).total());
-        assertEq(13,th_.getDistribution().hand((byte) 2).total());
-        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(13,th_.getDistribution().hand(1).total());
+        assertEq(13,th_.getDistribution().hand(2).total());
+        assertEq(13,th_.getDistribution().hand(3).total());
     }
     @Test
     public void p16() {
         RulesPresident r_ = rules();
         r_.setPossibleReversing(true);
-        DealPresident deal_ = new DealPresident(deal3(),(byte) 0);
+        DealPresident deal_ = new DealPresident(deal3(),0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_, create(CardPresident.CLUB_JACK,CardPresident.SPADE_JACK,CardPresident.HEART_JACK,CardPresident.DIAMOND_JACK));
         nextCard(mock_, create(CardPresident.HEART_1));
@@ -397,10 +397,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),2);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(8,th_.getDistribution().hand((byte) 1).total());
-        assertEq(13,th_.getDistribution().hand((byte) 2).total());
-        assertEq(13,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(8,th_.getDistribution().hand(1).total());
+        assertEq(13,th_.getDistribution().hand(2).total());
+        assertEq(13,th_.getDistribution().hand(3).total());
     }
     @Test
     public void p17() {
@@ -425,10 +425,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(11,th_.getDistribution().hand((byte) 1).total());
-        assertEq(12,th_.getDistribution().hand((byte) 2).total());
-        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(11,th_.getDistribution().hand(1).total());
+        assertEq(12,th_.getDistribution().hand(2).total());
+        assertEq(12,th_.getDistribution().hand(3).total());
     }
     @Test
     public void p18() {
@@ -453,10 +453,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(11,th_.getDistribution().hand((byte) 1).total());
-        assertEq(12,th_.getDistribution().hand((byte) 2).total());
-        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(11,th_.getDistribution().hand(1).total());
+        assertEq(12,th_.getDistribution().hand(2).total());
+        assertEq(12,th_.getDistribution().hand(3).total());
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),1);
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),5);
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getCardNumberTrick().getCombo(),0);
@@ -483,10 +483,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),3);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(13,th_.getDistribution().hand((byte) 0).total());
-        assertEq(10,th_.getDistribution().hand((byte) 1).total());
-        assertEq(12,th_.getDistribution().hand((byte) 2).total());
-        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+        assertEq(13,th_.getDistribution().hand(0).total());
+        assertEq(10,th_.getDistribution().hand(1).total());
+        assertEq(12,th_.getDistribution().hand(2).total());
+        assertEq(12,th_.getDistribution().hand(3).total());
     }
     @Test
     public void p20() {
@@ -526,10 +526,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p22() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.CLUB_3,CardPresident.CLUB_4));
@@ -556,10 +556,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p23() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.CLUB_3,CardPresident.CLUB_4));
@@ -587,10 +587,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p24() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.CLUB_3,CardPresident.CLUB_4));
@@ -619,10 +619,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p25() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
@@ -652,10 +652,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p26() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
@@ -664,21 +664,21 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         tryClickCard(componentReceived(csp_,create(mock_.currentSwitch().carte(1))));
         tryClick(csp_.getGivingCardsOk());
         assertEq(13,csp_.userHand().total());
-        assertEq(13,csp_.partiePresident().getDeal().hand((byte) 0).total());
-        assertEq(13,csp_.partiePresident().getDeal().hand((byte) 1).total());
-        assertEq(13,csp_.partiePresident().getDeal().hand((byte) 2).total());
-        assertEq(13,csp_.partiePresident().getDeal().hand((byte) 3).total());
+        assertEq(13,csp_.partiePresident().getDeal().hand(0).total());
+        assertEq(13,csp_.partiePresident().getDeal().hand(1).total());
+        assertEq(13,csp_.partiePresident().getDeal().hand(2).total());
+        assertEq(13,csp_.partiePresident().getDeal().hand(3).total());
     }
     @Test
     public void p27() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         nextCard(mock_,create(CardPresident.HEART_3));
         nextCard(mock_,create(CardPresident.HEART_6));
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
@@ -707,10 +707,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p28() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.CLUB_3,CardPresident.CLUB_4));
@@ -725,10 +725,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
         r_.getCommon().setNbDeals(2);
         r_.setLooserStartsFirst(true);
-        DealPresident deal_ = new DealPresident(deal4(), (byte) 2);
+        DealPresident deal_ = new DealPresident(deal4(), 2);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame3(mock_);
-        DealPresident dealSec_ = new DealPresident(deal4(), (byte) 1);
+        DealPresident dealSec_ = new DealPresident(deal4(), 1);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         nextCard(mock_,create(CardPresident.HEART_3));
@@ -757,10 +757,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
         r_.getCommon().setNbDeals(2);
         r_.setLooserStartsFirst(true);
-        DealPresident deal_ = new DealPresident(deal4(), (byte) 2);
+        DealPresident deal_ = new DealPresident(deal4(), 2);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame4(mock_);
-        DealPresident dealSec_ = new DealPresident(deal4(), (byte) 1);
+        DealPresident dealSec_ = new DealPresident(deal4(), 1);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         ContainerSinglePresident csp_ = oneDeal4(deal_, mock_, r_);
@@ -788,10 +788,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p31() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         mock_.getStacks().add(dealSec_);
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
         mock_.getSw().add(create(CardPresident.DIAMOND_4,CardPresident.CLUB_4));
@@ -950,8 +950,8 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p37() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_,create(CardPresident.HEART_3));
         nextCard(mock_,create(CardPresident.HEART_6));
@@ -984,8 +984,8 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p38() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_,create(CardPresident.HEART_6));
         GamePresident gp_ = edited(deal_, r_);
@@ -1018,8 +1018,8 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p39() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         GamePresident gp_ = edited(deal_, r_);
         mockReGame(gp_);
@@ -1055,8 +1055,8 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         r_.setEqualty(EqualtyPlaying.SKIP_DIFF_NEXT_STOP_ALL);
         r_.getCommon().setNbDeals(2);
         r_.setLooserStartsFirst(true);
-        DealPresident deal_ = new DealPresident(deal4(), (byte) 2);
-        DealPresident dealSec_ = new DealPresident(deal4(), (byte) 1);
+        DealPresident deal_ = new DealPresident(deal4(), 2);
+        DealPresident dealSec_ = new DealPresident(deal4(), 1);
         MockGamePresident mock_ = new MockGamePresident();
         GamePresident gp_ = edited(deal_, r_);
         mockReGame4(gp_);
@@ -1092,8 +1092,8 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p41() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
-        DealPresident dealSec_ = new DealPresident(deal1(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
+        DealPresident dealSec_ = new DealPresident(deal1(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_,create(CardPresident.HEART_3));
         nextCard(mock_,create(CardPresident.HEART_6));
@@ -1126,7 +1126,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p42() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         nextCard(mock_,create(CardPresident.HEART_3));
         nextCard(mock_,create(CardPresident.HEART_6));
@@ -1144,11 +1144,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p43() {
         RulesPresident r_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mock_.getStacks().add(new DealPresident(deal_));
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
-        GamePresident gp_ = new GamePresident(GameType.RANDOM, deal_, r_, new Bytes());
+        GamePresident gp_ = new GamePresident(GameType.RANDOM, deal_, r_, new Ints());
         mockReGame(gp_);
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gp_,mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
@@ -1165,7 +1165,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p44() {
         RulesPresident r_ = rules();
         r_.getCommon().setNbDeals(2);
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mock_.getStacks().add(new DealPresident(deal_));
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
@@ -1185,7 +1185,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p45() {
         RulesPresident rules_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         mock_.getStacks().add(new DealPresident(deal_));
@@ -1205,7 +1205,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p46() {
         RulesPresident rules_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         mock_.getStacks().add(new DealPresident(deal_));
@@ -1225,7 +1225,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p47() {
         RulesPresident rules_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         mock_.getStacks().add(new DealPresident(deal_));
@@ -1245,11 +1245,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p48() {
         RulesPresident rules_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mock_.getStacks().add(new DealPresident(deal_));
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
-        GamePresident gb_ = new GamePresident(GameType.RANDOM,deal_,rules_,new Bytes());
+        GamePresident gb_ = new GamePresident(GameType.RANDOM,deal_,rules_,new Ints());
         mockReGame(gb_);
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gb_, mock_, 1);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
@@ -1265,7 +1265,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p49() {
         RulesPresident rules_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         mock_.getStacks().add(new DealPresident(deal_));
@@ -1286,11 +1286,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p50() {
         RulesPresident rules_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mock_.getStacks().add(new DealPresident(deal_));
         mock_.getSw().add(create(CardPresident.DIAMOND_3));
-        GamePresident gb_ = new GamePresident(GameType.RANDOM,deal_,rules_,new Bytes());
+        GamePresident gb_ = new GamePresident(GameType.RANDOM,deal_,rules_,new Ints());
         mockReGame(gb_);
         ContainerSinglePresident csp_ = loadPresidentOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csp_.window().getPane()).getTreeAccessible();
@@ -1307,7 +1307,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p51() {
         RulesPresident r_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
@@ -1339,7 +1339,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     @Test
     public void p53() {
         RulesPresident r_ = rules();
-        DealPresident deal_ = new DealPresident(deal2(), (byte) 0);
+        DealPresident deal_ = new DealPresident(deal2(), 0);
         MockGamePresident mock_ = new MockGamePresident();
         mockGame(mock_);
         ContainerSinglePresident csp_ = editPresidentOtherDisplay(r_,deal_,mock_);
@@ -1351,7 +1351,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     public void p54() {
         RulesPresident r_ = rules();
         r_.setEqualty(EqualtyPlaying.SKIP_ALWAYS_NEXT);
-        DealPresident deal_ = new DealPresident(dealPres(),(byte) 3);
+        DealPresident deal_ = new DealPresident(dealPres(),3);
         MockGamePresident mock_ = mockGamePresident();
         ContainerSinglePresident csp_ = editPresident(r_,deal_,mock_);
         display(csp_);
@@ -1364,10 +1364,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         eventsCombo(csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTrickNumber().getCombo(),2);
         TricksHandsPresident th_ = csp_.window().getDialogTricksPresident().getPanelTricksHandsPresident().getTricksHands();
         assertEq(4,th_.getDistribution().nombreDeMains());
-        assertEq(11,th_.getDistribution().hand((byte) 0).total());
-        assertEq(12,th_.getDistribution().hand((byte) 1).total());
-        assertEq(12,th_.getDistribution().hand((byte) 2).total());
-        assertEq(12,th_.getDistribution().hand((byte) 3).total());
+        assertEq(11,th_.getDistribution().hand(0).total());
+        assertEq(12,th_.getDistribution().hand(1).total());
+        assertEq(12,th_.getDistribution().hand(2).total());
+        assertEq(12,th_.getDistribution().hand(3).total());
     }
 
     static CustList<HandPresident> dealPres() {
@@ -1904,10 +1904,10 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
     }
 
     private GamePresident edited(DealPresident _deal, RulesPresident _rules) {
-        return edited(_deal,_rules,new Bytes());
+        return edited(_deal,_rules,new Ints());
     }
 
-    private GamePresident edited(DealPresident _deal, RulesPresident _rules, Bytes _rks) {
+    private GamePresident edited(DealPresident _deal, RulesPresident _rules, Ints _rks) {
         GamePresident g_ = new GamePresident(GameType.EDIT, _deal, _rules, _rks);
         g_.setNombre();
         return g_;
@@ -1979,7 +1979,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         return csp_;
     }
     private DealPresident mix(int _d) {
-        return new DealPresident(deal1(), (byte) _d);
+        return new DealPresident(deal1(), _d);
     }
 
     private static void nextCard(MockGamePresident _m, HandPresident _bid) {

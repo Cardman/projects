@@ -56,7 +56,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         main_.ajouter(CardBelote.SPADE_KING);
         main_.ajouter(CardBelote.DIAMOND_7);
         mains_.add(main_);
-        DealBelote donne_ = new DealBelote(mains_,(byte)3);
+        DealBelote donne_ = new DealBelote(mains_,3);
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return new GameBelote(GameType.RANDOM,donne_,regles_);
@@ -89,7 +89,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.SPADE_9));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -106,7 +106,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.CLUB_JACK));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_JACK);
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -124,7 +124,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.CLUB_KING));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.CLUB_KING);
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -141,7 +141,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.HEART_7));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_7);
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -160,7 +160,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -176,7 +176,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         HandBelote hand_ = game_.getDistribution().hand(game_.getEntameur());
         assertTrue(hand_.contient(CardBelote.DIAMOND_8));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote playableCards_ = game_.playableCards(suits_);
@@ -191,7 +191,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertTrue(game_.keepPlayingCurrentTrick());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertTrue(game_.keepPlayingCurrentTrick());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
         assertTrue(game_.keepPlayingCurrentTrick());
         player_ = game_.playerAfter(player_);
@@ -209,7 +209,7 @@ public class GameBeloteWithoutTrumpSuitOneTest extends GameBeloteWithoutTrumpSui
         assertTrue(game_.keepPlayingCurrentTrick());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_8);
         assertTrue(game_.keepPlayingCurrentTrick());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_QUEEN);
         assertTrue(game_.keepPlayingCurrentTrick());
         player_ = game_.playerAfter(player_);

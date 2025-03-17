@@ -18,11 +18,11 @@ public final class GameTarotBeginTrickClassic {
     private final HandTarot currentHand;
     private final GameTarotCommonPlaying common;
     private final Role currentStatus;
-    private final Bytes confidentPlayers;
-    private final Bytes notConfidentPlayers;
-    private final Bytes notPlayed;
-    private final Bytes confidentPlayersNotPlay;
-    private final Bytes notConfidentPlayersNotPlay;
+    private final Ints confidentPlayers;
+    private final Ints notConfidentPlayers;
+    private final Ints notPlayed;
+    private final Ints confidentPlayersNotPlay;
+    private final Ints notConfidentPlayersNotPlay;
     private final HandTarot playableCards;
     private final IdMap<Suit, HandTarot> repartitionJouable;
     private final HandTarot atoutsJouables;
@@ -36,7 +36,7 @@ public final class GameTarotBeginTrickClassic {
     private final HandTarot cartesJouees;
     private final IdMap<Suit, CustList<HandTarot>> suitesTouteCouleur;
     private final CustList<TrickTarot> plisFaits;
-    private final byte currentPlayer;
+    private final int currentPlayer;
     private final IdMap<Suit, HandTarot> repartition;
     private final IdMap<Suit, HandTarot> cartesMaitresses;
     private final boolean carteAppeleeJouee;
@@ -49,9 +49,9 @@ public final class GameTarotBeginTrickClassic {
         currentHand = _currentHand;
         info = _done;
         common = new GameTarotCommonPlaying(_done,_teamsRelation);
-        byte nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
+        int nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
         TrickTarot trTarot_ = _done.getProgressingTrick();
-        Bytes played_ = trTarot_.joueursAyantJoue(nbPlayers_);
+        Ints played_ = trTarot_.joueursAyantJoue(nbPlayers_);
         notPlayed = GameTarotTeamsRelation.autresJoueurs(played_,nbPlayers_);
         currentPlayer = trTarot_.getNextPlayer(nbPlayers_);
         repartition = currentHand.couleurs();
@@ -81,13 +81,13 @@ public final class GameTarotBeginTrickClassic {
         maitreAtout = tarotInfoPliEnCours.isMaitreAtout();
     }
     CardTarot entameSurExcuseClassique() {
-        byte starter_ = info.getProgressingTrick().getEntameur();
+        int starter_ = info.getProgressingTrick().getEntameur();
         if(starter_ == teamsRelation.getTaker()) {
             if(currentStatus == Role.CALLED_PLAYER) {
                 return playAsCalledPlayerOnExc();
             }
             //defenseur entamant sur l'excuse du preneur
-            if(NumberUtil.equalsSetBytes(confidentPlayersNotPlay,notPlayed)) {
+            if(NumberUtil.equalsSetInts(confidentPlayersNotPlay,notPlayed)) {
                 return playAsDefenderTeam();
             }
             if(common.appeleConnuDefenseur(currentPlayer,cartesPossibles)) {
@@ -175,7 +175,7 @@ public final class GameTarotBeginTrickClassic {
         IdList<Suit> couleursNonVidesAjouer_ = GameTarotCommon.couleursNonAtoutNonVides(playableCards, couleursAjouer_);
         IdList<Suit> couleurs_ = couleursNonVidesAjouer_;
         boolean pasAtoutAppeles_ = true;
-        for (byte a: teamsRelation.getCalledPlayers()) {
+        for (int a: teamsRelation.getCalledPlayers()) {
             if (!cartesPossibles.getVal(Suit.TRUMP).get(a).estVide()) {
                 pasAtoutAppeles_ = false;
                 break;
@@ -185,7 +185,7 @@ public final class GameTarotBeginTrickClassic {
             //attention s'il existe une couleur que l'appele ne possede pas
             //attention s'il existe une couleur avec carte rel maitre sur l'appele
             HandTarot cartesPossiblesAppele_ = new HandTarot();
-            for (byte a: teamsRelation.getCalledPlayers()) {
+            for (int a: teamsRelation.getCalledPlayers()) {
                 for (Suit couleur_ : Suit.couleursOrdinaires()) {
                     cartesPossiblesAppele_.ajouterCartes(cartesPossibles.getVal(couleur_).get(a));
                 }
@@ -284,7 +284,7 @@ public final class GameTarotBeginTrickClassic {
 
     private CardTarot tryPlay(IdList<Suit> _couleurs, CardTarot _cartCouleur) {
         //une seule carte de couleur est presente
-        Bytes partenaires_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(currentHand, confidentPlayersNotPlay,
+        Ints partenaires_ = GameTarotTrickHypothesis.joueursPouvantCouperCouleurs(currentHand, confidentPlayersNotPlay,
                 cartesPossibles, _couleurs);
         partenaires_ = GameTarotTrickHypothesis.joueursPossedantAtoutMaitre(partenaires_, cartesCertaines,
                 cartesJouees);
@@ -396,7 +396,7 @@ public final class GameTarotBeginTrickClassic {
             return CardTarot.petit();
         }
         HandTarot atoutsJoues_ = cartesJouees.couleur(Suit.TRUMP);
-        byte nombreDeJoueurs_ =teamsRelation.getNombreDeJoueurs();
+        int nombreDeJoueurs_ =teamsRelation.getNombreDeJoueurs();
         Rate moyenneAtout_ = GameTarotCommonPlaying.moyenneAtout(currentHand, atoutsJoues_,
                 cartesPossibles, nombreDeJoueurs_);
         if (!GameTarotTrickHypothesis.joueursPossedantNbAtout(confidentPlayersNotPlay,
@@ -445,7 +445,7 @@ public final class GameTarotBeginTrickClassic {
         return playDefaultCardAsDefender(cartesJouees, couleursNonVides_);
     }
 
-    private CardTarot playAsDefenderStartNew(byte _next, IdList<Suit> _couleursNonVidesAjouer, IdList<Suit> _couleursNonVides) {
+    private CardTarot playAsDefenderStartNew(int _next, IdList<Suit> _couleursNonVidesAjouer, IdList<Suit> _couleursNonVides) {
         if(defenseOuvreurStrict(_next)) {
             IdList<Suit> couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(playableCards,
                     plisFaits, _couleursNonVidesAjouer);
@@ -503,11 +503,11 @@ public final class GameTarotBeginTrickClassic {
         return touteCouleurPossedeCarteMaitresse_;
     }
 
-    static boolean noTrumping(IdMap<Suit, HandTarot> _repartition, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _joueursNonJoue) {
+    static boolean noTrumping(IdMap<Suit, HandTarot> _repartition, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Ints _joueursNonJoue) {
         boolean aucuneCoupe_ = true;
         for (Suit couleur_ : Suit.couleursOrdinaires()) {
             boolean plusCartesCouleurAutres_ = true;
-            for(byte joueur_: _joueursNonJoue) {
+            for(int joueur_: _joueursNonJoue) {
                 if (!_cartesPossibles.getVal(couleur_).get(joueur_).estVide()) {
                     plusCartesCouleurAutres_ = false;
                     break;
@@ -540,10 +540,10 @@ public final class GameTarotBeginTrickClassic {
      @return
      */
     CardTarot playAsCalledPlayer() {
-        byte nombreDeJoueurs_ =teamsRelation.getNombreDeJoueurs();
+        int nombreDeJoueurs_ =teamsRelation.getNombreDeJoueurs();
         HandTarot atoutsJoues_ = cartesJouees.couleur(Suit.TRUMP);
         boolean touteCouleurPossedeCarteMaitresse_ = allSuitOwnLeadingCard(repartition, cartesMaitresses, Suit.couleursOrdinaires());
-        byte taker_ = teamsRelation.getTaker();
+        int taker_ = teamsRelation.getTaker();
         boolean takerNoPlay_ = notPlayed.containsObj(taker_);
         IdList<Suit> couleursAjouer_ = couleursNonAppelees();
         IdList<Suit> couleursNonVidesAjouer_ = GameTarotCommon.couleursNonAtoutNonVides(playableCards, couleursAjouer_);
@@ -560,7 +560,7 @@ public final class GameTarotBeginTrickClassic {
             return playAsCalledPlayerTakerLast(couleursNonVidesAjouer_, couleursNonVides_, saveLeading_);
         }
         IdList<Suit> couleurs_;
-        Bytes defenseurs_ = joueursAvantAppeleApresPreneur(currentPlayer);
+        Ints defenseurs_ = joueursAvantAppeleApresPreneur(currentPlayer);
         boolean defausseTousDefenseursIntermediaire_ = defausseTousJoueursNonConfiance(cartesPossibles, defenseurs_);
         if(defausseTousDefenseursIntermediaire_
                 && cartesPossibles.getVal(Suit.TRUMP).get(taker_).contient(CardTarot.petit())
@@ -570,7 +570,7 @@ public final class GameTarotBeginTrickClassic {
             couleurs_ = GameTarotCommon.couleursLesPlusBasses(currentHand, couleurs_);
             return repartitionJouable.getVal(couleurs_.first()).derniereCarte();
         }
-        Bytes partenaires_ = new Bytes();
+        Ints partenaires_ = new Ints();
         partenaires_.add(taker_);
         couleurs_ = couleursEntameesParJoueurs(plisFaits, partenaires_, couleursNonVidesAjouer_);
         couleurs_ = GameTarotCommon.couleursSansFigures(currentHand, couleurs_);
@@ -661,7 +661,7 @@ public final class GameTarotBeginTrickClassic {
     }
 
     private CardTarot playAsCalledPlayerCalledCard() {
-        byte taker_ = teamsRelation.getTaker();
+        int taker_ = teamsRelation.getTaker();
         boolean takerNoPlay_ = notPlayed.containsObj(taker_);
         if (!takerNoPlay_) {
             return CardTarot.WHITE;
@@ -690,7 +690,7 @@ public final class GameTarotBeginTrickClassic {
     }
 
     private CardTarot playAsCalledPlayerTakerLast(IdList<Suit> _couleursNonVidesAjouer, IdList<Suit> _couleursNonVides, boolean _saveLeading) {
-        byte taker_ = teamsRelation.getTaker();
+        int taker_ = teamsRelation.getTaker();
         IdList<Suit> couleurs_;
         couleurs_ = GameTarotCommonPlaying.couleursNonOuvertesNonVides(currentHand,
                 plisFaits, _couleursNonVidesAjouer);
@@ -730,7 +730,7 @@ public final class GameTarotBeginTrickClassic {
         if(_saveLeading) {
             return jeuAtoutOffensif();
         }
-        Bytes partenaires_ = new Bytes();
+        Ints partenaires_ = new Ints();
         partenaires_.add(taker_);
         couleurs_ = GameTarotCommonPlaying.couleursLesPlusEntameesParJoueurs(plisFaits, partenaires_, _couleursNonVides);
         couleurs_ = GameTarotCommon.couleursLesPlusCourtes(cartesJouees, couleurs_);
@@ -858,10 +858,10 @@ public final class GameTarotBeginTrickClassic {
         return CardTarot.WHITE;
     }
 
-    private boolean defausseTousJoueursNonConfiance(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _foeTeam) {
+    private boolean defausseTousJoueursNonConfiance(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Ints _foeTeam) {
         boolean defausseTousJoueurs_ = true;
         CustList<HandTarot> atoutsJoueurs_ = _cartesPossibles.getVal(Suit.TRUMP);
-        for(byte joueur_: _foeTeam) {
+        for(int joueur_: _foeTeam) {
             if (!atoutsJoueurs_.get(joueur_).estVide()) {
                 defausseTousJoueurs_ = false;
                 break;
@@ -893,7 +893,7 @@ public final class GameTarotBeginTrickClassic {
         deborde les autres joueurs en
         couleurs et en atout
         */
-        byte nbPlayers_ = teamsRelation.getNombreDeJoueurs();
+        int nbPlayers_ = teamsRelation.getNombreDeJoueurs();
         if (!playableCards.contient(CardTarot.excuse())) {
             return jeuMainMaitresse(playableCards, cartesMaitresses);
         }
@@ -913,7 +913,7 @@ public final class GameTarotBeginTrickClassic {
             }
             return CardTarot.excuse();
         }
-        Bytes joueursConfianceNumero_ = new Bytes(confidentPlayers);
+        Ints joueursConfianceNumero_ = new Ints(confidentPlayers);
         joueursConfianceNumero_.add(currentPlayer);
         if(GameTarotTrickInfo.plisTousFaitsPar(joueursConfianceNumero_,plisFaits,nbPlayers_)) {
             return jeuMainMaitresse(playableCards, cartesMaitresses);
@@ -921,7 +921,7 @@ public final class GameTarotBeginTrickClassic {
         return CardTarot.excuse();
     }
 
-    private boolean playExc(byte _nbPlayers, byte _next, CustList<TrickTarot> _plisFaits, boolean _carteAppeleeJouee) {
+    private boolean playExc(int _nbPlayers, int _next, CustList<TrickTarot> _plisFaits, boolean _carteAppeleeJouee) {
         boolean playExc_ = true;
         if (_carteAppeleeJouee) {
             if(teamsRelation.aucunPliAdverse(_next, _plisFaits)) {
@@ -932,7 +932,7 @@ public final class GameTarotBeginTrickClassic {
                 playExc_ = false;
             }
         } else {
-            Bytes joueursRamasseurs_ = new Bytes();
+            Ints joueursRamasseurs_ = new Ints();
             joueursRamasseurs_.add(teamsRelation.getTaker());
             if(GameTarotTrickInfo.plisTousFaitsPar(joueursRamasseurs_, _plisFaits, _nbPlayers)) {
                 playExc_ = false;
@@ -941,9 +941,9 @@ public final class GameTarotBeginTrickClassic {
         return playExc_;
     }
 
-    boolean defenseOuvreur(byte _joueur, boolean _playedCalledCard) {
-        byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
-        byte nextPlayer_ = common.playerAfter(_joueur);
+    boolean defenseOuvreur(int _joueur, boolean _playedCalledCard) {
+        int nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
+        int nextPlayer_ = common.playerAfter(_joueur);
         if (_playedCalledCard) {
             return notConfidentPlayers.containsObj(nextPlayer_);
         }
@@ -953,17 +953,17 @@ public final class GameTarotBeginTrickClassic {
         return teamsRelation.getTaker() == (_joueur + 2) % nombreDeJoueurs_;
     }
 
-    boolean defenseOuvreurStrict(byte _joueur) {
-        byte nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
+    boolean defenseOuvreurStrict(int _joueur) {
+        int nombreDeJoueurs_ = teamsRelation.getNombreDeJoueurs();
         if (notConfidentPlayers.size() == 2) {
-            byte nextPlayer_ = common.playerAfter(_joueur);
+            int nextPlayer_ = common.playerAfter(_joueur);
             return notConfidentPlayers.containsObj(nextPlayer_);
         }
         return GameTarotTeamsRelation.justeApresJoueur(teamsRelation.getTaker(), _joueur, nombreDeJoueurs_);
     }
-    Bytes joueursAvantAppeleApresPreneur(byte _appele) {
-        Bytes joueurs_ = new Bytes();
-        byte player_ = common.playerAfter(teamsRelation.getTaker());
+    Ints joueursAvantAppeleApresPreneur(int _appele) {
+        Ints joueurs_ = new Ints();
+        int player_ = common.playerAfter(teamsRelation.getTaker());
         //called player exists
         while (!NumberUtil.eq(player_, _appele)) {
             joueurs_.add(player_);
@@ -972,7 +972,7 @@ public final class GameTarotBeginTrickClassic {
         return joueurs_;
     }
     static IdList<Suit> couleursEntameesParJoueurs(
-            CustList<TrickTarot> _plisFaits, Bytes _joueurs, IdList<Suit> _couleurs) {
+            CustList<TrickTarot> _plisFaits, Ints _joueurs, IdList<Suit> _couleurs) {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
             boolean couleurEntamee_ = false;
@@ -1042,11 +1042,11 @@ public final class GameTarotBeginTrickClassic {
         return couleurAppeleePossedeeJouable_.premiereCarte();
     }
     static IdList<Suit> couleursCoupeeParJoueurs(HandTarot _main,
-                                                   Bytes _joueurs, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
+                                                   Ints _joueurs, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
                                                    IdMap<Suit,CustList<HandTarot>> _cartesCertaines, IdList<Suit> _couleurs) {
         IdList<Suit> couleurs_ = new IdList<Suit>();
 
-        for (byte joueur_ : _joueurs) {
+        for (int joueur_ : _joueurs) {
             IdList<Suit> couleursLoc_ = couleursCoupeePar(_main,
                     joueur_, _cartesPossibles,
                     _cartesCertaines, _couleurs);
@@ -1059,19 +1059,19 @@ public final class GameTarotBeginTrickClassic {
     }
     private boolean jouerAtout(HandTarot _atoutsJoues,
                                IdMap<Suit,CustList<HandTarot>> _cartesPossibles) {
-        byte nombreDeJoueurs_ =teamsRelation.getNombreDeJoueurs();
+        int nombreDeJoueurs_ =teamsRelation.getNombreDeJoueurs();
         return jouerAtout(playableCards, _atoutsJoues,
                 _cartesPossibles, nombreDeJoueurs_);
     }
     static boolean jouerAtout(HandTarot _main, HandTarot _atoutsJoues,
-                              IdMap<Suit,CustList<HandTarot>> _cartesPossibles, byte _nombreJoueurs) {
+                              IdMap<Suit,CustList<HandTarot>> _cartesPossibles, int _nombreJoueurs) {
         int nb_ = _main.couleur(Suit.TRUMP).total();
         if (nb_ == 0) {
             return false;
         }
         CustList<HandTarot> repartitionAtout_ = _cartesPossibles
                 .getVal(Suit.TRUMP);
-        byte nombreDefausses_ = 0;
+        int nombreDefausses_ = 0;
         for (int i = 0; i < _nombreJoueurs; i++) {
             HandTarot main_ = repartitionAtout_.get(i);
             if (!main_.estVide()) {
@@ -1080,8 +1080,8 @@ public final class GameTarotBeginTrickClassic {
             nombreDefausses_++;
         }
         HandTarot atoutsNonJoues_ = new HandTarot();
-        byte nombreJoueursAvecAtout_ = (byte) (_nombreJoueurs
-                - nombreDefausses_ - 1);
+        int nombreJoueursAvecAtout_ = _nombreJoueurs
+                - nombreDefausses_ - 1;
         for (CardTarot atout_ : HandTarot.atoutsSansExcuse()) {
             if (_main.contient(atout_)) {
                 continue;
@@ -1183,11 +1183,11 @@ public final class GameTarotBeginTrickClassic {
         return couleurs_;
     }
     static IdList<Suit> couleursNonCoupeeParJoueurs(HandTarot _main,
-                                                      Bytes _joueurs, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
+                                                      Ints _joueurs, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
                                                       IdMap<Suit,CustList<HandTarot>> _cartesCertaines, IdList<Suit> _couleurs) {
         IdList<Suit> couleursCoupees_ = new IdList<Suit>();
 
-        for (byte joueur_ : _joueurs) {
+        for (int joueur_ : _joueurs) {
             IdList<Suit> couleursLoc_ = couleursCoupeePar(_main,
                     joueur_, _cartesPossibles,
                     _cartesCertaines, _couleurs);
@@ -1205,7 +1205,7 @@ public final class GameTarotBeginTrickClassic {
         return couleurs_;
     }
     static IdList<Suit> couleursNonOuvertesAttaque(HandTarot _main,
-                                                             CustList<TrickTarot> _plis, Bytes _attaquants,
+                                                             CustList<TrickTarot> _plis, Ints _attaquants,
                                                              IdList<Suit> _couleurs) {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         IdList<Suit> couleursOuvertes_ = new IdList<Suit>();
@@ -1231,7 +1231,7 @@ public final class GameTarotBeginTrickClassic {
     }
 
     static IdList<Suit> couleursCoupeePar(HandTarot _main,
-                                                    byte _joueur, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
+                                                    int _joueur, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
                                                     IdMap<Suit,CustList<HandTarot>> _cartesCertaines, IdList<Suit> _couleurs) {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         IdMap<Suit,HandTarot> couleursMains_ = _main.couleurs();
@@ -1260,13 +1260,13 @@ public final class GameTarotBeginTrickClassic {
         return couleurs_;
     }
 
-    static boolean plisTousFaitsParPreneurJoueur(byte _preneur,
-                                                 CustList<TrickTarot> _unionPlis, byte _nombreJoueurs) {
-        Bytes joueurs_ = new Bytes();
+    static boolean plisTousFaitsParPreneurJoueur(int _preneur,
+                                                 CustList<TrickTarot> _unionPlis, int _nombreJoueurs) {
+        Ints joueurs_ = new Ints();
         joueurs_.add(_preneur);
-        Bytes autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(joueurs_, _nombreJoueurs);
-        for (byte joueur_ : autresJoueurs_) {
-            Bytes joueursLoc_ = new Bytes(joueurs_);
+        Ints autresJoueurs_ = GameTarotTeamsRelation.autresJoueurs(joueurs_, _nombreJoueurs);
+        for (int joueur_ : autresJoueurs_) {
+            Ints joueursLoc_ = new Ints(joueurs_);
             joueursLoc_.add(joueur_);
             if (GameTarotTrickInfo.plisTousFaitsPar(joueursLoc_, _unionPlis, _nombreJoueurs)) {
                 return true;

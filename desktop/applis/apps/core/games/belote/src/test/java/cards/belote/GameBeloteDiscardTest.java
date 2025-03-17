@@ -267,7 +267,7 @@ public final class GameBeloteDiscardTest extends EquallableBeloteUtil {
 
     private static HandBelote newGameBeloteCallDiscard(HandBelote _h, HandBelote _l,BidBeloteSuit _b) {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 2);
+        db_.setDealer(2);
         db_.getDeal().add(_h);
         db_.getDeal().add(new HandBelote());
         db_.getDeal().add(new HandBelote());
@@ -282,7 +282,7 @@ public final class GameBeloteDiscardTest extends EquallableBeloteUtil {
 
     private static GameBelote newGameBeloteCallDiscardUser(HandBelote _h, HandBelote _l,BidBeloteSuit _b) {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(_h);
         db_.getDeal().add(new HandBelote());
         db_.getDeal().add(new HandBelote());
@@ -295,9 +295,9 @@ public final class GameBeloteDiscardTest extends EquallableBeloteUtil {
         return gb_;
     }
 
-    private static int newGameBeloteCallDiscardSlam(HandBelote _h, HandBelote _l,BidBeloteSuit _b) {
+    private static long newGameBeloteCallDiscardSlam(HandBelote _h, HandBelote _l,BidBeloteSuit _b) {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 2);
+        db_.setDealer(2);
         db_.getDeal().add(_h);
         db_.getDeal().add(new HandBelote());
         db_.getDeal().add(new HandBelote());
@@ -312,7 +312,7 @@ public final class GameBeloteDiscardTest extends EquallableBeloteUtil {
 
     private static int completerDonne() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
                 CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,

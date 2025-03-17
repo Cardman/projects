@@ -396,7 +396,7 @@ public final class ContainerSimuTest extends EquallableCardsGuiUtil {
         return rules_;
     }
     private RulesTarot rulesTarotWithoutCall2() {
-        RulesTarot rules_ = new RulesTarot((byte) 6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setAllowedHandfuls(DialogTarotContent.poigneesAutoriseesMap(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL.getNombreCartesChien()));
         rules_.getCommon().setNbDeals(1);
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);

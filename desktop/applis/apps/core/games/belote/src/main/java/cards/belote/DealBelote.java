@@ -16,12 +16,12 @@ import code.util.core.NumberUtil;
 
 public final class DealBelote implements Iterable<HandBelote> {
 
-    public static final byte NUMERO_UTILISATEUR = 0;
+    public static final int NUMERO_UTILISATEUR = 0;
 
     /**Ensemble des mains des joueurs*/
     private CustList<HandBelote> deal=new CustList<HandBelote>();
     /**donneur est un entier allant de 0 a nombre de joueurs-1*/
-    private byte dealer;
+    private int dealer;
     /**nombre de parties jouees depuis le lancement*/
     private long nbDeals;
     /**Pile de distribution pour initialiser la donne*/
@@ -35,7 +35,7 @@ public final class DealBelote implements Iterable<HandBelote> {
     }
 
     public DealBelote(CustList<HandBelote> _pdonne,
-            byte _pdonneur) {
+                      int _pdonneur) {
         deal=_pdonne;
         dealer=_pdonneur;
     }
@@ -57,7 +57,7 @@ public final class DealBelote implements Iterable<HandBelote> {
 //        dealer = (byte)MonteCarloUtil.randomLong(_nbJoueurs,_gene);
 //    }
     /**Apres une partie la joueur apres le donneur actuel devient le nouveau donneur*/
-    public void donneurSuivant(byte _nouveauDonneur,int _nbJoueurs) {
+    public void donneurSuivant(int _nouveauDonneur,int _nbJoueurs) {
         dealer=_nouveauDonneur;
         //On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
         dealer++;
@@ -97,7 +97,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         /*On donne les_ cartes_ aux_ joueurs_.
         Le nombre_ de_ cartes_ donnes_ par_ joueur_ est_ de_ 3 puis_ 2*/
         //int nbJoueurs_ = _regles.getRepartition().getNombreJoueurs();
-        Bytes ordreDisributionJoueurs_;
+        Ints ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = orderedPlayersBegin(_regles);
 
         for(int i: _regles.getDealing().getDistributionDebut()) {
@@ -146,14 +146,14 @@ public final class DealBelote implements Iterable<HandBelote> {
         }
     }
 
-    void completerDonne(byte _preneur,RulesBelote _regles) {
+    void completerDonne(int _preneur,RulesBelote _regles) {
         CustList<HandBelote> handBelotes_ = mainsSupp(_preneur, _regles);
         int toFeed_ = NumberUtil.min(handBelotes_.size(),deal.size());
-        for (byte i = 0; i < toFeed_; i++) {
+        for (int i = 0; i < toFeed_; i++) {
             hand(i).ajouterCartes(handBelotes_.get(i));
         }
     }
-    public CustList<HandBelote> mainsSupp(byte _preneur,RulesBelote _regles) {
+    public CustList<HandBelote> mainsSupp(int _preneur,RulesBelote _regles) {
         if (_regles.getDealing().getDiscarded() > 0) {
             return new CustList<HandBelote>();
         }
@@ -174,7 +174,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         ajouterMainVides(hands_,nbPl_);
         hands_.get(_preneur).ajouter(talon_.jouer(IndexConstants.FIRST_INDEX));
         //Le preneur_ prend_ la_ carte_ du_ dessus_
-        Bytes ordreDisributionJoueurs_;
+        Ints ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = orderedPlayersBegin(_regles);
         for(int i: _regles.getDealing().getDistributionFin()) {
             for (int j : ordreDisributionJoueurs_) {
@@ -188,7 +188,7 @@ public final class DealBelote implements Iterable<HandBelote> {
         }
         return hands_;
     }
-    public Bytes orderedPlayersBegin(RulesBelote _regles) {
+    public Ints orderedPlayersBegin(RulesBelote _regles) {
         return _regles.getDealing().getId().getSortedPlayers(_regles.getDealing().getId().getNextPlayer(dealer));
     }
     /**Renvoie la main de l'utilisateur*/
@@ -198,31 +198,31 @@ public final class DealBelote implements Iterable<HandBelote> {
     public HandBelote derniereMain() {
         return deal.last();
     }
-    public HandBelote hand(byte _i) {
+    public HandBelote hand(int _i) {
         return deal.get(_i);
     }
-    public void ajouter(byte _preneur, CardBelote _jouer) {
+    public void ajouter(int _preneur, CardBelote _jouer) {
         deal.get(_preneur).ajouter(_jouer);
     }
 
-    public void trier(byte _joueur, IdList<Suit> _couleurs, boolean _decroissant, Order _couleur) {
+    public void trier(int _joueur, IdList<Suit> _couleurs, boolean _decroissant, Order _couleur) {
         deal.get(_joueur).trier(_couleurs, _decroissant, _couleur);
     }
-    public void trier(byte _joueur, IdList<Suit> _couleurs, boolean _decroissant, Suit _carteAppelee) {
+    public void trier(int _joueur, IdList<Suit> _couleurs, boolean _decroissant, Suit _carteAppelee) {
         deal.get(_joueur).trier(_couleurs, _decroissant, _carteAppelee);
     }
-    public void jouer(byte _preneur, CardBelote _carteJouee) {
+    public void jouer(int _preneur, CardBelote _carteJouee) {
         deal.get(_preneur).jouer(_carteJouee);
     }
-    public void supprimerCartes(byte _joueur, HandBelote _derniereMain) {
+    public void supprimerCartes(int _joueur, HandBelote _derniereMain) {
         deal.get(_joueur).supprimerCartes(_derniereMain);
     }
-    public void supprimerCartes(byte _joueur) {
+    public void supprimerCartes(int _joueur) {
         deal.get(_joueur).supprimerCartes();
     }
 
-    public byte nombreDeMains() {
-        return (byte)deal.size();
+    public int nombreDeMains() {
+        return deal.size();
     }
 
     @Override
@@ -235,10 +235,10 @@ public final class DealBelote implements Iterable<HandBelote> {
     public void setDeal(CustList<HandBelote> _deal) {
         deal = _deal;
     }
-    public byte getDealer() {
+    public int getDealer() {
         return dealer;
     }
-    public void setDealer(byte _dealer) {
+    public void setDealer(int _dealer) {
         dealer = _dealer;
     }
     public long getNbDeals() {

@@ -396,7 +396,7 @@ public final class CouleurValeurTest extends EquallableCardsUtil {
 
     @Test
     public void no() {
-        CouleurValeur couleurValeur_ = new CouleurValeur(Suit.UNDEFINED, (byte) 0, CardChar.UNDEFINED, true);
+        CouleurValeur couleurValeur_ = new CouleurValeur(Suit.UNDEFINED, 0, CardChar.UNDEFINED, true);
         assertEq(0, couleurValeur_.getNo());
         assertEq(0, couleurValeur_.getValeur());
         assertSame(CardChar.UNDEFINED, couleurValeur_.getNomFigure());
@@ -724,7 +724,7 @@ public final class CouleurValeurTest extends EquallableCardsUtil {
 
     @Test
     public void forceCouleurDansUnTri() {
-        CouleurValeur couleurValeur_ = new CouleurValeur(Suit.TRUMP, (byte) 21, CardChar.UNDEFINED, true);
+        CouleurValeur couleurValeur_ = new CouleurValeur(Suit.TRUMP, 21, CardChar.UNDEFINED, true);
         assertEq(2, couleurValeur_.forceCouleurDansUnTri(Suit.toutesCouleurs()));
     }
 

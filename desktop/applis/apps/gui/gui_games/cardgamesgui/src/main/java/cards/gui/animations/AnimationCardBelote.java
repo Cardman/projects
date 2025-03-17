@@ -81,7 +81,7 @@ public final class AnimationCardBelote implements Runnable {
                 _container.tapisBelote().setCartesBeloteJeu(_container.getWindow().getImageFactory(), partie_.getNombreDeJoueurs(), lg_);
                 //validate container.pack();
             }
-            byte player_ = partie_.playerHavingToPlay();
+            int player_ = partie_.playerHavingToPlay();
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
                 _container.getOwner().getFrames().getCompoFactory().invokeNow(new AfterAnimationCardBelote(_container, ContainerGame.USER_INSTANT));
                 return;

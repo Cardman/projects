@@ -1128,8 +1128,8 @@ final class FightEndRound {
 
     private static Rate tauxDeg(EffectEndRoundSingleRelation _effet, ActivityOfMove _actifNbTour, Item _objet) {
         Rate tauxDeg_=Rate.zero();
-        if(_effet.getRateDamageFunctionOfNbRounds().contains((long) _actifNbTour.getNbTurn())){
-            tauxDeg_.affect(_effet.getRateDamageFunctionOfNbRounds().getVal((long) _actifNbTour.getNbTurn()));
+        if(_effet.getRateDamageFunctionOfNbRounds().contains(_actifNbTour.getNbTurn())){
+            tauxDeg_.affect(_effet.getRateDamageFunctionOfNbRounds().getVal(_actifNbTour.getNbTurn()));
         }
         if(_objet instanceof ItemForBattle){
             ItemForBattle objetAttachable_=(ItemForBattle) _objet;

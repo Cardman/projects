@@ -7,14 +7,14 @@ import code.util.*;
 
 public final class BeloteInfoPliEnCours {
 
-    private Bytes joueursNonJoue;
+    private Ints joueursNonJoue;
     private CustList<TrickBelote> plisFaits;
     private TrickBelote progressingTrick;
     private HandBelote cartesJouees;
     private IdMap<Suit,HandBelote> repartitionCartesJouees;
     private IdMap<Suit,CustList<HandBelote>> cartesPossibles;
     private IdMap<Suit,CustList<HandBelote>> cartesCertaines;
-    private byte ramasseurVirtuel;
+    private int ramasseurVirtuel;
     private IdMap<Suit,CustList<HandBelote>> suitesTouteCouleur;
     private boolean maitreAtout;
     private IdList<Suit> couleursMaitresses;
@@ -22,19 +22,19 @@ public final class BeloteInfoPliEnCours {
     private IdMap<Suit,HandBelote> cartesMaitresses;
     private boolean maitreJeu;
     private BidBeloteSuit contrat;
-    private Bytes joueursConfiance;
-    private Bytes joueursNonConfiance;
-    private byte nextPlayer;
-    private byte nbPlayers;
+    private Ints joueursConfiance;
+    private Ints joueursNonConfiance;
+    private int nextPlayer;
+    private int nbPlayers;
 
     BeloteInfoPliEnCours() {
     }
 
-    public Bytes getJoueursNonJoue() {
+    public Ints getJoueursNonJoue() {
         return joueursNonJoue;
     }
 
-    public void setJoueursNonJoue(Bytes _joueursNonJoue) {
+    public void setJoueursNonJoue(Ints _joueursNonJoue) {
         joueursNonJoue = _joueursNonJoue;
     }
 
@@ -86,11 +86,11 @@ public final class BeloteInfoPliEnCours {
         cartesCertaines = _cartesCertaines;
     }
 
-    public byte getRamasseurVirtuel() {
+    public int getRamasseurVirtuel() {
         return ramasseurVirtuel;
     }
 
-    public void setRamasseurVirtuel(byte _ramasseurVirtuel) {
+    public void setRamasseurVirtuel(int _ramasseurVirtuel) {
         ramasseurVirtuel = _ramasseurVirtuel;
     }
 
@@ -154,35 +154,35 @@ public final class BeloteInfoPliEnCours {
         contrat = _contrat;
     }
 
-    public Bytes getJoueursConfiance() {
+    public Ints getJoueursConfiance() {
         return joueursConfiance;
     }
 
-    public void setJoueursConfiance(Bytes _joueursConfiance) {
+    public void setJoueursConfiance(Ints _joueursConfiance) {
         joueursConfiance = _joueursConfiance;
     }
 
-    public Bytes getJoueursNonConfiance() {
+    public Ints getJoueursNonConfiance() {
         return joueursNonConfiance;
     }
 
-    public void setJoueursNonConfiance(Bytes _joueursNonConfiance) {
+    public void setJoueursNonConfiance(Ints _joueursNonConfiance) {
         joueursNonConfiance = _joueursNonConfiance;
     }
 
-    public byte getNextPlayer() {
+    public int getNextPlayer() {
         return nextPlayer;
     }
 
-    public void setNextPlayer(byte _nextPlayer) {
+    public void setNextPlayer(int _nextPlayer) {
         nextPlayer = _nextPlayer;
     }
 
-    public byte getNbPlayers() {
+    public int getNbPlayers() {
         return nbPlayers;
     }
 
-    public void setNbPlayers(byte _nbPlayers) {
+    public void setNbPlayers(int _nbPlayers) {
         nbPlayers = _nbPlayers;
     }
 }

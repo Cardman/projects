@@ -11,18 +11,18 @@ import code.util.core.IndexConstants;
 
 public final class TrickBelote implements Iterable<CardBelote> {
     /**Entameur du pli*/
-    private byte starter;
+    private int starter;
     /**m est l'ensemble de cartes jouees pendant le pli a la belote ou au tarot*/
     private HandBelote cards = new HandBelote();
     public TrickBelote() {}
-    public TrickBelote(byte _pentameur) {
+    public TrickBelote(int _pentameur) {
         initPli(_pentameur);
     }
-    public TrickBelote(HandBelote _pm,byte _pentameur) {
+    public TrickBelote(HandBelote _pm,int _pentameur) {
         initPli(_pentameur);
         setCards(_pm);
     }
-    void initPli(byte _pentameur) {
+    void initPli(int _pentameur) {
         setStarter(_pentameur);
     }
 
@@ -38,7 +38,7 @@ public final class TrickBelote implements Iterable<CardBelote> {
     }
 
     /**Retourne l'entameur du pli*/
-    public byte getEntameur() {
+    public int getEntameur() {
         return getStarter();
     }
 
@@ -50,16 +50,16 @@ public final class TrickBelote implements Iterable<CardBelote> {
     @param nombre_joueurs nombre de joueurs qui jouent a cette partie
     @param _contrat contrat de la partie
     @param couleur_atout la couleur d'atout si elle existe*/
-    public byte getRamasseur(BidBeloteSuit _contrat) {
-        return getRamasseurPliEnCours((byte) total(),_contrat);
+    public int getRamasseur(BidBeloteSuit _contrat) {
+        return getRamasseurPliEnCours(total(),_contrat);
     }
-    public byte getRamasseurPliEnCours(byte _nombreJoueurs, BidBeloteSuit _contrat) {
-        byte ramasseur_;
-        byte max_=0;
-        byte i=0;
-        byte position_=0;
+    public int getRamasseurPliEnCours(int _nombreJoueurs, BidBeloteSuit _contrat) {
+        int ramasseur_;
+        int max_=0;
+        int i=0;
+        int position_=0;
         Suit demande_=couleurDemandee();
-        byte valForce_;
+        int valForce_;
         for(CardBelote c:cards) {
             valForce_=c.strength(demande_,_contrat);
             if(valForce_>max_) {
@@ -71,12 +71,12 @@ public final class TrickBelote implements Iterable<CardBelote> {
         ramasseur_=position_;
         //Ramasseur est_ la_ position_ du_ ramasseur_ par_ rapport_ a l'entameur
         //On calcule_ la_ position_ de_ ramasseur_ par_ rapport_ a celle_ de_ l'utilisateur_
-        return (byte) ((ramasseur_+getEntameur())%_nombreJoueurs);
+        return (ramasseur_+getEntameur())%_nombreJoueurs;
         //On renvoie_ le_ ramasseur_ du_ pli_ courant_
     }
 
-    public byte getNextPlayer(byte _nbPlayer) {
-        return (byte) ((starter + total()) % _nbPlayer);
+    public int getNextPlayer(int _nbPlayer) {
+        return (starter + total()) % _nbPlayer;
     }
     void ajouter(CardBelote _c) {
         cards.ajouter(_c);
@@ -90,29 +90,29 @@ public final class TrickBelote implements Iterable<CardBelote> {
     public CardBelote premiereCarte() {
         return cards.premiereCarte();
     }
-    byte joueurAyantJoue(CardBelote _c) {
-        return joueurAyantJoue(_c,(byte) total());
+    int joueurAyantJoue(CardBelote _c) {
+        return joueurAyantJoue(_c,total());
     }
-    public byte joueurAyantJoue(CardBelote _c,byte _nombreDeJoueurs) {
+    public int joueurAyantJoue(CardBelote _c,int _nombreDeJoueurs) {
         if(!contient(_c)) {
             return IndexConstants.INDEX_NOT_FOUND_ELT;
         }
-        byte position_=(byte)cards.position(_c);
-        return (byte)((position_+getEntameur())%_nombreDeJoueurs);
+        int position_= cards.position(_c);
+        return (position_+getEntameur())%_nombreDeJoueurs;
     }
 
-    Bytes joueursAyantJoueAvant(byte _pnumero, DealingBelote _d) {
+    Ints joueursAyantJoueAvant(int _pnumero, DealingBelote _d) {
         return _d.getId().joueursAyantJoueAvant(_pnumero,starter,total());
     }
 
-    boolean aJoue(byte _joueur,byte _nombreDeJoueurs) {
+    boolean aJoue(int _joueur,int _nombreDeJoueurs) {
         return new SortedPlayers(_nombreDeJoueurs).aJoue(_joueur,total(),getEntameur());
     }
-    CardBelote carteDuJoueur(byte _joueur) {
-        return carteDuJoueur(_joueur, (byte) total());
+    CardBelote carteDuJoueur(int _joueur) {
+        return carteDuJoueur(_joueur, total());
     }
     /**Retourne la carte du joueur de variable joueur en fonction du nombre de joueurs et du pli ayant la plus petite longueur*/
-    public CardBelote carteDuJoueur(byte _joueur,byte _nombreDeJoueurs) {
+    public CardBelote carteDuJoueur(int _joueur,int _nombreDeJoueurs) {
         return carte(new SortedPlayers(_nombreDeJoueurs).index(_joueur,getEntameur(),total()));
     }
     /**Retourne la couleur demandee du pli*/
@@ -126,8 +126,8 @@ public final class TrickBelote implements Iterable<CardBelote> {
     <ol><li>si la couleur demandee est de l'atout alors on cherche l'ensemble des joueurs n'ayant pas joue de l'atout(Excuse incluse)</li>
     <li>sinon on cherche les joueurs ayant joue de l'atout sur une couleur</li></ol>
     Ces joueurs sont classes par ordre chronologique de jeu*/
-    Bytes joueursCoupes(Suit _couleurAtout) {
-        Bytes coupes_=new Bytes();
+    Ints joueursCoupes(Suit _couleurAtout) {
+        Ints coupes_=new Ints();
         for(CardBelote c: cards) {
             if(c.getId().getCouleur() ==_couleurAtout) {
                 coupes_.add(joueurAyantJoue(c));
@@ -135,8 +135,8 @@ public final class TrickBelote implements Iterable<CardBelote> {
         }
         return coupes_;
     }
-    Bytes joueursDefausses(Suit _couleurAtout) {
-        Bytes coupes_=new Bytes();
+    Ints joueursDefausses(Suit _couleurAtout) {
+        Ints coupes_=new Ints();
         Suit couleur_;
         couleur_=couleurDemandee();
         for(CardBelote c: cards) {
@@ -147,19 +147,19 @@ public final class TrickBelote implements Iterable<CardBelote> {
         return coupes_;
     }
 
-    public CustList<HandBelote> completeCurrent(byte _nb, boolean _add) {
+    public CustList<HandBelote> completeCurrent(int _nb, boolean _add) {
         CustList<HandBelote> ls_ = new CustList<HandBelote>();
         for (int i = 0; i < _nb; i++) {
             ls_.add(new HandBelote());
         }
         if (_add) {
-            for (byte b: playersHavingPlayed(_nb)) {
+            for (int b: playersHavingPlayed(_nb)) {
                 ls_.get(b).ajouter(carteDuJoueur(b, _nb));
             }
         }
         return ls_;
     }
-    public Bytes playersHavingPlayed(byte _numberPlayers) {
+    public Ints playersHavingPlayed(int _numberPlayers) {
         return new SortedPlayers(_numberPlayers).joueursAyantJoue(starter,total());
     }
     /**Retourne vrai si et seulement si la carte est jouee dans ce pli*/
@@ -180,12 +180,12 @@ public final class TrickBelote implements Iterable<CardBelote> {
     }
 
     void setEntameur(int _i) {
-        starter = (byte) _i;
+        starter = _i;
     }
-    public byte getStarter() {
+    public int getStarter() {
         return starter;
     }
-    public void setStarter(byte _starter) {
+    public void setStarter(int _starter) {
         starter = _starter;
     }
     public HandBelote getCards() {

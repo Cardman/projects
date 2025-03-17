@@ -7,14 +7,14 @@ public interface SimulatingTarot {
 //    GameTarot partieTarotSimulee();
 //    void displayLineReturn();
     DisplayingTarot getDisplaying();
-    byte dealer(GameTarot _gt);
+    int dealer(GameTarot _gt);
     void bid(GameTarot _gt);
 //    void actingBid(byte _player);
 //    void actedBid(byte _player, BidTarot _bid);
 //    void noBid();
     boolean noBid(GameTarot _g);
 //    void constCallPlayer(byte _called);
-    byte constCallPlayerCall(byte _called);
+    int constCallPlayerCall(int _called);
     void intelligenceArtificielleAppel(GameTarot _gt);
     void ecarter(GameTarot _gt);
     void appelApresEcart(GameTarot _gt);
@@ -33,7 +33,7 @@ public interface SimulatingTarot {
 //    void endDeal();
     void firstLead(GameTarot _gt);
     CardTarot play(GameTarot _g);
-    byte ajouterPetitAuBoutPliEnCours(GameTarot _gt);
+    int ajouterPetitAuBoutPliEnCours(GameTarot _gt);
 
 //    void callCard();
 //    void callCard(byte _taker,HandTarot _calledCards);

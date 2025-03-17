@@ -15,7 +15,7 @@ public final class ServerActLoopCardsPlayingPresident implements IntServerActLoo
         PlayingCardPresident info_ = Net.importPlayingPresident(_input);
         GamePresident game_ = Net.getGames(_instance).partiePresident();
         if (!info_.isRefreshing()) {
-            byte player_ = info_.getPlace();
+            int player_ = info_.getPlace();
             if (info_.isPass()) {
                 PlayingCardPresident cardDto_ = new PlayingCardPresident();
                 cardDto_.setRefreshing(true);
@@ -54,7 +54,7 @@ public final class ServerActLoopCardsPlayingPresident implements IntServerActLoo
 //            cardDto_.setLocale("");
         cardDto_.setPlayedCard(CardPresident.WHITE);
         Net.initAllReceived(_instance, _common);
-        for (byte p: Net.activePlayers(_instance, _common)) {
+        for (int p: Net.activePlayers(_instance, _common)) {
             NetGroupFrame.trySendString(Net.exportClientPlayingPresident(cardDto_), Net.getSocketByPlace(p, _common));
         }
     }

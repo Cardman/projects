@@ -17,7 +17,7 @@ public final class DocumentReaderCardsResultsUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterCardsResultsUtil.FIELD_USER)) {
-            _res.setUser(DocumentReaderCoreUtil.getByte(_element));
+            _res.setUser(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
 //        if (StringUtil.quickEq(_fieldName, DocumentWriterCardsResultsUtil.FIELD_LOC)) {

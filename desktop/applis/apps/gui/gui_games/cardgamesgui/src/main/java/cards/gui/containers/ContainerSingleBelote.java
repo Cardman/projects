@@ -67,7 +67,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public GameBelote partieBelote() {
         return getPar().partieBelote();
     }
-    public void jouerBelote(byte _joueur, String _pseudo) {
+    public void jouerBelote(int _joueur, String _pseudo) {
         GameBelote partie_=partieBelote();
         CardBelote ct_=getOwner().baseWindow().getIa().getBelote().strategieJeuCarteUnique(partie_);
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -85,7 +85,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
 
-    private void firstRound(byte _joueur, String _pseudo, IntCardsCallEvents _interceptor) {
+    private void firstRound(int _joueur, String _pseudo, IntCardsCallEvents _interceptor) {
         GameBelote partie_=partieBelote();
         firstRound(_joueur,_pseudo,partie_.getBid(),partie_.getAnnonce(_joueur),_interceptor);
 //        TranslationsLg lg_ = getOwner().getFrames().currentLg();
@@ -138,7 +138,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getHelpGame().setEnabled(false);
         //Desactiver les conseils
         getConsulting().setEnabled(false);
-        byte player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
+        int player_ = partie_.playerAfter(partie_.getDistribution().getDealer());
         for(BidBeloteSuit b: partie_.tousContrats()) {
             String pseudo_ = pseudos_.get(player_);
             ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(b,lg_),RETURN_LINE));
@@ -231,9 +231,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             pack();
             return;
         }
-        byte nombreDeJoueurs_ = partie_.getNombreDeJoueurs();
+        int nombreDeJoueurs_ = partie_.getNombreDeJoueurs();
         TrickBelote pliEnCours_=partie_.getPliEnCours();
-        for(byte p:pliEnCours_.playersHavingPlayed(nombreDeJoueurs_)) {
+        for(int p:pliEnCours_.playersHavingPlayed(nombreDeJoueurs_)) {
             tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
         }
         afficherMainUtilisateurBelote(false);
@@ -935,7 +935,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if (partie_.getType() == GameType.RANDOM && isChangerPileFin()) {
             changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames(), nbStacks(partie_.getRules()));
         }
-        byte nombreJoueurs_=partie_.getNombreDeJoueurs();
+        int nombreJoueurs_=partie_.getNombreDeJoueurs();
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(partie_);
         res_.getRes().setUser(DealBelote.NUMERO_UTILISATEUR);

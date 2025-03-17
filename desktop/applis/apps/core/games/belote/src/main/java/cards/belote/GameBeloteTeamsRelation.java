@@ -8,48 +8,48 @@ import code.util.*;
 import code.util.core.IndexConstants;
 
 public final class GameBeloteTeamsRelation {
-    private final byte taker;
+    private final int taker;
     private final RulesBelote rules;
 
-    public GameBeloteTeamsRelation(byte _taker, RulesBelote _rules) {
+    public GameBeloteTeamsRelation(int _taker, RulesBelote _rules) {
         taker = _taker;
         rules = _rules;
     }
-    byte playerAfter(byte _player) {
+    int playerAfter(int _player) {
         return rules.getDealing().getId().getNextPlayer(_player);
     }
-    Bytes adversaires(byte _numero) {
+    Ints adversaires(int _numero) {
         int nb_ = rules.getDealing().getId().getNombreJoueurs();
         if (nb_ <= 3) {
             if (_numero == taker) {
-                return autresJoueurs(Bytes.newList(taker), (byte) nb_);
+                return autresJoueurs(Ints.newList(taker), nb_);
             }
-            return Bytes.newList(taker);
+            return Ints.newList(taker);
         }
-        Bytes adversaires_ = new Bytes();
-        byte player_ = playerAfter(_numero);
+        Ints adversaires_ = new Ints();
+        int player_ = playerAfter(_numero);
         adversaires_.add(player_);
         player_ = playerAfter(player_);
         player_ = playerAfter(player_);
         adversaires_.add(player_);
         return adversaires_;
     }
-    public Bytes partenaires(byte _numero) {
+    public Ints partenaires(int _numero) {
         int nb_ = rules.getDealing().getId().getNombreJoueurs();
         if (nb_ <= 3) {
             if (_numero == taker) {
-                return new Bytes();
+                return new Ints();
             }
-            return autresJoueurs(Bytes.newList(taker,_numero), (byte) nb_);
+            return autresJoueurs(Ints.newList(taker,_numero), nb_);
         }
-        Bytes partenaires_ = new Bytes();
-        byte player_ = playerAfter(_numero);
+        Ints partenaires_ = new Ints();
+        int player_ = playerAfter(_numero);
         player_ = playerAfter(player_);
         partenaires_.add(player_);
         return partenaires_;
     }
     //methode utilisee pour l'affichage
-    public Role statutDe(byte _numero) {
+    public Role statutDe(int _numero) {
         if(_numero==taker) {
             return Role.TAKER;
         }
@@ -59,43 +59,43 @@ public final class GameBeloteTeamsRelation {
         return Role.DEFENDER;
     }
 
-    boolean isSameTeam(Bytes _players) {
+    boolean isSameTeam(Ints _players) {
         int nbPlayers_ = _players.size();
-        for (byte i = IndexConstants.SECOND_INDEX; i<nbPlayers_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i<nbPlayers_; i++) {
             if (!memeEquipe(_players.getPrev(i), _players.get(i))) {
                 return false;
             }
         }
         return true;
     }
-    public boolean memeEquipe(byte _numero1, byte _numero2) {
+    public boolean memeEquipe(int _numero1, int _numero2) {
         if (aPourDefenseur(_numero1)) {
             return aPourDefenseur(_numero2);
         }
         return !aPourDefenseur(_numero2);
     }
-    CustList<Bytes> playersBelongingToSameTeam() {
-        CustList<Bytes> teams_ = new CustList<Bytes>();
-        Bytes takerTeam_ = partenaires(taker);
+    CustList<Ints> playersBelongingToSameTeam() {
+        CustList<Ints> teams_ = new CustList<Ints>();
+        Ints takerTeam_ = partenaires(taker);
         takerTeam_.add(taker);
         teams_.add(takerTeam_);
-        Bytes takerFoeTeam_ = adversaires(taker);
+        Ints takerFoeTeam_ = adversaires(taker);
         teams_.add(takerFoeTeam_);
         return teams_;
     }
-    boolean aPourDefenseur(byte _numero) {
+    boolean aPourDefenseur(int _numero) {
         return _numero!=taker&&!partenaires(taker).containsObj(_numero);
     }
-    static Bytes intersectionJoueurs(Bytes _joueurs1, Bytes _joueurs2) {
+    static Ints intersectionJoueurs(Ints _joueurs1, Ints _joueurs2) {
         return SortedPlayers.intersectionJoueurs(_joueurs1, _joueurs2);
     }
 
-    static Bytes autresJoueurs(Bytes _joueurs,
-                                               byte _nombreJoueurs) {
+    static Ints autresJoueurs(Ints _joueurs,
+                               int _nombreJoueurs) {
         return SortedPlayers.autresJoueurs(_joueurs, _nombreJoueurs);
     }
-    byte getNombreDeJoueurs() {
-        return (byte) rules.getDealing().getId().getNombreJoueurs();
+    int getNombreDeJoueurs() {
+        return rules.getDealing().getId().getNombreJoueurs();
     }
     RulesBelote getRules() {
         return rules;
@@ -112,7 +112,7 @@ public final class GameBeloteTeamsRelation {
     boolean sousCoupeObligatoireAdversaire() {
         return rules.getSousCoupeAdv();
     }
-    byte getTaker() {
+    int getTaker() {
         return taker;
     }
 }

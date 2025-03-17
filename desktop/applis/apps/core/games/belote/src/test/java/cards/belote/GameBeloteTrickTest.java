@@ -12,7 +12,7 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
     public void entame1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_1);
         HandBelote curHand_ = new HandBelote();
@@ -46,7 +46,7 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
     @Test
     public void entame2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -80,7 +80,7 @@ public final class GameBeloteTrickTest extends CommonGameBelote {
     @Test
     public void entame3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();

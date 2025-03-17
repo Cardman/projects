@@ -87,14 +87,14 @@ public final class CouleurValeur {
     /**Numero de couleur de la carte (0: Excuse Tarot,1: Atout Tarot,2: Coeur,3: Pique,4: Carreau,5: Tr&egrave;fle)*/
     private final Suit couleur;
     /**Numero de valeur de la carte (Numeros pour les atouts du tarot, et pour les cartes chiffrees, position pour les figures avec Roi, Dame, Cavalier, Valet)*/
-    private final byte valeur;
+    private final int valeur;
 
     private final CardChar nomFigure;
     private final boolean jouable;
     private final int no;
 //    private final String st;
 
-    public CouleurValeur(Suit _c, byte _v, CardChar _f, boolean _j) {
+    public CouleurValeur(Suit _c, int _v, CardChar _f, boolean _j) {
         this.couleur = _c;
         this.valeur = _v;
         this.nomFigure= _f;
@@ -126,19 +126,19 @@ public final class CouleurValeur {
 //    }
 
     public static int exc(){
-        return new CouleurValeur(Suit.UNDEFINED,(byte)0,CardChar.EXCUSE,true).nb();
+        return new CouleurValeur(Suit.UNDEFINED,0,CardChar.EXCUSE,true).nb();
     }
 
     public static int trump(int _i){
-        return new CouleurValeur(Suit.TRUMP,(byte)_i,CardChar.UNDEFINED,true).nb();
+        return new CouleurValeur(Suit.TRUMP,_i,CardChar.UNDEFINED,true).nb();
     }
 
     public static int suit(Suit _s,int _i){
-        return new CouleurValeur(_s,(byte)_i,CardChar.UNDEFINED,true).nb();
+        return new CouleurValeur(_s,_i,CardChar.UNDEFINED,true).nb();
     }
 
     public static int suit(Suit _s,CardChar _i){
-        return new CouleurValeur(_s,(byte)0,_i,true).nb();
+        return new CouleurValeur(_s,0,_i,true).nb();
     }
 
 //    public static String excSt(){
@@ -205,15 +205,15 @@ public final class CouleurValeur {
         return no;
     }
 
-    public byte forceCouleurDansUnTri(IdList<Suit> _couleurs) {
-        return (byte) (_couleurs.indexOfObj(getCouleur())+1);
+    public int forceCouleurDansUnTri(IdList<Suit> _couleurs) {
+        return _couleurs.indexOfObj(getCouleur())+1;
     }
 
     public Suit getCouleur() {
         return couleur;
     }
 
-    public byte getValeur() {
+    public int getValeur() {
         return valeur;
     }
 

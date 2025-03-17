@@ -13,7 +13,7 @@ public final class DealtHandTarot {
 
     private IdList<BidTarot> allowedBids;
 
-    private byte dealer;
+    private int dealer;
 
 //    private DealingTarot rep;
 
@@ -41,11 +41,11 @@ public final class DealtHandTarot {
         allowedBids = _allowedBids;
     }
 
-    public byte getDealer() {
+    public int getDealer() {
         return dealer;
     }
 
-    public void setDealer(byte _dealer) {
+    public void setDealer(int _dealer) {
         dealer = _dealer;
     }
 

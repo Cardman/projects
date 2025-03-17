@@ -8,6 +8,7 @@ import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
 import code.util.Bytes;
+import code.util.Ints;
 import code.util.core.*;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         assertFalse(StringUtil.nullToEmpty(" "+ autoriseBelote(b_, StringUtil.EN,CardBelote.HEART_7)).isEmpty());
@@ -32,9 +33,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
@@ -48,10 +49,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
@@ -65,10 +66,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_8);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
@@ -82,10 +83,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_8);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -100,10 +101,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_8);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -118,10 +119,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -136,10 +137,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -154,9 +155,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -171,9 +172,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -188,9 +189,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -205,9 +206,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.SPADE_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -221,9 +222,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_9);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -237,9 +238,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -253,9 +254,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -269,10 +270,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.HEART);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_7);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -285,10 +286,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_7);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -301,10 +302,10 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.ALL_TRUMP);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_7);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -317,9 +318,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.ALL_TRUMP);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_7);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -332,9 +333,9 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         BidBeloteSuit bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.ALL_TRUMP);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
+        b_.setPreneur(0);
         b_.getDeal().getDeal().get(0).ajouter(CardBelote.HEART_1);
-        b_.getProgressingTrick().setStarter((byte) 1);
+        b_.getProgressingTrick().setStarter(1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_8);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.SPADE_10);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -349,8 +350,8 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         b_.setBid(bid_);
-        b_.setPreneur((byte) 0);
-        b_.getProgressingTrick().setStarter((byte) 0);
+        b_.setPreneur(0);
+        b_.getProgressingTrick().setStarter(0);
         b_.getDeal().getDeal().get(3).ajouter(CardBelote.SPADE_7);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_1);
         b_.getProgressingTrick().getCartes().ajouter(CardBelote.HEART_10);
@@ -362,15 +363,15 @@ public final class GamesBeloteTest extends EquallableCardsFileUtil {
     public void isSameTeam1() {
         Games gs_ = new Games();
         gs_.jouerBelote(init());
-        gs_.partieBelote().setPreneur((byte) 0);
-        assertFalse(gs_.isSameTeam(Bytes.newList((byte)0,(byte)1)));
+        gs_.partieBelote().setPreneur(0);
+        assertFalse(gs_.isSameTeam(Ints.newList(0,1)));
     }
     @Test
     public void isSameTeam2() {
         Games gs_ = new Games();
         gs_.jouerBelote(init());
-        gs_.partieBelote().setPreneur((byte) 0);
-        assertTrue(gs_.isSameTeam(Bytes.newList((byte)0,(byte)2)));
+        gs_.partieBelote().setPreneur(0);
+        assertTrue(gs_.isSameTeam(Ints.newList(0,2)));
     }
     private GameBelote init() {
         GameBelote p_ = new GameBelote();

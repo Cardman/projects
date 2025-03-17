@@ -22,15 +22,15 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.DIAMOND_7);
         possibleSure(t_, 1, CardBelote.HEART_QUEEN);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(beatByTrumpNormalSuitStrength(t_,beat_));
     }
     @Test
@@ -45,13 +45,13 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(beatByTrumpNormalSuitStrength(t_,beat_));
     }
     @Test
@@ -66,14 +66,14 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_7);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(beatByTrumpNormalSuitStrength(t_,beat_));
     }
     @Test
@@ -88,14 +88,14 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_KING);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(!beatByTrumpNormalSuitStrength(t_,beat_));
     }
     @Test
@@ -108,17 +108,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_1);
         possibleSure(t_, 0, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
     @Test
@@ -131,17 +131,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_7);
         possibleSure(t_, 0, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
     @Test
@@ -154,17 +154,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_7);
         possibleSure(t_, 0, CardBelote.HEART_QUEEN);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
     @Test
@@ -179,7 +179,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_JACK);
         playable_.ajouter(CardBelote.DIAMOND_8);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
@@ -187,10 +187,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         possibleSure(t_, 1, CardBelote.HEART_7);
         possibleSure(t_, 0, CardBelote.HEART_JACK);
         possibleSure(t_, 0, CardBelote.DIAMOND_8);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
     @Test
@@ -203,17 +203,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_8);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_8);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_7);
         possibleSure(t_, 0, CardBelote.DIAMOND_8);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
     @Test
@@ -224,16 +224,16 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_7);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpNormalSuit(t_,dom_,beat_));
     }
     @Test
@@ -248,13 +248,13 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -269,14 +269,14 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_10);
         possibleSure(t_, 1, CardBelote.DIAMOND_8);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -291,12 +291,12 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -311,14 +311,14 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_10);
         possibleSure(t_, 1, CardBelote.DIAMOND_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -333,13 +333,13 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -354,13 +354,13 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.DIAMOND_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -376,13 +376,13 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -398,13 +398,13 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
         playable_.ajouter(CardBelote.DIAMOND_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_8);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.DIAMOND_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(!ramasseurBatSsCprAdv(t_,beat_));
     }
     @Test
@@ -417,17 +417,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_1);
         possibleSure(t_, 0, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existeJoueurNonJoueBattantAdv(t_,dom_,beat_));
     }
     @Test
@@ -440,17 +440,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_1);
         possibleSure(t_, 0, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existeJoueurNonJoueBattantAdv(t_,dom_,beat_));
     }
     @Test
@@ -465,7 +465,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_1);
         playable_.ajouter(CardBelote.DIAMOND_8);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
@@ -473,10 +473,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         possibleSure(t_, 1, CardBelote.HEART_10);
         possibleSure(t_, 0, CardBelote.HEART_1);
         possibleSure(t_, 0, CardBelote.DIAMOND_8);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existeJoueurNonJoueBattantAdv(t_,dom_,beat_));
     }
     @Test
@@ -489,17 +489,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_1);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_1);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_10);
         possibleSure(t_, 0, CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(existeJoueurNonJoueBattantAdv(t_,dom_,beat_));
     }
     @Test
@@ -512,17 +512,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_1);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_1);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_10);
         possibleSure(t_, 0, CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.TEAM, GameBeloteTrickHypothesis.getPossibleOverTrump(t_,dom_,beat_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM));
     }
     @Test
@@ -535,17 +535,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 1, CardBelote.HEART_1);
         possibleSure(t_, 0, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.FOE_TEAM, GameBeloteTrickHypothesis.getPossibleOverTrump(t_,dom_,beat_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM));
     }
     @Test
@@ -558,15 +558,15 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 0);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 3);
+        Ints beat_ = new Ints();
+        beat_.add(0);
+        Ints dom_ = new Ints();
+        dom_.add(3);
         assertSame(PossibleTrickWinner.TEAM, GameBeloteTrickHypothesis.getPossibleOverTrump(t_,dom_,beat_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM));
     }
     @Test
@@ -579,7 +579,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -588,10 +588,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,1,CardBelote.HEART_1);
         addPossibleCard(t_,0,CardBelote.HEART_9);
         addPossibleCard(t_,0,CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 0);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(0);
+        Ints dom_ = new Ints();
+        dom_.add(1);
         assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.getPossibleOverTrump(t_,dom_,beat_,PossibleTrickWinner.TEAM,PossibleTrickWinner.FOE_TEAM));
     }
     @Test
@@ -604,7 +604,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -613,8 +613,8 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.HEART_1);
         addPossibleCard(t_,1,CardBelote.HEART_9);
         addPossibleCard(t_,0,CardBelote.HEART_9);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(!beatFoeTrumpDemand(t_,beat_));
     }
     @Test
@@ -627,7 +627,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_JACK);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -636,8 +636,8 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.HEART_1);
         addPossibleCard(t_,1,CardBelote.HEART_9);
         addPossibleCard(t_,0,CardBelote.HEART_9);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(beatFoeTrumpDemand(t_,beat_));
     }
     @Test
@@ -650,13 +650,13 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
+        Ints beat_ = new Ints();
+        beat_.add(1);
         assertTrue(beatFoeTrumpDemand(t_,beat_));
     }
     @Test
@@ -669,17 +669,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_10);
         possibleSure(t_, 1, CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpDemand(t_,dom_,beat_));
     }
     @Test
@@ -692,17 +692,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_9);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_1);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpDemand(t_,dom_,beat_));
     }
     @Test
@@ -715,17 +715,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_1);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(beatSureListTrumpDemand(t_,dom_,beat_));
     }
     @Test
@@ -738,7 +738,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -747,10 +747,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.HEART_1);
         addPossibleCard(t_,1,CardBelote.HEART_10);
         addPossibleCard(t_,1,CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!beatSureListTrumpDemand(t_,dom_,beat_));
     }
     @Test
@@ -763,17 +763,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_10);
         possibleSure(t_, 1, CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existeJouBatAdvDemat(t_,dom_,beat_));
     }
     @Test
@@ -786,17 +786,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_1);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(existeJouBatAdvDemat(t_,dom_,beat_));
     }
     @Test
@@ -809,7 +809,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -818,10 +818,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.HEART_1);
         addPossibleCard(t_,1,CardBelote.HEART_10);
         addPossibleCard(t_,1,CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existeJouBatAdvDemat(t_,dom_,beat_));
     }
     @Test
@@ -834,7 +834,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -843,10 +843,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.HEART_1);
         addPossibleCard(t_,1,CardBelote.HEART_10);
         addPossibleCard(t_,1,CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existPlayerNoTrump(t_,dom_,beat_));
     }
     @Test
@@ -859,17 +859,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.DIAMOND_7);
         possibleSure(t_, 0, CardBelote.DIAMOND_KING);
         possibleSure(t_, 1, CardBelote.DIAMOND_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existPlayerNoTrump(t_,dom_,beat_));
     }
     @Test
@@ -882,17 +882,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.DIAMOND_7);
         possibleSure(t_, 0, CardBelote.DIAMOND_KING);
         possibleSure(t_, 1, CardBelote.DIAMOND_QUEEN);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(!existPlayerNoTrump(t_,dom_,beat_));
     }
     @Test
@@ -905,17 +905,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.DIAMOND_7);
         possibleSure(t_, 0, CardBelote.DIAMOND_1);
         possibleSure(t_, 1, CardBelote.DIAMOND_QUEEN);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertTrue(existPlayerNoTrump(t_,dom_,beat_));
     }
     @Test
@@ -928,17 +928,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.DIAMOND_7);
         possibleSure(t_, 0, CardBelote.HEART_1);
         possibleSure(t_, 1, CardBelote.HEART_QUEEN);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.FOE_TEAM, GameBeloteTrickHypothesis.getPossibleTrickWinnerOtherTrump(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -951,16 +951,16 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.DIAMOND_7);
         possibleSure(t_, 0, CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.FOE_TEAM, GameBeloteTrickHypothesis.getPossibleTrickWinnerOtherTrump(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -973,17 +973,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.DIAMOND_7);
         possibleSure(t_, 0, CardBelote.HEART_QUEEN);
         possibleSure(t_, 1, CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.TEAM, GameBeloteTrickHypothesis.getPossibleTrickWinnerOtherTrump(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -996,7 +996,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1005,10 +1005,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.HEART_1);
         addPossibleCard(t_,1,CardBelote.HEART_QUEEN);
         addPossibleCard(t_,1,CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.UNKNOWN, GameBeloteTrickHypothesis.getPossibleTrickWinnerOtherTrump(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -1021,7 +1021,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1042,7 +1042,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1061,7 +1061,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1079,7 +1079,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1097,7 +1097,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1116,7 +1116,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1135,7 +1135,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
@@ -1154,7 +1154,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
@@ -1173,7 +1173,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
@@ -1192,7 +1192,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_KING);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
@@ -1211,7 +1211,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_1);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
@@ -1230,17 +1230,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_10);
         possibleSure(t_, 1, CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -1253,17 +1253,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_1);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -1276,17 +1276,17 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_1);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
         possibleSure(t_, 3, CardBelote.HEART_KING);
         possibleSure(t_, 0, CardBelote.HEART_QUEEN);
         possibleSure(t_, 1, CardBelote.HEART_10);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.FOE_TEAM,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -1299,7 +1299,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1308,10 +1308,10 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         addPossibleCard(t_,0,CardBelote.HEART_1);
         addPossibleCard(t_,1,CardBelote.HEART_10);
         addPossibleCard(t_,1,CardBelote.HEART_1);
-        Bytes beat_ = new Bytes();
-        beat_.add((byte) 1);
-        Bytes dom_ = new Bytes();
-        dom_.add((byte) 0);
+        Ints beat_ = new Ints();
+        beat_.add(1);
+        Ints dom_ = new Ints();
+        dom_.add(0);
         assertSame(PossibleTrickWinner.UNKNOWN,GameBeloteTrickHypothesis.getPossibleTrickWinnerTrumpDemand(t_,PossibleTrickWinner.FOE_TEAM,dom_,PossibleTrickWinner.TEAM,beat_));
     }
     @Test
@@ -1324,7 +1324,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1347,7 +1347,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_JACK);
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1367,7 +1367,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1386,7 +1386,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1405,7 +1405,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1424,7 +1424,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1443,7 +1443,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_JACK);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1462,7 +1462,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1483,7 +1483,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
@@ -1502,7 +1502,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
@@ -1521,7 +1521,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_JACK);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
@@ -1540,7 +1540,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_QUEEN);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
@@ -1561,7 +1561,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
         playable_.ajouter(CardBelote.HEART_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
@@ -1579,7 +1579,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_KING);
         current_.ajouter(CardBelote.HEART_8);
         HandBelote played_ = new HandBelote();
@@ -1597,7 +1597,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_KING);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1618,7 +1618,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_8);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_8);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1636,7 +1636,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_8);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_8);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1652,7 +1652,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1667,7 +1667,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1686,7 +1686,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_JACK);
         playable_.ajouter(CardBelote.DIAMOND_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1706,7 +1706,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1725,7 +1725,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1744,7 +1744,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1765,7 +1765,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         current_.ajouter(CardBelote.HEART_8);
         current_.ajouter(CardBelote.DIAMOND_JACK);
@@ -1784,7 +1784,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         current_.ajouter(CardBelote.DIAMOND_JACK);
         current_.ajouter(CardBelote.HEART_8);
@@ -1803,7 +1803,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         current_.ajouter(CardBelote.HEART_8);
         current_.ajouter(CardBelote.DIAMOND_JACK);
@@ -1822,7 +1822,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_10);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_10);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         current_.ajouter(CardBelote.DIAMOND_JACK);
         current_.ajouter(CardBelote.HEART_8);
@@ -1839,7 +1839,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         current_.ajouter(CardBelote.HEART_8);
         current_.ajouter(CardBelote.DIAMOND_JACK);
@@ -1855,7 +1855,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         bid_.setBid(BidBelote.SUIT);
         HandBelote hand_ = new HandBelote();
         HandBelote playable_ = new HandBelote();
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         current_.ajouter(CardBelote.DIAMOND_JACK);
         current_.ajouter(CardBelote.HEART_8);
@@ -1875,7 +1875,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_JACK);
         playable_.ajouter(CardBelote.DIAMOND_9);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         current_.ajouter(CardBelote.HEART_8);
         current_.ajouter(CardBelote.DIAMOND_10);
@@ -1895,7 +1895,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1914,7 +1914,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1933,7 +1933,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1952,7 +1952,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1971,7 +1971,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -1990,7 +1990,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.HEART_JACK);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -2011,7 +2011,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.HEART_KING);
         playable_.ajouter(CardBelote.HEART_1);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.HEART_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -2031,7 +2031,7 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         HandBelote playable_ = new HandBelote();
         playable_.ajouter(CardBelote.DIAMOND_JACK);
-        TrickBelote current_ = new TrickBelote((byte)2);
+        TrickBelote current_ = new TrickBelote(2);
         current_.ajouter(CardBelote.DIAMOND_QUEEN);
         HandBelote played_ = new HandBelote();
         BeloteInfoPliEnCours t_ = initInformations(hand_,playable_,current_,2,played_,bid_,4,r_);
@@ -2042,92 +2042,92 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
     }
     static PossibleTrickWinner getPossibleTrickWinnerNoCurrentTrump(BeloteInfoPliEnCours _t) {
         TrickBelote cur_ = _t.getProgressingTrick();
-        byte nbPlayers_ = _t.getNbPlayers();
+        int nbPlayers_ = _t.getNbPlayers();
         BidBeloteSuit bid_ = _t.getContrat();
         CardBelote card_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_, bid_), nbPlayers_);
         return GameBeloteTrickHypothesis.getPossibleTrickWinnerNoCurrentTrump(_t,card_);
     }
-    static boolean existPlayerNoTrump(BeloteInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
+    static boolean existPlayerNoTrump(BeloteInfoPliEnCours _t,Ints _dom,Ints _beat) {
         IdMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
-        byte nbPlayers_ = _t.getNbPlayers();
+        int nbPlayers_ = _t.getNbPlayers();
         BidBeloteSuit bid_ = _t.getContrat();
         CardBelote card_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_, bid_), nbPlayers_);
         return GameBeloteTrickHypothesis.existPlayerNoTrump(_t,_beat,_dom,suit_,card_,sure_);
     }
-    static boolean existeJouBatAdvDemat(BeloteInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
+    static boolean existeJouBatAdvDemat(BeloteInfoPliEnCours _t,Ints _dom,Ints _beat) {
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         return GameBeloteTrickHypothesis.existeJouBatAdvDemat(_t,_beat,_dom,suit_);
     }
-    static boolean beatSureListTrumpDemand(BeloteInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
+    static boolean beatSureListTrumpDemand(BeloteInfoPliEnCours _t,Ints _dom,Ints _beat) {
         IdMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
         IdMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
-        byte nbPlayers_ = _t.getNbPlayers();
+        int nbPlayers_ = _t.getNbPlayers();
         BidBeloteSuit bid_ = _t.getContrat();
-        byte strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
+        int strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
         return GameBeloteTrickHypothesis.beatSureListTrumpDemand(_beat,_dom,suit_,bid_,poss_,sure_,strength_);
     }
-    static boolean beatFoeTrumpDemand(BeloteInfoPliEnCours _t, Bytes _beat) {
+    static boolean beatFoeTrumpDemand(BeloteInfoPliEnCours _t, Ints _beat) {
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
-        byte nbPlayers_ = _t.getNbPlayers();
+        int nbPlayers_ = _t.getNbPlayers();
         BidBeloteSuit bid_ = _t.getContrat();
-        byte strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
+        int strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
         return beatFoeTrumpDemand(_t, _beat, strength_);
     }
-    static boolean beatFoeTrumpDemand(BeloteInfoPliEnCours _t, Bytes _beat, int _str) {
+    static boolean beatFoeTrumpDemand(BeloteInfoPliEnCours _t, Ints _beat, int _str) {
         IdMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
-        return GameBeloteTrickHypothesis.beatFoeTrumpDemand(_beat,suit_,bid_,poss_, (byte) _str);
+        return GameBeloteTrickHypothesis.beatFoeTrumpDemand(_beat,suit_,bid_,poss_, _str);
     }
-    static boolean existeJoueurNonJoueBattantAdv(BeloteInfoPliEnCours _t,Bytes _dom,Bytes _beat) {
+    static boolean existeJoueurNonJoueBattantAdv(BeloteInfoPliEnCours _t,Ints _dom,Ints _beat) {
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         return GameBeloteTrickHypothesis.existeJoueurNonJoueBattantAdv(_t,_beat,_dom,suit_);
     }
     
-    static boolean ramasseurBatSsCprAdv(BeloteInfoPliEnCours _t,Bytes _beat) {
+    static boolean ramasseurBatSsCprAdv(BeloteInfoPliEnCours _t,Ints _beat) {
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
-        byte nbPlayers_ = _t.getNbPlayers();
-        byte strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
+        int nbPlayers_ = _t.getNbPlayers();
+        int strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
         return GameBeloteTrickHypothesis.ramasseurBatSsCprAdv(_t,_beat,suit_,strength_);
     }
-    static boolean beatSureListTrumpNormalSuit(BeloteInfoPliEnCours _t, Bytes _dom,Bytes _beat) {
+    static boolean beatSureListTrumpNormalSuit(BeloteInfoPliEnCours _t, Ints _dom,Ints _beat) {
         TrickBelote cur_ = _t.getProgressingTrick();
         Suit suit_ = cur_.couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
-        byte nbPlayers_ = _t.getNbPlayers();
-        byte strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
+        int nbPlayers_ = _t.getNbPlayers();
+        int strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(suit_,bid_);
         return beatSureListTrumpNormalSuit(_t,_dom,_beat, strength_);
     }
-    static boolean beatSureListTrumpNormalSuit(BeloteInfoPliEnCours _t, Bytes _dom,Bytes _beat,int _str) {
+    static boolean beatSureListTrumpNormalSuit(BeloteInfoPliEnCours _t, Ints _dom,Ints _beat,int _str) {
         IdMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
         IdMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
-        return GameBeloteTrickHypothesis.beatSureListTrumpNormalSuit(_beat,_dom,suit_,bid_,poss_,sure_, (byte) _str);
+        return GameBeloteTrickHypothesis.beatSureListTrumpNormalSuit(_beat,_dom,suit_,bid_,poss_,sure_, _str);
     }
-    static boolean beatByTrumpNormalSuitStrength(BeloteInfoPliEnCours _t, Bytes _beat) {
-        byte nbPlayers_ = _t.getNbPlayers();
+    static boolean beatByTrumpNormalSuitStrength(BeloteInfoPliEnCours _t, Ints _beat) {
+        int nbPlayers_ = _t.getNbPlayers();
         TrickBelote cur_ = _t.getProgressingTrick();
         BidBeloteSuit bid_ = _t.getContrat();
-        byte strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(cur_.couleurDemandee(),bid_);
+        int strength_ = cur_.carteDuJoueur(cur_.getRamasseurPliEnCours(nbPlayers_,bid_),nbPlayers_).strength(cur_.couleurDemandee(),bid_);
         return beatByTrumpNormalSuitStrength(_t, _beat, strength_);
     }
-    static boolean beatByTrumpNormalSuitStrength(BeloteInfoPliEnCours _t, Bytes _beat,int _str) {
+    static boolean beatByTrumpNormalSuitStrength(BeloteInfoPliEnCours _t, Ints _beat,int _str) {
         IdMap<Suit, CustList<HandBelote>> poss_ = _t.getCartesPossibles();
         IdMap<Suit, CustList<HandBelote>> sure_ = _t.getCartesCertaines();
         Suit suit_ = _t.getProgressingTrick().couleurDemandee();
         BidBeloteSuit bid_ = _t.getContrat();
-        return GameBeloteTrickHypothesis.beatByTrumpNormalSuitStrength(_beat,suit_,bid_,poss_,sure_, (byte) _str);
+        return GameBeloteTrickHypothesis.beatByTrumpNormalSuitStrength(_beat,suit_,bid_,poss_,sure_, _str);
     }
     BeloteInfoPliEnCours initInformations(
             HandBelote _cartes,
@@ -2138,23 +2138,23 @@ public final class GameBeloteTrickHypothesisTest extends CommonGameBelote {
             BidBeloteSuit _bid,
             int _nbPlayers,
             RulesBelote _rules) {
-        Bytes played_ = _current.playersHavingPlayed((byte) _nbPlayers);
-        byte nextPlayer_ = _current.getNextPlayer((byte) _nbPlayers);
+        Ints played_ = _current.playersHavingPlayed(_nbPlayers);
+        int nextPlayer_ = _current.getNextPlayer(_nbPlayers);
         IdMap<Suit,HandBelote> repartition_ = _cartes.couleurs(_bid);
         IdMap<Suit,HandBelote> repartitionCartesJouees_ = _playedCard.couleurs(_bid);
-        Bytes joueursNonJoue_ = GameBeloteTeamsRelation.autresJoueurs(played_, (byte) _nbPlayers);
+        Ints joueursNonJoue_ = GameBeloteTeamsRelation.autresJoueurs(played_, _nbPlayers);
 
-        byte ramasseurVirtuel_ = _current.getRamasseurPliEnCours((byte) _nbPlayers, _bid);
+        int ramasseurVirtuel_ = _current.getRamasseurPliEnCours(_nbPlayers, _bid);
         IdMap<Suit,CustList<HandBelote>> suitesTouteCouleur_ = _cartes.eclaterTout(repartitionCartesJouees_, _bid);
 
         IdMap<Suit,HandBelote> cartesMaitresses_ = GameBeloteCommon.cartesMaitresses(
                 repartition_, repartitionCartesJouees_, _bid);
 
-        GameBeloteTeamsRelation teamsRelation_ = new GameBeloteTeamsRelation((byte) _taker,_rules);
+        GameBeloteTeamsRelation teamsRelation_ = new GameBeloteTeamsRelation(_taker,_rules);
         BeloteInfoPliEnCours info_ = new BeloteInfoPliEnCours();
         info_.setContrat(_bid);
         info_.setProgressingTrick(_current);
-        info_.setNbPlayers((byte) _nbPlayers);
+        info_.setNbPlayers(_nbPlayers);
         info_.setNextPlayer(nextPlayer_);
         info_.setJoueursConfiance(teamsRelation_.partenaires(nextPlayer_));
         info_.setJoueursNonConfiance(teamsRelation_.adversaires(nextPlayer_));

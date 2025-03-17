@@ -139,7 +139,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         _container.add(_panneau2, MessagesGuiFct.BORDER_LAYOUT_EAST);
     }
 
-    public static void bidButtons(ContainerPlayableBelote _playable, RulesBelote _rules, int _pts, BidBeloteSuit _bid, CustList<BidBeloteSuit> _bids) {
+    public static void bidButtons(ContainerPlayableBelote _playable, RulesBelote _rules, long _pts, BidBeloteSuit _bid, CustList<BidBeloteSuit> _bids) {
         TranslationsLg lg_ = _playable.getOwner().getFrames().currentLg();
         if (!_rules.withBidPointsForAllPlayers()) {
             for(BidBeloteSuit e: _bids) {
@@ -163,7 +163,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         panneau_.add(bouton_);
         _playable.getBids().add(_action);
     }
-    public static void addButtonsForCoinche(ContainerPlayableBelote _playable, int _pts, IdList<BidBelote> _partie) {
+    public static void addButtonsForCoinche(ContainerPlayableBelote _playable, long _pts, IdList<BidBelote> _partie) {
         Ints points_ = RulesBelote.getPoints();
         int size_ = points_.size();
         _playable.setPanneauBoutonsJeuPoints(_playable.getOwner().getCompoFactory().newGrid());
@@ -249,7 +249,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
         }
     }
 
-    public void firstRound(byte _joueur, String _pseudo, BidBeloteSuit _bid, DeclareHandBelote _decl, IntCardsCallEvents _interceptor) {
+    public void firstRound(int _joueur, String _pseudo, BidBeloteSuit _bid, DeclareHandBelote _decl, IntCardsCallEvents _interceptor) {
         TranslationsLg lg_ = getOwner().getFrames().currentLg();
         _interceptor.call(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(_decl.getDeclare(), lg_),RETURN_LINE)));
 //            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),, getOwner().getFrames());
@@ -278,7 +278,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
     public CustList<SuitLabel> getBidsButtons() {
         return bidsButtons;
     }
-    public StringList pseudosBelote(byte _nbPlayers) {
+    public StringList pseudosBelote(int _nbPlayers) {
         StringList pseudosTwo_=new StringList();
         pseudosTwo_.add(pseudo());
         StringList pseudos_ = getPseudosJoueurs().getPseudosBelote();

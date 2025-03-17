@@ -238,7 +238,7 @@ public final class GameBeloteBid {
                 BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
                 enchereCouleur_.setBid(_enchereCouleurDominante);
                 enchereCouleur_.setSuit(_couleurMax);
-                enchereCouleur_.setPoints((int) pts_);
+                enchereCouleur_.setPoints(pts_);
                 return enchereCouleur_;
             }
         }

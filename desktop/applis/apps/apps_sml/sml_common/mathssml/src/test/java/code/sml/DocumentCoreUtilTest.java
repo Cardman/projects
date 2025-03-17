@@ -13,14 +13,14 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
     public void t2() {
         assertTrue(saveBool(BoolVal.TRUE));
     }
-    @Test
-    public void t3() {
-        assertEq(1,saveByte(1));
-    }
-    @Test
-    public void t4() {
-        assertEq(1,saveShort(1));
-    }
+//    @Test
+//    public void t3() {
+//        assertEq(1,saveByte(1));
+//    }
+//    @Test
+//    public void t4() {
+//        assertEq(1,saveShort(1));
+//    }
     @Test
     public void t5() {
         assertEq(1,saveInt(1));
@@ -49,18 +49,18 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
         assertEq(BoolVal.FALSE,ls_.get(0));
         assertEq(BoolVal.TRUE,ls_.get(1));
     }
-    @Test
-    public void t10() {
-        Bytes ls_ = saveBytes(Bytes.newList((byte)1));
-        assertEq(1,ls_.size());
-        assertEq(1,ls_.get(0));
-    }
-    @Test
-    public void t11() {
-        Shorts ls_ = saveShorts(Shorts.newList((byte)1));
-        assertEq(1,ls_.size());
-        assertEq(1,ls_.get(0));
-    }
+//    @Test
+//    public void t10() {
+//        Bytes ls_ = saveBytes(Bytes.newList((byte)1));
+//        assertEq(1,ls_.size());
+//        assertEq(1,ls_.get(0));
+//    }
+//    @Test
+//    public void t11() {
+//        Shorts ls_ = saveShorts(Shorts.newList((byte)1));
+//        assertEq(1,ls_.size());
+//        assertEq(1,ls_.get(0));
+//    }
     @Test
     public void t12() {
         Ints ls_ = saveInts(Ints.newList(1));
@@ -86,16 +86,16 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
         assertEq(BoolVal.FALSE,ls_.get(0).get(0));
         assertEq(BoolVal.TRUE,ls_.get(0).get(1));
     }
-    @Test
-    public void t15() {
-        Bytes in_ = Bytes.newList((byte)1);
-        CustList<Bytes> inSingle_ = new CustList<Bytes>();
-        inSingle_.add(in_);
-        CustList<Bytes> ls_ = saveListBytes(inSingle_);
-        assertEq(1,ls_.size());
-        assertEq(1,ls_.get(0).size());
-        assertEq(1,ls_.get(0).get(0));
-    }
+//    @Test
+//    public void t15() {
+//        Bytes in_ = Bytes.newList((byte)1);
+//        CustList<Bytes> inSingle_ = new CustList<Bytes>();
+//        inSingle_.add(in_);
+//        CustList<Bytes> ls_ = saveListBytes(inSingle_);
+//        assertEq(1,ls_.size());
+//        assertEq(1,ls_.get(0).size());
+//        assertEq(1,ls_.get(0).get(0));
+//    }
     @Test
     public void t16() {
         Longs in_ = Longs.newList(1);
@@ -161,15 +161,15 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
         assertEq(1,ls_.getValue(0).size());
         assertEq("2",ls_.getValue(0).get(0));
     }
-    @Test
-    public void t24() {
-        IntTreeMap<Byte> inSingle_ = new IntTreeMap<Byte>();
-        inSingle_.addEntry(1,(byte)2);
-        IntTreeMap<Byte> ls_ = saveMapIntByte(inSingle_);
-        assertEq(1,ls_.size());
-        assertEq(1,ls_.getKey(0));
-        assertEq(2,ls_.getValue(0));
-    }
+//    @Test
+//    public void t24() {
+//        IntTreeMap<Byte> inSingle_ = new IntTreeMap<Byte>();
+//        inSingle_.addEntry(1,(byte)2);
+//        IntTreeMap<Byte> ls_ = saveMapIntByte(inSingle_);
+//        assertEq(1,ls_.size());
+//        assertEq(1,ls_.getKey(0));
+//        assertEq(2,ls_.getValue(0));
+//    }
     @Test
     public void t25() {
         LongMap<String> inSingle_ = new LongMap<String>();

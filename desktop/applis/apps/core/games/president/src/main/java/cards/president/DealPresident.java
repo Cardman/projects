@@ -10,12 +10,12 @@ import code.util.core.IndexConstants;
 
 public final class DealPresident implements Iterable<HandPresident> {
 
-    public static final byte NUMERO_UTILISATEUR = 0;
+    public static final int  NUMERO_UTILISATEUR = 0;
 
     /** Ensemble des mains des joueurs */
     private CustList<HandPresident> deal = new CustList<HandPresident>();
     /** donneur est un entier allant de 0 a nombre de joueurs-1 */
-    private byte dealer;
+    private int dealer;
     /** nombre de parties jouees depuis le lancement */
     private long nbDeals;
     /** Pile de distribution pour initialiser la donne */
@@ -30,7 +30,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     }
 
     /** Utilise pour editer une partie non solitaire */
-    public DealPresident(CustList<HandPresident> _pdonne, byte _pdonneur) {
+    public DealPresident(CustList<HandPresident> _pdonne, int _pdonneur) {
         deal = _pdonne;
         dealer = _pdonneur;
     }
@@ -58,7 +58,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     Apres une partie la joueur apres le donneur actuel devient le nouveau
     donneur
     */
-    public void donneurSuivant(byte _nouveauDonneur, RulesPresident _regles) {
+    public void donneurSuivant(int _nouveauDonneur, RulesPresident _regles) {
         dealer = _nouveauDonneur;
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
         dealer++;
@@ -91,7 +91,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     */
     private void donnerEnBattant(RulesPresident _regles,AbstractGenerator _gene) {
 
-        byte nbJrs_ = (byte) _regles.getNbPlayers();
+        int nbJrs_ = _regles.getNbPlayers();
         for (int i = IndexConstants.FIRST_INDEX; i < nbJrs_; i++) {
             deal.add(new HandPresident());
         }
@@ -99,7 +99,7 @@ public final class DealPresident implements Iterable<HandPresident> {
 //        for (int i = CustList.FIRST_INDEX; i < n; i++) {
 //            m.ajouterCartes(HandPresident.pileBase());
 //        }
-        byte nombreTotalCarteJoueurs_ = (byte) (m.total());
+        int nombreTotalCarteJoueurs_ = m.total();
 
         for (int i = IndexConstants.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
             deal.get(i % nbJrs_).ajouter(m.tirerUneCarteAleatoire(_gene));
@@ -113,12 +113,12 @@ public final class DealPresident implements Iterable<HandPresident> {
     private void donnerSansBattre(RulesPresident _regles, HandPresident _ppile) {
         _ppile.couper();
         /* On recupere_ le_ nombre_ de_ joueurs_ jouant_ au_ tarot_ */
-        byte nbJrs_ = (byte) _regles.getNbPlayers();
+        int nbJrs_ = _regles.getNbPlayers();
         /* On prepare_ les_ mains_ des_ joueurs_ */
         for (int i = IndexConstants.FIRST_INDEX; i < nbJrs_; i++) {
             deal.add(new HandPresident());
         }
-        Bytes ordreDisributionJoueurs_;
+        Ints ordreDisributionJoueurs_;
         ordreDisributionJoueurs_ = _regles.getSortedPlayersAfter(dealer);
         while (!_ppile.estVide()) {
             //i == nombre_ de_ cartes_ a donner_
@@ -131,22 +131,22 @@ public final class DealPresident implements Iterable<HandPresident> {
         }
     }
 
-    void ajouterCartes(byte _joueur,HandPresident _main) {
+    void ajouterCartes(int _joueur,HandPresident _main) {
         deal.get(_joueur).ajouterCartes(_main);
     }
 
-    void supprimerCartes(byte _joueur) {
+    void supprimerCartes(int _joueur) {
         deal.get(_joueur).supprimerCartes();
     }
-    void supprimerCartes(byte _joueur,HandPresident _main) {
+    void supprimerCartes(int _joueur,HandPresident _main) {
         deal.get(_joueur).supprimerCartes(_main);
     }
 
-    void trier(byte _joueur, boolean _decroissant, boolean _reverse) {
+    void trier(int _joueur, boolean _decroissant, boolean _reverse) {
         deal.get(_joueur).sortCards(_decroissant, _reverse);
     }
 
-    public HandPresident hand(byte _i) {
+    public HandPresident hand(int _i) {
         return deal.get(_i);
     }
     /** Renvoie la main de l'utilisateur */
@@ -154,8 +154,8 @@ public final class DealPresident implements Iterable<HandPresident> {
         return deal.get(NUMERO_UTILISATEUR);
     }
 
-    public byte nombreDeMains() {
-        return (byte) deal.size();
+    public int nombreDeMains() {
+        return deal.size();
     }
 
     @Override
@@ -168,10 +168,10 @@ public final class DealPresident implements Iterable<HandPresident> {
     public void setDeal(CustList<HandPresident> _deal) {
         deal = _deal;
     }
-    public byte getDealer() {
+    public int getDealer() {
         return dealer;
     }
-    public void setDealer(byte _dealer) {
+    public void setDealer(int _dealer) {
         dealer = _dealer;
     }
     public long getNbDeals() {

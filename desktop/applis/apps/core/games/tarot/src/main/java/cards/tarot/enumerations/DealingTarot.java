@@ -112,15 +112,15 @@ public enum DealingTarot {
         }
         return NumberUtil.wrapIntArray(3,3,3,3,3);
     }
-    public Bytes getAppelesDetermines(byte _preneur) {
+    public Ints getAppelesDetermines(int _preneur) {
         if(appel != CallingCard.DEFINED) {
-            return new Bytes();
+            return new Ints();
         }
-        Bytes appeles_ = new Bytes();
+        Ints appeles_ = new Ints();
         int nombreJoueurs_ = getId().getNombreJoueurs();
         int delta_ = nombreJoueurs_ /(nbAppeles+1);
         for(int i=0;i<nbAppeles;i++) {
-            appeles_.add((byte) ((_preneur+(i+1)*delta_)% nombreJoueurs_));
+            appeles_.add((_preneur+(i+1)*delta_)% nombreJoueurs_);
         }
         return appeles_;
     }

@@ -12,7 +12,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playBestCardsDom1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -48,7 +48,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playBestCardsDom2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -104,7 +104,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenOnlyTrumps1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -144,7 +144,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenOnlyTrumps2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -189,7 +189,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenOnlyTrumps3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -234,7 +234,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -274,7 +274,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -314,7 +314,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -379,7 +379,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -419,7 +419,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit5Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -459,7 +459,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit6Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -524,7 +524,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit7Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -589,7 +589,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playWhenAtMostOneNormalSuit8Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -654,7 +654,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -690,7 +690,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -726,7 +726,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -762,7 +762,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -803,7 +803,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom5Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -849,7 +849,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom6Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -899,7 +899,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom7Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -947,7 +947,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom8Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -984,7 +984,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom9Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1028,7 +1028,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom10Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1064,7 +1064,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom11Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_1);
         HandBelote curHand_ = new HandBelote();
@@ -1100,7 +1100,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom12Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_1);
         HandBelote curHand_ = new HandBelote();
@@ -1136,7 +1136,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom13Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1182,7 +1182,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsTakerDom14Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1223,7 +1223,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1261,7 +1261,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -1299,7 +1299,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -1342,7 +1342,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -1385,7 +1385,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom5Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -1428,7 +1428,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom6Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -1471,7 +1471,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom7Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -1514,7 +1514,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom8Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -1557,7 +1557,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom9Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
         HandBelote curHand_ = new HandBelote();
@@ -1604,7 +1604,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom10Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
         HandBelote curHand_ = new HandBelote();
@@ -1651,7 +1651,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom11Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
         HandBelote curHand_ = new HandBelote();
@@ -1698,7 +1698,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom12Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
         HandBelote curHand_ = new HandBelote();
@@ -1745,7 +1745,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsCalledPlayerDom13Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1784,7 +1784,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     public void playAsCalledPlayerDom14Test() {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote curHand_ = new HandBelote();
         curHand_.ajouter(CardBelote.CLUB_10);
         curHand_.ajouter(CardBelote.SPADE_1);
@@ -1824,7 +1824,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsDefenderDom1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1861,7 +1861,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsDefenderDom2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1903,7 +1903,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsDefenderDom3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1945,7 +1945,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsDefenderDom4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -1987,7 +1987,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void playAsDefenderDom5Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -2029,7 +2029,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void entameCouleurDominante1Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -2064,7 +2064,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void entameCouleurDominante2Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -2104,7 +2104,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void entameCouleurDominante3Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_9);
         HandBelote curHand_ = new HandBelote();
@@ -2144,7 +2144,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void entameCouleurDominante4Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -2179,7 +2179,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void entameCouleurDominante5Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -2216,7 +2216,7 @@ public final class GameBeloteBeginTrickDomTest extends CommonGameBelote {
     @Test
     public void entameCouleurDominante6Test() {
         RulesBelote r_ = new RulesBelote();
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();

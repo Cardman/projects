@@ -77,7 +77,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -93,7 +93,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -109,7 +109,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -125,7 +125,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -141,7 +141,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -157,7 +157,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -173,7 +173,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -189,7 +189,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -210,7 +210,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -238,7 +238,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -266,7 +266,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -283,7 +283,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -300,7 +300,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -317,7 +317,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -334,7 +334,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -351,7 +351,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -368,7 +368,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -385,7 +385,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -426,7 +426,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -448,7 +448,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -470,7 +470,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -492,7 +492,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -514,7 +514,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -536,7 +536,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -558,7 +558,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -580,7 +580,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBids(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHands(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         assertTrue(game_.keepBidding());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
@@ -602,7 +602,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>());
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -617,7 +617,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -640,7 +640,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -655,7 +655,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -678,7 +678,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -693,7 +693,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -716,7 +716,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -731,7 +731,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -754,7 +754,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -769,7 +769,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -792,7 +792,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -807,7 +807,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -830,7 +830,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -845,7 +845,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -868,7 +868,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         RulesTarot regles_=initializeRulesWithBidsForSixPlayers(new IdList<BidTarot>(BidTarot.TAKE,BidTarot.GUARD_WITHOUT,BidTarot.GUARD_AGAINST));
         GameTarot game_ = new GameTarot(GameType.RANDOM,initializeHandsForSixPlayers(),regles_);
 
-        byte player_ = game_.playerAfter(game_.getDistribution().getDealer());
+        int player_ = game_.playerAfter(game_.getDistribution().getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
         player_ = game_.playerAfter(player_);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -883,7 +883,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         game_.initEquipeDeterminee();
         assertEq(2,game_.getPreneur());
         assertEq(1,game_.getAppele().size());
-        assertTrue(game_.getAppele().containsObj((byte)5));
+        assertTrue(game_.getAppele().containsObj(5));
         assertEq(BidTarot.GUARD,game_.getContrat());
 //        assertTrue(game_.confiance((byte)2 ,(byte) 5));
 //        assertTrue(game_.confiance((byte)5 ,(byte) 2));
@@ -1032,7 +1032,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         hand_.ajouter(CardTarot.TRUMP_6);
         hand_.ajouter(CardTarot.HEART_10);
         hands_.add(hand_);
-        return new DealTarot(hands_,(byte) 2);
+        return new DealTarot(hands_,2);
     }
     static DealTarot initializeHandsForSixPlayers() {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
@@ -1128,7 +1128,7 @@ public final class GameTarotBiddingTest extends CommonTarotGame {
         hand_.ajouter(CardTarot.TRUMP_6);
         hand_.ajouter(CardTarot.HEART_10);
         hands_.add(hand_);
-        return new DealTarot(hands_,(byte) 5);
+        return new DealTarot(hands_,5);
     }
     static RulesTarot initializeRulesWithBids(IdList<BidTarot> _bids) {
         RulesTarot regles_=new RulesTarot();

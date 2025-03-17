@@ -130,13 +130,13 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -159,11 +159,11 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -183,13 +183,13 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -208,17 +208,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check8Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.gererChienInconnu();
@@ -241,17 +241,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check9Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         check(game_);
@@ -273,17 +273,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -302,17 +302,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check10Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ecarter(new DefGameTarot());
@@ -335,17 +335,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.appelApresEcart(new DefGameTarot());
         check(game_);
@@ -366,17 +366,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check12Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
@@ -399,17 +399,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check13Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
@@ -433,17 +433,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check14Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
@@ -469,17 +469,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check15Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
@@ -504,17 +504,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -544,7 +544,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -563,7 +563,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -586,17 +586,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check19Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
@@ -620,7 +620,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -640,17 +640,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -678,17 +678,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check22Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
@@ -717,17 +717,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -751,7 +751,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -773,10 +773,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check25Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 5);
+        DealTarot deal_ = deal2(5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -792,22 +792,22 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check26Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 5);
+        DealTarot deal_ = deal2(5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         check(game_);
@@ -829,17 +829,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check261Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
@@ -875,17 +875,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check262Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
@@ -920,7 +920,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -943,7 +943,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -964,22 +964,22 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check27Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 5);
+        DealTarot deal_ = deal2(5);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         game_.ajouterCartesUtilisateur();
@@ -1006,22 +1006,22 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check28Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 4);
+        DealTarot deal_ = deal2(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         game_.ajouterCartesUtilisateur();
@@ -1048,14 +1048,14 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check29Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 4);
+        DealTarot deal_ = deal2(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -1074,15 +1074,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check30Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.getAllowedBids().put(BidTarot.SLAM, BoolVal.TRUE);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 4);
+        DealTarot deal_ = deal2(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.SLAM);
         game_.initEquipeDeterminee();
         without(game_);
@@ -1101,15 +1101,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check31Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.getAllowedBids().put(BidTarot.SLAM, BoolVal.TRUE);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 4);
+        DealTarot deal_ = deal2(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.SLAM);
         game_.initEquipeDeterminee();
         without(game_);
@@ -1129,14 +1129,14 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check32Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 4);
+        DealTarot deal_ = deal2(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -1156,14 +1156,14 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check33Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 4);
+        DealTarot deal_ = deal2(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -1199,10 +1199,10 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check34Test() {
-        RulesTarot rules_ = new RulesTarot((byte)3);
+        RulesTarot rules_ = new RulesTarot(3);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
-        DealTarot deal_ = deal3((byte) 0);
+        DealTarot deal_ = deal3(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1218,15 +1218,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check35Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal4((byte) 4);
+        DealTarot deal_ = deal4(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -1263,15 +1263,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check36Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -1310,7 +1310,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -1334,17 +1334,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
         check(game_);
@@ -1362,17 +1362,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
         firstTrick(game_);
@@ -1397,17 +1397,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
         firstTrick(game_);
@@ -1429,17 +1429,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
         firstTrick(game_);
@@ -1464,7 +1464,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1480,17 +1480,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check43Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
         check(game_);
@@ -1507,7 +1507,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check44Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -1524,17 +1524,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
         firstTrick(game_);
@@ -1556,14 +1556,14 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = dealSlam((byte) 2);
+        DealTarot deal_ = dealSlam(2);
 
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartes(game_.getPreneur(),game_.getDistribution().derniereMain());
         dog(game_);
@@ -1675,14 +1675,14 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = dealSlam((byte) 2);
+        DealTarot deal_ = dealSlam(2);
 
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.TAKE);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartes(game_.getPreneur(),game_.getDistribution().derniereMain());
         dog(game_);
@@ -1790,22 +1790,22 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check48Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
-        DealTarot deal_ = deal2((byte) 4);
+        DealTarot deal_ = deal2(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -1826,17 +1826,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check49Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
@@ -1859,15 +1859,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -1888,15 +1888,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
 //        discard(game_, CardTarot.CLUB_6);
@@ -1918,12 +1918,12 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         rules_.setDealing(DealingTarot.DEAL_1_VS_2);
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = dealSlam((byte) 2);
+        DealTarot deal_ = dealSlam(2);
 
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.TAKE);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartes(game_.getPreneur(),game_.getDistribution().derniereMain());
         dog(game_);
@@ -2032,15 +2032,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check53Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -2054,11 +2054,11 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check54Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
@@ -2076,17 +2076,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check55Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -2108,17 +2108,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -2140,17 +2140,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         check(game_);
@@ -2171,17 +2171,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_2);
@@ -2203,17 +2203,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCoursPreneur(CardTarot.DIAMOND_2);
@@ -2237,11 +2237,11 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         intelligenceArtificielleAppel(game_);
         check(game_);
@@ -2257,11 +2257,11 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check61Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -2278,7 +2278,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 1);
+        DealTarot deal_ = deal1(1);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -2296,15 +2296,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check63Test() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal4((byte) 4);
+        DealTarot deal_ = deal4(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -2353,17 +2353,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check1FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.TAKE);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         check(game_);
@@ -2375,17 +2375,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check2FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.SLAM);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         check(game_);
@@ -2396,19 +2396,19 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check3FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         check(game_);
@@ -2419,17 +2419,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check4FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
@@ -2442,17 +2442,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check5FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.EXCUSE);
@@ -2465,17 +2465,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check6FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         game_.setCarteAppelee(cartesAppel_);
@@ -2490,7 +2490,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -2504,17 +2504,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         game_.ajouterUneCarteDansPliEnCours(CardTarot.HEART_KING);
@@ -2527,17 +2527,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -2554,17 +2554,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -2581,17 +2581,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setDiscardAfterCall(false);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -2606,15 +2606,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check12FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -2641,11 +2641,11 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check121FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.firstLead();
         HandTarot handful_ = new HandTarot();
@@ -2655,7 +2655,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.setProgressingTrick(new TrickTarot((byte)0));
+        game_.setProgressingTrick(new TrickTarot(0));
         game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
@@ -2671,23 +2671,23 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check122FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL_WITH_MISERE);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.initPlayWithoutBid();
         game_.firstLead();
@@ -2698,7 +2698,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         handful_.ajouter(CardTarot.TRUMP_14);
         handful_.ajouter(CardTarot.TRUMP_21);
         handful_.ajouter(CardTarot.EXCUSE);
-        game_.setProgressingTrick(new TrickTarot((byte)0));
+        game_.setProgressingTrick(new TrickTarot(0));
         game_.ajouterPoignee(handful_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_4);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.TRUMP_6);
@@ -2713,16 +2713,16 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     }
     @Test
     public void check13FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
         rules_.getAllowedHandfuls().put(Handfuls.FOUR, 0);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -2749,15 +2749,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check14FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -2784,15 +2784,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check15FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -2820,15 +2820,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check16FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal4((byte) 4);
+        DealTarot deal_ = deal4(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -2847,15 +2847,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check17FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -3057,15 +3057,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check24FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal5((byte) 4);
+        DealTarot deal_ = deal5(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         game_.gererChienInconnu();
@@ -3084,17 +3084,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -3113,17 +3113,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -3141,17 +3141,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -3168,15 +3168,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check28FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
@@ -3189,9 +3189,9 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check29FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         deal_.hand().jouer(CardTarot.TRUMP_21);
-        deal_.hand((byte) 1).ajouter(CardTarot.TRUMP_21);
+        deal_.hand(1).ajouter(CardTarot.TRUMP_21);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3202,17 +3202,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -3229,20 +3229,20 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        game_.getDistribution().hand((byte) 1).ajouter(CardTarot.EXCUSE);
-        game_.getDistribution().hand((byte) 2).jouer(CardTarot.EXCUSE);
+        game_.getDistribution().hand(1).ajouter(CardTarot.EXCUSE);
+        game_.getDistribution().hand(2).jouer(CardTarot.EXCUSE);
         //game_.addCurTrick();
         check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3253,17 +3253,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -3285,17 +3285,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -3315,7 +3315,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -3334,7 +3334,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -3352,7 +3352,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         deal_.hand().ajouterCartes(deal_.derniereMain());
         deal_.hand().jouer(CardTarot.TRUMP_14);
         deal_.hand().jouer(CardTarot.TRUMP_17);
@@ -3367,17 +3367,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(CardTarot.SPADE_KING);
@@ -3393,7 +3393,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.setAnnoncesMiseres(new IdList<Miseres>(Miseres.TRUMP));
@@ -3407,7 +3407,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         game_.setAnnoncesPoignees(new IdList<Handfuls>(Handfuls.ONE));
@@ -3421,7 +3421,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         firstTrick(game_);
         HandTarot hand_ = new HandTarot();
@@ -3437,7 +3437,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         deal_.derniereMain().ajouter(deal_.hand().jouer(0));
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
@@ -3449,7 +3449,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         deal_.getDeal().add(new HandTarot());
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
@@ -3533,17 +3533,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -3567,17 +3567,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         firstTrick(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.DIAMOND_KING);
@@ -3592,17 +3592,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check47FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.gererChienInconnu();
@@ -3615,30 +3615,30 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check48FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot called_ = new HandTarot();
         called_.ajouter(CardTarot.SPADE_KING);
         game_.setCarteAppelee(called_);
         game_.gererChienInconnu();
-        game_.setPreneur((byte) 2);
+        game_.setPreneur(2);
         game_.slam(new DefGameTarot());
         firstTrick(game_);
-        invalid(game_,(byte) 4, CardTarot.DIAMOND_KING);
-        invalid(game_,(byte) 0, CardTarot.DIAMOND_2);
-        invalid(game_,(byte) 1, CardTarot.DIAMOND_6);
-        invalid(game_,(byte) 2, CardTarot.DIAMOND_1);
-        invalid(game_,(byte) 3, CardTarot.DIAMOND_3);
+        invalid(game_,4, CardTarot.DIAMOND_KING);
+        invalid(game_,0, CardTarot.DIAMOND_2);
+        invalid(game_,1, CardTarot.DIAMOND_6);
+        invalid(game_,2, CardTarot.DIAMOND_1);
+        invalid(game_,3, CardTarot.DIAMOND_3);
         game_.ajouterPetitAuBoutPliEnCours();
         check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3648,17 +3648,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check49FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.MISERE);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3667,21 +3667,21 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check50FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3690,17 +3690,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check51FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.TAKE);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot called_ = new HandTarot();
         called_.ajouter(CardTarot.WHITE);
@@ -3712,17 +3712,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check51_FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.TAKE);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot called_ = new HandTarot();
         called_.ajouter(CardTarot.HEART_KING);
@@ -3735,17 +3735,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check51__FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.GUARD_WITHOUT);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         HandTarot called_ = new HandTarot();
         called_.ajouter(CardTarot.HEART_KING);
@@ -3759,7 +3759,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.getAllowedHandfuls().put(Handfuls.ONE,-1);
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3768,7 +3768,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check53FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         //invalid
         game_.getDeclaresHandfuls().removeLast();
@@ -3779,7 +3779,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check54FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         //invalid
         game_.getHandfuls().removeLast();
@@ -3792,17 +3792,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDiscardAfterCall(false);
-        DealTarot deal_ = deal1((byte) 3);
+        DealTarot deal_ = deal1(3);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterCartesUtilisateur();
         discard(game_, CardTarot.CLUB_6);
@@ -3841,7 +3841,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check57FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         //invalid
         game_.getDeclaresMiseres().removeLast();
@@ -3862,15 +3862,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check59FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal6((byte) 4);
+        DealTarot deal_ = deal6(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD_AGAINST);
         game_.initEquipeDeterminee();
         afterSlamWithout(game_);
@@ -3899,17 +3899,17 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     public void check60FailTest() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
-        DealTarot deal_ = deal1((byte) 0);
+        DealTarot deal_ = deal1(0);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.FOLD);
         intelligenceArtificielleAppel(game_);
         game_.ajouterCartesUtilisateur();
@@ -3920,15 +3920,15 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     @Test
     public void check61FailTest() {
-        RulesTarot rules_ = new RulesTarot((byte)6);
+        RulesTarot rules_ = new RulesTarot(6);
         rules_.setMode(ModeTarot.NORMAL);
         rules_.setDealing(DealingTarot.DEAL_2_VS_4_WITHOUT_CALL);
         rules_.getMiseres().add(Miseres.LOW_CARDS);
-        DealTarot deal_ = deal4((byte) 4);
+        DealTarot deal_ = deal4(4);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(BidTarot.GUARD);
         game_.ajouterContrat(BidTarot.FOLD);
         game_.ajouterContrat(BidTarot.FOLD);
@@ -3976,7 +3976,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         m_.addEntry(CheckerGameTarotWithRules.BAD_CARD,CheckerGameTarotWithRules.BAD_CARD);
         return m_;
     }
-    private static DealTarot deal1(byte _dealer) {
+    private static DealTarot deal1(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -4076,7 +4076,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         return new DealTarot(hands_,_dealer);
     }
 
-    private static DealTarot deal2(byte _dealer) {
+    private static DealTarot deal2(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -4178,7 +4178,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         return new DealTarot(hands_,_dealer);
     }
 
-    private static DealTarot deal3(byte _dealer) {
+    private static DealTarot deal3(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -4272,7 +4272,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         return new DealTarot(hands_,_dealer);
     }
 
-    private static DealTarot deal4(byte _dealer) {
+    private static DealTarot deal4(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -4374,7 +4374,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         return new DealTarot(hands_,_dealer);
     }
 
-    private static DealTarot deal5(byte _dealer) {
+    private static DealTarot deal5(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -4476,7 +4476,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         return new DealTarot(hands_,_dealer);
     }
 
-    private static DealTarot dealSlam(byte _dealer) {
+    private static DealTarot dealSlam(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -4569,7 +4569,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         hands_.add(hand_);
         return new DealTarot(hands_,_dealer);
     }
-    private static DealTarot deal6(byte _dealer) {
+    private static DealTarot deal6(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_;
         hand_ = new HandTarot();
@@ -4673,7 +4673,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
 
     private DealTarot deal() {
         DealTarot deal_ = new DealTarot(0);
-        deal_.setDealer((byte) 0);
+        deal_.setDealer(0);
         deal_.getDeal().add(create(CardTarot.SPADE_JACK,CardTarot.SPADE_KING,CardTarot.SPADE_6,CardTarot.HEART_5,CardTarot.SPADE_1,CardTarot.HEART_10,CardTarot.DIAMOND_10,CardTarot.TRUMP_1,CardTarot.DIAMOND_5,CardTarot.TRUMP_6,CardTarot.CLUB_KING,CardTarot.TRUMP_11,CardTarot.CLUB_9,CardTarot.TRUMP_16,CardTarot.CLUB_4));
         deal_.getDeal().add(create(CardTarot.SPADE_KNIGHT,CardTarot.SPADE_8,CardTarot.HEART_3,CardTarot.SPADE_3,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT,CardTarot.HEART_QUEEN,CardTarot.DIAMOND_7,CardTarot.TRUMP_4,CardTarot.DIAMOND_2,CardTarot.TRUMP_9,CardTarot.CLUB_JACK,CardTarot.TRUMP_14,CardTarot.CLUB_6,CardTarot.TRUMP_19));
         deal_.getDeal().add(create(CardTarot.SPADE_10,CardTarot.HEART_1,CardTarot.SPADE_5,CardTarot.HEART_6,CardTarot.DIAMOND_KING,CardTarot.HEART_JACK,CardTarot.DIAMOND_9,CardTarot.TRUMP_2,CardTarot.DIAMOND_4,CardTarot.TRUMP_7,CardTarot.CLUB_QUEEN,CardTarot.TRUMP_12,CardTarot.CLUB_8,CardTarot.TRUMP_17,CardTarot.CLUB_3));
@@ -4707,7 +4707,7 @@ public final class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
         _game.ajouterUneCarteDansPliEnCoursPreneur(_card);
     }
 
-    public void invalid(GameTarot _g,byte _numero, CardTarot _c) {
+    public void invalid(GameTarot _g,int _numero, CardTarot _c) {
         _g.jouer(_numero,_c);
         _g.ajouterUneCarteDansPliEnCoursSimple(_c);
     }

@@ -33,20 +33,20 @@ public final class DocumentWriterCoreUtil {
         }
         return elt_;
     }
-
-    public static Element setByte(byte _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        elt_.setAttribute(VALUE, Long.toString(_object));
-        return elt_;
-    }
-
-    public static Element setShort(short _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        elt_.setAttribute(VALUE, Long.toString(_object));
-        return elt_;
-    }
+//
+//    public static Element setByte(byte _object, String _fieldName, Document _document) {
+//        Element elt_ = _document.createElement(ANON_TAG);
+//        setFieldName(elt_, _fieldName);
+//        elt_.setAttribute(VALUE, Long.toString(_object));
+//        return elt_;
+//    }
+//
+//    public static Element setShort(short _object, String _fieldName, Document _document) {
+//        Element elt_ = _document.createElement(ANON_TAG);
+//        setFieldName(elt_, _fieldName);
+//        elt_.setAttribute(VALUE, Long.toString(_object));
+//        return elt_;
+//    }
 
     public static Element setInteger(int _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
@@ -89,25 +89,25 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setListByte(Bytes _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        for (byte s: _object) {
-            Element sub_ = setByte(s, ES, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
-
-    public static Element setListShort(Shorts _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        for (short s: _object) {
-            Element sub_ = setShort(s, ES, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
+//    public static Element setListByte(Bytes _object, String _fieldName, Document _document) {
+//        Element elt_ = _document.createElement(ANON_TAG);
+//        setFieldName(elt_, _fieldName);
+//        for (byte s: _object) {
+//            Element sub_ = setInteger(s, ES, _document);
+//            elt_.appendChild(sub_);
+//        }
+//        return elt_;
+//    }
+//
+//    public static Element setListShort(Shorts _object, String _fieldName, Document _document) {
+//        Element elt_ = _document.createElement(ANON_TAG);
+//        setFieldName(elt_, _fieldName);
+//        for (short s: _object) {
+//            Element sub_ = setShort(s, ES, _document);
+//            elt_.appendChild(sub_);
+//        }
+//        return elt_;
+//    }
 
     public static Element setListInteger(Ints _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
@@ -148,16 +148,16 @@ public final class DocumentWriterCoreUtil {
         }
         return elt_;
     }
-
-    public static Element setListListByte(CustList<Bytes> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        for (Bytes s: _object) {
-            Element sub_ = setListByte(s, ES, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
+//
+//    public static Element setListListByte(CustList<Bytes> _object, String _fieldName, Document _document) {
+//        Element elt_ = _document.createElement(ANON_TAG);
+//        setFieldName(elt_, _fieldName);
+//        for (Bytes s: _object) {
+//            Element sub_ = setListByte(s, ES, _document);
+//            elt_.appendChild(sub_);
+//        }
+//        return elt_;
+//    }
 
     public static Element setStringMapBoolean(StringMap<BoolVal> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
@@ -223,19 +223,19 @@ public final class DocumentWriterCoreUtil {
         }
         return elt_;
     }
-
-    public static Element setMapIntegerByte(IntTreeMap<Byte> _object, String _fieldName, Document _document) {
-        Element elt_ = _document.createElement(ANON_TAG);
-        setFieldName(elt_, _fieldName);
-        for (EntryCust<Integer,Byte> s: _object.entryList()) {
-            Element sub_ = setInteger(s.getKey(), ES, _document);
-            setKey(sub_);
-            elt_.appendChild(sub_);
-            sub_ = setByte(s.getValue(), ES, _document);
-            elt_.appendChild(sub_);
-        }
-        return elt_;
-    }
+//
+//    public static Element setMapIntegerByte(IntTreeMap<Byte> _object, String _fieldName, Document _document) {
+//        Element elt_ = _document.createElement(ANON_TAG);
+//        setFieldName(elt_, _fieldName);
+//        for (EntryCust<Integer,Byte> s: _object.entryList()) {
+//            Element sub_ = setInteger(s.getKey(), ES, _document);
+//            setKey(sub_);
+//            elt_.appendChild(sub_);
+//            sub_ = setInteger(s.getValue(), ES, _document);
+//            elt_.appendChild(sub_);
+//        }
+//        return elt_;
+//    }
 
     public static Element setMapByteByte(IntMap<Integer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);

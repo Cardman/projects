@@ -18,29 +18,29 @@ public final class DetailsResultsTarotBean extends TarotBean {
 
     private static final String EMPTY_STRING = "";
 
-    private short differenceScoreTaker;
+    private long differenceScoreTaker;
 
-    private short basePoints;
+    private long basePoints;
 
-    private int rate;
+    private long rate;
 
     private String small;
 
     private String playerSmall = EMPTY_STRING;
 
-    private int multipliedTmp;
+    private long multipliedTmp;
 
-    private int sumPlayers;
+    private long sumPlayers;
 
     private CustList<TarotSumDeclaringPlayer> linesDeclaring;
 
     private CustList<ScoresPlayers> playersScores;
 
-    private int additionnalBonusesAttack;
+    private long additionnalBonusesAttack;
 
-    private int additionnalBonusesDefense;
+    private long additionnalBonusesDefense;
 
-    private int diffAttackDefenseBonuses;
+    private long diffAttackDefenseBonuses;
 
     private CustList<RankingPlayerVariantGame> orderedPlayers;
 
@@ -71,30 +71,30 @@ public final class DetailsResultsTarotBean extends TarotBean {
     }
 
     private void noBid(ResultsTarot _res) {
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        int nombreJoueurs_ = getGame().getNombreDeJoueurs();
         EndTarotGame end_ = getGame().getEndTarotGame();
         end_.setupPlayersWonTricks();
-        Shorts doubledScoresPlayersTricks_ = new Shorts();
-        Shorts needlyScoresPlayers_ = new Shorts();
-        Shorts doublesDifferencesPlayers_ = new Shorts();
-        Shorts additionnalBonuses_ =new Shorts();
+        Longs doubledScoresPlayersTricks_ = new Longs();
+        Longs needlyScoresPlayers_ = new Longs();
+        Longs doublesDifferencesPlayers_ = new Longs();
+        Longs additionnalBonuses_ =new Longs();
         boolean pasJeuMisere_=getGame().pasJeuMisere();
         if(pasJeuMisere_) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++) {
                 doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble( joueur_));
                 needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                 doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDouble(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
                 additionnalBonuses_.add(end_.primeSupplementaire(joueur_));
             }
         } else {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++) {
                 doubledScoresPlayersTricks_.add(end_.scoreJoueurPlisDouble(joueur_));
                 needlyScoresPlayers_.add(end_.scoreNecessaireJoueur(joueur_));
                 doublesDifferencesPlayers_.add(EndTarotGame.differenceJoueurDoubleMisere(needlyScoresPlayers_.last(),doubledScoresPlayersTricks_.last()));
             }
         }
-        Shorts coefficients_ = rates(_res);
-        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+        Longs coefficients_ = rates(_res);
+        for (int p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
             PointsPlayerVariantGame or_ = new PointsPlayerVariantGame();
             or_.setNickname(getNicknames().get(p));
             or_.setPointsTricks(new Rate(doubledScoresPlayersTricks_.get(p),2));
@@ -111,15 +111,15 @@ public final class DetailsResultsTarotBean extends TarotBean {
 
     private void bid(ResultsTarot _res) {
         GameTarot game_ = _res.getGame();
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        int nombreJoueurs_ = getGame().getNombreDeJoueurs();
         EndTarotGame end_ = getGame().getEndTarotGame();
         end_.setupSlams();
-        short doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
-        short needlyScoresTaker_=end_.scoreNecessairePreneur(getBid());
-        short scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
-        differenceScoreTaker=(short) (scorePreneurPlis_-needlyScoresTaker_);
+        long doubledScoreTaker_=end_.scorePreneurPlisDouble(getBid());
+        long needlyScoresTaker_=end_.scoreNecessairePreneur(getBid());
+        long scorePreneurPlis_=end_.scorePreneurPlis(doubledScoreTaker_, needlyScoresTaker_);
+        differenceScoreTaker= scorePreneurPlis_-needlyScoresTaker_;
         basePoints=end_.base(doubledScoreTaker_,differenceScoreTaker);
-        short scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
+        long scoreTakerWithoutDeclaring_=end_.scorePreneurSansAnnonces(differenceScoreTaker,basePoints);
         playerSmall = _res.getPlayerSmallBound();
         small = _res.getScoreSmallBound();
         rate = getGame().getContrat().getCoefficient();
@@ -129,7 +129,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
             declaring(_res, end_, scoreTakerWithoutDeclaring_);
         }
         IdMap<Role,Rate> repartitionRate_=end_.coefficientsRepartition();
-        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++) {
             ScoresPlayers scoresPayer_ = new ScoresPlayers();
             scoresPayer_.setNickname(getNicknames().get(p));
             scoresPayer_.setRate(repartitionRate_.getVal(GameTarotTeamsRelation.statutDe(p, game_.getPreneur(), game_.getAppele())));
@@ -141,27 +141,27 @@ public final class DetailsResultsTarotBean extends TarotBean {
         diffAttackDefenseBonuses = additionnalBonusesAttack-additionnalBonusesDefense;
     }
 
-    private void bonusOneForOne(ResultsTarot _res, EndTarotGame _end, Shorts _additionnalBonuses) {
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
-        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+    private void bonusOneForOne(ResultsTarot _res, EndTarotGame _end, Longs _additionnalBonuses) {
+        int nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        for (int p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
             TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
             SortedHandfuls handfulsTakerLoc_ = new SortedHandfuls();
             for (Handfuls h: _end.calculHandfulsScorePlayer(p).get(p).getKeys()) {
-                handfulsTakerLoc_.put(h, (short)0);
+                handfulsTakerLoc_.put(h, 0L);
             }
             line_.setNickname(getNicknames().get(p));
-            StringMap<Short> hands_ = new StringMap<Short>();
-            for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
+            StringMap<Long> hands_ = new StringMap<Long>();
+            for (EntryCust<Handfuls,Long> e: handfulsTakerLoc_.entryList()) {
                 Handfuls h_ = e.getKey();
                 hands_.addEntry(toString(h_, _res.getRes().getSpecific()), e.getValue());
             }
             line_.setHandfuls(hands_);
             SortedMiseres miseres_ = new SortedMiseres();
             for (Miseres m: _end.calculMiseresScorePlayer(p).get(p).getKeys()) {
-                miseres_.put(m, (short)0);
+                miseres_.put(m, 0L);
             }
-            StringMap<Short> mis_ = new StringMap<Short>();
-            for (EntryCust<Miseres, Short> e: miseres_.entryList()) {
+            StringMap<Long> mis_ = new StringMap<Long>();
+            for (EntryCust<Miseres, Long> e: miseres_.entryList()) {
                 Miseres m_ = e.getKey();
                 mis_.addEntry(toString(m_, _res.getRes().getSpecific()), e.getValue());
             }
@@ -169,7 +169,7 @@ public final class DetailsResultsTarotBean extends TarotBean {
             line_.setSum(0);
             linesDeclaring.add(line_);
         }
-        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++) {
+        for (int p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++) {
             BonusesPlayers bon_ = new BonusesPlayers();
             bon_.setNickname(getNicknames().get(p));
             bon_.setBonus(_additionnalBonuses.get(p));
@@ -177,15 +177,15 @@ public final class DetailsResultsTarotBean extends TarotBean {
         }
     }
 
-    private Shorts rates(ResultsTarot _res) {
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
-        Shorts positions_ = _res.getPositionsDiff();
-        Shorts positions1_ = _res.getPositionsOne();
-        Shorts positions2_ = _res.getPositionsTwo();
-        Shorts positions3_ = _res.getPositionsThree();
-        Shorts positions4_ = _res.getPositionsFour();
-        Shorts coefficients_ = _res.getCoefficients();
-        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+    private Longs rates(ResultsTarot _res) {
+        int nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        Ints positions_ = _res.getPositionsDiff();
+        Ints positions1_ = _res.getPositionsOne();
+        Ints positions2_ = _res.getPositionsTwo();
+        Ints positions3_ = _res.getPositionsThree();
+        Ints positions4_ = _res.getPositionsFour();
+        Longs coefficients_ = _res.getCoefficients();
+        for (int p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
             RankingPlayerVariantGame or_ = new RankingPlayerVariantGame();
             or_.setNickname(getNicknames().get(p));
             or_.setPositionDiff(positions_.get(p));
@@ -198,19 +198,19 @@ public final class DetailsResultsTarotBean extends TarotBean {
         return coefficients_;
     }
 
-    private void declaring(ResultsTarot _res, EndTarotGame _end, short _scoreTakerWithoutDeclaring) {
+    private void declaring(ResultsTarot _res, EndTarotGame _end, long _scoreTakerWithoutDeclaring) {
         GameTarot game_ = _res.getGame();
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        int nombreJoueurs_ = getGame().getNombreDeJoueurs();
         int sumPlayers_ = 0;
         CustList<SortedHandfuls> handfulsTaker_ = _end.getHandfulsPointsForTaker(_scoreTakerWithoutDeclaring);
         CustList<SortedMiseres> miseresTaker_ = _end.getMiseresPointsForTaker();
-        for (byte p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
+        for (int p = IndexConstants.FIRST_INDEX; p< nombreJoueurs_; p++){
             TarotSumDeclaringPlayer line_ = new TarotSumDeclaringPlayer();
             SortedHandfuls handfulsTakerLoc_ = handfulsTaker_.get(p);
             line_.setNickname(getNicknames().get(p));
             line_.setStatus(toString(GameTarotTeamsRelation.statutDe(p, game_.getPreneur(), game_.getAppele()), _res.getRes().getGeneral()));
-            StringMap<Short> hands_ = new StringMap<Short>();
-            for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
+            StringMap<Long> hands_ = new StringMap<Long>();
+            for (EntryCust<Handfuls,Long> e: handfulsTakerLoc_.entryList()) {
                 Handfuls h_ = e.getKey();
                 hands_.addEntry(toString(h_, _res.getRes().getSpecific()), e.getValue());
             }
@@ -221,8 +221,8 @@ public final class DetailsResultsTarotBean extends TarotBean {
                 sum_ += handfulsTakerLoc_.getVal(h);
             }
             SortedMiseres miseresTakerLoc_ = miseresTaker_.get(p);
-            StringMap<Short> mis_ = new StringMap<Short>();
-            for (EntryCust<Miseres, Short> e: miseresTakerLoc_.entryList()) {
+            StringMap<Long> mis_ = new StringMap<Long>();
+            for (EntryCust<Miseres, Long> e: miseresTakerLoc_.entryList()) {
                 Miseres m_ = e.getKey();
                 mis_.addEntry(toString(m_, _res.getRes().getSpecific()), e.getValue());
             }
@@ -238,9 +238,9 @@ public final class DetailsResultsTarotBean extends TarotBean {
     }
 
     private boolean existeAnnonce() {
-        byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
+        int nombreJoueurs_ = getGame().getNombreDeJoueurs();
         boolean existeAnnonce_=false;
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++){
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_< nombreJoueurs_; joueur_++){
             if (!getGame().getAnnoncesMiseres(joueur_).isEmpty()) {
                 existeAnnonce_ = true;
             }
@@ -251,15 +251,15 @@ public final class DetailsResultsTarotBean extends TarotBean {
         return existeAnnonce_;
     }
 
-    public short getDifferenceScoreTaker() {
+    public long getDifferenceScoreTaker() {
         return differenceScoreTaker;
     }
 
-    public short getBasePoints() {
+    public long getBasePoints() {
         return basePoints;
     }
 
-    public int getRate() {
+    public long getRate() {
         return rate;
     }
 
@@ -271,11 +271,11 @@ public final class DetailsResultsTarotBean extends TarotBean {
         return playerSmall;
     }
 
-    public int getMultipliedTmp() {
+    public long getMultipliedTmp() {
         return multipliedTmp;
     }
 
-    public int getSumPlayers() {
+    public long getSumPlayers() {
         return sumPlayers;
     }
 
@@ -287,15 +287,15 @@ public final class DetailsResultsTarotBean extends TarotBean {
         return playersScores;
     }
 
-    public int getAdditionnalBonusesAttack() {
+    public long getAdditionnalBonusesAttack() {
         return additionnalBonusesAttack;
     }
 
-    public int getAdditionnalBonusesDefense() {
+    public long getAdditionnalBonusesDefense() {
         return additionnalBonusesDefense;
     }
 
-    public int getDiffAttackDefenseBonuses() {
+    public long getDiffAttackDefenseBonuses() {
         return diffAttackDefenseBonuses;
     }
 

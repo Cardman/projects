@@ -35,7 +35,7 @@ public class CarpetPresident {
 
     private final CustList<GraphicCard<CardPresident>> listCards = new CustList<GraphicCard<CardPresident>>();
 
-    private ByteMap<Playing> cards = new ByteMap<Playing>();
+    private IntMap<Playing> cards = new IntMap<Playing>();
     private StringList pseudos = new StringList();
 
 //    private byte nextPlayer;
@@ -45,10 +45,10 @@ public class CarpetPresident {
     /**max number of cards*/
     private AbsPanel container;
 
-    public void initTapisPresident(TranslationsLg _lg, StringList _pseudos, ByteMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
+    public void initTapisPresident(TranslationsLg _lg, StringList _pseudos, IntMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
         container = _compoFactory.newBorder();
         pseudos = _pseudos;
-        cards = new ByteMap<Playing>(_status);
+        cards = new IntMap<Playing>(_status);
         AbsPanel centerDeck_ = _compoFactory.newLineBox();
         centerDeck_.setPreferredSize(Carpet.getDimensionForSeveralCards(_nombre));
         listCards.clear();
@@ -131,9 +131,9 @@ public class CarpetPresident {
 //        centerDeck.validate();
     }
 
-    public void setStatus(AbstractImageFactory _fact, TranslationsLg _lg, ByteMap<Playing> _status, byte _nextPlayer) {
+    public void setStatus(AbstractImageFactory _fact, TranslationsLg _lg, IntMap<Playing> _status, int _nextPlayer) {
         cards.putAllMap(_status);
-        for (byte p: cards.getKeys()) {
+        for (int p: cards.getKeys()) {
             AbsPlainLabel l_ = labels.get(p);
             if (p == _nextPlayer) {
                 l_.setBackground(GuiConstants.YELLOW);

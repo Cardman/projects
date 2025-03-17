@@ -14,12 +14,12 @@ public final class GameBeloteBeginTrick {
     private final Role currentStatus;
     private final HandBelote playableCards;
     private final BidBeloteSuit bid;
-    private final byte taker;
+    private final int taker;
     private final HandBelote lastSeenHand;
     private final BeloteInfoPliEnCours beloteInfoPliEnCours;
     private final CustList<TrickBelote> plisFaits;
-    private final Bytes adversaire;
-    private final Bytes partenaire;
+    private final Ints adversaire;
+    private final Ints partenaire;
     private final IdMap<Suit, HandBelote> repartitionCartesJouees;
     private final IdList<Suit> couleursMaitresses;
     private final IdMap<Suit, HandBelote> cartesMaitresses;
@@ -42,9 +42,9 @@ public final class GameBeloteBeginTrick {
         bid = _done.getBid();
         taker = _teamsRelation.getTaker();
         GameBeloteCommonPlaying common_ = new GameBeloteCommonPlaying(_done, _teamsRelation);
-        byte nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
+        int nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
         TrickBelote trBelote_ = _done.getProgressingTrick();
-        byte nextPlayer_ = trBelote_.getNextPlayer(nbPlayers_);
+        int nextPlayer_ = trBelote_.getNextPlayer(nbPlayers_);
         repartition= currentHand.couleurs(bid);
         playableCards = common_.playableCards(repartition);
         currentStatus = _teamsRelation.statutDe(nextPlayer_);
@@ -179,7 +179,7 @@ public final class GameBeloteBeginTrick {
         return faireCouper(couleursNonAtoutNonVides);
     }
 
-    static boolean playedLeading(BidBeloteSuit _bid, byte _taker, Suit _couleurAtout, IdMap<Suit, HandBelote> _repartitionCartesJouees,
+    static boolean playedLeading(BidBeloteSuit _bid, int _taker, Suit _couleurAtout, IdMap<Suit, HandBelote> _repartitionCartesJouees,
                                  IdMap<Suit, CustList<HandBelote>> _cartesCertaines) {
         if (GameBeloteCommon.hand(_cartesCertaines, _couleurAtout, _taker).estVide()) {
             return false;
@@ -372,7 +372,7 @@ public final class GameBeloteBeginTrick {
         IdList<Suit> couleurs_ = GameBeloteCommon.couleursNonAtoutNonVides(repartition, couleursMaitresses);
         return GameBeloteCommon.hand(repartition,couleurs_.first()).premiereCarte();
     }
-    public static byte nombreCartesPoints(IdMap<Suit,HandBelote> _repartition,BidBeloteSuit _contrat,Suit _couleur) {
+    public static int nombreCartesPoints(IdMap<Suit,HandBelote> _repartition,BidBeloteSuit _contrat,Suit _couleur) {
         return _repartition.getVal(_couleur).nombreCartesPoints(_contrat);
     }
 

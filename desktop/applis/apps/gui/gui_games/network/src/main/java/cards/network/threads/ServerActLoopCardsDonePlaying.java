@@ -24,7 +24,7 @@ public final class ServerActLoopCardsDonePlaying extends ServerActLoopCardsActed
             }
             ThreadUtil.sleep(_fct,3000);
             Net.initAllReceived(_instance, _common);
-            for (byte p: Net.activePlayers(_instance, _common)) {
+            for (int p: Net.activePlayers(_instance, _common)) {
                 NetGroupFrame.trySendString(Net.exportDonePause(), Net.getSocketByPlace(p, _common));
             }
             return;
@@ -45,7 +45,7 @@ public final class ServerActLoopCardsDonePlaying extends ServerActLoopCardsActed
             }
             ThreadUtil.sleep(_fct,3000);
             Net.initAllReceived(_instance, _common);
-            for (byte p: Net.activePlayers(_instance, _common)) {
+            for (int p: Net.activePlayers(_instance, _common)) {
                 NetGroupFrame.trySendString(Net.exportDonePause(), Net.getSocketByPlace(p, _common));
             }
             return;
@@ -67,7 +67,7 @@ public final class ServerActLoopCardsDonePlaying extends ServerActLoopCardsActed
             }
             ThreadUtil.sleep(_fct,3000);
             Net.initAllReceived(_instance, _common);
-            for (byte p: Net.activePlayers(_instance, _common)) {
+            for (int p: Net.activePlayers(_instance, _common)) {
                 NetGroupFrame.trySendString(Net.exportDonePause(), Net.getSocketByPlace(p, _common));
             }
             return;

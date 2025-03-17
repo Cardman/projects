@@ -11,12 +11,12 @@ public abstract class AbstractListenerCard<T> implements AbsMouseListenerIntRel 
 
     private final ContainerPlayableGame containerBase;
     private final T card;
-    private final byte index;
+    private final int index;
 
     protected AbstractListenerCard(ContainerPlayableGame _container, T _c) {
-        this(_container,_c,(byte)1);
+        this(_container,_c, 1);
     }
-    protected AbstractListenerCard(ContainerPlayableGame _container, T _c, byte _i) {
+    protected AbstractListenerCard(ContainerPlayableGame _container, T _c, int _i) {
         containerBase = _container;
         this.card = _c;
         index = _i;
@@ -26,7 +26,7 @@ public abstract class AbstractListenerCard<T> implements AbsMouseListenerIntRel 
         return card;
     }
 
-    public byte getIndex() {
+    public int getIndex() {
         return index;
     }
 

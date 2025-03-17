@@ -10,7 +10,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
     @Test
     public void calculateScoresTest() {
         ResultsPresident res_ = new ResultsPresident();
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
 //        res_.getRes().setScores(new CustList<Longs>());
         res_.getRes().setGlobalResultsPageTitle("");
         res_.getRes().setDetailResultsTitle("");
@@ -19,7 +19,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         res_.getRes().setNicknames(new StringList());
         res_.getRes().setRenderedPages(new StringMap<String>());
 //        res_.getRes().setLoc("");
-        res_.calculateScores(new CustList<Longs>(),new Shorts(),GameType.RANDOM,1,0);
+        res_.calculateScores(new CustList<Longs>(),new Longs(),GameType.RANDOM,1,0);
         assertEq(0, res_.getRes().getScores().size());
         assertEq(0, res_.getRes().getSums().size());
         assertEq(0, res_.getRes().getSigmas().size());
@@ -36,7 +36,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         GamePresident g_ = getSimpleDeal();
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(g_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>());
         assertEq(4, res_.getRes().getScores().get(0).size());
         assertSame(g_, res_.getGame());
@@ -47,7 +47,7 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         GamePresident g_ = getSimpleDeal();
         ResultsPresident res_ = new ResultsPresident();
         res_.setGame(g_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>(), g_.getNewRanks());
         assertEq(4, res_.getRes().getScores().get(0).size());
         assertEq(4, res_.getRes().getHistory().get(0).getScores().size());
@@ -60,10 +60,10 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         g_.restituerMainsDepartRejouerDonne();
         assertTrue(cards_.validStack(1));
         assertEq(4,g_.getDeal().nombreDeMains());
-        assertEq(13,g_.getDeal().hand((byte) 0).total());
-        assertEq(13,g_.getDeal().hand((byte) 1).total());
-        assertEq(13,g_.getDeal().hand((byte) 2).total());
-        assertEq(13,g_.getDeal().hand((byte) 3).total());
+        assertEq(13,g_.getDeal().hand(0).total());
+        assertEq(13,g_.getDeal().hand(1).total());
+        assertEq(13,g_.getDeal().hand(2).total());
+        assertEq(13,g_.getDeal().hand(3).total());
     }
 
     @Test
@@ -73,21 +73,21 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
         g_.restituerMainsDepartRejouerDonne();
         assertTrue(cards_.validStack(1));
         assertEq(4,g_.getDeal().nombreDeMains());
-        assertEq(13,g_.getDeal().hand((byte) 0).total());
-        assertEq(13,g_.getDeal().hand((byte) 1).total());
-        assertEq(13,g_.getDeal().hand((byte) 2).total());
-        assertEq(13,g_.getDeal().hand((byte) 3).total());
+        assertEq(13,g_.getDeal().hand(0).total());
+        assertEq(13,g_.getDeal().hand(1).total());
+        assertEq(13,g_.getDeal().hand(2).total());
+        assertEq(13,g_.getDeal().hand(3).total());
     }
 
     GamePresident getSimpleDeal2() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
-        rk_.add((byte) 1);
-        rk_.add((byte) 4);
-        rk_.add((byte) 3);
-        rk_.add((byte) 2);
+        Ints rk_ = new Ints();
+        rk_.add(1);
+        rk_.add(4);
+        rk_.add(3);
+        rk_.add(2);
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -237,9 +237,9 @@ public final class ResultsPresidentTest extends EquallablePresidentUtil {
 
     GamePresident getSimpleDeal() {
         RulesPresident r_ = new RulesPresident(4);
-        Bytes rk_ = new Bytes();
+        Ints rk_ = new Ints();
         CustList<HandPresident> hs_ = deal1();
-        DealPresident d_ = new DealPresident(hs_, (byte) 0);
+        DealPresident d_ = new DealPresident(hs_, 0);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         //

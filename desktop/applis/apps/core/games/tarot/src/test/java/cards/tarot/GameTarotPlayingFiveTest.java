@@ -15,9 +15,9 @@ public final class GameTarotPlayingFiveTest extends CommonTarotGame {
     @Test
     public void playableCards_beginningFreeTrickWithoutCall1Test() {
         RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(2), regles_);
         //game.resetNbPlisTotal();
-        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        biddingSix(BidTarot.GUARD_AGAINST, 4, game_);
         game_.initEquipeDeterminee();
         gererChienInconnuDirect(game_);
         assertEq(3,game_.getEntameur());
@@ -31,9 +31,9 @@ public final class GameTarotPlayingFiveTest extends CommonTarotGame {
     @Test
     public void playableCards_beginningFreeSecondTrickWithoutCall2Test() {
         RulesTarot regles_=initializeRulesWithBids();
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands((byte) 2), regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands(2), regles_);
         //game.resetNbPlisTotal();
-        biddingSix(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        biddingSix(BidTarot.GUARD_AGAINST, 4, game_);
         game_.initEquipeDeterminee();
         gererChienInconnuDirect(game_);
         game_.ajouterUneCarteDansPliEnCours(CardTarot.SPADE_2);
@@ -56,9 +56,9 @@ public final class GameTarotPlayingFiveTest extends CommonTarotGame {
     public void playableCards_beginningFreeTrickWithoutCall3Test() {
         RulesTarot regles_=initializeRulesWithBids();
         regles_.setDealing(DealingTarot.DEAL_1_VS_4);
-        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands5((byte) 2), regles_);
+        GameTarot game_ = new GameTarot(GameType.RANDOM, initializeHands5(2), regles_);
         //game.resetNbPlisTotal();
-        bidding5(BidTarot.GUARD_AGAINST, (byte) 4, game_);
+        bidding5(BidTarot.GUARD_AGAINST, 4, game_);
         game_.initEquipeDeterminee();
         gererChienInconnuDirect(game_);
         assertEq(3,game_.getEntameur());
@@ -68,7 +68,7 @@ public final class GameTarotPlayingFiveTest extends CommonTarotGame {
         assertTrue(playableCards_.contientCartes(hand_));
         assertEq(Suit.UNDEFINED,game_.getPliEnCours().couleurDemandee());
     }
-    static DealTarot initializeHands(byte _dealer) {
+    static DealTarot initializeHands(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.DIAMOND_KING);
@@ -164,7 +164,7 @@ public final class GameTarotPlayingFiveTest extends CommonTarotGame {
         hands_.add(hand_);
         return new DealTarot(hands_,_dealer);
     }
-    static DealTarot initializeHands5(byte _dealer) {
+    static DealTarot initializeHands5(int _dealer) {
         CustList<HandTarot> hands_ = new CustList<HandTarot>();
         HandTarot hand_ = new HandTarot();
         hand_.ajouter(CardTarot.DIAMOND_KING);

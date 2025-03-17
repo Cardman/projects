@@ -141,7 +141,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         Graphic graphique_=new Graphic(getScores(),new Longs(_res.getSums()),new CustList<Rate>(_res.getSigmas()),couleurs_, getOwner().getCompoFactory());
         Rate derniereMoyenne_=new Rate(_res.getSums().last(), _nbPlayers);
         CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_< _nbPlayers; joueur_++) {
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_< _nbPlayers; joueur_++) {
             scoresCentresMoyenne_.add(Rate.minus(new Rate(getScores().last().get(joueur_)), derniereMoyenne_));
         }
         scoresCentresMoyenne_.add(Rate.multiply(new Rate(3), _res.getSigmas().last()));

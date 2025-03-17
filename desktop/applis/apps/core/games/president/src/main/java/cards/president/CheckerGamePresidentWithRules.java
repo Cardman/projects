@@ -40,7 +40,7 @@ public final class CheckerGamePresidentWithRules {
             _loadedGame.setError(_mes.getVal(ERROR_RULES));
             return;
         }
-        byte nbPlayers_ = (byte) rules_.getNbPlayers();
+        int nbPlayers_ = rules_.getNbPlayers();
         if (_loadedGame.getDeal().nombreDeMains() != nbPlayers_) {
             _loadedGame.setError(_mes.getVal(HANDS_COUNT));
             return;
@@ -49,7 +49,7 @@ public final class CheckerGamePresidentWithRules {
             _loadedGame.setError(_mes.getVal(SCORES_COUNT));
             return;
         }
-        Bytes ranks_ = _loadedGame.getRanks();
+        Ints ranks_ = _loadedGame.getRanks();
         CustList<TrickPresidentIndexesCheck> check_ = _loadedGame.loadGame();
         for (TrickPresidentIndexesCheck c: check_) {
             koNext(_loadedGame,c, _mes);
@@ -76,7 +76,7 @@ public final class CheckerGamePresidentWithRules {
                 _loadedGame.setError(_mes.getVal(BAD_RANK_COUNT));
                 return;
             }
-            Bytes copyRanks_ = new Bytes(ranks_);
+            Ints copyRanks_ = new Ints(ranks_);
             if (copyRanks_.hasDuplicates()) {
                 _loadedGame.setError(_mes.getVal(DUPLICATE_RANK_COUNT));
                 return;
@@ -86,8 +86,8 @@ public final class CheckerGamePresidentWithRules {
     }
 
     private static void chSwitch(GamePresident _loadedGame, DealPresident _deal, StringMap<String> _mes) {
-        Bytes winners_ = _loadedGame.getWinners();
-        Bytes loosers_ = _loadedGame.getLoosers();
+        Ints winners_ = _loadedGame.getWinners();
+        Ints loosers_ = _loadedGame.getLoosers();
         for (TrickPresident t: _loadedGame.unionPlis()) {
             if (t.estVide()) {
                 _loadedGame.setError(_mes.getVal(EMPTY_TRICK));
@@ -121,7 +121,7 @@ public final class CheckerGamePresidentWithRules {
         return cards_;
     }
 
-    private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers, StringMap<String> _mes) {
+    private static void checkGiftsHandsPlay(GamePresident _loadedGame, DealPresident _deal, Ints _winners, Ints _loosers, StringMap<String> _mes) {
         if (!_loadedGame.availableSwitchingCards() && !_loadedGame.getSwitchedCards().isEmpty()) {
             _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT));
             return;
@@ -137,23 +137,23 @@ public final class CheckerGamePresidentWithRules {
         play(_loadedGame, dcp_, _mes);
     }
 
-    private static boolean skipPlay(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers, StringMap<String> _mes) {
+    private static boolean skipPlay(GamePresident _loadedGame, DealPresident _deal, Ints _winners, Ints _loosers, StringMap<String> _mes) {
         boolean readyToPlay_ = GamePresident.revert(_loadedGame.nombresCartesEchangesMax(), _loadedGame.getRanks(), _loadedGame.getSwitchedCards(), _deal);
-        Bytes swPl_ = new Bytes();
+        Ints swPl_ = new Ints();
         swPl_.addAllElts(_winners);
         swPl_.addAllElts(_loosers);
-        for (byte o : SortedPlayers.autresJoueurs(swPl_,(byte) _loadedGame.getRules().getNbPlayers())) {
+        for (int o : SortedPlayers.autresJoueurs(swPl_, _loadedGame.getRules().getNbPlayers())) {
             if (koSwOther(_loadedGame, o)) {
                 _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_OTHER));
                 return true;
             }
         }
-        for (byte w : _winners) {
+        for (int w : _winners) {
             if (koSwWinner(_loadedGame, _deal, _winners, _loosers, readyToPlay_, w, _mes)) {
                 return true;
             }
         }
-        for (byte l : _loosers) {
+        for (int l : _loosers) {
             if (koSwLooser(_loadedGame, _deal, _loosers, l, _mes)) {
                 return true;
             }
@@ -174,11 +174,11 @@ public final class CheckerGamePresidentWithRules {
         return !oneCardPlayAtLeast(_loadedGame);
     }
 
-    private static boolean koSwOther(GamePresident _loadedGame, byte _o) {
+    private static boolean koSwOther(GamePresident _loadedGame, int _o) {
         return _loadedGame.getSwitchedCards().isValidIndex(_o) && !_loadedGame.getSwitchedCards().get(_o).estVide();
     }
 
-    private static boolean koSwWinner(GamePresident _loadedGame, DealPresident _deal, Bytes _winners, Bytes _loosers, boolean _readyToPlay, byte _w, StringMap<String> _mes) {
+    private static boolean koSwWinner(GamePresident _loadedGame, DealPresident _deal, Ints _winners, Ints _loosers, boolean _readyToPlay, int _w, StringMap<String> _mes) {
         if (!_loadedGame.getSwitchedCards().isValidIndex(_w)) {
             return false;
         }
@@ -193,7 +193,7 @@ public final class CheckerGamePresidentWithRules {
             _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_WINNER));
             return true;
         }
-        byte pl_ = GamePresident.getMatchingLoser(_winners, _loosers, _w);
+        int pl_ = GamePresident.getMatchingLoser(_winners, _loosers, _w);
         HandPresident hl_ = new HandPresident(_deal.hand(_w));
         hl_.ajouterCartes(_loadedGame.getSwitchedCards()
                 .get(pl_));
@@ -205,7 +205,7 @@ public final class CheckerGamePresidentWithRules {
         return false;
     }
 
-    private static boolean koSwLooser(GamePresident _loadedGame, DealPresident _deal, Bytes _loosers, byte _l, StringMap<String> _mes) {
+    private static boolean koSwLooser(GamePresident _loadedGame, DealPresident _deal, Ints _loosers, int _l, StringMap<String> _mes) {
         if (!_loadedGame.getSwitchedCards().isValidIndex(_l)) {
             return false;
         }
@@ -223,8 +223,8 @@ public final class CheckerGamePresidentWithRules {
         hSwitchCopy_.sortCardsBegin();
         int lenGiv_ = hSwitchCopy_.total();
         for (int i = IndexConstants.FIRST_INDEX; i < lenGiv_; i++) {
-            byte strGiv_ = hSwitchCopy_.carte(i).getForce();
-            byte str_ = hCopy_.carte(i).getForce();
+            int  strGiv_ = hSwitchCopy_.carte(i).getForce();
+            int  str_ = hCopy_.carte(i).getForce();
             if (strGiv_ != str_) {
                 _loadedGame.setError(_mes.getVal(BAD_SWITCH_CARD_GROUP_COUNT_LOOSER_CONTENT));
                 return true;
@@ -233,12 +233,12 @@ public final class CheckerGamePresidentWithRules {
         return false;
     }
 
-    private static boolean skipUser(boolean _readyToPlay, byte _w) {
+    private static boolean skipUser(boolean _readyToPlay, int _w) {
         return !_readyToPlay && _w == DealPresident.NUMERO_UTILISATEUR;
     }
 
     private static boolean koCount(GamePresident _loadedGame, DealPresident _deal, StringMap<String> _mes) {
-        byte nbPlayers_ = (byte) _loadedGame.getRules().getNbPlayers();
+        int nbPlayers_ = _loadedGame.getRules().getNbPlayers();
         int nbCards_ = _loadedGame.getRules().getNbStacks() * HandPresident.pileBase().total();
         int rem_ = nbCards_ % nbPlayers_;
         boolean noRem_ = rem_ == 0;
@@ -265,7 +265,7 @@ public final class CheckerGamePresidentWithRules {
         return !_load.getTricks().isEmpty() || !_load.getProgressingTrick().estVide();
     }
 
-    private static DealPresident buildDeal(GamePresident _loadedGame, byte _nbPlayers, CustList<TrickPresident> _allTricks) {
+    private static DealPresident buildDeal(GamePresident _loadedGame, int _nbPlayers, CustList<TrickPresident> _allTricks) {
         DealPresident deal_ = new DealPresident(_loadedGame.getDeal());
         for (TrickPresident t : _allTricks) {
             dealTrick(_nbPlayers, deal_, t);
@@ -274,10 +274,10 @@ public final class CheckerGamePresidentWithRules {
         return deal_;
     }
 
-    private static void dealTrick(byte _nbPlayers, DealPresident _deal, TrickPresident _t) {
+    private static void dealTrick(int _nbPlayers, DealPresident _deal, TrickPresident _t) {
         int index_ = IndexConstants.FIRST_INDEX;
         for (HandPresident c : _t) {
-            byte player_ = _t.getPlayer(
+            int  player_ = _t.getPlayer(
                     index_, _nbPlayers);
             _deal.hand(player_).ajouterCartes(c);
             index_++;
@@ -501,12 +501,12 @@ public final class CheckerGamePresidentWithRules {
         if (_curHand.estVide()) {
             return true;
         }
-        Bytes str_ = new Bytes();
+        Ints str_ = new Ints();
         for (CardPresident c : _curHand) {
             str_.add(c.getForce());
         }
-        return NumberUtil.eq(str_.getMinimum((byte) 0),
-                str_.getMaximum((byte) 0));
+        return NumberUtil.eq(str_.getMinimum(0),
+                str_.getMaximum(0));
     }
 
     static void cancelStarter(CustList<TrickPresident> _tricks) {

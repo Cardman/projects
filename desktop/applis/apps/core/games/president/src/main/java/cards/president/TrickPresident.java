@@ -8,33 +8,33 @@ import code.util.core.IndexConstants;
 
 public final class TrickPresident implements Iterable<HandPresident> {
     /**Entameur du pli*/
-    private byte starter;
+    private int starter;
     /**cards est l'ensemble de cartes jouees pendant le pli a la belote ou au tarot*/
     private CustList<HandPresident> cards=new CustList<HandPresident>();
 
     public TrickPresident() {}
-    TrickPresident(byte _pentameur) {
+    TrickPresident(int _pentameur) {
         initPli(_pentameur);
     }
 
-    private void initPli(byte _pentameur) {
+    private void initPli(int  _pentameur) {
         starter=_pentameur;
     }
 
-    public byte getPlayer(int _index, byte _nbPlayers) {
-        return (byte) ((starter + _index) % _nbPlayers);
+    public int getPlayer(int _index, int _nbPlayers) {
+        return (starter + _index) % _nbPlayers;
     }
 
-    public Ints getPlayedCardsIndexes(byte _player, byte _nbPlayers) {
+    public Ints getPlayedCardsIndexes(int _player, int _nbPlayers) {
         Ints l_ = new Ints();
-        byte pl_ = starter;
+        int pl_ = starter;
         int len_ = cards.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (pl_ == _player) {
                 l_.add(i);
             }
 //            pl_ = (byte) ((starter + pl_) % _nbPlayers);
-            pl_ = (byte) ((1 + pl_) % _nbPlayers);
+            pl_ = (1 + pl_) % _nbPlayers;
         }
         return l_;
     }
@@ -62,15 +62,15 @@ public final class TrickPresident implements Iterable<HandPresident> {
         return l_;
     }
 
-    public CustList<HandPresident> getPlayedCards(byte _player, byte _nbPlayers) {
+    public CustList<HandPresident> getPlayedCards(int _player, int _nbPlayers) {
         CustList<HandPresident> l_ = new CustList<HandPresident>();
-        byte pl_ = starter;
+        int pl_ = starter;
         for (HandPresident h: cards) {
             if (pl_ == _player) {
                 l_.add(h);
             }
 //            pl_ = (byte) ((starter + pl_) % _nbPlayers);
-            pl_ = (byte) ((1 + pl_) % _nbPlayers);
+            pl_ = (1 + pl_) % _nbPlayers;
         }
         return l_;
     }
@@ -90,7 +90,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
     }
 
     /**Retourne le ramasseur du pli lorsque le pli est termine*/
-    public byte getRamasseur(byte _nbPlayers) {
+    public int getRamasseur(int _nbPlayers) {
         int index_ = cards.size() - 1;
         while (index_ >= IndexConstants.FIRST_INDEX) {
             if (!cards.get(index_).estVide()) {
@@ -102,11 +102,11 @@ public final class TrickPresident implements Iterable<HandPresident> {
 //            return CustList.INDEX_NOT_FOUND_ELT;
             index_ = total();
         }
-        return (byte) ((starter + index_) % _nbPlayers);
+        return (starter + index_) % _nbPlayers;
     }
 
     /**Retourne l'entameur du pli*/
-    public byte getEntameur() {
+    public int getEntameur() {
         return starter;
     }
 
@@ -129,8 +129,8 @@ public final class TrickPresident implements Iterable<HandPresident> {
         return cards.get(_i);
     }
 
-    public byte getNombreDeCartesParJoueur() {
-        return (byte) HandPresident.nullToEmpty(firstOrNull(this)).total();
+    public int getNombreDeCartesParJoueur() {
+        return HandPresident.nullToEmpty(firstOrNull(this)).total();
     }
     public static TrickPresident nullToEmpty(TrickPresident _t) {
         if (_t == null) {
@@ -160,7 +160,7 @@ public final class TrickPresident implements Iterable<HandPresident> {
     }
 
     void setEntameur(int _i) {
-        starter = (byte) _i;
+        starter = _i;
     }
     public CustList<HandPresident> getCards() {
         return cards;

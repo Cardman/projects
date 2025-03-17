@@ -22,7 +22,7 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
     }
 
     @Override
-    public byte dealer(GameTarot _gt) {
+    public int dealer(GameTarot _gt) {
         return _gt.getDistribution().getDealer();
     }
 
@@ -38,7 +38,7 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
     }
 
     @Override
-    public byte constCallPlayerCall(byte _called) {
+    public int constCallPlayerCall(int _called) {
         return _called;
     }
 
@@ -75,7 +75,7 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
     }
 
     @Override
-    public byte ajouterPetitAuBoutPliEnCours(GameTarot _gt) {
+    public int ajouterPetitAuBoutPliEnCours(GameTarot _gt) {
         return _gt.ajouterPetitAuBoutPliEnCours();
     }
 

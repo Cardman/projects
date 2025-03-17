@@ -21,10 +21,10 @@ public final class ResultsGame {
 
     private StringList nicknames;
 
-    private byte user;
+    private int user;
 
 //    private String loc;
-    public void calculateScores(CustList<Longs> _scores,Shorts _scoresDeal, GameType _type, long _number, int _nbDeals) {
+    public void calculateScores(CustList<Longs> _scores,Longs _scoresDeal, GameType _type, long _number, int _nbDeals) {
         scores(_scores);
         if(hasToCalculateScores(_type, _number, _nbDeals)) {
             calculateScores(_scoresDeal);
@@ -33,7 +33,7 @@ public final class ResultsGame {
     public static boolean hasToCalculateScores(GameType _type, long _number, int _nbDeals) {
         return _type ==GameType.RANDOM&& _number ==0|| _type == GameType.EDIT && _number <= _nbDeals;
     }
-    public void calculateScores(Shorts _scoresDeal) {
+    public void calculateScores(Longs _scoresDeal) {
         long nbPl_ = _scoresDeal.size();
         long variance9_=0;
         long esperance_=0;
@@ -47,7 +47,7 @@ public final class ResultsGame {
         Longs lastDeal_ = getScores().last();
         if(getScores().size()==1) {
             for (int i = 0; i < nbPl_; i++) {
-                lastDeal_.add((long) _scoresDeal.get(i));
+                lastDeal_.add(_scoresDeal.get(i));
             }
         } else {
             for (int i = 0; i < nbPl_; i++) {
@@ -77,10 +77,10 @@ public final class ResultsGame {
     public StringList getNicknames() {
         return nicknames;
     }
-    public byte getUser() {
+    public int getUser() {
         return user;
     }
-    public void setUser(byte _user) {
+    public void setUser(int _user) {
         user = _user;
     }
 //    public String getLoc() {

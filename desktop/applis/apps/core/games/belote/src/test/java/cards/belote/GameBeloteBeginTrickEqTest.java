@@ -14,7 +14,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playBestCardsTest() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_1);
         HandBelote curHand_ = new HandBelote();
@@ -51,7 +51,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsTaker1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_1);
         HandBelote curHand_ = new HandBelote();
@@ -88,7 +88,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsTaker2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_KING);
         HandBelote curHand_ = new HandBelote();
@@ -125,7 +125,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsCalledPlayer1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
         HandBelote curHand_ = new HandBelote();
@@ -173,7 +173,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsCalledPlayer2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
         HandBelote curHand_ = new HandBelote();
@@ -221,7 +221,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsCalledPlayer3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
         HandBelote curHand_ = new HandBelote();
@@ -269,7 +269,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsCalledPlayer4Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
         HandBelote curHand_ = new HandBelote();
@@ -317,7 +317,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsCalledPlayer5Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
         HandBelote curHand_ = new HandBelote();
@@ -365,7 +365,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsCalledPlayer6Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_10);
         HandBelote curHand_ = new HandBelote();
@@ -409,7 +409,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
         RulesBelote r_ = new RulesBelote();
         r_.setDealing(DealingBelote.COINCHE_2_VS_2);
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote curHand_ = new HandBelote();
         curHand_.ajouter(CardBelote.SPADE_KING);
         curHand_.ajouter(CardBelote.HEART_10);
@@ -450,7 +450,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsDefender1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -488,7 +488,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsDefender2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -531,7 +531,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void playAsDefender3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();
@@ -574,7 +574,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void entameSansAtoutToutAtout1Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_1);
         HandBelote curHand_ = new HandBelote();
@@ -610,7 +610,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void entameSansAtoutToutAtout2Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_1);
         HandBelote curHand_ = new HandBelote();
@@ -646,7 +646,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void entameSansAtoutToutAtout3Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.DIAMOND_1);
         HandBelote curHand_ = new HandBelote();
@@ -693,7 +693,7 @@ public final class GameBeloteBeginTrickEqTest extends CommonGameBelote {
     public void entameSansAtoutToutAtout4Test() {
         RulesBelote r_ = new RulesBelote();
         r_.getAllowedBids().put(BidBelote.NO_TRUMP,BoolVal.TRUE);
-        byte d_ = 2;
+        int d_ = 2;
         HandBelote last_ = new HandBelote();
         last_.ajouter(CardBelote.HEART_JACK);
         HandBelote curHand_ = new HandBelote();

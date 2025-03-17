@@ -10,9 +10,9 @@ public final class DealtHandPresident {
 
     private int maxCards;
 
-    private ByteMap<Playing> status;
+    private IntMap<Playing> status;
 
-    private byte dealer;
+    private int dealer;
 
     public HandPresident getCards() {
         return cards;
@@ -30,19 +30,19 @@ public final class DealtHandPresident {
         maxCards = _maxCards;
     }
 
-    public ByteMap<Playing> getStatus() {
+    public IntMap<Playing> getStatus() {
         return status;
     }
 
-    public void setStatus(ByteMap<Playing> _status) {
+    public void setStatus(IntMap<Playing> _status) {
         status = _status;
     }
 
-    public byte getDealer() {
+    public int getDealer() {
         return dealer;
     }
 
-    public void setDealer(byte _dealer) {
+    public void setDealer(int _dealer) {
         dealer = _dealer;
     }
 

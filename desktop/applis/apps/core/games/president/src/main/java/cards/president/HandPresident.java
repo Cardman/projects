@@ -144,10 +144,10 @@ public final class HandPresident implements Iterable<CardPresident> {
         return l_;
     }
 
-    public ByteTreeMap<HandPresident> getCardsByStrength(boolean _reverse) {
-        ByteTreeMap<HandPresident> m_ = new ByteTreeMap<HandPresident>();
+    public IntTreeMap<HandPresident> getCardsByStrength(boolean _reverse) {
+        IntTreeMap<HandPresident> m_ = new IntTreeMap<HandPresident>();
         for (CardPresident c: pileBase()) {
-            byte str_ = c.strength(_reverse);
+            int  str_ = c.strength(_reverse);
             m_.put(str_, getCardsByStrength(str_, _reverse));
         }
         return m_;

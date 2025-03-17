@@ -18,7 +18,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void loadGame1() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -46,7 +46,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void loadGame2() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -79,7 +79,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void loadGame3() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -105,7 +105,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void loadGame4() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -138,7 +138,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void loadGame5() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -160,7 +160,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void loadGame6() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.loadGame();
         assertEq(-1, game_.getPreneur());
@@ -242,7 +242,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check5Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -265,22 +265,22 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check6Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.CLUB);
@@ -336,7 +336,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -367,13 +367,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(90);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         check(game_);
@@ -401,19 +401,19 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(90);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         check(game_);
@@ -432,24 +432,24 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check11Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
@@ -470,24 +470,24 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check12Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
@@ -508,21 +508,21 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check13Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
@@ -543,33 +543,33 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check14Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedBids().put(BidBelote.NO_TRUMP, BoolVal.TRUE);
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setSuit(Suit.SPADE);
         bid_.setBid(BidBelote.SUIT);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
@@ -589,7 +589,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check15Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -614,7 +614,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check16Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -624,13 +624,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         check(game_);
@@ -649,7 +649,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check17Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -659,13 +659,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
@@ -684,7 +684,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check18Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -709,7 +709,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check19Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -736,7 +736,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check20Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -746,13 +746,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
@@ -772,7 +772,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check21Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -801,7 +801,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check211Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal3Classic((byte) 3);
+        DealBelote deal_ = deal3Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -827,7 +827,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check22Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -856,7 +856,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check23Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -885,7 +885,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check24Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -920,7 +920,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check25Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -952,7 +952,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check26Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -962,13 +962,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(162);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         check(game_);
@@ -987,7 +987,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check27Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -997,13 +997,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(162);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_7);
@@ -1023,7 +1023,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check28Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1062,7 +1062,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check29Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1100,7 +1100,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check30Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1168,7 +1168,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check32Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1180,7 +1180,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         check(game_);
         assertTrue(game_.getError().isEmpty());
         assertEq(-1, game_.getPreneur());
@@ -1196,7 +1196,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check33Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Slam((byte) 3);
+        DealBelote deal_ = deal1Slam(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1267,13 +1267,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(90);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         check(game_);
@@ -2110,7 +2110,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check79Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2120,10 +2120,10 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
 //        bid_ = new BidBeloteSuit();
 //        first_ = game_.playerAfter((byte) first_);
@@ -2140,7 +2140,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check80Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2341,7 +2341,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check0FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
@@ -2357,7 +2357,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check1FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2389,7 +2389,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check3FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2401,7 +2401,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -2423,7 +2423,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(90);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -2446,16 +2446,16 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(90);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         check(game_);
@@ -2473,7 +2473,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         check(game_);
@@ -2492,7 +2492,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -2514,7 +2514,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -2534,21 +2534,21 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -2568,21 +2568,21 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.OTHER_SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -2595,7 +2595,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check11FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2605,13 +2605,13 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setPoints(80);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
@@ -2624,20 +2624,20 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check12FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
@@ -2649,20 +2649,20 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check13FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         bid_ = new BidBeloteSuit();
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.HEART_1);
@@ -2684,24 +2684,24 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.NO_TRUMP);
         bid_.setSuit(Suit.UNDEFINED);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -2709,7 +2709,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check15FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2728,7 +2728,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check151FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2747,7 +2747,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check16FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2757,7 +2757,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.annoncer();
-        game_.getAnnonce((byte) 0).getHand().supprimerCartes();
+        game_.getAnnonce(0).getHand().supprimerCartes();
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
@@ -2781,7 +2781,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check161FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2791,10 +2791,10 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.annoncer();
-        game_.getAnnonce((byte) 0).getHand().supprimerCartes();
-        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_1);
-        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_KING);
-        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_QUEEN);
+        game_.getAnnonce(0).getHand().supprimerCartes();
+        game_.getAnnonce(0).getHand().ajouter(CardBelote.DIAMOND_1);
+        game_.getAnnonce(0).getHand().ajouter(CardBelote.DIAMOND_KING);
+        game_.getAnnonce(0).getHand().ajouter(CardBelote.DIAMOND_QUEEN);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
@@ -2816,7 +2816,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check162FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2826,7 +2826,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.annoncer();
-        game_.getAnnonce((byte) 0).setPlayer((byte) 1);
+        game_.getAnnonce(0).setPlayer(1);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
@@ -2846,7 +2846,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check17FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2856,10 +2856,10 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterContrat(bid_);
         game_.completerDonne();
         game_.annoncer();
-        game_.getAnnonce((byte) 0).setDeclare(DeclaresBelote.THIRTY);
-        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_10);
-        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_9);
-        game_.getAnnonce((byte) 0).getHand().ajouter(CardBelote.DIAMOND_8);
+        game_.getAnnonce(0).setDeclare(DeclaresBelote.THIRTY);
+        game_.getAnnonce(0).getHand().ajouter(CardBelote.DIAMOND_10);
+        game_.getAnnonce(0).getHand().ajouter(CardBelote.DIAMOND_9);
+        game_.getAnnonce(0).getHand().ajouter(CardBelote.DIAMOND_8);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
@@ -2880,7 +2880,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check18FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2892,8 +2892,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
-        game_.getAnnoncesBeloteRebelote((byte) 1).jouer(CardBelote.SPADE_KING);
-        game_.getAnnoncesBeloteRebelote((byte) 1).ajouter(CardBelote.SPADE_QUEEN);
+        game_.getAnnoncesBeloteRebelote(1).jouer(CardBelote.SPADE_KING);
+        game_.getAnnoncesBeloteRebelote(1).ajouter(CardBelote.SPADE_QUEEN);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -2901,7 +2901,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check19FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2913,8 +2913,8 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_1);
         game_.setAnnoncesBeloteRebelote(CardBelote.SPADE_KING);
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_KING);
-        game_.getAnnoncesBeloteRebelote((byte) 1).jouer(CardBelote.SPADE_KING);
-        game_.getAnnoncesBeloteRebelote((byte) 0).ajouter(CardBelote.SPADE_KING);
+        game_.getAnnoncesBeloteRebelote(1).jouer(CardBelote.SPADE_KING);
+        game_.getAnnoncesBeloteRebelote(0).ajouter(CardBelote.SPADE_KING);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
     }
@@ -3051,7 +3051,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check26FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -3084,7 +3084,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check27FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -3118,7 +3118,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check28FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         deal_.hand().jouer(0);
         deal_.hand().ajouter(CardBelote.HEART_1);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
@@ -3130,7 +3130,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check29FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -3148,7 +3148,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check30FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
-        DealBelote deal_ = deal2Classic((byte) 3);
+        DealBelote deal_ = deal2Classic(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -3173,16 +3173,16 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         bid_.setSuit(Suit.SPADE);
         bid_.setPoints(90);
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_);
-        first_ = game_.playerAfter((byte) first_);
+        first_ = game_.playerAfter(first_);
         bid_ = new BidBeloteSuit();
         bid_.setBid(BidBelote.SUIT);
         bid_.setSuit(Suit.SPADE);
@@ -3195,7 +3195,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check32FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CardBelote c_ = deal_.getDeal().get(0).jouer(0);
         deal_.getDeal().get(1).ajouter(c_);
@@ -3207,7 +3207,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check33FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CardBelote c_ = deal_.getDeal().get(0).jouer(0);
         deal_.getDeal().get(1).ajouter(c_);
@@ -3218,7 +3218,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check34FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CardBelote c_ = deal_.getDeal().get(0).jouer(0);
         deal_.derniereMain().ajouter(c_);
@@ -3236,7 +3236,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     public void check35FailTest() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setDealing(DealingBelote.COINCHE_2_VS_2);
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         deal_.getDeal().get(1).ajouter(CardBelote.WHITE);
         check(game_);
@@ -3246,7 +3246,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check36FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1((byte) 0);
+        DealBelote deal_ = deal1(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         check(game_);
         assertTrue(!game_.getError().isEmpty());
@@ -3295,7 +3295,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check41FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         rules_.getAllowedDeclares().put(DeclaresBelote.THIRTY, BoolVal.TRUE);
         assertTrue(!rules_.getListeAnnoncesAutorisees().isEmpty());
@@ -3307,7 +3307,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     @Test
     public void check42FailTest() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Classic((byte) 0);
+        DealBelote deal_ = deal1Classic(0);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         assertTrue(!rules_.getListeEncheresAutorisees().isEmpty());
         game_.getRules().getAllowedDeclares().clear();
@@ -3393,7 +3393,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         CheckerGameBeloteWithRules.check(_game, mesCheck());
     }
 
-    private static DealBelote deal1Classic(byte _dealer) {
+    private static DealBelote deal1Classic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -3441,7 +3441,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         return new DealBelote(hands_,_dealer);
     }
 
-    private static DealBelote deal1(byte _dealer) {
+    private static DealBelote deal1(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -3489,7 +3489,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         return new DealBelote(hands_,_dealer);
     }
 
-    private static DealBelote deal2Classic(byte _dealer) {
+    private static DealBelote deal2Classic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -3537,7 +3537,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         return new DealBelote(hands_,_dealer);
     }
 
-    private static DealBelote deal3Classic(byte _dealer) {
+    private static DealBelote deal3Classic(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -3585,7 +3585,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
         return new DealBelote(hands_,_dealer);
     }
 
-    private static DealBelote deal1Slam(byte _dealer) {
+    private static DealBelote deal1Slam(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();
@@ -3635,7 +3635,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
 
     private DealBelote dealThreePlayers() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
                 CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
@@ -3649,7 +3649,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
 
     private DealBelote dealThreePlayersFiveCards() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
                 CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10,CardBelote.HEART_1));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
@@ -3663,7 +3663,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
 
     private DealBelote dealThreePlayersSec() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
                 CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
         db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
@@ -3677,7 +3677,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
 
     private DealBelote dealThreePlayersSecFiveCards() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
                 CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7,CardBelote.CLUB_9));
         db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
@@ -3690,7 +3690,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
     private DealBelote dealThreePlayers24Classic() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 2);
+        db_.setDealer(2);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
                 CardBelote.DIAMOND_9,CardBelote.SPADE_9));
@@ -3704,7 +3704,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
     private DealBelote dealThreePlayers24Coinche() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1,
                 CardBelote.HEART_1,CardBelote.CLUB_1,CardBelote.DIAMOND_10));
         db_.getDeal().add(create(CardBelote.CLUB_9,
@@ -3719,7 +3719,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
     private DealBelote dealTwoPlayers() {
         DealBelote db_ = new DealBelote();
-        db_.setDealer((byte) 1);
+        db_.setDealer(1);
         db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.HEART_10,CardBelote.DIAMOND_1,CardBelote.SPADE_1,CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,
                 CardBelote.DIAMOND_9,CardBelote.SPADE_10));
         db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_9,CardBelote.SPADE_QUEEN,CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,
@@ -3732,7 +3732,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
     private DealBelote deal(RulesBelote _rules) {
         DealBelote deal_ = new DealBelote(0);
-        deal_.setDealer((byte) 0);
+        deal_.setDealer(0);
         deal_.initDonne(_rules, DefaultGenerator.oneElt(), HandBelote.pileBase());
         return deal_;
     }
@@ -3744,7 +3744,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
 
     private void quickPlay(GameBelote _game, int _x, CardBelote _card) {
-        _game.getDeal().hand((byte) _x).jouer(_card);
+        _game.getDeal().hand(_x).jouer(_card);
         _game.getProgressingTrick().ajouter(_card);
     }
 

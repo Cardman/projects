@@ -22,7 +22,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -44,7 +44,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_10,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_17,CardTarot.TRUMP_15,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.HEART_JACK,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4));
         deal_.getDeal().add(create(CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5));
@@ -87,7 +87,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -109,7 +109,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_10,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_17,CardTarot.TRUMP_15,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.HEART_JACK,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.CLUB_KING));
         deal_.getDeal().add(create(CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6));
@@ -152,7 +152,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -174,7 +174,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_10,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_17,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.TRUMP_6,CardTarot.HEART_JACK,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4));
         deal_.getDeal().add(create(CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5));
@@ -217,7 +217,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -239,7 +239,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_10,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_17,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.TRUMP_6,CardTarot.HEART_JACK,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.CLUB_KING));
         deal_.getDeal().add(create(CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6));
@@ -282,7 +282,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -304,7 +304,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_10,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_17,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.TRUMP_6,CardTarot.HEART_JACK,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4));
         deal_.getDeal().add(create(CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5));
@@ -347,7 +347,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -379,7 +379,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.TRUMP_13);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_17,CardTarot.TRUMP_15,CardTarot.TRUMP_5,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5));
         deal_.getDeal().add(create(CardTarot.SPADE_4,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.SPADE_1,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.CLUB_KING));
@@ -421,7 +421,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -446,7 +446,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.TRUMP_9);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_15,CardTarot.TRUMP_13,CardTarot.TRUMP_5,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5));
         deal_.getDeal().add(create(CardTarot.SPADE_4,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.SPADE_1,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.CLUB_KING));
@@ -489,7 +489,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -521,7 +521,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.TRUMP_13);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_5,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_4,CardTarot.SPADE_3));
         deal_.getDeal().add(create(CardTarot.SPADE_2,CardTarot.SPADE_1,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.DIAMOND_6,CardTarot.DIAMOND_5,CardTarot.DIAMOND_4,CardTarot.DIAMOND_3,CardTarot.CLUB_KING));
@@ -563,7 +563,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -592,7 +592,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_16,CardTarot.TRUMP_13,CardTarot.TRUMP_5,CardTarot.HEART_JACK,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1));
         deal_.getDeal().add(create(CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_4,CardTarot.CLUB_KING));
@@ -634,7 +634,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -663,7 +663,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.HEART_JACK,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT));
         deal_.getDeal().add(create(CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_13,CardTarot.TRUMP_5,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.CLUB_KING));
@@ -705,7 +705,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -727,7 +727,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8));
         deal_.getDeal().add(create(CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.TRUMP_1,CardTarot.HEART_7,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.CLUB_KING));
@@ -770,7 +770,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -792,7 +792,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8));
         deal_.getDeal().add(create(CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.TRUMP_1,CardTarot.HEART_7,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.CLUB_KING));
@@ -835,7 +835,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -857,7 +857,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8));
         deal_.getDeal().add(create(CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.TRUMP_1,CardTarot.HEART_7,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.CLUB_KING));
@@ -900,7 +900,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -922,7 +922,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_10));
         deal_.getDeal().add(create(CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.CLUB_KING));
@@ -965,7 +965,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -987,7 +987,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_JACK));
         deal_.getDeal().add(create(CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.CLUB_KING));
@@ -1030,7 +1030,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1052,7 +1052,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT));
         deal_.getDeal().add(create(CardTarot.HEART_JACK,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.CLUB_KING));
@@ -1095,7 +1095,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1117,7 +1117,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT));
         deal_.getDeal().add(create(CardTarot.HEART_JACK,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_9,CardTarot.CLUB_KING));
@@ -1160,7 +1160,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1182,7 +1182,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT));
         deal_.getDeal().add(create(CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.CLUB_KING));
@@ -1225,7 +1225,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1254,7 +1254,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10));
         deal_.getDeal().add(create(CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.CLUB_KING));
@@ -1296,7 +1296,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1325,7 +1325,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10));
         deal_.getDeal().add(create(CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.CLUB_KING));
@@ -1367,7 +1367,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1396,7 +1396,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_17,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10));
         deal_.getDeal().add(create(CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.CLUB_KING));
@@ -1438,7 +1438,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1460,7 +1460,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8));
         deal_.getDeal().add(create(CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_3,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_8,CardTarot.CLUB_KING));
@@ -1503,7 +1503,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1525,7 +1525,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8));
         deal_.getDeal().add(create(CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_3,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.CLUB_KING));
@@ -1568,7 +1568,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1590,7 +1590,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_7));
         deal_.getDeal().add(create(CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_3,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.CLUB_KING));
@@ -1633,7 +1633,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1662,7 +1662,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8));
         deal_.getDeal().add(create(CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_7,CardTarot.HEART_5,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.CLUB_KING));
@@ -1704,7 +1704,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1733,7 +1733,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_7));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.HEART_KING,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4));
         deal_.getDeal().add(create(CardTarot.CLUB_KING,CardTarot.CLUB_QUEEN,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_6,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
@@ -1775,7 +1775,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1793,7 +1793,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.CLUB_2);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_5,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN));
         deal_.getDeal().add(create(CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6,CardTarot.SPADE_5,CardTarot.SPADE_3,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_8,CardTarot.DIAMOND_7,CardTarot.CLUB_KING));
@@ -1837,7 +1837,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1856,7 +1856,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.TRUMP_5);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.TRUMP_9,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_4,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_5,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT));
         deal_.getDeal().add(create(CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.CLUB_KING,CardTarot.CLUB_QUEEN,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_1));
@@ -1900,7 +1900,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1919,7 +1919,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.TRUMP_5);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT,CardTarot.CLUB_KING,CardTarot.CLUB_QUEEN,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_7));
         deal_.getDeal().add(create(CardTarot.TRUMP_6,CardTarot.TRUMP_1,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_5,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.SPADE_8));
@@ -1963,7 +1963,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -1982,7 +1982,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.TRUMP_5);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_8,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_6));
         deal_.getDeal().add(create(CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.CLUB_KING,CardTarot.CLUB_QUEEN,CardTarot.CLUB_JACK,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7,CardTarot.CLUB_5,CardTarot.CLUB_4,CardTarot.CLUB_3,CardTarot.CLUB_2,CardTarot.CLUB_1));
@@ -2026,7 +2026,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -2048,7 +2048,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_2));
         deal_.getDeal().add(create(CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_4,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_5,CardTarot.SPADE_KING,CardTarot.CLUB_KING));
@@ -2091,7 +2091,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -2113,7 +2113,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_3,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_7,CardTarot.HEART_6));
         deal_.getDeal().add(create(CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.CLUB_KING));
@@ -2156,7 +2156,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -2178,7 +2178,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.DIAMOND_KNIGHT));
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT));
         deal_.getDeal().add(create(CardTarot.TRUMP_8,CardTarot.TRUMP_3,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.DIAMOND_KING,CardTarot.CLUB_KING));
@@ -2221,7 +2221,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.TAKE);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -2243,7 +2243,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8,CardTarot.TRUMP_3,CardTarot.CLUB_KING));
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_7,CardTarot.HEART_6,CardTarot.SPADE_3,CardTarot.SPADE_2,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.DIAMOND_2,CardTarot.CLUB_KNIGHT));
         deal_.getDeal().add(create(CardTarot.HEART_KING,CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_8,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.DIAMOND_KING,CardTarot.DIAMOND_KNIGHT));
@@ -2286,7 +2286,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.SPADE_10);
         t_.ajouter(CardTarot.SPADE_4);
         t_.ajouter(CardTarot.SPADE_1);
@@ -2308,7 +2308,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_2,CardTarot.HEART_9,CardTarot.HEART_8,CardTarot.HEART_6,CardTarot.SPADE_2,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_21,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9,CardTarot.TRUMP_8));
         deal_.getDeal().add(create(CardTarot.TRUMP_7,CardTarot.TRUMP_6,CardTarot.TRUMP_5,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.TRUMP_1,CardTarot.HEART_7,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_9,CardTarot.CLUB_KING));
@@ -2351,7 +2351,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -2373,7 +2373,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_10,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.HEART_JACK,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.CLUB_KING));
         deal_.getDeal().add(create(CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_10,CardTarot.SPADE_9,CardTarot.SPADE_8,CardTarot.SPADE_7,CardTarot.SPADE_6));
@@ -2416,7 +2416,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.HEART_QUEEN);
         t_.ajouter(CardTarot.HEART_KNIGHT);
         t_.ajouter(CardTarot.HEART_10);
@@ -2438,7 +2438,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         TrickTarot pr_ = new TrickTarot(t_.getRamasseur());
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.TRUMP_18,CardTarot.TRUMP_16,CardTarot.TRUMP_10,CardTarot.TRUMP_2,CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10));
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_20,CardTarot.TRUMP_19,CardTarot.TRUMP_17,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_9,CardTarot.TRUMP_4,CardTarot.TRUMP_3,CardTarot.CLUB_KING));
         deal_.getDeal().add(create(CardTarot.HEART_JACK,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.SPADE_KING,CardTarot.SPADE_QUEEN,CardTarot.SPADE_KNIGHT,CardTarot.SPADE_JACK,CardTarot.SPADE_6));
@@ -2481,7 +2481,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         bids_.add(BidTarot.TAKE);
         bids_.add(BidTarot.FOLD);
         bids_.add(BidTarot.FOLD);
-        TrickTarot t_ = new TrickTarot((byte) getTaker(r_,2,bids_));
+        TrickTarot t_ = new TrickTarot(getTaker(r_,2,bids_));
         t_.ajouter(CardTarot.TRUMP_6);
         t_.ajouter(CardTarot.TRUMP_7);
         t_.ajouter(CardTarot.TRUMP_8);
@@ -2505,7 +2505,7 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         pr_.ajouter(CardTarot.SPADE_3);
         HandTarot calledCards_ = new HandTarot();
         calledCards_.ajouter(CardTarot.CLUB_KING);
-        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), (byte) 2);
+        DealTarot deal_ = new DealTarot(new CustList<HandTarot>(), 2);
         deal_.getDeal().add(create(CardTarot.EXCUSE,CardTarot.TRUMP_19,CardTarot.TRUMP_18,CardTarot.TRUMP_17,CardTarot.TRUMP_16,CardTarot.TRUMP_15,CardTarot.TRUMP_14,CardTarot.TRUMP_13,CardTarot.TRUMP_12,CardTarot.TRUMP_11,CardTarot.TRUMP_10,CardTarot.TRUMP_9));
         deal_.getDeal().add(create(CardTarot.HEART_QUEEN,CardTarot.HEART_KNIGHT,CardTarot.HEART_JACK,CardTarot.HEART_10,CardTarot.HEART_9,CardTarot.HEART_6,CardTarot.HEART_5,CardTarot.HEART_4,CardTarot.HEART_3,CardTarot.HEART_2,CardTarot.HEART_1,CardTarot.CLUB_KING));
         deal_.getDeal().add(create(CardTarot.HEART_KING,CardTarot.HEART_8,CardTarot.HEART_7,CardTarot.DIAMOND_QUEEN,CardTarot.DIAMOND_KNIGHT,CardTarot.DIAMOND_JACK,CardTarot.DIAMOND_10,CardTarot.DIAMOND_9,CardTarot.CLUB_KNIGHT,CardTarot.CLUB_10,CardTarot.CLUB_9,CardTarot.CLUB_8,CardTarot.CLUB_7));
@@ -2552,16 +2552,16 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
     }
 
     private static BoolVal confidenceSelfValue(GameTarot _g, CustList<CustList<BoolVal>> _c) {
-        byte nbPl_ = _g.getNombreDeJoueurs();
-        byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
+        int nbPl_ = _g.getNombreDeJoueurs();
+        int next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
         return _c.get(next_).get(next_);
 //        return _g.getConfidence().get(next_).get(next_);
     }
 
     private static BoolVal confidenceValue(GameTarot _g, CustList<CustList<BoolVal>> _c, int _j) {
-        byte nbPl_ = _g.getNombreDeJoueurs();
-        byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
-        return _c.get(next_).get((byte)_j);
+        int nbPl_ = _g.getNombreDeJoueurs();
+        int next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
+        return _c.get(next_).get(_j);
 //        return _g.getConfidence().get(next_).get((byte)_j);
     }
 

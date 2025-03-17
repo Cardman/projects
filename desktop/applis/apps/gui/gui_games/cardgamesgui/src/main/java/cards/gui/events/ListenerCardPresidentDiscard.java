@@ -10,7 +10,7 @@ public class ListenerCardPresidentDiscard extends
     private final boolean inHand;
 
     public ListenerCardPresidentDiscard(ContainerPlayablePresident _container,
-                                        CardPresident _card, byte _index, boolean _inHand) {
+                                        CardPresident _card, int _index, boolean _inHand) {
         super(_container, _card, _index);
         container = _container;
         inHand = _inHand;

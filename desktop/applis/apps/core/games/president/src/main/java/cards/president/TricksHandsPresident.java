@@ -16,37 +16,37 @@ public final class TricksHandsPresident {
 
     private int numberMaxSwitchedCards;
 
-    private Bytes ranks;
+    private Ints ranks;
 
     private CustList<HandPresident> switchedCards;
 
     private CustList<HandPresident> cardsHandsAtInitialState;
 
     public void sortHands(DisplayingPresident _displaying,
-            byte _nombreJoueurs) {
+            int  _nombreJoueurs) {
         trier(_displaying, _nombreJoueurs);
     }
 
     public void restoreHandsAtSelectedNumberedTrick(DisplayingPresident _displaying,
-            byte _nombreJoueurs) {
+            int  _nombreJoueurs) {
         restaurer(_nombreJoueurs);
         beforePlay();
         trier(_displaying, _nombreJoueurs);
     }
 
     public void restoreHandsAtSelectedNumberedTrick(DisplayingPresident _displaying,
-            byte _nombreJoueurs, int _numeroPli) {
+            int  _nombreJoueurs, int _numeroPli) {
         restaurer(_nombreJoueurs);
         if (_numeroPli == -1) {
             boolean ready_ = GamePresident.ready(switchedCards, GamePresident.getWinners(numberMaxSwitchedCards, ranks));
             if (!ready_) {
-                Bytes loosers_ = GamePresident.getLoosers(numberMaxSwitchedCards, ranks);
-                for (byte l: loosers_) {
+                Ints loosers_ = GamePresident.getLoosers(numberMaxSwitchedCards, ranks);
+                for (int l: loosers_) {
                     distribution.hand(l).supprimerCartes(switchedCards.get(l));
                 }
             }
         }
-        byte key_ = 0;
+        int  key_ = 0;
         for (TrickPresident pli_ : union()) {
             if(key_ > _numeroPli) {
                 continue;
@@ -65,7 +65,7 @@ public final class TricksHandsPresident {
     }
 
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard(DisplayingPresident _displaying,
-            byte _nombreJoueurs, int _numeroCarte) {
+            int  _nombreJoueurs, int _numeroCarte) {
         restaurer(_nombreJoueurs);
         for (TrickPresident pli_ : tricks) {
             previousTrick(_nombreJoueurs, pli_);
@@ -75,9 +75,9 @@ public final class TricksHandsPresident {
     }
 
     public void restoreHandsAtSelectedNumberedTrickWithSelectedCard(DisplayingPresident _displaying,
-            byte _nombreJoueurs, int _numeroPli, int _numeroCarte) {
+            int  _nombreJoueurs, int _numeroPli, int _numeroCarte) {
         restaurer(_nombreJoueurs);
-        byte key_ = 0;
+        int  key_ = 0;
         for (TrickPresident pli_ : union()) {
             if(key_ > _numeroPli) {
                 continue;
@@ -92,21 +92,21 @@ public final class TricksHandsPresident {
         trier(_displaying, _nombreJoueurs);
     }
 
-    private void restaurer(byte _nombreJoueurs) {
-        for (byte p = IndexConstants.FIRST_INDEX; p< _nombreJoueurs; p++) {
+    private void restaurer(int  _nombreJoueurs) {
+        for (int  p = IndexConstants.FIRST_INDEX; p< _nombreJoueurs; p++) {
             supprimerCartes(p);
             ajouterCartes(p, cardsHandsAtInitialState.get(p));
         }
     }
 
-    private void trier(DisplayingPresident _displaying, byte _nombreJoueurs) {
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
+    private void trier(DisplayingPresident _displaying, int  _nombreJoueurs) {
+        for (int  joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             trier(joueur_, _displaying.getDisplaying().isDecreasing(),reversed);
         }
     }
 
-    private void currentTrick(byte _nombreJoueurs, int _numeroCarte, TrickPresident _pli) {
-        byte indice_ = 0;
+    private void currentTrick(int _nombreJoueurs, int _numeroCarte, TrickPresident _pli) {
+        int  indice_ = 0;
         for (HandPresident carte_ : _pli) {
             if (indice_ <= _numeroCarte) {
                 supprimerCartes(_pli.getPlayer(indice_, _nombreJoueurs),carte_);
@@ -115,7 +115,7 @@ public final class TricksHandsPresident {
         }
     }
 
-    private void previousTrick(byte _nombreJoueurs, TrickPresident _pli) {
+    private void previousTrick(int _nombreJoueurs, TrickPresident _pli) {
         int index_ = 0;
         for (HandPresident carte_ : _pli) {
             supprimerCartes(_pli.getPlayer(index_, _nombreJoueurs),carte_);
@@ -123,19 +123,19 @@ public final class TricksHandsPresident {
         }
     }
 
-    private void supprimerCartes(byte _joueur) {
+    private void supprimerCartes(int _joueur) {
         distribution.supprimerCartes(_joueur);
     }
 
-    private void trier(byte _joueur, boolean _decroissant, boolean _reverse) {
+    private void trier(int _joueur, boolean _decroissant, boolean _reverse) {
         distribution.trier(_joueur, _decroissant, _reverse);
     }
 
-    private void supprimerCartes(byte _preneur, HandPresident _main) {
+    private void supprimerCartes(int _preneur, HandPresident _main) {
         distribution.supprimerCartes(_preneur, _main);
     }
 
-    private void ajouterCartes(byte _preneur, HandPresident _derniereMain) {
+    private void ajouterCartes(int _preneur, HandPresident _derniereMain) {
         distribution.ajouterCartes(_preneur, _derniereMain);
     }
 
@@ -155,11 +155,11 @@ public final class TricksHandsPresident {
         return tricks;
     }
 
-    public void setTricks(CustList<TrickPresident> _tricks, TrickPresident _trick, byte _nbPlayers) {
+    public void setTricks(CustList<TrickPresident> _tricks, TrickPresident _trick, int _nbPlayers) {
         tricks = _tricks;
         progressingTrick = _trick;
         cardsHandsAtInitialState = new CustList<HandPresident>();
-        for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
+        for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nbPlayers; joueur_++) {
             HandPresident hand_ = new HandPresident();
             hand_.ajouterCartes(distribution.hand(joueur_));
             for (TrickPresident pli_ : tricks) {
@@ -188,11 +188,11 @@ public final class TricksHandsPresident {
         numberMaxSwitchedCards = _numberMaxSwitchedCards;
     }
 
-    public Bytes getRanks() {
+    public Ints getRanks() {
         return ranks;
     }
 
-    public void setRanks(Bytes _ranks) {
+    public void setRanks(Ints _ranks) {
         ranks = _ranks;
     }
 

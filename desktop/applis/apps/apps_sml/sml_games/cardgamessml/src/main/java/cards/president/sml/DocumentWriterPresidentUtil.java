@@ -64,7 +64,7 @@ public final class DocumentWriterPresidentUtil {
 
     private static void setDealPresident(DealPresident _object, Element _element, Document _document) {
         _element.appendChild(setListHandPresident(_object.getDeal(),FIELD_DEAL,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getDealer(),FIELD_DEALER,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getDealer(),FIELD_DEALER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getNbDeals(),FIELD_NB_DEALS,_document));
     }
 
@@ -109,10 +109,10 @@ public final class DocumentWriterPresidentUtil {
         _element.appendChild(setDealPresident(_object.getDeal(),FIELD_DEAL,_document));
         _element.appendChild(setTrickPresident(_object.getProgressingTrick(),FIELD_PROGRESSING_TRICK,_document));
         _element.appendChild(setListTrickPresident(_object.getTricks(),FIELD_TRICKS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListShort(_object.getScores(),FIELD_SCORES,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListLong(_object.getScores(),FIELD_SCORES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getNumber(),FIELD_NUMBER,_document));
         _element.appendChild(setRulesPresident(_object.getRules(),FIELD_RULES,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListByte(_object.getRanks(),FIELD_RANKS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListInteger(_object.getRanks(),FIELD_RANKS,_document));
         _element.appendChild(setMapByteHandPresident(_object.getSwitchedCards(),FIELD_SWITCHED_CARDS,_document));
     }
 
@@ -177,7 +177,7 @@ public final class DocumentWriterPresidentUtil {
         _element.appendChild(setListTrickPresident(_object.getTricks(),FIELD_TRICKS,_document));
         _element.appendChild(setTrickPresident(_object.getProgressingTrick(),FIELD_PROGRESSING_TRICK,_document));
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNumberMaxSwitchedCards(),FIELD_NUMBER_MAX_SWITCHED_CARDS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setListByte(_object.getRanks(),FIELD_RANKS,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setListInteger(_object.getRanks(),FIELD_RANKS,_document));
         _element.appendChild(setMapByteHandPresident(_object.getSwitchedCards(),FIELD_SWITCHED_CARDS,_document));
         _element.appendChild(setListHandPresident(_object.getCardsHandsAtInitialState(),FIELD_CARDS_HANDS_AT_INITIAL_STATE,_document));
     }
@@ -234,9 +234,9 @@ public final class DocumentWriterPresidentUtil {
     private static Element setMapByteHandPresident(CustList<HandPresident> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        byte b_ = 0;
+        int b_ = 0;
         for (HandPresident s: _object) {
-            Element sub_ = DocumentWriterCoreUtil.setByte(b_, EMPTY_STRING, _document);
+            Element sub_ = DocumentWriterCoreUtil.setInteger(b_, EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
             sub_ = setHandPresident(s, EMPTY_STRING, _document);

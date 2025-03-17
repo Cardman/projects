@@ -55,7 +55,7 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
         main_.ajouter(CardBelote.SPADE_KING);
         main_.ajouter(CardBelote.DIAMOND_7);
         mains_.add(main_);
-        DealBelote donne_ = new DealBelote(mains_,(byte)3);
+        DealBelote donne_ = new DealBelote(mains_,3);
         RulesBelote regles_=new RulesBelote();
         regles_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         return new GameBelote(GameType.RANDOM,donne_,regles_);
@@ -71,7 +71,7 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.SPADE_9));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_9);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         //assertTrue(!game_.meme_equipe(game_.getEntameur(),player_));
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
@@ -90,7 +90,7 @@ public class GameBeloteWithTrumpSuitTwoTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.DIAMOND_QUEEN));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.DIAMOND_QUEEN);
         assertEq(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         //assertTrue(!game_.meme_equipe(game_.getEntameur(),player_));
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());

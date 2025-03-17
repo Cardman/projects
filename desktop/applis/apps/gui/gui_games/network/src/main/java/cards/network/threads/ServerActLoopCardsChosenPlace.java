@@ -11,7 +11,7 @@ public final class ServerActLoopCardsChosenPlace implements IntServerActLoopCard
     public void loop(CustList<String> _input, Net _instance, AbstractThreadFactory _fct, NetCommon _common) {
         ChoosenPlace ch_ = Net.importChosenPlace(_input);
         int noClient_ = ch_.getIndex();
-        _common.getPlacesPlayers().put(noClient_, (byte) ch_.getPlace());
+        _common.getPlacesPlayers().put(noClient_, ch_.getPlace());
         String str_ = Net.exportClientChosenPlace(ch_.getIndex(), ch_.getPlace(), _common.getPlacesPlayers());
         _common.resend(str_);
     }

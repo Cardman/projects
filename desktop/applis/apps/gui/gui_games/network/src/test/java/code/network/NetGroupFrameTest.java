@@ -76,7 +76,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
     }
     @Test
     public void socketSend1() {
-        assertFalse(NetGroupFrame.trySendString("",Net.getSocketByPlace((byte) 0, new NetCommon())));
+        assertFalse(NetGroupFrame.trySendString("",Net.getSocketByPlace(0, new NetCommon())));
     }
 
     @Test

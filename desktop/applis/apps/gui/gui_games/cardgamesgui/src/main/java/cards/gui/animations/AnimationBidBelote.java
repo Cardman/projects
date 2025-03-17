@@ -73,7 +73,7 @@ public final class AnimationBidBelote implements Runnable {
                 _container.getOwner().getFrames().getCompoFactory().invokeNow(new ChangingPauseAfter(_container,CardAnimState.BID_BELOTE));
                 return;
             }
-            byte player_ = partie_.playerHavingToBid();
+            int player_ = partie_.playerHavingToBid();
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
                 break;
             }

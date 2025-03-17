@@ -8,7 +8,7 @@ import code.util.core.*;
 
 public final class IndexOfArrivingCards extends PlayerActionBeforeGameCards {
 
-    private IntTreeMap< Byte> placesPlayers;
+    private IntTreeMap< Integer> placesPlayers;
 
     private IntMap<BoolVal> readyPlayers;
 
@@ -29,11 +29,11 @@ public final class IndexOfArrivingCards extends PlayerActionBeforeGameCards {
         this.nbPlayers = _n;
     }
 
-    public IntTreeMap< Byte> getPlacesPlayers() {
+    public IntTreeMap< Integer> getPlacesPlayers() {
         return placesPlayers;
     }
 
-    public void setPlacesPlayers(IntTreeMap< Byte> _placesPlayers) {
+    public void setPlacesPlayers(IntTreeMap< Integer> _placesPlayers) {
         placesPlayers = _placesPlayers;
     }
 

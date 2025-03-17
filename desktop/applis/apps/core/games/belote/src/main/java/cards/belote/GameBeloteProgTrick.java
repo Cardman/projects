@@ -18,7 +18,7 @@ public final class GameBeloteProgTrick {
     private final Role currentStatus;
     private final HandBelote playableCards;
     private final BidBeloteSuit bid;
-    private final byte taker;
+    private final int taker;
     private final BeloteInfoPliEnCours beloteInfoPliEnCours;
     private final IdMap<Suit, HandBelote> repartitionJouables;
     private final Suit couleurDemandee;
@@ -26,11 +26,11 @@ public final class GameBeloteProgTrick {
     private final IdMap<Suit, CustList<HandBelote>> repartitionJouablesToutes = new IdMap<Suit, CustList<HandBelote>>();
     private final CustList<HandBelote> suitesJouables;
     private final CardBelote carteForte;
-    private final Bytes joueursNonJoue;
+    private final Ints joueursNonJoue;
     private final IdMap<Suit, CustList<HandBelote>> cartesPossibles;
     private final IdMap<Suit, CustList<HandBelote>> cartesCertaines;
-    private final Bytes joueursNonConfiance;
-    private final Bytes adversaireNonJoue;
+    private final Ints joueursNonConfiance;
+    private final Ints adversaireNonJoue;
     private final Suit couleurAtout;
     private final CustList<HandBelote> cartesRelativementMaitre;
     private final CustList<HandBelote> cartesRelativementMaitreAtout;
@@ -53,9 +53,9 @@ public final class GameBeloteProgTrick {
         bid = _done.getBid();
         taker = _teamsRelation.getTaker();
         GameBeloteCommonPlaying common_ = new GameBeloteCommonPlaying(_done, _teamsRelation);
-        byte nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
+        int nbPlayers_ = _teamsRelation.getNombreDeJoueurs();
         TrickBelote trBelote_ = _done.getProgressingTrick();
-        byte nextPlayer_ = trBelote_.getNextPlayer(nbPlayers_);
+        int nextPlayer_ = trBelote_.getNextPlayer(nbPlayers_);
         IdMap<Suit, HandBelote> repartition_ = _currentHand.couleurs(bid);
         playableCards = common_.playableCards(repartition_);
         repartitionJouables = playableCards.couleurs(bid);
@@ -201,12 +201,12 @@ public final class GameBeloteProgTrick {
 
     CardBelote playAtNextRound() {
         CustList<TrickBelote> tours_=GameBeloteCommonPlaying.tours(couleurDemandee, plisFaits.mid(offset));
-        Bytes joueursSusceptiblesDeCouper_=new Bytes();
+        Ints joueursSusceptiblesDeCouper_=new Ints();
         TrickBelote dernierPli_;
-        Bytes dernieresDefausses_;
+        Ints dernieresDefausses_;
         dernierPli_ = tours_.last();
         dernieresDefausses_ = dernierPli_.joueursDefausses(couleurAtout);
-        for (byte joueur_ : joueursNonJoue) {
+        for (int joueur_ : joueursNonJoue) {
             if (GameBeloteCommonPlaying.peutCouper(couleurDemandee, joueur_, cartesPossibles, couleurAtout)) {
                 joueursSusceptiblesDeCouper_.add(joueur_);
             }
@@ -226,21 +226,21 @@ public final class GameBeloteProgTrick {
     }
 
     CardBelote playWhenPossibleTrump() {
-        byte nombreJoueurs_=teamsRelation.getNombreDeJoueurs();
-        byte next_ = info.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
-        Bytes joueursSusceptiblesDeCouper_=GameBeloteCommonPlaying.joueursSusceptiblesCoupe(cartesPossibles,
+        int nombreJoueurs_=teamsRelation.getNombreDeJoueurs();
+        int next_ = info.getProgressingTrick().getNextPlayer(teamsRelation.getNombreDeJoueurs());
+        Ints joueursSusceptiblesDeCouper_=GameBeloteCommonPlaying.joueursSusceptiblesCoupe(cartesPossibles,
                 couleurDemandee, bid.getSuit(),joueursNonConfiance);
-        byte maxTwo_;
-        for (byte joueur_ : joueursNonConfiance) {
+        int maxTwo_;
+        for (int joueur_ : joueursNonConfiance) {
             if (joueursSusceptiblesDeCouper_.containsObj(joueur_)) {
                 return mainCouleurDemandeeJouable().derniereCarte();
             }
         }
         if (maitreJeu) {
             maxTwo_ = 0;
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 if (joueur_ != next_) {
-                    maxTwo_ = (byte) NumberUtil.max(GameBeloteCommon.hand(cartesPossibles, couleurDemandee, joueur_).total(), maxTwo_);
+                    maxTwo_ = NumberUtil.max(GameBeloteCommon.hand(cartesPossibles, couleurDemandee, joueur_).total(), maxTwo_);
                 }
             }
             if (suitesJouables.get(0).total() > maxTwo_) {
@@ -287,7 +287,7 @@ public final class GameBeloteProgTrick {
 
     boolean leadingPartner() {
         boolean partenaireMaitre_ = true;
-        for(byte j: adversaireNonJoue) {
+        for(int j: adversaireNonJoue) {
             HandBelote couleurPossible_ = GameBeloteCommon.hand(cartesPossibles, couleurDemandee,j);
             if (couleurPossible_.estVide() || carteForte.strength(couleurDemandee, bid) <= couleurPossible_.premiereCarte().strength(couleurDemandee, bid)) {
                 partenaireMaitre_ = false;
@@ -307,7 +307,7 @@ public final class GameBeloteProgTrick {
 
     CardBelote followNormalSuitPartner() {
         HandBelote playable_ = mainCouleurDemandeeJouable();
-        for(byte joueur_:joueursNonConfiance) {
+        for(int joueur_:joueursNonConfiance) {
             HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles, couleurDemandee, joueur_);
             if (!possible_.estVide() && possible_.premiereCarte().strength(couleurDemandee, bid)
                     > playable_.premiereCarte().strength(couleurDemandee, bid)) {
@@ -396,7 +396,7 @@ public final class GameBeloteProgTrick {
         if(suitesJouables.size()==1) {
             return playable_.premiereCarte();
         }
-        for(byte joueur_:joueursNonConfiance) {
+        for(int joueur_:joueursNonConfiance) {
             HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles, couleurDemandee, joueur_);
             if (!possible_.estVide() && possible_.premiereCarte().strength(couleurDemandee, bid)
                     > playable_.premiereCarte().strength(couleurDemandee, bid)) {
@@ -577,7 +577,7 @@ public final class GameBeloteProgTrick {
             CustList<HandBelote> _cartesRelMaitres) {
         //si aucun adversaire ne possede une carte a point dans la couleur demandee, alors les points peuvent etre sauves
         boolean aucuneCartePointsAdvNonJoue_ = true;
-        for(byte j: adversaireNonJoue) {
+        for(int j: adversaireNonJoue) {
             HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles, couleurDemandee, j);
             if (!possible_.estVide() && possible_.premiereCarte().points(bid) >= 1) {
                 aucuneCartePointsAdvNonJoue_ = false;
@@ -599,28 +599,28 @@ public final class GameBeloteProgTrick {
 
     CustList<HandBelote> cartesRelativementMaitre(
             Suit _couleurJoueur) {
-        byte maxValeur_=0;
+        int maxValeur_=0;
         Suit dom_ = bid.getSuit();
         if(_couleurJoueur==dom_&&couleurDemandee!=dom_) {
-            for(byte joueur_:joueursNonJoue) {
+            for(int joueur_:joueursNonJoue) {
                 HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles, _couleurJoueur, joueur_);
                 if(!possible_.estVide()&&GameBeloteCommon.hand(cartesCertaines,couleurDemandee,joueur_).estVide()) {
-                    maxValeur_=(byte)NumberUtil.max(possible_.premiereCarte().strength(couleurDemandee,bid),maxValeur_);
+                    maxValeur_= NumberUtil.max(possible_.premiereCarte().strength(couleurDemandee,bid),maxValeur_);
                 }
             }
         } else {
-            for(byte joueur_:joueursNonJoue) {
+            for(int joueur_:joueursNonJoue) {
                 HandBelote possible_ = GameBeloteCommon.hand(cartesPossibles, _couleurJoueur, joueur_);
                 if(!possible_.estVide()) {
-                    maxValeur_=(byte)NumberUtil.max(possible_.premiereCarte().strength(couleurDemandee,bid),maxValeur_);
+                    maxValeur_= NumberUtil.max(possible_.premiereCarte().strength(couleurDemandee,bid),maxValeur_);
                 }
             }
         }
-        maxValeur_=(byte)NumberUtil.max(maxValeur_,carteForte.strength(couleurDemandee,bid));
+        maxValeur_=NumberUtil.max(maxValeur_,carteForte.strength(couleurDemandee,bid));
         return filterSeq(_couleurJoueur, maxValeur_);
     }
 
-    private CustList<HandBelote> filterSeq(Suit _couleurJoueur, byte _maxValeur) {
+    private CustList<HandBelote> filterSeq(Suit _couleurJoueur, int _maxValeur) {
         CustList<HandBelote> suitesBis_=new CustList<HandBelote>();
         for(HandBelote suite_: repartitionJouablesToutes.getVal(_couleurJoueur)) {
             if(suite_.premiereCarte().strength(couleurDemandee,bid)> _maxValeur) {

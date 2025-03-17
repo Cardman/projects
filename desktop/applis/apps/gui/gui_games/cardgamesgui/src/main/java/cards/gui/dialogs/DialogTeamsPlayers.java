@@ -39,11 +39,11 @@ public final class DialogTeamsPlayers extends DialogHelpCards {
         AbsPanel panel_ = _compo.newGrid(0,1);
         int i_ = 1;
         String stringTeam_ = messages.getVal(MessagesGuiCards.MAIN_TEAM);
-        for (Bytes t: _teamsPlayers.getTeams()) {
+        for (Ints t: _teamsPlayers.getTeams()) {
             String stringTeamLoc_ = StringUtil.simpleNumberFormat(stringTeam_, i_);
             AbsPanel team_ = _compo.newGrid(0,1);
             team_.setTitledBorder(stringTeamLoc_);
-            for (byte p:t) {
+            for (int p:t) {
                 AbsPlainLabel player_ = getCompoFactory().newPlainLabel(_pseudos.get(p));
                 team_.add(player_);
             }

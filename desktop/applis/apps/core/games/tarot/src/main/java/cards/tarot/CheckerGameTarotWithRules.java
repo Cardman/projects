@@ -42,7 +42,7 @@ public final class CheckerGameTarotWithRules {
             return;
         }
 //        boolean noTrick_ = noTrick(allTricks_);
-        Bytes players_ = _loadedGame.orderedPlayers(_loadedGame
+        Ints players_ = _loadedGame.orderedPlayers(_loadedGame
                 .getDistribution().getDealer());
         DealTarot deal_ = buildDeal(_loadedGame);
         if (koHandsDog(_loadedGame, rules_, players_, deal_, _mes)) {
@@ -121,7 +121,7 @@ public final class CheckerGameTarotWithRules {
 //            return false;
 //        }
         TrickTarot trick_ = union_.get(_ind);
-        for (byte p : _loadedGameCopy.orderedPlayers(_loadedGameCopy
+        for (int p : _loadedGameCopy.orderedPlayers(_loadedGameCopy
                 .getEntameur())) {
             if (!keepTrickIt(_loadedGame,_loadedGameCopy,trick_,p, _mes)) {
                 return false;
@@ -159,7 +159,7 @@ public final class CheckerGameTarotWithRules {
 //        return false;
 //    }
 
-    private static boolean keepTrickIt(GameTarot _loadedGame, GameTarot _loadedGameCopy, TrickTarot _trick, byte _p, StringMap<String> _mes) {
+    private static boolean keepTrickIt(GameTarot _loadedGame, GameTarot _loadedGameCopy, TrickTarot _trick, int _p, StringMap<String> _mes) {
         if (!_trick.aJoue(_p, _loadedGameCopy.getNombreDeJoueurs())) {
             return false;
         }
@@ -184,7 +184,7 @@ public final class CheckerGameTarotWithRules {
         return koDecl(_loadedGame, _loadedGameCopy, _p, ct_, _mes);
     }
 
-    private static boolean koDecl(GameTarot _loadedGame, GameTarot _loadedGameCopy, byte _p, CardTarot _ct, StringMap<String> _mes) {
+    private static boolean koDecl(GameTarot _loadedGame, GameTarot _loadedGameCopy, int _p, CardTarot _ct, StringMap<String> _mes) {
         for (Miseres m : _loadedGame.getAnnoncesMiseres(_p)) {
             if (!_loadedGame.getRegles().getMiseres()
                     .containsObj(m) || !_loadedGame.getAnnoncesMiseresPossibles(_p)
@@ -222,7 +222,7 @@ public final class CheckerGameTarotWithRules {
         return true;
     }
 
-    private static HandTarot excludedTrumps(GameTarot _loadedGame, byte _p) {
+    private static HandTarot excludedTrumps(GameTarot _loadedGame, int _p) {
         HandTarot excludedTrumps_ = new HandTarot();
         for (CardTarot c : _loadedGame.getDistribution()
                 .hand(_p).couleur(Suit.TRUMP)) {
@@ -340,7 +340,7 @@ public final class CheckerGameTarotWithRules {
         }
     }
 
-    private static boolean koHandsDog(GameTarot _loadedGame, RulesTarot _rules, Bytes _players, DealTarot _deal, StringMap<String> _mes) {
+    private static boolean koHandsDog(GameTarot _loadedGame, RulesTarot _rules, Ints _players, DealTarot _deal, StringMap<String> _mes) {
         boolean completed_ = !_loadedGame.getTricks().isEmpty();
         if (completed_) {
             return all(_loadedGame, _rules, _players, _deal, _mes);
@@ -348,9 +348,9 @@ public final class CheckerGameTarotWithRules {
         return koHandsDogIncomplete(_loadedGame, _rules, _players, _deal, _mes);
     }
 
-    private static boolean koHandsDogIncomplete(GameTarot _loadedGame, RulesTarot _rules, Bytes _players, DealTarot _deal, StringMap<String> _mes) {
+    private static boolean koHandsDogIncomplete(GameTarot _loadedGame, RulesTarot _rules, Ints _players, DealTarot _deal, StringMap<String> _mes) {
         if (_loadedGame.getContrat().getJeuChien() == PlayingDog.WITH && _loadedGame.getPreneur() == DealTarot.NUMERO_UTILISATEUR) {
-            for (byte p : _players) {
+            for (int p : _players) {
                 if (p == _loadedGame.getPreneur()) {
                     continue;
                 }
@@ -365,8 +365,8 @@ public final class CheckerGameTarotWithRules {
         return all(_loadedGame, _rules, _players, _deal, _mes);
     }
 
-    private static boolean all(GameTarot _loadedGame, RulesTarot _rules, Bytes _players, DealTarot _deal, StringMap<String> _mes) {
-        for (byte p : _players) {
+    private static boolean all(GameTarot _loadedGame, RulesTarot _rules, Ints _players, DealTarot _deal, StringMap<String> _mes) {
+        for (int p : _players) {
             if (_deal.hand(p).total() != _rules.getDealing()
                     .getNombreCartesParJoueur()) {
                 _loadedGame.setError(_mes.getVal(BAD_COUNT_FOR_HANDS));
@@ -484,7 +484,7 @@ public final class CheckerGameTarotWithRules {
         for (HandTarot c : _loadedGame.getDistribution()) {
             cards_.ajouterCartes(c);
         }
-        for (byte p : _loadedGame.orderedPlayers(_loadedGame.getDistribution()
+        for (int p : _loadedGame.orderedPlayers(_loadedGame.getDistribution()
                 .getDealer())) {
             for (CardTarot c : _loadedGame.getPoignee(p)) {
                 cards_.ajouter(c);

@@ -1,7 +1,7 @@
 package cards.president;
 
-import code.util.Bytes;
 import code.util.CustList;
+import code.util.Ints;
 
 public interface SimulatingPresident {
     IntGamePresident getInt();
@@ -11,7 +11,7 @@ public interface SimulatingPresident {
     DisplayingPresident getDisplaying();
     HandPresident userHand(GamePresident _g);
     HandPresident playedCards(GamePresident _game);
-    byte addCardsToCurrentTrickAndLoop(GamePresident _game, HandPresident _hand, HandPresident _userHand);
+    int  addCardsToCurrentTrickAndLoop(GamePresident _game, HandPresident _hand, HandPresident _userHand);
 
 //    void displayLooserMessage(HandPresident _h, byte _l, byte _w);
 //    void displayWinnerMessage(HandPresident _h, byte _l, byte _w);
@@ -25,13 +25,13 @@ public interface SimulatingPresident {
 //    int stoppedDemo();
 //    boolean stopped();
 //    void stopDemo();
-    byte displaySwitchedUserHand(GamePresident _g,Bytes _winners, Bytes _loosers, int _noDeal, CustList<HandPresident> _swtichedCards);
+    int  displaySwitchedUserHand(GamePresident _g,Ints _winners, Ints _loosers, int _noDeal, CustList<HandPresident> _swtichedCards);
 //    void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, int _noDeal, CustList<HandPresident> _swtichedCards);
 //    void setupDeck();
 //    void gearStatusChange(ByteMap<Playing> _status, byte _starter);
 //    void displayPlayedHand(HandPresident _hand);
 //    void displayPlayedHandMessage(HandPresident _hand, byte _nextPlayer);
-    Bytes getNewRanks(GamePresident _g, int _no);
+    Ints getNewRanks(GamePresident _g, int _no);
     CustList<TricksHandsPresident> getHistory();
 //    void displayTrickLeader(byte _player);
 //    void endDeal();

@@ -55,24 +55,24 @@ public final class RulesPresident {
         return nbStacks <= getNbMaxStacks();
     }
 
-    public Bytes getSortedPlayersAfterEq(byte _player) {
-        Bytes pl_ = new Bytes();
+    public Ints getSortedPlayersAfterEq(int _player) {
+        Ints pl_ = new Ints();
         for (int p = _player; p < nbPlayers; p++) {
-            pl_.add((byte) p);
+            pl_.add(p);
         }
         for (int p = IndexConstants.FIRST_INDEX; p < _player; p++) {
-            pl_.add((byte) p);
+            pl_.add(p);
         }
         return pl_;
     }
 
-    public Bytes getSortedPlayersAfter(byte _player) {
-        Bytes pl_ = new Bytes();
+    public Ints getSortedPlayersAfter(int _player) {
+        Ints pl_ = new Ints();
         for (int p = _player + 1; p < nbPlayers; p++) {
-            pl_.add((byte) p);
+            pl_.add(p);
         }
         for (int p = IndexConstants.FIRST_INDEX; p <= _player; p++) {
-            pl_.add((byte) p);
+            pl_.add(p);
         }
         return pl_;
     }

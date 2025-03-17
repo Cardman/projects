@@ -56,7 +56,7 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         main_.ajouter(CardBelote.HEART_QUEEN);
         main_.ajouter(CardBelote.CLUB_10);
         mains_.add(main_);
-        return new DealBelote(mains_,(byte)3);
+        return new DealBelote(mains_,3);
     }
     @Test
     public void playableCards_WhileUnderTrumpingOnPartner1Test(){
@@ -71,7 +71,7 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.SPADE_1));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());
@@ -107,7 +107,7 @@ public class GameBeloteWithTrumpSuitSixTest extends GameBeloteWithTrumpSuit {
         assertTrue(hand_.contient(CardBelote.SPADE_1));
         game_.ajouterUneCarteDansPliEnCoursJoue(CardBelote.SPADE_1);
         assertNotSame(game_.couleurAtout(), game_.couleurDemandee());
-        byte player_ = game_.playerAfter(game_.getEntameur());
+        int player_ = game_.playerAfter(game_.getEntameur());
         hand_ = game_.getDistribution().hand(player_);
         IdMap<Suit,HandBelote> suits_ = hand_.couleurs(game_.getBid());
         HandBelote trumps_ = suits_.getVal(game_.couleurAtout());

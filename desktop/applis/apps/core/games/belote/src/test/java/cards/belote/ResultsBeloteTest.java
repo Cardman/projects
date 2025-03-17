@@ -13,7 +13,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
     @Test
     public void calculateScoresTest() {
         ResultsBelote res_ = new ResultsBelote();
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
 //        res_.getRes().setScores(new CustList<Longs>());
         res_.getRes().setGlobalResultsPageTitle("");
         res_.getRes().setDetailResultsTitle("");
@@ -22,7 +22,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         res_.getRes().setNicknames(new StringList());
         res_.getRes().setRenderedPages(new StringMap<String>());
 //        res_.getRes().setLoc("");
-        res_.calculateScores(new CustList<Longs>(),new Shorts(),GameType.RANDOM,1,0);
+        res_.calculateScores(new CustList<Longs>(),new Longs(),GameType.RANDOM,1,0);
         assertEq(0, res_.getRes().getScores().size());
         assertEq(0, res_.getRes().getSums().size());
         assertEq(0, res_.getRes().getSigmas().size());
@@ -39,7 +39,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         GameBelote game_ = getSimpleSlamDeal();
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(game_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>());
         assertEq(4, res_.getRes().getScores().get(0).size());
     }
@@ -47,7 +47,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
     @Test
     public void initialize2Test() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Slam((byte) 3);
+        DealBelote deal_ = deal1Slam(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         bid(game_,new BidBeloteSuit());
         bid(game_,new BidBeloteSuit());
@@ -60,7 +60,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         bid(game_,new BidBeloteSuit());
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(game_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         res_.initialize(new StringList("1","2","3","4"),new CustList<Longs>());
         assertEq(4, res_.getRes().getScores().get(0).size());
     }
@@ -70,7 +70,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         GameBelote game_ = getSimpleSlamDeal();
         ResultsBelote res_ = new ResultsBelote();
         res_.setGame(game_);
-        res_.getRes().setUser((byte) 0);
+        res_.getRes().setUser(0);
         CustList<Longs> scores_ = new CustList<Longs>();
         Longs pr_ = new Longs();
         pr_.add(0L);
@@ -86,7 +86,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
     }
     GameBelote getSimpleSlamDeal() {
         RulesBelote rules_ = new RulesBelote();
-        DealBelote deal_ = deal1Slam((byte) 3);
+        DealBelote deal_ = deal1Slam(3);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -138,7 +138,7 @@ public final class ResultsBeloteTest extends CommonGameBelote {
         return game_;
     }
 
-    private static DealBelote deal1Slam(byte _dealer) {
+    private static DealBelote deal1Slam(int _dealer) {
         CustList<HandBelote> hands_ = new CustList<HandBelote>();
         HandBelote hand_;
         hand_ = new HandBelote();

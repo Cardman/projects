@@ -18,11 +18,11 @@ final class GameTarotTrickHypothesis {
     private GameTarotTrickHypothesis(){
     }
     static CustList<CustList<BoolVal>> hypothesesRepartitionsJoueurs(GameTarotTeamsRelation _teamReal, HandTarot _calledCards,
-                                                                     CustList<TrickTarot> _plisFaits, byte _numero,
+                                                                     CustList<TrickTarot> _plisFaits, int _numero,
                                                                      IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
                                                                      IdMap<Suit, CustList<HandTarot>> _cartesCertaines) {
         Role st_ = _teamReal.statutDe(_numero);
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         CustList<TrickTarot> fullTricksProg_ = new CustList<TrickTarot>();
         for (TrickTarot t:_plisFaits.mid(1)) {
 //        for (TrickTarot t:_plisFaits)
@@ -33,8 +33,8 @@ final class GameTarotTrickHypothesis {
         }
         boolean appelesTousConnus_ = GameTarotTeamsRelation.allKnownCalledPlayers(_calledCards,_cartesCertaines,
                 nombreJoueurs_);
-        Bytes joueursNonConfiancePresqueSure_ = new Bytes();
-        Bytes possibleAlly_ = new Bytes();
+        Ints joueursNonConfiancePresqueSure_ = new Ints();
+        Ints possibleAlly_ = new Ints();
         possibleAlly_.add(_numero);
         if(appelesTousConnus_) {
             feedJoueursNonConfiancePresqueSurePossibleAlly(_teamReal, _calledCards, _cartesCertaines, st_, joueursNonConfiancePresqueSure_, possibleAlly_);
@@ -55,7 +55,7 @@ final class GameTarotTrickHypothesis {
         return _teamReal.getConfidence();
     }
 
-    private static void completeJoueursNonConfiancePresqueSurePossibleAlly(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Role _st, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+    private static void completeJoueursNonConfiancePresqueSurePossibleAlly(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Role _st, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
         if (_st == Role.DEFENDER) {
             completeJoueursNonConfiancePresqueSurePossibleAllyDefender(_teamReal, _calledCards, _cartesPossibles, _possibleAlly);
         } else {
@@ -63,10 +63,10 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static void completeJoueursNonConfiancePresqueSurePossibleAllyAttacker(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _joueursNonConfiancePresqueSure) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void completeJoueursNonConfiancePresqueSurePossibleAllyAttacker(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Ints _joueursNonConfiancePresqueSure) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         for(CardTarot c: _calledCards) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 if (_cartesPossibles.getVal(c.getId().getCouleur())
                         .get(joueur_).estVide()) {
                     _joueursNonConfiancePresqueSure.add(joueur_);
@@ -75,10 +75,10 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static void completeJoueursNonConfiancePresqueSurePossibleAllyDefender(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void completeJoueursNonConfiancePresqueSurePossibleAllyDefender(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         for(CardTarot c: _calledCards) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 if (joueur_ == _teamReal.getTaker()) {
                     continue;
                 }
@@ -90,40 +90,40 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static void changeConfidence(GameTarotTeamsRelation _teamReal, byte _numero, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void changeConfidence(GameTarotTeamsRelation _teamReal, int _numero, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         Role st_ = _teamReal.statutDe(_numero);
-        Bytes allConf_ = new Bytes();
+        Ints allConf_ = new Ints();
         allConf_.addAllElts(_possibleAlly);
         allConf_.addAllElts(_joueursNonConfiancePresqueSure);
-        if (NumberUtil.equalsSetBytes(allConf_, GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_))) {
-            for (byte b: _possibleAlly) {
+        if (NumberUtil.equalsSetInts(allConf_, GameTarotTeamsRelation.tousJoueurs(nombreJoueurs_))) {
+            for (int b: _possibleAlly) {
                 _teamReal.faireConfiance(_numero,b);
             }
-            for (byte b: _joueursNonConfiancePresqueSure) {
+            for (int b: _joueursNonConfiancePresqueSure) {
                 _teamReal.faireMefiance(_numero,b);
             }
         } else if (st_ == Role.DEFENDER) {
-            for (byte b: _possibleAlly) {
+            for (int b: _possibleAlly) {
                 _teamReal.faireConfiance(_numero,b);
             }
         } else {
             if (_possibleAlly.size() < 3) {
-                for (byte b: _possibleAlly) {
+                for (int b: _possibleAlly) {
                     _teamReal.faireConfiance(_numero,b);
                 }
             }
         }
     }
 
-    private static void charsDiscard(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void charsDiscard(GameTarotTeamsRelation _teamReal, int _numero, CustList<TrickTarot> _fullTricksProg, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         Role st_ = _teamReal.statutDe(_numero);
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant les figures defaussese sur demande d'atout
             for(Suit c: Suit.couleursOrdinaires()) {
                 HandTarot cartesCouleurJouees_ = new HandTarot();
-                byte ramasseurVirtuel_ = ramasseurVirtuelCharsDiscard(_teamReal, _fullTricksProg, j, c, cartesCouleurJouees_);
+                int ramasseurVirtuel_ = ramasseurVirtuelCharsDiscard(_teamReal, _fullTricksProg, j, c, cartesCouleurJouees_);
                 if (ramasseurVirtuel_ == -1 || onlyOnePlayedCard(_fullTricksProg, nombreJoueurs_, cartesCouleurJouees_, j)) {
                     continue;
                 }
@@ -133,9 +133,9 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static byte ramasseurVirtuelCharsDiscard(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, byte _j, Suit _c, HandTarot _cartesCouleurJouees) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        byte ramasseurVirtuel_ = -1;
+    private static int ramasseurVirtuelCharsDiscard(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, int _j, Suit _c, HandTarot _cartesCouleurJouees) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        int ramasseurVirtuel_ = -1;
         for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
             Suit couleurDemandee_ = p.couleurDemandee();
             if (couleurDemandee_ == Suit.TRUMP) {
@@ -153,14 +153,14 @@ final class GameTarotTrickHypothesis {
         return ramasseurVirtuel_;
     }
 
-    private static void charsFollowSuit(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void charsFollowSuit(GameTarotTeamsRelation _teamReal, int _numero, CustList<TrickTarot> _fullTricksProg, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         Role st_ = _teamReal.statutDe(_numero);
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant les figures jouees au premier tour d'une couleur ordinaire demandee
             for(Suit c: Suit.couleursOrdinaires()) {
                 HandTarot cartesCouleurJouees_ = new HandTarot();
-                byte ramasseurVirtuel_ = charsFollowSuitRamasseurVirtuel(_teamReal, _fullTricksProg, j, c, cartesCouleurJouees_);
+                int ramasseurVirtuel_ = charsFollowSuitRamasseurVirtuel(_teamReal, _fullTricksProg, j, c, cartesCouleurJouees_);
                 if (ramasseurVirtuel_ == -1 || onlyOnePlayedCard(_fullTricksProg, nombreJoueurs_, cartesCouleurJouees_, j)) {
                     continue;
                 }
@@ -170,9 +170,9 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static byte charsFollowSuitRamasseurVirtuel(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, byte _j, Suit _c, HandTarot _cartesCouleurJouees) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        byte ramasseurVirtuel_ = -1;
+    private static int charsFollowSuitRamasseurVirtuel(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, int _j, Suit _c, HandTarot _cartesCouleurJouees) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        int ramasseurVirtuel_ = -1;
         for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
             Suit couleurDemandee_ = p.couleurDemandee();
             if (couleurDemandee_ == _c) {
@@ -188,12 +188,12 @@ final class GameTarotTrickHypothesis {
         return ramasseurVirtuel_;
     }
 
-    private static byte majRamasseurVirtuel(GameTarotTeamsRelation _teamReal, byte _j, Suit _c, HandTarot _cartesCouleurJouees, byte _ramasseurVirtuel, TrickTarot _p, CardTarot _carteJouee) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        byte ramasseurVirtuel_ = _ramasseurVirtuel;
+    private static int majRamasseurVirtuel(GameTarotTeamsRelation _teamReal, int _j, Suit _c, HandTarot _cartesCouleurJouees, int _ramasseurVirtuel, TrickTarot _p, CardTarot _carteJouee) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        int ramasseurVirtuel_ = _ramasseurVirtuel;
         boolean carteJoueeRamassee_ = false;
-        byte max_ = _carteJouee.strength(_c);
-        for(byte j2_: _p.joueursAyantJoueAvant(_j, _teamReal.getRules().getDealing())) {
+        int max_ = _carteJouee.strength(_c);
+        for(int j2_: _p.joueursAyantJoueAvant(_j, _teamReal.getRules().getDealing())) {
             CardTarot carteJoueeAvant_ = _p.carteDuJoueur(j2_, nombreJoueurs_);
             if(carteJoueeAvant_.strength(_c) < max_) {
                 continue;
@@ -208,10 +208,10 @@ final class GameTarotTrickHypothesis {
         return ramasseurVirtuel_;
     }
 
-    private static void trumpAce(GameTarotTeamsRelation _teamReal, byte _numero, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-            byte ramasseur_ = trumpAceWin(_teamReal, _cartesPossibles, _fullTricksProg, j);
+    private static void trumpAce(GameTarotTeamsRelation _teamReal, int _numero, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, CustList<TrickTarot> _fullTricksProg, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+            int ramasseur_ = trumpAceWin(_teamReal, _cartesPossibles, _fullTricksProg, j);
             if (ramasseur_ != -1) {
                 if (ramasseur_ == -2) {
                     break;
@@ -221,9 +221,9 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static byte trumpAceWin(GameTarotTeamsRelation _teamReal, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, CustList<TrickTarot> _fullTricksProg, byte _j) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        byte ramasseur_ = -1;
+    private static int trumpAceWin(GameTarotTeamsRelation _teamReal, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, CustList<TrickTarot> _fullTricksProg, int _j) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        int ramasseur_ = -1;
         boolean petitJoueDemandeAtout_ = false;
         boolean defausse_ = _cartesPossibles.getVal(Suit.TRUMP).get(_j).estVide();
         for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
@@ -242,18 +242,18 @@ final class GameTarotTrickHypothesis {
         return ramasseur_;
     }
 
-    private static void trumpAceFeed(GameTarotTeamsRelation _teamReal, byte _numero, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly, byte _j) {
+    private static void trumpAceFeed(GameTarotTeamsRelation _teamReal, int _numero, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly, int _j) {
         Role st_ = _teamReal.statutDe(_numero);
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         //le ramasseur du pli et le joueur du Petit (entameur) sont dans la meme equipe
         if(st_ == Role.DEFENDER) {
             //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
             //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
             //de plus numero est un defenseur
-            Bytes found_ = new Bytes();
+            Ints found_ = new Ints();
             found_.add(_j);
             found_.add(_numero);
-            for (byte b: GameTarotTeamsRelation.autresJoueurs(found_, nombreJoueurs_)) {
+            for (int b: GameTarotTeamsRelation.autresJoueurs(found_, nombreJoueurs_)) {
                 _joueursNonConfiancePresqueSure.add(b);
             }
             _possibleAlly.add(_j);
@@ -268,12 +268,12 @@ final class GameTarotTrickHypothesis {
         return _carte.getId().getCouleur() == Suit.TRUMP && _p.couleurDemandee() == Suit.TRUMP && _carte == CardTarot.petit();
     }
 
-    private static void trumpAceStarter(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+    private static void trumpAceStarter(GameTarotTeamsRelation _teamReal, int _numero, CustList<TrickTarot> _fullTricksProg, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
         Role st_ = _teamReal.statutDe(_numero);
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
             //boucle cherchant l'entameur du Petit
-            byte ramasseur_ = trumpAceStarterWin(_fullTricksProg, nombreJoueurs_, j);
+            int ramasseur_ = trumpAceStarterWin(_fullTricksProg, nombreJoueurs_, j);
             if (ramasseur_ != -1) {
                 if (ramasseur_ == -2) {
                     break;
@@ -283,8 +283,8 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static byte trumpAceStarterWin(CustList<TrickTarot> _fullTricksProg, byte _nombreJoueurs, byte _j) {
-        byte ramasseur_ = -1;
+    private static int trumpAceStarterWin(CustList<TrickTarot> _fullTricksProg, int _nombreJoueurs, int _j) {
+        int ramasseur_ = -1;
         for(TrickTarot p: filter(_fullTricksProg, _nombreJoueurs, _j)) {
             if (trumpAceAsFirstPlayedCardTrick(_nombreJoueurs, _j, p)) {
                 //le joueur j a entame
@@ -302,15 +302,15 @@ final class GameTarotTrickHypothesis {
         return ramasseur_;
     }
 
-    private static boolean trumpAceAsFirstPlayedCardTrick(byte _nombreJoueurs, byte _j, TrickTarot _p) {
+    private static boolean trumpAceAsFirstPlayedCardTrick(int _nombreJoueurs, int _j, TrickTarot _p) {
         return _j == _p.getEntameur() && _p.carteDuJoueur(_j, _nombreJoueurs) == CardTarot.petit();
     }
 
-    private static void trumpAceFirstPlayedTrump(GameTarotTeamsRelation _teamReal, byte _numero, CustList<TrickTarot> _fullTricksProg, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
+    private static void trumpAceFirstPlayedTrump(GameTarotTeamsRelation _teamReal, int _numero, CustList<TrickTarot> _fullTricksProg, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
         Role st_ = _teamReal.statutDe(_numero);
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
-        for (byte j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
-            byte ramasseur_ = trumpAceFirstPlayedTrumpPlayer(_teamReal, _fullTricksProg, j);
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+        for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
+            int ramasseur_ = trumpAceFirstPlayedTrumpPlayer(_teamReal, _fullTricksProg, j);
             if(ramasseur_ == -1) {
                 continue;
             }
@@ -318,13 +318,13 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static byte trumpAceFirstPlayedTrumpPlayer(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, byte _j) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static int trumpAceFirstPlayedTrumpPlayer(GameTarotTeamsRelation _teamReal, CustList<TrickTarot> _fullTricksProg, int _j) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         //iteration sur la confiance du joueur numero en le joueur j
         //vis a vis du Petit joue en premier atout mais jamais virtuellement maitre
         //le Petit doit etre ramasse par le plus grand atout encore en jeu
         //ramasse par un autre atout
-        byte ramasseur_ = -1;
+        int ramasseur_ = -1;
         for(TrickTarot p: filter(_fullTricksProg, nombreJoueurs_, _j)) {
             CardTarot carte_ = p.carteDuJoueur(_j, nombreJoueurs_);
             if (carte_.getId().getCouleur() == Suit.TRUMP) {
@@ -340,12 +340,12 @@ final class GameTarotTrickHypothesis {
         return ramasseur_;
     }
 
-    private static boolean petitRamasse(GameTarotTeamsRelation _teamReal, byte _j, TrickTarot _p, CardTarot _carte) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static boolean petitRamasse(GameTarotTeamsRelation _teamReal, int _j, TrickTarot _p, CardTarot _carte) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         boolean petitRamasse_ = false;
         Suit couleurDemandee_ = _p.couleurDemandee();
-        byte forcePetit_ = _carte.strength(couleurDemandee_);
-        for (byte j2_ : _p.joueursAyantJoueAvant(_j, _teamReal.getRules().getDealing())) {
+        int forcePetit_ = _carte.strength(couleurDemandee_);
+        for (int j2_ : _p.joueursAyantJoueAvant(_j, _teamReal.getRules().getDealing())) {
             if (_p.carteDuJoueur(j2_, nombreJoueurs_).strength(couleurDemandee_) >= forcePetit_) {//la carte du joueur j2 est un atout ramassant temporairement le Petit
                 petitRamasse_ = true;
                 break;
@@ -354,22 +354,22 @@ final class GameTarotTrickHypothesis {
         return petitRamasse_;
     }
 
-    private static void feedJoueursNonConfiancePresqueSurePossibleAlly(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Role _st, Bytes _joueursNonConfiancePresqueSure, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void feedJoueursNonConfiancePresqueSurePossibleAlly(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Role _st, Ints _joueursNonConfiancePresqueSure, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         if (_st == Role.DEFENDER) {
             feedJoueursNonConfiancePresqueSurePossibleAllyDefender(_teamReal, _calledCards, _cartesCertaines, _possibleAlly);
         } else {
             feedJoueursNonConfiancePresqueSurePossibleAllyAttacker(_teamReal, _calledCards, _cartesCertaines, _possibleAlly);
         }
-        for (byte b: GameTarotTeamsRelation.autresJoueurs(_possibleAlly, nombreJoueurs_)) {
+        for (int b: GameTarotTeamsRelation.autresJoueurs(_possibleAlly, nombreJoueurs_)) {
             _joueursNonConfiancePresqueSure.add(b);
         }
     }
 
-    private static void feedJoueursNonConfiancePresqueSurePossibleAllyAttacker(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void feedJoueursNonConfiancePresqueSurePossibleAllyAttacker(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         for(CardTarot c: _calledCards) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 if (_cartesCertaines.getVal(c.getId().getCouleur())
                         .get(joueur_).contient(c)) {
                     _possibleAlly.add(joueur_);
@@ -378,10 +378,10 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static void feedJoueursNonConfiancePresqueSurePossibleAllyDefender(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Bytes _possibleAlly) {
-        byte nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
+    private static void feedJoueursNonConfiancePresqueSurePossibleAllyDefender(GameTarotTeamsRelation _teamReal, HandTarot _calledCards, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Ints _possibleAlly) {
+        int nombreJoueurs_ = _teamReal.getNombreDeJoueurs();
         for(CardTarot c: _calledCards) {
-            for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
+            for (int joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {
                 if (joueur_ == _teamReal.getTaker()) {
                     continue;
                 }
@@ -393,7 +393,7 @@ final class GameTarotTrickHypothesis {
         }
     }
 
-    private static boolean onlyOnePlayedCard(CustList<TrickTarot> _full, byte _nbPl, HandTarot _played, byte _cur) {
+    private static boolean onlyOnePlayedCard(CustList<TrickTarot> _full, int _nbPl, HandTarot _played, int _cur) {
         boolean autreCarteCouleurJouee_ = false;
         boolean figureJouee_ = false;
         CardTarot premiereFigureJouee_ = _played.premiereCarte();
@@ -413,7 +413,7 @@ final class GameTarotTrickHypothesis {
         }
         return !autreCarteCouleurJouee_;
     }
-    private static CustList<TrickTarot> filter(CustList<TrickTarot> _tricks, byte _nbPl, byte _current) {
+    private static CustList<TrickTarot> filter(CustList<TrickTarot> _tricks, int _nbPl, int _current) {
         CustList<TrickTarot> l_ = new CustList<TrickTarot>();
         for (TrickTarot t: _tricks) {
             if (!t.aJoue(_current,_nbPl)) {
@@ -423,11 +423,11 @@ final class GameTarotTrickHypothesis {
         }
         return l_;
     }
-    private static void res(byte _current, Bytes _possibleAlly, byte _ram, GameTarotTeamsRelation _teamReal, Role _st,
-                            Bytes _potentialFoesNearlySure, byte _numero) {
+    private static void res(int _current, Ints _possibleAlly, int _ram, GameTarotTeamsRelation _teamReal, Role _st,
+                            Ints _potentialFoesNearlySure, int _numero) {
         //ramasseur != j && ramasseur != -1
-        byte nbPl_ = _teamReal.getNombreDeJoueurs();
-        Bytes all_ = GameTarotTeamsRelation.tousJoueurs(nbPl_);
+        int nbPl_ = _teamReal.getNombreDeJoueurs();
+        Ints all_ = GameTarotTeamsRelation.tousJoueurs(nbPl_);
         if(_st == Role.DEFENDER) {
             if(_ram == _teamReal.getTaker() || _current == _teamReal.getTaker()) {
                 all_.removeObj(_current);
@@ -439,7 +439,7 @@ final class GameTarotTrickHypothesis {
             //confiance de j en ramasseur, qui n'est pas le preneur ni l'appele
             //car il serait absurde de jouer le Petit en premier sur un joueur dont l'equipe n'est pas connu
             //de plus numero est un defenseur
-            Bytes found_ = new Bytes();
+            Ints found_ = new Ints();
             found_.add(_current);
             found_.add(_ram);
             _possibleAlly.add(_current);
@@ -448,7 +448,7 @@ final class GameTarotTrickHypothesis {
         }
         //!aPourDefenseur(numero) ==> numero == preneur ==> j == appele
         if(_numero == _ram) {
-            Bytes found_ = new Bytes();
+            Ints found_ = new Ints();
             found_.add(_current);
             _possibleAlly.add(_current);
             return;
@@ -456,8 +456,8 @@ final class GameTarotTrickHypothesis {
         addPotentialFoePlayers(_potentialFoesNearlySure, _current,
                 _ram);
     }
-    private static void addPotentialFoePlayers(Bytes _potentialFoesNearlySure,
-                                               byte _otherPlayer, byte _leader) {
+    private static void addPotentialFoePlayers(Ints _potentialFoesNearlySure,
+                                               int _otherPlayer, int _leader) {
         _potentialFoesNearlySure.add(_leader);
         _potentialFoesNearlySure.add(_otherPlayer);
     }
@@ -494,8 +494,8 @@ final class GameTarotTrickHypothesis {
     }
 
     static PossibleTrickWinner getPossibleTrickWinnerNormalSuit(TarotInfoPliEnCours _info) {
-        byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
-        byte nbPlayers_ = _info.getNbPlayers();
+        int ramasseurVirtuel_ = _info.getRamasseurVirtuel();
+        int nbPlayers_ = _info.getNbPlayers();
         CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(ramasseurVirtuel_, nbPlayers_);
         if (card_.getId().getCouleur() == Suit.TRUMP) {
             return getPossibleTrickWinnerTrumpSuit(_info);
@@ -507,10 +507,10 @@ final class GameTarotTrickHypothesis {
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
-        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        byte player_ = _info.getCurrentPlayer();
-        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
-        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
+        Ints joueursNonJoue_ = _info.getJoueursNonJoue();
+        int player_ = _info.getCurrentPlayer();
+        Ints joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Ints joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         /*
         Le pli est coupe
@@ -536,7 +536,7 @@ final class GameTarotTrickHypothesis {
         */
         CardTarot cardPl_ = cartesCertaines_.getVal(Suit.TRUMP).get(player_)
                 .premiereCarte();
-        Bytes other_ = new Bytes(joueursNonJoue_);
+        Ints other_ = new Ints(joueursNonJoue_);
         other_.removeObj(player_);
         if (ramasseurBatAdvSur(other_,
                 couleurDemandee_, cardPl_, cartesPossibles_,
@@ -571,13 +571,13 @@ final class GameTarotTrickHypothesis {
     private static PossibleTrickWinner possibleTrickWinnerTrumpSuitCannotLeadTrick(TarotInfoPliEnCours _info, Suit _couleurDemandee) {
         IdList<Suit> couleursAppelees_ = _info.getCalledSuits();
         boolean carteAppeleeJouee_ =_info.isCarteAppeleeJouee();
-        byte player_ = _info.getCurrentPlayer();
+        int player_ = _info.getCurrentPlayer();
         CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
-        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursNonConfiance_);
-        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursConfiance_);
+        Ints joueursConfiance_ = _info.getJoueursConfiance();
+        Ints joueursNonConfiance_ = _info.getJoueursNonConfiance();
+        Ints joueursNonJoue_ = _info.getJoueursNonJoue();
+        Ints joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursNonConfiance_);
+        Ints joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursConfiance_);
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         /*
@@ -596,7 +596,7 @@ final class GameTarotTrickHypothesis {
             */
         if (couleursAppelees_.containsObj(_couleurDemandee) && !carteAppeleeJouee_
                 && player_ == _info.getTaker()) {
-            joueursConfianceNonJoue_ = new Bytes();
+            joueursConfianceNonJoue_ = new Ints();
         }
             /*
             On cherche a savoir si le ramasseur virtuel (joueur de non
@@ -638,11 +638,11 @@ final class GameTarotTrickHypothesis {
     private static PossibleTrickWinner possibleTrickWinnerTrumpSuitCannotLeadTrickPartners(TarotInfoPliEnCours _info, Suit _couleurDemandee, CardTarot _card) {
         IdList<Suit> couleursAppelees_ = _info.getCalledSuits();
         boolean carteAppeleeJouee_ =_info.isCarteAppeleeJouee();
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
-        Bytes joueursNonConfiance_ = _info.getJoueursNonConfiance();
-        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursNonConfiance_);
-        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursConfiance_);
+        Ints joueursConfiance_ = _info.getJoueursConfiance();
+        Ints joueursNonConfiance_ = _info.getJoueursNonConfiance();
+        Ints joueursNonJoue_ = _info.getJoueursNonJoue();
+        Ints joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursNonConfiance_);
+        Ints joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, joueursConfiance_);
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         if (couleursAppelees_.containsObj(_couleurDemandee)
@@ -650,8 +650,8 @@ final class GameTarotTrickHypothesis {
             /* The player, probably called by the current taker
             and still owing one called card of the current led suit,
             must follow a card belonging to the current demanded suit.*/
-            Bytes joueursNonConfiancePreneur_ = new Bytes();
-            for (byte j: joueursNonConfianceNonJoue_) {
+            Ints joueursNonConfiancePreneur_ = new Ints();
+            for (int j: joueursNonConfianceNonJoue_) {
                 if (j != _info.getTaker()) {
                     continue;
                 }
@@ -702,10 +702,10 @@ final class GameTarotTrickHypothesis {
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
-        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        byte player_ = _info.getCurrentPlayer();
-        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
-        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
+        Ints joueursNonJoue_ = _info.getJoueursNonJoue();
+        int player_ = _info.getCurrentPlayer();
+        Ints joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Ints joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         joueursConfianceNonJoue_.removeObj(player_);
         Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         /* La couleur demandee n 'est pas de l 'atout et le pli n 'est pas coupe */
@@ -740,7 +740,7 @@ final class GameTarotTrickHypothesis {
             prendre la
             main en coupant
             */
-            Bytes other_ = new Bytes(joueursNonJoue_);
+            Ints other_ = new Ints(joueursNonJoue_);
             other_.removeObj(player_);
             CardTarot cardPl_ = cartesPossibles_.getVal(Suit.TRUMP).get(player_).premiereCarte();
             if (ramasseurBatAdvSur(other_,
@@ -776,9 +776,9 @@ final class GameTarotTrickHypothesis {
         return getPossibleTrickWinnerNoCurrentTrump(_info,card_);
     }
 
-    private static boolean vaCouperListe(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Suit _couleurDemandee, Bytes _team) {
+    private static boolean vaCouperListe(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Suit _couleurDemandee, Ints _team) {
         boolean ramasseurVirtuelEgalCertain_ = false;
-        for (byte joueur_ : _team) {
+        for (int joueur_ : _team) {
             if (vaCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines)) {
                 ramasseurVirtuelEgalCertain_ = true;
             }
@@ -788,9 +788,9 @@ final class GameTarotTrickHypothesis {
 
     static PossibleTrickWinner getPossibleTrickWinnerOtherTrump(TarotInfoPliEnCours _info,
                                                                 PossibleTrickWinner _current,
-                                                                Bytes _currentNotPl,
+                                                                Ints _currentNotPl,
                                                                 PossibleTrickWinner _other,
-                                                                Bytes _otherNotPl) {
+                                                                Ints _otherNotPl) {
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
@@ -820,9 +820,9 @@ final class GameTarotTrickHypothesis {
     static PossibleTrickWinner getPossibleTrickWinnerNoCurrentTrump(TarotInfoPliEnCours _info, CardTarot _card) {
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
-        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
+        Ints joueursNonJoue_ = _info.getJoueursNonJoue();
+        Ints joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Ints joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         joueursConfianceNonJoue_.removeObj(_info.getCurrentPlayer());
         Suit couleurDemandee_ = _info.getProgressingTrick().couleurDemandee();
         int str_ = _card.strength(couleurDemandee_);
@@ -863,9 +863,9 @@ final class GameTarotTrickHypothesis {
         return PossibleTrickWinner.UNKNOWN;
     }
 
-    private static boolean nePeutCouperListe(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Suit _couleurDemandee, Bytes _team) {
+    private static boolean nePeutCouperListe(IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, Suit _couleurDemandee, Ints _team) {
         boolean ramasseurVirtuelEgalCertain_ = true;
-        for (byte joueur_ : _team) {
+        for (int joueur_ : _team) {
             if (!nePeutCouper(_couleurDemandee, joueur_, _cartesPossibles, _cartesCertaines)) {
                 ramasseurVirtuelEgalCertain_ = false;
             }
@@ -873,14 +873,14 @@ final class GameTarotTrickHypothesis {
         return ramasseurVirtuelEgalCertain_;
     }
 
-    static boolean existPlayerNoTrump(Bytes _equipeABattre,Bytes _equipeDom, Suit _couleurDemandee,
+    static boolean existPlayerNoTrump(Ints _equipeABattre,Ints _equipeDom, Suit _couleurDemandee,
                                       CardTarot _carteForte,IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
                                       IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         boolean det_ = false;
-        for (byte joueur_ : _equipeDom) {
+        for (int joueur_ : _equipeDom) {
             if (!_cartesCertaines.getVal(_couleurDemandee).get(joueur_).estVide()) {
                 CardTarot cardPl_ = _cartesCertaines.getVal(_couleurDemandee).get(joueur_).premiereCarte();
-                byte str_ = cardPl_.strength(_couleurDemandee);
+                int str_ = cardPl_.strength(_couleurDemandee);
                 if (str_ <= _carteForte.strength(_couleurDemandee)) {
                     continue;
                 }
@@ -896,10 +896,10 @@ final class GameTarotTrickHypothesis {
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
         CardTarot card_ = _info.getProgressingTrick().carteDuJoueur(_info.getRamasseurVirtuel(), _info.getNbPlayers());
-        Bytes joueursNonJoue_ = _info.getJoueursNonJoue();
-        byte player_ = _info.getCurrentPlayer();
-        Bytes joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
-        Bytes joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
+        Ints joueursNonJoue_ = _info.getJoueursNonJoue();
+        int player_ = _info.getCurrentPlayer();
+        Ints joueursNonConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursNonConfiance());
+        Ints joueursConfianceNonJoue_ = GameTarotTeamsRelation.intersectionJoueurs(joueursNonJoue_, _info.getJoueursConfiance());
         joueursConfianceNonJoue_.removeObj(player_);
         /* Le pli n'est pas coupe et la couleur demandee est l'atout */
         if (cartesCertaines_.getVal(Suit.TRUMP).get(player_).estVide()
@@ -920,7 +920,7 @@ final class GameTarotTrickHypothesis {
         */
         CardTarot cardPl_ = cartesCertaines_.getVal(Suit.TRUMP).get(player_)
                 .premiereCarte();
-        Bytes other_ = new Bytes(joueursNonJoue_);
+        Ints other_ = new Ints(joueursNonJoue_);
         other_.removeObj(player_);
         if (ramasseurBatAdvDemat(other_,
                 cardPl_, cartesPossibles_)) {
@@ -951,11 +951,11 @@ final class GameTarotTrickHypothesis {
         return PossibleTrickWinner.UNKNOWN;
     }
 
-    private static PossibleTrickWinner possibleTrickWinnerTrumpCannotUseGreaterTrump(TarotInfoPliEnCours _info, CardTarot _card, Bytes _joueursNonConfianceNonJoue, Bytes _joueursConfianceNonJoue) {
+    private static PossibleTrickWinner possibleTrickWinnerTrumpCannotUseGreaterTrump(TarotInfoPliEnCours _info, CardTarot _card, Ints _joueursNonConfianceNonJoue, Ints _joueursConfianceNonJoue) {
         IdMap<Suit,CustList<HandTarot>> cartesPossibles_ = _info.getCartesPossibles();
         IdMap<Suit,CustList<HandTarot>> cartesCertaines_ = _info.getCartesCertaines();
-        byte ramasseurVirtuel_ = _info.getRamasseurVirtuel();
-        Bytes joueursConfiance_ = _info.getJoueursConfiance();
+        int ramasseurVirtuel_ = _info.getRamasseurVirtuel();
+        Ints joueursConfiance_ = _info.getJoueursConfiance();
         /*
     Si le joueur numero ne peut pas prendre
     la main sur demande d'atout
@@ -1032,28 +1032,28 @@ final class GameTarotTrickHypothesis {
     }
 
     static boolean existeJouBatAdvNumDemat(
-            Bytes _equipeABattre, Bytes _equipeDom, byte _numero,
+            Ints _equipeABattre, Ints _equipeDom, int _numero,
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
-        byte strength_ = max(Suit.TRUMP,_cartesPossibles.getVal(Suit.TRUMP).get(_numero));
+        int strength_ = max(Suit.TRUMP,_cartesPossibles.getVal(Suit.TRUMP).get(_numero));
 //        byte strength_ = _cartesPossibles.getVal(Suit.TRUMP).get(_numero).premiereCarte().strength(Suit.TRUMP);
         return beatSureListTrumpDemand(_equipeABattre, _equipeDom, _cartesPossibles, _cartesCertaines, strength_);
     }
 
     static boolean existeJouBatAdvSurDemat(
-            Bytes _equipeABattre, Bytes _equipeDom,
+            Ints _equipeABattre, Ints _equipeDom,
             CardTarot _carteForte, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
-        byte strength_ = _carteForte.strength(Suit.TRUMP);
+        int strength_ = _carteForte.strength(Suit.TRUMP);
         return beatSureListTrumpDemand(_equipeABattre, _equipeDom, _cartesPossibles, _cartesCertaines, strength_);
     }
 
     static boolean existeJouBatAdvDemat(
-            Bytes _equipeABattre, Bytes _equipeDom,
+            Ints _equipeABattre, Ints _equipeDom,
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         boolean ramasseurDeter_ = false;
-        for (byte joueur_ : _equipeDom) {
+        for (int joueur_ : _equipeDom) {
             if (!_cartesCertaines.getVal(Suit.TRUMP).get(joueur_).estVide()) {
                 boolean joueurBatAdversaire_ = beatFoeTrumpDemand(_equipeABattre, _cartesPossibles, _cartesCertaines, joueur_);
                 if (joueurBatAdversaire_) {
@@ -1065,37 +1065,37 @@ final class GameTarotTrickHypothesis {
     }
 
     static boolean ramasseurBatAdvDemat(
-            Bytes _equipeABattre, CardTarot _carteForte,
+            Ints _equipeABattre, CardTarot _carteForte,
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles) {
-        byte strength_ = _carteForte.strength(Suit.TRUMP);
+        int strength_ = _carteForte.strength(Suit.TRUMP);
         return beatSureListTrumpDemandPast(_equipeABattre, _cartesPossibles, strength_);
     }
 
 
     static boolean existeJoueurBatAdvNum(
-            Bytes _equipeABattre, Bytes _equipeDom, byte _numero,
+            Ints _equipeABattre, Ints _equipeDom, int _numero,
             Suit _couleurDemandee, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
-        byte strength_ = _cartesCertaines.getVal(Suit.TRUMP).get(_numero).premiereCarte().strength(_couleurDemandee);
+        int strength_ = _cartesCertaines.getVal(Suit.TRUMP).get(_numero).premiereCarte().strength(_couleurDemandee);
         return beatSureListTrumpNormalSuit(_equipeABattre, _equipeDom, _couleurDemandee, _cartesPossibles, _cartesCertaines, strength_);
     }
 
     static boolean existeJoueurAdvRamBatAdvSur(
-            Bytes _equipeABattre, Bytes _equipeDom,
+            Ints _equipeABattre, Ints _equipeDom,
             Suit _couleurDemandee, CardTarot _carteForte,
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
-        byte strength_ = _carteForte.strength(_couleurDemandee);
+        int strength_ = _carteForte.strength(_couleurDemandee);
         return beatSureListTrumpNormalSuit(_equipeABattre, _equipeDom, _couleurDemandee, _cartesPossibles, _cartesCertaines, strength_);
     }
 
 
     static boolean existeJoueurNonJoueBattantAdv(
-            Bytes _equipeABattre, Bytes _equipeDom,
+            Ints _equipeABattre, Ints _equipeDom,
             Suit _couleurDemandee, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         boolean ramasseurDeter_ = false;
-        for (byte joueur_ : _equipeDom) {
+        for (int joueur_ : _equipeDom) {
             /*
         On cherche les joueurs de confiance
         battant de maniere certaine les
@@ -1117,15 +1117,15 @@ final class GameTarotTrickHypothesis {
     }
 
     static boolean ramasseurBatSsCprAdv(
-            Bytes _equipeABattre, Suit _couleurDemandee,
+            Ints _equipeABattre, Suit _couleurDemandee,
             int _strength, IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         boolean ramasseurDeter_ = true;
-        for (byte joueur_ : _equipeABattre) {
+        for (int joueur_ : _equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = !_cartesCertaines
                     .getVal(_couleurDemandee).get(joueur_).estVide();
-            byte m_ = max(_couleurDemandee, _cartesPossibles.getVal(_couleurDemandee).get(joueur_));
+            int m_ = max(_couleurDemandee, _cartesPossibles.getVal(_couleurDemandee).get(joueur_));
             if (ramasseurVirtuelEgalCertain_ && _strength <= m_) {
                 ramasseurVirtuelEgalCertain_ = false;
             }
@@ -1139,18 +1139,18 @@ final class GameTarotTrickHypothesis {
         return ramasseurDeter_;
     }
 
-    static boolean ramasseurBatAdvSur(Bytes _equipeABattre,
+    static boolean ramasseurBatAdvSur(Ints _equipeABattre,
                                       Suit _couleurDemandee, CardTarot _carteForte,
                                       IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
                                       IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
-        byte strength_ = _carteForte.strength(_couleurDemandee);
+        int strength_ = _carteForte.strength(_couleurDemandee);
         return beatByTrumpNormalSuitStrength(_equipeABattre, _couleurDemandee, _cartesPossibles, _cartesCertaines, strength_);
     }
 
-    static boolean beatSureListTrumpDemand(Bytes _equipeABattre, Bytes _equipeDom, IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
-                                           IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
+    static boolean beatSureListTrumpDemand(Ints _equipeABattre, Ints _equipeDom, IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                           IdMap<Suit, CustList<HandTarot>> _cartesCertaines, int _strength) {
         boolean ramasseurDeter_ = false;
-        for (byte joueur_ : _equipeDom) {
+        for (int joueur_ : _equipeDom) {
             if (!_cartesCertaines.getVal(Suit.TRUMP).get(joueur_).estVide()) {
                 boolean joueurBatAdversaire_ = beatFoeTrumpDemand(_equipeABattre, _cartesPossibles, _cartesCertaines, joueur_);
                 if (_cartesCertaines.getVal(Suit.TRUMP).get(joueur_).premiereCarte().strength(Suit.TRUMP) <= _strength) {
@@ -1164,14 +1164,14 @@ final class GameTarotTrickHypothesis {
         return ramasseurDeter_;
     }
 
-    static boolean beatFoeTrumpDemand(Bytes _equipeABattre, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _joueur) {
-        byte strength_ = _cartesCertaines.getVal(Suit.TRUMP).get(_joueur).premiereCarte().strength(Suit.TRUMP);
+    static boolean beatFoeTrumpDemand(Ints _equipeABattre, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdMap<Suit, CustList<HandTarot>> _cartesCertaines, int _joueur) {
+        int strength_ = _cartesCertaines.getVal(Suit.TRUMP).get(_joueur).premiereCarte().strength(Suit.TRUMP);
         return beatSureListTrumpDemandPast(_equipeABattre, _cartesPossibles, strength_);
     }
 
-    static boolean beatSureListTrumpDemandPast(Bytes _equipeABattre, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, byte _strength) {
+    static boolean beatSureListTrumpDemandPast(Ints _equipeABattre, IdMap<Suit, CustList<HandTarot>> _cartesPossibles, int _strength) {
         boolean joueurBatAdversaire_ = true;
-        for (byte joueur_ : _equipeABattre) {
+        for (int joueur_ : _equipeABattre) {
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = _cartesPossibles.getVal(Suit.TRUMP)
                     .get(joueur_).estVide();
@@ -1184,11 +1184,11 @@ final class GameTarotTrickHypothesis {
         }
         return joueurBatAdversaire_;
     }
-    static boolean beatSureListTrumpNormalSuit(Bytes _equipeABattre, Bytes _equipeDom, Suit _couleurDemandee,
+    static boolean beatSureListTrumpNormalSuit(Ints _equipeABattre, Ints _equipeDom, Suit _couleurDemandee,
                                                IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
-                                               IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
+                                               IdMap<Suit, CustList<HandTarot>> _cartesCertaines, int _strength) {
         boolean ramasseurDeter_ = false;
-        for (byte joueur_ : _equipeDom) {
+        for (int joueur_ : _equipeDom) {
             if (vaCouper(_couleurDemandee, joueur_, _cartesPossibles,
                     _cartesCertaines)) {
                 boolean joueurBatAdversaire_ = beatByTrumpNormalSuit(_equipeABattre, _couleurDemandee, _cartesPossibles, _cartesCertaines, joueur_);
@@ -1203,18 +1203,18 @@ final class GameTarotTrickHypothesis {
         return ramasseurDeter_;
     }
 
-    static boolean beatByTrumpNormalSuit(Bytes _equipeABattre, Suit _couleurDemandee, IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
-                                         IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _joueur) {
-        byte strength_ = _cartesCertaines.getVal(Suit.TRUMP).get(_joueur).premiereCarte().strength(_couleurDemandee);
+    static boolean beatByTrumpNormalSuit(Ints _equipeABattre, Suit _couleurDemandee, IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                         IdMap<Suit, CustList<HandTarot>> _cartesCertaines, int _joueur) {
+        int strength_ = _cartesCertaines.getVal(Suit.TRUMP).get(_joueur).premiereCarte().strength(_couleurDemandee);
         return beatByTrumpNormalSuitStrength(_equipeABattre, _couleurDemandee, _cartesPossibles, _cartesCertaines, strength_);
     }
 
 
-    static boolean beatByTrumpNormalSuitStrength(Bytes _equipeABattre, Suit _couleurDemandee, IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
-                                                 IdMap<Suit, CustList<HandTarot>> _cartesCertaines, byte _strength) {
+    static boolean beatByTrumpNormalSuitStrength(Ints _equipeABattre, Suit _couleurDemandee, IdMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                                 IdMap<Suit, CustList<HandTarot>> _cartesCertaines, int _strength) {
         boolean joueurBatAdversaire_ = true;
-        for (byte joueur_ : _equipeABattre) {
-            byte m_ = max(_couleurDemandee, _cartesPossibles.getVal(Suit.TRUMP)
+        for (int joueur_ : _equipeABattre) {
+            int m_ = max(_couleurDemandee, _cartesPossibles.getVal(Suit.TRUMP)
                     .get(joueur_));
             boolean ramasseurVirtuelEgalCertain_;
             ramasseurVirtuelEgalCertain_ = _cartesPossibles.getVal(Suit.TRUMP)
@@ -1232,8 +1232,8 @@ final class GameTarotTrickHypothesis {
         }
         return joueurBatAdversaire_;
     }
-    private static byte max(Suit _couleurDemandee, HandTarot _h) {
-        byte max_;
+    private static int max(Suit _couleurDemandee, HandTarot _h) {
+        int max_;
         if (_h.estVide()) {
             max_ = 0;
         } else {
@@ -1241,7 +1241,7 @@ final class GameTarotTrickHypothesis {
         }
         return max_;
     }
-    static IdList<Suit> couleursPouvantEtreCoupees(Bytes _joueurs,
+    static IdList<Suit> couleursPouvantEtreCoupees(Ints _joueurs,
                                                      IdMap<Suit, CustList<HandTarot>> _cartesPossibles, IdList<Suit> _couleurs) {
         IdList<Suit> couleurs_ = new IdList<Suit>();
         for (Suit couleur_ : _couleurs) {
@@ -1252,12 +1252,12 @@ final class GameTarotTrickHypothesis {
         }
         return couleurs_;
     }
-    static Bytes joueursSusceptiblesCoupe(
+    static Ints joueursSusceptiblesCoupe(
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
             Suit _couleurDemandee,
-            Bytes _joueurs) {
-        Bytes joueursSusceptiblesDeCouper_ = new Bytes();
-        for (byte joueur_ : _joueurs) {
+            Ints _joueurs) {
+        Ints joueursSusceptiblesDeCouper_ = new Ints();
+        for (int joueur_ : _joueurs) {
             if (peutCouper(_couleurDemandee, joueur_,
                     _cartesPossibles)) {
                 joueursSusceptiblesDeCouper_
@@ -1266,11 +1266,11 @@ final class GameTarotTrickHypothesis {
         }
         return joueursSusceptiblesDeCouper_;
     }
-    static Bytes joueursPouvantCouperCouleurs(HandTarot _main,
-                                                      Bytes _joueurs,
+    static Ints joueursPouvantCouperCouleurs(HandTarot _main,
+                                                      Ints _joueurs,
                                                       IdMap<Suit,CustList<HandTarot>> _cartesPossibles, IdList<Suit> _couleurs) {
-        Bytes joueurs_ = new Bytes();
-        for (byte joueur_ : _joueurs) {
+        Ints joueurs_ = new Ints();
+        for (int joueur_ : _joueurs) {
             for (Suit couleur_ : _couleurs) {
                 if (!_main.couleur(couleur_).estVide() && peutCouper(couleur_, joueur_, _cartesPossibles)) {
                     joueurs_.add(joueur_);
@@ -1280,10 +1280,10 @@ final class GameTarotTrickHypothesis {
         }
         return joueurs_;
     }
-    static Bytes joueursPossedantAtout(Bytes _joueurs,
+    static Ints joueursPossedantAtout(Ints _joueurs,
                                                IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
-        Bytes joueurs_ = new Bytes();
-        for (byte joueur_ : _joueurs) {
+        Ints joueurs_ = new Ints();
+        for (int joueur_ : _joueurs) {
             if (_cartesCertaines.getVal(Suit.TRUMP).get(joueur_).estVide()) {
                 continue;
             }
@@ -1291,12 +1291,12 @@ final class GameTarotTrickHypothesis {
         }
         return joueurs_;
     }
-    static Bytes joueursPouvantPossederPetit(Bytes _joueurs,
+    static Ints joueursPouvantPossederPetit(Ints _joueurs,
                                                      IdMap<Suit,CustList<HandTarot>> _cartesPossibles) {
-        Bytes joueurs_ = new Bytes();
+        Ints joueurs_ = new Ints();
         CustList<HandTarot> atoutsPossibles_ = _cartesPossibles
                 .getVal(Suit.TRUMP);
-        for (byte joueur_ : _joueurs) {
+        for (int joueur_ : _joueurs) {
             if (!atoutsPossibles_.get(joueur_).contient(CardTarot.petit())) {
                 continue;
             }
@@ -1304,13 +1304,13 @@ final class GameTarotTrickHypothesis {
         }
         return joueurs_;
     }
-    static Bytes joueursPossedantAtoutMaitre(Bytes _joueurs,
+    static Ints joueursPossedantAtoutMaitre(Ints _joueurs,
                                                      IdMap<Suit,CustList<HandTarot>> _cartesCertaines, HandTarot _cartesJouees) {
         IdMap<Suit,HandTarot> cartesJouees_ = _cartesJouees.couleurs();
-        Bytes joueurs_ = new Bytes();
+        Ints joueurs_ = new Ints();
         CustList<HandTarot> atoutsCertains_ = _cartesCertaines
                 .getVal(Suit.TRUMP);
-        for (byte joueur_ : _joueurs) {
+        for (int joueur_ : _joueurs) {
             if (atoutsCertains_.get(joueur_).estVide()) {
                 continue;
             }
@@ -1323,10 +1323,10 @@ final class GameTarotTrickHypothesis {
         }
         return joueurs_;
     }
-    static Bytes joueursPossedantNbAtout(Bytes _joueurs,
+    static Ints joueursPossedantNbAtout(Ints _joueurs,
                                                  IdMap<Suit,CustList<HandTarot>> _cartesCertaines, Rate _nbAtoutMin) {
-        Bytes joueurs_ = new Bytes();
-        for (byte joueur_ : _joueurs) {
+        Ints joueurs_ = new Ints();
+        for (int joueur_ : _joueurs) {
             if (_cartesCertaines.getVal(Suit.TRUMP).get(joueur_).total() < _nbAtoutMin.ll()) {
                 continue;
             }
@@ -1335,17 +1335,17 @@ final class GameTarotTrickHypothesis {
         return joueurs_;
     }
     static boolean nePeutAvoirFigures(
-            IdMap<Suit,CustList<HandTarot>> _cartesPossibles, byte _numero,
+            IdMap<Suit,CustList<HandTarot>> _cartesPossibles, int _numero,
             Suit _couleur) {
         return _cartesPossibles.getVal(_couleur).get(_numero).estVide()
                 || !_cartesPossibles.getVal(_couleur).get(_numero).premiereCarte()
                 .isCharacter();
     }
     static boolean pasAtout(
-            Bytes _joueursDeNonConfianceNonJoue,
+            Ints _joueursDeNonConfianceNonJoue,
             IdMap<Suit,CustList<HandTarot>> _cartesPossibles) {
         boolean pasAtout_ = true;
-        for (byte joueur_ : _joueursDeNonConfianceNonJoue) {
+        for (int joueur_ : _joueursDeNonConfianceNonJoue) {
             if (!_cartesPossibles.getVal(Suit.TRUMP).get(joueur_).estVide()) {
                 pasAtout_ = false;
             }
@@ -1354,22 +1354,22 @@ final class GameTarotTrickHypothesis {
     }
 
     static boolean defausse(IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
-                            byte _numero, Suit _couleur) {
+                            int _numero, Suit _couleur) {
         return _cartesPossibles.getVal(Suit.TRUMP).get(_numero).estVide()
                 && _cartesPossibles.getVal(_couleur).get(_numero).estVide();
     }
-    static boolean vaCouper(Suit _couleur, byte _joueur,
+    static boolean vaCouper(Suit _couleur, int _joueur,
                             IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
                             IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         return _cartesPossibles.getVal(_couleur).get(_joueur).estVide()
                 && !_cartesCertaines.getVal(Suit.TRUMP).get(_joueur).estVide();
     }
-    static boolean peutCouper(Suit _couleur, byte _numero,
+    static boolean peutCouper(Suit _couleur, int _numero,
                               IdMap<Suit,CustList<HandTarot>> _cartesPossibles) {
         return _cartesPossibles.getVal(_couleur).get(_numero).estVide()
                 && !_cartesPossibles.getVal(Suit.TRUMP).get(_numero).estVide();
     }
-    static boolean nePeutCouper(Suit _couleur, byte _numero,
+    static boolean nePeutCouper(Suit _couleur, int _numero,
                                 IdMap<Suit,CustList<HandTarot>> _cartesPossibles,
                                 IdMap<Suit,CustList<HandTarot>> _cartesCertaines) {
         return _cartesPossibles.getVal(Suit.TRUMP).get(_numero).estVide()

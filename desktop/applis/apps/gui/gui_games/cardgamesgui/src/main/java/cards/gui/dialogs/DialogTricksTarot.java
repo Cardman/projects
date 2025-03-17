@@ -25,11 +25,11 @@ public final class DialogTricksTarot extends DialogHelpCards {
         _fenetre.getDialogTricksTarot().setTitleDialog(_fenetre,_titre);
 //        _fenetre.getDialogTricksTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
-    public static void init(TricksHandsTarot _tricksHands, byte _numberPlayers,
+    public static void init(TricksHandsTarot _tricksHands, int _numberPlayers,
             StringList _pseudos, DisplayingTarot _displayingTarot, WindowCardsInt _window) {
         _window.getDialogTricksTarot().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window);
     }
-    private void setDialogue(TricksHandsTarot _tricksHands, byte _numberPlayers,
+    private void setDialogue(TricksHandsTarot _tricksHands, int _numberPlayers,
             StringList _pseudos, DisplayingTarot _displayingTarot, WindowCardsInt _window) {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);

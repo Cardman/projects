@@ -723,6 +723,6 @@ public final class TarotSampleFirstDealAutoCall implements IntFirstDealTarot {
         hand_.ajouter(CardTarot.HEART_KING);
         hand_.ajouter(CardTarot.DIAMOND_4);
         hands_.add(hand_);
-        return new DealTarot(hands_, (byte) _dealer);
+        return new DealTarot(hands_, _dealer);
     }
 }
