@@ -51,14 +51,14 @@ public abstract class Numbers<T> extends CustList<T> {
         return sh_;
     }
 
-    public short[] toArrShort() {
-        int size_ = size();
-        short[] sh_ = new short[size_];
-        for (int i = 0; i < size_; i++) {
-            sh_[i] = (short) getLong(i);
-        }
-        return sh_;
-    }
+//    public short[] toArrShort() {
+//        int size_ = size();
+//        short[] sh_ = new short[size_];
+//        for (int i = 0; i < size_; i++) {
+//            sh_[i] = (short) getLong(i);
+//        }
+//        return sh_;
+//    }
 
     public long[] toArrLong() {
         int size_ = size();

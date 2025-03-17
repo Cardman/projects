@@ -86,39 +86,39 @@ public final class NatTreeMapTest extends EquallableExUtil {
         assertEq(1, l_.get(1).getValue());
     }
 
-    @Test
-    public void put4Test() {
-        ByteTreeMap<Integer> map_ = new ByteTreeMap<Integer>(2);
-        CustList<EntryCust<Byte,Integer>> l_ = map_.getList();
-        assertEq(0, l_.size());
-        map_.put((byte) 2, 2);
-        map_.put((byte) 2, 1);
-        assertEq(1, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        map_.put((byte) 4, 2);
-        assertEq(2, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        assertEq(4, l_.get(1).getKey());
-        assertEq(2, l_.get(1).getValue());
-        map_.put((byte) 4, 3);
-        assertEq(2, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        assertEq(4, l_.get(1).getKey());
-        assertEq(3, l_.get(1).getValue());
-        map_.put((byte) 3, 2);
-        assertEq(3, l_.size());
-        assertEq(2, l_.get(0).getKey());
-        assertEq(1, l_.get(0).getValue());
-        assertEq(3, l_.get(1).getKey());
-        assertEq(2, l_.get(1).getValue());
-        assertEq(4, l_.get(2).getKey());
-        assertEq(3, l_.get(2).getValue());
-        map_ = new ByteTreeMap<Integer>();
-        assertEq(0, map_.size());
-    }
+//    @Test
+//    public void put4Test() {
+//        ByteTreeMap<Integer> map_ = new ByteTreeMap<Integer>(2);
+//        CustList<EntryCust<Byte,Integer>> l_ = map_.getList();
+//        assertEq(0, l_.size());
+//        map_.put((byte) 2, 2);
+//        map_.put((byte) 2, 1);
+//        assertEq(1, l_.size());
+//        assertEq(2, l_.get(0).getKey());
+//        assertEq(1, l_.get(0).getValue());
+//        map_.put((byte) 4, 2);
+//        assertEq(2, l_.size());
+//        assertEq(2, l_.get(0).getKey());
+//        assertEq(1, l_.get(0).getValue());
+//        assertEq(4, l_.get(1).getKey());
+//        assertEq(2, l_.get(1).getValue());
+//        map_.put((byte) 4, 3);
+//        assertEq(2, l_.size());
+//        assertEq(2, l_.get(0).getKey());
+//        assertEq(1, l_.get(0).getValue());
+//        assertEq(4, l_.get(1).getKey());
+//        assertEq(3, l_.get(1).getValue());
+//        map_.put((byte) 3, 2);
+//        assertEq(3, l_.size());
+//        assertEq(2, l_.get(0).getKey());
+//        assertEq(1, l_.get(0).getValue());
+//        assertEq(3, l_.get(1).getKey());
+//        assertEq(2, l_.get(1).getValue());
+//        assertEq(4, l_.get(2).getKey());
+//        assertEq(3, l_.get(2).getValue());
+//        map_ = new ByteTreeMap<Integer>();
+//        assertEq(0, map_.size());
+//    }
 
     @Test
     public void put5Test() {

@@ -59,32 +59,32 @@ public final class NumberUtil {
         return Math.max(_dOne, _dTwo);
     }
 
-    public static boolean equalsSetBytes(Listable<Byte> _list1, Listable<Byte> _list2) {
-        for (Byte c: _list2) {
-            boolean contains_ = containsByte(_list1, c);
-            if (!contains_) {
-                return false;
-            }
-        }
-        for (Byte c: _list1) {
-            boolean contains_ = containsByte(_list2, c);
-            if (!contains_) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    public static boolean equalsSetBytes(Listable<Byte> _list1, Listable<Byte> _list2) {
+//        for (Byte c: _list2) {
+//            boolean contains_ = containsByte(_list1, c);
+//            if (!contains_) {
+//                return false;
+//            }
+//        }
+//        for (Byte c: _list1) {
+//            boolean contains_ = containsByte(_list2, c);
+//            if (!contains_) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
-    private static boolean containsByte(Listable<Byte> _list1, Byte _c) {
-        boolean contains_ = false;
-        for (Byte d: _list1) {
-            if (eq(_c, d)) {
-                contains_ = true;
-                break;
-            }
-        }
-        return contains_;
-    }
+//    private static boolean containsByte(Listable<Byte> _list1, Byte _c) {
+//        boolean contains_ = false;
+//        for (Byte d: _list1) {
+//            if (eq(_c, d)) {
+//                contains_ = true;
+//                break;
+//            }
+//        }
+//        return contains_;
+//    }
 
     public static boolean equalsSetInts(Listable<Integer> _list1, Listable<Integer> _list2) {
         for (Integer c: _list2) {

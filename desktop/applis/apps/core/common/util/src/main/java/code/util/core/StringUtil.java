@@ -76,51 +76,44 @@ public final class StringUtil {
     }
 
     public static byte[] encode(char[] _input) {
-        Bytes expBytes_ = encodeList(_input);
-        int length_ = expBytes_.size();
-        byte[] bytes_ = new byte[length_];
-        for (int i = 0; i < length_; i++) {
-            byte b_ = expBytes_.get(i);
-            bytes_[i] = b_;
-        }
-        return bytes_;
+        return encodeList(_input).toArrByte();
     }
 
-    private static Bytes encodeList(char[] _input) {
-        Bytes expBytes_ = new Bytes();
+    private static Ints encodeList(char[] _input) {
+        Ints expBytes_ = new Ints();
         for (char c: _input) {
-            encode(expBytes_, c);
+            encodeInt(expBytes_, c);
         }
         return expBytes_;
     }
 
-    private static void encode(Bytes _expBytes, char _c) {
+    private static void encodeInt(Ints _expBytes, char _c) {
         if (_c < 128) {
-            _expBytes.add((byte) _c);
+            _expBytes.addInt((byte) _c);
             return;
         }
         if (_c < 2048) {
             byte f_ = (byte) (_c /64+192);
-            _expBytes.add(f_);
+            _expBytes.addInt(f_);
             byte s_ = (byte) (_c %64+128);
-            _expBytes.add(s_);
+            _expBytes.addInt(s_);
             return;
         }
         if (_c < 4096) {
             byte f_ = -32;
-            _expBytes.add(f_);
+            _expBytes.addInt(f_);
             byte s_ = (byte) (_c /64+128);
-            _expBytes.add(s_);
+            _expBytes.addInt(s_);
             byte t_ = (byte) (_c %64+128);
-            _expBytes.add(t_);
+            _expBytes.addInt(t_);
             return;
         }
         byte f_ = (byte)(_c /(64*64)+224);
-        _expBytes.add(f_);
+        _expBytes.addInt(f_);
         byte s_ = (byte) ((_c /64)%64+128);
-        _expBytes.add(s_);
+        _expBytes.addInt(s_);
         byte t_ = (byte) (_c %64+128);
-        _expBytes.add(t_);
+        _expBytes.addInt(t_);
     }
 
     public static String decode(byte[] _bytes) {
@@ -810,7 +803,7 @@ public final class StringUtil {
     public static Ints indexesOfSubString(String _string, String _subString) {
         Ints list_ = new Ints();
         if (_subString.isEmpty()) {
-            list_.add((int) IndexConstants.FIRST_INDEX);
+            list_.add(IndexConstants.FIRST_INDEX);
             return list_;
         }
         int i_ = IndexConstants.FIRST_INDEX;

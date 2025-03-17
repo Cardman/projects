@@ -894,39 +894,39 @@ public class NumbersTest extends EquallableExUtil {
         nbsTwo_.add(5);
         assertTrue(!NumberUtil.equalsSetInts(nbs_,nbsTwo_));
     }
-    @Test
-    public void eqSet1Test(){
-        Bytes nbs_ = new Bytes();
-        nbs_.add((byte) 5);
-        nbs_.add((byte) 1);
-        Bytes nbsTwo_ = new Bytes();
-        nbsTwo_.add((byte) 5);
-        nbsTwo_.add((byte) 1);
-        assertTrue(NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
-    }
-    @Test
-    public void eqSet2Test(){
-        Bytes nbs_ = new Bytes();
-        nbs_.add((byte) 5);
-        Bytes nbsTwo_ = new Bytes();
-        nbsTwo_.add((byte) 5);
-        nbsTwo_.add((byte) 1);
-        assertTrue(!NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
-    }
-    @Test
-    public void eqSet3Test(){
-        Bytes nbs_ = new Bytes();
-        nbs_.add((byte) 5);
-        nbs_.add((byte) 1);
-        Bytes nbsTwo_ = new Bytes();
-        nbsTwo_.add((byte) 5);
-        assertTrue(!NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
-    }
+//    @Test
+//    public void eqSet1Test(){
+//        Bytes nbs_ = new Bytes();
+//        nbs_.add((byte) 5);
+//        nbs_.add((byte) 1);
+//        Bytes nbsTwo_ = new Bytes();
+//        nbsTwo_.add((byte) 5);
+//        nbsTwo_.add((byte) 1);
+//        assertTrue(NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
+//    }
+//    @Test
+//    public void eqSet2Test(){
+//        Bytes nbs_ = new Bytes();
+//        nbs_.add((byte) 5);
+//        Bytes nbsTwo_ = new Bytes();
+//        nbsTwo_.add((byte) 5);
+//        nbsTwo_.add((byte) 1);
+//        assertTrue(!NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
+//    }
+//    @Test
+//    public void eqSet3Test(){
+//        Bytes nbs_ = new Bytes();
+//        nbs_.add((byte) 5);
+//        nbs_.add((byte) 1);
+//        Bytes nbsTwo_ = new Bytes();
+//        nbsTwo_.add((byte) 5);
+//        assertTrue(!NumberUtil.equalsSetBytes(nbs_,nbsTwo_));
+//    }
     @Test
     public void removeOneNumber1Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
         nbs_.removeOneNumber(2);
         assertEq(2, nbs_.size());
         assertEq(5, nbs_.get(0));
@@ -934,18 +934,18 @@ public class NumbersTest extends EquallableExUtil {
     }
     @Test
     public void removeOneNumber2Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
         nbs_.removeOneNumber(1);
         assertEq(1, nbs_.size());
         assertEq(5, nbs_.get(0));
     }
     @Test
     public void removeOneNumber3Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
         nbs_.removeOneNumber(5);
         assertEq(1, nbs_.size());
         assertEq(1, nbs_.get(0));
@@ -957,27 +957,27 @@ public class NumbersTest extends EquallableExUtil {
     }
     @Test
     public void removeAllLong1Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
         nbs_.removeAllLong(1);
         assertEq(1, nbs_.size());
         assertEq(5, nbs_.get(0));
     }
     @Test
     public void removeAllLong2Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
         nbs_.removeAllLong(5);
         assertEq(1, nbs_.size());
         assertEq(1, nbs_.get(0));
     }
     @Test
     public void removeAllLong3Test(){
-        Shorts nbs_ = new Shorts();
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
+        Ints nbs_ = new Ints();
+        nbs_.add(5);
+        nbs_.add(1);
         nbs_.removeAllLong(2);
         assertEq(2, nbs_.size());
         assertEq(5, nbs_.get(0));
@@ -1005,24 +1005,24 @@ public class NumbersTest extends EquallableExUtil {
     }
     @Test
     public void indexesOf3Test(){
-        Bytes nbs_ = new Bytes(new CollCapacity(2));
-        nbs_.add((byte) 5);
-        nbs_.add((byte) 1);
-        Bytes l_ = new Bytes(nbs_);
+        Ints nbs_ = new Ints(new CollCapacity(2));
+        nbs_.add(5);
+        nbs_.add(1);
+        Ints l_ = new Ints(nbs_);
         Ints out_ = l_.indexesOfObj(1);
         assertEq(1, out_.size());
         assertEq(1, out_.get(0));
     }
-    @Test
-    public void indexesOf4Test(){
-        Shorts nbs_ = new Shorts(new CollCapacity(2));
-        nbs_.add((short) 5);
-        nbs_.add((short) 1);
-        Shorts l_ = new Shorts(nbs_);
-        Ints out_ = l_.indexesOfObj(1);
-        assertEq(1, out_.size());
-        assertEq(1, out_.get(0));
-    }
+//    @Test
+//    public void indexesOf4Test(){
+//        Shorts nbs_ = new Shorts(new CollCapacity(2));
+//        nbs_.add((short) 5);
+//        nbs_.add((short) 1);
+//        Shorts l_ = new Shorts(nbs_);
+//        Ints out_ = l_.indexesOfObj(1);
+//        assertEq(1, out_.size());
+//        assertEq(1, out_.get(0));
+//    }
     @Test
     public void containsObj1Test(){
         Ints nbs_ = new Ints(new CollCapacity(2));
@@ -1037,18 +1037,18 @@ public class NumbersTest extends EquallableExUtil {
         assertTrue(nbs_.containsObj(1));
         assertTrue(!nbs_.containsObj(2));
     }
-    @Test
-    public void containsObj3Test(){
-        Bytes nbs_ = Bytes.newList((byte)5,(byte)1);
-        assertTrue(nbs_.containsObj(1));
-        assertTrue(!nbs_.containsObj(2));
-    }
-    @Test
-    public void containsObj4Test(){
-        Shorts nbs_ = Shorts.newList((short)5,(short)1);
-        assertTrue(nbs_.containsObj(1));
-        assertTrue(!nbs_.containsObj(2));
-    }
+//    @Test
+//    public void containsObj3Test(){
+//        Ints nbs_ = Ints.newList((byte)5,(byte)1);
+//        assertTrue(nbs_.containsObj(1));
+//        assertTrue(!nbs_.containsObj(2));
+//    }
+//    @Test
+//    public void containsObj4Test(){
+//        Shorts nbs_ = Shorts.newList((short)5,(short)1);
+//        assertTrue(nbs_.containsObj(1));
+//        assertTrue(!nbs_.containsObj(2));
+//    }
     @Test
     public void containsObj5Test(){
         Longs nbs_ = new Longs();
@@ -1078,21 +1078,21 @@ public class NumbersTest extends EquallableExUtil {
 
     @Test
     public void toArrByte() {
-        Bytes nbs_ = Bytes.newList((byte)5,(byte)1);
+        Ints nbs_ = Ints.newList(5,1);
         byte[] bytes_ = nbs_.toArrByte();
         assertEq(2, bytes_.length);
         assertEq(5, bytes_[0]);
         assertEq(1, bytes_[1]);
     }
-
-    @Test
-    public void toArrShort() {
-        Shorts nbs_ = Shorts.newList((byte)5,(byte)1);
-        short[] bytes_ = nbs_.toArrShort();
-        assertEq(2, bytes_.length);
-        assertEq(5, bytes_[0]);
-        assertEq(1, bytes_[1]);
-    }
+//
+//    @Test
+//    public void toArrShort() {
+//        Shorts nbs_ = Shorts.newList((byte)5,(byte)1);
+//        short[] bytes_ = nbs_.toArrShort();
+//        assertEq(2, bytes_.length);
+//        assertEq(5, bytes_[0]);
+//        assertEq(1, bytes_[1]);
+//    }
 
     @Test
     public void toArrInt() {
@@ -1116,12 +1116,12 @@ public class NumbersTest extends EquallableExUtil {
     public void nonIterableBytes() {
         NonIterableBytes n_ = new NonIterableBytes();
         n_.getArray();
-        n_.add((byte) 0);
-        n_.set(0,(byte) 0);
+        n_.add(0);
+        n_.set(0,0);
         n_.remove(0);
         assertEq(0, n_.size());
         NonIterableBytes nbs_ = NonIterableBytes.newCompositeList((byte)5,(byte)1);
-        byte[] bytes_ = nbs_.toComposArrByte();
+        int[] bytes_ = nbs_.toComposArrByte();
         assertEq(2, bytes_.length);
         assertEq(5, bytes_[0]);
         assertEq(1, bytes_[1]);

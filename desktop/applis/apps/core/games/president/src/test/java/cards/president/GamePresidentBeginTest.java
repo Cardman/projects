@@ -2,7 +2,6 @@ package cards.president;
 
 import cards.president.comparators.HandPresidentRepartition;
 import cards.president.enumerations.CardPresident;
-import code.util.ByteTreeMap;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import org.junit.Test;

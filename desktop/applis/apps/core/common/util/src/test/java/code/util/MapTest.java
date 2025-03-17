@@ -499,21 +499,21 @@ public class MapTest extends EquallableExUtil {
         assertEq(0,elts_.first());
         assertEq(1,elts_.last());
     }
-    @Test
-    public void getKeysNb2Test() {
-        ByteMap<Integer> mapEmpty_ = new ByteMap<Integer>(2);
-        ByteMap<Integer> map_ = new ByteMap<Integer>(mapEmpty_);
-        map_.put((byte) 0, 0);
-        map_.put((byte) 1, 1);
-        ByteMap<Integer> mapTwo_ = new ByteMap<Integer>(map_);
-        CustList<Byte> elts_ = mapTwo_.getKeys();
-        assertEq(2,elts_.size());
-        assertEq(0,elts_.first());
-        assertEq(1,elts_.last());
-        mapEmpty_ = new ByteMap<Integer>();
-        elts_ = mapEmpty_.getKeys();
-        assertEq(0,elts_.size());
-    }
+//    @Test
+//    public void getKeysNb2Test() {
+//        ByteMap<Integer> mapEmpty_ = new ByteMap<Integer>(2);
+//        ByteMap<Integer> map_ = new ByteMap<Integer>(mapEmpty_);
+//        map_.put((byte) 0, 0);
+//        map_.put((byte) 1, 1);
+//        ByteMap<Integer> mapTwo_ = new ByteMap<Integer>(map_);
+//        CustList<Byte> elts_ = mapTwo_.getKeys();
+//        assertEq(2,elts_.size());
+//        assertEq(0,elts_.first());
+//        assertEq(1,elts_.last());
+//        mapEmpty_ = new ByteMap<Integer>();
+//        elts_ = mapEmpty_.getKeys();
+//        assertEq(0,elts_.size());
+//    }
     @Test
     public void getKeysNb3Test() {
         LongMap<Integer> map_ = new LongMap<Integer>();
