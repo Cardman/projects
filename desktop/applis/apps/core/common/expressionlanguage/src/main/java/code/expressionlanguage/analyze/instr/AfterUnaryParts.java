@@ -59,9 +59,10 @@ final class AfterUnaryParts {
             index = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
             return;
         }
-        if (_d.getDelCast().contains((long)firstPrintChar_ + _offset)) {
+        int sumFirst_ = firstPrintChar_ + _offset;
+        if (_d.getDelCast().contains(sumFirst_)) {
             prio = ElResolver.UNARY_PRIO;
-            int min_ = _d.getDelCast().indexOfNb((long)firstPrintChar_ + _offset);
+            int min_ = _d.getDelCast().indexOfNb(sumFirst_);
             int max_ = _d.getDelCast().get(min_ + 1) - _offset;
             operators.addEntry(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             int ext_ = min_ / 2;
@@ -70,9 +71,9 @@ final class AfterUnaryParts {
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
             return;
         }
-        if (_d.getDelExplicit().contains((long)firstPrintChar_ + _offset)) {
+        if (_d.getDelExplicit().contains(sumFirst_)) {
             prio = ElResolver.UNARY_PRIO;
-            int min_ = _d.getDelExplicit().indexOfNb((long)firstPrintChar_ + _offset);
+            int min_ = _d.getDelExplicit().indexOfNb(sumFirst_);
             int max_ = _d.getDelExplicit().get(min_ + 1) - _offset;
             operators.addEntry(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
@@ -80,7 +81,7 @@ final class AfterUnaryParts {
         }
         index = firstPrintChar_;
     }
-    void setInstance(int _offset, String _string, Delimiters _d, AnalyzedPageEl _page) {
+    void setInstance(long _offset, String _string, Delimiters _d, AnalyzedPageEl _page) {
         anonymousResults = _page.getCurrentAnonymousResults();
         int firstPrintChar_ = del.getFirstPrintIndex();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -95,7 +96,7 @@ final class AfterUnaryParts {
             if (StringExpUtil.nextCharIs(_string,next_,_string.length(),ElResolver.ANN_ARR_RIGHT)) {
                 next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,next_+1);
             }
-            int ind_ = _d.getDelAnnotNew().indexOfNb((long) _offset + next_);
+            int ind_ = _d.getDelAnnotNew().indexOfNb(_offset + next_);
             if (ind_ >= 0) {
                 deltaAnnot = _d.getDelAnnotNew().get(ind_ + 1) - _d.getDelAnnotNew().get(ind_);
             }

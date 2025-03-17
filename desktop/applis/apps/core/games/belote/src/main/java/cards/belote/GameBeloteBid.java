@@ -250,7 +250,7 @@ public final class GameBeloteBid {
             if (pts_ > NumberUtil.max(minPointsMinusOne_, bid.getPoints())) {
                 BidBeloteSuit enchereCouleur_ = new BidBeloteSuit();
                 enchereCouleur_.setBid(_e);
-                enchereCouleur_.setPoints((int) pts_);
+                enchereCouleur_.setPoints(pts_);
                 return enchereCouleur_;
             }
         }

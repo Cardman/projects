@@ -16,10 +16,10 @@ public final class ServerActLoopAikiCheckCompatibility implements IntServerActLo
     public void loop(CustList<String> _input, NetAiki _instance, NetCommon _common) {
         CheckCompatibility check_ = NetAiki.importCheckCompatibility(_input);
         if (check_.getIndex() == IndexConstants.FIRST_INDEX) {
-            NetAiki.getCheckCompatibility(_instance).put((int) IndexConstants.FIRST_INDEX, check_);
+            NetAiki.getCheckCompatibility(_instance).put(IndexConstants.FIRST_INDEX, check_);
             return;
         }
-        CheckCompatibility first_ = NetAiki.getCheckCompatibility(_instance).getVal((int) IndexConstants.FIRST_INDEX);
+        CheckCompatibility first_ = NetAiki.getCheckCompatibility(_instance).getVal(IndexConstants.FIRST_INDEX);
         IntTreeMap<PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());
         IntTreeMap< PokemonPlayer> pkSecond_ = first_.getData().getTeam(check_.getTeam());
         if (pkFirst_.size() * pkSecond_.size() == 0) {
@@ -39,10 +39,10 @@ public final class ServerActLoopAikiCheckCompatibility implements IntServerActLo
         }
         NetPokemon net_ = new NetPokemon();
         net_.setTradablePokemon(pkFirst_);
-        NetGroupFrame.trySendString(NetAiki.exportNetPokemon(net_), _common.getSockets().getVal((int) IndexConstants.FIRST_INDEX));
+        NetGroupFrame.trySendString(NetAiki.exportNetPokemon(net_), _common.getSockets().getVal(IndexConstants.FIRST_INDEX));
         net_ = new NetPokemon();
         net_.setTradablePokemon(pkSecond_);
-        NetGroupFrame.trySendString(NetAiki.exportNetPokemon(net_), _common.getSockets().getVal((int) IndexConstants.SECOND_INDEX));
+        NetGroupFrame.trySendString(NetAiki.exportNetPokemon(net_), _common.getSockets().getVal(IndexConstants.SECOND_INDEX));
 //        if (check_.getIndex() == IndexConstants.SECOND_INDEX) {
 //            CheckCompatibility first_ = NetAiki.getCheckCompatibility(_instance).getVal((int) IndexConstants.FIRST_INDEX);
 //            IntTreeMap<PokemonPlayer> pkFirst_ = check_.getData().getTeam(first_.getTeam());

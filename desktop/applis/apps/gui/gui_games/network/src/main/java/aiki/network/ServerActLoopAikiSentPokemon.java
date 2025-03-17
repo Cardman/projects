@@ -11,10 +11,10 @@ public final class ServerActLoopAikiSentPokemon implements IntServerActLoopAiki 
     public void loop(CustList<String> _input, NetAiki _instance, NetCommon _common) {
         SentPokemon sent_ = NetAiki.importSentPokemon(_input);
         if (sent_.getIndex() == IndexConstants.FIRST_INDEX) {
-            NetGroupFrame.trySendString(NetAiki.exportPokemonPlayer(sent_.getPokemon()), _common.getSockets().getVal((int) IndexConstants.SECOND_INDEX));
+            NetGroupFrame.trySendString(NetAiki.exportPokemonPlayer(sent_.getPokemon()), _common.getSockets().getVal(IndexConstants.SECOND_INDEX));
         }
         if (sent_.getIndex() == IndexConstants.SECOND_INDEX) {
-            NetGroupFrame.trySendString(NetAiki.exportPokemonPlayer(sent_.getPokemon()), _common.getSockets().getVal((int) IndexConstants.FIRST_INDEX));
+            NetGroupFrame.trySendString(NetAiki.exportPokemonPlayer(sent_.getPokemon()), _common.getSockets().getVal(IndexConstants.FIRST_INDEX));
         }
     }
 }

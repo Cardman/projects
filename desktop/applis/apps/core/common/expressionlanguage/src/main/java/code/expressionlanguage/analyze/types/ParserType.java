@@ -106,7 +106,7 @@ public final class ParserType {
         return analyzeOther(new TypeIdChecker(), _offset, _string, _indexes, a_);
     }
 
-    private static AnalyzingType analyzeOther(AbsIdChecker _id,int _offset, String _string, Ints _indexes, AnalyzingType _a) {
+    private static AnalyzingType analyzeOther(AbsIdChecker _id,long _offset, String _string, Ints _indexes, AnalyzingType _a) {
         if (_id.match(_string.trim())) {
             _a.setKind(KindPartType.TYPE_NAME);
             _a.setupValue(_string);
@@ -150,7 +150,7 @@ public final class ParserType {
         int i_ = 0;
         int prio_ = TMP_PRIO;
         while (i_ < len_) {
-            if (!_indexes.containsObj((long)i_+_offset)) {
+            if (!_indexes.containsObj(i_+_offset)) {
                 i_++;
                 continue;
             }

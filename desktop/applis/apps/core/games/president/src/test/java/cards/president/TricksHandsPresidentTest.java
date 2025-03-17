@@ -3,7 +3,6 @@ package cards.president;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import cards.president.enumerations.CardPresident;
-import code.util.Bytes;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;

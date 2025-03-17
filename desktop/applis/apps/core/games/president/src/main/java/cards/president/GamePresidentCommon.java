@@ -180,13 +180,13 @@ final class GamePresidentCommon {
 //                }
 //            }
             if (!eqStrPres_) {
-                tree_.put(c, (int)IndexConstants.ONE_ELEMENT);
+                tree_.put(c, IndexConstants.ONE_ELEMENT);
             }
         }
         for (CardPresident c: HandPresident.pileBase()) {
             boolean eqStrPres_ = foundEqStrength(tree_, c);
             if (!eqStrPres_) {
-                tree_.put(c, (int)IndexConstants.SIZE_EMPTY);
+                tree_.put(c, IndexConstants.SIZE_EMPTY);
             }
         }
         return tree_;

@@ -114,7 +114,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         return ElResolver.checkSyntax(res_, 0, analyzing_);
     }
 
-    protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence _opTwo, DualNavigationContext _ctx) {
+    protected static OperationNode getOperationNode(int _ind, int _ch, MethodOperation _par, OperationsSequence _opTwo, DualNavigationContext _ctx) {
         return OperationNode.createOperationNode(_ind, _ch, _par, _opTwo, _ctx.getDualAnalyzedContext().getAnalyzed());
     }
 

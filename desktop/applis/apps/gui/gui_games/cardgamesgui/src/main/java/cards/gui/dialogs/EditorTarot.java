@@ -219,7 +219,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         int donneur_ = editorCards.getListe().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
-            donneur_=(int)MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
+            donneur_= MonteCarloUtil.randomLong(nombreDeJoueurs_,getFrames().getGenerator());
         }
         DealTarot donne_=new DealTarot(mains_,donneur_);
         partie = new GameTarot(GameType.EDIT,donne_,getReglesTarot());

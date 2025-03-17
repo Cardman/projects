@@ -19,9 +19,12 @@ public final class Longs extends Numbers<Long> {
     public static Longs newList(long... _values) {
         Longs sh_ = new Longs(new CollCapacity(_values.length));
         for (long b: _values) {
-            sh_.add(b);
+            sh_.addLong(b);
         }
         return sh_;
+    }
+    public void addLong(long _l) {
+        add(_l);
     }
 
     @Override

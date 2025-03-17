@@ -441,8 +441,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             indexes_.add(i);
         }
         while (!indexes_.isEmpty()) {
-            long len_ = indexes_.size();
-            int rem_ = (int) MonteCarloUtil.randomLong(len_,_gene);
+            int len_ = indexes_.size();
+            int rem_ = MonteCarloUtil.randomLong(len_,_gene);
             //rem_ >= 0 && rem_ < len_
             indexesEdited_.add(indexes_.get(rem_));
             indexes_.remove(rem_);

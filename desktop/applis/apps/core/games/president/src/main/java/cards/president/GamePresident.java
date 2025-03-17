@@ -1232,9 +1232,9 @@ public final class GamePresident {
             }
         }
         for (int  p = IndexConstants.FIRST_INDEX; p <nbPlayers_; p++) {
-            t_.add((int) IndexConstants.INDEX_NOT_FOUND_ELT);
-            c_.add((int) IndexConstants.INDEX_NOT_FOUND_ELT);
-            r_.add((int)IndexConstants.FIRST_INDEX);
+            t_.add(IndexConstants.INDEX_NOT_FOUND_ELT);
+            c_.add(IndexConstants.INDEX_NOT_FOUND_ELT);
+            r_.add(IndexConstants.FIRST_INDEX);
         }
         tricksCards(t_, c_, nbPlayers_);
         Ints normalEnds_ = new Ints();

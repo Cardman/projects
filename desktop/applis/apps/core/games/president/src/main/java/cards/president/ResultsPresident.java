@@ -21,7 +21,7 @@ public final class ResultsPresident {
         res.getScores().add(sc_);
         int s_ = _r.size();
         for (int i = 0; i < s_; i++) {
-            res.getScores().last().add((long)_r.get(i));
+            res.getScores().last().addLong(_r.get(i));
         }
 //        if(getScores().size()==1) {
 //            for(short score_:scoresDeal_) {
@@ -42,7 +42,7 @@ public final class ResultsPresident {
         Ints rk_ = game.getNewRanks();
         int s_ = rk_.size();
         for (int i = 0; i < s_; i++) {
-            scoresDeal_.add((long)rk_.get(i));
+            scoresDeal_.addLong(rk_.get(i));
         }
         GameType type_ = game.getType();
         long number_ = game.getNumber();

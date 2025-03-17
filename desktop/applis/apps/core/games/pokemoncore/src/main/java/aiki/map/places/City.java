@@ -104,7 +104,7 @@ public final class City extends Place implements InitializedPlace {
     @Override
     public IntMap< Level> getLevelsMap() {
         IntMap< Level> levels_ = new IntMap< Level>();
-        levels_.put((int)IndexConstants.FIRST_INDEX, getLevelOutdoor());
+        levels_.put(IndexConstants.FIRST_INDEX, getLevelOutdoor());
         return levels_;
     }
 

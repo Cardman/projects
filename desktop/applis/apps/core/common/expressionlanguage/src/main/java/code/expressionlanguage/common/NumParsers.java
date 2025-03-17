@@ -617,7 +617,7 @@ public final class NumParsers {
         long t_ = _l;
         if (_l < 0) {
             bits_[0] = true;
-            t_ = (long) Integer.MAX_VALUE + _l + 1;
+            t_ = 1L + Integer.MAX_VALUE + _l;
         }
         int k_ = 31;
         for (int i = 0; i < 31; i++) {
@@ -2073,10 +2073,10 @@ public final class NumParsers {
         return true;
     }
 
-    private static boolean outOfBounds(String _instance, int _toffset, String _other, int _ooffset, int _len) {
+    private static boolean outOfBounds(String _instance, int _toffset, String _other, int _ooffset, long _len) {
         return _ooffset < 0 || _toffset < 0
-                || _toffset > (long)_instance.length() - _len
-                || _ooffset > (long)_other.length() - _len;
+                || _toffset > _instance.length() - _len
+                || _ooffset > _other.length() - _len;
     }
     public static int toMinCaseLetter(char _char) {
         if (!StringDataLetterUtil.isLetter(_char)) {

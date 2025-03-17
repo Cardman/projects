@@ -61,7 +61,7 @@ public final class Road extends Campaign implements InitializedPlace {
     @Override
     public IntMap< Level> getLevelsMap() {
         IntMap< Level> levels_ = new IntMap< Level>();
-        levels_.put((int) IndexConstants.FIRST_INDEX, getLevelRoad());
+        levels_.put(IndexConstants.FIRST_INDEX, getLevelRoad());
         return levels_;
     }
 

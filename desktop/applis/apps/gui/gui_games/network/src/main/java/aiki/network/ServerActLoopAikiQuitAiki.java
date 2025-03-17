@@ -17,10 +17,10 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
         forcedBye_.setServer(true);
         forcedBye_.setTooManyPlayers(false);
         AbstractSocket socket_;
-        socket_ = _common.getSockets().getVal((int) IndexConstants.FIRST_INDEX);
-        _common.getConnectionsServer().removeKey((int) IndexConstants.FIRST_INDEX);
-        _common.getReadyPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
-        _common.getPlacesPlayers().removeKey((int) IndexConstants.FIRST_INDEX);
+        socket_ = _common.getSockets().getVal(IndexConstants.FIRST_INDEX);
+        _common.getConnectionsServer().removeKey(IndexConstants.FIRST_INDEX);
+        _common.getReadyPlayers().removeKey(IndexConstants.FIRST_INDEX);
+        _common.getPlacesPlayers().removeKey(IndexConstants.FIRST_INDEX);
         if (bye_.getPlace() == IndexConstants.FIRST_INDEX) {
             forcedBye_.setClosing(bye_.getContent().isClosing());
         } else {
@@ -30,10 +30,10 @@ public final class ServerActLoopAikiQuitAiki implements IntServerActLoopAiki {
 //        if (socket_ != null) {
 //            NetGroupFrame.trySendString(NetCommon.exportExiting(forcedBye_), socket_);
 //        }
-        socket_ = _common.getSockets().getVal((int) IndexConstants.SECOND_INDEX);
-        _common.getConnectionsServer().removeKey((int) IndexConstants.SECOND_INDEX);
-        _common.getReadyPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
-        _common.getPlacesPlayers().removeKey((int) IndexConstants.SECOND_INDEX);
+        socket_ = _common.getSockets().getVal(IndexConstants.SECOND_INDEX);
+        _common.getConnectionsServer().removeKey(IndexConstants.SECOND_INDEX);
+        _common.getReadyPlayers().removeKey(IndexConstants.SECOND_INDEX);
+        _common.getPlacesPlayers().removeKey(IndexConstants.SECOND_INDEX);
         if (bye_.getPlace() == IndexConstants.SECOND_INDEX) {
             forcedBye_.setClosing(bye_.getContent().isClosing());
         } else {

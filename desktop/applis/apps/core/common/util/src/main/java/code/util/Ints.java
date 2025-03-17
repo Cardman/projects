@@ -19,9 +19,12 @@ public final class Ints extends Numbers<Integer> {
     public static Ints newList(int... _values) {
         Ints sh_ = new Ints(new CollCapacity(_values.length));
         for (int b: _values) {
-            sh_.add(b);
+            sh_.addInt(b);
         }
         return sh_;
+    }
+    public void addInt(int _e) {
+        add(_e);
     }
 
     public static Ints singleOrEmpty(int _element) {

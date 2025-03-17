@@ -17,14 +17,14 @@ public class LevelArea {
     private IdMap<Point, Dims> dimsBlocks;
     private IdMap<Point, Integer> indexes;
     private CustList<CustList<GenderName>> pokemon;
-    private int height;
-    private int width;
+    private long height;
+    private long width;
 
     public void initialize(Level _level) {
         Limits limits_ = _level.limits();
         leftTop = limits_.getTopLeft();
-        height = limits_.getBottomRight().gety() - leftTop.gety() + 1;
-        width = limits_.getBottomRight().getx() - leftTop.getx() + 1;
+        height = limits_.getBottomRight().gety() + 1L - leftTop.gety();
+        width = limits_.getBottomRight().getx() + 1L - leftTop.getx();
         inacessiblePoints = new PointEqList();
         indexes = new IdMap<Point, Integer>();
         dimsBlocks = new IdMap<Point, Dims>();
@@ -96,7 +96,7 @@ public class LevelArea {
     }
 
     public long size() {
-        return (long)height * width;
+        return height * width;
     }
 
     public CustList<GenderName> getPokemon(Point _pt) {
@@ -152,11 +152,11 @@ public class LevelArea {
         return pokemon;
     }
 
-    public int getHeight() {
+    public long getHeight() {
         return height;
     }
 
-    public int getWidth() {
+    public long getWidth() {
         return width;
     }
 }

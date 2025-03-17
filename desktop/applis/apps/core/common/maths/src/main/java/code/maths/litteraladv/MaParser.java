@@ -489,8 +489,9 @@ public final class MaParser {
         }
         int lastPrintChar_ = StringUtil.getLastPrintableCharIndex(_string);
         int len_ = lastPrintChar_ + 1;
+        int sumOff_ = _offset + i_;
         for (MatVariableInfo v: _d.getVarParts()) {
-            if (v.getFirstChar() == _offset + i_) {
+            if (v.getFirstChar() == sumOff_) {
                 int iVar_ = v.getLastChar();
                 if (iVar_ != _offset + lastPrintChar_ + 1) {
                     break;
@@ -502,8 +503,8 @@ public final class MaParser {
                 return op_;
             }
         }
-        int begin_ = _d.getNumbers().indexOfNb((long) _offset + i_);
-        int end_ = _d.getNumbers().indexOfNb((long) _offset + lastPrintChar_ + 1L);
+        int begin_ = _d.getNumbers().indexOfNb(sumOff_);
+        int end_ = _d.getNumbers().indexOfNb(1L + _offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
             MaOperationsSequence op_ = new MaOperationsSequence();
             op_.setCst(begin_/2);

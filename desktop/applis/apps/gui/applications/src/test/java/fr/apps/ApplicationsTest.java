@@ -870,8 +870,8 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     }
     private static byte[] toBinary(int[][] _img) {
         AbstractImage img_ =  new MockImage(_img);
-        Bytes bs_ = Bytes.newList((byte)0x89,(byte)0x50,(byte)0x4E,(byte)0x47,(byte)0x0D,(byte)0x0A,(byte)0x1A,(byte)0x0A);
-        bs_.addAllElts(Bytes.newList(img_.writeImg("")));
+        Ints bs_ = Ints.newList(0x89,0x50,0x4E,0x47,0x0D,0x0A,0x1A,0x0A);
+        bs_.addAllElts(Ints.newList(MockZipFact.wrapBytes(img_.writeImg(""))));
         return bs_.toArrByte();
     }
     private static void maxiImgs(MockProgramInfos _pr) {

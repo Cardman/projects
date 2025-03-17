@@ -288,7 +288,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private static StringMap<Long> getAllEvolutionsNoSep(String _base, long _level, DataBase _import) {
         StringMap<Long> evolutionsLevels_ = new StringMap<Long>();
         StringMap<Long> currentEvolutions_ = new StringMap<Long>();
-        currentEvolutions_.put(_base, (long) IndexConstants.FIRST_INDEX);
+        currentEvolutions_.put(_base, IndexConstants.FIRST_INDEX_LG);
         StringMap<Long> newEvolutions_;
         while (true) {
             newEvolutions_ = new StringMap<Long>();
@@ -315,7 +315,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private static StringMap<Long> getAllEvolutionsSep(String _base, long _level, DataBase _import) {
         StringMap<Long> evolutionsLevels_ = new StringMap<Long>();
         StringMap<Long> currentEvolutions_ = new StringMap<Long>();
-        currentEvolutions_.put(_base, (long) IndexConstants.FIRST_INDEX);
+        currentEvolutions_.put(_base, IndexConstants.FIRST_INDEX_LG);
         StringMap<Long> newEvolutions_;
         while (true) {
             newEvolutions_ = new StringMap<Long>();

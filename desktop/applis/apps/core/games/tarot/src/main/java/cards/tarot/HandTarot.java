@@ -312,7 +312,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     @return la carte aleatoire choisie*/
     CardTarot tirerUneCarteAleatoire(AbstractGenerator _gene) {
 //        return jouer((int)Math.floor(total()*MonteCarlo.randomDouble()));
-        return jouer((int) MonteCarloUtil.randomLong(total(),_gene));
+        return jouer(MonteCarloUtil.randomLong(total(),_gene));
         //0<=total()*Math.random()<total()
         //Donc 0<=Math.floor(total()*Math.random())<Math.floor(total())=total()
     }

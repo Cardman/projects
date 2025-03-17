@@ -16,7 +16,7 @@ public final class DefFirstDealPresident implements IntFirstDealPresident {
         HandPresident pile_ = _container.chargerPilePresident(_rules.getNbStacks());
         DealPresident donne_=new DealPresident(_nb);
 //        donne_.setRandomDealer(_rules,_container.getOwner().getGenerator());
-        donne_.setDealer((int) MonteCarloUtil.randomLong(_rules.getNbPlayers(),_container.getOwner().getGenerator()));
+        donne_.setDealer(MonteCarloUtil.randomLong(_rules.getNbPlayers(),_container.getOwner().getGenerator()));
         donne_.initDonne(_rules,_container.getOwner().getGenerator(),pile_);
         return new GamePresident(GameType.RANDOM,donne_,_rules, Ints.newList());
     }
@@ -27,7 +27,7 @@ public final class DefFirstDealPresident implements IntFirstDealPresident {
         HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
         DealPresident donne_=new DealPresident(0L);
 //        donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
-        donne_.setDealer((int) MonteCarloUtil.randomLong(regles_.getNbPlayers(),_container.getWindow().getGenerator()));
+        donne_.setDealer(MonteCarloUtil.randomLong(regles_.getNbPlayers(),_container.getWindow().getGenerator()));
         regles_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_,_container.getWindow().getGenerator(),pile_);
         return new GamePresident(GameType.EDIT,donne_,regles_, new Ints());

@@ -175,8 +175,10 @@ public final class MathResolver {
         }
         int lastPrintChar_ = StringUtil.getLastPrintableCharIndex(_string);
         int len_ = lastPrintChar_ + 1;
-        int begin_ = _d.getDelStringsChars().indexOfNb((long) i_ + _offset);
-        int end_ = _d.getDelStringsChars().indexOfNb((long) lastPrintChar_ + _offset);
+        int sumOff_ = _offset + i_;
+        int sumLast_ = lastPrintChar_ + _offset;
+        int begin_ = _d.getDelStringsChars().indexOfNb(sumOff_);
+        int end_ = _d.getDelStringsChars().indexOfNb(sumLast_);
         if (delimits(begin_, end_)) {
             MbOperationsSequence op_ = new MbOperationsSequence();
             op_.setIndexCst(begin_/2);
@@ -185,8 +187,8 @@ public final class MathResolver {
             op_.setupValue(_string);
             return op_;
         }
-        begin_ = _d.getDelNumbers().indexOfNb((long)_offset + i_);
-        end_ = _d.getDelNumbers().indexOfNb((long)_offset + lastPrintChar_ + 1L);
+        begin_ = _d.getDelNumbers().indexOfNb(sumOff_);
+        end_ = _d.getDelNumbers().indexOfNb(sumLast_ + 1L);
         if (delimits(begin_, end_)) {
             MbOperationsSequence op_ = new MbOperationsSequence();
             op_.setIndexCst(begin_/2);
@@ -203,7 +205,7 @@ public final class MathResolver {
             return op_;
         }
         for (MatVariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() == _offset + i_) {
+            if (v.getFirstChar() == sumOff_) {
                 int iVar_ = v.getLastChar();
                 if (iVar_ != _offset + lastPrintChar_ + 1) {
                     break;

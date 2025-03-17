@@ -77,21 +77,21 @@ public final class MonteCarloUtil {
         return toRate(randomInt(_gene, _cust, _conv, _rands));
     }
 
-    private static Rate toRate(int _num) {
+    private static Rate toRate(long _num) {
         return new Rate(_num, EXC_MAX);
     }
 
     private static int randomInt(AbstractGenerator _gene, CustomSeedGene _cust) {
-        return (int)randomLong(EXC_MAX,_gene,_cust);
+        return randomLong(EXC_MAX,_gene,_cust);
     }
 
-    private static int randomInt(AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
-        return (int)randomLong(EXC_MAX,_gene,_cust, _conv,_rands);
+    private static long randomInt(AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
+        return randomLong(EXC_MAX,_gene,_cust, _conv,_rands);
     }
 
     /**@param _excludeMax the maximum of possible returned values
     @return an long from 0 inclusive to the argument excluded*/
-    public static long randomLong(long _excludeMax, AbstractGenerator _gene) {
+    public static int randomLong(int _excludeMax, AbstractGenerator _gene) {
         return randomLong(_excludeMax, _gene, _gene.seed());
     }
     public static long randomLong(long _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust, AbsDoubleToStrConverter _conv, CustList<String> _rands) {
@@ -105,11 +105,18 @@ public final class MonteCarloUtil {
         return rand_;
     }
 
-    public static long randomLong(long _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust) {
-        return randomLong(_excludeMax, _cust.pick(_gene));
+    public static int randomLong(long _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust) {
+        return randomInt(_excludeMax, _cust.pick(_gene));
     }
     public static long randomLong(long _excludeMax, double _gene) {
-        return (long) (_gene * MathExpUtil.toDouble(_excludeMax));
+        return (long) mult(_gene, _excludeMax);
+    }
+    public static int randomInt(long _excludeMax, double _gene) {
+        return (int) mult(_gene, _excludeMax);
+    }
+
+    private static double mult(double _gene, long _excludeMax) {
+        return _gene * MathExpUtil.toDouble(_excludeMax);
     }
 
     static LgInt maxNumber(LgInt _max) {

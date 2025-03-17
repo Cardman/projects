@@ -7,7 +7,6 @@ import code.scripts.messages.cards.*;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
-import code.util.Bytes;
 import code.util.Ints;
 import code.util.core.*;
 import org.junit.Test;

@@ -25,10 +25,10 @@ final class MathAfUnaryParts {
         }
     }
 
-    void loop(int _offset, String _string,
+    void loop(long _offset, String _string,
               MbDelimiters _d) {
         char curChar_ = _string.charAt(index);
-        if (!_d.getAllowedOperatorsIndexes().containsObj((long)index+_offset)) {
+        if (!_d.getAllowedOperatorsIndexes().containsObj(index+_offset)) {
             index++;
             return;
         }

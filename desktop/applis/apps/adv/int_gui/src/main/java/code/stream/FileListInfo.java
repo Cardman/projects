@@ -1,7 +1,6 @@
 package code.stream;
 
 import code.gui.GuiConstants;
-import code.util.Bytes;
 
 public final class FileListInfo {
     private final AbstractFile[] names;
@@ -18,9 +17,19 @@ public final class FileListInfo {
 
     public static BytesInfo extractWithPrefixes(byte[] _file, byte[] _pref) {
         if (startsWith(_file,_pref)) {
-            return new BytesInfo(new Bytes(Bytes.newList(_file).mid(_pref.length)).toArrByte(),false);
+            int diff_ = _file.length - _pref.length;
+            byte[] mid_ = new byte[diff_];
+            for (int i = 0; i < diff_; i++) {
+                mid(_file, _pref, mid_, i);
+            }
+            return new BytesInfo(mid_, false);
+//            return new BytesInfo(new Bytes(Bytes.newList(_file).mid(_pref.length)).toArrByte(),false);
         }
         return new BytesInfo(new byte[0],true);
+    }
+
+    private static void mid(byte[] _file, byte[] _pref, byte[] _mid, int _i) {
+        _mid[_i] = _file[_pref.length+ _i];
     }
 
     public static boolean startsWith(byte[] _file, byte[] _pref) {

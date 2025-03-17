@@ -60,7 +60,7 @@ public abstract class ContainerSingleImpl extends ContainerGame {
         Ints colors_ = couleursCourbes();
         Ints edit_ = new Ints();
         while (!colors_.isEmpty()) {
-            int v_ = (int) MonteCarloUtil.randomLong(colors_.size(), _gene);
+            int v_ = MonteCarloUtil.randomLong(colors_.size(), _gene);
             edit_.add(colors_.get(v_));
             colors_.remove(v_);
         }

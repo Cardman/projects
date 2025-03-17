@@ -23,9 +23,10 @@ public final class MockZipFact implements AbstractZipFact {
         if (_bytes.getBytes().length < 5 || _bytes.getBytes()[4] != '\r') {
             return new StringMap<ContentTime>();
         }
-        Bytes ls_ = Bytes.newList(_bytes.getBytes());
+        Ints ls_ = Ints.newList(wrapBytes(_bytes.getBytes()));
         int unFileCount_ = ls_.indexOfNb('/', 4);
-        String res_ = StringUtil.nullToEmpty(StringUtil.decode(new Bytes(ls_.sub(5, unFileCount_)).toArrByte()));
+        Ints sub_ = new Ints(ls_.sub(5, unFileCount_));
+        String res_ = StringUtil.nullToEmpty(StringUtil.decode(sub_.toArrByte()));
         if (res_.isEmpty()) {
             return new StringMap<ContentTime>();
         }
@@ -35,7 +36,7 @@ public final class MockZipFact implements AbstractZipFact {
         return headComplete(_bytes.getBytes(), ls_, unFileCount_, res_);
     }
 
-    private StringMap<ContentTime> headComplete(byte[] _bytes, Bytes _ls, int _unFileCount, String _res) {
+    private StringMap<ContentTime> headComplete(byte[] _bytes, Ints _ls, int _unFileCount, String _res) {
         int count_ = NumberUtil.parseInt(_res);
         int un_ = _unFileCount;
         StringMap<FileStruct> files_ = new StringMap<FileStruct>();
@@ -49,7 +50,7 @@ public final class MockZipFact implements AbstractZipFact {
             if (next2_ < 0) {
                 return new StringMap<ContentTime>();
             }
-            String modif_ = StringUtil.nullToEmpty(StringUtil.decode(new Bytes(_ls.sub(next_ + 1, next2_)).toArrByte()));
+            String modif_ = StringUtil.nullToEmpty(StringUtil.decode(new Ints(_ls.sub(next_ + 1, next2_)).toArrByte()));
             if (modif_.isEmpty()||ko(modif_)) {
                 return new StringMap<ContentTime>();
             }
@@ -58,8 +59,8 @@ public final class MockZipFact implements AbstractZipFact {
             if (curr_ >= _ls.size()|| _ls.get(curr_) !='/') {
                 return new StringMap<ContentTime>();
             }
-            String resLen_ = StringUtil.nullToEmpty(StringUtil.decode(new Bytes(_ls.sub(next2_ + 1, curr_)).toArrByte()));
-            String resKey_ = StringUtil.nullToEmpty(StringUtil.decode(new Bytes(_ls.sub(un_ + 1, next_)).toArrByte()));
+            String resLen_ = StringUtil.nullToEmpty(StringUtil.decode(new Ints(_ls.sub(next2_ + 1, curr_)).toArrByte()));
+            String resKey_ = StringUtil.nullToEmpty(StringUtil.decode(new Ints(_ls.sub(un_ + 1, next_)).toArrByte()));
             if (koPath(resKey_)) {
                 return new StringMap<ContentTime>();
             }
@@ -116,7 +117,7 @@ public final class MockZipFact implements AbstractZipFact {
         return out_;
     }
 
-    private int incr(Bytes _ls, int _next) {
+    private int incr(Ints _ls, int _next) {
         int curr_ = _next + 1;
         while (curr_ < _ls.size()) {
             if (_ls.get(curr_) < '0' || _ls.get(curr_) > '9') {
@@ -134,6 +135,19 @@ public final class MockZipFact implements AbstractZipFact {
             bytes_[i] = (byte) _map[i];
         }
         return bytes_;
+    }
+
+    public static int[] wrapBytes(byte[] _map) {
+        int len_ = _map.length;
+        int[] bytes_ = new int[len_];
+        for (int i = 0; i < len_; i++) {
+            set(_map, bytes_, i);
+        }
+        return bytes_;
+    }
+
+    private static void set(byte[] _map, int[] _byte, int _i) {
+        _byte[_i] = _map[_i];
     }
 
     public static StringMap<ContentTime> wrapText(MockNameFile[] _map) {

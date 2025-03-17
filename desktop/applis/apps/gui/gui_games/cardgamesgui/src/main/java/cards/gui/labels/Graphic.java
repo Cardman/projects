@@ -107,13 +107,14 @@ public final class Graphic extends AbsMetaLabelCard {
         int nombre2_=getWidth()/2;
         _g2.drawString(Long.toString(0),0,0);
         for(int ordonnee_=1;ordonnee_<nombre_;ordonnee_++) {
-            _g2.drawString(Long.toString((long)ordonnee_*rapport2_),0,-ordonnee_*rapport2_);
-            _g2.drawString(Long.toString((long)-ordonnee_*rapport2_),0,ordonnee_*rapport2_);
+            int res_ = ordonnee_ * rapport2_;
+            _g2.drawString(Long.toString(res_),0,-res_);
+            _g2.drawString(Long.toString(-res_),0, res_);
             for (int abscisse_ = IndexConstants.FIRST_INDEX; abscisse_<nombre2_; abscisse_++) {
-                _g2.drawLine(2*abscisse_*rapport2_,ordonnee_*rapport2_,(2*abscisse_+1)*rapport2_,ordonnee_*rapport2_);
+                _g2.drawLine(2*abscisse_*rapport2_, res_,(2*abscisse_+1)*rapport2_, res_);
             }
             for (int abscisse_ = IndexConstants.FIRST_INDEX; abscisse_<nombre2_; abscisse_++) {
-                _g2.drawLine(2*abscisse_*rapport2_,-ordonnee_*rapport2_,(2*abscisse_+1)*rapport2_,-ordonnee_*rapport2_);
+                _g2.drawLine(2*abscisse_*rapport2_,-res_,(2*abscisse_+1)*rapport2_,-res_);
             }
         }
     }
