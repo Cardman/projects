@@ -385,11 +385,11 @@ public abstract class InitDbConstr extends InitDbBean {
     }
 
     public static CustList<TranslatedKey> callEffectWhileSendingBeanCancelChgtStatGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getEffectStatisticCommon().getCancelChgtStat());
+        return _str.getEffectStatisticCommon().getCancelChgtStat();
     }
 
     public static CustList<TranslatedKey> callEffectWhileSendingBeanCancelLowStatGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getEffectStatisticCommon().getCancelLowStat());
+        return _str.getEffectStatisticCommon().getCancelLowStat();
     }
 
     public static String callEffectWhileSendingBeanClickWeather(EffectWhileSendingBean _str, int... _args) {
@@ -402,7 +402,7 @@ public abstract class InitDbConstr extends InitDbBean {
     }
 
     public static CustList<TranslatedKey> callEffectWhileSendingBeanCopyBoostGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getEffectStatisticCommon().getCopyBoost());
+        return _str.getEffectStatisticCommon().getCopyBoost();
     }
 
     public static boolean callEffectWhileSendingBeanCopyingAbilityGet(EffectWhileSendingBean _str, int... _args) {
@@ -450,11 +450,11 @@ public abstract class InitDbConstr extends InitDbBean {
     }
 
     public static AbsMap<String,String> callEffectWhileSendingBeanMapVarsFailGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getMapVarsFail());
+        return _str.getMapVarsFail();
     }
 
     public static AbsMap<String,String> callEffectWhileSendingBeanMapVarsStatisticsGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getEffectStatisticCommon().getMapVarsStatistics());
+        return _str.getEffectStatisticCommon().getMapVarsStatistics();
     }
 
     public static Rate callEffectWhileSendingBeanMultWeightGet(EffectWhileSendingBean _str, int... _args) {
@@ -474,11 +474,11 @@ public abstract class InitDbConstr extends InitDbBean {
     }
 
     public static CustList<String> callEffectWhileSendingBeanReasonsGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getReasons());
+        return _str.getReasons();
     }
 
     public static DictionaryComparator<TranslatedKey,StatRankRate> callEffectWhileSendingBeanStatisVarRankGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getEffectStatisticCommon().getStatisVarRank());
+        return _str.getEffectStatisticCommon().getStatisVarRank();
     }
 
     public static boolean callEffectWhileSendingBeanStatisticGet(EffectWhileSendingBean _str, int... _args) {
@@ -486,7 +486,7 @@ public abstract class InitDbConstr extends InitDbBean {
     }
 
     public static CustList<TranslatedKey> callEffectWhileSendingBeanSwapBoostStatisGet(EffectWhileSendingBean _str, int... _args) {
-        return (_str.getEffectStatisticCommon().getSwapBoostStatis().getKeys());
+        return _str.getEffectStatisticCommon().getSwapBoostStatis().getKeys();
     }
 //
 //    public static NaSt callSimulationBeanSelectedTeamNumberGet(NaSt _str, long... _args) {
@@ -573,7 +573,7 @@ public abstract class InitDbConstr extends InitDbBean {
 //    }
 
     public static CustList<String> callPkTrainerGetMoves(PkTrainer _str, int... _args) {
-        return (_str.getMoves());
+        return _str.getMoves();
     }
     public static String callPlaceGetName(Place _str, int... _args) {
         return _str.getName();

@@ -96,11 +96,11 @@ public abstract class InitDbSolution extends InitDbConstr {
 //    }
 
     public static CustList<PlaceTrainerDto> callStepDtoGetNames(StepDto _str) {
-        return (_str.getNames());
+        return _str.getNames();
     }
 
     public static AbsMap<PlaceLevel,CustList<WildPokemonDto>> callStepDtoGetPokemon(StepDto _str) {
-        return (_str.getPokemon());
+        return _str.getPokemon();
     }
 //
 //    public static String callWildPokemonDtoGenderGet(NaSt _str) {
