@@ -4,9 +4,12 @@ import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.consts.beans.LineDealStruct;
 import code.bean.nat.*;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.confs.EquallableBeloteBeanUtil;
+import code.scripts.pages.cards.MessagesBelotePage;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsLg;
 import code.util.Longs;
 import code.util.core.StringUtil;
 
@@ -21,7 +24,9 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static NaSt beanDetailResultsBelote(String _language, ResultsBelote _dataBase) {
         BeloteStandardsDetailResults stds_ = new BeloteStandardsDetailResults();
         stds_.setDataBase(_dataBase);
-        return stds_.beanDetailResults(_language);
+        DetailsResultsBeloteBean bean_ = new DetailsResultsBeloteBean();
+        bean_.setBuilder(builder());
+        return stds_.bean(bean_, _language);
     }
     public static NaSt callDetailsResultsBeloteBeanDeclaring(NaSt _str, long... _args) {
         return callLongs(new DetailsResultsBeloteBeanDeclaring(),_str,_args);
@@ -49,7 +54,9 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static NaSt beanResultsBelote(String _language, ResultsBelote _dataBase) {
         BeloteStandardsResults stds_ = new BeloteStandardsResults();
         stds_.setDataBase(_dataBase);
-        return stds_.beanResults(_language);
+        ResultsBeloteBean bean_ = new ResultsBeloteBean();
+        bean_.setBuilder(builder());
+        return stds_.bean(bean_, _language);
     }
     public static NaSt callResultsBeloteBeanSuccessfulBid(NaSt _str, long... _args) {
         return callLongs(new ResultsBeloteBeanSuccessfulBid(),_str,_args);
@@ -142,7 +149,9 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static NaSt beanRules(String _language, RulesBelote _dataBase) {
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
         stds_.setDataBaseRules(_dataBase);
-        return stds_.beanRules(_language);
+        RulesBeloteBean bean_ = new RulesBeloteBean();
+        bean_.setBuilder(builder());
+        return stds_.bean(bean_, _language);
     }
 
     public static NaSt callRulesBeloteBeanComptePointsClassique(NaSt _str, long... _args) {
@@ -177,13 +186,20 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     }
 
     public NaSt displaying(NaSt _b) {
-        beforeDisplaying(_b);
+        ((RulesBeloteBean)((BeloteBeanStruct)_b).getBean()).build();
         return _b;
     }
 
-    public static void beforeDisplaying(NaSt _bean) {
-        ((BeanStruct)_bean).beforeDisplaying();
+    public NaSt displayingGame(NaSt _b) {
+        ((ResultsBeloteBean)((BeloteBeanStruct)_b).getBean()).build();
+        return _b;
     }
+
+    public NaSt displayingDetail(NaSt _b) {
+        ((DetailsResultsBeloteBean)((BeloteBeanStruct)_b).getBean()).build();
+        return _b;
+    }
+
     public static NaSt[] getLongArray(long... _ls){
         return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
     }
@@ -234,5 +250,18 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     }
     public static NaSt elt(NaSt _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
+    }
+
+    private static IntBeanBuilderHelperBeloteImpl builder() {
+        IntBeanBuilderHelperBeloteImpl builder_ = new IntBeanBuilderHelperBeloteImpl();
+        Translations ts_ = new Translations();
+        ts_.getMapping().addEntry(EN,new TranslationsLg());
+        ts_.getMapping().addEntry(FR,new TranslationsLg());
+        ts_.getMapping().getVal(EN).getMapping().addEntry(MessagesBelotePage.APP_BEAN,new TranslationsAppli());
+        ts_.getMapping().getVal(FR).getMapping().addEntry(MessagesBelotePage.APP_BEAN,new TranslationsAppli());
+        ts_.getMapping().getVal(EN).getMapping().getVal(MessagesBelotePage.APP_BEAN).getMapping().addEntry("",MessagesBelotePage.en());
+        ts_.getMapping().getVal(FR).getMapping().getVal(MessagesBelotePage.APP_BEAN).getMapping().addEntry("",MessagesBelotePage.fr());
+        builder_.setTranslations(ts_);
+        return builder_;
     }
 }

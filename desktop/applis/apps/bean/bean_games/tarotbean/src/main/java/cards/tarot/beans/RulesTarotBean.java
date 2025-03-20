@@ -3,6 +3,7 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.scripts.pages.cards.MessagesTarotPage;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -26,6 +27,62 @@ public final class RulesTarotBean extends TarotBean {
     private boolean discardAfterCall = true;
     private boolean allowPlayCalledSuit = true;
 
+    public void build() {
+        beforeDisplaying();
+        header(MessagesTarotPage.M_BEAT_CARDS);
+        getBuilder().formatMessageDir(cartesBattues);
+        header(MessagesTarotPage.M_DEALING_PL);
+        getBuilder().formatMessageDir(repartition);
+        header(MessagesTarotPage.M_MODE);
+        getBuilder().formatMessageDir(mode);
+        header(MessagesTarotPage.M_DISCARD);
+        if (discardAfterCall) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_YES);
+        } else {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_NO);
+        }
+        header(MessagesTarotPage.M_PLAY_CALLED);
+        if (allowPlayCalledSuit) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_YES);
+        } else {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_NO);
+        }
+        header(MessagesTarotPage.M_BIDS);
+        for (String b: contrats) {
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessageDir(b);
+            getBuilder().feedParents();
+        }
+        header(MessagesTarotPage.M_DECLS);
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_HANDS);
+        getBuilder().initGrid();
+        getBuilder().colCount(2);
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_HAND));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_NB));
+        for (EntryCust<String,Integer> e: poigneesAutorisees.entryList()) {
+            getBuilder().formatMessageDirCts(e.getKey());
+            getBuilder().formatMessageDirCts(Long.toString(e.getValue()));
+        }
+        getBuilder().feedParents();
+        header(MessagesTarotPage.M_MIS);
+        for (String b: miseres) {
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessageDir(b);
+            getBuilder().feedParents();
+        }
+        if (miseres.isEmpty()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_NOTHING);
+        }
+        header(MessagesTarotPage.M_ENDING);
+        getBuilder().formatMessageDir(finPartieTarot);
+    }
+    private void header(String _key) {
+        getBuilder().setHeader(1);
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", _key);
+        getBuilder().setHeader(0);
+    }
     @Override
     public void beforeDisplaying() {
         RulesTarot rules_ = db();

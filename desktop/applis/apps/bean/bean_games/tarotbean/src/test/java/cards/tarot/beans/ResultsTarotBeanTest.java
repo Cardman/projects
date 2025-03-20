@@ -21,212 +21,212 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
 
     @Test
     public void eq1() {
-        assertTrue(callResultsTarotBeanEquality(displaying(beanResultsTarot(EN,results(game1(),0)))));
+        assertTrue(callResultsTarotBeanEquality(displayingGame(beanResultsTarot(EN,results(game1(),0)))));
     }
     @Test
     public void eq2() {
-        assertFalse(callResultsTarotBeanEquality(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertFalse(callResultsTarotBeanEquality(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
 
     @Test
     public void loose1() {
-        assertFalse(callResultsTarotBeanLoose(displaying(beanResultsTarot(EN,results(game1(),0)))));
+        assertFalse(callResultsTarotBeanLoose(displayingGame(beanResultsTarot(EN,results(game1(),0)))));
     }
     @Test
     public void loose2() {
-        assertTrue(callResultsTarotBeanLoose(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertTrue(callResultsTarotBeanLoose(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
 
     @Test
     public void win1() {
-        assertFalse(callResultsTarotBeanWin(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertFalse(callResultsTarotBeanWin(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
     @Test
     public void win2() {
-        assertTrue(callResultsTarotBeanWin(displaying(beanResultsTarot(EN,results(game2(),1)))));
+        assertTrue(callResultsTarotBeanWin(displayingGame(beanResultsTarot(EN,results(game2(),1)))));
     }
 
     @Test
     public void failBid1() {
-        assertFalse(callResultsTarotBeanFailedBid(displaying(beanResultsTarot(EN,results(game1(),0)))));
+        assertFalse(callResultsTarotBeanFailedBid(displayingGame(beanResultsTarot(EN,results(game1(),0)))));
     }
     @Test
     public void failBid2() {
-        assertTrue(callResultsTarotBeanFailedBid(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertTrue(callResultsTarotBeanFailedBid(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
 
     @Test
     public void midBid1() {
-        assertTrue(callResultsTarotBeanMidBid(displaying(beanResultsTarot(EN,results(game1(),0)))));
+        assertTrue(callResultsTarotBeanMidBid(displayingGame(beanResultsTarot(EN,results(game1(),0)))));
     }
     @Test
     public void midBid2() {
-        assertFalse(callResultsTarotBeanMidBid(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertFalse(callResultsTarotBeanMidBid(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
 
     @Test
     public void sucBid1() {
-        assertTrue(callResultsTarotBeanSuccessfulBid(displaying(beanResultsTarot(EN,results(game3(),0)))));
+        assertTrue(callResultsTarotBeanSuccessfulBid(displayingGame(beanResultsTarot(EN,results(game3(),0)))));
     }
     @Test
     public void sucBid2() {
-        assertFalse(callResultsTarotBeanSuccessfulBid(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertFalse(callResultsTarotBeanSuccessfulBid(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
     @Test
     public void slam1() {
-        assertTrue(callResultsTarotBeanSuccessfulDeclaredSlamAttack(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+        assertTrue(callResultsTarotBeanSuccessfulDeclaredSlamAttack(displayingGame(beanResultsTarot(EN,resultsFive(game4(),0)))));
     }
     @Test
     public void slam2() {
-        assertFalse(callResultsTarotBeanSuccessfulDeclaredSlamAttack(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertFalse(callResultsTarotBeanSuccessfulDeclaredSlamAttack(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
     @Test
     public void slamNotDecl1() {
-        assertTrue(callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(displaying(beanResultsTarot(EN,resultsFive(game5(),0)))));
+        assertTrue(callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(displayingGame(beanResultsTarot(EN,resultsFive(game5(),0)))));
     }
     @Test
     public void slamNotDecl2() {
-        assertFalse(callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+        assertFalse(callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(displayingGame(beanResultsTarot(EN,resultsFive(game4(),0)))));
     }
     @Test
     public void slamNotDecl3() {
-        assertFalse(callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertFalse(callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
     @Test
     public void noSlamAtt1() {
-        assertFalse(callResultsTarotBeanNoSlamAttack(displaying(beanResultsTarot(EN,resultsFive(game5(),0)))));
+        assertFalse(callResultsTarotBeanNoSlamAttack(displayingGame(beanResultsTarot(EN,resultsFive(game5(),0)))));
     }
     @Test
     public void noSlamAtt2() {
-        assertTrue(callResultsTarotBeanNoSlamAttack(displaying(beanResultsTarot(EN,results(game2(),0)))));
+        assertTrue(callResultsTarotBeanNoSlamAttack(displayingGame(beanResultsTarot(EN,results(game2(),0)))));
     }
     @Test
     public void failedSlam1() {
-        assertTrue(callResultsTarotBeanFailedSlamAttack(displaying(beanResultsTarot(EN,resultsFive(game6(),0)))));
+        assertTrue(callResultsTarotBeanFailedSlamAttack(displayingGame(beanResultsTarot(EN,resultsFive(game6(),0)))));
     }
     @Test
     public void failedSlam2() {
-        assertFalse(callResultsTarotBeanFailedSlamAttack(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+        assertFalse(callResultsTarotBeanFailedSlamAttack(displayingGame(beanResultsTarot(EN,resultsFive(game4(),0)))));
     }
     @Test
     public void slamDef1() {
-        assertFalse(callResultsTarotBeanSlamDefense(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+        assertFalse(callResultsTarotBeanSlamDefense(displayingGame(beanResultsTarot(EN,resultsFive(game4(),0)))));
     }
     @Test
     public void slamDef2() {
-        assertTrue(callResultsTarotBeanSlamDefense(displaying(beanResultsTarot(EN,results(game6(),0)))));
+        assertTrue(callResultsTarotBeanSlamDefense(displayingGame(beanResultsTarot(EN,results(game6(),0)))));
     }
     @Test
     public void noSlamDef1() {
-        assertTrue(callResultsTarotBeanNoSlamDefense(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+        assertTrue(callResultsTarotBeanNoSlamDefense(displayingGame(beanResultsTarot(EN,resultsFive(game4(),0)))));
     }
     @Test
     public void noSlamDef2() {
-        assertFalse(callResultsTarotBeanNoSlamDefense(displaying(beanResultsTarot(EN,results(game6(),0)))));
+        assertFalse(callResultsTarotBeanNoSlamDefense(displayingGame(beanResultsTarot(EN,results(game6(),0)))));
     }
     @Test
     public void initialUserPosition1() {
-        assertEq(1,callResultsTarotBeanInitialUserPosition(displaying(beanResultsTarot(EN,results(game7(),0)))));
+        assertEq(1,callResultsTarotBeanInitialUserPosition(displayingGame(beanResultsTarot(EN,results(game7(),0)))));
     }
     @Test
     public void finalUserPosition1() {
-        assertEq(1,callResultsTarotBeanFinalUserPosition(displaying(beanResultsTarot(EN,results(game7(),0)))));
+        assertEq(1,callResultsTarotBeanFinalUserPosition(displayingGame(beanResultsTarot(EN,results(game7(),0)))));
     }
     @Test
     public void initialUserPosition2() {
-        assertEq(5,callResultsTarotBeanInitialUserPosition(displaying(beanResultsTarot(EN,results(game8(),0)))));
+        assertEq(5,callResultsTarotBeanInitialUserPosition(displayingGame(beanResultsTarot(EN,results(game8(),0)))));
     }
     @Test
     public void finalUserPosition2() {
-        assertEq(5,callResultsTarotBeanFinalUserPosition(displaying(beanResultsTarot(EN,results(game8(),0)))));
+        assertEq(5,callResultsTarotBeanFinalUserPosition(displayingGame(beanResultsTarot(EN,results(game8(),0)))));
     }
     @Test
     public void playClassic1() {
-        assertTrue(callTarotBeanPlayClassicGame(displaying(beanResultsTarot(EN,results(game4(),0)))));
+        assertTrue(callTarotBeanPlayClassicGame(displayingGame(beanResultsTarot(EN,results(game4(),0)))));
     }
     @Test
     public void playClassic2() {
-        assertFalse(callTarotBeanPlayClassicGame(displaying(beanResultsTarot(EN,results(game7(),0)))));
+        assertFalse(callTarotBeanPlayClassicGame(displayingGame(beanResultsTarot(EN,results(game7(),0)))));
     }
     @Test
     public void playClassic3() {
-        assertFalse(callTarotBeanPlayClassicGame(displaying(beanResultsTarot(EN,results(game9(),0)))));
+        assertFalse(callTarotBeanPlayClassicGame(displayingGame(beanResultsTarot(EN,results(game9(),0)))));
     }
     @Test
     public void playVariant1() {
-        assertFalse(callTarotBeanPlayVariantModeGame(displaying(beanResultsTarot(EN,results(game4(),0)))));
+        assertFalse(callTarotBeanPlayVariantModeGame(displayingGame(beanResultsTarot(EN,results(game4(),0)))));
     }
     @Test
     public void playVariant2() {
-        assertTrue(callTarotBeanPlayVariantModeGame(displaying(beanResultsTarot(EN,results(game7(),0)))));
+        assertTrue(callTarotBeanPlayVariantModeGame(displayingGame(beanResultsTarot(EN,results(game7(),0)))));
     }
     @Test
     public void playVariant3() {
-        assertFalse(callTarotBeanPlayVariantModeGame(displaying(beanResultsTarot(EN,results(game9(),0)))));
+        assertFalse(callTarotBeanPlayVariantModeGame(displayingGame(beanResultsTarot(EN,results(game9(),0)))));
     }
     @Test
     public void bidStr() {
-        assertEq(WITHOUT,callResultsTarotBeanBidString(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+        assertEq(WITHOUT,callResultsTarotBeanBidString(displayingGame(beanResultsTarot(EN,resultsFive(game4(),0)))));
     }
     @Test
     public void diff() {
-        assertEq(55,callResultsTarotBeanAbsoluteDiff(displaying(beanResultsTarot(EN,resultsFive(game4(),0)))));
+        assertEq(55,callResultsTarotBeanAbsoluteDiff(displayingGame(beanResultsTarot(EN,resultsFive(game4(),0)))));
     }
     @Test
     public void calledPlayers() {
-        NaSt pl_ = callResultsTarotBeanCalledPlayers(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt pl_ = callResultsTarotBeanCalledPlayers(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, pl_);
         assertEq("1", elt(pl_,0));
     }
     @Test
     public void calledCards() {
-        NaSt pl_ = callResultsTarotBeanCalledCardsList(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt pl_ = callResultsTarotBeanCalledCardsList(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, pl_);
         assertEq(HEART_KING, elt(pl_,0));
     }
     @Test
     public void taker1() {
-        assertEq("0", callResultsTarotBeanTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq("0", callResultsTarotBeanTaker(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void taker2() {
-        assertEq(91, callResultsTarotBeanScoreTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq(91, callResultsTarotBeanScoreTaker(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void taker3() {
-        assertEq(3, callResultsTarotBeanNumberOudlersTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq(3, callResultsTarotBeanNumberOudlersTaker(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void taker4() {
-        assertEq(36, callResultsTarotBeanNeedlyScoresTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq(36, callResultsTarotBeanNeedlyScoresTaker(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void taker5() {
-        assertEq(55, callResultsTarotBeanDifferenceScoreTaker(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq(55, callResultsTarotBeanDifferenceScoreTaker(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void taker6() {
-        assertEq(90, callResultsTarotBeanScoreTakerWithoutDeclaring(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq(90, callResultsTarotBeanScoreTakerWithoutDeclaring(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void bonus1() {
-        assertEq(400, callResultsTarotBeanAdditionnalBonusesAttack(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq(400, callResultsTarotBeanAdditionnalBonusesAttack(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void bonus2() {
-        assertEq(0, callResultsTarotBeanAdditionnalBonusesDefense(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        assertEq(0, callResultsTarotBeanAdditionnalBonusesDefense(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
     }
     @Test
     public void maxDiff1() {
-        assertEq(46, callResultsTarotBeanMaxDifference(displaying(beanResultsTarot(EN, resultsFive(game7(), 0)))));
+        assertEq(46, callResultsTarotBeanMaxDifference(displayingGame(beanResultsTarot(EN, resultsFive(game7(), 0)))));
     }
     @Test
     public void maxDiff2() {
-        assertEq(80,callResultsTarotBeanMaxDoubledDifference(displaying(beanResultsTarot(EN, resultsFive(game7(), 0)))));
+        assertEq(80,callResultsTarotBeanMaxDoubledDifference(displayingGame(beanResultsTarot(EN, resultsFive(game7(), 0)))));
     }
     @Test
     public void ld() {
-        NaSt res_ = callResultsTarotBeanLinesDeal(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt res_ = callResultsTarotBeanLinesDeal(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, res_);
         assertSizeEq(5, res_,0);
         assertNumberEq(0, res_,0);
@@ -238,7 +238,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     }
     @Test
     public void scores() {
-        NaSt res_ = callTarotBeanGetScores(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt res_ = callTarotBeanGetScores(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, res_);
         assertSizeLongsEq(5, res_,0);
         assertLongsEq(1730, res_,0,0);
@@ -249,8 +249,8 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     }
     @Test
     public void nicknames() {
-        assertSizeEq(5,callTarotBeanNicknames(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
-        NaSt pl_ = callTarotBeanGetNicknames(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertSizeEq(5,callTarotBeanNicknames(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
+        NaSt pl_ = callTarotBeanGetNicknames(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(5, pl_);
         assertEq("0", elt(pl_,0));
         assertEq("1", elt(pl_,1));

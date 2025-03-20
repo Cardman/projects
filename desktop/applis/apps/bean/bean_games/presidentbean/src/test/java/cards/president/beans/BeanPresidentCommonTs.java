@@ -4,8 +4,11 @@ import cards.consts.beans.LineDealStruct;
 import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import code.bean.nat.*;
-import code.bean.nat.*;
 import code.maths.Rate;
+import code.scripts.pages.cards.MessagesPresidentPage;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsLg;
 import code.util.Longs;
 import code.util.core.StringUtil;
 
@@ -15,8 +18,14 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
     public static NaSt beanResults(String _language, ResultsPresident _dataBase) {
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
         stds_.setDataBase(_dataBase);
-        return stds_.beanResults(_language);
+        PresidentBean bean_ = new PresidentBean();
+        PresidentBeanStruct str_ = PresidentStandards.bean(bean_);
+        bean_.setDataBase(stds_.getDataBase());
+        bean_.setBuilder(builder());
+        bean_.setLanguage(_language);
+        return str_;
     }
+
 
     public static NaSt callPresidentBeanNicknames(NaSt _str, long... _args) {
         return callLongs(new PresidentBeanNicknames(),_str,_args);
@@ -28,7 +37,12 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
     public static NaSt beanRules(String _language, RulesPresident _dataBase) {
         PresidentStandardsRules stds_ = new PresidentStandardsRules();
         stds_.setDataBaseRules(_dataBase);
-        return stds_.beanRules(_language);
+        RulesPresidentBean bean_ = new RulesPresidentBean();
+        PresidentBeanStruct b_ = PresidentStandards.bean(bean_);
+        bean_.setDataBase(stds_.getDataBaseRules());
+        bean_.setBuilder(builder());
+        bean_.setLanguage(_language);
+        return b_;
     }
     public static NaSt callRulesPresidentBeanSameAmount(NaSt _str, long... _args) {
         return callLongs(new RulesPresidentBeanSameAmount(),_str,_args);
@@ -78,13 +92,16 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
     }
 
     public NaSt displaying(NaSt _b) {
-        beforeDisplaying(_b);
+        ((RulesPresidentBean)((PresidentBeanStruct)_b).getBean()).build();
         return _b;
     }
 
-    public static void beforeDisplaying(NaSt _bean) {
-        ((BeanStruct)_bean).beforeDisplaying();
+
+    public NaSt displayingGame(NaSt _b) {
+        ((PresidentBean)((PresidentBeanStruct)_b).getBean()).build();
+        return _b;
     }
+
     public static NaSt[] getLongArray(long... _ls){
         return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
     }
@@ -125,5 +142,18 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
     }
     public static void assertEq(long _exp, NaSt _result, int _index) {
         assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
+    }
+
+    private static IntBeanBuilderHelperPresidentImpl builder() {
+        IntBeanBuilderHelperPresidentImpl builder_ = new IntBeanBuilderHelperPresidentImpl();
+        Translations ts_ = new Translations();
+        ts_.getMapping().addEntry(EN,new TranslationsLg());
+        ts_.getMapping().addEntry(FR,new TranslationsLg());
+        ts_.getMapping().getVal(EN).getMapping().addEntry(MessagesPresidentPage.APP_BEAN,new TranslationsAppli());
+        ts_.getMapping().getVal(FR).getMapping().addEntry(MessagesPresidentPage.APP_BEAN,new TranslationsAppli());
+        ts_.getMapping().getVal(EN).getMapping().getVal(MessagesPresidentPage.APP_BEAN).getMapping().addEntry("",MessagesPresidentPage.en());
+        ts_.getMapping().getVal(FR).getMapping().getVal(MessagesPresidentPage.APP_BEAN).getMapping().addEntry("",MessagesPresidentPage.fr());
+        builder_.setTranslations(ts_);
+        return builder_;
     }
 }

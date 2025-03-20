@@ -44,7 +44,10 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         assertSizeEq(1, res_);
         assertEq(LOW_CARDS, res_,0);
     }
-
+    @Test
+    public void getMiseresNo() {
+        assertSizeEq(0, callRulesTarotBeanMiseres(displaying(beanRules(EN, rulesSh()))));
+    }
     @Test
     public void getBids() {
         NaSt res_ = callRulesTarotBeanContrats(displaying(beanRules(EN, rules())));
@@ -153,6 +156,38 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         rulesTarot_.allowSome(bids_);
         rulesTarot_.setMode(ModeTarot.NORMAL);
         rulesTarot_.getMiseres().add(Miseres.LOW_CARDS);
+        StringMap<String> e_ = new  StringMap<String>();
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.FOLD),FOLD);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD),GUARD);
+        e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.SLAM),SLAM);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.ONE),ONE);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.TWO),TWO);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.THREE),THREE);
+        e_.addEntry(TarotCardsExporterUtil.HANDFUL+TarotCardsExporterUtil.fromHandfuls(Handfuls.FOUR),FOUR);
+        e_.addEntry(TarotCardsExporterUtil.END_DEAL+TarotCardsExporterUtil.fromEndDealTarot(EndDealTarot.ATTACK_WIN),ATTACK_WINS);
+        e_.addEntry(TarotCardsExporterUtil.MISERES+TarotCardsExporterUtil.fromMiseres(Miseres.LOW_CARDS),LOW_CARDS);
+        e_.addEntry(TarotCardsExporterUtil.MODE+TarotCardsExporterUtil.fromModeTarot(ModeTarot.NORMAL),NORMAL);
+        e_.addEntry(TarotCardsExporterUtil.DEAL+TarotCardsExporterUtil.fromDealingTarot(DealingTarot.DEAL_1_VS_4),DEAL_1_VS_4);
+        rulesTarot_.getCommon().setSpecific(e_);
+        rulesTarot_.setEndDealTarot(EndDealTarot.ATTACK_WIN);
+        rulesTarot_.setAllowPlayCalledSuit(_allowPlayCalledSuit);
+        rulesTarot_.setDiscardAfterCall(_discardAfterCall);
+        return rulesTarot_;
+    }
+    private RulesTarot rulesSh() {
+        return rulesSh(DealingTarot.DEAL_1_VS_4, true, true);
+    }
+    private RulesTarot rulesSh(DealingTarot _deal, boolean _allowPlayCalledSuit, boolean _discardAfterCall) {
+        RulesTarot rulesTarot_ = new RulesTarot(_deal.getId().getNombreJoueurs());
+        rulesTarot_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(EnumCardsExporterUtil.fromMixCardsChoice(MixCardsChoice.EACH_LAUNCHING),AT_EACH_LAUNCHING);
+        rulesTarot_.getCommon().setGeneral(m_);
+        rulesTarot_.setDealing(_deal);
+        IdList<BidTarot> bids_ = new IdList<BidTarot>();
+        bids_.add(BidTarot.SLAM);
+        rulesTarot_.allowSome(bids_);
+        rulesTarot_.setMode(ModeTarot.NORMAL);
         StringMap<String> e_ = new  StringMap<String>();
         e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.FOLD),FOLD);
         e_.addEntry(TarotCardsExporterUtil.BID+TarotCardsExporterUtil.fromBidTarot(BidTarot.GUARD),GUARD);

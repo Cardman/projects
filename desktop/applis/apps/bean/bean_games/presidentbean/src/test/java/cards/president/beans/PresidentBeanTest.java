@@ -15,7 +15,7 @@ import org.junit.Test;
 public final class PresidentBeanTest extends BeanPresidentCommonTs {
     @Test
     public void getNickNames() {
-        NaSt res_ = callPresidentBeanNicknames(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), 2, 1, 3, 4))));
+        NaSt res_ = callPresidentBeanNicknames(displayingGame(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), 2, 1, 3, 4))));
         assertSizeEq(4,res_);
         assertEq("0",res_,0);
         assertEq("1",res_,1);
@@ -24,7 +24,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
     }
     @Test
     public void getLinesDeal() {
-        NaSt res_ = callPresidentBeanLinesDeal(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), 2,  1,  3, 4))));
+        NaSt res_ = callPresidentBeanLinesDeal(displayingGame(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), 2,  1,  3, 4))));
         assertSizeEq(2,res_);
         assertSizeEq(4,res_,0);
         assertNumberEq(0,res_,0);

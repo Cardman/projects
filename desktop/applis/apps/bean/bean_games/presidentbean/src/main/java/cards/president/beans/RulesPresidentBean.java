@@ -7,6 +7,8 @@ import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.PresidentCardsExporterUtil;
 import code.bean.Bean;
+import code.bean.IntBeanBuilderHelperCommon;
+import code.scripts.pages.cards.MessagesPresidentPage;
 import code.util.StringMap;
 
 public final class RulesPresidentBean extends Bean {
@@ -34,12 +36,66 @@ public final class RulesPresidentBean extends Bean {
     private int nbCardsPerPlayerMax;
 
     private RulesPresident dataBase;
+    private IntBeanBuilderHelperCommon builder;
     public RulesPresident db() {
         return dataBase;
     }
 
     public void setDataBase(RulesPresident _dataBase) {
         dataBase = _dataBase;
+    }
+
+    public void build() {
+        beforeDisplaying();
+        header(MessagesPresidentPage.M_BEAT_CARDS);
+        getBuilder().formatMessageDir(cartesBattues);
+        header(MessagesPresidentPage.M_NB_PLAYERS);
+        getBuilder().formatMessageDir(Long.toString(nbPlayers));
+        header(MessagesPresidentPage.M_NB_STACKS);
+        getBuilder().formatMessageDir(Long.toString(nbStacks));
+        if (sameAmount()) {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_NB_CARDS,Long.toString(nbCardsPerPlayerMin));
+        } else {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_NB_CARDS_BET,Long.toString(nbCardsPerPlayerMin),Long.toString(nbCardsPerPlayerMax));
+        }
+        header(MessagesPresidentPage.M_EQUALTY);
+        getBuilder().formatMessageDir(equalty);
+        header(MessagesPresidentPage.M_INVERT);
+        if (possibleReversing) {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_YES);
+        } else {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_NO);
+        }
+        header(MessagesPresidentPage.M_HAS_TO_PLAY);
+        if (hasToPlay) {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_YES);
+        } else {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_NO);
+        }
+        header(MessagesPresidentPage.M_LOOSE_COND);
+        if (loosingIfFinishByBestCards) {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_YES);
+        } else {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_NO);
+        }
+        header(MessagesPresidentPage.M_SWITCH);
+        if (switchCards) {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_YES);
+        } else {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_NO);
+        }
+        header(MessagesPresidentPage.M_LOSSE_FIRST);
+        if (looserStartsFirst) {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_YES);
+        } else {
+            getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"",MessagesPresidentPage.M_NO);
+        }
+    }
+
+    private void header(String _key) {
+        getBuilder().setHeader(1);
+        getBuilder().formatMessage(MessagesPresidentPage.APP_BEAN,"", _key);
+        getBuilder().setHeader(0);
     }
 
     @Override
@@ -117,4 +173,11 @@ public final class RulesPresidentBean extends Bean {
         return nbCardsPerPlayerMax;
     }
 
+    public IntBeanBuilderHelperCommon getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(IntBeanBuilderHelperCommon _b) {
+        this.builder = _b;
+    }
 }

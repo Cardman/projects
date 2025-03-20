@@ -1,99 +1,47 @@
 package aiki.beans;
 
-import aiki.facade.FacadeGame;
-import code.sml.util.*;
+import aiki.facade.*;
+import code.bean.*;
 import code.util.*;
-import code.util.core.*;
 
-public abstract class IntBeanBuilderHelper {
+public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
     private StringMap<BeanRenderWithAppName> renders = new StringMap<BeanRenderWithAppName>();
-    private int partGroup;
-    private int rowGroup;
-    private final Ints colCount = new Ints();
-    private final Ints colIndex = new Ints();
+
     private IntBeanGeneInput genInput;
     private FacadeGame facade;
-    private Translations translations;
     private final IdList<IntBeanAction> anchors = new IdList<IntBeanAction>();
-    private int indent;
-    private String refLk = "";
-    private int header;
-    private final Ints orderedLists = new Ints();
-    private StringMapObject forms = new StringMapObject();
+    private final StringMapObject forms = new StringMapObject();
     protected IntBeanBuilderHelper() {
+    }
+
+    @Override
+    public void breakNext() {
+        nextPart();
+    }
+
+    @Override
+    public void nextPart() {
+        breakLine();
+        super.nextPart();
     }
 
     public void clearAnchors() {
         anchors.clear();
     }
 
-    public void initLine(){
-        incr();
-    }
-
-    public void initPage(){
-        incr();
-    }
-    public void initGrid(){
-        incr();
-    }
-
-    private void incr() {
-        colCount.add(0);
-        colIndex.add(0);
-        breakNext();
-    }
-    public void feedParentsCts(){
-        decr();
-    }
-    public void feedParents(){
-        decr();
-    }
-
-    public void decr() {
-        colCount.removeQuicklyLast();
-        colIndex.removeQuicklyLast();
-        breakNext();
-    }
-
-    public void breakNext() {
-        breakLine();
-        nextPart();
-    }
-
-    public abstract void setTitledBorder(String _title);
-
     public void formatMessageAnc(String _with,IntBeanAction _e,String _file, String _key, String... _values) {
         String txt_ = formatMessageRend(_with,_file, _key, _values);
         formatMessageDir(txt_,_e);
     }
 
-    public void formatMessage(String _with,String _file, String _key, String... _values) {
-        String txt_ = formatMessageRend(_with,_file, _key, _values);
-        formatMessageDir(txt_);
+    @Override
+    public String getLanguage() {
+        return getFacade().getLanguage();
     }
 
-    public String formatMessageRend(String _with,String _file, String _key, String... _values) {
-        return StringUtil.simpleStringsFormat(file(_with, _file).getMapping().getVal(_key), _values);
-    }
-
-    public TranslationsFile file(String _with, String _file) {
-        return files(_with).getVal(_file);
-    }
-    public StringMap<TranslationsFile> files(String _with) {
-        return getTranslations().getMapping().getVal(getFacade().getLanguage()).getMapping().getVal(_with).getMapping();
-    }
-    public abstract void formatMessageDir(String _txt);
     public abstract void formatMessageDir(String _txt, IntBeanAction _e);
-    public abstract void formatMessageDirCtsHeader(String _txt);
-    public abstract void formatMessageDirCts(String _txt);
     public abstract void formatMessageDirCts(String _txt, IntBeanAction _e);
     public abstract void breakLine();
-    public abstract void paintMetaLabelDisk();
-    public abstract void paintNb(int _nb);
-    public abstract void paintIndent();
-    public abstract void addImg(int[][] _img);
-    public abstract void addImgCts(int[][] _img, String _tip);
     public abstract void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e);
 
     public void build(IntBeanAction _action) {
@@ -120,32 +68,8 @@ public abstract class IntBeanBuilderHelper {
         this.genInput = _g;
     }
 
-    public void nextPart() {
-        partGroup++;
-        rowGroup = 0;
-    }
-
-    public void indent() {
-        int indent_ = getIndent();
-        for (int i = 0; i < indent_; i++) {
-           paintIndent();
-        }
-    }
-
     public StringMapObject getForms() {
         return forms;
-    }
-
-    public void incColIndex() {
-        colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % colCount());
-    }
-
-    public int colIndex() {
-        return getColIndex().last();
-    }
-
-    public Ints getColIndex() {
-        return colIndex;
     }
 
     public StringMap<BeanRenderWithAppName> getRenders() {
@@ -154,61 +78,6 @@ public abstract class IntBeanBuilderHelper {
 
     public void setRenders(StringMap<BeanRenderWithAppName> _r) {
         this.renders = _r;
-    }
-    public int getPartGroup() {
-        return partGroup;
-    }
-
-    public void setPartGroup(int _p) {
-        this.partGroup = _p;
-    }
-
-    public int getRowGroup() {
-        return rowGroup;
-    }
-
-    public void setRowGroup(int _r) {
-        this.rowGroup = _r;
-    }
-
-    public int getIndent() {
-        return indent;
-    }
-
-    public void setIndent(int _i) {
-        this.indent = _i;
-    }
-
-    public String getRefLk() {
-        return refLk;
-    }
-
-    public void setRefLk(String _r) {
-        this.refLk = _r;
-    }
-
-    public int getHeader() {
-        return header;
-    }
-
-    public void setHeader(int _h) {
-        this.header = _h;
-    }
-
-    public Ints getOrderedLists() {
-        return orderedLists;
-    }
-
-    public int colCount() {
-        return getColCount().last();
-    }
-
-    public Ints getColCount() {
-        return colCount;
-    }
-
-    public void colCount(int _c) {
-        colCount.set(colCount.getLastIndex(),_c);
     }
 
     public FacadeGame getFacade() {
@@ -219,13 +88,6 @@ public abstract class IntBeanBuilderHelper {
         this.facade = _f;
     }
 
-    public Translations getTranslations() {
-        return translations;
-    }
-
-    public void setTranslations(Translations _t) {
-        this.translations = _t;
-    }
 
     public IdList<IntBeanAction> getAnchors() {
         return anchors;

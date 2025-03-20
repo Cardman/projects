@@ -10,6 +10,7 @@ import cards.tarot.comparators.SortedMiseres;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.maths.Rate;
+import code.scripts.pages.cards.MessagesTarotPage;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -48,6 +49,157 @@ public final class DetailsResultsTarotBean extends TarotBean {
 
     private CustList<BonusesPlayers> bonuses;
 
+    public void build() {
+        beforeDisplaying();
+        if (playClassicGame()) {
+            classicGame();
+        }
+        if (playVariantModeGame()) {
+            variantModeGame();
+        }
+    }
+
+    private void variantModeGame() {
+        getBuilder().formatMessageDir(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_1));
+        getBuilder().initGrid();
+        getBuilder().colCount(6);
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_1_1));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_1_2));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_1_3));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_1_4));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_1_5));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_1_6));
+        for (RankingPlayerVariantGame s:orderedPlayers) {
+            getBuilder().formatMessageDirCts(s.getNickname());
+            getBuilder().formatMessageDirCts(Long.toString(s.getPositionDiff()));
+            getBuilder().formatMessageDirCts(Long.toString(s.getPositionOudlers()));
+            getBuilder().formatMessageDirCts(Long.toString(s.getPositionCharacters()));
+            getBuilder().formatMessageDirCts(Long.toString(s.getPositionStrengthCharacters()));
+            getBuilder().formatMessageDirCts(Long.toString(s.getFinalPosition()));
+        }
+        getBuilder().feedParents();
+        getBuilder().formatMessageDir(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_2));
+        getBuilder().initGrid();
+        getBuilder().colCount(6);
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_2_1));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_2_2));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_2_3));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_2_4));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_2_5));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_TABLE_2_6));
+        for (PointsPlayerVariantGame s:pointsPlayers) {
+            getBuilder().formatMessageDirCts(s.getNickname());
+            getBuilder().formatMessageDirCts(s.getPointsTricks().toNumberString());
+            getBuilder().formatMessageDirCts(Long.toString(s.getMinimumPoints()));
+            getBuilder().formatMessageDirCts(s.getDifferenceScore().toNumberString());
+            getBuilder().formatMessageDirCts(Long.toString(s.getRate()));
+            getBuilder().formatMessageDirCts(Long.toString(s.getScore()));
+        }
+        getBuilder().feedParents();
+        header(MessagesTarotPage.M_VARIANT_DECL);
+        getBuilder().initPage();
+        for (TarotSumDeclaringPlayer p:linesDeclaring) {
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_DECL_PL,p.getNickname());
+            getBuilder().feedParents();
+            getBuilder().setIndent(1);
+            for (EntryCust<String,Long> d: p.getHandfuls().entryList()) {
+                getBuilder().initLine();
+                getBuilder().paintMetaLabelDisk();
+                getBuilder().formatMessageDir(d.getKey());
+                getBuilder().feedParents();
+            }
+            for (EntryCust<String,Long> d: p.getMiseres().entryList()) {
+                getBuilder().initLine();
+                getBuilder().paintMetaLabelDisk();
+                getBuilder().formatMessageDir(d.getKey());
+                getBuilder().feedParents();
+            }
+            getBuilder().setIndent(0);
+        }
+        getBuilder().feedParents();
+        header(MessagesTarotPage.M_VARIANT_ADD);
+        getBuilder().formatMessageDir(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_ADD_PL));
+        getBuilder().initGrid();
+        getBuilder().colCount(2);
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_ADD_PL_1));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_VARIANT_ADD_PL_2));
+        for (BonusesPlayers s:bonuses) {
+            getBuilder().formatMessageDirCts(s.getNickname());
+            getBuilder().formatMessageDirCts(Long.toString(s.getBonus()));
+        }
+        getBuilder().feedParents();
+    }
+
+    private void classicGame() {
+        header(MessagesTarotPage.M_CLASSIC_BID);
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_BASE);
+        getBuilder().formatMessageDir(Long.toString(basePoints));
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_SMALL);
+        getBuilder().formatMessageDir(playerSmall);
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_DIFF);
+        getBuilder().formatMessageDir(Long.toString(differenceScoreTaker));
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_RATE);
+        getBuilder().formatMessageDir(Long.toString(rate));
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_SCORE_TAKER,Long.toString(basePoints),small,Long.toString(differenceScoreTaker),Long.toString(rate),Long.toString(multipliedTmp));
+        header(MessagesTarotPage.M_CLASSIC_DECL);
+        getBuilder().initPage();
+        for (TarotSumDeclaringPlayer p:linesDeclaring) {
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_CLASSIC_DECL_PLAYER,p.getNickname(),p.getStatus());
+            getBuilder().feedParents();
+            getBuilder().setIndent(1);
+            for (EntryCust<String,Long> d: p.getHandfuls().entryList()) {
+                getBuilder().initLine();
+                getBuilder().paintMetaLabelDisk();
+                getBuilder().formatMessageDir(d.getKey()+" : "+d.getValue());
+                getBuilder().feedParents();
+            }
+            for (EntryCust<String,Long> d: p.getMiseres().entryList()) {
+                getBuilder().initLine();
+                getBuilder().paintMetaLabelDisk();
+                getBuilder().formatMessageDir(d.getKey()+" : "+d.getValue());
+                getBuilder().feedParents();
+            }
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_SUM,Long.toString(p.getSum()));
+            getBuilder().feedParents();
+            getBuilder().setIndent(0);
+        }
+        getBuilder().initLine();
+        getBuilder().paintMetaLabelDisk();
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_CLASSIC_SUM_PLAYER,Long.toString(sumPlayers));
+        getBuilder().feedParents();
+        getBuilder().feedParents();
+        header(MessagesTarotPage.M_CLASSIC_ADDON);
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_ADDON_ATT);
+        getBuilder().formatMessageDir(Long.toString(additionnalBonusesAttack));
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_ADDON_DEF);
+        getBuilder().formatMessageDir(Long.toString(additionnalBonusesDefense));
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_ADDON_SUM);
+        getBuilder().formatMessageDir(Long.toString(diffAttackDefenseBonuses));
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", MessagesTarotPage.M_CLASSIC_RATE_PL);
+        getBuilder().initGrid();
+        getBuilder().colCount(3);
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_PLAYER));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_RATE));
+        getBuilder().formatMessageDirCts(getBuilder().formatMessageRend(MessagesTarotPage.APP_BEAN,"",MessagesTarotPage.M_SCORE));
+        for (ScoresPlayers s:playersScores) {
+            getBuilder().formatMessageDirCts(s.getNickname());
+            getBuilder().formatMessageDirCts(s.getRate().toNumberString());
+            getBuilder().formatMessageDirCts(Long.toString(s.getScore()));
+        }
+        getBuilder().feedParents();
+    }
+
+    private void header(String _key) {
+        getBuilder().setHeader(1);
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", _key);
+        getBuilder().setHeader(0);
+    }
     @Override
     public void beforeDisplaying() {
         ResultsTarot res_ = getResults();

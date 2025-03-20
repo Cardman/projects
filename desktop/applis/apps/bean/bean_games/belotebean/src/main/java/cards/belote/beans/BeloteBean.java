@@ -8,6 +8,7 @@ import cards.belote.enumerations.*;
 import cards.consts.*;
 import cards.consts.beans.LineDealStruct;
 import code.bean.Bean;
+import code.bean.IntBeanBuilderHelperCommon;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
@@ -24,6 +25,7 @@ public abstract class BeloteBean extends Bean {
 
     private ResultsBelote dataBase;
     private RulesBelote dataBaseRules;
+    private IntBeanBuilderHelperCommon builder;
     public RulesBelote db() {
         return dataBaseRules;
     }
@@ -115,5 +117,13 @@ public abstract class BeloteBean extends Bean {
 
     protected final void setBid(BidBeloteSuit _bid) {
         bid = _bid;
+    }
+
+    public IntBeanBuilderHelperCommon getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(IntBeanBuilderHelperCommon _b) {
+        this.builder = _b;
     }
 }

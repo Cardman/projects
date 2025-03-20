@@ -1,6 +1,10 @@
 package cards.consts.beans;
 
 import cards.consts.EndGameState;
+import cards.consts.LineDeal;
+import code.bean.IntBeanBuilderHelperCommon;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.core.NumberUtil;
 
 public final class TakerResult {
@@ -9,6 +13,22 @@ public final class TakerResult {
 
     private EndGameState winEqualityLoose;
 
+    public static int buildScores(IntBeanBuilderHelperCommon _builder, StringList _nicknames, CustList<LineDeal> _lines) {
+        _builder.initGrid();
+        _builder.colCount(_nicknames.size()+1);
+        _builder.formatMessageDirCts("");
+        for (String s:_nicknames) {
+            _builder.formatMessageDirCts(s);
+        }
+        for (LineDeal l: _lines) {
+            _builder.formatMessageDirCts(Long.toString(l.getNumber()));
+            for (long s: l.getScores()) {
+                _builder.formatMessageDirCts(Long.toString(s));
+            }
+        }
+        _builder.feedParents();
+        return 0;
+    }
     public void setDifferenceScoreTaker(long _d) {
         this.differenceScoreTaker = _d;
     }

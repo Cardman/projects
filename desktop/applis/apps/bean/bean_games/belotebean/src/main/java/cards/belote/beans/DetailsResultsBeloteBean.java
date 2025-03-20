@@ -4,12 +4,43 @@ import cards.belote.ResultsBelote;
 import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.belote.enumerations.DeclaresBeloteRebelote;
+import code.scripts.pages.cards.MessagesBelotePage;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class DetailsResultsBeloteBean extends BeloteBean {
 
     private CustList<BeloteSumDeclaringPlayer> declaring;
+
+    public void build() {
+        beforeDisplaying();
+        getBuilder().setHeader(1);
+        getBuilder().formatMessage(MessagesBelotePage.APP_BEAN,"", MessagesBelotePage.M_DETAIL);
+        getBuilder().setHeader(0);
+        getBuilder().initPage();
+        for (BeloteSumDeclaringPlayer p:declaring) {
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessage(MessagesBelotePage.APP_BEAN,"",MessagesBelotePage.M_DECL_PLAYER,p.getNickname(),p.getStatut());
+            if (p.getDeclaring().isEmpty()) {
+                getBuilder().formatMessage(MessagesBelotePage.APP_BEAN,"",MessagesBelotePage.M_NOTHING);
+            }
+            getBuilder().feedParents();
+            getBuilder().setIndent(1);
+            for (DeclaringPlayerValue d: p.getDeclaring()) {
+                getBuilder().initLine();
+                getBuilder().paintMetaLabelDisk();
+                getBuilder().formatMessageDir(d.getDeclaring()+" : "+d.getValue());
+                getBuilder().feedParents();
+            }
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessage(MessagesBelotePage.APP_BEAN,"",MessagesBelotePage.M_SUM,Long.toString(p.getSum()));
+            getBuilder().feedParents();
+            getBuilder().setIndent(0);
+        }
+        getBuilder().feedParents();
+    }
 
     @Override
     public void beforeDisplaying() {

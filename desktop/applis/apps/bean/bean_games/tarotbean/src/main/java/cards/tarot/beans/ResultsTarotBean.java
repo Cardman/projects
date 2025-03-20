@@ -6,6 +6,7 @@ import cards.tarot.EndTarotGame;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.scripts.pages.cards.MessagesTarotPage;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
@@ -48,6 +49,109 @@ public final class ResultsTarotBean extends TarotBean {
 
     private CustList<LineDeal> linesDeal;
 
+    public void build() {
+        beforeDisplaying();
+        if (playClassicGame()) {
+            classicGame();
+        }
+        if (playVariantModeGame()) {
+            header(MessagesTarotPage.M_VARIANT_RES);
+            elt(MessagesTarotPage.M_VARIANT_RES_1, Long.toString(maxDifference));
+            elt(MessagesTarotPage.M_VARIANT_RES_2, Long.toString(initialUserPosition));
+            elt(MessagesTarotPage.M_VARIANT_RES_3, Long.toString(finalUserPosition));
+        }
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_VARIANT_SCORES);
+        TakerResult.buildScores(getBuilder(), getNicknames(), linesDeal);
+    }
+
+    private void classicGame() {
+        header(MessagesTarotPage.M_CLASSIC_POINTS);
+        elt(MessagesTarotPage.M_CLASSIC_OULDERS, Long.toString(numberOudlersTaker));
+        elt(MessagesTarotPage.M_CLASSIC_NEED, Long.toString(needlyScoresTaker));
+        elt(MessagesTarotPage.M_CLASSIC_WON, Long.toString(scoreTaker));
+        header(MessagesTarotPage.M_CLASSIC_ATT);
+        elt(MessagesTarotPage.M_CLASSIC_TAKER, taker);
+        elt(MessagesTarotPage.M_CLASSIC_PARTS);
+        if (calledPlayers.isEmpty()) {
+            elt(MessagesTarotPage.M_CLASSIC_NONE_PART);
+        }
+        getBuilder().setIndent(1);
+        for (String s : calledPlayers) {
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessageDir(s);
+            getBuilder().feedParents();
+        }
+        getBuilder().setIndent(0);
+        elt(MessagesTarotPage.M_CLASSIC_CALLED);
+        if (calledCardsList.isEmpty()) {
+            elt(MessagesTarotPage.M_CLASSIC_NONE_CALLED);
+        }
+        getBuilder().setIndent(1);
+        for (String s : calledCardsList) {
+            getBuilder().initLine();
+            getBuilder().paintMetaLabelDisk();
+            getBuilder().formatMessageDir(s);
+            getBuilder().feedParents();
+        }
+        getBuilder().setIndent(0);
+        elt(MessagesTarotPage.M_CLASSIC_BID_END, bidString());
+        if (getTakerResult().win()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_WIN);
+        }
+        if (getTakerResult().equality()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_EQUALITY);
+        }
+        if (getTakerResult().loose()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_LOOSE);
+        }
+        if (getTakerResult().successfulBid()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_SUCCESSFUL, bidString(), Long.toString(getTakerResult().absoluteDiff()));
+        }
+        if (getTakerResult().midBid()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_MID, bidString());
+        }
+        if (getTakerResult().failedBid()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_FAILED, bidString(), Long.toString(getTakerResult().absoluteDiff()));
+        }
+        bonuses();
+    }
+
+    private void bonuses() {
+        if (successfulDeclaredSlamAttack()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_SUCCESSFULDECLAREDSLAM);
+        }
+        if (successfulNoDeclaredSlamAttack()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_SUCCESSFULNODECLAREDSLAM);
+        }
+        if (failedSlamAttack()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_FAILEDDECLAREDSLAM);
+        }
+        if (noSlamAttack()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_NOSLAMATTACK);
+        }
+        if (slamDefense()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_SLAMDEFENSE);
+        }
+        if (noSlamDefense()) {
+            getBuilder().formatMessage(MessagesTarotPage.APP_BEAN, "", MessagesTarotPage.M_NOSLAMDEFENSE);
+        }
+    }
+
+    private void header(String _key) {
+        getBuilder().setHeader(1);
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"", _key);
+        getBuilder().setHeader(0);
+    }
+    private void elt(String _key, String... _values) {
+        getBuilder().initLine();
+        getBuilder().paintMetaLabelDisk();
+        getBuilder().formatMessage(MessagesTarotPage.APP_BEAN,"",_key);
+        for (String s:_values) {
+            getBuilder().formatMessageDir(s);
+        }
+        getBuilder().feedParents();
+    }
     @Override
     public void beforeDisplaying() {
         ResultsTarot res_ = getResults();

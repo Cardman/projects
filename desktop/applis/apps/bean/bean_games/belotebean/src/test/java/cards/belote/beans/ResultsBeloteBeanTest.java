@@ -21,144 +21,149 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void win1() {
-        assertTrue(callResultsBeloteBeanWin(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertTrue(callResultsBeloteBeanWin(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void win2() {
-        assertFalse(callResultsBeloteBeanWin(displaying(beanResultsBelote(EN,results(game1(),1)))));
+        assertFalse(callResultsBeloteBeanWin(displayingGame(beanResultsBelote(EN,results(game1(),1)))));
     }
     @Test
     public void eq1() {
-        assertTrue(callResultsBeloteBeanEquality(displaying(beanResultsBelote(EN,results(game3(),1)))));
+        assertTrue(callResultsBeloteBeanEquality(displayingGame(beanResultsBelote(EN,results(game3(),1)))));
     }
     @Test
     public void eq2() {
-        assertFalse(callResultsBeloteBeanEquality(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertFalse(callResultsBeloteBeanEquality(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void loose1() {
-        assertFalse(callResultsBeloteBeanLoose(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertFalse(callResultsBeloteBeanLoose(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void loose2() {
-        assertTrue(callResultsBeloteBeanLoose(displaying(beanResultsBelote(EN,results(game1(),1)))));
+        assertTrue(callResultsBeloteBeanLoose(displayingGame(beanResultsBelote(EN,results(game1(),1)))));
     }
 
     @Test
     public void successfulBid1() {
-        assertTrue(callResultsBeloteBeanSuccessfulBid(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertTrue(callResultsBeloteBeanSuccessfulBid(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void successfulBid2() {
-        assertFalse(callResultsBeloteBeanSuccessfulBid(displaying(beanResultsBelote(EN,results(game4(),0)))));
+        assertFalse(callResultsBeloteBeanSuccessfulBid(displayingGame(beanResultsBelote(EN,results(game4(),0)))));
     }
     @Test
     public void midBid1() {
-        assertTrue(callResultsBeloteBeanMidBid(displaying(beanResultsBelote(EN,results(game3(),1)))));
+        assertTrue(callResultsBeloteBeanMidBid(displayingGame(beanResultsBelote(EN,results(game3(),1)))));
     }
     @Test
     public void midBid2() {
-        assertFalse(callResultsBeloteBeanMidBid(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertFalse(callResultsBeloteBeanMidBid(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void looseBid1() {
-        assertTrue(callResultsBeloteBeanFailedBid(displaying(beanResultsBelote(EN,results(game4(),0)))));
+        assertTrue(callResultsBeloteBeanFailedBid(displayingGame(beanResultsBelote(EN,results(game4(),0)))));
     }
 
     @Test
     public void looseBid2() {
-        assertFalse(callResultsBeloteBeanFailedBid(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertFalse(callResultsBeloteBeanFailedBid(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void slam1() {
-        assertTrue(callResultsBeloteBeanSlam(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertTrue(callResultsBeloteBeanSlam(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void slam2() {
-        assertFalse(callResultsBeloteBeanSlam(displaying(beanResultsBelote(EN,results(game2(),0)))));
+        assertFalse(callResultsBeloteBeanSlam(displayingGame(beanResultsBelote(EN,results(game2(),0)))));
     }
 
     @Test
     public void bidString1() {
-        assertEq("",callResultsBeloteBeanBidString(displaying(beanResultsBelote(EN,results(game5(),0)))));
+        assertEq("",callResultsBeloteBeanBidString(displayingGame(beanResultsBelote(EN,results(game5(),0)))));
     }
 
     @Test
     public void bidString2() {
-        assertEq(SPADE,callResultsBeloteBeanBidString(displaying(beanResultsBelote(EN,results(game1(),0)))));
+        assertEq(SPADE,callResultsBeloteBeanBidString(displayingGame(beanResultsBelote(EN,results(game1(),0)))));
     }
 
     @Test
     public void calledPlayersList() {
-        NaSt res_ = callResultsBeloteBeanCalledPlayersList(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanCalledPlayersList(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(1, res_);
         assertEq("2", res_,0);
     }
 
     @Test
+    public void calledPlayersListNo() {
+        assertSizeEq(0, callResultsBeloteBeanCalledPlayersList(displayingGame(beanResultsBelote(EN, results(game6(), 0)))));
+    }
+
+    @Test
     public void takerNickname() {
-        NaSt res_ = callResultsBeloteBeanTakerNickname(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanTakerNickname(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq("0", res_);
     }
 
     @Test
     public void differenceScoreTaker() {
-        NaSt res_ = callResultsBeloteBeanDifferenceScoreTaker(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanDifferenceScoreTaker(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void absoluteDiff() {
-        NaSt res_ = callResultsBeloteBeanAbsoluteDiff(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanAbsoluteDiff(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void pointsAttaqueSansPrime() {
-        NaSt res_ = callResultsBeloteBeanPointsAttaqueSansPrime(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsAttaqueSansPrime(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(152, res_);
     }
 
     @Test
     public void pointsAttaqueDefinitif() {
-        NaSt res_ = callResultsBeloteBeanPointsAttaqueDefinitif(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsAttaqueDefinitif(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void pointsAttaqueTemporaire() {
-        NaSt res_ = callResultsBeloteBeanPointsAttaqueTemporaire(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsAttaqueTemporaire(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void pointsDefenseDefinitif() {
-        NaSt res_ = callResultsBeloteBeanPointsDefenseDefinitif(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsDefenseDefinitif(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(0, res_);
     }
 
     @Test
     public void pointsDefenseSansPrime() {
-        NaSt res_ = callResultsBeloteBeanPointsDefenseSansPrime(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsDefenseSansPrime(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(0, res_);
     }
 
     @Test
     public void pointsDefenseTemporaire() {
-        NaSt res_ = callResultsBeloteBeanPointsDefenseTemporaire(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsDefenseTemporaire(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(0, res_);
     }
 
     @Test
     public void linesDeal() {
-        NaSt res_ = callResultsBeloteBeanLinesDeal(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanLinesDeal(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(1, res_);
         assertSizeEq(4, res_,0);
         assertNumberEq(0, res_,0);
@@ -170,17 +175,17 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void playGame1() {
-        assertTrue(callBeloteBeanPlayGame(displaying(beanResultsBelote(EN, results(game1(), 0)))));
+        assertTrue(callBeloteBeanPlayGame(displayingGame(beanResultsBelote(EN, results(game1(), 0)))));
     }
 
     @Test
     public void playGame2() {
-        assertFalse(callBeloteBeanPlayGame(displaying(beanResultsBelote(EN, results(game5(), 0)))));
+        assertFalse(callBeloteBeanPlayGame(displayingGame(beanResultsBelote(EN, results(game5(), 0)))));
     }
 
     @Test
     public void getNickNames() {
-        NaSt res_ = callBeloteBeanGetNicknames(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callBeloteBeanGetNicknames(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(4, res_);
         assertEq("0", res_,0);
         assertEq("1", res_,1);
@@ -190,7 +195,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void getScores() {
-        NaSt res_ = callBeloteBeanGetScores(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callBeloteBeanGetScores(displayingGame(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(1, res_);
         assertSizeLongsEq(4, res_,0);
         assertLongsEq(262, res_,0,0);
@@ -472,6 +477,62 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         tr(game_);
         return game_;
     }
+    private static GameBelote game6() {
+        RulesBelote rules_ = new RulesBelote();
+        rules_.setDealing(DealingBelote.CLASSIC_1_VS_2);
+        DealBelote deal_ = dealThreePlayers();
+        GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
+        game_.playerAfter(deal_.getDealer());
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.UNDEFINED,0,BidBelote.FOLD));
+        game_.ajouterContrat(bidSuit(Suit.HEART,0,BidBelote.OTHER_SUIT));
+        game_.ajouterCartesUtilisateur();
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_KING);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.SPADE_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_KING);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_QUEEN);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_9);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.CLUB_8);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_7);
+        game_.ajouterUneCarteDansPliEnCoursPreneur(CardBelote.DIAMOND_8);
+        game_.ajouterChelemUtilisateur();
+        game_.validateDiscard();
+        play(game_, CardBelote.HEART_JACK);
+        play(game_, CardBelote.HEART_7);
+        play(game_, CardBelote.SPADE_7);
+        tr(game_);
+        play(game_, CardBelote.HEART_9);
+        play(game_, CardBelote.HEART_8);
+        play(game_, CardBelote.SPADE_8);
+        tr(game_);
+        play(game_, CardBelote.HEART_1);
+        play(game_, CardBelote.HEART_QUEEN);
+        play(game_, CardBelote.CLUB_JACK);
+        tr(game_);
+        play(game_, CardBelote.HEART_10);
+        play(game_, CardBelote.HEART_KING);
+        play(game_, CardBelote.SPADE_JACK);
+        tr(game_);
+        play(game_, CardBelote.DIAMOND_1);
+        play(game_, CardBelote.CLUB_7);
+        play(game_, CardBelote.DIAMOND_9);
+        tr(game_);
+        play(game_, CardBelote.DIAMOND_10);
+        play(game_, CardBelote.SPADE_9);
+        play(game_, CardBelote.DIAMOND_JACK);
+        tr(game_);
+        play(game_, CardBelote.SPADE_1);
+        play(game_, CardBelote.SPADE_10);
+        play(game_, CardBelote.DIAMOND_QUEEN);
+        tr(game_);
+        play(game_, CardBelote.CLUB_1);
+        play(game_, CardBelote.CLUB_10);
+        play(game_, CardBelote.DIAMOND_KING);
+        tr(game_);
+        return game_;
+    }
 
     private static void tr(GameBelote _game) {
         _game.ajouterDixDeDerPliEnCours();
@@ -671,5 +732,29 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         hand_.ajouter(CardBelote.DIAMOND_JACK);
         hands_.add(hand_);
         return new DealBelote(hands_,_dealer);
+    }
+    private static DealBelote dealThreePlayers() {
+        DealBelote db_ = new DealBelote();
+        db_.setDealer(1);
+        db_.getDeal().add(create(CardBelote.HEART_JACK,CardBelote.HEART_9,CardBelote.SPADE_KING,CardBelote.SPADE_QUEEN,
+                CardBelote.DIAMOND_10,CardBelote.DIAMOND_7,CardBelote.DIAMOND_8,CardBelote.HEART_10));
+        db_.getDeal().add(create(CardBelote.HEART_KING,CardBelote.HEART_QUEEN,CardBelote.SPADE_10,
+                CardBelote.CLUB_10,CardBelote.SPADE_9,CardBelote.CLUB_7,CardBelote.HEART_8,CardBelote.HEART_7));
+        db_.getDeal().add(create(CardBelote.DIAMOND_KING,CardBelote.DIAMOND_QUEEN,CardBelote.DIAMOND_JACK,CardBelote.SPADE_JACK,
+                CardBelote.CLUB_JACK,CardBelote.SPADE_8,CardBelote.SPADE_7,CardBelote.DIAMOND_9));
+        db_.getDeal().add(create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,CardBelote.CLUB_8,
+                CardBelote.CLUB_1,CardBelote.HEART_1,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
+        return db_;
+    }
+
+    private static BidBeloteSuit bidSuit(Suit _suit, int _pts, BidBelote _bid) {
+        BidBeloteSuit suit_ = new BidBeloteSuit();
+        suit_.setSuit(_suit);
+        suit_.setPoints(_pts);
+        suit_.setBid(_bid);
+        return suit_;
+    }
+    private static HandBelote create(CardBelote... _cards) {
+        return HandBelote.create(_cards);
     }
 }

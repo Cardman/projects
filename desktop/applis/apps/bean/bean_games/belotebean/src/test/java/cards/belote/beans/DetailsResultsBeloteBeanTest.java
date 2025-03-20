@@ -22,51 +22,51 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
     private static final String HUNDRED = "hundred";
     @Test
     public void declaring1() {
-        assertSizeEq(4, callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))));
+        assertSizeEq(4, callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))));
     }
     @Test
     public void declaring2() {
-        assertSizeEq(0, callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game5(), 0)))));
+        assertSizeEq(0, callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game5(), 0)))));
     }
 
     @Test
     public void sum() {
-        assertEq(130,callBeloteSumDeclaringPlayerSum(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
+        assertEq(130,callBeloteSumDeclaringPlayerSum(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
     }
 
     @Test
     public void nickname() {
-        assertEq("0",callBeloteSumDeclaringPlayerNickname(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
+        assertEq("0",callBeloteSumDeclaringPlayerNickname(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
     }
 
     @Test
     public void status() {
-        assertEq(TAKER,callBeloteSumDeclaringPlayerStatut(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
+        assertEq(TAKER,callBeloteSumDeclaringPlayerStatut(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
     }
 
     @Test
     public void declaringValue() {
-        assertSizeEq(3, callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
+        assertSizeEq(3, callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)));
     }
 
     @Test
     public void declaringStr() {
-        assertEq(HUNDRED,callDeclaringPlayerValueDeclaring(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),0)));
+        assertEq(HUNDRED,callDeclaringPlayerValueDeclaring(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),0)));
     }
 
     @Test
     public void declaringVal1() {
-        assertEq(100,callDeclaringPlayerValueValue(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),0)));
+        assertEq(100,callDeclaringPlayerValueValue(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),0)));
     }
 
     @Test
     public void declaringVal2() {
-        assertEq(20,callDeclaringPlayerValueValue(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),1)));
+        assertEq(20,callDeclaringPlayerValueValue(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),1)));
     }
 
     @Test
     public void declaringVal3() {
-        assertEq(10,callDeclaringPlayerValueValue(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displaying(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),2)));
+        assertEq(10,callDeclaringPlayerValueValue(elt( callBeloteSumDeclaringPlayerDeclaring(elt(callDetailsResultsBeloteBeanDeclaring(displayingDetail(beanDetailResultsBelote(EN, results(game1(), 0)))),0)),2)));
     }
 
     @Test

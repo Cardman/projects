@@ -4,9 +4,12 @@ import cards.consts.beans.LineDealStruct;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import code.bean.nat.*;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.confs.EquallableTarotBeanUtil;
+import code.scripts.pages.cards.MessagesTarotPage;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsLg;
 import code.util.Longs;
 import code.util.core.StringUtil;
 
@@ -166,7 +169,9 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static NaSt beanDetailResultsTarot(String _language, ResultsTarot _dataBase) {
         TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
         stds_.setDataBase(_dataBase);
-        return stds_.beanDetailResults(_language);
+        DetailsResultsTarotBean bean_ = new DetailsResultsTarotBean();
+        bean_.setBuilder(builder());
+        return stds_.bean(bean_, _language);
     }
     public static NaSt alone() {
         return callLongs(new ResultsTarotBeanAloneTrumpAcePlayer(),NaNu.NULL_VALUE);
@@ -312,7 +317,9 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static NaSt beanResultsTarot(String _language, ResultsTarot _dataBase) {
         TarotStandardsResults stds_ = new TarotStandardsResults();
         stds_.setDataBase(_dataBase);
-        return stds_.beanResults(_language);
+        ResultsTarotBean bean_ = new ResultsTarotBean();
+        bean_.setBuilder(builder());
+        return stds_.bean(bean_, _language);
     }
     public static NaSt callRulesTarotBeanRepartition(NaSt _str, long... _args) {
         return callLongs(new RulesTarotBeanRepartition(),_str,_args);
@@ -359,20 +366,29 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static NaSt beanRules(String _language, RulesTarot _dataBase) {
         TarotStandardsRules stds_ = new TarotStandardsRules();
         stds_.setDataBaseRules(_dataBase);
-        return stds_.beanRules(_language);
+        RulesTarotBean bean_ = new RulesTarotBean();
+        bean_.setBuilder(builder());
+        return stds_.bean(bean_, _language);
     }
     public static NaSt callLongs(NatCaller _caller, NaSt _str, long... _args) {
         return _caller.re(_str,getLongArray(_args));
     }
 
     public NaSt displaying(NaSt _b) {
-        beforeDisplaying(_b);
+        ((RulesTarotBean)((TarotBeanStruct)_b).getBean()).build();
         return _b;
     }
 
-    public static void beforeDisplaying(NaSt _bean) {
-        ((BeanStruct)_bean).beforeDisplaying();
+    public NaSt displayingGame(NaSt _b) {
+        ((ResultsTarotBean)((TarotBeanStruct)_b).getBean()).build();
+        return _b;
     }
+
+    public NaSt displayingDetail(NaSt _b) {
+        ((DetailsResultsTarotBean)((TarotBeanStruct)_b).getBean()).build();
+        return _b;
+    }
+
     public static NaSt[] getLongArray(long... _ls){
         return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
     }
@@ -429,5 +445,18 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     }
     public static NaSt elt(NaSt _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
+    }
+
+    private static IntBeanBuilderHelperTarotImpl builder() {
+        IntBeanBuilderHelperTarotImpl builder_ = new IntBeanBuilderHelperTarotImpl();
+        Translations ts_ = new Translations();
+        ts_.getMapping().addEntry(EN,new TranslationsLg());
+        ts_.getMapping().addEntry(FR,new TranslationsLg());
+        ts_.getMapping().getVal(EN).getMapping().addEntry(MessagesTarotPage.APP_BEAN,new TranslationsAppli());
+        ts_.getMapping().getVal(FR).getMapping().addEntry(MessagesTarotPage.APP_BEAN,new TranslationsAppli());
+        ts_.getMapping().getVal(EN).getMapping().getVal(MessagesTarotPage.APP_BEAN).getMapping().addEntry("",MessagesTarotPage.en());
+        ts_.getMapping().getVal(FR).getMapping().getVal(MessagesTarotPage.APP_BEAN).getMapping().addEntry("",MessagesTarotPage.fr());
+        builder_.setTranslations(ts_);
+        return builder_;
     }
 }

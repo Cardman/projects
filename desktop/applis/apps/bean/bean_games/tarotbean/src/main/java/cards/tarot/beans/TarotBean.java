@@ -7,6 +7,7 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.bean.Bean;
+import code.bean.IntBeanBuilderHelperCommon;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
@@ -23,6 +24,7 @@ public abstract class TarotBean extends Bean {
 
     private ResultsTarot dataBase;
     private RulesTarot dataBaseRules;
+    private IntBeanBuilderHelperCommon builder;
     public RulesTarot db() {
         return dataBaseRules;
     }
@@ -107,5 +109,13 @@ public abstract class TarotBean extends Bean {
 
     protected final void setBid(BidTarot _bid) {
         bid = _bid;
+    }
+
+    public IntBeanBuilderHelperCommon getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(IntBeanBuilderHelperCommon _b) {
+        this.builder = _b;
     }
 }
