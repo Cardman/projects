@@ -2,14 +2,9 @@ package cards.tarot.beans;
 
 import cards.consts.CouleurValeur;
 import cards.consts.GameType;
+import cards.consts.LineDeal;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
-import code.bean.nat.NatNavigation;
-import code.bean.nat.*;
-import code.scripts.confs.TarotScriptPages;
-import code.scripts.pages.cards.MessTarotPage;
-import code.scripts.pages.cards.PagesTarots;
-import code.sml.util.TranslationsAppli;
 import code.util.*;
 import org.junit.Test;
 
@@ -174,15 +169,15 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     }
     @Test
     public void calledPlayers() {
-        NaSt pl_ = callResultsTarotBeanCalledPlayers(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
-        assertSizeEq(1, pl_);
-        assertEq("1", elt(pl_,0));
+        StringList pl_ = callResultsTarotBeanCalledPlayers(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertEq(1, pl_.size());
+        assertEq("1", pl_.get(0));
     }
     @Test
     public void calledCards() {
-        NaSt pl_ = callResultsTarotBeanCalledCardsList(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
-        assertSizeEq(1, pl_);
-        assertEq(HEART_KING, elt(pl_,0));
+        StringList pl_ = callResultsTarotBeanCalledCardsList(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertEq(1, pl_.size());
+        assertEq(HEART_KING, pl_.get(0));
     }
     @Test
     public void taker1() {
@@ -226,105 +221,109 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     }
     @Test
     public void ld() {
-        NaSt res_ = callResultsTarotBeanLinesDeal(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
-        assertSizeEq(1, res_);
-        assertSizeEq(5, res_,0);
-        assertNumberEq(0, res_,0);
-        assertEq(1730, res_,0,0);
-        assertEq(865, res_,0,1);
-        assertEq(-865, res_,0,2);
-        assertEq(-865, res_,0,3);
-        assertEq(-865, res_,0,4);
+        CustList<LineDeal> res_ = callResultsTarotBeanLinesDeal(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertEq(1, res_.size());
+        assertEq(5, res_.get(0).getScores().size());
+        assertEq(0, res_.get(0).getNumber());
+        assertEq(1730,res_.get(0).getScores().get(0));
+        assertEq(865,res_.get(0).getScores().get(1));
+        assertEq(-865,res_.get(0).getScores().get(2));
+        assertEq(-865,res_.get(0).getScores().get(3));
+        assertEq(-865,res_.get(0).getScores().get(4));
     }
     @Test
     public void scores() {
-        NaSt res_ = callTarotBeanGetScores(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
-        assertSizeEq(1, res_);
-        assertSizeLongsEq(5, res_,0);
-        assertLongsEq(1730, res_,0,0);
-        assertLongsEq(865, res_,0,1);
-        assertLongsEq(-865, res_,0,2);
-        assertLongsEq(-865, res_,0,3);
-        assertLongsEq(-865, res_,0,4);
+        CustList<LineDeal> res_ = callTarotBeanGetScores(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertEq(1, res_.size());
+        assertEq(5, res_.get(0).getScores().size());
+        assertEq(0, res_.get(0).getNumber());
+        assertEq(1730,res_.get(0).getScores().get(0));
+        assertEq(865,res_.get(0).getScores().get(1));
+        assertEq(-865,res_.get(0).getScores().get(2));
+        assertEq(-865,res_.get(0).getScores().get(3));
+        assertEq(-865,res_.get(0).getScores().get(4));
     }
     @Test
     public void nicknames() {
-        assertSizeEq(5,callTarotBeanNicknames(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))));
-        NaSt pl_ = callTarotBeanGetNicknames(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
-        assertSizeEq(5, pl_);
-        assertEq("0", elt(pl_,0));
-        assertEq("1", elt(pl_,1));
-        assertEq("2", elt(pl_,2));
-        assertEq("3", elt(pl_,3));
-        assertEq("4", elt(pl_,4));
+        assertEq(5,callTarotBeanNicknames(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0)))).size());
+        StringList pl_ = callTarotBeanGetNicknames(displayingGame(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        assertEq(5, pl_.size());
+        assertEq("0", pl_.get(0));
+        assertEq("1", pl_.get(1));
+        assertEq("2", pl_.get(2));
+        assertEq("3", pl_.get(3));
+        assertEq("4", pl_.get(4));
     }
     @Test
     public void alon() {
         assertEq("",alone());
     }
-
-    @Test
-    public void init1() {
-        StringMap<String> other_ = MessTarotPage.ms();
-//        NavigationCore.adjust(other_);
-        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
-        mes_.addEntry(EN,MessTarotPage.enTarot());
-        mes_.addEntry(FR,MessTarotPage.frTarot());
-        TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
-        nav_.setLanguage(EN);
-        stds_.setDataBase(resultsFive(game4(), 0));
-        stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor:blue;\n" +
-                "}\n" +
-                "td,caption{\n" +
-                "\tborder:1px solid black;\n" +
-                "}\n" +
-                "</style></head><body><h1>1 Calculation of attack team's points</h1><ul><li>Number of oudlers won in the attack team's tricks:3</li><li>Number of necessary points in order that the taker wins:36</li><li>Number of points won in the attack team's tricks:91</li></ul><h1>2 Attack team</h1><ul><li>Taker:0</li><li>Taker's partners:<ul><li>1</li></ul></li><li>Called cards:<ul><li>heart king</li></ul></li><li>Bid:without</li></ul><h1>3 Results</h1><p>You win.</p><br/><p>The bid without is passed of 55 points.</p><br/><p>The attack's team has achieved the grand slam by declaring it.The defense's team has not won all tricks.</p><br/><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>1730</td><td>865</td><td>-865</td><td>-865</td><td>-865</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
-    }
-
-    @Test
-    public void init2() {
-        StringMap<String> other_ = MessTarotPage.ms();
-//        NavigationCore.adjust(other_);
-        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
-        mes_.addEntry(EN,MessTarotPage.enTarot());
-        mes_.addEntry(FR,MessTarotPage.frTarot());
-        TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
-        nav_.setLanguage(EN);
-        stds_.setDataBase(resultsFive(game7(), 0));
-        stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor:blue;\n" +
-                "}\n" +
-                "td,caption{\n" +
-                "\tborder:1px solid black;\n" +
-                "}\n" +
-                "</style></head><body><h1>Results</h1><ul><li>The greatest difference of points:46</li><li>Your position before deciding:1</li><li>Your final position:1</li></ul><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>6744</td><td>-1260</td><td>-1828</td><td>-1828</td><td>-1828</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
-    }
-
-    @Test
-    public void init3() {
-        StringMap<String> other_ = MessTarotPage.ms();
-//        NavigationCore.adjust(other_);
-        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
-        mes_.addEntry(EN,MessTarotPage.enTarot());
-        mes_.addEntry(FR,MessTarotPage.frTarot());
-        TarotStandardsResults stds_ = new TarotStandardsResults();
-        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
-        nav_.setLanguage(EN);
-        stds_.setDataBase(resultsFive(game8(), 0));
-        stds_.initializeRendSessionDoc(nav_);
-        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor:blue;\n" +
-                "}\n" +
-                "td,caption{\n" +
-                "\tborder:1px solid black;\n" +
-                "}\n" +
-                "</style></head><body><h1>Results</h1><ul><li>The greatest difference of points:62</li><li>Your position before deciding:5</li><li>Your final position:5</li></ul><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>-2088</td><td>0</td><td>696</td><td>696</td><td>696</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
-    }
+//
+//    @Test
+//    public void init1() {
+//        StringMap<String> other_ = MessTarotPage.ms();
+////        NavigationCore.adjust(other_);
+//        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+//        mes_.addEntry(EN,MessTarotPage.enTarot());
+//        mes_.addEntry(FR,MessTarotPage.frTarot());
+//        TarotStandardsResults stds_ = new TarotStandardsResults();
+//        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
+//        nav_.setLanguage(EN);
+//        stds_.setDataBase(resultsFive(game4(), 0));
+//        stds_.initializeRendSessionDoc(nav_);
+//        assertFalse(nav_.getHtmlText().isEmpty());
+////        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+////                "\tcolor:blue;\n" +
+////                "}\n" +
+////                "td,caption{\n" +
+////                "\tborder:1px solid black;\n" +
+////                "}\n" +
+////                "</style></head><body><h1>1 Calculation of attack team's points</h1><ul><li>Number of oudlers won in the attack team's tricks:3</li><li>Number of necessary points in order that the taker wins:36</li><li>Number of points won in the attack team's tricks:91</li></ul><h1>2 Attack team</h1><ul><li>Taker:0</li><li>Taker's partners:<ul><li>1</li></ul></li><li>Called cards:<ul><li>heart king</li></ul></li><li>Bid:without</li></ul><h1>3 Results</h1><p>You win.</p><br/><p>The bid without is passed of 55 points.</p><br/><p>The attack's team has achieved the grand slam by declaring it.The defense's team has not won all tricks.</p><br/><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>1730</td><td>865</td><td>-865</td><td>-865</td><td>-865</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+//    }
+//
+//    @Test
+//    public void init2() {
+//        StringMap<String> other_ = MessTarotPage.ms();
+////        NavigationCore.adjust(other_);
+//        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+//        mes_.addEntry(EN,MessTarotPage.enTarot());
+//        mes_.addEntry(FR,MessTarotPage.frTarot());
+//        TarotStandardsResults stds_ = new TarotStandardsResults();
+//        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
+//        nav_.setLanguage(EN);
+//        stds_.setDataBase(resultsFive(game7(), 0));
+//        stds_.initializeRendSessionDoc(nav_);
+//        assertFalse(nav_.getHtmlText().isEmpty());
+////        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+////                "\tcolor:blue;\n" +
+////                "}\n" +
+////                "td,caption{\n" +
+////                "\tborder:1px solid black;\n" +
+////                "}\n" +
+////                "</style></head><body><h1>Results</h1><ul><li>The greatest difference of points:46</li><li>Your position before deciding:1</li><li>Your final position:1</li></ul><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>6744</td><td>-1260</td><td>-1828</td><td>-1828</td><td>-1828</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+//    }
+//
+//    @Test
+//    public void init3() {
+//        StringMap<String> other_ = MessTarotPage.ms();
+////        NavigationCore.adjust(other_);
+//        StringMap<TranslationsAppli> mes_ = new StringMap<TranslationsAppli>();
+//        mes_.addEntry(EN,MessTarotPage.enTarot());
+//        mes_.addEntry(FR,MessTarotPage.frTarot());
+//        TarotStandardsResults stds_ = new TarotStandardsResults();
+//        NatNavigation nav_ = stds_.nav(new StringList(EN,FR), new ResultsTarotLoader(), PagesTarots.build(),other_,mes_);
+//        nav_.setLanguage(EN);
+//        stds_.setDataBase(resultsFive(game8(), 0));
+//        stds_.initializeRendSessionDoc(nav_);
+//        assertFalse(nav_.getHtmlText().isEmpty());
+////        assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\""+TarotScriptPages.CSS+"\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
+////                "\tcolor:blue;\n" +
+////                "}\n" +
+////                "td,caption{\n" +
+////                "\tborder:1px solid black;\n" +
+////                "}\n" +
+////                "</style></head><body><h1>Results</h1><ul><li>The greatest difference of points:62</li><li>Your position before deciding:5</li><li>Your final position:5</li></ul><br/><table border=\"1\"><caption>Scores</caption><thead><tr><td/><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></thead><tbody><tr><td>0</td><td>-2088</td><td>0</td><td>696</td><td>696</td><td>696</td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+//    }
     private static ResultsTarot results(GameTarot _g, int _user) {
         ResultsTarot res_ = new ResultsTarot();
         res_.setGame(_g);

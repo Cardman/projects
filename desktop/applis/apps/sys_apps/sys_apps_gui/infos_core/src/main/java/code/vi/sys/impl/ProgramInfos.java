@@ -27,10 +27,7 @@ import code.player.gui.MessagesSongs;
 import code.renders.MessagesRenders;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.pages.aiki.MessagesPkBean;
-import code.scripts.pages.cards.HelpCards;
-import code.scripts.pages.cards.MessBelotePage;
-import code.scripts.pages.cards.MessPresidentPage;
-import code.scripts.pages.cards.MessTarotPage;
+import code.scripts.pages.cards.*;
 import code.sml.util.*;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
@@ -129,12 +126,12 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         MessagesSongs.updateFr(MessagesSongs.initAppliTr(fr_));
         MessagesConverter.updateEn(MessagesConverter.initAppliTr(en_));
         MessagesConverter.updateFr(MessagesConverter.initAppliTr(fr_));
-        en_.getMapping().addEntry(MessBelotePage.APP_BEAN,MessBelotePage.enBelote());
-        fr_.getMapping().addEntry(MessBelotePage.APP_BEAN,MessBelotePage.frBelote());
-        en_.getMapping().addEntry(MessPresidentPage.APP_BEAN,MessPresidentPage.enPresident());
-        fr_.getMapping().addEntry(MessPresidentPage.APP_BEAN,MessPresidentPage.frPresident());
-        en_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.enTarot());
-        fr_.getMapping().addEntry(MessTarotPage.APP_BEAN,MessTarotPage.frTarot());
+        en_.getMapping().addEntry(MessagesBelotePage.APP_BEAN,build(MessagesBelotePage.en()));
+        fr_.getMapping().addEntry(MessagesBelotePage.APP_BEAN,build(MessagesBelotePage.fr()));
+        en_.getMapping().addEntry(MessagesPresidentPage.APP_BEAN,build(MessagesPresidentPage.en()));
+        fr_.getMapping().addEntry(MessagesPresidentPage.APP_BEAN,build(MessagesPresidentPage.fr()));
+        en_.getMapping().addEntry(MessagesTarotPage.APP_BEAN,build(MessagesTarotPage.en()));
+        fr_.getMapping().addEntry(MessagesTarotPage.APP_BEAN,build(MessagesTarotPage.fr()));
         en_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.en());
         fr_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.fr());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN,MessagesPkBean.en());
@@ -155,6 +152,11 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         MessagesConverter.sys(MessagesConverter.initAppliFilesTr(_pr.getTranslations()));
         MessagesSongs.sys(MessagesSongs.initAppliFilesTr(_pr.getTranslations()));
         MessagesApplications.sys(MessagesApplications.initAppliFilesTr(_pr.getTranslations()));
+    }
+    private static TranslationsAppli build(TranslationsFile _file) {
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",_file);
+        return ta_;
     }
 
     public static WithAppFactories build(AbstractProgramInfos _p, String _tmpApp) {

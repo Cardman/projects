@@ -1,7 +1,6 @@
 package cards.tarot.beans;
 
 import cards.consts.*;
-import cards.consts.beans.LineDealStruct;
 import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
@@ -9,7 +8,6 @@ import cards.tarot.enumerations.*;
 import code.bean.Bean;
 import code.bean.IntBeanBuilderHelperCommon;
 import code.util.CustList;
-import code.util.Longs;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -88,9 +86,9 @@ public abstract class TarotBean extends Bean {
         nicknames = _nicknames;
     }
 
-    public CustList<Longs> scoresTarot() {
-        return LineDealStruct.scores(history);
-    }
+//    public CustList<Longs> scoresTarot() {
+//        return LineDealStruct.scores(history);
+//    }
     public CustList<LineDeal> getHistory() {
         return history;
     }

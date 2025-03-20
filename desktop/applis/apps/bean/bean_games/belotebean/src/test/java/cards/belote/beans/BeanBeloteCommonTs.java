@@ -2,15 +2,14 @@ package cards.belote.beans;
 
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
-import cards.consts.beans.LineDealStruct;
-import code.bean.nat.*;
-import code.maths.Rate;
+import cards.consts.LineDeal;
 import code.scripts.confs.EquallableBeloteBeanUtil;
 import code.scripts.pages.cards.MessagesBelotePage;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
-import code.util.Longs;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
@@ -21,235 +20,239 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     public static final String SEP = ":";
 
 
-    public static NaSt beanDetailResultsBelote(String _language, ResultsBelote _dataBase) {
-        BeloteStandardsDetailResults stds_ = new BeloteStandardsDetailResults();
-        stds_.setDataBase(_dataBase);
+    public static DetailsResultsBeloteBean beanDetailResultsBelote(String _language, ResultsBelote _dataBase) {
         DetailsResultsBeloteBean bean_ = new DetailsResultsBeloteBean();
         bean_.setBuilder(builder());
-        return stds_.bean(bean_, _language);
+        bean_.setDataBase(_dataBase,null);
+        bean_.setLanguage(_language);
+        return bean_;
     }
-    public static NaSt callDetailsResultsBeloteBeanDeclaring(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsBeloteBeanDeclaring(),_str,_args);
+    public static CustList<BeloteSumDeclaringPlayer> callDetailsResultsBeloteBeanDeclaring(DetailsResultsBeloteBean _str, int... _args) {
+        return _str.getDeclaring();
     }
-    public static NaSt callBeloteSumDeclaringPlayerSum(NaSt _str, long... _args) {
-        return callLongs(new BeloteSumDeclaringPlayerSum(),_str,_args);
+    public static long callBeloteSumDeclaringPlayerSum(BeloteSumDeclaringPlayer _str, int... _args) {
+        return _str.getSum();
     }
-    public static NaSt callBeloteSumDeclaringPlayerNickname(NaSt _str, long... _args) {
-        return callLongs(new BeloteSumDeclaringPlayerNickname(),_str,_args);
+    public static String callBeloteSumDeclaringPlayerNickname(BeloteSumDeclaringPlayer _str, int... _args) {
+        return _str.getNickname();
     }
-    public static NaSt callBeloteSumDeclaringPlayerStatut(NaSt _str, long... _args) {
-        return callLongs(new BeloteSumDeclaringPlayerStatut(),_str,_args);
+    public static String callBeloteSumDeclaringPlayerStatut(BeloteSumDeclaringPlayer _str, int... _args) {
+        return _str.getStatut();
     }
-    public static NaSt callBeloteSumDeclaringPlayerDeclaring(NaSt _str, long... _args) {
-        return callLongs(new BeloteSumDeclaringPlayerDeclaring(),_str,_args);
+    public static CustList<DeclaringPlayerValue> callBeloteSumDeclaringPlayerDeclaring(BeloteSumDeclaringPlayer _str, int... _args) {
+        return _str.getDeclaring();
     }
-    public static NaSt callDeclaringPlayerValueDeclaring(NaSt _str, long... _args) {
-        return callLongs(new DeclaringPlayerValueDeclaring(),_str,_args);
+    public static String callDeclaringPlayerValueDeclaring(DeclaringPlayerValue _str, int... _args) {
+        return _str.getDeclaring();
     }
-    public static NaSt callDeclaringPlayerValueValue(NaSt _str, long... _args) {
-        return callLongs(new DeclaringPlayerValueValue(),_str,_args);
+    public static long callDeclaringPlayerValueValue(DeclaringPlayerValue _str, int... _args) {
+        return _str.getValue();
+    }
+    protected static BeloteSumDeclaringPlayer eltSum(CustList<BeloteSumDeclaringPlayer> _ls, int _i) {
+        return _ls.get(_i);
     }
 
 
-    public static NaSt beanResultsBelote(String _language, ResultsBelote _dataBase) {
-        BeloteStandardsResults stds_ = new BeloteStandardsResults();
-        stds_.setDataBase(_dataBase);
+    public static ResultsBeloteBean beanResultsBelote(String _language, ResultsBelote _dataBase) {
         ResultsBeloteBean bean_ = new ResultsBeloteBean();
         bean_.setBuilder(builder());
-        return stds_.bean(bean_, _language);
+        bean_.setDataBase(_dataBase,null);
+        bean_.setLanguage(_language);
+        return bean_;
     }
-    public static NaSt callResultsBeloteBeanSuccessfulBid(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanSuccessfulBid(),_str,_args);
-    }
-
-    public static NaSt callResultsBeloteBeanMidBid(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanMidBid(),_str,_args);
+    public static boolean callResultsBeloteBeanSuccessfulBid(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().successfulBid();
     }
 
-    public static NaSt callResultsBeloteBeanFailedBid(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanFailedBid(),_str,_args);
+    public static boolean callResultsBeloteBeanMidBid(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().midBid();
     }
 
-    public static NaSt callResultsBeloteBeanWin(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanWin(),_str,_args);
+    public static boolean callResultsBeloteBeanFailedBid(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().failedBid();
     }
 
-    public static NaSt callResultsBeloteBeanEquality(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanEquality(),_str,_args);
+    public static boolean callResultsBeloteBeanWin(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().win();
     }
 
-    public static NaSt callResultsBeloteBeanLoose(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanLoose(),_str,_args);
+    public static boolean callResultsBeloteBeanEquality(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().equality();
     }
 
-    public static NaSt callResultsBeloteBeanSlam(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanSlam(),_str,_args);
+    public static boolean callResultsBeloteBeanLoose(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().loose();
     }
 
-    public static NaSt callResultsBeloteBeanBidString(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanBidString(),_str,_args);
+    public static boolean callResultsBeloteBeanSlam(ResultsBeloteBean _str, int... _args) {
+        return _str.slam();
     }
 
-    public static NaSt callResultsBeloteBeanCalledPlayersList(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanCalledPlayersList(),_str,_args);
+    public static String callResultsBeloteBeanBidString(ResultsBeloteBean _str, int... _args) {
+        return StringUtil.nullToEmpty(_str.getBidString());
     }
 
-    public static NaSt callResultsBeloteBeanTakerNickname(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanTakerNickname(),_str,_args);
+    public static StringList callResultsBeloteBeanCalledPlayersList(ResultsBeloteBean _str, int... _args) {
+        return _str.getCalledPlayersList();
     }
 
-    public static NaSt callResultsBeloteBeanDifferenceScoreTaker(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanDifferenceScoreTaker(),_str,_args);
+    public static String callResultsBeloteBeanTakerNickname(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerNickname();
     }
 
-    public static NaSt callResultsBeloteBeanAbsoluteDiff(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanAbsoluteDiff(),_str,_args);
+    public static long callResultsBeloteBeanDifferenceScoreTaker(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().getDifferenceScoreTaker();
     }
 
-    public static NaSt callResultsBeloteBeanPointsAttaqueSansPrime(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanPointsAttaqueSansPrime(),_str,_args);
+    public static long callResultsBeloteBeanAbsoluteDiff(ResultsBeloteBean _str, int... _args) {
+        return _str.getTakerResult().absoluteDiff();
     }
 
-    public static NaSt callResultsBeloteBeanPointsAttaqueDefinitif(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanPointsAttaqueDefinitif(),_str,_args);
+    public static long callResultsBeloteBeanPointsAttaqueSansPrime(ResultsBeloteBean _str, int... _args) {
+        return _str.getPointsAttaqueSansPrime();
     }
 
-    public static NaSt callResultsBeloteBeanPointsAttaqueTemporaire(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanPointsAttaqueTemporaire(),_str,_args);
+    public static long callResultsBeloteBeanPointsAttaqueDefinitif(ResultsBeloteBean _str, int... _args) {
+        return _str.getPointsAttaqueDefinitif();
     }
 
-    public static NaSt callResultsBeloteBeanPointsDefenseDefinitif(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanPointsDefenseDefinitif(),_str,_args);
+    public static long callResultsBeloteBeanPointsAttaqueTemporaire(ResultsBeloteBean _str, int... _args) {
+        return _str.getPointsAttaqueTemporaire();
     }
 
-    public static NaSt callResultsBeloteBeanPointsDefenseSansPrime(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanPointsDefenseSansPrime(),_str,_args);
+    public static long callResultsBeloteBeanPointsDefenseDefinitif(ResultsBeloteBean _str, int... _args) {
+        return _str.getPointsDefenseDefinitif();
     }
 
-    public static NaSt callResultsBeloteBeanPointsDefenseTemporaire(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanPointsDefenseTemporaire(),_str,_args);
+    public static long callResultsBeloteBeanPointsDefenseSansPrime(ResultsBeloteBean _str, int... _args) {
+        return _str.getPointsDefenseSansPrime();
     }
 
-    public static NaSt callResultsBeloteBeanLinesDeal(NaSt _str, long... _args) {
-        return callLongs(new ResultsBeloteBeanLinesDeal(),_str,_args);
+    public static long callResultsBeloteBeanPointsDefenseTemporaire(ResultsBeloteBean _str, int... _args) {
+        return _str.getPointsDefenseTemporaire();
+    }
+
+    public static CustList<LineDeal> callResultsBeloteBeanLinesDeal(ResultsBeloteBean _str, int... _args) {
+        return _str.getLinesDeal();
     }
 
 
-    public static NaSt callBeloteBeanPlayGame(NaSt _str, long... _args) {
-        return callLongs(new BeloteBeanPlayGame(),_str,_args);
+    public static boolean callBeloteBeanPlayGame(BeloteBean _str, int... _args) {
+        return _str.playGame();
     }
 
-    public static NaSt callBeloteBeanGetNicknames(NaSt _str, long... _args) {
-        return callLongs(new BeloteBeanGetNicknames(),_str,_args);
+    public static StringList callBeloteBeanGetNicknames(BeloteBean _str, int... _args) {
+        return _str.getNicknames();
     }
 
-    public static NaSt callBeloteBeanGetScores(NaSt _str, long... _args) {
-        return callLongs(new BeloteBeanGetScores(),_str,_args);
+    public static CustList<LineDeal> callBeloteBeanGetScores(BeloteBean _str, int... _args) {
+        return _str.getHistory();
     }
-    public static NaSt beanRules(String _language, RulesBelote _dataBase) {
-        BeloteStandardsRules stds_ = new BeloteStandardsRules();
-        stds_.setDataBaseRules(_dataBase);
+
+    public static RulesBeloteBean beanRules(String _language, RulesBelote _dataBase) {
         RulesBeloteBean bean_ = new RulesBeloteBean();
         bean_.setBuilder(builder());
-        return stds_.bean(bean_, _language);
+        bean_.setDataBase(null,_dataBase);
+        bean_.setLanguage(_language);
+        return bean_;
     }
 
-    public static NaSt callRulesBeloteBeanComptePointsClassique(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanComptePointsClassique(),_str,_args);
+    public static boolean callRulesBeloteBeanComptePointsClassique(RulesBeloteBean _str, int... _args) {
+        return _str.isComptePointsClassique();
     }
 
-    public static NaSt callRulesBeloteBeanRepartition(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanRepartition(),_str,_args);
+    public static String callRulesBeloteBeanRepartition(RulesBeloteBean _str, int... _args) {
+        return _str.getRepartition();
     }
 
-    public static NaSt callRulesBeloteBeanEncheresAutorisees(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanEncheresAutorisees(),_str,_args);
+    public static StringList callRulesBeloteBeanEncheresAutorisees(RulesBeloteBean _str, int... _args) {
+        return _str.getEncheresAutorisees();
     }
 
-    public static NaSt callRulesBeloteBeanGestionCoupePartenaire(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanGestionCoupePartenaire(),_str,_args);
+    public static String callRulesBeloteBeanGestionCoupePartenaire(RulesBeloteBean _str, int... _args) {
+        return _str.getGestionCoupePartenaire();
     }
-    public static NaSt callRulesBeloteBeanCartesBattues(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanCartesBattues(),_str,_args);
+    public static String callRulesBeloteBeanCartesBattues(RulesBeloteBean _str, int... _args) {
+        return _str.getCartesBattues();
     }
-    public static NaSt callRulesBeloteBeanAnnoncesAutorisees(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanAnnoncesAutorisees(),_str,_args);
+    public static StringList callRulesBeloteBeanAnnoncesAutorisees(RulesBeloteBean _str, int... _args) {
+        return _str.getAnnoncesAutorisees();
     }
-    public static NaSt callRulesBeloteBeanDealAll(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanDealAll(),_str,_args);
+    public static boolean callRulesBeloteBeanDealAll(RulesBeloteBean _str, int... _args) {
+        return _str.isDealAll();
     }
-    public static NaSt callRulesBeloteBeanSousCoupeAdv(NaSt _str, long... _args) {
-        return callLongs(new RulesBeloteBeanSousCoupeAdv(),_str,_args);
+    public static boolean callRulesBeloteBeanSousCoupeAdv(RulesBeloteBean _str, int... _args) {
+        return _str.isSousCoupeAdv();
     }
-    public static NaSt callLongs(NatCaller _caller, NaSt _str, long... _args) {
-        return _caller.re(_str,getLongArray(_args));
-    }
+//    public static NaSt callLongs(NatCaller _caller, NaSt _str, long... _args) {
+//        return _caller.re(_str,getLongArray(_args));
+//    }
 
-    public NaSt displaying(NaSt _b) {
-        ((RulesBeloteBean)((BeloteBeanStruct)_b).getBean()).build();
+    public RulesBeloteBean displaying(RulesBeloteBean _b) {
+        _b.build();
         return _b;
     }
 
-    public NaSt displayingGame(NaSt _b) {
-        ((ResultsBeloteBean)((BeloteBeanStruct)_b).getBean()).build();
+    public ResultsBeloteBean displayingGame(ResultsBeloteBean _b) {
+        _b.build();
         return _b;
     }
 
-    public NaSt displayingDetail(NaSt _b) {
-        ((DetailsResultsBeloteBean)((BeloteBeanStruct)_b).getBean()).build();
+    public DetailsResultsBeloteBean displayingDetail(DetailsResultsBeloteBean _b) {
+        _b.build();
         return _b;
     }
 
-    public static NaSt[] getLongArray(long... _ls){
-        return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
-    }
+//    public static NaSt[] getLongArray(long... _ls){
+//        return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
+//    }
 
-    public static void assertSizeEq(int _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
-    }
+//    public static void assertSizeEq(int _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
+//    }
+//
+//    public static void assertSizeLongsEq(int _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
+//    }
+//    public static void assertNumberEq(int _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
+//    }
+//    public static void assertEq(long _exp, NaSt _result, int _index, int _second) {
+//        assertEq(_exp,((LineDealStruct)(((NatArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
+//    }
+//    public static void assertLongsEq(long _exp, NaSt _result, int _index, int _second) {
+//        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
+//    }
 
-    public static void assertSizeLongsEq(int _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
-    }
-    public static void assertNumberEq(int _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
-    }
-    public static void assertEq(long _exp, NaSt _result, int _index, int _second) {
-        assertEq(_exp,((LineDealStruct)(((NatArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
-    }
-    public static void assertLongsEq(long _exp, NaSt _result, int _index, int _second) {
-        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
-    }
-
-    public static void assertEq(String _exp, NaSt _result) {
-        assertEq(_exp,((NaStSt)_result).getInstance());
-    }
-    public static void assertEq(Rate _exp, NaSt _result) {
-        assertTrue(_exp.eq(((RtSt)_result).getInstance()));
-    }
-    public static void assertEq(long _exp, NaSt _result) {
-        assertEq(_exp,(((NaNbSt)_result).longStruct()));
-    }
-    public static void assertTrue(NaSt _value) {
-        assertSame(NaBoSt.of(true),_value);
-    }
-    public static void assertFalse(NaSt _value) {
-        assertSame(NaBoSt.of(false),_value);
-    }
-    public static void assertSizeEq(int _exp, NaSt _result) {
-        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
-    }
-    public static void assertEq(String _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static void assertEq(Rate _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static void assertEq(long _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static NaSt elt(NaSt _arr, int _index) {
-        return ((NatArrayStruct)_arr).get(_index);
+//    public static void assertEq(String _exp, NaSt _result) {
+//        assertEq(_exp,((NaStSt)_result).getInstance());
+//    }
+//    public static void assertEq(Rate _exp, NaSt _result) {
+//        assertTrue(_exp.eq(((RtSt)_result).getInstance()));
+//    }
+//    public static void assertEq(long _exp, NaSt _result) {
+//        assertEq(_exp,(((NaNbSt)_result).longStruct()));
+//    }
+//    public static void assertTrue(NaSt _value) {
+//        assertSame(NaBoSt.of(true),_value);
+//    }
+//    public static void assertFalse(NaSt _value) {
+//        assertSame(NaBoSt.of(false),_value);
+//    }
+//    public static void assertSizeEq(int _exp, NaSt _result) {
+//        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
+//    }
+//    public static void assertEq(String _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
+//    }
+//    public static void assertEq(Rate _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
+//    }
+//    public static void assertEq(long _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
+//    }
+    public static DeclaringPlayerValue elt(CustList<DeclaringPlayerValue> _arr, int _index) {
+        return _arr.get(_index);
     }
 
     private static IntBeanBuilderHelperBeloteImpl builder() {

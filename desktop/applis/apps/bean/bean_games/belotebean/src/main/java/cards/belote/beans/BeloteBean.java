@@ -6,11 +6,9 @@ import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.*;
 import cards.consts.*;
-import cards.consts.beans.LineDealStruct;
 import code.bean.Bean;
 import code.bean.IntBeanBuilderHelperCommon;
 import code.util.CustList;
-import code.util.Longs;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -96,9 +94,9 @@ public abstract class BeloteBean extends Bean {
         nicknames = _nicknames;
     }
 
-    public CustList<Longs> scoresBelote() {
-        return LineDealStruct.scores(history);
-    }
+//    public CustList<Longs> scoresBelote() {
+//        return LineDealStruct.scores(history);
+//    }
     public CustList<LineDeal> getHistory() {
         return history;
     }

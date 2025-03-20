@@ -1,6 +1,5 @@
 package code.scripts.confs;
 
-import code.bean.nat.*;
 import org.junit.Assert;
 
 public abstract class EquallableBeloteBeanUtil {
@@ -14,9 +13,9 @@ public abstract class EquallableBeloteBeanUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(NaSt _expected, NaSt _result) {
-        Assert.assertSame(_expected, _result);
-    }
+//    public static void assertSame(NaSt _expected, NaSt _result) {
+//        Assert.assertSame(_expected, _result);
+//    }
 
     public static void assertEq(boolean _expected, boolean _result) {
         Assert.assertEquals(_expected, _result);

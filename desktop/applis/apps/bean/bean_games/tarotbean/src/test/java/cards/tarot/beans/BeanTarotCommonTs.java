@@ -1,16 +1,17 @@
 package cards.tarot.beans;
 
-import cards.consts.beans.LineDealStruct;
+import cards.consts.LineDeal;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.confs.EquallableTarotBeanUtil;
 import code.scripts.pages.cards.MessagesTarotPage;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsLg;
-import code.util.Longs;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
@@ -20,431 +21,451 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
     public static final String RETURNE_LINE = "\n";
     public static final String SEP = ":";
 
-    public static NaSt callPointsPlayerVariantGameScore(NaSt _str, long... _args) {
-        return callLongs(new PointsPlayerVariantGameScore(),_str,_args);
+    public static long callPointsPlayerVariantGameScore(PointsPlayerVariantGame _str, int... _args) {
+        return _str.getScore();
     }
 
-    public static NaSt callPointsPlayerVariantGameRate(NaSt _str, long... _args) {
-        return callLongs(new PointsPlayerVariantGameRate(),_str,_args);
+    public static long callPointsPlayerVariantGameRate(PointsPlayerVariantGame _str, int... _args) {
+        return _str.getRate();
     }
 
-    public static NaSt callPointsPlayerVariantGamePointsTricks(NaSt _str, long... _args) {
-        return callLongs(new PointsPlayerVariantGamePointsTricks(),_str,_args);
+    public static Rate callPointsPlayerVariantGamePointsTricks(PointsPlayerVariantGame _str, int... _args) {
+        return _str.getPointsTricks();
     }
 
-    public static NaSt callPointsPlayerVariantGameMinimumPoints(NaSt _str, long... _args) {
-        return callLongs(new PointsPlayerVariantGameMinimumPoints(),_str,_args);
+    public static long callPointsPlayerVariantGameMinimumPoints(PointsPlayerVariantGame _str, int... _args) {
+        return _str.getMinimumPoints();
     }
 
-    public static NaSt callPointsPlayerVariantGameDifferenceScore(NaSt _str, long... _args) {
-        return callLongs(new PointsPlayerVariantGameDifferenceScore(),_str,_args);
+    public static Rate callPointsPlayerVariantGameDifferenceScore(PointsPlayerVariantGame _str, int... _args) {
+        return _str.getDifferenceScore();
     }
-    public static NaSt callPointsPlayerVariantGameNickname(NaSt _str, long... _args) {
-        return callLongs(new PointsPlayerVariantGameNickname(),_str,_args);
+    public static String callPointsPlayerVariantGameNickname(PointsPlayerVariantGame _str, int... _args) {
+        return _str.getNickname();
     }
-    public static NaSt callDetailsResultsTarotBeanPointsPlayers(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanPointsPlayers(),_str,_args);
+    public static CustList<PointsPlayerVariantGame> callDetailsResultsTarotBeanPointsPlayers(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getPointsPlayers();
     }
-    public static NaSt callRankingPlayerVariantGameNickname(NaSt _str, long... _args) {
-        return callLongs(new RankingPlayerVariantGameNickname(),_str,_args);
+    public static PointsPlayerVariantGame eltPt(CustList<PointsPlayerVariantGame> _ls, int _i) {
+        return _ls.get(_i);
     }
-
-    public static NaSt callRankingPlayerVariantGameFinalPosition(NaSt _str, long... _args) {
-        return callLongs(new RankingPlayerVariantGameFinalPosition(),_str,_args);
-    }
-
-    public static NaSt callRankingPlayerVariantGamePositionCharacters(NaSt _str, long... _args) {
-        return callLongs(new RankingPlayerVariantGamePositionCharacters(),_str,_args);
-    }
-    public static NaSt callRankingPlayerVariantGamePositionDiff(NaSt _str, long... _args) {
-        return callLongs(new RankingPlayerVariantGamePositionDiff(),_str,_args);
+    public static String callRankingPlayerVariantGameNickname(RankingPlayerVariantGame _str, int... _args) {
+        return _str.getNickname();
     }
 
-    public static NaSt callRankingPlayerVariantGamePositionOudlers(NaSt _str, long... _args) {
-        return callLongs(new RankingPlayerVariantGamePositionOudlers(),_str,_args);
+    public static long callRankingPlayerVariantGameFinalPosition(RankingPlayerVariantGame _str, int... _args) {
+        return _str.getFinalPosition();
     }
 
-    public static NaSt callRankingPlayerVariantGamePositionStrengthCharacters(NaSt _str, long... _args) {
-        return callLongs(new RankingPlayerVariantGamePositionStrengthCharacters(),_str,_args);
+    public static long callRankingPlayerVariantGamePositionCharacters(RankingPlayerVariantGame _str, int... _args) {
+        return _str.getPositionCharacters();
     }
-    public static NaSt callDetailsResultsTarotBeanOrderedPlayers(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanOrderedPlayers(),_str,_args);
+    public static long callRankingPlayerVariantGamePositionDiff(RankingPlayerVariantGame _str, int... _args) {
+        return _str.getPositionDiff();
+    }
+
+    public static long callRankingPlayerVariantGamePositionOudlers(RankingPlayerVariantGame _str, int... _args) {
+        return _str.getPositionOudlers();
+    }
+
+    public static long callRankingPlayerVariantGamePositionStrengthCharacters(RankingPlayerVariantGame _str, int... _args) {
+        return _str.getPositionStrengthCharacters();
+    }
+    public static CustList<RankingPlayerVariantGame> callDetailsResultsTarotBeanOrderedPlayers(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getOrderedPlayers();
+    }
+
+    public static RankingPlayerVariantGame eltRk(CustList<RankingPlayerVariantGame> _ls, int _i) {
+        return _ls.get(_i);
+    }
+
+    public static StringMap<Long> callTarotSumDeclaringPlayerHandfuls(TarotSumDeclaringPlayer _str, int... _args) {
+        return _str.getHandfuls();
+    }
+
+    public static StringMap<Long> callTarotSumDeclaringPlayerMiseres(TarotSumDeclaringPlayer _str, int... _args) {
+        return _str.getMiseres();
+    }
+    public static String firstStrNb(StringMap<Long> _arr, int _index) {
+        return _arr.getKey(_index);
+    }
+    public static long secondStrNb(StringMap<Long> _arr, int _index) {
+        return _arr.getValue(_index);
+    }
+    public static String callTarotSumDeclaringPlayerNickname(TarotSumDeclaringPlayer _str, int... _args) {
+        return _str.getNickname();
+    }
+    public static long callTarotSumDeclaringPlayerSum(TarotSumDeclaringPlayer _str, int... _args) {
+        return _str.getSum();
+    }
+    public static String callTarotSumDeclaringPlayerStatus(TarotSumDeclaringPlayer _str, int... _args) {
+        return _str.getStatus();
+    }
+
+    public static CustList<TarotSumDeclaringPlayer> callDetailsResultsTarotBeanLinesDeclaring(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getLinesDeclaring();
+    }
+    protected static TarotSumDeclaringPlayer eltSum(CustList<TarotSumDeclaringPlayer> _ls, int _i) {
+        return _ls.get(_i);
+    }
+
+    public static long callBonusesPlayersBonus(BonusesPlayers _str, int... _args) {
+        return _str.getBonus();
+    }
+
+    public static String callBonusesPlayersNickname(BonusesPlayers _str, int... _args) {
+        return _str.getNickname();
     }
 
 
-    public static NaSt callTarotSumDeclaringPlayerHandfuls(NaSt _str, long... _args) {
-        return callLongs(new TarotSumDeclaringPlayerHandfuls(),_str,_args);
-    }
-
-    public static NaSt callTarotSumDeclaringPlayerMiseres(NaSt _str, long... _args) {
-        return callLongs(new TarotSumDeclaringPlayerMiseres(),_str,_args);
-    }
-
-    public static NaSt callTarotSumDeclaringPlayerNickname(NaSt _str, long... _args) {
-        return callLongs(new TarotSumDeclaringPlayerNickname(),_str,_args);
-    }
-    public static NaSt callTarotSumDeclaringPlayerSum(NaSt _str, long... _args) {
-        return callLongs(new TarotSumDeclaringPlayerSum(),_str,_args);
-    }
-    public static NaSt callTarotSumDeclaringPlayerStatus(NaSt _str, long... _args) {
-        return callLongs(new TarotSumDeclaringPlayerStatus(),_str,_args);
-    }
-
-    public static NaSt callDetailsResultsTarotBeanLinesDeclaring(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanLinesDeclaring(),_str,_args);
-    }
-
-    public static NaSt callBonusesPlayersBonus(NaSt _str, long... _args) {
-        return callLongs(new BonusesPlayersBonus(),_str,_args);
-    }
-
-    public static NaSt callBonusesPlayersNickname(NaSt _str, long... _args) {
-        return callLongs(new BonusesPlayersNickname(),_str,_args);
+    public static CustList<BonusesPlayers> callDetailsResultsTarotBeanBonuses(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getBonuses();
     }
 
 
-    public static NaSt callDetailsResultsTarotBeanBonuses(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanBonuses(),_str,_args);
+    public static String callScoresPlayersNickname(ScoresPlayers _str, int... _args) {
+        return _str.getNickname();
     }
 
-
-    public static NaSt callScoresPlayersNickname(NaSt _str, long... _args) {
-        return callLongs(new ScoresPlayersNickname(),_str,_args);
+    public static Rate callScoresPlayersRate(ScoresPlayers _str, int... _args) {
+        return _str.getRate();
     }
 
-    public static NaSt callScoresPlayersRate(NaSt _str, long... _args) {
-        return callLongs(new ScoresPlayersRate(),_str,_args);
+    public static long callScoresPlayersScore(ScoresPlayers _str, int... _args) {
+        return _str.getScore();
     }
 
-    public static NaSt callScoresPlayersScore(NaSt _str, long... _args) {
-        return callLongs(new ScoresPlayersScore(),_str,_args);
+    public static Rate callScoresPlayersSum(ScoresPlayers _str, int... _args) {
+        return _str.getRate();
     }
 
-    public static NaSt callScoresPlayersSum(NaSt _str, long... _args) {
-        return callLongs(new ScoresPlayersSum(),_str,_args);
+    public static CustList<ScoresPlayers> callDetailsResultsTarotBeanPlayersScores(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getPlayersScores();
+    }
+    public static ScoresPlayers eltScore(CustList<ScoresPlayers> _ls, int _i) {
+        return _ls.get(_i);
     }
 
-    public static NaSt callDetailsResultsTarotBeanPlayersScores(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanPlayersScores(),_str,_args);
+    public static long callDetailsResultsTarotBeanDiffAttackDefenseBonuses(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getDiffAttackDefenseBonuses();
     }
 
-    public static NaSt callDetailsResultsTarotBeanDiffAttackDefenseBonuses(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanDiffAttackDefenseBonuses(),_str,_args);
+    public static long callDetailsResultsTarotBeanAdditionnalBonusesDefense(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getAdditionnalBonusesDefense();
     }
 
-    public static NaSt callDetailsResultsTarotBeanAdditionnalBonusesDefense(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanAdditionnalBonusesDefense(),_str,_args);
+    public static long callDetailsResultsTarotBeanAdditionnalBonusesAttack(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getAdditionnalBonusesAttack();
+    }
+    public static long callDetailsResultsTarotBeanDifferenceScoreTaker(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getDifferenceScoreTaker();
     }
 
-    public static NaSt callDetailsResultsTarotBeanAdditionnalBonusesAttack(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanAdditionnalBonusesAttack(),_str,_args);
-    }
-    public static NaSt callDetailsResultsTarotBeanDifferenceScoreTaker(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanDifferenceScoreTaker(),_str,_args);
+    public static long callDetailsResultsTarotBeanMultipliedTmp(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getMultipliedTmp();
     }
 
-    public static NaSt callDetailsResultsTarotBeanMultipliedTmp(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanMultipliedTmp(),_str,_args);
+    public static long callDetailsResultsTarotBeanSumPlayers(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getSumPlayers();
     }
 
-    public static NaSt callDetailsResultsTarotBeanSumPlayers(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanSumPlayers(),_str,_args);
+    public static String callDetailsResultsTarotBeanSmall(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getSmall();
     }
 
-    public static NaSt callDetailsResultsTarotBeanSmall(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanSmall(),_str,_args);
+    public static String callDetailsResultsTarotBeanPlayerSmall(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getPlayerSmall();
     }
 
-    public static NaSt callDetailsResultsTarotBeanPlayerSmall(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanPlayerSmall(),_str,_args);
+    public static long callDetailsResultsTarotBeanBasePoints(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getBasePoints();
     }
 
-    public static NaSt callDetailsResultsTarotBeanBasePoints(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanBasePoints(),_str,_args);
+    public static long callDetailsResultsTarotBeanRate(DetailsResultsTarotBean _str, int... _args) {
+        return _str.getRate();
     }
-
-    public static NaSt callDetailsResultsTarotBeanRate(NaSt _str, long... _args) {
-        return callLongs(new DetailsResultsTarotBeanRate(),_str,_args);
-    }
-    public static NaSt beanDetailResultsTarot(String _language, ResultsTarot _dataBase) {
-        TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
-        stds_.setDataBase(_dataBase);
+    public static DetailsResultsTarotBean beanDetailResultsTarot(String _language, ResultsTarot _dataBase) {
         DetailsResultsTarotBean bean_ = new DetailsResultsTarotBean();
         bean_.setBuilder(builder());
-        return stds_.bean(bean_, _language);
+        bean_.setDataBase(_dataBase,null);
+        bean_.setLanguage(_language);
+        return bean_;
     }
-    public static NaSt alone() {
-        return callLongs(new ResultsTarotBeanAloneTrumpAcePlayer(),NaNu.NULL_VALUE);
+    public static String alone() {
+        return "";
     }
-    public static NaSt callTarotBeanGetScores(NaSt _str, long... _args) {
-        return callLongs(new TarotBeanGetScores(),_str,_args);
-    }
-
-    public static NaSt callTarotBeanNicknames(NaSt _str, long... _args) {
-        return callLongs(new TarotBeanNicknames(),_str,_args);
-    }
-    public static NaSt callTarotBeanGetNicknames(NaSt _str, long... _args) {
-        return callLongs(new TarotBeanGetNicknames(),_str,_args);
+    public static CustList<LineDeal> callTarotBeanGetScores(ResultsTarotBean _str, int... _args) {
+        return _str.getHistory();
     }
 
-    public static NaSt callResultsTarotBeanLinesDeal(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanLinesDeal(),_str,_args);
+    public static StringList callTarotBeanNicknames(ResultsTarotBean _str, int... _args) {
+        return _str.getNicknames();
+    }
+    public static StringList callTarotBeanGetNicknames(ResultsTarotBean _str, int... _args) {
+        return _str.getNicknames();
     }
 
-    public static NaSt callResultsTarotBeanMaxDoubledDifference(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanMaxDoubledDifference(),_str,_args);
+    public static CustList<LineDeal> callResultsTarotBeanLinesDeal(ResultsTarotBean _str, int... _args) {
+        return _str.getLinesDeal();
     }
 
-    public static NaSt callResultsTarotBeanMaxDifference(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanMaxDifference(),_str,_args);
+    public static long callResultsTarotBeanMaxDoubledDifference(ResultsTarotBean _str, int... _args) {
+        return _str.getMaxDoubledDifference();
     }
 
-    public static NaSt callResultsTarotBeanAdditionnalBonusesDefense(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanAdditionnalBonusesDefense(),_str,_args);
+    public static long callResultsTarotBeanMaxDifference(ResultsTarotBean _str, int... _args) {
+        return _str.getMaxDifference();
     }
 
-
-    public static NaSt callResultsTarotBeanAdditionnalBonusesAttack(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanAdditionnalBonusesAttack(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanTaker(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanTaker(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanScoreTaker(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanScoreTaker(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanScoreTakerWithoutDeclaring(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanScoreTakerWithoutDeclaring(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanDifferenceScoreTaker(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanDifferenceScoreTaker(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanNeedlyScoresTaker(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanNeedlyScoresTaker(),_str,_args);
-    }
-    public static NaSt callResultsTarotBeanNumberOudlersTaker(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanNumberOudlersTaker(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanCalledPlayers(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanCalledPlayers(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanCalledCardsList(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanCalledCardsList(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanAbsoluteDiff(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanAbsoluteDiff(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanBidString(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanBidString(),_str,_args);
-    }
-
-    public static NaSt callTarotBeanPlayClassicGame(NaSt _str, long... _args) {
-        return callLongs(new TarotBeanPlayClassicGame(),_str,_args);
-    }
-
-    public static NaSt callTarotBeanPlayVariantModeGame(NaSt _str, long... _args) {
-        return callLongs(new TarotBeanPlayVariantModeGame(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanInitialUserPosition(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanInitialUserPosition(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanFinalUserPosition(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanFinalUserPosition(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanNoSlamDefense(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanNoSlamDefense(),_str,_args);
-    }
-
-    public static NaSt callResultsTarotBeanSlamDefense(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanSlamDefense(),_str,_args);
+    public static long callResultsTarotBeanAdditionnalBonusesDefense(ResultsTarotBean _str, int... _args) {
+        return _str.getAdditionnalBonusesDefense();
     }
 
 
-    public static NaSt callResultsTarotBeanNoSlamAttack(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanNoSlamAttack(),_str,_args);
+    public static long callResultsTarotBeanAdditionnalBonusesAttack(ResultsTarotBean _str, int... _args) {
+        return _str.getAdditionnalBonusesAttack();
     }
 
-    public static NaSt callResultsTarotBeanFailedSlamAttack(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanFailedSlamAttack(),_str,_args);
+    public static String callResultsTarotBeanTaker(ResultsTarotBean _str, int... _args) {
+        return _str.getTaker();
     }
 
-    public static NaSt callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanSuccessfulNoDeclaredSlamAttack(),_str,_args);
+    public static long callResultsTarotBeanScoreTaker(ResultsTarotBean _str, int... _args) {
+        return _str.getScoreTaker();
     }
 
-    public static NaSt callResultsTarotBeanSuccessfulDeclaredSlamAttack(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanSuccessfulDeclaredSlamAttack(),_str,_args);
+    public static long callResultsTarotBeanScoreTakerWithoutDeclaring(ResultsTarotBean _str, int... _args) {
+        return _str.getScoreTakerWithoutDeclaring();
     }
 
-    public static NaSt callResultsTarotBeanLoose(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanLoose(),_str,_args);
+    public static long callResultsTarotBeanDifferenceScoreTaker(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().getDifferenceScoreTaker();
     }
 
-    public static NaSt callResultsTarotBeanWin(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanWin(),_str,_args);
+    public static long callResultsTarotBeanNeedlyScoresTaker(ResultsTarotBean _str, int... _args) {
+        return _str.getNeedlyScoresTaker();
+    }
+    public static long callResultsTarotBeanNumberOudlersTaker(ResultsTarotBean _str, int... _args) {
+        return _str.getNumberOudlersTaker();
+    }
+
+    public static StringList callResultsTarotBeanCalledPlayers(ResultsTarotBean _str, int... _args) {
+        return _str.getCalledPlayers();
+    }
+
+    public static StringList callResultsTarotBeanCalledCardsList(ResultsTarotBean _str, int... _args) {
+        return _str.getCalledCardsList();
+    }
+
+    public static long callResultsTarotBeanAbsoluteDiff(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().absoluteDiff();
+    }
+
+    public static String callResultsTarotBeanBidString(ResultsTarotBean _str, int... _args) {
+        return _str.bidString();
+    }
+
+    public static boolean callTarotBeanPlayClassicGame(ResultsTarotBean _str, int... _args) {
+        return _str.playClassicGame();
+    }
+
+    public static boolean callTarotBeanPlayVariantModeGame(ResultsTarotBean _str, int... _args) {
+        return _str.playVariantModeGame();
+    }
+
+    public static long callResultsTarotBeanInitialUserPosition(ResultsTarotBean _str, int... _args) {
+        return _str.getInitialUserPosition();
+    }
+
+    public static long callResultsTarotBeanFinalUserPosition(ResultsTarotBean _str, int... _args) {
+        return _str.getFinalUserPosition();
+    }
+
+    public static boolean callResultsTarotBeanNoSlamDefense(ResultsTarotBean _str, int... _args) {
+        return _str.noSlamDefense();
+    }
+
+    public static boolean callResultsTarotBeanSlamDefense(ResultsTarotBean _str, int... _args) {
+        return _str.slamDefense();
     }
 
 
-    public static NaSt callResultsTarotBeanEquality(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanEquality(),_str,_args);
+    public static boolean callResultsTarotBeanNoSlamAttack(ResultsTarotBean _str, int... _args) {
+        return _str.noSlamAttack();
     }
 
-    public static NaSt callResultsTarotBeanFailedBid(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanFailedBid(),_str,_args);
+    public static boolean callResultsTarotBeanFailedSlamAttack(ResultsTarotBean _str, int... _args) {
+        return _str.failedSlamAttack();
     }
 
-    public static NaSt callResultsTarotBeanSuccessfulBid(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanSuccessfulBid(),_str,_args);
+    public static boolean callResultsTarotBeanSuccessfulNoDeclaredSlamAttack(ResultsTarotBean _str, int... _args) {
+        return _str.successfulNoDeclaredSlamAttack();
+    }
+
+    public static boolean callResultsTarotBeanSuccessfulDeclaredSlamAttack(ResultsTarotBean _str, int... _args) {
+        return _str.successfulDeclaredSlamAttack();
+    }
+
+    public static boolean callResultsTarotBeanLoose(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().loose();
+    }
+
+    public static boolean callResultsTarotBeanWin(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().win();
     }
 
 
-    public static NaSt callResultsTarotBeanMidBid(NaSt _str, long... _args) {
-        return callLongs(new ResultsTarotBeanMidBid(),_str,_args);
+    public static boolean callResultsTarotBeanEquality(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().equality();
     }
 
-    public static NaSt beanResultsTarot(String _language, ResultsTarot _dataBase) {
-        TarotStandardsResults stds_ = new TarotStandardsResults();
-        stds_.setDataBase(_dataBase);
+    public static boolean callResultsTarotBeanFailedBid(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().failedBid();
+    }
+
+    public static boolean callResultsTarotBeanSuccessfulBid(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().successfulBid();
+    }
+
+
+    public static boolean callResultsTarotBeanMidBid(ResultsTarotBean _str, int... _args) {
+        return _str.getTakerResult().midBid();
+    }
+
+    public static ResultsTarotBean beanResultsTarot(String _language, ResultsTarot _dataBase) {
         ResultsTarotBean bean_ = new ResultsTarotBean();
         bean_.setBuilder(builder());
-        return stds_.bean(bean_, _language);
+        bean_.setDataBase(_dataBase,null);
+        bean_.setLanguage(_language);
+        return bean_;
     }
-    public static NaSt callRulesTarotBeanRepartition(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanRepartition(),_str,_args);
-    }
-
-
-    public static NaSt callRulesTarotBeanCartesBattues(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanCartesBattues(),_str,_args);
-    }
-
-    public static NaSt callRulesTarotBeanMiseres(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanMiseres(),_str,_args);
+    public static String callRulesTarotBeanRepartition(RulesTarotBean _str, int... _args) {
+        return _str.getRepartition();
     }
 
 
-    public static NaSt callRulesTarotBeanContrats(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanContrats(),_str,_args);
+    public static String callRulesTarotBeanCartesBattues(RulesTarotBean _str, int... _args) {
+        return _str.getCartesBattues();
     }
 
-    public static NaSt callRulesTarotBeanMode(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanMode(),_str,_args);
-    }
-
-    public static NaSt callRulesTarotBeanPoigneesAutorisees(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanPoigneesAutorisees(),_str,_args);
+    public static StringList callRulesTarotBeanMiseres(RulesTarotBean _str, int... _args) {
+        return _str.getMiseres();
     }
 
 
-    public static NaSt callRulesTarotBeanFinPartieTarot(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanFinPartieTarot(),_str,_args);
+    public static StringList callRulesTarotBeanContrats(RulesTarotBean _str, int... _args) {
+        return _str.getContrats();
     }
 
-    public static NaSt callRulesTarotBeanAllowPlayCalledSuit(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanAllowPlayCalledSuit(),_str,_args);
+    public static String callRulesTarotBeanMode(RulesTarotBean _str, int... _args) {
+        return _str.getMode();
     }
 
-    public static NaSt callRulesTarotBeanDiscardAfterCall(NaSt _str, long... _args) {
-        return callLongs(new RulesTarotBeanDiscardAfterCall(),_str,_args);
+    public static StringMap<Integer> callRulesTarotBeanPoigneesAutorisees(RulesTarotBean _str, int... _args) {
+        return _str.getPoigneesAutorisees();
+    }
+
+
+    public static String callRulesTarotBeanFinPartieTarot(RulesTarotBean _str, int... _args) {
+        return _str.getFinPartieTarot();
+    }
+
+    public static boolean callRulesTarotBeanAllowPlayCalledSuit(RulesTarotBean _str, int... _args) {
+        return _str.isAllowPlayCalledSuit();
+    }
+
+    public static boolean callRulesTarotBeanDiscardAfterCall(RulesTarotBean _str, int... _args) {
+        return _str.isDiscardAfterCall();
     }
 
 
 
 
-    public static NaSt beanRules(String _language, RulesTarot _dataBase) {
-        TarotStandardsRules stds_ = new TarotStandardsRules();
-        stds_.setDataBaseRules(_dataBase);
+    public static RulesTarotBean beanRules(String _language, RulesTarot _dataBase) {
         RulesTarotBean bean_ = new RulesTarotBean();
         bean_.setBuilder(builder());
-        return stds_.bean(bean_, _language);
+        bean_.setDataBase(null,_dataBase);
+        bean_.setLanguage(_language);
+        return bean_;
     }
-    public static NaSt callLongs(NatCaller _caller, NaSt _str, long... _args) {
-        return _caller.re(_str,getLongArray(_args));
-    }
+//    public static NaSt callLongs(NatCaller _caller, ResultsTarotBean _str, long... _args) {
+//        return _caller.re(_str,getLongArray(_args));
+//    }
 
-    public NaSt displaying(NaSt _b) {
-        ((RulesTarotBean)((TarotBeanStruct)_b).getBean()).build();
+    public RulesTarotBean displaying(RulesTarotBean _b) {
+        _b.build();
         return _b;
     }
 
-    public NaSt displayingGame(NaSt _b) {
-        ((ResultsTarotBean)((TarotBeanStruct)_b).getBean()).build();
+    public ResultsTarotBean displayingGame(ResultsTarotBean _b) {
+        _b.build();
         return _b;
     }
 
-    public NaSt displayingDetail(NaSt _b) {
-        ((DetailsResultsTarotBean)((TarotBeanStruct)_b).getBean()).build();
+    public DetailsResultsTarotBean displayingDetail(DetailsResultsTarotBean _b) {
+        _b.build();
         return _b;
     }
 
-    public static NaSt[] getLongArray(long... _ls){
-        return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
-    }
+//    public static NaSt[] getLongArray(long... _ls){
+//        return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
+//    }
 
-    public static void assertSizeEq(int _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
-    }
+//    public static void assertSizeEq(int _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
+//    }
+//
+//    public static void assertSizeLongsEq(int _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
+//    }
+//    public static void assertNumberEq(int _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
+//    }
+//    public static void assertEq(long _exp, NaSt _result, int _index, int _second) {
+//        assertEq(_exp,((LineDealStruct)(((NatArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
+//    }
+//    public static void assertLongsEq(long _exp, NaSt _result, int _index, int _second) {
+//        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
+//    }
 
-    public static void assertSizeLongsEq(int _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
+//    public static void assertEq(String _exp, NaSt _result) {
+//        assertEq(_exp,((NaStSt)_result).getInstance());
+//    }
+//    public static void assertEq(Rate _exp, NaSt _result) {
+//        assertTrue(_exp.eq(((RtSt)_result).getInstance()));
+//    }
+    public static void assertEq(Rate _exp, Rate _result) {
+        assertTrue(_exp.eq(_result));
     }
-    public static void assertNumberEq(int _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
-    }
-    public static void assertEq(long _exp, NaSt _result, int _index, int _second) {
-        assertEq(_exp,((LineDealStruct)(((NatArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
-    }
-    public static void assertLongsEq(long _exp, NaSt _result, int _index, int _second) {
-        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
-    }
-
-    public static void assertEq(String _exp, NaSt _result) {
-        assertEq(_exp,((NaStSt)_result).getInstance());
-    }
-    public static void assertEq(Rate _exp, NaSt _result) {
-        assertTrue(_exp.eq(((RtSt)_result).getInstance()));
-    }
-    public static void assertEq(long _exp, NaSt _result) {
-        assertEq(_exp,(((NaNbSt)_result).longStruct()));
-    }
-    public static void assertTrue(NaSt _value) {
-        assertSame(NaBoSt.of(true),_value);
-    }
-    public static void assertFalse(NaSt _value) {
-        assertSame(NaBoSt.of(false),_value);
-    }
-    public static void assertSizeEq(int _exp, NaSt _result) {
-        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
-    }
-    public static void assertEq(String _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static void assertEq(Rate _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static void assertEq(long _exp, NaSt _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static void assertFirstEq(String _exp, NaSt _result) {
-        assertEq(_exp,(((PairStruct)_result).getFirst()));
-    }
-    public static void assertSecondEq(long _exp, NaSt _result) {
-        assertEq(_exp,(((PairStruct)_result).getSecond()));
-    }
-    public static NaSt elt(NaSt _arr, int _index) {
-        return ((NatArrayStruct)_arr).get(_index);
+//    public static void assertEq(long _exp, NaSt _result) {
+//        assertEq(_exp,(((NaNbSt)_result).longStruct()));
+//    }
+//    public static void assertTrue(NaSt _value) {
+//        assertSame(NaBoSt.of(true),_value);
+//    }
+//    public static void assertFalse(NaSt _value) {
+//        assertSame(NaBoSt.of(false),_value);
+//    }
+//    public static void assertSizeEq(int _exp, NaSt _result) {
+//        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
+//    }
+//    public static void assertEq(String _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
+//    }
+//    public static void assertEq(Rate _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
+//    }
+//    public static void assertEq(long _exp, NaSt _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
+//    }
+//    public static void assertFirstEq(String _exp, NaSt _result) {
+//        assertEq(_exp,(((PairStruct)_result).getFirst()));
+//    }
+//    public static void assertSecondEq(long _exp, NaSt _result) {
+//        assertEq(_exp,(((PairStruct)_result).getSecond()));
+//    }
+    public static BonusesPlayers elt(CustList<BonusesPlayers> _arr, int _index) {
+        return _arr.get(_index);
     }
 
     private static IntBeanBuilderHelperTarotImpl builder() {
