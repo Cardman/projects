@@ -33,7 +33,6 @@ import cards.network.tarot.displaying.players.RefreshHand;
 import cards.network.threads.Net;
 import cards.network.threads.SendReceiveServerCards;*/
 import cards.gui.panels.Carpet;
-import cards.main.CardNatLgNamesNavigation;
 import cards.main.CardsNonModalEvent;
 import cards.president.*;
 import cards.tarot.*;
@@ -2114,14 +2113,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt,AbsO
 //    }
 
 
-    @Override
-    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
-        return core.getPrepared();
-    }
+//    @Override
+//    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
+//        return core.getPrepared();
+//    }
 
-    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _i) {
-        this.core.setPrepare(_i);
-    }
+//    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _i) {
+//        this.core.setPrepare(_i);
+//    }
 
     public AbstractFutureParam<HelpIndexesTree> getHelpInitializerTask() {
         return helpInitializerTask;

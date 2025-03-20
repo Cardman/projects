@@ -3,18 +3,14 @@ package cards.gui.animations;
 import cards.consts.Role;
 import cards.facade.Games;
 import cards.gui.containers.*;
-import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.TarotCardConverter;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsTarot;
-import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.*;
-import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 
-import code.gui.document.RenderedPage;
 import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -32,6 +28,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
     private final ContainerSimuTarot container;
     private final StopEvent stopEvent;
     private final GameTarot gameTarot;
+    private AbsCustComponent result;
 
 
     public SimulatingTarotImpl(ContainerSimuTarot _container, Games _partieSimulee,
@@ -376,12 +373,13 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
         res_.getRes().setGeneralCards(container.readCoreResourceCards());
-        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
-        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+//        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
+//        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
+//        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
 
-        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+        result = container.getOwner().getCompoFactory().newAbsScrollPane(container.buildCompoGame(res_));
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),result);
 //        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
 //        stopButton_.addActionListener(stopEvent);
@@ -598,5 +596,9 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     public StopEvent getStopEvent() {
         return stopEvent;
+    }
+
+    public AbsCustComponent getResult() {
+        return result;
     }
 }

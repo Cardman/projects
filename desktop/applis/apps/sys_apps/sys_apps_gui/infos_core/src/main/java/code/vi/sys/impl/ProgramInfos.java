@@ -13,7 +13,6 @@ import cards.facade.MessagesCardGames;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.main.CardFactories;
-import cards.main.CardNatLgNamesNavigation;
 import code.converterimages.gui.MessagesConverter;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.gui.unit.MessagesCdmFullGui;
@@ -160,7 +159,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
 
     public static WithAppFactories build(AbstractProgramInfos _p, String _tmpApp) {
         return new WithAppFactories(_p,new AppFactories(new AikiFactory(_p, new DefaultExecutorServiceParam<DataBase>()),
-                new CardFactories(_p,new DefaultExecutorServiceParam<CardNatLgNamesNavigation>(),new DefaultExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator())), _p.getTranslations().getFiles().getVal(_tmpApp).getMapping().getVal(Translations.FILES_PATH).getMapping().getVal(Translations.TEMP_FOLDER)));
+                new CardFactories(_p, new DefaultExecutorServiceParam<HelpIndexesTree>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator())), _p.getTranslations().getFiles().getVal(_tmpApp).getMapping().getVal(Translations.FILES_PATH).getMapping().getVal(Translations.TEMP_FOLDER)));
     }
 
     public StringList getExcludedFolders() {

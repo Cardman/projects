@@ -5,11 +5,7 @@ import aiki.facade.*;
 import aiki.main.*;
 import aiki.sml.*;
 import applications.code.gui.initialize.LoadLanguageUtil;
-import cards.belote.beans.*;
-import cards.gui.dialogs.*;
 import cards.main.*;
-import cards.president.beans.*;
-import cards.tarot.beans.*;
 import code.gui.AbsButton;
 import code.gui.EnabledMenu;
 import code.gui.InterpretedFile;
@@ -18,7 +14,6 @@ import code.gui.files.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
-import code.scripts.pages.cards.*;
 import code.sml.util.*;
 import code.util.*;
 
@@ -55,9 +50,9 @@ public abstract class SoftApplicationCore {
         StringList lgs_ = new StringList(frs_.getTranslations().getMapping().getKeys());
         aiki(a_,lgs_,frs_.getTranslations(),frs_.getDisplayLanguages(),frs_.getGenerator());
         CardFactories cf_ = factories_.getCardFactories();
-        belote(cf_, lgs_, frs_.getTranslations().byAppl(MessBelotePage.APP_BEAN));
-        president(cf_, lgs_, frs_.getTranslations().byAppl(MessPresidentPage.APP_BEAN));
-        tarot(cf_, lgs_, frs_.getTranslations().byAppl(MessTarotPage.APP_BEAN));
+//        belote(cf_, lgs_, frs_.getTranslations().byAppl(MessBelotePage.APP_BEAN));
+//        president(cf_, lgs_, frs_.getTranslations().byAppl(MessPresidentPage.APP_BEAN));
+//        tarot(cf_, lgs_, frs_.getTranslations().byAppl(MessTarotPage.APP_BEAN));
         cf_.submitHelp();
     }
     private static void aiki(AikiFactory _af, StringList _lgs, Translations _msg, StringMap<String> _dis, AbstractGenerator _gene) {
@@ -73,25 +68,25 @@ public abstract class SoftApplicationCore {
 //        _af.submitNavProgTask(new DataWebInit(new PreparedRenderedPages(new ProgGameInit(), PagesInit.buildProg(), stds_, builtOther_, new PkProg(), _lgs)));
     }
 
-    private static void belote(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
-        StringMap<String> other_ = MessBelotePage.ms();
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), _msg, other_, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), _msg, other_, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), _msg, other_, _lgs));
-    }
+//    private static void belote(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
+//        StringMap<String> other_ = MessBelotePage.ms();
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), _msg, other_, _lgs));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsResults(), new ResultsBeloteLoader(), PagesBelotes.build(), _msg, other_, _lgs));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsDetailResults(), new DetailsBeloteLoader(), PagesBelotes.buildDetails(), _msg, other_, _lgs));
+//    }
 
-    private static void president(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
-        StringMap<String> other_ = MessPresidentPage.ms();
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), _msg, other_, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), _msg, other_, _lgs));
-    }
+//    private static void president(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
+//        StringMap<String> other_ = MessPresidentPage.ms();
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), _msg, other_, _lgs));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsResults(), new ResultsPresidentLoader(), PagesPresidents.build(), _msg, other_, _lgs));
+//    }
 
-    private static void tarot(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
-        StringMap<String> other_ = MessTarotPage.ms();
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), _msg, other_, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), _msg, other_, _lgs));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), _msg, other_, _lgs));
-    }
+//    private static void tarot(CardFactories _cf, StringList _lgs, StringMap<TranslationsAppli> _msg) {
+//        StringMap<String> other_ = MessTarotPage.ms();
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), _msg, other_, _lgs));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsResults(), new ResultsTarotLoader(), PagesTarots.build(), _msg, other_, _lgs));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsDetailResults(), new DetailsTarotLoader(), PagesTarots.buildDetails(), _msg, other_, _lgs));
+//    }
 
     protected void launchFile(String[] _args, String _lg) {
         getFrames().setLanguage(_lg);

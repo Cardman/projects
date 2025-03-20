@@ -6,7 +6,6 @@ package cards.gui.containers;
 
 
 import cards.belote.*;
-import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.*;
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
@@ -23,10 +22,8 @@ import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
 //import cards.network.common.select.TeamsPlayers;
-import cards.main.CardNatLgNamesNavigation;
 import cards.main.CardsNonModalEvent;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.files.MessagesGuiFct;
@@ -50,6 +47,8 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     private final WindowCards win;
     private final ContainerSinglePausableContent<CardBelote> contentPausable = new ContainerSinglePausableContent<CardBelote>();
     private PanelTricksHandsBelote panelTricksHandsBelote;
+    private AbsCustComponent detail;
+    private AbsCustComponent gamePart;
 
     public ContainerSingleBelote(WindowCards _window) {
         super(_window);
@@ -944,18 +943,20 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.getRes().setSpecific(readResource());
         Games.setMessages(res_.getRes(),getOwner().getFrames().currentLg());
         setScores(res_.getRes().getScores());
-        RenderedPage editor_;
-        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
-        ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), win.getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+//        RenderedPage editor_;
+//        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
+//        ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
+//        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), win.getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        gamePart = getOwner().getFrames().getCompoFactory().newAbsScrollPane(buildCompoGame(res_));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),gamePart);
 //        if(partie_.getBid().jouerDonne()) {
-            CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
-            ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
-            editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), win.getGuardRender());
-            editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-            onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
+//            CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
+//            ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
+//            editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), win.getGuardRender());
+//            editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        detail = getOwner().getFrames().getCompoFactory().newAbsScrollPane(buildCompoDetail(res_));
+            onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),detail);
 //        }
         if(partie_.getType()==GameType.RANDOM) {
             updateGraphicLines(onglets_,res_.getRes(),nombreJoueurs_,pseudos_);
@@ -1326,6 +1327,14 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     public PanelTricksHandsBelote getPanelTricksHandsBelote() {
         return panelTricksHandsBelote;
+    }
+
+    public AbsCustComponent getGamePart() {
+        return gamePart;
+    }
+
+    public AbsCustComponent getDetail() {
+        return detail;
     }
 }
 

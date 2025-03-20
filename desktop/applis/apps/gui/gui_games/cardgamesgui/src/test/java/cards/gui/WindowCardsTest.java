@@ -1,11 +1,11 @@
 package cards.gui;
 
 import cards.facade.*;
+import cards.gui.dialogs.BeanBuilderHelperCards;
 import cards.gui.dialogs.EditorCardsNonModalEvent;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.main.CardFactories;
-import cards.main.CardNatLgNamesNavigation;
 import cards.main.LaunchingGame;
 import code.gui.GuiBaseUtil;
 import code.gui.LanguagesButtonsPair;
@@ -57,11 +57,22 @@ public final class WindowCardsTest extends EquallableCardsGuiUtil {
         MessagesCardGames.appendNickNames(MessagesCardGames.getAppliTr(wc_.getFrames().currentLg()), MessagesCardGames.en());
 //        WindowCards.getIcon(wc_.getImageFactory());
 //        FacadeCards.install(WindowCards.getTempFolderSl(wc_.getFrames()),wc_.getFrames());
-        LaunchingGame lg_ = new LaunchingGame(new StringList(), wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>()), new LanguagesButtonsPair(null,null,null), null);
+        LaunchingGame lg_ = new LaunchingGame(new StringList(), wc_.getFrames(),new CardFactories(wc_.getFrames(), new MockBaseExecutorServiceParam<HelpIndexesTree>()), new LanguagesButtonsPair(null,null,null), null);
         lg_.run();
         sels();
         defs();
         GuiBaseUtil.tryToReopen(wc_.getApplicationName(),wc_.getFrames());
+        BeanBuilderHelperCards cards_ = new BeanBuilderHelperCards(wc_.getFrames());
+        cards_.initGrid();
+        cards_.setTitledBorder("");
+        cards_.colCount(1);
+        cards_.formatMessageDirCtsHeader("");
+        cards_.addImgCts(new int[1][1],"");
+        cards_.addImg(new int[1][1]);
+        cards_.paintNb(1);
+        cards_.paintIndent();
+        cards_.initLine();
+        cards_.feedParentsCts();
 //        new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
 //        new CallablePreparedPagesCards(new PresidentStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();
 //        new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<String>(),wc_.getFrames().getLanguages()).call();

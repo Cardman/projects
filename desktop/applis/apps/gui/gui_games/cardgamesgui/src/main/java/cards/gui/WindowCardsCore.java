@@ -5,13 +5,11 @@ import cards.facade.enumerations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.menus.*;
-import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractFutureParam;
 import code.util.*;
 
 public final class WindowCardsCore {
@@ -25,7 +23,7 @@ public final class WindowCardsCore {
     private final EnabledMenu displaying;
     private final IdMap<GameEnum,EnabledMenu> displayingGames = new IdMap<GameEnum,EnabledMenu>();
 
-    private StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> prepared;
+//    private StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> prepared;
     private final DialogDisplayingBelote dialogDisplayingBelote;
     private final DialogDisplayingTarot dialogDisplayingTarot;
     private final DialogDisplayingPresident dialogDisplayingPresident;
@@ -189,14 +187,14 @@ public final class WindowCardsCore {
     public DialogTeamsPlayers getDialogTeamsPlayers() {
         return dialogTeamsPlayers;
     }
+//
+//    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
+//        return prepared;
+//    }
 
-    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
-        return prepared;
-    }
-
-    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _p) {
-        this.prepared = _p;
-    }
+//    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _p) {
+//        this.prepared = _p;
+//    }
 
     public DialogDisplayingBelote getDialogDisplayingBelote() {
         return dialogDisplayingBelote;

@@ -13,7 +13,7 @@ public final class LaunchingNetwork extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, InterpretedFile _args, EnabledMenu _lgMenu, AbsButton _main, LanguagesButtonsPair _pair) {
-        getFrames().getCompoFactory().invokeNow(new LaunchNetwork(getFrames(), getAppFactories().getAikiFactory(),getAppFactories().getCardFactories(), _pair));
+        getFrames().getCompoFactory().invokeNow(new LaunchNetwork(getFrames(), getAppFactories().getAikiFactory(), _pair));
     }
 
 }

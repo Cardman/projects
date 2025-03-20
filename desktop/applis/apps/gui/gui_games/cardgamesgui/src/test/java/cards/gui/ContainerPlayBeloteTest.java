@@ -1007,7 +1007,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = editBeloteOtherDisplay(rules_, deal_, mock_);
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(4, tr_.size());
+        assertEq(4, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -1507,7 +1507,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         fullPlayedDeal(gb_);
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(4, tr_.size());
+        assertEq(4, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -1936,7 +1936,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         mock_.getStacks().add(new DealBelote(deal_));
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -1956,7 +1956,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         mock_.getStacks().add(new DealBelote(deal_));
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -1975,7 +1975,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote(rules_, mock_);
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -1994,7 +1994,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote(rules_, mock_);
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -2013,7 +2013,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote(rules_, mock_,1);
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -2032,7 +2032,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         mock_.getStacks().add(new DealBelote(deal_));
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_, 1);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -2051,7 +2051,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote(rules_, mock_);
         dealMock(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -2071,7 +2071,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         mock_.getStacks().add(new DealBelote(deal_));
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay(gb_, mock_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -2729,7 +2729,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryAnimate(csb_);
         cliqUniq(csb_,csb_.getContentPausable().getEndDealGame());
         IdList<AbsCustComponent> tr2_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(4, tr2_.size());
+        assertEq(4, count(csb_));
         assertTrue(tr2_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr2_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr2_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -3978,7 +3978,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote24(rules_, mock_, new BeloteSampleFirstDeal24());
         dealMock24Classic(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -3997,7 +3997,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote24(rules_, mock_, new BeloteSampleFirstDealAll24());
         dealMock24Coinche(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -4016,7 +4016,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote24(rules_, mock_, 1, new BeloteSampleFirstDeal24());
         dealMock24Classic(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -4035,7 +4035,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         ContainerSingleBelote csb_ = modifyBelote24(rules_, mock_, 1, new BeloteSampleFirstDealAll24());
         dealMock24Coinche(mock_, csb_);
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -4089,7 +4089,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         mock_.getStacks().add(new DealBelote(deal_));
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay24(gb_, mock_,0,gb_.getRegles().getDealing());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -4147,7 +4147,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         mock_.getStacks().add(new DealBelote(deal_));
         ContainerSingleBelote csb_ = loadBeloteOtherDisplay24(gb_, mock_,0,gb_.getRegles().getDealing());
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
-        assertEq(5, tr_.size());
+        assertEq(5, count(csb_));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getTrickNumber().self()));
         assertTrue(tr_.containsObj(csb_.getPanelTricksHandsBelote().getCardNumberTrick().self()));
         assertTrue(tr_.containsObj(csb_.getContentPausable().getReplayButton()));
@@ -5046,5 +5046,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         db_.getDeal().add(create(CardBelote.CLUB_KING,CardBelote.CLUB_QUEEN,CardBelote.CLUB_9,CardBelote.CLUB_8,
                 CardBelote.CLUB_1,CardBelote.HEART_1,CardBelote.DIAMOND_1,CardBelote.SPADE_1));
         return db_;
+    }
+    private int count(ContainerSingleBelote _c) {
+        return ((MockCustComponent) _c.window().getPane()).getTreeAccessible().size() - ((MockCustComponent) _c.getDetail()).getTreeAccessible().size() - ((MockCustComponent)_c.getGamePart()).getTreeAccessible().size();
     }
 }

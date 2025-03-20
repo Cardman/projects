@@ -9,7 +9,6 @@ import cards.gui.containers.events.ReadyEvent;
 import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.files.MessagesGuiFct;
 import code.network.NetGroupFrame;
 import code.network.WindowNetWork;
@@ -32,7 +31,7 @@ public final class ContainerMultiContent {
     private final CustList<AbsPlainLabel> playersPseudos = new CustList<AbsPlainLabel>();
     private final CustList<AbsPlainLabel> playersPlaces = new CustList<AbsPlainLabel>();
     private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
-    private RenderedPage editor;
+    private AbsScrollPane editor;
     private IntTreeMap< Integer> playersPlacesForGame = new IntTreeMap< Integer>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private final AbsPlainLabel canPlayLabel;
@@ -289,11 +288,11 @@ public final class ContainerMultiContent {
         return canPlayLabel;
     }
 
-    public RenderedPage getEditor() {
+    public AbsScrollPane getEditor() {
         return editor;
     }
 
-    public void setEditor(RenderedPage _e) {
+    public void setEditor(AbsScrollPane _e) {
         this.editor = _e;
     }
 

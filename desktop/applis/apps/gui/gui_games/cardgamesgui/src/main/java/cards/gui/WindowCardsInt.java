@@ -5,7 +5,6 @@ import cards.belote.RulesBelote;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.containers.ContainerNoGame;
 import cards.gui.dialogs.*;
-import cards.main.CardNatLgNamesNavigation;
 import cards.president.DisplayingPresident;
 import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
@@ -16,7 +15,6 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.TechStreams;
-import code.threads.AbstractFutureParam;
 import code.threads.AbstractThreadFactory;
 import code.util.StringMap;
 
@@ -28,7 +26,7 @@ public interface WindowCardsInt {
 
     StringMap<String> getMenusMessages();
     AbstractThreadFactory getThreadFactory();
-    StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared();
+//    StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared();
 
     void revalidateFrame();
 

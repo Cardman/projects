@@ -17,7 +17,6 @@ import cards.gui.containers.*;
 import cards.gui.dialogs.*;
 import cards.gui.events.*;
 import cards.gui.menus.*;
-import cards.main.*;
 import cards.network.belote.actions.*;
 import cards.network.common.*;
 import cards.network.common.before.*;
@@ -455,7 +454,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private final AbstractAtomicBoolean modal;
     private final ProgressingDialog dialog;
     private final LanguageDialogButtons languageDialogButtons;
-    private final AbsActionListenerAct guardRender;
+//    private final AbsActionListenerAct guardRender;
     private final DialogServerContent dialogServerContent;
     private final FileSaveFrame fileSaveFrame;
     private final FileOpenFrame fileOpenRomFrame;
@@ -468,7 +467,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         super(_list);
         buttonClick = _pair;
         dialogServerContent = new DialogServerContent(this, _list);
-        guardRender = new AlwaysActionListenerAct();
+//        guardRender = new AlwaysActionListenerAct();
         languageDialogButtons = new LanguageDialogButtons(_list,_pair.getLgMenu(), new AlwaysActionListenerAct());
         modal = _list.getThreadFactory().newAtomicBoolean();
         dialog = new ProgressingDialog(getFrames(),modal);
@@ -2460,14 +2459,14 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return net;
     }
 
-    @Override
-    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
-        return netg.getPrepared();
-    }
+//    @Override
+//    public StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> getPrepared() {
+//        return netg.getPrepared();
+//    }
 
-    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _i) {
-        this.netg.setPrepare(_i);
-    }
+//    public void setPrepare(StringMap<AbstractFutureParam<CardNatLgNamesNavigation>> _i) {
+//        this.netg.setPrepare(_i);
+//    }
 
     //    public HelpInitializer getHelpInitializerTask() {
 //        return helpInitializerTask;
@@ -2720,7 +2719,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return scenePanel;
     }
 
-    public AbsActionListenerAct getGuardRender() {
-        return guardRender;
-    }
+//    public AbsActionListenerAct getGuardRender() {
+//        return guardRender;
+//    }
 }

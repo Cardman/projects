@@ -4,7 +4,6 @@ import aiki.main.AikiFactory;
 import cards.facade.CardGamesStream;
 import cards.facade.IntArtCardGames;
 import cards.gui.WindowCards;
-import cards.main.CardFactories;
 import code.gui.LanguagesButtonsPair;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -12,14 +11,12 @@ public final class LaunchNetwork implements Runnable {
     private final AbstractProgramInfos list;
 
     private final AikiFactory aikiFactory;
-    private final CardFactories cardFactories;
     private final LanguagesButtonsPair pair;
     private WindowNetWork window;
 
-    public LaunchNetwork(AbstractProgramInfos _list, AikiFactory _a, CardFactories _c, LanguagesButtonsPair _p) {
+    public LaunchNetwork(AbstractProgramInfos _list, AikiFactory _a, LanguagesButtonsPair _p) {
         list = _list;
         aikiFactory = _a;
-        cardFactories = _c;
         pair = _p;
     }
     @Override
@@ -33,7 +30,7 @@ public final class LaunchNetwork implements Runnable {
 //        pkNet_.run();
         window = new WindowNetWork(new CardGamesStream(list, WindowCards.getTempFolderSl(list)), list, aikiFactory, new IntArtCardGames(), pair);
         WindowNetWork window_ = window;
-        window_.setPrepare(cardFactories.getTaskNav());
+//        window_.setPrepare(cardFactories.getTaskNav());
 //        window_.setButtonClick(button);
 //        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         window_.pack();

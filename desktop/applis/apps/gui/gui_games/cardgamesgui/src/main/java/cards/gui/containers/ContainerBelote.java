@@ -2,6 +2,7 @@ package cards.gui.containers;
 
 
 import cards.belote.*;
+import cards.belote.beans.*;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -12,16 +13,15 @@ import cards.gui.WindowCardsCore;
 import cards.gui.WindowCardsInt;
 import cards.gui.animations.*;
 import cards.gui.containers.events.*;
+import cards.gui.dialogs.BeanBuilderHelperCards;
 import cards.gui.events.*;
 import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
-import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
 import code.gui.files.MessagesGuiFct;
 import code.scripts.messages.cards.*;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
-import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.*;
 
@@ -406,9 +406,32 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(BeloteResoucesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR, BeloteResoucesAccess.NOM_FICHIER));
     }
 
-    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
-        return getOwner().getPrepared().getVal(_conf);
+    public AbsCustComponent buildCompoGame(ResultsBelote _result) {
+        ResultsBeloteBean detail_ = new ResultsBeloteBean();
+        detail_.setLanguage(getWindow().getFrames().getLanguage());
+        detail_.setDataBase(_result,null);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        detail_.setBuilder(builder_);
+        detail_.getBuilder().initPage();
+        detail_.build();
+        return builder_.getStackCards().last();
     }
+
+    protected AbsCustComponent buildCompoDetail(ResultsBelote _result) {
+        DetailsResultsBeloteBean detail_ = new DetailsResultsBeloteBean();
+        detail_.setLanguage(getWindow().getFrames().getLanguage());
+        detail_.setDataBase(_result,null);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        detail_.setBuilder(builder_);
+        detail_.getBuilder().initPage();
+        detail_.build();
+        return builder_.getStackCards().last();
+    }
+//    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
+//        return getOwner().getPrepared().getVal(_conf);
+//    }
 
     public HandBelote getTakerCardsDiscard() {
         return takerCardsDiscard;

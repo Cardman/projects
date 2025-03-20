@@ -17,7 +17,6 @@ import cards.gui.events.*;
 import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
-import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.before.*;
 import cards.network.tarot.DiscardPhaseTarot;
 import cards.network.tarot.actions.*;
@@ -27,10 +26,9 @@ import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
 import cards.network.threads.Net;
 import cards.tarot.*;
-import cards.tarot.beans.TarotStandards;
+import cards.tarot.beans.RulesTarotBean;
 import cards.tarot.enumerations.*;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
@@ -70,6 +68,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     private HandTarot allowed = new HandTarot();
     private DialogTarotContent dialogTarotContent;
     private AbsButton selectRules;
+    private AbsCustComponent detail;
 
     public ContainerMultiTarot(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
@@ -216,12 +215,12 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 
         rulesTarotMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesTarotMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT).attendreResultat();
-        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
-        containerMultiContent.setEditor(FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), containerMultiContent.window().getGuardRender()));
 
-        containerMultiContent.getEditor().getScroll().setPreferredSize(new MetaDimension(300,400));
-        container_.add(containerMultiContent.getEditor().getScroll());
+        containerMultiContent.setEditor(getWindow().getCompoFactory().newAbsScrollPane());
+        containerMultiContent.getEditor().setViewportView(buildCompo());
+        containerMultiContent.getEditor().setPreferredSize(new MetaDimension(300,400));
+        container_.add(containerMultiContent.getEditor());
+
         getContainerMultiContent().updateAfter(this,_players,MessagesGuiCards.PLAY_TAROT, container_);
 //        playersPlacesForGame = _players.getPlacesPlayers();
 //        playersPseudosForGame = new IntMap<String>(_players.getPseudos());
@@ -290,9 +289,18 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         Net.getGames(getContainerMultiContent().window().getNet()).setRulesTarot(getRulesTarotMulti());
         rulesTarotMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesTarotMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT).attendreResultat();
-        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
-        FrameGeneralHelp.initialize(stds_, containerMultiContent.getEditor());
+        containerMultiContent.getEditor().setViewportView(buildCompo());
+    }
+    private AbsCustComponent buildCompo() {
+        RulesTarotBean rulesBean_ = new RulesTarotBean();
+        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
+        rulesBean_.setDataBase(null,rulesTarotMulti);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        rulesBean_.setBuilder(builder_);
+        rulesBean_.getBuilder().initPage();
+        rulesBean_.build();
+        return builder_.getStackCards().last();
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
 //        repTarot = _hand.getRep();
@@ -1250,17 +1258,18 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
 //        _res.getRes().setGeneral(readCoreResourceSuit());
 //        _res.getRes().setSpecific(readResource());
 //        _res.getRes().setGeneralCards(readCoreResourceCards());
-        RenderedPage editor_;
-        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
-        ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
-        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT).attendreResultat();
-        ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
+//        RenderedPage editor_;
+//        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
+//        ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
+//        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),getWindow().getFrames().getCompoFactory().newAbsScrollPane(buildCompoGame(_res)));
+//        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT).attendreResultat();
+//        ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
+//        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE), getWindow().getFrames().getCompoFactory().newAbsScrollPane(buildCompoDetail(_res)));
+        detail = onglets_;
         container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
 //        containerMultiContent.endReady(this,panneau_);
@@ -1409,7 +1418,11 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
         return callableCards;
     }
 
-//    @Override
+    public AbsCustComponent getDetail() {
+        return detail;
+    }
+
+    //    @Override
 //    public WindowNetWork window() {
 //        return win;
 //    }

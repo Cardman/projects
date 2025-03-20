@@ -16,7 +16,6 @@ import cards.facade.*;
 import cards.facade.enumerations.*;
 import cards.gui.*;
 import cards.gui.containers.*;
-import cards.gui.dialogs.*;
 import cards.gui.dialogs.help.*;
 import cards.gui.labels.*;
 import cards.main.*;
@@ -37,7 +36,9 @@ import code.mock.*;
 import code.netw.*;
 import code.network.enums.*;
 import code.scripts.messages.cards.*;
-import code.sml.*;
+import code.scripts.pages.cards.MessagesBelotePage;
+import code.scripts.pages.cards.MessagesPresidentPage;
+import code.scripts.pages.cards.MessagesTarotPage;
 import code.sml.util.*;
 import code.threads.*;
 import code.util.*;
@@ -211,9 +212,9 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateSingleBelote(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoBelote(pr_), pr_, new AikiFactory(pr_, new MockBaseExecutorServiceParam<DataBase>()), ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
-        belote(cf_, w_);
-        w_.setPrepare(cf_.getTaskNav());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
+//        belote(cf_, w_);
+//        w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
         tryClick(w_.getMultiModeButton());
@@ -228,9 +229,9 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateSinglePresident(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoPresident(pr_), pr_, new AikiFactory(pr_, new MockBaseExecutorServiceParam<DataBase>()), ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
-        president(cf_, w_);
-        w_.setPrepare(cf_.getTaskNav());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
+//        president(cf_, w_);
+//        w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
         tryClick(w_.getMultiModeButton());
@@ -245,9 +246,9 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateSingleTarot(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(streamPseudoTarot(pr_), pr_, new AikiFactory(pr_, new MockBaseExecutorServiceParam<DataBase>()), ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
-        tarot(cf_, w_);
-        w_.setPrepare(cf_.getTaskNav());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
+//        tarot(cf_, w_);
+//        w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
         tryClick(w_.getMultiModeButton());
@@ -261,8 +262,8 @@ public abstract class EquallableNetworkUtil {
         MockProgramInfos pr_ = updateDialogDisplay(build());
         pr_.getSocketFactory().setOkServer(true);
         WindowNetWork w_ = new WindowNetWork(stream(pr_), pr_, new AikiFactory(pr_, new MockBaseExecutorServiceParam<DataBase>()), ia_, new LanguagesButtonsPair(null,null,null));
-        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
-        w_.setPrepare(cf_.getTaskNav());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
+//        w_.setPrepare(cf_.getTaskNav());
         w_.pack();
         w_.setVisible(true);
         return w_;
@@ -395,23 +396,23 @@ public abstract class EquallableNetworkUtil {
         en_.addEntry(MessagesGuiFct.FILE_SAVE_DIAL,MessagesFileSaveDialog.en());
         en_.addEntry(MessagesGuiFct.FILE_TAB,MessagesFileTable.en());
     }
-    private static void belote(CardFactories _cf, WindowNetWork _w) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-    }
+//    private static void belote(CardFactories _cf, WindowNetWork _w) {
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//    }
 
-    private static void president(CardFactories _cf, WindowNetWork _w) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-    }
+//    private static void president(CardFactories _cf, WindowNetWork _w) {
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//    }
 
-    private static void tarot(CardFactories _cf, WindowNetWork _w) {
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
-    }
+//    private static void tarot(CardFactories _cf, WindowNetWork _w) {
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
+//    }
 
     public static NatNavigation nav() {
         NatNavigation nav_ = new NatNavigation();
@@ -433,6 +434,10 @@ public abstract class EquallableNetworkUtil {
         appendMainGame(appendCards(appendCommon(appendMix(appendBelote(baseCardsEn(_pr),MessagesBelote.en(),MessagesBelote.enGame(),MessagesDialogBelote.en()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
         appendMainGame(appendCards(appendCommon(appendMix(appendBelote(baseCardsFr(_pr),MessagesBelote.fr(),MessagesBelote.frGame(),MessagesDialogBelote.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
         maxiImgs(_pr);
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        _pr.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
+        _pr.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
         return _pr;
     }
     public static MockProgramInfos updateSinglePresident(MockProgramInfos _pr) {
@@ -440,6 +445,10 @@ public abstract class EquallableNetworkUtil {
         appendMainGame(appendCards(appendCommon(appendMix(appendPresident(baseCardsEn(_pr),MessagesPresident.en(),MessagesPresident.enGame(),MessagesDialogPresident.en()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
         appendMainGame(appendCards(appendCommon(appendMix(appendPresident(baseCardsFr(_pr),MessagesPresident.fr(),MessagesPresident.frGame(),MessagesDialogPresident.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
         maxiImgs(_pr);
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        _pr.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPresidentPage.APP_BEAN, ta_);
+        _pr.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesPresidentPage.APP_BEAN, ta_);
         return _pr;
     }
     public static MockProgramInfos updateSingleTarot(MockProgramInfos _pr) {
@@ -447,6 +456,10 @@ public abstract class EquallableNetworkUtil {
         appendMainGame(appendCards(appendCommon(appendMix(appendTarot(baseCardsEn(_pr),MessagesTarot.en(),MessagesTarot.enGame(),MessagesDialogTarot.en()) ,MessagesCommonMix.en()),MessagesCommonFile.en()),MessagesCommonCards.en()),MessagesGuiCards.enGame());
         appendMainGame(appendCards(appendCommon(appendMix(appendTarot(baseCardsFr(_pr),MessagesTarot.fr(),MessagesTarot.frGame(),MessagesDialogTarot.fr()),MessagesCommonMix.en()),MessagesCommonFile.fr()),MessagesCommonCards.fr()),MessagesGuiCards.frGame());
         maxiImgs(_pr);
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        _pr.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesTarotPage.APP_BEAN, ta_);
+        _pr.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesTarotPage.APP_BEAN, ta_);
         return _pr;
     }
     public static MockProgramInfos updateDialogDisplay(MockProgramInfos _pr) {

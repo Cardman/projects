@@ -3,25 +3,27 @@ package cards.gui.containers;
 
 
 import cards.gui.WindowCardsInt;
+import cards.gui.dialogs.BeanBuilderHelperCards;
 import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.labels.GraphicCard;
 import cards.gui.labels.IntCardConverter;
 import cards.gui.labels.PresidentCardConverter;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.CarpetPresident;
-import cards.main.CardNatLgNamesNavigation;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
+import cards.president.ResultsPresident;
+import cards.president.beans.PresidentBean;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
+import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
 import code.gui.AbsButton;
 import code.gui.AbsPlainLabel;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
-import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -250,7 +252,18 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
         return virtualHand;
     }
 
-    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
-        return getOwner().getPrepared().getVal(_conf);
+    public AbsCustComponent buildCompoGame(ResultsPresident _result) {
+        PresidentBean detail_ = new PresidentBean();
+        detail_.setLanguage(getWindow().getFrames().getLanguage());
+        detail_.setDataBase(_result);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        detail_.setBuilder(builder_);
+        detail_.getBuilder().initPage();
+        detail_.build();
+        return builder_.getStackCards().last();
     }
+//    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
+//        return getOwner().getPrepared().getVal(_conf);
+//    }
 }

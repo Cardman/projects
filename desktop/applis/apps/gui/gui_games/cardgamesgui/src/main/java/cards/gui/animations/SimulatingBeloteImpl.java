@@ -1,20 +1,16 @@
 package cards.gui.animations;
 
 import cards.belote.*;
-import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.facade.Games;
 import cards.gui.containers.*;
-import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.BeloteCardConverter;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
-import cards.main.CardNatLgNamesNavigation;
 import code.gui.*;
 
-import code.gui.document.RenderedPage;
 import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -33,6 +29,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
     private final GameBelote gameBelote;
     private final ContainerSimuBelote container;
     private final StopEvent stopEvent;
+    private AbsCustComponent result;
 
     public SimulatingBeloteImpl(ContainerSimuBelote _container, Games _partieSimulee,
                                 DisplayingBelote _displayingBelote, StopEvent _stopEvent, IntGameBelote _ia, AbstractAtomicInteger _s) {
@@ -374,11 +371,12 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
         res_.getRes().setGeneral(container.readCoreResourceSuit());
         res_.getRes().setSpecific(container.readResource());
-        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
-        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+//        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
+//        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
+//        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        result = container.getOwner().getCompoFactory().newAbsScrollPane(container.buildCompoGame(res_));
+        onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),result);
 //        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
 //        stopButton_.addActionListener(stopEvent);
@@ -524,5 +522,9 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     public GameBelote partieBeloteSimulee() {
         return gameBelote;
+    }
+
+    public AbsCustComponent getResult() {
+        return result;
     }
 }

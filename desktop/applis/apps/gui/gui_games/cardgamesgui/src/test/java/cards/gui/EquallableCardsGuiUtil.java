@@ -8,7 +8,6 @@ import cards.facade.*;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.gui.containers.ContainerSingleImpl;
-import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.gui.labels.HandfulLabel;
 import cards.main.*;
@@ -27,7 +26,9 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.scripts.messages.cards.*;
 import code.scripts.pages.cards.HelpCards;
-import code.sml.*;
+import code.scripts.pages.cards.MessagesBelotePage;
+import code.scripts.pages.cards.MessagesPresidentPage;
+import code.scripts.pages.cards.MessagesTarotPage;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
@@ -81,13 +82,17 @@ public abstract class EquallableCardsGuiUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        pr_.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
+        pr_.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     protected WindowCards frameSingleBeloteWithEnd24(IntGameBelote _m) {
@@ -97,20 +102,24 @@ public abstract class EquallableCardsGuiUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        pr_.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
+        pr_.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,2);
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     protected WindowCards frameSingleBeloteWithEndModif(IntGameBelote _m, int _i) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSingleBelote(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.BELOTE, _i,tempFolderSl_,pr_,1);
         CardGamesStream str_ = streamPseudoBelote(pr_);
@@ -118,20 +127,24 @@ public abstract class EquallableCardsGuiUtil {
         sp_.getLancement().add(GameEnum.BELOTE);
         StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), MessagesCardGames.getAppliFilesTr(pr_.getTranslations()).val().getMapping().getVal(MessagesCardGames.PARAMS)),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
         WindowCards wc_ = new WindowCards(str_, pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     protected WindowCards frameSimuBeloteWithEnd(IntGameBelote _m) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setBelote(_m);
         MockProgramInfos pr_ = updateSimuBelote(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        pr_.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
+        pr_.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesBelotePage.APP_BEAN, ta_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         WindowCards wc_ = new WindowCards(streamPseudoBelote(pr_), pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,new CallablePreparedPagesCards(new BeloteStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     protected WindowCards frameSinglePresidentWithEnd(IntGamePresident _m) {
@@ -141,12 +154,16 @@ public abstract class EquallableCardsGuiUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setPresident(_m);
         MockProgramInfos pr_ = updateSinglePresident(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        pr_.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPresidentPage.APP_BEAN, ta_);
+        pr_.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesPresidentPage.APP_BEAN, ta_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.PRESIDENT, _i,tempFolderSl_,pr_,1);
         WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
 
@@ -154,10 +171,14 @@ public abstract class EquallableCardsGuiUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setPresident(_m);
         MockProgramInfos pr_ = updateSimuPresident(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        pr_.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesPresidentPage.APP_BEAN, ta_);
+        pr_.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesPresidentPage.APP_BEAN, ta_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         WindowCards wc_ = new WindowCards(streamPseudoPresident(pr_), pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,new CallablePreparedPagesCards(new PresidentStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     protected WindowCards frameSingleTarot(IntGameTarot _m) {
@@ -174,24 +195,32 @@ public abstract class EquallableCardsGuiUtil {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setTarot(_m);
         MockProgramInfos pr_ = updateSingleTarot(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        pr_.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesTarotPage.APP_BEAN, ta_);
+        pr_.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesTarotPage.APP_BEAN, ta_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         String tempFolderSl_ = defStack(pr_);
         FacadeCards.changerNombreDeParties(GameEnum.TAROT, _i,tempFolderSl_,pr_,0);
         WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     protected WindowCards frameSimuTarotWithEnd(IntGameTarot _m) {
         IntArtCardGames ia_ = new IntArtCardGames();
         ia_.setTarot(_m);
         MockProgramInfos pr_ = updateSimuTarot(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        TranslationsAppli ta_ = new TranslationsAppli();
+        ta_.getMapping().addEntry("",new TranslationsFile());
+        pr_.getTranslations().getMapping().getVal(EN).getMapping().addEntry(MessagesTarotPage.APP_BEAN, ta_);
+        pr_.getTranslations().getMapping().getVal(FR).getMapping().addEntry(MessagesTarotPage.APP_BEAN, ta_);
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         WindowCards wc_ = new WindowCards(streamPseudoTarot(pr_), pr_, ia_);
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
-        wc_.setPrepare(cf_.getTaskNav());
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        cf_.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSample(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),wc_.getFrames().getLanguages()));
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
 
@@ -214,20 +243,20 @@ public abstract class EquallableCardsGuiUtil {
     }
     protected WindowCards frameSingleSolitaireWithEnd(int _i) {
         MockProgramInfos pr_ = updateSingleSolitaire(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         WindowCards wc_ = new WindowCards(stream(pr_), pr_, new IntArtCardGames());
-        wc_.setPrepare(cf_.getTaskNav());
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     protected WindowCards frameSingleSolitaireWithEndModif(int _i, GameEnum _solo) {
         MockProgramInfos pr_ = updateSingleSolitaire(build());
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         CardGamesStream str_ = stream(pr_);
         SoftParams sp_ = new SoftParams();
         sp_.getLancement().add(_solo);
         StreamTextFile.saveTextFile(StringUtil.concat(WindowCards.getTempFolderSl(pr_), MessagesCardGames.getAppliFilesTr(pr_.getTranslations()).val().getMapping().getVal(MessagesCardGames.PARAMS)),DocumentWriterCardsUnionUtil.setSoftParams(sp_),pr_.getStreams());
         WindowCards wc_ = new WindowCards(str_, pr_, new IntArtCardGames());
-        wc_.setPrepare(cf_.getTaskNav());
+//        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
     public static NatNavigation nav() {
@@ -577,7 +606,7 @@ public abstract class EquallableCardsGuiUtil {
 
     protected WindowCards frameDialogGeneHelp(String _h, String _t) {
         MockProgramInfos pr_ = updateDialogGeneHelp(build(_h, _t, dbs(0.75)));
-        CardFactories cf_ = new CardFactories(pr_,new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(),new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        CardFactories cf_ = new CardFactories(pr_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
         cf_.submitHelp();
         AbstractFutureParam<HelpIndexesTree> helpTask_ = cf_.getHelpTask();
         helpTask_.attendreResultat();

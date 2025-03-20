@@ -8,17 +8,14 @@ import cards.gui.WindowCards;
 import cards.gui.animations.PreparedRenderPagesCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
-import cards.main.CardNatLgNamesNavigation;
 import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.formathtml.render.MetaDocument;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.document.WindowPage;
-import code.gui.events.AbsActionListenerAct;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.scripts.pages.cards.HelpCards;
@@ -111,21 +108,21 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         coreInfos(_cur, _nav);
         _cur.getGene().getCompoFactory().invokeNow(new WindowPage(_metaDoc, _cur.getScroll(), _cur));
     }
-
-    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public static void initialize(CardNatLgNamesNavigation _stds, RenderedPage _cur) {
-        NatNavigation n_ = _stds.getNavigation();
-        n_.setLanguage(_cur.getGene().getLanguage());
-        coreInfos(_cur, n_);
-        _stds.getBeanNatLgNames().initializeRendSessionDoc(n_);
-        _cur.setupText();
-    }
-    public static RenderedPage initialize(CardNatLgNamesNavigation _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
-        AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
-        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
-        initialize(_stds,r_);
-        return r_;
-    }
+//
+//    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
+//    public static void initialize(CardNatLgNamesNavigation _stds, RenderedPage _cur) {
+//        NatNavigation n_ = _stds.getNavigation();
+//        n_.setLanguage(_cur.getGene().getLanguage());
+//        coreInfos(_cur, n_);
+//        _stds.getBeanNatLgNames().initializeRendSessionDoc(n_);
+//        _cur.setupText();
+//    }
+//    public static RenderedPage initialize(CardNatLgNamesNavigation _stds, AbstractProgramInfos _pr, AbsActionListenerAct _guard) {
+//        AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
+//        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter(), _guard);
+//        initialize(_stds,r_);
+//        return r_;
+//    }
 
     public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
         _cur.setNavCore(_n.getBean());

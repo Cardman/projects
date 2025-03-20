@@ -22,10 +22,8 @@ import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsTarot;
 //import cards.network.common.select.TeamsPlayers;
-import cards.main.CardNatLgNamesNavigation;
 import cards.main.CardsNonModalEvent;
 import cards.tarot.*;
-import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ChoiceTarot;
@@ -33,7 +31,6 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.files.MessagesGuiFct;
@@ -53,6 +50,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private final WindowCards win;
     private final ContainerSinglePausableContent<CardTarot> contentPausable = new ContainerSinglePausableContent<CardTarot>();
     private PanelTricksHandsTarot panelTricksHandsTarot;
+    private AbsCustComponent detail;
+    private AbsCustComponent gamePart;
 
     public ContainerSingleTarot(WindowCards _window) {
         super(_window);
@@ -1181,17 +1180,19 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         res_.getRes().setSpecific(readResource());
         res_.getRes().setGeneralCards(readCoreResourceCards());
 
-        RenderedPage editor_;
-        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
-        ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), win.getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
-        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT).attendreResultat();
-        ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), win.getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
+//        RenderedPage editor_;
+//        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_TAROT).attendreResultat();
+//        ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
+//        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), win.getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        gamePart = getOwner().getFrames().getCompoFactory().newAbsScrollPane(buildCompoGame(res_));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),gamePart);
+//        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT).attendreResultat();
+//        ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
+//        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), win.getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        detail = getOwner().getFrames().getCompoFactory().newAbsScrollPane(buildCompoDetail(res_));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),detail);
         if(partie_.getType()==GameType.RANDOM) {
             updateGraphicLines(onglets_,res_.getRes(),nombreJoueurs_,pseudos_);
 //            Ints couleurs_=couleursCourbes(getOwner().getGenerator());
@@ -1921,6 +1922,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return _gt.getTricks().first().getCartes().couleur(Suit.TRUMP);
         }
         return new HandTarot();
+    }
+
+    public AbsCustComponent getGamePart() {
+        return gamePart;
+    }
+
+    public AbsCustComponent getDetail() {
+        return detail;
     }
 }
 

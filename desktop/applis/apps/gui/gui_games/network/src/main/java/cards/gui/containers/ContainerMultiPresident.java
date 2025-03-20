@@ -15,7 +15,6 @@ import cards.gui.dialogs.*;
 import cards.gui.events.ListenerCardPresidentMultiGame;
 import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetPresident;
-import cards.main.CardNatLgNamesNavigation;
 import cards.network.common.before.*;
 import cards.network.president.actions.DiscardedCardsPresident;
 import cards.network.president.actions.PlayingCardPresident;
@@ -24,11 +23,10 @@ import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.threads.Net;
 import cards.president.*;
-import cards.president.beans.PresidentStandards;
+import cards.president.beans.RulesPresidentBean;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.events.AlwaysActionListenerAct;
 import code.gui.files.MessagesGuiFct;
@@ -69,6 +67,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     private HandPresident allowed = new HandPresident();
     private DialogPresidentContent dialogPresidentContent;
     private AbsButton selectRules;
+    private AbsCustComponent detail;
 
     public ContainerMultiPresident(WindowNetWork _window, boolean _hasCreatedServer) {
         super(_window);
@@ -127,12 +126,10 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 
         rulesPresidentMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesPresidentMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
-        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
-        containerMultiContent.setEditor(FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), containerMultiContent.window().getGuardRender()));
-
-        containerMultiContent.getEditor().getScroll().setPreferredSize(new MetaDimension(300,400));
-        container_.add(containerMultiContent.getEditor().getScroll());
+        containerMultiContent.setEditor(getWindow().getCompoFactory().newAbsScrollPane());
+        containerMultiContent.getEditor().setViewportView(buildCompo());
+        containerMultiContent.getEditor().setPreferredSize(new MetaDimension(300,400));
+        container_.add(containerMultiContent.getEditor());
 
         getContainerMultiContent().updateAfter(this,_players,MessagesGuiCards.PLAY_PRESIDENT, container_);
 //        playersPlacesForGame = _players.getPlacesPlayers();
@@ -211,9 +208,18 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
         Net.getGames(getContainerMultiContent().window().getNet()).setRulesPresident(getRulesPresidentMulti());
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_PRESIDENT).attendreResultat();
-        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
-        FrameGeneralHelp.initialize(stds_, containerMultiContent.getEditor());
+        containerMultiContent.getEditor().setViewportView(buildCompo());
+    }
+    private AbsCustComponent buildCompo() {
+        RulesPresidentBean rulesBean_ = new RulesPresidentBean();
+        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
+        rulesBean_.setDataBase(rulesPresidentMulti);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        rulesBean_.setBuilder(builder_);
+        rulesBean_.getBuilder().initPage();
+        rulesBean_.build();
+        return builder_.getStackCards().last();
     }
 
     public void updateForBeginningGame(DealtHandPresident _hand) {
@@ -663,12 +669,13 @@ public final class ContainerMultiPresident extends ContainerPresident implements
 //        String lg_ = getOwner().getLanguageKey();
         setScores(_res.getRes().getScores());
 
-        RenderedPage editor_;
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
-        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+//        RenderedPage editor_;
+//        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
+//        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
+//        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),getWindow().getFrames().getCompoFactory().newAbsScrollPane(buildCompoGame(_res)));
+        detail = onglets_;
         container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
 //        containerMultiContent.endReady(this,panneau_);
@@ -830,4 +837,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
         return containerMultiContent;
     }
 
+    public AbsCustComponent getDetail() {
+        return detail;
+    }
 }

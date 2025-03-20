@@ -8,14 +8,16 @@ import cards.gui.WindowCardsInt;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.HandfulThread;
 import cards.gui.animations.SettingText;
+import cards.gui.dialogs.BeanBuilderHelperCards;
 import cards.gui.events.ListenerCardTarotHandful;
 import cards.gui.events.SelectHandfulEvent;
 import cards.gui.labels.*;
 import cards.gui.panels.CarpetTarot;
-import cards.main.CardNatLgNamesNavigation;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
+import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
+import cards.tarot.beans.*;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.files.MessagesGuiFct;
@@ -23,7 +25,6 @@ import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.sml.util.TranslationsLg;
 import code.threads.AbstractAtomicInteger;
-import code.threads.AbstractFutureParam;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -479,10 +480,31 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
         return MessagesCardGames.getCommonTarotTr(readResourceAppli()).getMapping();
     }
 
-    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
-        return getOwner().getPrepared().getVal(_conf);
+//    public AbstractFutureParam<CardNatLgNamesNavigation> retrieve(String _conf) {
+//        return getOwner().getPrepared().getVal(_conf);
+//    }
+    public AbsCustComponent buildCompoGame(ResultsTarot _result) {
+        ResultsTarotBean detail_ = new ResultsTarotBean();
+        detail_.setLanguage(getWindow().getFrames().getLanguage());
+        detail_.setDataBase(_result,null);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        detail_.setBuilder(builder_);
+        detail_.getBuilder().initPage();
+        detail_.build();
+        return builder_.getStackCards().last();
     }
-
+    protected AbsCustComponent buildCompoDetail(ResultsTarot _result) {
+        DetailsResultsTarotBean detail_ = new DetailsResultsTarotBean();
+        detail_.setLanguage(getWindow().getFrames().getLanguage());
+        detail_.setDataBase(_result,null);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        detail_.setBuilder(builder_);
+        detail_.getBuilder().initPage();
+        detail_.build();
+        return builder_.getStackCards().last();
+    }
     public IdList<BidTarot> getBids() {
         return bids;
     }

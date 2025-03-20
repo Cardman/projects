@@ -11,7 +11,6 @@ import cards.facade.IntArtCardGames;
 import cards.facade.MessagesCardGames;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import cards.main.CardFactories;
-import cards.main.CardNatLgNamesNavigation;
 import cards.network.threads.*;
 import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
@@ -65,8 +64,8 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         api_.setLanguages(new StringList(EN,FR));
         MessagesCardGames.appendNickNames(MessagesCardGames.getAppliTr(api_.currentLg()), MessagesCardGames.en());
         AikiFactory ai_ = new AikiFactory(api_, new MockBaseExecutorServiceParam<DataBase>());
-        CardFactories cf_ = new CardFactories(api_, new MockBaseExecutorServiceParam<CardNatLgNamesNavigation>(), new MockBaseExecutorServiceParam<HelpIndexesTree>());
-        LaunchNetwork l_ = new LaunchNetwork(api_, ai_, cf_, new LanguagesButtonsPair(api_.getCompoFactory().newMenuItem(),null,null));
+        CardFactories cf_ = new CardFactories(api_, new MockBaseExecutorServiceParam<HelpIndexesTree>());
+        LaunchNetwork l_ = new LaunchNetwork(api_, ai_, new LanguagesButtonsPair(api_.getCompoFactory().newMenuItem(),null,null));
         l_.run();
         assertTrue(l_.getWindow().getCommonFrame().isVisible());
         tryClick(l_.getWindow().getNetg().getLanguage());

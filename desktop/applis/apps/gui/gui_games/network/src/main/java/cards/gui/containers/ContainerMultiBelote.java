@@ -5,7 +5,7 @@ package cards.gui.containers;
 
 
 import cards.belote.*;
-import cards.belote.beans.BeloteStandards;
+import cards.belote.beans.RulesBeloteBean;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
 import cards.consts.Role;
@@ -20,7 +20,6 @@ import cards.gui.events.ListenerCardBeloteMultiGame;
 import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
-import cards.main.CardNatLgNamesNavigation;
 import cards.network.belote.DiscardPhaseBelote;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.DiscardedCardBelote;
@@ -32,7 +31,6 @@ import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.before.*;
 import cards.network.threads.Net;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
@@ -72,7 +70,8 @@ public final class ContainerMultiBelote extends ContainerBelote implements
     private HandBelote allowed = new HandBelote();
     private DialogBeloteContent dialogBeloteContent;
     private AbsButton selectRules;
-//    private boolean canBid;
+    private AbsCustComponent detail;
+    //    private boolean canBid;
 //    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
 //    private final WindowNetWork win;
 
@@ -281,12 +280,11 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
         rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
-        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
-        containerMultiContent.setEditor(FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), containerMultiContent.window().getGuardRender()));
 
-        containerMultiContent.getEditor().getScroll().setPreferredSize(new MetaDimension(300,400));
-        container_.add(containerMultiContent.getEditor().getScroll());
+        containerMultiContent.setEditor(getWindow().getCompoFactory().newAbsScrollPane());
+        containerMultiContent.getEditor().setViewportView(buildCompo());
+        containerMultiContent.getEditor().setPreferredSize(new MetaDimension(300,400));
+        container_.add(containerMultiContent.getEditor());
 
         getContainerMultiContent().updateAfter(this,_players,MessagesGuiCards.PLAY_BELOTE, container_);
 //        playersPlacesForGame = _players.getPlacesPlayers();
@@ -367,11 +365,20 @@ public final class ContainerMultiBelote extends ContainerBelote implements
         Net.getGames(getContainerMultiContent().window().getNet()).setRulesBelote(getRulesBeloteMulti());
         rulesBeloteMulti.getCommon().setGeneral(WindowNetWork.readCoreResourceMix(this));
         rulesBeloteMulti.getCommon().setSpecific(readResource());
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RULES_BELOTE).attendreResultat();
-        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
-        FrameGeneralHelp.initialize(stds_, containerMultiContent.getEditor());
+        containerMultiContent.getEditor().setViewportView(buildCompo());
     }
 
+    private AbsCustComponent buildCompo() {
+        RulesBeloteBean rulesBean_ = new RulesBeloteBean();
+        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
+        rulesBean_.setDataBase(null,rulesBeloteMulti);
+        BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
+        builder_.setTranslations(getWindow().getFrames().getTranslations());
+        rulesBean_.setBuilder(builder_);
+        rulesBean_.getBuilder().initPage();
+        rulesBean_.build();
+        return builder_.getStackCards().last();
+    }
     public void updateForBeginningGame(DealtHandBelote _hand) {
 //        repBelote = _hand.getRep();
         placerIhmBeloteMulti(_hand.getDeck(), _hand.getDealer());
@@ -1041,17 +1048,18 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 //        _res.getRes().setSpecific(readResource());
 //        String lg_ = getOwner().getLanguageKey();
 
-        RenderedPage editor_;
-        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
-        ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
-        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
-        ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
-        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),editor_.getScroll());
+//        RenderedPage editor_;
+//        CardNatLgNamesNavigation sOne_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_BELOTE).attendreResultat();
+//        ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
+//        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE), getWindow().getFrames().getCompoFactory().newAbsScrollPane(buildCompoGame(_res)));
+//        CardNatLgNamesNavigation sTwo_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE).attendreResultat();
+//        ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
+//        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames(), getContainerMultiContent().window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE), getWindow().getFrames().getCompoFactory().newAbsScrollPane(buildCompoDetail(_res)));
+        detail = onglets_;
         container_.add(onglets_, MessagesGuiFct.BORDER_LAYOUT_CENTER);
 //        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
 //        containerMultiContent.endReady(this,panneau_);
@@ -1210,6 +1218,10 @@ public final class ContainerMultiBelote extends ContainerBelote implements
     public void setRulesBeloteMulti(RulesBelote _r) {
         this.rulesBeloteMulti = _r;
         Net.getGames(getContainerMultiContent().window().getNet()).setRulesBelote(getRulesBeloteMulti());
+    }
+
+    public AbsCustComponent getDetail() {
+        return detail;
     }
 }
 

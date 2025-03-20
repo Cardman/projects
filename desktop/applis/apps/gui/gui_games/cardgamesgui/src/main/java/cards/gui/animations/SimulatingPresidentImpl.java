@@ -4,18 +4,14 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.containers.*;
 import cards.gui.dialogs.EditorCards;
-import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.labels.PresidentCardConverter;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
-import cards.main.CardNatLgNamesNavigation;
 import cards.president.*;
-import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.*;
 
-import code.gui.document.RenderedPage;
 import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.cards.MessagesGuiCards;
@@ -36,6 +32,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
     private final int maxDeals;
     private final AbsPanel renderPanel;
     private final NumComboBox dealsTricks;
+    private AbsCustComponent result;
 
     public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent, IntGamePresident _ia, AbstractAtomicInteger _state) {
         super(_displayingPresident, _ia, _state);
@@ -389,8 +386,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
             AbsTabbedPane onglets_=container.getOwner().getCompoFactory().newAbsTabbedPane();
             AbsPanel containerPresident_=container.getOwner().getCompoFactory().newBorder();
             AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
-            RenderedPage editor_ = editor();
-            onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+            AbsScrollPane editor_ = editor();
+            onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_);
             renderPanel.setPreferredSize(new MetaDimension(850,850));
             onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_HANDS_TRICKS),renderPanel);
             onglets_.add(container.file().getVal(MessagesGuiCards.MAIN_DETAIL_RESULTS_PAGE),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText())));
@@ -408,8 +405,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
             return;
         }
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
-        RenderedPage editor_ = editor();
-        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText()))));
+        AbsScrollPane editor_ = editor();
+        panneau_.add(container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_,container.getOwner().getCompoFactory().newAbsScrollPane(ContainerSingleImpl.readOnly(container,container.getEvents().getText()))));
 //        AbsButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.fileSimu().getVal(MessagesGuiCards.SIMU_STOP_DEMO));
 //        stopButton_.addActionListener(stopEvent);
 //        panneau_.add(stopButton_);
@@ -420,7 +417,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container.pack();
     }
 
-    private RenderedPage editor() {
+    private AbsScrollPane editor() {
         ResultsPresident res_ = new ResultsPresident();
         GamePresident currentGame_=partiePresidentSimulee();
         res_.setGame(currentGame_);
@@ -429,11 +426,13 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         container.setScores(res_.getRes().getScores());
         res_.getRes().setUser(DealPresident.NUMERO_UTILISATEUR);
         Games.setMessages(res_.getRes(),container.getOwner().getFrames().currentLg());
-        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
-        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        return editor_;
+//        CardNatLgNamesNavigation stds_ = container.retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
+//        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
+//        RenderedPage editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames(), container.window().getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        AbsScrollPane resu_ = container.getOwner().getFrames().getCompoFactory().newAbsScrollPane(container.buildCompoGame(res_));
+        result = resu_;
+        return resu_;
     }
 
     public void applyHistory() {
@@ -469,4 +468,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         return maxDeals;
     }
 
+    public AbsCustComponent getResult() {
+        return result;
+    }
 }

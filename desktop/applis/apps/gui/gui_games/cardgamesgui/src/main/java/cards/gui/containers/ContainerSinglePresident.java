@@ -22,7 +22,6 @@ import cards.gui.events.ListenerCardPresidentSingleGame;
 import cards.gui.labels.GraphicCard;
 import cards.gui.panels.CarpetPresident;
 import cards.gui.panels.PanelTricksHandsPresident;
-import cards.main.CardNatLgNamesNavigation;
 import cards.main.CardsNonModalEvent;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
@@ -30,10 +29,8 @@ import cards.president.HandPresident;
 import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import cards.president.TricksHandsPresident;
-import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.AbsActionListenerAct;
 import code.gui.files.MessagesGuiFct;
 import code.gui.images.MetaDimension;
@@ -52,6 +49,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
     //    private boolean clickedDiscard;
 //    private boolean clickedNoPlay;
     private final WindowCards win;
+    private AbsCustComponent gamePart;
+
     public ContainerSinglePresident(WindowCards _window) {
         super(_window);
         update(_window);
@@ -553,12 +552,13 @@ public class ContainerSinglePresident extends ContainerPresident implements
         Games.setMessages(res_.getRes(),getOwner().getFrames().currentLg());
         setScores(res_.getRes().getScores());
 
-        RenderedPage editor_;
-        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
-        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), win.getGuardRender());
-        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),editor_.getScroll());
+//        RenderedPage editor_;
+//        CardNatLgNamesNavigation stds_ = retrieve(FrameGeneralHelp.RESOURCES_HTML_FILES_RESULTS_PRESIDENT).attendreResultat();
+//        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
+//        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames(), win.getGuardRender());
+//        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        gamePart = getOwner().getCompoFactory().newAbsScrollPane(buildCompoGame(res_));
+        onglets_.add(file().getVal(MessagesGuiCards.MAIN_RESULTS_PAGE),gamePart);
         if(partie_.getType()==GameType.RANDOM) {
             updateGraphicLines(onglets_,res_.getRes(),nombreJoueurs_,pseudos_);
 //            Ints couleurs_=couleursCourbes(getOwner().getGenerator());
@@ -832,5 +832,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public PanelTricksHandsPresident getPanelTricksHandsPresident() {
         return panelTricksHandsPresident;
+    }
+
+    public AbsCustComponent getGamePart() {
+        return gamePart;
     }
 }

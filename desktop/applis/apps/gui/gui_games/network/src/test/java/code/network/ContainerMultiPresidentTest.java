@@ -22,26 +22,26 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         MockSocket socketClient_ = retrievedSocket(server_, client_, 1);
         intro(server_, client_);
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(12, serverCompo_.size());
+        assertEq(12, serverCompo_.size()-((MockCustComponent) ((ContainerMulti) server_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         checkRules((ContainerMultiPresident) server_.getNetg().getContainerGame(),serverCompo_);
         assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getChoiceOfPlaceForPlayingGame().self()));
         assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompo_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(2, clientCompo_.size());
+        assertEq(2, clientCompo_.size()-((MockCustComponent) ((ContainerMulti) client_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         assertTrue(clientCompo_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(clientCompo_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getChoiceOfPlaceForPlayingGame().self()));
 
         ready(server_, client_, socketClient_);
         netPlayers(server_, client_);
         IdList<AbsCustComponent> clientCompo2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, clientCompo2_.size());
+        assertEq(1, clientCompo2_.size()-((MockCustComponent) ((ContainerMulti) client_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         assertTrue(clientCompo2_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
 
         ready(server_, client_, socketClient_);
         netPlayers(server_, client_);
         IdList<AbsCustComponent> clientCompo3_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(2, clientCompo3_.size());
+        assertEq(2, clientCompo3_.size()-((MockCustComponent) ((ContainerMulti) client_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         assertTrue(clientCompo3_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(clientCompo3_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getChoiceOfPlaceForPlayingGame().self()));
 
@@ -71,13 +71,13 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
 
 
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(12, serverCompo_.size());
+        assertEq(12, serverCompo_.size()-((MockCustComponent) ((ContainerMulti) server_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         checkRules((ContainerMultiPresident) server_.getNetg().getContainerGame(),serverCompo_);
         assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getChoiceOfPlaceForPlayingGame().self()));
         assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompo_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(2, clientCompo_.size());
+        assertEq(2, clientCompo_.size()-((MockCustComponent) ((ContainerMulti) client_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         assertTrue(clientCompo_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(clientCompo_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getChoiceOfPlaceForPlayingGame().self()));
 
@@ -88,12 +88,12 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         readyPlayers(server_, socketServ_, client_, socketClient_);
 
         IdList<AbsCustComponent> serverCompo2_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(11, serverCompo2_.size());
+        assertEq(11, serverCompo2_.size()-((MockCustComponent) ((ContainerMulti) server_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         checkRules((ContainerMultiPresident) server_.getNetg().getContainerGame(),serverCompo2_);
         assertTrue(serverCompo2_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompo2_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompo2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, clientCompo2_.size());
+        assertEq(1, clientCompo2_.size()-((MockCustComponent) ((ContainerMulti) client_.getNetg().getContainerGame()).getContainerMultiContent().getEditor()).getTreeAccessible().size());
         assertTrue(clientCompo2_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
 
         tryClick(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton());
@@ -435,11 +435,11 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
 
         loopServer2(server_.getSockets());
         IdList<AbsCustComponent> serverCompoNext_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(2, serverCompoNext_.size());
+        assertEq(2, serverCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)server_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompoNext_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, clientCompoNext_.size());
+        assertEq(1, clientCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)client_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(clientCompoNext_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         readyPlayers(server_,socketServ_,client_,socketClient_);
         socketServ_.getOutput().clear();
@@ -579,11 +579,11 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         playIa(server_, client_);
         loopServer2(server_.getSockets());
         IdList<AbsCustComponent> serverCompoNext_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(2, serverCompoNext_.size());
+        assertEq(2, serverCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)server_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompoNext_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, clientCompoNext_.size());
+        assertEq(1, clientCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)client_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(clientCompoNext_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         readyPlayers(server_,socketServ_,client_,socketClient_);
         socketServ_.getOutput().clear();
@@ -727,11 +727,11 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         playIa(server_, client_);
         loopServer2(server_.getSockets());
         IdList<AbsCustComponent> serverCompoNext_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(2, serverCompoNext_.size());
+        assertEq(2, serverCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)server_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompoNext_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, clientCompoNext_.size());
+        assertEq(1, clientCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)client_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(clientCompoNext_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         readyPlayers(server_,socketServ_,client_,socketClient_);
         socketServ_.getOutput().clear();
@@ -877,11 +877,11 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         playIa(server_, client_);
         loopServer2(server_.getSockets());
         IdList<AbsCustComponent> serverCompoNext_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(2, serverCompoNext_.size());
+        assertEq(2, serverCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)server_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompoNext_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, clientCompoNext_.size());
+        assertEq(1, clientCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)client_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(clientCompoNext_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         readyPlayers(server_,socketServ_,client_,socketClient_);
         socketServ_.getOutput().clear();
@@ -1123,11 +1123,11 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         playIa(server_, client_);
         loopServer2(server_.getSockets());
         IdList<AbsCustComponent> serverCompoNext_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
-        assertEq(2, serverCompoNext_.size());
+        assertEq(2, serverCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)server_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertTrue(serverCompoNext_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton()));
         IdList<AbsCustComponent> clientCompoNext_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
-        assertEq(1, clientCompoNext_.size());
+        assertEq(1, clientCompoNext_.size()-((MockCustComponent)((ContainerMultiPresident)client_.getNetg().getContainerGame()).getDetail()).getTreeAccessible().size());
         assertTrue(clientCompoNext_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         readyPlayers(server_,socketServ_,client_,socketClient_);
         socketServ_.getOutput().clear();
