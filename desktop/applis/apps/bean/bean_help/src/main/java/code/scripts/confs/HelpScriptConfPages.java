@@ -506,7 +506,7 @@ public final class HelpScriptConfPages {
         DefAttr pos_ = new DefAttr(POSITION);
         pos_.setValue(_one);
         attributes_.add(pos_);
-        DefAttr txt_ = new DefAttr(POSITION);
+        DefAttr txt_ = new DefAttr(TEXTE);
         txt_.setValue(_two);
         attributes_.add(txt_);
         return element_;
