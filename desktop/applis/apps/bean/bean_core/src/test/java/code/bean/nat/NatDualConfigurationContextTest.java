@@ -9,28 +9,28 @@ import code.util.*;
 import org.junit.Test;
 
 public final class NatDualConfigurationContextTest extends EquallableBeanCoreUtil {
-    @Test
-    public void files() {
-        NatDualConfigurationContext d_ = new NatDualConfigurationContext();
-        d_.getAddedFiles().add("elt.css");
-        d_.getAddedFiles().add("not_init");
-        StringMap<String> props_ = new StringMap<String>();
-        props_.addEntry("prop","prop");
-        props_.addEntry("prop2","prop2");
-        d_.setProperties(props_);
-        d_.setMessagesFolder("sample");
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setLanguages(new StringList("0","1"));
-        StringMap<String> other_ = new StringMap<String>();
-        other_.addEntry("elt.css","*{}");
-        other_.addEntry("sample/0/prop","a=b1\nc=d1");
-        other_.addEntry("sample/1/prop","a=b2\nc=d2");
-        other_.addEntry("sample/0/prop2","e=b1\nf=d1");
-        other_.addEntry("sample/1/prop2","e=b2\nf=d2");
-        StringMap<String> files_ = NatDualConfigurationContext.files(d_, other_);
-        assertEq(1,files_.size());
-        assertEq("*{}",files_.getVal("elt.css"));
-    }
+//    @Test
+//    public void files() {
+//        NatDualConfigurationContext d_ = new NatDualConfigurationContext();
+//        d_.getAddedFiles().add("elt.css");
+//        d_.getAddedFiles().add("not_init");
+//        StringMap<String> props_ = new StringMap<String>();
+//        props_.addEntry("prop","prop");
+//        props_.addEntry("prop2","prop2");
+//        d_.setProperties(props_);
+//        d_.setMessagesFolder("sample");
+//        NatNavigation nav_ = new NatNavigation();
+//        nav_.setLanguages(new StringList("0","1"));
+//        StringMap<String> other_ = new StringMap<String>();
+//        other_.addEntry("elt.css","*{}");
+//        other_.addEntry("sample/0/prop","a=b1\nc=d1");
+//        other_.addEntry("sample/1/prop","a=b2\nc=d2");
+//        other_.addEntry("sample/0/prop2","e=b1\nf=d1");
+//        other_.addEntry("sample/1/prop2","e=b2\nf=d2");
+//        StringMap<String> files_ = NatDualConfigurationContext.files(d_, other_);
+//        assertEq(1,files_.size());
+//        assertEq("*{}",files_.getVal("elt.css"));
+//    }
     @Test
     public void docs1() {
         StringMap<Document> in_ = new StringMap<Document>();

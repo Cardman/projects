@@ -23,8 +23,6 @@ import cards.president.*;
 import cards.president.enumerations.*;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
-import code.bean.nat.*;
-import code.bean.nat.analyze.*;
 import code.gui.*;
 import code.scripts.pages.aiki.MessagesPkBean;
 import code.scripts.pages.aiki.MessagesPkPokemon;
@@ -414,11 +412,11 @@ public abstract class EquallableNetworkUtil {
 //        _cf.submitNav(FrameGeneralHelp.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,new CallablePreparedPagesCards(new TarotStandardsSampleNet(),null,new StringMap<Document>(),new StringMap<TranslationsAppli>(),new StringMap<String>(),_w.getFrames().getLanguages()));
 //    }
 
-    public static NatNavigation nav() {
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
-        return nav_;
-    }
+//    public static NatNavigation nav() {
+//        NatNavigation nav_ = new NatNavigation();
+////        nav_.setSession(new NatConfigurationCore());
+//        return nav_;
+//    }
 
     public static MockProgramInfos build() {
         return build("", "",dbs(0.75));

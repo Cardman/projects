@@ -35,8 +35,8 @@ public class ListenerClickTree implements AbsShortListTree {
         String concat_ = element_.chemin();
 //        StringMap<TranslationsAppli> builtMs_ = HelpCards.ms();
 //        NavigationCore.adjustMap(builtMs_);
-        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(HelpCards.APP_BEAN), element_.cf().getVal(concat_), element_.ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), element_.built().getVal(concat_));
+        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(HelpCards.APP_BEAN), element_.ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), element_.built().getVal(concat_));
         prep_.run();
-        FrameGeneralHelp.initialize(prep_.getNavigation(),prep_.getMetaDocument(), editor);
+        FrameGeneralHelp.initialize(prep_.getMetaDocument(), editor, prep_.getNavigation());
     }
 }

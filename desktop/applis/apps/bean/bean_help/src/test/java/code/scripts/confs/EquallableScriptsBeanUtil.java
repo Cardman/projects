@@ -1,7 +1,5 @@
 package code.scripts.confs;
 
-import code.bean.nat.NatDualConfigurationContext;
-import code.bean.nat.analyze.NatConfigurationCore;
 //import code.formathtml.Configuration;
 import code.sml.Document;
 import code.sml.FullDocument;
@@ -23,11 +21,11 @@ public abstract class EquallableScriptsBeanUtil {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNullStrConf(StringMap<NatConfigurationCore> _value) {
+    public static void assertNotNullStrConf(StringMap<String> _value) {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNullStrNat(StringMap<NatDualConfigurationContext> _value) {
+    public static void assertNotNullStrNat(StringMap<StringMap<String>> _value) {
         Assert.assertNotNull(_value);
     }
 

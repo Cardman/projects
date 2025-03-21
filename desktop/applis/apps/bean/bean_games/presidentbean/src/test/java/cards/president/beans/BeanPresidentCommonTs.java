@@ -18,7 +18,7 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
         PresidentBean bean_ = new PresidentBean();
         bean_.setDataBase(_dataBase);
         bean_.setBuilder(builder());
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
 
@@ -34,7 +34,7 @@ public abstract class BeanPresidentCommonTs extends EquallablePresidentBeanUtil 
         RulesPresidentBean bean_ = new RulesPresidentBean();
         bean_.setDataBase(_dataBase);
         bean_.setBuilder(builder());
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
     public static boolean callRulesPresidentBeanSameAmount(RulesPresidentBean _str, int... _args) {

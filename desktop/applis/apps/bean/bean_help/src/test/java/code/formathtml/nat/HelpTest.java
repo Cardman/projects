@@ -2,9 +2,6 @@ package code.formathtml.nat;
 
 import code.bean.help.HelpAttr;
 import code.bean.help.HelpCaller;
-import code.bean.nat.NatDualConfigurationContext;
-import code.bean.nat.NatNavigation;
-import code.bean.nat.analyze.NatConfigurationCore;
 //import code.formathtml.Configuration;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.formathtml.EquallableBeanHelpUtil;
@@ -223,19 +220,19 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     }
 
     public static MetaDocument text(String _uniq, StringList _add, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties, StringMap<int[][]> _imgs) {
-        NatNavigation navigation_= new NatNavigation();
-        NatConfigurationCore session_ = new NatConfigurationCore();
+//        NatNavigation navigation_= new NatNavigation();
+//        NatConfigurationCore session_ = new NatConfigurationCore();
 //        session_.setPrefix("c:");
-        navigation_.setSession(session_);
-        navigation_.setLanguage(StringUtil.EN);
-        navigation_.setLanguages(new StringList(StringUtil.EN));
-        NatDualConfigurationContext contextConf_ = new NatDualConfigurationContext();
-        contextConf_.setMessagesFolder(_messagesFolder);
-        contextConf_.setProperties(_properties);
-        contextConf_.setAddedFiles(_add);
+//        navigation_.setSession(session_);
+//        navigation_.setLanguage(StringUtil.EN);
+//        navigation_.setLanguages(new StringList(StringUtil.EN));
+//        NatDualConfigurationContext contextConf_ = new NatDualConfigurationContext();
+//        contextConf_.setMessagesFolder(_messagesFolder);
+//        contextConf_.setProperties(_properties);
+//        contextConf_.setAddedFiles(_add);
         TranslationsAppli ta_ = new TranslationsAppli();
         ta_.getMapping().addEntry(_ms.getKey(0), AnaRendBlockHelp.file(_ms.getValue(0)));
-        return HelpCaller.text(DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), ta_, _imgs, contextConf_.getProperties());
+        return HelpCaller.text(DocumentBuilder.parseSaxNotNullRowCol(_uniq).getDocument(), ta_, _imgs, _properties);
 //        return text_.export();
     }
 

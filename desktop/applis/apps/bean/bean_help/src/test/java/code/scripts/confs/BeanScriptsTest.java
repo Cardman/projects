@@ -13,7 +13,7 @@ public final class BeanScriptsTest extends EquallableScriptsBeanUtil {
     @Test
     public void help() {
         assertNotNullFullDoc(HelpScriptConfPages.info());
-        assertNotNullStrConf(HelpScriptPages.cf());
+//        assertNotNullStrConf(HelpScriptPages.cf());
         assertNotNullStrNat(HelpScriptPagesImgs.ct());
         assertNotNull(new BeanHelpCardsSample().self());
     }

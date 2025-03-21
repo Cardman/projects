@@ -408,7 +408,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     public AbsCustComponent buildCompoGame(ResultsBelote _result) {
         ResultsBeloteBean detail_ = new ResultsBeloteBean();
-        detail_.setLanguage(getWindow().getFrames().getLanguage());
+//        detail_.setLanguage(getWindow().getFrames().getLanguage());
         detail_.setDataBase(_result,null);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());
@@ -420,7 +420,7 @@ public abstract class ContainerBelote extends ContainerSingleImpl {
 
     protected AbsCustComponent buildCompoDetail(ResultsBelote _result) {
         DetailsResultsBeloteBean detail_ = new DetailsResultsBeloteBean();
-        detail_.setLanguage(getWindow().getFrames().getLanguage());
+//        detail_.setLanguage(getWindow().getFrames().getLanguage());
         detail_.setDataBase(_result,null);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());

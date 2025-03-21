@@ -212,7 +212,7 @@ public final class ContainerMultiPresident extends ContainerPresident implements
     }
     private AbsCustComponent buildCompo() {
         RulesPresidentBean rulesBean_ = new RulesPresidentBean();
-        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
+//        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
         rulesBean_.setDataBase(rulesPresidentMulti);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());

@@ -3,11 +3,8 @@ package cards.gui.animations;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.HelpIndexesTree;
-import code.bean.nat.NatDualConfigurationContext;
-import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.EnabledMenu;
 import code.scripts.confs.HelpScriptConfPages;
-import code.scripts.confs.HelpScriptPages;
 import code.scripts.confs.HelpScriptPagesImgs;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.Document;
@@ -36,8 +33,8 @@ public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
     @Override
     public HelpIndexesTree call() {
 //        HelpIndexesTree trees_ = new HelpIndexesTree();
-        StringMap<NatConfigurationCore> cf_ = HelpScriptPages.cf();
-        StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
+//        StringMap<String> cf_ = HelpScriptPages.cf();
+        StringMap<StringMap<String>> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
 //        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
 //        NavigationCore.adjustMap(builtMs_);
@@ -58,7 +55,7 @@ public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
             CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
             cheminsNumeriquesActuels_.add(indices_);
             ElementHelp elementRacine_ = new ElementHelp(element_
-                    .getAttribute(TEXTE),concat_, cf_, ct_,built_);
+                    .getAttribute(TEXTE),concat_, ct_,built_);
 //            StringMap<String> un_ = builtMs_.getVal(l.getKey());
 //            StringMap<int[][]> imgs_ = l.getValue().getMaxiCards();
 //            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(un_, cf_.getVal(concat_), ct_.getVal(concat_), imgs_, built_.getVal(concat_));
@@ -79,7 +76,7 @@ public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
                         String concat2_ = StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                 e2_.getTagName());
                         ElementHelp noeud_ = new ElementHelp(e2_
-                                .getAttribute(TEXTE),concat2_, cf_, ct_,built_);
+                                .getAttribute(TEXTE),concat2_, ct_,built_);
                         nouveauxChemins_.add(concat2_);
                         nouveauxElements_.add(e2_);
                         HelpIndexes cheminNumCourantBis_ = new HelpIndexes(

@@ -15,8 +15,6 @@ import cards.president.*;
 import cards.president.enumerations.*;
 import cards.solitaire.CardSolitaire;
 import cards.tarot.enumerations.*;
-import code.bean.nat.NatNavigation;
-import code.bean.nat.analyze.NatConfigurationCore;
 import code.gui.*;
 import code.gui.files.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -259,11 +257,11 @@ public abstract class EquallableCardsGuiUtil {
 //        wc_.setPrepare(cf_.getTaskNav());
         return wc_;
     }
-    public static NatNavigation nav() {
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
-        return nav_;
-    }
+//    public static NatNavigation nav() {
+//        NatNavigation nav_ = new NatNavigation();
+////        nav_.setSession(new NatConfigurationCore());
+//        return nav_;
+//    }
 
     private String defStack(MockProgramInfos _pr) {
         String tempFolderSl_ = WindowCards.getTempFolderSl(_pr);

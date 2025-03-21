@@ -24,7 +24,7 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
         DetailsResultsBeloteBean bean_ = new DetailsResultsBeloteBean();
         bean_.setBuilder(builder());
         bean_.setDataBase(_dataBase,null);
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
     public static CustList<BeloteSumDeclaringPlayer> callDetailsResultsBeloteBeanDeclaring(DetailsResultsBeloteBean _str, int... _args) {
@@ -57,7 +57,7 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
         ResultsBeloteBean bean_ = new ResultsBeloteBean();
         bean_.setBuilder(builder());
         bean_.setDataBase(_dataBase,null);
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
     public static boolean callResultsBeloteBeanSuccessfulBid(ResultsBeloteBean _str, int... _args) {
@@ -153,7 +153,7 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
         RulesBeloteBean bean_ = new RulesBeloteBean();
         bean_.setBuilder(builder());
         bean_.setDataBase(null,_dataBase);
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
 

@@ -9,7 +9,6 @@ import cards.gui.animations.PreparedRenderPagesCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
 import code.bean.nat.FixCharacterCaseConverter;
-import code.bean.nat.NatNavigation;
 import code.formathtml.render.MetaDocument;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -19,6 +18,8 @@ import code.gui.images.MetaDimension;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.scripts.pages.cards.HelpCards;
+import code.sml.NavigationCore;
+import code.sml.RendKeyWordsGroup;
 import code.sml.util.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -104,8 +105,8 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         setImageIconFrame(_group.getImageIconFrame());
     }
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public static void initialize(NatNavigation _nav, MetaDocument _metaDoc, RenderedPage _cur) {
-        coreInfos(_cur, _nav);
+    public static void initialize(MetaDocument _metaDoc, RenderedPage _cur, NavigationCore _bean) {
+        coreInfos(_cur, _bean);
         _cur.getGene().getCompoFactory().invokeNow(new WindowPage(_metaDoc, _cur.getScroll(), _cur));
     }
 //
@@ -124,9 +125,9 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 //        return r_;
 //    }
 
-    public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
-        _cur.setNavCore(_n.getBean());
-        _cur.setKeys(_n.getSession().getRendKeyWords());
+    public static void coreInfos(RenderedPage _cur, NavigationCore _bean) {
+        _cur.setNavCore(_bean);
+        _cur.setKeys(new RendKeyWordsGroup());
     }
     @Override
     public void closeWindow() {
@@ -195,9 +196,9 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         String concat_ = getRacineBis().getElementLocal().chemin();
 //        StringMap<TranslationsAppli> builtMs_ = HelpCards.ms();
 //        NavigationCore.adjustMap(builtMs_);
-        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(HelpCards.APP_BEAN), racineBis.getElementLocal().cf().getVal(concat_), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
+        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(HelpCards.APP_BEAN), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
         prep_.run();
-        initialize(prep_.getNavigation(),prep_.getMetaDocument(), editor);
+        initialize(prep_.getMetaDocument(), editor, prep_.getNavigation());
 //        if (field == null) {
 //            field = _w.getCompoFactory().newTextField(20);
 //            search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));

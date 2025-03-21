@@ -20,7 +20,6 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.MiniMapCoordsTileInts;
 import aiki.util.Coords;
-import code.bean.Bean;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.scripts.pages.aiki.*;
@@ -31,19 +30,19 @@ import code.util.core.IndexConstants;
 import code.util.core.*;
 import code.util.ints.*;
 
-public abstract class CommonBean extends Bean implements WithFacade {
+public abstract class CommonBean implements WithFacade {
     public static final int FALSE_VALUE = 0;
     public static final int TRUE_VALUE = 1;
-    public static final String GET_IMAGE = "getImage";
-    public static final String CLICK_NAME = "clickName";
-    public static final String GET_NAME = "getName";
-    public static final String GET_GENDER = "getGender";
-    public static final String CLICK_ABILITY = "clickAbility";
-    public static final String GET_ABILITY = "getAbility";
-    public static final String CLICK_ITEM = "clickItem";
-    public static final String GET_ITEM = "getItem";
-    public static final String CLICK_MOVE = "clickMove";
-    public static final String GET_MOVE = "getMove";
+//    public static final String GET_IMAGE = "getImage";
+//    public static final String CLICK_NAME = "clickName";
+//    public static final String GET_NAME = "getName";
+//    public static final String GET_GENDER = "getGender";
+//    public static final String CLICK_ABILITY = "clickAbility";
+//    public static final String GET_ABILITY = "getAbility";
+//    public static final String CLICK_ITEM = "clickItem";
+//    public static final String GET_ITEM = "getItem";
+//    public static final String CLICK_MOVE = "clickMove";
+//    public static final String GET_MOVE = "getMove";
     //public static final String ABILITY_ABILITIES="ability/abilities";
     //public static final String ABILITY_ABILITY="ability/ability";
     //public static final String COMBO_COMBO="combo/combo";
@@ -465,8 +464,19 @@ public abstract class CommonBean extends Bean implements WithFacade {
     private FacadeGame dataBase;
     private IntBeanBuilderHelper builder;
     private String appName = "";
+
+    private String language = "";
 //    private String baseEncode;
 
+    public abstract void beforeDisplaying();
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String _language) {
+        language = _language;
+    }
     protected void fwd(CommonBean _b) {
         _b.setAppName(getAppName());
         _b.setDataBase(db());

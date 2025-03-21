@@ -254,7 +254,7 @@ public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public AbsCustComponent buildCompoGame(ResultsPresident _result) {
         PresidentBean detail_ = new PresidentBean();
-        detail_.setLanguage(getWindow().getFrames().getLanguage());
+//        detail_.setLanguage(getWindow().getFrames().getLanguage());
         detail_.setDataBase(_result);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());

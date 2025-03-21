@@ -6,12 +6,11 @@ import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.PresidentCardsExporterUtil;
-import code.bean.Bean;
 import code.bean.IntBeanBuilderHelperCommon;
 import code.scripts.pages.cards.MessagesPresidentPage;
 import code.util.StringMap;
 
-public final class RulesPresidentBean extends Bean {
+public final class RulesPresidentBean {
 
     private String cartesBattues;
 
@@ -98,7 +97,6 @@ public final class RulesPresidentBean extends Bean {
         getBuilder().setHeader(0);
     }
 
-    @Override
     public void beforeDisplaying() {
         RulesPresident rules_ = db();
         cartesBattues=toString(rules_.getCommon().getMixedCards(), rules_.getCommon().getGeneral());

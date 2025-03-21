@@ -1,24 +1,21 @@
 package code.formathtml;
 
-import code.bean.nat.analyze.NatConfigurationCore;
-import code.bean.nat.*;
-import code.scripts.confs.BeanPageCardsSample;
 import code.util.core.StringUtil;
 import org.junit.Assert;
 
 public abstract class EquallableBeanCoreUtil {
 
-    public static void assertNotNull(BeanPageCardsSample _value) {
-        Assert.assertNotNull(_value);
-    }
+//    public static void assertNotNull(BeanPageCardsSample _value) {
+//        Assert.assertNotNull(_value);
+//    }
 
     public static void assertNotNull(String _value) {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNull(NaSt _value) {
-        Assert.assertNotNull(_value);
-    }
+//    public static void assertNotNull(NaSt _value) {
+//        Assert.assertNotNull(_value);
+//    }
 
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
@@ -28,9 +25,9 @@ public abstract class EquallableBeanCoreUtil {
         Assert.assertFalse(_value);
     }
 
-    public static NatConfigurationCore newConfiguration() {
-        return new NatConfigurationCore();
-    }
+//    public static NatConfigurationCore newConfiguration() {
+//        return new NatConfigurationCore();
+//    }
     public static String formatFile(String _folder, String _locale, String _relative) {
         return StringUtil.concat(_relative);
     }

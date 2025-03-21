@@ -188,7 +188,7 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
         DetailsResultsTarotBean bean_ = new DetailsResultsTarotBean();
         bean_.setBuilder(builder());
         bean_.setDataBase(_dataBase,null);
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
     public static String alone() {
@@ -336,7 +336,7 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
         ResultsTarotBean bean_ = new ResultsTarotBean();
         bean_.setBuilder(builder());
         bean_.setDataBase(_dataBase,null);
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
     public static String callRulesTarotBeanRepartition(RulesTarotBean _str, int... _args) {
@@ -385,7 +385,7 @@ public abstract class BeanTarotCommonTs extends EquallableTarotBeanUtil {
         RulesTarotBean bean_ = new RulesTarotBean();
         bean_.setBuilder(builder());
         bean_.setDataBase(null,_dataBase);
-        bean_.setLanguage(_language);
+//        bean_.setLanguage(_language);
         return bean_;
     }
 //    public static NaSt callLongs(NatCaller _caller, ResultsTarotBean _str, long... _args) {

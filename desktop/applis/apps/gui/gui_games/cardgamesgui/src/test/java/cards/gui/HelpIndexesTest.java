@@ -4,8 +4,6 @@ import cards.gui.dialogs.help.ComparatorListSizeElement;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.HelpIndexesTree;
-import code.bean.nat.NatDualConfigurationContext;
-import code.bean.nat.analyze.NatConfigurationCore;
 import code.sml.Document;
 import code.util.CustList;
 import code.util.StringMap;
@@ -178,7 +176,7 @@ public final class HelpIndexesTest extends EquallableCardsGuiUtil {
     }
 
     static ElementHelp eh() {
-        return new ElementHelp("", "", new StringMap<NatConfigurationCore>(), new StringMap<NatDualConfigurationContext>(), new StringMap<Document>());
+        return new ElementHelp("", "", new StringMap<StringMap<String>>(), new StringMap<Document>());
     }
 
 }

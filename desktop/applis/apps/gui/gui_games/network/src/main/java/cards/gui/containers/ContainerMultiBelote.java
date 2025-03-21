@@ -370,7 +370,7 @@ public final class ContainerMultiBelote extends ContainerBelote implements
 
     private AbsCustComponent buildCompo() {
         RulesBeloteBean rulesBean_ = new RulesBeloteBean();
-        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
+//        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
         rulesBean_.setDataBase(null,rulesBeloteMulti);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());

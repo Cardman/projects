@@ -485,7 +485,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
 //    }
     public AbsCustComponent buildCompoGame(ResultsTarot _result) {
         ResultsTarotBean detail_ = new ResultsTarotBean();
-        detail_.setLanguage(getWindow().getFrames().getLanguage());
+//        detail_.setLanguage(getWindow().getFrames().getLanguage());
         detail_.setDataBase(_result,null);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());
@@ -496,7 +496,7 @@ public abstract class ContainerTarot extends ContainerSingleImpl{
     }
     protected AbsCustComponent buildCompoDetail(ResultsTarot _result) {
         DetailsResultsTarotBean detail_ = new DetailsResultsTarotBean();
-        detail_.setLanguage(getWindow().getFrames().getLanguage());
+//        detail_.setLanguage(getWindow().getFrames().getLanguage());
         detail_.setDataBase(_result,null);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());

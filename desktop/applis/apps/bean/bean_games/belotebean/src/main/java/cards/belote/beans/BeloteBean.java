@@ -6,13 +6,12 @@ import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.*;
 import cards.consts.*;
-import code.bean.Bean;
 import code.bean.IntBeanBuilderHelperCommon;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class BeloteBean extends Bean {
+public abstract class BeloteBean {
     private BidBeloteSuit bid;
 
     private GameBelote game;
@@ -24,6 +23,8 @@ public abstract class BeloteBean extends Bean {
     private ResultsBelote dataBase;
     private RulesBelote dataBaseRules;
     private IntBeanBuilderHelperCommon builder;
+
+    public abstract void beforeDisplaying();
     public RulesBelote db() {
         return dataBaseRules;
     }

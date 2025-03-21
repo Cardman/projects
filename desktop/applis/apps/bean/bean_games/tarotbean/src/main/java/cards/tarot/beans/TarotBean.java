@@ -5,13 +5,12 @@ import cards.tarot.GameTarot;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
-import code.bean.Bean;
 import code.bean.IntBeanBuilderHelperCommon;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class TarotBean extends Bean {
+public abstract class TarotBean {
     private BidTarot bid;
 
     private GameTarot game;
@@ -23,6 +22,8 @@ public abstract class TarotBean extends Bean {
     private ResultsTarot dataBase;
     private RulesTarot dataBaseRules;
     private IntBeanBuilderHelperCommon builder;
+
+    public abstract void beforeDisplaying();
     public RulesTarot db() {
         return dataBaseRules;
     }

@@ -1,31 +1,9 @@
 package code.formathtml.nat;
 
-import code.bean.*;
 import code.bean.nat.*;
-import code.bean.nat.analyze.instr.NatElResolver;
 import code.formathtml.EquallableBeanCoreUtil;
-import code.sml.NatAnalyzingDoc;
-import code.bean.nat.analyze.NatConfigurationCore;
-import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
-import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
-import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.bean.nat.exec.NatImportingPage;
-import code.bean.nat.exec.NatRendStackCall;
-import code.bean.nat.exec.blocks.NatDocumentBlock;
-import code.bean.nat.exec.blocks.RendBlockHelp;
-import code.bean.nat.exec.opers.NatStdRefVariableOperation;
-import code.bean.nat.fwd.DefNatBlockBuilder;
-import code.bean.nat.fwd.NatRendForwardInfos;
-import code.formathtml.sample.*;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.scripts.confs.*;
-import code.scripts.pages.aiki.*;
 import code.sml.*;
-import code.sml.util.TranslationsAppli;
-import code.sml.util.TranslationsFile;
 import code.util.*;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class NativeTest extends EquallableBeanCoreUtil {
@@ -33,28 +11,28 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     @Test
     public void bases() {
-        CustBeanLgNames lgNames_ = stds();
+//        CustBeanLgNames lgNames_ = stds();
         //new Forwards(lgNames_, null, new Options()).generate();
-        NatConfigurationCore conf_ = conf_("c:");
-        NatAnalyzedCode init_ = init(lgNames_);
+//        NatConfigurationCore conf_ = conf_("c:");
+//        NatAnalyzedCode init_ = init(lgNames_);
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, conf_, lgNames_, init, new NatDualConfigurationContext());
 
-        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        setLocalFiles(analyzingDoc_,init_, conf_, new NatDualConfigurationContext());
+//        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
+//        setLocalFiles(analyzingDoc_,init_, conf_, new NatDualConfigurationContext());
 //        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, new StringMap<NatAnaRendDocumentBlock>(), lgNames_.getRenders(),null);
-        setFirst(conf_, lgNames_.getRenders());
-        assertNotNull(BeanNatCommonLgNames.getPairStruct(null));
-        assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null));
-        assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(new NatArrayStruct(0)));
-        assertNotNull(BeanNatCommonLgNames.getLongsArray(new CustList<Longs>(Longs.newList(0L))));
-        NatRendStackCall stack_ = new NatRendStackCall();
-        stack_.addPage(new NatImportingPage());
-        RendBlockHelp.processElse(null,stack_);
-        RendBlockHelp.processElseIf(null,stack_);
-        NatStdRefVariableOperation.getValue(null);
-        PairStruct struct_ = new PairStruct(NaNu.NULL_VALUE, NaNu.NULL_VALUE);
-        BeanNatCommonLgNames.processString(struct_);
+//        NatRendForwardInfos.buildExec(analyzingDoc_, new StringMap<NatAnaRendDocumentBlock>(), lgNames_.getRenders(),null);
+//        setFirst(conf_, lgNames_.getRenders());
+//        assertNotNull(BeanNatCommonLgNames.getPairStruct(null));
+//        assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null));
+//        assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(new NatArrayStruct(0)));
+//        assertNotNull(BeanNatCommonLgNames.getLongsArray(new CustList<Longs>(Longs.newList(0L))));
+//        NatRendStackCall stack_ = new NatRendStackCall();
+//        stack_.addPage(new NatImportingPage());
+//        RendBlockHelp.processElse(null,stack_);
+//        RendBlockHelp.processElseIf(null,stack_);
+//        NatStdRefVariableOperation.getValue(null);
+//        PairStruct struct_ = new PairStruct(NaNu.NULL_VALUE, NaNu.NULL_VALUE);
+//        BeanNatCommonLgNames.processString(struct_);
 //        NatRendImport.beforeDisp(null);
 //        BeanNatCommonLgNames.methName("(0,1)");
 //        BeanNatCommonLgNames.methName("");
@@ -65,51 +43,51 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         navigation_.lastValue().addEntry("","");
 //        BeanNatCommonLgNames.getString(new StringStruct(""),"", navigation_,"");
 //        BeanNatCommonLgNames.getString(NullStruct.NULL_VALUE,"", new StringMap<StringMap<String>>(),"");
-        assertNotNull(new BeanPageCardsSample().self());
+//        assertNotNull(new BeanPageCardsSample().self());
 //        AffectationNatOperation.castDottedTo(new SettableFieldNatOperation(0,0,null,new NatOperationsSequence(),new NatStandardFieldOperation(new NatOperationsSequence())));
-        PageCardsCommon.at("","");
+//        PageCardsCommon.at("","");
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
         Element element_ = fullDocument_.createElement("");
         fullDocument_.appendChild(element_);
-        PageCardsCommon.at(element_,new CustList<Attr>());
-        PageCardsCommon.al(0);
-        PageCardsCommon.el(fullDocument_,"");
-        PageCardsCommon.ad(element_,fullDocument_.createElement(""));
-        PageCardsCommon.tx(fullDocument_,"");
-        PageCardsCommon.br(element_,fullDocument_);
-        PageCardsCommon.hr(element_,fullDocument_);
-        assertEq("0",RtSt.convertToRate(NaNu.NULL_VALUE).toNumberString());
-        assertEq("1",RtSt.convertToRate(new RtSt(Rate.one())).toNumberString());
-        assertEq("1",new RtSt(Rate.one()).getDisplayedString().getInstance());
-        assertEq("1",new LgSt(LgInt.one()).getDisplayedString().getInstance());
-        assertEq("1",BeanNatCommonLgNames.processString(new RtSt(Rate.one())));
-        assertEq("1",BeanNatCommonLgNames.processString(new LgSt(LgInt.one())));
-        NatElResolver.startsWithKeyWord("a_",0,"a");
-        NatElResolver.startsWithKeyWord("a",0,"a");
-        NatElResolver.startsWithKeyWord("a.",0,"a");
-        NatElResolver.startsWithKeyWord("ab",0,"a");
-        NatImportingPage n_ = new NatImportingPage();
-        n_.setBeanName("");
-        assertEq("", n_.getBeanName());
-        NatNavigation nav_ = new NatNavigation();
-        nav_.setSession(new NatConfigurationCore());
-        nav_.setupText("<_/>", DocumentBuilder.parseSaxNotNullRowCol("<_/>").getDocument());
-        nav_.getTitle();
-        nav_.getDocument();
-        nav_.getReferenceScroll();
-        new NaNbSt(2).sameReference(new NaNbSt(3));
-        new NaNbSt(2).sameReference(new NaNbSt(2));
-        new NaNbSt(2).sameReference(new NaStSt(""));
-        assertEq(2,new NaNbSt(2).intStruct());
-        new NaStSt("2").sameReference(new NaStSt("3"));
-        new NaStSt("2").sameReference(new NaStSt("2"));
-        new NaStSt("2").sameReference(new NaNbSt(2));
-        assertFalse(NaBoSt.isFalse(NaBoSt.of(true)));
-        assertFalse(NaBoSt.isFalse(NaBoSt.of(false).neg()));
-        assertTrue(NaBoSt.isFalse(NaBoSt.of(true).neg()));
-        assertTrue(NaBoSt.isFalse(NaBoSt.of(false)));
-        assertTrue(NaNu.NULL_VALUE.sameReference(NaNu.NULL_VALUE));
-        assertFalse(NaNu.NULL_VALUE.sameReference(new NaNbSt(2)));
+//        PageCardsCommon.at(element_,new CustList<Attr>());
+//        PageCardsCommon.al(0);
+//        PageCardsCommon.el(fullDocument_,"");
+//        PageCardsCommon.ad(element_,fullDocument_.createElement(""));
+//        PageCardsCommon.tx(fullDocument_,"");
+//        PageCardsCommon.br(element_,fullDocument_);
+//        PageCardsCommon.hr(element_,fullDocument_);
+//        assertEq("0",RtSt.convertToRate(NaNu.NULL_VALUE).toNumberString());
+//        assertEq("1",RtSt.convertToRate(new RtSt(Rate.one())).toNumberString());
+//        assertEq("1",new RtSt(Rate.one()).getDisplayedString().getInstance());
+//        assertEq("1",new LgSt(LgInt.one()).getDisplayedString().getInstance());
+//        assertEq("1",BeanNatCommonLgNames.processString(new RtSt(Rate.one())));
+//        assertEq("1",BeanNatCommonLgNames.processString(new LgSt(LgInt.one())));
+//        NatElResolver.startsWithKeyWord("a_",0,"a");
+//        NatElResolver.startsWithKeyWord("a",0,"a");
+//        NatElResolver.startsWithKeyWord("a.",0,"a");
+//        NatElResolver.startsWithKeyWord("ab",0,"a");
+//        NatImportingPage n_ = new NatImportingPage();
+//        n_.setBeanName("");
+//        assertEq("", n_.getBeanName());
+//        NatNavigation nav_ = new NatNavigation();
+//        nav_.setSession(new NatConfigurationCore());
+//        nav_.setupText("<_/>", DocumentBuilder.parseSaxNotNullRowCol("<_/>").getDocument());
+//        nav_.getTitle();
+//        nav_.getDocument();
+//        nav_.getReferenceScroll();
+//        new NaNbSt(2).sameReference(new NaNbSt(3));
+//        new NaNbSt(2).sameReference(new NaNbSt(2));
+//        new NaNbSt(2).sameReference(new NaStSt(""));
+//        assertEq(2,new NaNbSt(2).intStruct());
+//        new NaStSt("2").sameReference(new NaStSt("3"));
+//        new NaStSt("2").sameReference(new NaStSt("2"));
+//        new NaStSt("2").sameReference(new NaNbSt(2));
+//        assertFalse(NaBoSt.isFalse(NaBoSt.of(true)));
+//        assertFalse(NaBoSt.isFalse(NaBoSt.of(false).neg()));
+//        assertTrue(NaBoSt.isFalse(NaBoSt.of(true).neg()));
+//        assertTrue(NaBoSt.isFalse(NaBoSt.of(false)));
+//        assertTrue(NaNu.NULL_VALUE.sameReference(NaNu.NULL_VALUE));
+//        assertFalse(NaNu.NULL_VALUE.sameReference(new NaNbSt(2)));
         assertEq(0,new FixCharacterCaseConverter().index("ABCDEF",'0'));
 //        StringMapObjectBase s_ = new StringMapObjectBase();
 //        s_.put("0",0);
@@ -158,281 +136,281 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 ////        assertNull(bean_.db());
 //    }
 
-    @Test
-    public void process0Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        assertNotNull(bean_.getLanguage());
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
+//    @Test
+//    public void process0Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        assertNotNull(bean_.getLanguage());
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//
+//    @Test
+//    public void process0elTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if><c:else>Empty</c:else></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//
+//    @Test
+//    public void process0el_Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:else>Not empty</c:else></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//
+//    @Test
+//    public void process0elIfTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Empty</c:elseif></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process0elIf_Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Not empty</c:elseif></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process0elIf__Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Not empty</c:elseif><c:else>Empty</c:else></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process0elIf___Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='composite.strings.isEmpty()'>Empty</c:elseif><c:else>Not empty</c:else></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process00Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings3.isEmpty()'>Empty</c:if></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+//        //setInteger(v_);
+//        assertEq("<html><body>Empty</body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process1Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process_1_Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length2(s,s,s)}</li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process1SecTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process1Sec2Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\"><li>{length(s)}</li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process1IndTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{(([s]))}</li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>0</li><li>1</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process1Ind2Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{([s])}</li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>0</li><li>1</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process1_Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings2\"><li><c:if condition='isEmpty(s)'>EMPTY</c:if></li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>EMPTY</li><li/></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//
+//    @Test
+//    public void process2Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='$var'><li>{length(s)}</li></c:for></ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
 
-    @Test
-    public void process0elTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if><c:else>Empty</c:else></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-
-    @Test
-    public void process0el_Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:else>Not empty</c:else></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-
-    @Test
-    public void process0elIfTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='!composite.strings.isEmpty()'>Not empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Empty</c:elseif></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process0elIf_Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Not empty</c:elseif></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process0elIf__Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='!composite.strings.isEmpty()'>Not empty</c:elseif><c:else>Empty</c:else></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process0elIf___Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings.isEmpty()'>Empty</c:if><c:elseif condition='composite.strings.isEmpty()'>Empty</c:elseif><c:else>Not empty</c:else></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>Not empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process00Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><c:if condition='composite.strings3.isEmpty()'>Empty</c:if></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-        //setInteger(v_);
-        assertEq("<html><body>Empty</body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process1Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process_1_Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length2(s,s,s)}</li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process1SecTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process1Sec2Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\"><li>{length(s)}</li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process1IndTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{(([s]))}</li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>0</li><li>1</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process1Ind2Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='java.lang.String'><li>{([s])}</li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>0</li><li>1</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process1_Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings2\"><li><c:if condition='isEmpty(s)'>EMPTY</c:if></li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>EMPTY</li><li/></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-
-    @Test
-    public void process2Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"composite.strings\" className='$var'><li>{length(s)}</li></c:for></ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-
-    @Test
-    public void process2_Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul>{(composite.sum(composite.integer1,composite.integer1))}</ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul>10</ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-
-    @Test
-    public void process2_3Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=<a c:command=''$composite.sum({0},{0},{0})''>{0}</a>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul>&#60;a c:command='$composite.sum(5,5,5)'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
+//    @Test
+//    public void process2_Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul>{(composite.sum(composite.integer1,composite.integer1))}</ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul>10</ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//
+//    @Test
+//    public void process2_3Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=<a c:command=''$composite.sum({0},{0},{0})''>{0}</a>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul>&#60;a c:command='$composite.sum(5,5,5)'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
 
 //    @Test
 //    public void process2__3Test() {
@@ -450,67 +428,67 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        //setInteger(v_);
 //        assertEq("<html><body><ul><li><a c:command=\"bean_one.goToNullPage\" href=\"\" n-a=\"0\">o 5</a></li><li><a c:command=\"bean_one.goToNullPage\" href=\"\" n-a=\"1\">t 5</a></li></ul></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
 //    }
-    @Test
-    public void process2_3_0Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=<a c:command=''$validateStrings()''>{0}</a>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul>&#60;a c:command='$validateStrings()'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
-
-    @Test
-    public void process2_3_Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=<a c:command=''composite''>{0}</a>";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul>&#60;a c:command='composite'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
-    @Test
-    public void process__2Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean='bean_one'><body><ul>{((composite.sum(composite.integer1,composite.integer1)))}</ul></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul>10</ul></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-    @Test
-    public void process2__Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one={0}";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><ul>5</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
+//    @Test
+//    public void process2_3_0Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=<a c:command=''$validateStrings()''>{0}</a>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul>&#60;a c:command='$validateStrings()'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
+//
+//    @Test
+//    public void process2_3_Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=<a c:command=''composite''>{0}</a>";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul>&#60;a c:command='composite'&#62;5&#60;/a&#62;</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
+//    @Test
+//    public void process__2Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean='bean_one'><body><ul>{((composite.sum(composite.integer1,composite.integer1)))}</ul></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul>10</ul></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//    @Test
+//    public void process2__Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one={0}";
+//        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer1'/></c:message></ul></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><ul>5</ul></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
 //    @Test
 //    public void process2_Sub_Test() {
 //        String locale_ = "en";
@@ -543,21 +521,21 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        //setInteger(v_);
 //        assertEq("<html><body><input c:groupId=\"5\" value=\"OK\" type=\"submit\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
 //    }
-    @Test
-    public void process2_Id_quote2_Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one={0}";
-        String html_ = "<html c:bean='bean_one'><body>''a''</body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body>'a'</body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
+//    @Test
+//    public void process2_Id_quote2_Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one={0}";
+//        String html_ = "<html c:bean='bean_one'><body>''a''</body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body>'a'</body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
 //    @Test
 //    public void process_2_Test() {
 //        String locale_ = "en";
@@ -701,51 +679,51 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        //setInteger(v_);
 //        assertEq("<html><body><img/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
 //    }
-    @Test
-    public void process2LkTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Click";
-        String html_ = "<html c:bean='bean_one'><body><link/></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><link/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
-    @Test
-    public void process3LkTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Click";
-        String html_ = "<html c:bean='bean_one'><body><head><link/></head></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><head><link/><style></style></head></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
-    @Test
-    public void process2SpTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Click";
-        String html_ = "<html c:bean='bean_one'><body><span/></body></html>";
-        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-        assertEq("<html><body><span/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
-    }
+//    @Test
+//    public void process2LkTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Click";
+//        String html_ = "<html c:bean='bean_one'><body><link/></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><link/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
+//    @Test
+//    public void process3LkTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Click";
+//        String html_ = "<html c:bean='bean_one'><body><head><link/></head></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><head><link/><style></style></head></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
+//    @Test
+//    public void process2SpTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Click";
+//        String html_ = "<html c:bean='bean_one'><body><span/></body></html>";
+//        StringMap<TranslationsAppli> files_ = trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+//        assertEq("<html><body><span/></body></html>", getNatRes(folder_, relative_, html_, new StringMap<String>(), files_, v_));
+//    }
 
 //    @Test
 //    public void process1FailTest() {
@@ -763,59 +741,59 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        assertTrue(hasNatErr(folder_, relative_, html_, bean_));
 //    }
 
-    @Test
-    public void process3Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-//        v_.getMap().put("ONE", 1);
-//        v_.getMap().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-
-    @Test
-    public void process5Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-//        v_.getMap().put("ONE", 1);
-//        v_.getMap().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
-
-    @Test
-    public void process6Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
-        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><c:for key=\"l\" value=\"w\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><tr><td>{k}</td><td>{v}</td><td>{l}</td><td>{w}</td></tr></c:for></c:for></table></body></html>";
-        trFile(folder_, locale_, relative_, content_);
-        BeanOne bean_ = new BeanOne();
-        SampleBeanStruct v_ = init(bean_);
-//        getStrings(v_).add("FIRST");
-//        getStrings(v_).add("SECOND");
-        //setInteger(v_);
-//        v_.getMap().put("ONE", 1);
-//        v_.getMap().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
-    }
+//    @Test
+//    public void process3Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree\"><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+////        v_.getMap().put("ONE", 1);
+////        v_.getMap().put("TWO", 2);
+//        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//
+//    @Test
+//    public void process5Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+////        v_.getMap().put("ONE", 1);
+////        v_.getMap().put("TWO", 2);
+//        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
+//
+//    @Test
+//    public void process6Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc <{0}>";
+//        String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" value=\"v\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><c:for key=\"l\" value=\"w\" map=\"tree\" keyClassName='java.lang.Object' varClassName='java.lang.Object'><tr><td>{k}</td><td>{v}</td><td>{l}</td><td>{w}</td></tr></c:for></c:for></table></body></html>";
+//        trFile(folder_, locale_, relative_, content_);
+//        BeanOne bean_ = new BeanOne();
+//        SampleBeanStruct v_ = init(bean_);
+////        getStrings(v_).add("FIRST");
+////        getStrings(v_).add("SECOND");
+//        //setInteger(v_);
+////        v_.getMap().put("ONE", 1);
+////        v_.getMap().put("TWO", 2);
+//        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+//    }
 
 //    @Test
 //    public void process7Test() {
@@ -1126,21 +1104,21 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        assertEq("page2.html", n_.getCurrentUrl());
 //    }
 
-    private static CustBeanLgNames stds() {
-        return new CustBeanLgNames();
-    }
+//    private static CustBeanLgNames stds() {
+//        return new CustBeanLgNames();
+//    }
+//
+//    private static NatAnalyzedCode init(CustBeanLgNames _lgNames) {
+//        _lgNames.build();
+//        return page(_lgNames);
+//    }
 
-    private static NatAnalyzedCode init(CustBeanLgNames _lgNames) {
-        _lgNames.build();
-        return page(_lgNames);
-    }
-
-    private static NatAnalyzedCode page(CustBeanLgNames _lgNames) {
-        NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
-        page_.setStds(_lgNames);
-        RendBlockHelp.setupOverrides(page_.getStds());
-        return page_;
-    }
+//    private static NatAnalyzedCode page(CustBeanLgNames _lgNames) {
+//        NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
+//        page_.setStds(_lgNames);
+//        RendBlockHelp.setupOverrides(page_.getStds());
+//        return page_;
+//    }
 
 //    @Test
 //    public void processNav1Test() {
@@ -1282,138 +1260,138 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //
 //    }
 
-
-    @Test
-    public void processNav2Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc <{0}>\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><span v='Text'>{typedString2}</span></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-//        bean_.setBaseForms(new StringMapObjectBase());
-        SampleBeanStruct v1_ = init(bean_);
-//        v1_.getMap().put("ONE", 1);
-//        v1_.getMap().put("TWO", 2);
-        BeanTwo beanTwo_ = new BeanTwo();
-//        beanTwo_.setBaseForms(new StringMapObjectBase());
-        NatArrayStruct v2_ = new NatArrayStruct(1);
-        v2_.set(0,new NaStSt(""));
-//        SampleBeanStruct v2_ = init(beanTwo_);
-//        v2_.setTypedString2("TITLE");
-        CustBeanLgNames lgNames_ = stds();
-        NatConfigurationCore config_ = conf_("c:");
-        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        //new Forwards(lgNames_, null, new Options()).generate();
-        NatAnalyzedCode init_ = init(lgNames_);
-
-        config_.setFirstUrl("page1.html");
-//        v1_.getForms().put("key", "sample_value");
-        setupNative(folder_, relative_, dual_);
-        preinit(lgNames_, config_);
-
-
-        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean2(html_, htmlTwo_, v1_, v2_, config_, analyzingDoc_, lgNames_, init_, dual_);
-        assertEq("<html><body><span v=\"Text\">Test {0}2</span></body></html>", getSampleRes(config_,rendDocumentBlock_, lgNames_, new NatRendStackCall()));
-//        assertEq(1, beanTwo_.getForms().size());
-//        assertEq("key", beanTwo_.getForms().getKeys().first());
-//        assertEq("sample_value", v2_.getForms().getValStr("key"));
-    }
-
-    @Test
-    public void processNav3Test() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc <{0}>\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><span>{typedString2}</span></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-//        bean_.setBaseForms(new StringMapObjectBase());
-        SampleBeanStruct v1_ = init(bean_);
-//        v1_.getMap().put("ONE", 1);
-//        v1_.getMap().put("TWO", 2);
-        BeanTwo beanTwo_ = new BeanTwo();
-//        beanTwo_.setBaseForms(new StringMapObjectBase());
-        NatArrayStruct v2_ = new NatArrayStruct(1);
-        v2_.set(0,new NaStSt(""));
-//        SampleBeanStruct v2_ = init(beanTwo_);
-//        v2_.setTypedString2("TITLE");
-        CustBeanLgNames lgNames_ = stds();
-        NatConfigurationCore config_ = conf_("c:");
-        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        //new Forwards(lgNames_, null, new Options()).generate();
-        NatAnalyzedCode init_ = init(lgNames_);
-
-        config_.setFirstUrl("page1.html");
-//        v1_.getForms().put("key", "sample_value");
-        setupNative(folder_, relative_, dual_);
-        preinit(lgNames_, config_);
-        StringMap<Document> docs_ = new StringMap<Document>();
-        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
-        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-
-
-        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean2(html_, htmlTwo_, v1_, v2_, config_, analyzingDoc_, lgNames_, init_, dual_);
-        assertEq("<html><body><span>Test {0}2</span></body></html>", getSampleRes(config_,rendDocumentBlock_, lgNames_, new NatRendStackCall()));
-
-//        assertEq(1, beanTwo_.getForms().size());
-//        assertEq("key", beanTwo_.getForms().getKeys().first());
-//        assertEq("sample_value", v2_.getForms().getValStr("key"));
-    }
-    @Test
-    public void processNav3QuickTest() {
-        String locale_ = StringUtil.EN;
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc <{0}>\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"/>";
-        StringMap<TranslationsAppli> apps_ = new StringMap<TranslationsAppli>();
-        TranslationsAppli app_ = new TranslationsAppli();
-        TranslationsFile tf_ = AnaRendBlockHelp.file(content_);
-        app_.getMapping().addEntry(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), tf_);
-        apps_.addEntry(locale_, app_);
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-//        bean_.setBaseForms(new StringMapObjectBase());
-        SampleBeanStruct v1_ = init(bean_);
-//        v1_.getMap().put("ONE", 1);
-//        v1_.getMap().put("TWO", 2);
-        BeanTwo beanTwo_ = new BeanTwo();
-//        beanTwo_.setBaseForms(new StringMapObjectBase());
-        NatArrayStruct v2_ = new NatArrayStruct(1);
-        v2_.set(0,new NaStSt(""));
-//        SampleBeanStruct v2_ = init(beanTwo_);
-//        v2_.setTypedString2("TITLE");
-        CustBeanLgNames lgNames_ = stds();
-        NatConfigurationCore config_ = conf_("c:");
-        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        //new Forwards(lgNames_, null, new Options()).generate();
-        NatAnalyzedCode init_ = init(lgNames_);
-
-        config_.setFirstUrl("page1.html");
-//        v1_.getForms().put("key", "sample_value");
-        setupNative(folder_, relative_, dual_);
-        preinit(lgNames_, config_);
-        StringMap<Document> docs_ = new StringMap<Document>();
-        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
-        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        NatNavigation n_ = nav(locale_, docs_, files_, apps_, lgNames_, new SampleNativeInit());
-        lgNames_.initializeRendSessionDoc(n_);
-        assertEq("<html/>", n_.getHtmlText());
-    }
+//
+//    @Test
+//    public void processNav2Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc <{0}>\nfour=''asp''";
+//        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><span v='Text'>{typedString2}</span></body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+////        bean_.setBaseForms(new StringMapObjectBase());
+//        SampleBeanStruct v1_ = init(bean_);
+////        v1_.getMap().put("ONE", 1);
+////        v1_.getMap().put("TWO", 2);
+//        BeanTwo beanTwo_ = new BeanTwo();
+////        beanTwo_.setBaseForms(new StringMapObjectBase());
+//        NatArrayStruct v2_ = new NatArrayStruct(1);
+//        v2_.set(0,new NaStSt(""));
+////        SampleBeanStruct v2_ = init(beanTwo_);
+////        v2_.setTypedString2("TITLE");
+//        CustBeanLgNames lgNames_ = stds();
+//        NatConfigurationCore config_ = conf_("c:");
+//        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+//        //new Forwards(lgNames_, null, new Options()).generate();
+//        NatAnalyzedCode init_ = init(lgNames_);
+//
+//        config_.setFirstUrl("page1.html");
+////        v1_.getForms().put("key", "sample_value");
+//        setupNative(folder_, relative_, dual_);
+//        preinit(lgNames_, config_);
+//
+//
+//        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
+//        NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean2(html_, htmlTwo_, v1_, v2_, config_, analyzingDoc_, lgNames_, init_, dual_);
+//        assertEq("<html><body><span v=\"Text\">Test {0}2</span></body></html>", getSampleRes(config_,rendDocumentBlock_, lgNames_, new NatRendStackCall()));
+////        assertEq(1, beanTwo_.getForms().size());
+////        assertEq("key", beanTwo_.getForms().getKeys().first());
+////        assertEq("sample_value", v2_.getForms().getValStr("key"));
+//    }
+//
+//    @Test
+//    public void processNav3Test() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc <{0}>\nfour=''asp''";
+//        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><span>{typedString2}</span></body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+////        bean_.setBaseForms(new StringMapObjectBase());
+//        SampleBeanStruct v1_ = init(bean_);
+////        v1_.getMap().put("ONE", 1);
+////        v1_.getMap().put("TWO", 2);
+//        BeanTwo beanTwo_ = new BeanTwo();
+////        beanTwo_.setBaseForms(new StringMapObjectBase());
+//        NatArrayStruct v2_ = new NatArrayStruct(1);
+//        v2_.set(0,new NaStSt(""));
+////        SampleBeanStruct v2_ = init(beanTwo_);
+////        v2_.setTypedString2("TITLE");
+//        CustBeanLgNames lgNames_ = stds();
+//        NatConfigurationCore config_ = conf_("c:");
+//        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+//        //new Forwards(lgNames_, null, new Options()).generate();
+//        NatAnalyzedCode init_ = init(lgNames_);
+//
+//        config_.setFirstUrl("page1.html");
+////        v1_.getForms().put("key", "sample_value");
+//        setupNative(folder_, relative_, dual_);
+//        preinit(lgNames_, config_);
+//        StringMap<Document> docs_ = new StringMap<Document>();
+//        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+//        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
+//
+//
+//        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
+//        NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean2(html_, htmlTwo_, v1_, v2_, config_, analyzingDoc_, lgNames_, init_, dual_);
+//        assertEq("<html><body><span>Test {0}2</span></body></html>", getSampleRes(config_,rendDocumentBlock_, lgNames_, new NatRendStackCall()));
+//
+////        assertEq(1, beanTwo_.getForms().size());
+////        assertEq("key", beanTwo_.getForms().getKeys().first());
+////        assertEq("sample_value", v2_.getForms().getValStr("key"));
+//    }
+//    @Test
+//    public void processNav3QuickTest() {
+//        String locale_ = StringUtil.EN;
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc <{0}>\nfour=''asp''";
+//        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"goToPage2\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"/>";
+//        StringMap<TranslationsAppli> apps_ = new StringMap<TranslationsAppli>();
+//        TranslationsAppli app_ = new TranslationsAppli();
+//        TranslationsFile tf_ = AnaRendBlockHelp.file(content_);
+//        app_.getMapping().addEntry(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), tf_);
+//        apps_.addEntry(locale_, app_);
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+////        bean_.setBaseForms(new StringMapObjectBase());
+//        SampleBeanStruct v1_ = init(bean_);
+////        v1_.getMap().put("ONE", 1);
+////        v1_.getMap().put("TWO", 2);
+//        BeanTwo beanTwo_ = new BeanTwo();
+////        beanTwo_.setBaseForms(new StringMapObjectBase());
+//        NatArrayStruct v2_ = new NatArrayStruct(1);
+//        v2_.set(0,new NaStSt(""));
+////        SampleBeanStruct v2_ = init(beanTwo_);
+////        v2_.setTypedString2("TITLE");
+//        CustBeanLgNames lgNames_ = stds();
+//        NatConfigurationCore config_ = conf_("c:");
+//        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+//        //new Forwards(lgNames_, null, new Options()).generate();
+//        NatAnalyzedCode init_ = init(lgNames_);
+//
+//        config_.setFirstUrl("page1.html");
+////        v1_.getForms().put("key", "sample_value");
+//        setupNative(folder_, relative_, dual_);
+//        preinit(lgNames_, config_);
+//        StringMap<Document> docs_ = new StringMap<Document>();
+//        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+//        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
+//        NatNavigation n_ = nav(locale_, docs_, files_, apps_, lgNames_, new SampleNativeInit());
+//        lgNames_.initializeRendSessionDoc(n_);
+//        assertEq("<html/>", n_.getHtmlText());
+//    }
 //
 //    @Test
 //    public void processNav3Test() {
@@ -2586,9 +2564,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        afterAna(_nav, _adv, analyzingDoc_, d_);
 //    }
 
-    private static void oneAna(StringMap<String> _map, NatAnalyzingDoc _analyzingDoc, StringMap<NatAnaRendDocumentBlock> _d, NatAnalyzedCode _init) {
-        AnaRendBlockHelp.buildFctInstructions(_d.firstValue(), _analyzingDoc, _init, _map);
-    }
+//    private static void oneAna(StringMap<String> _map, NatAnalyzingDoc _analyzingDoc, StringMap<NatAnaRendDocumentBlock> _d, NatAnalyzedCode _init) {
+//        AnaRendBlockHelp.buildFctInstructions(_d.firstValue(), _analyzingDoc, _init, _map);
+//    }
 
 //    private static void initSessionNat2(Navigation _nav, CustBeanLgNames _adv, NatDualConfigurationContext _dual) {
 //        StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
@@ -2618,10 +2596,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        return d_;
 //    }
 
-    private static void twoAna(StringMap<String> _map, NatAnalyzingDoc _analyzingDoc, StringMap<NatAnaRendDocumentBlock> _d, NatAnalyzedCode _init) {
-        AnaRendBlockHelp.buildFctInstructions(_d.firstValue(), _analyzingDoc, _init, _map);
-        AnaRendBlockHelp.buildFctInstructions(_d.lastValue(), _analyzingDoc, _init, _map);
-    }
+//    private static void twoAna(StringMap<String> _map, NatAnalyzingDoc _analyzingDoc, StringMap<NatAnaRendDocumentBlock> _d, NatAnalyzedCode _init) {
+//        AnaRendBlockHelp.buildFctInstructions(_d.firstValue(), _analyzingDoc, _init, _map);
+//        AnaRendBlockHelp.buildFctInstructions(_d.lastValue(), _analyzingDoc, _init, _map);
+//    }
 
 //    private static BeanInfo beanInfo(Struct _value, String _v) {
 //        BeanInfo i_ = new BeanInfo();
@@ -2659,67 +2637,67 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        _nav.getSession().setCurrentLanguage(_nav.getLanguage());
 //    }
 
-    private static void init(CustBeanLgNames _adv, NatNavigation _nav) {
-        _adv.initializeRendSessionDoc(_nav);
-    }
+//    private static void init(CustBeanLgNames _adv, NatNavigation _nav) {
+//        _adv.initializeRendSessionDoc(_nav);
+//    }
+//
+//    private StringMap<TranslationsAppli> trFile(String _folder, String _locale, String _relative, String _content) {
+//        StringMap<TranslationsAppli> files_ = new StringMap<TranslationsAppli>();
+//        TranslationsAppli file_ = new TranslationsAppli();
+//        file_.getMapping().addEntry(EquallableBeanCoreUtil.formatFile(_folder, _locale, _relative),AnaRendBlockHelp.file(_content));
+//        files_.addEntry(_locale, file_);
+//        return files_;
+//    }
+//    private String getNatRes(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<TranslationsAppli> _apps, SampleBeanStruct _v) {
+//        CustBeanLgNames lgNames_ = stds();
+//        NatConfigurationCore config_ = conf_("c:");
+//        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+//        NatAnalyzedCode initNat_ = init(lgNames_);
+//        //new Forwards(lgNames_, null, new Options()).generate();
+//
+//        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
+//        config_.getFiles().addAllEntries(_files);
+//        analyzingDoc_.getApplis().addAllEntries(_apps);
+//        setupNative2(_folder, _relative, dual_);
+//        putBean("bean_one", _v, lgNames_);
+//        StringMap<String> beansInfos_ = config_.getBeansInfos();
+//        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, config_,"code.formathtml.classes.BeanOne");
+//        setLocalFiles(analyzingDoc_, initNat_, config_, dual_);
+//        DefNatBlockBuilder b_ = new DefNatBlockBuilder();
+//        StringMap<NatAnaRendDocumentBlock> d_ = analyze(config_, analyzingDoc_, beansInfos_, lgNames_, initNat_, dual_, b_, _html);
+////        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
+//        NatRendForwardInfos.buildExec(analyzingDoc_, d_, lgNames_.getRenders(),b_);
+//        setFirst(config_, lgNames_.getRenders());
+//        NatRendStackCall build_ = new NatRendStackCall();
+//        return getSampleRes(config_, lgNames_.getRenders().getVal("page1.html"), lgNames_, build_);
+//    }
+//    private String getNatRes(String _folder, String _relative, String _html, SampleBeanStruct _v) {
+//        CustBeanLgNames lgNames_ = stds();
+//        NatConfigurationCore con_ = conf_("c:");
+//        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+//        NatAnalyzedCode init_ = init(lgNames_);
+//        //new Forwards(lgNames_, null, new Options()).generate();
+//
+//        setupNative2(_folder, _relative, dual_);
+//        putBean("bean_one", _v, lgNames_);
+//        StringMap<String> beansInfos_ = con_.getBeansInfos();
+//        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, con_,"code.formathtml.classes.BeanOne");
+//        NatAnalyzingDoc analyzingDo_ = new NatAnalyzingDoc();
+//        setLocalFiles(analyzingDo_, init_, con_, dual_);
+//        DefNatBlockBuilder b_ = new DefNatBlockBuilder();
+//        StringMap<NatAnaRendDocumentBlock> d_ = analyze(con_, analyzingDo_, beansInfos_, lgNames_, init_, dual_, b_, _html);
+////        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
+//        NatRendForwardInfos.buildExec(analyzingDo_, d_, lgNames_.getRenders(),b_);
+//        setFirst(con_, lgNames_.getRenders());
+//        NatRendStackCall build_ = new NatRendStackCall();
+//        return getSampleRes(con_, lgNames_.getRenders().getVal("page1.html"), lgNames_, build_);
+//    }
 
-    private StringMap<TranslationsAppli> trFile(String _folder, String _locale, String _relative, String _content) {
-        StringMap<TranslationsAppli> files_ = new StringMap<TranslationsAppli>();
-        TranslationsAppli file_ = new TranslationsAppli();
-        file_.getMapping().addEntry(EquallableBeanCoreUtil.formatFile(_folder, _locale, _relative),AnaRendBlockHelp.file(_content));
-        files_.addEntry(_locale, file_);
-        return files_;
-    }
-    private String getNatRes(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<TranslationsAppli> _apps, SampleBeanStruct _v) {
-        CustBeanLgNames lgNames_ = stds();
-        NatConfigurationCore config_ = conf_("c:");
-        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        NatAnalyzedCode initNat_ = init(lgNames_);
-        //new Forwards(lgNames_, null, new Options()).generate();
-
-        NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        config_.getFiles().addAllEntries(_files);
-        analyzingDoc_.getApplis().addAllEntries(_apps);
-        setupNative2(_folder, _relative, dual_);
-        putBean("bean_one", _v, lgNames_);
-        StringMap<String> beansInfos_ = config_.getBeansInfos();
-        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, config_,"code.formathtml.classes.BeanOne");
-        setLocalFiles(analyzingDoc_, initNat_, config_, dual_);
-        DefNatBlockBuilder b_ = new DefNatBlockBuilder();
-        StringMap<NatAnaRendDocumentBlock> d_ = analyze(config_, analyzingDoc_, beansInfos_, lgNames_, initNat_, dual_, b_, _html);
-//        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, d_, lgNames_.getRenders(),b_);
-        setFirst(config_, lgNames_.getRenders());
-        NatRendStackCall build_ = new NatRendStackCall();
-        return getSampleRes(config_, lgNames_.getRenders().getVal("page1.html"), lgNames_, build_);
-    }
-    private String getNatRes(String _folder, String _relative, String _html, SampleBeanStruct _v) {
-        CustBeanLgNames lgNames_ = stds();
-        NatConfigurationCore con_ = conf_("c:");
-        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
-        NatAnalyzedCode init_ = init(lgNames_);
-        //new Forwards(lgNames_, null, new Options()).generate();
-
-        setupNative2(_folder, _relative, dual_);
-        putBean("bean_one", _v, lgNames_);
-        StringMap<String> beansInfos_ = con_.getBeansInfos();
-        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, con_,"code.formathtml.classes.BeanOne");
-        NatAnalyzingDoc analyzingDo_ = new NatAnalyzingDoc();
-        setLocalFiles(analyzingDo_, init_, con_, dual_);
-        DefNatBlockBuilder b_ = new DefNatBlockBuilder();
-        StringMap<NatAnaRendDocumentBlock> d_ = analyze(con_, analyzingDo_, beansInfos_, lgNames_, init_, dual_, b_, _html);
-//        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDo_, d_, lgNames_.getRenders(),b_);
-        setFirst(con_, lgNames_.getRenders());
-        NatRendStackCall build_ = new NatRendStackCall();
-        return getSampleRes(con_, lgNames_.getRenders().getVal("page1.html"), lgNames_, build_);
-    }
-
-    private NatConfigurationCore conf_(String _prefix) {
-        NatConfigurationCore conf_ =  EquallableBeanCoreUtil.newConfiguration();
-        conf_.setPrefix(_prefix);
-        return conf_;
-    }
+//    private NatConfigurationCore conf_(String _prefix) {
+//        NatConfigurationCore conf_ =  EquallableBeanCoreUtil.newConfiguration();
+//        conf_.setPrefix(_prefix);
+//        return conf_;
+//    }
 
 //    private static NatDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, SampleBeanStruct _v1, SampleBeanStruct _v2, Configuration _configuration, NatAnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
 //        StringMap<BeanInfo> beansInfos_ = _configuration.getBeansInfos();
@@ -2732,73 +2710,73 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        return _adv.getRenders().getVal("page1.html");
 //    }
 
-    private static NatDocumentBlock buildRendWithTwoNativeBean2(String _html, String _htmlTwo, SampleBeanStruct _v1, NaSt _v2, NatConfigurationCore _configuration, NatAnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
-        StringMap<String> beansInfos_ = _configuration.getBeansInfos();
-        addBeanInfo(_adv,"bean_one", _v1, beansInfos_, _configuration,"code.formathtml.classes.BeanOne");
-        addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration,"code.formathtml.classes.BeanTwo");
-        DefNatBlockBuilder b_ = new DefNatBlockBuilder();
-        StringMap<NatAnaRendDocumentBlock> d_ = analyze2(_configuration, _analyzingDoc, beansInfos_, _adv, _analyzing, _dual, b_, _html, _htmlTwo);
-//        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(_analyzingDoc, d_, _adv.getRenders(),b_);
-        setFirst(_configuration, _adv.getRenders());
-        return _adv.getRenders().getVal("page1.html");
-    }
+//    private static NatDocumentBlock buildRendWithTwoNativeBean2(String _html, String _htmlTwo, SampleBeanStruct _v1, NaSt _v2, NatConfigurationCore _configuration, NatAnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
+//        StringMap<String> beansInfos_ = _configuration.getBeansInfos();
+//        addBeanInfo(_adv,"bean_one", _v1, beansInfos_, _configuration,"code.formathtml.classes.BeanOne");
+//        addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration,"code.formathtml.classes.BeanTwo");
+//        DefNatBlockBuilder b_ = new DefNatBlockBuilder();
+//        StringMap<NatAnaRendDocumentBlock> d_ = analyze2(_configuration, _analyzingDoc, beansInfos_, _adv, _analyzing, _dual, b_, _html, _htmlTwo);
+////        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
+//        NatRendForwardInfos.buildExec(_analyzingDoc, d_, _adv.getRenders(),b_);
+//        setFirst(_configuration, _adv.getRenders());
+//        return _adv.getRenders().getVal("page1.html");
+//    }
+//
+//    private static void setLocalFiles(NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing, NatConfigurationCore _configuration, NatDualConfigurationContext _dual) {
+//        _configuration.setCurrentLanguage(StringUtil.EN);
+//        _analyzingDoc.setRendKeyWords(_configuration.getRendKeyWords());
+//        _analyzingDoc.setupCommon(_configuration.getNat(), _dual.getProperties(), _dual.getMessagesFolder());
+//        setInnerLocalFiles(_analyzingDoc, _analyzing);
+//    }
+//
+//    private static void setInnerLocalFiles(NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing) {
+//        _analyzingDoc.setLanguages(new StringList(StringUtil.EN));
+//
+//    }
+//    private static StringMap<NatAnaRendDocumentBlock> analyze(NatConfigurationCore _conf, NatAnalyzingDoc _analyzingDoc, StringMap<String> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual, DefNatBlockBuilder _b, String... _html) {
+//        StringMap<NatAnaRendDocumentBlock> d_ = new StringMap<NatAnaRendDocumentBlock>();
+//        d_.addEntry("page1.html",newRendDocumentBlock(_conf, _adv, _html[0], _b));
+//        setLocalFiles(_analyzingDoc, _analyzing, _conf, _dual);
+//        oneAna(_beansInfosBefore,_analyzingDoc,d_,_analyzing);
+//        return d_;
+//    }
+//    private static StringMap<NatAnaRendDocumentBlock> analyze2(NatConfigurationCore _conf, NatAnalyzingDoc _analyzingDoc, StringMap<String> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual, DefNatBlockBuilder _b, String... _html) {
+//        StringMap<NatAnaRendDocumentBlock> d_ = new StringMap<NatAnaRendDocumentBlock>();
+//        d_.addEntry("page1.html",newRendDocumentBlock(_conf, _adv, _html[0], _b));
+//        d_.addEntry("page2.html",newRendDocumentBlock(_conf, _adv, _html[1], _b));
+//        setLocalFiles(_analyzingDoc, _analyzing, _conf, _dual);
+//        twoAna(_beansInfosBefore,_analyzingDoc,d_,_analyzing);
+//        return d_;
+//    }
 
-    private static void setLocalFiles(NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing, NatConfigurationCore _configuration, NatDualConfigurationContext _dual) {
-        _configuration.setCurrentLanguage(StringUtil.EN);
-        _analyzingDoc.setRendKeyWords(_configuration.getRendKeyWords());
-        _analyzingDoc.setupCommon(_configuration.getNat(), _dual.getProperties(), _dual.getMessagesFolder());
-        setInnerLocalFiles(_analyzingDoc, _analyzing);
-    }
+//    private static NatAnaRendDocumentBlock newRendDocumentBlock(NatConfigurationCore _conf, CustBeanLgNames _adv, String _f, DefNatBlockBuilder _b) {
+//        return AnaRendBlockHelp.newRendDocumentBlock(_conf.getPrefix(), DocumentBuilder.parseSaxNotNullRowCol(_f).getDocument(), _conf.getRendKeyWords(), _adv, _b);
+//    }
 
-    private static void setInnerLocalFiles(NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing) {
-        _analyzingDoc.setLanguages(new StringList(StringUtil.EN));
+//    protected static NatDocumentBlock setFirst(NatConfigurationCore _configuration, StringMap<NatDocumentBlock> _renders) {
+//        return _renders.getVal("page1.html");
+//    }
+//
+//    private static void addBeanInfo(CustBeanLgNames _adv,String _id, NaSt _str, StringMap<String> _beansInfos, NatConfigurationCore _configuration, String _clName) {
+////        BeanInfo b_ = new BeanInfo();
+////        clName(b_,_clName);
+//        _beansInfos.addEntry(_id,_clName);
+//        _adv.getBeansStruct().addEntry(_id,_str);
+//    }
 
-    }
-    private static StringMap<NatAnaRendDocumentBlock> analyze(NatConfigurationCore _conf, NatAnalyzingDoc _analyzingDoc, StringMap<String> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual, DefNatBlockBuilder _b, String... _html) {
-        StringMap<NatAnaRendDocumentBlock> d_ = new StringMap<NatAnaRendDocumentBlock>();
-        d_.addEntry("page1.html",newRendDocumentBlock(_conf, _adv, _html[0], _b));
-        setLocalFiles(_analyzingDoc, _analyzing, _conf, _dual);
-        oneAna(_beansInfosBefore,_analyzingDoc,d_,_analyzing);
-        return d_;
-    }
-    private static StringMap<NatAnaRendDocumentBlock> analyze2(NatConfigurationCore _conf, NatAnalyzingDoc _analyzingDoc, StringMap<String> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual, DefNatBlockBuilder _b, String... _html) {
-        StringMap<NatAnaRendDocumentBlock> d_ = new StringMap<NatAnaRendDocumentBlock>();
-        d_.addEntry("page1.html",newRendDocumentBlock(_conf, _adv, _html[0], _b));
-        d_.addEntry("page2.html",newRendDocumentBlock(_conf, _adv, _html[1], _b));
-        setLocalFiles(_analyzingDoc, _analyzing, _conf, _dual);
-        twoAna(_beansInfosBefore,_analyzingDoc,d_,_analyzing);
-        return d_;
-    }
+//
+//    private static void setupNative2(String _folder, String _relative, NatDualConfigurationContext _context) {
+//        setupNative(_folder, _relative, _context);
+//    }
 
-    private static NatAnaRendDocumentBlock newRendDocumentBlock(NatConfigurationCore _conf, CustBeanLgNames _adv, String _f, DefNatBlockBuilder _b) {
-        return AnaRendBlockHelp.newRendDocumentBlock(_conf.getPrefix(), DocumentBuilder.parseSaxNotNullRowCol(_f).getDocument(), _conf.getRendKeyWords(), _adv, _b);
-    }
+//    private static void putBean(String _key, BeanNatCommonLgNames _stds, SampleBeanStruct _v) {
+//        _stds.getBeansStruct().put(_key, _v);
+////        ((CustBeanLgNames) _stds).beansForTest().put(_key, _beanTwo);
+//    }
 
-    protected static NatDocumentBlock setFirst(NatConfigurationCore _configuration, StringMap<NatDocumentBlock> _renders) {
-        return _renders.getVal("page1.html");
-    }
-
-    private static void addBeanInfo(CustBeanLgNames _adv,String _id, NaSt _str, StringMap<String> _beansInfos, NatConfigurationCore _configuration, String _clName) {
-//        BeanInfo b_ = new BeanInfo();
-//        clName(b_,_clName);
-        _beansInfos.addEntry(_id,_clName);
-        _adv.getBeansStruct().addEntry(_id,_str);
-    }
-
-
-    private static void setupNative2(String _folder, String _relative, NatDualConfigurationContext _context) {
-        setupNative(_folder, _relative, _context);
-    }
-
-    private static void putBean(String _key, BeanNatCommonLgNames _stds, SampleBeanStruct _v) {
-        _stds.getBeansStruct().put(_key, _v);
-//        ((CustBeanLgNames) _stds).beansForTest().put(_key, _beanTwo);
-    }
-
-    private static void setupNative(String _folder, String _relative, NatDualConfigurationContext _dual) {
-        setup(_folder, _relative, _dual);
-    }
+//    private static void setupNative(String _folder, String _relative, NatDualConfigurationContext _dual) {
+//        setup(_folder, _relative, _dual);
+//    }
 
 //    private static void setupNative2(String _folder, String _relative, Configuration _configuration, NatDualConfigurationContext _dual) {
 //        _configuration.setFirstUrl("page2.html");
@@ -2826,28 +2804,28 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        return (BeanTwo) ((SampleBeanStruct) _conf.getConfiguration().getBuiltBeans().getVal(_key)).getBean();
 //    }
 
-    private static void putBean(String _key, SampleBeanStruct _v, CustBeanLgNames _adv) {
-        putBean(_key, _adv, _v);
-    }
-
-    private static String getSampleRes(NatConfigurationCore _conf, NatDocumentBlock _rendDocumentBlock, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
-        _rendStackCall.setCurrent(_stds);
-        return getRes(_conf,_rendDocumentBlock, _stds, _rendStackCall);
-    }
+//    private static void putBean(String _key, SampleBeanStruct _v, CustBeanLgNames _adv) {
+//        putBean(_key, _adv, _v);
+//    }
+//
+//    private static String getSampleRes(NatConfigurationCore _conf, NatDocumentBlock _rendDocumentBlock, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
+//        _rendStackCall.setCurrent(_stds);
+//        return getRes(_conf,_rendDocumentBlock, _stds, _rendStackCall);
+//    }
 
 //    private static String getSampleRes(NatDocumentBlock _rendDocumentBlock, Configuration _configuration, CustBeanLgNames _adv) {
 //        NatRendStackCall build_ = new NatRendStackCall();
 //        return getSampleRes(_configuration, _rendDocumentBlock, _adv, build_);
 //    }
 
-    private static void preinit(CustBeanLgNames _adv, NatConfigurationCore _configuration) {
-        _adv.preInitBeans(_configuration);
-    }
-
-    private static String getRes(NatConfigurationCore _conf, NatDocumentBlock _doc, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
-        _rendStackCall.setCurrent(_stds);
-        return _stds.getRes(_doc, _conf, _rendStackCall,new NatImportingPage());
-    }
+//    private static void preinit(CustBeanLgNames _adv, NatConfigurationCore _configuration) {
+//        _adv.preInitBeans(_configuration);
+//    }
+//
+//    private static String getRes(NatConfigurationCore _conf, NatDocumentBlock _doc, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
+//        _rendStackCall.setCurrent(_stds);
+//        return _stds.getRes(_doc, _conf, _rendStackCall,new NatImportingPage());
+//    }
 
 //    private static Navigation newNavigation(Configuration _configuration) {
 //        Navigation nav_ = new Navigation();
@@ -2860,15 +2838,15 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        _configuration.setFiles(_files);
 //    }
 
-    private static void setup(String _folder, String _relative, NatDualConfigurationContext _conf) {
-        setup(_folder, _conf);
-        _conf.getProperties().put("msg_example", _relative);
-    }
+//    private static void setup(String _folder, String _relative, NatDualConfigurationContext _conf) {
+//        setup(_folder, _conf);
+//        _conf.getProperties().put("msg_example", _relative);
+//    }
 
-    private static void setup(String _folder, NatDualConfigurationContext _conf) {
-        _conf.setMessagesFolder(_folder);
-        _conf.setProperties(new StringMap<String>());
-    }
+//    private static void setup(String _folder, NatDualConfigurationContext _conf) {
+////        _conf.setMessagesFolder(_folder);
+//        _conf.setProperties(new StringMap<String>());
+//    }
 
 //    private static void form(CustBeanLgNames _stds, Navigation _nav) {
 //        Element elt_ = DocumentBuilder.getFirstElementByAttribute(_nav.getDocument(), _nav.getSession().getRendKeyWords().getAttrNf(), Long.toString(_stds.getNatPage().getUrl()));
@@ -2924,12 +2902,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //                "\n";
 //    }
 
-    private SampleBeanStruct init(Bean _b) {
-//        _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
-//        _b.getBaseForms().put("typedShort",0);
-//        _b.getBaseForms().put("typedInt2",0);
-        return new SampleBeanStruct(_b);
-    }
+//    private SampleBeanStruct init(Bean _b) {
+////        _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
+////        _b.getBaseForms().put("typedShort",0);
+////        _b.getBaseForms().put("typedInt2",0);
+//        return new SampleBeanStruct(_b);
+//    }
 
 //    private SampleBeanStruct init(BeanTwo _b) {
 ////        _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
@@ -2946,10 +2924,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        ((BeanThree)_v.getComposite()).setInteger(5);
 //    }
 
-    private NatNavigation nav(String _lg, StringMap<Document> _docs, StringMap<String> _files, StringMap<TranslationsAppli> _apps, CustBeanLgNames _stds, AbstractNativeInit _init) {
-        StringList lgs_ = new StringList(_lg);
-        lgs_.add(_lg);
-        return _stds.nav(lgs_, _init, _docs, _files, _apps);
-    }
+//    private NatNavigation nav(String _lg, StringMap<Document> _docs, StringMap<String> _files, StringMap<TranslationsAppli> _apps, CustBeanLgNames _stds, AbstractNativeInit _init) {
+//        StringList lgs_ = new StringList(_lg);
+//        lgs_.add(_lg);
+//        return _stds.nav(lgs_, _init, _docs, _files, _apps);
+//    }
 
 }

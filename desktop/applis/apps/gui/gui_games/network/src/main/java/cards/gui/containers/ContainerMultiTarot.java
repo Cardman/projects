@@ -293,7 +293,7 @@ public final class ContainerMultiTarot extends ContainerTarot implements Contain
     }
     private AbsCustComponent buildCompo() {
         RulesTarotBean rulesBean_ = new RulesTarotBean();
-        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
+//        rulesBean_.setLanguage(getWindow().getFrames().getLanguage());
         rulesBean_.setDataBase(null,rulesTarotMulti);
         BeanBuilderHelperCards builder_ = new BeanBuilderHelperCards(getWindow().getFrames());
         builder_.setTranslations(getWindow().getFrames().getTranslations());
