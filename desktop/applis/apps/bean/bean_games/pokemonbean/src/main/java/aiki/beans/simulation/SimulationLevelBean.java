@@ -50,7 +50,7 @@ public final class SimulationLevelBean extends AbsLevelBean {
 //        }
         initLine();
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_NO_FIGHT);
-        noFight = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, getForms().getValLong(CST_NO_FIGHT));
+        noFight = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, getForms().getValLong(SIMU_CST_NO_FIGHT));
         feedParents();
         initLine();
         ok = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_OK));
@@ -78,8 +78,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
     }
     @Override
     public void beforeDisplaying() {
-        initTiles(false);
-        noFight.valueLong(getForms().getValLong(CST_NO_FIGHT));
+        initTiles(false, SIMU_CST_COORDS_TR_VIRTUAL);
+        noFight.valueLong(getForms().getValLong(SIMU_CST_NO_FIGHT));
     }
     public String clickTile(int _index) {
         if (noFight.valueLong() < 0) {
@@ -87,7 +87,7 @@ public final class SimulationLevelBean extends AbsLevelBean {
         }
         Point pt_ = getTiles().getKey(_index);
         //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
-        Coords sel_ = getForms().getValCoords(CST_COORDS);
+        Coords sel_ = getForms().getValCoords(SIMU_CST_COORDS_TR_VIRTUAL);
         int pl_ = sel_.getNumberPlace();
         int lev_ = sel_.getLevel().getLevelIndex();
         DataBase data_ = getDataBase();
@@ -104,8 +104,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.affectInside(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(CST_COORDS_TR, coords_);
-                getForms().put(CST_NO_FIGHT, noFight.valueLong());
+                getForms().put(SIMU_CST_COORDS_TR, coords_);
+                getForms().put(SIMU_CST_NO_FIGHT, noFight.valueLong());
                 return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
@@ -114,8 +114,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.affectInside(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(CST_COORDS_TR, coords_);
-                getForms().put(CST_NO_FIGHT, noFight.valueLong());
+                getForms().put(SIMU_CST_COORDS_TR, coords_);
+                getForms().put(SIMU_CST_NO_FIGHT, noFight.valueLong());
                 return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
@@ -130,8 +130,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
             coords_.setLevel(new LevelPoint());
             coords_.getLevel().setLevelIndex(lev_);
             coords_.getLevel().setPoint(new Point(pt_));
-            getForms().put(CST_COORDS_TR, coords_);
-            getForms().put(CST_NO_FIGHT, noFight.valueLong());
+            getForms().put(SIMU_CST_COORDS_TR, coords_);
+            getForms().put(SIMU_CST_NO_FIGHT, noFight.valueLong());
             return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (l_.getCharacters().contains(pt_)) {
@@ -139,13 +139,13 @@ public final class SimulationLevelBean extends AbsLevelBean {
             if (char_ instanceof TrainerMultiFights) {
                 TrainerMultiFights tr_ = (TrainerMultiFights) char_;
                 updateNbFight(tr_);
-                getForms().put(CST_NO_FIGHT, noFight.valueLong());
+                getForms().put(SIMU_CST_NO_FIGHT, noFight.valueLong());
                 Coords coords_ = new Coords();
                 coords_.setNumberPlace(pl_);
                 coords_.setLevel(new LevelPoint());
                 coords_.getLevel().setLevelIndex(lev_);
                 coords_.getLevel().setPoint(new Point(pt_));
-                getForms().put(CST_COORDS_TR, coords_);
+                getForms().put(SIMU_CST_COORDS_TR, coords_);
                 //noFight
                 return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
@@ -158,8 +158,8 @@ public final class SimulationLevelBean extends AbsLevelBean {
                 coords_.setLevel(new LevelPoint());
                 coords_.getLevel().setLevelIndex(lev_);
                 coords_.getLevel().setPoint(new Point(ptKey_));
-                getForms().put(CST_NO_FIGHT, noFight.valueLong());
-                getForms().put(CST_COORDS_TR, coords_);
+                getForms().put(SIMU_CST_NO_FIGHT, noFight.valueLong());
+                getForms().put(SIMU_CST_COORDS_TR, coords_);
                 return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
@@ -177,7 +177,7 @@ public final class SimulationLevelBean extends AbsLevelBean {
     }
 
     public void noFight(long _n) {
-        getForms().put(CST_NO_FIGHT, _n);
+        getForms().put(SIMU_CST_NO_FIGHT, _n);
     }
 
 }

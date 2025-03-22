@@ -43,7 +43,7 @@ public final class WelcomeBean extends CommonBean implements BeanRenderWithAppNa
     }
     @Override
     public void beforeDisplaying() {
-        getForms().put(CST_SIMULATION_STATE, SimulationSteps.DIFF);
+        getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.DIFF);
         DictionaryComparator<TranslatedKey, MoveData> data_ = DictionaryComparatorUtil.buildMovesData();
         for (EntryCust<String,MoveData> e: getDataBase().getView().entryList()) {
             data_.addEntry(buildMv(getFacade(),e.getKey()),e.getValue());

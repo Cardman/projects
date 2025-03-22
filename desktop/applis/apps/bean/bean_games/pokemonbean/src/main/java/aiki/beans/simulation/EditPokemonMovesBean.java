@@ -56,7 +56,7 @@ public final class EditPokemonMovesBean extends WithFilterBean {
 
     @Override
     public void beforeDisplaying() {
-        player = getForms().getValBool(CST_IS_POKEMON_PLAYER_MOVES);
+        player = getForms().getValBool(SIMU_CST_IS_POKEMON_PLAYER_MOVES);
         DataBase data_ = getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
@@ -65,7 +65,7 @@ public final class EditPokemonMovesBean extends WithFilterBean {
         getCategories().putAllMap(translationsCategories_);
         getCategories().put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         moves.clear();
-        for (EntryCust<TranslatedKey, MoveData> k: getForms().getValMoveData(CST_MOVES_EDIT_SET).entryList()) {
+        for (EntryCust<TranslatedKey, MoveData> k: getForms().getValMoveData(SIMU_CST_MOVES_EDIT_SET).entryList()) {
             MoveData moveData_ = k.getValue();
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(k);
@@ -92,11 +92,11 @@ public final class EditPokemonMovesBean extends WithFilterBean {
         moves.sortElts(new ComparatorMoves());
     }
     public String cancel() {
-        getForms().putMoves(CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
+        getForms().putMoves(SIMU_CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
         return redirect();
     }
     public String addMoves() {
-        StringList currentMoves_ = getForms().getValList(CST_POKEMON_MOVES_EDIT);
+        StringList currentMoves_ = getForms().getValList(SIMU_CST_POKEMON_MOVES_EDIT);
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
             if (s.isSelected()) {
@@ -105,7 +105,7 @@ public final class EditPokemonMovesBean extends WithFilterBean {
         }
         currentMoves_.addAllElts(keptMoves_);
         currentMoves_.removeDuplicates();
-        getForms().put(CST_POKEMON_MOVES_EDIT, currentMoves_);
+        getForms().put(SIMU_CST_POKEMON_MOVES_EDIT, currentMoves_);
         return redirect();
     }
     public String search() {
@@ -119,8 +119,8 @@ public final class EditPokemonMovesBean extends WithFilterBean {
         StringMap<MoveData> set_ = new StringMap<MoveData>();
         if (player) {
             if (availableMovesOnly.isSelected()) {
-                String namePk_ = getForms().getValStr(CST_POKEMON_NAME_EDIT);
-                long level_ = getForms().getValLong(CST_POKEMON_LEVEL_EDIT);
+                String namePk_ = getForms().getValStr(SIMU_CST_POKEMON_NAME_EDIT);
+                long level_ = getForms().getValLong(SIMU_CST_POKEMON_LEVEL_EDIT);
                 set_.addAllEntries(FightSimulation.possiblesInitialMoves(namePk_, level_, data_));
             } else {
                 set_.addAllEntries(data_.getMoves());
@@ -140,7 +140,7 @@ public final class EditPokemonMovesBean extends WithFilterBean {
 //            }
 //        }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        getForms().putMoves(CST_MOVES_EDIT_SET, moves_);
+        getForms().putMoves(SIMU_CST_MOVES_EDIT_SET, moves_);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
 

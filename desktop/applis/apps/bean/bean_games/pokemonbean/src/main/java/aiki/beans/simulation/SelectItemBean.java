@@ -36,11 +36,11 @@ public final class SelectItemBean extends WithFilterBean {
     }
     @Override
     public void beforeDisplaying() {
-        player = getForms().getValBool(CST_IS_POKEMON_PLAYER_MOVES);
+        player = getForms().getValBool(SIMU_CST_IS_POKEMON_PLAYER_MOVES);
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsItems_;
 //        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        AbsMap<TranslatedKey, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET_EDIT);
+        AbsMap<TranslatedKey, Item> sortedItems_ = getForms().getValItemData(SIMU_CST_ITEMS_SET_EDIT);
         itemInit(sortedItems_);
 //        getItems().clear();
 //        StringMap<String> translationsClasses_;
@@ -63,12 +63,12 @@ public final class SelectItemBean extends WithFilterBean {
         return redirect();
     }
     public String cancelItem() {
-        getForms().put(CST_ITEM_EDIT, DataBase.EMPTY_STRING);
+        getForms().put(SIMU_CST_ITEM_EDIT, DataBase.EMPTY_STRING);
         return redirect();
     }
     public String search() {
         AbsMap<TranslatedKey, Item> sortedItems_ = sortedItems();
-        getForms().putItems(CST_ITEMS_SET_EDIT, sortedItems_);
+        getForms().putItems(SIMU_CST_ITEMS_SET_EDIT, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             return putName(sortedItems_.firstKey());
         }
@@ -80,7 +80,7 @@ public final class SelectItemBean extends WithFilterBean {
 //    }
 
     public String putName(TranslatedKey _tk) {
-        getForms().put(CST_ITEM_EDIT, _tk.getKey());
+        getForms().put(SIMU_CST_ITEM_EDIT, _tk.getKey());
         return redirect();
     }
     private String redirect() {

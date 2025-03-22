@@ -35,7 +35,7 @@ public final class SelectPokemonBean extends WithFilterBean {
     }
 
     public String search() {
-        return search(CST_POKEMON_NAME_EDIT, CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML);
+        return search(SIMU_CST_POKEMON_NAME_EDIT, CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML);
     }
 
 //    public String clickLink(int _number) {
@@ -43,7 +43,7 @@ public final class SelectPokemonBean extends WithFilterBean {
 //    }
 
     public String putName(String _name) {
-        getForms().put(CST_POKEMON_NAME_EDIT, _name);
+        getForms().put(SIMU_CST_POKEMON_NAME_EDIT, _name);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 

@@ -120,7 +120,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         ev = new IdMap<Statistic, EvLine>();
         DataBase data_ = getDataBase();
         heal.setSelected(false);
-        ball.setupValue(getForms().getValStr(CST_CATCHING_BALL));
+        ball.setupValue(getForms().getValStr(SIMU_CST_CATCHING_BALL));
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         balls = DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
@@ -129,18 +129,18 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
                 balls.put(b, translationsItems_.getVal(b));
             }
         }
-        namePk = getForms().getValStr(CST_POKEMON_NAME_EDIT);
-        level = getForms().getValLong(CST_POKEMON_LEVEL_EDIT);
-        experience.valueRate(getForms().getValRate(CST_POKEMON_EXPERIENCE));
-        happiness.valueLong(getForms().getValLong(CST_POKEMON_HAPPINESS));
-        item = getForms().getValStr(CST_ITEM_EDIT);
+        namePk = getForms().getValStr(SIMU_CST_POKEMON_NAME_EDIT);
+        level = getForms().getValLong(SIMU_CST_POKEMON_LEVEL_EDIT);
+        experience.valueRate(getForms().getValRate(SIMU_CST_POKEMON_EXPERIENCE));
+        happiness.valueLong(getForms().getValLong(SIMU_CST_POKEMON_HAPPINESS));
+        item = getForms().getValStr(SIMU_CST_ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.getEv().valueLong(getForms().getValLong(StringUtil.concat(CST_POKEMON_EV_VAR, s.getStatName())));
+            ev_.getEv().valueLong(getForms().getValLong(StringUtil.concat(SIMU_CST_POKEMON_EV_VAR, s.getStatName())));
             ev.put(s, ev_);
         }
-        remainingHp.valueRate(getForms().getValRate(CST_POKEMON_HP));
-        StringList currentMoves_ = getForms().getValList(CST_POKEMON_MOVES_EDIT);
+        remainingHp.valueRate(getForms().getValRate(SIMU_CST_POKEMON_HP));
+        StringList currentMoves_ = getForms().getValList(SIMU_CST_POKEMON_MOVES_EDIT);
         moves.clear();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
@@ -170,8 +170,8 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         moves.sortElts(new ComparatorMoves());
     }
     public String chooseItem() {
-        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
-        getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
+        getForms().put(SIMU_CST_IS_POKEMON_PLAYER_MOVES, true);
+        getForms().putItems(SIMU_CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String translateName() {
@@ -193,8 +193,8 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         return StringUtil.nullToEmpty(translationsItems_.getVal(item));
     }
     public String addMoves() {
-        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
-        getForms().putMoves(CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
+        getForms().put(SIMU_CST_IS_POKEMON_PLAYER_MOVES, true);
+        getForms().putMoves(SIMU_CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
     public String getTranslatedStatistic(int _index) {
@@ -204,7 +204,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         return tr_.getVal(st_);
     }
     public String cancel() {
-        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
+        getForms().put(SIMU_CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String deleteMoves() {
@@ -214,19 +214,19 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
                 keptMoves_.add(s.getName());
             }
         }
-        getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
+        getForms().put(SIMU_CST_POKEMON_MOVES_EDIT, keptMoves_);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
     }
     public String edit() {
-        getForms().put(CST_ITEM_EDIT, item);
-        getForms().put(CST_POKEMON_EXPERIENCE, experience.valueRate().absNb());
-        getForms().put(CST_POKEMON_HAPPINESS, NumberUtil.max(happiness.valueLong(),0));
-        getForms().put(CST_POKEMON_HP, remainingHp.valueRate().absNb());
+        getForms().put(SIMU_CST_ITEM_EDIT, item);
+        getForms().put(SIMU_CST_POKEMON_EXPERIENCE, experience.valueRate().absNb());
+        getForms().put(SIMU_CST_POKEMON_HAPPINESS, NumberUtil.max(happiness.valueLong(),0));
+        getForms().put(SIMU_CST_POKEMON_HP, remainingHp.valueRate().absNb());
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), NumberUtil.max(ev.getVal(s).getEv().valueLong(),0));
+            getForms().put(StringUtil.concat(SIMU_CST_POKEMON_EV_VAR,s.getStatName()), NumberUtil.max(ev.getVal(s).getEv().valueLong(),0));
         }
-        getForms().put(CST_HEAL_EDIT_PK, heal.isSelected());
-        getForms().put(CST_CATCHING_BALL, ball.tryRet());
+        getForms().put(SIMU_CST_HEAL_EDIT_PK, heal.isSelected());
+        getForms().put(SIMU_CST_CATCHING_BALL, ball.tryRet());
         StringList selected_ = new StringList();
         for (SelectLineMove s: moves) {
 //            if (s.isSelected()) {
@@ -237,8 +237,8 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         if (!inRangeMoves(selected_)) {
             return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
-        getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
-        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
+        getForms().put(SIMU_CST_POKEMON_MOVES_EDIT, selected_);
+        getForms().put(SIMU_CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public boolean inRangeMoves(StringList _selected) {

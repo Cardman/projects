@@ -103,13 +103,13 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
     }
     @Override
     public void beforeDisplaying() {
-        add = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
+        add = getForms().getValTeamCrud(SIMU_CST_ADDING_TRAINER_PK) == TeamCrud.ADD;
 
-        namePk = getForms().getValStr(CST_POKEMON_NAME_EDIT);
-        item = getForms().getValStr(CST_ITEM_EDIT);
-        ability = getForms().getValStr(CST_POKEMON_ABILITY_EDIT);
-        common.getGender().setupValue(getForms().getValGen(CST_POKEMON_GENDER_EDIT).getGenderName());
-        common.getLevel().valueLong(getForms().getValLong(CST_POKEMON_LEVEL_EDIT));
+        namePk = getForms().getValStr(SIMU_CST_POKEMON_NAME_EDIT);
+        item = getForms().getValStr(SIMU_CST_ITEM_EDIT);
+        ability = getForms().getValStr(SIMU_CST_POKEMON_ABILITY_EDIT);
+        common.getGender().setupValue(getForms().getValGen(SIMU_CST_POKEMON_GENDER_EDIT).getGenderName());
+        common.getLevel().valueLong(getForms().getValLong(SIMU_CST_POKEMON_LEVEL_EDIT));
 
         moves.clear();
         DataBase data_ = getDataBase();
@@ -117,7 +117,7 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        for (String k: getForms().getValList(CST_POKEMON_MOVES_EDIT)) {
+        for (String k: getForms().getValList(SIMU_CST_POKEMON_MOVES_EDIT)) {
             MoveData moveData_ = data_.getMoves().getVal(k);
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(k);
@@ -161,7 +161,7 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         common.updateGender();
     }
     public String cancel() {
-        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
+        getForms().put(SIMU_CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String chooseAbility() {
@@ -169,8 +169,8 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML;
     }
     public String chooseItem() {
-        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
-        getForms().putItems(CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
+        getForms().put(SIMU_CST_IS_POKEMON_PLAYER_MOVES, false);
+        getForms().putItems(SIMU_CST_ITEMS_SET_EDIT, DictionaryComparatorUtil.buildItemsData());
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String chooseName() {
@@ -178,8 +178,8 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTPOKEMON_HTML;
     }
     public String addMoves() {
-        getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
-        getForms().putMoves(CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
+        getForms().put(SIMU_CST_IS_POKEMON_PLAYER_MOVES, false);
+        getForms().putMoves(SIMU_CST_MOVES_EDIT_SET, DictionaryComparatorUtil.buildMovesData());
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
     public String deleteMoves() {
@@ -189,7 +189,7 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
                 keptMoves_.add(s.getName());
             }
         }
-        getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
+        getForms().put(SIMU_CST_POKEMON_MOVES_EDIT, keptMoves_);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public String validateTrainerPk() {
@@ -215,14 +215,14 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
             selected_ = data_.getPokemon(namePk).getMovesBeforeLevel(common.getLevel().valueLong());
         }
         if (add) {
-            getForms().put(CST_POKEMON_FOE, !allyPk.isSelected());
+            getForms().put(SIMU_CST_POKEMON_FOE, !allyPk.isSelected());
         }
-        getForms().put(CST_POKEMON_NAME_EDIT, namePk);
-        getForms().put(CST_POKEMON_LEVEL_EDIT, common.getLevel().valueLong());
-        getForms().put(CST_ITEM_EDIT, item);
-        getForms().put(CST_POKEMON_GENDER_EDIT, Gender.getGenderByName(common.getGender().tryRet()));
-        getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
-        getForms().put(CST_POKEMON_ABILITY_EDIT, ability);
+        getForms().put(SIMU_CST_POKEMON_NAME_EDIT, namePk);
+        getForms().put(SIMU_CST_POKEMON_LEVEL_EDIT, common.getLevel().valueLong());
+        getForms().put(SIMU_CST_ITEM_EDIT, item);
+        getForms().put(SIMU_CST_POKEMON_GENDER_EDIT, Gender.getGenderByName(common.getGender().tryRet()));
+        getForms().put(SIMU_CST_POKEMON_MOVES_EDIT, selected_);
+        getForms().put(SIMU_CST_POKEMON_ABILITY_EDIT, ability);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String getTranslatedName() {

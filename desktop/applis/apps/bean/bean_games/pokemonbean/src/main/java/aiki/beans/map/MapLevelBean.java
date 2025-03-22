@@ -118,7 +118,7 @@ public final class MapLevelBean extends AbsLevelBean {
     }
     @Override
     public void beforeDisplaying() {
-        initTiles(true);
+        initTiles(true, CST_COORDS);
 //        proponeLink = getForms().getValBool(CST_PROPONE_LINK);
 //        proponeTile = getForms().getValBool(CST_PROPONE_TILE);
 //        seeArea = getForms().getValBool(CST_SEE_AREA);

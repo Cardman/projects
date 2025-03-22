@@ -34,11 +34,11 @@ public final class SelectAbilityBean extends AbilitySearchBean {
     }
 
     public String search() {
-        return searchAbility(CST_POKEMON_ABILITY_EDIT, CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML);
+        return searchAbility(SIMU_CST_POKEMON_ABILITY_EDIT, CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, CommonBean.REN_ADD_WEB_HTML_SIMULATION_SELECTABILITY_HTML);
     }
 
     public String clickAbility(int _index) {
-        getForms().put(CST_POKEMON_ABILITY_EDIT, sortedAbilitiesGet().get(_index).getKey());
+        getForms().put(SIMU_CST_POKEMON_ABILITY_EDIT, sortedAbilitiesGet().get(_index).getKey());
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 

@@ -68,8 +68,8 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String HP_TR = "tit";
     protected static final String CRIT_TR = "uit";
 
-    protected static final String NO_TEAM = "no_team";
-    protected static final String NO_FIGHTER = "no_fighter";
+    protected static final String NO_TEAM = CommonFightBean.NO_TEAM;
+    protected static final String NO_FIGHTER = CommonFightBean.NO_FIGHTER;
     protected static final String NO_DISPLAY = "__";
     protected static final String SAMPLE_TYPE = "SAMPLE_TYPE";
     protected static final String SAMPLE_TYPE_TR = "sample_type";

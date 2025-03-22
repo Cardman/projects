@@ -64,8 +64,8 @@ public final class AddPokemonBean extends WithFilterBean {
 //        genders = DictionaryComparatorUtil.buildGenderStr(data_,getLanguage());
         common.init(data_,getLanguage());
         bools();
-        if (getForms().contains(CST_PK_NAME)) {
-            namePk = getForms().getValStr(CST_PK_NAME);
+        if (getForms().contains(SIMU_CST_PK_NAME)) {
+            namePk = getForms().getValStr(SIMU_CST_PK_NAME);
             PokemonData pkData_ = data_.getPokemon(namePk);
             for (String a: pkData_.getAbilities()) {
                 abilities.put(a, translatedAbilities_.getVal(a));
@@ -77,13 +77,13 @@ public final class AddPokemonBean extends WithFilterBean {
         } else {
             namePk = "";
         }
-        setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET_SIMU));
+        setupPokedex(getForms().getValPokemonData(SIMU_CST_POKEMON_SET_SIMU));
     }
     public String add() {
-        if (!getForms().contains(CST_PK_NAME)) {
+        if (!getForms().contains(SIMU_CST_PK_NAME)) {
             return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
         }
-        getForms().removeKey(CST_PK_NAME);
+        getForms().removeKey(SIMU_CST_PK_NAME);
         DataBase data_ = getDataBase();
         common.patchLevel(data_);
         /*if (level < data_.getMinLevel()) {
@@ -101,17 +101,17 @@ public final class AddPokemonBean extends WithFilterBean {
         PokemonPlayerDto pkDto_ = new PokemonPlayerDto();
         pkDto_.setPokemon(pk_);
         pkDto_.setMoves(pkData_.getMovesAtLevel(common.getLevel().valueLong(), data_.getNbMaxMoves()));
-        getForms().put(CST_POKEMON_ADDED, pkDto_);
-        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
+        getForms().put(SIMU_CST_POKEMON_ADDED, pkDto_);
+        getForms().put(SIMU_CST_ADDING_TRAINER_PK, TeamCrud.ADD);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String cancel() {
-        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
-        getForms().removeKey(CST_PK_NAME);
+        getForms().put(SIMU_CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
+        getForms().removeKey(SIMU_CST_PK_NAME);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String search() {
-        search(CST_POKEMON_SET_SIMU, CST_PK_NAME, "", "");
+        search(SIMU_CST_POKEMON_SET_SIMU, SIMU_CST_PK_NAME, "", "");
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
 //        StringList pokedex_ = pokedex();
 //        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
@@ -124,7 +124,7 @@ public final class AddPokemonBean extends WithFilterBean {
 //    }
 
     public String putName(String _name) {
-        getForms().put(CST_PK_NAME, _name);
+        getForms().put(SIMU_CST_PK_NAME, _name);
         return CommonBean.REN_ADD_WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
 

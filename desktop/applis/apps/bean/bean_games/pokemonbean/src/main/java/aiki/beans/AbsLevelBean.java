@@ -50,7 +50,7 @@ public abstract class AbsLevelBean extends CommonBean  implements BeanRenderWith
             }
         }
     }
-    protected void initTiles(boolean _addBorder) {
+    protected void initTiles(boolean _addBorder, String _key) {
         wildPokemonAreas = new CustList<AbsAreaApparition>();
         neighbours = DictionaryComparatorUtil.buildStringPlaces(getDataBase().getMap());
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -62,7 +62,7 @@ public abstract class AbsLevelBean extends CommonBean  implements BeanRenderWith
         gym = false;
         pokemonCenter = false;
         outside = false;
-        Coords co_ = getForms().getValCoords(CST_COORDS);
+        Coords co_ = getForms().getValCoords(_key);
         int pl_ = co_.getNumberPlace();
         Place place_ = data_.getMap().getPlace(pl_);
         placeName = place_.getName();

@@ -18,8 +18,8 @@ import code.util.core.StringUtil;
 public abstract class CommonFightBean extends CommonBean implements BeanRenderWithAppName {
 
     public static final String MOVES_SEPARATOR = ";";
-    protected static final String NO_FIGHTER = "no_fighter";
-    protected static final String NO_TEAM = "no_team";
+    protected static final String NO_FIGHTER = "_1";
+    protected static final String NO_TEAM = "_0";
 
     protected static final String SPACE = " ";
 
