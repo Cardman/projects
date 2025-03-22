@@ -1,0 +1,56 @@
+package code.scripts.pages.cards;
+import code.bean.*;
+import code.sml.util.*;
+public final class HelpCards22 extends AbsHelpCards {
+public void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg) {
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_0);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_1);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_2);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_3);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_4);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_5);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_6);
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_7);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_14);
+element(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_15);
+element(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_16);
+element(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_17);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_18);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_19);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_20);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_21);
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_22);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_23);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_24);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_25);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_26);
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_27);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_28);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_29);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_30);
+elementOrd(_i,_lg,2,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_31);
+_i.getOrderedLists().removeQuicklyLast();
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_32);
+element(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_33);
+element(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_34);
+element(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_35);
+element(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_36);
+_i.getOrderedLists().removeQuicklyLast();
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_43);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_44);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_47);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_FIN_DE_LA_PARTIE,MessagesHelpCards22.M_22_50);
+_i.getOrderedLists().removeQuicklyLast();
+}
+}

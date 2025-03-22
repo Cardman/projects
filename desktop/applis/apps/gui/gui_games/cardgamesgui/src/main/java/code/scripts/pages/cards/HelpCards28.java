@@ -1,0 +1,23 @@
+package code.scripts.pages.cards;
+import code.bean.*;
+import code.sml.util.*;
+public final class HelpCards28 extends AbsHelpCards {
+public void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg) {
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_0);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_1);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_2);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_3);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_4);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_5);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_6);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_7);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_8);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_9);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_10);
+element(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_11);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_12);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_13);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_14);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_VARIANTES_NOUVELLES_ANNONCES,MessagesHelpCards28.M_28_15);
+}
+}

@@ -132,8 +132,8 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fr_.getMapping().addEntry(MessagesPresidentPage.APP_BEAN,build(MessagesPresidentPage.fr()));
         en_.getMapping().addEntry(MessagesTarotPage.APP_BEAN,build(MessagesTarotPage.en()));
         fr_.getMapping().addEntry(MessagesTarotPage.APP_BEAN,build(MessagesTarotPage.fr()));
-        en_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.en());
-        fr_.getMapping().addEntry(HelpCards.APP_BEAN,HelpCards.fr());
+        en_.getMapping().addEntry(MessagesHelpCards.APP_BEAN,MessagesHelpCards.en());
+        fr_.getMapping().addEntry(MessagesHelpCards.APP_BEAN,MessagesHelpCards.fr());
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN,MessagesPkBean.en());
         fr_.getMapping().addEntry(MessagesPkBean.APP_BEAN,MessagesPkBean.fr());
 //        en_.getMapping().addEntry(MessagesInit.APP_BEAN_DATA,MessagesInit.enData());

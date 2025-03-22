@@ -13,7 +13,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>bean_core</module>
-		<module>bean_help</module>
 		<module>bean_games</module>
 	</modules>
 </project>

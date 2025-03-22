@@ -1,0 +1,56 @@
+package code.scripts.pages.cards;
+import code.bean.*;
+import code.sml.util.*;
+public final class HelpCards24 extends AbsHelpCards {
+public void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg) {
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_0);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_1);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_2);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_3);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_4);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_5);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_6);
+_i.initGrid();
+_i.colCount(11);
+feedImg(_i,_lg,C_TRUMP_21);
+feedImg(_i,_lg,C_TRUMP_20);
+feedImg(_i,_lg,C_TRUMP_19);
+feedImg(_i,_lg,C_TRUMP_18);
+feedImg(_i,_lg,C_TRUMP_17);
+feedImg(_i,_lg,C_TRUMP_16);
+feedImg(_i,_lg,C_TRUMP_15);
+feedImg(_i,_lg,C_TRUMP_14);
+feedImg(_i,_lg,C_TRUMP_13);
+feedImg(_i,_lg,C_TRUMP_12);
+feedImg(_i,_lg,C_TRUMP_11);
+feedImg(_i,_lg,C_TRUMP_10);
+feedImg(_i,_lg,C_TRUMP_9);
+feedImg(_i,_lg,C_TRUMP_8);
+feedImg(_i,_lg,C_TRUMP_7);
+feedImg(_i,_lg,C_TRUMP_6);
+feedImg(_i,_lg,C_TRUMP_5);
+feedImg(_i,_lg,C_TRUMP_4);
+feedImg(_i,_lg,C_TRUMP_3);
+feedImg(_i,_lg,C_TRUMP_2);
+feedImg(_i,_lg,C_TRUMP_1);
+_i.feedParents();
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ORDRE_DES_CARTES,MessagesHelpCards24.M_24_7);
+_i.initGrid();
+_i.colCount(14);
+feedImg(_i,_lg,C_HEART_KING);
+feedImg(_i,_lg,C_HEART_QUEEN);
+feedImg(_i,_lg,C_HEART_KNIGHT);
+feedImg(_i,_lg,C_HEART_JACK);
+feedImg(_i,_lg,C_HEART_10);
+feedImg(_i,_lg,C_HEART_9);
+feedImg(_i,_lg,C_HEART_8);
+feedImg(_i,_lg,C_HEART_7);
+feedImg(_i,_lg,C_HEART_6);
+feedImg(_i,_lg,C_HEART_5);
+feedImg(_i,_lg,C_HEART_4);
+feedImg(_i,_lg,C_HEART_3);
+feedImg(_i,_lg,C_HEART_2);
+feedImg(_i,_lg,C_HEART_1);
+_i.feedParents();
+}
+}

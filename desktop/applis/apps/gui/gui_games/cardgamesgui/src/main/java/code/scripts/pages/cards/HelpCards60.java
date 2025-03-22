@@ -1,0 +1,50 @@
+package code.scripts.pages.cards;
+import code.bean.*;
+import code.sml.util.*;
+public final class HelpCards60 extends AbsHelpCards {
+public void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg) {
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_0);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_1);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_2);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_3);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_4);
+_i.getOrderedLists().removeQuicklyLast();
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_5);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_6);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_7);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_8);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_9);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_11);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_13);
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_15);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_9);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_11);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_13);
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_22);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_9);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_11);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_13);
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_29);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_9);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_11);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_13);
+_i.getOrderedLists().removeQuicklyLast();
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_36);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_9);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_11);
+elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_13);
+_i.getOrderedLists().removeQuicklyLast();
+_i.getOrderedLists().removeQuicklyLast();
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARTIE_ENTRAINEMENT,MessagesHelpCards60.M_60_43);
+}
+}

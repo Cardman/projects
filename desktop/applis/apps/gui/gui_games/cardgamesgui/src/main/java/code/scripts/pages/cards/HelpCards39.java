@@ -1,0 +1,30 @@
+package code.scripts.pages.cards;
+import code.bean.*;
+import code.sml.util.*;
+public final class HelpCards39 extends AbsHelpCards {
+public void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg) {
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_0);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_1);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_2);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_3);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_4);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_5);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_6);
+_i.getOrderedLists().removeQuicklyLast();
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_7);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_8);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_9);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_10);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_11);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_12);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_13);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_14);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_15);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_16);
+_i.getOrderedLists().add(0);
+elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_17);
+_i.getOrderedLists().removeQuicklyLast();
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_FICHIER_CHARGER,MessagesHelpCards39.M_39_18);
+}
+}

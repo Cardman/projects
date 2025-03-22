@@ -1,0 +1,17 @@
+package code.scripts.pages.cards;
+import code.bean.*;
+import code.sml.util.*;
+public final class HelpCards46 extends AbsHelpCards {
+public void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg) {
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_0);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_1);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_2);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_3);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_4);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_5);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_6);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_7);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_8);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_BELOTE,MessagesHelpCards46.M_46_9);
+}
+}

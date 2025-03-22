@@ -4,9 +4,8 @@ import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import code.gui.EnabledMenu;
-import code.scripts.confs.HelpScriptConfPages;
-import code.scripts.confs.HelpScriptPagesImgs;
-import code.scripts.pages.cards.HelpCards;
+import code.scripts.pages.cards.AbsHelpCards;
+import code.scripts.pages.cards.MessagesHelpCards;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -21,9 +20,9 @@ import code.util.core.StringUtil;
 
 public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
 
-    private static final String POSITION = HelpScriptConfPages.POSITION;
+    private static final String POSITION = MessagesHelpCards.POSITION;
 
-    private static final String TEXTE = HelpScriptConfPages.TEXTE;
+    private static final String TEXTE = MessagesHelpCards.TEXTE;
 
     private final EnabledMenu generalHelp;
 
@@ -34,14 +33,14 @@ public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
     public HelpIndexesTree call() {
 //        HelpIndexesTree trees_ = new HelpIndexesTree();
 //        StringMap<String> cf_ = HelpScriptPages.cf();
-        StringMap<StringMap<String>> ct_ = HelpScriptPagesImgs.ct();
-        StringMap<Document> built_ = HelpCards.build();
+//        StringMap<StringMap<String>> ct_ = HelpScriptPagesImgs.ct();
+        StringMap<AbsHelpCards> built_ = MessagesHelpCards.build();
 //        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
 //        NavigationCore.adjustMap(builtMs_);
         HelpIndexesTree tree_ = new HelpIndexesTree();
 //        for (EntryCust<String, TranslationsLg> l: programInfos.getTranslations().getMapping().entryList()) {
 //            HelpIndexesTree tree_ = new HelpIndexesTree();
-            Document doc_ = HelpScriptConfPages.info();
+            Document doc_ = MessagesHelpCards.info();
             Element element_ = doc_.getDocumentElement();
             CustList<Node> noeudsActuels_ = new CustList<Node>();
             noeudsActuels_.add(element_);
@@ -55,7 +54,7 @@ public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
             CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
             cheminsNumeriquesActuels_.add(indices_);
             ElementHelp elementRacine_ = new ElementHelp(element_
-                    .getAttribute(TEXTE),concat_, ct_,built_);
+                    .getAttribute(TEXTE),concat_, built_);
 //            StringMap<String> un_ = builtMs_.getVal(l.getKey());
 //            StringMap<int[][]> imgs_ = l.getValue().getMaxiCards();
 //            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(un_, cf_.getVal(concat_), ct_.getVal(concat_), imgs_, built_.getVal(concat_));
@@ -76,7 +75,7 @@ public final class HelpInitializer implements IntCallable<HelpIndexesTree> {
                         String concat2_ = StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                 e2_.getTagName());
                         ElementHelp noeud_ = new ElementHelp(e2_
-                                .getAttribute(TEXTE),concat2_, ct_,built_);
+                                .getAttribute(TEXTE),concat2_, built_);
                         nouveauxChemins_.add(concat2_);
                         nouveauxElements_.add(e2_);
                         HelpIndexes cheminNumCourantBis_ = new HelpIndexes(

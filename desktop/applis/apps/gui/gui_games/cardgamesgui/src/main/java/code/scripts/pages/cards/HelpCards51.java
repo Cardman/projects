@@ -1,0 +1,17 @@
+package code.scripts.pages.cards;
+import code.bean.*;
+import code.sml.util.*;
+public final class HelpCards51 extends AbsHelpCards {
+public void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg) {
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_0);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_1);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_2);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_3);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_4);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_5);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_6);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_7);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_8);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_MENUS_PARAMETRES_TAROT,MessagesHelpCards51.M_51_9);
+}
+}

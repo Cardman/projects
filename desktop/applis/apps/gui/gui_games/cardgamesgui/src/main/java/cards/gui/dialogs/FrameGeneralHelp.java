@@ -5,21 +5,13 @@ package cards.gui.dialogs;
 
 import cards.facade.MessagesCardGames;
 import cards.gui.WindowCards;
-import cards.gui.animations.PreparedRenderPagesCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
-import code.bean.nat.FixCharacterCaseConverter;
-import code.formathtml.render.MetaDocument;
 import code.gui.*;
-import code.gui.document.RenderedPage;
-import code.gui.document.WindowPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
-import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.messages.cards.MessagesGuiCards;
-import code.scripts.pages.cards.HelpCards;
-import code.sml.NavigationCore;
-import code.sml.RendKeyWordsGroup;
+import code.scripts.pages.cards.MessagesHelpCards;
 import code.sml.util.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -67,7 +59,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 
     //private MainWindow window;
 
-    private final RenderedPage editor;
+    private final AbsScrollPane editor;
 
     private final AbsTextField field;
 
@@ -78,14 +70,14 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 
     public FrameGeneralHelp(WindowCards _fenetre, EnabledMenu _menu) {
         super(_fenetre.getFrames());
-        editor = new RenderedPage(_fenetre.getCompoFactory().newAbsScrollPane(), _fenetre.getFrames(),new FixCharacterCaseConverter(), _fenetre.getGuardRender());
+        editor = _fenetre.getCompoFactory().newAbsScrollPane();
         field = _fenetre.getCompoFactory().newTextField(20);
         search = _fenetre.getCompoFactory().newPlainButton();
-        editor.addFinder(field,search);
+//        editor.addFinder(field,search);
         AbsPanel container_ = _fenetre.getCompoFactory().newPageBox();
         scrollPaneTree = _fenetre.getCompoFactory().newAbsScrollPane();
         separateur = _fenetre.getCompoFactory().newHorizontalSplitPane(
-                scrollPaneTree, editor.getScroll());
+                scrollPaneTree, editor);
         separateur.setPreferredSize(new MetaDimension(600, 550));
         separateur.setDividerLocation(150);
         container_.add(separateur);
@@ -104,11 +96,11 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         setIconImage(_group.getImageIconFrame());
         setImageIconFrame(_group.getImageIconFrame());
     }
-    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public static void initialize(MetaDocument _metaDoc, RenderedPage _cur, NavigationCore _bean) {
-        coreInfos(_cur, _bean);
-        _cur.getGene().getCompoFactory().invokeNow(new WindowPage(_metaDoc, _cur.getScroll(), _cur));
-    }
+//    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
+//    public static void initialize(MetaDocument _metaDoc, RenderedPage _cur, NavigationCore _bean) {
+//        coreInfos(_cur, _bean);
+//        _cur.getGene().getCompoFactory().invokeNow(new WindowPage(_metaDoc, _cur.getScroll(), _cur));
+//    }
 //
 //    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
 //    public static void initialize(CardNatLgNamesNavigation _stds, RenderedPage _cur) {
@@ -124,11 +116,11 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
 //        initialize(_stds,r_);
 //        return r_;
 //    }
-
-    public static void coreInfos(RenderedPage _cur, NavigationCore _bean) {
-        _cur.setNavCore(_bean);
-        _cur.setKeys(new RendKeyWordsGroup());
-    }
+//
+//    public static void coreInfos(RenderedPage _cur, NavigationCore _bean) {
+//        _cur.setNavCore(_bean);
+//        _cur.setKeys(new RendKeyWordsGroup());
+//    }
     @Override
     public void closeWindow() {
         setVisible(false);
@@ -154,7 +146,7 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         cles_.sortElts(new ComparatorListSizeElement());
         racineBis = new NodeHelp(elementsBis.getVal(cles_.first()));
         AbstractMutableTreeNodeCore<String> root_ = _w.getCompoFactory().newMutableTreeNode(
-                lg_.getMapping().getVal(HelpCards.APP_BEAN).getMapping().getVal(HelpScriptConfPages.TREE_FILE).getMapping().getVal(racineBis.nom()));
+                lg_.getMapping().getVal(MessagesHelpCards.APP_BEAN).getMapping().getVal(MessagesHelpCards.TREE_FILE).getMapping().getVal(racineBis.nom()));
 //        boolean wasNull_ = editor == null;
 //        AbsPanel container_;
 //        if (wasNull_) {
@@ -184,21 +176,31 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
             NodeHelp nouveauNoeud_ = new NodeHelp(elementLoc_);
             noeudLoc_.ajouterInfo(nouveauNoeud_);
             noeudLocGraphique_.add(getCompoFactory().newMutableTreeNode(
-                    lg_.getMapping().getVal(HelpCards.APP_BEAN).getMapping().getVal(HelpScriptConfPages.TREE_FILE).getMapping().getVal(elementLoc_.nom())));
+                    lg_.getMapping().getVal(MessagesHelpCards.APP_BEAN).getMapping().getVal(MessagesHelpCards.TREE_FILE).getMapping().getVal(elementLoc_.nom())));
         }
 //        if (wasNull_) {
 //            editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames(),new FixCharacterCaseConverter());
 //        }
         AbsTreeGui arbre_ = _w.getCompoFactory().newTreeGui(root_);
         arbre_.setRootVisible(false);
-        arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
+        arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_,this,_w.getFrames()));
         arbre = arbre_;
         String concat_ = getRacineBis().getElementLocal().chemin();
 //        StringMap<TranslationsAppli> builtMs_ = HelpCards.ms();
 //        NavigationCore.adjustMap(builtMs_);
-        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(HelpCards.APP_BEAN), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
-        prep_.run();
-        initialize(prep_.getMetaDocument(), editor, prep_.getNavigation());
+//        PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(editor.getGene().currentLg().getMapping().getVal(MessagesHelpCards.APP_BEAN), racineBis.getElementLocal().ct().getVal(concat_), editor.getGene().currentLg().getMaxiCards(), racineBis.getElementLocal().built().getVal(concat_));
+//        prep_.run();
+        GuiBaseUtil.removeActionListeners(search);
+        BeanBuilderHelperCards cards_ = new BeanBuilderHelperCards(_w.getFrames());
+        cards_.setScrollPane(editor);
+        cards_.setFrame(getCommonFrame());
+        FindBeanCardsEvent findEv_ = new FindBeanCardsEvent(field, _w.getFrames());
+        search.addActionListener(findEv_);
+        cards_.initPage();
+        racineBis.getElementLocal().built().getVal(concat_).format(cards_,_w.getFrames().currentLg());
+        findEv_.setFinding(cards_);
+        editor.setViewportView(cards_.getStackCards().last());
+//        initialize(prep_.getMetaDocument(), editor, prep_.getNavigation());
 //        if (field == null) {
 //            field = _w.getCompoFactory().newTextField(20);
 //            search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
@@ -226,6 +228,10 @@ public final class FrameGeneralHelp extends GroupFrame implements AbsChildFrame 
         pack();
         setVisible(true);
         menuItem.setEnabled(false);
+    }
+
+    public AbsScrollPane getEditor() {
+        return editor;
     }
 
     public AbsButton getSearch() {
