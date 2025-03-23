@@ -2569,14 +2569,31 @@ l.addQuickEvent(new Rate(R_4),_prThree);
 l.addQuickEvent(new Rate(R_5),_prFour);
 return newEffectDamage(l);
 }
-//public static EffectDamage newEffectDamage() {
-//MonteCarloNumber l = new MonteCarloNumber();
-//l.addQuickEvent(Rate.one(),LgInt.one());
-//return newEffectDamage(l);
-//}
+public static EffectDamage newEffectDamage() {
+MonteCarloNumber l = new MonteCarloNumber();
+l.addQuickEvent(Rate.one(),LgInt.one());
+return newEffectDamage(l);
+}
 public static EffectDamage newEffectDamage(MonteCarloNumber _law) {
+MonteCarloNumber l = new MonteCarloNumber();
+l.addQuickEvent(new Rate(R_1),LgInt.one());
+l.addQuickEvent(new Rate(R_2),LgInt.one());
+return newEffectDamageCh(_law,l);
+}
+public static EffectDamage newEffectDamageCh() {
+MonteCarloNumber l = new MonteCarloNumber();
+l.addQuickEvent(new Rate(R_2),LgInt.one());
+return newEffectDamageCh(l);
+}
+public static EffectDamage newEffectDamageCh(MonteCarloNumber _ch) {
+MonteCarloNumber l = new MonteCarloNumber();
+l.addQuickEvent(new Rate(R_1),LgInt.one());
+return newEffectDamageCh(l,_ch);
+}
+public static EffectDamage newEffectDamageCh(MonteCarloNumber _hits,MonteCarloNumber _ch) {
 EffectDamage e = Instances.newEffectDamage();
-e.setHitsLaw(_law);
+e.setHitsLaw(_hits);
+e.setChLaw(_ch);
 return e;
 }
 }

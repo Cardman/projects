@@ -4,7 +4,6 @@ import aiki.db.*;
 import aiki.fight.abilities.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
-import aiki.fight.moves.effects.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.status.*;
 import aiki.sml.init.*;
@@ -23,7 +22,7 @@ public final class LoadResInit {
         for (EntryCust<String, MoveData> e: MvInit.mv().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
         }
-        patch(_d);
+//        patch(_d);
         for (EntryCust<String, Item> e: ItInit.it().entryList()) {
             _d.completeQuickMembers(e.getKey(),e.getValue());
         }
@@ -46,16 +45,16 @@ public final class LoadResInit {
         _d.getFamilies().addAllEntries(PkInit.fs());
     }
 
-    private static void patch(DataBase _d) {
-        for (EntryCust<String,MoveData> e: _d.getMoves().entryList()) {
-            if (e.getValue() instanceof DamagingMoveData) {
-                for (Effect f: e.getValue().getEffects()) {
-                    if (f instanceof EffectDamage) {
-                        EffectDamage dam_ = (EffectDamage) f;
-                        dam_.patch();
-                    }
-                }
-            }
-        }
-    }
+//    private static void patch(DataBase _d) {
+//        for (EntryCust<String,MoveData> e: _d.getMoves().entryList()) {
+//            if (e.getValue() instanceof DamagingMoveData) {
+//                for (Effect f: e.getValue().getEffects()) {
+//                    if (f instanceof EffectDamage) {
+//                        EffectDamage dam_ = (EffectDamage) f;
+//                        dam_.patch();
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
