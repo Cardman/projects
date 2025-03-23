@@ -6,6 +6,7 @@ import code.gui.*;
 import code.gui.document.BeanBuilderHelperContent;
 import code.gui.images.*;
 import code.gui.initialize.*;
+import code.threads.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -127,7 +128,9 @@ public final class BeanBuilderHelperCards extends IntBeanBuilderHelperCommon {
         tp_.setBackground(GuiConstants.WHITE);
         tp_.setForeground(content.getColours().get(getHeader()));
         tp_.setText(StringUtil.nullToEmpty(_txt));
-//        content.getApi().getThreadFactory().newStartedThread(new SetTextThread(tp_, StringUtil.nullToEmpty(_txt))).join();
+        AbstractThread th_ = content.getApi().getThreadFactory().newThread(new SetTextThreadCards(tp_, StringUtil.nullToEmpty(_txt)));
+        th_.start();
+        th_.join();
         tp_.setEditable(false);
         return tp_;
     }
