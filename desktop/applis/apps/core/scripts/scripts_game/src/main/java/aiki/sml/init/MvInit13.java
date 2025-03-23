@@ -261,7 +261,7 @@ m691stringList_.add(I_ACIER);
 m691damagingMoveData_.setBoostedTypes(m691stringList_);
 m691damagingMoveData_.setAccuracy(R_17_20);
 CustList<Effect> m691custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m691effectDamage_=Instances.newEffectDamage();
+EffectDamage m691effectDamage_=newEffectDamageLaw(new Rate(R_2));
 m691effectDamage_.setPower(R_50);
 m691effectDamage_.setUserAttack(true);
 m691effectDamage_.setStatisAtt(Statistic.ATTACK);

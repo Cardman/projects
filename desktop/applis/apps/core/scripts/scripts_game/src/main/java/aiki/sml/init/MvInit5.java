@@ -459,7 +459,7 @@ m1102stringList_.add(I_NORMAL);
 m1102damagingMoveData_.setBoostedTypes(m1102stringList_);
 m1102damagingMoveData_.setAccuracy(R_9_10);
 CustList<Effect> m1102custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m1102effectDamage_=Instances.newEffectDamage();
+EffectDamage m1102effectDamage_=newEffectDamageLaw(new Rate(R_2));
 m1102effectDamage_.setPower(R_35);
 m1102effectDamage_.setUserAttack(true);
 m1102effectDamage_.setStatisAtt(Statistic.ATTACK);

@@ -184,7 +184,7 @@ m985stringList_.add(I_COMBAT);
 m985damagingMoveData_.setBoostedTypes(m985stringList_);
 m985damagingMoveData_.setAccuracy(R_9_10);
 CustList<Effect> m985custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m985effectDamage_=Instances.newEffectDamage();
+EffectDamage m985effectDamage_=newEffectDamageLaw(new Rate(R_3));
 m985effectDamage_.setPower(R_20);
 m985effectDamage_.setUserAttack(true);
 m985effectDamage_.setStatisAtt(Statistic.ATTACK);

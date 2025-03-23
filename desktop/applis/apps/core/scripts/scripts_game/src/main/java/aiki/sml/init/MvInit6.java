@@ -607,7 +607,7 @@ m1132stringList_.add(I_INSECTE);
 m1132damagingMoveData_.setBoostedTypes(m1132stringList_);
 m1132damagingMoveData_.setAccuracy(R_17_20);
 CustList<Effect> m1132custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m1132effectDamage_=Instances.newEffectDamage();
+EffectDamage m1132effectDamage_=newEffectDamageLawFour(new LgInt(R_3),new LgInt(R_3),new LgInt(R_1),new LgInt(R_1));
 m1132effectDamage_.setPower(R_14);
 m1132effectDamage_.setUserAttack(true);
 m1132effectDamage_.setStatisAtt(Statistic.ATTACK);

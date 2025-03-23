@@ -647,7 +647,7 @@ m918damagingMoveData_.setBoostedTypes(m918stringList_);
 m918damagingMoveData_.setPriority(1);
 m918damagingMoveData_.setAccuracy(R_1);
 CustList<Effect> m918custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m918effectDamage_=Instances.newEffectDamage();
+EffectDamage m918effectDamage_=newEffectDamageLawFour(new LgInt(R_3),new LgInt(R_3),new LgInt(R_1),new LgInt(R_1));
 m918effectDamage_.setPower(R_15);
 m918effectDamage_.setUserAttack(true);
 m918effectDamage_.setStatisAtt(Statistic.ATTACK);

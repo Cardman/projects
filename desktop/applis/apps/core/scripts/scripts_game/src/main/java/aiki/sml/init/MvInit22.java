@@ -529,7 +529,7 @@ m967stringList_.add(I_NORMAL);
 m967damagingMoveData_.setBoostedTypes(m967stringList_);
 m967damagingMoveData_.setAccuracy(R_17_20);
 CustList<Effect> m967custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m967effectDamage_=Instances.newEffectDamage();
+EffectDamage m967effectDamage_=newEffectDamageLawFour(new LgInt(R_3),new LgInt(R_3),new LgInt(R_1),new LgInt(R_1));
 m967effectDamage_.setPower(R_15);
 m967effectDamage_.setUserAttack(true);
 m967effectDamage_.setStatisAtt(Statistic.ATTACK);

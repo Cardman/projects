@@ -207,7 +207,7 @@ m634stringList_.add(I_NORMAL);
 m634damagingMoveData_.setBoostedTypes(m634stringList_);
 m634damagingMoveData_.setAccuracy(R_17_20);
 CustList<Effect> m634custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m634effectDamage_=Instances.newEffectDamage();
+EffectDamage m634effectDamage_=newEffectDamageLawFour(new LgInt(R_3),new LgInt(R_3),new LgInt(R_1),new LgInt(R_1));
 m634effectDamage_.setPower(R_15);
 m634effectDamage_.setUserAttack(true);
 m634effectDamage_.setStatisAtt(Statistic.ATTACK);

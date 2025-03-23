@@ -2,7 +2,10 @@ package aiki.sml.init;
 
 import aiki.db.DataBase;
 import aiki.db.MessagesDataBaseConstants;
+import aiki.fight.moves.effects.*;
+import aiki.instances.*;
 import aiki.util.LawNumber;
+import code.maths.*;
 import code.maths.litteral.MbOperationNode;
 import code.maths.montecarlo.MonteCarloNumber;
 
@@ -2552,5 +2555,28 @@ protected static final char RP = ')';
 protected CstIgame(){}
 protected static LawNumber ln(MonteCarloNumber _l,int _n){
 return new LawNumber(_l,_n);
+}
+public static EffectDamage newEffectDamageLaw(Rate _one) {
+MonteCarloNumber l = new MonteCarloNumber();
+l.addQuickEvent(_one,LgInt.one());
+return newEffectDamage(l);
+}
+public static EffectDamage newEffectDamageLawFour(LgInt _prOne, LgInt _prTwo, LgInt _prThree, LgInt _prFour) {
+MonteCarloNumber l = new MonteCarloNumber();
+l.addQuickEvent(new Rate(R_2),_prOne);
+l.addQuickEvent(new Rate(R_3),_prTwo);
+l.addQuickEvent(new Rate(R_4),_prThree);
+l.addQuickEvent(new Rate(R_5),_prFour);
+return newEffectDamage(l);
+}
+//public static EffectDamage newEffectDamage() {
+//MonteCarloNumber l = new MonteCarloNumber();
+//l.addQuickEvent(Rate.one(),LgInt.one());
+//return newEffectDamage(l);
+//}
+public static EffectDamage newEffectDamage(MonteCarloNumber _law) {
+EffectDamage e = Instances.newEffectDamage();
+e.setHitsLaw(_law);
+return e;
 }
 }

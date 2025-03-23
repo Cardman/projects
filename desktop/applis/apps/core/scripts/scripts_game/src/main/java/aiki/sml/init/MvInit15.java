@@ -703,7 +703,7 @@ m757stringList_.add(I_SOL);
 m757damagingMoveData_.setBoostedTypes(m757stringList_);
 m757damagingMoveData_.setAccuracy(R_9_10);
 CustList<Effect> m757custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m757effectDamage_=Instances.newEffectDamage();
+EffectDamage m757effectDamage_=newEffectDamageLaw(new Rate(R_2));
 m757effectDamage_.setPower(R_50);
 m757effectDamage_.setUserAttack(true);
 m757effectDamage_.setStatisAtt(Statistic.ATTACK);

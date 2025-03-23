@@ -408,7 +408,7 @@ m777stringList_.add(I_NORMAL);
 m777damagingMoveData_.setBoostedTypes(m777stringList_);
 m777damagingMoveData_.setAccuracy(R_1);
 CustList<Effect> m777custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m777effectDamage_=Instances.newEffectDamage();
+EffectDamage m777effectDamage_=newEffectDamageLawFour(new LgInt(R_3),new LgInt(R_3),new LgInt(R_1),new LgInt(R_1));
 m777effectDamage_.setPower(R_20);
 m777effectDamage_.setUserAttack(true);
 m777effectDamage_.setStatisAtt(Statistic.ATTACK);

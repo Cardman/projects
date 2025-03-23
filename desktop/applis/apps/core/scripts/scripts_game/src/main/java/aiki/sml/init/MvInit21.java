@@ -194,7 +194,7 @@ m932stringList_.add(I_GLACE);
 m932damagingMoveData_.setBoostedTypes(m932stringList_);
 m932damagingMoveData_.setAccuracy(R_1);
 CustList<Effect> m932custListEffect_ = new CustList<Effect>(new CollCapacity(1));
-EffectDamage m932effectDamage_=Instances.newEffectDamage();
+EffectDamage m932effectDamage_=newEffectDamageLawFour(new LgInt(R_3),new LgInt(R_3),new LgInt(R_1),new LgInt(R_1));
 m932effectDamage_.setPower(R_25);
 m932effectDamage_.setUserAttack(true);
 m932effectDamage_.setStatisAtt(Statistic.ATTACK);
