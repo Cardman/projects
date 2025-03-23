@@ -13,6 +13,7 @@ elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,Messa
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,MessagesHelpCards15.M_15_6);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,MessagesHelpCards15.M_15_7);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,MessagesHelpCards15.M_15_8);
+formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,MessagesHelpCards15.M_15_9);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,MessagesHelpCards15.M_15_10);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,MessagesHelpCards15.M_15_11);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_VARIANTES,MessagesHelpCards15.M_15_12);

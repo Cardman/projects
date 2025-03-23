@@ -85,9 +85,23 @@ public abstract class AbsHelpCards {
     protected static final String C_TRUMP_8=""+CouleurValeur.TRUMP_8+"";
     protected static final String C_TRUMP_9=""+CouleurValeur.TRUMP_9+"";
     public abstract void format(IntBeanBuilderHelperCommon _i, TranslationsLg _lg);
+
     public void formatMessage(IntBeanBuilderHelperCommon _i, TranslationsLg _lg,String _file, String _key, String... _values) {
+        formatMessage(_i, _lg, 0, _file, _key, _values);
+    }
+    public void formatMessage(IntBeanBuilderHelperCommon _i, TranslationsLg _lg, int _n,String _file, String _key, String... _values) {
+        if (_n == 0) {
+            String txt_ = StringUtil.simpleStringsFormat(_lg.getMapping().getVal(MessagesHelpCards.APP_BEAN).getMapping().getVal(_file).getMapping().getVal(_key), _values);
+            _i.formatMessageDir(txt_);
+            return;
+        }
+        _i.initLine();
+        _i.setIndent(_n);
+        _i.indent();
+        _i.setIndent(0);
         String txt_ = StringUtil.simpleStringsFormat(_lg.getMapping().getVal(MessagesHelpCards.APP_BEAN).getMapping().getVal(_file).getMapping().getVal(_key), _values);
         _i.formatMessageDir(txt_);
+        _i.feedParents();
     }
 
     public void element(IntBeanBuilderHelperCommon _i, TranslationsLg _lg,String _file,String _key, String... _values) {

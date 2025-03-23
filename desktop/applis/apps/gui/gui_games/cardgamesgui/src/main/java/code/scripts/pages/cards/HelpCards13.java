@@ -11,6 +11,7 @@ formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_JEU_DES_CART
 formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_JEU_DES_CARTES,MessagesHelpCards13.M_13_5);
 _i.getOrderedLists().add(0);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_JEU_DES_CARTES,MessagesHelpCards13.M_13_6);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_JEU_DES_CARTES,MessagesHelpCards13.M_13_7);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_JEU_DES_CARTES,MessagesHelpCards13.M_13_8);
 _i.getOrderedLists().add(0);
 elementOrd(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_PRESIDENT_JEU_DES_CARTES,MessagesHelpCards13.M_13_9);

@@ -14,8 +14,11 @@ formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,Message
 formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_8);
 _i.getOrderedLists().add(0);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_9);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_10);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_11);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_12);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_13);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_14);
 _i.getOrderedLists().removeQuicklyLast();
 formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_15);
 formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_ANNONCES,MessagesHelpCards17.M_17_16);

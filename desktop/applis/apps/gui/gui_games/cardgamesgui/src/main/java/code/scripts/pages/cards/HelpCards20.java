@@ -30,8 +30,16 @@ _i.getOrderedLists().removeQuicklyLast();
 formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_18);
 _i.getOrderedLists().add(0);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_19);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_20);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_21);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_19);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_23);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_24);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_25);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_26);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_19);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_28);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_29);
 _i.getOrderedLists().removeQuicklyLast();
 formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_JEUX_TAROT_CONTRAT,MessagesHelpCards20.M_20_30);
 }

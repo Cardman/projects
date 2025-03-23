@@ -23,11 +23,11 @@ private MessagesHelpCards17(){
 public static TranslationsFile en(){
 TranslationsFile e=new TranslationsFile(17);
 e.add(M_17_0,"The base declaring are handful and slam.");
-e.add(M_17_10,"\\u00A0\\u00A0then for declaring the simple handful, the declarer must add the Excuse in the handful.");
+e.add(M_17_10,"then for declaring the simple handful, the declarer must add the Excuse in the handful.");
 e.add(M_17_11,"If a player owns 10 trump cards and the Excuse,");
-e.add(M_17_12,"\\u00A0\\u00A0then for declaring the simple handful, the declarer must not add the Excuse in the handful.");
+e.add(M_17_12,"then for declaring the simple handful, the declarer must not add the Excuse in the handful.");
 e.add(M_17_13,"If a player owns 13 trump cards and the Excuse,");
-e.add(M_17_14,"\\u00A0\\u00A0then the player has not to declare a double handful.");
+e.add(M_17_14,"then the player has not to declare a double handful.");
 e.add(M_17_15,"Declaring handfuls or miseres is done at the beginning of deal by playing the first card.");
 e.add(M_17_16,"Handfuls must be shown, while declaring handfuls or else, there may be false declaring.");
 e.add(M_17_1,"For slam, if the taker owns besides the Excuse, the taker must play it at the last trick,");
@@ -44,11 +44,11 @@ return e;
 public static TranslationsFile fr(){
 TranslationsFile f=new TranslationsFile(17);
 f.add(M_17_0,"Les annonces de base sont la poignée et le chelem.");
-f.add(M_17_10,"\\u00A0\\u00A0alors pour l'annonce de la simple poignée, l'annonceur doit ajouter l'Excuse dans la poignée.");
+f.add(M_17_10,"alors pour l'annonce de la simple poignée, l'annonceur doit ajouter l'Excuse dans la poignée.");
 f.add(M_17_11,"Si un joueur possède 10 atouts et l'Excuse,");
-f.add(M_17_12,"\\u00A0\\u00A0alors pour l'annonce de la simple poignée, l'annonceur n'est pas autorisé à ajouter l'Excuse dans la poignée.");
+f.add(M_17_12,"alors pour l'annonce de la simple poignée, l'annonceur n'est pas autorisé à ajouter l'Excuse dans la poignée.");
 f.add(M_17_13,"Si un joueur possède 13 atouts et l'Excuse,");
-f.add(M_17_14,"\\u00A0\\u00A0alors le joueur n'est pas obligé d'annoncer une double poignée.");
+f.add(M_17_14,"alors le joueur n'est pas obligé d'annoncer une double poignée.");
 f.add(M_17_15,"Les annonces de poignées ou de misères se fait au début de la partie en posant la 1ère carte.");
 f.add(M_17_16,"On doit montrer son jeu, lors des annonces de poignées sinon, il peut y avoir des fausses annonces.");
 f.add(M_17_1,"Pour le chelem, s'il possède de plus l'Excuse, il doit la jouer au dernier tour,");

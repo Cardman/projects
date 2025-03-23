@@ -87,7 +87,7 @@ f.add(M_5_3,"Le joueur qui a joué la plus forte carte d'un pli est dit le ramas
 f.add(M_5_4,"On appelle couleur demandée la couleur de la carte entamée.");
 f.add(M_5_5,"On dit qu'un pli est coupé s'il existe au moins un atout.");
 f.add(M_5_6,"L'entame");
-f.add(M_5_7,"\\u00A0\\u00A0Le joueur à droite du donneur commence à jouer une carte de son choix.");
+f.add(M_5_7,"Le joueur à droite du donneur commence à jouer une carte de son choix.");
 f.add(M_5_8,"Les règles");
 f.add(M_5_9,"Si la couleur demandée est la couleur d'atout,");
 return f;

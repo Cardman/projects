@@ -19,8 +19,8 @@ e.add(M_58_2,"This action opens a dialog box.");
 e.add(M_58_3,"The dialog box is introduced under two different forms:");
 e.add(M_58_4,"Choice of the number of players and rules of the tarot before opening.");
 e.add(M_58_5,"Choice of the dealing of cards.");
-e.add(M_58_6,"\\u00A0Choice of the rules of the tarot, for variants, influence on the dealing of cards (number of hands, number of cards). Variants are described in the description of the tarot.");
-e.add(M_58_7,"\\u00A0After having correctly dealt cards, (All hands are full at tarot) the user can save the deal in a file and possibly play it.");
+e.add(M_58_6,"Choice of the rules of the tarot, for variants, influence on the dealing of cards (number of hands, number of cards). Variants are described in the description of the tarot.");
+e.add(M_58_7,"After having correctly dealt cards, (All hands are full at tarot) the user can save the deal in a file and possibly play it.");
 return e;
 }
 public static TranslationsFile fr(){
@@ -31,8 +31,8 @@ f.add(M_58_2,"Cette action ouvre une boîte de dialogue.");
 f.add(M_58_3,"La boîte de dialogue se présente sous deux différentes formes:");
 f.add(M_58_4,"Choix du nombre de joueurs et des règles du tarot avant ouverture.");
 f.add(M_58_5,"Choix de la distribution des cartes.");
-f.add(M_58_6,"\\u00A0Le choix des règles du tarot, pour les variantes, influent sur la distribution des cartes (nombre de mains, nombre de cartes). Les variantes sont décrites dans le descriptif du tarot.");
-f.add(M_58_7,"\\u00A0Après avoir distribué correctement les cartes, (Toutes mains complètes au tarot) l'utilisateur peut sauvegarder la partie dans un fichier et éventuellement la jouer.");
+f.add(M_58_6,"Le choix des règles du tarot, pour les variantes, influent sur la distribution des cartes (nombre de mains, nombre de cartes). Les variantes sont décrites dans le descriptif du tarot.");
+f.add(M_58_7,"Après avoir distribué correctement les cartes, (Toutes mains complètes au tarot) l'utilisateur peut sauvegarder la partie dans un fichier et éventuellement la jouer.");
 return f;
 }
 }

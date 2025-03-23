@@ -23,6 +23,7 @@ formatMessage(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_FIN_PARTIE,Message
 _i.getOrderedLists().add(0);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_FIN_PARTIE,MessagesHelpCards35.M_35_15);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_FIN_PARTIE,MessagesHelpCards35.M_35_16);
+formatMessage(_i,_lg,1,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_FIN_PARTIE,MessagesHelpCards35.M_35_17);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_FIN_PARTIE,MessagesHelpCards35.M_35_18);
 elementOrd(_i,_lg,MessagesHelpCards.AIDE_GENERALE_LOGICIEL_FIN_PARTIE,MessagesHelpCards35.M_35_19);
 _i.getOrderedLists().removeQuicklyLast();

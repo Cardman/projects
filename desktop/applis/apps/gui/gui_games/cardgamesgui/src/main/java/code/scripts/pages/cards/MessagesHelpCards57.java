@@ -20,9 +20,9 @@ e.add(M_57_2,"This action opens a dialog box.");
 e.add(M_57_3,"The dialog box is introduced under two different forms:");
 e.add(M_57_4,"Choice of the number of players and rules of the belote before opening.");
 e.add(M_57_5,"Choice of the dealing of cards.");
-e.add(M_57_6,"\\u00A0Choice of the rules of the belote, for variants, influence on the dealing of cards (number of hands, number of cards). ");
+e.add(M_57_6,"Choice of the rules of the belote, for variants, influence on the dealing of cards (number of hands, number of cards). ");
 e.add(M_57_7,"Variants are described in the description of the belote.");
-e.add(M_57_8,"\\u00A0After having correctly dealt cards, (All hands are full at belote) the user can save the deal in a file and possibly play it.");
+e.add(M_57_8,"After having correctly dealt cards, (All hands are full at belote) the user can save the deal in a file and possibly play it.");
 return e;
 }
 public static TranslationsFile fr(){
@@ -33,9 +33,9 @@ f.add(M_57_2,"Cette action ouvre une boîte de dialogue.");
 f.add(M_57_3,"La boîte de dialogue se présente sous deux différentes formes:");
 f.add(M_57_4,"Choix du nombre de joueurs et des règles de la belote avant ouverture.");
 f.add(M_57_5,"Choix de la distribution des cartes.");
-f.add(M_57_6,"\\u00A0Le choix des règles de la belote, pour les variantes, influent sur la distribution des cartes (nombre de mains, nombre de cartes). ");
+f.add(M_57_6,"Le choix des règles de la belote, pour les variantes, influent sur la distribution des cartes (nombre de mains, nombre de cartes). ");
 f.add(M_57_7,"Les variantes sont décrites dans le descriptif de la belote.");
-f.add(M_57_8,"\\u00A0Après avoir distribué correctement les cartes, (Toutes mains complètes à la belote) l'utilisateur peut sauvegarder la partie dans un fichier et éventuellement la jouer.");
+f.add(M_57_8,"Après avoir distribué correctement les cartes, (Toutes mains complètes à la belote) l'utilisateur peut sauvegarder la partie dans un fichier et éventuellement la jouer.");
 return f;
 }
 }

@@ -51,7 +51,7 @@ private MessagesHelpCards32(){
 public static TranslationsFile en(){
 TranslationsFile e=new TranslationsFile(45);
 e.add(M_32_0,"As all card games, there are variants.");
-e.add(M_32_10,"\\u00A0\\u00A0(If a half of point is missing for the taker, then the taker looses the deal.).");
+e.add(M_32_10,"(If a half of point is missing for the taker, then the taker looses the deal.).");
 e.add(M_32_11,"With 4 players, other dealings are possible,");
 e.add(M_32_12,"with a call at a king or at a point card.");
 e.add(M_32_13,"without call, in this case, each player is the partner of the player in the opposite side.");
@@ -59,8 +59,8 @@ e.add(M_32_14,"The tarot can be played by 5 players. One of the following dealin
 e.add(M_32_15,"Call of a king.");
 e.add(M_32_16,"Call of a character.");
 e.add(M_32_17,"The taker plays against the 4 other players.");
-e.add(M_32_18,"\\u00A0\\u00A0By convention, the taker wins only if the taker scores with one more point than necessary,");
-e.add(M_32_19,"\\u00A0\\u00A0(If a half of point is missing for the taker, then the taker looses the deal.).");
+e.add(M_32_18,"By convention, the taker wins only if the taker scores with one more point than necessary,");
+e.add(M_32_19,"(If a half of point is missing for the taker, then the taker looses the deal.).");
 e.add(M_32_1,"Here is some variants:");
 e.add(M_32_20,"The tarot can be played by 6 players. One of the following dealings is possible:");
 e.add(M_32_21,"Call of a king.");
@@ -73,16 +73,16 @@ e.add(M_32_27,"The match is equality (Nobody scores point at last.).");
 e.add(M_32_28,"The taker wins the deal by one point by rounding.");
 e.add(M_32_29,"Slam can be regarded as a bid greater than \"Guard against\".");
 e.add(M_32_2,"The declaring miseres can be used:");
-e.add(M_32_30,"\\u00A0\\u00A0In this case, it is impossible to declare it as additional declaring.");
-e.add(M_32_31,"\\u00A0\\u00A0In this case, the dog is hidden and belongs to the defense.");
+e.add(M_32_30,"In this case, it is impossible to declare it as additional declaring.");
+e.add(M_32_31,"In this case, the dog is hidden and belongs to the defense.");
 e.add(M_32_32,"Playing discards is to loose the most cards as possible, in the following cases:");
 e.add(M_32_33,"If there is no bidding.");
 e.add(M_32_34,"If all players declare \"pass\".");
-e.add(M_32_35,"\\u00A0\\u00A0In the two cases, there is no team.");
+e.add(M_32_35,"In the two cases, there is no team.");
 e.add(M_32_36,"Playing one for one is to win the most cards as possible, in the following cases:");
 e.add(M_32_37,"If there is no bidding.");
 e.add(M_32_38,"If all players declare \"pass\".");
-e.add(M_32_39,"\\u00A0\\u00A0In the two cases, there is no team.");
+e.add(M_32_39,"In the two cases, there is no team.");
 e.add(M_32_3,"Misere of trump: no trump card(The Excuse is a trump card here).");
 e.add(M_32_40,"Certain declarings may be allowed.");
 e.add(M_32_41,"Cards can be dealt clock wise.");
@@ -94,13 +94,13 @@ e.add(M_32_5,"Misere of low cards: no low card from ace to ten.");
 e.add(M_32_6,"Misere of suit: only trump cards and possibly the Excuse.");
 e.add(M_32_7,"Misere of characters: no characters card.");
 e.add(M_32_8,"The tarot can be played by 3 players.");
-e.add(M_32_9,"\\u00A0\\u00A0By convention the taker wins only if the taker scores with one more point than necessary,");
+e.add(M_32_9,"By convention the taker wins only if the taker scores with one more point than necessary,");
 return e;
 }
 public static TranslationsFile fr(){
 TranslationsFile f=new TranslationsFile(45);
 f.add(M_32_0,"Comme dans tous les jeux de cartes, il existe des variantes.");
-f.add(M_32_10,"\\u00A0\\u00A0(S'il manque un demi-point au preneur, alors il perd le contrat.).");
+f.add(M_32_10,"(S'il manque un demi-point au preneur, alors il perd le contrat.).");
 f.add(M_32_11,"A 4 joueurs, il est possible de jouer d'autres répartitions,");
 f.add(M_32_12,"avec un appel au roi ou à une tête.");
 f.add(M_32_13,"sans appel, dans ce cas, chaque joueur fait équipe avec celui d'en face.");
@@ -108,8 +108,8 @@ f.add(M_32_14,"On peut jouer à 5 joueurs. Il est donc possible de jouer une des
 f.add(M_32_15,"Appel d'un roi.");
 f.add(M_32_16,"Appel d'une figure.");
 f.add(M_32_17,"Le preneur joue contre les 4 autres joueurs.");
-f.add(M_32_18,"\\u00A0\\u00A0Par convention, le preneur ne gagne que s'il passe le contrat d'au moins un point,");
-f.add(M_32_19,"\\u00A0\\u00A0(S'il manque un demi-point au preneur, alors il perd le contrat.).");
+f.add(M_32_18,"Par convention, le preneur ne gagne que s'il passe le contrat d'au moins un point,");
+f.add(M_32_19,"(S'il manque un demi-point au preneur, alors il perd le contrat.).");
 f.add(M_32_1,"En voici quelques unes:");
 f.add(M_32_20,"On peut jouer à 6 joueurs. Il est donc possible de jouer une des répartitions possibles suivantes:");
 f.add(M_32_21,"Appel d'un roi.");
@@ -122,16 +122,16 @@ f.add(M_32_27,"Le match est nul (Personne ne marque de points au final.).");
 f.add(M_32_28,"Le preneur gagne d'un point son contrat par arrondi.");
 f.add(M_32_29,"Le Chelem peut être considéré comme un contrat au-dessus de la Garde contre.");
 f.add(M_32_2,"On peut jouer avec les annonces de misères qui sont:");
-f.add(M_32_30,"\\u00A0\\u00A0Dans ce cas, il est impossible de le demander en tant qu'annonce supplémentaire.");
-f.add(M_32_31,"\\u00A0\\u00A0Dans ce cas, le chien n'est pas vu et appartient à la défense.");
+f.add(M_32_30,"Dans ce cas, il est impossible de le demander en tant qu'annonce supplémentaire.");
+f.add(M_32_31,"Dans ce cas, le chien n'est pas vu et appartient à la défense.");
 f.add(M_32_32,"On peut jouer les misères, où le but est de perdre toutes ses cartes, dans les cas suivants:");
 f.add(M_32_33,"S'il n'y a pas de contrat à annoncer.");
 f.add(M_32_34,"Si tout le monde passe.");
-f.add(M_32_35,"\\u00A0\\u00A0Dans les deux cas, il n'y a pas d'équipe.");
+f.add(M_32_35,"Dans les deux cas, il n'y a pas d'équipe.");
 f.add(M_32_36,"On peut jouer le chacun pour soi, où le but est de ramasser le plus de cartes possibles, dans les cas suivants:");
 f.add(M_32_37,"S'il n'y a pas de contrat à annoncer.");
 f.add(M_32_38,"Si tout le monde passe.");
-f.add(M_32_39,"\\u00A0\\u00A0Dans les deux cas, il n'y a pas d'équipe.");
+f.add(M_32_39,"Dans les deux cas, il n'y a pas d'équipe.");
 f.add(M_32_3,"Misère d'atout: aucun atout(Même pas l'Excuse).");
 f.add(M_32_40,"On peut choisir d'autoriser certaines annonces.");
 f.add(M_32_41,"Les cartes peuvent être distribuées dans le sens des aiguilles d'une montre.");
@@ -143,7 +143,7 @@ f.add(M_32_5,"Misère de cartes basses: auncune carte à la couleur allant de l'
 f.add(M_32_6,"Misère de couleur: que des atouts et éventuellement l'Excuse.");
 f.add(M_32_7,"Misère de figures: pas de figures.");
 f.add(M_32_8,"On peut jouer à 3 joueurs.");
-f.add(M_32_9,"\\u00A0\\u00A0Par convention le preneur ne gagne que s'il passe le contrat d'au moins un point,");
+f.add(M_32_9,"Par convention le preneur ne gagne que s'il passe le contrat d'au moins un point,");
 return f;
 }
 }
