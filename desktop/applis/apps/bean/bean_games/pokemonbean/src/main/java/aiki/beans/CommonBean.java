@@ -654,6 +654,9 @@ public abstract class CommonBean {
     }
 
     public void element(int _i,Countable _c,String _file,String _key, String... _values) {
+        if (_c.isEmpty()) {
+            return;
+        }
         getBuilder().setIndent(getBuilder().getIndent()+_i);
         initLine();
         getBuilder().indent();

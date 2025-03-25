@@ -601,7 +601,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesUserAllyDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_8);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesTargetDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_10);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTargetTeamDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_11);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserIgnTargetTeam,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_12);
+        possibleList(movesTargetTeamDamage, abilitiesUserIgnTargetTeam, MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_12);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesGlobal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_13);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesGlobal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_14);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsUserDamage,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_1_15);
@@ -616,7 +616,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_7);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTypesDefItem,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_0);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsTypesDef,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_1);
+        possibleList(movesTypesDefItem, itemsTypesDef, MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_1);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTypesDefWeather,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_2);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesTypeDefMoves,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_3);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserPower,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_2_4);
@@ -662,7 +662,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_7);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_8);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_9);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_10);
+        possibleList(statusMultStatNormal, abilitiesImmuMultStatNormal, MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_10);
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatNormal,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_6_11);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_1);
@@ -685,7 +685,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_17);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_18);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_19);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_20);
+        possibleList(statusMultStatAccuracy, abilitiesImmuMultStatAccuracy, MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_20);
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatAccuracy,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_21);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBoostingStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_22);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsBoostingStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_23);
@@ -696,11 +696,11 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_28);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_29);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_30);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_31);
+        possibleList(statusMultStatEvasiness, abilitiesImmuMultStatEvasiness, MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_31);
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatEvasiness,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_7_32);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTeamCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_1);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesUserIgnTargetTeam,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_2);
+        possibleList(movesTeamCh, abilitiesUserIgnTargetTeam, MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_2);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_3);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesBoostingStat,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_5);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,itemsBoostingStatCh,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_8_4);
@@ -717,7 +717,7 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesAllyMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_7);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesFoeTeamMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_8);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,statusMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_9);
-        new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,abilitiesImmuMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_10);
+        possibleList(statusMultStatSpeed, abilitiesImmuMultStatSpeed, MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_10);
         new BeanDisplayList<CustList<TranslatedKey>>(new BeanDisplayTranslatedKeyList()).display(this,comboMultStatSpeed,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_9_11);
         header(1,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10);
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_10_1);
@@ -811,6 +811,12 @@ public final class FightHelpBean extends CommonBean implements BeanRenderWithApp
         formatMessageIndent(MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_14_1);
         addImg(getAnimAbsorb());
         elementAnchor(MessagesDataRound.M_P_83_RETURN_BEGIN,new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_ROUND_HELPROUND_HTML+ ANCHOR +BEGIN));
+    }
+
+    private void possibleList(CustList<TranslatedKey> _cond, CustList<TranslatedKey> _list, String _key) {
+        if (!_cond.isEmpty()) {
+            new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this, _list,MessagesPkBean.ROUND, _key);
+        }
     }
 
     private void possibleMessage(CustList<TranslatedKey> _list, Rate _value, String _key) {
