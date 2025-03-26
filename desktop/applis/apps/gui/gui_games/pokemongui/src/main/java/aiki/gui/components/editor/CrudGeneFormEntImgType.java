@@ -32,9 +32,7 @@ public final class CrudGeneFormEntImgType extends CrudGeneFormListSub<EditedCrud
         Comparing<EditedCrudPair<String, String>> cmp_ = new ComparatorTrWrapperPairs<String, String>().wrap(messages_);
         initForm(new DisplayKeyOnly<String, String>(messages_), keyImg, cmp_,new ValidateElementPairId<String>());
         setupValues(new MapToEntriesListUtil<String, String>().build(facadeGame_.getData().getTypesColors()));
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override

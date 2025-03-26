@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -26,7 +27,13 @@ public abstract class GeneComponentModelEntity<E> implements GeneComponentModel<
             geneComponentModelSelectKey = ConverterCommonMapUtil.merge(compoFactory, facade, _builder, _exc, new StringMap<String>());
         }
     }
-
+    protected AbsCustComponent line(String _file,String _key, AbsCustComponent _input) {
+        AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
+        AbsPanel line_ = compoFactory_.newLineBox();
+        line_.add(compoFactory_.newPlainLabel(getCompoFactory().currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().getVal(_file).getMapping().getVal(_key)));
+        line_.add(_input);
+        return line_;
+    }
     protected void updateSelector() {
         geneComponentModelSelectKey.getSelectUniq().getSelect().setEnabled(false);
     }

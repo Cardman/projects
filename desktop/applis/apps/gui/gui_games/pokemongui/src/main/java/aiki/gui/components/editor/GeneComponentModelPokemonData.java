@@ -10,6 +10,8 @@ import aiki.fight.util.*;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.MessagesDataPokemonData;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public final class GeneComponentModelPokemonData extends GeneComponentModelEntity<PokemonData> {
@@ -66,8 +68,8 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         page_.add(geneComponentModelSelectKey());
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(weight.geneRate());
-        form_.add(height.geneRate());
+        form_.add(line(MessagesDataPokemonData.M_P_72_WEIGHT_INTRO, weight.geneRate()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_HEIGHT_INTRO, height.geneRate()));
         form_.add(types.geneEnum());
         AbsPanel stats_ = compoFactory_.newPageBox();
         subscribedTranslations.clear();
@@ -90,11 +92,11 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         form_.add(evolutions.getGroup());
         form_.add(technicalMoves.geneEnum());
         form_.add(hiddenMoves.geneEnum());
-        form_.add(catchingRate.geneLong());
-        form_.add(expRate.geneLong());
-        form_.add(hatchingSteps.geneLgInt());
-        form_.add(happiness.geneLong());
-        form_.add(happinessHatch.geneLong());
+        form_.add(line(MessagesDataPokemonData.M_P_72_CATCHINGRATE_INTRO,catchingRate.geneLong()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_PTS_EXP_INTRO,expRate.geneLong()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_HATCHING_INTRO,hatchingSteps.geneLgInt()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_HAPPINESS,happiness.geneLong()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_HAPPINESS_HATCH,happinessHatch.geneLong()));
         eggGroups.initForm(new DisplayEntryCustSubElementString(),new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(getCompoFactory(),getFacade())));
         form_.add(eggGroups.getGroup());
         sc_.setViewportView(form_);
@@ -102,6 +104,9 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         edited = Instances.newPokemonData();
         getFacade().getData().getPokedex().put(DataBase.EMPTY_STRING,edited);
         return page_;
+    }
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return line(MessagesPkBean.PK_DATA,_key,_input);
     }
 
     private GeneComponentModelSubscribeFactorySelElt buildPart(SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {

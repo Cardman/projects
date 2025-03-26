@@ -41,9 +41,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         initForm(new DisplayKeyOnlyInt(), geneComponentModelNb, cmp_, new ValidateElementPair<Integer, String>(cmp_));
         setupValues(nbs_);
         getButtons().add(destination);
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override

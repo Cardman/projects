@@ -27,9 +27,7 @@ public final class CrudGeneFormCombos extends CrudGeneFormListSub<ListEffectComb
         value = new GeneComponentModelSubscribeEffectCombo(_core, facadeGame_, subscription_, getFrame());
         initForm(new DisplayKeyOnlyInteger<ListEffectCombo>(), value);
         setupValues(facadeGame_.getData().getCombos().getEffects());
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override

@@ -35,9 +35,7 @@ public final class CrudGeneFormTypes extends CrudGeneFormListSub<EditedCrudPair<
             types_.add(new EditedCrudPair<TypesDuo, Rate>(e.getKey(),e.getValue()));
         }
         setupValues(types_);
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override

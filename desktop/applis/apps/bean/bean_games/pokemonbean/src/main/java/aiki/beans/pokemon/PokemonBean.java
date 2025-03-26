@@ -72,7 +72,8 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
 
     private Ints placesAppears;
     private CustList<EvolutionBean> beans;
-
+    private long happiness;
+    private long happinessHatch;
     public PokemonBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
     }
@@ -121,6 +122,10 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EGG_GROUPS);
         new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,eggGroupsPk,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_EGG_GROUPS_PK,displayName);
         formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HATCHING,displayName,hatchingSteps.toNumberString());
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HAPPINESS);
+        formatMessageDir(Long.toString(happiness));
+        formatMessage(MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_HAPPINESS_HATCH);
+        formatMessageDir(Long.toString(happinessHatch));
         if (!isAppearingAnyWhere()) {
             formatMessageAnc(new PokemonBeanClickPokedex(this),MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_POKEDEX);
             return;
@@ -261,6 +266,8 @@ public final class PokemonBean extends CommonBean implements BeanRenderWithAppNa
         //eggGroups = new StringList();
         initEggGroup(pk_);
         hatchingSteps = pk_.getHatchingSteps();
+        happiness = pk_.getHappiness();
+        happinessHatch = pk_.getHappinessHatch();
     }
 
     private void build(CustList<EvolutionBean> _curr, StringMap<Evolution> _effs, String _n) {

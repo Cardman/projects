@@ -33,6 +33,11 @@ public abstract class CrudGeneFormListSub<E> extends AbsCrudGeneFormList<E> {
 //        }
     }
 
+    public void scroll() {
+        getFrame().setContentPane(getFactory().getCompoFactory().newAbsScrollPane(getGroup()));
+        getFrame().setVisible(true);
+        getFrame().pack();
+    }
     @Override
     public void selectOrAdd() {
         getCrudGeneFormSubContent().selectOrAdd(all());

@@ -24,9 +24,7 @@ public final class CrudGeneFormEntImgFree extends CrudGeneFormListSub<EditedCrud
         GeneComponentModel<EditedCrudPair<String, ImageArrayBaseSixtyFour>> key_ = new GeneComponentModelImgFree(getFactory());
         initForm(new DisplayKeyOnlyDirect<ImageArrayBaseSixtyFour>(),key_, new ComparingStringKey<ImageArrayBaseSixtyFour>(),validateElementPairIdImgFree);
         setupValues(new MapToEntriesListUtil<String, ImageArrayBaseSixtyFour>().build(factoryCommonParam.all(facadeGame_)));
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override

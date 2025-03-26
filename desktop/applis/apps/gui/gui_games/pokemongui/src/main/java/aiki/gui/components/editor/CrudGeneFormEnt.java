@@ -33,9 +33,7 @@ public final class CrudGeneFormEnt<T> extends CrudGeneFormListSub<EditedCrudPair
         Comparing<EditedCrudPair<String, T>> cmp_ = new ComparatorTrWrapperPairs<String, T>().wrap(messages_);
         initForm(new DisplayKeyOnly<String, T>(messages_),key_, cmp_,new ValidateElementPair<String, T>(cmp_));
         setupValues(new MapToEntriesListUtil<String, T>().build(factoryCommonParam.all(facadeGame_)));
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override

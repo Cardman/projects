@@ -32,9 +32,7 @@ public final class CrudGeneFormEntImg extends CrudGeneFormListSub<EditedCrudPair
         Comparing<EditedCrudPair<String, ImageArrayBaseSixtyFour>> cmp_ = new ComparatorTrWrapperPairs<String, ImageArrayBaseSixtyFour>().wrap(messages_);
         initForm(new DisplayKeyOnly<String, ImageArrayBaseSixtyFour>(messages_),key_, cmp_,new ValidateElementPairIdImg());
         setupValues(new MapToEntriesListUtil<String, ImageArrayBaseSixtyFour>().build(factoryCommonParam.all(facadeGame_)));
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override

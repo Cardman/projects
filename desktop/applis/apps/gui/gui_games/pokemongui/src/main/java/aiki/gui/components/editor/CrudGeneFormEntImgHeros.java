@@ -27,9 +27,7 @@ public final class CrudGeneFormEntImgHeros extends CrudGeneFormListSub<EditedCru
         geneComponentModelImgHeros = new GeneComponentModelImgHeros(getFactory(),facadeGame_,getCrudGeneFormSubContent().getSubscription(),withDirection);
         initForm(new DisplayKeyOnlyInteger<EditedCrudPair<ImageHeroKey, ImageArrayBaseSixtyFour>>(),geneComponentModelImgHeros, null,validateElementPairIdImgFree);
         setupValues(new MapToEntriesListUtil<ImageHeroKey, ImageArrayBaseSixtyFour>().build(info()));
-        getFrame().setContentPane(getGroup());
-        getFrame().setVisible(true);
-        getFrame().pack();
+        scroll();
     }
 
     @Override
