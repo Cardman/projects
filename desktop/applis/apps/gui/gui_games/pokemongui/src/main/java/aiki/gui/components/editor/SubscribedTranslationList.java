@@ -6,6 +6,7 @@ import aiki.fight.items.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public final class SubscribedTranslationList {
@@ -205,6 +206,13 @@ public final class SubscribedTranslationList {
         getFactoryTy().setItemForBattle(_v);
     }
 
+    public static AbsCustComponent line(AbstractProgramInfos _api,String _file,String _key, AbsCustComponent _input) {
+        AbsCompoFactory compoFactory_ = _api.getCompoFactory();
+        AbsPanel line_ = compoFactory_.newLineBox();
+        line_.add(compoFactory_.newPlainLabel(_api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().getVal(_file).getMapping().getVal(_key)));
+        line_.add(_input);
+        return line_;
+    }
     public FormLevelGrid getFormLevelGridUniq() {
         return formLevelGridUniq;
     }

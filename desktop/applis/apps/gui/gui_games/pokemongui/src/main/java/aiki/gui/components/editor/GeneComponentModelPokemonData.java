@@ -70,7 +70,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(line(MessagesDataPokemonData.M_P_72_WEIGHT_INTRO, weight.geneRate()));
         form_.add(line(MessagesDataPokemonData.M_P_72_HEIGHT_INTRO, height.geneRate()));
-        form_.add(types.geneEnum());
+        form_.add(line(MessagesDataPokemonData.M_P_72_TYPES_INTRO,types.geneEnum()));
         AbsPanel stats_ = compoFactory_.newPageBox();
         subscribedTranslations.clear();
         for (Statistic s: Statistic.getStatisticsWithBase()) {
@@ -80,25 +80,25 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
             stats_.add(f_.row(getFacade().getData().getTranslatedStatistics().getVal(getCompoFactory().getLanguage()).getVal(s)));
         }
         updateStats(new IdMap<Statistic, StatBaseEv>());
-        form_.add(stats_);
-        form_.add(genderRep.geneEnum());
-        form_.add(abilities.geneEnum());
-        form_.add(moveTutors.geneEnum());
-        form_.add(baseEvo.geneEnum());
-        form_.add(expEvo.geneEnum());
+        form_.add(line(MessagesDataPokemonData.M_P_72_STATISTICS_INTRO,stats_));
+        form_.add(line(MessagesDataPokemonData.M_P_72_GENDERS_INTRO,genderRep.geneEnum()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_ABILITIES_INTRO,abilities.geneEnum()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_MOVE_TUTORS_INTRO,moveTutors.geneEnum()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_BASE_INTRO,baseEvo.geneEnum()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_EXP_GROWTH_INTRO,expEvo.geneEnum()));
         levMoves.initForm(new DisplayEntryCustSubElementLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList()), new GeneComponentModelSubscribeFactoryDirect<LevelMove>(new GeneComponentModelSubscribeLevelMove(getCompoFactory(),getFacade(),getSubscribedTranslationList())));
-        form_.add(levMoves.getGroup());
+        form_.add(line(MessagesDataPokemonData.M_P_72_LEVEL_MOVES_INTRO,levMoves.getGroup()));
         evolutions.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Evolution>(getSubscribedTranslationList().getFactoryPk(),getCompoFactory(),getFacade(), new StringMap<String>()),buildPart(getSubscribedTranslationList().getFactoryPk(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Evolution>(new GeneComponentModelSubscribeEvolution(getCompoFactory(),getFacade(),getSubscribedTranslationList(),evolutions.getCommonFrame())));
-        form_.add(evolutions.getGroup());
-        form_.add(technicalMoves.geneEnum());
-        form_.add(hiddenMoves.geneEnum());
+        form_.add(line(MessagesDataPokemonData.M_P_72_EVOLUTIONS_TITLE,evolutions.getGroup()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_TECHNICAL_MOVES_INTRO,technicalMoves.geneEnum()));
+        form_.add(line(MessagesDataPokemonData.M_P_72_HIDDEN_MOVES_INTRO,hiddenMoves.geneEnum()));
         form_.add(line(MessagesDataPokemonData.M_P_72_CATCHINGRATE_INTRO,catchingRate.geneLong()));
         form_.add(line(MessagesDataPokemonData.M_P_72_PTS_EXP_INTRO,expRate.geneLong()));
         form_.add(line(MessagesDataPokemonData.M_P_72_HATCHING_INTRO,hatchingSteps.geneLgInt()));
         form_.add(line(MessagesDataPokemonData.M_P_72_HAPPINESS,happiness.geneLong()));
         form_.add(line(MessagesDataPokemonData.M_P_72_HAPPINESS_HATCH,happinessHatch.geneLong()));
         eggGroups.initForm(new DisplayEntryCustSubElementString(),new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(getCompoFactory(),getFacade())));
-        form_.add(eggGroups.getGroup());
+        form_.add(line(MessagesDataPokemonData.M_P_72_EGG_GROUPS_INTRO,eggGroups.getGroup()));
         sc_.setViewportView(form_);
         page_.add(sc_);
         edited = Instances.newPokemonData();

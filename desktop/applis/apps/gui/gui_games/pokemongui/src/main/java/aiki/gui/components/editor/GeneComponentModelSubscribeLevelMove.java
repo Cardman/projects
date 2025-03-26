@@ -4,6 +4,8 @@ import aiki.facade.*;
 import aiki.fight.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.MessagesDataPokemonData;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeLevelMove implements AbsGeneComponentModelSubscribe<LevelMove> {
@@ -21,12 +23,14 @@ public final class GeneComponentModelSubscribeLevelMove implements AbsGeneCompon
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
-        form_.add(level.geneLong());
+        form_.add(line(MessagesDataPokemonData.M_P_72_LEVEL,level.geneLong()));
         move = ConverterCommonMapUtil.buildMvFull(programInfos, facade,subscribedTranslationList);
-        form_.add(move.geneEnum());
+        form_.add(line(MessagesDataPokemonData.M_P_72_MOVE,move.geneEnum()));
         return form_;
     }
-
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.line(programInfos,MessagesPkBean.PK_DATA,_key,_input);
+    }
     @Override
     public LevelMove tryRet() {
         LevelMove lv_ = new LevelMove();

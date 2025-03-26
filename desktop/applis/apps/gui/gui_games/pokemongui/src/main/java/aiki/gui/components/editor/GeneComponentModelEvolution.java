@@ -6,6 +6,8 @@ import aiki.instances.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.MessagesDataPokemonData;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 import code.util.core.*;
 
@@ -52,27 +54,30 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
         evoForm_.add(selected_);
         compoLevel = level.geneLong();
         compoLevel.setVisible(false);
-        selected_.add(compoLevel);
+        selected_.add(line(MessagesDataPokemonData.M_P_72_EVO_LEVEL,compoLevel));
         compoItem = item.geneEnum();
         compoItem.setVisible(false);
-        selected_.add(compoItem);
+        selected_.add(line(MessagesDataPokemonData.M_P_72_EVO_ITEM,compoItem));
         compoGender = evoGender.geneEnum();
         compoGender.setVisible(false);
-        selected_.add(compoGender);
+        selected_.add(line(MessagesDataPokemonData.M_P_72_EVO_GENDER,compoGender));
         compoMove = evoMove.geneEnum();
         compoMove.setVisible(false);
-        selected_.add(compoMove);
+        selected_.add(line(MessagesDataPokemonData.M_P_72_EVO_MOVE,compoMove));
         compoMoveType = evoMoveType.geneEnum();
         compoMoveType.setVisible(false);
-        selected_.add(compoMoveType);
+        selected_.add(line(MessagesDataPokemonData.M_P_72_EVO_TYPE,compoMoveType));
         compoTeamPokemon = evoTeamPokemon.geneEnum();
         compoTeamPokemon.setVisible(false);
-        selected_.add(compoTeamPokemon);
+        selected_.add(line(MessagesDataPokemonData.M_P_72_EVO_TEAM,compoTeamPokemon));
         evolutionKind.getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(evolutionKind,MessagesEditorSelect.EVO_LEVEL_SIMPLE);
         return evoForm_;
     }
 
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.line(programInfos, MessagesPkBean.PK_DATA,_key,_input);
+    }
     @Override
     public void applyChange() {
         String evo_ = evolutionKind.tryRet();
