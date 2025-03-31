@@ -195,8 +195,8 @@ public final class MessagesDataItemsItemforbattle {
         f_.add(M_P_28_PROTECT_KO_ALL,"L''objet est activé lorsque le possesseur subit des dégâts d''une attaque utilisée directement par un combattant.\nLe porteur de l''objet conserve {0} pv s''il est censé tomber KO et s''il possédait tous ses pv.");
         f_.add(M_P_28_REPEL,"Repousse les pokémons sauvages jusqu''à ce que l''objet ne soit plus porté.");
         f_.add(M_P_28_SYNCHRO_STATUS,"Si le porteur de l''objet prend un statut par un autre pokémon et si cet autre pokémon peut prendre un des statuts précédents, alors cet autre pokémon est altéré d''un des statuts infligés suivants:");
-        f_.add(M_P_28_TYPES_PK,"Les capacités, dans l'éventuel cas où les types peuvent changer, sont les suivantes:");
-        f_.add(M_P_28_TYPES_PK_2,"Dans l'éventuel cas où le possesseur a une des capacités précédentes, le possesseur prend les types:");
+        f_.add(M_P_28_TYPES_PK,"Les capacités, dans l''éventuel cas où les types peuvent changer, sont les suivantes:");
+        f_.add(M_P_28_TYPES_PK_2,"Dans l''éventuel cas où le possesseur a une des capacités précédentes, le possesseur prend les types:");
         f_.add(M_P_28_WIN_EV,"Voici les ev gagnés des statistiques après avoir mis un ensemble de pokémons KO:");
         f_.add(M_P_28_WIN_EV_STAT, STATISTIQUE);
         f_.add(M_P_28_WIN_EV_VALUE,"Gain d''ev");
