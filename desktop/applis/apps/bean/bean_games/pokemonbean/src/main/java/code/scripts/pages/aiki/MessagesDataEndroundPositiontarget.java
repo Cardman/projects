@@ -15,7 +15,7 @@ public final class MessagesDataEndroundPositiontarget {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_9_ANTICIPE,"L''effet de l''attaque a lieu deux tours après.L''attaque se base sur les caractéristiques de la cible au moment du lancer.Tant que les deux tours après lancer ne sont pas passés, aucune des attaques suivantes ne peut être utilisée;");
+        f_.add(M_P_9_ANTICIPE,"L'effet de l'attaque a lieu deux tours après.L'attaque se base sur les caractéristiques de la cible au moment du lancer.Tant que les deux tours après lancer ne sont pas passés, aucune des attaques suivantes ne peut être utilisée;");
         f_.add(M_P_9_EFFECT,"Cet effet tient compte de la position du lanceur et celle de la cible.");
         return f_;
     }

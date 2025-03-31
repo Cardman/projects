@@ -88,10 +88,10 @@ public final class MessagesDataEffdamage {
         f_.add(M_P_45_EVENT_NB_HITS,"Nombre de coups");
         f_.add(M_P_45_EVENT_RATE,"Coefficient");
         f_.add(M_P_45_FORMULA,"{0}");
-        f_.add(M_P_45_HIT_LAW,"Le nombre de coups répétés pour l''attaque suit la loi suivante:");
+        f_.add(M_P_45_HIT_LAW,"Le nombre de coups répétés pour l'attaque suit la loi suivante:");
         f_.add(M_P_45_HIT_LAW_CONST,"Le nombre de coups répétés pour l''attaque est de {0}.");
-        f_.add(M_P_45_IGN_NEG_STAT,"L''attaque ignore les variations négatives des statistiques du lanceur suivantes:");
-        f_.add(M_P_45_IGN_POS_STAT,"L''attaque ignore les variations positives des statistiques de la cible suivantes:");
+        f_.add(M_P_45_IGN_NEG_STAT,"L'attaque ignore les variations négatives des statistiques du lanceur suivantes:");
+        f_.add(M_P_45_IGN_POS_STAT,"L'attaque ignore les variations positives des statistiques de la cible suivantes:");
         f_.add(M_P_45_RAND_MAX,"La valeur pour le coefficient aléatoire tiré pour le calcul des dégâts est toujours maximal.");
         f_.add(M_P_45_RATE,"Coefficient");
         f_.add(M_P_45_RATE_EVENT,"Probabilité");

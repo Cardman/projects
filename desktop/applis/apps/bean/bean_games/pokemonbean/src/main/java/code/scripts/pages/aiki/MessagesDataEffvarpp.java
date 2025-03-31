@@ -16,7 +16,7 @@ public final class MessagesDataEffvarpp {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_69_DELETE_PP,"La cible perd {0} pp des pp max de sa dernière attaque réussie.Si la dernière attaque réussie de la cible possède moins de {0} pp des pp max, alors le nombre de pp devient nul.");
-        f_.add(M_P_69_EFFECT,"Cet effet touche aux pp d''un combattant.");
+        f_.add(M_P_69_EFFECT,"Cet effet touche aux pp d'un combattant.");
         return f_;
     }
 }

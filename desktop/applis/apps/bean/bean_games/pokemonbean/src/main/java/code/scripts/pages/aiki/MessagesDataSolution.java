@@ -23,7 +23,7 @@ public final class MessagesDataSolution {
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_87_GENDER,"Genre");
         f_.add(M_P_87_IMAGE,"Image");
-        f_.add(M_P_87_INDEX,"Retour à l''index");
+        f_.add(M_P_87_INDEX,"Retour à l'index");
         f_.add(M_P_87_NAME,"Nom");
         f_.add(M_P_87_TITLE,"Solution de jeu");
         return f_;

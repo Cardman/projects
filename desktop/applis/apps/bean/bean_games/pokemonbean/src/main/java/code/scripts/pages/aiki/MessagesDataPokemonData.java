@@ -158,7 +158,7 @@ public final class MessagesDataPokemonData {
         f_.add(M_P_72_BASE_INTRO,"Base d'évolution:");
         f_.add(M_P_72_CATCHINGRATE,"Le taux de capture de {0} est de {1}.");
         f_.add(M_P_72_CATCHINGRATE_INTRO,"Taux de capture:");
-        f_.add(M_P_72_EGG,"Groupes d''oeuf");
+        f_.add(M_P_72_EGG,"Groupes d'oeuf");
         f_.add(M_P_72_EGG_GROUPS,"{0} fait partie des groupes d''oeufs suivants:");
         f_.add(M_P_72_EGG_GROUPS_INTRO,"Groupes d'oeufs:");
         f_.add(M_P_72_EGG_GROUPS_PK,"Les pokémons compatibles avec {0} pour la reproduction sont les suivants:");

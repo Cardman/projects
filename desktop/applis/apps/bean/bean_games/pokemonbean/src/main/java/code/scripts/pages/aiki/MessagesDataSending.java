@@ -29,12 +29,12 @@ public final class MessagesDataSending {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_84_COPY_AB,"Le porteur copie la capacité de l''adversaire le plus proche de lui (en face si possible).");
+        f_.add(M_P_84_COPY_AB,"Le porteur copie la capacité de l'adversaire le plus proche de lui (en face si possible).");
         f_.add(M_P_84_DISABLE_WEATHER,"Les climats sont désactivés pendant la présence du combattant entré sur le terrain.");
-        f_.add(M_P_84_DISABLE_WEATHER_2,"Si le porteur tombe KO, perd sa capacité ou sort du terrain, alors tous les climats désactivés à l''entrée du porteur deviennent actifs à condition que le nombre de tours soit positif.");
-        f_.add(M_P_84_DISABLE_WEATHER_3,"Si un combattant avec un objet ou une capacité invoquant un des climats entre sur le terrain et s''il existe une capacité ou un objet désactivant les climats, alors le climat n''est pas activé.");
-        f_.add(M_P_84_DISABLE_WEATHER_4,"En revanche, si une attaque invoquant un climat est directement utilisée, alors l''attaque n''échoue pas à cause de l''inactivité des climats mais le climat ne deviendra actif que si aucun autre climat incompatible n''était invoqué.");
-        f_.add(M_P_84_EFFECT,"Cet effet a lieu après les effets des attaques agissant lors de l''entrée d''un adversaire sur le terrain.");
+        f_.add(M_P_84_DISABLE_WEATHER_2,"Si le porteur tombe KO, perd sa capacité ou sort du terrain, alors tous les climats désactivés à l'entrée du porteur deviennent actifs à condition que le nombre de tours soit positif.");
+        f_.add(M_P_84_DISABLE_WEATHER_3,"Si un combattant avec un objet ou une capacité invoquant un des climats entre sur le terrain et s'il existe une capacité ou un objet désactivant les climats, alors le climat n'est pas activé.");
+        f_.add(M_P_84_DISABLE_WEATHER_4,"En revanche, si une attaque invoquant un climat est directement utilisée, alors l'attaque n'échoue pas à cause de l'inactivité des climats mais le climat ne deviendra actif que si aucun autre climat incompatible n'était invoqué.");
+        f_.add(M_P_84_EFFECT,"Cet effet a lieu après les effets des attaques agissant lors de l'entrée d'un adversaire sur le terrain.");
         f_.add(M_P_84_PLATE,"Le type du porteur devient le type de la plaque possédée, sinon le type du porteur est celui de base (sur la fiche associée dans les données).");
         f_.add(M_P_84_WEATHER,"Lorsque le possesseur entre sur le terrain, le climat suivant est actif:");
         f_.add(M_P_84_WEIGHT,"La masse du porteur est multiplié par {0} lors de son entrée.");

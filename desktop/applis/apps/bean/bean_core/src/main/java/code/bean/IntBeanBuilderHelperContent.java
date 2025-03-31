@@ -1,5 +1,6 @@
 package code.bean;
 
+import code.formathtml.render.*;
 import code.sml.util.*;
 import code.util.*;
 
@@ -13,9 +14,13 @@ public final class IntBeanBuilderHelperContent {
     private String refLk = "";
     private int header;
     private final Ints orderedLists = new Ints();
-
+    private final IdList<MetaSearchableContent> metaSearchableContents = new IdList<MetaSearchableContent>();
     public void incColIndex() {
         colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % colCount());
+    }
+
+    public IdList<MetaSearchableContent> getMetaSearchableContents() {
+        return metaSearchableContents;
     }
 
     public int colIndex() {

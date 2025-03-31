@@ -15,6 +15,7 @@ public final class IntBeanBuilderHelperCommonImpl extends IntBeanBuilderHelperCo
         initPage();
         initGrid();
         formatMessage("","","");
+        formatMessage("","","","");
         feedParentsCts();
         feedParents();
         feedParents();
@@ -31,17 +32,7 @@ public final class IntBeanBuilderHelperCommonImpl extends IntBeanBuilderHelperCo
     }
 
     @Override
-    public void formatMessageDirCtsHeader(String _txt) {
-        getLanguage();
-    }
-
-    @Override
     public void formatMessageDirCts(String _txt) {
-        getLanguage();
-    }
-
-    @Override
-    public void breakNext() {
         getLanguage();
     }
 

@@ -22,7 +22,7 @@ public final class MessagesDataEffmultusedmovepower {
         f_.add(M_P_52_EFFECT,"Cet effet multiplie la puissance des attaques du lanceur en fonction du type.");
         f_.add(M_P_52_MULT_POWER,"Voici le tableau des coefficients des puissances des attaques du lanceur en fonction du type:");
         f_.add(M_P_52_MULT_POWER_RATE,"Coefficient");
-        f_.add(M_P_52_MULT_POWER_TYPE,"Type d''attaque");
+        f_.add(M_P_52_MULT_POWER_TYPE,"Type d'attaque");
         return f_;
     }
 }

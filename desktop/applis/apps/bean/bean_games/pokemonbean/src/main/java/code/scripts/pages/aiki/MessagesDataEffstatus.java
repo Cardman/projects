@@ -33,9 +33,9 @@ public final class MessagesDataEffstatus {
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_59_DELETED_STATUS,"Les statuts de la cible supprimés sont les suivants:");
         f_.add(M_P_59_EFFECT,"Cet effet ajoute/supprime au moins un statut.");
-        f_.add(M_P_59_FAIL,"Conditions suffisantes d''échec");
+        f_.add(M_P_59_FAIL,"Conditions suffisantes d'échec");
         f_.add(M_P_59_FORMULA,"{0}");
-        f_.add(M_P_59_FORWARD,"Les statuts du lanceur sont transférés vers la cible qu''elle n''a pas.");
+        f_.add(M_P_59_FORWARD,"Les statuts du lanceur sont transférés vers la cible qu'elle n'a pas.");
         f_.add(M_P_59_KO_USER,"Le lanceur tombe KO. Le remplaçant du lanceur est totalement soigné (pp, pv, statuts).");
         f_.add(M_P_59_LAW_STATUS,"Voici la loi de tirage des statuts à ajouter à la cible:");
         f_.add(M_P_59_OTHER_STATUS,"Aucun statut supplémentaire");

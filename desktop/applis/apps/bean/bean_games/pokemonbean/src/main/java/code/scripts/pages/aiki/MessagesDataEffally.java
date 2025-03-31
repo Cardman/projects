@@ -15,7 +15,7 @@ public final class MessagesDataEffally {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_38_EFFECT,"L''effet permet au partenaire d''obtenir des bonus.");
+        f_.add(M_P_38_EFFECT,"L'effet permet au partenaire d'obtenir des bonus.");
         f_.add(M_P_38_MUL_ALLY_DAMAGE,"L''attaque permet au partenaire de multiplier les dégâts qu''il inflige par {0}.");
         return f_;
     }

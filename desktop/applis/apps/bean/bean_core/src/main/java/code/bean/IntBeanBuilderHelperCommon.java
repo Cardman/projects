@@ -1,5 +1,6 @@
 package code.bean;
 
+import code.formathtml.render.*;
 import code.sml.util.Translations;
 import code.sml.util.TranslationsFile;
 import code.util.Ints;
@@ -27,7 +28,7 @@ public abstract class IntBeanBuilderHelperCommon {
     private void incr() {
         content.getColCount().add(0);
         content.getColIndex().add(0);
-        breakNext();
+        nextPart();
     }
     public void feedParentsCts(){
         decr();
@@ -39,11 +40,10 @@ public abstract class IntBeanBuilderHelperCommon {
     public void decr() {
         content.getColCount().removeQuicklyLast();
         content.getColIndex().removeQuicklyLast();
-        breakNext();
+        nextPart();
     }
-
-    public abstract void breakNext();
     public void nextPart() {
+        content.getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
         content.setPartGroup(content.getPartGroup()+1);
         content.setRowGroup(0);
     }
@@ -131,6 +131,9 @@ public abstract class IntBeanBuilderHelperCommon {
         return getContent().getTranslations();
     }
     public String formatMessageRend(String _with,String _file, String _key, String... _values) {
+        if (_values.length == 0) {
+            return StringUtil.nullToEmpty(file(_with, _file).getMapping().getVal(_key));
+        }
         return StringUtil.simpleStringsFormat(file(_with, _file).getMapping().getVal(_key), _values);
     }
 
@@ -147,7 +150,6 @@ public abstract class IntBeanBuilderHelperCommon {
 
     public abstract String getLanguage();
     public abstract void formatMessageDir(String _txt);
-    public abstract void formatMessageDirCtsHeader(String _txt);
     public abstract void formatMessageDirCts(String _txt);
     public abstract void paintMetaLabelDisk();
     public abstract void paintNb(int _nb);

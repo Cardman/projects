@@ -14,17 +14,6 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
     protected IntBeanBuilderHelper() {
     }
 
-    @Override
-    public void breakNext() {
-        nextPart();
-    }
-
-    @Override
-    public void nextPart() {
-        breakLine();
-        super.nextPart();
-    }
-
     public void clearAnchors() {
         anchors.clear();
     }
@@ -41,8 +30,8 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
 
     public abstract void formatMessageDir(String _txt, IntBeanAction _e);
     public abstract void formatMessageDirCts(String _txt, IntBeanAction _e);
-    public abstract void breakLine();
     public abstract void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e);
+    public abstract void formatMessageDirCtsHeader(String _txt);
 
     public void build(IntBeanAction _action) {
         build(_action.actionBean());

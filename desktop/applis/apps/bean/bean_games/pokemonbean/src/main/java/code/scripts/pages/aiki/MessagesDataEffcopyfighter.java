@@ -15,7 +15,7 @@ public final class MessagesDataEffcopyfighter {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_42_EFFECT,"Le lanceur copie l''espèce de la cible: nom, taille, masse, capacité, niveau, types, statistiques de base sans les pv, attaques.");
+        f_.add(M_P_42_EFFECT,"Le lanceur copie l'espèce de la cible: nom, taille, masse, capacité, niveau, types, statistiques de base sans les pv, attaques.");
         f_.add(M_P_42_PP_MOVES,"Le nombre de pp par attaque copiée est de {0}.Les attaques soit disant définitivement apprises par une attaque de copie ne sont alors que temporairement apprises.");
         return f_;
     }

@@ -34,8 +34,8 @@ public final class MessagesDataEffclone {
         f_.add(M_P_40_EFFECT_3,"Le clone subit les dégâts au lieu de son possesseur sauf pour les dégâts de fin de tour autres que par les attaques suivantes:.");
         f_.add(M_P_40_EFFECT_4,"Les attaques utilisées par le possesseur, dans le cas éventuel où le clone est transmis vers le pokémon entrant subissant des dégâts, sont les suivantes:");
         f_.add(M_P_40_EFFECT_5,"Les attaques que le pokémon entrant subit, dans le cas éventuel du transfert de clone par des attaques utilisées par le possesseur, sont les suivantes:");
-        f_.add(M_P_40_EFFECT_6,"Les dégâts d''un pokémon cloné confus vont vers le pokémon cloné.");
-        f_.add(M_P_40_EFFECT_7,"Les dégâts de recul d''une attaque d''un pokémon cloné vont vers le pokémon cloné.");
+        f_.add(M_P_40_EFFECT_6,"Les dégâts d'un pokémon cloné confus vont vers le pokémon cloné.");
+        f_.add(M_P_40_EFFECT_7,"Les dégâts de recul d'une attaque d'un pokémon cloné vont vers le pokémon cloné.");
         f_.add(M_P_40_EFFECT_8,"Les attaques se basant sur des pv restants se basent sur les pv restants du pokémon cloné.");
         f_.add(M_P_40_EFFECT_9,"Si le possesseur du clone tombe KO, alors le clone est détruit.");
         return f_;

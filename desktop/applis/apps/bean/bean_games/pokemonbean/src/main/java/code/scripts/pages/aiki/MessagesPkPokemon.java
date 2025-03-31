@@ -69,7 +69,7 @@ public final class MessagesPkPokemon {
         f_.add(M_P_94_HAPPINESS,"Le niveau de bonheur est de {0}.");
         f_.add(M_P_94_HP,"Le pokemon a {0} points de vie soit environ {1} % de sa vie totale ({2}).");
         f_.add(M_P_94_ITEM,"L''objet du pokemon est {0}.");
-        f_.add(M_P_94_ITEM_NO,"Le pokemon n''a pas d''objet.");
+        f_.add(M_P_94_ITEM_NO,"Le pokemon n'a pas d'objet.");
         f_.add(M_P_94_LEVEL,"Le niveau du pokemon est {0}.");
         f_.add(M_P_94_MOVES,"Les attaques du pokemon sont les suivantes:");
         f_.add(M_P_94_MOVES_CUR_PP,"Pp courant");

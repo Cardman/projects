@@ -191,7 +191,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_ADD,"Ajouter");
         f_.add(M_P_86_ADD_PK_PLAYER,"Ajouter");
         f_.add(M_P_86_ALLOW_CATCHING_KO,"Autoriser la capture de pokemon ko");
-        f_.add(M_P_86_ALLOW_SWITCH_PLACES,"Autoriser l''échange de places sur le terrain en fin de tour");
+        f_.add(M_P_86_ALLOW_SWITCH_PLACES,"Autoriser l'échange de places sur le terrain en fin de tour");
         f_.add(M_P_86_ALLY_CHOICE,"Pokemon allié choisi");
         f_.add(M_P_86_ALLY_PK,"Pokemon allié");
         f_.add(M_P_86_AVAILABLE_MOVES,"Uniquement les attaques disponibles pour le pokemon du joueur");
@@ -200,14 +200,14 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_BAD_CHOICE_FRONT_FIGHTER_MOVES_TARGETS,"Mauvais choix sur les cibles");
         f_.add(M_P_86_CANCEL,"Annuler");
         f_.add(M_P_86_CANCEL_EVO,"Annuler la dernière évolution");
-        f_.add(M_P_86_CANCEL_ITEM,"Annuler le port d''objet");
-        f_.add(M_P_86_CANCEL_MOVES,"Annuler le choix d''ensemble d''attaques");
+        f_.add(M_P_86_CANCEL_ITEM,"Annuler le port d'objet");
+        f_.add(M_P_86_CANCEL_MOVES,"Annuler le choix d'ensemble d'attaques");
         f_.add(M_P_86_CATCHING_BALL,"Balle de capture");
-        f_.add(M_P_86_CLOSING,"Les attaques à cible unique peuvent toucher n''importe quel adversaire");
+        f_.add(M_P_86_CLOSING,"Les attaques à cible unique peuvent toucher n'importe quel adversaire");
         f_.add(M_P_86_DISABLE_EVOS,"Conserver les attaques durant la simulation >>");
         f_.add(M_P_86_DISPLAY_COMMENTS,"Afficher les commentaires");
         f_.add(M_P_86_EDIT,"Éditer");
-        f_.add(M_P_86_EMPTY_FOE_TEAM,"Pas de combattant dans l''équipe adverse");
+        f_.add(M_P_86_EMPTY_FOE_TEAM,"Pas de combattant dans l'équipe adverse");
         f_.add(M_P_86_END_FIGHT,"Fin de combat si une équipe est ko.");
         f_.add(M_P_86_ENV_FIGHT,"Environnement de combat");
         f_.add(M_P_86_EV,"Ev en statististiques");
@@ -221,7 +221,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_HEAL_HP,"Soigner les points de vie");
         f_.add(M_P_86_HIDE_COMMENTS,"Cacher les commentaires");
         f_.add(M_P_86_HP_RATE,"Taux de vie restant");
-        f_.add(M_P_86_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_86_INDEX,"Revenir à l'indexe");
         f_.add(M_P_86_ITEM_PK,"Objet");
         f_.add(M_P_86_IV_FOE,"Iv des pokemon de vos adversaires");
         f_.add(M_P_86_IV_PLAYER,"Iv de vos pokemon");
@@ -238,15 +238,15 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_SELECT_TEAM,"Sélectionner une équipe");
         f_.add(M_P_86_NOT_KO_FOE_FIGHTERS,"Pokemon de front non ko du dresseur ennemi");
         f_.add(M_P_86_NOT_SELECTED_FOE,"Pas de dresseur ennemi sélectionné");
-        f_.add(M_P_86_NOT_SELECTED_PLAYER_PK,"Pas de combattant dans l''équipe du joueur");
+        f_.add(M_P_86_NOT_SELECTED_PLAYER_PK,"Pas de combattant dans l'équipe du joueur");
         f_.add(M_P_86_NO_FIGHT,"Numéro de combat");
         f_.add(M_P_86_PREVIOUS_BUTTON,"<<");
         f_.add(M_P_86_RANDOM_WILD,"Apparition des pokemon aléatoire");
         f_.add(M_P_86_RATE_DAMAGE,"Probabilité");
         f_.add(M_P_86_RATE_DAMAGE_EV,"Coefficient");
         f_.add(M_P_86_RATE_ISSUE,"{0} n''est pas un taux valide.");
-        f_.add(M_P_86_RATE_WIN_MONEY_BASE,"Rapport d''argent gagné entre le gain lors d''une victoire et la base de gain");
-        f_.add(M_P_86_RATE_WIN_MONEY_LOOSE,"Rapport d''argent perdu entre la perte lords d''une défaite et le gain lors d''une victoire");
+        f_.add(M_P_86_RATE_WIN_MONEY_BASE,"Rapport d'argent gagné entre le gain lors d'une victoire et la base de gain");
+        f_.add(M_P_86_RATE_WIN_MONEY_LOOSE,"Rapport d'argent perdu entre la perte lords d'une défaite et le gain lors d'une victoire");
         f_.add(M_P_86_REMAINING_HP,"Points de vie restants");
         f_.add(M_P_86_REMOVE,"Supprimer");
         f_.add(M_P_86_RESTORED_MOVES,"Attaques de vos pokemon restaurées à la fin du combat");
@@ -261,7 +261,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_SELECT_PK_EVOS,"Sélectionnez les évolutions de vos pokemon");
         f_.add(M_P_86_SELECT_PK_EVOS_AFTER_FIGHT,"Sélectionnez les évolutions de vos pokemon aprè le combat");
         f_.add(M_P_86_SELECT_PK_MOVES,"Sélectionnez les attaques de vos pokemon pour chaque tour");
-        f_.add(M_P_86_SELECT_PK_MOVE_TARGET,"Sélectionnez l''attaque et la cible de vos pokemon pour chaque tour");
+        f_.add(M_P_86_SELECT_PK_MOVE_TARGET,"Sélectionnez l'attaque et la cible de vos pokemon pour chaque tour");
         f_.add(M_P_86_SELECT_SENT_PK,"Sélectionnez vos pokemon envoyés pour chaque tour");
         f_.add(M_P_86_SHORT_ISSUE,"{0} n''est pas un entier valide.");
         f_.add(M_P_86_SKIP_LEARN,"Ne pas apprendre les attaques déjà connues");
@@ -270,11 +270,11 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_UNSELECTED_ACTION,"Aucune action sélectionnée");
         f_.add(M_P_86_UNSELECTED_MOVE,"Aucune attaque sélectionnée");
         f_.add(M_P_86_UNSELECTED_PK,"Aucun pokemon sélectionné");
-        f_.add(M_P_86_VALIDATE_MOVES,"Valider l''apprentissage des attaques");
-        f_.add(M_P_86_VALIDATE_MOVE_TARGET,"Valider le choix de l''attaque et le choix de la cible");
-        f_.add(M_P_86_WINNING_EXP_PTS_FIGHT,"Coefficient de gain de points d''expérience");
+        f_.add(M_P_86_VALIDATE_MOVES,"Valider l'apprentissage des attaques");
+        f_.add(M_P_86_VALIDATE_MOVE_TARGET,"Valider le choix de l'attaque et le choix de la cible");
+        f_.add(M_P_86_WINNING_EXP_PTS_FIGHT,"Coefficient de gain de points d'expérience");
         f_.add(M_P_86_WIN_PTS,"Difficulté de gain des points");
-        f_.add(M_P_86_WIN_TRAINER_EXP,"Coefficient de gain de points d''expérience lors d''un combat contre un dresseur");
+        f_.add(M_P_86_WIN_TRAINER_EXP,"Coefficient de gain de points d'expérience lors d'un combat contre un dresseur");
         return f_;
     }
 }

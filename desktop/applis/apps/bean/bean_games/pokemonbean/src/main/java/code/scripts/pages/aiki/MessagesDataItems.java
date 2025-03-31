@@ -34,15 +34,15 @@ public final class MessagesDataItems {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_29_CONTENT,"Contenu de description:");
-        f_.add(M_P_29_CONTENT_NAME,"Nom de l''objet:");
+        f_.add(M_P_29_CONTENT_NAME,"Nom de l'objet:");
         f_.add(M_P_29_DESCRIPTION,"Description");
         f_.add(M_P_29_IMAGE,"Image");
-        f_.add(M_P_29_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_29_INDEX,"Revenir à l'indexe");
         f_.add(M_P_29_ITEMS,"Objets");
         f_.add(M_P_29_NAME,"Nom");
         f_.add(M_P_29_PRICE,"Prix");
         f_.add(M_P_29_PRICE_DOT,"Prix:");
-        f_.add(M_P_29_TITLE,"Rercherche d''objets");
+        f_.add(M_P_29_TITLE,"Rercherche d'objets");
         f_.add(M_P_29_OK,"OK");
         return f_;
     }

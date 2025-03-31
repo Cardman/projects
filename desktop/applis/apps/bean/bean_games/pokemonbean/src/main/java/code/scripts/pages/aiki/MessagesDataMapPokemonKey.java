@@ -38,14 +38,14 @@ public final class MessagesDataMapPokemonKey {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_34_ABILITY,"Capacité:");
-        f_.add(M_P_34_ALLY_TEAM,"Les pokemon de l''allié du joueur:");
+        f_.add(M_P_34_ALLY_TEAM,"Les pokemon de l'allié du joueur:");
         f_.add(M_P_34_FOE_TEAM,"Les pokemon du dresseur ennemi:");
         f_.add(M_P_34_GENDER,"Genre:");
-        f_.add(M_P_34_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_34_INDEX,"Revenir à l'indexe");
         f_.add(M_P_34_ITEM,"Objet:");
         f_.add(M_P_34_ITEM_NO,"Aucun objet");
         f_.add(M_P_34_LEVEL,"Niveau:");
-        f_.add(M_P_34_MAP,"Revenir à l''ensemble des lieux");
+        f_.add(M_P_34_MAP,"Revenir à l'ensemble des lieux");
         f_.add(M_P_34_MOVES,"Attaques");
         f_.add(M_P_34_MULTIPLICITY,"Multiplicité:");
         f_.add(M_P_34_NAME,"Nom:");

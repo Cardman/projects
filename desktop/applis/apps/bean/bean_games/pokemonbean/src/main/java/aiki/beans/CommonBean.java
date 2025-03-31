@@ -998,7 +998,7 @@ public abstract class CommonBean {
 
     public void formatMessageAnc(IntBeanAction _e,String _file, String _key, String... _values) {
         builder.formatMessageAnc(getAppName(),_e,_file,_key,_values);
-        getBuilder().breakNext();
+        getBuilder().nextPart();
     }
 
     public void buildPkList(CustList<ImgPkPlayer> _list, String _file, String _key) {
@@ -1045,7 +1045,7 @@ public abstract class CommonBean {
             builder.indent();
             builder.formatMessage(getAppName(),_file,_key,_values);
             builder.feedParents();
-            builder.breakNext();
+            builder.nextPart();
         }
     }
     public void headerCols(Countable _ls, String _file, String... _cols) {
@@ -1170,7 +1170,7 @@ public abstract class CommonBean {
     public void formatMessageCts(String _file, String _key, String... _values) {
         String txt_ = builder.formatMessageRend(getAppName(), _file, _key, _values);
         builder.formatMessageDirCts(txt_);
-        builder.breakNext();
+        builder.nextPart();
     }
 
     public void formatMessageIndent(String _file, String _key, String... _values) {

@@ -35,15 +35,15 @@ public final class MessagesDataEffteamwhilesendingfoe {
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_67_BOOST,"Variation du boost");
         f_.add(M_P_67_DAMAGE_RATE_AGAINST_FOE,"La formule du taux de dégâts infligés à l''adversaire vaut:{0}");
-        f_.add(M_P_67_DELETE_STATUS_IF_TYPES,"L''effet est supprimé si l''adversaire entrant possède un des types suivants:");
-        f_.add(M_P_67_EFFECT,"Cet effet a lieu lors de l''entrée d''un adversaire sur le terrain.");
+        f_.add(M_P_67_DELETE_STATUS_IF_TYPES,"L'effet est supprimé si l'adversaire entrant possède un des types suivants:");
+        f_.add(M_P_67_EFFECT,"Cet effet a lieu lors de l'entrée d'un adversaire sur le terrain.");
         f_.add(M_P_67_FORMULA,"{0}");
-        f_.add(M_P_67_NB_USES,"Nombre d''utilisations par l''équipe");
-        f_.add(M_P_67_REASONS_SENDING,"Lorsqu''un adversaire entre sur le terrain, l''effet échoue si et seulement si une des conditions est vérifiée:");
+        f_.add(M_P_67_NB_USES,"Nombre d'utilisations par l'équipe");
+        f_.add(M_P_67_REASONS_SENDING,"Lorsqu'un adversaire entre sur le terrain, l'effet échoue si et seulement si une des conditions est vérifiée:");
         f_.add(M_P_67_STATISTIC,"Statistique");
         f_.add(M_P_67_STATISTICS,"Voici les variations des boosts des statistiques du combattant adverse entrant:");
         f_.add(M_P_67_STATUS,"Statut");
-        f_.add(M_P_67_STATUS_IF_NB,"Voici le tableau des statuts que l''adversaire entrant peut prendre en fonction du nombre d''utilisations de l''attaque par l''équipe:");
+        f_.add(M_P_67_STATUS_IF_NB,"Voici le tableau des statuts que l'adversaire entrant peut prendre en fonction du nombre d'utilisations de l'attaque par l'équipe:");
         return f_;
     }
 }

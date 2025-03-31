@@ -46,10 +46,10 @@ public final class MessagesPresidentPage {
         e_.add(M_NB_PLAYERS,"Number of players");
         e_.add(M_NB_STACKS,"Number of stacks");
         e_.add(M_NO,"no");
-        e_.add(M_NOSLAM,"The attack''s team has not won all tricks.");
+        e_.add(M_NOSLAM,"The attack's team has not won all tricks.");
         e_.add(M_RANKS,"Ranks");
         e_.add(M_RESULTS,"Results");
-        e_.add(M_SLAM,"The attack''s team has achieved the grand slam.");
+        e_.add(M_SLAM,"The attack's team has achieved the grand slam.");
         e_.add(M_SUCCESSFUL,"The bid {0} is passed of {1} points.");
         e_.add(M_SWITCH,"For next deals, players can switch their cards at the beginning");
         e_.add(M_WIN,"You win.");
@@ -73,10 +73,10 @@ public final class MessagesPresidentPage {
         f_.add(M_NB_PLAYERS,"Nombre de joueurs");
         f_.add(M_NB_STACKS,"Nombre de tas");
         f_.add(M_NO,"non");
-        f_.add(M_NOSLAM,"L''attaque n''a pas réussi de capot.");
+        f_.add(M_NOSLAM,"L'attaque n'a pas réussi de capot.");
         f_.add(M_RANKS,"Rangs");
         f_.add(M_RESULTS,"Résultats");
-        f_.add(M_SLAM,"L''attaque a réussi un capot.");
+        f_.add(M_SLAM,"L'attaque a réussi un capot.");
         f_.add(M_SUCCESSFUL,"L''enchère {0} est réussie de {1} points.");
         f_.add(M_SWITCH,"Pour les donnes suivantes, les joueurs peuvent échanger leurs cartes au début");
         f_.add(M_WIN,"Vous gagnez.");

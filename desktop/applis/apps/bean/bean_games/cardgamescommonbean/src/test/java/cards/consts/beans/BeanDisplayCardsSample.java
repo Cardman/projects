@@ -32,17 +32,7 @@ public final class BeanDisplayCardsSample extends IntBeanBuilderHelperCommon {
     }
 
     @Override
-    public void formatMessageDirCtsHeader(String _txt) {
-        getLanguage();
-    }
-
-    @Override
     public void formatMessageDirCts(String _txt) {
-        getLanguage();
-    }
-
-    @Override
-    public void breakNext() {
         getLanguage();
     }
 

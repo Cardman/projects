@@ -16,7 +16,7 @@ public final class MessagesDataItemsHealingstatus {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_26_HEAL_KO,"Cet objet permet de réanimer un pokémon KO.");
-        f_.add(M_P_26_STATUS,"Cet objet permet d''enlever les statuts suivants d''un pokémon:");
+        f_.add(M_P_26_STATUS,"Cet objet permet d'enlever les statuts suivants d'un pokémon:");
         return f_;
     }
 }

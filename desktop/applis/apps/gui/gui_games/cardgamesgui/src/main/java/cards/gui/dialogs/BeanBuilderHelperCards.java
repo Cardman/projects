@@ -136,10 +136,6 @@ public final class BeanBuilderHelperCards extends IntBeanBuilderHelperCommon {
     }
 
     @Override
-    public void breakNext() {
-        nextPart();
-    }
-    @Override
     public void paintIndent() {
         AbstractImage img_ = content.getApi().getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);
@@ -189,14 +185,6 @@ public final class BeanBuilderHelperCards extends IntBeanBuilderHelperCommon {
         return cts_;
     }
 
-    @Override
-    public void nextPart() {
-        breakLine();
-        super.nextPart();
-    }
-    public void breakLine() {
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-    }
     public IdList<MetaSearchableContent> getMetaSearchableContents() {
         return content.getMetaSearchableContents();
     }

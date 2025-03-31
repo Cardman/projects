@@ -17,9 +17,9 @@ public final class MessagesDataEffendround {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_47_ENDROUND,"Voir l''effet de fin de tour");
+        f_.add(M_P_47_ENDROUND,"Voir l'effet de fin de tour");
         f_.add(M_P_47_RANK,"Le rang de l''effet est de {0}.");
-        f_.add(M_P_47_REASONS,"L''effet n''est pas actif en fin de tour si et seulement une des conditions est vérifiée:");
+        f_.add(M_P_47_REASONS,"L'effet n'est pas actif en fin de tour si et seulement une des conditions est vérifiée:");
         return f_;
     }
 }

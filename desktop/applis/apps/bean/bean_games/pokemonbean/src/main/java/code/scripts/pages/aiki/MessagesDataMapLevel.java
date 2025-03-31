@@ -65,16 +65,16 @@ public final class MessagesDataMapLevel {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_32_CHOOSE_AREA,"Choisir la zone d''apparition");
+        f_.add(M_P_32_CHOOSE_AREA,"Choisir la zone d'apparition");
         f_.add(M_P_32_CLICK_LINK,"Voir le lieu à côté.");
-        f_.add(M_P_32_CLICK_TILE,"Voir l''élément présent à cet endroit.");
+        f_.add(M_P_32_CLICK_TILE,"Voir l'élément présent à cet endroit.");
         f_.add(M_P_32_GOLEVEL,"Revenir au niveau");
-        f_.add(M_P_32_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_32_INDEX,"Revenir à l'indexe");
         f_.add(M_P_32_LEVEL,"Revenir au niveau");
-        f_.add(M_P_32_MAP,"Revenir à l''ensemble des lieux");
+        f_.add(M_P_32_MAP,"Revenir à l'ensemble des lieux");
         f_.add(M_P_32_SEE_AREA,"Voir les pokemon sauvages.");
         f_.add(M_P_32_TITLE_ACCESS,"Pour accéder à cette case, il faut battre certains champions");
-        f_.add(M_P_32_TITLE_AREA,"Données de la zone d''apparition");
+        f_.add(M_P_32_TITLE_AREA,"Données de la zone d'apparition");
         f_.add(M_P_32_TITLE_DEALER,"Données sur le donneur");
         f_.add(M_P_32_TITLE_DUAL,"Données sur le combat duo courant");
         f_.add(M_P_32_TITLE_FIGHT,"Données sur le combat courant contre {0}");
@@ -85,7 +85,7 @@ public final class MessagesDataMapLevel {
         f_.add(M_P_32_TITLE_HOST,"Personne qui gère la pension");
         f_.add(M_P_32_TITLE_LEG,"Données sur le pokemon légendaire {0}");
         f_.add(M_P_32_TITLE_LEVEL_PLACE,"Données du lieu {0} - niveau {1}");
-        f_.add(M_P_32_TITLE_MAP,"Sommaire de l''ensemble des lieux et niveaux");
+        f_.add(M_P_32_TITLE_MAP,"Sommaire de l'ensemble des lieux et niveaux");
         f_.add(M_P_32_TITLE_MT,"Personne qui enseigne des attaques à des pokemon");
         f_.add(M_P_32_TITLE_OUT_CITY,"Données du niveau extérieur de la ville {0}");
         f_.add(M_P_32_TITLE_OUT_ROAD,"Données de la route {0}");

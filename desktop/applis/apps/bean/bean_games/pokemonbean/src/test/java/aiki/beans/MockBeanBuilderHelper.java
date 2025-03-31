@@ -27,12 +27,6 @@ public final class MockBeanBuilderHelper extends IntBeanBuilderHelper {
     }
 
     @Override
-    public void breakLine() {
-        setPartGroup(getPartGroup());
-        setRowGroup(getRowGroup());
-    }
-
-    @Override
     public void paintIndent() {
         setPartGroup(getPartGroup());
         setRowGroup(getRowGroup());

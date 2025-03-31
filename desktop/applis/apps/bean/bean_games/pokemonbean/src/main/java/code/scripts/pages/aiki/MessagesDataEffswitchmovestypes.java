@@ -23,12 +23,12 @@ public final class MessagesDataEffswitchmovestypes {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_62_CHANGING_TYPE,"Les types de l''attaque sont convertis de la manière suivante:");
-        f_.add(M_P_62_CHANGING_TYPE_POSSIBLE,"Les types de l''attaque sont convertis de la manière suivante aprè éventuel remplacement de types:");
-        f_.add(M_P_62_EFFECT,"L''effet change les types d''une attaque d''une cible n''ayant pas encore joué.");
+        f_.add(M_P_62_CHANGING_TYPE,"Les types de l'attaque sont convertis de la manière suivante:");
+        f_.add(M_P_62_CHANGING_TYPE_POSSIBLE,"Les types de l'attaque sont convertis de la manière suivante aprè éventuel remplacement de types:");
+        f_.add(M_P_62_EFFECT,"L'effet change les types d'une attaque d'une cible n'ayant pas encore joué.");
         f_.add(M_P_62_NEW_TYPE,"Nouveau type");
         f_.add(M_P_62_OLD_TYPE,"Ancien type");
-        f_.add(M_P_62_REPLACING_TYPES,"Les types de l''attaque sont remplacés par les types suivants:");
+        f_.add(M_P_62_REPLACING_TYPES,"Les types de l'attaque sont remplacés par les types suivants:");
         return f_;
     }
 }

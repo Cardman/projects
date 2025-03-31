@@ -37,13 +37,13 @@ public final class MessagesDataEffstatis {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_58_ALWAYS_ENABLED,"L''effet a toujours lieu.");
+        f_.add(M_P_58_ALWAYS_ENABLED,"L'effet a toujours lieu.");
         f_.add(M_P_58_BOOST,"Variation du boost de la statistique");
         f_.add(M_P_58_CANCEL_CHGT_STAT,"Les statistiques du combattant suivantes sont remises à {0}:");
         f_.add(M_P_58_CANCEL_LOW_STAT,"Les statistiques baissées du combattant suivantes sont remises à {0}:");
         f_.add(M_P_58_COPY_BOOST,"Le lanceur copie les boosts des statistiques de la cible suivantes:");
         f_.add(M_P_58_EFFECT,"Cet effet change des boosts ou des valeurs de statistiques pour au moins un combattant.");
-        f_.add(M_P_58_FAIL,"Conditions suffisantes d''échec");
+        f_.add(M_P_58_FAIL,"Conditions suffisantes d'échec");
         f_.add(M_P_58_FORMULA,"{0}");
         f_.add(M_P_58_RATE_ENABLED,"L''effet a lieu avec une probabilité de {0} soit environ de {1} %.");
         f_.add(M_P_58_RATE_EVENT,"Probabilité");

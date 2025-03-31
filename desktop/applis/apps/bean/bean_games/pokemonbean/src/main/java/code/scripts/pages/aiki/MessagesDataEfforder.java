@@ -17,9 +17,9 @@ public final class MessagesDataEfforder {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_53_AFTER_USER,"Si la cible n''est pas KO, la cible attaque après le lanceur.");
-        f_.add(M_P_53_EFFECT,"Cet effet change l''ordre d''attaque des combattants.");
-        f_.add(M_P_53_LAST,"Si le lanceur ne tombe pas KO après son attaque, la cible attaque en dernier.S''il existe plusieurs pokémons cibles de cette attaque, il attaqueront dans le même ordre que les autres.Si le lanceur de cette attaque tombe KO avant l''attaque de la cible et si la cible n''est pas KO, alors l''effet est arrêté.");
+        f_.add(M_P_53_AFTER_USER,"Si la cible n'est pas KO, la cible attaque après le lanceur.");
+        f_.add(M_P_53_EFFECT,"Cet effet change l'ordre d'attaque des combattants.");
+        f_.add(M_P_53_LAST,"Si le lanceur ne tombe pas KO après son attaque, la cible attaque en dernier.S'il existe plusieurs pokémons cibles de cette attaque, il attaqueront dans le même ordre que les autres.Si le lanceur de cette attaque tombe KO avant l'attaque de la cible et si la cible n'est pas KO, alors l'effet est arrêté.");
         return f_;
     }
 }

@@ -43,18 +43,18 @@ public final class MessagesDataEffinvoke {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_50_EFFECT,"L''effet de l''attaque invoque une autre attaque non invoquée dans le tour du lanceur.Tant que l''attaque possède un effet qui invoque une attaque pas encore invoquée, les attaques sont successivement invoquées.");
-        f_.add(M_P_50_ENV_TYPE,"Type d''environnement");
+        f_.add(M_P_50_EFFECT,"L'effet de l'attaque invoque une autre attaque non invoquée dans le tour du lanceur.Tant que l'attaque possède un effet qui invoque une attaque pas encore invoquée, les attaques sont successivement invoquées.");
+        f_.add(M_P_50_ENV_TYPE,"Type d'environnement");
         f_.add(M_P_50_INVOKED_MOVE,"Attaque invoquée");
-        f_.add(M_P_50_INVOKE_MOVE_BUT_USER,"Le lanceur invoque une attaque non invoquée qu''il ne connaît pas actuellement.");
-        f_.add(M_P_50_INVOKE_MOVE_PART,"Le lanceur invoque une attaque d''un de ses partenaire qu''il ne connaît pas actuellement.");
+        f_.add(M_P_50_INVOKE_MOVE_BUT_USER,"Le lanceur invoque une attaque non invoquée qu'il ne connaît pas actuellement.");
+        f_.add(M_P_50_INVOKE_MOVE_PART,"Le lanceur invoque une attaque d'un de ses partenaire qu'il ne connaît pas actuellement.");
         f_.add(M_P_50_INVOKE_MOVE_SUCCESS_TARGET,"Le lanceur invoque la dernière attaque réussie par la cible pendant le combat.");
         f_.add(M_P_50_INVOKE_MOVE_TYPE,"Voici le tableau des attaques invoquées en fonction des types possédés par le lanceur:");
-        f_.add(M_P_50_INVOKE_SUFFERED_MOVE,"Le lanceur invoque la dernière attaque qu''il a subie pendant le combat.");
-        f_.add(M_P_50_INVOKE_TARGET_CHOSEN_MOVE,"Le lanceur invoque l''attaque choisie par la cible.");
-        f_.add(M_P_50_INVOKE_USER_MOVE_WHILE_SLEEP,"Le lanceur endormi invoque une attaque non invoquée qu''il connaît actuellement.");
+        f_.add(M_P_50_INVOKE_SUFFERED_MOVE,"Le lanceur invoque la dernière attaque qu'il a subie pendant le combat.");
+        f_.add(M_P_50_INVOKE_TARGET_CHOSEN_MOVE,"Le lanceur invoque l'attaque choisie par la cible.");
+        f_.add(M_P_50_INVOKE_USER_MOVE_WHILE_SLEEP,"Le lanceur endormi invoque une attaque non invoquée qu'il connaît actuellement.");
         f_.add(M_P_50_MOVES_NOT_INVOKED,"Les attaques suivantes ne peuvent pas être invoquées:");
-        f_.add(M_P_50_MOVE_FCT_ENV,"Voici le tableau des attaques invoquées en fonction du type d''environnement de combat:");
+        f_.add(M_P_50_MOVE_FCT_ENV,"Voici le tableau des attaques invoquées en fonction du type d'environnement de combat:");
         f_.add(M_P_50_MOVE_FCT_ENV_EXC,"Les attaques ci-dessus ne sont pas invoquées si une des attaques suivantes est active:");
         f_.add(M_P_50_OTHER_OWNED_TYPE,"Autre type possédé");
         f_.add(M_P_50_OWNED_TYPE,"Type(s) possédé(s)");

@@ -22,7 +22,7 @@ public final class MessagesDataEfffullhprate {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP,"Chaque combattant adverse adjacent à la cible perd {0} de ses pv max.");
-        f_.add(M_P_48_EFFECT,"Cet effet fait varier les pv en fonction d''un quota de pv totaux du combattant.");
+        f_.add(M_P_48_EFFECT,"Cet effet fait varier les pv en fonction d'un quota de pv totaux du combattant.");
         f_.add(M_P_48_FORMULA,"{0}");
         f_.add(M_P_48_LEFT_USER_HP,"Le lanceur sacrifie {0} de ses pv max.");
         f_.add(M_P_48_RESTORED,"Voici le taux des pv max restaurés du lanceur:{0}");

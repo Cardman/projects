@@ -28,13 +28,13 @@ public final class MessagesDataEffrestriction {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_57_EFFECT_ITEM,"Cette effet désactive les objets de ses cibles.");
-        f_.add(M_P_57_EFFECT_ITEM_2,"L''objet du combattant n''a plus d''effet pendant un certain nombre de tour.");
-        f_.add(M_P_57_EFFECT_MOVE,"Cette effet interdit à ses cibles d''utiliser certaines attaques.");
-        f_.add(M_P_57_FORBID_LAST_MOVE,"Le combattant ne peut pas choisir consécutivement la même attaque. Mais, il garde la possibilité d''utiliser un tour sur deux.");
+        f_.add(M_P_57_EFFECT_ITEM_2,"L'objet du combattant n'a plus d'effet pendant un certain nombre de tour.");
+        f_.add(M_P_57_EFFECT_MOVE,"Cette effet interdit à ses cibles d'utiliser certaines attaques.");
+        f_.add(M_P_57_FORBID_LAST_MOVE,"Le combattant ne peut pas choisir consécutivement la même attaque. Mais, il garde la possibilité d'utiliser un tour sur deux.");
         f_.add(M_P_57_FORBID_STATUS_MOVE,"Le combattant ne peut plus utiliser les attaques non offensives.");
         f_.add(M_P_57_FORBID_USER_MOVES,"La cible ne peut pas utiliser les attaques que le lanceur possède.");
-        f_.add(M_P_57_FORBID_USE_LAST_MOVE,"Le combattant ne peut pas réutiliser l''attaque venant d''être choisie pendant un certain nombre de tour.");
-        f_.add(M_P_57_FORCE_USE_LAST_MOVE,"Le combattant doit réutiliser l''attaque venant d''être choisie pendant un certain nombre de tour.");
+        f_.add(M_P_57_FORBID_USE_LAST_MOVE,"Le combattant ne peut pas réutiliser l'attaque venant d'être choisie pendant un certain nombre de tour.");
+        f_.add(M_P_57_FORCE_USE_LAST_MOVE,"Le combattant doit réutiliser l'attaque venant d'être choisie pendant un certain nombre de tour.");
         return f_;
     }
 }

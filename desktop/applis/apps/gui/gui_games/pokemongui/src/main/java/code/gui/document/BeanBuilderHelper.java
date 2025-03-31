@@ -165,9 +165,6 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         tp_.setEditable(false);
         return tp_;
     }
-    public void breakLine() {
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
-    }
 
     @Override
     public void paintIndent() {

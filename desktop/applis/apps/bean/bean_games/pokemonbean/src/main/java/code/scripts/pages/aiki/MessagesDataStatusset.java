@@ -22,7 +22,7 @@ public final class MessagesDataStatusset {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_89_CONTENT,"Contenu du nom de statut:");
-        f_.add(M_P_89_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_89_INDEX,"Revenir à l'indexe");
         f_.add(M_P_89_STATUS,"Statuts");
         f_.add(M_P_89_TITLE,"Recherche de statuts");
         f_.add(M_P_89_OK,"OK");

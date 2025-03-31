@@ -39,12 +39,12 @@ public final class MessagesDataEffswitchtypes {
         f_.add(M_P_65_AFFECT_TYPES,"La cible prend les types suivants:");
         f_.add(M_P_65_AFFECT_TYPES_NOT_CONST_TARGET,"La cible prend les types du lanceur.");
         f_.add(M_P_65_AFFECT_TYPES_NOT_CONST_USER,"Le lanceur prend les types de la cible.");
-        f_.add(M_P_65_EFFECT,"Cet effet change les types d''au moins un combattant.");
-        f_.add(M_P_65_ENVIR,"Le lanceur prend le type en fonction de l''environnement de combat:");
+        f_.add(M_P_65_EFFECT,"Cet effet change les types d'au moins un combattant.");
+        f_.add(M_P_65_ENVIR,"Le lanceur prend le type en fonction de l'environnement de combat:");
         f_.add(M_P_65_ENVIR_ENV,"Environnement de combat");
         f_.add(M_P_65_ENVIR_ENV_EXC,"Les types ci-dessus ne sont pas pris si une des attaques suivantes est active:");
         f_.add(M_P_65_ENVIR_TYPE,"Type à attribuer");
-        f_.add(M_P_65_RES_MOVES,"Le lanceur prend un type aléatoire résistant au type de l''attaque offensive subie pendant le tour en changeant de type.");
+        f_.add(M_P_65_RES_MOVES,"Le lanceur prend un type aléatoire résistant au type de l'attaque offensive subie pendant le tour en changeant de type.");
         f_.add(M_P_65_SWITCH_TYPES,"Le lanceur et la cible cible échangent leurs types.");
         f_.add(M_P_65_USER_MOVES,"Le lanceur prend un type aléatoire de ses attaques en changeant de type.");
         return f_;

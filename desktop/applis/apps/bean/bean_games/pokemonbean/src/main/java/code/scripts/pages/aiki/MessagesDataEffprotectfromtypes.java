@@ -15,7 +15,7 @@ public final class MessagesDataEffprotectfromtypes {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_54_EFFECT,"Cette effet immunise un combattant à un type d''attaque.");
+        f_.add(M_P_54_EFFECT,"Cette effet immunise un combattant à un type d'attaque.");
         f_.add(M_P_54_IMMU_MOVE_TYPES,"La cible est immunisée aux attaques de types suivants:");
         return f_;
     }

@@ -66,10 +66,10 @@ public final class MessagesDataMovesMoves {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_71_ACCURACY,"Précision fixe");
-        f_.add(M_P_71_CAT,"Catégorie de l''attaque:");
+        f_.add(M_P_71_CAT,"Catégorie de l'attaque:");
         f_.add(M_P_71_CAT_H,"Categorie");
         f_.add(M_P_71_CONST_POWER,"Puissance constante");
-        f_.add(M_P_71_CONTENT_NAME,"Nom d''attaque");
+        f_.add(M_P_71_CONTENT_NAME,"Nom d'attaque");
         f_.add(M_P_71_CONTENT_TYPE,"Type");
         f_.add(M_P_71_CONTENT_TYPE_WHOLE,"Mot entier pour un des types");
         f_.add(M_P_71_DAMAGING,"Oui");
@@ -77,7 +77,7 @@ public final class MessagesDataMovesMoves {
         f_.add(M_P_71_DAMAGING_INDIRECT,"indirecte");
         f_.add(M_P_71_DAMAG_H,"Offensive");
         f_.add(M_P_71_DIREC_H,"Direct");
-        f_.add(M_P_71_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_71_INDEX,"Revenir à l'indexe");
         f_.add(M_P_71_MOVES,"Attaques");
         f_.add(M_P_71_NAME_H,"Nom");
         f_.add(M_P_71_POWER,"Puissance");
@@ -87,8 +87,8 @@ public final class MessagesDataMovesMoves {
         f_.add(M_P_71_PRIO_H,"Priorité");
         f_.add(M_P_71_STATUS,"Non");
         f_.add(M_P_71_STATUS_INDIRECT,"-");
-        f_.add(M_P_71_TITLE,"Recherche d''attaques");
-        f_.add(M_P_71_TYPES,"Type d''attaque");
+        f_.add(M_P_71_TITLE,"Recherche d'attaques");
+        f_.add(M_P_71_TYPES,"Type d'attaque");
         f_.add(M_P_71_TYPES_H,"Types");
         f_.add(M_P_71_LEARNT,"Apprise");
         f_.add(M_P_71_OK,"OK");

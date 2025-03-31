@@ -13,7 +13,7 @@ public final class MessagesDataItemsEvostone {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_20_ITEM,"L''objet permet de faire évoluer les pokemons suivants en le leur affectant hors combat:");
+        f_.add(M_P_20_ITEM,"L'objet permet de faire évoluer les pokemons suivants en le leur affectant hors combat:");
         return f_;
     }
 }

@@ -25,9 +25,9 @@ public final class MessagesDataEffprotection {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_55_EFFECT,"Cet effet protège une partie de l''équipe du lanceur.");
-        f_.add(M_P_55_PROT_MULTI_TARGETS,"L''équipe du lanceur est protégée des attaques multi cibles.");
-        f_.add(M_P_55_PROT_PRIO,"L''équipe du lanceur est protégée des attaques de priorité supérieure à 0.");
+        f_.add(M_P_55_EFFECT,"Cet effet protège une partie de l'équipe du lanceur.");
+        f_.add(M_P_55_PROT_MULTI_TARGETS,"L'équipe du lanceur est protégée des attaques multi cibles.");
+        f_.add(M_P_55_PROT_PRIO,"L'équipe du lanceur est protégée des attaques de priorité supérieure à 0.");
         f_.add(M_P_55_PROT_SINGLE,"Le lanceur est protégée des attaques où il est pris pour cible.");
         f_.add(M_P_55_PROT_SINGLE_DAMAGE,"Le lanceur est protégée des attaques offensives où il est pris pour cible.");
         f_.add(M_P_55_PROT_SINGLE_KO,"Le lanceur ne peut pas tomber KO par des attaques où il est pris pour cible.Il garde au moins {0} pv.");

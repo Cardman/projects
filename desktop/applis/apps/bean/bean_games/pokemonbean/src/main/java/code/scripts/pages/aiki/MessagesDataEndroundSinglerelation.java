@@ -25,13 +25,13 @@ public final class MessagesDataEndroundSinglerelation {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_10_EFFECT,"Cet effet concerne le lanceur et la cible. Si le lanceur ou la cible switchent alors l''effet est arrêté.");
+        f_.add(M_P_10_EFFECT,"Cet effet concerne le lanceur et la cible. Si le lanceur ou la cible switchent alors l'effet est arrêté.");
         f_.add(M_P_10_LAW,"Tableau des probabilités en fonction du nombre de tours:");
-        f_.add(M_P_10_LAW_RD,"Nombre de tours depuis le début de l''effet");
+        f_.add(M_P_10_LAW_RD,"Nombre de tours depuis le début de l'effet");
         f_.add(M_P_10_LAW_VALUE,"Probabilité");
         f_.add(M_P_10_SUFFERED,"Tableau du taux de pv perdus de la cible en fonction du nombre de tours:");
         f_.add(M_P_10_SUFFERED_RATE,"Taux de vie perdue par la cible");
-        f_.add(M_P_10_SUFFERED_RD,"Nombre de tours depuis le début de l''effet");
+        f_.add(M_P_10_SUFFERED_RD,"Nombre de tours depuis le début de l'effet");
         return f_;
     }
 }

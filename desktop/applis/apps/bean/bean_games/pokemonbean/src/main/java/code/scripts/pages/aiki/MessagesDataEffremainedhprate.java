@@ -17,7 +17,7 @@ public final class MessagesDataEffremainedhprate {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_56_EFFECT,"Cet effet fait varier les pv en fonction d''un quota de pv restants du combattant.");
+        f_.add(M_P_56_EFFECT,"Cet effet fait varier les pv en fonction d'un quota de pv restants du combattant.");
         f_.add(M_P_56_RATE_LOOSE,"La cible perd {0} de ses pv restants.");
         f_.add(M_P_56_RATE_WIN,"La cible gagne {0} de ses pv restants.");
         return f_;

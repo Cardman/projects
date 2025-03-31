@@ -58,8 +58,8 @@ public final class MessagesGameDifficulty {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_93_ALLOW_CATCHING_KO,"Autoriser la capture de pokemon ko");
-        f_.add(M_P_93_ALLOW_SWITCH_PLACES,"Autoriser l''échange de places sur le terrain en fin de tour");
-        f_.add(M_P_93_CLOSING,"Les attaques à cible unique peuvent toucher n''importe quel adversaire");
+        f_.add(M_P_93_ALLOW_SWITCH_PLACES,"Autoriser l'échange de places sur le terrain en fin de tour");
+        f_.add(M_P_93_CLOSING,"Les attaques à cible unique peuvent toucher n'importe quel adversaire");
         f_.add(M_P_93_END_FIGHT,"Fin de combat si une équipe est ko.");
         f_.add(M_P_93_FLEE,"Fuite toujours possible");
         f_.add(M_P_93_IV_FOE,"Iv des pokemon de vos adversaires");
@@ -70,15 +70,15 @@ public final class MessagesGameDifficulty {
         f_.add(M_P_93_RATE_DAMAGE,"Probabilité");
         f_.add(M_P_93_RATE_DAMAGE_EV,"Coefficient");
         f_.add(M_P_93_RATE_ISSUE,"{0} n''est pas un taux valide.");
-        f_.add(M_P_93_RATE_WIN_MONEY_BASE,"Rapport d''argent gagné entre le gain lors d''une victoire et la base de gain");
-        f_.add(M_P_93_RATE_WIN_MONEY_LOOSE,"Rapport d''argent perdu entre la perte lords d''une défaite et le gain lors d''une victoire");
+        f_.add(M_P_93_RATE_WIN_MONEY_BASE,"Rapport d'argent gagné entre le gain lors d'une victoire et la base de gain");
+        f_.add(M_P_93_RATE_WIN_MONEY_LOOSE,"Rapport d'argent perdu entre la perte lords d'une défaite et le gain lors d'une victoire");
         f_.add(M_P_93_RESTORED_MOVES,"Attaques de vos pokemon restaurées à la fin du combat");
         f_.add(M_P_93_SHORT_ISSUE,"{0} n''est pas un entier valide.");
         f_.add(M_P_93_SKIP_LEARN,"Ne pas apprendre les attaques déjà connues");
         f_.add(M_P_93_TITLE,"Choix de difficulté");
-        f_.add(M_P_93_WINNING_EXP_PTS_FIGHT,"Coefficient de gain de points d''expérience");
+        f_.add(M_P_93_WINNING_EXP_PTS_FIGHT,"Coefficient de gain de points d'expérience");
         f_.add(M_P_93_WIN_PTS,"Difficulté de gain des points");
-        f_.add(M_P_93_WIN_TRAINER_EXP,"Coefficient de gain de points d''expérience lors d''un combat contre un dresseur");
+        f_.add(M_P_93_WIN_TRAINER_EXP,"Coefficient de gain de points d'expérience lors d'un combat contre un dresseur");
         f_.add(M_P_93_OK,"OK");
         return f_;
     }

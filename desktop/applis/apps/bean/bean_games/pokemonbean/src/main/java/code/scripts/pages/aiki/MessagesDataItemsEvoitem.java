@@ -13,7 +13,7 @@ public final class MessagesDataItemsEvoitem {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_19_ITEM,"L''objet permet de faire évoluer les pokemons suivants en le leur faisant porter et en leur montant d''un niveau:");
+        f_.add(M_P_19_ITEM,"L'objet permet de faire évoluer les pokemons suivants en le leur faisant porter et en leur montant d'un niveau:");
         return f_;
     }
 }

@@ -32,17 +32,7 @@ public final class IntBeanBuilderHelperPresidentImpl extends IntBeanBuilderHelpe
     }
 
     @Override
-    public void formatMessageDirCtsHeader(String _txt) {
-        getLanguage();
-    }
-
-    @Override
     public void formatMessageDirCts(String _txt) {
-        getLanguage();
-    }
-
-    @Override
-    public void breakNext() {
         getLanguage();
     }
 

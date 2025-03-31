@@ -101,28 +101,28 @@ public final class MessagesFightTeam {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_92_ENBALED_MOVES,"Voici l''activité des effets des attaques suivantes sur l''équipe:");
+        f_.add(M_P_92_ENBALED_MOVES,"Voici l'activité des effets des attaques suivantes sur l'équipe:");
         f_.add(M_P_92_ENBALED_MOVES_ENABLED,"Actif");
         f_.add(M_P_92_ENBALED_MOVES_ENABLED_N,"Non");
         f_.add(M_P_92_ENBALED_MOVES_ENABLED_Y,"Oui");
-        f_.add(M_P_92_ENBALED_MOVES_GROUPS,"Voici l''activité des effets des groupes d''attaques suivants utilisées par l''équipe:");
+        f_.add(M_P_92_ENBALED_MOVES_GROUPS,"Voici l'activité des effets des groupes d'attaques suivants utilisées par l'équipe:");
         f_.add(M_P_92_ENBALED_MOVES_GROUPS_ENABLED,"Actif");
         f_.add(M_P_92_ENBALED_MOVES_GROUPS_ENABLED_N,"Non");
         f_.add(M_P_92_ENBALED_MOVES_GROUPS_ENABLED_Y,"Oui");
-        f_.add(M_P_92_ENBALED_MOVES_GROUPS_KEY,"Groupe d''attaques");
+        f_.add(M_P_92_ENBALED_MOVES_GROUPS_KEY,"Groupe d'attaques");
         f_.add(M_P_92_ENBALED_MOVES_GROUPS_NB_ROUND, NOMBRE_DE_TOURS);
         f_.add(M_P_92_ENBALED_MOVES_GROUPS_NO,"-");
         f_.add(M_P_92_ENBALED_MOVES_KEY, ATTAQUE);
         f_.add(M_P_92_ENBALED_MOVES_NB_ROUND, NOMBRE_DE_TOURS);
         f_.add(M_P_92_ENBALED_MOVES_NO,"-");
-        f_.add(M_P_92_ENBALED_MOVES_SEND,"Voici les utilisations des attaques par l''équipe lors d''une entrée d''un pokemon adverse sur le terrain:");
+        f_.add(M_P_92_ENBALED_MOVES_SEND,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
         f_.add(M_P_92_ENBALED_MOVES_SEND_KEY, ATTAQUE);
         f_.add(M_P_92_ENBALED_MOVES_SEND_VALUE,"Nombre de lancers");
-        f_.add(M_P_92_ENBALED_MOVES_USES,"Voici les utilisations des attaques par l''équipe lors d''une entrée d''un pokemon adverse sur le terrain:");
+        f_.add(M_P_92_ENBALED_MOVES_USES,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
         f_.add(M_P_92_ENBALED_MOVES_USES_KEY, ATTAQUE);
         f_.add(M_P_92_ENBALED_MOVES_USES_VALUE,"Nombre de lancers");
         f_.add(M_P_92_FIGHT,"Retour au données générales du combat");
-        f_.add(M_P_92_HEAL_AFTER,"Voici les utilisations des attaques soignant à la fin du tour suivant l''utilisation par l''équipe:");
+        f_.add(M_P_92_HEAL_AFTER,"Voici les utilisations des attaques soignant à la fin du tour suivant l'utilisation par l'équipe:");
         f_.add(M_P_92_HEAL_AFTER_KEY_ONE, ATTAQUE);
         f_.add(M_P_92_HEAL_AFTER_KEY_RD,"Nombre de tours depuis le dernier lancer");
         f_.add(M_P_92_HEAL_AFTER_KEY_TWO,"Place à partir de la gauche");
@@ -130,7 +130,7 @@ public final class MessagesFightTeam {
         f_.add(M_P_92_HEAL_AFTER_KEY_USED_LAST,"Lancé au tour précédent");
         f_.add(M_P_92_HEAL_AFTER_N,"Non");
         f_.add(M_P_92_HEAL_AFTER_Y,"Oui");
-        f_.add(M_P_92_MOVE_ANT,"Voici les utilisations des attaques touchant une cible deux tours après le lancer de l''attaque par un membre de l''équipe:");
+        f_.add(M_P_92_MOVE_ANT,"Voici les utilisations des attaques touchant une cible deux tours après le lancer de l'attaque par un membre de l'équipe:");
         f_.add(M_P_92_MOVE_ANT_DAMAGE,"Dégâts");
         f_.add(M_P_92_MOVE_ANT_FOE,"Ennemi");
         f_.add(M_P_92_MOVE_ANT_GROUND,"Place de la cible à partir de la gauche");
@@ -142,8 +142,8 @@ public final class MessagesFightTeam {
         f_.add(M_P_92_MOVE_ANT_TEAM,"Equipe");
         f_.add(M_P_92_PLAYER_FOE,"Voici pour chacun de vos combattants, les combattants ennemis:");
         f_.add(M_P_92_REFRESH,"Rafraîchir");
-        f_.add(M_P_92_TITLE_FOE,"L''équipe ennemie");
-        f_.add(M_P_92_TITLE_PLAYER,"L''équipe du joueur");
+        f_.add(M_P_92_TITLE_FOE,"L'équipe ennemie");
+        f_.add(M_P_92_TITLE_PLAYER,"L'équipe du joueur");
         return f_;
     }
 }

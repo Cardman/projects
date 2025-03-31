@@ -15,7 +15,7 @@ public final class MessagesDataEffwinmoney {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_70_EFFECT,"Cet effet permet au joueur de gagner de l''argent.");
+        f_.add(M_P_70_EFFECT,"Cet effet permet au joueur de gagner de l'argent.");
         f_.add(M_P_70_WIN_MONEY,"La somme d''argent gagnée vaut {0} fois la somme des niveaux du lanceur et de la cible.");
         return f_;
     }

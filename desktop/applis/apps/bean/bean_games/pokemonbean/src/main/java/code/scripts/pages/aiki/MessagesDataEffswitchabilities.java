@@ -25,10 +25,10 @@ public final class MessagesDataEffswitchabilities {
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_60_EFFECT,"Cet effet change au moins une capacité.");
         f_.add(M_P_60_GIVE_CONST,"La cible prend la capacité:");
-        f_.add(M_P_60_GIVE_CONST_EMPTY,"La capacité de la cible n''a plus d''effet.");
+        f_.add(M_P_60_GIVE_CONST_EMPTY,"La capacité de la cible n'a plus d'effet.");
         f_.add(M_P_60_GIVE_TO_TARGET,"La cible prend la capacité du lanceur.Si la capacité du lanceur était sans effet, alors la capacité de la cible sera sans effet.");
         f_.add(M_P_60_GIVE_TO_USER,"Le lanceur prend la capacité de la cible.Si la capacité de la cible était sans effet, alors la capacité du lanceur sera sans effet.");
-        f_.add(M_P_60_SWICTH_ABILITIES,"Le lanceur et la cible s''échangent les capacités.Si la capacité du lanceur était sans effet, alors la capacité de la cible sera sans effet.Si la capacité de la cible était sans effet, alors la capacité du lanceur sera sans effet.");
+        f_.add(M_P_60_SWICTH_ABILITIES,"Le lanceur et la cible s'échangent les capacités.Si la capacité du lanceur était sans effet, alors la capacité de la cible sera sans effet.Si la capacité de la cible était sans effet, alors la capacité du lanceur sera sans effet.");
         return f_;
     }
 }

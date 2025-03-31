@@ -25,12 +25,12 @@ public final class MessagesDataEffunprotectfromtypes {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_68_ATTACK_TARGET_TYPES,"La cible peut être affectée par des attaques d''un des types suivants:");
+        f_.add(M_P_68_ATTACK_TARGET_TYPES,"La cible peut être affectée par des attaques d'un des types suivants:");
         f_.add(M_P_68_DISABLE_IMMU_FROM_MOVES,"Les attaques dont les effets immunisant la cible à un type sont stoppés sont les suivantes:");
-        f_.add(M_P_68_DISABLE_IMMU_TYPES,"La cible n''est plus immunisées aux attaques d''un des types suivants:");
-        f_.add(M_P_68_EFFECT,"En désactivant certaines immunités de la cible, l''effet permet au lanceur d''utiliser des attaques auxquelles la cible était immunisée.");
+        f_.add(M_P_68_DISABLE_IMMU_TYPES,"La cible n'est plus immunisées aux attaques d'un des types suivants:");
+        f_.add(M_P_68_EFFECT,"En désactivant certaines immunités de la cible, l'effet permet au lanceur d'utiliser des attaques auxquelles la cible était immunisée.");
         f_.add(M_P_68_TYPES,"Voici la liste des couples type offensif - type défensif nuls passant à 1:");
-        f_.add(M_P_68_TYPES_DAMAG,"Type de l''attaque");
+        f_.add(M_P_68_TYPES_DAMAG,"Type de l'attaque");
         f_.add(M_P_68_TYPES_PK,"Type du pokemon attaqué");
         return f_;
     }

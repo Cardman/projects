@@ -23,7 +23,7 @@ public final class MessagesDataAbilityAbilities {
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_0_ABILITIES,"Capacités");
         f_.add(M_P_0_CONTENT,"Contenu du nom de capacité:");
-        f_.add(M_P_0_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_0_INDEX,"Revenir à l'indexe");
         f_.add(M_P_0_TITLE,"Recherche de capacités");
         f_.add(M_P_0_OK,"OK");
         return f_;

@@ -44,14 +44,14 @@ public final class MessagesDataEff {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_36_FORMULA,"{0}");
-        f_.add(M_P_36_NEED_SUCESS,"L''effet nécessite la réussite de l''effet primaire.");
-        f_.add(M_P_36_REASONS,"L''effet échoue si et seulement une des conditions est vérifiée:");
-        f_.add(M_P_36_TARGETS,"L''ensemble des cibles de l''effet courant est le suivant:");
+        f_.add(M_P_36_NEED_SUCESS,"L'effet nécessite la réussite de l'effet primaire.");
+        f_.add(M_P_36_REASONS,"L'effet échoue si et seulement une des conditions est vérifiée:");
+        f_.add(M_P_36_TARGETS,"L'ensemble des cibles de l'effet courant est le suivant:");
         f_.add(M_P_36_TARGETS_ADJ_ADV,"tous les adversaires adjacent au lanceur");
         f_.add(M_P_36_TARGETS_ADJ_MULT,"tous les combattants adjacent au lanceur");
         f_.add(M_P_36_TARGETS_ADJ_UNIQ,"un combattant adjacent au lanceur");
         f_.add(M_P_36_TARGETS_ALLIE,"un partenaire du lanceur");
-        f_.add(M_P_36_TARGETS_ALLIES,"les membres de l''équipe du lanceur");
+        f_.add(M_P_36_TARGETS_ALLIES,"les membres de l'équipe du lanceur");
         f_.add(M_P_36_TARGETS_ANY_FOE,"un adversaire");
         f_.add(M_P_36_TARGETS_AUTRE_UNIQ,"un combattant autre que le lanceur");
         f_.add(M_P_36_TARGETS_GLOBALE,"les combattants y compris le lanceur");

@@ -44,7 +44,7 @@ public final class MessagesDataIndex {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_15_ABILITIES,"Capacités");
-        f_.add(M_P_15_COMBOS,"Combinaisons d''attaques");
+        f_.add(M_P_15_COMBOS,"Combinaisons d'attaques");
         f_.add(M_P_15_ENDROUND,"Fin de tour");
         f_.add(M_P_15_GENERAL,"Généralités");
         f_.add(M_P_15_ITEMS,"Objets");
@@ -54,11 +54,11 @@ public final class MessagesDataIndex {
         f_.add(M_P_15_MOVES,"Attaques");
         f_.add(M_P_15_NOTLEARNTMOVES,"Attaques non apprises");
         f_.add(M_P_15_POKEDEX,"Pokedex");
-        f_.add(M_P_15_ROUND,"Déroulement d''un tour");
+        f_.add(M_P_15_ROUND,"Déroulement d'un tour");
         f_.add(M_P_15_SIMULATION,"Simulation de combats");
         f_.add(M_P_15_SOLUTION,"Solution");
         f_.add(M_P_15_STATUS,"Statuts");
-        f_.add(M_P_15_TITLE,"Données sur le jeu venant d''être chargé");
+        f_.add(M_P_15_TITLE,"Données sur le jeu venant d'être chargé");
         return f_;
     }
 }

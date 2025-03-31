@@ -15,7 +15,7 @@ public final class MessagesDataEndroundStatusrelation {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_12_EFFECT,"Cet effet concerne le lanceur et la cible. Si le lanceur ou la cible switchent alors l''effet est arrêté.");
+        f_.add(M_P_12_EFFECT,"Cet effet concerne le lanceur et la cible. Si le lanceur ou la cible switchent alors l'effet est arrêté.");
         f_.add(M_P_12_THIEVED_HP_RATE,"Le lanceur absorbe {0} des pv max de la cible.");
         return f_;
     }

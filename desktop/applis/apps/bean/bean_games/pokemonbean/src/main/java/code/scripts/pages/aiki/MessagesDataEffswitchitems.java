@@ -28,13 +28,13 @@ public final class MessagesDataEffswitchitems {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_61_DELETE_BERRY,"La baie du combattant est supprimé définitivement.");
-        f_.add(M_P_61_EFFECT,"Cet effet change le possesseur d''au moins un objet.");
+        f_.add(M_P_61_EFFECT,"Cet effet change le possesseur d'au moins un objet.");
         f_.add(M_P_61_GIVE_TO_TARGET,"Le lanceur donne son objet à la cible.");
-        f_.add(M_P_61_REMOVE_ITEM,"La cible perd son objet. Le lanceur ne prend pas l''objet perdu par la cible.");
-        f_.add(M_P_61_REUSE_ITEM,"Le lanceur récupère le dernier objet qu''il a utilisé.");
-        f_.add(M_P_61_SWITCH_ITEMS,"Le lanceur et la cible s''échangent les objets.");
-        f_.add(M_P_61_TAKE_ITEM,"Le lanceur prend l''objet de la cible.");
-        f_.add(M_P_61_USE_ITEM_IF_POSSIBLE,"Si possible, le lanceur utilise l''objet de la cible.");
+        f_.add(M_P_61_REMOVE_ITEM,"La cible perd son objet. Le lanceur ne prend pas l'objet perdu par la cible.");
+        f_.add(M_P_61_REUSE_ITEM,"Le lanceur récupère le dernier objet qu'il a utilisé.");
+        f_.add(M_P_61_SWITCH_ITEMS,"Le lanceur et la cible s'échangent les objets.");
+        f_.add(M_P_61_TAKE_ITEM,"Le lanceur prend l'objet de la cible.");
+        f_.add(M_P_61_USE_ITEM_IF_POSSIBLE,"Si possible, le lanceur utilise l'objet de la cible.");
         return f_;
     }
 }

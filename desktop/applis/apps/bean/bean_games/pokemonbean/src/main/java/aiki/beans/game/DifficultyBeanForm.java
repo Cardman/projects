@@ -66,7 +66,7 @@ public final class DifficultyBeanForm {
 
     public static void formatMessage(CommonBean _rend, String _file, String _key) {
         _rend.formatMessage(_file, _key);
-        _rend.getBuilder().breakNext();
+        _rend.getBuilder().nextPart();
     }
 
     public void update(DifficultyCommon _common) {
@@ -95,42 +95,42 @@ public final class DifficultyBeanForm {
     public static IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, boolean _value) {
         IntBeanChgBool check_ = _genInput.newBool();
         check_.setSelected(_value);
-        _rend.getBuilder().breakNext();
+        _rend.getBuilder().nextPart();
         return check_;
     }
 
     public static IntBeanChgRate rate(IntBeanGeneInput _genInput, CommonBean _rend, Rate _value) {
         IntBeanChgRate rate_ = _genInput.newRate();
         rate_.valueRate(_value);
-        _rend.getBuilder().breakNext();
+        _rend.getBuilder().nextPart();
         return rate_;
     }
 
     public static IntBeanChgLong iv(IntBeanGeneInput _genInput, CommonBean _rend, long _value) {
         IntBeanChgLong ivPlayer_ = _genInput.newLong();
         ivPlayer_.valueLong(_value);
-        _rend.getBuilder().breakNext();
+        _rend.getBuilder().nextPart();
         return ivPlayer_;
     }
 
     public static IntBeanChgString select(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<String,String> _map, String _v) {
         IntBeanChgString sel_ = _genInput.newString(_map);
         sel_.setupValue(_v);
-        _rend.getBuilder().breakNext();
+        _rend.getBuilder().nextPart();
         return sel_;
     }
 
     public static IntBeanChgInt selectInt(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<Integer,String> _map, int _v) {
         IntBeanChgInt sel_ = _genInput.newInt(_map);
         sel_.valueInt(_v);
-        _rend.getBuilder().breakNext();
+        _rend.getBuilder().nextPart();
         return sel_;
     }
 
     public static IntBeanChgString txt(IntBeanGeneInput _genInput, CommonBean _rend, String _v) {
         IntBeanChgString sel_ = _genInput.newText();
         sel_.setupValue(_v);
-        _rend.getBuilder().breakNext();
+        _rend.getBuilder().nextPart();
         return sel_;
     }
 

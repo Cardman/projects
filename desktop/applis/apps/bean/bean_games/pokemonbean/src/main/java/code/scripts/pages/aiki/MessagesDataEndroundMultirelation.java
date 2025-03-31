@@ -19,9 +19,9 @@ public final class MessagesDataEndroundMultirelation {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_7_DAMAGE_STATUS,"Voici le taux de pv perdus en fonction des combinaisons des statuts de l''advsersaire du combattant (les combinaisons de statut non affichées n''on aucun effet.):");
+        f_.add(M_P_7_DAMAGE_STATUS,"Voici le taux de pv perdus en fonction des combinaisons des statuts de l'advsersaire du combattant (les combinaisons de statut non affichées n'on aucun effet.):");
         f_.add(M_P_7_DAMAGE_STATUS_KEY,"Statut possédé");
-        f_.add(M_P_7_DAMAGE_STATUS_RATE,"Taux de vie perdue par l''advesaire");
+        f_.add(M_P_7_DAMAGE_STATUS_RATE,"Taux de vie perdue par l'advesaire");
         f_.add(M_P_7_EFFECT,"Cet effect prend en compte toutes les relations possibles entre lanceurs et cibles sur le terrains.");
         return f_;
     }

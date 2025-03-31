@@ -17,7 +17,7 @@ public final class MessagesDataEndroundTeam {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_13_EFFECT,"Cet effet concerne l''équipe du lanceur.");
+        f_.add(M_P_13_EFFECT,"Cet effet concerne l'équipe du lanceur.");
         f_.add(M_P_13_OWNER,"La probabilité que les statuts du combattant soient supprimés est de {0}.");
         f_.add(M_P_13_TEAM,"La probabilité que les statuts des partenaires du combattant soient supprimés est de {0}.");
         return f_;

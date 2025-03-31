@@ -52,7 +52,7 @@ public final class MessagesDataEndroundIndividual {
         f_.add(M_P_6_MULT_DAMAGE_STATUS_KEY,"Statut possédé");
         f_.add(M_P_6_MULT_DAMAGE_STATUS_VALUE,"Taux de vie restaurée par la cible");
         f_.add(M_P_6_RECOIL_DAMAGE,"Le taux de dégâts de recul pour le combattant est de {0}.");
-        f_.add(M_P_6_USER_STATUS,"Si ce n''est pas déjà fait, le combattant prend le statut:");
+        f_.add(M_P_6_USER_STATUS,"Si ce n'est pas déjà fait, le combattant prend le statut:");
         return f_;
     }
 }

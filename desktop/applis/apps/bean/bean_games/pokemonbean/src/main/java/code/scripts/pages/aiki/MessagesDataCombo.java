@@ -35,18 +35,18 @@ public final class MessagesDataCombo {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_2_EFFECT,"L''effet n''est actif que si les attaques suivantes sont réussies dans le même tour:");
-        f_.add(M_P_2_ENDROUND,"Voir l''effet de fin de tour");
-        f_.add(M_P_2_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_2_EFFECT,"L'effet n'est actif que si les attaques suivantes sont réussies dans le même tour:");
+        f_.add(M_P_2_ENDROUND,"Voir l'effet de fin de tour");
+        f_.add(M_P_2_INDEX,"Revenir à l'indexe");
         f_.add(M_P_2_LAW_REPEAT,"Le nombre de tours déterminé par les probabilités suivantes:");
         f_.add(M_P_2_LAW_REPEAT_KEY,"Nombre de tours");
         f_.add(M_P_2_LAW_REPEAT_VALUE,"Probabilité");
-        f_.add(M_P_2_MULT_STAT_FOE,"Les statistiques des membres de l''équipe adverse du lanceur sont multipliées selon le tableau suivant:");
+        f_.add(M_P_2_MULT_STAT_FOE,"Les statistiques des membres de l'équipe adverse du lanceur sont multipliées selon le tableau suivant:");
         f_.add(M_P_2_RANK_INCREMENT_NB_ROUND,"Le rand d''incrémentation de fin tour est de {0}.");
         f_.add(M_P_2_RATE,"Coefficient");
         f_.add(M_P_2_RATE_SEC_EFF,"La probabilité des effets secondaires lancées par un membre de l''équipe du lanceur est multipliée par {0}.");
         f_.add(M_P_2_STATISTIC,"Statistique");
-        f_.add(M_P_2_TITLE,"Groupes d''attaques actives");
+        f_.add(M_P_2_TITLE,"Groupes d'attaques actives");
         return f_;
     }
 }

@@ -47,14 +47,14 @@ public final class MessagesDataLangs {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_31_INDEX,"Revenir à l''indexe");
+        f_.add(M_P_31_INDEX,"Revenir à l'indexe");
         f_.add(M_P_31_RETURN_BEGIN,"Revenir en haut de la page");
         f_.add(M_P_31_TITLE,"Traductions");
         f_.add(M_P_31_TRANSLATIONS,"Traductions");
         f_.add(M_P_31_TRANSLATIONS_AB,"Traduction des capacités");
         f_.add(M_P_31_TRANSLATIONS_BOOLEANS,"Traduction des booleens");
         f_.add(M_P_31_TRANSLATIONS_CATEGORIES,"Traduction des catégories des attaques");
-        f_.add(M_P_31_TRANSLATIONS_CLASSES,"Traduction des descriptions d''objets");
+        f_.add(M_P_31_TRANSLATIONS_CLASSES,"Traduction des descriptions d'objets");
         f_.add(M_P_31_TRANSLATIONS_ENVS,"Traduction des environnements de combat");
         f_.add(M_P_31_TRANSLATIONS_GENDERS,"Traduction des genres");
         f_.add(M_P_31_TRANSLATIONS_IT,"Traduction des objets");

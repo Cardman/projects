@@ -25,7 +25,7 @@ public final class MessagesDataItemsHealingitem {
         f_.add(M_P_24_HAPPINESS_BALL,"BALL de capture");
         f_.add(M_P_24_HAPPINESS_BOOST,"Points de bonheur gagnés");
         f_.add(M_P_24_HAPPINESS_OTHER_BALL,"Autre BALL de capture ou aucune");
-        f_.add(M_P_24_HEAL_TEAM,"Cet objet permet de soigner toute l''équipe pendant un combat ou non.");
+        f_.add(M_P_24_HEAL_TEAM,"Cet objet permet de soigner toute l'équipe pendant un combat ou non.");
         return f_;
     }
 }

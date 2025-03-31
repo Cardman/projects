@@ -74,12 +74,12 @@ public final class MessagesDataStatus {
         f_.add(M_P_88_DAMAGED_FOES,"Si le porteur aime un partenaire, alors les dégâts sont multipliés par {0} pour chaque partenaire qu''il aime.");
         f_.add(M_P_88_DAMAGE_INCREMENTED_FALSE,"Les dégâts ne sont pas multipliés par le nombre de tours écoulé.");
         f_.add(M_P_88_DAMAGE_INCREMENTED_TRUE,"Les dégâts sont multipliés par le nombre de tours écoulé.");
-        f_.add(M_P_88_DISABLED_EFF_IF_SWITCH,"L''effet s''arrête lorsque le porteur sort du terrain.");
-        f_.add(M_P_88_ENDROUND,"Voir l''effet de fin de tour");
+        f_.add(M_P_88_DISABLED_EFF_IF_SWITCH,"L'effet s'arrête lorsque le porteur sort du terrain.");
+        f_.add(M_P_88_ENDROUND,"Voir l'effet de fin de tour");
         f_.add(M_P_88_FORMULA,"{0}");
         f_.add(M_P_88_HEAL_HP,"En cas d''attaque touchant un partenaire aimé, le taux de vie restaurés de ce partenaire vaut {0}.");
-        f_.add(M_P_88_INCREMENTING_END_ROUND_FALSE,"L''incrémentation du nombre de tours de l''effet a lieu en début de tour.");
-        f_.add(M_P_88_INCREMENTING_END_ROUND_TRUE,"L''incrémentation du nombre de tours de l''effet a lieu en fin de tour.");
+        f_.add(M_P_88_INCREMENTING_END_ROUND_FALSE,"L'incrémentation du nombre de tours de l'effet a lieu en début de tour.");
+        f_.add(M_P_88_INCREMENTING_END_ROUND_TRUE,"L'incrémentation du nombre de tours de l'effet a lieu en fin de tour.");
         f_.add(M_P_88_INCREMENT_END_ROUND,"Le rang d''incrémentation vaut {0}.");
         f_.add(M_P_88_MULT_STAT,"Les statistiques du porteur sont multipliées de la façon suivante:");
         f_.add(M_P_88_MULT_STAT_KEY,"Statistique");
@@ -92,7 +92,7 @@ public final class MessagesDataStatus {
         f_.add(M_P_88_RATE_USE_MOVE_ROUND,"Voici le tableau des probabilités en fonction du nombre de tour:");
         f_.add(M_P_88_RATE_USE_MOVE_ROUND_KEY,"Nombre de tours");
         f_.add(M_P_88_RATE_USE_MOVE_ROUND_RATE,"Probabilité");
-        f_.add(M_P_88_REASONS,"Le statut n''est pas affecté en fin de tour si et seulement une des conditions est vérifiée:");
+        f_.add(M_P_88_REASONS,"Le statut n'est pas affecté en fin de tour si et seulement une des conditions est vérifiée:");
         f_.add(M_P_88_RELATION,"Le statut dépend du lanceur et de la cible.");
         f_.add(M_P_88_SINGLE,"Le statut dépend de la cible.");
         f_.add(M_P_88_STATUS,"Statuts");

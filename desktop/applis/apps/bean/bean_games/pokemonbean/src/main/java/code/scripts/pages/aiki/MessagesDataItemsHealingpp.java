@@ -19,7 +19,7 @@ public final class MessagesDataItemsHealingpp {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_25_FULL_HEAL_MOVE,"Cet objet permet de soigner tous les pp d''une attaque.");
+        f_.add(M_P_25_FULL_HEAL_MOVE,"Cet objet permet de soigner tous les pp d'une attaque.");
         f_.add(M_P_25_FULL_HEAL_MOVES,"Cet objet permet de soigner tous les pp de toutes les attaques.");
         f_.add(M_P_25_HEAL_MOVE,"Cet objet permet de soigner {0} pp d''une attaque.");
         f_.add(M_P_25_HEAL_MOVES,"Cet objet permet de soigner {0} pp de toutes les attaques.");
