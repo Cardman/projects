@@ -406,7 +406,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
         Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct("")),st_);
-        assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
+        assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -571,6 +571,92 @@ public final class PanelStructTest extends EquallableElUtUtil {
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
+
+    @Test
+    public void count21() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panelParent_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct labelParent_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctPanelAddCompo0(),null,ctx_,panelParent_,one(panel_),st_);
+        call(new FctPanelAddCompo0(),null,ctx_,labelParent_,one(label_),st_);
+        call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
+        assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
+        assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,labelParent_,null,st_)));
+        assertSame(label_,call(new FctPanelGetIndexCompo(),null,ctx_,panel_,one(new IntStruct(0)),st_));
+        assertSame(panel_,call(new FctCompoGetParentCompo(),null,ctx_,label_,null,st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void count22() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panelParent_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        call(new FctPanelAddCompo0(),null,ctx_,panelParent_,one(panel_),st_);
+        call(new FctPanelAddCompo0(),null,ctx_,panel_,one(panelParent_),st_);
+        assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void count23() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        call(new FctPanelAddCompo0(),null,ctx_,panel_,one(panel_),st_);
+        assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void count24() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        call(new FctPanelAddCompo1(),null,ctx_,panel_,two(panel_,new IntStruct(0)),st_);
+        assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void count25() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        call(new FctPanelBorder(),null,ctx_,panel_,two(panel_,new IntStruct(0)),st_);
+        assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
     @Test
     public void removeAll() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));

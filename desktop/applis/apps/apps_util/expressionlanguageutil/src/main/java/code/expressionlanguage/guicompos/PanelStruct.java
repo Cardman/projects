@@ -7,9 +7,10 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
+import code.util.IdList;
 
 public class PanelStruct extends CustComponentStruct {
-    private AbsPanel panel;
+    private final AbsPanel panel;
     private PanelStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
         panel = _compoFactory.newLineBox();
@@ -53,7 +54,7 @@ public class PanelStruct extends CustComponentStruct {
     }
 
     public void add(CustComponentStruct _comp) {
-        if (_comp.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(_comp)) {
             return;
         }
         _comp.setParentComponent(this);
@@ -62,12 +63,33 @@ public class PanelStruct extends CustComponentStruct {
     }
 
     public void add(CustComponentStruct _comp, int _index) {
-        if (_comp.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(_comp)) {
             return;
         }
         _comp.setParentComponent(this);
         getChildren().add(_index,_comp);
         panel.add(_comp.getComponent(), _index);
+    }
+    protected boolean kept(CustComponentStruct _comp) {
+        if (this == _comp) {
+            return true;
+        }
+        CustComponentStruct curThis_ = this;
+        while (true) {
+            Struct par_ = curThis_.getParentComponent();
+            if (par_ == _comp){
+                return true;
+            }
+            if (!(par_ instanceof CustComponentStruct)) {
+                break;
+            }
+            curThis_ = (CustComponentStruct) par_;
+        }
+        Struct direct_ = _comp.getParentComponent();
+        if (direct_ instanceof PanelStruct) {
+            ((PanelStruct)direct_).remove(new IdList<CustComponentStruct>(((CustComponentStruct)direct_).getChildren()).indexOfObj(_comp));
+        }
+        return false;
     }
 
     public void removeAll() {

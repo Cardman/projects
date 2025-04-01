@@ -1,8 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.gui.files.MessagesGuiFct;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
@@ -30,7 +28,7 @@ public final class PanelBorderStruct extends PanelStruct {
     }
 
     public void add(CustComponentStruct _comp, Struct _constraint) {
-        if (_comp.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(_comp)) {
             return;
         }
         if (!(_constraint instanceof StringStruct)) {
@@ -72,6 +70,9 @@ public final class PanelBorderStruct extends PanelStruct {
             value_ = MessagesGuiFct.BORDER_LAYOUT_AFTER_LINE_ENDS;
         }
         if (!ok_) {
+            _comp.setParentComponent(this);
+            getChildren().add(_comp);
+            getPanel().add(_comp.getComponent(), MessagesGuiFct.BORDER_LAYOUT_CENTER);
             return;
         }
         _comp.setParentComponent(this);
