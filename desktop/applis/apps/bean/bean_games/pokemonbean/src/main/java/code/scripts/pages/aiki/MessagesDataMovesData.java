@@ -53,11 +53,14 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_OTHER_ITEM="other_item";
     public static final String M_P_35_OTHER_WEATHER="other_weather";
     public static final String M_P_35_PP="pp";
+    public static final String M_P_35_PP_INTRO="pp_intro";
     public static final String M_P_35_PP_TITLE="pp_title";
     public static final String M_P_35_PREPA_ROUND_TITLE="prepa_round_title";
     public static final String M_P_35_PREPA_TOUR_CLIMAT="prepa_tour_climat";
+    public static final String M_P_35_PREPA_TOUR_CLIMAT_INTRO="prepa_tour_climat_intro";
     public static final String M_P_35_PRIORITY="priority";
     public static final String M_P_35_PRIORITY_ZERO="priority_zero";
+    public static final String M_P_35_PRIORITY_INTRO="priority_intro";
     public static final String M_P_35_RATE="rate";
     public static final String M_P_35_RECHARGE="recharge";
     public static final String M_P_35_RECHARGE_AB="recharge_ab";
@@ -87,6 +90,8 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_TYPE_CAT="type_cat";
     public static final String M_P_35_TYPE_TITLE="type_title";
     public static final String M_P_35_WEATHER="weather";
+    public static final String M_P_35_DAMAGING="damaging";
+    public static final String M_P_35_RANK_INCREMENTING_NB_ROUND="rankIncrementNbRound";
     private MessagesDataMovesData(){
     }
     public static TranslationsFile en(){
@@ -141,11 +146,14 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_OTHER_ITEM,"Other item or no item");
         e_.add(M_P_35_OTHER_WEATHER,"Other weather or no weather");
         e_.add(M_P_35_PP,"The move has {0} pp by default.");
+        e_.add(M_P_35_PP_INTRO,"Power point by default:");
         e_.add(M_P_35_PP_TITLE,"Pp of the move");
         e_.add(M_P_35_PREPA_ROUND_TITLE,"Preparing the move");
         e_.add(M_P_35_PREPA_TOUR_CLIMAT,"The number of rounds of preparing of the move is {0}.");
+        e_.add(M_P_35_PREPA_TOUR_CLIMAT_INTRO,"Number of rounds of preparing of the move:");
         e_.add(M_P_35_PRIORITY,"The move has a priority with {0}.");
         e_.add(M_P_35_PRIORITY_ZERO,"The move has a normal priority.");
+        e_.add(M_P_35_PRIORITY_INTRO,"Priority of the move:");
         e_.add(M_P_35_RATE,"Rate");
         e_.add(M_P_35_RECHARGE,"If the user has directly invoked the move, has successed it ans if it is remainging power points for this move then the user recharges during a round after the end of the effect of the move:");
         e_.add(M_P_35_RECHARGE_AB,"In contrary, if the user owns one of the following abilities, the user can use a move without recharging:");
@@ -175,6 +183,8 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_TYPE_CAT,"Type and category of the move");
         e_.add(M_P_35_TYPE_TITLE,"Type");
         e_.add(M_P_35_WEATHER,"Weather");
+        e_.add(M_P_35_DAMAGING,"Damaging move");
+        e_.add(M_P_35_RANK_INCREMENTING_NB_ROUND,"Rank incrementing of rounds number:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -229,11 +239,14 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_OTHER_ITEM,"Autre objet ou pas d'objet");
         f_.add(M_P_35_OTHER_WEATHER,"Autre climat ou pas de climat");
         f_.add(M_P_35_PP,"L''attaque possède {0} pp de base.");
+        f_.add(M_P_35_PP_INTRO,"Points de pouvoir de base:");
         f_.add(M_P_35_PP_TITLE,"Pp de l'attaque");
         f_.add(M_P_35_PREPA_ROUND_TITLE,"Préparation de l'attaque");
         f_.add(M_P_35_PREPA_TOUR_CLIMAT,"Le nombre de tours de préparation de l''attaque est de {0}.");
+        f_.add(M_P_35_PREPA_TOUR_CLIMAT_INTRO,"Nombre de tours de préparation de l'attaque:");
         f_.add(M_P_35_PRIORITY,"L''attaque a une priorité de {0}.");
         f_.add(M_P_35_PRIORITY_ZERO,"L'attaque a une priorité normale.");
+        f_.add(M_P_35_PRIORITY_INTRO,"Priorité de l'attaque:");
         f_.add(M_P_35_RATE,"Probabilité");
         f_.add(M_P_35_RECHARGE,"Si le lanceur a invoquée directement l'attaque, l'a réussi et s'il reste des points de pouvoir pour cette attaque alors le lanceur recharge pendant un tour après la fin de l'effet de l'attaque:");
         f_.add(M_P_35_RECHARGE_AB,"En revanche, si le lanceur possède une capacités suivantes, le lanceur peut attaquer sans recharger:");
@@ -256,13 +269,15 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_TARGETS_TOUS_ADV,"tous les adversaires");
         f_.add(M_P_35_TARGETS_UNIQUE_IMPORTE,"un combattant pouvant être le lanceur ou non");
         f_.add(M_P_35_TITLE,"Données sur l''attaque {0}");
-        f_.add(M_P_35_TOUCHE_PK_DISPARUS,"L'attaque touche les poké ayant disparus pendant le tour et préparant une des attaques suivantes:");
+        f_.add(M_P_35_TOUCHE_PK_DISPARUS,"L'attaque touche les pokémon ayant disparus pendant le tour et préparant une des attaques suivantes:");
         f_.add(M_P_35_TYPE,"De base, l'attaque a pour types:");
         f_.add(M_P_35_TYPES,"Si le lanceur de l'attaque ne peut pas utiliser d'objet ou l'objet porté ne change pas le type alors le type dépend du climat en fonction du tableau suivant:");
         f_.add(M_P_35_TYPESBOOST,"Les types de l'attaque recevant un bonus sont:");
         f_.add(M_P_35_TYPE_CAT,"Type et catégorie de l'attaque");
         f_.add(M_P_35_TYPE_TITLE,"Type");
         f_.add(M_P_35_WEATHER,"Climat");
+        f_.add(M_P_35_DAMAGING,"Attaque à dégâts");
+        f_.add(M_P_35_RANK_INCREMENTING_NB_ROUND,"Rang incrémentant du nombre de tours:");
         return f_;
     }
 }

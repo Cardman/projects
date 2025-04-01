@@ -10,6 +10,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
+import code.scripts.pages.aiki.*;
 
 public final class GeneComponentModelMoveData extends GeneComponentModelEntity<MoveData> implements ChangeableFormType {
     private final GeneComponentModelLong pp;
@@ -112,14 +113,14 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         AbsPanel page_ = compoFactory_.newPageBox();
         page_.add(geneComponentModelSelectKey());
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(damagingMove);
-        form_.add(pp.geneLong());
-        form_.add(priority.geneLong());
-        form_.add(nbPrepaRound.geneLong());
-        form_.add(rankIncrementNbRound.geneLong());
-        form_.add(types.geneEnum());
-        form_.add(boostedTypes.geneEnum());
-        form_.add(achieveDisappearedPkUsingMove.geneEnum());
+        form_.add(line(MessagesDataMovesData.M_P_35_DAMAGING,damagingMove));
+        form_.add(line(MessagesDataMovesData.M_P_35_PP_INTRO,pp.geneLong()));
+        form_.add(line(MessagesDataMovesData.M_P_35_PRIORITY_INTRO,priority.geneLong()));
+        form_.add(line(MessagesDataMovesData.M_P_35_PREPA_TOUR_CLIMAT_INTRO,nbPrepaRound.geneLong()));
+        form_.add(line(MessagesDataMovesData.M_P_35_RANK_INCREMENTING_NB_ROUND,rankIncrementNbRound.geneLong()));
+        form_.add(line(MessagesDataMovesData.M_P_35_TYPE_TITLE,types.geneEnum()));
+        form_.add(line(MessagesDataMovesData.M_P_35_TYPESBOOST,boostedTypes.geneEnum()));
+        form_.add(line(MessagesDataMovesData.M_P_35_TOUCHE_PK_DISPARUS,achieveDisappearedPkUsingMove.geneEnum()));
         form_.add(deletedStatus.geneEnum());
         form_.add(requiredStatus.geneEnum());
         form_.add(accuracy.geneEnum());
@@ -147,6 +148,9 @@ public final class GeneComponentModelMoveData extends GeneComponentModelEntity<M
         return page_;
     }
 
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return line(MessagesPkBean.MV_DATA,_key,_input);
+    }
     @Override
     public void applyChange() {
         damagingComponent.setVisible(damagingMove.isSelected());
