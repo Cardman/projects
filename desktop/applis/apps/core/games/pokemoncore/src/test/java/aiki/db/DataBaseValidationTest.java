@@ -2256,6 +2256,18 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("", data_.getFormula("VAR__MYVAR__SPEE",LANGUAGE));
     }
     @Test
+    public void getFormula21Test() {
+        DataBase data_ =init();
+        StringMap<String> math_ = data_.getTranslatedFctMath().getVal(LANGUAGE);
+        math_.addEntry(MbOperationNode.PUIS,"sabre_laser");
+        assertEq("sabre_laser(2,3)", data_.getFormula(MbOperationNode.PUIS+"(2,3)",LANGUAGE));
+    }
+    @Test
+    public void getFormula22Test() {
+        DataBase data_ =init();
+        assertEq("5", data_.getFormula("5",LANGUAGE));
+    }
+    @Test
     public void getDescriptionsTest() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);

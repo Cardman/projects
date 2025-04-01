@@ -4277,26 +4277,26 @@ public final class DataBase {
         return expGrowth.getVal(_exp);
     }
 
-    public String getFormula(String _litt, String _language) {
+    public String getFormula(String _formula, String _language) {
         StringMap<String> litt_ = litterals.getVal(_language);
         
         StringBuilder str_ = new StringBuilder();
-        int len_ = _litt.length();
+        int len_ = _formula.length();
         int i_ = 0;
         boolean br_ = false;
         StringList list_ = new StringList();
         while (i_ < len_) {
-            char cur_ = _litt.charAt(i_);
+            char cur_ = _formula.charAt(i_);
             if (br_) {
                 int j_ = possibleIncr(i_, cur_);
                 int delta_ = delta(cur_);
-                j_ = incr(_litt,j_);
-                cur_ = _litt.charAt(j_);
+                j_ = incr(_formula,j_);
+                cur_ = _formula.charAt(j_);
 //                while (MathExpUtil.isWordChar(cur_)) {
 //                    j_++;
 //                    cur_ = _litt.charAt(j_);
 //                }
-                String word_ = _litt.substring(i_+delta_, j_);
+                String word_ = _formula.substring(i_+delta_, j_);
                 formulaWord(_language, litt_, list_, word_);
                 if (cur_ == '}') {
                     list_.sort();
@@ -4308,11 +4308,11 @@ public final class DataBase {
             } else if (cur_ == '{') {
                 str_.append(cur_);
                 i_++;
-                if (_litt.charAt(i_) != '}') {
+                if (_formula.charAt(i_) != '}') {
                     br_ = true;
                 }
-            } else if (MathExpUtil.isDollarWordChar(cur_)|| _litt.startsWith(getTrueString(), i_)|| _litt.startsWith(getFalseString(), i_)) {
-                boolean dig_ = MathExpUtil.isDigit(cur_);
+            } else if (MathExpUtil.isDollarWordChar(cur_)|| _formula.startsWith(getTrueString(), i_)|| _formula.startsWith(getFalseString(), i_)) {
+//                boolean dig_ = MathExpUtil.isDigit(cur_);
 //                int j_ = i_;
 //                while (MathExpUtil.isWordChar(cur_)) {
 //                    j_++;
@@ -4321,11 +4321,11 @@ public final class DataBase {
 //                    }
 //                    cur_ = _litt.charAt(j_);
 //                }
-                int j_ = incrAfterWord(_litt,i_);
-                String word_ = _litt.substring(i_, j_);
-                char used_ = used(_litt, j_);
-                trWordPart(_language, litt_, str_, used_, dig_, word_);
-                i_ = j_;
+//                int j_ = incrAfterWord(_litt,i_);
+//                String word_ = _litt.substring(i_, j_);
+//                char used_ = used(_litt, j_);
+                i_ = trWordPart(_formula,_language, litt_, str_, i_);
+//                i_ = j_;
             } else {
                 str_.append(cur_);
                 i_++;
@@ -4360,46 +4360,52 @@ public final class DataBase {
         }
         return j_;
     }
-    private char used(String _litt, int _j) {
+    private char used(String _formula, int _j) {
         char used_;
-        if (_j < _litt.length()) {
-            used_ = _litt.charAt(_j);
+        if (_j < _formula.length()) {
+            used_ = _formula.charAt(_j);
         } else {
-            used_ = _litt.charAt(_litt.length()-1);
+            used_ = _formula.charAt(_formula.length()-1);
         }
         return used_;
     }
 
-    private int incrAfterWord(String _litt, int _i) {
-        if (_litt.startsWith(getTrueString(), _i))  {
+    private int incrAfterWord(String _formula, int _i) {
+        if (_formula.startsWith(getTrueString(), _i))  {
             return _i+getTrueString().length();
         }
-        if (_litt.startsWith(getFalseString(), _i))  {
+        if (_formula.startsWith(getFalseString(), _i))  {
             return _i+getFalseString().length();
         }
-        char cur_ = _litt.charAt(_i);
+        char cur_ = _formula.charAt(_i);
         int j_ = _i;
         while (MathExpUtil.isDollarWordChar(cur_)) {
             j_++;
-            if (j_ >= _litt.length()) {
+            if (j_ >= _formula.length()) {
                 break;
             }
-            cur_ = _litt.charAt(j_);
+            cur_ = _formula.charAt(j_);
         }
         return j_;
     }
 
-    private void trWordPart(String _language, StringMap<String> _litt, StringBuilder _str, char _cur, boolean _dig, String _word) {
-        if (_dig) {
-            _str.append(_word);
+    private int trWordPart(String _formula, String _language, StringMap<String> _litt, StringBuilder _str, int _i) {
+        char cur_ = _formula.charAt(_i);
+        boolean dig_ = MathExpUtil.isDigit(cur_);
+        int j_ = incrAfterWord(_formula,_i);
+        String word_ = _formula.substring(_i, j_);
+        char used_ = used(_formula, j_);
+        if (dig_ && used_ != '(') {
+            _str.append(word_);
         } else {
-            trWord(_language, _litt, _str, _cur, _word);
+            trWord(_language, _litt, _str, used_, word_);
         }
+        return j_;
     }
 
-    private void trWord(String _language, StringMap<String> _litt, StringBuilder _str, char _cur, String _word) {
+    private void trWord(String _language, StringMap<String> _litt, StringBuilder _str, char _used, String _word) {
         String varPref_ = StringUtil.concat(prefixVar(),SEP_BETWEEN_KEYS);
-        if (_cur == '(' || StringUtil.quickEq(getTrueString(), _word)|| StringUtil.quickEq(getFalseString(), _word)) {
+        if (_used == '(' || StringUtil.quickEq(getTrueString(), _word)|| StringUtil.quickEq(getFalseString(), _word)) {
             _str.append(StringUtil.nullToEmpty(translatedFctMath.getVal(_language).getVal(_word)));
         } else if (!_word.startsWith(varPref_)) {
             _str.append(translateSafe(_word, _language));
