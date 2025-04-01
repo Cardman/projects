@@ -184,8 +184,8 @@ public final class RenderedPage implements ProcessingSession {
             MetaSearchableLabel lab_ = _meta.getAnchorsRef().getVal(ref_);
             scroll(this, getRefs().getVal(lab_));
         }
-        if (frame != null) {
-            frame.pack();
+        if (frame instanceof Packable) {
+            ((Packable) frame).pack();
         }
         finish();
     }

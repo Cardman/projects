@@ -36,7 +36,13 @@ public interface AbsCompoFactory {
 
     AbsTabbedPane newAbsTabbedPane();
 
+    AbsSplitPane newVerticalSplitPane();
+    AbsSplitPane newVerticalSplitPaneLeft(AbsCustComponent _left);
+    AbsSplitPane newVerticalSplitPaneRight(AbsCustComponent _right);
     AbsSplitPane newVerticalSplitPane(AbsCustComponent _left, AbsCustComponent _right);
+    AbsSplitPane newHorizontalSplitPane();
+    AbsSplitPane newHorizontalSplitPaneLeft(AbsCustComponent _left);
+    AbsSplitPane newHorizontalSplitPaneRight(AbsCustComponent _right);
     AbsSplitPane newHorizontalSplitPane(AbsCustComponent _left, AbsCustComponent _right);
 
     AbsPopupMenu newAbsPopupMenu();

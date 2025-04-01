@@ -7,6 +7,7 @@ import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringMap;
 import code.vi.prot.impl.DefImage;
@@ -27,7 +28,7 @@ public abstract class CustComponent implements AbsCustComponent {
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
     private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
     private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
-    private final CustList<AbsCustComponent> children = new CustList<AbsCustComponent>();
+    private final IdList<AbsCustComponent> children = new IdList<AbsCustComponent>();
     private int backGroundValue;
     private int foreGroundValue;
 
@@ -370,7 +371,7 @@ public abstract class CustComponent implements AbsCustComponent {
     public void setParent(AbsCustComponent _parent) {
         parent = _parent;
     }
-    public CustList<AbsCustComponent> getChildren() {
+    public IdList<AbsCustComponent> getChildren() {
         return children;
     }
 

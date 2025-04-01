@@ -6,7 +6,7 @@ import code.util.CustList;
 
 
 
-public interface AbsCommonFrame extends ChangeableTitle {
+public interface AbsCommonFrame extends ChangeableTitle, Packable {
 
     void setImageIconFrame(AbstractImage _imageIconFrame);
     void dispose();

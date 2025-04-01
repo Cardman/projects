@@ -134,8 +134,46 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public AbsSplitPane newVerticalSplitPane() {
+        return new MockSplitPane(false);
+    }
+
+    @Override
+    public AbsSplitPane newVerticalSplitPaneLeft(AbsCustComponent _left) {
+        MockSplitPane sp_ = new MockSplitPane(false);
+        sp_.setLeftComponent(_left);
+        return sp_;
+    }
+
+    @Override
+    public AbsSplitPane newVerticalSplitPaneRight(AbsCustComponent _right) {
+        MockSplitPane sp_ = new MockSplitPane(false);
+        sp_.setRightComponent(_right);
+        return sp_;
+    }
+
+    @Override
     public AbsSplitPane newVerticalSplitPane(AbsCustComponent _left, AbsCustComponent _right) {
         return new MockSplitPane(false,_left,_right);
+    }
+
+    @Override
+    public AbsSplitPane newHorizontalSplitPane() {
+        return new MockSplitPane(true);
+    }
+
+    @Override
+    public AbsSplitPane newHorizontalSplitPaneLeft(AbsCustComponent _left) {
+        MockSplitPane sp_ = new MockSplitPane(true);
+        sp_.setLeftComponent(_left);
+        return sp_;
+    }
+
+    @Override
+    public AbsSplitPane newHorizontalSplitPaneRight(AbsCustComponent _right) {
+        MockSplitPane sp_ = new MockSplitPane(true);
+        sp_.setRightComponent(_right);
+        return sp_;
     }
 
     @Override

@@ -48,7 +48,7 @@ public abstract class Paginator {
     private static final String CST_NEXT = ">";
     private static final String CST_NEXT_DELTA = ">>";
 
-    private ChangeableTitle window;
+    private AbsCommonFrame window;
 
     private final AbsPanel container;
 
@@ -255,11 +255,11 @@ public abstract class Paginator {
 //        adding = false;
     }
 
-    public ChangeableTitle getWindow() {
+    public AbsCommonFrame getWindow() {
         return window;
     }
 
-    public void setWindow(ChangeableTitle _window) {
+    public void setWindow(AbsCommonFrame _window) {
         window = _window;
     }
 

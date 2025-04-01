@@ -4,22 +4,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsOtherDialog;
-import code.gui.WithListener;
 
 public final class DialogStruct extends WindowStruct {
-    private final AbsOtherDialog dialog;
     private Struct menuBar = NullStruct.NULL_VALUE;
     public DialogStruct(AbsOtherDialog _frame) {
-        dialog = _frame;
-    }
-
-    @Override
-    protected WithListener getAbstractWindow() {
-        return getDialog();
-    }
-
-    public AbsOtherDialog getDialog() {
-        return dialog;
+        super(_frame);
     }
 
     @Override
@@ -31,13 +20,8 @@ public final class DialogStruct extends WindowStruct {
     public void setMenuBar(Struct _arg) {
         if (_arg instanceof MenuBarStruct) {
             menuBar = _arg;
-            dialog.setJMenuBar(((MenuBarStruct)_arg).getMenuBar());
+            getAbstractWindow().setJMenuBar(((MenuBarStruct)_arg).getMenuBar());
         }
-    }
-
-    @Override
-    public void pack() {
-        dialog.pack();
     }
 
     @Override

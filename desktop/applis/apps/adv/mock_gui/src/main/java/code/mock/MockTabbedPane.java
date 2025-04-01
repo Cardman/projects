@@ -106,9 +106,14 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public void setTabComponentAt(int _i, AbsCustComponent _c) {
-        getChildren().get(_i).setParent(null);
-        _c.setParent(this);
-        getChildren().set(_i, _c);
+        if (getChildren().isValidIndex(_i)) {
+            getChildren().get(_i).setParent(null);
+            _c.setParent(this);
+            getChildren().set(_i, _c);
+        } else {
+            _c.setParent(this);
+            getChildren().add(_c);
+        }
     }
 
     @Override
@@ -167,7 +172,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
         selectedIndex=-1;
     }
 
-    @Override
+//    @Override
     public void innerRemoveAll() {
         titles.clear();
         tooltips.clear();

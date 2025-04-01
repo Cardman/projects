@@ -507,8 +507,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
         return parent;
     }
 
-    @Override
-    public CustList<AbsCustComponent> getChildren() {
+    public IdList<AbsCustComponent> getChildren() {
         return children;
     }
 

@@ -7,7 +7,7 @@ import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
-public final class TabbedPaneStruct extends CustComponentStruct {
+public final class TabbedPaneStruct extends CustComponentStruct implements ContainerStruct {
     private final AbsTabbedPane tabbedPane;
     public TabbedPaneStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
@@ -33,13 +33,13 @@ public final class TabbedPaneStruct extends CustComponentStruct {
 
     public void setSelectedIndex(Struct _index) {
         int is_ = ((NumberStruct) _index).intStruct();
-        if (!tabbedPane.getChildren().isValidIndex(is_)) {
+        if (is_ < 0|| is_ >= tabbedPane.getComponentCount()) {
             return;
         }
         tabbedPane.selectIndex(is_);
     }
     public void add(Struct _title, CustComponentStruct _comp) {
-        if (_comp.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(_comp)) {
             return;
         }
         _comp.setParentComponent(this);
@@ -52,12 +52,12 @@ public final class TabbedPaneStruct extends CustComponentStruct {
         if (!getChildren().isValidIndex(index_)) {
             return;
         }
-        if (_comp.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(_comp)) {
             return;
         }
-        getChildren().get(index_).setNullParentComponent();
+//        getChildren().get(index_).setNullParentComponent();
         _comp.setParentComponent(this);
-        getChildren().set(index_,_comp);
+        getChildren().add(index_,_comp);
         tabbedPane.setTab(index_,_comp.getComponent());
     }
     public Struct getTitle(Struct _index) {
@@ -75,16 +75,25 @@ public final class TabbedPaneStruct extends CustComponentStruct {
         }
     }
 
+    @Override
+    public void move(CustComponentStruct _compo) {
+        remove(getChildren().indexOfObj(_compo));
+    }
+
     public Struct remove(Struct _index) {
-        CustList<CustComponentStruct> ch_ = getChildren();
         int index_ = ((NumberStruct)_index).intStruct();
-        if (!ch_.isValidIndex(index_)) {
+        return remove(index_);
+    }
+
+    private WithoutParentIdStruct remove(int _index) {
+        CustList<CustComponentStruct> ch_ = getChildren();
+        if (!ch_.isValidIndex(_index)) {
             return NullStruct.NULL_VALUE;
         }
-        CustComponentStruct c_ = ch_.get(index_);
+        CustComponentStruct c_ = ch_.get(_index);
         c_.setNullParentComponent();
-        ch_.remove(index_);
-        tabbedPane.remove(index_);
+        ch_.remove(_index);
+        tabbedPane.remove(_index);
         return c_;
     }
 

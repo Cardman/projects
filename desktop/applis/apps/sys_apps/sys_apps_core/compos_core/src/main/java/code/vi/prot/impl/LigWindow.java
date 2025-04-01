@@ -41,10 +41,10 @@ public abstract class LigWindow extends CustComponent implements ChangeableTitle
     public void setTitle(String _title) {
         this.title = _title;
     }
-    @Override
-    public void pack() {
-        GuiBaseUtil.recalculateWindow(this);
-    }
+//    @Override
+//    public void pack() {
+//        GuiBaseUtil.recalculateWindow(this);
+//    }
 
     @Override
     public AbsPanel getPane() {

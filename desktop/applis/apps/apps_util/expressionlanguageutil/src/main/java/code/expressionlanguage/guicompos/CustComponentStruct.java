@@ -12,13 +12,14 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.StringMap;
 
 
 public abstract class CustComponentStruct extends WithoutParentIdStruct implements Struct {
 
     private Struct parentComponent = NullStruct.NULL_VALUE;
-    private final CustList<CustComponentStruct> children = new CustList<CustComponentStruct>();
+    private final IdList<CustComponentStruct> children = new IdList<CustComponentStruct>();
     private final String className;
     private Struct paintEvent = NullStruct.NULL_VALUE;
     private final StringMap<EnabledActionStruct> actions = new StringMap<EnabledActionStruct>();
@@ -55,6 +56,28 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     @Override
     public String getClassName(ContextEl _contextEl) {
         return className;
+    }
+
+    protected boolean kept(CustComponentStruct _comp) {
+        if (this == _comp) {
+            return true;
+        }
+        CustComponentStruct curThis_ = this;
+        while (true) {
+            Struct par_ = curThis_.getParentComponent();
+            if (par_ == _comp){
+                return true;
+            }
+            if (!(par_ instanceof CustComponentStruct)) {
+                break;
+            }
+            curThis_ = (CustComponentStruct) par_;
+        }
+        Struct direct_ = _comp.getParentComponent();
+        if (direct_ instanceof ContainerStruct) {
+            ((ContainerStruct)direct_).move(_comp);
+        }
+        return false;
     }
     public Struct getParentComponent() {
         return parentComponent;
@@ -412,7 +435,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public void centerHoriz(){
         getComponent().centerHoriz();
     }
-    public CustList<CustComponentStruct> getChildren() {
+    public IdList<CustComponentStruct> getChildren() {
         return children;
     }
 
@@ -471,5 +494,9 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
 
     protected void setPreferredSize(MetaDimension _d) {
         getComponent().setPreferredSize(_d);
+    }
+
+    public void recalculate() {
+        getComponent().recalculate();
     }
 }

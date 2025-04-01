@@ -1,32 +1,72 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
 import code.gui.AbsSplitPane;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class SplitPaneStruct extends CustComponentStruct {
+public final class SplitPaneStruct extends CustComponentStruct implements ContainerStruct{
     private final AbsSplitPane splitPane;
     private Struct left;
     private Struct right;
     public SplitPaneStruct(String _className, Struct _orient, Struct _left, Struct _right, AbsCompoFactory _compoFactory) {
         super(_className);
-        if (GuiConstants.toSplitOrientation(((NumberStruct)_orient).intStruct()) == GuiConstants.HORIZONTAL_SPLIT) {
-            splitPane = _compoFactory.newHorizontalSplitPane(((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
-        } else {
-            splitPane = _compoFactory.newVerticalSplitPane(((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
-        }
         left = _left;
         right = _right;
-        ((CustComponentStruct)_left).setParentComponent(this);
-        ((CustComponentStruct)_right).setParentComponent(this);
-        getChildren().add((CustComponentStruct)_left);
-        getChildren().add((CustComponentStruct)_right);
+        if (_left instanceof CustComponentStruct) {
+            ((CustComponentStruct)_left).setParentComponent(this);
+            getChildren().add((CustComponentStruct)_left);
+            if (_right instanceof CustComponentStruct) {
+                ((CustComponentStruct)_right).setParentComponent(this);
+                getChildren().add((CustComponentStruct)_right);
+                splitPane = split(_orient, _left, _right, _compoFactory);
+            } else {
+                splitPane = splitLeft(_orient, _left, _compoFactory);
+            }
+        } else if (_right instanceof CustComponentStruct) {
+            ((CustComponentStruct)_right).setParentComponent(this);
+            getChildren().add((CustComponentStruct)_right);
+            splitPane = splitRight(_orient, _right, _compoFactory);
+        } else {
+            splitPane = split(_orient,_compoFactory);
+        }
+    }
+    private static AbsSplitPane split(Struct _orient, Struct _left, Struct _right, AbsCompoFactory _compoFactory) {
+        if (GuiConstants.toSplitOrientation(((NumberStruct)_orient).intStruct()) == GuiConstants.HORIZONTAL_SPLIT) {
+            return _compoFactory.newHorizontalSplitPane(((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
+        }
+        return _compoFactory.newVerticalSplitPane(((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
+    }
+    private static AbsSplitPane splitLeft(Struct _orient, Struct _left, AbsCompoFactory _compoFactory) {
+        if (GuiConstants.toSplitOrientation(((NumberStruct)_orient).intStruct()) == GuiConstants.HORIZONTAL_SPLIT) {
+            return _compoFactory.newHorizontalSplitPaneLeft(((CustComponentStruct)_left).getComponent());
+        }
+        return _compoFactory.newVerticalSplitPaneLeft(((CustComponentStruct)_left).getComponent());
+    }
+    private static AbsSplitPane splitRight(Struct _orient, Struct _right, AbsCompoFactory _compoFactory) {
+        if (GuiConstants.toSplitOrientation(((NumberStruct)_orient).intStruct()) == GuiConstants.HORIZONTAL_SPLIT) {
+            return _compoFactory.newHorizontalSplitPaneRight(((CustComponentStruct)_right).getComponent());
+        }
+        return _compoFactory.newVerticalSplitPaneRight(((CustComponentStruct)_right).getComponent());
+    }
+    private static AbsSplitPane split(Struct _orient, AbsCompoFactory _compoFactory) {
+        if (GuiConstants.toSplitOrientation(((NumberStruct)_orient).intStruct()) == GuiConstants.HORIZONTAL_SPLIT) {
+            return _compoFactory.newHorizontalSplitPane();
+        }
+        return _compoFactory.newVerticalSplitPane();
+    }
+
+    @Override
+    public void move(CustComponentStruct _compo) {
+        if (_compo == left) {
+            removeLeft();
+            left = NullStruct.NULL_VALUE;
+        }
+        if (_compo == right) {
+            removeRight();
+            right = NullStruct.NULL_VALUE;
+        }
     }
 
     public Struct getLeftComponent() {
@@ -35,17 +75,27 @@ public final class SplitPaneStruct extends CustComponentStruct {
 
     public void setLeftComponent(Struct _scroll) {
         if (!(_scroll instanceof CustComponentStruct)) {
+            removeLeft();
+            left = NullStruct.NULL_VALUE;
+            splitPane.setLeftComponentNull();
             return;
         }
         CustComponentStruct c_ = (CustComponentStruct) _scroll;
-        if (c_.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(c_)) {
             return;
         }
+        removeLeft();
         left = _scroll;
-        getChildren().first().setNullParentComponent();
         c_.setParentComponent(this);
         splitPane.setLeftComponent(c_.getComponent());
-        getChildren().set(0, c_);
+        getChildren().add(0, c_);
+    }
+
+    private void removeLeft() {
+        if (left instanceof CustComponentStruct) {
+            getChildren().removeObj((CustComponentStruct) left);
+            ((CustComponentStruct) left).setNullParentComponent();
+        }
     }
 
     public Struct getRightComponent() {
@@ -53,18 +103,29 @@ public final class SplitPaneStruct extends CustComponentStruct {
     }
     public void setRightComponent(Struct _scroll) {
         if (!(_scroll instanceof CustComponentStruct)) {
+            removeRight();
+            right = NullStruct.NULL_VALUE;
+            splitPane.setRightComponentNull();
             return;
         }
         CustComponentStruct c_ = (CustComponentStruct) _scroll;
-        if (c_.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(c_)) {
             return;
         }
+        removeRight();
         right = _scroll;
-        getChildren().last().setNullParentComponent();
         c_.setParentComponent(this);
         splitPane.setRightComponent(c_.getComponent());
-        getChildren().set(1, c_);
+        getChildren().add(c_);
     }
+
+    private void removeRight() {
+        if (right instanceof CustComponentStruct) {
+            getChildren().removeObj((CustComponentStruct) right);
+            ((CustComponentStruct) right).setNullParentComponent();
+        }
+    }
+
 
     public BooleanStruct isContinuousLayout() {
         return BooleanStruct.of(splitPane.isContinuousLayout());

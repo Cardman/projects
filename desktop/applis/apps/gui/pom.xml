@@ -17,7 +17,6 @@
 		<module>gui_util</module>
 		<module>interpreter</module>
 		<module>applications</module>
-		<module>guicust</module>
 	</modules>
 	<dependencies>
 		<dependency>

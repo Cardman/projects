@@ -13,6 +13,7 @@ import code.util.core.NumberUtil;
 public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, Input,SelectableIndexes{
     private final AbsScrollPane scrollPane;
     private final AbsPanel elements;
+    private final CustList<AbsCustComponent> elementsList = new CustList<AbsCustComponent>();
     private final CustList<AbsEnabledAction> actions = new CustList<AbsEnabledAction>();
     private RowGraphicList<T> first;
     private RowGraphicList<T> last;
@@ -172,6 +173,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         RowGraphicList<T> elt_ = new RowGraphicList<T>(generate(s_,_i,false,false,false),_i);
         append(elt_);
         elements.add(elt_.getLabel());
+        elementsList.add(elt_.getLabel());
     }
     public void add(int _index, T _i) {
         if (_index < 0) {
@@ -204,6 +206,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
             append(_i);
         }
         elements.add(_i.getLabel(), _index);
+        elementsList.add(_index,_i.getLabel());
     }
     public AbsPreparedLabel generate(int _index, T _info, boolean _isSelected, boolean _cellHasFocus, boolean _cellIsAnchored) {
         AbsPreparedLabel lab_ = preparedLabel();
@@ -314,6 +317,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
             }
         }
         elements.remove(_index);
+        elementsList.remove(_index);
     }
     public void clearRevalidate() {
         clear();
@@ -325,6 +329,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         first = null;
         last = null;
         elements.removeAll();
+        elementsList.clear();
     }
 
     private void updateAnchor(RowGraphicList<T> _current, RowGraphicList<T> _repl, int _index, int _i) {
@@ -911,7 +916,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
             if (curr_ == null) {
                 return new RowGraphicListIndex<T>(null,-1);
             }
-            int h_ = elements.getComponent(i_).getHeight();
+            int h_ = elementsList.get(i_).getHeight();
             if (_down * (y_ + _down * h_) >= _down * ym_) {
                 return new RowGraphicListIndex<T>(curr_,i_);
             }
@@ -1101,7 +1106,7 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
     }
 
     public void applyRows(){
-        scrollPane.setPreferredSize(GuiBaseUtil.dimension(elements,scrollPane.getPreferredSizeValue().getWidth(),visibleRowCount));
+        scrollPane.setPreferredSize(GuiBaseUtil.dimension(elementsList,scrollPane.getPreferredSizeValue().getWidth(),visibleRowCount));
     }
 
     public void addListener(ListSelection _listener){

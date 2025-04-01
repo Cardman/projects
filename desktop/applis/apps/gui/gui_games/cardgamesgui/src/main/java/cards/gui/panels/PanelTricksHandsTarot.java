@@ -21,7 +21,7 @@ public final class PanelTricksHandsTarot extends PanelTricksHandsUniqCard<CardTa
 
     private final int numberPlayers;
     private final DisplayingTarot displayingTarot;
-    public PanelTricksHandsTarot(ChangeableTitle _parent,
+    public PanelTricksHandsTarot(AbsCommonFrame _parent,
             TricksHandsTarot _tricksHands,
                                  int _numberPlayers,
             StringList _pseudos,

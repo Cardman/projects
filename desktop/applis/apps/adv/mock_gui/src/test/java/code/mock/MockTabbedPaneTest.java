@@ -43,6 +43,8 @@ public final class MockTabbedPaneTest extends EquallableMockGuiUtil{
         t_.add("",new MockPlainLabel(""));
         assertTrue(t_.setTab(0,new MockPlainLabel("")));
         assertEq(2,t_.getComponentCount());
+        assertTrue(t_.setTab(3,new MockPlainLabel("")));
+        new MockScrollPane().getChild();
     }
     @Test
     public void t6() {

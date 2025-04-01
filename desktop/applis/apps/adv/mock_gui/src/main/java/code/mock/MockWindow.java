@@ -8,7 +8,7 @@ import code.gui.images.MetaPoint;
 import code.util.CustList;
 import code.util.IdList;
 
-public abstract class MockWindow implements WithListener, PlacableWindow{
+public class MockWindow implements WithListener, PlacableWindow{
     private final IdList<AbsWindowListenerClosing> windowClosListeners = new IdList<AbsWindowListenerClosing>();
     private final IdList<AbsWindowListener> windowListeners = new IdList<AbsWindowListener>();
     private String title;
@@ -24,9 +24,87 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
 
     private MetaPoint locationOnScreen = new MetaPoint(0,0);
 
-    protected MockWindow() {
+    public MockWindow() {
         pane = new MockPanel(MockLayout.LINE);
         menu = new MockMenuBar();
+    }
+    public void pack() {
+        recalculate((MockCustComponent) pane);
+    }
+    public static void recalculate(MockCustComponent _compo) {
+        _compo.setSize(_compo.getPreferredSizeValue());
+        MockCustComponent curr_ = _compo;
+        while(curr_ != null) {
+            curr_.recalculate();
+            if (curr_ instanceof AbsScrollPane) {
+                ((AbsScrollPane)curr_).recalculateViewport();
+            }
+
+            AbsCustComponent child_ = childAt(curr_, 0);
+            if (child_ instanceof MockCustComponent) {
+                curr_ = (MockCustComponent) child_;
+            } else {
+                while(curr_ != null) {
+                    MockCustComponent par_ = parentOrNull(curr_.getParent());
+                    int index_ = indexOf(par_, curr_);
+                    AbsCustComponent next_ = childAt(par_, index_ + 1);
+                    if (next_ instanceof MockCustComponent) {
+                        curr_ = (MockCustComponent) next_;
+                        break;
+                    }
+
+                    curr_ = parent(par_,_compo);
+                }
+            }
+        }
+    }
+
+    private static MockCustComponent parentOrNull(AbsCustComponent _par) {
+        if (_par instanceof MockCustComponent) {
+            return (MockCustComponent) _par;
+        }
+        return null;
+    }
+    private static MockCustComponent parent(MockCustComponent _par, MockCustComponent _compo) {
+        if (_par == _compo) {
+            return null;
+        }
+        return _par;
+    }
+
+    private static AbsCustComponent childAt(MockCustComponent _elt, int _index) {
+        if (_elt == null) {
+            return null;
+        }
+        CustList<AbsCustComponent> children_ = _elt.getChildren();
+        if (!children_.isValidIndex(_index)) {
+            return null;
+        }
+        return children_.get(_index);
+    }
+
+    private static int indexOf(MockCustComponent _par, MockCustComponent _elt) {
+        if ( _par == null) {
+            return -1;
+        }
+        return indexOf(_par.getChildren(), _elt);
+    }
+
+    public static int indexOf(CustList<AbsCustComponent> _list, MockCustComponent _elt) {
+        int len_ = _list.size();
+        for(int i = 0; i < len_; i++) {
+            AbsCustComponent c = _list.get(i);
+            if (c == _elt) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    @Override
+    public void setLocationRelativeTo(AbsCustComponent _c) {
+        setVisible(isVisible());
     }
 
     @Override
@@ -156,7 +234,7 @@ public abstract class MockWindow implements WithListener, PlacableWindow{
         }
     }
 
-    public void setLocationRelativeTo(AbsCustComponent _c) {
+    public void setLocationRelativeTo(MockCustComponent _c) {
         locationFirst = _c.getXcoords()+_c.getWidth()/2;
         locationSecond = _c.getYcoords()+_c.getHeight()/2;
     }

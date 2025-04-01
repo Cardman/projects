@@ -16,7 +16,7 @@ import code.vi.prot.impl.gui.events.WrWindowListenerClos;
 import javax.swing.*;
 import java.awt.*;
 
-public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,PlacableWindow {
+public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,PlacableWindow,Packable {
     private final JDialog dialog;
 
     private boolean modal;

@@ -13,11 +13,10 @@ import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.gui.OtherConfirmDialog;
+//import code.gui.OtherConfirmDialog;
 import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringList;
@@ -1350,47 +1349,47 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         StandardType std_ = stdcl_;
         StandardType.addType(_content.getStandards(), aliasWindowType, std_);
 
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasConfirm, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.HYPER_ABSTRACT);
-        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
-        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmField0(),guiAliasParameters.getAliasConfirm0ConfirmField1(),guiAliasParameters.getAliasConfirm0ConfirmField2(),guiAliasParameters.getAliasConfirm0ConfirmField3(),guiAliasParameters.getAliasConfirm0ConfirmField4(),guiAliasParameters.getAliasConfirm0ConfirmField5(),guiAliasParameters.getAliasConfirm0ConfirmField6()), new FctConfirmField1(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmField0(),guiAliasParameters.getAliasConfirm1ConfirmField1(),guiAliasParameters.getAliasConfirm1ConfirmField2(),guiAliasParameters.getAliasConfirm1ConfirmField3(),guiAliasParameters.getAliasConfirm1ConfirmField4(),guiAliasParameters.getAliasConfirm1ConfirmField5()), new FctConfirmField0(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmFull0(),guiAliasParameters.getAliasConfirm0ConfirmFull1(),guiAliasParameters.getAliasConfirm0ConfirmFull2(),guiAliasParameters.getAliasConfirm0ConfirmFull3(),guiAliasParameters.getAliasConfirm0ConfirmFull4(),guiAliasParameters.getAliasConfirm0ConfirmFull5(),guiAliasParameters.getAliasConfirm0ConfirmFull6()), new FctConfirmFull1(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmFull0(),guiAliasParameters.getAliasConfirm1ConfirmFull1(),guiAliasParameters.getAliasConfirm1ConfirmFull2(),guiAliasParameters.getAliasConfirm1ConfirmFull3(),guiAliasParameters.getAliasConfirm1ConfirmFull4(),guiAliasParameters.getAliasConfirm1ConfirmFull5()), new FctConfirmFull0(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmYesNo0(),guiAliasParameters.getAliasConfirm0ConfirmYesNo1(),guiAliasParameters.getAliasConfirm0ConfirmYesNo2(),guiAliasParameters.getAliasConfirm0ConfirmYesNo3(),guiAliasParameters.getAliasConfirm0ConfirmYesNo4(),guiAliasParameters.getAliasConfirm0ConfirmYesNo5()), new FctConfirmYesNo1(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmYesNo0(),guiAliasParameters.getAliasConfirm1ConfirmYesNo1(),guiAliasParameters.getAliasConfirm1ConfirmYesNo2(),guiAliasParameters.getAliasConfirm1ConfirmYesNo3(),guiAliasParameters.getAliasConfirm1ConfirmYesNo4()), new FctConfirmYesNo0(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmOk0(),guiAliasParameters.getAliasConfirm0ConfirmOk1(),guiAliasParameters.getAliasConfirm0ConfirmOk2(),guiAliasParameters.getAliasConfirm0ConfirmOk3(),guiAliasParameters.getAliasConfirm0ConfirmOk4()), new FctConfirmOk1(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmOk0(),guiAliasParameters.getAliasConfirm1ConfirmOk1(),guiAliasParameters.getAliasConfirm1ConfirmOk2(),guiAliasParameters.getAliasConfirm1ConfirmOk3()), new FctConfirmOk0(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmMessage0(),guiAliasParameters.getAliasConfirm0ConfirmMessage1(),guiAliasParameters.getAliasConfirm0ConfirmMessage2(),guiAliasParameters.getAliasConfirm0ConfirmMessage3(),guiAliasParameters.getAliasConfirm0ConfirmMessage4()), new FctConfirmMessage1(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmMessage0(),guiAliasParameters.getAliasConfirm1ConfirmMessage1(),guiAliasParameters.getAliasConfirm1ConfirmMessage2(),guiAliasParameters.getAliasConfirm1ConfirmMessage3()), new FctConfirmMessage0(_cust,_guiEx));
-        StandardNamedFunction.addFct(methods_, method_);
-        fields_.add(new CstFieldInfo(aliasConfirmFieldOk,_content.getPrimTypes().getAliasPrimInteger()));
-        fields_.add(new CstFieldInfo(aliasConfirmFieldYes,_content.getPrimTypes().getAliasPrimInteger()));
-        fields_.add(new CstFieldInfo(aliasConfirmFieldNo,_content.getPrimTypes().getAliasPrimInteger()));
-        fields_.add(new CstFieldInfo(aliasConfirmFieldCancel,_content.getPrimTypes().getAliasPrimInteger()));
-        std_ = stdcl_;
-        StandardType.addType(_content.getStandards(), aliasConfirm, std_);
+//        methods_ = new CustList<StandardMethod>();
+//        constructors_ = new CustList<StandardConstructor>();
+//        fields_ = new CustList<CstFieldInfo>();
+//        stdcl_ = new StandardClass(aliasConfirm, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.HYPER_ABSTRACT);
+//        stdcl_.addSuperStdTypes(_content.getCoreNames().getObjType());
+//        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmField0(),guiAliasParameters.getAliasConfirm0ConfirmField1(),guiAliasParameters.getAliasConfirm0ConfirmField2(),guiAliasParameters.getAliasConfirm0ConfirmField3(),guiAliasParameters.getAliasConfirm0ConfirmField4(),guiAliasParameters.getAliasConfirm0ConfirmField5(),guiAliasParameters.getAliasConfirm0ConfirmField6()), new FctConfirmField1(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmField, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmField0(),guiAliasParameters.getAliasConfirm1ConfirmField1(),guiAliasParameters.getAliasConfirm1ConfirmField2(),guiAliasParameters.getAliasConfirm1ConfirmField3(),guiAliasParameters.getAliasConfirm1ConfirmField4(),guiAliasParameters.getAliasConfirm1ConfirmField5()), new FctConfirmField0(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmFull0(),guiAliasParameters.getAliasConfirm0ConfirmFull1(),guiAliasParameters.getAliasConfirm0ConfirmFull2(),guiAliasParameters.getAliasConfirm0ConfirmFull3(),guiAliasParameters.getAliasConfirm0ConfirmFull4(),guiAliasParameters.getAliasConfirm0ConfirmFull5(),guiAliasParameters.getAliasConfirm0ConfirmFull6()), new FctConfirmFull1(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmFull, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmFull0(),guiAliasParameters.getAliasConfirm1ConfirmFull1(),guiAliasParameters.getAliasConfirm1ConfirmFull2(),guiAliasParameters.getAliasConfirm1ConfirmFull3(),guiAliasParameters.getAliasConfirm1ConfirmFull4(),guiAliasParameters.getAliasConfirm1ConfirmFull5()), new FctConfirmFull0(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmYesNo0(),guiAliasParameters.getAliasConfirm0ConfirmYesNo1(),guiAliasParameters.getAliasConfirm0ConfirmYesNo2(),guiAliasParameters.getAliasConfirm0ConfirmYesNo3(),guiAliasParameters.getAliasConfirm0ConfirmYesNo4(),guiAliasParameters.getAliasConfirm0ConfirmYesNo5()), new FctConfirmYesNo1(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmYesNo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmYesNo0(),guiAliasParameters.getAliasConfirm1ConfirmYesNo1(),guiAliasParameters.getAliasConfirm1ConfirmYesNo2(),guiAliasParameters.getAliasConfirm1ConfirmYesNo3(),guiAliasParameters.getAliasConfirm1ConfirmYesNo4()), new FctConfirmYesNo0(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmOk0(),guiAliasParameters.getAliasConfirm0ConfirmOk1(),guiAliasParameters.getAliasConfirm0ConfirmOk2(),guiAliasParameters.getAliasConfirm0ConfirmOk3(),guiAliasParameters.getAliasConfirm0ConfirmOk4()), new FctConfirmOk1(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmOk, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmOk0(),guiAliasParameters.getAliasConfirm1ConfirmOk1(),guiAliasParameters.getAliasConfirm1ConfirmOk2(),guiAliasParameters.getAliasConfirm1ConfirmOk3()), new FctConfirmOk0(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasImage,aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm0ConfirmMessage0(),guiAliasParameters.getAliasConfirm0ConfirmMessage1(),guiAliasParameters.getAliasConfirm0ConfirmMessage2(),guiAliasParameters.getAliasConfirm0ConfirmMessage3(),guiAliasParameters.getAliasConfirm0ConfirmMessage4()), new FctConfirmMessage1(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        params_ = new StringList(aliasWindowType,_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
+//        method_ = new StandardMethod(aliasConfirmMessage, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasConfirm1ConfirmMessage0(),guiAliasParameters.getAliasConfirm1ConfirmMessage1(),guiAliasParameters.getAliasConfirm1ConfirmMessage2(),guiAliasParameters.getAliasConfirm1ConfirmMessage3()), new FctConfirmMessage0(_cust,_guiEx));
+//        StandardNamedFunction.addFct(methods_, method_);
+//        fields_.add(new CstFieldInfo(aliasConfirmFieldOk,_content.getPrimTypes().getAliasPrimInteger()));
+//        fields_.add(new CstFieldInfo(aliasConfirmFieldYes,_content.getPrimTypes().getAliasPrimInteger()));
+//        fields_.add(new CstFieldInfo(aliasConfirmFieldNo,_content.getPrimTypes().getAliasPrimInteger()));
+//        fields_.add(new CstFieldInfo(aliasConfirmFieldCancel,_content.getPrimTypes().getAliasPrimInteger()));
+//        std_ = stdcl_;
+//        StandardType.addType(_content.getStandards(), aliasConfirm, std_);
         StandardConstructor ctor_;
 
         methods_ = new CustList<StandardMethod>();
@@ -3245,9 +3244,9 @@ public final class GuiAliases implements AbsAliasFileBuilder {
     }
 
     public Struct getInnerSimpleResult(ClassField _classField,LgNamesContent _content) {
-        if (StringUtil.quickEq(_classField.getClassName(),aliasConfirm)) {
-            return getResultConfirm(_classField);
-        }
+//        if (StringUtil.quickEq(_classField.getClassName(),aliasConfirm)) {
+//            return getResultConfirm(_classField);
+//        }
         if (StringUtil.quickEq(_classField.getClassName(),aliasPanelBorder)) {
             return getResultPanelBorder(_classField);
         }
@@ -3283,19 +3282,19 @@ public final class GuiAliases implements AbsAliasFileBuilder {
         return new StringStruct(PanelBorderStruct.AFTER_LAST_LINE);
     }
 
-    private Struct getResultConfirm(ClassField _classField) {
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldOk)) {
-            return new IntStruct(OtherConfirmDialog.OK_OPTION);
-        }
-        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldYes)) {
-            return new IntStruct(OtherConfirmDialog.YES_OPTION);
-        }
-        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldNo)) {
-            return new IntStruct(OtherConfirmDialog.NO_OPTION);
-        }
-        return new IntStruct(OtherConfirmDialog.CANCEL_OPTION);
-    }
+//    private Struct getResultConfirm(ClassField _classField) {
+//        String fieldName_ = _classField.getFieldName();
+//        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldOk)) {
+//            return new IntStruct(OtherConfirmDialog.OK_OPTION);
+//        }
+//        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldYes)) {
+//            return new IntStruct(OtherConfirmDialog.YES_OPTION);
+//        }
+//        if (StringUtil.quickEq(fieldName_,aliasConfirmFieldNo)) {
+//            return new IntStruct(OtherConfirmDialog.NO_OPTION);
+//        }
+//        return new IntStruct(OtherConfirmDialog.CANCEL_OPTION);
+//    }
 
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
         setAliasTreeNode(LgNamesContent.get(_util,_cust,_mapping.getVal(TREE_NODE)));

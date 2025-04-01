@@ -12,8 +12,8 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
 
     public ScrollPane(AbsCustComponent _center) {
         component = new JScrollPane(((CustComponent)_center).getNatComponent());
-        setPar(_center);
-        getChildren().add(_center);
+//        setPar(_center);
+//        getChildren().add(_center);
     }
 
     public ScrollPane(JScrollPane _scroll) {
@@ -23,9 +23,9 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
         component = new JScrollPane();
     }
 
-    private void setPar(AbsCustComponent _center) {
-        _center.setParent(this);
-    }
+//    private void setPar(AbsCustComponent _center) {
+//        _center.setParent(this);
+//    }
 
     @Override
     public JComponent getNatComponent() {
@@ -34,14 +34,14 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
 
     public void setViewportView(AbsCustComponent _graphic) {
         component.setViewportView(((CustComponent)_graphic).getNatComponent());
-        setPar(_graphic);
-        FrameUtil.removeChild(getChildren());
-        getChildren().add(_graphic);
+//        setPar(_graphic);
+//        FrameUtil.removeChild(getChildren());
+//        getChildren().add(_graphic);
     }
 
     public void setNullViewportView() {
         component.setViewportView(null);
-        FrameUtil.removeChild(getChildren());
+//        FrameUtil.removeChild(getChildren());
     }
 
     public int getHorizontalValue() {

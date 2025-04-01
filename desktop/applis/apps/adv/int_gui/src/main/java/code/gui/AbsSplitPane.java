@@ -2,9 +2,11 @@ package code.gui;
 
 public interface AbsSplitPane extends AbsCustComponent,AbsContainer {
     void setLeftComponent(AbsCustComponent _scroll);
-    void innerLeft(AbsCustComponent _scroll);
+    void setLeftComponentNull();
+//    void innerLeft(AbsCustComponent _scroll);
     void setRightComponent(AbsCustComponent _scroll);
-    void innerRight(AbsCustComponent _scroll);
+    void setRightComponentNull();
+//    void innerRight(AbsCustComponent _scroll);
     boolean isContinuousLayout();
     void setContinuousLayout(boolean _b);
     boolean isOneTouchExpandable();

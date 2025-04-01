@@ -7,9 +7,8 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
-import code.util.IdList;
 
-public class PanelStruct extends CustComponentStruct {
+public class PanelStruct extends CustComponentStruct implements ContainerStruct{
     private final AbsPanel panel;
     private PanelStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
@@ -70,27 +69,6 @@ public class PanelStruct extends CustComponentStruct {
         getChildren().add(_index,_comp);
         panel.add(_comp.getComponent(), _index);
     }
-    protected boolean kept(CustComponentStruct _comp) {
-        if (this == _comp) {
-            return true;
-        }
-        CustComponentStruct curThis_ = this;
-        while (true) {
-            Struct par_ = curThis_.getParentComponent();
-            if (par_ == _comp){
-                return true;
-            }
-            if (!(par_ instanceof CustComponentStruct)) {
-                break;
-            }
-            curThis_ = (CustComponentStruct) par_;
-        }
-        Struct direct_ = _comp.getParentComponent();
-        if (direct_ instanceof PanelStruct) {
-            ((PanelStruct)direct_).remove(new IdList<CustComponentStruct>(((CustComponentStruct)direct_).getChildren()).indexOfObj(_comp));
-        }
-        return false;
-    }
 
     public void removeAll() {
         CustList<CustComponentStruct> ch_ = getChildren();
@@ -110,6 +88,11 @@ public class PanelStruct extends CustComponentStruct {
         ch_.remove(_index);
         panel.remove(_index);
         return c_;
+    }
+
+    @Override
+    public void move(CustComponentStruct _compo) {
+        remove(getChildren().indexOfObj(_compo));
     }
 
     public IntStruct remove(Struct _cust) {

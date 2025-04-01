@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.dbg.ExcPointBlockKey;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
@@ -1586,7 +1585,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(63,63);
         toggleBp(b_);
         assertFalse(curRet(b_).is(file(curRet(b_)),63));
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp85() {
@@ -1606,7 +1605,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         tabEditor(b_).getCenter().select(52,52);
         toggleBp(b_);
         assertTrue(curRet(b_).is(file(curRet(b_)),63));
-        assertEq(1,b_.getFramePoints().getView().getChildren().size());
+        assertNotNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp86() {
@@ -1625,7 +1624,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         editMethod(b_,0);
         tabEditor(b_).getCenter().select(21,21);
         toggleWp(b_);
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp87() {
@@ -1644,7 +1643,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         editMethod(b_,0);
         tabEditor(b_).getCenter().select(58,58);
         toggleWp(b_);
-        assertEq(1,b_.getFramePoints().getView().getChildren().size());
+        assertNotNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp88() {
@@ -1665,7 +1664,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         editWatch(b_,0);
         tabEditor(b_).getCenter().select(39,39);
         toggleWp(b_);
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp89() {
@@ -1686,7 +1685,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         editWatch(b_,0);
         tabEditor(b_).getCenter().select(41,41);
         toggleWp(b_);
-        assertEq(1,b_.getFramePoints().getView().getChildren().size());
+        assertNotNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp90() {
@@ -1707,7 +1706,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         editWatchAnnot(b_,0);
         tabEditor(b_).getCenter().select(30,30);
         toggleWp(b_);
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp91() {
@@ -1728,7 +1727,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         editWatchAnnot(b_,0);
         tabEditor(b_).getCenter().select(38,38);
         toggleBp(b_);
-        assertEq(1,b_.getFramePoints().getView().getChildren().size());
+        assertNotNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp92() {
@@ -1747,7 +1746,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameTpFormContent().getEnabledBp().setSelected(true);
         editOthBp(b_.getFramePoints().getFrameTpFormContent().getGuiInsStackForm().getDependantPointsForm(),0);
         addTpOk(b_);
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
     }
     @Test
     public void bp93() {
@@ -1981,7 +1980,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         addMpOk(b_);
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
         assertTrue(curRet(b_).getPair(MemberCallingsBlock.clName(curRet(b_).getPageEl().getAnaClassBody("pkg.Ex").getOverridableBlocks().get(0))).getValue().getResultEntry().getOthers().elts().iterator().hasNext());
     }
     @Test
@@ -2022,7 +2021,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameStdFormContent().getGuiEnterStackForm().getDependantPointsForm().getChecksCurrent().get(0).setSelected(true);
         b_.getFramePoints().getFrameStdFormContent().getGuiEnterStackForm().getDependantPointsForm().getChecksCurrent().get(1).setSelected(true);
         selectStd(b_, curRet(b_).getPageEl().getAliasObject(),getConstructorId(false));
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
         assertTrue(curRet(b_).getPair(getConstructorId(false).look(curRet(b_).getPageEl().getStandardsTypes().getVal(curRet(b_).getPageEl().getAliasObject())).get(0)).getValue().getResultEntry().getOthers().elts().iterator().hasNext());
     }
     @Test
@@ -2049,7 +2048,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getGeneComponentModelEntryStringInteger().getValue().valueInt(1);
         b_.getFramePoints().getFrameFormContent().getGuiEnterStackForm().getPrefs().getValidAddEdit().getActionListeners().get(0).action();
         addMpOk(b_);
-        assertEq(0,b_.getFramePoints().getView().getChildren().size());
+        assertNull(compo(b_.getFramePoints().getView()));
         assertTrue(curRet(b_).getPair(MemberCallingsBlock.clName(curRet(b_).getPageEl().getAnaClassBody("pkg.Ex").getOverridableBlocks().get(0))).getValue().getResultEntry().getPrefs().elts().iterator().hasNext());
     }
     @Test
@@ -4565,7 +4564,7 @@ public final class DbgActTest extends EquallableElAdvUtil {
         //validValues(f_);
         assertFalse(methods(b_).isEmpty());
         launch(b_);
-        assertEq("log\n",((AbsTextArea)b_.getStatusDbgAreaScroll().getChildren().get(0)).getText());
+        assertEq("log\n",((AbsTextArea) compo(b_.getStatusDbgAreaScroll())).getText());
     }
     @Test
     public void i21() {
@@ -8946,6 +8945,11 @@ public final class DbgActTest extends EquallableElAdvUtil {
 
     private Struct resNode(DbgAbsNodeStruct _i, AbsDebuggerGui _b) {
         return TreeNodeRenderUtil.result(RenderPointPair.stopExc(_b.getRenderList(), _i), _i, _b.getFrames());
+    }
+
+
+    private AbsCustComponent compo(AbsScrollPane _sc) {
+        return ((MockScrollPane)_sc).getChild();
     }
 
 

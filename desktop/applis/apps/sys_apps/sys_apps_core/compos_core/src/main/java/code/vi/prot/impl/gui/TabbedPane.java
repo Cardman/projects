@@ -2,7 +2,6 @@ package code.vi.prot.impl.gui;
 
 import code.gui.AbsCustComponent;
 import code.gui.AbsTabbedPane;
-import code.gui.FrameUtil;
 import code.gui.GuiBaseUtil;
 import code.gui.events.AbsChangeListener;
 import code.util.CustList;
@@ -47,7 +46,7 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
     }
 
     public int getComponentCount() {
-        return getChildren().size();
+        return component.getComponentCount();
     }
 
     public int getSelectedIndex() {
@@ -66,7 +65,8 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
     }
 
     public void add(String _title, AbsCustComponent _component) {
-        FrameUtil.added(_title, _component,this);
+        addIntTab(_title,_component,"");
+//        FrameUtil.added(_title, _component,this);
     }
 
     public void addIntTab(String _title, AbsCustComponent _component) {
@@ -75,8 +75,8 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
 
     @Override
     public void addIntTab(String _title, AbsCustComponent _component, String _tooltip) {
-        _component.setParent(this);
-        getChildren().add(_component);
+//        _component.setParent(this);
+//        getChildren().add(_component);
         int pr_ = component.getSelectedIndex();
         component.addTab(_title, null,((CustComponent) _component).getNatComponent(),_tooltip);
         GuiBaseUtil.stateChanged(this,pr_,component.getSelectedIndex());
@@ -84,16 +84,20 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
 
     public boolean setTab(int _index,AbsCustComponent _component) {
         try {
-            return FrameUtil.setTab(_index, _component,this);
+            int pr_ = component.getSelectedIndex();
+            component.setTabComponentAt(_index,((CustComponent) _component).getNatComponent());
+            GuiBaseUtil.stateChanged(this,pr_,component.getSelectedIndex());
+            return true;
+//            return FrameUtil.setTab(_index, _component,this);
         } catch (Exception e) {
             return false;
         }
     }
 
     public void setTabComponentAt(int _index, AbsCustComponent _component) {
-        getChildren().get(_index).setParent(null);
-        _component.setParent(this);
-        getChildren().set(_index, _component);
+//        getChildren().get(_index).setParent(null);
+//        _component.setParent(this);
+//        getChildren().set(_index, _component);
         int pr_ = component.getSelectedIndex();
         component.setTabComponentAt(_index,((CustComponent) _component).getNatComponent());
         GuiBaseUtil.stateChanged(this,pr_,component.getSelectedIndex());
@@ -135,8 +139,8 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
     }
 
     public void remove(int _index) {
-        getChildren().get(_index).setParent(null);
-        getChildren().remove(_index);
+//        getChildren().get(_index).setParent(null);
+//        getChildren().remove(_index);
         int pr_ = component.getSelectedIndex();
         component.removeTabAt(_index);
         GuiBaseUtil.stateChanged(this,pr_,component.getSelectedIndex());
@@ -148,15 +152,18 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
     }
 
     public void removeAll() {
-        FrameUtil.remAllFromPanel(getChildren());
-        innerRemoveAll();
-    }
-
-    public void innerRemoveAll() {
-        getChildren().clear();
+//        FrameUtil.remAllFromPanel(getChildren());
+//        innerRemoveAll();
         int pr_ = component.getSelectedIndex();
         component.removeAll();
         GuiBaseUtil.stateChanged(this,pr_,component.getSelectedIndex());
     }
+
+//    public void innerRemoveAll() {
+//        getChildren().clear();
+//        int pr_ = component.getSelectedIndex();
+//        component.removeAll();
+//        GuiBaseUtil.stateChanged(this,pr_,component.getSelectedIndex());
+//    }
 
 }

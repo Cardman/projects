@@ -19,7 +19,7 @@ public final class PanelTricksHandsBelote extends PanelTricksHandsUniqCard<CardB
     private final RulesBelote rules;
     private final DisplayingBelote displayingBelote;
 
-    public PanelTricksHandsBelote(ChangeableTitle _parent,
+    public PanelTricksHandsBelote(AbsCommonFrame _parent,
                                   TricksHandsBelote _tricksHands,
                                   RulesBelote _r, StringList _pseudos,
                                   DisplayingBelote _displayingBelote,

@@ -3,7 +3,7 @@ package code.mock;
 import code.gui.AbsOtherDialog;
 import code.gui.PlacableWindow;
 
-public abstract class MockAbsDialog extends MockWindow implements AbsOtherDialog, PlacableWindow {
+public class MockAbsDialog extends MockWindow implements AbsOtherDialog, PlacableWindow {
 
     private boolean modal;
 

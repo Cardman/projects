@@ -1,8 +1,11 @@
 package code.expressionlanguage.adv;
 
+import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
+import code.gui.AbsScrollPane;
 import code.gui.AbsTreeGui;
 import code.mock.MockPlainButton;
+import code.mock.MockScrollPane;
 import org.junit.Test;
 
 public final class LocationsTreeEventTest extends EquallableElAdvUtil {
@@ -19,7 +22,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         s_.getTabs().get(0).getCenter().select(104,104);
         currentElement(s_.getTabs().get(0));
         callers(s_);
-        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(s_.getPanelSymbolsDetailScroll());
         assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
@@ -36,7 +39,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         s_.getTabs().get(0).getCenter().select(74,74);
         currentElement(s_.getTabs().get(0));
         callers(s_);
-        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(s_.getPanelSymbolsDetailScroll());
         assertEq(1, a_.getRoot().getChildCount());
     }
     @Test
@@ -52,7 +55,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         s_.getTabs().get(0).getCenter().select(57,57);
         currentElement(s_.getTabs().get(0));
         callers(s_);
-        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(s_.getPanelSymbolsDetailScroll());
         assertEq(1, a_.getRoot().getChildCount());
         assertEq(2, a_.getRoot().getFirstChild().getChildCount());
     }
@@ -69,7 +72,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         s_.getTabs().get(0).getCenter().select(104,104);
         currentElement(s_.getTabs().get(0));
         callers(s_);
-        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(s_.getPanelSymbolsDetailScroll());
         assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
@@ -86,7 +89,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         s_.getTabs().get(0).getCenter().select(104,104);
         currentElement(s_.getTabs().get(0));
         callers(s_);
-        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(s_.getPanelSymbolsDetailScroll());
         assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
@@ -104,7 +107,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         callers(s_);
         refreshUsages(s_);
-        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(s_.getPanelSymbolsDetailScroll());
         assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
@@ -122,7 +125,7 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         currentElement(s_.getTabs().get(0));
         callers(s_);
         refreshUsagesDef(s_);
-        AbsTreeGui a_ = (AbsTreeGui) s_.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(s_.getPanelSymbolsDetailScroll());
         assertEq(1, a_.getRoot().getFirstChild().getChildCount());
         assertEq(3,locations(s_).getComponentCount());
     }
@@ -143,11 +146,16 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
     }
 
     private AbsPanel locations(WindowExpressionEditor _s) {
-        AbsTreeGui a_ = (AbsTreeGui) _s.getPanelSymbolsDetailScroll().getChildren().get(0);
+        AbsTreeGui a_ = (AbsTreeGui) compo(_s.getPanelSymbolsDetailScroll());
         a_.select(null);
         a_.select(a_.getRoot());
         a_.select(a_.getRoot().getFirstChild());
         a_.select(a_.getRoot().getFirstChild().getFirstChild());
-        return (AbsPanel)_s.getPanelSymbolsLocationScroll().getChildren().get(0);
+        return (AbsPanel) compo(_s.getPanelSymbolsLocationScroll());
     }
+
+    private AbsCustComponent compo(AbsScrollPane _p) {
+        return ((MockScrollPane)_p).getChild();
+    }
+
 }

@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.gui.AbsCustComponent;
 import org.junit.Test;
 
 public final class MockSplitPaneTest extends EquallableMockGuiUtil {
@@ -30,14 +31,14 @@ public final class MockSplitPaneTest extends EquallableMockGuiUtil {
         MockWithChangeListenerSample fr_ = new MockWithChangeListenerSample(init(), "");
         MockPlainLabel chg_ = new MockPlainLabel("");
         fr_.getHorizontalSplitPane().setRightComponent(chg_);
-        assertSame(chg_,fr_.getHorizontalSplitPane().getChildren().get(1));
+        assertSame(chg_,((MockCustComponent)fr_.getHorizontalSplitPane()).getChildren().get(1));
     }
     @Test
     public void s4() {
         MockWithChangeListenerSample fr_ = new MockWithChangeListenerSample(init(), "");
         MockPlainLabel chg_ = new MockPlainLabel("");
         fr_.getHorizontalSplitPane().setLeftComponent(chg_);
-        assertSame(chg_,fr_.getHorizontalSplitPane().getChildren().get(0));
+        assertSame(chg_,((MockCustComponent)fr_.getHorizontalSplitPane()).getChildren().get(0));
     }
     @Test
     public void s5() {
@@ -45,7 +46,12 @@ public final class MockSplitPaneTest extends EquallableMockGuiUtil {
         MockPlainLabel chg_ = new MockPlainLabel("");
         fr_.getHorizontalSplitPane().setRightComponent(chg_);
         fr_.getHorizontalSplitPane().setRightComponent(chg_);
-        assertSame(chg_,fr_.getHorizontalSplitPane().getChildren().get(1));
+        assertSame(chg_,((MockCustComponent)fr_.getHorizontalSplitPane()).getChildren().get(1));
+        fr_.getHorizontalSplitPane().setRightComponentNull();
+        fr_.getHorizontalSplitPane().setRightComponentNull();
+        init().getCompoFactory().newHorizontalSplitPaneRight(new MockPlainLabel(""));
+        init().getCompoFactory().newVerticalSplitPaneRight(new MockPlainLabel(""));
+        init().getCompoFactory().newVerticalSplitPane();
     }
     @Test
     public void s6() {
@@ -53,7 +59,13 @@ public final class MockSplitPaneTest extends EquallableMockGuiUtil {
         MockPlainLabel chg_ = new MockPlainLabel("");
         fr_.getHorizontalSplitPane().setLeftComponent(chg_);
         fr_.getHorizontalSplitPane().setLeftComponent(chg_);
-        assertSame(chg_,fr_.getHorizontalSplitPane().getChildren().get(0));
+        assertSame(chg_,((MockCustComponent)fr_.getHorizontalSplitPane()).getChildren().get(0));
+        fr_.getHorizontalSplitPane().setLeftComponentNull();
+        fr_.getHorizontalSplitPane().setLeftComponentNull();
+        init().getCompoFactory().newHorizontalSplitPane();
+        init().getCompoFactory().newHorizontalSplitPaneLeft(new MockPlainLabel(""));
+        init().getCompoFactory().newVerticalSplitPaneLeft(new MockPlainLabel(""));
+        new MockAbsDialog().setLocationRelativeTo(new MockPlainLabel(""));
     }
     @Test
     public void s7() {

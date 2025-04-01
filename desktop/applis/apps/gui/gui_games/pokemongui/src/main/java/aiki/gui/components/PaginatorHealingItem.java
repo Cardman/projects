@@ -140,7 +140,7 @@ public final class PaginatorHealingItem extends PaginatorCommonItem {
 
     private final NumComboBox cmpNbStatusPrio;
 
-    public PaginatorHealingItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorHealingItem(WindowAiki _window, AbsPanel _p, AbsCommonFrame _w, FacadeGame _d) {
         super(_window, _p,_w,_d);
 //        cmpNamePrio = new NumComboBox(_window.getFrames());
 //        cmpDescriptionPrio = new NumComboBox(_window.getFrames());

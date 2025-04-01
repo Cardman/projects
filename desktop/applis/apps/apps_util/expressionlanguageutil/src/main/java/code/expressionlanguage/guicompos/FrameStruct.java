@@ -4,28 +4,18 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsOtherFrame;
-import code.gui.WithListener;
 
 public final class FrameStruct extends WindowStruct {
-    private final AbsOtherFrame commonFrame;
+//    private final AbsOtherFrame commonFrame;
     private Struct menuBar = NullStruct.NULL_VALUE;
     public FrameStruct(AbsOtherFrame _frame) {
-        commonFrame = _frame;
+        super(_frame);
+//        commonFrame = _frame;
     }
 
     @Override
     public String getClassName(ContextEl _contextEl) {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasFrame();
-    }
-
-    @Override
-    protected WithListener getAbstractWindow() {
-        return getCommonFrame();
-    }
-
-    @Override
-    public void pack() {
-        getCommonFrame().pack();
     }
 
     @Override
@@ -37,12 +27,8 @@ public final class FrameStruct extends WindowStruct {
     public void setMenuBar(Struct _arg) {
         if (_arg instanceof MenuBarStruct) {
             menuBar = _arg;
-            commonFrame.setJMenuBar(((MenuBarStruct)_arg).getMenuBar());
+            getAbstractWindow().setJMenuBar(((MenuBarStruct)_arg).getMenuBar());
         }
-    }
-
-    public AbsOtherFrame getCommonFrame() {
-        return commonFrame;
     }
 
 }

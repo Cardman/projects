@@ -179,6 +179,57 @@ public final class WindowStructTest extends EquallableElUtUtil {
         assertTrue(st_.calls());
     }
     @Test
+    public void pack3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
+        StackCall st_ = stack(ctx_);
+        SampleWinStruct d_ = new SampleWinStruct();
+        PanelStruct mockPanel_ = new PanelStruct("",new MockPanel(MockLayout.GRID));
+        mockPanel_.add(new TextLabelStruct("",pr_.getCompoFactory()));
+        PanelStruct sub_ = new PanelStruct("",new MockPanel(MockLayout.GRID));
+        sub_.add(new TextLabelStruct("",pr_.getCompoFactory()));
+        sub_.add(ScrollPaneStruct.newScroll(new TextAreaStruct("_",pr_.getCompoFactory()),"",pr_.getCompoFactory()));
+        mockPanel_.add(sub_);
+        d_.setContentPane(mockPanel_);
+        call(new FctWindowPack(),null,ctx_,d_,null,st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void pack4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
+        StackCall st_ = stack(ctx_);
+        SampleWinStruct d_ = new SampleWinStruct();
+        call(new FctWindowPack(),null,ctx_,d_,null,st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void pack5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
+        StackCall st_ = stack(ctx_);
+        SampleWinStruct d_ = new SampleWinStruct();
+        PanelStruct mockPanel_ = new PanelStruct("",new MockPanel(MockLayout.GRID));
+        d_.setContentPane(mockPanel_);
+        call(new FctWindowPack(),null,ctx_,d_,null,st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
     public void location() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);

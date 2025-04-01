@@ -9,9 +9,17 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
     private boolean oneTouchExpandable;
     private int dividerLocation;
     private int dividerSize;
+    private AbsCustComponent le;
+    private AbsCustComponent ri;
+
+    public MockSplitPane(boolean _h) {
+        this.horizontal = _h;
+    }
 
     public MockSplitPane(boolean _h,AbsCustComponent _left, AbsCustComponent _right) {
         this.horizontal = _h;
+        le = _left;
+        ri = _right;
         procParents(_left, _right);
     }
 
@@ -34,10 +42,24 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
     }
 
     @Override
+    public void setLeftComponentNull() {
+        removeLeft();
+    }
+
+//    @Override
     public void innerLeft(AbsCustComponent _c) {
-        getChildren().first().setParent(null);
+        removeLeft();
         _c.setParent(this);
-        getChildren().set(0, _c);
+        le = _c;
+        getChildren().add(0,le);
+    }
+
+    private void removeLeft() {
+        if (le != null) {
+            le.setParent(null);
+            getChildren().removeObj(le);
+        }
+        le = null;
     }
 
     @Override
@@ -48,10 +70,24 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
     }
 
     @Override
+    public void setRightComponentNull() {
+        removeRight();
+    }
+
+    private void removeRight() {
+        if (ri != null) {
+            ri.setParent(null);
+            getChildren().removeObj(ri);
+        }
+        ri = null;
+    }
+
+//    @Override
     public void innerRight(AbsCustComponent _c) {
-        getChildren().last().setParent(null);
+        removeRight();
         _c.setParent(this);
-        getChildren().set(1, _c);
+        ri = _c;
+        getChildren().add(ri);
     }
 
     @Override

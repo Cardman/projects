@@ -14,7 +14,7 @@ import code.gui.AbsOtherDialog;
 public final class FctDialogIsModal implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbsOtherDialog inst_ = ((DialogStruct)_instance).getDialog();
+        AbsOtherDialog inst_ = (AbsOtherDialog) ((DialogStruct)_instance).getAbstractWindow();
         return new ArgumentWrapper(BooleanStruct.of(inst_.isModal()));
     }
 }

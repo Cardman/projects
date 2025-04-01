@@ -2806,225 +2806,225 @@ public final class GuiAliasParameters {
         return aliasWindowType0RemoveWindowListener0;
     }
 
-    public String getAliasConfirm0ConfirmField0() {
-        return aliasConfirm0ConfirmField0;
-    }
-
-    public String getAliasConfirm0ConfirmField1() {
-        return aliasConfirm0ConfirmField1;
-    }
-
-    public String getAliasConfirm0ConfirmField2() {
-        return aliasConfirm0ConfirmField2;
-    }
-
-    public String getAliasConfirm0ConfirmField3() {
-        return aliasConfirm0ConfirmField3;
-    }
-
-    public String getAliasConfirm0ConfirmField4() {
-        return aliasConfirm0ConfirmField4;
-    }
-
-    public String getAliasConfirm0ConfirmField5() {
-        return aliasConfirm0ConfirmField5;
-    }
-
-    public String getAliasConfirm0ConfirmField6() {
-        return aliasConfirm0ConfirmField6;
-    }
-
-    public String getAliasConfirm1ConfirmField0() {
-        return aliasConfirm1ConfirmField0;
-    }
-
-    public String getAliasConfirm1ConfirmField1() {
-        return aliasConfirm1ConfirmField1;
-    }
-
-    public String getAliasConfirm1ConfirmField2() {
-        return aliasConfirm1ConfirmField2;
-    }
-
-    public String getAliasConfirm1ConfirmField3() {
-        return aliasConfirm1ConfirmField3;
-    }
-
-    public String getAliasConfirm1ConfirmField4() {
-        return aliasConfirm1ConfirmField4;
-    }
-
-    public String getAliasConfirm1ConfirmField5() {
-        return aliasConfirm1ConfirmField5;
-    }
-
-    public String getAliasConfirm0ConfirmFull0() {
-        return aliasConfirm0ConfirmFull0;
-    }
-
-    public String getAliasConfirm0ConfirmFull1() {
-        return aliasConfirm0ConfirmFull1;
-    }
-
-    public String getAliasConfirm0ConfirmFull2() {
-        return aliasConfirm0ConfirmFull2;
-    }
-
-    public String getAliasConfirm0ConfirmFull3() {
-        return aliasConfirm0ConfirmFull3;
-    }
-
-    public String getAliasConfirm0ConfirmFull4() {
-        return aliasConfirm0ConfirmFull4;
-    }
-
-    public String getAliasConfirm0ConfirmFull5() {
-        return aliasConfirm0ConfirmFull5;
-    }
-
-    public String getAliasConfirm0ConfirmFull6() {
-        return aliasConfirm0ConfirmFull6;
-    }
-
-    public String getAliasConfirm1ConfirmFull0() {
-        return aliasConfirm1ConfirmFull0;
-    }
-
-    public String getAliasConfirm1ConfirmFull1() {
-        return aliasConfirm1ConfirmFull1;
-    }
-
-    public String getAliasConfirm1ConfirmFull2() {
-        return aliasConfirm1ConfirmFull2;
-    }
-
-    public String getAliasConfirm1ConfirmFull3() {
-        return aliasConfirm1ConfirmFull3;
-    }
-
-    public String getAliasConfirm1ConfirmFull4() {
-        return aliasConfirm1ConfirmFull4;
-    }
-
-    public String getAliasConfirm1ConfirmFull5() {
-        return aliasConfirm1ConfirmFull5;
-    }
-
-    public String getAliasConfirm0ConfirmYesNo0() {
-        return aliasConfirm0ConfirmYesNo0;
-    }
-
-    public String getAliasConfirm0ConfirmYesNo1() {
-        return aliasConfirm0ConfirmYesNo1;
-    }
-
-    public String getAliasConfirm0ConfirmYesNo2() {
-        return aliasConfirm0ConfirmYesNo2;
-    }
-
-    public String getAliasConfirm0ConfirmYesNo3() {
-        return aliasConfirm0ConfirmYesNo3;
-    }
-
-    public String getAliasConfirm0ConfirmYesNo4() {
-        return aliasConfirm0ConfirmYesNo4;
-    }
-
-    public String getAliasConfirm0ConfirmYesNo5() {
-        return aliasConfirm0ConfirmYesNo5;
-    }
-
-    public String getAliasConfirm1ConfirmYesNo0() {
-        return aliasConfirm1ConfirmYesNo0;
-    }
-
-    public String getAliasConfirm1ConfirmYesNo1() {
-        return aliasConfirm1ConfirmYesNo1;
-    }
-
-    public String getAliasConfirm1ConfirmYesNo2() {
-        return aliasConfirm1ConfirmYesNo2;
-    }
-
-    public String getAliasConfirm1ConfirmYesNo3() {
-        return aliasConfirm1ConfirmYesNo3;
-    }
-
-    public String getAliasConfirm1ConfirmYesNo4() {
-        return aliasConfirm1ConfirmYesNo4;
-    }
-
-    public String getAliasConfirm0ConfirmOk0() {
-        return aliasConfirm0ConfirmOk0;
-    }
-
-    public String getAliasConfirm0ConfirmOk1() {
-        return aliasConfirm0ConfirmOk1;
-    }
-
-    public String getAliasConfirm0ConfirmOk2() {
-        return aliasConfirm0ConfirmOk2;
-    }
-
-    public String getAliasConfirm0ConfirmOk3() {
-        return aliasConfirm0ConfirmOk3;
-    }
-
-    public String getAliasConfirm0ConfirmOk4() {
-        return aliasConfirm0ConfirmOk4;
-    }
-
-    public String getAliasConfirm1ConfirmOk0() {
-        return aliasConfirm1ConfirmOk0;
-    }
-
-    public String getAliasConfirm1ConfirmOk1() {
-        return aliasConfirm1ConfirmOk1;
-    }
-
-    public String getAliasConfirm1ConfirmOk2() {
-        return aliasConfirm1ConfirmOk2;
-    }
-
-    public String getAliasConfirm1ConfirmOk3() {
-        return aliasConfirm1ConfirmOk3;
-    }
-
-    public String getAliasConfirm0ConfirmMessage0() {
-        return aliasConfirm0ConfirmMessage0;
-    }
-
-    public String getAliasConfirm0ConfirmMessage1() {
-        return aliasConfirm0ConfirmMessage1;
-    }
-
-    public String getAliasConfirm0ConfirmMessage2() {
-        return aliasConfirm0ConfirmMessage2;
-    }
-
-    public String getAliasConfirm0ConfirmMessage3() {
-        return aliasConfirm0ConfirmMessage3;
-    }
-
-    public String getAliasConfirm0ConfirmMessage4() {
-        return aliasConfirm0ConfirmMessage4;
-    }
-
-    public String getAliasConfirm1ConfirmMessage0() {
-        return aliasConfirm1ConfirmMessage0;
-    }
-
-    public String getAliasConfirm1ConfirmMessage1() {
-        return aliasConfirm1ConfirmMessage1;
-    }
-
-    public String getAliasConfirm1ConfirmMessage2() {
-        return aliasConfirm1ConfirmMessage2;
-    }
-
-    public String getAliasConfirm1ConfirmMessage3() {
-        return aliasConfirm1ConfirmMessage3;
-    }
+//    public String getAliasConfirm0ConfirmField0() {
+//        return aliasConfirm0ConfirmField0;
+//    }
+//
+//    public String getAliasConfirm0ConfirmField1() {
+//        return aliasConfirm0ConfirmField1;
+//    }
+//
+//    public String getAliasConfirm0ConfirmField2() {
+//        return aliasConfirm0ConfirmField2;
+//    }
+//
+//    public String getAliasConfirm0ConfirmField3() {
+//        return aliasConfirm0ConfirmField3;
+//    }
+//
+//    public String getAliasConfirm0ConfirmField4() {
+//        return aliasConfirm0ConfirmField4;
+//    }
+//
+//    public String getAliasConfirm0ConfirmField5() {
+//        return aliasConfirm0ConfirmField5;
+//    }
+//
+//    public String getAliasConfirm0ConfirmField6() {
+//        return aliasConfirm0ConfirmField6;
+//    }
+//
+//    public String getAliasConfirm1ConfirmField0() {
+//        return aliasConfirm1ConfirmField0;
+//    }
+//
+//    public String getAliasConfirm1ConfirmField1() {
+//        return aliasConfirm1ConfirmField1;
+//    }
+//
+//    public String getAliasConfirm1ConfirmField2() {
+//        return aliasConfirm1ConfirmField2;
+//    }
+//
+//    public String getAliasConfirm1ConfirmField3() {
+//        return aliasConfirm1ConfirmField3;
+//    }
+//
+//    public String getAliasConfirm1ConfirmField4() {
+//        return aliasConfirm1ConfirmField4;
+//    }
+//
+//    public String getAliasConfirm1ConfirmField5() {
+//        return aliasConfirm1ConfirmField5;
+//    }
+//
+//    public String getAliasConfirm0ConfirmFull0() {
+//        return aliasConfirm0ConfirmFull0;
+//    }
+//
+//    public String getAliasConfirm0ConfirmFull1() {
+//        return aliasConfirm0ConfirmFull1;
+//    }
+//
+//    public String getAliasConfirm0ConfirmFull2() {
+//        return aliasConfirm0ConfirmFull2;
+//    }
+//
+//    public String getAliasConfirm0ConfirmFull3() {
+//        return aliasConfirm0ConfirmFull3;
+//    }
+//
+//    public String getAliasConfirm0ConfirmFull4() {
+//        return aliasConfirm0ConfirmFull4;
+//    }
+//
+//    public String getAliasConfirm0ConfirmFull5() {
+//        return aliasConfirm0ConfirmFull5;
+//    }
+//
+//    public String getAliasConfirm0ConfirmFull6() {
+//        return aliasConfirm0ConfirmFull6;
+//    }
+//
+//    public String getAliasConfirm1ConfirmFull0() {
+//        return aliasConfirm1ConfirmFull0;
+//    }
+//
+//    public String getAliasConfirm1ConfirmFull1() {
+//        return aliasConfirm1ConfirmFull1;
+//    }
+//
+//    public String getAliasConfirm1ConfirmFull2() {
+//        return aliasConfirm1ConfirmFull2;
+//    }
+//
+//    public String getAliasConfirm1ConfirmFull3() {
+//        return aliasConfirm1ConfirmFull3;
+//    }
+//
+//    public String getAliasConfirm1ConfirmFull4() {
+//        return aliasConfirm1ConfirmFull4;
+//    }
+//
+//    public String getAliasConfirm1ConfirmFull5() {
+//        return aliasConfirm1ConfirmFull5;
+//    }
+//
+//    public String getAliasConfirm0ConfirmYesNo0() {
+//        return aliasConfirm0ConfirmYesNo0;
+//    }
+//
+//    public String getAliasConfirm0ConfirmYesNo1() {
+//        return aliasConfirm0ConfirmYesNo1;
+//    }
+//
+//    public String getAliasConfirm0ConfirmYesNo2() {
+//        return aliasConfirm0ConfirmYesNo2;
+//    }
+//
+//    public String getAliasConfirm0ConfirmYesNo3() {
+//        return aliasConfirm0ConfirmYesNo3;
+//    }
+//
+//    public String getAliasConfirm0ConfirmYesNo4() {
+//        return aliasConfirm0ConfirmYesNo4;
+//    }
+//
+//    public String getAliasConfirm0ConfirmYesNo5() {
+//        return aliasConfirm0ConfirmYesNo5;
+//    }
+//
+//    public String getAliasConfirm1ConfirmYesNo0() {
+//        return aliasConfirm1ConfirmYesNo0;
+//    }
+//
+//    public String getAliasConfirm1ConfirmYesNo1() {
+//        return aliasConfirm1ConfirmYesNo1;
+//    }
+//
+//    public String getAliasConfirm1ConfirmYesNo2() {
+//        return aliasConfirm1ConfirmYesNo2;
+//    }
+//
+//    public String getAliasConfirm1ConfirmYesNo3() {
+//        return aliasConfirm1ConfirmYesNo3;
+//    }
+//
+//    public String getAliasConfirm1ConfirmYesNo4() {
+//        return aliasConfirm1ConfirmYesNo4;
+//    }
+//
+//    public String getAliasConfirm0ConfirmOk0() {
+//        return aliasConfirm0ConfirmOk0;
+//    }
+//
+//    public String getAliasConfirm0ConfirmOk1() {
+//        return aliasConfirm0ConfirmOk1;
+//    }
+//
+//    public String getAliasConfirm0ConfirmOk2() {
+//        return aliasConfirm0ConfirmOk2;
+//    }
+//
+//    public String getAliasConfirm0ConfirmOk3() {
+//        return aliasConfirm0ConfirmOk3;
+//    }
+//
+//    public String getAliasConfirm0ConfirmOk4() {
+//        return aliasConfirm0ConfirmOk4;
+//    }
+//
+//    public String getAliasConfirm1ConfirmOk0() {
+//        return aliasConfirm1ConfirmOk0;
+//    }
+//
+//    public String getAliasConfirm1ConfirmOk1() {
+//        return aliasConfirm1ConfirmOk1;
+//    }
+//
+//    public String getAliasConfirm1ConfirmOk2() {
+//        return aliasConfirm1ConfirmOk2;
+//    }
+//
+//    public String getAliasConfirm1ConfirmOk3() {
+//        return aliasConfirm1ConfirmOk3;
+//    }
+//
+//    public String getAliasConfirm0ConfirmMessage0() {
+//        return aliasConfirm0ConfirmMessage0;
+//    }
+//
+//    public String getAliasConfirm0ConfirmMessage1() {
+//        return aliasConfirm0ConfirmMessage1;
+//    }
+//
+//    public String getAliasConfirm0ConfirmMessage2() {
+//        return aliasConfirm0ConfirmMessage2;
+//    }
+//
+//    public String getAliasConfirm0ConfirmMessage3() {
+//        return aliasConfirm0ConfirmMessage3;
+//    }
+//
+//    public String getAliasConfirm0ConfirmMessage4() {
+//        return aliasConfirm0ConfirmMessage4;
+//    }
+//
+//    public String getAliasConfirm1ConfirmMessage0() {
+//        return aliasConfirm1ConfirmMessage0;
+//    }
+//
+//    public String getAliasConfirm1ConfirmMessage1() {
+//        return aliasConfirm1ConfirmMessage1;
+//    }
+//
+//    public String getAliasConfirm1ConfirmMessage2() {
+//        return aliasConfirm1ConfirmMessage2;
+//    }
+//
+//    public String getAliasConfirm1ConfirmMessage3() {
+//        return aliasConfirm1ConfirmMessage3;
+//    }
 
     public String getAliasWindowSet0TabbedPaneAdd0() {
         return aliasWindowSet0TabbedPaneAdd0;

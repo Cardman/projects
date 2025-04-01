@@ -17,7 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 
-public final class CommonFrame implements AbsCommonFrame {
+public final class CommonFrame implements AbsCommonFrame,Packable {
 
     //    private String accessFile;
 

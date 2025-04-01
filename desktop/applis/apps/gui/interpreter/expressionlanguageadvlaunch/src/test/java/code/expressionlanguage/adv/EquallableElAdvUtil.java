@@ -58,6 +58,9 @@ public abstract class EquallableElAdvUtil {
     public static void assertNull(Struct _expected) {
         Assert.assertNull(_expected);
     }
+    public static void assertNotNull(AbsCustComponent _expected) {
+        Assert.assertNotNull(_expected);
+    }
     public static void assertNull(AbsCustComponent _expected) {
         Assert.assertNull(_expected);
     }

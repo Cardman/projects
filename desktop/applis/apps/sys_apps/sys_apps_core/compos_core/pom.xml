@@ -18,10 +18,5 @@
 			<artifactId>applications</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>guicust</groupId>
-			<artifactId>guicust</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 </project>

@@ -61,7 +61,7 @@ public abstract class PaginatorCommonItem extends Paginator {
 
     private final NumComboBox cmpNumberPrio;
 
-    protected PaginatorCommonItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
+    protected PaginatorCommonItem(WindowAiki _window, AbsPanel _p, AbsCommonFrame _w, FacadeGame _d) {
         super(_window, _p);
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpNumberPrio = new NumComboBox(_window.getFrames());

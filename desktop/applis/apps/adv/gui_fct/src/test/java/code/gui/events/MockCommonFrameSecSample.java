@@ -1,6 +1,5 @@
 package code.gui.events;
 
-import code.gui.GuiBaseUtil;
 import code.mock.MockAbsCommonFrame;
 
 public final class MockCommonFrameSecSample extends MockAbsCommonFrame {
@@ -9,8 +8,8 @@ public final class MockCommonFrameSecSample extends MockAbsCommonFrame {
         pack();
     }
 
-    @Override
-    public void pack() {
-        GuiBaseUtil.recalculate(getPane());
-    }
+//    @Override
+//    public void pack() {
+//        GuiBaseUtil.recalculate(getPane());
+//    }
 }

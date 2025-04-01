@@ -27,5 +27,5 @@ public interface AbsTabbedPane extends AbsCustComponent,AbsContainer {
     CustList<AbsChangeListener> getChangeListeners();
     void remove(int _index);
     void removeAll();
-    void innerRemoveAll();
+//    void innerRemoveAll();
 }

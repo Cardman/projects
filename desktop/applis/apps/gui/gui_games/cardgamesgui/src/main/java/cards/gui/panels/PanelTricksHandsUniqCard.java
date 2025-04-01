@@ -21,11 +21,11 @@ public abstract class PanelTricksHandsUniqCard<T> implements ViewablePanelTricks
     private final AbsPanel hands;
     private final NumComboBox trickNumber;
     private final NumComboBox cardNumberTrick;
-    private final ChangeableTitle parent;
+    private final AbsCommonFrame parent;
     private final WindowCardsInt window;
     private final AbsPanel container;
     private final IntCardConverter<T> converter;
-    protected PanelTricksHandsUniqCard(ChangeableTitle _parent,
+    protected PanelTricksHandsUniqCard(AbsCommonFrame _parent,
                                        StringList _pseudos,
                                        WindowCardsInt _window, int _nbPlayers, IntCardConverter<T> _conv) {
         parent = _parent;

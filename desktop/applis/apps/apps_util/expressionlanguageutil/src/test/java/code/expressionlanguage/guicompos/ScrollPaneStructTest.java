@@ -145,7 +145,36 @@ public final class ScrollPaneStructTest extends EquallableElUtUtil {
         Struct spl_ = call(new FctScrollPane1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null,one(label_), st_);
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label2_),st_);
         call(new FctScrollPaneSetView(),null,ctx_,spl_,one(label2_),st_);
-        assertSame(label_,call(new FctScrollPaneGetView(),null,ctx_,spl_,null,st_));
+        assertSame(label2_,call(new FctScrollPaneGetView(),null,ctx_,spl_,null,st_));
+    }
+
+    @Test
+    public void view6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct spl_ = call(new FctScrollPane1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null,one(NullStruct.NULL_VALUE), st_);
+        call(new FctScrollPaneSetView(),null,ctx_,spl_,one(spl_),st_);
+        assertSame(NullStruct.NULL_VALUE,call(new FctScrollPaneGetView(),null,ctx_,spl_,null,st_));
+    }
+    @Test
+    public void view7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctScrollPane1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null,one(label_), st_);
+        call(new FctScrollPaneSetView(),null,ctx_,spl_,one(label2_),st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label2_),st_);
+        assertSame(NullStruct.NULL_VALUE,call(new FctScrollPaneGetView(),null,ctx_,spl_,null,st_));
     }
     @Test
     public void horiz() {

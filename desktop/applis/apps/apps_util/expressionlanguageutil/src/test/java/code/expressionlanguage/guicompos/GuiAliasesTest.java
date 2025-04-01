@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.AdvContextGenerator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
@@ -12,6 +13,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecClassBlock;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
@@ -21,29 +23,26 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.FctCompoRepaint;
+import code.expressionlanguage.guicompos.stds.FctFrame;
 import code.expressionlanguage.guicompos.stds.FctImage;
 import code.expressionlanguage.guicompos.stds.FctImageLabel1;
 import code.expressionlanguage.options.*;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.AbstractIssuer;
-import code.expressionlanguage.utilcompo.AdvSymbolFactory;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.gui.CdmFactory;
 import code.gui.EquallableElUtUtil;
-import code.gui.OtherConfirmDialog;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
 import code.mock.MockInterceptor;
 import code.mock.MockProgramInfos;
+import code.sml.util.TranslationsFile;
+import code.threads.ConcreteBoolean;
 import code.util.CustList;
 import code.util.IntMap;
 import code.util.StringList;
@@ -53,50 +52,77 @@ import org.junit.Test;
 
 public final class GuiAliasesTest extends EquallableElUtUtil {
 
+//    @Test
+//    public void cst1() {
+//        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+//        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+//        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+//        stds_.getGuiAliases().setAliasConfirm("_");
+//        stds_.getGuiAliases().setAliasConfirmFieldOk("_");
+//        assertEq(OtherConfirmDialog.OK_OPTION,toLong(new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
+//    }
+//
+//    @Test
+//    public void cst2() {
+//        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+//        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+//        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+//        stds_.getGuiAliases().setAliasConfirm("_");
+//        stds_.getGuiAliases().setAliasConfirmFieldOk("");
+//        stds_.getGuiAliases().setAliasConfirmFieldYes("_");
+//        assertEq(OtherConfirmDialog.YES_OPTION,toLong(new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
+//    }
+//
+//    @Test
+//    public void cst3() {
+//        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+//        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+//        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+//        stds_.getGuiAliases().setAliasConfirm("_");
+//        stds_.getGuiAliases().setAliasConfirmFieldOk("");
+//        stds_.getGuiAliases().setAliasConfirmFieldYes("");
+//        stds_.getGuiAliases().setAliasConfirmFieldNo("_");
+//        assertEq(OtherConfirmDialog.NO_OPTION,toLong(new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
+//    }
+//
+//    @Test
+//    public void cst4() {
+//        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+//        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+//        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+//        stds_.getGuiAliases().setAliasConfirm("_");
+//        stds_.getGuiAliases().setAliasConfirmFieldOk("");
+//        stds_.getGuiAliases().setAliasConfirmFieldYes("");
+//        stds_.getGuiAliases().setAliasConfirmFieldNo("");
+//        stds_.getGuiAliases().setAliasConfirmFieldCancel("_");
+//        assertEq(OtherConfirmDialog.CANCEL_OPTION,toLong(new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
+//    }
+
     @Test
-    public void cst1() {
+    public void message40() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        stds_.getGuiAliases().setAliasConfirm("_");
-        stds_.getGuiAliases().setAliasConfirmFieldOk("_");
-        assertEq(OtherConfirmDialog.OK_OPTION,toLong(new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        ((InterruptibleContextEl)ctx_).stopJoinSleep();
+        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
+        StackCall st_ = stack(ctx_);
+//        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+//        Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
+//        call(new FctConfirmMessage1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,seven(img_,d_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
     }
-
-    @Test
-    public void cst2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        stds_.getGuiAliases().setAliasConfirm("_");
-        stds_.getGuiAliases().setAliasConfirmFieldOk("");
-        stds_.getGuiAliases().setAliasConfirmFieldYes("_");
-        assertEq(OtherConfirmDialog.YES_OPTION,toLong(new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
-    }
-
-    @Test
-    public void cst3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        stds_.getGuiAliases().setAliasConfirm("_");
-        stds_.getGuiAliases().setAliasConfirmFieldOk("");
-        stds_.getGuiAliases().setAliasConfirmFieldYes("");
-        stds_.getGuiAliases().setAliasConfirmFieldNo("_");
-        assertEq(OtherConfirmDialog.NO_OPTION,toLong(new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
-    }
-
     @Test
     public void cst4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        stds_.getGuiAliases().setAliasConfirm("_");
-        stds_.getGuiAliases().setAliasConfirmFieldOk("");
-        stds_.getGuiAliases().setAliasConfirmFieldYes("");
-        stds_.getGuiAliases().setAliasConfirmFieldNo("");
-        stds_.getGuiAliases().setAliasConfirmFieldCancel("_");
-        assertEq(OtherConfirmDialog.CANCEL_OPTION,toLong(new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
+        stds_.getGuiAliases().setAliasConfirm("");
+        stds_.getGuiAliases().setAliasPanelBorder("_");
+        stds_.getGuiAliases().setAliasPanelBorderNorth("_");
+        assertEq(PanelBorderStruct.NORTH,new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_")));
     }
 
     @Test
@@ -345,7 +371,27 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         AnalyzedPageEl a_ = buildTmp();
         assertTrue(a_.isEmptyStdError());
     }
-
+    @Test
+    public void print() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        TranslationsFile en_ = new TranslationsFile();
+        LgNamesContent.en(en_);
+        MathAdvAliases.en(en_);
+        StringMap<String> mapp_ = TranslationsFile.extractMap(en_);
+        StringMap<String> keys_ = TranslationsFile.extractKeys(en_);
+        stds_.getExecContent().getCustAliases().getMathAdvAliases().build(mapp_,new StringMap<String>(), keys_);
+        stds_.getCoreNames().setObjType(new StandardClass("_._",new CustList<CstFieldInfo>(),new CustList<StandardConstructor>(),new CustList<StandardMethod>(),"", MethodModifier.NORMAL));
+        stds_.getContent().getCharSeq().setAliasString("");
+        Options opt_ = new Options();
+        ContextEl c_ = new AdvContextGenerator(new ConcreteBoolean()).geneWith(getForwards(stds_, opt_));
+        StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
+        assertFalse(StringUtil.nullToEmpty(stds_.getStrAlias().getAliasStringSegment()+"_").isEmpty());
+        assertFalse(StringUtil.nullToEmpty(stds_.getAliasLgInt()+"_").isEmpty());
+        assertFalse(StringUtil.nullToEmpty(stds_.getAliasRate()+"_").isEmpty());
+        ((InterruptibleContextEl)c_).stopJoinSleep();
+        assertTrue(c_.callsOrException(st_));
+    }
     private ContextEl ctxPaint(MockProgramInfos _p, StringMap<String> _files) {
         update(_p);
         LgNamesGui stds_ = newLgNamesGuiSampleGr(_p, null);

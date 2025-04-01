@@ -31,7 +31,7 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
         }
     }
 
-    @Override
+//    @Override
     public void innerAdd(AbsCustComponent _c) {
         _c.setParent(this);
         innAdd(_c);
@@ -44,7 +44,7 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
         }
     }
 
-    @Override
+//    @Override
     public void innerAdd(AbsCustComponent _c, int _i) {
         _c.setParent(this);
         getChildren().add(_i, _c);
@@ -58,12 +58,12 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
     @Override
     public void add(AbsCustComponent _c, String _s) {
         if (_c.getParent() == null) {
-            innerAdd(_c, _s);
+            innerAddCts(_c);
         }
     }
 
-    @Override
-    public void innerAdd(AbsCustComponent _c, String _s) {
+//    @Override
+    public void innerAddCts(AbsCustComponent _c) {
         _c.setParent(this);
         getChildren().add(_c);
     }
@@ -75,21 +75,21 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
         ch_.remove(_i);
     }
 
-    @Override
-    public int remove(AbsCustComponent _c) {
-        CustList<AbsCustComponent> ch_ = getChildren();
-        int len_ = ch_.size();
-        for (int i = 0; i < len_; i++) {
-            if (ch_.get(i) == _c) {
-                _c.setParent(null);
-                ch_.remove(i);
-                return i;
-            }
-        }
-        return -1;
-    }
+//    @Override
+//    public int remove(AbsCustComponent _c) {
+//        CustList<AbsCustComponent> ch_ = getChildren();
+//        int len_ = ch_.size();
+//        for (int i = 0; i < len_; i++) {
+//            if (ch_.get(i) == _c) {
+//                _c.setParent(null);
+//                ch_.remove(i);
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
 
-    @Override
+//    @Override
     public void innAdd(AbsCustComponent _c) {
         getChildren().add(_c);
     }
@@ -102,7 +102,7 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
         innerRemoveAll();
     }
 
-    @Override
+//    @Override
     public void innerRemoveAll() {
         getChildren().clear();
     }

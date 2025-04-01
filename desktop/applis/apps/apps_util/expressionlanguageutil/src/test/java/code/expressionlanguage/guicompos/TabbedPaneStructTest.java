@@ -102,6 +102,21 @@ public final class TabbedPaneStructTest extends EquallableElUtUtil {
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
+
+    @Test
+    public void count5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),panel_),st_);
+        assertEq(0,toLong(call(new FctTabbedPaneNb(),null,ctx_,panel_,null,st_)));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
     @Test
     public void removeAll() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
@@ -288,6 +303,20 @@ public final class TabbedPaneStructTest extends EquallableElUtUtil {
         assertSame(label1_,call(new FctTabbedPaneGet(),null,ctx_,panel_,one(new IntStruct(0)),st_));
     }
     @Test
+    public void tab5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label1_),st_);
+        call(new FctTabbedPaneSet(),null,ctx_,panel_,two(new IntStruct(0),panel_),st_);
+        assertSame(label1_,call(new FctTabbedPaneGet(),null,ctx_,panel_,one(new IntStruct(0)),st_));
+    }
+    @Test
     public void title() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -330,7 +359,20 @@ public final class TabbedPaneStructTest extends EquallableElUtUtil {
         call(new FctTabbedPaneSelIndex1(),null,ctx_,panel_,one(new IntStruct(-2)),st_);
         assertEq(0,toLong(call(new FctTabbedPaneSelIndex0(),null,ctx_,panel_,null,st_)));
     }
-
+    @Test
+    public void selected3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label1_),st_);
+        call(new FctTabbedPaneSelIndex1(),null,ctx_,panel_,one(new IntStruct(2)),st_);
+        assertEq(0,toLong(call(new FctTabbedPaneSelIndex0(),null,ctx_,panel_,null,st_)));
+    }
     @Test
     public void visible1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));

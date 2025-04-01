@@ -101,7 +101,7 @@ public final class PaginatorMove extends Paginator {
 
     private final boolean buy;
 
-    public PaginatorMove(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+    public PaginatorMove(WindowAiki _window, AbsPanel _p, AbsCommonFrame _w, FacadeGame _d, boolean _buy) {
         super(_window, _p);
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpDamagingPrio = new NumComboBox(_window.getFrames());

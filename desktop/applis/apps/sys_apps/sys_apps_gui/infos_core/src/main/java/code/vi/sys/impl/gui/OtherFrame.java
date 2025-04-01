@@ -16,7 +16,7 @@ import code.vi.prot.impl.gui.events.WrWindowListenerClos;
 import javax.swing.*;
 import java.awt.*;
 
-public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,PlacableWindow {
+public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,PlacableWindow,Packable {
 
     private AbstractImage imageIconFrame;
 

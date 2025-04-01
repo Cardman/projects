@@ -8,7 +8,7 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsScrollPane;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class ScrollPaneStruct extends CustComponentStruct {
+public final class ScrollPaneStruct extends CustComponentStruct implements ContainerStruct{
     private final AbsScrollPane scrollPane;
     private Struct view = NullStruct.NULL_VALUE;
     private ScrollPaneStruct(String _className, AbsCompoFactory _compo) {
@@ -49,7 +49,7 @@ public final class ScrollPaneStruct extends CustComponentStruct {
             return;
         }
         CustComponentStruct c_ = (CustComponentStruct) _graphic;
-        if (c_.getParentComponent() != NullStruct.NULL_VALUE) {
+        if (kept(c_)) {
             return;
         }
         if (view instanceof CustComponentStruct) {
@@ -60,6 +60,14 @@ public final class ScrollPaneStruct extends CustComponentStruct {
         getChildren().add(c_);
         view = c_;
         scrollPane.setViewportView(c_.getComponent());
+    }
+
+    @Override
+    public void move(CustComponentStruct _compo) {
+        _compo.setNullParentComponent();
+        view = NullStruct.NULL_VALUE;
+        scrollPane.setNullViewportView();
+        getChildren().clear();
     }
 
     public IntStruct getHorizontalValue() {
@@ -83,6 +91,10 @@ public final class ScrollPaneStruct extends CustComponentStruct {
 
     @Override
     protected AbsCustComponent getComponent() {
+        return scrollPane;
+    }
+
+    public AbsScrollPane getScrollPane() {
         return scrollPane;
     }
 }

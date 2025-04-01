@@ -2,6 +2,7 @@ package code.mock;
 
 import code.gui.AbsCommonFrame;
 import code.gui.AbsOtherDialog;
+import code.util.CustList;
 import org.junit.Test;
 
 public class MockCommonFrameTest extends EquallableMockGuiAdvUtil{
@@ -21,6 +22,6 @@ public class MockCommonFrameTest extends EquallableMockGuiAdvUtil{
         assertTrue(((MockCustComponent)f_.getPane()).isAccessible());
         pr_.getMockFrameFactory().newOtherFrame();
         AbsOtherDialog d_ = pr_.getMockFrameFactory().newOtherDialog();
-        d_.pack();
+        ((MockAbsDialog)d_).pack();
     }
 }

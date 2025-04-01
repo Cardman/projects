@@ -23,7 +23,7 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE), st_);
         assertFalse(st_.isFailInit());
-        assertFalse(st_.calls());
+        assertTrue(st_.calls());
     }
 
     @Test
@@ -39,7 +39,7 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
         call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label_,NullStruct.NULL_VALUE), st_);
         assertFalse(st_.isFailInit());
-        assertFalse(st_.calls());
+        assertTrue(st_.calls());
     }
 
     @Test
@@ -55,7 +55,7 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
         call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label_,label_), st_);
         assertFalse(st_.isFailInit());
-        assertFalse(st_.calls());
+        assertTrue(st_.calls());
     }
 
     @Test
@@ -72,7 +72,7 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
         call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label2_,label_), st_);
         assertFalse(st_.isFailInit());
-        assertFalse(st_.calls());
+        assertTrue(st_.calls());
     }
 
     @Test
@@ -107,6 +107,98 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
     }
 
     @Test
+    public void init7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),NullStruct.NULL_VALUE,label_), st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void init8() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(0),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE), st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void init9() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(0),label_,NullStruct.NULL_VALUE), st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void init10() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(0),label_,label_), st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void init11() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(0),label2_,label_), st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
+    public void init12() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(0),NullStruct.NULL_VALUE,label_), st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
     public void left1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -118,7 +210,7 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(NullStruct.NULL_VALUE),st_);
-        assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
+        assertSame(NullStruct.NULL_VALUE,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
     }
 
@@ -134,8 +226,8 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(label2_),st_);
-        assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
-        assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
+        assertSame(label2_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
+        assertSame(NullStruct.NULL_VALUE,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
     }
 
     @Test
@@ -156,6 +248,40 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
     }
 
     @Test
+    public void left4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label3_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(label3_),st_);
+        assertSame(label3_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
+        assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
+    }
+
+    @Test
+    public void left5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(spl_),st_);
+        assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
+        assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
+    }
+
+    @Test
     public void right1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -168,7 +294,7 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(NullStruct.NULL_VALUE),st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
-        assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
+        assertSame(NullStruct.NULL_VALUE,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
     }
 
     @Test
@@ -183,8 +309,8 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(label_),st_);
-        assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
-        assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
+        assertSame(NullStruct.NULL_VALUE,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
+        assertSame(label_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
     }
 
     @Test
@@ -202,6 +328,40 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(label3_),st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label3_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
+    }
+
+    @Test
+    public void right4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label3_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(label3_),st_);
+        assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
+        assertSame(label3_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
+    }
+
+    @Test
+    public void right5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
+        Options opt_ = new Options();
+        ContextEl ctx_ = gene(stds_,opt_);
+        StackCall st_ = stack(ctx_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(spl_),st_);
+        assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
+        assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
     }
     @Test
     public void continuous1() {

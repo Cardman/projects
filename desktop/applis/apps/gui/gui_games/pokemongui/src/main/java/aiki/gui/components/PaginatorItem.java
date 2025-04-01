@@ -66,7 +66,7 @@ public final class PaginatorItem extends PaginatorCommonItem {
 
     private final boolean buy;
 
-    public PaginatorItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+    public PaginatorItem(WindowAiki _window, AbsPanel _p, AbsCommonFrame _w, FacadeGame _d, boolean _buy) {
         super(_window, _p,_w,_d);
 //        cmpNamePrio = new NumComboBox(_window.getFrames());
 //        cmpNumberPrio = new NumComboBox(_window.getFrames());

@@ -11,6 +11,7 @@ import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbsLightFrameFactory;
 import code.gui.initialize.AbsStringBuffer;
 import code.stream.*;
+import code.util.CustList;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
@@ -502,5 +503,42 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         p_.drain();
         p_.finish();
         assertTrue(p_.getOk().get());
+    }
+
+    @Test
+    public void packWindow() {
+        MockPanel mockPanel_ = new MockPanel(MockLayout.GRID);
+        mockPanel_.add(new MockPlainLabel("_"));
+        MockPanel sub_ = new MockPanel(MockLayout.GRID);
+        sub_.add(new MockPlainLabel("-"));
+        sub_.add(new MockScrollPane(new MockTextArea("_")));
+        mockPanel_.add(sub_);
+        MockAbsDialog fr_ = new MockAbsDialog();
+        fr_.setContentPane(mockPanel_);
+        fr_.pack();
+        CustList<MockCustComponent> accessible_ = ((MockCustComponent)fr_.getPane()).getAccessible();
+        assertEq(2, accessible_.size());
+        assertTrue(accessible_.get(0) instanceof MockPlainLabel);
+        assertTrue(accessible_.get(1) instanceof MockPanel);
+        CustList<MockCustComponent> suAcc_ = accessible_.get(1).getAccessible();
+        assertEq(2, suAcc_.size());
+        assertTrue(suAcc_.get(0) instanceof MockPlainLabel);
+        assertTrue(suAcc_.get(1) instanceof MockScrollPane);
+        CustList<MockCustComponent> suSuAcc_ = suAcc_.get(1).getAccessible();
+        assertEq(1, suSuAcc_.size());
+        assertTrue(suSuAcc_.get(0) instanceof MockTextArea);
+    }
+    @Test
+    public void packWithout() {
+        MockPanel mockPanel_ = new MockPanel(MockLayout.GRID);
+        MockAbsDialog fr_ = new MockAbsDialog();
+        fr_.setContentPane(mockPanel_);
+        fr_.pack();
+        CustList<MockCustComponent> accessible_ = mockPanel_.getAccessible();
+        assertEq(0, accessible_.size());
+    }
+        @Test
+    public void indexOf() {
+        assertEq(-1, MockWindow.indexOf(new CustList<AbsCustComponent>(),null));
     }
 }

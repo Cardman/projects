@@ -87,4 +87,7 @@ public final class MockScrollPane extends MockCustComponent implements AbsScroll
         return new MetaRect(0,0, NumberUtil.max(1, dim_.getWidth()), NumberUtil.max(1, dim_.getHeight()));
     }
 
+    public AbsCustComponent getChild() {
+        return child;
+    }
 }

@@ -53,7 +53,7 @@ public final class PaginatorEgg extends Paginator {
 
     private final NumComboBox cmpStepsPrio;
 
-    public PaginatorEgg(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorEgg(WindowAiki _window, AbsPanel _p, AbsCommonFrame _w, FacadeGame _d) {
         super(_window, _p);
         cmpNamePrio = new NumComboBox(_window.getFrames());
         cmpStepsPrio = new NumComboBox(_window.getFrames());

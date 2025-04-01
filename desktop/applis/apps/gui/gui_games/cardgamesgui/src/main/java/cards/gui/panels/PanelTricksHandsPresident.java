@@ -30,13 +30,13 @@ public final class PanelTricksHandsPresident implements ViewablePanelTricksHands
     private final IntTreeComboBox trickNumber;
     private final IntTreeComboBox cardNumberTrick;
     private final TricksHandsPresident tricksHands;
-    private final ChangeableTitle parent;
+    private final AbsCommonFrame parent;
     private final int numberPlayers;
     private final DisplayingPresident displayingPresident;
     private final WindowCardsInt window;
     private final AbsPanel container;
 
-    public PanelTricksHandsPresident(ChangeableTitle _parent,
+    public PanelTricksHandsPresident(AbsCommonFrame _parent,
             TricksHandsPresident _tricksHands,
             int _numberPlayers,
             StringList _pseudos,

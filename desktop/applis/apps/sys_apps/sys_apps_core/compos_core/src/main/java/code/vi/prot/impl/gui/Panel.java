@@ -68,65 +68,69 @@ public final class Panel extends CustComponent implements AbsPanel {
     }
 
     public void add(AbsCustComponent _comp) {
-        FrameUtil.addOne(this,_comp);
+        pa.add(((CustComponent) _comp).getNatComponent());
+//        FrameUtil.addOne(this,_comp);
     }
 
-    public void innerAdd(AbsCustComponent _comp) {
-        _comp.setParent(this);
-        innAdd(_comp);
-    }
+//    public void innerAdd(AbsCustComponent _comp) {
+//        _comp.setParent(this);
+//        innAdd(_comp);
+//    }
 
     public void add(AbsCustComponent _comp, int _index) {
-        FrameUtil.addIndex(this,_comp, _index);
+        pa.add(((CustComponent) _comp).getNatComponent(), _index);
+//        FrameUtil.addIndex(this,_comp, _index);
     }
 
-    public void innerAdd(AbsCustComponent _comp, int _index) {
-        _comp.setParent(this);
-        getChildren().add(_index, _comp);
-        pa.add(((CustComponent) _comp).getNatComponent(), _index);
-    }
+//    public void innerAdd(AbsCustComponent _comp, int _index) {
+//        _comp.setParent(this);
+//        getChildren().add(_index, _comp);
+//        pa.add(((CustComponent) _comp).getNatComponent(), _index);
+//    }
 
     @Override
     public void add(AbsCustComponent _comp, AbsGridConstraints _constraints) {
-        _comp.setParent(this);
-        getChildren().add(_comp);
+//        _comp.setParent(this);
+//        getChildren().add(_comp);
         pa.add(((CustComponent) _comp).getNatComponent(),((DefGridConstraints)_constraints).getGridBagConstraints());
     }
 
     public void add(AbsCustComponent _comp, String _constraints) {
-        FrameUtil.adCts(this,_comp, _constraints);
-    }
-
-    public void innerAdd(AbsCustComponent _comp, String _constraints) {
-        _comp.setParent(this);
-        getChildren().add(_comp);
+//        FrameUtil.adCts(this,_comp, _constraints);
         pa.add(((CustComponent) _comp).getNatComponent(), _constraints);
     }
 
+//    public void innerAdd(AbsCustComponent _comp, String _constraints) {
+//        _comp.setParent(this);
+//        getChildren().add(_comp);
+//        pa.add(((CustComponent) _comp).getNatComponent(), _constraints);
+//    }
+
     public void remove(int _index) {
-        getChildren().get(_index).setParent(null);
-        getChildren().remove(_index);
+//        getChildren().get(_index).setParent(null);
+//        getChildren().remove(_index);
         pa.remove(_index);
     }
 
-    public int remove(AbsCustComponent _cust) {
-        return FrameUtil.removeOne(this,_cust);
-    }
+//    public int remove(AbsCustComponent _cust) {
+//        return FrameUtil.removeOne(this,_cust);
+//    }
 
-    public void innAdd(AbsCustComponent _c) {
-        getChildren().add(_c);
-        pa.add(((CustComponent) _c).getNatComponent());
-    }
+//    public void innAdd(AbsCustComponent _c) {
+//        getChildren().add(_c);
+//        pa.add(((CustComponent) _c).getNatComponent());
+//    }
 
     public void removeAll() {
-        FrameUtil.remAllFromPanel(getChildren());
-        innerRemoveAll();
-    }
-
-    public void innerRemoveAll() {
-        getChildren().clear();
         pa.removeAll();
+//        FrameUtil.remAllFromPanel(getChildren());
+//        innerRemoveAll();
     }
+//
+//    public void innerRemoveAll() {
+//        getChildren().clear();
+//        pa.removeAll();
+//    }
 
     @Override
     public JComponent getNatComponent() {

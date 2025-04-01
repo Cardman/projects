@@ -97,7 +97,7 @@ public final class PaginatorPokemon extends Paginator {
     private final NumComboBox cmpPossEvosPrio;
     private final AbsButton detailButton;
 
-    public PaginatorPokemon(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, AbsButton _detail) {
+    public PaginatorPokemon(WindowAiki _window, AbsPanel _p, AbsCommonFrame _w, FacadeGame _d, AbsButton _detail) {
         super(_window, _p);
         detailButton = _detail;
         cmpNamePrio = new NumComboBox(_window.getFrames());

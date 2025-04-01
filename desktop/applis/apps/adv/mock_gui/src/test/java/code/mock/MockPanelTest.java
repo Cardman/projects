@@ -99,18 +99,18 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
         MockPlainLabel l_ = new MockPlainLabel("");
         p_.add(l_,"");
-        assertEq(0,p_.remove(l_));
-        assertEq(0,p_.getComponentCount());
+//        assertEq(0,p_.remove(l_));
+        assertEq(1,p_.getComponentCount());
     }
     @Test
     public void p12() {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
         MockPlainLabel l1_ = new MockPlainLabel("");
-        MockPlainLabel l2_ = new MockPlainLabel("");
+//        MockPlainLabel l2_ = new MockPlainLabel("");
         p_.add(l1_,"");
         p_.add(l1_,"");
-        assertEq(-1,p_.remove(l2_));
+//        assertEq(-1,p_.remove(l2_));
         assertEq(1,p_.getComponentCount());
         p_.remove(0);
         assertEq(0,p_.getComponentCount());
@@ -122,8 +122,8 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         MockPlainLabel l_ = new MockPlainLabel("");
         p_.add(l_,"");
         p_.add(new MockPlainLabel(""),"");
-        assertEq(0,p_.remove(l_));
-        assertEq(1,p_.getComponentCount());
+//        assertEq(0,p_.remove(l_));
+        assertEq(2,p_.getComponentCount());
     }
     @Test
     public void p14() {
@@ -132,8 +132,8 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         MockPlainLabel l_ = new MockPlainLabel("");
         p_.add(new MockPlainLabel(""),"");
         p_.add(l_,"");
-        assertEq(1,p_.remove(l_));
-        assertEq(1,p_.getComponentCount());
+//        assertEq(1,p_.remove(l_));
+        assertEq(2,p_.getComponentCount());
     }
     @Test
     public void p15() {

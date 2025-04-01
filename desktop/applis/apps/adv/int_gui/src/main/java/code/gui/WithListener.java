@@ -20,7 +20,6 @@ public interface WithListener extends PlacableWindow {
     void setContentPane(AbsPanel _p);
 
     boolean isVisible();
-    void pack();
     void setJMenuBar(AbsMenuBar _menuBar);
     void dispose();
 }
