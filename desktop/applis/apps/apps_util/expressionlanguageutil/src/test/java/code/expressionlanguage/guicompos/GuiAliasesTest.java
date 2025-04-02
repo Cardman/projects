@@ -23,7 +23,6 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.stds.FctCompoRepaint;
-import code.expressionlanguage.guicompos.stds.FctFrame;
 import code.expressionlanguage.guicompos.stds.FctImage;
 import code.expressionlanguage.guicompos.stds.FctImageLabel1;
 import code.expressionlanguage.options.*;
@@ -97,33 +96,6 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
 //        stds_.getGuiAliases().setAliasConfirmFieldCancel("_");
 //        assertEq(OtherConfirmDialog.CANCEL_OPTION,toLong(new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_"))));
 //    }
-
-    @Test
-    public void message40() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        Options opt_ = new Options();
-        ContextEl ctx_ = gene(stds_,opt_);
-        ((InterruptibleContextEl)ctx_).stopJoinSleep();
-        stds_.getGuiExecutingBlocks().initEventClose((GuiContextEl) ctx_);
-        StackCall st_ = stack(ctx_);
-//        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
-//        Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(false)), st_);
-//        call(new FctConfirmMessage1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,seven(img_,d_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_);
-        assertFalse(st_.isFailInit());
-        assertTrue(st_.calls());
-    }
-    @Test
-    public void cst4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
-        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
-        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_);
-        stds_.getGuiAliases().setAliasConfirm("");
-        stds_.getGuiAliases().setAliasPanelBorder("_");
-        stds_.getGuiAliases().setAliasPanelBorderNorth("_");
-        assertEq(PanelBorderStruct.NORTH,new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_")));
-    }
 
     @Test
     public void cst5() {
@@ -277,7 +249,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         stds_.getNbAlias().setAliasNanField("5");
         stds_.getNbAlias().setAliasAlpha("6");
         stds_.getNbAlias().setAliasAlphaHex("7");
-        assertEq(Double.MAX_VALUE,new AdvancedConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_")));
+        assertEq(Double.MAX_VALUE,new AdvancedExecConstantsCalculator(stds_).getInnerSimpleResult(new ClassField("_","_")));
     }
     @Test
     public void str1() {

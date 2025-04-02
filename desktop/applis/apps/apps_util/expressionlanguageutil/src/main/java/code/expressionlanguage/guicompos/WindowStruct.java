@@ -11,12 +11,23 @@ import code.util.CustList;
 public abstract class WindowStruct extends WithoutParentIdStruct {
 
     private Struct panel = NullStruct.NULL_VALUE;
+    private Struct menuBar = NullStruct.NULL_VALUE;
     private final WithListener container;
 
     protected WindowStruct(WithListener _c) {
         this.container = _c;
     }
 
+    public Struct getMenuBar() {
+        return menuBar;
+    }
+
+    public void setMenuBar(Struct _arg) {
+        if (_arg instanceof MenuBarStruct) {
+            menuBar = _arg;
+            getAbstractWindow().setJMenuBar(((MenuBarStruct)_arg).getMenuBar());
+        }
+    }
     public void addWindowListener(AbsWindowListener _l) {
         getAbstractWindow().addWindowListener(_l);
     }
@@ -162,7 +173,4 @@ public abstract class WindowStruct extends WithoutParentIdStruct {
     public void dispose() {
         getAbstractWindow().dispose();
     }
-    public abstract void setMenuBar(Struct _arg);
-
-    public abstract Struct getMenuBar();
 }
