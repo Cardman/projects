@@ -128,6 +128,12 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
             displayBoolTrue(toInt(isEndRoundEffect(i)), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_EFFECTS_END_ROUND);
             eff(beans.get(i));
         }
+        display(secEffectsByItem,MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_EFFECTS_SEC_DPT);
+        secEffs();
+        formatMessage(MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_AFTER_USING);
+        displayBoolTrue(toInt(switchAfterUsingMove()),MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_SWITCH);
+        displayBoolTrue(toInt(rechargeRound),MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_RECHARGE);
+        displayBoolTrue(toInt(rechargeRound),MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_RECHARGE_AB);
         displayBoolTrue(toInt(constUserChoice),MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_CONST_USER_CHOICE);
         if (isRepeatedRound()) {
             formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES);
@@ -143,6 +149,18 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesTmLearntByPokemon,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_BY_LEARN_TM);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesHmLearntByPokemon,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_BY_LEARN_HM);
             new BeanDisplayList<TranslatedKey>(new BeanDisplayTranslatedKey()).display(this,movesMtLearntByPokemon,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_BY_LEARN_MT);
+        }
+    }
+
+    private void secEffs() {
+        int secLen_ = secEffectsByItem.size();
+        for (int i = 0; i < secLen_; i++) {
+            formatMessageDir(Long.toString(i));
+            formatMessageDir(secEffectsByItem.getKey(i));
+            displayBoolTrue(toInt(secEffectIfNoDamage), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_EFFECT_WHILE_NO_DAMAGE);
+            for (int j: secEffectsByItem.getValue(i)) {
+                eff(beans.get(j));
+            }
         }
     }
 

@@ -69,6 +69,9 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_REQUIERED_STATUS="requiered_status";
     public static final String M_P_35_SUCCESS_TITLE="success_title";
     public static final String M_P_35_SWITCH="switch";
+    public static final String M_P_35_STOPPABLE_SOLO="stoppable_solo";
+    public static final String M_P_35_STOPPABLE_MULTI="stoppable_multi";
+    public static final String M_P_35_STOPPABLE_PRIO="stoppable_prio";
     public static final String M_P_35_TARGETS="targets";
     public static final String M_P_35_TARGETS_ADJ_ADV="targets_ADJ_ADV";
     public static final String M_P_35_TARGETS_ADJ_MULT="targets_ADJ_MULT";
@@ -90,6 +93,8 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_TYPESBOOST="typesBoost";
     public static final String M_P_35_TYPE_CAT="type_cat";
     public static final String M_P_35_TYPE_TITLE="type_title";
+    public static final String M_P_35_TYPES_ITEM="types_item";
+    public static final String M_P_35_TYPES_WEATHER="types_weather";
     public static final String M_P_35_WEATHER="weather";
     public static final String M_P_35_DAMAGING="damaging";
     public static final String M_P_35_RANK_INCREMENTING_NB_ROUND="rankIncrementNbRound";
@@ -163,6 +168,9 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_REQUIERED_STATUS,"Using this move need the following status of the user:");
         e_.add(M_P_35_SUCCESS_TITLE,"Success of the move out of accuracy and evasiness");
         e_.add(M_P_35_SWITCH,"If the user is not knocked out after the use of its move and if it exists a partner at the back battle, the user is switched by a chosen partner at the back battle.");
+        e_.add(M_P_35_STOPPABLE_SOLO,"As a single target move, this move is affected by some moves.");
+        e_.add(M_P_35_STOPPABLE_MULTI,"As a multiple target move, this move is affected by some moves.");
+        e_.add(M_P_35_STOPPABLE_PRIO,"As a priority move, this move is affected by some moves.");
         e_.add(M_P_35_TARGETS,"The set of firstly chosen targets by the move is the following:");
         e_.add(M_P_35_TARGETS_ADJ_ADV,"all closest foes to the user");
         e_.add(M_P_35_TARGETS_ADJ_MULT,"all closest fighters to the user");
@@ -184,6 +192,8 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_TYPESBOOST,"The types of the move receiving a bonus are:");
         e_.add(M_P_35_TYPE_CAT,"Type and category of the move");
         e_.add(M_P_35_TYPE_TITLE,"Type");
+        e_.add(M_P_35_TYPES_ITEM,"Types by item");
+        e_.add(M_P_35_TYPES_WEATHER,"Types by weather");
         e_.add(M_P_35_WEATHER,"Weather");
         e_.add(M_P_35_DAMAGING,"Damaging move");
         e_.add(M_P_35_RANK_INCREMENTING_NB_ROUND,"Rank incrementing of rounds number:");
@@ -257,6 +267,9 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_REQUIERED_STATUS,"Lancer cette attaque nécessite les statuts du lanceur suivants:");
         f_.add(M_P_35_SUCCESS_TITLE,"Réussite de l'attaque hors précision et esquive");
         f_.add(M_P_35_SWITCH,"Si le lanceur ne tombe pas KO après son attaque et s'il existe un combattant de la même équipe à l'arrière, il est remplacé par un combattant choisi de la même équipe à l'arrière.");
+        f_.add(M_P_35_STOPPABLE_SOLO,"En tant qu'attaque à unique cible, cette attaque est affectée par certaines attaques.");
+        f_.add(M_P_35_STOPPABLE_MULTI,"En tant qu'attaque à cibles multiples, cette attaque est affectée par certaines attaques.");
+        f_.add(M_P_35_STOPPABLE_PRIO,"En tant qu'attaque prioritaire, cette attaque est affectée par certaines attaques.");
         f_.add(M_P_35_TARGETS,"L'ensemble des cibles initialement visées par l'attaque est le suivant:");
         f_.add(M_P_35_TARGETS_ADJ_ADV,"tous les adversaires adjacent au lanceur");
         f_.add(M_P_35_TARGETS_ADJ_MULT,"tous les combattants adjacent au lanceur");
@@ -278,6 +291,8 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_TYPESBOOST,"Les types de l'attaque recevant un bonus sont:");
         f_.add(M_P_35_TYPE_CAT,"Type et catégorie de l'attaque");
         f_.add(M_P_35_TYPE_TITLE,"Type");
+        f_.add(M_P_35_TYPES_ITEM,"Types par objet");
+        f_.add(M_P_35_TYPES_WEATHER,"Types par climat");
         f_.add(M_P_35_WEATHER,"Climat");
         f_.add(M_P_35_DAMAGING,"Attaque à dégâts");
         f_.add(M_P_35_RANK_INCREMENTING_NB_ROUND,"Rang incrémentant du nombre de tours:");
