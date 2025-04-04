@@ -65,6 +65,7 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_RECHARGE="recharge";
     public static final String M_P_35_RECHARGE_AB="recharge_ab";
     public static final String M_P_35_REPEATED_ROUND="repeated_round";
+    public static final String M_P_35_REPEATED_ROUND_INTRO="repeated_round";
     public static final String M_P_35_REQUIERED_STATUS="requiered_status";
     public static final String M_P_35_SUCCESS_TITLE="success_title";
     public static final String M_P_35_SWITCH="switch";
@@ -158,6 +159,7 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_RECHARGE,"If the user has directly invoked the move, has successed it ans if it is remainging power points for this move then the user recharges during a round after the end of the effect of the move:");
         e_.add(M_P_35_RECHARGE_AB,"In contrary, if the user owns one of the following abilities, the user can use a move without recharging:");
         e_.add(M_P_35_REPEATED_ROUND,"Here is the rate law of the incremented number of rounds at the rank {0}:");
+        e_.add(M_P_35_REPEATED_ROUND_INTRO,"Here is the rate law of the incremented number of rounds:");
         e_.add(M_P_35_REQUIERED_STATUS,"Using this move need the following status of the user:");
         e_.add(M_P_35_SUCCESS_TITLE,"Success of the move out of accuracy and evasiness");
         e_.add(M_P_35_SWITCH,"If the user is not knocked out after the use of its move and if it exists a partner at the back battle, the user is switched by a chosen partner at the back battle.");
@@ -251,6 +253,7 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_RECHARGE,"Si le lanceur a invoquée directement l'attaque, l'a réussi et s'il reste des points de pouvoir pour cette attaque alors le lanceur recharge pendant un tour après la fin de l'effet de l'attaque:");
         f_.add(M_P_35_RECHARGE_AB,"En revanche, si le lanceur possède une capacités suivantes, le lanceur peut attaquer sans recharger:");
         f_.add(M_P_35_REPEATED_ROUND,"Voici la loi de probabilité du nombre incrémenté au rang {0} de tours:");
+        f_.add(M_P_35_REPEATED_ROUND_INTRO,"Voici la loi de probabilité du nombre incrémenté de tours:");
         f_.add(M_P_35_REQUIERED_STATUS,"Lancer cette attaque nécessite les statuts du lanceur suivants:");
         f_.add(M_P_35_SUCCESS_TITLE,"Réussite de l'attaque hors précision et esquive");
         f_.add(M_P_35_SWITCH,"Si le lanceur ne tombe pas KO après son attaque et s'il existe un combattant de la même équipe à l'arrière, il est remplacé par un combattant choisi de la même équipe à l'arrière.");

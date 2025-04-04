@@ -128,6 +128,12 @@ public final class MoveBean extends CommonBean implements BeanRenderWithAppName{
             displayBoolTrue(toInt(isEndRoundEffect(i)), MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_EFFECTS_END_ROUND);
             eff(beans.get(i));
         }
+        displayBoolTrue(toInt(constUserChoice),MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_CONST_USER_CHOICE);
+        if (isRepeatedRound()) {
+            formatMessageAnc(new BeanAnchorCstEvent(CommonBean.REN_ADD_WEB_HTML_ENDROUND_ENDROUND_HTML),MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_MOVES);
+            formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_REPEATED_ROUND,Long.toString(rankIncrementNbRound));
+            new BeanDisplayMap<LgInt,Rate>(new BeanDisplayLgInt(), new BeanDisplayRate()).displayGrid(this,repeatRoundLaw,MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_NB_ROUNDS,MessagesDataMovesData.M_P_35_RATE);
+        }
         if (canBeLearnt()) {
             formatMessage(MessagesPkBean.MV_DATA,MessagesDataMovesData.M_P_35_LEARNING_MOVE);
             display(movesLevelLearntByPokemon, MessagesPkBean.MV_DATA, MessagesDataMovesData.M_P_35_BY_GROWING);
