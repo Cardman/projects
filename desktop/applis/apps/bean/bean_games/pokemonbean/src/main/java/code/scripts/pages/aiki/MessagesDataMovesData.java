@@ -32,6 +32,7 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_CONST_USER_CHOICE="const_user_choice";
     public static final String M_P_35_DELETED_STATUS="deleted_status";
     public static final String M_P_35_DISPARITION_TOUR="disparition_tour";
+    public static final String M_P_35_EFFECTS_NB="effects_nb";
     public static final String M_P_35_EFFECTS_BEF_FIRST="effects_bef_first";
     public static final String M_P_35_EFFECTS_END_ROUND="effects_end_round";
     public static final String M_P_35_EFFECTS_FIRST="effects_first";
@@ -131,6 +132,7 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_CONST_USER_CHOICE,"The user is locked on this move until the end of the effect of this move.");
         e_.add(M_P_35_DELETED_STATUS,"Using this move disable the following status of the user:");
         e_.add(M_P_35_DISPARITION_TOUR,"Before using the move, the user of this move disappears.");
+        e_.add(M_P_35_EFFECTS_NB,"Effect number");
         e_.add(M_P_35_EFFECTS_BEF_FIRST,"Before first effect");
         e_.add(M_P_35_EFFECTS_END_ROUND,"Effect while end round");
         e_.add(M_P_35_EFFECTS_FIRST,"First effect");
@@ -230,6 +232,7 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_CONST_USER_CHOICE,"Le lanceur est bloqué sur cette attaque jusqu'à la fin de l'effet de cette attaque.");
         f_.add(M_P_35_DELETED_STATUS,"Lancer cette attaque enlève les statuts du lanceur suivants:");
         f_.add(M_P_35_DISPARITION_TOUR,"Avant de lancer l'attaque, le lanceur de cette attaque disparaît.");
+        f_.add(M_P_35_EFFECTS_NB,"Numéro d'effet");
         f_.add(M_P_35_EFFECTS_BEF_FIRST,"Effet préliminaire");
         f_.add(M_P_35_EFFECTS_END_ROUND,"Effet en fin de tour");
         f_.add(M_P_35_EFFECTS_FIRST,"Effet primaire");

@@ -23,6 +23,15 @@ public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<Edit
         Comparing<EditedCrudPair<K, V>> cmp_ = _d.buildCmp();
         initForm(_d.buildDisplay(), genePair, cmp_,_facto.build(cmp_));
     }
+
+    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, ValidateElementPairFactory<K,V> _facto, String _txtKey, String _txtValue) {
+        getCrudGeneFormSubContent().clear();
+        displayEntryCustSub = _d;
+        genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v,_txtKey,_txtValue);
+        initForm();
+        Comparing<EditedCrudPair<K, V>> cmp_ = _d.buildCmp();
+        initForm(_d.buildDisplay(), genePair, cmp_,_facto.build(cmp_));
+    }
     public void initForm(DisplayEntryCust<Integer,EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _disp, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = null;

@@ -207,9 +207,17 @@ public final class SubscribedTranslationList {
     }
 
     public static AbsCustComponent line(AbstractProgramInfos _api,String _file,String _key, AbsCustComponent _input) {
+        return lineDir(_api, formatTxt(_api, _file, _key),_input);
+    }
+
+    public static String formatTxt(AbstractProgramInfos _api, String _file, String _key) {
+        return _api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().getVal(_file).getMapping().getVal(_key);
+    }
+
+    public static AbsCustComponent lineDir(AbstractProgramInfos _api,String _txt, AbsCustComponent _input) {
         AbsCompoFactory compoFactory_ = _api.getCompoFactory();
         AbsPanel line_ = compoFactory_.newLineBox();
-        line_.add(compoFactory_.newPlainLabel(_api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().getVal(_file).getMapping().getVal(_key)));
+        line_.add(compoFactory_.newPlainLabel(_txt));
         line_.add(_input);
         return line_;
     }
