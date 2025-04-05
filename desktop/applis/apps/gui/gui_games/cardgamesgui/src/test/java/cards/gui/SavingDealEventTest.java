@@ -8,6 +8,7 @@ import cards.president.enumerations.*;
 import cards.solitaire.CardSolitaire;
 import cards.tarot.enumerations.*;
 import code.gui.*;
+import code.mock.MockPanel;
 import code.scripts.messages.cards.MessagesGuiCards;
 import code.util.*;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
-        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        tryClick((AbsButton) compo(PLAY_WITHOUT_SAVING, fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieBelote());
         assertFalse(fr_.getEditorBelote().getCardDialog().isVisible());
     }
@@ -77,7 +78,7 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         fr_.getEditorPresident().getEditorCards().getListe().selectItem(1);
         fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        tryClick((AbsButton) compo(PLAY_WITHOUT_SAVING, fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartiePresident());
         assertFalse(fr_.getEditorBelote().getCardDialog().isVisible());
     }
@@ -120,7 +121,7 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorTarot().getEditorCards().getMoveCards());
         fr_.getEditorTarot().getEditorCards().getListe().selectItem(1);
         fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        tryClick((AbsButton) compo(PLAY_WITHOUT_SAVING, fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieTarot());
         assertFalse(fr_.getEditorTarot().getCardDialog().isVisible());
     }
@@ -132,7 +133,7 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
         fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        tryClick((AbsButton) compo(PLAY_WITHOUT_SAVING, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieSolitaire());
         assertFalse(fr_.getEditorClassic().getCardDialog().isVisible());
     }
@@ -144,7 +145,7 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
         dealFreeCell(fr_);
         fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        tryClick((AbsButton) compo(PLAY_WITHOUT_SAVING, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieSolitaire());
         assertFalse(fr_.getEditorFreeCell().getCardDialog().isVisible());
     }
@@ -156,10 +157,15 @@ public final class SavingDealEventTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
         dealSpider(fr_);
         fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(PLAY_WITHOUT_SAVING));
+        tryClick((AbsButton) compo(PLAY_WITHOUT_SAVING, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.baseWindow().getContainerGame().getPar().enCoursDePartieSolitaire());
         assertFalse(fr_.getEditorSpider().getCardDialog().isVisible());
     }
+
+    private AbsCustComponent compo(int _ind, AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(_ind);
+    }
+
     private void tryMove(WindowCards _fr, SolitaireCardsScrollableList _stack, CardSolitaire _one, int _dest) {
         ScrollCustomGraphicList<CardSolitaire> input_ = _stack.getListe();
         IdList<CardSolitaire> handFirst_ = _stack.valElts();

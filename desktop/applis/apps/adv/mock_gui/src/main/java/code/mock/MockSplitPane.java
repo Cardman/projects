@@ -1,9 +1,10 @@
 package code.mock;
 
+import code.gui.AbsContainer;
 import code.gui.AbsCustComponent;
 import code.gui.AbsSplitPane;
 
-public final class MockSplitPane extends MockCustComponent implements AbsSplitPane {
+public final class MockSplitPane extends MockCustComponent implements AbsSplitPane, AbsContainer {
     private final boolean horizontal;
     private boolean continuousLayout;
     private boolean oneTouchExpandable;
@@ -24,9 +25,9 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
     }
 
     private void procParents(AbsCustComponent _left, AbsCustComponent _right) {
-        _left.setParent(this);
+        ((MockCustComponent)_left).setParent(this);
         getChildren().add(_left);
-        _right.setParent(this);
+        ((MockCustComponent)_right).setParent(this);
         getChildren().add(_right);
     }
 
@@ -36,7 +37,7 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
 
     @Override
     public void setLeftComponent(AbsCustComponent _c) {
-        if (_c.getParent() == null) {
+        if (((MockCustComponent)_c).getParent() == null) {
             innerLeft(_c);
         }
     }
@@ -49,14 +50,14 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
 //    @Override
     public void innerLeft(AbsCustComponent _c) {
         removeLeft();
-        _c.setParent(this);
+        ((MockCustComponent)_c).setParent(this);
         le = _c;
         getChildren().add(0,le);
     }
 
     private void removeLeft() {
         if (le != null) {
-            le.setParent(null);
+            ((MockCustComponent)le).setParent(null);
             getChildren().removeObj(le);
         }
         le = null;
@@ -64,7 +65,7 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
 
     @Override
     public void setRightComponent(AbsCustComponent _c) {
-        if (_c.getParent() == null) {
+        if (((MockCustComponent)_c).getParent() == null) {
             innerRight(_c);
         }
     }
@@ -76,7 +77,7 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
 
     private void removeRight() {
         if (ri != null) {
-            ri.setParent(null);
+            ((MockCustComponent)ri).setParent(null);
             getChildren().removeObj(ri);
         }
         ri = null;
@@ -85,7 +86,7 @@ public final class MockSplitPane extends MockCustComponent implements AbsSplitPa
 //    @Override
     public void innerRight(AbsCustComponent _c) {
         removeRight();
-        _c.setParent(this);
+        ((MockCustComponent)_c).setParent(this);
         ri = _c;
         getChildren().add(ri);
     }

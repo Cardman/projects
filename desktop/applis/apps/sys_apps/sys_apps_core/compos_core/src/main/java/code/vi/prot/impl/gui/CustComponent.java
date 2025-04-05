@@ -7,7 +7,6 @@ import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
-import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringMap;
 import code.vi.prot.impl.DefImage;
@@ -20,7 +19,7 @@ import java.awt.*;
 public abstract class CustComponent implements AbsCustComponent {
 
     public static final String NO_RICH_TEXT = "html.disable";
-    private AbsCustComponent parent;
+//    private AbsCustComponent parent;
     private final IdMap<AbsFocusListener, WrFocusListener> mapFocus = new IdMap<AbsFocusListener, WrFocusListener>();
     private final IdMap<AbsKeyListener, WrKeyListener> mapKey = new IdMap<AbsKeyListener, WrKeyListener>();
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
@@ -28,7 +27,7 @@ public abstract class CustComponent implements AbsCustComponent {
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
     private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
     private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
-    private final IdList<AbsCustComponent> children = new IdList<AbsCustComponent>();
+//    private final IdList<AbsCustComponent> children = new IdList<AbsCustComponent>();
     private int backGroundValue;
     private int foreGroundValue;
 
@@ -308,9 +307,9 @@ public abstract class CustComponent implements AbsCustComponent {
         return getNatComponent().getHeight();
     }
 
-    public int heightFont() {
-        return heightFont(getNatComponent().getFont());
-    }
+//    public int heightFont() {
+//        return heightFont(getNatComponent().getFont());
+//    }
 
     public int heightFont(MetaFont _font) {
         return heightFont(ft(_font));
@@ -364,16 +363,16 @@ public abstract class CustComponent implements AbsCustComponent {
         getNatComponent().setFont(new Font(_name,_style,_size));
     }
 
-    public AbsCustComponent getParent() {
-        return parent;
-    }
+//    public AbsCustComponent getParent() {
+//        return parent;
+//    }
 
-    public void setParent(AbsCustComponent _parent) {
-        parent = _parent;
-    }
-    public IdList<AbsCustComponent> getChildren() {
-        return children;
-    }
+//    public void setParent(AbsCustComponent _parent) {
+//        parent = _parent;
+//    }
+//    public IdList<AbsCustComponent> getChildren() {
+//        return children;
+//    }
 
     public void setLineBorder(Color _color) {
         getNatComponent().setBorder(BorderFactory.createLineBorder(_color,1));

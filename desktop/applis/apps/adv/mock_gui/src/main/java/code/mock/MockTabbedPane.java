@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.gui.AbsContainer;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTabbedPane;
 import code.gui.events.AbsChangeListener;
@@ -7,7 +8,7 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
 
-public final class MockTabbedPane extends MockCustComponent implements AbsTabbedPane {
+public final class MockTabbedPane extends MockCustComponent implements AbsTabbedPane, AbsContainer {
     private final IdList<AbsChangeListener> changeListeners = new IdList<AbsChangeListener>();
     private int selectedIndex;
     private final StringList titles = new StringList();
@@ -74,7 +75,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public void add(String _s, AbsCustComponent _c) {
-        if (_c.getParent() == null) {
+        if (((MockCustComponent)_c).getParent() == null) {
             addIntTab(_s, _c);
         }
     }
@@ -86,7 +87,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public void addIntTab(String _s, AbsCustComponent _c, String _tooltip) {
-        _c.setParent(this);
+        ((MockCustComponent)_c).setParent(this);
         getChildren().add(_c);
         titles.add(_s);
         tooltips.add(_tooltip);
@@ -97,7 +98,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public boolean setTab(int _i, AbsCustComponent _c) {
-        if (_c.getParent() == null) {
+        if (((MockCustComponent)_c).getParent() == null) {
             setTabComponentAt(_i, _c);
             return true;
         }
@@ -107,11 +108,11 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
     @Override
     public void setTabComponentAt(int _i, AbsCustComponent _c) {
         if (getChildren().isValidIndex(_i)) {
-            getChildren().get(_i).setParent(null);
-            _c.setParent(this);
+            ((MockCustComponent)getChildren().get(_i)).setParent(null);
+            ((MockCustComponent)_c).setParent(this);
             getChildren().set(_i, _c);
         } else {
-            _c.setParent(this);
+            ((MockCustComponent)_c).setParent(this);
             getChildren().add(_c);
         }
     }
@@ -150,7 +151,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
     @Override
     public void remove(int _i) {
         int select_ = selectedIndex;
-        getChildren().get(_i).setParent(null);
+        ((MockCustComponent)getChildren().get(_i)).setParent(null);
         getChildren().remove(_i);
         titles.remove(_i);
         tooltips.remove(_i);
@@ -166,7 +167,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
     @Override
     public void removeAll() {
         for (AbsCustComponent a: getChildren()) {
-            a.setParent(null);
+            ((MockCustComponent)a).setParent(null);
         }
         innerRemoveAll();
         selectedIndex=-1;

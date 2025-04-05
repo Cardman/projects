@@ -165,7 +165,7 @@ public final class WindowConverterTest extends EquallableConverterGuiUtil {
         assertTrue(cr_.getWindow().getFolderOpenFrame().getFrame().isVisible());
         cr_.getWindow().getFolderOpenFrame().getFolderOpenDialogContent().getFileName().setText("_");
         cr_.getWindow().getFolderOpenFrame().getFolderOpenDialogContent().setSelectedPath("_");
-        tryClick((AbsButton) cr_.getWindow().getFolderOpenFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)cr_.getWindow().getFolderOpenFrame().getFolderOpenDialogContent().getButtons()).getComponent(0));
         assertEq("_",cr_.getWindow().getPathExport().getText());
         cr_.getWindow().changeLanguage("");
 //        pr_.getCounts().addEntry(cr_.getWindow().getApplicationName(),new ConcreteInteger());

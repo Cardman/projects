@@ -211,7 +211,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         w_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
         w_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
 
-        tryClick((AbsButton) w_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)w_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons()).getComponent(0));
         tryAn(((MockThreadFactory) w_.getFrames().getThreadFactory()));
         DataBase d_ = w_.getAiki().getFacade().getData();
         Game g_ = new Game(d_);
@@ -221,7 +221,7 @@ public final class NetGroupFrameTest extends EquallableNetworkUtil {
         w_.getAiki().getAikiFactory().getGamePkStream().save("", g_);
         tryClick(w_.getGameLoad());
         w_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) w_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)w_.getFileOpenRomFrame().getFileDialogContent().getButtons()).getComponent(0));
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) w_.getPane()).getTreeAccessible();
         assertEq(1,tr_.size());
         tryClick((AbsButton) tr_.get(0));

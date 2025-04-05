@@ -138,7 +138,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
     public static void tryLoad(ContentGeneComponentModelImg _g, String _f) {
         _g.getFileDialogContent().getFileName().setText(_f);
         ((MockAbstractAction) GuiBaseUtil.getAction(_g.getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        ((MockPlainButton) _g.getFileDialogContent().getButtons().getComponent(0)).getActionListeners().first().action();
+        ((MockPlainButton) ((MockPanel)_g.getFileDialogContent().getButtons()).getComponent(0)).getActionListeners().first().action();
     }
 
     protected WindowPkEditor window(AbstractProgramInfos _core, FacadeGame _facade) {

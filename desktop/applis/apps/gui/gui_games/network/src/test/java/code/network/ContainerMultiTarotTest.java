@@ -128,11 +128,11 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         IdList<AbsCustComponent> serverCompo_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(6, serverCompo_.size());
-        assertTrue(serverCompo_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.FOLD))));
-        assertTrue(serverCompo_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.TAKE))));
-        assertTrue(serverCompo_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD))));
-        assertTrue(serverCompo_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_WITHOUT))));
-        assertTrue(serverCompo_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_AGAINST))));
+        assertTrue(serverCompo_.containsObj(compo(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.FOLD), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompo_.containsObj(compo(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.TAKE), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompo_.containsObj(compo(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompo_.containsObj(compo(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_WITHOUT), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompo_.containsObj(compo(((ContainerTarot)server_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_AGAINST), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
         assertTrue(serverCompo_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         IdList<AbsCustComponent> clientCompo_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompo_.size());
@@ -143,11 +143,11 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 
         IdList<AbsCustComponent> clientCompoSec_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(6, clientCompoSec_.size());
-        assertTrue(clientCompoSec_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.FOLD))));
-        assertTrue(clientCompoSec_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.TAKE))));
-        assertTrue(clientCompoSec_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD))));
-        assertTrue(clientCompoSec_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_WITHOUT))));
-        assertTrue(clientCompoSec_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_AGAINST))));
+        assertTrue(clientCompoSec_.containsObj(compo(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.FOLD), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompoSec_.containsObj(compo(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.TAKE), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompoSec_.containsObj(compo(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompoSec_.containsObj(compo(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_WITHOUT), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompoSec_.containsObj(compo(((ContainerTarot)client_.getNetg().getContainerGame()).getBids().indexOfObj(BidTarot.GUARD_AGAINST), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
         assertTrue(clientCompoSec_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         IdList<AbsCustComponent> serverCompoSec_ = ((MockCustComponent) server_.getPane()).getTreeAccessible();
         assertEq(1, serverCompoSec_.size());
@@ -3022,27 +3022,27 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
 //        h_.ajouterCartes(_compo.getCardsInDog());
 //        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
 //        return _compo.tapisTarot().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
-        return _compo.tapisTarot().getCenterDeck().getComponent(_compo.getCardsInDog().getCards().indexOfObj(_cb));
+        return compo(_compo.getCardsInDog().getCards().indexOfObj(_cb), _compo.tapisTarot().getCenterDeck());
     }
     private static AbsCustComponent componentUnion(ContainerMultiTarot _compo, CardTarot _cb) {
         HandTarot h_ = new HandTarot();
         h_.ajouterCartes(_compo.getTakerCardsDog());
         h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
-        return _compo.getPanelHand().getComponent(h_.getCards().indexOfObj(_cb));
+        return compo(h_.getCards().indexOfObj(_cb), _compo.getPanelHand());
     }
     private static AbsCustComponent componentHandful(ContainerMultiTarot _compo, CardTarot _cb) {
 //        HandTarot h_ = new HandTarot();
 //        h_.ajouterCartes(_compo.getCurrentIncludedTrumps());
 //        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
 //        return _compo.getIncludedTrumpsForHandful().getComponent(h_.getCards().indexOfObj(_cb));
-        return _compo.getIncludedTrumpsForHandful().getComponent(_compo.getCurrentIncludedTrumps().getCards().indexOfObj(_cb));
+        return compo(_compo.getCurrentIncludedTrumps().getCards().indexOfObj(_cb), _compo.getIncludedTrumpsForHandful());
     }
     private static AbsCustComponent componentHandfulExc(ContainerMultiTarot _compo, CardTarot _cb) {
 //        HandTarot h_ = new HandTarot();
 //        h_.ajouterCartes(_compo.getCurrentExcludedTrumps());
 //        h_.trier(_compo.getDisplayingTarot().getDisplaying().getSuits(), _compo.getDisplayingTarot().getDisplaying().isDecreasing());
 //        return _compo.getExcludedTrumpsForHandful().getComponent(h_.getCards().indexOfObj(_cb));
-        return _compo.getExcludedTrumpsForHandful().getComponent(_compo.getCurrentExcludedTrumps().getCards().indexOfObj(_cb));
+        return compo(_compo.getCurrentExcludedTrumps().getCards().indexOfObj(_cb), _compo.getExcludedTrumpsForHandful());
     }
 
     private static void tryClickCall(ContainerMultiTarot _compo, MockGameTarot _mock) {
@@ -3050,7 +3050,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
     }
     private static AbsCustComponent componentCall(ContainerMultiTarot _compo, CardTarot _cb) {
         int index_ = indexCall(_compo, _cb);
-        return _compo.getPanelCallableCards().getComponent(index_);
+        return compo(index_, _compo.getPanelCallableCards());
     }
 
     private static int indexCall(ContainerMultiTarot _compo, CardTarot _cb) {
@@ -3067,7 +3067,7 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         tryClickCard(component(_compo,_mock.currentCard()));
     }
     private static AbsCustComponent component(ContainerMultiTarot _compo, CardTarot _cb) {
-        return _compo.getPanelHand().getComponent(_compo.getPlayerHand().getCards().indexOfObj(_cb));
+        return compo(_compo.getPlayerHand().getCards().indexOfObj(_cb), _compo.getPanelHand());
     }
     private static void tryClickBid(WindowNetWork _server, ContainerMultiTarot _csb, MockSocket _soc, MockGameTarot _mock) {
         _soc.getOutput().clear();
@@ -3075,8 +3075,13 @@ public final class ContainerMultiTarotTest extends EquallableNetworkUtil {
         writeToServer(_server,_soc);
     }
     private static void tryClickBid(ContainerMultiTarot _csb, MockGameTarot _mock) {
-        tryClick((AbsButton) _csb.getPanneauBoutonsJeu().getComponent(_csb.getBids().indexOfObj(_mock.currentBid())));
+        tryClick((AbsButton) compo(_csb.getBids().indexOfObj(_mock.currentBid()), _csb.getPanneauBoutonsJeu()));
     }
+
+    private static AbsCustComponent compo(int _ind, AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(_ind);
+    }
+
     private void play(WindowNetWork _server, MockSocket _socket) {
         _socket.getOutput().clear();
         tryClick(((ContainerMulti) _server.getNetg().getContainerGame()).getContainerMultiContent().getPlayGameButton());

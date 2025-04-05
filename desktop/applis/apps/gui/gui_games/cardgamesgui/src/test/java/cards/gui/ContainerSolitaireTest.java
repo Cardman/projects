@@ -5,6 +5,7 @@ import cards.facade.enumerations.*;
 import cards.gui.containers.*;
 import cards.solitaire.*;
 import code.gui.*;
+import code.mock.MockPanel;
 import code.util.*;
 import code.util.core.NumberUtil;
 import org.junit.Test;
@@ -36,8 +37,8 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         ContainerSolitaire css_ = editSolitaire(deal_);
         ActionSolitaire ac_ = action(1, 0, 8);
         assertTrue(css_.partieSolitaire().canBeSelected(ac_.getFromIndex(), ac_.getCardIndex()));
-        tryClickCard(((AbsPanel)css_.getAll().getComponent(ac_.getFromIndex())).getComponent(ac_.getCardIndex()));
-        tryClickCard(((AbsPanel)css_.getAll().getComponent(ac_.getFromIndex())).getComponent(ac_.getCardIndex()));
+        tryClickCard(compo((AbsPanel) compo(css_.getAll(), ac_.getFromIndex()), ac_.getCardIndex()));
+        tryClickCard(compo((AbsPanel) compo(css_.getAll(), ac_.getFromIndex()), ac_.getCardIndex()));
         assertFalse(css_.partieSolitaire().finish());
     }
     @Test
@@ -78,8 +79,8 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         ContainerSolitaire css_ = editSolitaire(deal_);
         ActionSolitaire ac_ = action(4, 5, 0);
         assertTrue(css_.partieSolitaire().canBeSelected(ac_.getFromIndex(), ac_.getCardIndex()));
-        tryClickCard(((AbsPanel)css_.getAll().getComponent(ac_.getFromIndex())).getComponent(ac_.getCardIndex()));
-        tryClickCard(((AbsPanel)css_.getAll().getComponent(ac_.getFromIndex())).getComponent(ac_.getCardIndex()));
+        tryClickCard(compo((AbsPanel) compo(css_.getAll(), ac_.getFromIndex()), ac_.getCardIndex()));
+        tryClickCard(compo((AbsPanel) compo(css_.getAll(), ac_.getFromIndex()), ac_.getCardIndex()));
         assertFalse(css_.partieSolitaire().finish());
     }
     @Test
@@ -120,8 +121,8 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
         ContainerSolitaire css_ = editSolitaire(deal_);
         ActionSolitaire ac_ = action(1, 0, 11);
         assertTrue(css_.partieSolitaire().canBeSelected(ac_.getFromIndex(), ac_.getCardIndex()));
-        tryClickCard(((AbsPanel)css_.getAll().getComponent(ac_.getFromIndex())).getComponent(ac_.getCardIndex()));
-        tryClickCard(((AbsPanel)css_.getAll().getComponent(ac_.getFromIndex())).getComponent(ac_.getCardIndex()));
+        tryClickCard(compo((AbsPanel) compo(css_.getAll(), ac_.getFromIndex()), ac_.getCardIndex()));
+        tryClickCard(compo((AbsPanel) compo(css_.getAll(), ac_.getFromIndex()), ac_.getCardIndex()));
         assertFalse(css_.partieSolitaire().finish());
     }
     @Test
@@ -333,11 +334,16 @@ public final class ContainerSolitaireTest extends EquallableCardsGuiUtil {
     }
     public static void tryPlay(ContainerSolitaire _d, ActionSolitaire _ac) {
         assertTrue(_d.partieSolitaire().canBeSelected(_ac.getFromIndex(), _ac.getCardIndex()));
-        tryClickCard(((AbsPanel)_d.getAll().getComponent(_ac.getFromIndex())).getComponent(_ac.getCardIndex()));
+        tryClickCard(compo((AbsPanel) compo(_d.getAll(), _ac.getFromIndex()), _ac.getCardIndex()));
         assertTrue(_d.partieSolitaire().canBePlayed(_ac.getFromIndex(), _ac.getCardIndex(), _ac.getToIndex()));
-        AbsPanel dest_ = (AbsPanel) _d.getAll().getComponent(_ac.getToIndex());
-        tryClickCard(dest_.getComponent(NumberUtil.max(0,dest_.getComponentCount()-1)));
+        AbsPanel dest_ = (AbsPanel) compo(_d.getAll(), _ac.getToIndex());
+        tryClickCard(compo(dest_, NumberUtil.max(0, dest_.getComponentCount() - 1)));
     }
+
+    private static AbsCustComponent compo(AbsPanel _pan, int _index) {
+        return ((MockPanel)_pan).getComponent(_index);
+    }
+
     private ContainerSolitaire editSolitaire(AbsDealSolitaire _deal) {
         WindowCards wc_ = frameSingleSolitaire();
         ContainerSolitaire csb_ = new ContainerSolitaire(wc_);

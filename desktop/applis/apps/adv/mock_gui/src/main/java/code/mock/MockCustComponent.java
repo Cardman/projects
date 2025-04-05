@@ -421,7 +421,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
             if (!((MockCustComponent)current_).isAccessible()) {
                 return false;
             }
-            current_ = current_.getParent();
+            current_ = ((MockCustComponent)current_).getParent();
         }
         return true;
     }
@@ -431,7 +431,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
             if (!current_.isVisible()) {
                 return false;
             }
-            current_ = current_.getParent();
+            current_ = ((MockCustComponent)current_).getParent();
         }
         return true;
     }
@@ -502,7 +502,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
         setFont(new MetaFont(_s,_style,_size));
     }
 
-    @Override
+//    @Override
     public AbsCustComponent getParent() {
         return parent;
     }
@@ -511,7 +511,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
         return children;
     }
 
-    @Override
+//    @Override
     public void setParent(AbsCustComponent _p) {
         parent = _p;
     }

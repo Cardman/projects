@@ -125,7 +125,7 @@ public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
         FolderOpenFrame.setFolderOpenDialog(true, saver_,new DefButtonsOpenFolderPanelAct(new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
         saver_.getFolderOpenDialogContent().getFileName().setText("txt");
-        MockPlainButton c_ = (MockPlainButton) saver_.getFolderOpenDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(saver_.getFolderOpenDialogContent().getButtons(), 0);
         c_.getActionListeners().first().action();
         assertFalse(saver_.getFrame().isVisible());
     }
@@ -140,7 +140,7 @@ public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
         FolderOpenFrame.setFolderOpenDialog(false,open_,new DefButtonsOpenFolderPanelAct(new ContinueFileSample()));
         assertTrue(open_.getFrame().isVisible());
         assertFalse(((MockCustComponent)open_.getFolderOpenDialogContent().getFileName()).isAccessible());
-        tryClick((AbsButton) open_.getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(open_.getFolderOpenDialogContent().getButtons(), 0));
         assertTrue(open_.getFrame().isVisible());
     }
     @Test
@@ -156,7 +156,7 @@ public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
         assertFalse(((MockCustComponent)open_.getFolderOpenDialogContent().getFileName()).isAccessible());
         assertTrue(((MockCustComponent)open_.getFolderOpenDialogContent().getFolderSystem()).isDeepAccessible());
         open_.getFolderOpenDialogContent().getFolderSystem().select(open_.getFolderOpenDialogContent().getFolderSystem().getRoot());
-        tryClick((AbsButton) open_.getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(open_.getFolderOpenDialogContent().getButtons(), 0));
         assertFalse(open_.getFrame().isVisible());
     }
 
@@ -175,7 +175,7 @@ public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
         assertTrue(((MockCustComponent)open_.getFolderOpenDialogContent().getFolderSystem()).isDeepAccessible());
         open_.getFolderOpenDialogContent().getFolderSystem().select(open_.getFolderOpenDialogContent().getFolderSystem().getRoot());
         open_.getFolderOpenDialogContent().getFolderSystem().select(open_.getFolderOpenDialogContent().getFolderSystem().getRoot().getFirstChild());
-        tryClick((AbsButton) open_.getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(open_.getFolderOpenDialogContent().getButtons(), 0));
         assertFalse(open_.getFrame().isVisible());
     }
     @Test
@@ -207,7 +207,7 @@ public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
         FolderOpenFrame open_ = new FolderOpenFrame(pr_,new ConcreteBoolean());
         FolderOpenFrame.setFolderOpenDialog(false,open_,new DefButtonsOpenFolderPanelAct(new ContinueFileSample()));
         assertTrue(open_.getFrame().isVisible());
-        tryClick((AbsButton) open_.getFolderOpenDialogContent().getButtons().getComponent(1));
+        tryClick((AbsButton) compo(open_.getFolderOpenDialogContent().getButtons(), 1));
         assertFalse(open_.getFrame().isVisible());
     }
     @Test
@@ -228,6 +228,11 @@ public final class FolderOpenSaveFrameTest extends EquallableGuiFctUtil {
         open_.getFolderOpenDialogContent().getFileTable().getListSelectionListeners().get(0).valueChanged(0,0);
         assertEq("",open_.getFolderOpenDialogContent().getFileName().getText());
     }
+
+    private AbsCustComponent compo(AbsPanel _pan, int _ind) {
+        return ((MockPanel)_pan).getComponent(_ind);
+    }
+
     private FolderOpenFrame save(MockProgramInfosSecSample _pr) {
         return new FolderOpenFrame(_pr, _pr.getThreadFactory().newAtomicBoolean());
     }

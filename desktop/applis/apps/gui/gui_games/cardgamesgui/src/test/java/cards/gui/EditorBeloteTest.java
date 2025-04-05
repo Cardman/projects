@@ -11,6 +11,7 @@ import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
 import code.gui.ScrollCustomGraphicList;
 import code.mock.MockCustComponent;
+import code.mock.MockPanel;
 import code.util.IdList;
 import code.util.Ints;
 import org.junit.Test;
@@ -84,10 +85,10 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName()));
@@ -124,10 +125,10 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName()));
@@ -237,7 +238,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
         fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
         GameBelote game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -277,7 +278,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(4);
         fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
         GameBelote game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -317,7 +318,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
         fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(fr_, SAVE_THEN_CLOSE));
         assertFalse(fr_.getEditorBelote().getCardDialog().isVisible());
         GameBelote game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().belote("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -335,7 +336,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.BELOTE));
         tryClick(fr_.getEditorBelote().getEditorCards().getValidateRules());
         fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
         assertFalse(fr_.getEditorBelote().getEditorCards().getErrors().getText().isEmpty());
     }
@@ -366,7 +367,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
-        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
     }
     @Test
@@ -396,7 +397,7 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         fr_.getEditorBelote().getEditorCards().getListeTwo().selectItem(5);
         tryClick(fr_.getEditorBelote().getEditorCards().getMoveCards());
         fr_.getEditorBelote().getEditorCards().getListe().selectItem(1);
-        tryClick((AbsButton) fr_.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(fr_, SAVE_THEN_CLOSE));
         assertTrue(fr_.getEditorBelote().getCardDialog().isVisible());
     }
     @Test
@@ -450,6 +451,11 @@ public final class EditorBeloteTest extends EquallableCardsGuiUtil {
         assertFalse(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_QUEEN).isSelected());
         assertFalse(fr_.getEditorBelote().getDeclares().getVal(DeclaresBelote.FOUR_QUEEN).isSelected());
     }
+
+    private AbsCustComponent compo(WindowCards _fr, int _ind) {
+        return ((MockPanel)_fr.getEditorBelote().getEditorCards().getSaveDialogContent().getButtons()).getComponent(_ind);
+    }
+
     private IdList<CardBelote> five(CardBelote _one,CardBelote _two,CardBelote _three,CardBelote _four,CardBelote _five){
         IdList<CardBelote> l_ = new IdList<CardBelote>();
         l_.add(_one);

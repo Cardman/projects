@@ -358,16 +358,16 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t27() {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
-        MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
+        MockTreeGui tree_ = (MockTreeGui) compo(mock_.getContentPane(), 0);
         tree_.select(tree_.getRoot());
         tree_.getTreeSelectionListeners().first().valueChanged(tree_.selectEvt().getChildAt(0));
-        AbsPlainLabel lab_ = (AbsPlainLabel)  mock_.getContentPane().getComponent(1);
+        AbsPlainLabel lab_ = (AbsPlainLabel) compo(mock_.getContentPane(), 1);
         assertEq("0/1",lab_.getText());
     }
     @Test
     public void t28() {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
-        MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
+        MockTreeGui tree_ = (MockTreeGui) compo(mock_.getContentPane(), 0);
         tree_.select(tree_.getRoot());
         tree_.getTreeSelectionListeners().first().valueChanged(tree_.selectEvt().getChildAt(0));
         tree_.removeTreeSelectionListener(tree_.getTreeSelectionListeners().first());
@@ -376,7 +376,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t29() {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
-        MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
+        MockTreeGui tree_ = (MockTreeGui) compo(mock_.getContentPane(), 0);
         tree_.selectNull();
         tree_.select(tree_.getRoot());
         AbstractMutableTreeNodeCore<String> root_ = tree_.selectEvt();
@@ -430,6 +430,12 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         tr_.info(curr_,"1");
         assertEq("1", curr_.info());
     }
+
+    private AbsCustComponent compo(AbsPanel _pan, int _ind) {
+        return ((MockPanel)_pan).getComponent(_ind);
+    }
+
+
     private void geneTwo(MockMutableTreeNode _r, String _i, String _j) {
         add(gene(_r, _i), _j);
     }

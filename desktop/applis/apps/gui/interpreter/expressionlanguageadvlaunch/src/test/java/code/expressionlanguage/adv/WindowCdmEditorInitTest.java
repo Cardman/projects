@@ -662,7 +662,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tree_.select(tree_.getRoot());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
         _w.getFileSaveFrame().getFileDialogContent().getFileName().setText(_file);
-        MockPlainButton c_ = (MockPlainButton) _w.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(_w.getFileSaveFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
     }
 
@@ -672,7 +672,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tree_.select(tree_.getRoot());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
         _w.getFileOpenFrame().getFileDialogContent().getFileName().setText(_file);
-        MockPlainButton c_ = (MockPlainButton) _w.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(_w.getFileOpenFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
     }
 
@@ -681,7 +681,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tree_.select(null);
         tree_.select(tree_.getRoot());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
-        MockPlainButton c_ = (MockPlainButton) _w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(_w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons());
         c_.getActionListeners().first().action();
     }
 
@@ -691,7 +691,11 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tree_.select(tree_.getRoot());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling().getFirstChild());
-        MockPlainButton c_ = (MockPlainButton) _w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(_w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons());
         c_.getActionListeners().first().action();
+    }
+
+    private AbsCustComponent compo(AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(0);
     }
 }

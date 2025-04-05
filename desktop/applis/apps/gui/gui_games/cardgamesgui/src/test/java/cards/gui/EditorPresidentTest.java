@@ -9,6 +9,7 @@ import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
 import code.gui.ScrollCustomGraphicList;
 import code.mock.MockCustComponent;
+import code.mock.MockPanel;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;
@@ -70,10 +71,10 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName()));
@@ -114,10 +115,10 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName()));
@@ -145,10 +146,10 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName()));
@@ -288,7 +289,7 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         fr_.getEditorPresident().getEditorCards().getListe().selectItem(1);
         fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorPresident().getCardDialog().isVisible());
         GamePresident game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -328,7 +329,7 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         fr_.getEditorPresident().getEditorCards().getListe().selectItem(5);
         fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorPresident().getCardDialog().isVisible());
         GamePresident game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president("/__/txt");
         assertEq(2,game_.getDeal().getDealer());
@@ -368,7 +369,7 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         fr_.getEditorPresident().getEditorCards().getListe().selectItem(1);
         fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(fr_, SAVE_THEN_CLOSE));
         assertFalse(fr_.getEditorPresident().getCardDialog().isVisible());
         GamePresident game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().president("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -385,7 +386,7 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.PRESIDENT));
         tryClick(fr_.getEditorPresident().getEditorCards().getValidateRules());
         fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorPresident().getCardDialog().isVisible());
         assertFalse(fr_.getEditorPresident().getEditorCards().getErrors().getText().isEmpty());
     }
@@ -413,7 +414,7 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         fr_.getEditorPresident().getEditorCards().getListeTwo().selectItem(5);
         tryClick(fr_.getEditorPresident().getEditorCards().getMoveCards());
         fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorPresident().getCardDialog().isVisible());
         assertFalse(fr_.getEditorPresident().getEditorCards().getErrors().getText().isEmpty());
     }
@@ -446,6 +447,12 @@ public final class EditorPresidentTest extends EquallableCardsGuiUtil {
         assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getEditorPresident().getListeChoix().getCurrent());
         assertEq(EqualtyPlaying.SKIP_DIFF_NEXT_STOP,fr_.getEditorPresident().getEquality().getCurrentElement());
     }
+
+    private AbsCustComponent compo(WindowCards _fr, int _ind) {
+        return ((MockPanel)_fr.getEditorPresident().getEditorCards().getSaveDialogContent().getButtons()).getComponent(_ind);
+    }
+
+
     private IdList<CardPresident> ten(CardPresident _one,CardPresident _two,CardPresident _three,CardPresident _four,CardPresident _five,CardPresident _six,CardPresident _seven,CardPresident _eight,CardPresident _nine,CardPresident _ten){
         IdList<CardPresident> l_ = new IdList<CardPresident>();
         l_.add(_one);

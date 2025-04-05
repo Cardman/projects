@@ -328,7 +328,7 @@ public final class FileOpenFrameTest extends EquallableGuiFctUtil {
         FileOpenFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new DefButtonsOpenPanelAct(new ContinueFileSample()));
         assertTrue(saver_.getFrame().isVisible());
         saver_.getFileDialogContent().getFileName().setText("txt");
-        MockPlainButton c_ = (MockPlainButton) saver_.getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) ((MockPanel)saver_.getFileDialogContent().getButtons()).getComponent(0);
         c_.getActionListeners().first().action();
         assertFalse(saver_.getFrame().isVisible());
     }

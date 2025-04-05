@@ -25,9 +25,9 @@ public final class MockCommonFrameTreeSample extends MockAbsCommonFrame implemen
 
     @Override
     public void action(int _nb, AbstractMutableTreeNodeCore<String> _node) {
-        MockTreeGui m_ = (MockTreeGui) getContentPane().getComponent(0);
+        MockTreeGui m_ = (MockTreeGui) ((MockPanel)getContentPane()).getComponent(0);
         m_.selectEvt();
-        AbsPlainLabel lab_ = (AbsPlainLabel) getContentPane().getComponent(1);
+        AbsPlainLabel lab_ = (AbsPlainLabel) ((MockPanel)getContentPane()).getComponent(1);
         MockMutableTreeNode curr_ = (MockMutableTreeNode) _node;
         CustList<MockMutableTreeNode> path_ = new CustList<MockMutableTreeNode>();
         while (curr_ != null) {

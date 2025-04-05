@@ -4,6 +4,7 @@ import code.formathtml.ReadConfiguration;
 import code.gui.AbsButton;
 import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
+import code.mock.MockPanel;
 import code.mock.MockThreadFactory;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.sml.Element;
@@ -496,7 +497,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         w_.getLgCode().setText(StringUtil.EN);
         tryClick(w_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)w_.getFileOpenFrame().getFileDialogContent().getButtons()).getComponent(0));
         AbstractThread th_ = tryAn(((MockThreadFactory) pr_.getThreadFactory()));
         Runnable exec_ = th_.getRunnable();
         assertTrue(((CustThreadActions)exec_).isRendered());
@@ -519,7 +520,7 @@ public final class WindowRendersTest extends EquallableRendersGuiUtil {
         w_.getLgCode().setText(StringUtil.EN);
         tryClick(w_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)w_.getFileOpenFrame().getFileDialogContent().getButtons()).getComponent(0));
         assertEq(0, ((MockThreadFactory) pr_.getThreadFactory()).getAllThreads().size());
     }
 

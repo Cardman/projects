@@ -1857,7 +1857,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         main_.sortCards(_compo.getDisplayingPresident().getDisplaying(), game_.isReversed());
         int f_ = _compo.userHand().getCards().indexOfObj(main_.premiereCarte());
         int s_ = f_ + _cb.total() - 1;
-        return _compo.getPanelHand().getComponent(s_);
+        return compo(s_, _compo.getPanelHand());
     }
     private static AbsCustComponent componentReceived(ContainerSinglePresident _compo, HandPresident _cb) {
         HandPresident main_ = new HandPresident();
@@ -1869,7 +1869,7 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         mainGiv_.sortCards(_compo.getDisplayingPresident().getDisplaying(), false);
         int f_ = mainGiv_.getCards().indexOfObj(main_.premiereCarte());
         int s_ = f_ + _cb.total() - 1;
-        return _compo.getPanelHand().getComponent(s_);
+        return compo(s_, _compo.getPanelHand());
     }
     private static AbsCustComponent componentGiven(ContainerSinglePresident _compo, HandPresident _cb) {
         HandPresident main_ = new HandPresident();
@@ -1881,7 +1881,11 @@ public final class ContainerPlayPresidentTest extends EquallableCardsGuiUtil {
         mainGiv_.sortCards(_compo.getDisplayingPresident().getDisplaying(), false);
         int f_ = mainGiv_.getCards().indexOfObj(main_.premiereCarte());
         int s_ = f_ + _cb.total() - 1;
-        return _compo.getPanelGivenCards().getComponent(s_);
+        return compo(s_, _compo.getPanelGivenCards());
+    }
+
+    private static AbsCustComponent compo(int _ind, AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(_ind);
     }
     private ContainerSinglePresident editPresident(RulesPresident _rules, DealPresident _deal, MockGamePresident _mock) {
         WindowCards wc_ = frameSinglePresident(_mock);

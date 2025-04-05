@@ -50,7 +50,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         tryClick(w_.getStop());
         tryClick(w_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(w_));
         assertEq(0,w_.getResultsTable().getRowCount());
 //        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         w_.changeLanguage("");
@@ -118,7 +118,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         s_.setFilePath("");
         tryClick(s_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(w_));
         tryAn(((MockThreadFactory)pr_.getThreadFactory()));
         s_.getSrcField().setText("");
         tryClick(s_.getSrcButton());
@@ -144,7 +144,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         s_.setFilePath("");
         tryClick(s_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(w_));
         tryAn(((MockThreadFactory)pr_.getThreadFactory()));
         s_.getSrcField().setText("/_.zip");
         tryClick(s_.getSrcButton());
@@ -169,7 +169,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         s_.setFilePath("");
         tryClick(s_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(w_));
         tryAn(((MockThreadFactory)pr_.getThreadFactory()));
         s_.getSrcField().setText("/_.zip");
         tryClick(s_.getSrcButton());
@@ -200,7 +200,7 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         s_.setFilePath("");
         tryClick(s_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(w_));
         tryAn(((MockThreadFactory)pr_.getThreadFactory()));
         s_.getFolderField().setText("_");
         s_.getSrcField().setText("_.zip");
@@ -249,5 +249,8 @@ public final class WindowUnitTest extends EquallableUnitInterpreterUtil {
         WindowUnit w_ = cr_.getWindow();
         ((MockBaseExecutorService)w_.getExec()).getTasks().lastValue().attendre();
         assertEq(0,w_.getResultsTable().getRowCount());
+    }
+    private AbsCustComponent compo(WindowUnit _w) {
+        return ((MockPanel)_w.getFileOpenFrame().getFileDialogContent().getButtons()).getComponent(0);
     }
 }

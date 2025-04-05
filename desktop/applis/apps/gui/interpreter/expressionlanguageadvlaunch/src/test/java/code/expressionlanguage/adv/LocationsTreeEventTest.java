@@ -4,6 +4,7 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
 import code.gui.AbsScrollPane;
 import code.gui.AbsTreeGui;
+import code.mock.MockPanel;
 import code.mock.MockPlainButton;
 import code.mock.MockScrollPane;
 import org.junit.Test;
@@ -130,17 +131,17 @@ public final class LocationsTreeEventTest extends EquallableElAdvUtil {
         assertEq(3,locations(s_).getComponentCount());
     }
     private void callers(WindowExpressionEditor _s) {
-        AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
+        MockPanel p_ = (MockPanel) ((MockPanel)_s.getPanelSymbols()).getComponent(1);
         ((MockPlainButton)(p_.getComponent(1))).getActionListeners().get(0).action();
         executeOneTask(_s.getFinderSymbol());
     }
     private void refreshUsages(WindowExpressionEditor _s) {
-        AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
+        MockPanel p_ = (MockPanel) ((MockPanel)_s.getPanelSymbols()).getComponent(1);
         ((MockPlainButton)(p_.getComponent(2))).getActionListeners().get(0).action();
         executeOneTask(_s.getFinderSymbol());
     }
     private void refreshUsagesDef(WindowExpressionEditor _s) {
-        AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
+        MockPanel p_ = (MockPanel) ((MockPanel)_s.getPanelSymbols()).getComponent(1);
         ((MockPlainButton)(p_.getComponent(3))).getActionListeners().get(0).action();
         executeOneTask(_s.getFinderSymbol());
     }

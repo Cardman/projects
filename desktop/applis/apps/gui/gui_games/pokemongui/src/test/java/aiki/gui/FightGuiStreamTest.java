@@ -518,7 +518,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -530,7 +530,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -543,7 +543,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick(window_.getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
-        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -556,7 +556,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick(window_.getCore().getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
-        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -569,7 +569,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -582,7 +582,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         updateBase(window_.getFrames().currentLg());
         tryClick(window_.getCore().getZipLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -596,7 +596,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick(window_.getCore().getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
-        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -610,7 +610,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick(window_.getCore().getFolderLoad());
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getFileName().setText("_");
         window_.getFileOpenFolderFrame().getFolderOpenDialogContent().setSelectedPath("_");
-        tryClick((AbsButton) window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenFolderFrame().getFolderOpenDialogContent().getButtons()));
         tryAn(((MockThreadFactory) window_.getFrames().getThreadFactory()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
@@ -742,7 +742,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getCore().getGameLoad().setEnabled(true);
         tryClick(window_.getCore().getGameLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
     @Test
@@ -757,7 +757,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getGameLoad().setEnabled(true);
         tryClick(window_.getCore().getGameLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
     @Test
@@ -809,7 +809,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
         tryClick(window_.getCore().getGameLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
     @Test
@@ -826,7 +826,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick(window_.getCore().getGameLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
         window_.getFileOpenRomFrame().getFileDialogContent().setSelectedAbsolutePath("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
     @Test
@@ -853,7 +853,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getCore().getAikiFactory().getGamePkStream().save("last",g_);
         tryClick(window_.getCore().getGameLoad());
         window_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileOpenRomFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         assertTrue(window_.getCommonFrame().isVisible());
         db_.completeQuickMembers("_1", damage());
         db_.completeQuickMembers("_2", damage());
@@ -1114,7 +1114,7 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         window_.getCore().getGameSave().setEnabled(true);
         tryClick(window_.getCore().getGameSave());
         window_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) window_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) compo(window_.getFileSaveFrame().getFileDialogContent().getButtons()));
         assertTrue(window_.getCommonFrame().isVisible());
     }
     @Test
@@ -1227,6 +1227,11 @@ public final class FightGuiStreamTest extends InitDbGuiAiki {
         tryClick(window_.getCore().getZipLoad());
         assertTrue(window_.getCommonFrame().isVisible());
     }
+
+    private AbsCustComponent compo(AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(0);
+    }
+
     private void save(WindowAiki _win) {
         Game g_ = game(initDb());
         _win.getFacade().setGame(g_);

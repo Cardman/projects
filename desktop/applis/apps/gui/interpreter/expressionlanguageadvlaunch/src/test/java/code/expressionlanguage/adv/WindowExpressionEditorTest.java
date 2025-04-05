@@ -2,10 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.gui.AbsTreeGui;
-import code.mock.MockMenuItem;
-import code.mock.MockPlainButton;
-import code.mock.MockProgramInfos;
-import code.mock.MockWindow;
+import code.mock.*;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -149,7 +146,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         tree_.select(tree_.getRoot());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling().getNextSibling());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling().getNextSibling().getFirstChild());
-        MockPlainButton c_ = (MockPlainButton) _w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) ((MockPanel)_w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons()).getComponent(0);
         c_.getActionListeners().first().action();
     }
 

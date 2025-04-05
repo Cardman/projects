@@ -1275,7 +1275,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         main_.sortCards(_compo.getDisplayingPresident().getDisplaying(), _compo.isReversedGame());
         int f_ = cp_.getCards().indexOfObj(main_.premiereCarte());
         int s_ = f_ + _cb.total() - 1;
-        return _compo.getPanelHand().getComponent(s_);
+        return compo(_compo.getPanelHand(), s_);
     }
     private static AbsCustComponent componentReceived(ContainerMultiPresident _compo, HandPresident _cb) {
         HandPresident main_ = new HandPresident();
@@ -1286,7 +1286,7 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         mainGiv_.sortCards(_compo.getDisplayingPresident().getDisplaying(), false);
         int f_ = mainGiv_.getCards().indexOfObj(main_.premiereCarte());
         int s_ = f_ + _cb.total() - 1;
-        return _compo.getPanelHand().getComponent(s_);
+        return compo(_compo.getPanelHand(), s_);
     }
     private static AbsCustComponent componentGiven(ContainerMultiPresident _compo, HandPresident _cb) {
         HandPresident main_ = new HandPresident();
@@ -1297,7 +1297,11 @@ public final class ContainerMultiPresidentTest extends EquallableNetworkUtil {
         mainGiv_.sortCards(_compo.getDisplayingPresident().getDisplaying(), false);
         int f_ = mainGiv_.getCards().indexOfObj(main_.premiereCarte());
         int s_ = f_ + _cb.total() - 1;
-        return _compo.getPanelGivenCards().getComponent(s_);
+        return compo(_compo.getPanelGivenCards(), s_);
+    }
+
+    private static AbsCustComponent compo(AbsPanel _pan, int _ind) {
+        return ((MockPanel)_pan).getComponent(_ind);
     }
     private void play(WindowNetWork _server, MockSocket _socket) {
         _socket.getOutput().clear();

@@ -9,6 +9,7 @@ import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
 import code.gui.GuiConstants;
 import code.mock.MockCustComponent;
+import code.mock.MockPanel;
 import code.mock.MockThreadFactory;
 import code.util.IdList;
 import code.util.core.BoolVal;
@@ -262,7 +263,7 @@ public final class MoveHerosTest extends InitDbGuiAiki {
     public void move18() {
         WindowAiki window_ = newProg();
         loadRomGameTwoJoinPlacesGymTrainer(window_);
-        tryClick((AbsButton) window_.getScenePanel().getGymTrainer().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)window_.getScenePanel().getGymTrainer()).getComponent(0));
         assertTrue(window_.getFacade().getGame().getGymTrainer().isValid());
         window_.getFacade().getGame().getFight().getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         window_.getFacade().getGame().endFight(window_.getFacade().getData());

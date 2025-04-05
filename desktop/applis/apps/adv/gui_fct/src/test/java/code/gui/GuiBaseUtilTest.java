@@ -483,7 +483,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         update(c_,"TWO",20);
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         update(c_,"ONE",16);
         c_.getValidAddEdit().getActionListeners().get(0).action();
         StringMap<Integer> map_ = GuiBaseUtil.retrieve(c_);
@@ -501,7 +501,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         update(c_,"TWO",20);
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         c_.getValidRemove().getActionListeners().get(0).action();
         StringMap<Integer> map_ = GuiBaseUtil.retrieve(c_);
         assertEq(1,map_.size());
@@ -516,7 +516,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         update(c_,"TWO",20);
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         update(c_,"ONE",16);
         c_.getCancel().getActionListeners().get(0).action();
         StringMap<Integer> map_ = GuiBaseUtil.retrieve(c_);
@@ -571,7 +571,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         c_.getGene().value(new EditedCrudPair<String, Integer>("ONE",1));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         assertEq(2,c_.getList().size());
@@ -586,7 +586,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         c_.getValidRemove().getActionListeners().get(0).action();
         assertEq(1,c_.getList().size());
         assertEq("TWO",c_.getList().get(0).getKey());
@@ -599,7 +599,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         c_.getGene().value(new EditedCrudPair<String, Integer>("ONE", 1));
         c_.getCancel().getActionListeners().get(0).action();
         assertEq(2,c_.getList().size());
@@ -614,7 +614,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         c_.getGene().value(new EditedCrudPair<String, Integer>("TWO",2));
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         c_.getGene().value(new EditedCrudPair<String, Integer>("ONE", 1));
         c_.getCancel().getActionListeners().get(0).action();
         assertEq(2,c_.getList().size());
@@ -681,7 +681,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         update(c_, new Rate(2), new LgInt(20));
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         update(c_, new Rate(1), new LgInt(16));
         c_.getValidAddEdit().getActionListeners().get(0).action();
         MonteCarloNumber map_ = retrieve(c_);
@@ -699,7 +699,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         update(c_, new Rate(2), new LgInt(20));
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         c_.getValidRemove().getActionListeners().get(0).action();
         MonteCarloNumber map_ = retrieve(c_);
         assertEq(1,map_.size());
@@ -714,7 +714,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         c_.getAdd().getActionListeners().get(0).action();
         update(c_, new Rate(2), new LgInt(20));
         c_.getValidAddEdit().getActionListeners().get(0).action();
-        ((AbsButton)c_.getElements().getComponent(0)).getActionListeners().get(0).action();
+        ((AbsButton) compo(c_.getElements())).getActionListeners().get(0).action();
         update(c_, new Rate(1), new LgInt(16));
         c_.getCancel().getActionListeners().get(0).action();
         MonteCarloNumber map_ = retrieve(c_);
@@ -1215,6 +1215,11 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertFalse(i_.getInput().isNul());
         assertEq(1,i_.getClipMp3().getMicrosecondLength());
     }
+
+    private AbsCustComponent compo(AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(0);
+    }
+
 
     public static byte[] wrapInts(int... _files) {
         return Ints.newList(_files).toArrByte();

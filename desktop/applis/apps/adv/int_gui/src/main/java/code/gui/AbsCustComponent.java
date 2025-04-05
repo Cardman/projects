@@ -68,9 +68,6 @@ public interface AbsCustComponent {
     void setNullFont();
     void setFont(MetaFont _font);
     void setFont(String _name, int _style, int _size);
-    AbsCustComponent getParent();
-    CustList<AbsCustComponent> getChildren();
-    void setParent(AbsCustComponent _parent);
     void setLineBorder(int _color);
     void setLineBorder(int _color, int _thick);
     void setTitledBorder(String _title);

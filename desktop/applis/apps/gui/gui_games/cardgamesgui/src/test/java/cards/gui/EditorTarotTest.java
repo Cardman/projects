@@ -9,6 +9,7 @@ import code.gui.AbsButton;
 import code.gui.AbsCustComponent;
 import code.gui.ScrollCustomGraphicList;
 import code.mock.MockCustComponent;
+import code.mock.MockPanel;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.Ints;
@@ -87,10 +88,10 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName()));
@@ -125,10 +126,10 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName()));
@@ -166,10 +167,10 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(fr_, 0)));
+        assertTrue(tr_.containsObj(compo(fr_, 1)));
+        assertTrue(tr_.containsObj(compo(fr_, 2)));
+        assertTrue(tr_.containsObj(compo(fr_, 3)));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName()));
@@ -315,7 +316,7 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorTarot().getEditorCards().getMoveCards());
         fr_.getEditorTarot().getEditorCards().getListe().selectItem(1);
         fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorTarot().getCardDialog().isVisible());
         GameTarot game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -365,7 +366,7 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorTarot().getEditorCards().getMoveCards());
         fr_.getEditorTarot().getEditorCards().getListe().selectItem(6);
         fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorTarot().getCardDialog().isVisible());
         GameTarot game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -415,7 +416,7 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditorTarot().getEditorCards().getMoveCards());
         fr_.getEditorTarot().getEditorCards().getListe().selectItem(1);
         fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(fr_, SAVE_THEN_CLOSE));
         assertFalse(fr_.getEditorTarot().getCardDialog().isVisible());
         GameTarot game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().tarot("/__/txt");
         assertEq(1,game_.getDeal().getDealer());
@@ -435,7 +436,7 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         fr_.getEditorTarot().getNbJoueurs().setValue(6);
         tryClick(fr_.getEditorTarot().getEditorCards().getValidateRules());
         fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(fr_, SAVE_WITHOUT_CLOSING));
         assertTrue(fr_.getEditorTarot().getCardDialog().isVisible());
         assertFalse(fr_.getEditorTarot().getEditorCards().getErrors().getText().isEmpty());
     }
@@ -482,6 +483,9 @@ public final class EditorTarotTest extends EquallableCardsGuiUtil {
         assertEq(MixCardsChoice.EACH_LAUNCHING,fr_.getEditorTarot().getListeChoix().getCurrent());
         assertEq(EndDealTarot.ATTACK_LOOSE,fr_.getEditorTarot().getListeChoixTwo().getCurrentElement());
         assertEq(ModeTarot.NORMAL,fr_.getEditorTarot().getListeChoixThree().getCurrentElement());
+    }
+    private AbsCustComponent compo(WindowCards _fr, int _ind) {
+        return ((MockPanel)_fr.getEditorTarot().getEditorCards().getSaveDialogContent().getButtons()).getComponent(_ind);
     }
     private IdList<CardTarot> six(CardTarot _one, CardTarot _two, CardTarot _three, CardTarot _four, CardTarot _five, CardTarot _six){
         IdList<CardTarot> l_ = new IdList<CardTarot>();

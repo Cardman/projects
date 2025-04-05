@@ -173,10 +173,10 @@ public final class AdvResultContextNextTest extends EquallableElAdvUtil {
         w_.setResultContextNext(res_);
         return w_;
     }
-    private void callers(WindowExpressionEditor _s) {
-        AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
-        ((MockPlainButton)(p_.getComponent(1))).getActionListeners().get(0).action();
-    }
+//    private void callers(WindowExpressionEditor _s) {
+//        AbsPanel p_ = (AbsPanel) _s.getPanelSymbols().getComponent(1);
+//        ((MockPlainButton)(p_.getComponent(1))).getActionListeners().get(0).action();
+//    }
     protected static void analyzeBad(WindowCdmEditor _w) {
         _w.getFuture().attendre();
         AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);

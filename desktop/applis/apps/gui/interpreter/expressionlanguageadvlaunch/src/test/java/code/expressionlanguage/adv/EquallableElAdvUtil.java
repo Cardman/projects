@@ -553,10 +553,10 @@ public abstract class EquallableElAdvUtil {
         ((MockPlainButton)_w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getBpRemoveFile()).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemInc(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) compo(_index, _w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getIncludedFileIndex())).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemExc(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) compo(_index, _w.getFramePoints().getFrameBpFormContent().getGuiStdStackForm().getExcludedFileIndex())).getActionListeners().get(0).action();
     }
     public static void bpFormStdAddIncGl(AbsDebuggerGui _w) {
         ((MockPlainButton)_w.getFramePoints().getStackConstraintsForm().getBpAddFile()).getActionListeners().get(0).action();
@@ -565,11 +565,16 @@ public abstract class EquallableElAdvUtil {
         ((MockPlainButton)_w.getFramePoints().getStackConstraintsForm().getBpRemoveFile()).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemIncGl(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getFramePoints().getStackConstraintsForm().getIncludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) compo(_index, _w.getFramePoints().getStackConstraintsForm().getIncludedFileIndex())).getActionListeners().get(0).action();
     }
     public static void bpFormStdRemExcGl(AbsDebuggerGui _w, int _index) {
-        ((MockPlainButton) _w.getFramePoints().getStackConstraintsForm().getExcludedFileIndex().getComponent(_index)).getActionListeners().get(0).action();
+        ((MockPlainButton) compo(_index, _w.getFramePoints().getStackConstraintsForm().getExcludedFileIndex())).getActionListeners().get(0).action();
     }
+
+    private static AbsCustComponent compo(int _index, AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(_index);
+    }
+
     public static void bpFormOk(AbsDebuggerGui _w) {
         ((MockPlainButton)_w.getFramePoints().getFrameBpFormContent().getOk()).getActionListeners().get(0).action();
     }
@@ -949,7 +954,7 @@ public abstract class EquallableElAdvUtil {
         tree_.select(tree_.getRoot());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling());
         tree_.select(tree_.getRoot().getFirstChild().getNextSibling().getFirstChild());
-        MockPlainButton c_ = (MockPlainButton) _w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(0, _w.getFolderOpenFrame().getFolderOpenDialogContent().getButtons());
         c_.getActionListeners().first().action();
     }
 

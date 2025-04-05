@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.gui.AbsPanel;
 import code.gui.events.AbsActionListener;
 import code.mock.MockMenuItem;
+import code.mock.MockPanel;
 import code.mock.MockPlainButton;
 import code.stream.StreamTextFile;
 import org.junit.Test;
@@ -209,7 +210,7 @@ public final class GoToDefinitionEventTest extends EquallableElAdvUtil {
         assertEq(0,s_.getSymbols().size());
     }
     private void goTo(WindowExpressionEditor _s, int _i) {
-        ((MockPlainButton)(((AbsPanel) _s.getPanelSymbols().getComponent(1)).getComponent(_i))).getActionListeners().get(0).action();
+        ((MockPlainButton)(((MockPanel) ((MockPanel)_s.getPanelSymbols()).getComponent(1)).getComponent(_i))).getActionListeners().get(0).action();
     }
 
 }

@@ -229,10 +229,10 @@ public final class ScenePanelMultiTest extends EquallableNetworkUtil {
         tryClick(client_.getAiki().getGameSave());
 
         server_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) server_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)server_.getFileSaveFrame().getFileDialogContent().getButtons()).getComponent(0));
         assertTrue(server_.getCommonFrame().isVisible());
         client_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
-        tryClick((AbsButton) client_.getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)client_.getFileSaveFrame().getFileDialogContent().getButtons()).getComponent(0));
         assertTrue(client_.getCommonFrame().isVisible());
     }
 

@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.gui.*;
 import code.gui.initialize.*;
+import code.mock.MockPanel;
 import code.stream.*;
 import code.threads.*;
 import code.util.core.StringUtil;
@@ -81,7 +82,7 @@ public final class WindowFullTest extends EquallableGuiInterpreterUtil {
         WindowFull w_ = cr_.getWindow();
         tryClick(w_.getOpen());
         w_.getFileOpenFrame().getFileDialogContent().getFileName().setText("/conf.txt");
-        tryClick((AbsButton) w_.getFileOpenFrame().getFileDialogContent().getButtons().getComponent(0));
+        tryClick((AbsButton) ((MockPanel)w_.getFileOpenFrame().getFileDialogContent().getButtons()).getComponent(0));
         assertFalse(w_.getContext().getInterrupt().get());
 //        pr_.getCounts().addEntry(w_.getApplicationName(),new ConcreteInteger());
         tryClick(w_.getCoverage());

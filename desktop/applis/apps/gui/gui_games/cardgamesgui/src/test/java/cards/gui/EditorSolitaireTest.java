@@ -28,10 +28,10 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(0, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(1, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(2, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(3, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons())));
         assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName()));
@@ -58,10 +58,10 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(0, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(1, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(2, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(3, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons())));
         assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName()));
@@ -91,10 +91,10 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getListeTwo().self()));
         assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getMoveCards()));
         assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getBackToRules()));
-        assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(0)));
-        assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(1)));
-        assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(2)));
-        assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(3)));
+        assertTrue(tr_.containsObj(compo(0, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(1, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(2, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons())));
+        assertTrue(tr_.containsObj(compo(3, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons())));
         assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileTable()));
         assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFolderSystem()));
         assertTrue(tr_.containsObj(fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName()));
@@ -324,7 +324,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
         fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorClassic().getCardDialog().isVisible());
         AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
         assertEq(12,game_.getHandsBegin().size());
@@ -348,7 +348,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
         fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(SAVE_THEN_CLOSE, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons()));
         assertFalse(fr_.getEditorClassic().getCardDialog().isVisible());
         AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
         assertEq(12,game_.getHandsBegin().size());
@@ -370,7 +370,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorClassic().getCardDialog().isVisible());
         assertFalse(fr_.getEditorClassic().getEditorCards().getErrors().getText().isEmpty());
     }
@@ -379,7 +379,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
-        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorClassic().getCardDialog().isVisible());
     }
     @Test
@@ -387,7 +387,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.CLASSIC));
         dealClassic(fr_);
-        tryClick((AbsButton) fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(SAVE_THEN_CLOSE, fr_.getEditorClassic().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorClassic().getCardDialog().isVisible());
         fr_.getEditorClassic().backToRules(fr_);
     }
@@ -397,7 +397,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
         dealFreeCell(fr_);
         fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorFreeCell().getCardDialog().isVisible());
         AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
         assertEq(16,game_.getHandsBegin().size());
@@ -425,7 +425,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
         dealFreeCell(fr_);
         fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(SAVE_THEN_CLOSE, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons()));
         assertFalse(fr_.getEditorFreeCell().getCardDialog().isVisible());
         AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
         assertEq(16,game_.getHandsBegin().size());
@@ -451,7 +451,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
         fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorFreeCell().getCardDialog().isVisible());
         assertFalse(fr_.getEditorFreeCell().getEditorCards().getErrors().getText().isEmpty());
     }
@@ -460,7 +460,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
         dealFreeCell(fr_);
-        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorFreeCell().getCardDialog().isVisible());
     }
     @Test
@@ -468,7 +468,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.FREECELL));
         dealFreeCell(fr_);
-        tryClick((AbsButton) fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(SAVE_THEN_CLOSE, fr_.getEditorFreeCell().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorFreeCell().getCardDialog().isVisible());
         fr_.getEditorFreeCell().backToRules(fr_);
     }
@@ -478,7 +478,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
         dealSpider(fr_);
         fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorSpider().getCardDialog().isVisible());
         AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
         assertEq(12,game_.getHandsBegin().size());
@@ -501,7 +501,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
         dealSpider(fr_);
         fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(SAVE_THEN_CLOSE, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons()));
         assertFalse(fr_.getEditorSpider().getCardDialog().isVisible());
         AbsDealSolitaire game_ = fr_.getCore().getFacadeCards().getNicknamesCrud().getCardGamesCrud().solitaire("/__/txt");
         assertEq(12,game_.getHandsBegin().size());
@@ -523,7 +523,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
         fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getFileName().setText("txt");
-        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorSpider().getCardDialog().isVisible());
         assertFalse(fr_.getEditorSpider().getEditorCards().getErrors().getText().isEmpty());
     }
@@ -532,7 +532,7 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
         dealSpider(fr_);
-        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_WITHOUT_CLOSING));
+        tryClick((AbsButton) compo(SAVE_WITHOUT_CLOSING, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorSpider().getCardDialog().isVisible());
     }
     @Test
@@ -540,10 +540,15 @@ public final class EditorSolitaireTest extends EquallableCardsGuiUtil {
         WindowCards fr_ = frameMiniSolitaire("/__/","/_/");
         tryClick(fr_.getEditGames().getVal(GameEnum.SPIDER));
         dealSpider(fr_);
-        tryClick((AbsButton) fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons().getComponent(SAVE_THEN_CLOSE));
+        tryClick((AbsButton) compo(SAVE_THEN_CLOSE, fr_.getEditorSpider().getEditorCards().getSaveDialogContent().getButtons()));
         assertTrue(fr_.getEditorSpider().getCardDialog().isVisible());
         fr_.getEditorSpider().backToRules(fr_);
     }
+
+    private AbsCustComponent compo(int _ind, AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(_ind);
+    }
+
     private void tryMove(WindowCards _fr, SolitaireCardsScrollableList _stack, CardSolitaire _one, int _dest) {
         ScrollCustomGraphicList<CardSolitaire> input_ = _stack.getListe();
         IdList<CardSolitaire> handFirst_ = _stack.valElts();

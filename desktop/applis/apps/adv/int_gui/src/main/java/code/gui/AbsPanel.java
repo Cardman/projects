@@ -1,8 +1,8 @@
 package code.gui;
 
-public interface AbsPanel extends AbsCustComponent, AbsContainer {
+public interface AbsPanel extends AbsCustComponent {
     int getComponentCount();
-    AbsCustComponent getComponent(int _n);
+//    AbsCustComponent getComponent(int _n);
     void add(AbsCustComponent _comp);
 //    void innerAdd(AbsCustComponent _comp);
     void add(AbsCustComponent _comp, int _index);

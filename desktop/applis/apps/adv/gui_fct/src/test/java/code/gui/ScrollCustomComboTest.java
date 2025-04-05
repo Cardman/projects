@@ -1077,7 +1077,7 @@ public final class ScrollCustomComboTest extends EquallableGuiFctUtil {
 
     private void locate(ScrollCustomCombo _gene, String _info, int _i, int _y) {
         _gene.add(_info);
-        _gene.getList().getElements().getComponent(_i).setLocation(0, _y);
+        _gene.getList().getElementsList().get(_i).setLocation(0, _y);
     }
 
 }

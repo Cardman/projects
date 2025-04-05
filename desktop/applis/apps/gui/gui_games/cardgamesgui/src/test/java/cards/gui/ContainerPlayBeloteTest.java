@@ -77,8 +77,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
 
     @Test
@@ -100,10 +100,10 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(4, tr_.size());
         assertEq(4,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p3() {
@@ -148,10 +148,10 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(4,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP)))));
-        assertFalse(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
-        assertFalse(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.ALL_TRUMP)), csb_.getPanneauBoutonsJeu())));
+        assertFalse(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
+        assertFalse(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.NO_TRUMP)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p5() {
@@ -162,8 +162,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p6() {
@@ -1154,8 +1154,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p38() {
@@ -1171,8 +1171,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p39() {
@@ -1188,8 +1188,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p40() {
@@ -1204,8 +1204,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p41() {
@@ -1436,8 +1436,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p51() {
@@ -2564,8 +2564,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.CLUB, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
     }
     @Test
     public void p94() {
@@ -2798,7 +2798,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getSave());
         csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
         ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(0, csb_.window().getFileSaveFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
         assertTrue(csb_.window().isPartieSauvegardee());
         tryClick(csb_.window().getLoad());
@@ -2895,7 +2895,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getSave());
         csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
         ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(0, csb_.window().getFileSaveFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
         assertTrue(csb_.window().isPartieSauvegardee());
         tryClick(csb_.getChange());
@@ -2948,7 +2948,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(csb_.window().getFileSaveFrame().getFrame().isVisible());
         csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
         ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(0, csb_.window().getFileSaveFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
         assertFalse(csb_.window().getFileSaveFrame().getFrame().isVisible());
     }
@@ -3696,7 +3696,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getSave());
         csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
         ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(0, csb_.window().getFileSaveFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
         assertTrue(csb_.window().isPartieSauvegardee());
         tryClick(csb_.window().getLoad());
@@ -3787,7 +3787,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         tryClick(csb_.getSave());
         csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
         ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(0, csb_.window().getFileSaveFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
         assertTrue(csb_.window().isPartieSauvegardee());
         tryClick(csb_.getChange());
@@ -3837,7 +3837,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         assertTrue(csb_.window().getFileSaveFrame().getFrame().isVisible());
         csb_.window().getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
         ((MockAbstractAction) GuiBaseUtil.getAction(csb_.window().getFileSaveFrame().getFileDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
-        MockPlainButton c_ = (MockPlainButton) csb_.window().getFileSaveFrame().getFileDialogContent().getButtons().getComponent(0);
+        MockPlainButton c_ = (MockPlainButton) compo(0, csb_.window().getFileSaveFrame().getFileDialogContent().getButtons());
         c_.getActionListeners().first().action();
         assertFalse(csb_.window().getFileSaveFrame().getFrame().isVisible());
     }
@@ -4206,8 +4206,8 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
         IdList<AbsCustComponent> tr_ = ((MockCustComponent) csb_.window().getPane()).getTreeAccessible();
         assertEq(2, tr_.size());
         assertEq(2,csb_.getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(tr_.containsObj(csb_.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), csb_.getPanneauBoutonsJeu())));
+        assertTrue(tr_.containsObj(compo(ContainerBelote.index(csb_.getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), csb_.getPanneauBoutonsJeu())));
 
     }
     @Test
@@ -4490,7 +4490,7 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
     }
 
     private static void tryClickBid(ContainerSingleBelote _csb, MockGameBelote _mock) {
-        tryClick((AbsButton) _csb.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(_csb.getBids(), _mock.currentBid())));
+        tryClick((AbsButton) compo(ContainerBelote.index(_csb.getBids(), _mock.currentBid()), _csb.getPanneauBoutonsJeu()));
     }
 
     private static void tryClickBidDealAll(ContainerSingleBelote _csb, MockGameBelote _mock) {
@@ -4510,13 +4510,17 @@ public final class ContainerPlayBeloteTest extends EquallableCardsGuiUtil {
 //        h_.ajouterCartes(_compo.partieBelote().getPliEnCours().getCards());
 //        h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.partieBelote().getBid());
 //        return _compo.tapisBelote().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
-        return _compo.tapisBelote().getCenterDeck().getComponent(_compo.partieBelote().getPliEnCours().getCards().getCards().indexOfObj(_cb));
+        return compo(_compo.partieBelote().getPliEnCours().getCards().getCards().indexOfObj(_cb), _compo.tapisBelote().getCenterDeck());
     }
     private static void tryClickCard(ContainerSingleBelote _compo, MockGameBelote _mock) {
         tryClickCard(component(_compo,_mock.currentCard()));
     }
     private static AbsCustComponent component(ContainerSingleBelote _compo, CardBelote _cb) {
-        return _compo.getPanelHand().getComponent(_compo.userHand().getCards().indexOfObj(_cb));
+        return compo(_compo.userHand().getCards().indexOfObj(_cb), _compo.getPanelHand());
+    }
+
+    private static AbsCustComponent compo(int _ind, AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(_ind);
     }
     private ContainerSingleBelote editBelote(RulesBelote _rules, DealBelote _deal, MockGameBelote _mock) {
         WindowCards wc_ = frameSingleBelote(_mock);

@@ -3290,7 +3290,7 @@ public final class ScrollCustomGraphicListTest extends EquallableGuiFctUtil {
 
     private void locate(ScrollCustomGraphicList<String> _gene, String _info, int _i, int _y) {
         _gene.add(_info);
-        _gene.getElements().getComponent(_i).setLocation(0, _y);
+        _gene.getElementsList().get(_i).setLocation(0, _y);
     }
 
     public static ScrollCustomGraphicList<String> standard(AbsCompoFactory _compo, AbstractImageFactory _img, boolean _simple) {

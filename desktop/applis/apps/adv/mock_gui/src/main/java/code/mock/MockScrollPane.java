@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.gui.AbsContainer;
 import code.gui.AbsCustComponent;
 import code.gui.AbsScrollPane;
 import code.gui.images.MetaDimension;
@@ -7,7 +8,7 @@ import code.gui.images.MetaRect;
 import code.util.CustList;
 import code.util.core.NumberUtil;
 
-public final class MockScrollPane extends MockCustComponent implements AbsScrollPane {
+public final class MockScrollPane extends MockCustComponent implements AbsScrollPane, AbsContainer {
     private AbsCustComponent child;
     private int horizontalValue;
     private int verticalValue;
@@ -33,16 +34,16 @@ public final class MockScrollPane extends MockCustComponent implements AbsScroll
     public void setViewportView(AbsCustComponent _ch) {
         if (_ch != null) {
             if (!getChildren().isEmpty()) {
-                getChildren().first().setParent(null);
+                ((MockCustComponent)getChildren().first()).setParent(null);
                 getChildren().clear();
             }
-            _ch.setParent(this);
+            ((MockCustComponent)_ch).setParent(this);
             getChildren().add(_ch);
             child = _ch;
         } else {
             CustList<AbsCustComponent> children_ = getChildren();
             for (AbsCustComponent c: children_) {
-                c.setParent(null);
+                ((MockCustComponent)c).setParent(null);
             }
             children_.clear();
             child = null;

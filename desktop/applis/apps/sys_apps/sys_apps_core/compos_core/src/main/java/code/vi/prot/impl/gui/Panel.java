@@ -63,9 +63,9 @@ public final class Panel extends CustComponent implements AbsPanel {
         return pa.getComponentCount();
     }
 
-    public AbsCustComponent getComponent(int _n) {
-        return getChildren().get(_n);
-    }
+//    public AbsCustComponent getComponent(int _n) {
+//        return getChildren().get(_n);
+//    }
 
     public void add(AbsCustComponent _comp) {
         pa.add(((CustComponent) _comp).getNatComponent());

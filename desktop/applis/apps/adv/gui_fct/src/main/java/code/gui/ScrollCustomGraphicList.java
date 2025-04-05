@@ -1159,6 +1159,10 @@ public abstract class ScrollCustomGraphicList<T> implements AbsGenerateImg<T>, I
         return elements;
     }
 
+    public CustList<AbsCustComponent> getElementsList() {
+        return elementsList;
+    }
+
     public IdList<ListSelection> getSelections() {
         return selections;
     }

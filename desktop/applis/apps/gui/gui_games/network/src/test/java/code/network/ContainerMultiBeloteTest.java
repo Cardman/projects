@@ -140,8 +140,8 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertEq(3, clientCompo_.size());
         assertTrue(clientCompo_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertEq(2, client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(clientCompo_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(clientCompo_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(clientCompo_.containsObj(compo(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompo_.containsObj(compo(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
         tryClickBid(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -151,8 +151,8 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertEq(3, serverCompoAf_.size());
         assertTrue(serverCompoAf_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertEq(2, server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(serverCompoAf_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(serverCompoAf_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)))));
+        assertTrue(serverCompoAf_.containsObj(compo(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompoAf_.containsObj(compo(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.HEART, 0, BidBelote.SUIT)), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
         IdList<AbsCustComponent> clientCompoAf_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoAf_.size());
         assertTrue(clientCompoAf_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
@@ -167,10 +167,10 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertEq(5, clientCompo2_.size());
         assertTrue(clientCompo2_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertEq(4, client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(clientCompo2_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(clientCompo2_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)))));
-        assertTrue(clientCompo2_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)))));
-        assertTrue(clientCompo2_.containsObj(client_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)))));
+        assertTrue(clientCompo2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompo2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompo2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(clientCompo2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)client_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)), client_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
         tryClickBid(m_, server_, client_, socketClient_);
         playIa(server_, client_);
         playIa(server_, client_);
@@ -181,10 +181,10 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
         assertEq(5, serverCompoAf2_.size());
         assertTrue(serverCompoAf2_.containsObj(((ContainerMulti)server_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
         assertEq(4, server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponentCount());
-        assertTrue(serverCompoAf2_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)))));
-        assertTrue(serverCompoAf2_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)))));
-        assertTrue(serverCompoAf2_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)))));
-        assertTrue(serverCompoAf2_.containsObj(server_.getNetg().getContainerGame().getPanneauBoutonsJeu().getComponent(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)))));
+        assertTrue(serverCompoAf2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.UNDEFINED, 0, BidBelote.FOLD)), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompoAf2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.SPADE, 0, BidBelote.OTHER_SUIT)), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompoAf2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.DIAMOND, 0, BidBelote.OTHER_SUIT)), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
+        assertTrue(serverCompoAf2_.containsObj(compo(ContainerBelote.index(((ContainerBelote)server_.getNetg().getContainerGame()).getBids(), bidSuit(Suit.CLUB, 0, BidBelote.OTHER_SUIT)), server_.getNetg().getContainerGame().getPanneauBoutonsJeu())));
         IdList<AbsCustComponent> clientCompoAf2_ = ((MockCustComponent) client_.getPane()).getTreeAccessible();
         assertEq(1, clientCompoAf2_.size());
         assertTrue(clientCompoAf2_.containsObj(((ContainerMulti)client_.getNetg().getContainerGame()).getContainerMultiContent().getReady()));
@@ -1531,7 +1531,7 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
     }
 
     private static void tryClickBid(ContainerBelote _csb, MockGameBelote _mock) {
-        tryClick((AbsButton) _csb.getPanneauBoutonsJeu().getComponent(ContainerBelote.index(_csb.getBids(), _mock.currentBid())));
+        tryClick((AbsButton) compo(ContainerBelote.index(_csb.getBids(), _mock.currentBid()), _csb.getPanneauBoutonsJeu()));
     }
 
     private static void tryClickBidDealAll(ContainerBelote _csb, MockGameBelote _mock) {
@@ -1551,19 +1551,23 @@ public final class ContainerMultiBeloteTest extends EquallableNetworkUtil {
 //        h_.ajouterCartes(_compo.getCardsInDog());
 //        h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.getBidMax());
 //        return _compo.tapisBelote().getCenterDeck().getComponent(h_.getCards().indexOfObj(_cb));
-        return _compo.tapisBelote().getCenterDeck().getComponent(_compo.getCardsInDog().getCards().indexOfObj(_cb));
+        return compo(_compo.getCardsInDog().getCards().indexOfObj(_cb), _compo.tapisBelote().getCenterDeck());
     }
     private static void tryClickCard(ContainerMultiBelote _compo, MockGameBelote _mock) {
         tryClickCard(component(_compo,_mock.currentCard()));
     }
     private static AbsCustComponent component(ContainerMultiBelote _compo, CardBelote _cb) {
-        return _compo.getPanelHand().getComponent(_compo.getPlayerHand().getCards().indexOfObj(_cb));
+        return compo(_compo.getPlayerHand().getCards().indexOfObj(_cb), _compo.getPanelHand());
     }
     private static AbsCustComponent componentUnion(ContainerMultiBelote _compo, CardBelote _cb) {
         HandBelote h_ = new HandBelote();
         h_.ajouterCartes(_compo.getTakerCardsDiscard());
         h_.trier(_compo.getDisplayingBelote().getDisplaying().getSuits(), _compo.getDisplayingBelote().getDisplaying().isDecreasing(), _compo.getBidMax());
-        return _compo.getPanelHand().getComponent(h_.getCards().indexOfObj(_cb));
+        return compo(h_.getCards().indexOfObj(_cb), _compo.getPanelHand());
+    }
+
+    private static AbsCustComponent compo(int _index, AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(_index);
     }
     private void nextBid(MockGameBelote _m, BidBeloteSuit _bid) {
         _m.getBids().add(_bid);

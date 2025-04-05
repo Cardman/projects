@@ -3,7 +3,7 @@ package code.mock;
 import code.gui.*;
 import code.util.CustList;
 
-public final class MockPanel extends MockCustComponent implements AbsPanel {
+public final class MockPanel extends MockCustComponent implements AbsPanel,AbsContainer {
     private final MockLayout layout;
 
     public MockPanel(MockLayout _l) {
@@ -19,34 +19,33 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
         return getChildren().size();
     }
 
-    @Override
     public AbsCustComponent getComponent(int _i) {
         return getChildren().get(_i);
     }
 
     @Override
     public void add(AbsCustComponent _c) {
-        if (_c.getParent() == null) {
+        if (((MockCustComponent)_c).getParent() == null) {
             innerAdd(_c);
         }
     }
 
 //    @Override
     public void innerAdd(AbsCustComponent _c) {
-        _c.setParent(this);
+        ((MockCustComponent)_c).setParent(this);
         innAdd(_c);
     }
 
     @Override
     public void add(AbsCustComponent _c, int _i) {
-        if (_c.getParent() == null) {
+        if (((MockCustComponent)_c).getParent() == null) {
             innerAdd(_c, _i);
         }
     }
 
 //    @Override
     public void innerAdd(AbsCustComponent _c, int _i) {
-        _c.setParent(this);
+        ((MockCustComponent)_c).setParent(this);
         getChildren().add(_i, _c);
     }
 
@@ -57,21 +56,21 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
 
     @Override
     public void add(AbsCustComponent _c, String _s) {
-        if (_c.getParent() == null) {
+        if (((MockCustComponent)_c).getParent() == null) {
             innerAddCts(_c);
         }
     }
 
 //    @Override
     public void innerAddCts(AbsCustComponent _c) {
-        _c.setParent(this);
+        ((MockCustComponent)_c).setParent(this);
         getChildren().add(_c);
     }
 
     @Override
     public void remove(int _i) {
         CustList<AbsCustComponent> ch_ = getChildren();
-        ch_.get(_i).setParent(null);
+        ((MockCustComponent)ch_.get(_i)).setParent(null);
         ch_.remove(_i);
     }
 
@@ -97,7 +96,7 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
     @Override
     public void removeAll() {
         for (AbsCustComponent a: getChildren()) {
-            a.setParent(null);
+            ((MockCustComponent)a).setParent(null);
         }
         innerRemoveAll();
     }

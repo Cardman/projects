@@ -4382,7 +4382,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(crudAccessButton(sub_));
         tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
-        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryToggle((AbsCustCheckBox) compo(crudAccess(sub_).getTrainersForm()));
         tryClick(crudAccess(sub_).getValidateAccess());
         tryClick(crudAccess(sub_).getClose());
         assertEq(1,facade_.getMap().getAccessCondition().size());
@@ -4398,7 +4398,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(crudAccessButton(sub_));
         tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
-        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryToggle((AbsCustCheckBox) compo(crudAccess(sub_).getTrainersForm()));
         tryClick(crudAccess(sub_).getValidateAccess());
         tryClick(crudAccess(sub_).getClose());
         tryClick(crudAccessButton(sub_));
@@ -4416,12 +4416,12 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(crudAccessButton(sub_));
         tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
-        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryToggle((AbsCustCheckBox) compo(crudAccess(sub_).getTrainersForm()));
         tryClick(crudAccess(sub_).getValidateAccess());
         tryClick(crudAccess(sub_).getClose());
         tryClick(crudAccessButton(sub_));
         tryClick(crudAccess(sub_).getLevels().get(0).getGrid(),0,0);
-        tryToggle((AbsCustCheckBox) crudAccess(sub_).getTrainersForm().getComponent(0));
+        tryToggle((AbsCustCheckBox) compo(crudAccess(sub_).getTrainersForm()));
         tryClick(crudAccess(sub_).getValidateAccess());
         tryClick(crudAccess(sub_).getClose());
         assertEq(0,facade_.getMap().getAccessCondition().size());
@@ -4440,6 +4440,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         assertEq(0,facade_.getMap().getBegin().getLevel().getLevelIndex());
         assertEq(0,facade_.getMap().getBegin().getLevel().getPoint().getx());
         assertEq(0,facade_.getMap().getBegin().getLevel().getPoint().gety());
+    }
+    private AbsCustComponent compo(AbsPanel _pan) {
+        return ((MockPanel)_pan).getComponent(0);
     }
     private ContentComponentModelAccessCondition crudBegin(WindowPkEditor _sub) {
         return _sub.getFormDataMap().getCrudPlace().getBeginGame();

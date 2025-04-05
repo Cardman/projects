@@ -126,7 +126,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     public void select2() {
         WindowRts w_ = window();
         tryClick(w_.getAnimate());
-        w_.getBattleground().getContainer().getParent().setSize(new MetaDimension(200,200));
+        ((MockCustComponent)w_.getBattleground().getContainer()).getParent().setSize(new MetaDimension(200,200));
         AnimationUnitSoldier th_ = w_.getThread();
         tryToggle(w_.getAddSoldier());
         th_.run();
@@ -157,7 +157,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     public void select3() {
         WindowRts w_ = window();
         tryClick(w_.getAnimate());
-        w_.getBattleground().getContainer().getParent().setSize(new MetaDimension(200,200));
+        ((MockCustComponent)w_.getBattleground().getContainer()).getParent().setSize(new MetaDimension(200,200));
         AnimationUnitSoldier th_ = w_.getThread();
         tryToggle(w_.getAddSoldier());
         th_.run();
@@ -187,7 +187,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     public void move1() {
         WindowRts w_ = window();
         tryClick(w_.getAnimate());
-        w_.getBattleground().getContainer().getParent().setSize(new MetaDimension(200,200));
+        ((MockCustComponent)w_.getBattleground().getContainer()).getParent().setSize(new MetaDimension(200,200));
         AnimationUnitSoldier th_ = w_.getThread();
         tryToggle(w_.getAddSoldier());
         th_.run();
@@ -216,7 +216,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     public void move2() {
         WindowRts w_ = window();
         tryClick(w_.getAnimate());
-        w_.getBattleground().getContainer().getParent().setSize(new MetaDimension(200,200));
+        ((MockCustComponent)w_.getBattleground().getContainer()).getParent().setSize(new MetaDimension(200,200));
         AnimationUnitSoldier th_ = w_.getThread();
         tryToggle(w_.getAddSoldier());
         th_.run();
@@ -244,7 +244,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     public void drag1() {
         WindowRts w_ = window();
         tryClick(w_.getAnimate());
-        w_.getBattleground().getContainer().getParent().setSize(new MetaDimension(200,200));
+        ((MockCustComponent)w_.getBattleground().getContainer()).getParent().setSize(new MetaDimension(200,200));
         AnimationUnitSoldier th_ = w_.getThread();
         tryToggle(w_.getAddSoldier());
         th_.run();
@@ -268,7 +268,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     public void pause1() {
         WindowRts w_ = window();
         tryClick(w_.getAnimate());
-        w_.getBattleground().getContainer().getParent().setSize(new MetaDimension(200,200));
+        ((MockCustComponent)w_.getBattleground().getContainer()).getParent().setSize(new MetaDimension(200,200));
         AnimationUnitSoldier th_ = w_.getThread();
         tryToggle(w_.getAddSoldier());
         th_.run();
@@ -298,7 +298,7 @@ public final class WindowRtsTest extends EquallableRtsUtil {
     public void pause2() {
         WindowRts w_ = window();
         tryClick(w_.getAnimate());
-        w_.getBattleground().getContainer().getParent().setSize(new MetaDimension(200,200));
+        ((MockCustComponent)w_.getBattleground().getContainer()).getParent().setSize(new MetaDimension(200,200));
         AnimationUnitSoldier th_ = w_.getThread();
         tryToggle(w_.getAddSoldier());
         th_.run();
