@@ -5,6 +5,7 @@ import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectTeamWhileSendFoe {
@@ -20,22 +21,29 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         failSending = new GeneComponentModelSubscribeString(_core,_fac);
-        selected_.add(failSending.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_SENDING,failSending.geneEnum()));
         failSending.addComplete();
         damageRateAgainstFoe = new GeneComponentModelSubscribeString(_core,_fac);
-        selected_.add(damageRateAgainstFoe.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_DAMAGE_RATE_AGAINST_FOE_INTRO,damageRateAgainstFoe.geneEnum()));
         damageRateAgainstFoe.addComplete();
         deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
-        selected_.add(deletedByFoeTypes.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_DELETE_STATUS_IF_TYPES,deletedByFoeTypes.geneEnum()));
         statusByNbUses = new CrudGeneFormSimpleFormSub<Long, String>(_core, _fac, _fact, _f);
-        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),buildPart(_core,_fac,_fact.getFactorySt(),new StringMap<String>()));
-        selected_.add(statusByNbUses.getGroup());
+        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),buildPart(_core,_fac,_fact.getFactorySt(),new StringMap<String>()),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_NB_USES),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS));
+        selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS_IF_NB,statusByNbUses.getGroup()));
         statistics = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core, _fac, _fact, _f);
-        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)));
-        selected_.add(statistics.getGroup());
+        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTIC),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_BOOST));
+        selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTICS,statistics.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
+    }
+    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    }
+
+    private String formatTxt(AbstractProgramInfos _core,String _key) {
+        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_TEAMWHILESENDINGFOE, _key);
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);

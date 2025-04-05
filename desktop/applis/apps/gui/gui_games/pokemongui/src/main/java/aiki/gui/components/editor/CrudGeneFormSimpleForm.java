@@ -15,27 +15,28 @@ public final class CrudGeneFormSimpleForm<K, V> extends CrudGeneFormListSub<Edit
 
     }
 
-    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, ValidateElementPairFactory<K,V> _facto) {
+    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, ValidateElementPairFactory<K, V> _facto) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = _d;
-        genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v);
+        genePair = new GeneComponentModelSimplePair<K,V>(getFactory(),_k,_v);
         initForm();
         Comparing<EditedCrudPair<K, V>> cmp_ = _d.buildCmp();
         initForm(_d.buildDisplay(), genePair, cmp_,_facto.build(cmp_));
     }
 
-    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, ValidateElementPairFactory<K,V> _facto, String _txtKey, String _txtValue) {
+    public void initForm(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, ValidateElementPairFactory<K, V> _facto, String _txtKey, String _txtValue) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = _d;
-        genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v,_txtKey,_txtValue);
+        genePair = new GeneComponentModelSimplePair<K,V>(getFactory(),_k,_v,_txtKey,_txtValue);
         initForm();
         Comparing<EditedCrudPair<K, V>> cmp_ = _d.buildCmp();
         initForm(_d.buildDisplay(), genePair, cmp_,_facto.build(cmp_));
     }
-    public void initForm(DisplayEntryCust<Integer,EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _disp, AbstractProgramInfos _core, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
+
+    public void initForm(DisplayEntryCust<Integer, EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _disp, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, String _txtKey, String _txtValue) {
         getCrudGeneFormSubContent().clear();
         displayEntryCustSub = null;
-        genePair = new GeneComponentModelSimplePair<K,V>(_core,_k,_v);
+        genePair = new GeneComponentModelSimplePair<K,V>(getFactory(),_k,_v,_txtKey,_txtValue);
         initForm();
         initForm(_d, genePair, _disp,new ValidateElementPair<K, V>(_disp));
     }

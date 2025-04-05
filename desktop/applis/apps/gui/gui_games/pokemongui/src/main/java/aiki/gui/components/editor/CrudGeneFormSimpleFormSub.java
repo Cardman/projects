@@ -23,19 +23,19 @@ public final class CrudGeneFormSimpleFormSub<K, V> {
     public void initFormWithVal(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
         crud = new CrudGeneFormSimpleForm<K,V>(programInfos, facadeGame, subscribedTranslationList, commonFrame);
         crud.initForm();
-        crud.initForm(_d, programInfos, _k, _v,new WithValidateElementPairFactory<K, V>());
+        crud.initForm(_d, _k, _v,new WithValidateElementPairFactory<K, V>());
     }
 
     public void initFormWithVal(DisplayEntryCustSubElement<EditedCrudPair<K, V>> _d, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, String _txtKey, String _txtValue) {
         crud = new CrudGeneFormSimpleForm<K,V>(programInfos, facadeGame, subscribedTranslationList, commonFrame);
         crud.initForm();
-        crud.initForm(_d, programInfos, _k, _v,new WithValidateElementPairFactory<K, V>(),_txtKey,_txtValue);
+        crud.initForm(_d, _k, _v,new WithValidateElementPairFactory<K, V>(),_txtKey,_txtValue);
     }
 
-    public void initForm(DisplayEntryCust<Integer,EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _cmp, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
+    public void initForm(DisplayEntryCust<Integer,EditedCrudPair<K, V>> _d, Comparing<EditedCrudPair<K, V>> _cmp, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, String _txtKey, String _txtValue) {
         crud = new CrudGeneFormSimpleForm<K,V>(programInfos, facadeGame, subscribedTranslationList, commonFrame);
         crud.initForm();
-        crud.initForm(_d, _cmp, programInfos, _k, _v);
+        crud.initForm(_d, _cmp, _k, _v,_txtKey,_txtValue);
     }
 
     public AbsPanel getGroup() {
