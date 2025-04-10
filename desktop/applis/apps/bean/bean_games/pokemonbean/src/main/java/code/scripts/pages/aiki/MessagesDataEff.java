@@ -4,7 +4,9 @@ import code.sml.util.*;
 
 public final class MessagesDataEff {
     public static final String M_P_36_FORMULA="formula";
+    public static final String M_P_36_FAILS="fails";
     public static final String M_P_36_NEED_SUCESS="need_sucess";
+    public static final String M_P_36_NEED_SUCESS_EFF="need_sucess_eff";
     public static final String M_P_36_REASONS="reasons";
     public static final String M_P_36_TARGETS="targets";
     public static final String M_P_36_TARGETS_ADJ_ADV="targets_ADJ_ADV";
@@ -24,7 +26,9 @@ public final class MessagesDataEff {
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
         e_.add(M_P_36_FORMULA,"{0}");
+        e_.add(M_P_36_FAILS,"Formula of failing of effect:");
         e_.add(M_P_36_NEED_SUCESS,"The effect need the success of the first effect.");
+        e_.add(M_P_36_NEED_SUCESS_EFF,"Necessary effects for success:");
         e_.add(M_P_36_REASONS,"The effect fails is and only if one of the conditions is checked:");
         e_.add(M_P_36_TARGETS,"The set of targets of the current effect is the following one:");
         e_.add(M_P_36_TARGETS_ADJ_ADV,"all closest foes to the user");
@@ -44,7 +48,9 @@ public final class MessagesDataEff {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_36_FORMULA,"{0}");
+        f_.add(M_P_36_FAILS,"Formule de l'échec de l'effet:");
         f_.add(M_P_36_NEED_SUCESS,"L'effet nécessite la réussite de l'effet primaire.");
+        f_.add(M_P_36_NEED_SUCESS_EFF,"Effets nécessaires pour la réussite:");
         f_.add(M_P_36_REASONS,"L'effet échoue si et seulement une des conditions est vérifiée:");
         f_.add(M_P_36_TARGETS,"L'ensemble des cibles de l'effet courant est le suivant:");
         f_.add(M_P_36_TARGETS_ADJ_ADV,"tous les adversaires adjacent au lanceur");
