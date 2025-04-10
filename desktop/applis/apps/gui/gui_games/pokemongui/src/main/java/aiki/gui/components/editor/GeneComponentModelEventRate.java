@@ -1,5 +1,7 @@
-package code.gui;
+package aiki.gui.components.editor;
 
+import code.gui.AbsCustComponent;
+import code.gui.GeneComponentModelRate;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.Rate;
 

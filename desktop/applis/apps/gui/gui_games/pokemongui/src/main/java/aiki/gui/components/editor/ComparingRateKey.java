@@ -1,5 +1,6 @@
-package code.gui;
+package aiki.gui.components.editor;
 
+import code.gui.EditedCrudPair;
 import code.maths.*;
 import code.util.ints.*;
 
