@@ -11,6 +11,7 @@ import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelAbilityData extends GeneComponentModelEntity<AbilityData> {
@@ -195,8 +196,8 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         multStatIfCat = new CrudGeneFormSimpleFormSub<StatisticCategory, Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStatIfCat.initFormWithVal(new DisplayEntryCustSubElementStatisticCategory<Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticCategory>(new GeneComponentModelSubscribeStatisticCategory(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(multStatIfCat.getGroup());
-        singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList());
-        form_.add(singleStatus.getGroup());
+        singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList(),formatTxt(MessagesDataAbilityData.M_P_1_SINGLE_STATUS_KEY),formatTxt(MessagesDataAbilityData.M_P_1_SINGLE_STATUS_RATE));
+        form_.add(line(MessagesDataAbilityData.M_P_1_SINGLE_STATUS,singleStatus.getGroup()));
         multPower = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
         form_.add(multPower.geneEnum());
         multPower.addComplete();
@@ -309,6 +310,13 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    }
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return line(MessagesPkBean.AB_DATA,_key,_input);
+    }
+
+    private String formatTxt(String _key) {
+        return SubscribedTranslationList.formatTxt(getCompoFactory(), MessagesPkBean.AB_DATA, _key);
     }
     @Override
     public EditedCrudPair<String,AbilityData> value() {

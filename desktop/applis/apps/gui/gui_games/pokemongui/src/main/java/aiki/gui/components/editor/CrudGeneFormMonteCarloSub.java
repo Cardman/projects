@@ -17,8 +17,8 @@ public final class CrudGeneFormMonteCarloSub<E> extends AbsCrudGeneFormMonteCarl
         display(_subsLoc);
         law.initFormKeys(_subsLoc.buildDisplay(), _sub, _subsLoc.buildCmp());
     }
-    public void initFormKeys(GeneComponentModelEltEnumSub<E> _sub, DisplayEntryCustSubElement<EditedCrudPair<E, LgInt>> _subsLoc) {
-        GeneComponentModelEventEnum<E> compo_ = new GeneComponentModelEventEnum<E>(getLaw().getFactory(), _sub);
+    public void initFormKeys(GeneComponentModelEltEnumSub<E> _sub, DisplayEntryCustSubElement<EditedCrudPair<E, LgInt>> _subsLoc, String _k, String _v) {
+        GeneComponentModelEventEnum<E> compo_ = new GeneComponentModelEventEnum<E>(getLaw().getFactory(), _sub,_k,_v);
         initFormKeys(compo_,_subsLoc);
         this.compo = compo_;
     }

@@ -5,6 +5,7 @@ import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectStatus {
@@ -19,15 +20,15 @@ public final class ContentComponentModelEffectStatus {
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         koUserHealSubst = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(koUserHealSubst);
+        selected_.add(line(_core,MessagesDataEffstatus.M_P_59_KO_USER,koUserHealSubst));
         statusFromUser = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(statusFromUser);
+        selected_.add(line(_core,MessagesDataEffstatus.M_P_59_FORWARD,statusFromUser));
         deletedStatus = ConverterCommonMapUtil.buildStatusList(_core,_fac,_fact);
-        selected_.add(deletedStatus.geneEnum());
+        selected_.add(line(_core,MessagesDataEffstatus.M_P_59_DELETED_STATUS,deletedStatus.geneEnum()));
         localFailStatus = buildLocalFail(_f, _core, _fac, _fact);
-        selected_.add(localFailStatus.getGroup());
-        lawStatus = ConverterCommonMapUtil.buildStatusLaw(_f, _core, _fac, _fact);
-        selected_.add(lawStatus.getGroup());
+        selected_.add(line(_core,MessagesDataEffstatus.M_P_58_FAIL_VAR,localFailStatus.getGroup()));
+        lawStatus = ConverterCommonMapUtil.buildStatusLaw(_f, _core, _fac, _fact,formatTxt(_core,MessagesDataEffstatus.M_P_59_STATUS),formatTxt(_core,MessagesDataEffstatus.M_P_59_RATE_EVENT));
+        selected_.add(line(_core,MessagesDataEffstatus.M_P_59_LAW_STATUS,lawStatus.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
@@ -35,8 +36,15 @@ public final class ContentComponentModelEffectStatus {
 
     private CrudGeneFormSimpleFormSub<String,String> buildLocalFail(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         CrudGeneFormSimpleFormSub<String,String> out_ = new CrudGeneFormSimpleFormSub<String,String>(_core, _fac, _fact, _f);
-        out_.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactorySt(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core,_fac));
+        out_.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactorySt(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core,_fac),formatTxt(_core,MessagesDataEffstatus.M_P_59_STATUS),formatTxt(_core,MessagesDataEffstatus.M_P_59_FAIL));
         return out_;
+    }
+    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    }
+
+    private String formatTxt(AbstractProgramInfos _core,String _key) {
+        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_STATUS, _key);
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);

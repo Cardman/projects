@@ -13,6 +13,7 @@ public final class MessagesDataEffstatus {
     public static final String M_P_59_OTHER_STATUS="other_status";
     public static final String M_P_59_RATE_EVENT="rate_event";
     public static final String M_P_59_STATUS="status";
+    public static final String M_P_58_FAIL_VAR="fail_var";
     private MessagesDataEffstatus(){
     }
     public static TranslationsFile en(){
@@ -27,6 +28,7 @@ public final class MessagesDataEffstatus {
         e_.add(M_P_59_OTHER_STATUS,"No added status");
         e_.add(M_P_59_RATE_EVENT,"Rate");
         e_.add(M_P_59_STATUS,"Status");
+        e_.add(M_P_58_FAIL_VAR,"Sufficient conditions of fail of a status");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -41,6 +43,7 @@ public final class MessagesDataEffstatus {
         f_.add(M_P_59_OTHER_STATUS,"Aucun statut supplémentaire");
         f_.add(M_P_59_RATE_EVENT,"Probabilité");
         f_.add(M_P_59_STATUS,"Statut");
+        f_.add(M_P_58_FAIL_VAR,"Conditions suffisantes d'échec d'un statut");
         return f_;
     }
 }

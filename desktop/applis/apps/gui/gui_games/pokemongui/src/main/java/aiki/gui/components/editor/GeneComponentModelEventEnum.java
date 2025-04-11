@@ -5,8 +5,8 @@ import code.gui.initialize.*;
 
 public final class GeneComponentModelEventEnum<T> extends GeneComponentModelEvent<T> {
     private final GeneComponentModelEltEnumSub<T> event;
-    public GeneComponentModelEventEnum(AbstractProgramInfos _c, GeneComponentModelEltEnumSub<T> _e) {
-        super(_c);
+    public GeneComponentModelEventEnum(AbstractProgramInfos _c, GeneComponentModelEltEnumSub<T> _e, String _k, String _v) {
+        super(_c, _k, _v);
         event = _e;
     }
 
