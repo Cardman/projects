@@ -7,6 +7,7 @@ import aiki.fight.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectGlobal {
@@ -52,27 +53,27 @@ public final class ContentComponentModelEffectGlobal {
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
-        selected_.add(cancelChgtStat.geneEnum());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS,cancelChgtStat.geneEnum()));
         weather = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(weather);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_IS_WEATHER,weather));
         canceledIfUsed = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(canceledIfUsed);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_CANCEL_REUSE,canceledIfUsed));
         reverseOrderOfSortBySpeed = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(reverseOrderOfSortBySpeed);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_REVERSE_SPEED,reverseOrderOfSortBySpeed));
         puttingKo = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(puttingKo);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_PUTTING_KO,puttingKo));
         unusableItem = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(unusableItem);
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_UNUSABLE_ITEM,unusableItem));
         multAccuracy = new GeneComponentModelRate(_core);
-        selected_.add(multAccuracy.geneRate());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_ACC_INTRO,multAccuracy.geneRate()));
         damageEndRound = new GeneComponentModelRate(_core);
-        selected_.add(damageEndRound.geneRate());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_DAMAGE_END_ROUND_INTRO,damageEndRound.geneRate()));
         healingEndRound = new GeneComponentModelRate(_core);
-        selected_.add(healingEndRound.geneRate());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_INTRO,healingEndRound.geneRate()));
         healingEndRoundGround = new GeneComponentModelRate(_core);
-        selected_.add(healingEndRoundGround.geneRate());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_GROUND_INTRO,healingEndRoundGround.geneRate()));
         multEffectLovingAlly = new GeneComponentModelRate(_core);
-        selected_.add(multEffectLovingAlly.geneRate());
+        selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_LOVE_INTRO,multEffectLovingAlly.geneRate()));
         invokedMoveTerrain = ConverterCommonMapUtil.buildMvFull(_core,_fac,_fact,ConverterCommonMapUtil.defKeyEmpty(" "));
         selected_.add(invokedMoveTerrain.geneEnum());
         preventStatus = ConverterCommonMapUtil.buildStatusList(_core,_fac,_fact);
@@ -112,6 +113,14 @@ public final class ContentComponentModelEffectGlobal {
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    }
+
+    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    }
+
+    private String formatTxt(AbstractProgramInfos _core,String _key) {
+        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_GLOBAL, _key);
     }
     void buildEntity(EffectGlobal _edited) {
         _edited.setWeather(weather.isSelected());
