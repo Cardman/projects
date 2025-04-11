@@ -33,7 +33,7 @@ public final class ContentComponentModelEffectDamage {
     AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         power = new GeneComponentModelSubscribeString(_core,_fac);
-        selected_.add(power.geneEnum());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_POWER,power.geneEnum()));
         power.addComplete();
         chRate = new GeneComponentModelLong(_core);
         selected_.add(line(_core,MessagesDataEffdamage.M_P_45_CH_RATE_INTRO,chRate.geneLong()));

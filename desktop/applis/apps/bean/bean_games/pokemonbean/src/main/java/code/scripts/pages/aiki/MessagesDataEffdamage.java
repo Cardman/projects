@@ -3,6 +3,7 @@ package code.scripts.pages.aiki;
 import code.sml.util.*;
 
 public final class MessagesDataEffdamage {
+    public static final String M_P_45_POWER="power";
     public static final String M_P_45_TARGET="target";
     public static final String M_P_45_USER="user";
     public static final String M_P_45_ATTACK_INTRO ="attack_intro";
@@ -42,6 +43,7 @@ public final class MessagesDataEffdamage {
     }
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
+        e_.add(M_P_45_POWER,"Power formula");
         e_.add(M_P_45_TARGET,"Target for defense");
         e_.add(M_P_45_USER,"User for attack");
         e_.add(M_P_45_ATTACK_INTRO,"By being value for the attack, used statistic for calculate the damage of the move:");
@@ -81,6 +83,7 @@ public final class MessagesDataEffdamage {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
+        f_.add(M_P_45_POWER,"Formule de la puissance");
         f_.add(M_P_45_TARGET,"Cible pour la défense");
         f_.add(M_P_45_USER,"Lanceur pour l'attaque");
         f_.add(M_P_45_ATTACK_INTRO,"En tant que valeur pour l'attaque, statistique utilisée pour calculer les dégâts de l'attaque:");
