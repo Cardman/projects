@@ -4,6 +4,7 @@ import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComponentModelSubscribe<EditedCrudPair<String,LgInt>> {
@@ -20,15 +21,21 @@ public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComp
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = api.getCompoFactory().newLineBox();
-        form_.add(key.geneString());
+        form_.add(line(api,MessagesDataEffdamage.M_P_45_EVENT,key.geneString()));
         key.addComplete(facadeGame);
-        form_.add(value.geneLgInt());
+        form_.add(line(api,MessagesDataEffdamage.M_P_45_RATE_EVENT,value.geneLgInt()));
         if (GeneComponentModelEltStrCom.disable(_select, _value)) {
             key.getTextPane().setEditable(false);
         }
         return form_;
     }
+    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    }
 
+    private String formatTxt(AbstractProgramInfos _core,String _key) {
+        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_DAMAGE, _key);
+    }
     @Override
     public EditedCrudPair<String,LgInt> tryRet() {
         return new EditedCrudPair<String, LgInt>(key.valueString(), value.valueLgInt());

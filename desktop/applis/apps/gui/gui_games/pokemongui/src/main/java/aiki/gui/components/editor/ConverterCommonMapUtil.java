@@ -3668,6 +3668,11 @@ public final class ConverterCommonMapUtil {
         out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
         return out_;
     }
+    public static CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core, String _k, String _v) {
+        CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_f, _core, new ComparingRateKey<LgInt>());
+        out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core,_k,_v), new ComparingRateKey<LgInt>());
+        return out_;
+    }
 
     public static StringMap<AbsTextField> fields(AbsPanel _line, StringMap<String> _map, AbstractProgramInfos _api) {
         StringMap<AbsTextField> fs_ = new StringMap<AbsTextField>();

@@ -7,6 +7,7 @@ import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectDamage {
@@ -35,41 +36,48 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(power.geneEnum());
         power.addComplete();
         chRate = new GeneComponentModelLong(_core);
-        selected_.add(chRate.geneLong());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_CH_RATE_INTRO,chRate.geneLong()));
         statisAtt = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
-        selected_.add(statisAtt.geneEnum());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_ATTACK_INTRO,statisAtt.geneEnum()));
         statisDef = ConverterCommonMapUtil.buildStatisticsElt(_core,_fac,_fact);
-        selected_.add(statisDef.geneEnum());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_DEFENSE_INTRO,statisDef.geneEnum()));
         ignVarStatTargetPos = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
-        selected_.add(ignVarStatTargetPos.geneEnum());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_IGN_POS_STAT,ignVarStatTargetPos.geneEnum()));
         ignVarStatUserNeg = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
-        selected_.add(ignVarStatUserNeg.geneEnum());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_IGN_NEG_STAT,ignVarStatUserNeg.geneEnum()));
         constDamage = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(constDamage);
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_CONST_DAMAGE_INTRO,constDamage));
         randMax = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(randMax);
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_RAND_MAX,randMax));
         summingUserTeamOkFighter = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(summingUserTeamOkFighter);
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_SUMMING_TEAM,summingUserTeamOkFighter));
         userAttack = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(userAttack);
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_USER,userAttack));
         targetDefense = _core.getCompoFactory().newCustCheckBox();
-        selected_.add(targetDefense);
-        chLaw = ConverterCommonMapUtil.buildMcRate(_f, _core);
-        selected_.add(chLaw.getGroup());
-        hitsLaw = ConverterCommonMapUtil.buildMcRate(_f, _core);
-        selected_.add(hitsLaw.getGroup());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_TARGET,targetDefense));
+        chLaw = ConverterCommonMapUtil.buildMcRate(_f, _core,formatTxt(_core,MessagesDataEffdamage.M_P_45_EVENT_RATE),formatTxt(_core,MessagesDataEffdamage.M_P_45_RATE));
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_CH_LAW,chLaw.getGroup()));
+        hitsLaw = ConverterCommonMapUtil.buildMcRate(_f, _core,formatTxt(_core,MessagesDataEffdamage.M_P_45_EVENT_NB_HITS),formatTxt(_core,MessagesDataEffdamage.M_P_45_RATE_EVENT));
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_HIT_LAW,hitsLaw.getGroup()));
         damageLaw = new CrudGeneFormMonteCarloStrSub(_core, _fac, _fact, _f);
         damageLaw.initFormKeys(_fac);
-        selected_.add(damageLaw.getCrud().getGroup());
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_DAMAG_LAW,damageLaw.getCrud().getGroup()));
         multDamageAgainst = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
-        multDamageAgainst.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_fact.getFactoryCa(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
-        selected_.add(multDamageAgainst.getGroup());
+        multDamageAgainst.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_fact.getFactoryCa(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac,_fact.getFactoryCa(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),formatTxt(_core,MessagesDataEffdamage.M_P_45_CATEGORY),formatTxt(_core,MessagesDataEffdamage.M_P_45_RATE));
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_DAMAGE_MULT_COUNTER,multDamageAgainst.getGroup()));
         boostStatisOnceKoFoe = new CrudGeneFormSimpleFormSub<Statistic,Long>(_core, _fac, _fact, _f);
-        boostStatisOnceKoFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)));
-        selected_.add(boostStatisOnceKoFoe.getGroup());
+        boostStatisOnceKoFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),formatTxt(_core,MessagesDataEffdamage.M_P_45_STATISTIC),formatTxt(_core,MessagesDataEffdamage.M_P_45_BOOST));
+        selected_.add(line(_core,MessagesDataEffdamage.M_P_45_BOOST_STATIS_ONCE_KO_FOE,boostStatisOnceKoFoe.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
+    }
+    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    }
+
+    private String formatTxt(AbstractProgramInfos _core,String _key) {
+        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_DAMAGE, _key);
     }
     void display(boolean _dis) {
         form.setVisible(_dis);

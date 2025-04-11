@@ -7,18 +7,26 @@ import code.maths.*;
 public abstract class GeneComponentModelEvent<E> implements GeneComponentModel<EditedCrudPair<E, LgInt>> {
     private final AbstractProgramInfos core;
     private final GeneComponentModelLgInt proba;
+    private final String textIntroKey;
+    private final String textIntroValue;
 
     protected GeneComponentModelEvent(AbstractProgramInfos _c) {
+        this(_c,"","");
+    }
+
+    protected GeneComponentModelEvent(AbstractProgramInfos _c, String _k, String _v) {
         this.core = _c;
         proba = new GeneComponentModelLgInt(core);
+        textIntroKey = _k;
+        textIntroValue = _v;
     }
 
     @Override
     public AbsCustComponent gene(int _select) {
         AbsCompoFactory compoFactory_ = core.getCompoFactory();
         AbsPanel line_ = compoFactory_.newLineBox();
-        line_.add(geneKey(_select));
-        line_.add(proba.geneLgInt());
+        line_.add(SubscribedTranslationList.lineDir(core,textIntroKey,geneKey(_select)));
+        line_.add(SubscribedTranslationList.lineDir(core,textIntroValue,proba.geneLgInt()));
         return line_;
     }
 

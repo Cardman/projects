@@ -3,6 +3,9 @@ package code.scripts.pages.aiki;
 import code.sml.util.*;
 
 public final class MessagesDataEffdamage {
+    public static final String M_P_45_TARGET="target";
+    public static final String M_P_45_USER="user";
+    public static final String M_P_45_ATTACK_INTRO ="attack_intro";
     public static final String M_P_45_ATTACK_TARGET="attack_target";
     public static final String M_P_45_ATTACK_USER="attack_user";
     public static final String M_P_45_BOOST="boost";
@@ -10,11 +13,14 @@ public final class MessagesDataEffdamage {
     public static final String M_P_45_CATEGORY="category";
     public static final String M_P_45_CH_LAW="ch_law";
     public static final String M_P_45_CH_RATE="ch_rate";
+    public static final String M_P_45_CH_RATE_INTRO="ch_rate_intro";
     public static final String M_P_45_CONST_DAMAGE="const_damage";
+    public static final String M_P_45_CONST_DAMAGE_INTRO="const_damage";
     public static final String M_P_45_CONST_POWER="const_power";
     public static final String M_P_45_DAMAGE_MULT_COUNTER="damage_mult_counter";
     public static final String M_P_45_DAMAG_LAW="damag_law";
     public static final String M_P_45_DAMAG_LAW_CONST="damag_law_const";
+    public static final String M_P_45_DEFENSE_INTRO="defense_intro";
     public static final String M_P_45_DEFENSE_TARGET="defense_target";
     public static final String M_P_45_DEFENSE_USER="defense_user";
     public static final String M_P_45_EFFECT="effect";
@@ -36,6 +42,9 @@ public final class MessagesDataEffdamage {
     }
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
+        e_.add(M_P_45_TARGET,"Target for defense");
+        e_.add(M_P_45_USER,"User for attack");
+        e_.add(M_P_45_ATTACK_INTRO,"By being value for the attack, used statistic for calculate the damage of the move:");
         e_.add(M_P_45_ATTACK_TARGET,"By being value for the attack, the statistic {0} of the target is used for calculate the damage of the move.");
         e_.add(M_P_45_ATTACK_USER,"By being value for the attack, the statistic {0} of the user is used for calculate the damage of the move.");
         e_.add(M_P_45_BOOST,"Increasing");
@@ -43,11 +52,14 @@ public final class MessagesDataEffdamage {
         e_.add(M_P_45_CATEGORY,"Category");
         e_.add(M_P_45_CH_LAW,"The law of critical hits is the following one:");
         e_.add(M_P_45_CH_RATE,"The base level of critical hit is {0}.");
-        e_.add(M_P_45_CONST_DAMAGE,"Except for failing, the target loosed {0} pv.");
+        e_.add(M_P_45_CH_RATE_INTRO,"Base level of critical hit:");
+        e_.add(M_P_45_CONST_DAMAGE,"Except for failing, the target loosed {0} hp.");
+        e_.add(M_P_45_CONST_DAMAGE_INTRO,"Except for failing, loosed hp for the target:");
         e_.add(M_P_45_CONST_POWER,"The base power of the move is {0}.");
         e_.add(M_P_45_DAMAGE_MULT_COUNTER,"Here is the damage rates suffered by the user during the round in fonction by the category:");
         e_.add(M_P_45_DAMAG_LAW,"The inflicted damage is calculated from the following law:");
         e_.add(M_P_45_DAMAG_LAW_CONST,"The inflicted damage are always: {0}.");
+        e_.add(M_P_45_DEFENSE_INTRO,"By being value for the defense, used statistic for calculate the damage of the move:");
         e_.add(M_P_45_DEFENSE_TARGET,"By being value for the defense, the statistic {0} of the target is used for calculate the damage of the move.");
         e_.add(M_P_45_DEFENSE_USER,"By being value for the defense, the statistic {0} of the user is used for calculate the damage of the move.");
         e_.add(M_P_45_EFFECT,"This effect inflicts damage against targets with a constant value of damage points or not.");
@@ -69,6 +81,9 @@ public final class MessagesDataEffdamage {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
+        f_.add(M_P_45_TARGET,"Cible pour la défense");
+        f_.add(M_P_45_USER,"Lanceur pour l'attaque");
+        f_.add(M_P_45_ATTACK_INTRO,"En tant que valeur pour l'attaque, statistique utilisée pour calculer les dégâts de l'attaque:");
         f_.add(M_P_45_ATTACK_TARGET,"En tant que valeur pour l''attaque, la statistique {0} de la cible est utilisée pour calculer les dégâts de l''attaque.");
         f_.add(M_P_45_ATTACK_USER,"En tant que valeur pour l''attaque, la statistique {0} du lanceur est utilisée pour calculer les dégâts de l''attaque.");
         f_.add(M_P_45_BOOST,"Augmentation");
@@ -76,11 +91,14 @@ public final class MessagesDataEffdamage {
         f_.add(M_P_45_CATEGORY,"Catégorie");
         f_.add(M_P_45_CH_LAW,"La loi de probabilité des coups critiques est la suivante:");
         f_.add(M_P_45_CH_RATE,"Le niveau de coup critique de base est {0}.");
+        f_.add(M_P_45_CH_RATE_INTRO,"Niveau de coup critique de base:");
         f_.add(M_P_45_CONST_DAMAGE,"Sauf en cas d''échec, la cible perd {0} pv.");
+        f_.add(M_P_45_CONST_DAMAGE_INTRO,"Sauf en cas d'échec, pv perdus pour la cible:");
         f_.add(M_P_45_CONST_POWER,"La puissance de base de l''attaque est {0}.");
         f_.add(M_P_45_DAMAGE_MULT_COUNTER,"Voici les coefficients des dégâts subits par le lanceur pendant le tour en fonction de la catégorie:");
         f_.add(M_P_45_DAMAG_LAW,"Les dégâts infligés suivent la loi suivante.");
         f_.add(M_P_45_DAMAG_LAW_CONST,"Les dégâts infligés valent toujours: {0}.");
+        f_.add(M_P_45_DEFENSE_INTRO,"En tant que valeur pour la défense, statistique utilisée pour calculer les dégâts de l'attaque:");
         f_.add(M_P_45_DEFENSE_TARGET,"En tant que valeur pour la défense, la statistique {0} de la cible est utilisée pour calculer les dégâts de l''attaque.");
         f_.add(M_P_45_DEFENSE_USER,"En tant que valeur pour la défense, la statistique {0} du lanceur est utilisée pour calculer les dégâts de l''attaque.");
         f_.add(M_P_45_EFFECT,"Cet effet inflige des dégâts aux cibles avec une valeur fixe de points de dégâts ou non.");

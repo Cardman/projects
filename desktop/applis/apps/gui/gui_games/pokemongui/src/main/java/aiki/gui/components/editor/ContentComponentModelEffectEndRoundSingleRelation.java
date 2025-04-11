@@ -14,7 +14,7 @@ public final class ContentComponentModelEffectEndRoundSingleRelation {
         rateDamageFunctionOfNbRounds = new CrudGeneFormSimpleFormSub<Long, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         rateDamageFunctionOfNbRounds.initForm(new DisplayKeyOnlyLongRate(), new ComparingLongKey<Rate>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_SUFFERED_RD),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_SUFFERED_RATE));
         selected_.add(line(_core, MessagesDataEndroundSinglerelation.M_P_10_SUFFERED,rateDamageFunctionOfNbRounds.getGroup()));
-        lawForEnablingEffect = ConverterCommonMapUtil.buildMcRate(_core.getFrame(), _core.getProgramInfos());
+        lawForEnablingEffect = ConverterCommonMapUtil.buildMcRate(_core.getFrame(), _core.getProgramInfos(),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_LAW_RD),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_LAW_VALUE));
         selected_.add(line(_core,MessagesDataEndroundSinglerelation.M_P_10_LAW,lawForEnablingEffect.getGroup()));
         form = selected_;
         selected_.setVisible(false);
