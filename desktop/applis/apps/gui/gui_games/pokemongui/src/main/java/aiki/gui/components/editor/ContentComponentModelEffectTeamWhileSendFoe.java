@@ -29,10 +29,10 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
         deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_DELETE_STATUS_IF_TYPES,deletedByFoeTypes.geneEnum()));
         statusByNbUses = new CrudGeneFormSimpleFormSub<Long, String>(_core, _fac, _fact, _f);
-        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),buildPart(_core,_fac,_fact.getFactorySt(),new StringMap<String>()),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_NB_USES),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS));
+        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),buildPart(_core,_fac,_fact.getFactorySt(),new StringMap<String>()),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_NB_USES,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS);
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS_IF_NB,statusByNbUses.getGroup()));
         statistics = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core, _fac, _fact, _f);
-        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTIC),formatTxt(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_BOOST));
+        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTIC,MessagesDataEffteamwhilesendingfoe.M_P_67_BOOST);
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTICS,statistics.getGroup()));
         selected_.setVisible(false);
         form =selected_;

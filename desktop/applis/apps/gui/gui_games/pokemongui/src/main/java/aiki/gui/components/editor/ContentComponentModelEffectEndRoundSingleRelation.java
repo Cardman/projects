@@ -12,9 +12,9 @@ public final class ContentComponentModelEffectEndRoundSingleRelation {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         rateDamageFunctionOfNbRounds = new CrudGeneFormSimpleFormSub<Long, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        rateDamageFunctionOfNbRounds.initForm(new DisplayKeyOnlyLongRate(), new ComparingLongKey<Rate>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_SUFFERED_RD),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_SUFFERED_RATE));
+        rateDamageFunctionOfNbRounds.initForm(new DisplayKeyOnlyLongRate(), new ComparingLongKey<Rate>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.ENDROUND_SINGLERELATION,MessagesDataEndroundSinglerelation.M_P_10_SUFFERED_RD,MessagesDataEndroundSinglerelation.M_P_10_SUFFERED_RATE);
         selected_.add(line(_core, MessagesDataEndroundSinglerelation.M_P_10_SUFFERED,rateDamageFunctionOfNbRounds.getGroup()));
-        lawForEnablingEffect = ConverterCommonMapUtil.buildMcRate(_core.getFrame(), _core.getProgramInfos(),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_LAW_RD),formatTxt(_core,MessagesDataEndroundSinglerelation.M_P_10_LAW_VALUE));
+        lawForEnablingEffect = ConverterCommonMapUtil.buildMcRate(_core.getFrame(), _core.getProgramInfos(),MessagesPkBean.ENDROUND_SINGLERELATION,MessagesDataEndroundSinglerelation.M_P_10_LAW_RD,MessagesDataEndroundSinglerelation.M_P_10_LAW_VALUE);
         selected_.add(line(_core,MessagesDataEndroundSinglerelation.M_P_10_LAW,lawForEnablingEffect.getGroup()));
         form = selected_;
         selected_.setVisible(false);

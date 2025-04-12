@@ -196,7 +196,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         multStatIfCat = new CrudGeneFormSimpleFormSub<StatisticCategory, Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         multStatIfCat.initFormWithVal(new DisplayEntryCustSubElementStatisticCategory<Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<StatisticCategory>(new GeneComponentModelSubscribeStatisticCategory(getCompoFactory(),getFacade(),getSubscribedTranslationList())),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
         form_.add(multStatIfCat.getGroup());
-        singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList(),formatTxt(MessagesDataAbilityData.M_P_1_SINGLE_STATUS_KEY),formatTxt(MessagesDataAbilityData.M_P_1_SINGLE_STATUS_RATE));
+        singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList(),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_SINGLE_STATUS_KEY,MessagesDataAbilityData.M_P_1_SINGLE_STATUS_RATE);
         form_.add(line(MessagesDataAbilityData.M_P_1_SINGLE_STATUS,singleStatus.getGroup()));
         multPower = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
         form_.add(multPower.geneEnum());
@@ -315,9 +315,6 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         return line(MessagesPkBean.AB_DATA,_key,_input);
     }
 
-    private String formatTxt(String _key) {
-        return SubscribedTranslationList.formatTxt(getCompoFactory(), MessagesPkBean.AB_DATA, _key);
-    }
     @Override
     public EditedCrudPair<String,AbilityData> value() {
         AbilityData ent_ = element;

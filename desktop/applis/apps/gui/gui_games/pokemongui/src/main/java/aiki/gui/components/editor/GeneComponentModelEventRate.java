@@ -11,8 +11,8 @@ public final class GeneComponentModelEventRate extends GeneComponentModelEvent<R
         super(_c);
         event = new GeneComponentModelRate(_c);
     }
-    public GeneComponentModelEventRate(AbstractProgramInfos _c, String _k, String _v) {
-        super(_c, _k, _v);
+    public GeneComponentModelEventRate(AbstractProgramInfos _c, String _f, String _k, String _v) {
+        super(_c, _f, _k, _v);
         event = new GeneComponentModelRate(_c);
     }
 

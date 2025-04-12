@@ -7,7 +7,9 @@ import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.scripts.pages.aiki.MessagesPkBean;
+import code.sml.util.*;
 import code.util.*;
+import code.util.core.*;
 
 public final class SubscribedTranslationList {
     private final AbstractProgramInfos programInfos;
@@ -211,7 +213,11 @@ public final class SubscribedTranslationList {
     }
 
     public static String formatTxt(AbstractProgramInfos _api, String _file, String _key) {
-        return _api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().getVal(_file).getMapping().getVal(_key);
+        TranslationsFile val_ = _api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().getVal(_file);
+        if (val_ == null) {
+            return "";
+        }
+        return StringUtil.nullToEmpty(val_.getMapping().getVal(_key));
     }
 
     public static AbsCustComponent lineDir(AbstractProgramInfos _api,String _txt, AbsCustComponent _input) {
