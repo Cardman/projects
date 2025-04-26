@@ -5,18 +5,21 @@ import code.sml.util.*;
 public final class MessagesDataEffally {
     public static final String M_P_38_EFFECT="effect";
     public static final String M_P_38_MUL_ALLY_DAMAGE="mul_ally_damage";
+    public static final String M_P_38_MUL_ALLY_DAMAGE_INTRO="mul_ally_damage_intro";
     private MessagesDataEffally(){
     }
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
         e_.add(M_P_38_EFFECT,"The effect lets the partner to get bonuses.");
         e_.add(M_P_38_MUL_ALLY_DAMAGE,"The move lets the partner to multiply damage that the partner by {0}.");
+        e_.add(M_P_38_MUL_ALLY_DAMAGE_INTRO,"The move lets the partner to multiply damage that the partner by:");
         return e_;
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_38_EFFECT,"L'effet permet au partenaire d'obtenir des bonus.");
         f_.add(M_P_38_MUL_ALLY_DAMAGE,"L''attaque permet au partenaire de multiplier les dégâts qu''il inflige par {0}.");
+        f_.add(M_P_38_MUL_ALLY_DAMAGE_INTRO,"L'attaque permet au partenaire de multiplier les dégâts qu'il inflige par:");
         return f_;
     }
 }

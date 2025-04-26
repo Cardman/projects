@@ -18,7 +18,9 @@ public abstract class AbsGeneComponentModelEffect implements ChangeableFormType 
         facadeGame = _fac;
         factory = _fact;
     }
-
+    protected AbsCustComponent line(String _file, String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.lineDir(programInfos, SubscribedTranslationList.formatTxt(programInfos, _file, _key),_input);
+    }
     protected void init(StringMap<String> _messages) {
         effectKind = new GeneComponentModelElt<String>(programInfos, _messages, new EmptyDefValue());
     }

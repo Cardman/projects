@@ -17,17 +17,17 @@ public final class ContentComponentModelEffectStatus {
 
     private AbsPanel form;
 
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        koUserHealSubst = _core.getCompoFactory().newCustCheckBox();
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        koUserHealSubst = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(line(_core,MessagesDataEffstatus.M_P_59_KO_USER,koUserHealSubst));
-        statusFromUser = _core.getCompoFactory().newCustCheckBox();
+        statusFromUser = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(line(_core,MessagesDataEffstatus.M_P_59_FORWARD,statusFromUser));
-        deletedStatus = ConverterCommonMapUtil.buildStatusList(_core,_fac,_fact);
+        deletedStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffstatus.M_P_59_DELETED_STATUS,deletedStatus.geneEnum()));
-        localFailStatus = buildLocalFail(_f, _core, _fac, _fact);
+        localFailStatus = buildLocalFail(_core.getFrame(), _core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory());
         selected_.add(line(_core,MessagesDataEffstatus.M_P_58_FAIL_VAR,localFailStatus.getGroup()));
-        lawStatus = ConverterCommonMapUtil.buildStatusLaw(_f, _core, _fac, _fact,MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_STATUS,MessagesDataEffstatus.M_P_59_RATE_EVENT);
+        lawStatus = ConverterCommonMapUtil.buildStatusLaw(_core.getFrame(), _core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(),MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_STATUS,MessagesDataEffstatus.M_P_59_RATE_EVENT);
         selected_.add(line(_core,MessagesDataEffstatus.M_P_59_LAW_STATUS,lawStatus.getGroup()));
         selected_.setVisible(false);
         form =selected_;
@@ -39,13 +39,10 @@ public final class ContentComponentModelEffectStatus {
         out_.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactorySt(),_core,_fac, new StringMap<String>()), buildPart(_core,_fac, _fact.getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryString(_core,_fac),MessagesPkBean.EFF_STATUS,MessagesDataEffstatus.M_P_59_STATUS,MessagesDataEffstatus.M_P_59_FAIL);
         return out_;
     }
-    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
-        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_STATUS, _key,_input);
     }
 
-    private String formatTxt(AbstractProgramInfos _core,String _key) {
-        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_STATUS, _key);
-    }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
     }

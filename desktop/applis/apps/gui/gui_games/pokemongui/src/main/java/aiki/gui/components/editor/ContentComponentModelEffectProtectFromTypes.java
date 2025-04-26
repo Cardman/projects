@@ -1,9 +1,7 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectProtectFromTypes {
@@ -11,9 +9,9 @@ public final class ContentComponentModelEffectProtectFromTypes {
     private GeneComponentModelLsStrSub<String,StringList> immuAgainstTypes;
 
     private AbsPanel form;
-    AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        immuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        immuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(immuAgainstTypes.geneEnum());
         selected_.setVisible(false);
         form =selected_;

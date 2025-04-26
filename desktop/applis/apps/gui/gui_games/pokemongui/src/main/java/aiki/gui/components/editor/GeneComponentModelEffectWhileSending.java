@@ -28,8 +28,8 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
-        form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
-        form_.add(contentEffectStatistic.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffect.effectForm(this));
+        form_.add(contentEffectStatistic.effectForm(this));
         withEffect = compoFactory_.newCustCheckBox();
         form_.add(withEffect);
         disableWeather = compoFactory_.newCustCheckBox();

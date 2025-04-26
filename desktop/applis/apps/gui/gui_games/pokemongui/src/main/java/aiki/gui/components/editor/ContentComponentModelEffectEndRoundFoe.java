@@ -2,14 +2,13 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 
 public final class ContentComponentModelEffectEndRoundFoe {
     private GeneComponentModelRate inflictedRateHpTarget;
     private AbsPanel form;
-    AbsPanel effectForm(AbstractProgramInfos _core) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        inflictedRateHpTarget = new GeneComponentModelRate(_core);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        inflictedRateHpTarget = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(inflictedRateHpTarget.geneRate());
         form = selected_;
         selected_.setVisible(false);

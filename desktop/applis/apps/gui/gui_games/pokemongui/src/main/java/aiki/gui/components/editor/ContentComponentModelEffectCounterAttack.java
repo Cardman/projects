@@ -1,10 +1,8 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
@@ -17,28 +15,28 @@ public final class ContentComponentModelEffectCounterAttack {
     private GeneComponentModelSubscribeString counterFail;
 
     private AbsPanel form;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        protectFail = new GeneComponentModelSubscribeString(_core,_fac);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        protectFail = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(protectFail.geneEnum());
         protectFail.addComplete();
-        counterFail = new GeneComponentModelSubscribeString(_core,_fac);
+        counterFail = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(counterFail.geneEnum());
         counterFail.addComplete();
-        sufferingDamageDirectMove = new GeneComponentModelRate(_core);
+        sufferingDamageDirectMove = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(sufferingDamageDirectMove.geneRate());
-        sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
-        sufferingDamageTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_fact.getFactoryTy(), _core, _fac, new StringMap<String>()),buildPart(_core,_fac,_fact.getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
+        sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        sufferingDamageTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(sufferingDamageTypes.getGroup());
-        droppedStatDirectMove = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core, _fac, _fact, _f);
-        droppedStatDirectMove.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic, Long>(_fact.getFactoryStat(), _core, _fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)));
+        droppedStatDirectMove = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        droppedStatDirectMove.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic, Long>(_core.getFactory().getFactoryStat(), _core.getProgramInfos(), _core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())));
         selected_.add(droppedStatDirectMove.getGroup());
         selected_.setVisible(false);
         form =selected_;
         return selected_;
     }
-    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
-        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);
     }
     void buildEntity(EffectCounterAttack _edited) {
         _edited.setProtectFail(protectFail.tryRet());

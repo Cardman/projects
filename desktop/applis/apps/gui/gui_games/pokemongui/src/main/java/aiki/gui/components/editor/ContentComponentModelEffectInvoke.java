@@ -1,10 +1,8 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.map.levels.enums.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectInvoke {
@@ -21,36 +19,36 @@ public final class ContentComponentModelEffectInvoke {
     private AbsCustCheckBox invokingSufferedMove;
     private AbsPanel form;
 
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        rateInvokationMove = new GeneComponentModelRate(_core);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        rateInvokationMove = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(rateInvokationMove.geneRate());
-        movesNotToBeInvoked = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        movesNotToBeInvoked = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(movesNotToBeInvoked.geneEnum());
-        moveFctEnv = new CrudGeneFormSimpleFormSub<EnvironmentType, String>(_core, _fac, _fact, _f);
-        moveFctEnv.initFormWithVal(new DisplayEntryCustSubElementImpl<EnvironmentType, String>(_fact.getFactoryEnvironmentType(),_core,_fac, new IdMap<EnvironmentType, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<EnvironmentType>(_core,_fact.getFactoryEnvironmentType(),_fac), buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()));
+        moveFctEnv = new CrudGeneFormSimpleFormSub<EnvironmentType, String>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        moveFctEnv.initFormWithVal(new DisplayEntryCustSubElementImpl<EnvironmentType, String>(_core.getFactory().getFactoryEnvironmentType(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<EnvironmentType, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<EnvironmentType>(_core.getProgramInfos(),_core.getFactory().getFactoryEnvironmentType(),_core.getFacadeGame()), buildPart(_core, _core.getFactory().getFactoryMv(),new StringMap<String>()));
         selected_.add(moveFctEnv.getGroup());
-        invokingMoveByUserTypes = new CrudGeneFormSimpleFormSub<String, String>(_core, _fac, _fact, _f);
-        invokingMoveByUserTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, String>(_fact.getFactoryTy(),_core,_fac,ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core,_fac,_fact.getFactoryTy(),ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()));
+        invokingMoveByUserTypes = new CrudGeneFormSimpleFormSub<String, String>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        invokingMoveByUserTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, String>(_core.getFactory().getFactoryTy(),_core.getProgramInfos(),_core.getFacadeGame(),ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core, _core.getFactory().getFactoryTy(),ConverterCommonMapUtil.defKeyEmpty(" ")),buildPart(_core, _core.getFactory().getFactoryMv(),new StringMap<String>()));
         selected_.add(invokingMoveByUserTypes.getGroup());
-        invokingMoveButUser = _core.getCompoFactory().newCustCheckBox();
+        invokingMoveButUser = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(invokingMoveButUser);
-        invokingTargetChosenMove = _core.getCompoFactory().newCustCheckBox();
+        invokingTargetChosenMove = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(invokingTargetChosenMove);
-        invokingUserMoveWhileSleep = _core.getCompoFactory().newCustCheckBox();
+        invokingUserMoveWhileSleep = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(invokingUserMoveWhileSleep);
-        invokingAllyMove = _core.getCompoFactory().newCustCheckBox();
+        invokingAllyMove = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(invokingAllyMove);
-        invokingTargetSuccesfulMove = _core.getCompoFactory().newCustCheckBox();
+        invokingTargetSuccesfulMove = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(invokingTargetSuccesfulMove);
-        invokingSufferedMove = _core.getCompoFactory().newCustCheckBox();
+        invokingSufferedMove = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(invokingSufferedMove);
         selected_.setVisible(false);
         form =selected_;
         return selected_;
     }
-    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
-        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);
     }
     void display(boolean _dis) {
         form.setVisible(_dis);

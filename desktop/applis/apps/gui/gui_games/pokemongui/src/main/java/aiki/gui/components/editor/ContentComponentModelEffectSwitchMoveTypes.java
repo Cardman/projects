@@ -1,9 +1,7 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectSwitchMoveTypes {
@@ -12,19 +10,19 @@ public final class ContentComponentModelEffectSwitchMoveTypes {
     private CrudGeneFormSimpleFormSub<String,String> changeTypes;
 
     private AbsPanel form;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        replacingTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        replacingTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(replacingTypes.geneEnum());
-        changeTypes = new CrudGeneFormSimpleFormSub<String,String>(_core, _fac, _fact, _f);
-        changeTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_fact.getFactoryTy(), _core,_fac,new StringMap<String>()),buildPart(_core,_fac, _fact.getFactoryTy(), new StringMap<String>()),buildPart(_core,_fac, _fact.getFactoryTy(), new StringMap<String>()));
+        changeTypes = new CrudGeneFormSimpleFormSub<String,String>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        changeTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String,String>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(),_core.getFacadeGame(),new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(), new StringMap<String>()));
         selected_.add(changeTypes.getGroup());
         selected_.setVisible(false);
         form =selected_;
         return selected_;
     }
-    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
-        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);
     }
     void buildEntity(EffectSwitchMoveTypes _edited) {
         _edited.setReplacingTypes(replacingTypes.tryRet());

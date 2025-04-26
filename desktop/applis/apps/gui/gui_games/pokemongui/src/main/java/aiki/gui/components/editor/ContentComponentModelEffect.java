@@ -1,35 +1,30 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.scripts.pages.aiki.*;
 
 public final class ContentComponentModelEffect {
     private GeneComponentModelSubscribeString fail;
     private GeneComponentModelEltEnumSub<TargetChoice> targetChoice;
     private GeneComponentModelSubscribeInts requiredSuccessfulEffects;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        fail = new GeneComponentModelSubscribeString(_core,_fac);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        fail = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(line(_core,MessagesDataEff.M_P_36_FAILS,fail.geneEnum()));
         fail.addComplete();
-        targetChoice = ConverterCommonMapUtil.buildTargetChoice(_core, _fac, _fact);
+        targetChoice = ConverterCommonMapUtil.buildTargetChoice(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory());
         selected_.add(line(_core,MessagesDataEff.M_P_36_TARGETS,targetChoice.geneEnum()));
-        requiredSuccessfulEffects = new GeneComponentModelSubscribeInts(_core, _fac, _fact, _f);
+        requiredSuccessfulEffects = new GeneComponentModelSubscribeInts(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         selected_.add(line(_core,MessagesDataEff.M_P_36_NEED_SUCESS_EFF,requiredSuccessfulEffects.geneEnum(0,0)));
         return selected_;
     }
 
-    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
-        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF, _key,_input);
     }
 
-    private String formatTxt(AbstractProgramInfos _core,String _key) {
-        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF, _key);
-    }
     void buildEntity(Effect _edited) {
         _edited.setFail(fail.tryRet());
         _edited.setTargetChoice(targetChoice.tryRet());

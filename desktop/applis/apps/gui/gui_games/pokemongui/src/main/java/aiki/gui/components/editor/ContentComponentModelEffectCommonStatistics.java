@@ -1,10 +1,8 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectCommonStatistics {
@@ -12,10 +10,10 @@ public final class ContentComponentModelEffectCommonStatistics {
     private CrudGeneFormSimpleFormSub<Statistic, String> commonValue;
 
     private AbsPanel form;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        commonValue = new CrudGeneFormSimpleFormSub<Statistic,String>(_core, _fac, _fact, _f);
-        commonValue.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac), new GeneComponentModelSubscribeFactoryString(_core,_fac));
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        commonValue = new CrudGeneFormSimpleFormSub<Statistic,String>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        commonValue.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,String>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()), new GeneComponentModelSubscribeFactoryString(_core.getProgramInfos(),_core.getFacadeGame()));
         selected_.add(commonValue.getGroup());
         selected_.setVisible(false);
         form =selected_;

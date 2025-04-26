@@ -1,10 +1,8 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectUnprotectFromTypes {
@@ -15,16 +13,16 @@ public final class ContentComponentModelEffectUnprotectFromTypes {
     private CrudGeneFormSimpleElementSub<TypesDuo> types;
 
     private AbsPanel form;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        disableImmuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        disableImmuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(disableImmuAgainstTypes.geneEnum());
-        disableImmuFromMoves = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        disableImmuFromMoves = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(disableImmuFromMoves.geneEnum());
-        attackTargetWithTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+        attackTargetWithTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(attackTargetWithTypes.geneEnum());
-        types = new CrudGeneFormSimpleElementSub<TypesDuo>(_core, _fac, _fact, _f);
-        types.initForm(new DisplayEntryCustSubElementTypesDuoElt(_core,_fac,_fact),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core,_fac,_fact)));
+        types = new CrudGeneFormSimpleElementSub<TypesDuo>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        types.initForm(new DisplayEntryCustSubElementTypesDuoElt(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory())));
         selected_.add(types.getGroup());
         selected_.setVisible(false);
         form =selected_;

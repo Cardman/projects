@@ -1,10 +1,8 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
@@ -18,35 +16,32 @@ public final class ContentComponentModelEffectTeamWhileSendFoe {
     private CrudGeneFormSimpleFormSub<Statistic, Long> statistics;
 
     private AbsPanel form;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        failSending = new GeneComponentModelSubscribeString(_core,_fac);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        failSending = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_SENDING,failSending.geneEnum()));
         failSending.addComplete();
-        damageRateAgainstFoe = new GeneComponentModelSubscribeString(_core,_fac);
+        damageRateAgainstFoe = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_DAMAGE_RATE_AGAINST_FOE_INTRO,damageRateAgainstFoe.geneEnum()));
         damageRateAgainstFoe.addComplete();
-        deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+        deletedByFoeTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_DELETE_STATUS_IF_TYPES,deletedByFoeTypes.geneEnum()));
-        statusByNbUses = new CrudGeneFormSimpleFormSub<Long, String>(_core, _fac, _fact, _f);
-        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),buildPart(_core,_fac,_fact.getFactorySt(),new StringMap<String>()),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_NB_USES,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS);
+        statusByNbUses = new CrudGeneFormSimpleFormSub<Long, String>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        statusByNbUses.initForm(new DisplayKeyOnlyShort<String>(), new ComparingShortKey<String>(), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())),buildPart(_core, _core.getFactory().getFactorySt(),new StringMap<String>()),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_NB_USES,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS);
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATUS_IF_NB,statusByNbUses.getGroup()));
-        statistics = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core, _fac, _fact, _f);
-        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core)),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTIC,MessagesDataEffteamwhilesendingfoe.M_P_67_BOOST);
+        statistics = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        statistics.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())),MessagesPkBean.EFF_TEAMWHILESENDINGFOE,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTIC,MessagesDataEffteamwhilesendingfoe.M_P_67_BOOST);
         selected_.add(line(_core,MessagesDataEffteamwhilesendingfoe.M_P_67_STATISTICS,statistics.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
     }
-    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
-        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_TEAMWHILESENDINGFOE, _key,_input);
     }
 
-    private String formatTxt(AbstractProgramInfos _core,String _key) {
-        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_TEAMWHILESENDINGFOE, _key);
-    }
-    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
-        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);
     }
     void buildEntity(EffectTeamWhileSendFoe _edited) {
         _edited.setFailSending(failSending.tryRet());

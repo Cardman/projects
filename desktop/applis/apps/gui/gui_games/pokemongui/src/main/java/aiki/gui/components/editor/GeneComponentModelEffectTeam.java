@@ -21,8 +21,8 @@ public final class GeneComponentModelEffectTeam extends AbsGeneComponentModelEff
         AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
-        form_.add(contentEffect.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
-        form_.add(contentEffectTeam.effectForm(getFrame(), getProgramInfos(), getFacadeGame(), getFactory()));
+        form_.add(contentEffect.effectForm(this));
+        form_.add(contentEffectTeam.effectForm(this));
         getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_TEAM);
         return form_;

@@ -1,9 +1,7 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectCopyMove {
@@ -13,13 +11,13 @@ public final class ContentComponentModelEffectCopyMove {
     private AbsCustCheckBox copyingMoveForUserDef;
     private AbsPanel form;
 
-    AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        copyingMoveForUser = new GeneComponentModelLong(_core);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        copyingMoveForUser = new GeneComponentModelLong(_core.getProgramInfos());
         selected_.add(copyingMoveForUser.geneLong());
-        movesNotToBeCopied = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        movesNotToBeCopied = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(movesNotToBeCopied.geneEnum());
-        copyingMoveForUserDef = _core.getCompoFactory().newCustCheckBox();
+        copyingMoveForUserDef = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(copyingMoveForUserDef);
         selected_.setVisible(false);
         form =selected_;

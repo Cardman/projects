@@ -45,12 +45,12 @@ public final class ContentComponentModelGroupEffectEndRound {
 
     void effectForm(AbsPanel _panel,AbsGeneComponentModelEffect _core) {
         _panel.add(contentEffectEndRound.effectForm(_core));
-        _panel.add(contentEffectEndRoundFoe.effectForm(_core.getProgramInfos()));
+        _panel.add(contentEffectEndRoundFoe.effectForm(_core));
         _panel.add(contentEffectEndRoundIndividual.effectForm(_core));
         _panel.add(contentEffectEndRoundMultiRelation.effectForm(_core));
-        _panel.add(contentEffectEndRoundPositionRelation.effectForm(_core.getProgramInfos()));
+        _panel.add(contentEffectEndRoundPositionRelation.effectForm(_core));
         _panel.add(contentEffectEndRoundSingleRelation.effectForm(_core));
-        _panel.add(contentEffectEndRoundTeam.effectForm(_core.getProgramInfos()));
+        _panel.add(contentEffectEndRoundTeam.effectForm(_core));
         groupEffectEndRoundStatus.effectForm(_panel,_core);
     }
 

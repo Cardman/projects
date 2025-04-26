@@ -2,17 +2,16 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 
 public final class ContentComponentModelEffectEndRoundTeam {
     private GeneComponentModelRate deleteAllStatus;
     private GeneComponentModelRate deleteAllStatusAlly;
     private AbsPanel form;
-    AbsPanel effectForm(AbstractProgramInfos _core) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        deleteAllStatus = new GeneComponentModelRate(_core);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        deleteAllStatus = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(deleteAllStatus.geneRate());
-        deleteAllStatusAlly = new GeneComponentModelRate(_core);
+        deleteAllStatusAlly = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(deleteAllStatusAlly.geneRate());
         form =selected_;
         selected_.setVisible(false);

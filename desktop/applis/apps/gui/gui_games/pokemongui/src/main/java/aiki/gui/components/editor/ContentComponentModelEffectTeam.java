@@ -1,11 +1,9 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
 import code.util.*;
 
@@ -31,36 +29,36 @@ public final class ContentComponentModelEffectTeam {
 
 
     private AbsPanel form;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        forbiddingHealing = _core.getCompoFactory().newCustCheckBox();
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        forbiddingHealing = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(forbiddingHealing);
-        protectAgainstCh = _core.getCompoFactory().newCustCheckBox();
+        protectAgainstCh = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(protectAgainstCh);
-        forbiddenBoost = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
+        forbiddenBoost = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(forbiddenBoost.geneEnum());
-        cancelChgtStatFoeTeam = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
+        cancelChgtStatFoeTeam = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(cancelChgtStatFoeTeam.geneEnum());
-        cancelChgtStatTeam = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
+        cancelChgtStatTeam = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(cancelChgtStatTeam.geneEnum());
-        protectAgainstLowStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
+        protectAgainstLowStat = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(protectAgainstLowStat.geneEnum());
-         disableFoeTeamStatus = ConverterCommonMapUtil.buildStatusList(_core,_fac,_fact);
+         disableFoeTeamStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(disableFoeTeamStatus.geneEnum());
-        protectAgainstStatus = ConverterCommonMapUtil.buildStatusList(_core,_fac,_fact);
+        protectAgainstStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(protectAgainstStatus.geneEnum());
-        unusableMoves = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        unusableMoves = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(unusableMoves.geneEnum());
-        disableFoeTeamEffects = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        disableFoeTeamEffects = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(disableFoeTeamEffects.geneEnum());
-        multStatistic = new CrudGeneFormSimpleFormSub<Statistic, Rate>(_core, _fac, _fact, _f);
-        multStatistic.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
+        multStatistic = new CrudGeneFormSimpleFormSub<Statistic, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multStatistic.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(multStatistic.getGroup());
-        multStatisticFoe = new CrudGeneFormSimpleFormSub<Statistic, Rate>(_core, _fac, _fact, _f);
-        multStatisticFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_fact.getFactoryStat(),_core,_fac, new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core, _fact.getFactoryStat(), _fac),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
+        multStatisticFoe = new CrudGeneFormSimpleFormSub<Statistic, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multStatisticFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(multStatisticFoe.getGroup());
-        multDamage = new CrudGeneFormSimpleFormSub<CategoryMult, Rate>(_core, _fac, _fact, _f);
-        multDamage.initFormWithVal(new DisplayEntryCustSubElementCategoryMult(_core,_fac,_fact),new GeneComponentModelSubscribeFactoryDirect<CategoryMult>(new GeneComponentModelSubscribeCategoryMult(_core,_fac,_fact)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)));
+        multDamage = new CrudGeneFormSimpleFormSub<CategoryMult, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multDamage.initFormWithVal(new DisplayEntryCustSubElementCategoryMult(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<CategoryMult>(new GeneComponentModelSubscribeCategoryMult(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory())),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
         selected_.add(multDamage.getGroup());
         selected_.setVisible(false);
         form =selected_;

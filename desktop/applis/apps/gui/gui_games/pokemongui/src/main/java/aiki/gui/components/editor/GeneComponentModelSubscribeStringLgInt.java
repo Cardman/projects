@@ -30,12 +30,9 @@ public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComp
         return form_;
     }
     private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
-        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+        return SubscribedTranslationList.lineDir(_core, SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_DAMAGE, _key),_input);
     }
 
-    private String formatTxt(AbstractProgramInfos _core,String _key) {
-        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_DAMAGE, _key);
-    }
     @Override
     public EditedCrudPair<String,LgInt> tryRet() {
         return new EditedCrudPair<String, LgInt>(key.valueString(), value.valueLgInt());

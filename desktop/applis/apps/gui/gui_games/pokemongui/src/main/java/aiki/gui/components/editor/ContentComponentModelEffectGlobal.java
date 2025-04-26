@@ -1,11 +1,9 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
@@ -50,78 +48,75 @@ public final class ContentComponentModelEffectGlobal {
     private GeneComponentModelEltEnumSub<String> invokedMoveTerrain;
 
     private AbsPanel form;
-    AbsPanel effectForm(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
-        AbsPanel selected_ = _core.getCompoFactory().newLineBox();
-        cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core,_fac,_fact);
+    AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
+        AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
+        cancelChgtStat = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_CANCEL_CHGT_STATIS,cancelChgtStat.geneEnum()));
-        weather = _core.getCompoFactory().newCustCheckBox();
+        weather = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_IS_WEATHER,weather));
-        canceledIfUsed = _core.getCompoFactory().newCustCheckBox();
+        canceledIfUsed = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_CANCEL_REUSE,canceledIfUsed));
-        reverseOrderOfSortBySpeed = _core.getCompoFactory().newCustCheckBox();
+        reverseOrderOfSortBySpeed = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_REVERSE_SPEED,reverseOrderOfSortBySpeed));
-        puttingKo = _core.getCompoFactory().newCustCheckBox();
+        puttingKo = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_PUTTING_KO,puttingKo));
-        unusableItem = _core.getCompoFactory().newCustCheckBox();
+        unusableItem = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_UNUSABLE_ITEM,unusableItem));
-        multAccuracy = new GeneComponentModelRate(_core);
+        multAccuracy = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_ACC_INTRO,multAccuracy.geneRate()));
-        damageEndRound = new GeneComponentModelRate(_core);
+        damageEndRound = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_DAMAGE_END_ROUND_INTRO,damageEndRound.geneRate()));
-        healingEndRound = new GeneComponentModelRate(_core);
+        healingEndRound = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_INTRO,healingEndRound.geneRate()));
-        healingEndRoundGround = new GeneComponentModelRate(_core);
+        healingEndRoundGround = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_GROUND_INTRO,healingEndRoundGround.geneRate()));
-        multEffectLovingAlly = new GeneComponentModelRate(_core);
+        multEffectLovingAlly = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_LOVE_INTRO,multEffectLovingAlly.geneRate()));
-        invokedMoveTerrain = ConverterCommonMapUtil.buildMvFull(_core,_fac,_fact,ConverterCommonMapUtil.defKeyEmpty(" "));
+        invokedMoveTerrain = ConverterCommonMapUtil.buildMvFull(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),ConverterCommonMapUtil.defKeyEmpty(" "));
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_INVOKED_MOVE,invokedMoveTerrain.geneEnum()));
-        preventStatus = ConverterCommonMapUtil.buildStatusList(_core,_fac,_fact);
+        preventStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_FORBID_STATUS,preventStatus.geneEnum()));
-        immuneTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+        immuneTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_IMMUNE_TYPES,immuneTypes.geneEnum()));
-        disableImmuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+        disableImmuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_TYPES,disableImmuAgainstTypes.geneEnum()));
-        changedTypesTerrain = ConverterCommonMapUtil.buildTypeList(_core,_fac,_fact);
+        changedTypesTerrain = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_CHANGING_TYPE_INVOKED,changedTypesTerrain.geneEnum()));
-        cancelProtectingAbilities = ConverterCommonMapUtil.buildAbilityList(_core,_fac,_fact);
+        cancelProtectingAbilities = ConverterCommonMapUtil.buildAbilityList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_DISABLE_IMMU_ABILITIES,cancelProtectingAbilities.geneEnum()));
-        unusableMoves = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        unusableMoves = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_UNUSABLE_MOVES,unusableMoves.geneEnum()));
-        movesUsedByTargetedFighters = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        movesUsedByTargetedFighters = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE,movesUsedByTargetedFighters.geneEnum()));
-        cancelEffects = ConverterCommonMapUtil.buildMoveList(_core,_fac,_fact);
+        cancelEffects = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_CANCEL_EFFECTS,cancelEffects.geneEnum()));
-        multDamagePrepaRound = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
-        multDamagePrepaRound.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_fact.getFactoryTy(),_core,_fac, new StringMap<String>()),buildPart(_core,_fac,_fact.getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_RATE);
+        multDamagePrepaRound = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multDamagePrepaRound.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Rate>(_core.getFactory().getFactoryTy(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_RATE);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_DAMAGE_TYPE,multDamagePrepaRound.getGroup()));
-        multDamageTypesMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
-        multDamageTypesMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_fact.getFactoryTy(),_core,_fac, new StringMap<String>()),buildPart(_core,_fac,_fact.getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        multDamageTypesMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multDamageTypesMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE_TYPE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_TYPE,multDamageTypesMoves.getGroup()));
-        multPowerMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core, _fac, _fact, _f);
-        multPowerMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_fact.getFactoryMv(),_core,_fac, new StringMap<String>()),buildPart(_core,_fac,_fact.getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
+        multPowerMoves = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multPowerMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryMv(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,multPowerMoves.getGroup()));
-        multStatIfContainsType = new CrudGeneFormSimpleFormSub<StatisticType, Rate>(_core, _fac, _fact, _f);
-        multStatIfContainsType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Rate>(_core,_fac,_fact),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(_core,_fac,_fact,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
+        multStatIfContainsType = new CrudGeneFormSimpleFormSub<StatisticType, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        multStatIfContainsType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Rate>(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_STAT_TYPE,multStatIfContainsType.getGroup()));
-        efficiencyMoves = new CrudGeneFormSimpleFormSub<TypesDuo, Rate>(_core, _fac, _fact, _f);
-        efficiencyMoves.initFormWithVal(new DisplayEntryCustSubElementTypesDuo(_core,_fac,_fact),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core,_fac,_fact,MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core)),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_EFFICIENCY);
+        efficiencyMoves = new CrudGeneFormSimpleFormSub<TypesDuo, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        efficiencyMoves.initFormWithVal(new DisplayEntryCustSubElementTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_EFFICIENCY);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_EFFICIENCY_TABLE,efficiencyMoves.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
     }
-    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
-        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);
     }
 
-    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
-        return SubscribedTranslationList.lineDir(_core,formatTxt(_core,_key),_input);
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_GLOBAL, _key,_input);
     }
 
-    private String formatTxt(AbstractProgramInfos _core,String _key) {
-        return SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_GLOBAL, _key);
-    }
     void buildEntity(EffectGlobal _edited) {
         _edited.setWeather(weather.isSelected());
         _edited.setCanceledIfUsed(canceledIfUsed.isSelected());
