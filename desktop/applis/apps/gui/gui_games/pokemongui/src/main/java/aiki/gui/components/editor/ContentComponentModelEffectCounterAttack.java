@@ -4,6 +4,7 @@ import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectCounterAttack {
@@ -18,22 +19,25 @@ public final class ContentComponentModelEffectCounterAttack {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         protectFail = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
-        selected_.add(protectFail.geneEnum());
+        selected_.add(line(_core,MessagesDataEffcounterattack.M_P_44_FAILS_PROTECT,protectFail.geneEnum()));
         protectFail.addComplete();
         counterFail = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
-        selected_.add(counterFail.geneEnum());
+        selected_.add(line(_core,MessagesDataEffcounterattack.M_P_44_FAILS_COUNTER,counterFail.geneEnum()));
         counterFail.addComplete();
         sufferingDamageDirectMove = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(sufferingDamageDirectMove.geneRate());
         sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        sufferingDamageTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
-        selected_.add(sufferingDamageTypes.getGroup());
+        sufferingDamageTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_T,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_HP);
+        selected_.add(line(_core,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_INTRO,sufferingDamageTypes.getGroup()));
         droppedStatDirectMove = new CrudGeneFormSimpleFormSub<Statistic, Long>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        droppedStatDirectMove.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic, Long>(_core.getFactory().getFactoryStat(), _core.getProgramInfos(), _core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())));
-        selected_.add(droppedStatDirectMove.getGroup());
+        droppedStatDirectMove.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic, Long>(_core.getFactory().getFactoryStat(), _core.getProgramInfos(), _core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_core.getProgramInfos())),MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_S,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_V);
+        selected_.add(line(_core,MessagesDataEffcounterattack.M_P_44_DROPPED_STAT_INTRO,droppedStatDirectMove.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_COUNTERATTACK, _key,_input);
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);
