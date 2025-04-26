@@ -16,6 +16,7 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_CANNOT_KO="cannot_ko";
     public static final String M_P_35_CAT_DIRECT_FALSE="cat_direct_false";
     public static final String M_P_35_CAT_DIRECT_TRUE="cat_direct_true";
+    public static final String M_P_35_CAT_DIRECT="cat_direct";
     public static final String M_P_35_CAT_STATUS="cat_status";
     public static final String M_P_35_CHOSEN_TARGETS_ADJ_ADV="chosen_targets_ADJ_ADV";
     public static final String M_P_35_CHOSEN_TARGETS_ADJ_MULT="chosen_targets_ADJ_MULT";
@@ -93,11 +94,15 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_TYPES="types";
     public static final String M_P_35_TYPESBOOST="typesBoost";
     public static final String M_P_35_TYPE_CAT="type_cat";
+    public static final String M_P_35_CAT="cat";
     public static final String M_P_35_TYPE_TITLE="type_title";
     public static final String M_P_35_TYPES_ITEM="types_item";
     public static final String M_P_35_TYPES_WEATHER="types_weather";
     public static final String M_P_35_WEATHER="weather";
     public static final String M_P_35_DAMAGING="damaging";
+    public static final String M_P_35_THIEVABLE="thievable";
+    public static final String M_P_35_COUNTERABLE="counterable";
+    public static final String M_P_35_STOPPABLE_KO="stoppable_ko";
     public static final String M_P_35_RANK_INCREMENTING_NB_ROUND="rankIncrementNbRound";
     private MessagesDataMovesData(){
     }
@@ -116,6 +121,7 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_CANNOT_KO,"The move cannot knock out the target. The possible clone of the target can be destroyed.");
         e_.add(M_P_35_CAT_DIRECT_FALSE,"The category of the damaging move is {0}.The move is indirect.");
         e_.add(M_P_35_CAT_DIRECT_TRUE,"The category of the damaging move is {0}.The move is direct.");
+        e_.add(M_P_35_CAT_DIRECT,"The move is direct.");
         e_.add(M_P_35_CAT_STATUS,"The move is not damaging.");
         e_.add(M_P_35_CHOSEN_TARGETS_ADJ_ADV,"Adjacent foe fighters of the user are forcibly chosen.");
         e_.add(M_P_35_CHOSEN_TARGETS_ADJ_MULT,"Adjacent fighters of the user are forcibly chosen.");
@@ -193,11 +199,15 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_TYPES,"If the user of the move cannot use any item or the item does not change the type then the type depend on the weather in function of the following table:");
         e_.add(M_P_35_TYPESBOOST,"The types of the move receiving a bonus are:");
         e_.add(M_P_35_TYPE_CAT,"Type and category of the move");
+        e_.add(M_P_35_CAT,"Category");
         e_.add(M_P_35_TYPE_TITLE,"Type");
         e_.add(M_P_35_TYPES_ITEM,"Types by item");
         e_.add(M_P_35_TYPES_WEATHER,"Types by weather");
         e_.add(M_P_35_WEATHER,"Weather");
         e_.add(M_P_35_DAMAGING,"Damaging move");
+        e_.add(M_P_35_THIEVABLE,"Bonuses of the move can be thieved");
+        e_.add(M_P_35_COUNTERABLE,"Swappable user and target");
+        e_.add(M_P_35_STOPPABLE_KO,"KO from the move of the user can fail.");
         e_.add(M_P_35_RANK_INCREMENTING_NB_ROUND,"Rank incrementing of rounds number:");
         return e_;
     }
@@ -216,6 +226,7 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_CANNOT_KO,"L'attaque ne peut pas mettre KO la cible. L'éventuel clone de la cible peut être détruit.");
         f_.add(M_P_35_CAT_DIRECT_FALSE,"L''attaque offensive est de catégorie {0}.L''attaque est indirecte.");
         f_.add(M_P_35_CAT_DIRECT_TRUE,"L''attaque offensive est de catégorie {0}.L''attaque est directe.");
+        f_.add(M_P_35_CAT_DIRECT,"L'attaque est directe.");
         f_.add(M_P_35_CAT_STATUS,"L'attaque n'est pas offensive.");
         f_.add(M_P_35_CHOSEN_TARGETS_ADJ_ADV,"Les combattants adverses adjacents au lanceur sont forcément choisis.");
         f_.add(M_P_35_CHOSEN_TARGETS_ADJ_MULT,"Les combattants adjacents au lanceur sont forcément choisis.");
@@ -293,11 +304,15 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_TYPES,"Si le lanceur de l'attaque ne peut pas utiliser d'objet ou l'objet porté ne change pas le type alors le type dépend du climat en fonction du tableau suivant:");
         f_.add(M_P_35_TYPESBOOST,"Les types de l'attaque recevant un bonus sont:");
         f_.add(M_P_35_TYPE_CAT,"Type et catégorie de l'attaque");
+        f_.add(M_P_35_CAT,"Catégorie");
         f_.add(M_P_35_TYPE_TITLE,"Type");
         f_.add(M_P_35_TYPES_ITEM,"Types par objet");
         f_.add(M_P_35_TYPES_WEATHER,"Types par climat");
         f_.add(M_P_35_WEATHER,"Climat");
         f_.add(M_P_35_DAMAGING,"Attaque à dégâts");
+        f_.add(M_P_35_THIEVABLE,"Les bonus de l'attaque peuvent être volés");
+        f_.add(M_P_35_COUNTERABLE,"Lanceur et cible permutables");
+        f_.add(M_P_35_STOPPABLE_KO,"Le KO depuis l'attaque du lanceur peut échouer.");
         f_.add(M_P_35_RANK_INCREMENTING_NB_ROUND,"Rang incrémentant du nombre de tours:");
         return f_;
     }
