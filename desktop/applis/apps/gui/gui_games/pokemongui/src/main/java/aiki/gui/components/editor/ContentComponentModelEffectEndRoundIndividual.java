@@ -1,10 +1,10 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.*;
 import aiki.fight.moves.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.MessagesDataEndroundIndividual;
+import code.scripts.pages.aiki.MessagesPkBean;
 import code.util.*;
 
 public final class ContentComponentModelEffectEndRoundIndividual {
@@ -18,25 +18,28 @@ public final class ContentComponentModelEffectEndRoundIndividual {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         deleteAllStatus = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(deleteAllStatus.geneRate());
+        selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_DELETE_ALL_STATUS_INTRO,deleteAllStatus.geneRate()));
         recoilDamage = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(recoilDamage.geneRate());
+        selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_RECOIL_DAMAGE_INTRO,recoilDamage.geneRate()));
         healHp = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(healHp.geneRate());
+        selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_INTRO,healHp.geneRate()));
         healHpByOwnerTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        healHpByOwnerTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
-        selected_.add(healHpByOwnerTypes.getGroup());
+        healHpByOwnerTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core, _core.getFactory().getFactoryTy(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES_KEY,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES_VALUE);
+        selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_HEAL_HP_BY_OWNER_TYPES,healHpByOwnerTypes.getGroup()));
         multDamageStatus = new CrudGeneFormSimpleFormSub<String,Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        multDamageStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactorySt(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
-        selected_.add(multDamageStatus.getGroup());
+        multDamageStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactorySt(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core, _core.getFactory().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS_KEY,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS_VALUE);
+        selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS,multDamageStatus.getGroup()));
         userStatusEndRound = ConverterCommonMapUtil.buildStatus(_core.getProgramInfos(), _core.getFacadeGame(),_core.getFactory(),ConverterCommonMapUtil.defKeyEmpty(" "));
-        selected_.add(userStatusEndRound.geneEnum());
+        selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_USER_STATUS,userStatusEndRound.geneEnum()));
         form = selected_;
         selected_.setVisible(false);
         return selected_;
     }
-    private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
-        return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.ENDROUND_INDIVIDUAL, _key,_input);
+    }
+    private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
+        return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);
     }
     void display(boolean _dis) {
         form.setVisible(_dis);

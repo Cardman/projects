@@ -7,7 +7,7 @@ public final class MessagesDataEffcounterattack {
     public static final String M_P_44_FAILS_COUNTER="fails_counter";
     public static final String M_P_44_COUNTER_PROTECT="counter_protect";
     public static final String M_P_44_DROPPED_STAT="dropped_stat";
-    public static final String M_P_44_DROPPED_STAT_INTRO="dropped_stat";
+    public static final String M_P_44_DROPPED_STAT_INTRO="dropped_stat_intro";
     public static final String M_P_44_DROPPED_STAT_S="dropped_stat_s";
     public static final String M_P_44_DROPPED_STAT_V="dropped_stat_v";
     public static final String M_P_44_EFFECT="effect";
@@ -15,7 +15,7 @@ public final class MessagesDataEffcounterattack {
     public static final String M_P_44_FORMULA="formula";
     public static final String M_P_44_SUFFERING_DIRECT="suffering_direct";
     public static final String M_P_44_SUFFERING_TYPES="suffering_types";
-    public static final String M_P_44_SUFFERING_TYPES_INTRO="suffering_types";
+    public static final String M_P_44_SUFFERING_TYPES_INTRO="suffering_types_intro";
     public static final String M_P_44_SUFFERING_TYPES_HP="suffering_types_hp";
     public static final String M_P_44_SUFFERING_TYPES_T="suffering_types_t";
     private MessagesDataEffcounterattack(){

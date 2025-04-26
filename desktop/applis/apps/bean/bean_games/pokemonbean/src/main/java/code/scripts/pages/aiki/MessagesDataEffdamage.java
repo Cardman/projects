@@ -16,7 +16,7 @@ public final class MessagesDataEffdamage {
     public static final String M_P_45_CH_RATE="ch_rate";
     public static final String M_P_45_CH_RATE_INTRO="ch_rate_intro";
     public static final String M_P_45_CONST_DAMAGE="const_damage";
-    public static final String M_P_45_CONST_DAMAGE_INTRO="const_damage";
+    public static final String M_P_45_CONST_DAMAGE_INTRO="const_damage_intro";
     public static final String M_P_45_CONST_POWER="const_power";
     public static final String M_P_45_DAMAGE_MULT_COUNTER="damage_mult_counter";
     public static final String M_P_45_DAMAG_LAW="damag_law";

@@ -67,7 +67,7 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_RECHARGE="recharge";
     public static final String M_P_35_RECHARGE_AB="recharge_ab";
     public static final String M_P_35_REPEATED_ROUND="repeated_round";
-    public static final String M_P_35_REPEATED_ROUND_INTRO="repeated_round";
+    public static final String M_P_35_REPEATED_ROUND_INTRO="repeated_round_intro";
     public static final String M_P_35_REQUIERED_STATUS="requiered_status";
     public static final String M_P_35_SUCCESS_TITLE="success_title";
     public static final String M_P_35_SWITCH="switch";

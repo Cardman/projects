@@ -6,7 +6,7 @@ public final class MessagesDataEffcopymove {
     public static final String M_P_43_COPY_DEF_MOVE="copy_def_move";
     public static final String M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS="copy_def_move_without_trans";
     public static final String M_P_43_COPY_TMP_MOVE="copy_tmp_move";
-    public static final String M_P_43_COPY_TMP_MOVE_INTRO="copy_tmp_move";
+    public static final String M_P_43_COPY_TMP_MOVE_INTRO="copy_tmp_move_intro";
     public static final String M_P_43_EFFECT="effect";
     public static final String M_P_43_MOVES_NOT_COPIED="moves_not_copied";
     public static final String M_P_43_NO_EFFECT="no_effect";
