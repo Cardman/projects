@@ -37,7 +37,7 @@ public class EffectCloneBean extends EffectBean {
 
     @Override
     public void buildSubEffPre() {
-        formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT,getHpRateClone().toNumberString());
+        formatMessage(MessagesPkBean.EFF_CLONE,MessagesDataEffclone.M_P_40_EFFECT_1,getHpRateClone().toNumberString());
     }
 
     @Override
