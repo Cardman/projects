@@ -12,7 +12,7 @@ public final class ContentComponentModelEffectSwitchItems {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         moveObject = new GeneComponentModelElt<String>(_core.getProgramInfos(), MessagesPkEditor.getMessagesEditorSelectMoveItemTypeTr(MessagesPkEditor.getAppliTr(_core.getProgramInfos().currentLg())).getMapping(),new EmptyDefValue());
-        selected_.add(line(_core,MessagesDataEffswitchitems.M_P_61_EFFECT,moveObject.geneEnum()));
+        selected_.add(line(_core,MessagesDataEffswitchitems.M_P_61_SWITCH_ITEMS,moveObject.geneEnum()));
         moveObject.setupValue(DataBase.DEF_MOVE_ITEM_TYPE_REUSE_LAST_OBJECT);
         form = selected_;
         selected_.setVisible(false);
