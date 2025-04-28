@@ -2,25 +2,24 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComponentModelSubscribe<EditedCrudPair<String,LgInt>> {
-    private final AbstractProgramInfos api;
+    private final AbsGeneComponentModelEffect api;
     private final FacadeGame facadeGame;
     private final GeneComponentModelText key;
     private final GeneComponentModelLgInt value;
-    public GeneComponentModelSubscribeStringLgInt(AbstractProgramInfos _fact, FacadeGame _fac) {
+    public GeneComponentModelSubscribeStringLgInt(AbsGeneComponentModelEffect _fact, FacadeGame _fac) {
         api = _fact;
         facadeGame = _fac;
-        key = new GeneComponentModelText(_fact);
-        value = new GeneComponentModelLgInt(_fact);
+        key = new GeneComponentModelText(_fact.getProgramInfos());
+        value = new GeneComponentModelLgInt(_fact.getProgramInfos());
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
-        AbsPanel form_ = api.getCompoFactory().newLineBox();
+        AbsPanel form_ = api.getProgramInfos().getCompoFactory().newLineBox();
         form_.add(line(api,MessagesDataEffdamage.M_P_45_EVENT,key.geneString()));
         key.addComplete(facadeGame);
         form_.add(line(api,MessagesDataEffdamage.M_P_45_RATE_EVENT,value.geneLgInt()));
@@ -29,8 +28,8 @@ public final class GeneComponentModelSubscribeStringLgInt implements AbsGeneComp
         }
         return form_;
     }
-    private AbsCustComponent line(AbstractProgramInfos _core, String _key, AbsCustComponent _input) {
-        return SubscribedTranslationList.lineDir(_core, SubscribedTranslationList.formatTxt(_core, MessagesPkBean.EFF_DAMAGE, _key),_input);
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_DAMAGE, _key,_input);
     }
 
     @Override

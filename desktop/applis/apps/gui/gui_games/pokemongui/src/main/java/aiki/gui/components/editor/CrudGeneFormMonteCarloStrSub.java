@@ -2,18 +2,16 @@ package aiki.gui.components.editor;
 
 import aiki.facade.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
-import code.util.CustList;
-import code.util.IdList;
+import code.util.*;
 
 public final class CrudGeneFormMonteCarloStrSub extends AbsCrudGeneFormMonteCarloSub<String> {
-    private final AbstractProgramInfos api;
+    private final AbsGeneComponentModelEffect api;
     private final CrudGeneFormSimpleElementSub<EditedCrudPair<String, LgInt>> crud;
 
-    public CrudGeneFormMonteCarloStrSub(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
+    public CrudGeneFormMonteCarloStrSub(AbsGeneComponentModelEffect _core) {
         api = _core;
-        crud = new CrudGeneFormSimpleElementSub<EditedCrudPair<String, LgInt>>(_core, _fac, _fact, _f);
+        crud = new CrudGeneFormSimpleElementSub<EditedCrudPair<String, LgInt>>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
     }
 
     public void initFormKeys(FacadeGame _fac) {

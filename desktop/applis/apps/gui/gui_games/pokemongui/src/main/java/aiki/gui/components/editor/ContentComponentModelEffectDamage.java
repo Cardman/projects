@@ -57,7 +57,7 @@ public final class ContentComponentModelEffectDamage {
         selected_.add(line(_core,MessagesDataEffdamage.M_P_45_CH_LAW,chLaw.getGroup()));
         hitsLaw = ConverterCommonMapUtil.buildMcRate(_core.getFrame(), _core.getProgramInfos(),MessagesPkBean.EFF_DAMAGE,MessagesDataEffdamage.M_P_45_EVENT_NB_HITS,MessagesDataEffdamage.M_P_45_RATE_EVENT);
         selected_.add(line(_core,MessagesDataEffdamage.M_P_45_HIT_LAW,hitsLaw.getGroup()));
-        damageLaw = new CrudGeneFormMonteCarloStrSub(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
+        damageLaw = new CrudGeneFormMonteCarloStrSub(_core);
         damageLaw.initFormKeys(_core.getFacadeGame());
         selected_.add(line(_core,MessagesDataEffdamage.M_P_45_DAMAG_LAW,damageLaw.getCrud().getGroup()));
         multDamageAgainst = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());

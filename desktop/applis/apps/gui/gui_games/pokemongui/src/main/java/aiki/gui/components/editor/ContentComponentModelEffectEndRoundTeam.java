@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
+import code.scripts.pages.aiki.*;
 
 public final class ContentComponentModelEffectEndRoundTeam {
     private GeneComponentModelRate deleteAllStatus;
@@ -10,12 +11,15 @@ public final class ContentComponentModelEffectEndRoundTeam {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         deleteAllStatus = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(deleteAllStatus.geneRate());
+        selected_.add(line(_core,MessagesDataEndroundTeam.M_P_13_OWNER_INTRO,deleteAllStatus.geneRate()));
         deleteAllStatusAlly = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(deleteAllStatusAlly.geneRate());
+        selected_.add(line(_core,MessagesDataEndroundTeam.M_P_13_TEAM_INTRO,deleteAllStatusAlly.geneRate()));
         form =selected_;
         selected_.setVisible(false);
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.ENDROUND_TEAM, _key,_input);
     }
     void display(boolean _dis) {
         form.setVisible(_dis);

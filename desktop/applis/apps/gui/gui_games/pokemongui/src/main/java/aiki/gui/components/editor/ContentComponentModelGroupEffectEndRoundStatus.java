@@ -18,9 +18,9 @@ public final class ContentComponentModelGroupEffectEndRoundStatus {
     }
 
     void effectForm(AbsPanel _panel,AbsGeneComponentModelEffect _core) {
-        _panel.add(contentEffectEndRoundStatus.effectForm(_core.getProgramInfos()));
-        _panel.add(contentEffectEndRoundSingleStatus.effectForm(_core.getProgramInfos()));
-        _panel.add(contentEffectEndRoundStatusRelation.effectForm(_core.getProgramInfos()));
+        _panel.add(contentEffectEndRoundStatus.effectForm(_core));
+        _panel.add(contentEffectEndRoundSingleStatus.effectForm(_core));
+        _panel.add(contentEffectEndRoundStatusRelation.effectForm(_core));
     }
 
     public String display(String _eff) {

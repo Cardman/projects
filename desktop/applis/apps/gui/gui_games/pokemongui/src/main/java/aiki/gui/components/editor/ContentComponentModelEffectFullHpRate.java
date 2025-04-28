@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
+import code.scripts.pages.aiki.*;
 
 public final class ContentComponentModelEffectFullHpRate {
 
@@ -12,15 +13,18 @@ public final class ContentComponentModelEffectFullHpRate {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         leftUserHp = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(leftUserHp.geneRate());
+        selected_.add(line(_core,MessagesDataEfffullhprate.M_P_48_LEFT_USER_HP_INTRO,leftUserHp.geneRate()));
         closestFoeDamageRateHp = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(closestFoeDamageRateHp.geneRate());
+        selected_.add(line(_core,MessagesDataEfffullhprate.M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP_INTRO,closestFoeDamageRateHp.geneRate()));
         restoredHp = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
-        selected_.add(restoredHp.geneEnum());
+        selected_.add(line(_core,MessagesDataEfffullhprate.M_P_48_RESTORED_INTRO,restoredHp.geneEnum()));
         restoredHp.addComplete();
         form = selected_;
         selected_.setVisible(false);
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_FULLHPRATE, _key,_input);
     }
     void display(boolean _dis) {
         form.setVisible(_dis);

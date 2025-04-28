@@ -1,16 +1,15 @@
 package aiki.gui.components.editor;
 
-import aiki.facade.FacadeGame;
+import aiki.facade.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
 
 public final class GeneComponentModelSubscribeFactoryStringLgInt implements AbsGeneComponentModelSubscribeFactory<EditedCrudPair<String, LgInt>> {
 
-    private final AbstractProgramInfos core;
+    private final AbsGeneComponentModelEffect core;
     private final FacadeGame facadeGame;
 
-    public GeneComponentModelSubscribeFactoryStringLgInt(AbstractProgramInfos _c, FacadeGame _fac) {
+    public GeneComponentModelSubscribeFactoryStringLgInt(AbsGeneComponentModelEffect _c, FacadeGame _fac) {
         this.core = _c;
         this.facadeGame = _fac;
     }

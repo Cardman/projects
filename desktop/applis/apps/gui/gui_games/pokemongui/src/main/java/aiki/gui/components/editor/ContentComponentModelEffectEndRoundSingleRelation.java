@@ -21,7 +21,7 @@ public final class ContentComponentModelEffectEndRoundSingleRelation {
         return selected_;
     }
     private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
-        return SubscribedTranslationList.lineDir(_core.getProgramInfos(), SubscribedTranslationList.formatTxt(_core.getProgramInfos(), MessagesPkBean.ENDROUND_SINGLERELATION, _key),_input);
+        return _core.line(MessagesPkBean.ENDROUND_SINGLERELATION, _key,_input);
     }
 
     void display(boolean _dis) {
