@@ -5,6 +5,7 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import code.gui.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectTeam {
@@ -32,37 +33,40 @@ public final class ContentComponentModelEffectTeam {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         forbiddingHealing = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
-        selected_.add(forbiddingHealing);
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_FORBID_HEAL,forbiddingHealing));
         protectAgainstCh = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
-        selected_.add(protectAgainstCh);
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_PROTECT_AG_CH,protectAgainstCh));
         forbiddenBoost = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(forbiddenBoost.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_FORBID_BOOST,forbiddenBoost.geneEnum()));
         cancelChgtStatFoeTeam = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(cancelChgtStatFoeTeam.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT_FOE,cancelChgtStatFoeTeam.geneEnum()));
         cancelChgtStatTeam = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(cancelChgtStatTeam.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT,cancelChgtStatTeam.geneEnum()));
         protectAgainstLowStat = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(protectAgainstLowStat.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_PROTECT_AG_LAW_STATIS,protectAgainstLowStat.geneEnum()));
          disableFoeTeamStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(disableFoeTeamStatus.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_DELETE_STATUS,disableFoeTeamStatus.geneEnum()));
         protectAgainstStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(protectAgainstStatus.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_PROTECT_AG_STATUS,protectAgainstStatus.geneEnum()));
         unusableMoves = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(unusableMoves.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_FORBID_MOVE,unusableMoves.geneEnum()));
         disableFoeTeamEffects = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(disableFoeTeamEffects.geneEnum());
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_DELETE_EFFECTS,disableFoeTeamEffects.geneEnum()));
         multStatistic = new CrudGeneFormSimpleFormSub<Statistic, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        multStatistic.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
-        selected_.add(multStatistic.getGroup());
+        multStatistic.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_STATISTIC,MessagesDataEffteam.M_P_66_RATE);
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_MULT_STAT,multStatistic.getGroup()));
         multStatisticFoe = new CrudGeneFormSimpleFormSub<Statistic, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        multStatisticFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
-        selected_.add(multStatisticFoe.getGroup());
+        multStatisticFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_STATISTIC,MessagesDataEffteam.M_P_66_RATE);
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_MULT_STAT_FOE,multStatisticFoe.getGroup()));
         multDamage = new CrudGeneFormSimpleFormSub<CategoryMult, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        multDamage.initFormWithVal(new DisplayEntryCustSubElementCategoryMult(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<CategoryMult>(new GeneComponentModelSubscribeCategoryMult(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory())),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())));
-        selected_.add(multDamage.getGroup());
+        multDamage.initFormWithVal(new DisplayEntryCustSubElementCategoryMult(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<CategoryMult>(new GeneComponentModelSubscribeCategoryMult(_core)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_TEAM,"",MessagesDataEffteam.M_P_66_RATE);
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_MULT_DAMAGE,multDamage.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_TEAM, _key,_input);
     }
     void buildEntity(EffectTeam _edited) {
         _edited.setForbiddingHealing(forbiddingHealing.isSelected());

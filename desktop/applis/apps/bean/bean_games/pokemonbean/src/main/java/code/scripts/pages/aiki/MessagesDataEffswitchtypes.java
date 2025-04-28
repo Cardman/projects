@@ -7,6 +7,7 @@ public final class MessagesDataEffswitchtypes {
     public static final String M_P_65_AFFECT_TYPES="affect_types";
     public static final String M_P_65_AFFECT_TYPES_NOT_CONST_TARGET="affect_types_not_const_target";
     public static final String M_P_65_AFFECT_TYPES_NOT_CONST_USER="affect_types_not_const_user";
+    public static final String M_P_65_AFFECT_TYPES_CONST="affect_types_const";
     public static final String M_P_65_EFFECT="effect";
     public static final String M_P_65_ENVIR="envir";
     public static final String M_P_65_ENVIR_ENV="envir_env";
@@ -23,6 +24,7 @@ public final class MessagesDataEffswitchtypes {
         e_.add(M_P_65_AFFECT_TYPES,"The target takes the following types:");
         e_.add(M_P_65_AFFECT_TYPES_NOT_CONST_TARGET,"The target takes the types of the user.");
         e_.add(M_P_65_AFFECT_TYPES_NOT_CONST_USER,"The user takes the types of the target.");
+        e_.add(M_P_65_AFFECT_TYPES_CONST,"Const types values:");
         e_.add(M_P_65_EFFECT,"This effect change the types of a fighter at least.");
         e_.add(M_P_65_ENVIR,"The user take the type in function by the environment of fight:");
         e_.add(M_P_65_ENVIR_ENV,"Environment of fight");
@@ -39,6 +41,7 @@ public final class MessagesDataEffswitchtypes {
         f_.add(M_P_65_AFFECT_TYPES,"La cible prend les types suivants:");
         f_.add(M_P_65_AFFECT_TYPES_NOT_CONST_TARGET,"La cible prend les types du lanceur.");
         f_.add(M_P_65_AFFECT_TYPES_NOT_CONST_USER,"Le lanceur prend les types de la cible.");
+        f_.add(M_P_65_AFFECT_TYPES_CONST,"Valeurs de types constantes:");
         f_.add(M_P_65_EFFECT,"Cet effet change les types d'au moins un combattant.");
         f_.add(M_P_65_ENVIR,"Le lanceur prend le type en fonction de l'environnement de combat:");
         f_.add(M_P_65_ENVIR_ENV,"Environnement de combat");

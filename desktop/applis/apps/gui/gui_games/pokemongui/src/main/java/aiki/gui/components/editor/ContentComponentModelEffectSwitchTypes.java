@@ -5,6 +5,7 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.*;
 import aiki.map.levels.enums.*;
 import code.gui.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectSwitchTypes {
@@ -19,21 +20,24 @@ public final class ContentComponentModelEffectSwitchTypes {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         constTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(constTypes.geneEnum());
+        selected_.add(line(_core,MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES,constTypes.geneEnum()));
         addedTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(addedTypes.geneEnum());
+        selected_.add(line(_core,MessagesDataEffswitchtypes.M_P_65_ADDED_TYPES,addedTypes.geneEnum()));
         exchangeTypes = new GeneComponentModelElt<String>(_core.getProgramInfos(), MessagesPkEditor.getMessagesEditorSelectExchangeTypeTr(MessagesPkEditor.getAppliTr(_core.getProgramInfos().currentLg())).getMapping(),new EmptyDefValue());
-        selected_.add(exchangeTypes.geneEnum());
+        selected_.add(line(_core,MessagesDataEffswitchtypes.M_P_65_SWITCH_TYPES,exchangeTypes.geneEnum()));
         exchangeTypes.setupValue(DataBase.DEF_EXCHANGE_TYPE_NOTHING);
         constValuesType = new GeneComponentModelElt<String>(_core.getProgramInfos(), MessagesPkEditor.getMessagesEditorSelectConstValuesTypeTr(MessagesPkEditor.getAppliTr(_core.getProgramInfos().currentLg())).getMapping(),new EmptyDefValue());
-        selected_.add(constValuesType.geneEnum());
+        selected_.add(line(_core,MessagesDataEffswitchtypes.M_P_65_AFFECT_TYPES_CONST,constValuesType.geneEnum()));
         constValuesType.setupValue(DataBase.DEF_CONST_VALUES_TYPE_NOTHING);
         chgtTypeByEnv = new CrudGeneFormSimpleFormSub<EnvironmentType, String>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        chgtTypeByEnv.initFormWithVal(new DisplayEntryCustSubElementImpl<EnvironmentType, String>(_core.getFactory().getFactoryEnvironmentType(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<EnvironmentType, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<EnvironmentType>(_core.getProgramInfos(),_core.getFactory().getFactoryEnvironmentType(),_core.getFacadeGame()), buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()));
-        selected_.add(chgtTypeByEnv.getGroup());
+        chgtTypeByEnv.initFormWithVal(new DisplayEntryCustSubElementImpl<EnvironmentType, String>(_core.getFactory().getFactoryEnvironmentType(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<EnvironmentType, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<EnvironmentType>(_core.getProgramInfos(),_core.getFactory().getFactoryEnvironmentType(),_core.getFacadeGame()), buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),MessagesPkBean.EFF_SWITCHTYPES, MessagesDataEffswitchtypes.M_P_65_ENVIR_ENV,MessagesDataEffswitchtypes.M_P_65_ENVIR_TYPE);
+        selected_.add(line(_core,MessagesDataEffswitchtypes.M_P_65_ENVIR,chgtTypeByEnv.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_SWITCHTYPES, _key,_input);
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbsGeneComponentModelEffect _core, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core.getProgramInfos(), _core.getFacadeGame(), _facto, _abs);

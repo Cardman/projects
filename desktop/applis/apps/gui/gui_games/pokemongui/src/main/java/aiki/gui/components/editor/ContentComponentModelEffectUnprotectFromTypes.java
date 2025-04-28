@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
 import code.gui.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectUnprotectFromTypes {
@@ -16,17 +17,20 @@ public final class ContentComponentModelEffectUnprotectFromTypes {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         disableImmuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(disableImmuAgainstTypes.geneEnum());
+        selected_.add(line(_core,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_TYPES,disableImmuAgainstTypes.geneEnum()));
         disableImmuFromMoves = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(disableImmuFromMoves.geneEnum());
+        selected_.add(line(_core,MessagesDataEffunprotectfromtypes.M_P_68_DISABLE_IMMU_FROM_MOVES,disableImmuFromMoves.geneEnum()));
         attackTargetWithTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(attackTargetWithTypes.geneEnum());
+        selected_.add(line(_core,MessagesDataEffunprotectfromtypes.M_P_68_ATTACK_TARGET_TYPES,attackTargetWithTypes.geneEnum()));
         types = new CrudGeneFormSimpleElementSub<TypesDuo>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        types.initForm(new DisplayEntryCustSubElementTypesDuoElt(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory())));
-        selected_.add(types.getGroup());
+        types.initForm(new DisplayEntryCustSubElementTypesDuoElt(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_UNPROTECTFROMTYPES, MessagesDataEffunprotectfromtypes.M_P_68_TYPES_DAMAG,MessagesDataEffunprotectfromtypes.M_P_68_TYPES_PK)));
+        selected_.add(line(_core,MessagesDataEffunprotectfromtypes.M_P_68_TYPES,types.getGroup()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_UNPROTECTFROMTYPES, _key,_input);
     }
     void buildEntity(EffectUnprotectFromTypes _edited) {
         _edited.setDisableImmuAgainstTypes(disableImmuAgainstTypes.tryRet());
