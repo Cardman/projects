@@ -19,6 +19,7 @@ public final class MessagesDataEffinvoke {
     public static final String M_P_50_OTHER_OWNED_TYPE="other_owned_type";
     public static final String M_P_50_OWNED_TYPE="owned_type";
     public static final String M_P_50_RATE_INVOKE_MOVE="rate_invoke_move";
+    public static final String M_P_50_RATE_INVOKE_MOVE_INTRO="rate_invoke_move_intro";
     private MessagesDataEffinvoke(){
     }
     public static TranslationsFile en(){
@@ -39,6 +40,7 @@ public final class MessagesDataEffinvoke {
         e_.add(M_P_50_OTHER_OWNED_TYPE,"Other owned type");
         e_.add(M_P_50_OWNED_TYPE,"Owned Type(s)");
         e_.add(M_P_50_RATE_INVOKE_MOVE,"Damage inflicted by the invoked move are multiplied by {0}.");
+        e_.add(M_P_50_RATE_INVOKE_MOVE_INTRO,"Damage inflicted by the invoked move are multiplied by:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -59,6 +61,7 @@ public final class MessagesDataEffinvoke {
         f_.add(M_P_50_OTHER_OWNED_TYPE,"Autre type possédé");
         f_.add(M_P_50_OWNED_TYPE,"Type(s) possédé(s)");
         f_.add(M_P_50_RATE_INVOKE_MOVE,"Les dégâts causés par l''attaque invoquée sont multipliés par {0}.");
+        f_.add(M_P_50_RATE_INVOKE_MOVE_INTRO,"Les dégâts causés par l'attaque invoquée sont multipliés par:");
         return f_;
     }
 }

@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelEffectProtectFromTypes {
@@ -12,10 +13,13 @@ public final class ContentComponentModelEffectProtectFromTypes {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         immuAgainstTypes = ConverterCommonMapUtil.buildTypeList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(immuAgainstTypes.geneEnum());
+        selected_.add(line(_core,MessagesDataEffprotectfromtypes.M_P_54_IMMU_MOVE_TYPES,immuAgainstTypes.geneEnum()));
         selected_.setVisible(false);
         form =selected_;
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_PROTECTFROMTYPES, _key,_input);
     }
     void buildEntity(EffectProtectFromTypes _edited) {
         _edited.setImmuAgainstTypes(immuAgainstTypes.tryRet());

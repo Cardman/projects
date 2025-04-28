@@ -192,6 +192,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         m.getMapping().addEntry(MessagesPkBean.EFF_FULLHPRATE,new TranslationsFile());
         m.getMapping().addEntry(MessagesPkBean.EFF_GLOBAL,new TranslationsFile());
         m.getMapping().addEntry(MessagesPkBean.EFF_INVOKE,new TranslationsFile());
+        m.getMapping().addEntry(MessagesPkBean.EFF_MULTMOVEPOWER,new TranslationsFile());
         m.getMapping().addEntry(MessagesPkBean.EFF_MULTSUFFEREDMOVEPOWER,new TranslationsFile());
         m.getMapping().addEntry(MessagesPkBean.EFF_MULTUSEDMOVEPOWER,new TranslationsFile());
         m.getMapping().addEntry(MessagesPkBean.EFF_ORDER,new TranslationsFile());

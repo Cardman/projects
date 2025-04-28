@@ -26,6 +26,7 @@ public final class MessagesPkBean {
     public static final String EFF_FULLHPRATE="moves/effects/efffullhprate";
     public static final String EFF_GLOBAL="moves/effects/effglobal";
     public static final String EFF_INVOKE="moves/effects/effinvoke";
+    public static final String EFF_MULTMOVEPOWER="moves/effects/effmultmovepower";
     public static final String EFF_MULTSUFFEREDMOVEPOWER="moves/effects/effmultsufferedmovepower";
     public static final String EFF_MULTUSEDMOVEPOWER="moves/effects/effmultusedmovepower";
     public static final String EFF_ORDER="moves/effects/efforder";
@@ -164,6 +165,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(EFF_FULLHPRATE,MessagesDataEfffullhprate.en());
         m.getMapping().addEntry(EFF_GLOBAL,MessagesDataEffglobal.en());
         m.getMapping().addEntry(EFF_INVOKE,MessagesDataEffinvoke.en());
+        m.getMapping().addEntry(EFF_MULTMOVEPOWER,MessagesDataEffmultmovepower.en());
         m.getMapping().addEntry(EFF_MULTSUFFEREDMOVEPOWER,MessagesDataEffmultsufferedmovepower.en());
         m.getMapping().addEntry(EFF_MULTUSEDMOVEPOWER,MessagesDataEffmultusedmovepower.en());
         m.getMapping().addEntry(EFF_ORDER,MessagesDataEfforder.en());
@@ -258,6 +260,7 @@ public final class MessagesPkBean {
         m.getMapping().addEntry(EFF_FULLHPRATE,MessagesDataEfffullhprate.fr());
         m.getMapping().addEntry(EFF_GLOBAL,MessagesDataEffglobal.fr());
         m.getMapping().addEntry(EFF_INVOKE,MessagesDataEffinvoke.fr());
+        m.getMapping().addEntry(EFF_MULTMOVEPOWER,MessagesDataEffmultmovepower.fr());
         m.getMapping().addEntry(EFF_MULTSUFFEREDMOVEPOWER,MessagesDataEffmultsufferedmovepower.fr());
         m.getMapping().addEntry(EFF_MULTUSEDMOVEPOWER,MessagesDataEffmultusedmovepower.fr());
         m.getMapping().addEntry(EFF_ORDER,MessagesDataEfforder.fr());

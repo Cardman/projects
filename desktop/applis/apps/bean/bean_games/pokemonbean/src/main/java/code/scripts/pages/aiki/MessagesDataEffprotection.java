@@ -9,6 +9,7 @@ public final class MessagesDataEffprotection {
     public static final String M_P_55_PROT_SINGLE="prot_single";
     public static final String M_P_55_PROT_SINGLE_DAMAGE="prot_single_damage";
     public static final String M_P_55_PROT_SINGLE_KO="prot_single_ko";
+    public static final String M_P_55_PROT_SINGLE_KO_INTRO="prot_single_ko_intro";
     public static final String M_P_55_PROT_SINGLE_STATUS="prot_single_status";
     private MessagesDataEffprotection(){
     }
@@ -19,7 +20,8 @@ public final class MessagesDataEffprotection {
         e_.add(M_P_55_PROT_PRIO,"The team of the user is protected against moves with priority greater than 0.");
         e_.add(M_P_55_PROT_SINGLE,"The user is protected against moves that target the user.");
         e_.add(M_P_55_PROT_SINGLE_DAMAGE,"The user is protected against damaging moves that target the user.");
-        e_.add(M_P_55_PROT_SINGLE_KO,"The user cannot be knocked out by moves that target the user.The user keeps {0} hp at leeast.");
+        e_.add(M_P_55_PROT_SINGLE_KO,"The user cannot be knocked out by moves that target the user.The user keeps {0} hp at least.");
+        e_.add(M_P_55_PROT_SINGLE_KO_INTRO,"Minimum kept hp of the user:");
         e_.add(M_P_55_PROT_SINGLE_STATUS,"The user is protected against not damaging moves that target the user.");
         return e_;
     }
@@ -31,6 +33,7 @@ public final class MessagesDataEffprotection {
         f_.add(M_P_55_PROT_SINGLE,"Le lanceur est protégée des attaques où il est pris pour cible.");
         f_.add(M_P_55_PROT_SINGLE_DAMAGE,"Le lanceur est protégée des attaques offensives où il est pris pour cible.");
         f_.add(M_P_55_PROT_SINGLE_KO,"Le lanceur ne peut pas tomber KO par des attaques où il est pris pour cible.Il garde au moins {0} pv.");
+        f_.add(M_P_55_PROT_SINGLE_KO_INTRO,"Minimum de pv gardés du lanceur:");
         f_.add(M_P_55_PROT_SINGLE_STATUS,"Le lanceur est protégée des attaques non offensives où il est pris pour cible.");
         return f_;
     }
