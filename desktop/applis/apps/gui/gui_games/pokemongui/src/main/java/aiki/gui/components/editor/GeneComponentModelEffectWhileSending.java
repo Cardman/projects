@@ -5,6 +5,7 @@ import aiki.fight.effects.*;
 import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelEffectWhileSending extends AbsGeneComponentModelEffect {
@@ -31,16 +32,16 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         form_.add(contentEffect.effectForm(this));
         form_.add(contentEffectStatistic.effectForm(this));
         withEffect = compoFactory_.newCustCheckBox();
-        form_.add(withEffect);
+        form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_STAT,withEffect));
         disableWeather = compoFactory_.newCustCheckBox();
-        form_.add(disableWeather);
+        form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_DISABLE_WEATHER,disableWeather));
         copyingAbility = compoFactory_.newCustCheckBox();
-        form_.add(copyingAbility);
+        form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_COPY_AB,copyingAbility));
         enabledWeather = new GeneComponentModelSubscribeString(getProgramInfos(),getFacadeGame());
-        form_.add(enabledWeather.geneEnum());
+        form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_WEATHER,enabledWeather.geneEnum()));
         enabledWeather.addComplete();
         multWeight = new GeneComponentModelRate(getProgramInfos());
-        form_.add(multWeight.geneRate());
+        form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_WEIGHT,multWeight.geneRate()));
         getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_FOE);
         return form_;

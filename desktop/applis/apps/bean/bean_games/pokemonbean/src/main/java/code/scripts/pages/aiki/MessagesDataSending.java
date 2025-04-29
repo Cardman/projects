@@ -9,6 +9,7 @@ public final class MessagesDataSending {
     public static final String M_P_84_DISABLE_WEATHER_3="disable_weather_3";
     public static final String M_P_84_DISABLE_WEATHER_4="disable_weather_4";
     public static final String M_P_84_EFFECT="effect";
+    public static final String M_P_84_STAT="stat";
     public static final String M_P_84_PLATE="plate";
     public static final String M_P_84_WEATHER="weather";
     public static final String M_P_84_WEIGHT="weight";
@@ -22,6 +23,7 @@ public final class MessagesDataSending {
         e_.add(M_P_84_DISABLE_WEATHER_3,"If a fighter with an item or an ability invoking one of the weathers is sent on the front battle and if it exists an item or an ability disabling the weathers, then the weather is not enabled.");
         e_.add(M_P_84_DISABLE_WEATHER_4,"In contrary, if a move invoking a weather is directly used, then the move does not fail by the disability of the weathers but the weather only will become enabled if no other incompatible weather is invoked.");
         e_.add(M_P_84_EFFECT,"This effect happens after the effects of the moves acting while the sending of a foe on the front battle.");
+        e_.add(M_P_84_STAT,"This effect implies a statistic variation.");
         e_.add(M_P_84_PLATE,"Le type of the owner becomes the type of the owned plate, else the type of the owner is the base type (on the associated data).");
         e_.add(M_P_84_WEATHER,"While the owner is sent on the front battle, the following weather is enabled:");
         e_.add(M_P_84_WEIGHT,"The weight of the owner is multiplied by {0} while its sending.");
@@ -35,6 +37,7 @@ public final class MessagesDataSending {
         f_.add(M_P_84_DISABLE_WEATHER_3,"Si un combattant avec un objet ou une capacité invoquant un des climats entre sur le terrain et s'il existe une capacité ou un objet désactivant les climats, alors le climat n'est pas activé.");
         f_.add(M_P_84_DISABLE_WEATHER_4,"En revanche, si une attaque invoquant un climat est directement utilisée, alors l'attaque n'échoue pas à cause de l'inactivité des climats mais le climat ne deviendra actif que si aucun autre climat incompatible n'était invoqué.");
         f_.add(M_P_84_EFFECT,"Cet effet a lieu après les effets des attaques agissant lors de l'entrée d'un adversaire sur le terrain.");
+        f_.add(M_P_84_STAT,"Cet effet implique une variation de statistique.");
         f_.add(M_P_84_PLATE,"Le type du porteur devient le type de la plaque possédée, sinon le type du porteur est celui de base (sur la fiche associée dans les données).");
         f_.add(M_P_84_WEATHER,"Lorsque le possesseur entre sur le terrain, le climat suivant est actif:");
         f_.add(M_P_84_WEIGHT,"La masse du porteur est multiplié par {0} lors de son entrée.");
