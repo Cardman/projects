@@ -33,6 +33,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_CHGT_TYPE_BY_WEATHER_VALUE="chgt_type_by_weather_value";
     public static final String M_P_1_COPY_MOVE_TYPES="copy_move_types";
     public static final String M_P_1_DECREASE_NEC_STEPS_HATCH="decrease_nec_steps_hatch";
+    public static final String M_P_1_DECREASE_NEC_STEPS_HATCH_INTRO="decrease_nec_steps_hatch_intro";
     public static final String M_P_1_DIVIDE_STATUS_ROUND="divide_status_round";
     public static final String M_P_1_DIVIDE_STATUS_ROUND_KEY="divide_status_round_key";
     public static final String M_P_1_DIVIDE_STATUS_ROUND_VALUE="divide_status_round_value";
@@ -46,6 +47,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_FORWARD_STATUS_KEY="forward_status_key";
     public static final String M_P_1_FORWARD_STATUS_VALUE="forward_status_value";
     public static final String M_P_1_HEALED_HP_RATE_BY_SWITCH="healed_hp_rate_by_switch";
+    public static final String M_P_1_HEALED_HP_RATE_BY_SWITCH_INTRO="healed_hp_rate_by_switch_intro";
     public static final String M_P_1_HEALED_STATUS_BY_SWITCH="healed_status_by_switch";
     public static final String M_P_1_HEAL_HP_BY_WEATHER="heal_hp_by_weather";
     public static final String M_P_1_HEAL_HP_BY_WEATHER_HEAL="heal_hp_by_weather_heal";
@@ -61,6 +63,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_HEAL_HP_BY_WEATHER_TYPE_VALUE="heal_hp_by_weather_type_value";
     public static final String M_P_1_HEAL_HP_BY_WEATHER_VALUE="heal_hp_by_weather_value";
     public static final String M_P_1_HEAL_HP_WHILE_USING_BERRY="heal_hp_while_using_berry";
+    public static final String M_P_1_HEAL_HP_WHILE_USING_BERRY_INTRO="heal_hp_while_using_berry_intro";
     public static final String M_P_1_IGN_ABILITY="ign_ability";
     public static final String M_P_1_IGN_FOE_SATIS_BOOST="ign_foe_satis_boost";
     public static final String M_P_1_IGN_FOE_TEAM_MOVE="ign_foe_team_move";
@@ -107,6 +110,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_LOW_STAT_FOE_HIT_BOOST="low_stat_foe_hit_boost";
     public static final String M_P_1_LOW_STAT_FOE_HIT_KEY="low_stat_foe_hit_key";
     public static final String M_P_1_MAX_HP_FOR_USING_BERRY="max_hp_for_using_berry";
+    public static final String M_P_1_MAX_HP_FOR_USING_BERRY_INTRO="max_hp_for_using_berry_intro";
     public static final String M_P_1_MAX_STATISTICS_IF_CH="max_statistics_if_ch";
     public static final String M_P_1_MULT_ALLY_DAMAGE="mult_ally_damage";
     public static final String M_P_1_MULT_DAMAGE="mult_damage";
@@ -157,6 +161,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_MUMY="mumy";
     public static final String M_P_1_NB_HITS="nb_hits";
     public static final String M_P_1_NB_USED_PP="nb_used_pp";
+    public static final String M_P_1_NB_USED_PP_INTRO="nb_used_pp_intro";
     public static final String M_P_1_PLATE="plate";
     public static final String M_P_1_RECOIL_DAMAGE_FOE="recoil_damage_foe";
     public static final String M_P_1_RECOIL_DAMAGE_FOE_BY_KO_OWNER="recoil_damage_foe_by_ko_owner";
@@ -218,6 +223,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_CHGT_TYPE_BY_WEATHER_VALUE,"Added type");
         e_.add(M_P_1_COPY_MOVE_TYPES,"The ability is enabled at the beginning of the round of the owner.\nThe owner takes the types of the finally chosen move (after the moment of invokation of a move).");
         e_.add(M_P_1_DECREASE_NEC_STEPS_HATCH,"The ability is enabled out of fight.\nBy one step out of fight, the number of necessary steps for hatching is lowered by {0} per owner of this ability.");
+        e_.add(M_P_1_DECREASE_NEC_STEPS_HATCH_INTRO,"By one step out of fight, the number of necessary steps for hatching is lowered per owner of this ability by:");
         e_.add(M_P_1_DIVIDE_STATUS_ROUND,"The ability is enabled at the beginning of the round of the owner.\nHere is the rate of division of number of rounds of the following status:");
         e_.add(M_P_1_DIVIDE_STATUS_ROUND_KEY, STATUS);
         e_.add(M_P_1_DIVIDE_STATUS_ROUND_VALUE,"Rate of division of number of rounds");
@@ -231,6 +237,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_FORWARD_STATUS_KEY,"Status of the move of the user");
         e_.add(M_P_1_FORWARD_STATUS_VALUE,"Status to be affected to the user");
         e_.add(M_P_1_HEALED_HP_RATE_BY_SWITCH,"The ability is enabled while the owner exits from the front of battle.\nIf the owner of this ability exits then the owner of this ability gets {0} of its full hp.");
+        e_.add(M_P_1_HEALED_HP_RATE_BY_SWITCH_INTRO,"If the owner of this ability exits then the got rate of the full hp of the owner of this ability is:");
         e_.add(M_P_1_HEALED_STATUS_BY_SWITCH,"The ability is enabled while the owner exits from the front of battle.\nIf the owner of this ability exits then the status of the owner of this ability are healed.");
         e_.add(M_P_1_HEAL_HP_BY_WEATHER,"The ability is enabled at the end of round of fight.\nHere is the variation of the hp of the owner of the ability in function by the enabled weather:");
         e_.add(M_P_1_HEAL_HP_BY_WEATHER_HEAL,"Win of {0} of full hp");
@@ -246,6 +253,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_HEAL_HP_BY_WEATHER_TYPE_VALUE,"Variation of hp");
         e_.add(M_P_1_HEAL_HP_BY_WEATHER_VALUE,"Variation of hp");
         e_.add(M_P_1_HEAL_HP_WHILE_USING_BERRY,"The ability is enabled while the owner uses a berry.\nWhile using its berry, the owner gets {0} of its full hp.");
+        e_.add(M_P_1_HEAL_HP_WHILE_USING_BERRY_INTRO,"The got rate of the full hp of the owner while using its berry is:");
         e_.add(M_P_1_IGN_ABILITY,"The ability is enabled while the owner uses a move against a target.\nThe owner of this ability ignores the following abilities:");
         e_.add(M_P_1_IGN_FOE_SATIS_BOOST,"The ability is enabled while the owner uses a move.\nThe ability is enabled while the owner suffers damage of a move directly used by a fighter.\nIf the owner is target of a move, the levels of the statistics of a move for the user of the move are ignored.If the owner is user of a move, the levels of the statistics of defense for the target of the move are ignored.");
         e_.add(M_P_1_IGN_FOE_TEAM_MOVE,"The ability is enabled while the owner uses a move.\nThe enabled moves regarding all foe team of the owner of this ability are ignored, these are the following one:");
@@ -290,7 +298,8 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_LOW_STAT_FOE_HIT,"The ability is enabled while the owner inflicts damage.\nEach target having suffered damage from the move of the owner has its statistics that vary int the following way:");
         e_.add(M_P_1_LOW_STAT_FOE_HIT_BOOST, LEVEL);
         e_.add(M_P_1_LOW_STAT_FOE_HIT_KEY, STATISTIC);
-        e_.add(M_P_1_MAX_HP_FOR_USING_BERRY,"The ability is enabled while the owner is going to use a berry.\nWhile the owner has at most {0} of its full rate, it uses its berry.");
+        e_.add(M_P_1_MAX_HP_FOR_USING_BERRY,"The ability is enabled while the owner is going to use a berry.\nWhile the owner has at most {0} of its full hp, it uses its berry.");
+        e_.add(M_P_1_MAX_HP_FOR_USING_BERRY_INTRO,"Maximum of full hp of the owner for using its berry:");
         e_.add(M_P_1_MAX_STATISTICS_IF_CH,"The ability is enabled while the owner suffers damage of a move directly used by a fighter.\nIf the owner of this ability suffers a critical hit, then the following statistics of the owner of this ability become maximals:");
         e_.add(M_P_1_MULT_ALLY_DAMAGE,"The ability is enabled while the user uses a move.\nInflicted damage by a move used by a partner of the owner of this ability against the owner of this ability are multiplied by {0}.");
         e_.add(M_P_1_MULT_DAMAGE,"Damage from moves is multiplied by {0}.");
@@ -341,6 +350,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_MUMY,"The ability is enabled while the owner uses a direct move.\nThe target of the move used by the owner takes the ability of the owner, until the exit of the target.");
         e_.add(M_P_1_NB_HITS,"The ability is enabled while the user uses a move.\nFoe a move able to inflict several hits during the round of a user, the number of hits is maximal for an owner of this ability.");
         e_.add(M_P_1_NB_USED_PP,"The ability is enabled while a foe fighter uses a direct move against the owner.\nIf a move is successful and affects the owner of this ability and if the user of the move is not a partner of the owner of this ability, then the number of additional PP used by the user of the move against the owner of this ability is the number of foe targets with this ability multiplied by {0}.");
+        e_.add(M_P_1_NB_USED_PP_INTRO,"If a move is successful and affects the owner of this ability and if the user of the move is not a partner of the owner of this ability, then the number of additional PP used by the user of the move against the owner of this ability is the number of foe targets with this ability multiplied by:");
         e_.add(M_P_1_PLATE,"The effects of a plate are enabled on the owner.");
         e_.add(M_P_1_RECOIL_DAMAGE_FOE,"The ability is enabled while the owner inflicts damage against a fighter.\nWhile the owner of the ability inflicts damage of a direct move against a target, the target looses {0} of its full hp.");
         e_.add(M_P_1_RECOIL_DAMAGE_FOE_BY_KO_OWNER,"The ability is enabled while the owner is knocked out by a move directly used by a fighter.\nWhile the owner of the ability suffers damage by a direct move and if the owner of this ability is KO by this direct move, then the user of the direct move looses {0} of the full hp of the user of the direct move.");
@@ -387,6 +397,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_CHGT_TYPE_BY_WEATHER_VALUE,"Type ajouté");
         f_.add(M_P_1_COPY_MOVE_TYPES,"La capacité est activée au début du tour du possesseur.\nLe possesseur prend les types de l'attaque finalement choisie (après le moment d'invocation d'une attaque).");
         f_.add(M_P_1_DECREASE_NEC_STEPS_HATCH,"La capacité du possesseur est activée hors combat.\nEn un pas en dehors du combat, le nombre de pas nécessaires pour l''éclosion baisse de {0} par possesseur de cette capacité.");
+        f_.add(M_P_1_DECREASE_NEC_STEPS_HATCH_INTRO,"En un pas en dehors du combat, le nombre de pas nécessaires pour l'éclosion baisse par possesseur de cette capacité de:");
         f_.add(M_P_1_DIVIDE_STATUS_ROUND,"La capacité est activée au début du tour du possesseur.\nVoici le taux de division du nombre de tours des statuts suivants:");
         f_.add(M_P_1_DIVIDE_STATUS_ROUND_KEY, STATUT);
         f_.add(M_P_1_DIVIDE_STATUS_ROUND_VALUE,"Coefficient de division du nombre de tours");
@@ -400,6 +411,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_FORWARD_STATUS_KEY,"Statut de l'attaque du lanceur");
         f_.add(M_P_1_FORWARD_STATUS_VALUE,"Statut à affecter au lanceur");
         f_.add(M_P_1_HEALED_HP_RATE_BY_SWITCH,"La capacité est activée lorsque le possesseur se retire du terrain.\nSi le possesseur de cette capacité se retire alors le possesseur de cette capacité récupère {0} de ses pv max.");
+        f_.add(M_P_1_HEALED_HP_RATE_BY_SWITCH_INTRO,"Si le possesseur de cette capacité se retire alors le taux récupéré des pv max du possesseur de cette capacité est:");
         f_.add(M_P_1_HEALED_STATUS_BY_SWITCH,"La capacité est activée lorsque le possesseur se retire du terrain.\nSi le possesseur de cette capacité se retire alors les statuts du possesseur de cette capacité sont soignés.");
         f_.add(M_P_1_HEAL_HP_BY_WEATHER,"La capacité est activée en fin de tour du combat.\nVoici la variation des pv du possesseur de la capacité en fonction du climat actif:");
         f_.add(M_P_1_HEAL_HP_BY_WEATHER_HEAL,"Gain de {0} des pv max");
@@ -415,6 +427,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_HEAL_HP_BY_WEATHER_TYPE_VALUE,"Variation de pv");
         f_.add(M_P_1_HEAL_HP_BY_WEATHER_VALUE,"Variation de pv");
         f_.add(M_P_1_HEAL_HP_WHILE_USING_BERRY,"La capacité est activée lorsque le possesseur utilise une baie.\nLors de l''utilisation de sa baie, le possesseur restaure {0} de sa vie totale.");
+        f_.add(M_P_1_HEAL_HP_WHILE_USING_BERRY_INTRO,"Le taux récupéré de la vie totale du possesseur lors de l'utilisation de sa baie est:");
         f_.add(M_P_1_IGN_ABILITY,"La capacité est activée lorsqu'une cible est attaquée par le possesseur.\nLe possesseur de cette capacité ignore les capacités suivantes:");
         f_.add(M_P_1_IGN_FOE_SATIS_BOOST,"La capacité est activée lorsque le possesseur attaque.\nLa capacité est activée lorsque le possesseur subit des dégâts d'une attaque utilisée directement par un combattant.\nSi le possesseur est cible d'une attaque, les boosts des statistiques d'attaque pour le lanceur de l'attaque sont ignorés.Si le possesseur est lanceur d'une attaque, les boosts des statistiques de défense pour la cible de l'attaque sont ignorés.");
         f_.add(M_P_1_IGN_FOE_TEAM_MOVE,"La capacité est activée lorsque le possesseur attaque.\nLes attaques actives concernant toute l'équipe adverse du possesseur de cette capacité sont ignorées, ce sont les suivantes:");
@@ -460,6 +473,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_LOW_STAT_FOE_HIT_BOOST, BOOST);
         f_.add(M_P_1_LOW_STAT_FOE_HIT_KEY, STATISTIQUE);
         f_.add(M_P_1_MAX_HP_FOR_USING_BERRY,"La capacité est activée lorsque le possesseur va utiliser une baie.\nLorsque le possesseur a au plus {0} de sa vie totale, il utilise sa baie.");
+        f_.add(M_P_1_MAX_HP_FOR_USING_BERRY_INTRO,"Maximum de vie totale du possesseur pour utiliser sa baie:");
         f_.add(M_P_1_MAX_STATISTICS_IF_CH,"La capacité est activée lorsque le possesseur subit des dégâts d'une attaque utilisée directement par un combattant.\nSi le possesseur de cette capacité subit un coup critique, alors les statistiques suivantes du possesseur de cette capacité deviennent maximales:");
         f_.add(M_P_1_MULT_ALLY_DAMAGE,"La capacité est activée lorsque le possesseur attaque.\nLes dégâts causés par une attaque lancée par un partenaire du possesseur de cette capacité sur le possesseur de cette capacité sont multipliés par {0}.");
         f_.add(M_P_1_MULT_DAMAGE,"Les dégâts des attaques sont multipliés par{0}.");
@@ -510,6 +524,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_MUMY,"La capacité est activée lorsque le possesseur utilise une attaque de contact.\nLa cible de l'attaque lancée par le possesseur prend la capacité du possesseur, jusqu'au retrait de la cible.");
         f_.add(M_P_1_NB_HITS,"La capacité est activée lorsque le possesseur attaque.\nPour une attaque pouvant infliger plusieurs coups pendant le tour d'un lanceur, le nombre de coups est maximal pour un possesseur de cette capacité.");
         f_.add(M_P_1_NB_USED_PP,"La capacité est activée lorsque le possesseur est attaqué directement par un combattant adverse.\nSi une attaque réussit et affecte le possesseur de cette capacité et si le lanceur de l''attaque ne fait pas partie de la même équipe que le possesseur de cette capacité, alors le nombre de PP supplémentaires utilisés par le lanceur de l''attaque sur le possesseur de cette capacité est multiplié par le nombre de cibles adverses ayant cette capacité facteur de {0}.");
+        f_.add(M_P_1_NB_USED_PP_INTRO,"Si une attaque réussit et affecte le possesseur de cette capacité et si le lanceur de l'attaque ne fait pas partie de la même équipe que le possesseur de cette capacité, alors le nombre de PP supplémentaires utilisés par le lanceur de l'attaque sur le possesseur de cette capacité est multiplié par le nombre de cibles adverses ayant cette capacité facteur de:");
         f_.add(M_P_1_PLATE,"Les effets d'une plaque s'active sur le possesseur.");
         f_.add(M_P_1_RECOIL_DAMAGE_FOE,"La capacité est activée lorsque le possesseur inflige des dégâts sur un combattant.\nLorsque le possesseur de cette capacité inflige des dégâts d''une attaque directe à une cible, celle-ci perd {0} de ses pv max.");
         f_.add(M_P_1_RECOIL_DAMAGE_FOE_BY_KO_OWNER,"La capacité est activée lorsque le possesseur tombe KO par une attaque utilisée directement par un combattant.\nLorsque le possesseur de cette capacité subit des dégâts par une attaque directe et si le possesseur de cette capacité est KO par cette attaque directe, alors le lanceur de l''attaque directe perd {0} des pv max du lanceur de l''attaque directe.");

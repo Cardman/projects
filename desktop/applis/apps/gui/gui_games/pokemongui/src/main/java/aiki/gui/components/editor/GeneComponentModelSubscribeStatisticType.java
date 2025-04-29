@@ -17,10 +17,6 @@ public final class GeneComponentModelSubscribeStatisticType implements AbsGeneCo
     private final String titleKey;
     private final String titleValue;
 
-    public GeneComponentModelSubscribeStatisticType(AbstractProgramInfos _core, FacadeGame _f, SubscribedTranslationList _subscription) {
-        this(_core,_f,_subscription,"","","");
-    }
-
     public GeneComponentModelSubscribeStatisticType(AbstractProgramInfos _core, FacadeGame _f, SubscribedTranslationList _subscription, String _file, String _k,String _v) {
         programInfos = _core;
         facade = _f;

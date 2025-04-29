@@ -13,20 +13,26 @@ public final class GeneComponentModelSubscribeStatisticCategory implements AbsGe
     private GeneComponentModelEltEnumSub<Statistic> statistic;
     private GeneComponentModelEltEnumSub<String> categories;
     private final SubscribedTranslationList subscribedTranslationList;
+    private final String file;
+    private final String titleKey;
+    private final String titleValue;
 
-    public GeneComponentModelSubscribeStatisticCategory(AbstractProgramInfos _core, FacadeGame _f, SubscribedTranslationList _subscription) {
+    public GeneComponentModelSubscribeStatisticCategory(AbstractProgramInfos _core, FacadeGame _f, SubscribedTranslationList _subscription, String _file, String _k,String _v) {
         programInfos = _core;
         facade = _f;
         subscribedTranslationList = _subscription;
+        file =_file;
+        titleKey =_k;
+        titleValue =_v;
     }
 
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
         statistic = ConverterCommonMapUtil.buildStatisticsElt(programInfos,facade,subscribedTranslationList);
-        form_.add(statistic.geneEnum());
+        form_.add(SubscribedTranslationList.line(programInfos,file,titleKey,statistic.geneEnum()));
         categories = ConverterCommonMapUtil.buildCatElt(programInfos, facade,subscribedTranslationList);
-        form_.add(categories.geneEnum());
+        form_.add(SubscribedTranslationList.line(programInfos,file,titleValue,categories.geneEnum()));
         if (GeneComponentModelEltStrCom.disable(_select, _value)) {
             statistic.getSelectUniq().getSelect().setEnabled(false);
             categories.getSelectUniq().getSelect().setEnabled(false);
