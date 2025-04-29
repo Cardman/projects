@@ -227,6 +227,15 @@ public final class SubscribedTranslationList {
         line_.add(_input);
         return line_;
     }
+
+    public FacadeGame getFacadeGame() {
+        return facadeGame;
+    }
+
+    public AbstractProgramInfos getProgramInfos() {
+        return programInfos;
+    }
+
     public FormLevelGrid getFormLevelGridUniq() {
         return formLevelGridUniq;
     }
