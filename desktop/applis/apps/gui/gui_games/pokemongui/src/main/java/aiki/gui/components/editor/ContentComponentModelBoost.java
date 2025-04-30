@@ -5,6 +5,7 @@ import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -17,15 +18,18 @@ public final class ContentComponentModelBoost {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         boostForm = compoFactory_.newLineBox();
         evs=new CrudGeneFormSimpleFormSub<Statistic,Long>(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList(), _parent.getFrame());
-        evs.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())));
-        boostForm.add(evs.getGroup());
+        evs.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Long>(_parent.getSubscribedTranslationList().getFactoryStat(),_parent.getCompoFactory(),_parent.getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_parent.getCompoFactory(), _parent.getSubscribedTranslationList().getFactoryStat(), _parent.getFacade()), new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())),MessagesPkBean.IT_BOOST,MessagesDataItemsBoost.M_P_18_EVS_STAT,MessagesDataItemsBoost.M_P_18_EVS_BOOST);
+        boostForm.add(line(_parent,MessagesDataItemsBoost.M_P_18_EVS,evs.getGroup()));
         happiness = new CrudGeneFormSimpleFormSub<String, Long>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Long>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())));
-        boostForm.add(happiness.getGroup());
+        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Long>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())),MessagesPkBean.IT_BOOST,MessagesDataItemsBoost.M_P_18_HAPPINESS_BALL,MessagesDataItemsBoost.M_P_18_HAPPINESS_BOOST);
+        boostForm.add(line(_parent,MessagesDataItemsBoost.M_P_18_HAPPINESS,happiness.getGroup()));
         winPp=new GeneComponentModelRate(_parent.getCompoFactory());
-        boostForm.add(winPp.geneRate());
+        boostForm.add(line(_parent,MessagesDataItemsBoost.M_P_18_WIN_PP_INTRO,winPp.geneRate()));
         boostForm.setVisible(false);
         return boostForm;
+    }
+    private AbsCustComponent line(GeneComponentModelItem _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.IT_BOOST, _key,_input);
     }
     void display(String _eff) {
         boostForm.setVisible(StringUtil.quickEq(_eff, Item.BOOST));

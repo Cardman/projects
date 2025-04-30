@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.fight.items.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -15,12 +16,15 @@ public final class ContentComponentModelHealingItem {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         healingItemForm = compoFactory_.newLineBox();
         happiness = new CrudGeneFormSimpleFormSub<String, Long>(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), _parent.getFrame());
-        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Long>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())));
-        healingItemForm.add(happiness.getGroup());
+        happiness.initFormWithVal(new DisplayEntryCustSubElementImpl<String,Long>(_parent.getSubscribedTranslationList().getFactoryIt(),_parent.getCompoFactory(),_parent.getFacade(), new StringMap<String>()),buildPart(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList().getFactoryIt(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Long>(new GeneComponentModelSubscribeLong(_parent.getCompoFactory())),MessagesPkBean.IT_HEALINGITEM,MessagesDataItemsHealingitem.M_P_24_HAPPINESS_BALL,MessagesDataItemsHealingitem.M_P_24_HAPPINESS_BOOST);
+        healingItemForm.add(line(_parent,MessagesDataItemsHealingitem.M_P_24_HAPPINESS,happiness.getGroup()));
         healingTeam=compoFactory_.newCustCheckBox();
-        healingItemForm.add(healingTeam);
+        healingItemForm.add(line(_parent,MessagesDataItemsHealingitem.M_P_24_HEAL_TEAM,healingTeam));
         healingItemForm.setVisible(false);
         return healingItemForm;
+    }
+    private AbsCustComponent line(GeneComponentModelItem _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.IT_HEALINGITEM, _key,_input);
     }
     void display(String _eff) {
         healingItemForm.setVisible(StringUtil.quickEq(_eff, Item.HEALING_HP) || StringUtil.quickEq(_eff, Item.HEALING_HP_STATUS) || StringUtil.quickEq(_eff, Item.HEALING_ITEM) || StringUtil.quickEq(_eff, Item.HEALING_PP) || StringUtil.quickEq(_eff, Item.HEALING_STATUS));

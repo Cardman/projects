@@ -3,38 +3,39 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import aiki.fight.util.*;
 import code.gui.*;
-import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeCategoryMult implements AbsGeneComponentModelSubscribe<CategoryMult> {
     private final AbsGeneComponentModelEffect programInfos;
     private final FacadeGame facade;
+    private final String file;
+    private final String titleKey;
+    private final String titleValue;
     private GeneComponentModelEltEnumSub<String> category;
     private final GeneComponentModelInt mult;
     private final SubscribedTranslationList subscribedTranslationList;
 
-    public GeneComponentModelSubscribeCategoryMult(AbsGeneComponentModelEffect _core) {
+    public GeneComponentModelSubscribeCategoryMult(AbsGeneComponentModelEffect _core, String _f, String _k, String _v) {
         programInfos = _core;
         facade = _core.getFacadeGame();
         subscribedTranslationList = _core.getFactory();
         mult = new GeneComponentModelInt(_core.getProgramInfos());
+        file = _f;
+        titleKey = _k;
+        titleValue = _v;
     }
 
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = programInfos.getProgramInfos().getCompoFactory().newLineBox();
-        form_.add(line(MessagesDataEffteam.M_P_66_MULT,mult.geneInt()));
+        form_.add(SubscribedTranslationList.line(programInfos.getProgramInfos(), file, titleKey,mult.geneInt()));
         category = ConverterCommonMapUtil.buildCatElt(programInfos.getProgramInfos(), facade,subscribedTranslationList);
-        form_.add(line(MessagesDataEffteam.M_P_66_CAT,category.geneEnum()));
+        form_.add(SubscribedTranslationList.line(programInfos.getProgramInfos(), file, titleValue,category.geneEnum()));
         if (GeneComponentModelEltStrCom.disable(_select, _value)) {
             mult.getSpinner().setEnabled(false);
             category.getSelectUniq().getSelect().setEnabled(false);
         }
         return form_;
-    }
-
-    private AbsCustComponent line(String _key, AbsCustComponent _input) {
-        return programInfos.line(MessagesPkBean.EFF_TEAM, _key,_input);
     }
 
     @Override

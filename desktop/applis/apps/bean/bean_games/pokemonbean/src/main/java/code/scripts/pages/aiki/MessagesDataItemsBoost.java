@@ -11,6 +11,7 @@ public final class MessagesDataItemsBoost {
     public static final String M_P_18_HAPPINESS_BOOST="happiness_boost";
     public static final String M_P_18_HAPPINESS_OTHER_BALL="happiness_other_ball";
     public static final String M_P_18_WIN_PP="win_pp";
+    public static final String M_P_18_WIN_PP_INTRO="win_pp_intro";
     private MessagesDataItemsBoost(){
     }
     public static TranslationsFile en(){
@@ -23,6 +24,7 @@ public final class MessagesDataItemsBoost {
         e_.add(M_P_18_HAPPINESS_BOOST,"Won happiness points");
         e_.add(M_P_18_HAPPINESS_OTHER_BALL,"Other used BALL or none");
         e_.add(M_P_18_WIN_PP,"Used on a move, this move wins {0} pp.");
+        e_.add(M_P_18_WIN_PP_INTRO,"Used on a move, this move wins (in pp):");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -35,6 +37,7 @@ public final class MessagesDataItemsBoost {
         f_.add(M_P_18_HAPPINESS_BOOST,"Points de bonheur gagnés");
         f_.add(M_P_18_HAPPINESS_OTHER_BALL,"Autre BALL de capture ou aucune");
         f_.add(M_P_18_WIN_PP,"Utilisé sur une attaque, celle-ci gagne {0} pp.");
+        f_.add(M_P_18_WIN_PP_INTRO,"Utilisé sur une attaque, celle-ci gagne (en pp):");
         return f_;
     }
 }

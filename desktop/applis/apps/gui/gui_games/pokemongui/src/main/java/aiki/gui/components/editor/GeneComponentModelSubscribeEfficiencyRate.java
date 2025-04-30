@@ -9,18 +9,24 @@ public final class GeneComponentModelSubscribeEfficiencyRate implements AbsGeneC
     private final AbstractProgramInfos programInfos;
     private GeneComponentModelRate eff;
     private GeneComponentModelRate hpRate;
+    private final String file;
+    private final String titleKey;
+    private final String titleValue;
 
-    public GeneComponentModelSubscribeEfficiencyRate(AbstractProgramInfos _core) {
+    public GeneComponentModelSubscribeEfficiencyRate(AbstractProgramInfos _core, String _f, String _k,String _v) {
         programInfos = _core;
+        file =_f;
+        titleKey =_k;
+        titleValue =_v;
     }
 
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
         AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
         eff = new GeneComponentModelRate(programInfos);
-        form_.add(eff.geneRate());
+        form_.add(SubscribedTranslationList.line(programInfos,file,titleKey,eff.geneRate()));
         hpRate = new GeneComponentModelRate(programInfos);
-        form_.add(hpRate.geneRate());
+        form_.add(SubscribedTranslationList.line(programInfos,file,titleValue,hpRate.geneRate()));
         return form_;
     }
 

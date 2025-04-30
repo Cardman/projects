@@ -32,6 +32,10 @@ public final class BerryBean extends ItemBean {
     public void build(FacadeGame _facade) {
         init(_facade);
         buildHeader();
+        if (!categoryBoosting.getKey().isEmpty()) {
+            formatMessage(MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_CATEGORY_BOOSTING);
+            formatMessageDir(categoryBoosting);
+        }
         displayIntDef(healHpBySuperEffMove,MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_WIN_SUPER_EFF);
         displayBoolTrue(toInt(lawForAttackFirst),MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_SORTING_USERS);
         displayBoolTrue(toInt(withoutFail),MessagesPkBean.IT_BERRY,MessagesDataItemsBerry.M_P_17_WITHOUT_FAIL);
