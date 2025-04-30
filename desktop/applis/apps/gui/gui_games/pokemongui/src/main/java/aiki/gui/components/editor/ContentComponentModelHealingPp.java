@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.fight.items.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.core.*;
 
 public final class ContentComponentModelHealingPp {
@@ -16,15 +17,18 @@ public final class ContentComponentModelHealingPp {
         AbsCompoFactory compoFactory_ = _parent.getCompoFactory().getCompoFactory();
         healPpForm = compoFactory_.newLineBox();
         healedMovePp = new GeneComponentModelLong(_parent.getCompoFactory());
-        healPpForm.add(healedMovePp.geneLong());
+        healPpForm.add(line(_parent,MessagesDataItemsHealingpp.M_P_25_HEAL_MOVE_INTRO,healedMovePp.geneLong()));
         healingAllMovesFullpp = new GeneComponentModelLong(_parent.getCompoFactory());
-        healPpForm.add(healingAllMovesFullpp.geneLong());
+        healPpForm.add(line(_parent,MessagesDataItemsHealingpp.M_P_25_HEAL_MOVES_INTRO,healingAllMovesFullpp.geneLong()));
         healingAllMovesPp=compoFactory_.newCustCheckBox();
-        healPpForm.add(healingAllMovesPp);
+        healPpForm.add(line(_parent,MessagesDataItemsHealingpp.M_P_25_FULL_HEAL_MOVES,healingAllMovesPp));
         healingMoveFullpp=compoFactory_.newCustCheckBox();
-        healPpForm.add(healingMoveFullpp);
+        healPpForm.add(line(_parent,MessagesDataItemsHealingpp.M_P_25_FULL_HEAL_MOVE,healingMoveFullpp));
         healPpForm.setVisible(false);
         return healPpForm;
+    }
+    private AbsCustComponent line(GeneComponentModelItem _core, String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.IT_HEALINGPP, _key,_input);
     }
     void display(String _eff) {
         healPpForm.setVisible(StringUtil.quickEq(_eff, Item.HEALING_PP));
