@@ -6,6 +6,7 @@ import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class CrudGeneFormTrCstLaw implements AbsCrudGeneFormTrCstOpen, CrudGeneFormTrCstParamList<DifficultyModelLaw> {
@@ -30,7 +31,7 @@ public final class CrudGeneFormTrCstLaw implements AbsCrudGeneFormTrCstOpen, Cru
         int i_ = 0;
         for (EntryCust<DifficultyModelLaw, LawNumber> k: facadeGame.getData().getLawsDamageRate().entryList()) {
             AbsPanel line_ = api.getCompoFactory().newLineBox();
-            CrudGeneFormMonteCarlo<Rate> form_ = ConverterCommonMapUtil.buildMcRate(frame, api);
+            CrudGeneFormMonteCarlo<Rate> form_ = ConverterCommonMapUtil.buildMcRate(frame, api, MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_1,MessagesDataRound.M_P_83_ROUND_PROCESS_MOVE_FINAL_20_2);
             form_.setupValues(new MapToEntriesListUtil<Rate, LgInt>().build(k.getValue().getLaw()));
             line_.add(form_.getGroup());
             AbsButton but_ = api.getCompoFactory().newPlainButton(Long.toString(i_));

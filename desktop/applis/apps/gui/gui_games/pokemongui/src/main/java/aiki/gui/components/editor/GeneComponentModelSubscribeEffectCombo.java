@@ -7,6 +7,7 @@ import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeEffectCombo implements GeneComponentModel<ListEffectCombo> {
@@ -34,19 +35,23 @@ public final class GeneComponentModelSubscribeEffectCombo implements GeneCompone
         key = new CrudGeneFormSimpleElementSub<String>(api, facadeGame, factory, frame);
         key.initForm(new DisplayEntryCustSubElementSimpleImpl<String>(factoryMv_,api,facadeGame,new StringMap<String>()),buildPart(api,facadeGame,factoryMv_,new StringMap<String>()));
         AbsPanel form_ = api.getCompoFactory().newLineBox();
+        form_.add(line(MessagesDataCombo.M_P_2_EFFECT,key.getGroup()));
         multEvtRateSecEff = new GeneComponentModelRate(api);
-        form_.add(multEvtRateSecEff.geneRate());
+        form_.add(line(MessagesDataCombo.M_P_2_RATE_SEC_EFF_INTRO,multEvtRateSecEff.geneRate()));
         rankIncrementNbRound = new GeneComponentModelLong(api);
-        form_.add(rankIncrementNbRound.geneLong());
-        repeatedRoundsLaw = ConverterCommonMapUtil.buildMcRate(frame,api);
-        form_.add(repeatedRoundsLaw.getGroup());
+        form_.add(line(MessagesDataCombo.M_P_2_RANK_INCREMENT_NB_ROUND_INTRO,rankIncrementNbRound.geneLong()));
+        repeatedRoundsLaw = ConverterCommonMapUtil.buildMcRate(frame,api,MessagesPkBean.COMBO,MessagesDataCombo.M_P_2_LAW_REPEAT_KEY,MessagesDataCombo.M_P_2_LAW_REPEAT_VALUE);
+        form_.add(line(MessagesDataCombo.M_P_2_LAW_REPEAT,repeatedRoundsLaw.getGroup()));
         effectEndRound = new CrudGeneFormSimpleElementSub<EffectEndRoundFoe>(api,facadeGame,factory,frame);
         effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRoundFoe>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRoundFoe>(new GeneComponentModelSubscribeEffectEndRoundFoe(new GeneComponentModelEffectEndRoundFoe(frame,api,facadeGame,factory))));
-        form_.add(effectEndRound.getGroup());
+        form_.add(line(MessagesDataCombo.M_P_2_ENDROUND,effectEndRound.getGroup()));
         teamMove = new CrudGeneFormSimpleElementSub<EffectTeam>(api,facadeGame,factory,frame);
         teamMove.initForm(new DisplayEntryCustSubElementEffect<EffectTeam>(),new GeneComponentModelSubscribeFactoryDirect<EffectTeam>(new GeneComponentModelSubscribeEffectTeam(new GeneComponentModelEffectTeam(frame,api,facadeGame,factory))));
-        form_.add(teamMove.getGroup());
+        form_.add(line(MessagesDataCombo.M_P_2_TEAM,teamMove.getGroup()));
         return form_;
+    }
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.line(api, MessagesPkBean.COMBO, _key, _input);
     }
     private GeneComponentModelSubscribeFactorySelElt buildPart(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationMessagesFactory _facto, StringMap<String> _abs) {
         return new GeneComponentModelSubscribeFactorySelElt(_core, _fac, _facto, _abs);

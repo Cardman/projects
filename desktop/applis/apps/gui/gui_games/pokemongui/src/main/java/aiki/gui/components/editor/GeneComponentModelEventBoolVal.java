@@ -8,8 +8,9 @@ import code.util.core.*;
 public final class GeneComponentModelEventBoolVal extends GeneComponentModelEvent<BoolVal> {
     private final AbsCompoFactory compoFactory;
     private AbsCustCheckBox event;
-    public GeneComponentModelEventBoolVal(AbstractProgramInfos _fact) {
-        super(_fact);
+
+    public GeneComponentModelEventBoolVal(AbstractProgramInfos _fact, String _file, String _k, String _v) {
+        super(_fact, _file, _k, _v);
         compoFactory = _fact.getCompoFactory();
     }
 

@@ -99,7 +99,7 @@ public final class ContentComponentModelItemForBattle {
         itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_SYNCHRO_STATUS,synchroStatus.geneEnum()));
         typesPk=ConverterCommonMapUtil.buildTypeList(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList());
         itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_TYPES_PK_2,typesPk.geneEnum()));
-        lawForAttackFirst = ConverterCommonMapUtil.buildMcBool(_parent.getFrame(),_parent.getCompoFactory());
+        lawForAttackFirst = ConverterCommonMapUtil.buildMcBool(_parent.getFrame(),_parent.getCompoFactory(),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST_EVT,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST_RT);
         itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST,lawForAttackFirst.getGroup()));
         multPower = new GeneComponentModelSubscribeString(_parent.getCompoFactory(),_parent.getFacade());
         itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_MULT_POWER,multPower.geneEnum()));

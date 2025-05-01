@@ -5,6 +5,8 @@ import code.sml.util.*;
 public final class MessagesDataItemsItemforbattle {
     public static final String M_P_28_AGAINST_EVO="against_evo";
     public static final String M_P_28_ATTACK_FIRST="attack_first";
+    public static final String M_P_28_ATTACK_FIRST_EVT="attack_first_evt";
+    public static final String M_P_28_ATTACK_FIRST_RT="attack_first_rt";
     public static final String M_P_28_ATTACK_FIRST_RANDOM="attack_first_random";
     public static final String M_P_28_ATTACK_LAST="attack_last";
     public static final String M_P_28_ATTACK_SOON="attack_soon";
@@ -86,6 +88,8 @@ public final class MessagesDataItemsItemforbattle {
         TranslationsFile e_=new TranslationsFile();
         e_.add(M_P_28_AGAINST_EVO,"The owner of the item cannot evolve.");
         e_.add(M_P_28_ATTACK_FIRST,"If the owner of the item has to use a move after a pokemon not owning any item changing the order of using a move, then the owner of the item uses a move before.");
+        e_.add(M_P_28_ATTACK_FIRST_EVT,"Event");
+        e_.add(M_P_28_ATTACK_FIRST_RT,"Frequency");
         e_.add(M_P_28_ATTACK_FIRST_RANDOM,"If the owner of the item has to use a move after un pokemon not owning any item changing the order of using a move, then with a rate of {0}, the owner of the item uses a move before.");
         e_.add(M_P_28_ATTACK_LAST,"The item is enabled at the moment of sorting users by order of using.\nThe owner of the item uses a move after a pokemon not having this item.");
         e_.add(M_P_28_ATTACK_SOON,"The item is enabled at the beginning of the round of the owner.\nWhile the using of a move demanding a round for preparing, the owner of the item uses a move without preparing.");
@@ -161,6 +165,8 @@ public final class MessagesDataItemsItemforbattle {
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_28_AGAINST_EVO,"Le porteur de l'objet ne peut pas évoluer.");
         f_.add(M_P_28_ATTACK_FIRST,"Si le porteur de l'objet est censé attaquer après un pokémon ne portant d'objet changeant l'ordre d'attaque, alors le porteur de l'objet attaque avant.");
+        f_.add(M_P_28_ATTACK_FIRST_EVT,"Évènement");
+        f_.add(M_P_28_ATTACK_FIRST_RT,"Fréquence");
         f_.add(M_P_28_ATTACK_FIRST_RANDOM,"Si le porteur de l''objet est censé attaquer après un pokémon ne portant d''objet changeant l''ordre d''attaque, alors avec une probabilité de {0}, le porteur de l''objet attaque avant.");
         f_.add(M_P_28_ATTACK_LAST,"L'objet est activé au moment de classer les lanceurs par ordre de lancer.\nLe porteur de l'objet attaque après un pokémon ne portant cet objet.");
         f_.add(M_P_28_ATTACK_SOON,"L'objet est activé au début du tour du possesseur.\nLors de l'utilisation d'une attaque demandant un tour, le porteur de l'objet attaque sans charger.");

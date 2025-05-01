@@ -11,10 +11,13 @@ public final class MessagesDataCombo {
     public static final String M_P_2_LAW_REPEAT_VALUE="law_repeat_value";
     public static final String M_P_2_MULT_STAT_FOE="mult_stat_foe";
     public static final String M_P_2_RANK_INCREMENT_NB_ROUND="rank_increment_nb_round";
+    public static final String M_P_2_RANK_INCREMENT_NB_ROUND_INTRO="rank_increment_nb_round_intro";
     public static final String M_P_2_RATE="rate";
     public static final String M_P_2_RATE_SEC_EFF="rate_sec_eff";
+    public static final String M_P_2_RATE_SEC_EFF_INTRO="rate_sec_eff_intro";
     public static final String M_P_2_STATISTIC="statistic";
     public static final String M_P_2_TITLE="title";
+    public static final String M_P_2_TEAM="team";
     private MessagesDataCombo(){
     }
     public static TranslationsFile en(){
@@ -27,10 +30,13 @@ public final class MessagesDataCombo {
         e_.add(M_P_2_LAW_REPEAT_VALUE,"Probability");
         e_.add(M_P_2_MULT_STAT_FOE,"The statistics of the members of the foe team of the user are multiplied according to the following table:");
         e_.add(M_P_2_RANK_INCREMENT_NB_ROUND,"The rank of incrementing of end of round is {0}.");
+        e_.add(M_P_2_RANK_INCREMENT_NB_ROUND_INTRO,"The rank of incrementing of end of round is:");
         e_.add(M_P_2_RATE,"Rate");
         e_.add(M_P_2_RATE_SEC_EFF,"The probability of second effects used by a member of the team of the user is multiplied by {0}.");
+        e_.add(M_P_2_RATE_SEC_EFF_INTRO,"The probability of second effects used by a member of the team of the user is multiplied by:");
         e_.add(M_P_2_STATISTIC,"Statistic");
         e_.add(M_P_2_TITLE,"Enabled groups of moves");
+        e_.add(M_P_2_TEAM,"Team effects");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -43,10 +49,13 @@ public final class MessagesDataCombo {
         f_.add(M_P_2_LAW_REPEAT_VALUE,"Probabilité");
         f_.add(M_P_2_MULT_STAT_FOE,"Les statistiques des membres de l'équipe adverse du lanceur sont multipliées selon le tableau suivant:");
         f_.add(M_P_2_RANK_INCREMENT_NB_ROUND,"Le rand d''incrémentation de fin tour est de {0}.");
+        f_.add(M_P_2_RANK_INCREMENT_NB_ROUND_INTRO,"Le rand d''incrémentation de fin tour est de:");
         f_.add(M_P_2_RATE,"Coefficient");
         f_.add(M_P_2_RATE_SEC_EFF,"La probabilité des effets secondaires lancées par un membre de l''équipe du lanceur est multipliée par {0}.");
+        f_.add(M_P_2_RATE_SEC_EFF_INTRO,"La probabilité des effets secondaires lancées par un membre de l'équipe du lanceur est multipliée par:");
         f_.add(M_P_2_STATISTIC,"Statistique");
         f_.add(M_P_2_TITLE,"Groupes d'attaques actives");
+        f_.add(M_P_2_TEAM,"Effets d'équipes");
         return f_;
     }
 }

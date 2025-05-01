@@ -3658,14 +3658,9 @@ public final class ConverterCommonMapUtil {
     }
 
 
-    public static CrudGeneFormMonteCarlo<BoolVal> buildMcBool(AbsCommonFrame _f, AbstractProgramInfos _core) {
+    public static CrudGeneFormMonteCarlo<BoolVal> buildMcBool(AbsCommonFrame _f, AbstractProgramInfos _core,String _file, String _k, String _v) {
         CrudGeneFormMonteCarlo<BoolVal> out_ = new CrudGeneFormMonteCarlo<BoolVal>(_f, _core, new ComparingBoolKey<LgInt>());
-        out_.initFormKeys(new BoolLgIntDisplayEntryCust(),new GeneComponentModelEventBoolVal(_core), new ComparingBoolKey<LgInt>());
-        return out_;
-    }
-    public static CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core) {
-        CrudGeneFormMonteCarlo<Rate> out_ = new CrudGeneFormMonteCarlo<Rate>(_f, _core, new ComparingRateKey<LgInt>());
-        out_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(_core), new ComparingRateKey<LgInt>());
+        out_.initFormKeys(new BoolLgIntDisplayEntryCust(),new GeneComponentModelEventBoolVal(_core, _file, _k, _v), new ComparingBoolKey<LgInt>());
         return out_;
     }
     public static CrudGeneFormMonteCarlo<Rate> buildMcRate(AbsCommonFrame _f, AbstractProgramInfos _core, String _file, String _k, String _v) {

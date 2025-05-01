@@ -3,6 +3,8 @@ package code.scripts.pages.aiki;
 import code.sml.util.*;
 
 public final class MessagesDataStatus {
+    public static final String M_P_88_EVT="evt";
+    public static final String M_P_88_RT="rt";
     public static final String M_P_88_AUTO_DAMAGE="auto_damage";
     public static final String M_P_88_AUTO_DAMAGE_ATT="auto_damage_att";
     public static final String M_P_88_AUTO_DAMAGE_DEF="auto_damage_def";
@@ -47,6 +49,8 @@ public final class MessagesDataStatus {
     }
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
+        e_.add(M_P_88_EVT,"Event");
+        e_.add(M_P_88_RT,"Frequency");
         e_.add(M_P_88_AUTO_DAMAGE,"The user inflicts itself damage of a move with a base power being {0} based for the attack on the value of the statistic {1} and for the defense on the value of the statistic {2}.");
         e_.add(M_P_88_AUTO_DAMAGE_ATT,"Statistic of attack:");
         e_.add(M_P_88_AUTO_DAMAGE_DEF,"Statistic of defense:");
@@ -91,6 +95,8 @@ public final class MessagesDataStatus {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
+        f_.add(M_P_88_EVT,"Évènement");
+        f_.add(M_P_88_RT,"Fréquence");
         f_.add(M_P_88_AUTO_DAMAGE,"Le lanceur s''autoinflige les dégâts d''une attaque de puissance de base valant {0} se basant pour l''attaque sur la valeur de la statistique {1} et pour la défense sur la valeur de la statistique {2}.");
         f_.add(M_P_88_AUTO_DAMAGE_ATT,"Statistique d'attaque:");
         f_.add(M_P_88_AUTO_DAMAGE_DEF,"Statistique de défense:");

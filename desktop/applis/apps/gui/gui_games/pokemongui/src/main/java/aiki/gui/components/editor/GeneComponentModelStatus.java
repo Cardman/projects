@@ -64,13 +64,13 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         form_.add(auto);
 
         begin = compoFactory_.newLineBox();
-        lawForUsingAMove = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory());
+        lawForUsingAMove = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory(),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_EVT,MessagesDataStatus.M_P_88_RT);
         begin.add(line(MessagesDataStatus.M_P_88_RATE_USE_MOVE_INTRO,lawForUsingAMove.getGroup()));
-        lawForUsingAMoveIfFoe = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory());
+        lawForUsingAMoveIfFoe = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory(),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_EVT,MessagesDataStatus.M_P_88_RT);
         begin.add(line(MessagesDataStatus.M_P_88_RATE_USE_MOVE_FOE_INTRO,lawForUsingAMoveIfFoe.getGroup()));
-        lawForFullHealIfMove = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory());
+        lawForFullHealIfMove = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory(),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_EVT,MessagesDataStatus.M_P_88_RT);
         begin.add(line(MessagesDataStatus.M_P_88_RATE_HEAL_MOVE_INTRO,lawForFullHealIfMove.getGroup()));
-        lawForUsingAMoveNbRound = ConverterCommonMapUtil.buildMcRate(getFrame(),getCompoFactory());
+        lawForUsingAMoveNbRound = ConverterCommonMapUtil.buildMcRate(getFrame(),getCompoFactory(),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_RATE_USE_MOVE_ROUND_KEY,MessagesDataStatus.M_P_88_RATE_USE_MOVE_ROUND_RATE);
         begin.add(line(MessagesDataStatus.M_P_88_RATE_USE_MOVE_ROUND,lawForUsingAMoveNbRound.getGroup()));
         begin.setVisible(false);
         form_.add(begin);
