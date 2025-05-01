@@ -10,6 +10,7 @@ import aiki.instances.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -55,52 +56,54 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
 
         auto = compoFactory_.newLineBox();
         attack = ConverterCommonMapUtil.buildStatisticsElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
-        auto.add(attack.geneEnum());
+        auto.add(line(MessagesDataStatus.M_P_88_AUTO_DAMAGE_ATT,attack.geneEnum()));
         defense = ConverterCommonMapUtil.buildStatisticsElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());
-        auto.add(defense.geneEnum());
-        auto.add(power.geneRate());
+        auto.add(line(MessagesDataStatus.M_P_88_AUTO_DAMAGE_DEF,defense.geneEnum()));
+        auto.add(line(MessagesDataStatus.M_P_88_AUTO_DAMAGE_POW,power.geneRate()));
         auto.setVisible(false);
         form_.add(auto);
 
         begin = compoFactory_.newLineBox();
         lawForUsingAMove = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory());
-        begin.add(lawForUsingAMove.getGroup());
+        begin.add(line(MessagesDataStatus.M_P_88_RATE_USE_MOVE_INTRO,lawForUsingAMove.getGroup()));
         lawForUsingAMoveIfFoe = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory());
-        begin.add(lawForUsingAMoveIfFoe.getGroup());
+        begin.add(line(MessagesDataStatus.M_P_88_RATE_USE_MOVE_FOE_INTRO,lawForUsingAMoveIfFoe.getGroup()));
         lawForFullHealIfMove = ConverterCommonMapUtil.buildMcBool(getFrame(),getCompoFactory());
-        begin.add(lawForFullHealIfMove.getGroup());
+        begin.add(line(MessagesDataStatus.M_P_88_RATE_HEAL_MOVE_INTRO,lawForFullHealIfMove.getGroup()));
         lawForUsingAMoveNbRound = ConverterCommonMapUtil.buildMcRate(getFrame(),getCompoFactory());
-        begin.add(lawForUsingAMoveNbRound.getGroup());
+        begin.add(line(MessagesDataStatus.M_P_88_RATE_USE_MOVE_ROUND,lawForUsingAMoveNbRound.getGroup()));
         begin.setVisible(false);
         form_.add(begin);
 
         effectEndRound=new CrudGeneFormSimpleElementSub<EffectEndRoundStatus>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         effectEndRound.initForm(new DisplayEntryCustSubElementEffect<EffectEndRoundStatus>(),new GeneComponentModelSubscribeFactoryDirect<EffectEndRoundStatus>(new GeneComponentModelSubscribeEffectEndRoundStatus(new GeneComponentModelEffectEndRoundStatus(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList()))));
-        form_.add(effectEndRound.getGroup());
+        form_.add(line(MessagesDataStatus.M_P_88_ENDROUND,effectEndRound.getGroup()));
         effectsPartner=new CrudGeneFormSimpleElementSub<EffectPartnerStatus>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
-        effectsPartner.initForm(new DisplayEntryCustSubElementEffect<EffectPartnerStatus>(),new GeneComponentModelSubscribeFactoryDirect<EffectPartnerStatus>(new GeneComponentModelSubscribeEffectPartnerStatus(getCompoFactory())));
-        form_.add(effectsPartner.getGroup());
+        effectsPartner.initForm(new DisplayEntryCustSubElementEffect<EffectPartnerStatus>(),new GeneComponentModelSubscribeFactoryDirect<EffectPartnerStatus>(new GeneComponentModelSubscribeEffectPartnerStatus(this)));
+        form_.add(line(MessagesDataStatus.M_P_88_PARTNERS,effectsPartner.getGroup()));
         multStat=new CrudGeneFormSimpleFormSub<Statistic,Rate>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
-        multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())));
-        form_.add(multStat.getGroup());
+        multStat.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(getSubscribedTranslationList().getFactoryStat(),getCompoFactory(),getFacade(), new IdMap<Statistic, String>()), new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(getCompoFactory(), getSubscribedTranslationList().getFactoryStat(), getFacade()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(getCompoFactory())),MessagesPkBean.STATUS,MessagesDataStatus.M_P_88_MULT_STAT_KEY,MessagesDataStatus.M_P_88_MULT_STAT_VALUE);
+        form_.add(line(MessagesDataStatus.M_P_88_MULT_STAT,multStat.getGroup()));
         fail = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
-        form_.add(fail.geneEnum());
+        form_.add(line(MessagesDataStatus.M_P_88_REASONS,fail.geneEnum()));
         fail.addComplete();
-        form_.add(catchingRate.geneRate());
-        form_.add(incrementEndRound.geneLong());
+        form_.add(line(MessagesDataStatus.M_P_88_CATCHING_RATE_INTRO,catchingRate.geneRate()));
+        form_.add(line(MessagesDataStatus.M_P_88_INCREMENT_END_ROUND_INTRO,incrementEndRound.geneLong()));
         disabledEffIfSwitch = compoFactory_.newCustCheckBox();
-        form_.add(disabledEffIfSwitch);
+        form_.add(line(MessagesDataStatus.M_P_88_DISABLED_EFF_IF_SWITCH,disabledEffIfSwitch));
         incrementingEndRound = compoFactory_.newCustCheckBox();
-        form_.add(incrementingEndRound);
+        form_.add(line(MessagesDataStatus.M_P_88_INCREMENTING_END_ROUND_TRUE,incrementingEndRound));
         statusType = compoFactory_.newCustCheckBox();
-        form_.add(statusType);
+        form_.add(line(MessagesDataStatus.M_P_88_SINGLE,statusType));
         sc_.setViewportView(form_);
         page_.add(sc_);
         getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.STAT_AUTO);
         return page_;
     }
-
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return line(MessagesPkBean.STATUS, _key,_input);
+    }
     @Override
     public void applyChange() {
         String eff_ = getEffectKind().tryRet();

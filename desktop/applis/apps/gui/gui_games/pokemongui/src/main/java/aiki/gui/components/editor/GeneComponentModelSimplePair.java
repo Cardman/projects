@@ -14,10 +14,6 @@ public final class GeneComponentModelSimplePair<K,V> implements GeneComponentMod
     private final String textIntroKey;
     private final String textIntroValue;
 
-    public GeneComponentModelSimplePair(AbstractProgramInfos _api, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v) {
-        this(_api,_k,_v,"","","");
-    }
-
     public GeneComponentModelSimplePair(AbstractProgramInfos _api, AbsGeneComponentModelSubscribeFactory<K> _k, AbsGeneComponentModelSubscribeFactory<V> _v, String _file, String _txtKey, String _txtValue) {
         this.factory = _api;
         this.keys = _k;

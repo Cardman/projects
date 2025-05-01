@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
+import code.scripts.pages.aiki.*;
 
 public final class ContentComponentModelEffectEndRound {
     private GeneComponentModelSubscribeString failEndRound;
@@ -10,13 +11,16 @@ public final class ContentComponentModelEffectEndRound {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         failEndRound = new GeneComponentModelSubscribeString(_core.getProgramInfos(),_core.getFacadeGame());
-        selected_.add(failEndRound.geneEnum());
+        selected_.add(line(_core,MessagesDataEffendround.M_P_47_REASONS,failEndRound.geneEnum()));
         failEndRound.addComplete();
         endRoundRank = new GeneComponentModelLong(_core.getProgramInfos());
-        selected_.add(endRoundRank.geneLong());
+        selected_.add(line(_core,MessagesDataEffendround.M_P_47_RANK_INTRO,endRoundRank.geneLong()));
         form = selected_;
         selected_.setVisible(false);
         return selected_;
+    }
+    private AbsCustComponent line(AbsGeneComponentModelEffect _core,String _key, AbsCustComponent _input) {
+        return _core.line(MessagesPkBean.EFF_ENDROUND, _key,_input);
     }
     void display(boolean _dis) {
         form.setVisible(_dis);

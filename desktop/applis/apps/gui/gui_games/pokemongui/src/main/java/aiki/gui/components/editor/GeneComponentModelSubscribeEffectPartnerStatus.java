@@ -2,30 +2,32 @@ package aiki.gui.components.editor;
 
 import aiki.fight.status.effects.*;
 import code.gui.*;
-import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeEffectPartnerStatus implements AbsGeneComponentModelSubscribe<EffectPartnerStatus> {
-    private final AbstractProgramInfos programInfos;
+    private final GeneComponentModelStatus programInfos;
     private final GeneComponentModelRate multDamageAgainstFoe;
     private final GeneComponentModelRate restoredHpRateLovedAlly;
     private AbsCustCheckBox weddingAlly;
 
-    public GeneComponentModelSubscribeEffectPartnerStatus(AbstractProgramInfos _fact) {
+    public GeneComponentModelSubscribeEffectPartnerStatus(GeneComponentModelStatus _fact) {
         programInfos = _fact;
-        multDamageAgainstFoe = new GeneComponentModelRate(_fact);
-        restoredHpRateLovedAlly = new GeneComponentModelRate(_fact);
+        multDamageAgainstFoe = new GeneComponentModelRate(_fact.getCompoFactory());
+        restoredHpRateLovedAlly = new GeneComponentModelRate(_fact.getCompoFactory());
     }
     @Override
     public AbsCustComponent geneEnum(int _select, int _value) {
-        AbsPanel form_ = programInfos.getCompoFactory().newLineBox();
-        form_.add(multDamageAgainstFoe.geneRate());
-        form_.add(restoredHpRateLovedAlly.geneRate());
-        weddingAlly = programInfos.getCompoFactory().newCustCheckBox();
-        form_.add(weddingAlly);
+        AbsPanel form_ = programInfos.getCompoFactory().getCompoFactory().newLineBox();
+        form_.add(line(MessagesDataStatus.M_P_88_DAMAGED_FOES_INTRO,multDamageAgainstFoe.geneRate()));
+        form_.add(line(MessagesDataStatus.M_P_88_HEAL_HP_INTRO,restoredHpRateLovedAlly.geneRate()));
+        weddingAlly = programInfos.getCompoFactory().getCompoFactory().newCustCheckBox();
+        form_.add(line(MessagesDataStatus.M_P_88_WEDDING,weddingAlly));
         return form_;
     }
-
+    private AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return programInfos.line(MessagesPkBean.STATUS, _key,_input);
+    }
     @Override
     public EffectPartnerStatus tryRet() {
         EffectPartnerStatus lv_ = new EffectPartnerStatus();
