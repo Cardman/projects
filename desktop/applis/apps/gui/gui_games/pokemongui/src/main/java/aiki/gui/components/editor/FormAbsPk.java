@@ -5,6 +5,7 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public abstract class FormAbsPk {
@@ -28,17 +29,20 @@ public abstract class FormAbsPk {
 
     public void feedFormQuick() {
         form = api.getCompoFactory().newPageBox();
-        form.add(level.geneLong());
+        form.add(line(MessagesDataMapPokemonKey.M_P_34_LEVEL,level.geneLong()));
         name = ConverterCommonMapUtil.buildPkFull(api, facadeGame, subscribedTranslationList);
-        form.add(name.geneEnum());
+        form.add(line(MessagesDataMapPokemonKey.M_P_34_NAME,name.geneEnum()));
         ability = ConverterCommonMapUtil.buildAbFull(api, facadeGame, subscribedTranslationList, new IdMap<String, String>());
-        form.add(ability.geneEnum());
+        form.add(line(MessagesDataMapPokemonKey.M_P_34_ABILITY,ability.geneEnum()));
         item = ConverterCommonMapUtil.buildItFull(api, facadeGame, subscribedTranslationList, ConverterCommonMapUtil.defKeyEmpty(" "));
-        form.add(item.geneEnum());
+        form.add(line(MessagesDataMapPokemonKey.M_P_34_ITEM,item.geneEnum()));
         gender = ConverterCommonMapUtil.buildGender(api, facadeGame, subscribedTranslationList);
-        form.add(gender.geneEnum());
+        form.add(line(MessagesDataMapPokemonKey.M_P_34_GENDER,gender.geneEnum()));
     }
 
+    protected AbsCustComponent line(String _key, AbsCustComponent _input) {
+        return SubscribedTranslationList.line(api, MessagesPkBean.NPC, _key, _input);
+    }
     public void feedFormQuick(Pokemon _wildPk) {
         level.valueLong(_wildPk.getLevel());
         name.setupValue(_wildPk.getName());

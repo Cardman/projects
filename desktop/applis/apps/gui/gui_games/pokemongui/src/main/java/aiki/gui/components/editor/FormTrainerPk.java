@@ -5,6 +5,7 @@ import aiki.instances.*;
 import aiki.map.pokemon.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class FormTrainerPk extends FormAbsPk {
@@ -18,7 +19,7 @@ public final class FormTrainerPk extends FormAbsPk {
         pkTrainer = Instances.newPkTrainer();
         feedFormQuick();
         moves = ConverterCommonMapUtil.buildMoveList(getApi(),getFacadeGame(),getSubscribedTranslationList());
-        getForm().add(moves.geneEnum());
+        getForm().add(line(MessagesDataMapPokemonKey.M_P_34_MOVES,moves.geneEnum()));
     }
 
     public void feedForm(PkTrainer _wp) {

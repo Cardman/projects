@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 
 public final class FormStatBaseEv {
     private final AbstractProgramInfos api;
@@ -19,8 +20,8 @@ public final class FormStatBaseEv {
         AbsCompoFactory c_ = api.getCompoFactory();
         AbsPanel l_ = c_.newLineBox();
         l_.setTitledBorder(_title);
-        l_.add(base);
-        l_.add(ev);
+        l_.add(SubscribedTranslationList.line(api,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_VALUE,base));
+        l_.add(SubscribedTranslationList.line(api,MessagesPkBean.PK_DATA,MessagesDataPokemonData.M_P_72_STATISTICS_EV,ev));
         group = l_;
         return l_;
     }

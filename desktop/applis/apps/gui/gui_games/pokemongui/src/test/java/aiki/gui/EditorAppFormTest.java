@@ -675,7 +675,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         CrudGeneFormMonteCarlo<Rate> c_ = new CrudGeneFormMonteCarlo<Rate>(null, pr_,new ComparingRateKey<LgInt>());
         c_.setFrame(f_);
         c_.initForm();
-        c_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(pr_), new ComparingRateKey<LgInt>());
+        c_.initFormKeys(new RateLgIntDisplayEntryCust(),new GeneComponentModelEventRate(pr_,"","",""), new ComparingRateKey<LgInt>());
         c_.setupValues(new MapToEntriesListUtil<Rate, LgInt>().build(_map));
         return c_;
     }

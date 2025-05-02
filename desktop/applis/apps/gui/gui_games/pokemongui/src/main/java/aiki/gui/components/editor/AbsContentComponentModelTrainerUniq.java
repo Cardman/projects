@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.map.characters.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public abstract class AbsContentComponentModelTrainerUniq {
@@ -21,7 +22,7 @@ public abstract class AbsContentComponentModelTrainerUniq {
         group_.addAllElts(trainerImg.getMaxiFileName().subs());
         _grid.subs(group_);
         reward = new GeneComponentModelLong(_core);
-        selected_.add(reward.geneLong());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.MAP,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
         selected_.add(trainer.form(_core,_fac,_fact,_fr));
         return selected_;
     }

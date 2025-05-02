@@ -6,6 +6,7 @@ import aiki.map.characters.*;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelDualFight {
@@ -36,7 +37,7 @@ public final class ContentComponentModelDualFight {
         group_.addAllElts(miniFileName.subs());
         _grid.subs(group_);
         reward = new GeneComponentModelLong(_core);
-        selected_.add(reward.geneLong());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.MAP,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
         selected_.add(ally.form(_core,_fac,_fact,_fr));
         selected_.add(tempTrainer.form(_core,_fac,_fact,_fr));
         selected_.add(secondPt.getForm());

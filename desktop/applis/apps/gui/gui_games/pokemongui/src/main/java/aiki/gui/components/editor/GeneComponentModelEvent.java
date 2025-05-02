@@ -11,10 +11,6 @@ public abstract class GeneComponentModelEvent<E> implements GeneComponentModel<E
     private final String textIntroKey;
     private final String textIntroValue;
 
-    protected GeneComponentModelEvent(AbstractProgramInfos _c) {
-        this(_c,"","","");
-    }
-
     protected GeneComponentModelEvent(AbstractProgramInfos _c, String _f, String _k, String _v) {
         this.core = _c;
         proba = new GeneComponentModelLgInt(core);

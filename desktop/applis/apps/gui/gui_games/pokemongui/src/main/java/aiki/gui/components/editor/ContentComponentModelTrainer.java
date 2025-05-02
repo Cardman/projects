@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.map.characters.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 
 public final class ContentComponentModelTrainer {
     private GeneComponentModelInt mult;
@@ -12,7 +13,7 @@ public final class ContentComponentModelTrainer {
     AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         mult = new GeneComponentModelInt(_core);
-        selected_.add(mult.geneInt());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.MAP,MessagesDataMapPokemonKey.M_P_34_MULTIPLICITY,mult.geneInt()));
         maxiFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverMaxiSub());
         selected_.add(maxiFileName.gene());
         miniFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverMiniSub());
