@@ -56,10 +56,10 @@ public final class PokemonTeamBean extends AbsPkTeamBean {
 //        return translationsPokemon_.getVal(name_);
 //    }
     public void buildSub() {
-        formatMessage(MessagesPkBean.MAP, MessagesDataMapPokemonKey.M_P_34_FOE_TEAM);
-        formatMessage(MessagesPkBean.MAP, MessagesDataMapPokemonKey.M_P_34_REWARD);
+        formatMessage(MessagesPkBean.NPC, MessagesDataMapPokemonKey.M_P_34_FOE_TEAM);
+        formatMessage(MessagesPkBean.NPC, MessagesDataMapPokemonKey.M_P_34_REWARD);
         formatMessageDir(Long.toString(reward));
-        formatMessage(MessagesPkBean.MAP, MessagesDataMapPokemonKey.M_P_34_MULTIPLICITY);
+        formatMessage(MessagesPkBean.NPC, MessagesDataMapPokemonKey.M_P_34_MULTIPLICITY);
         formatMessageDir(Long.toString(multiplicity));
         int len_ = getTeam().size();
         for (int i = 0; i < len_; i++) {

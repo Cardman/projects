@@ -5,6 +5,7 @@ import aiki.instances.*;
 import aiki.map.characters.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 
 public final class ContentComponentModelTrainerLeague extends AbsContentComponentModelTrainerUniq {
     private TrainerLeague edited = Instances.newTrainerLeague();
@@ -16,7 +17,7 @@ public final class ContentComponentModelTrainerLeague extends AbsContentComponen
     AbsPanel effectFormLeader(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _fr, FormLevelGrid _grid) {
         AbsPanel pan_ = effectForm(_core, _fac, _fact, _fr, _grid);
         name = new GeneComponentModelSubscribeString(_core,_fac);
-        pan_.add(name.geneEnum());
+        pan_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_NAME_TR,name.geneEnum()));
         return pan_;
     }
 

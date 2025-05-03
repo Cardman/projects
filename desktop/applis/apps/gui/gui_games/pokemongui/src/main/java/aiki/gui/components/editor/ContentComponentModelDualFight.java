@@ -29,7 +29,7 @@ public final class ContentComponentModelDualFight {
         secondPt.setupGridDims(_grid.getEdited(),_grid.getForeground());
         selected_.add(trainer.effectForm(_core, _fac, _fact));
         miniFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverMiniSub());
-        selected_.add(miniFileName.gene());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,miniFileName.gene()));
         FormDataMap.baseSelectImage(miniFileName);
         IdList<SubscribedTranslation> group_= new IdList<SubscribedTranslation>();
         group_.addAllElts(trainer.getMiniFileName().subs());
@@ -37,9 +37,9 @@ public final class ContentComponentModelDualFight {
         group_.addAllElts(miniFileName.subs());
         _grid.subs(group_);
         reward = new GeneComponentModelLong(_core);
-        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.MAP,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
-        selected_.add(ally.form(_core,_fac,_fact,_fr));
-        selected_.add(tempTrainer.form(_core,_fac,_fact,_fr));
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
+        selected_.add(ally.form(_core,_fac,_fact,_fr, MessagesDataMapPokemonKey.M_P_34_ALLY_TEAM));
+        selected_.add(tempTrainer.form(_core,_fac,_fact,_fr, MessagesDataMapPokemonKey.M_P_34_FOE_TEAM));
         selected_.add(secondPt.getForm());
         secondPt.getGrid().addMouseListener(new SelectOrDeselectPtEvent(this));
         return selected_;

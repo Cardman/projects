@@ -16,6 +16,11 @@ public final class MessagesDataMapPokemonKey {
     public static final String M_P_34_MULTIPLICITY="multiplicity";
     public static final String M_P_34_NAME="name";
     public static final String M_P_34_REWARD="reward";
+    public static final String M_P_34_TM="tm";
+    public static final String M_P_34_NAME_TR="name_tr";
+    public static final String M_P_34_MINI="mini";
+    public static final String M_P_34_MAXI_BACK="back";
+    public static final String M_P_34_MAXI_FRONT="front";
     private MessagesDataMapPokemonKey(){
     }
     public static TranslationsFile en(){
@@ -33,6 +38,11 @@ public final class MessagesDataMapPokemonKey {
         e_.add(M_P_34_MULTIPLICITY,"Multiplicity:");
         e_.add(M_P_34_NAME,"Name:");
         e_.add(M_P_34_REWARD,"Base reward.");
+        e_.add(M_P_34_TM,"Technical move");
+        e_.add(M_P_34_NAME_TR,"Name");
+        e_.add(M_P_34_MINI,"Mini image");
+        e_.add(M_P_34_MAXI_BACK,"Maxi image back");
+        e_.add(M_P_34_MAXI_FRONT,"Maxi image front");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -50,6 +60,11 @@ public final class MessagesDataMapPokemonKey {
         f_.add(M_P_34_MULTIPLICITY,"Multiplicité:");
         f_.add(M_P_34_NAME,"Nom:");
         f_.add(M_P_34_REWARD,"Récompense de base");
+        f_.add(M_P_34_TM,"Capsule technique");
+        f_.add(M_P_34_NAME_TR,"Nom");
+        f_.add(M_P_34_MINI,"Mini image");
+        f_.add(M_P_34_MAXI_BACK,"Maxi image dos");
+        f_.add(M_P_34_MAXI_FRONT,"Maxi image face");
         return f_;
     }
 }

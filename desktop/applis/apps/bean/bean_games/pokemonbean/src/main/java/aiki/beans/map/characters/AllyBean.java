@@ -32,7 +32,7 @@ public final class AllyBean extends AbsPkTeamBean {
 //        team = team_;
     }
     public void buildSub() {
-        formatMessage(MessagesPkBean.MAP, MessagesDataMapPokemonKey.M_P_34_ALLY_TEAM);
+        formatMessage(MessagesPkBean.NPC, MessagesDataMapPokemonKey.M_P_34_ALLY_TEAM);
         int len_ = getTeam().size();
         for (int i = 0; i < len_; i++) {
             disTranslatedPkElements(getTeam().get(i));

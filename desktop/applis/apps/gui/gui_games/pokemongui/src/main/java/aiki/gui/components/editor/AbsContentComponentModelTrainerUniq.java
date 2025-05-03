@@ -22,8 +22,8 @@ public abstract class AbsContentComponentModelTrainerUniq {
         group_.addAllElts(trainerImg.getMaxiFileName().subs());
         _grid.subs(group_);
         reward = new GeneComponentModelLong(_core);
-        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.MAP,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
-        selected_.add(trainer.form(_core,_fac,_fact,_fr));
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
+        selected_.add(trainer.form(_core,_fac,_fact,_fr, MessagesDataMapPokemonKey.M_P_34_FOE_TEAM));
         return selected_;
     }
     void buildComEntity() {

@@ -5,6 +5,7 @@ import aiki.instances.*;
 import aiki.map.pokemon.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribePokemonTeam implements AbsGeneComponentModelSubscribe<PokemonTeam> {
@@ -28,8 +29,8 @@ public final class GeneComponentModelSubscribePokemonTeam implements AbsGeneComp
         AbsPanel page_ = compoFactory_.newPageBox();
         AbsPanel form_ = compoFactory_.newLineBox();
         reward = new GeneComponentModelLong(api);
-        form_.add(reward.geneLong());
-        form_.add(simple.form(api,facadeGame,factory,frame));
+        form_.add(SubscribedTranslationList.line(api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
+        form_.add(simple.form(api,facadeGame,factory,frame, MessagesDataMapPokemonKey.M_P_34_FOE_TEAM));
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;
