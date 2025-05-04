@@ -9,6 +9,7 @@ import aiki.map.places.*;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -107,7 +108,7 @@ public final class ContentComponentModelCity {
         contentLevelBuilding.getLevel().getGrid().addMouseListener(new BuildingTileKindEvent(this));
         AbsPanel form_ = compoFactory_.newLineBox();
         imageFileName = new GeneComponentModelImgSelect(contentLevelOutdoor.getLevel().getApi(), contentLevelOutdoor.getLevel().getFacadeGame(), contentLevelOutdoor.getLevel().getTranslationList().getImgRetrieverLinksSub());
-        form_.add(imageFileName.gene());
+        form_.add(SubscribedTranslationList.line(contentLevelOutdoor.getLevel().getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,imageFileName.gene()));
         FormDataMap.baseSelectImage(imageFileName);
         imageFileName.getName().getSelectUniq().getSelect().addListener(new ChangeItemBuildingTileEvent(this));
         imageFileName.updateValue(editedBuilding.getImageFileName());

@@ -4,6 +4,7 @@ import aiki.facade.*;
 import aiki.map.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class FormDataMap {
@@ -77,7 +78,7 @@ public final class FormDataMap {
         formWildPk.feedSubs(translations);
         wildPkContent.setViewportView(formWildPk.getForm());
         crudPlace.refresh();
-        unlockedCityContent.setViewportView(unlockedCity.gene());
+        unlockedCityContent.setViewportView(SubscribedTranslationList.line(getWindow().getFrames(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,unlockedCity.gene()));
         baseSelectImage(unlockedCity);
         unlockedCity.updateValue(dm_.getUnlockedCity());
         translations.addAllElts(unlockedCity.subs());

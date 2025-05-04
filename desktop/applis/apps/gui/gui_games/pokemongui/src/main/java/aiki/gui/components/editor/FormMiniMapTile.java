@@ -5,6 +5,7 @@ import aiki.instances.*;
 import aiki.map.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 
 public final class FormMiniMapTile {
     private GeneComponentModelImgSelect file;
@@ -18,11 +19,11 @@ public final class FormMiniMapTile {
         AbsCompoFactory c_ = _api.getCompoFactory();
         form = c_.newPageBox();
         file = new GeneComponentModelImgSelect(_api,_f,_i);
-        form.add(file.gene());
+        form.add(SubscribedTranslationList.line(_api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,file.gene()));
         place = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
-        form.add(place);
+        form.add(SubscribedTranslationList.line(_api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_PLACE,place));
         heros = c_.newCustCheckBox();
-        form.add(heros);
+        form.add(SubscribedTranslationList.line(_api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_HEROS,heros));
         match = c_.newPlainButton("\u2611");
         match.setForeground(GuiConstants.GREEN);
         match.addActionListener(new ApplyTileMiniMapEvent(_grid,this,_f,_x,_y, false));

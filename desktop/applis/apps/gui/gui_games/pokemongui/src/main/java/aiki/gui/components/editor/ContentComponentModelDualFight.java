@@ -24,7 +24,7 @@ public final class ContentComponentModelDualFight {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         names = new CrudGeneFormSimpleElementSub<String>(_core,_fac,_fact,_fr);
         names.initForm(new DisplayEntryCustSubElementString(),new GeneComponentModelSubscribeFactoryDirect<String>(new GeneComponentModelSubscribeString(_core,_fac)));
-        selected_.add(names.getGroup());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_NAMES_TR,names.getGroup()));
         secondPt = new FormLevelGridLink(_grid.getApi(),_grid.getFacadeGame(),_grid.getFrame(),_grid.getTranslationList());
         secondPt.setupGridDims(_grid.getEdited(),_grid.getForeground());
         selected_.add(trainer.effectForm(_core, _fac, _fact));
@@ -40,7 +40,7 @@ public final class ContentComponentModelDualFight {
         selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));
         selected_.add(ally.form(_core,_fac,_fact,_fr, MessagesDataMapPokemonKey.M_P_34_ALLY_TEAM));
         selected_.add(tempTrainer.form(_core,_fac,_fact,_fr, MessagesDataMapPokemonKey.M_P_34_FOE_TEAM));
-        selected_.add(secondPt.getForm());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_SEC_PT,secondPt.getForm()));
         secondPt.getGrid().addMouseListener(new SelectOrDeselectPtEvent(this));
         return selected_;
     }

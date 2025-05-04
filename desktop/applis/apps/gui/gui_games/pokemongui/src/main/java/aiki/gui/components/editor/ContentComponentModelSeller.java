@@ -6,6 +6,7 @@ import aiki.map.characters.*;
 import aiki.map.characters.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelSeller {
@@ -20,11 +21,11 @@ public final class ContentComponentModelSeller {
         selected_.add(kind.geneEnum());
         kind.setupValue(MessagesEditorSelect.SELL_TYPE_ITEM);
         miniFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverMiniSub());
-        selected_.add(miniFileName.gene());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,miniFileName.gene()));
         items = ConverterCommonMapUtil.buildItemList(_core,_fac,_fact);
-        selected_.add(items.geneEnum());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_ITEMS,items.geneEnum()));
         tm = ConverterCommonMapUtil.buildTmList(_core,_fac,_fact);
-        selected_.add(tm.geneEnum());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TMS,tm.geneEnum()));
         FormDataMap.baseSelectImage(miniFileName);
         IdList<SubscribedTranslation> group_= new IdList<SubscribedTranslation>();
         group_.addAllElts(miniFileName.subs());

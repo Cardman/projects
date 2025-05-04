@@ -6,6 +6,7 @@ import aiki.map.places.*;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelLeagueLinks {
@@ -36,7 +37,7 @@ public final class ContentComponentModelLeagueLinks {
         close.addActionListener(new CloseLinksFormEvent(_par));
         form_.add(getClose());
         linkFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverLinksSub());
-        form_.add(linkFileName.gene());
+        form_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,linkFileName.gene()));
         FormDataMap.baseSelectImage(linkFileName);
         linkFileName.getName().getSelectUniq().getSelect().addListener(new ChangeFileNameLeagueEvent(this));
         linkFileName.getName().setupValue(cave.getFileName());

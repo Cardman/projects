@@ -7,6 +7,7 @@ import aiki.map.places.*;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public abstract class AbsContentComponentModelLevelLinks {
@@ -39,9 +40,9 @@ public abstract class AbsContentComponentModelLevelLinks {
         map_.setViewportView(viewLeft(_core, _fac, _fact, _f));
         AbsPanel form_ = _core.getCompoFactory().newPageBox();
         linkFileNameFirst = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverLinksSub());
-        form_.add(linkFileNameFirst.gene());
+        form_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI_LEFT,linkFileNameFirst.gene()));
         linkFileNameSecond = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverLinksSub());
-        form_.add(linkFileNameSecond.gene());
+        form_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI_RIGHT,linkFileNameSecond.gene()));
         addTileLeft = _core.getCompoFactory().newPlainButton("<-");
         addTileLeft.setForeground(GuiConstants.GREEN);
         addTileRight = _core.getCompoFactory().newPlainButton("->");

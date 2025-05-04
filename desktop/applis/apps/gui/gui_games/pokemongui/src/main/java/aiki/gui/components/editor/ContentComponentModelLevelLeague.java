@@ -6,6 +6,7 @@ import aiki.map.places.*;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
@@ -37,7 +38,7 @@ public final class ContentComponentModelLevelLeague {
         contentLevel.setAccessCondition(ConverterCommonMapUtil.copyCoordsLists(contentLevel.getLevel().getFacadeGame().getMap().getAccessCondition()));
         contentLevel.setupGridDims(_coords,_pl,_wild);
         imageFileName = new GeneComponentModelImgSelect(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList().getImgRetrieverLinksSub());
-        contentLevel.getLevel().getForm().add(imageFileName.gene());
+        contentLevel.getLevel().getForm().add(SubscribedTranslationList.line(contentLevel.getLevel().getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,imageFileName.gene()));
         FormDataMap.baseSelectImage(imageFileName);
         imageFileName.getName().getSelectUniq().getSelect().addListener(new ChangeItemTileLeagueEvent(this));
         contentLevel.getLevel().getForm().add(trainerLeague.effectFormLeader(contentLevel.getLevel().getApi(), contentLevel.getLevel().getFacadeGame(), contentLevel.getLevel().getTranslationList(), contentLevel.getLevel().getFrame(), contentLevel.getLevel()));

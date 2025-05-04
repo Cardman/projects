@@ -6,6 +6,7 @@ import aiki.map.levels.enums.*;
 import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 
 public final class FormBlockTile {
     private GeneComponentModelImgSelect tileFileName;
@@ -24,19 +25,19 @@ public final class FormBlockTile {
         AbsCompoFactory c_ = _grid.getApi().getCompoFactory();
         form = c_.newPageBox();
         tileFileName = new GeneComponentModelImgSelect(_grid.getApi(),_grid.getFacadeGame(),_grid.getTranslationList().getImgRetrieverBlocksSub());
-        form.add(tileFileName.gene());
+        form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_IMG,tileFileName.gene()));
         indexApparition = c_.newSpinner(-1,-1,Integer.MAX_VALUE,1);
-        form.add(indexApparition);
+        form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_INDEX,indexApparition));
         width = c_.newSpinner(1,1,Integer.MAX_VALUE,1);
-        form.add(width);
+        form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_WIDTH,width));
         height = c_.newSpinner(1,1,Integer.MAX_VALUE,1);
-        form.add(height);
+        form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_HEIGHT,height));
         dims = c_.newPlainButton("|=|");
         dims.addActionListener(new DimsBlockEvent(_grid));
         form.add(dims);
         feedForm();
         type = ConverterCommonMapUtil.buildEnvironmentType(_grid.getApi(),_grid.getFacadeGame(),_grid.getTranslationList());
-        form.add(type.geneEnum());
+        form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_ENV,type.geneEnum()));
         match = c_.newPlainButton("\u2611");
         match.setForeground(GuiConstants.GREEN);
         match.addActionListener(new ApplyTileBlockEvent(_grid,this,_p, false));

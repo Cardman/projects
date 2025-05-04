@@ -5,6 +5,7 @@ import aiki.instances.*;
 import aiki.map.characters.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class ContentComponentModelDealerItem {
@@ -15,11 +16,11 @@ public final class ContentComponentModelDealerItem {
     AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, FormLevelGrid _grid) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         miniFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverMiniSub());
-        selected_.add(miniFileName.gene());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,miniFileName.gene()));
         items = ConverterCommonMapUtil.buildItemList(_core,_fac,_fact);
-        selected_.add(items.geneEnum());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_ITEMS,items.geneEnum()));
         technicalMoves = ConverterCommonMapUtil.buildTmList(_core,_fac,_fact);
-        selected_.add(technicalMoves.geneEnum());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TMS,technicalMoves.geneEnum()));
         FormDataMap.baseSelectImage(miniFileName);
         IdList<SubscribedTranslation> group_= new IdList<SubscribedTranslation>();
         group_.addAllElts(miniFileName.subs());
