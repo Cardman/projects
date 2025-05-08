@@ -22,6 +22,7 @@ public final class MessagesPkEditor {
     public static final String PC_GERANT_TYPE = "pc_gerant";
     public static final String PC_TILE = "pc_tile";
     public static final String LEAGUE_TILE = "league_tile";
+    public static final String DATA_MAP_GENE = "data_map_gene";
     private MessagesPkEditor() {
     }
 
@@ -54,6 +55,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectTileGerantType(_lgs,MessagesEditorSelect.enGeranceType());
         appendMessagesEditorSelectTileKindPc(_lgs,MessagesEditorSelect.enPcTileKindWild());
         appendMessagesEditorSelectTileKindLeague(_lgs,MessagesEditorSelect.enLeagueTile());
+        appendMessagesEditorSelectDataMapGene(_lgs,MessagesEditorSelect.enDataMapGene());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -75,6 +77,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectTileGerantType(_lgs,MessagesEditorSelect.frGeranceType());
         appendMessagesEditorSelectTileKindPc(_lgs,MessagesEditorSelect.frPcTileKindWild());
         appendMessagesEditorSelectTileKindLeague(_lgs,MessagesEditorSelect.frLeagueTile());
+        appendMessagesEditorSelectDataMapGene(_lgs,MessagesEditorSelect.frDataMapGene());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -136,6 +139,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectTileKindLeague(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(LEAGUE_TILE, _f);
     }
+    public static void appendMessagesEditorSelectDataMapGene(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(DATA_MAP_GENE, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -189,5 +195,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectTileKindLeagueTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(LEAGUE_TILE);
+    }
+    public static TranslationsFile getMessagesEditorSelectDataMapGeneTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(DATA_MAP_GENE);
     }
 }

@@ -85,6 +85,11 @@ public final class MessagesEditorSelect {
     public static final String GERANCE_TYPE_HEAL = "2";
     public static final String LEAGUE_TRAINER = "0";
     public static final String LEAGUE_ACCESS = "1";
+    public static final String SCREEN_WIDTH = "0";
+    public static final String SCREEN_HEIGHT = "1";
+    public static final String SPACE_LEFT = "2";
+    public static final String SPACE_TOP = "3";
+    public static final String SIDE_LENGTH = "4";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -467,6 +472,24 @@ public final class MessagesEditorSelect {
         TranslationsFile f_ = new TranslationsFile();
         f_.add(LEAGUE_TRAINER,"dresseur");
         f_.add(LEAGUE_ACCESS,"accès");
+        return f_;
+    }
+    public static TranslationsFile enDataMapGene() {
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(SCREEN_WIDTH,"width of the screen");
+        e_.add(SCREEN_HEIGHT,"height of the screen");
+        e_.add(SPACE_LEFT,"space between hero and left");
+        e_.add(SPACE_TOP,"space between hero and top");
+        e_.add(SIDE_LENGTH,"number of pixels in a tile");
+        return e_;
+    }
+    public static TranslationsFile frDataMapGene() {
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(SCREEN_WIDTH,"hauteur de l'écran");
+        f_.add(SCREEN_HEIGHT,"largeur de l'écran");
+        f_.add(SPACE_LEFT,"espace entre le héros et la gauche");
+        f_.add(SPACE_TOP,"espace entre le héros et le haut");
+        f_.add(SIDE_LENGTH,"nombre de pixels dans une tuile");
         return f_;
     }
 }

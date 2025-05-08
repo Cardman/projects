@@ -4,6 +4,7 @@ import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Integer, String>> implements AbsCrudGeneFormTrCstOpen{
@@ -110,7 +111,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         } else {
             priceValue_ = null;
         }
-        AbsCustComponent gene_ = price.geneLgInt();
+        AbsCustComponent gene_ = SubscribedTranslationList.line(getFactory(),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_HELP_TM_HM_PRICE,price.geneLgInt());
         if (priceValue_ != null) {
             price.valueLgInt(priceValue_);
         }

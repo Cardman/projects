@@ -212,12 +212,22 @@ public final class SubscribedTranslationList {
         return lineDir(_api, formatTxt(_api, _file, _key),_input);
     }
 
+    public static AbsCustComponent line(AbstractProgramInfos _api,TranslationsFile _tf,String _key, AbsCustComponent _input) {
+        return lineDir(_api, formatTxt(_tf, _key),_input);
+    }
+
     public static String formatTxt(AbstractProgramInfos _api, String _file, String _key) {
-        TranslationsFile val_ = _api.currentLg().getMapping().getVal(MessagesPkBean.APP_BEAN_DATA).getMapping().getVal(_file);
-        if (val_ == null) {
+        return formatTxt(_api,MessagesPkBean.APP_BEAN_DATA,_file,_key);
+    }
+
+    public static String formatTxt(AbstractProgramInfos _api, String _app, String _file, String _key) {
+        return formatTxt(_api.currentLg().getMapping().getVal(_app).getMapping().getVal(_file),_key);
+    }
+    public static String formatTxt(TranslationsFile _tf, String _key) {
+        if (_tf == null) {
             return "";
         }
-        return StringUtil.nullToEmpty(val_.getMapping().getVal(_key));
+        return StringUtil.nullToEmpty(_tf.getMapping().getVal(_key));
     }
 
     public static AbsCustComponent lineDir(AbstractProgramInfos _api,String _txt, AbsCustComponent _input) {

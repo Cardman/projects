@@ -3,6 +3,7 @@ package aiki.gui.components.editor;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelNb implements GeneComponentModel<EditedCrudPair<Integer, String>> {
@@ -22,8 +23,8 @@ public final class GeneComponentModelNb implements GeneComponentModel<EditedCrud
         value = ConverterCommonMapUtil.buildMvFull(compoFactory, facade, subscribedTranslationList);
         AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(key.geneInt());
-        page_.add(value.geneEnum());
+        page_.add(SubscribedTranslationList.line(compoFactory,MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_HELP_TM_HM_NUMBER,key.geneInt()));
+        page_.add(SubscribedTranslationList.line(compoFactory,MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_HELP_TM_HM_MOVE,value.geneEnum()));
         return page_;
     }
 

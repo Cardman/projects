@@ -5,6 +5,7 @@ import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.images.*;
+import code.scripts.pages.aiki.*;
 
 public final class GeneComponentModelImgType extends GeneComponentModelEntity<String> {
     private AbsSpinner red;
@@ -20,7 +21,7 @@ public final class GeneComponentModelImgType extends GeneComponentModelEntity<St
         buildKey(_select, getSubscribedTranslationList().getFactoryTy(), getFacade().getData().getTypesColors().getKeys());
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(geneComponentModelSelectKey());
+        page_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_TYPES_NAME,geneComponentModelSelectKey()));
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
         red = compoFactory_.newSpinner(0,0,255,1);
@@ -30,7 +31,7 @@ public final class GeneComponentModelImgType extends GeneComponentModelEntity<St
         blue = compoFactory_.newSpinner(0,0,255,1);
         form_.add(blue);
         sc_.setViewportView(form_);
-        page_.add(sc_);
+        page_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_TYPES_COULOUR,sc_));
         return page_;
     }
 
