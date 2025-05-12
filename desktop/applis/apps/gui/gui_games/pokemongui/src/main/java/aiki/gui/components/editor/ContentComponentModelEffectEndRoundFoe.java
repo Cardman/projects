@@ -2,6 +2,7 @@ package aiki.gui.components.editor;
 
 import aiki.fight.moves.effects.*;
 import code.gui.*;
+import code.scripts.pages.aiki.*;
 
 public final class ContentComponentModelEffectEndRoundFoe {
     private GeneComponentModelRate inflictedRateHpTarget;
@@ -9,7 +10,7 @@ public final class ContentComponentModelEffectEndRoundFoe {
     AbsPanel effectForm(AbsGeneComponentModelEffect _core) {
         AbsPanel selected_ = _core.getProgramInfos().getCompoFactory().newLineBox();
         inflictedRateHpTarget = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(inflictedRateHpTarget.geneRate());
+        selected_.add(SubscribedTranslationList.line(_core.getProgramInfos(),MessagesPkBean.ENDROUND_FOE,MessagesDataEndroundFoe.M_P_5_FOE_INTRO,inflictedRateHpTarget.geneRate()));
         form = selected_;
         selected_.setVisible(false);
         return selected_;
