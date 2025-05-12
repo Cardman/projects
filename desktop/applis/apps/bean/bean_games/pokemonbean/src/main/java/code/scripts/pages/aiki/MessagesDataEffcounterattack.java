@@ -14,6 +14,7 @@ public final class MessagesDataEffcounterattack {
     public static final String M_P_44_FAIL_PROTECT="fail_protect";
     public static final String M_P_44_FORMULA="formula";
     public static final String M_P_44_SUFFERING_DIRECT="suffering_direct";
+    public static final String M_P_44_SUFFERING_DIRECT_INTRO="suffering_direct_intro";
     public static final String M_P_44_SUFFERING_TYPES="suffering_types";
     public static final String M_P_44_SUFFERING_TYPES_INTRO="suffering_types_intro";
     public static final String M_P_44_SUFFERING_TYPES_HP="suffering_types_hp";
@@ -33,6 +34,7 @@ public final class MessagesDataEffcounterattack {
         e_.add(M_P_44_FAIL_PROTECT,"While a pokemon uses a move against the user of the move {0}, the protection of the effect fails if and only if one of the conditions is checked:");
         e_.add(M_P_44_FORMULA,"{0}");
         e_.add(M_P_44_SUFFERING_DIRECT,"While a pokemon uses a move against the user of this move with a direct move, the rate of lost life is {0}.");
+        e_.add(M_P_44_SUFFERING_DIRECT_INTRO,"While a pokemon uses a move against the user of this move with a direct move, the rate of lost life is:");
         e_.add(M_P_44_SUFFERING_TYPES,"While a pokemon uses a move against the user of the move {0}, it loose health points in function by the types of the used move (damage is added if there is some types for the move):");
         e_.add(M_P_44_SUFFERING_TYPES_INTRO,"While a pokemon uses a move against the user of this move, it loose health points in function by the types of the used move (damage is added if there is some types for the move):");
         e_.add(M_P_44_SUFFERING_TYPES_HP,"Rate of lost life");
@@ -52,6 +54,7 @@ public final class MessagesDataEffcounterattack {
         f_.add(M_P_44_FAIL_PROTECT,"Lorsqu''un pokemon attaque le lanceur de l''attaque {0}, la protection de l''effet échoue si et seulement si une des conditions est vérifiée:");
         f_.add(M_P_44_FORMULA,"{0}");
         f_.add(M_P_44_SUFFERING_DIRECT,"Lorsqu''un pokemon adverse attaque le lanceur de cette attaque avec une attaque directe, le taux de vie perdue est de {0}.");
+        f_.add(M_P_44_SUFFERING_DIRECT_INTRO,"Lorsqu'un pokemon adverse attaque le lanceur de cette attaque avec une attaque directe, le taux de vie perdue est de:");
         f_.add(M_P_44_SUFFERING_TYPES,"Lorsqu''un pokemon adverse attaque le lanceur de l''attaque {0}, il perd des dégâts en fonction des types de l''attaque utilisée (les dégâts sont cumules s''il y a plusieurs types pour l''attaque):");
         f_.add(M_P_44_SUFFERING_TYPES_INTRO,"Lorsqu'un pokemon adverse attaque le lanceur de cette attaque, il perd des dégâts en fonction des types de l'attaque utilisée (les dégâts sont cumules s'il y a plusieurs types pour l'attaque):");
         f_.add(M_P_44_SUFFERING_TYPES_HP,"Taux de vie perdue");

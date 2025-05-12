@@ -25,7 +25,7 @@ public final class ContentComponentModelEffectCounterAttack {
         selected_.add(line(_core,MessagesDataEffcounterattack.M_P_44_FAILS_COUNTER,counterFail.geneEnum()));
         counterFail.addComplete();
         sufferingDamageDirectMove = new GeneComponentModelRate(_core.getProgramInfos());
-        selected_.add(sufferingDamageDirectMove.geneRate());
+        selected_.add(line(_core,MessagesDataEffcounterattack.M_P_44_SUFFERING_DIRECT_INTRO,sufferingDamageDirectMove.geneRate()));
         sufferingDamageTypes = new CrudGeneFormSimpleFormSub<String, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         sufferingDamageTypes.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryTy(), _core.getProgramInfos(), _core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryTy(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_COUNTERATTACK,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_T,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_HP);
         selected_.add(line(_core,MessagesDataEffcounterattack.M_P_44_SUFFERING_TYPES_INTRO,sufferingDamageTypes.getGroup()));
