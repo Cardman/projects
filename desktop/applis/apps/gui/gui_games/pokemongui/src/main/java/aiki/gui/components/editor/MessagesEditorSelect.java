@@ -4,6 +4,7 @@ import aiki.db.*;
 import code.sml.util.*;
 
 public final class MessagesEditorSelect {
+    public static final String EVO_TYPE = "_";
     public static final String EVO_LEVEL_SIMPLE = "0";
     public static final String EVO_LEVEL_GENDER = "1";
     public static final String EVO_STONE_SIMPLE = "2";
@@ -91,6 +92,7 @@ public final class MessagesEditorSelect {
     public static final String SPACE_LEFT = "2";
     public static final String SPACE_TOP = "3";
     public static final String SIDE_LENGTH = "4";
+    public static final String IT_KIND = "5";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -133,6 +135,7 @@ public final class MessagesEditorSelect {
     }
     public static TranslationsFile enEvo(){
         TranslationsFile e_ = new TranslationsFile();
+        e_.add(EVO_TYPE, "type of evolution");
         e_.add(EVO_LEVEL_SIMPLE, "evolution by level");
         e_.add(EVO_LEVEL_GENDER, "evolution by level and gender");
         e_.add(EVO_STONE_SIMPLE, "evolution by stone");
@@ -146,6 +149,7 @@ public final class MessagesEditorSelect {
     }
     public static TranslationsFile frEvo(){
         TranslationsFile f_ = new TranslationsFile();
+        f_.add(EVO_TYPE, "type d'évolution");
         f_.add(EVO_LEVEL_SIMPLE, "évolution par niveau");
         f_.add(EVO_LEVEL_GENDER, "évolution par niveau et genre");
         f_.add(EVO_STONE_SIMPLE, "évolution par pierre");
@@ -484,6 +488,7 @@ public final class MessagesEditorSelect {
         e_.add(SPACE_LEFT,"space between hero and left");
         e_.add(SPACE_TOP,"space between hero and top");
         e_.add(SIDE_LENGTH,"number of pixels in a tile");
+        e_.add(IT_KIND,"kind of item");
         return e_;
     }
     public static TranslationsFile frDataMapGene() {
@@ -493,6 +498,7 @@ public final class MessagesEditorSelect {
         f_.add(SPACE_LEFT,"espace entre le héros et la gauche");
         f_.add(SPACE_TOP,"espace entre le héros et le haut");
         f_.add(SIDE_LENGTH,"nombre de pixels dans une tuile");
+        f_.add(IT_KIND,"type d'objet");
         return f_;
     }
 }

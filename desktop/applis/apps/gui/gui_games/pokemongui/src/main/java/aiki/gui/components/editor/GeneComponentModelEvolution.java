@@ -50,7 +50,7 @@ public final class GeneComponentModelEvolution implements ChangeableFormType{
         AbsCompoFactory compoFactory_ = programInfos.getCompoFactory();
         AbsPanel evoForm_ = compoFactory_.newLineBox();
         AbsPanel selected_ = compoFactory_.newLineBox();
-        evoForm_.add(evolutionKind.geneEnum());
+        evoForm_.add(SubscribedTranslationList.line(programInfos,MessagesPkEditor.getMessagesEditorSelectEvoTr(MessagesPkEditor.getAppliTr(programInfos.currentLg())),MessagesEditorSelect.EVO_TYPE,evolutionKind.geneEnum()));
         evoForm_.add(selected_);
         compoLevel = line(MessagesDataPokemonData.M_P_72_EVO_LEVEL,level.geneLong());
         compoLevel.setVisible(false);
