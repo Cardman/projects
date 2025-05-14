@@ -65,7 +65,7 @@ public final class GeneComponentModelPokemonData extends GeneComponentModelEntit
         hiddenMoves = ConverterCommonMapUtil.buildHmList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(geneComponentModelSelectKey());
+        page_.add(line(MessagesDataPokemonData.M_P_72_NAME_INTRO,geneComponentModelSelectKey()));
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(line(MessagesDataPokemonData.M_P_72_WEIGHT_INTRO, weight.geneRate()));

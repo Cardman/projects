@@ -51,6 +51,7 @@ public final class MessagesDataMovesData {
     public static final String M_P_35_ITEMS_AFFECT="items_affect";
     public static final String M_P_35_LEARNING_MOVE="learning_move";
     public static final String M_P_35_MOVES="moves";
+    public static final String M_P_35_NAME="name";
     public static final String M_P_35_NB_ROUNDS="nb_rounds";
     public static final String M_P_35_OTHER_ITEM="other_item";
     public static final String M_P_35_OTHER_WEATHER="other_weather";
@@ -156,6 +157,7 @@ public final class MessagesDataMovesData {
         e_.add(M_P_35_ITEMS_AFFECT,"The items protecting the pokemon against this move are the following one:");
         e_.add(M_P_35_LEARNING_MOVE,"Pokemon learning the move");
         e_.add(M_P_35_MOVES,"Moves");
+        e_.add(M_P_35_NAME,"Name");
         e_.add(M_P_35_NB_ROUNDS,"Number of rounds");
         e_.add(M_P_35_OTHER_ITEM,"Other item or no item");
         e_.add(M_P_35_OTHER_WEATHER,"Other weather or no weather");
@@ -261,6 +263,7 @@ public final class MessagesDataMovesData {
         f_.add(M_P_35_ITEMS_AFFECT,"Les objets immunisant les pokémons à cette attaque sont les suivants:");
         f_.add(M_P_35_LEARNING_MOVE,"Pokémon apprenant l'attaque");
         f_.add(M_P_35_MOVES,"Attaques");
+        f_.add(M_P_35_NAME,"Nom");
         f_.add(M_P_35_NB_ROUNDS,"Nombre de tours");
         f_.add(M_P_35_OTHER_ITEM,"Autre objet ou pas d'objet");
         f_.add(M_P_35_OTHER_WEATHER,"Autre climat ou pas de climat");

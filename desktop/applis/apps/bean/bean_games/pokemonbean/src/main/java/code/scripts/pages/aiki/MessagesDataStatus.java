@@ -27,6 +27,7 @@ public final class MessagesDataStatus {
     public static final String M_P_88_MULT_STAT="mult_stat";
     public static final String M_P_88_MULT_STAT_KEY="mult_stat_key";
     public static final String M_P_88_MULT_STAT_VALUE="mult_stat_value";
+    public static final String M_P_88_NAME="name";
     public static final String M_P_88_NOT_ATTACK="not_attack";
     public static final String M_P_88_NOT_ATTACK_FOE="not_attack_foe";
     public static final String M_P_88_PARTNERS="partners";
@@ -73,6 +74,7 @@ public final class MessagesDataStatus {
         e_.add(M_P_88_MULT_STAT,"The statistics of the owner are multiplied in the following way:");
         e_.add(M_P_88_MULT_STAT_KEY,"Statistic");
         e_.add(M_P_88_MULT_STAT_VALUE,"Rate");
+        e_.add(M_P_88_NAME,"Name");
         e_.add(M_P_88_NOT_ATTACK,"The owner cannot act its round.");
         e_.add(M_P_88_NOT_ATTACK_FOE,"The owner cannot use a move against a target in relation with the owner.");
         e_.add(M_P_88_PARTNERS,"Effects on partners:");
@@ -119,6 +121,7 @@ public final class MessagesDataStatus {
         f_.add(M_P_88_MULT_STAT,"Les statistiques du porteur sont multipliées de la façon suivante:");
         f_.add(M_P_88_MULT_STAT_KEY,"Statistique");
         f_.add(M_P_88_MULT_STAT_VALUE,"Coefficient");
+        f_.add(M_P_88_NAME,"Nom");
         f_.add(M_P_88_NOT_ATTACK,"Le porteur ne peut pas entamer son tour.");
         f_.add(M_P_88_NOT_ATTACK_FOE,"Le porteur ne peut pas utiliser une attaque sur une cible en relation avec le porteur.");
         f_.add(M_P_88_PARTNERS,"Effets sur les partenaires:");

@@ -46,6 +46,7 @@ public final class MessagesDataPokemonData {
     public static final String M_P_72_MOVE_TUTORS="move_tutors";
     public static final String M_P_72_MOVE_TUTORS_INTRO="move_tutors_intro";
     public static final String M_P_72_NAME="name";
+    public static final String M_P_72_NAME_INTRO="name_intro";
     public static final String M_P_72_POKEDEX="pokedex";
     public static final String M_P_72_PTS_EXP="pts_exp";
     public static final String M_P_72_PTS_EXP_INTRO="pts_exp_intro";
@@ -120,6 +121,7 @@ public final class MessagesDataPokemonData {
         e_.add(M_P_72_MOVE_TUTORS,"{0} can learn the following moves by tutor:");
         e_.add(M_P_72_MOVE_TUTORS_INTRO,"Learnt moves by tutor:");
         e_.add(M_P_72_NAME,"The name of the pokemon is {0}.");
+        e_.add(M_P_72_NAME_INTRO,"Name");
         e_.add(M_P_72_POKEDEX,"Pokedex");
         e_.add(M_P_72_PTS_EXP,"{0} has for base of experience points by being a wild pokemon: {1}.");
         e_.add(M_P_72_PTS_EXP_INTRO,"Base of experience points by being a wild pokemon:");
@@ -194,6 +196,7 @@ public final class MessagesDataPokemonData {
         f_.add(M_P_72_MOVE_TUTORS,"{0} peut apprendre les attaques par tuteur suivants:");
         f_.add(M_P_72_MOVE_TUTORS_INTRO,"Attaques apprises par tuteur:");
         f_.add(M_P_72_NAME,"Le pokémon a pour nom {0}.");
+        f_.add(M_P_72_NAME_INTRO,"Nom");
         f_.add(M_P_72_POKEDEX,"Pokedex");
         f_.add(M_P_72_PTS_EXP,"{0} a pour base de points d''expérience en tant que pokémon sauvage: {1}.");
         f_.add(M_P_72_PTS_EXP_INTRO,"Base de points d'expérience en tant que pokémon sauvage:");

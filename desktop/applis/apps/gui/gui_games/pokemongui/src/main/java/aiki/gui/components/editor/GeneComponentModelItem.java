@@ -42,7 +42,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(geneComponentModelSelectKey());
+        page_.add(line(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_NAME,geneComponentModelSelectKey()));
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
         form_.add(line(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_PRICE_INTRO,price.geneLong()));

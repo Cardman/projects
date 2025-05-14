@@ -107,7 +107,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(geneComponentModelSelectKey());
+        page_.add(line(MessagesDataAbilityData.M_P_1_MAME,geneComponentModelSelectKey()));
         AbsPanel form_ = compoFactory_.newLineBox();
         breakFoeImmune = new CrudGeneFormSimpleElementSub<TypesDuo>(getCompoFactory(),getFacade(),getSubscribedTranslationList(), getFrame());
         breakFoeImmune.initForm(new DisplayEntryCustSubElementTypesDuoElt(getCompoFactory(),getFacade(),getSubscribedTranslationList()),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(getCompoFactory(),getFacade(),getSubscribedTranslationList(),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_BREAK_FOE_IMMUNE_KEY,MessagesDataAbilityData.M_P_1_BREAK_FOE_IMMUNE_VALUE)));

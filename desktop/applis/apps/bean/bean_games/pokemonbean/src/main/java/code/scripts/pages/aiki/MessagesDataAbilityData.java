@@ -166,6 +166,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_MULT_VAR_BOOST="mult_var_boost";
     public static final String M_P_1_MULT_VAR_BOOST_INTRO="mult_var_boost_intro";
     public static final String M_P_1_MUMY="mumy";
+    public static final String M_P_1_MAME="name";
     public static final String M_P_1_NB_HITS="nb_hits";
     public static final String M_P_1_NB_USED_PP="nb_used_pp";
     public static final String M_P_1_NB_USED_PP_INTRO="nb_used_pp_intro";
@@ -363,6 +364,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_MULT_VAR_BOOST,"The ability is enabled while the level of a statistic of the owner varies.\nThe variation of level of statistics (added the accuracy and the evasiness) is multiplied by {0}.");
         e_.add(M_P_1_MULT_VAR_BOOST_INTRO,"The variation of level of statistics (added the accuracy and the evasiness) is multiplied by:");
         e_.add(M_P_1_MUMY,"The ability is enabled while the owner uses a direct move.\nThe target of the move used by the owner takes the ability of the owner, until the exit of the target.");
+        e_.add(M_P_1_MAME,"Name");
         e_.add(M_P_1_NB_HITS,"The ability is enabled while the user uses a move.\nFoe a move able to inflict several hits during the round of a user, the number of hits is maximal for an owner of this ability.");
         e_.add(M_P_1_NB_USED_PP,"The ability is enabled while a foe fighter uses a direct move against the owner.\nIf a move is successful and affects the owner of this ability and if the user of the move is not a partner of the owner of this ability, then the number of additional PP used by the user of the move against the owner of this ability is the number of foe targets with this ability multiplied by {0}.");
         e_.add(M_P_1_NB_USED_PP_INTRO,"If a move is successful and affects the owner of this ability and if the user of the move is not a partner of the owner of this ability, then the number of additional PP used by the user of the move against the owner of this ability is the number of foe targets with this ability multiplied by:");
@@ -545,6 +547,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_MULT_VAR_BOOST,"La capacité est activée lorsqu''une des statistiques du possesseur varie.\nLa variation de cran de boost de statistiques (y compris la précision et l''esquive) est multipliée par {0}.");
         f_.add(M_P_1_MULT_VAR_BOOST_INTRO,"La variation de cran de boost de statistiques (y compris la précision et l'esquive) est multipliée par:");
         f_.add(M_P_1_MUMY,"La capacité est activée lorsque le possesseur utilise une attaque de contact.\nLa cible de l'attaque lancée par le possesseur prend la capacité du possesseur, jusqu'au retrait de la cible.");
+        f_.add(M_P_1_MAME,"Nom");
         f_.add(M_P_1_NB_HITS,"La capacité est activée lorsque le possesseur attaque.\nPour une attaque pouvant infliger plusieurs coups pendant le tour d'un lanceur, le nombre de coups est maximal pour un possesseur de cette capacité.");
         f_.add(M_P_1_NB_USED_PP,"La capacité est activée lorsque le possesseur est attaqué directement par un combattant adverse.\nSi une attaque réussit et affecte le possesseur de cette capacité et si le lanceur de l''attaque ne fait pas partie de la même équipe que le possesseur de cette capacité, alors le nombre de PP supplémentaires utilisés par le lanceur de l''attaque sur le possesseur de cette capacité est multiplié par le nombre de cibles adverses ayant cette capacité facteur de {0}.");
         f_.add(M_P_1_NB_USED_PP_INTRO,"Si une attaque réussit et affecte le possesseur de cette capacité et si le lanceur de l'attaque ne fait pas partie de la même équipe que le possesseur de cette capacité, alors le nombre de PP supplémentaires utilisés par le lanceur de l'attaque sur le possesseur de cette capacité est multiplié par le nombre de cibles adverses ayant cette capacité facteur de:");

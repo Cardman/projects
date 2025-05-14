@@ -50,7 +50,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         AbsCompoFactory compoFactory_ = getCompoFactory().getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
-        page_.add(geneComponentModelSelectKey());
+        page_.add(line(MessagesDataStatus.M_P_88_NAME,geneComponentModelSelectKey()));
         AbsPanel form_ = compoFactory_.newLineBox();
         form_.add(getEffectKind().geneEnum());
 
