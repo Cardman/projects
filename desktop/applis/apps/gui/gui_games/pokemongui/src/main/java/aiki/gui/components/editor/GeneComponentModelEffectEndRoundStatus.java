@@ -27,7 +27,7 @@ public final class GeneComponentModelEffectEndRoundStatus extends AbsGeneCompone
         init(filtered_);
         AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(getEffectKind().geneEnum());
+        form_.add(SubscribedTranslationList.line(getProgramInfos(),MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())),MessagesEditorSelect.EFF_TYPE,getEffectKind().geneEnum()));
         form_.add(contentEffect.effectForm(this));
         contentGroupEffectEndRound.effectForm(form_,this);
         contentGroupEffectEndRoundStatus.effectForm(form_,this);

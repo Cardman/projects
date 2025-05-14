@@ -50,7 +50,7 @@ public final class GeneComponentModelEffect extends AbsGeneComponentModelEffect 
         init(MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())).getMapping());
         AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(getEffectKind().geneEnum());
+        form_.add(SubscribedTranslationList.line(getProgramInfos(),MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())),MessagesEditorSelect.EFF_TYPE,getEffectKind().geneEnum()));
         form_.add(contentEffect.effectForm(this));
         form_.add(contentEffectAlly.effectForm(this));
         form_.add(contentEffectClone.effectForm(this));

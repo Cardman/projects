@@ -21,7 +21,7 @@ public final class GeneComponentModelEffectEndRoundFoe extends AbsGeneComponentM
         init(MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())).getMapping());
         AbsCompoFactory compoFactory_ = getProgramInfos().getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(getEffectKind().geneEnum());
+        form_.add(SubscribedTranslationList.line(getProgramInfos(),MessagesPkEditor.getMessagesEditorSelectEffectTr(MessagesPkEditor.getAppliTr(getProgramInfos().currentLg())),MessagesEditorSelect.EFF_TYPE,getEffectKind().geneEnum()));
         form_.add(contentEffect.effectForm(this));
         form_.add(contentEffectEndRound.effectForm(this));
         form_.add(contentEffectEndRoundFoe.effectForm(this));

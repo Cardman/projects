@@ -13,6 +13,7 @@ public final class MessagesEditorSelect {
     public static final String EVO_MOVE = "6";
     public static final String EVO_MOVE_TYPE = "7";
     public static final String EVO_TEAM = "8";
+    public static final String EFF_TYPE = "_";
     public static final String EFF_ACCURACY = "0";
     public static final String EFF_ALLY = "1";
     public static final String EFF_BATON_PASS = "2";
@@ -158,6 +159,7 @@ public final class MessagesEditorSelect {
     }
     public static TranslationsFile enEff(){
         TranslationsFile e_ = new TranslationsFile();
+        e_.add(EFF_TYPE,"Type of effect");
         e_.add(EFF_ACCURACY,"Achieve targets disappearing during the next round this effect.");
         e_.add(EFF_ALLY,"Lets the partner to get bonuses.");
         e_.add(EFF_BATON_PASS,"Forwards levels of statistics.");
@@ -205,6 +207,7 @@ public final class MessagesEditorSelect {
     }
     public static TranslationsFile frEff(){
         TranslationsFile f_ = new TranslationsFile();
+        f_.add(EFF_TYPE,"Type d'effet");
         f_.add(EFF_ACCURACY,"Permet de toucher des cibles disparaissant pendant le tour suivant cet effet.");
         f_.add(EFF_ALLY,"Permet au partenaire d'obtenir des bonus.");
         f_.add(EFF_BATON_PASS,"Transmet les boosts des statistiques.");
