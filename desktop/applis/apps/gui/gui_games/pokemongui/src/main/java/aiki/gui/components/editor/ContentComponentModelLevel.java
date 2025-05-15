@@ -86,9 +86,9 @@ public final class ContentComponentModelLevel {
         removeTile = compoFactory_.newPlainButton("-");
         _form.add(removeTile);
         deltaWidth = compoFactory_.newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
-        _form.add(deltaWidth);
+        _form.add(SubscribedTranslationList.line(level.getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())),MessagesEditorSelect.DELTA_WIDTH,deltaWidth));
         deltaHeight = compoFactory_.newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
-        _form.add(deltaHeight);
+        _form.add(SubscribedTranslationList.line(level.getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())),MessagesEditorSelect.DELTA_HEIGHT,deltaHeight));
         moveTile = compoFactory_.newPlainButton("=>");
         _form.add(moveTile);
     }

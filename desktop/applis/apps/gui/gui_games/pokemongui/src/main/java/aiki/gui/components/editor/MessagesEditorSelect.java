@@ -92,7 +92,12 @@ public final class MessagesEditorSelect {
     public static final String SPACE_LEFT = "2";
     public static final String SPACE_TOP = "3";
     public static final String SIDE_LENGTH = "4";
-    public static final String IT_KIND = "5";
+    public static final String GYM_CHECK = "0";
+    public static final String DETAIL_TILE_BUILDING = "1";
+    public static final String IT_KIND = "2";
+    public static final String GER_KIND = "3";
+    public static final String DELTA_WIDTH = "4";
+    public static final String DELTA_HEIGHT = "5";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -488,7 +493,6 @@ public final class MessagesEditorSelect {
         e_.add(SPACE_LEFT,"space between hero and left");
         e_.add(SPACE_TOP,"space between hero and top");
         e_.add(SIDE_LENGTH,"number of pixels in a tile");
-        e_.add(IT_KIND,"kind of item");
         return e_;
     }
     public static TranslationsFile frDataMapGene() {
@@ -498,7 +502,26 @@ public final class MessagesEditorSelect {
         f_.add(SPACE_LEFT,"espace entre le héros et la gauche");
         f_.add(SPACE_TOP,"espace entre le héros et le haut");
         f_.add(SIDE_LENGTH,"nombre de pixels dans une tuile");
+        return f_;
+    }
+    public static TranslationsFile enDataMapLev() {
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(GYM_CHECK,"The building is a gym");
+        e_.add(DETAIL_TILE_BUILDING,"Detail of the tile in the building");
+        e_.add(IT_KIND,"kind of item");
+        e_.add(GER_KIND,"kind of gerant");
+        e_.add(DELTA_WIDTH,"width of the rectangle");
+        e_.add(DELTA_HEIGHT,"height of the rectangle");
+        return e_;
+    }
+    public static TranslationsFile frDataMapLev() {
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(GYM_CHECK,"Le bâtiment est une arène");
+        f_.add(DETAIL_TILE_BUILDING,"Détail de la tuile dans le bâtiment");
         f_.add(IT_KIND,"type d'objet");
+        f_.add(GER_KIND,"type de gérant");
+        f_.add(DELTA_WIDTH,"largeur du rectangle");
+        f_.add(DELTA_HEIGHT,"hauteur du rectangle");
         return f_;
     }
 }

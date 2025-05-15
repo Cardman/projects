@@ -23,6 +23,7 @@ public final class MessagesPkEditor {
     public static final String PC_TILE = "pc_tile";
     public static final String LEAGUE_TILE = "league_tile";
     public static final String DATA_MAP_GENE = "data_map_gene";
+    public static final String DATA_MAP_LEV = "data_map_lev";
     private MessagesPkEditor() {
     }
 
@@ -56,6 +57,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectTileKindPc(_lgs,MessagesEditorSelect.enPcTileKindWild());
         appendMessagesEditorSelectTileKindLeague(_lgs,MessagesEditorSelect.enLeagueTile());
         appendMessagesEditorSelectDataMapGene(_lgs,MessagesEditorSelect.enDataMapGene());
+        appendMessagesEditorSelectDataMapLev(_lgs,MessagesEditorSelect.enDataMapLev());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -78,6 +80,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectTileKindPc(_lgs,MessagesEditorSelect.frPcTileKindWild());
         appendMessagesEditorSelectTileKindLeague(_lgs,MessagesEditorSelect.frLeagueTile());
         appendMessagesEditorSelectDataMapGene(_lgs,MessagesEditorSelect.frDataMapGene());
+        appendMessagesEditorSelectDataMapLev(_lgs,MessagesEditorSelect.frDataMapLev());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -142,6 +145,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectDataMapGene(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(DATA_MAP_GENE, _f);
     }
+    public static void appendMessagesEditorSelectDataMapLev(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(DATA_MAP_LEV, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -198,5 +204,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectDataMapGeneTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(DATA_MAP_GENE);
+    }
+    public static TranslationsFile getMessagesEditorSelectDataMapLevTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(DATA_MAP_LEV);
     }
 }

@@ -44,7 +44,7 @@ public final class GeneComponentModelItem extends GeneComponentModelEntity<Item>
         AbsPanel page_ = compoFactory_.newPageBox();
         page_.add(line(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_NAME,geneComponentModelSelectKey()));
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapGeneTr(MessagesPkEditor.getAppliTr(getCompoFactory().currentLg())),MessagesEditorSelect.IT_KIND,getEffectKind().geneEnum()));
+        form_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getCompoFactory().currentLg())),MessagesEditorSelect.IT_KIND,getEffectKind().geneEnum()));
         form_.add(line(MessagesPkBean.IT_ITEM,MessagesDataItemsItem.M_P_27_PRICE_INTRO,price.geneLong()));
         ballForm = compoFactory_.newLineBox();
         catchingRate = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());

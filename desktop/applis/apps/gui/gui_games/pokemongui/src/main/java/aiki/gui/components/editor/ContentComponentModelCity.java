@@ -77,7 +77,7 @@ public final class ContentComponentModelCity {
             AbsCompoFactory compoFactory_ = contentLevelOutdoor.getLevel().getApi().getCompoFactory();
             AbsPanel form_ = compoFactory_.newPageBox();
             gym = compoFactory_.newCustCheckBox();
-            form_.add(gym);
+            form_.add(SubscribedTranslationList.line(contentLevelOutdoor.getLevel().getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())),MessagesEditorSelect.GYM_CHECK,gym));
             createBuilding = compoFactory_.newPlainButton("+");
             createBuilding.addActionListener(new BuildingKindChoiceEvent(this));
             form_.add(createBuilding);
@@ -127,7 +127,7 @@ public final class ContentComponentModelCity {
         contentLevelOutdoor.getTranslations().addAllElts(next_);
         contentLevelBuilding.setFore(contentLevelOutdoor.getLevel().getApi().getCompoFactory().newAbsScrollPane());
         contentLevelBuilding.getLevel().getForm().add(contentLevelBuilding.getFore());
-        form_.add(contentLevelBuilding.getLevel().getForm());
+        form_.add(SubscribedTranslationList.line(contentLevelOutdoor.getLevel().getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())),MessagesEditorSelect.DETAIL_TILE_BUILDING,contentLevelBuilding.getLevel().getForm()));
         contentLevelOutdoor.initRemove(form_);
         contentLevelOutdoor.getMoveTile().addActionListener(new MoveBuildingTileEvent(this));
         contentLevelOutdoor.getRemoveTile().addActionListener(new RemoveBuildingTileEvent(this));
