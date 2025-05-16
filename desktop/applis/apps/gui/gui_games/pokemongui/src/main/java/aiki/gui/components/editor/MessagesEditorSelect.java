@@ -108,6 +108,10 @@ public final class MessagesEditorSelect {
     public static final String AREA_STEP = "13";
     public static final String SOLD_IT = "14";
     public static final String ST_KIND = "15";
+    public static final String UNIQ_LEFT = "16";
+    public static final String UNIQ_RIGHT = "17";
+    public static final String UNIQ_VIEW_LEFT = "18";
+    public static final String UNIQ_VIEW_RIGHT = "19";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -532,6 +536,10 @@ public final class MessagesEditorSelect {
         e_.add(AREA_STEP,"number of steps");
         e_.add(SOLD_IT,"kind of sold items");
         e_.add(ST_KIND,"kind of status");
+        e_.add(UNIQ_LEFT,"left list of single level place");
+        e_.add(UNIQ_RIGHT,"right list of single level place");
+        e_.add(UNIQ_VIEW_LEFT,"left single view");
+        e_.add(UNIQ_VIEW_RIGHT,"right single view");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -552,6 +560,10 @@ public final class MessagesEditorSelect {
         f_.add(AREA_STEP,"number de pas");
         f_.add(SOLD_IT,"type d'objets vendus");
         f_.add(ST_KIND,"type de statut");
+        f_.add(UNIQ_LEFT,"liste à gauche des lieux à niveau unique");
+        f_.add(UNIQ_RIGHT,"liste à droite des lieux à niveau unique");
+        f_.add(UNIQ_VIEW_LEFT,"vue du niveau unique à gauche");
+        f_.add(UNIQ_VIEW_RIGHT,"vue du niveau unique à droite");
         return f_;
     }
 }

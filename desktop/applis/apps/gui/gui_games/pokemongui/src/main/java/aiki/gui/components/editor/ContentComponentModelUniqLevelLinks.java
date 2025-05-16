@@ -84,8 +84,10 @@ public final class ContentComponentModelUniqLevelLinks {
         }
         left = new GeneComponentModelLs<EditedCrudPair<Coords, InitializedPlace>>(_core,messages);
         right = new GeneComponentModelLs<EditedCrudPair<Coords, InitializedPlace>>(_core,messages);
-        form_.add(left.buildLs());
-        form_.add(right.buildLs());
+        AbsPanel lists_ = _core.getCompoFactory().newLineBox();
+        lists_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.UNIQ_LEFT,left.buildLs()));
+        lists_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.UNIQ_RIGHT,right.buildLs()));
+        form_.add(lists_);
         joinPlacesButton = _core.getCompoFactory().newPlainButton(">-<");
         joinPlacesButton.addActionListener(new JoinPlacesEvent(this));
         form_.add(joinPlacesButton);
@@ -98,14 +100,24 @@ public final class ContentComponentModelUniqLevelLinks {
         close = _core.getCompoFactory().newPlainButton("\u23F9");
         close.addActionListener(new CloseLinksFormEvent(_par));
         form_.add(getClose());
+        AbsPanel viewLeft_ = _core.getCompoFactory().newPageBox();
+        AbsPanel viewRight_ = _core.getCompoFactory().newPageBox();
+        AbsPanel views_ = _core.getCompoFactory().newLineBox();
+        viewLeft_.add(_core.getCompoFactory().newPlainLabel(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.UNIQ_VIEW_LEFT)));
+        viewRight_.add(_core.getCompoFactory().newPlainLabel(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.UNIQ_VIEW_RIGHT)));
         leftScroll = _core.getCompoFactory().newAbsScrollPane();
         rightScroll = _core.getCompoFactory().newAbsScrollPane();
-        form_.add(leftScroll);
-        form_.add(rightScroll);
+        viewLeft_.add(leftScroll);
+        viewRight_.add(rightScroll);
+        views_.add(viewLeft_);
+        views_.add(viewRight_);
+        form_.add(views_);
+        AbsPanel buttons_ = _core.getCompoFactory().newLineBox();
         buttonsLeft = _core.getCompoFactory().newPageBox();
         buttonsRight = _core.getCompoFactory().newPageBox();
-        form_.add(buttonsLeft);
-        form_.add(buttonsRight);
+        buttons_.add(buttonsLeft);
+        buttons_.add(buttonsRight);
+        form_.add(buttons_);
         return _core.getCompoFactory().newAbsScrollPane(form_);
     }
 
