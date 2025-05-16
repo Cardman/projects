@@ -18,7 +18,7 @@ public final class ContentComponentModelSeller {
     AbsPanel effectForm(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, FormLevelGrid _grid) {
         AbsPanel selected_ = _core.getCompoFactory().newLineBox();
         kind = new GeneComponentModelElt<String>(_core, MessagesPkEditor.getMessagesEditorSelectTileKindSellTypeTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping(), new EmptyDefValue());
-        selected_.add(kind.geneEnum());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.SOLD_IT,kind.geneEnum()));
         kind.setupValue(MessagesEditorSelect.SELL_TYPE_ITEM);
         miniFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverMiniSub());
         selected_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,miniFileName.gene()));

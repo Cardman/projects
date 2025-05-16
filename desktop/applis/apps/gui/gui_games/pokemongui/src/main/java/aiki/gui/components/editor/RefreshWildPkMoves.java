@@ -5,6 +5,7 @@ import aiki.fight.pokemon.*;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class RefreshWildPkMoves implements SubscribedTranslation, AbsChangeListener, ListSelection {
@@ -43,6 +44,7 @@ public final class RefreshWildPkMoves implements SubscribedTranslation, AbsChang
         }
         StringList movesAtLevel_ = pokemon_.getMovesAtLevel(_grid.getLevel().valueLong(), _facadeGame.getData().getNbMaxMoves());
         AbsPanel absPanel_ = _api.getCompoFactory().newPageBox();
+        absPanel_.setTitledBorder(SubscribedTranslationList.formatTxt(_api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MOVES));
         StringList all_ = new StringList();
         for (String m: movesAtLevel_) {
             all_.add(_facadeGame.getData().getTranslatedMoves().getVal(_api.getLanguage()).getVal(m));

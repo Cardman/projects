@@ -52,7 +52,7 @@ public final class GeneComponentModelStatus extends GeneComponentModelEntity<Sta
         AbsPanel page_ = compoFactory_.newPageBox();
         page_.add(line(MessagesDataStatus.M_P_88_NAME,geneComponentModelSelectKey()));
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(getEffectKind().geneEnum());
+        form_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getCompoFactory().currentLg())),MessagesEditorSelect.ST_KIND,getEffectKind().geneEnum()));
 
         auto = compoFactory_.newLineBox();
         attack = ConverterCommonMapUtil.buildStatisticsElt(getCompoFactory(),getFacade(),getSubscribedTranslationList());

@@ -21,7 +21,7 @@ public final class ContentComponentModelTrainerMultiFights {
         _grid.subs(group_);
         teams = new CrudGeneFormSimpleElement<PokemonTeam>(_core,_fac,_fact,_fr);
         teams.initForm(new DisplayEntryCustSubElementEffect<PokemonTeam>(),_core,new GeneComponentModelSubscribeFactoryDirect<PokemonTeam>(new GeneComponentModelSubscribePokemonTeam(_fr,_core,_fac,_fact)));
-        selected_.add(teams.getGroup());
+        selected_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.TEAMS,teams.getGroup()));
         return selected_;
     }
     TrainerMultiFights buildEntity() {

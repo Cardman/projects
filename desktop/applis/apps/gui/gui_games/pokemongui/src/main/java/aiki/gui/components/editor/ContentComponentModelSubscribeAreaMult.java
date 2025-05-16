@@ -15,10 +15,10 @@ public final class ContentComponentModelSubscribeAreaMult {
         form = _core.getCompoFactory().newPageBox();
         walk = new CrudGeneFormSimpleElementSub<CustList<WildPk>>(_core, _fac, _fact, _f);
         walk.initForm(new DisplayEntryCustSubElementEffect<CustList<WildPk>>(),new GeneComponentModelSubscribeFactoryDirect<CustList<WildPk>>(new GeneComponentModelSubscribeWildPkList(_core, _fac, _fact, _f)));
-        form.add(walk.getGroup());
+        form.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.AREA_WALK,walk.getGroup()));
         fish = new CrudGeneFormSimpleElementSub<CustList<WildPk>>(_core, _fac, _fact, _f);
         fish.initForm(new DisplayEntryCustSubElementEffect<CustList<WildPk>>(),new GeneComponentModelSubscribeFactoryDirect<CustList<WildPk>>(new GeneComponentModelSubscribeWildPkList(_core, _fac, _fact, _f)));
-        form.add(fish.getGroup());
+        form.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.AREA_FISH,fish.getGroup()));
         form.setVisible(false);
         return form;
     }

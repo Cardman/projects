@@ -31,8 +31,8 @@ public final class GeneComponentModelSubscribeArea implements AbsGeneComponentMo
         AbsPanel page_ = compoFactory_.newPageBox();
         AbsPanel form_ = compoFactory_.newLineBox();
         avgNbSteps = new GeneComponentModelInt(api);
-        form_.add(avgNbSteps.geneInt());
-        form_.add(single);
+        form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.AREA_STEP,avgNbSteps.geneInt()));
+        form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.AREA_SINGLE,single));
         form_.add(simple.form(api,facadeGame,factory,frame));
         form_.add(mult.form(api,facadeGame,factory,frame));
         sc_.setViewportView(form_);

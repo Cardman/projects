@@ -34,6 +34,7 @@ public final class ContentComponentModelLevelWithWild {
         areas = new CrudGeneFormAbsAreaApparition(_core, _fac, _fact, _f);
         areas.initForm(_core,new GeneComponentModelSubscribeFactoryDirect<AbsAreaApparition>(new GeneComponentModelSubscribeArea(_f, _core, _fac, _fact)));
         form_.add(areas.getGroup());
+        form_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.AREAS));
         getAreas().setFormBlockTile(contentLevel.getLevel().getFormBlockTile());
         splitter = _core.getCompoFactory().newHorizontalSplitPane(scrollPane,_core.getCompoFactory().newAbsScrollPane(form_));
         contentLevel.getLevel().getTranslationList().setFormLevelGridUniq(null);
@@ -47,6 +48,7 @@ public final class ContentComponentModelLevelWithWild {
         contentLevel.setAccessCondition(ConverterCommonMapUtil.copyCoordsLists(contentLevel.getLevel().getFacadeGame().getMap().getAccessCondition()));
         contentLevel.setupGridDims(_coords, _pl, _wild);
         contentLevel.getLevel().getGrid().addMouseListener(new TileKindEvent(this));
+        contentLevel.getLevel().getForm().setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(contentLevel.getLevel().getApi().currentLg())).getMapping().getVal(MessagesEditorSelect.CONTENT_LEVEL));
         scrollPane.setViewportView(contentLevel.getLevel().getForm());
         getAreas().setBlocks(contentLevel.getLevel().getEdited());
     }

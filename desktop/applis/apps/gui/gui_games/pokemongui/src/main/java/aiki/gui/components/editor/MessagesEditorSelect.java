@@ -98,6 +98,16 @@ public final class MessagesEditorSelect {
     public static final String GER_KIND = "3";
     public static final String DELTA_WIDTH = "4";
     public static final String DELTA_HEIGHT = "5";
+    public static final String AREAS = "6";
+    public static final String CONTENT_LEVEL = "7";
+    public static final String TEAMS = "8";
+    public static final String AREA_WALK = "9";
+    public static final String AREA_FISH = "10";
+    public static final String AREA_MULT = "11";
+    public static final String AREA_SINGLE = "12";
+    public static final String AREA_STEP = "13";
+    public static final String SOLD_IT = "14";
+    public static final String ST_KIND = "15";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -512,6 +522,16 @@ public final class MessagesEditorSelect {
         e_.add(GER_KIND,"kind of gerant");
         e_.add(DELTA_WIDTH,"width of the rectangle");
         e_.add(DELTA_HEIGHT,"height of the rectangle");
+        e_.add(AREAS,"areas of appearing");
+        e_.add(CONTENT_LEVEL,"content of tiles of the level");
+        e_.add(TEAMS,"teams");
+        e_.add(AREA_WALK,"while walking");
+        e_.add(AREA_FISH,"while fishing");
+        e_.add(AREA_MULT,"multiplicity");
+        e_.add(AREA_SINGLE,"single");
+        e_.add(AREA_STEP,"number of steps");
+        e_.add(SOLD_IT,"kind of sold items");
+        e_.add(ST_KIND,"kind of status");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -522,6 +542,16 @@ public final class MessagesEditorSelect {
         f_.add(GER_KIND,"type de gérant");
         f_.add(DELTA_WIDTH,"largeur du rectangle");
         f_.add(DELTA_HEIGHT,"hauteur du rectangle");
+        f_.add(AREAS,"zone d'apparition");
+        f_.add(CONTENT_LEVEL,"contenu de tuiles du niveau");
+        f_.add(TEAMS,"équipes");
+        f_.add(AREA_WALK,"en marchant");
+        f_.add(AREA_FISH,"en péchant");
+        f_.add(AREA_MULT,"multiplicité");
+        f_.add(AREA_SINGLE,"simple");
+        f_.add(AREA_STEP,"number de pas");
+        f_.add(SOLD_IT,"type d'objets vendus");
+        f_.add(ST_KIND,"type de statut");
         return f_;
     }
 }
