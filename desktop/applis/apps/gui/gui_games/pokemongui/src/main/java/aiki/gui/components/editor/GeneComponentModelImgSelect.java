@@ -23,10 +23,10 @@ public final class GeneComponentModelImgSelect {
         AbsCompoFactory compoFactory_ = api.getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
         name = ConverterCommonMapUtil.buildImg(api,facade, imgRetrieverSub);
-        form_.add(name.geneEnum());
+        form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.FILE_IMG_NAME,name.geneEnum()));
         loaded = compoFactory_.newAbsPaintableLabel();
         loaded.setEmptyIcon();
-        form_.add(loaded);
+        form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.LOADED_IMG,loaded));
         return form_;
     }
 

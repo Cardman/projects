@@ -25,11 +25,11 @@ public final class GeneComponentModelImgType extends GeneComponentModelEntity<St
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
         red = compoFactory_.newSpinner(0,0,255,1);
-        form_.add(red);
+        form_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getCompoFactory().currentLg())),MessagesEditorSelect.IMG_RED,red));
         green = compoFactory_.newSpinner(0,0,255,1);
-        form_.add(green);
+        form_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getCompoFactory().currentLg())),MessagesEditorSelect.IMG_GREEN,green));
         blue = compoFactory_.newSpinner(0,0,255,1);
-        form_.add(blue);
+        form_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getCompoFactory().currentLg())),MessagesEditorSelect.IMG_BLUE,blue));
         sc_.setViewportView(form_);
         page_.add(SubscribedTranslationList.line(getCompoFactory(),MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_TYPES_COULOUR,sc_));
         return page_;

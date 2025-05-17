@@ -120,6 +120,10 @@ public final class MessagesEditorSelect {
     public static final String IMG_HERO_SEX = "25";
     public static final String IMG_HERO_DIR = "26";
     public static final String IMG_HERO_ENV = "27";
+    public static final String FILE_IMG_NAME = "28";
+    public static final String IMG_RED = "29";
+    public static final String IMG_GREEN = "30";
+    public static final String IMG_BLUE = "31";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -556,6 +560,10 @@ public final class MessagesEditorSelect {
         e_.add(IMG_HERO_SEX,"sex of hero");
         e_.add(IMG_HERO_DIR,"direction of hero");
         e_.add(IMG_HERO_ENV,"environment for hero");
+        e_.add(FILE_IMG_NAME,"name of file");
+        e_.add(IMG_RED,"red part color");
+        e_.add(IMG_GREEN,"green part color");
+        e_.add(IMG_BLUE,"blue part color");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -588,6 +596,10 @@ public final class MessagesEditorSelect {
         f_.add(IMG_HERO_SEX,"sexe du héros");
         f_.add(IMG_HERO_DIR,"direction du héros");
         f_.add(IMG_HERO_ENV,"environnement pour le héros");
+        f_.add(FILE_IMG_NAME,"nom de fichier");
+        f_.add(IMG_RED,"partie rouge de couleur");
+        f_.add(IMG_GREEN,"partie verte de couleur");
+        f_.add(IMG_BLUE,"partie bleue de couleur");
         return f_;
     }
 }
