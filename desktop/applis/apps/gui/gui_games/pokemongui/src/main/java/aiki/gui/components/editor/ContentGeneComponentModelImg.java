@@ -27,12 +27,12 @@ public final class ContentGeneComponentModelImg {
         }
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(fileDialogContent.getContentPane());
+        form_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.FILE_IMG,fileDialogContent.getContentPane()));
         loaded = compoFactory_.newAbsPaintableLabel();
         loaded.setEmptyIcon();
-        form_.add(loaded);
+        form_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.LOADED_IMG,loaded));
         baseEncode = compoFactory_.newTextField(64);
-        form_.add(baseEncode);
+        form_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.BASE_ENCODE,baseEncode));
         sc_.setViewportView(form_);
         page_.add(sc_);
         return page_;

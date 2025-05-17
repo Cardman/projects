@@ -15,7 +15,7 @@ public final class GeneComponentModelImgFree implements GeneComponentModel<Edite
     @Override
     public AbsCustComponent gene(int _select) {
         key = compoFactory.getCompoFactory().newTextField(64);
-        return content.gene(compoFactory,key);
+        return content.gene(compoFactory,SubscribedTranslationList.line(compoFactory,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())),MessagesEditorSelect.IMG_FREE_NAME,key));
     }
 
     @Override

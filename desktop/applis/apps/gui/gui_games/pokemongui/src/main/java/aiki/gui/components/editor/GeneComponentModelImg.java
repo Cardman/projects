@@ -18,7 +18,7 @@ public final class GeneComponentModelImg extends GeneComponentModelEntity<ImageA
     @Override
     public AbsCustComponent gene(int _select) {
         buildKey(_select,allMessages,imgMess.all(getFacade()).getKeys());
-        return content.gene(getCompoFactory(),geneComponentModelSelectKey());
+        return content.gene(getCompoFactory(),SubscribedTranslationList.line(getCompoFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getCompoFactory().currentLg())),MessagesEditorSelect.IMG_ENT_NAME,geneComponentModelSelectKey()));
     }
 
     @Override

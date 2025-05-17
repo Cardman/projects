@@ -112,6 +112,14 @@ public final class MessagesEditorSelect {
     public static final String UNIQ_RIGHT = "17";
     public static final String UNIQ_VIEW_LEFT = "18";
     public static final String UNIQ_VIEW_RIGHT = "19";
+    public static final String BASE_ENCODE = "20";
+    public static final String LOADED_IMG = "21";
+    public static final String FILE_IMG = "22";
+    public static final String IMG_ENT_NAME = "23";
+    public static final String IMG_FREE_NAME = "24";
+    public static final String IMG_HERO_SEX = "25";
+    public static final String IMG_HERO_DIR = "26";
+    public static final String IMG_HERO_ENV = "27";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -540,6 +548,14 @@ public final class MessagesEditorSelect {
         e_.add(UNIQ_RIGHT,"right list of single level place");
         e_.add(UNIQ_VIEW_LEFT,"left single view");
         e_.add(UNIQ_VIEW_RIGHT,"right single view");
+        e_.add(BASE_ENCODE,"base 64 of encoding image");
+        e_.add(LOADED_IMG,"loaded image");
+        e_.add(FILE_IMG,"image file searching");
+        e_.add(IMG_ENT_NAME,"name of image for entity");
+        e_.add(IMG_FREE_NAME,"name of free image");
+        e_.add(IMG_HERO_SEX,"sex of hero");
+        e_.add(IMG_HERO_DIR,"direction of hero");
+        e_.add(IMG_HERO_ENV,"environment for hero");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -564,6 +580,14 @@ public final class MessagesEditorSelect {
         f_.add(UNIQ_RIGHT,"liste à droite des lieux à niveau unique");
         f_.add(UNIQ_VIEW_LEFT,"vue du niveau unique à gauche");
         f_.add(UNIQ_VIEW_RIGHT,"vue du niveau unique à droite");
+        f_.add(BASE_ENCODE,"base 64 d'encodage d'image");
+        f_.add(LOADED_IMG,"image chargée");
+        f_.add(FILE_IMG,"recherche de fichier d'image");
+        f_.add(IMG_ENT_NAME,"nom d'image pour entité");
+        f_.add(IMG_FREE_NAME,"nom d'image libre");
+        f_.add(IMG_HERO_SEX,"sexe du héros");
+        f_.add(IMG_HERO_DIR,"direction du héros");
+        f_.add(IMG_HERO_ENV,"environnement pour le héros");
         return f_;
     }
 }

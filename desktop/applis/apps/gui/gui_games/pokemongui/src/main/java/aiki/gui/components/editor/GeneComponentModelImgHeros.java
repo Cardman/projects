@@ -34,7 +34,7 @@ public final class GeneComponentModelImgHeros implements GeneComponentModel<Edit
         }
         AbsPanel k_ = compoFactory.getCompoFactory().newPageBox();
         sex = new GeneComponentModelElt<Sex>(compoFactory, s_);
-        k_.add(sex.geneEnum());
+        k_.add(SubscribedTranslationList.line(compoFactory,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())),MessagesEditorSelect.IMG_HERO_SEX,sex.geneEnum()));
         if (withDirection) {
             IdMap<Direction,String> d_ = new IdMap<Direction, String>();
             d_.addEntry(Direction.UP,"\u2191");
@@ -42,10 +42,10 @@ public final class GeneComponentModelImgHeros implements GeneComponentModel<Edit
             d_.addEntry(Direction.LEFT,"\u2190");
             d_.addEntry(Direction.RIGHT,"\u2192");
             direction = new GeneComponentModelElt<Direction>(compoFactory, d_);
-            k_.add(direction.geneEnum());
+            k_.add(SubscribedTranslationList.line(compoFactory,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())),MessagesEditorSelect.IMG_HERO_DIR,direction.geneEnum()));
         }
         environment = ConverterCommonMapUtil.buildEnvironmentType(compoFactory,facadeGame,subscribedTranslationList);
-        k_.add(environment.geneEnum());
+        k_.add(SubscribedTranslationList.line(compoFactory,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())),MessagesEditorSelect.IMG_HERO_ENV,environment.geneEnum()));
         if (_select >= 0) {
             sex.getSelect().setEnabled(false);
             if (direction != null) {
