@@ -41,9 +41,10 @@ public final class CrudGeneFormEntImgUniq implements AbsCrudGeneFormTrCstOpen {
     }
 
     private void line(AbsPanel _page, ImgFieldRetriever _key, int _value) {
-        AbsPanel line_ = api.getCompoFactory().newLineBox();
+//        AbsPanel line_ = api.getCompoFactory().newLineBox();
         ContentGeneComponentModelImg cont_ = new ContentGeneComponentModelImg();
-        line_.add(cont_.gene(api,null));
+//        line_.add(cont_.gene(api,null));
+        AbsCustComponent line_ = cont_.gene(api,null);
         ImageArrayBaseSixtyFour img_ = _key.get(facadeGame);
         cont_.updateImg(ConverterCommonMapUtil.copyImageArrayBaseSixtyFour(img_),api);
         AbsButton but_ = api.getCompoFactory().newPlainButton(Long.toString(_value));

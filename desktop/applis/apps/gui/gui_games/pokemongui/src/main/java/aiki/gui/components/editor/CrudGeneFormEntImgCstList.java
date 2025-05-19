@@ -30,9 +30,10 @@ public final class CrudGeneFormEntImgCstList implements AbsCrudGeneFormTrCstOpen
         fields.clear();
         buttons.clear();
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
-            AbsPanel line_ = api.getCompoFactory().newLineBox();
+//            AbsPanel line_ = api.getCompoFactory().newLineBox();
             ContentGeneComponentModelImg cont_ = new ContentGeneComponentModelImg();
-            line_.add(cont_.gene(api,null));
+            AbsCustComponent line_ = cont_.gene(api,null);
+//            line_.add(cont_.gene(api,null));
             cont_.updateImg(ConverterCommonMapUtil.copyImageArrayBaseSixtyFour(facadeGame.getData().getAnimStatis().getVal(s.getStatName())),api);
             AbsButton but_ = api.getCompoFactory().newPlainButton(s.getStatName());
             but_.addActionListener(new AssociateImgOtherCstEvent(this, s));

@@ -3673,7 +3673,7 @@ public final class ConverterCommonMapUtil {
         StringMap<AbsTextField> fs_ = new StringMap<AbsTextField>();
         for (EntryCust<String, String> l: _map.entryList()) {
             AbsTextField txt_ = _api.getCompoFactory().newTextField(l.getValue());
-            _line.add(txt_);
+            _line.add(SubscribedTranslationList.lineDir(_api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping().getVal(MessagesEditorSelect.KEY_TR)+l.getKey(),txt_));
             fs_.addEntry(l.getKey(),txt_);
         }
         return fs_;
@@ -3686,15 +3686,18 @@ public final class ConverterCommonMapUtil {
             StringList parts_ = StringUtil.splitChar(l.getValue(), '\t');
             int len_ = NumberUtil.min(parts_.size(),3);
             for (int i = 0; i < len_; i++) {
+                String key_;
                 AbsTxtComponent txt_;
                 if (i <= 1) {
+                    key_=MessagesEditorSelect.PART_ONE_LIT;
                     txt_ = _api.getCompoFactory().newTextField(32);
                     txt_.setText(parts_.get(i));
                 } else {
+                    key_=MessagesEditorSelect.PART_TWO_LIT;
                     txt_ = _api.getCompoFactory().newTextPane();
                     txt_.setText(StringUtil.join(parts_.mid(2),'\t'));
                 }
-                _line.add(txt_);
+                _line.add(SubscribedTranslationList.lineDir(_api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping().getVal(key_)+l.getKey(),txt_));
                 ls_.add(txt_);
             }
             fs_.addEntry(l.getKey(),ls_);

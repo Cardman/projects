@@ -27,6 +27,7 @@ public final class GeneComponentModelSubscribePokemonTeam implements AbsGeneComp
         AbsCompoFactory compoFactory_ = api.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())).getMapping().getVal(MessagesEditorSelect.PK_TEAM));
         AbsPanel form_ = compoFactory_.newLineBox();
         reward = new GeneComponentModelLong(api);
         form_.add(SubscribedTranslationList.line(api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_REWARD,reward.geneLong()));

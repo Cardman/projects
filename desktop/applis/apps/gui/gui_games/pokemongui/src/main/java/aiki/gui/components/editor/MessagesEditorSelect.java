@@ -124,6 +124,21 @@ public final class MessagesEditorSelect {
     public static final String IMG_RED = "29";
     public static final String IMG_GREEN = "30";
     public static final String IMG_BLUE = "31";
+    public static final String SEL_LEVEL = "32";
+    public static final String PK_TEAM = "33";
+    public static final String KEY_TR = "34";
+    public static final String PART_ONE_LIT = "35";
+    public static final String PART_TWO_LIT = "36";
+    public static final String ACC_COND_FORM = "37";
+    public static final String JOIN_UNIQ = "38";
+    public static final String JOIN_CAVE_UNIQ = "39";
+    public static final String JOIN_CAVE_UNIQ_REV = "40";
+    public static final String SEL_PLACE = "41";
+    public static final String EDITED_CITY = "42";
+    public static final String EDITED_ROAD = "43";
+    public static final String EDITED_CAVE = "44";
+    public static final String EDITED_LEAGUE = "45";
+    public static final String ADD_PLACE = "46";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -564,6 +579,21 @@ public final class MessagesEditorSelect {
         e_.add(IMG_RED,"red part color");
         e_.add(IMG_GREEN,"green part color");
         e_.add(IMG_BLUE,"blue part color");
+        e_.add(SEL_LEVEL,"selected level");
+        e_.add(PK_TEAM,"pokemon team");
+        e_.add(KEY_TR,"key string for translating:");
+        e_.add(PART_ONE_LIT,"variable:");
+        e_.add(PART_TWO_LIT,"description:");
+        e_.add(ACC_COND_FORM,"access condition form");
+        e_.add(JOIN_UNIQ,"city road join form");
+        e_.add(JOIN_CAVE_UNIQ,"place with alone level with cave form");
+        e_.add(JOIN_CAVE_UNIQ_REV,"reversed place with alone level with cave form");
+        e_.add(SEL_PLACE,"selected place");
+        e_.add(EDITED_CITY,"edited city");
+        e_.add(EDITED_ROAD,"edited road");
+        e_.add(EDITED_CAVE,"edited cave");
+        e_.add(EDITED_LEAGUE,"edited league");
+        e_.add(ADD_PLACE,"place to be added");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -600,6 +630,21 @@ public final class MessagesEditorSelect {
         f_.add(IMG_RED,"partie rouge de couleur");
         f_.add(IMG_GREEN,"partie verte de couleur");
         f_.add(IMG_BLUE,"partie bleue de couleur");
+        f_.add(SEL_LEVEL,"niveau sélectionné");
+        f_.add(PK_TEAM,"équipe pokemon");
+        f_.add(KEY_TR,"chaîne clé pour traduire:");
+        f_.add(PART_ONE_LIT,"variable:");
+        f_.add(PART_TWO_LIT,"description:");
+        f_.add(ACC_COND_FORM,"formulaire de condition d'accès");
+        f_.add(JOIN_UNIQ,"formulaire de jointure de ville et route");
+        f_.add(JOIN_CAVE_UNIQ,"formulaire de jointure de lieu à niveau unique et cave");
+        f_.add(JOIN_CAVE_UNIQ_REV,"formulaire inversé de jointure de lieu à niveau unique et cave");
+        f_.add(SEL_PLACE,"lieu sélectionné");
+        f_.add(EDITED_CITY,"ville éditée");
+        f_.add(EDITED_ROAD,"route éditée");
+        f_.add(EDITED_CAVE,"cave éditée");
+        f_.add(EDITED_LEAGUE,"ligue éditée");
+        f_.add(ADD_PLACE,"lieu à être ajouté");
         return f_;
     }
 }

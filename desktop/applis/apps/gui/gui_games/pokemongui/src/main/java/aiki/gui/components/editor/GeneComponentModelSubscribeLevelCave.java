@@ -25,6 +25,7 @@ public final class GeneComponentModelSubscribeLevelCave {
         AbsCompoFactory compoFactory_ = api.getCompoFactory();
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
         AbsPanel page_ = compoFactory_.newPageBox();
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())).getMapping().getVal(MessagesEditorSelect.SEL_LEVEL));
         edited = Instances.newLevelCave();
         AbsCustComponent compo_ = wild.form(api, facadeGame, factory, frame);
         wild.setupGridDims(AbsContentComponentModelLevelLinks.coords(cave.getSelectedPlace(), cave.getSelectedLevel(), null), cave.getPlace(),edited);
