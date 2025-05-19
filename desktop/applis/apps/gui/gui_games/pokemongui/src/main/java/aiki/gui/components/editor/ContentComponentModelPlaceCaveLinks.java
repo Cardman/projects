@@ -20,6 +20,7 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
         CustList<FormLevelGridLink> parts_ = place(this, _core, _fac, _fact, _fr, true);
         levelsPlace.addAllElts(parts_);
         AbsPanel form_ = _core.getCompoFactory().newPageBox();
+        form_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.UNIQ_PLACE));
         appendPlace(parts_, form_);
         return form_;
     }
@@ -43,6 +44,7 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
     @Override
     protected void buildParts(AbsPanel _form, AbstractProgramInfos _c, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _fr) {
         levelsCave.clear();
+        _form.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_c.currentLg())).getMapping().getVal(MessagesEditorSelect.CAVE));
         CustList<FormLevelGridLink> parts_ = cave(this, _c, _fac, _fact, _fr, false);
         levelsCave.addAllElts(parts_);
         appendPlace(parts_,_form);

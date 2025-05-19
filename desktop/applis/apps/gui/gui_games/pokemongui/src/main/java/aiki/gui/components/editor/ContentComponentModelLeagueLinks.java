@@ -33,6 +33,7 @@ public final class ContentComponentModelLeagueLinks {
         if (cave.getRooms().isEmpty()) {
             return form_;
         }
+        form_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.LK_PLACE));
         close = _core.getCompoFactory().newPlainButton("\u23F9");
         close.addActionListener(new CloseLinksFormEvent(_par));
         form_.add(getClose());
@@ -61,13 +62,17 @@ public final class ContentComponentModelLeagueLinks {
         CustList<Place> places_ = facadeGame.getMap().getPlaces();
         int len_ = places_.size();
         for (int i = 0; i < len_; i++) {
+            AbsPanel gr_ = _c.getCompoFactory().newPageBox();
+            gr_.setTitledBorder(Long.toString(i));
             CustList<Level> ls_ = places_.get(i).getLevelsList();
             int levs_ = ls_.size();
             for (int j = 0; j < levs_; j++) {
                 FormLevelGridLink g_ = AbsContentComponentModelLevelLinks.build(_c, _fac, _fact, _fr, places_.get(i), AbsContentComponentModelLevelLinks.coords(i, j, null), getTranslationsGrid());
                 levels.add(g_);
                 g_.getGrid().addMouseListener(new SelectOrDeselectAccessLeagueEvent(this, g_));
-                _form.add(g_.getForm());
+                g_.getForm().setTitledBorder(Long.toString(i)+" "+Long.toString(j));
+                gr_.add(g_.getForm());
+                _form.add(gr_);
                 Coords acc_ = new Coords(cave.getAccessCoords());
                 acc_.getLevel().setPoint(new Point(0, 0));
                 if (Coords.eq(acc_,g_.build(new Point(0, 0)))) {

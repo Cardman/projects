@@ -31,12 +31,14 @@ public final class ContentComponentModelLevelCaveLinks extends AbsContentCompone
 
     @Override
     protected void buildParts(AbsPanel _form, AbstractProgramInfos _c, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _fr) {
+        _form.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_c.currentLg())).getMapping().getVal(MessagesEditorSelect.INTRA_LV_LK));
         levels.clear();
         int len_ = cave.getLevels().size();
         for (int i = 0; i < len_; i++) {
             FormLevelGridLink g_ = build(_c, _fac, _fact, _fr, cave, coords(selectedPlace, i, null), getTranslationsGrid());
             levels.add(g_);
             g_.getGrid().addMouseListener(new LinkTileEvent(this, g_, false));
+            g_.getForm().setTitledBorder(Long.toString(i));
             _form.add(g_.getForm());
         }
     }

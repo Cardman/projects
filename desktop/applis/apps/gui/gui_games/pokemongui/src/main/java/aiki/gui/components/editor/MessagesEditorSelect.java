@@ -139,6 +139,12 @@ public final class MessagesEditorSelect {
     public static final String EDITED_CAVE = "44";
     public static final String EDITED_LEAGUE = "45";
     public static final String ADD_PLACE = "46";
+    public static final String LK_PLACE = "47";
+    public static final String LV_CONT_OUT = "48";
+    public static final String INTRA_LV_LK = "49";
+    public static final String INTRA_LV_LK_NEXT = "50";
+    public static final String UNIQ_PLACE = "51";
+    public static final String CAVE = "52";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -594,6 +600,12 @@ public final class MessagesEditorSelect {
         e_.add(EDITED_CAVE,"edited cave");
         e_.add(EDITED_LEAGUE,"edited league");
         e_.add(ADD_PLACE,"place to be added");
+        e_.add(LK_PLACE,"list of levels of places to be bound");
+        e_.add(LV_CONT_OUT,"out dour level content");
+        e_.add(INTRA_LV_LK,"intra linking levels of a cave");
+        e_.add(INTRA_LV_LK_NEXT,"next level");
+        e_.add(UNIQ_PLACE,"list of places with single level");
+        e_.add(CAVE,"list of levels of cave");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -645,6 +657,12 @@ public final class MessagesEditorSelect {
         f_.add(EDITED_CAVE,"cave éditée");
         f_.add(EDITED_LEAGUE,"ligue éditée");
         f_.add(ADD_PLACE,"lieu à être ajouté");
+        f_.add(LK_PLACE,"liste de niveaux de lieux à être liés");
+        f_.add(LV_CONT_OUT,"contenu du niveau extérieur");
+        f_.add(INTRA_LV_LK,"niveaux intra liés d'une cave");
+        f_.add(INTRA_LV_LK_NEXT,"niveau suivant");
+        f_.add(UNIQ_PLACE,"liste de lieux avec niveau unique");
+        f_.add(CAVE,"liste de niveaux de cave");
         return f_;
     }
 }

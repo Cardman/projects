@@ -44,7 +44,7 @@ public final class ContentComponentModelLevelLeagueLinks {
         int next_ = (selectedFirstLevel + 1) % len_;
         level = AbsContentComponentModelLevelLinks.build(_c, _fac, _fact, _fr, cave, AbsContentComponentModelLevelLinks.coords(selectedPlace,next_,null), translationsGrid);
         level.getGrid().addMouseListener(new SelectOrDeselectNextPtEvent(this));
-        _form.add(level.getForm());
+        _form.add(SubscribedTranslationList.line(_c,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_c.currentLg())),MessagesEditorSelect.INTRA_LV_LK_NEXT,level.getForm()));
     }
 
     public AbsButton getClose() {

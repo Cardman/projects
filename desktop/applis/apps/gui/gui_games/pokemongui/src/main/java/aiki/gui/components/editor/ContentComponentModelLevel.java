@@ -26,7 +26,7 @@ public final class ContentComponentModelLevel {
         accessCondition = ConverterCommonMapUtil.copyCoordsLists(level.getFacadeGame().getMap().getAccessCondition());
         setupTranslationsGrid(_coords, _pl, _wild);
         fore = level.getApi().getCompoFactory().newAbsScrollPane();
-        level.getForm().add(fore);
+        level.getForm().add(SubscribedTranslationList.line(level.getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())),MessagesEditorSelect.LV_CONT_OUT,fore));
     }
 
     public CoordsLists getAccessCondition() {
