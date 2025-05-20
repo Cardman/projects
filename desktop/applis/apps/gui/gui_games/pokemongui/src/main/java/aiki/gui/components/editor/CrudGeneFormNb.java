@@ -41,7 +41,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
         geneComponentModelNb = new GeneComponentModelNb(getFactory(), facadeGame, subscription());
         initForm(new DisplayKeyOnlyInt(), geneComponentModelNb, cmp_, new ValidateElementPair<Integer, String>(cmp_));
         setupValues(nbs_);
-        getButtons().add(destination);
+        getButtons().add(SubscribedTranslationList.line(getFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())),MessagesEditorSelect.DEST_NB,destination));
         scroll();
     }
 

@@ -145,6 +145,7 @@ public final class MessagesEditorSelect {
     public static final String INTRA_LV_LK_NEXT = "50";
     public static final String UNIQ_PLACE = "51";
     public static final String CAVE = "52";
+    public static final String DEST_NB = "53";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -606,6 +607,7 @@ public final class MessagesEditorSelect {
         e_.add(INTRA_LV_LK_NEXT,"next level");
         e_.add(UNIQ_PLACE,"list of places with single level");
         e_.add(CAVE,"list of levels of cave");
+        e_.add(DEST_NB,"identifying number target");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -663,6 +665,7 @@ public final class MessagesEditorSelect {
         f_.add(INTRA_LV_LK_NEXT,"niveau suivant");
         f_.add(UNIQ_PLACE,"liste de lieux avec niveau unique");
         f_.add(CAVE,"liste de niveaux de cave");
+        f_.add(DEST_NB,"nombre identifiant cible");
         return f_;
     }
 }
