@@ -145,7 +145,12 @@ public final class MessagesEditorSelect {
     public static final String INTRA_LV_LK_NEXT = "50";
     public static final String UNIQ_PLACE = "51";
     public static final String CAVE = "52";
-    public static final String DEST_NB = "53";
+    public static final String PLACE_NAME = "53";
+    public static final String PLACE_KIND = "54";
+    public static final String DEST_NB = "55";
+    public static final String DEST_TR = "56";
+    public static final String NUM_VAR = "57";
+    public static final String IT_TYPE = "58";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -607,7 +612,12 @@ public final class MessagesEditorSelect {
         e_.add(INTRA_LV_LK_NEXT,"next level");
         e_.add(UNIQ_PLACE,"list of places with single level");
         e_.add(CAVE,"list of levels of cave");
+        e_.add(PLACE_NAME,"name of place");
+        e_.add(PLACE_KIND,"kind of place");
         e_.add(DEST_NB,"identifying number target");
+        e_.add(DEST_TR,"identifying string target");
+        e_.add(NUM_VAR,"literal variable strings");
+        e_.add(IT_TYPE,"descriptions of items");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -665,7 +675,12 @@ public final class MessagesEditorSelect {
         f_.add(INTRA_LV_LK_NEXT,"niveau suivant");
         f_.add(UNIQ_PLACE,"liste de lieux avec niveau unique");
         f_.add(CAVE,"liste de niveaux de cave");
+        f_.add(PLACE_NAME,"nom de lieu");
+        f_.add(PLACE_KIND,"type de lieu");
         f_.add(DEST_NB,"nombre identifiant cible");
+        f_.add(DEST_TR,"chaîne identifiant cible");
+        f_.add(NUM_VAR,"chaînes variables littérales");
+        f_.add(IT_TYPE,"descriptions d'objets");
         return f_;
     }
 }

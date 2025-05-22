@@ -33,7 +33,7 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
         CustList<EditedCrudPair<String, StringMap<String>>> ls_ = new MapToEntriesListUtil<String, StringMap<String>>().build(ConverterCommonMapUtil.toEntityLg(factoryMessage.buildMessages(facadeGame)));
         initForm(new DisplayKeyOnlyDirect<StringMap<String>>(), new GeneComponentModelTr(_core,facadeGame), cmp_, val_);
         setupValues(ls_);
-        getButtons().add(destination);
+        getButtons().add(SubscribedTranslationList.line(getFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())),MessagesEditorSelect.DEST_TR,destination));
         getFrame().setContentPane(getGroup());
         getFrame().setVisible(true);
         getFrame().pack();

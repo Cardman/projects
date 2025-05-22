@@ -18,6 +18,7 @@ public final class CrudGeneFormTrItemType extends CrudGeneFormTrCommon {
     public void initFormAll() {
         AbsPanel content_ = getApi().getCompoFactory().newPageBox();
         AbsPanel page_ = getApi().getCompoFactory().newPageBox();
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())).getMapping().getVal(MessagesEditorSelect.IT_TYPE));
         StringMap<StringMap<String>> all_ = all();
         fields.clear();
         for (EntryCust<String, StringMap<String>> e: ConverterCommonMapUtil.toEntityLg(all_).entryList()) {

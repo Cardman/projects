@@ -23,15 +23,15 @@ public final class GeneComponentModelPlace implements ChangeableFormType {
             AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
             AbsPanel form_ = compoFactory_.newLineBox();
             name = new GeneComponentModelText(compoFactory);
-            form_.add(name.geneString());
+            form_.add(SubscribedTranslationList.line(compoFactory,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())),MessagesEditorSelect.PLACE_NAME,name.geneString()));
             return form_;
         }
         placeKind = new GeneComponentModelElt<String>(compoFactory, MessagesPkEditor.getMessagesEditorSelectPlaceTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())).getMapping(), new EmptyDefValue());
         AbsCompoFactory compoFactory_ = compoFactory.getCompoFactory();
         AbsPanel form_ = compoFactory_.newLineBox();
-        form_.add(placeKind.geneEnum());
+        form_.add(SubscribedTranslationList.line(compoFactory,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())),MessagesEditorSelect.PLACE_KIND,placeKind.geneEnum()));
         name = new GeneComponentModelText(compoFactory);
-        form_.add(name.geneString());
+        form_.add(SubscribedTranslationList.line(compoFactory,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())),MessagesEditorSelect.PLACE_NAME,name.geneString()));
         placeKind.getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(placeKind,MessagesEditorSelect.PLACE_CITY);
         return form_;
