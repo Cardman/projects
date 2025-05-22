@@ -159,6 +159,7 @@ public final class MessagesEditorSelect {
     public static final String CST_DIFF_LAW = "64";
     public static final String NUM_VAR = "65";
     public static final String NUM_VAL = "66";
+    public static final String TR_KEY = "67";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -634,6 +635,7 @@ public final class MessagesEditorSelect {
         e_.add(CST_DIFF_LAW,"laws about difficulty damage rate");
         e_.add(NUM_VAR,"literal variable strings");
         e_.add(NUM_VAL,"numeric constants");
+        e_.add(TR_KEY,"translation values by key for each language");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -705,6 +707,7 @@ public final class MessagesEditorSelect {
         f_.add(CST_DIFF_LAW,"lois à propos de la difficulté du taux de dégâts");
         f_.add(NUM_VAR,"chaînes variables littérales");
         f_.add(NUM_VAL,"constantes numériques");
+        f_.add(TR_KEY,"valeurs de traduction par clé pour chaque langue");
         return f_;
     }
 }

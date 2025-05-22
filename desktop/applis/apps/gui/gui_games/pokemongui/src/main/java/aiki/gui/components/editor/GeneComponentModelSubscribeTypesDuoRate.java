@@ -5,6 +5,7 @@ import aiki.fight.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.maths.*;
+import code.scripts.pages.aiki.*;
 import code.util.*;
 
 public final class GeneComponentModelSubscribeTypesDuoRate implements GeneComponentModel<EditedCrudPair<TypesDuo, Rate>> {
@@ -22,7 +23,7 @@ public final class GeneComponentModelSubscribeTypesDuoRate implements GeneCompon
 
     @Override
     public AbsCustComponent gene(int _select) {
-        key = new GeneComponentModelSubscribeTypesDuo(api,facadeGame,factory);
+        key = new GeneComponentModelSubscribeTypesDuo(api,facadeGame,factory,MessagesPkBean.ROUND,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_3_0,MessagesDataRound.M_P_83_ROUND_PROCESS_ADD_ON_3_3_1);
         AbsPanel form_ = api.getCompoFactory().newLineBox();
         form_.add(key.geneEnum(_select,0));
         eff = new GeneComponentModelRate(api);

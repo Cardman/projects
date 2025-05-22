@@ -160,6 +160,8 @@ public final class MessagesDataRound {
     public static final String M_P_83_ROUND_PROCESS_ADD_ON_3_1_4="round_process_add_on_3_1_4";
     public static final String M_P_83_ROUND_PROCESS_ADD_ON_3_2="round_process_add_on_3_2";
     public static final String M_P_83_ROUND_PROCESS_ADD_ON_3_3="round_process_add_on_3_3";
+    public static final String M_P_83_ROUND_PROCESS_ADD_ON_3_3_0="round_process_add_on_3_3_0";
+    public static final String M_P_83_ROUND_PROCESS_ADD_ON_3_3_1="round_process_add_on_3_3_1";
     public static final String M_P_83_ROUND_PROCESS_ADD_ON_4="round_process_add_on_4";
     public static final String M_P_83_ROUND_PROCESS_ADD_ON_4_0="round_process_add_on_4_0";
     public static final String M_P_83_ROUND_PROCESS_ADD_ON_4_0_0="round_process_add_on_4_0_0";
@@ -583,6 +585,8 @@ public final class MessagesDataRound {
         e_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_1_4,"The user owns one of the following items:");
         e_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_2,"Rates of efficiency of the move are multiplied one another for each type of the move and each current type of the target.");
         e_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_3,"The table of efficiency rates is the following one, offensive types are introduced by columns, defending types are introduced by rows:");
+        e_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_3_0,"Offensive:");
+        e_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_3_1,"Defensive:");
         e_.add(M_P_83_ROUND_PROCESS_ADD_ON_4,"Determination of the success of the effect");
         e_.add(M_P_83_ROUND_PROCESS_ADD_ON_4_0,"If the user is not the target, owns one of the following items:");
         e_.add(M_P_83_ROUND_PROCESS_ADD_ON_4_0_0,"Necessary and sufficient conditions for knowing if the target is protected against a type of the move of the user.");
@@ -1003,6 +1007,8 @@ public final class MessagesDataRound {
         f_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_1_4,"Le lanceur possède un des objets suivants:");
         f_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_2,"Les coeffcients d'efficacité de l'attaque sont multipliés entre eux pour chaque type de l'attaque et chaque type courant de la cible.");
         f_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_3,"La table des coeffcients d'efficacité est la suivante, les types offensifs sont représentés en colonne, les types défensifs sont représentés en ligne:");
+        f_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_3_0,"Offensif:");
+        f_.add(M_P_83_ROUND_PROCESS_ADD_ON_3_3_1,"Défensif:");
         f_.add(M_P_83_ROUND_PROCESS_ADD_ON_4,"Détermination de la réussite de l'effet");
         f_.add(M_P_83_ROUND_PROCESS_ADD_ON_4_0,"Si le lanceur n'est pas la cible, possède un des objets suivants:");
         f_.add(M_P_83_ROUND_PROCESS_ADD_ON_4_0_0,"Conditions nécessaires et suffisantes pour savoir si la cible est immunisée à un type de l'attaque du lanceur.");

@@ -24,15 +24,16 @@ public final class GeneComponentModelTr implements GeneComponentModel<EditedCrud
         AbsPanel page_ = compoFactory_.newPageBox();
         page_.add(key.geneString());
         AbsScrollPane sc_ = compoFactory_.newAbsScrollPane();
-        AbsPanel form_ = compoFactory_.newLineBox();
+//        AbsPanel form_ = compoFactory_.newLineBox();
         AbsPanel stats_ = compoFactory_.newLineBox();
+        stats_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(compoFactory.currentLg())).getMapping().getVal(MessagesEditorSelect.TR_KEY));
         for (String s: facade.getData().getLanguages()) {
             AbsTextField txt_ = compoFactory_.newTextField();
             getTranslations().addEntry(s, txt_);
             stats_.add(txt_);
         }
-        form_.add(stats_);
-        sc_.setViewportView(form_);
+//        form_.add(stats_);
+        sc_.setViewportView(stats_);
         page_.add(sc_);
         return page_;
     }
