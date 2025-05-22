@@ -154,8 +154,11 @@ public final class MessagesEditorSelect {
     public static final String TILE = "59";
     public static final String DEST_NB = "60";
     public static final String DEST_TR = "61";
-    public static final String NUM_VAR = "62";
+    public static final String ENUM_VALUES = "62";
     public static final String IT_TYPE = "63";
+    public static final String CST_DIFF_LAW = "64";
+    public static final String NUM_VAR = "65";
+    public static final String NUM_VAL = "66";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -626,8 +629,11 @@ public final class MessagesEditorSelect {
         e_.add(TILE,"information of tile");
         e_.add(DEST_NB,"identifying number target");
         e_.add(DEST_TR,"identifying string target");
-        e_.add(NUM_VAR,"literal variable strings");
+        e_.add(ENUM_VALUES,"translation of enumerated values");
         e_.add(IT_TYPE,"descriptions of items");
+        e_.add(CST_DIFF_LAW,"laws about difficulty damage rate");
+        e_.add(NUM_VAR,"literal variable strings");
+        e_.add(NUM_VAL,"numeric constants");
         return e_;
     }
     public static TranslationsFile frDataMapLev() {
@@ -694,8 +700,11 @@ public final class MessagesEditorSelect {
         f_.add(TILE,"informations de tuile");
         f_.add(DEST_NB,"nombre identifiant cible");
         f_.add(DEST_TR,"chaîne identifiant cible");
-        f_.add(NUM_VAR,"chaînes variables littérales");
+        f_.add(ENUM_VALUES,"traduction des valeurs énumérées");
         f_.add(IT_TYPE,"descriptions d'objets");
+        f_.add(CST_DIFF_LAW,"lois à propos de la difficulté du taux de dégâts");
+        f_.add(NUM_VAR,"chaînes variables littérales");
+        f_.add(NUM_VAL,"constantes numériques");
         return f_;
     }
 }

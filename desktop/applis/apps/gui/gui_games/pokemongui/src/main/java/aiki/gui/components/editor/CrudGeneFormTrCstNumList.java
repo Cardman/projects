@@ -25,6 +25,7 @@ public final class CrudGeneFormTrCstNumList implements AbsCrudGeneFormTrCstOpen 
     public void initFormAll() {
         AbsPanel content_ = api.getCompoFactory().newPageBox();
         AbsPanel page_ = api.getCompoFactory().newPageBox();
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())).getMapping().getVal(MessagesEditorSelect.NUM_VAL));
         fields.clear();
         for (int i = 0; i <= 20; i++) {
             AbsPanel line_ = api.getCompoFactory().newLineBox();

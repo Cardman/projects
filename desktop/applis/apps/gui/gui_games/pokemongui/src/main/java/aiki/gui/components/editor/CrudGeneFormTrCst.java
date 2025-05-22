@@ -17,7 +17,7 @@ public final class CrudGeneFormTrCst<T> extends CrudGeneFormTrCommon {
     public void initFormAll() {
         AbsPanel content_ = getApi().getCompoFactory().newPageBox();
         AbsPanel page_ = getApi().getCompoFactory().newPageBox();
-        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())).getMapping().getVal(MessagesEditorSelect.NUM_VAR));
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())).getMapping().getVal(MessagesEditorSelect.ENUM_VALUES));
         StringMap<IdMap<T, String>> all_ = factoryMessage.buildMessages(getFacadeGame());
         fields.clear();
         for (EntryCust<T, StringMap<String>> e: new SubscribeBuilderUtil<T>(factoryMessage).toEntityLg(all_).entryList()) {

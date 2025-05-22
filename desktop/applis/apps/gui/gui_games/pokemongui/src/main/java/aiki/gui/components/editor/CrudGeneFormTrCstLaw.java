@@ -26,6 +26,7 @@ public final class CrudGeneFormTrCstLaw implements AbsCrudGeneFormTrCstOpen, Cru
     public void initFormAll() {
         AbsPanel content_ = api.getCompoFactory().newPageBox();
         AbsPanel page_ = api.getCompoFactory().newPageBox();
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())).getMapping().getVal(MessagesEditorSelect.CST_DIFF_LAW));
         fields.clear();
         buttons.clear();
         int i_ = 0;

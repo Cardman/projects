@@ -24,6 +24,7 @@ public final class CrudGeneFormTrCstParamListString<K> implements AbsCrudGeneFor
     public void initFormAll() {
         AbsPanel content_ = api.getCompoFactory().newPageBox();
         AbsPanel page_ = api.getCompoFactory().newPageBox();
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())).getMapping().getVal(MessagesEditorSelect.NUM_VAR));
         fields.clear();
         buttons.clear();
         int i_ = 0;

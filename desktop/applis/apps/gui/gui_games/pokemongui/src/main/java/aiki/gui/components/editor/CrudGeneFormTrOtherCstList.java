@@ -23,6 +23,7 @@ public final class CrudGeneFormTrOtherCstList implements AbsCrudGeneFormTrCstOpe
     public void initFormAll() {
         AbsPanel content_ = api.getCompoFactory().newPageBox();
         AbsPanel page_ = api.getCompoFactory().newPageBox();
+        page_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())).getMapping().getVal(MessagesEditorSelect.NUM_VAR));
         fields.clear();
         buttons.clear();
         line(page_, DataBase.DEF_MOVE, facadeGame.getData().getDefMove());
