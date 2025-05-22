@@ -54,9 +54,9 @@ public final class FormDataMap {
         unlockedCityContent = frames_.getCompoFactory().newAbsScrollPane();
         form.add(SubscribedTranslationList.line(frames_,MessagesPkBean.GENERAL,MessagesDataGeneral.M_P_14_GOAL_3,unlockedCityContent));
         placesContent = frames_.getCompoFactory().newAbsScrollPane();
-        form.add(placesContent);
+        form.add(SubscribedTranslationList.line(frames_,MessagesPkEditor.getMessagesEditorSelectDataMapGeneTr(MessagesPkEditor.getAppliTr(frames_.currentLg())),MessagesEditorSelect.PLACE_LIST,placesContent));
         AbsScrollPane miniMapGridContent_ = frames_.getCompoFactory().newAbsScrollPane();
-        form.add(miniMapGridContent_);
+        form.add(SubscribedTranslationList.line(frames_,MessagesPkEditor.getMessagesEditorSelectDataMapGeneTr(MessagesPkEditor.getAppliTr(frames_.currentLg())),MessagesEditorSelect.MINI_MAP,miniMapGridContent_));
         unlockedCity = new GeneComponentModelImgSelect(frames_,_facade,_subscriptions.getImgRetrieverMiniMapSub());
         miniMapGrid = new FormMiniMapGrid(frames_,_facade, miniMapGridContent_, _ed.getCommonFrame(),_subscriptions);
     }

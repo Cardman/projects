@@ -45,9 +45,9 @@ public final class FormMiniMapGrid {
         AbsCompoFactory c_ = api.getCompoFactory();
         AbsPanel form_ = c_.newPageBox();
         rows = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
-        form_.add(rows);
+        form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.ROWS,rows));
         cols = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
-        form_.add(cols);
+        form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.COLS,cols));
         apply = c_.newPlainButton("_");
         apply.addActionListener(new AddCellsMiniMapCoordsListEvent(this));
         form_.add(apply);
@@ -62,7 +62,7 @@ public final class FormMiniMapGrid {
         grid.setIcon(imgFact_,img_);
         form_.add(grid);
         element = c_.newAbsScrollPane();
-        form_.add(element);
+        form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.TILE,element));
         container.setViewportView(form_);
         if (_p) {
             frame.pack();

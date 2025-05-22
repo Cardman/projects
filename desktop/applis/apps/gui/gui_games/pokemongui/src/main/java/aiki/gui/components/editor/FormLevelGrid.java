@@ -149,9 +149,9 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         AbsCompoFactory c_ = getApi().getCompoFactory();
         AbsPanel form_ = c_.newPageBox();
         rows = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
-        form_.add(rows);
+        form_.add(SubscribedTranslationList.line(getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())),MessagesEditorSelect.ROWS,rows));
         cols = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
-        form_.add(cols);
+        form_.add(SubscribedTranslationList.line(getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())),MessagesEditorSelect.COLS,cols));
         applyPrepend = c_.newPlainButton("<-");
         applyPrepend.addActionListener(new PrependTileBlockEvent(this));
         form_.add(applyPrepend);
@@ -165,7 +165,7 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         grid.setLineBorder(GuiConstants.BLACK);
         form_.add(getGrid());
         element = c_.newAbsScrollPane();
-        form_.add(element);
+        form_.add(SubscribedTranslationList.line(getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())),MessagesEditorSelect.TILE,element));
         form = form_;
     }
 

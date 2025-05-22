@@ -147,10 +147,15 @@ public final class MessagesEditorSelect {
     public static final String CAVE = "52";
     public static final String PLACE_NAME = "53";
     public static final String PLACE_KIND = "54";
-    public static final String DEST_NB = "55";
-    public static final String DEST_TR = "56";
-    public static final String NUM_VAR = "57";
-    public static final String IT_TYPE = "58";
+    public static final String PLACE_LIST = "55";
+    public static final String MINI_MAP = "56";
+    public static final String ROWS = "57";
+    public static final String COLS = "58";
+    public static final String TILE = "59";
+    public static final String DEST_NB = "60";
+    public static final String DEST_TR = "61";
+    public static final String NUM_VAR = "62";
+    public static final String IT_TYPE = "63";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -614,6 +619,11 @@ public final class MessagesEditorSelect {
         e_.add(CAVE,"list of levels of cave");
         e_.add(PLACE_NAME,"name of place");
         e_.add(PLACE_KIND,"kind of place");
+        e_.add(PLACE_LIST,"list of places");
+        e_.add(MINI_MAP,"mini map");
+        e_.add(ROWS,"rows");
+        e_.add(COLS,"columns");
+        e_.add(TILE,"information of tile");
         e_.add(DEST_NB,"identifying number target");
         e_.add(DEST_TR,"identifying string target");
         e_.add(NUM_VAR,"literal variable strings");
@@ -677,6 +687,11 @@ public final class MessagesEditorSelect {
         f_.add(CAVE,"liste de niveaux de cave");
         f_.add(PLACE_NAME,"nom de lieu");
         f_.add(PLACE_KIND,"type de lieu");
+        f_.add(PLACE_LIST,"liste de lieux");
+        f_.add(MINI_MAP,"mini carte");
+        f_.add(ROWS,"lignes");
+        f_.add(COLS,"colonnes");
+        f_.add(TILE,"informations de tuile");
         f_.add(DEST_NB,"nombre identifiant cible");
         f_.add(DEST_TR,"chaîne identifiant cible");
         f_.add(NUM_VAR,"chaînes variables littérales");

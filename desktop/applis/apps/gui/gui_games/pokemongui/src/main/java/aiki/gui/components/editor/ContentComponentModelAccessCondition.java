@@ -111,6 +111,7 @@ public final class ContentComponentModelAccessCondition {
             int levs_ = ls_.size();
             for (int j = 0; j < levs_; j++) {
                 FormLevelGridLink g_ = AbsContentComponentModelLevelLinks.build(_c, _fac, _fact, _fr, places_.get(i), AbsContentComponentModelLevelLinks.coords(i, j, null), getTranslationsGrid());
+                g_.getForm().setTitledBorder(i+"-"+j);
                 levels.add(g_);
                 g_.getGrid().addMouseListener(new SelectOrDeselectAccessConditionEvent(this, g_));
                 _form.add(g_.getForm());
@@ -135,7 +136,7 @@ public final class ContentComponentModelAccessCondition {
         }
         trainersForm.removeAll();
         for (EntryCust<Coords, BoolVal> c:trainers.entryList()) {
-            AbsCustCheckBox ch_ = api.getCompoFactory().newCustCheckBox();
+            AbsCustCheckBox ch_ = api.getCompoFactory().newCustCheckBox(c.getKey().display());
             ch_.setSelected(c.getValue() == BoolVal.TRUE);
             ch_.addActionListener(new ChangeAccessConditionEvent(this,ch_,c.getKey()));
             trainersForm.add(ch_);
