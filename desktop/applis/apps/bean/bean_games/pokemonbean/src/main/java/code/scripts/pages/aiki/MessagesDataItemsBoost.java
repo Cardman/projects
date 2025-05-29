@@ -16,7 +16,7 @@ public final class MessagesDataItemsBoost {
     }
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
-        e_.add(M_P_18_EVS,"Here is the table of won evs by statistic if evs of the statistic to be increased are lower or equal to {0}:");
+        e_.add(M_P_18_EVS,"Here is the table of won evs by statistic if evs of the statistic to be increased are lower or equal to the maximum:");
         e_.add(M_P_18_EVS_BOOST,"Won evs");
         e_.add(M_P_18_EVS_STAT,"Statistic");
         e_.add(M_P_18_HAPPINESS,"Here is the table of happiness points depending on the BALL having caught the pokemon to be boosted:");
@@ -29,7 +29,7 @@ public final class MessagesDataItemsBoost {
     }
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
-        f_.add(M_P_18_EVS,"Voici le tableau des evs gagnés par statistique si les evs de la statistique à augmenter sont inférieurs ou égaux à {0}:");
+        f_.add(M_P_18_EVS,"Voici le tableau des evs gagnés par statistique si les evs de la statistique à augmenter sont inférieurs ou égaux au maximum:");
         f_.add(M_P_18_EVS_BOOST,"Evs gagnés");
         f_.add(M_P_18_EVS_STAT,"Statistique");
         f_.add(M_P_18_HAPPINESS,"Voici le tableau des points de bonheur gagnés en fonction de la BALL de capture du pokémon à booster:");

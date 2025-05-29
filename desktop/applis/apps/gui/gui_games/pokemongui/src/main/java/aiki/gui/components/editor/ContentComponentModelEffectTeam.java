@@ -39,9 +39,9 @@ public final class ContentComponentModelEffectTeam {
         forbiddenBoost = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffteam.M_P_66_FORBID_BOOST,forbiddenBoost.geneEnum()));
         cancelChgtStatFoeTeam = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(line(_core,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT_FOE,cancelChgtStatFoeTeam.geneEnum()));
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT_FOE_INTRO,cancelChgtStatFoeTeam.geneEnum()));
         cancelChgtStatTeam = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
-        selected_.add(line(_core,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT,cancelChgtStatTeam.geneEnum()));
+        selected_.add(line(_core,MessagesDataEffteam.M_P_66_CANCEL_CHGT_STAT_INTRO,cancelChgtStatTeam.geneEnum()));
         protectAgainstLowStat = ConverterCommonMapUtil.buildStatisticsLs(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffteam.M_P_66_PROTECT_AG_LAW_STATIS,protectAgainstLowStat.geneEnum()));
          disableFoeTeamStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());

@@ -41,7 +41,7 @@ public final class GeneComponentModelEffectWhileSending extends AbsGeneComponent
         form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_WEATHER,enabledWeather.geneEnum()));
         enabledWeather.addComplete();
         multWeight = new GeneComponentModelRate(getProgramInfos());
-        form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_WEIGHT,multWeight.geneRate()));
+        form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_WEIGHT_INTRO,multWeight.geneRate()));
         getEffectKind().getSelect().addListener(new ChangingTypeEvent(this));
         ConverterCommonMapUtil.trigger(getEffectKind(),MessagesEditorSelect.EFF_END_ROUND_FOE);
         return form_;

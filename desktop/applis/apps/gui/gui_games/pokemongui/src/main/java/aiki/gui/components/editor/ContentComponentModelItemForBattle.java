@@ -102,10 +102,10 @@ public final class ContentComponentModelItemForBattle {
         lawForAttackFirst = ConverterCommonMapUtil.buildMcBool(_parent.getFrame(),_parent.getCompoFactory(),MessagesPkBean.IT_ITEMFORBATTLE,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST_EVT,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST_RT);
         itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_ATTACK_FIRST,lawForAttackFirst.getGroup()));
         multPower = new GeneComponentModelSubscribeString(_parent.getCompoFactory(),_parent.getFacade());
-        itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_MULT_POWER,multPower.geneEnum()));
+        itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_MULT_POWER_INTRO,multPower.geneEnum()));
         multPower.addComplete();
         multDamage = new GeneComponentModelSubscribeString(_parent.getCompoFactory(),_parent.getFacade());
-        itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_MULT_DAMAGE,multDamage.geneEnum()));
+        itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_MULT_DAMAGE_INTRO,multDamage.geneEnum()));
         multDamage.addComplete();
         damageRecoil=new GeneComponentModelRate(_parent.getCompoFactory());
         itemForBattleForm.add(line(_parent,MessagesDataItemsItemforbattle.M_P_28_DAMAGE_RECOIL_INTRO,damageRecoil.geneRate()));

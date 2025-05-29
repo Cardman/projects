@@ -4,6 +4,7 @@ import code.sml.util.*;
 
 public final class MessagesDataItemsBerry {
     public static final String M_P_17_CATEGORY="category";
+    public static final String M_P_17_CATEGORY_INTRO="category_intro";
     public static final String M_P_17_CATEGORY_BOOSTING="category_boosting";
     public static final String M_P_17_CATEGORY_BOOST="category_boost";
     public static final String M_P_17_CATEGORY_STAT="category_stat";
@@ -40,6 +41,7 @@ public final class MessagesDataItemsBerry {
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
         e_.add(M_P_17_CATEGORY,"The berry is enabled while the owner suffers damage from a move directly used by a fighter.\nIf the owner suffers from a move with the category {0}, then its statistics vary by the following kind:");
+        e_.add(M_P_17_CATEGORY_INTRO,"The category of the moves that the owner suffers with variation of its statistics is the following one:");
         e_.add(M_P_17_CATEGORY_BOOSTING,"This berry boosts the statistics of the target when suffering from a move with following category:");
         e_.add(M_P_17_CATEGORY_BOOST,"Boost");
         e_.add(M_P_17_CATEGORY_STAT,"Statistic");
@@ -76,6 +78,7 @@ public final class MessagesDataItemsBerry {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_17_CATEGORY,"La baie est activée lorsque le possesseur subit des dégâts d''une attaque utilisée directement par un combattant.\nSi le possesseur subit une attaque de catégorie {0}, alors ses statistiques suivantes varient de la façon suivante:");
+        f_.add(M_P_17_CATEGORY_INTRO,"La catégorie des attaques que le possesseur subit avec variation de ses statistiques est la suivante:");
         f_.add(M_P_17_CATEGORY_BOOSTING,"Cette baie booste les statistiques de la cible lorsqu'elle subit une attaque de la catégorie suivante:");
         f_.add(M_P_17_CATEGORY_BOOST,"Boost");
         f_.add(M_P_17_CATEGORY_STAT,"Statistique");

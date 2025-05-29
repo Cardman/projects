@@ -199,10 +199,10 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         singleStatus = ConverterCommonMapUtil.buildStatusLaw(getFrame(), getCompoFactory(), getFacade(), getSubscribedTranslationList(),MessagesPkBean.AB_DATA,MessagesDataAbilityData.M_P_1_SINGLE_STATUS_KEY,MessagesDataAbilityData.M_P_1_SINGLE_STATUS_RATE);
         form_.add(line(MessagesDataAbilityData.M_P_1_SINGLE_STATUS,singleStatus.getGroup()));
         multPower = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
-        form_.add(line(MessagesDataAbilityData.M_P_1_MULT_POWER,multPower.geneEnum()));
+        form_.add(line(MessagesDataAbilityData.M_P_1_MULT_POWER_INTRO,multPower.geneEnum()));
         multPower.addComplete();
         multDamage = new GeneComponentModelSubscribeString(getCompoFactory(),getFacade());
-        form_.add(line(MessagesDataAbilityData.M_P_1_MULT_DAMAGE,multDamage.geneEnum()));
+        form_.add(line(MessagesDataAbilityData.M_P_1_MULT_DAMAGE_INTRO,multDamage.geneEnum()));
         multDamage.addComplete();
         immuLowStat=ConverterCommonMapUtil.buildStatisticsLs(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         form_.add(line(MessagesDataAbilityData.M_P_1_IMMU_LOW_STAT,immuLowStat.geneEnum()));
@@ -223,7 +223,7 @@ public final class GeneComponentModelAbilityData extends GeneComponentModelEntit
         immuWeather=ConverterCommonMapUtil.buildMoveList(getCompoFactory(),getFacade(),getSubscribedTranslationList());
         form_.add(line(MessagesDataAbilityData.M_P_1_IMMU_WEATHERS,immuWeather.geneEnum()));
         typeForMoves = ConverterCommonMapUtil.buildTypeElt(getCompoFactory(),getFacade(),getSubscribedTranslationList(),ConverterCommonMapUtil.defKeyEmpty(" "));
-        form_.add(line(MessagesDataAbilityData.M_P_1_TYPE_FOR_MOVES,typeForMoves.geneEnum()));
+        form_.add(line(MessagesDataAbilityData.M_P_1_TYPE_FOR_MOVES_INTRO,typeForMoves.geneEnum()));
         effectSending = new CrudGeneFormSimpleElementSub<EffectWhileSendingWithStatistic>(getCompoFactory(),getFacade(),getSubscribedTranslationList(),getFrame());
         effectSending.initForm(new DisplayEntryCustSubElementEffect<EffectWhileSendingWithStatistic>(),new GeneComponentModelSubscribeFactoryDirect<EffectWhileSendingWithStatistic>(new GeneComponentModelSubscribeEffectWhileSending(new GeneComponentModelEffectWhileSending(getFrame(),getCompoFactory(),getFacade(),getSubscribedTranslationList(), true))));
         form_.add(line(MessagesPkBean.SENDING,MessagesDataSending.M_P_84_EFFECT,effectSending.getGroup()));

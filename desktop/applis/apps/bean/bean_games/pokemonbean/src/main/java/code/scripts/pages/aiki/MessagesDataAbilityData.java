@@ -115,6 +115,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_MULT_ALLY_DAMAGE="mult_ally_damage";
     public static final String M_P_1_MULT_ALLY_DAMAGE_INTRO="mult_ally_damage_intro";
     public static final String M_P_1_MULT_DAMAGE="mult_damage";
+    public static final String M_P_1_MULT_DAMAGE_INTRO="mult_damage_intro";
     public static final String M_P_1_MULT_DAMAGE_CH="mult_damage_ch";
     public static final String M_P_1_MULT_DAMAGE_CH_INTRO="mult_damage_ch_intro";
     public static final String M_P_1_MULT_DAMAGE_FOE="mult_damage_foe";
@@ -125,6 +126,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_MULT_EVT_RATE_SEC_EFFECT_OWNER="mult_evt_rate_sec_effect_owner";
     public static final String M_P_1_MULT_EVT_RATE_SEC_EFFECT_OWNER_INTRO="mult_evt_rate_sec_effect_owner_intro";
     public static final String M_P_1_MULT_POWER="mult_power";
+    public static final String M_P_1_MULT_POWER_INTRO="mult_power_intro";
     public static final String M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL="mult_power_moves_types_global";
     public static final String M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_MOVE="mult_power_moves_types_global_move";
     public static final String M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_RATE="mult_power_moves_types_global_rate";
@@ -183,6 +185,7 @@ public final class MessagesDataAbilityData {
     public static final String M_P_1_TAKE_ITEM_DAMAGING_MOVE="take_item_damaging_move";
     public static final String M_P_1_TITLE="title";
     public static final String M_P_1_TYPE_FOR_MOVES="type_for_moves";
+    public static final String M_P_1_TYPE_FOR_MOVES_INTRO="type_for_moves_intro";
     public static final String STATISTIC = "Statistic";
     public static final String STATISTIQUE = "Statistique";
     public static final String LEVEL = "Level";
@@ -313,6 +316,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_MULT_ALLY_DAMAGE,"The ability is enabled while the user uses a move.\nInflicted damage by a move used by a partner of the owner of this ability against the owner of this ability are multiplied by {0}.");
         e_.add(M_P_1_MULT_ALLY_DAMAGE_INTRO,"Inflicted damage by a move used by a partner of the owner of this ability against the owner of this ability are multiplied by:");
         e_.add(M_P_1_MULT_DAMAGE,"Damage from moves is multiplied by {0}.");
+        e_.add(M_P_1_MULT_DAMAGE_INTRO,"Damage from moves is multiplied by:");
         e_.add(M_P_1_MULT_DAMAGE_CH,"The ability is enabled while the user uses a move.\nThe value of critical hits inflicted by the owner of this ability is multiplied by {0}.");
         e_.add(M_P_1_MULT_DAMAGE_CH_INTRO,"The value of critical hits inflicted by the owner of this ability is multiplied by:");
         e_.add(M_P_1_MULT_DAMAGE_FOE,"The ability is enabled while the owner suffers damage of a move directly used by a fighter.\nHere is the damage rates inflicted by a move in fonction by its type against the owner of this ability:");
@@ -323,6 +327,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_MULT_EVT_RATE_SEC_EFFECT_OWNER,"The ability is enabled while the user uses a move.\nThe probability of second effects of moves used by the owner of this ability is multiplied by {0}.");
         e_.add(M_P_1_MULT_EVT_RATE_SEC_EFFECT_OWNER_INTRO,"The probability of second effects of moves used by the owner of this ability is multiplied by:");
         e_.add(M_P_1_MULT_POWER,"The power of moves is multiplied by{0}.");
+        e_.add(M_P_1_MULT_POWER_INTRO,"The power of moves is multiplied by:");
         e_.add(M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL,"The ability is enabled while a pokemon uses a damaging move.\nThe power of the moves is multiplied in the following way:");
         e_.add(M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_MOVE,"Move");
         e_.add(M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_RATE,"Power rate");
@@ -381,6 +386,7 @@ public final class MessagesDataAbilityData {
         e_.add(M_P_1_TAKE_ITEM_DAMAGING_MOVE,"The ability is enabled while the owner inflicts damage against a target.\nAfter inflicting damage against a target, the owner take if possible the item of the target.");
         e_.add(M_P_1_TITLE,"Data of the ability {0}");
         e_.add(M_P_1_TYPE_FOR_MOVES,"The ability is enabled while the user uses a move.\nThe type of all moves used by the owner of this ability is {0}.");
+        e_.add(M_P_1_TYPE_FOR_MOVES_INTRO,"The type of all moves used by the owner of this ability is:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -496,6 +502,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_MULT_ALLY_DAMAGE,"La capacité est activée lorsque le possesseur attaque.\nLes dégâts causés par une attaque lancée par un partenaire du possesseur de cette capacité sur le possesseur de cette capacité sont multipliés par {0}.");
         f_.add(M_P_1_MULT_ALLY_DAMAGE_INTRO,"Les dégâts causés par une attaque lancée par un partenaire du possesseur de cette capacité sur le possesseur de cette capacité sont multipliés par:");
         f_.add(M_P_1_MULT_DAMAGE,"Les dégâts des attaques sont multipliés par{0}.");
+        f_.add(M_P_1_MULT_DAMAGE_INTRO,"Les dégâts des attaques sont multipliés par:");
         f_.add(M_P_1_MULT_DAMAGE_CH,"La capacité est activée lorsque le possesseur attaque.\nLa valeur des coups critiques infligés par le possesseur de cette capacité est multipliée par {0}.");
         f_.add(M_P_1_MULT_DAMAGE_CH_INTRO,"La valeur des coups critiques infligés par le possesseur de cette capacité est multipliée par:");
         f_.add(M_P_1_MULT_DAMAGE_FOE,"La capacité est activée lorsque le possesseur subit des dégâts d'une attaque utilisée directement par un combattant.\nVoici les coefficients des dégâts causés par une attaque en fonction de son type sur le possesseur de cette capacité:");
@@ -506,6 +513,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_MULT_EVT_RATE_SEC_EFFECT_OWNER,"La capacité est activée lorsque le possesseur attaque.\nLa probabilité des effets secondaires des attaques utilisées par le possesseur de cette capacité est multiplié par {0}.");
         f_.add(M_P_1_MULT_EVT_RATE_SEC_EFFECT_OWNER_INTRO,"La probabilité des effets secondaires des attaques utilisées par le possesseur de cette capacité est multiplié par:");
         f_.add(M_P_1_MULT_POWER,"La puissance des attaques est multipliée par{0}.");
+        f_.add(M_P_1_MULT_POWER_INTRO,"La puissance des attaques est multipliée par:");
         f_.add(M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL,"La capacité est activée lorsqu'un pokemon utilise une attaque offensive.\nLa puissance des attaques est multipliée de la façon suivante:");
         f_.add(M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_MOVE,"Attaque");
         f_.add(M_P_1_MULT_POWER_MOVES_TYPES_GLOBAL_RATE,"Coefficient de puissance");
@@ -564,6 +572,7 @@ public final class MessagesDataAbilityData {
         f_.add(M_P_1_TAKE_ITEM_DAMAGING_MOVE,"La capacité est activée lorsque le possesseur inflige des dégâts à une cible.\nAprés que les dégâts soient infligé à une cible, le possesseur prend si possible l'objet de la cible.");
         f_.add(M_P_1_TITLE,"Données sur la capacité {0}");
         f_.add(M_P_1_TYPE_FOR_MOVES,"La capacité est activée lorsque le possesseur attaque.\nLe type de toutes les attaques utilisé par le possesseur de cette capacité est {0}.");
+        f_.add(M_P_1_TYPE_FOR_MOVES_INTRO,"Le type de toutes les attaques utilisé par le possesseur de cette capacité est:");
         return f_;
     }
 }

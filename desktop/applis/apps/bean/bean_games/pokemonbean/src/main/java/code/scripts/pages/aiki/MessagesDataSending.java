@@ -13,6 +13,7 @@ public final class MessagesDataSending {
     public static final String M_P_84_PLATE="plate";
     public static final String M_P_84_WEATHER="weather";
     public static final String M_P_84_WEIGHT="weight";
+    public static final String M_P_84_WEIGHT_INTRO="weight_intro";
     private MessagesDataSending(){
     }
     public static TranslationsFile en(){
@@ -27,6 +28,7 @@ public final class MessagesDataSending {
         e_.add(M_P_84_PLATE,"Le type of the owner becomes the type of the owned plate, else the type of the owner is the base type (on the associated data).");
         e_.add(M_P_84_WEATHER,"While the owner is sent on the front battle, the following weather is enabled:");
         e_.add(M_P_84_WEIGHT,"The weight of the owner is multiplied by {0} while its sending.");
+        e_.add(M_P_84_WEIGHT_INTRO,"The weight of the owner while its sending is multiplied by:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -41,6 +43,7 @@ public final class MessagesDataSending {
         f_.add(M_P_84_PLATE,"Le type du porteur devient le type de la plaque possédée, sinon le type du porteur est celui de base (sur la fiche associée dans les données).");
         f_.add(M_P_84_WEATHER,"Lorsque le possesseur entre sur le terrain, le climat suivant est actif:");
         f_.add(M_P_84_WEIGHT,"La masse du porteur est multiplié par {0} lors de son entrée.");
+        f_.add(M_P_84_WEIGHT_INTRO,"La masse du porteur lors de son entrée est multiplié par:");
         return f_;
     }
 }

@@ -19,7 +19,7 @@ public final class ContentComponentModelEffectCopyMove {
         movesNotToBeCopied = ConverterCommonMapUtil.buildMoveList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffcopymove.M_P_43_MOVES_NOT_COPIED,movesNotToBeCopied.geneEnum()));
         copyingMoveForUserDef = _core.getProgramInfos().getCompoFactory().newCustCheckBox();
-        selected_.add(line(_core,MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE,copyingMoveForUserDef));
+        selected_.add(line(_core,MessagesDataEffcopymove.M_P_43_COPY_DEF_MOVE_INTRO,copyingMoveForUserDef));
         selected_.setVisible(false);
         form =selected_;
         return selected_;

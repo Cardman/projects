@@ -4,7 +4,9 @@ import code.sml.util.*;
 
 public final class MessagesDataEffteam {
     public static final String M_P_66_CANCEL_CHGT_STAT="cancel_chgt_stat";
+    public static final String M_P_66_CANCEL_CHGT_STAT_INTRO="cancel_chgt_stat_intro";
     public static final String M_P_66_CANCEL_CHGT_STAT_FOE="cancel_chgt_stat_foe";
+    public static final String M_P_66_CANCEL_CHGT_STAT_FOE_INTRO="cancel_chgt_stat_foe_intro";
     public static final String M_P_66_CAT="cat";
     public static final String M_P_66_DELETE_EFFECTS="delete_effects";
     public static final String M_P_66_DELETE_STATUS="delete_status";
@@ -26,7 +28,9 @@ public final class MessagesDataEffteam {
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
         e_.add(M_P_66_CANCEL_CHGT_STAT,"The value of the level of the statistics of the members of the team of the user is now {0}.");
+        e_.add(M_P_66_CANCEL_CHGT_STAT_INTRO,"The value of the level of the statistics of the members of the team of the user is now:");
         e_.add(M_P_66_CANCEL_CHGT_STAT_FOE,"The value of the level of the statistics of the foes is now {0}:");
+        e_.add(M_P_66_CANCEL_CHGT_STAT_FOE_INTRO,"The value of the level of the statistics of the foes is now:");
         e_.add(M_P_66_CAT,"Category of the suffered move");
         e_.add(M_P_66_DELETE_EFFECTS,"The effects of the following moves used by a team by the foe team are cancelled. These are these moves:");
         e_.add(M_P_66_DELETE_STATUS,"The effects of the status of the user are cancelled. These are these status:");
@@ -48,7 +52,9 @@ public final class MessagesDataEffteam {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_66_CANCEL_CHGT_STAT,"La valeur du boost des statistiques des membres de l''équipe du lanceur est remise à {0}.");
+        f_.add(M_P_66_CANCEL_CHGT_STAT_INTRO,"La valeur du boost des statistiques des membres de l'équipe du lanceur est remise à:");
         f_.add(M_P_66_CANCEL_CHGT_STAT_FOE,"La valeur du boost des statistiques des adversaires est remise à {0}:");
+        f_.add(M_P_66_CANCEL_CHGT_STAT_FOE_INTRO,"La valeur du boost des statistiques des adversaires est remise à:");
         f_.add(M_P_66_CAT,"Catégorie de l'attaque subie");
         f_.add(M_P_66_DELETE_EFFECTS,"Les effets des attaques utilisées en équipe par l'équipe adverse sont annulées. Ce sont ces attaques:");
         f_.add(M_P_66_DELETE_STATUS,"Les effets des statuts du lanceur sont annulés. Ce sont ces statuts:");

@@ -43,9 +43,11 @@ public final class MessagesDataItemsItemforbattle {
     public static final String M_P_28_INCREASING_TRAP_MOVE="increasing_trap_move";
     public static final String M_P_28_INCREASING_TRAP_NB="increasing_trap_nb";
     public static final String M_P_28_MULT_DAMAGE="mult_damage";
+    public static final String M_P_28_MULT_DAMAGE_INTRO="mult_damage_intro";
     public static final String M_P_28_MULT_DRAINED_HP="mult_drained_hp";
     public static final String M_P_28_MULT_DRAINED_HP_INTRO="mult_drained_hp_intro";
     public static final String M_P_28_MULT_POWER="mult_power";
+    public static final String M_P_28_MULT_POWER_INTRO="mult_power_intro";
     public static final String M_P_28_MULT_STAT="mult_stat";
     public static final String M_P_28_MULT_STAT_KEY="mult_stat_key";
     public static final String M_P_28_MULT_STAT_POKEMON_RANK="mult_stat_pokemon_rank";
@@ -126,9 +128,11 @@ public final class MessagesDataItemsItemforbattle {
         e_.add(M_P_28_INCREASING_TRAP_MOVE,"Trapping move");
         e_.add(M_P_28_INCREASING_TRAP_NB, NEW_NUMBER_OF_ROUNDS_OF_EFFECTS_AT_THE_END_OF_ROUND_OF_FIGHT);
         e_.add(M_P_28_MULT_DAMAGE,"Damage of moves is multiplied by{0}.");
+        e_.add(M_P_28_MULT_DAMAGE_INTRO,"Damage of moves is multiplied by:");
         e_.add(M_P_28_MULT_DRAINED_HP,"The item is enabled while the owner attempts to absorb the hp of its foe.\nThe drained hp are multiplied by {0}.");
         e_.add(M_P_28_MULT_DRAINED_HP_INTRO,"The drained hp are multiplied by:");
         e_.add(M_P_28_MULT_POWER,"The power of moves is multiplied by {0}.");
+        e_.add(M_P_28_MULT_POWER_INTRO,"The power of moves is multiplied by:");
         e_.add(M_P_28_MULT_STAT,"The statistics of the owner are multiplied by the following way:");
         e_.add(M_P_28_MULT_STAT_KEY, STATISTIC);
         e_.add(M_P_28_MULT_STAT_POKEMON_RANK,"While sending the owner, the levels of its statistics vary by the following way:");
@@ -203,9 +207,11 @@ public final class MessagesDataItemsItemforbattle {
         f_.add(M_P_28_INCREASING_TRAP_MOVE,"Attaque piégeante");
         f_.add(M_P_28_INCREASING_TRAP_NB, NOUVEAU_NOMBRE_DE_TOURS_DES_EFFETS_DE_FIN_DE_TOUR);
         f_.add(M_P_28_MULT_DAMAGE,"Les dégâts des attaques sont multipliés par{0}.");
+        f_.add(M_P_28_MULT_DAMAGE_INTRO,"Les dégâts des attaques sont multipliés par:");
         f_.add(M_P_28_MULT_DRAINED_HP,"L''objet est activé lorsque le possesseur tente d''absorber les pv de son adversaire.\nLes pv drainés sont multipliés par {0}.");
         f_.add(M_P_28_MULT_DRAINED_HP_INTRO,"Les pv drainés sont multipliés par:");
         f_.add(M_P_28_MULT_POWER,"La puissance des attaques est multipliée par: {0}.");
+        f_.add(M_P_28_MULT_POWER_INTRO,"La puissance des attaques est multipliée par:");
         f_.add(M_P_28_MULT_STAT,"Les statistiques du porteur sont multipliées de la façon suivante:");
         f_.add(M_P_28_MULT_STAT_KEY, STATISTIQUE);
         f_.add(M_P_28_MULT_STAT_POKEMON_RANK,"A l'entrée d'un porteur, les crans de ses statistiques varient de la façon suivante:");

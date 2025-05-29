@@ -4,6 +4,7 @@ import code.sml.util.*;
 
 public final class MessagesDataEffcopymove {
     public static final String M_P_43_COPY_DEF_MOVE="copy_def_move";
+    public static final String M_P_43_COPY_DEF_MOVE_INTRO="copy_def_move_intro";
     public static final String M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS="copy_def_move_without_trans";
     public static final String M_P_43_COPY_TMP_MOVE="copy_tmp_move";
     public static final String M_P_43_COPY_TMP_MOVE_INTRO="copy_tmp_move_intro";
@@ -16,6 +17,7 @@ public final class MessagesDataEffcopymove {
     public static TranslationsFile en(){
         TranslationsFile e_=new TranslationsFile();
         e_.add(M_P_43_COPY_DEF_MOVE,"The copied move of the target definitively substitutes the move {0} of the user except if the user is under the effect of one of the moves like:");
+        e_.add(M_P_43_COPY_DEF_MOVE_INTRO,"The move which has the effect is definitively substituted.");
         e_.add(M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS,"The copied move of the target definitively substitutes the move {0} of the user.");
         e_.add(M_P_43_COPY_TMP_MOVE,"The copied move of the target substitutes the move {0} of the user and has {1} pp at the beginning. If all pp of the copied move are used then the user can again use the move {0} with one pp less.");
         e_.add(M_P_43_COPY_TMP_MOVE_INTRO,"PP of the copied move of the target at the beginning:");
@@ -28,6 +30,7 @@ public final class MessagesDataEffcopymove {
     public static TranslationsFile fr(){
         TranslationsFile f_=new TranslationsFile();
         f_.add(M_P_43_COPY_DEF_MOVE,"L''attaque copiée de la cible vient substituer l''attaque {0} du lanceur définitivement sauf si le lanceur est sous l''effet d''une des attaques comme:");
+        f_.add(M_P_43_COPY_DEF_MOVE_INTRO,"L'attaque qui a l'effet est définitivement substituée.");
         f_.add(M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS,"L''attaque copiée de la cible vient substituer l''attaque {0} du lanceur définitivement.");
         f_.add(M_P_43_COPY_TMP_MOVE,"L''attaque copiée de la cible vient substituer l''attaque {0} du lanceur et prend {1} pp au départ. Si tous les pp de l''attaque copiée sont consommés alors le lanceur peut de nouveau utiliser l''attaque {0} avec un pp de moins.");
         f_.add(M_P_43_COPY_TMP_MOVE_INTRO,"PP de l'attaque copiée de la cible au départ:");
