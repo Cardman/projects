@@ -29,7 +29,7 @@ public final class ContentComponentModelEffectEndRoundIndividual {
         multDamageStatus = new CrudGeneFormSimpleFormSub<String,Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
         multDamageStatus.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactorySt(), _core.getProgramInfos(), _core.getFacadeGame(),new StringMap<String>()), buildPart(_core, _core.getFactory().getFactorySt(), new StringMap<String>()), new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.ENDROUND_INDIVIDUAL,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS_KEY,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS_VALUE);
         selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_MULT_DAMAGE_STATUS,multDamageStatus.getGroup()));
-        userStatusEndRound = ConverterCommonMapUtil.buildStatus(_core.getProgramInfos(), _core.getFacadeGame(),_core.getFactory(),ConverterCommonMapUtil.defKeyEmpty(" "));
+        userStatusEndRound = ConverterCommonMapUtil.buildStatus(_core.getProgramInfos(), _core.getFacadeGame(),_core.getFactory(),ConverterCommonMapUtil.defKeyEmpty());
         selected_.add(line(_core,MessagesDataEndroundIndividual.M_P_6_USER_STATUS,userStatusEndRound.geneEnum()));
         form = selected_;
         selected_.setVisible(false);

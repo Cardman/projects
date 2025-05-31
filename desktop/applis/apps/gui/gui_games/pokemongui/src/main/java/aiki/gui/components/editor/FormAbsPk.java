@@ -34,7 +34,7 @@ public abstract class FormAbsPk {
         form.add(line(MessagesDataMapPokemonKey.M_P_34_NAME,name.geneEnum()));
         ability = ConverterCommonMapUtil.buildAbFull(api, facadeGame, subscribedTranslationList, new IdMap<String, String>());
         form.add(line(MessagesDataMapPokemonKey.M_P_34_ABILITY,ability.geneEnum()));
-        item = ConverterCommonMapUtil.buildItFull(api, facadeGame, subscribedTranslationList, ConverterCommonMapUtil.defKeyEmpty(" "));
+        item = ConverterCommonMapUtil.buildItFull(api, facadeGame, subscribedTranslationList, ConverterCommonMapUtil.defKeyEmpty());
         form.add(line(MessagesDataMapPokemonKey.M_P_34_ITEM,item.geneEnum()));
         gender = ConverterCommonMapUtil.buildGender(api, facadeGame, subscribedTranslationList);
         form.add(line(MessagesDataMapPokemonKey.M_P_34_GENDER,gender.geneEnum()));

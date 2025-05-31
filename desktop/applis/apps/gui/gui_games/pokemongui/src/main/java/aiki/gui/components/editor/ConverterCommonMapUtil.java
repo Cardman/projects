@@ -48,6 +48,9 @@ import code.util.*;
 import code.util.core.*;
 
 public final class ConverterCommonMapUtil {
+
+    public static final String SPACE = " ";
+
     private ConverterCommonMapUtil() {
     }
 
@@ -3641,6 +3644,9 @@ public final class ConverterCommonMapUtil {
             v.removeKey(_key);
         }
     }
+    public static StringMap<String> defKeyEmpty() {
+        return defKeyEmpty(SPACE);
+    }
     public static StringMap<String> defKeyEmpty(String _v) {
         StringMap<String> map_ = new StringMap<String>();
         map_.addEntry(DataBase.EMPTY_STRING,_v);
@@ -3653,7 +3659,7 @@ public final class ConverterCommonMapUtil {
 
     public static CrudGeneFormMonteCarloSub<String> buildStatusLaw(AbsCommonFrame _f, AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact,String _file, String _k, String _v) {
         CrudGeneFormMonteCarloSub<String> law_ = new CrudGeneFormMonteCarloSub<String>(_f, _core);
-        law_.initFormKeys(buildStatus(_core,_fac,_fact, defKeyEmpty(" ")),new DisplayEntryCustSubElementLgIntImpl<String>(_fact.getFactorySt(), _core, _fac, defKeyEmpty(" ")),_file,_k,_v);
+        law_.initFormKeys(buildStatus(_core,_fac,_fact, defKeyEmpty()),new DisplayEntryCustSubElementLgIntImpl<String>(_fact.getFactorySt(), _core, _fac, defKeyEmpty()),_file,_k,_v);
         return law_;
     }
 

@@ -44,7 +44,7 @@ public final class ContentComponentModelBerry {
         berryForm.add(line(_parent,MessagesDataItemsBerry.M_P_17_RECOIL,damageRateRecoilFoe.getGroup()));
         healStatus=ConverterCommonMapUtil.buildStatusList(_parent.getCompoFactory(),_parent.getFacade(),_parent.getSubscribedTranslationList());
         berryForm.add(line(_parent,MessagesDataItemsBerry.M_P_17_HEAL_STATUS,healStatus.geneEnum()));
-        categoryBoosting = ConverterCommonMapUtil.buildCatElt(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), ConverterCommonMapUtil.defKeyEmpty(" "));
+        categoryBoosting = ConverterCommonMapUtil.buildCatElt(_parent.getCompoFactory(), _parent.getFacade(), _parent.getSubscribedTranslationList(), ConverterCommonMapUtil.defKeyEmpty());
         berryForm.add(line(_parent,MessagesDataItemsBerry.M_P_17_CATEGORY_BOOSTING,categoryBoosting.geneEnum()));
         healHp=new GeneComponentModelRate(_parent.getCompoFactory());
         berryForm.add(line(_parent,MessagesDataItemsBerry.M_P_17_HEAL_HP_INTRO,healHp.geneRate()));

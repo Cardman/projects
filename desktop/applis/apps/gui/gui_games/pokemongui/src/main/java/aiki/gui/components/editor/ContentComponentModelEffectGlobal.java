@@ -72,7 +72,7 @@ public final class ContentComponentModelEffectGlobal {
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_HEALING_END_ROUND_GROUND_INTRO,healingEndRoundGround.geneRate()));
         multEffectLovingAlly = new GeneComponentModelRate(_core.getProgramInfos());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_LOVE_INTRO,multEffectLovingAlly.geneRate()));
-        invokedMoveTerrain = ConverterCommonMapUtil.buildMvFull(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),ConverterCommonMapUtil.defKeyEmpty(" "));
+        invokedMoveTerrain = ConverterCommonMapUtil.buildMvFull(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),ConverterCommonMapUtil.defKeyEmpty());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_INVOKED_MOVE,invokedMoveTerrain.geneEnum()));
         preventStatus = ConverterCommonMapUtil.buildStatusList(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory());
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_FORBID_STATUS,preventStatus.geneEnum()));

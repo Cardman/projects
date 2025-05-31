@@ -15,7 +15,7 @@ public final class ContentComponentModelEffectSwitchAbilities {
         exchangeAbility = new GeneComponentModelElt<String>(_core.getProgramInfos(), MessagesPkEditor.getMessagesEditorSelectExchangeTypeTr(MessagesPkEditor.getAppliTr(_core.getProgramInfos().currentLg())).getMapping(),new EmptyDefValue());
         selected_.add(line(_core,MessagesDataEffswitchabilities.M_P_60_SWICTH_ABILITIES,exchangeAbility.geneEnum()));
         exchangeAbility.setupValue(DataBase.DEF_EXCHANGE_TYPE_NOTHING);
-        constAbility = ConverterCommonMapUtil.buildAbFull(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), ConverterCommonMapUtil.defKeyEmpty(" "));
+        constAbility = ConverterCommonMapUtil.buildAbFull(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), ConverterCommonMapUtil.defKeyEmpty());
         selected_.add(line(_core,MessagesDataEffswitchabilities.M_P_60_GIVE_CONST,constAbility.geneEnum()));
         form = selected_;
         selected_.setVisible(false);
