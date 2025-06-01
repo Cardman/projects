@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -132,7 +133,7 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
     }
 
     private void update() {
-        subscribedTranslations.updateRenamingId("","",new StringList());
+        subscribedTranslations.updateRenamingId(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING,new StringList());
         subscribedTranslations.update();
     }
 

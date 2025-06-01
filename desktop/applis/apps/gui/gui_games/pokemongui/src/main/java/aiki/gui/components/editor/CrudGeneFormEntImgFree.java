@@ -35,21 +35,21 @@ public final class CrudGeneFormEntImgFree extends CrudGeneFormListSub<EditedCrud
         if (_index > -1) {
             factoryCommonParam.all(facadeGame_).removeKey(key_);
             getList().remove(_index);
-            update("","");
+            update(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
             getCrudGeneFormSubContent().removeOpenSub();
             afterModif();
             return;
         }
         if (old_ == null) {
             factoryCommonParam.all(facadeGame_).addEntry(key_,_value.getValue());
-            update("","");
+            update(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
             getCrudGeneFormSubContent().removeOpenSub();
             afterModif();
             return;
         }
         if (StringUtil.quickEq(old_, key_)) {
             factoryCommonParam.all(facadeGame_).set(key_, _value.getValue());
-            update("","");
+            update(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
             getCrudGeneFormSubContent().removeOpenSub();
             afterModif();
             return;

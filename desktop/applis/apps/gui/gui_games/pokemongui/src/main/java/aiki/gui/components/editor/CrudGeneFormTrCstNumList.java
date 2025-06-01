@@ -54,7 +54,7 @@ public final class CrudGeneFormTrCstNumList implements AbsCrudGeneFormTrCstOpen 
         long nb_ = facadeGame.getData().getNbMaxMoves();
         facadeGame.getData().getConstNum().put(_k, _f.valueRate());
         if (StringUtil.quickEq(_k, DataBase.DEF_MAX_ATT) && nb_ != facadeGame.getData().getNbMaxMoves()) {
-            subscriptions.updateRenamingId("","",new StringList());
+            subscriptions.updateRenamingId(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING,new StringList());
             subscriptions.update();
         }
     }

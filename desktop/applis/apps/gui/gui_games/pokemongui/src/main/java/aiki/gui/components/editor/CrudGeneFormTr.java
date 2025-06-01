@@ -48,18 +48,18 @@ public final class CrudGeneFormTr extends AbsCrudGeneFormList<EditedCrudPair<Str
             getList().remove(_index);
             ConverterCommonMapUtil.removeKey(key_, factoryMessage.buildMessages(facadeGame));
             afterModif();
-            update("","");
+            update(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
             return;
         }
         if (getSelectedIndex() < 0) {
             ConverterCommonMapUtil.addKey(key_, _value.getValue(), factoryMessage.buildMessages(facadeGame));
             afterModif();
-            update("","");
+            update(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
             return;
         }
         ConverterCommonMapUtil.setKey(key_, _value.getValue(), factoryMessage.buildMessages(facadeGame));
         afterModif();
-        update("","");
+        update(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
     }
 
 //    @Override

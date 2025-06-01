@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import code.gui.*;
 import code.gui.files.*;
 
@@ -24,6 +25,6 @@ public final class DefPostFileFrameEventImg implements AbsPostFileDialogEvent {
 
     @Override
     public String visible(AbsPanel _panel) {
-        return "";
+        return DataBase.EMPTY_STRING;
     }
 }

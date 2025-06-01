@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.fight.moves.effects.*;
 import aiki.instances.*;
 import code.gui.*;
@@ -31,7 +32,7 @@ public final class ContentComponentModelGroupEffectEndRoundStatus {
         if (seen_) {
             return _eff;
         }
-        return "";
+        return DataBase.EMPTY_STRING;
     }
 
     public static boolean matches(String _eff) {
@@ -50,7 +51,7 @@ public final class ContentComponentModelGroupEffectEndRoundStatus {
 
     public String feedForm(EffectEndRoundStatus _v) {
         contentEffectEndRoundStatus.feedForm(_v);
-        String o_ = "";
+        String o_ = DataBase.EMPTY_STRING;
         if (_v instanceof EffectEndRoundSingleStatus) {
             o_ = MessagesEditorSelect.EFF_END_ROUND_STATUS;
             contentEffectEndRoundSingleStatus.feedForm((EffectEndRoundSingleStatus) _v);

@@ -1,6 +1,7 @@
 package aiki.gui.components.editor;
 
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.instances.*;
 import aiki.map.buildings.*;
@@ -193,7 +194,7 @@ public final class ContentComponentModelCity {
     }
 
     private void choices(StringMap<String> _messages) {
-        contentLevelBuilding.choose("");
+        contentLevelBuilding.choose(DataBase.EMPTY_STRING);
         AbsCompoFactory compoFactory_ = contentLevelOutdoor.getLevel().getApi().getCompoFactory();
         AbsPanel form_ = compoFactory_.newPageBox();
         contentLevelOutdoor.getTiles().clear();
@@ -404,7 +405,7 @@ public final class ContentComponentModelCity {
                 ((PokemonCenter)editedBuilding).getIndoor().setStorageCoords(ConverterCommonMapUtil.copyNullablePoint(storage));
                 validate();
             }
-            contentLevelBuilding.choose("");
+            contentLevelBuilding.choose(DataBase.EMPTY_STRING);
         }
     }
 
@@ -426,7 +427,7 @@ public final class ContentComponentModelCity {
                 editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
                 validate();
             }
-            contentLevelBuilding.choose("");
+            contentLevelBuilding.choose(DataBase.EMPTY_STRING);
         }
     }
 
@@ -452,7 +453,7 @@ public final class ContentComponentModelCity {
                 ((PokemonCenter)editedBuilding).getIndoor().setStorageCoords(ConverterCommonMapUtil.copyNullablePoint(storage));
                 removeFore();
             }
-            contentLevelBuilding.choose("");
+            contentLevelBuilding.choose(DataBase.EMPTY_STRING);
             initFormChoicesPc();
         }
     }
@@ -476,7 +477,7 @@ public final class ContentComponentModelCity {
                 editedBuilding.setExitCity(ConverterCommonMapUtil.copyNullablePoint(exitBuilding));
                 removeFore();
             }
-            contentLevelBuilding.choose("");
+            contentLevelBuilding.choose(DataBase.EMPTY_STRING);
             initFormChoicesGym();
         }
     }
@@ -509,11 +510,11 @@ public final class ContentComponentModelCity {
         contentLevelBuilding.removeFore();
         contentLevelBuilding.applyTile();
         if (editedBuilding instanceof Gym) {
-            contentLevelBuilding.choose("");
+            contentLevelBuilding.choose(DataBase.EMPTY_STRING);
             initFormChoicesGym();
         }
         if (editedBuilding instanceof PokemonCenter) {
-            contentLevelBuilding.choose("");
+            contentLevelBuilding.choose(DataBase.EMPTY_STRING);
             initFormChoicesPc();
         }
     }

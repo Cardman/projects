@@ -1750,7 +1750,7 @@ public final class ConverterCommonMapUtil {
     private static DataBase check(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {
         FacadeGame fac_ = new FacadeGame();
         fac_.setSexList(_i);
-        GamesPk.postLoad(fac_,"",_perCentLoading,_loading,GamesPk.tryInitLinks(_data));
+        GamesPk.postLoad(fac_,DataBase.EMPTY_STRING,_perCentLoading,_loading,GamesPk.tryInitLinks(_data));
         return _data;
     }
 

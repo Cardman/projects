@@ -15,7 +15,7 @@ public final class ContentComponentModelLevel {
     private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private final IdList<SubscribedTranslation> translationsGrid = new IdList<SubscribedTranslation>();
     private Point selected = new Point(0, 0);
-    private String key = "";
+    private String key = DataBase.EMPTY_STRING;
     private AbsButton removeTile;
     private AbsSpinner deltaWidth;
     private AbsSpinner deltaHeight;
@@ -106,7 +106,7 @@ public final class ContentComponentModelLevel {
     }
 
     public void applyTile() {
-        key = "";
+        key = DataBase.EMPTY_STRING;
         level.refreshImg(level.getFormBlockTile().getEdited().getWidth(), level.getFormBlockTile().getEdited().getHeight());
     }
 

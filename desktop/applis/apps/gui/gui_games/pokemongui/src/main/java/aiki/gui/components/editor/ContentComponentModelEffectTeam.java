@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
@@ -59,7 +60,7 @@ public final class ContentComponentModelEffectTeam {
         multStatisticFoe.initFormWithVal(new DisplayEntryCustSubElementImpl<Statistic,Rate>(_core.getFactory().getFactoryStat(),_core.getProgramInfos(),_core.getFacadeGame(), new IdMap<Statistic, String>()),new GeneComponentModelSubscribeFactorySelEltEnum<Statistic>(_core.getProgramInfos(), _core.getFactory().getFactoryStat(), _core.getFacadeGame()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_TEAM,MessagesDataEffteam.M_P_66_STATISTIC,MessagesDataEffteam.M_P_66_RATE);
         selected_.add(line(_core,MessagesDataEffteam.M_P_66_MULT_STAT_FOE,multStatisticFoe.getGroup()));
         multDamage = new CrudGeneFormSimpleFormSub<CategoryMult, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        multDamage.initFormWithVal(new DisplayEntryCustSubElementCategoryMult(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<CategoryMult>(new GeneComponentModelSubscribeCategoryMult(_core, MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_MULT, MessagesDataEffteam.M_P_66_CAT)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_TEAM,"",MessagesDataEffteam.M_P_66_RATE);
+        multDamage.initFormWithVal(new DisplayEntryCustSubElementCategoryMult(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<CategoryMult>(new GeneComponentModelSubscribeCategoryMult(_core, MessagesPkBean.EFF_TEAM, MessagesDataEffteam.M_P_66_MULT, MessagesDataEffteam.M_P_66_CAT)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_TEAM,DataBase.EMPTY_STRING,MessagesDataEffteam.M_P_66_RATE);
         selected_.add(line(_core,MessagesDataEffteam.M_P_66_MULT_DAMAGE,multDamage.getGroup()));
         selected_.setVisible(false);
         form =selected_;

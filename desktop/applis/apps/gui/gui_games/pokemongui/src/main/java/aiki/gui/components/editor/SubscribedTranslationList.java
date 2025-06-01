@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.effects.*;
 import aiki.fight.items.*;
@@ -76,49 +77,49 @@ public final class SubscribedTranslationList {
     public void updateRenamingId(String _oldId, String _newId, StringList _mids) {
         renamingIdPhase.setOldId(_oldId);
         renamingIdPhase.setNewId(_newId);
-        renamingIdPhase.setOldMid("");
-        renamingIdPhase.setNewMid("");
-        renamingIdPhase.setOldPref("");
-        renamingIdPhase.setNewPref("");
+        renamingIdPhase.setOldMid(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewMid(DataBase.EMPTY_STRING);
+        renamingIdPhase.setOldPref(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewPref(DataBase.EMPTY_STRING);
         renamingIdPhase.setMids(_mids);
-        renamingImgNamePhase.setOldId("");
-        renamingImgNamePhase.setNewId("");
+        renamingImgNamePhase.setOldId(DataBase.EMPTY_STRING);
+        renamingImgNamePhase.setNewId(DataBase.EMPTY_STRING);
         renamingImgNamePhase.setRetriever(null);
     }
 
     public void updateRenamingMid(String _oldId, String _newId, StringList _mids) {
-        renamingIdPhase.setOldId("");
-        renamingIdPhase.setNewId("");
-        renamingIdPhase.setOldPref("");
-        renamingIdPhase.setNewPref("");
+        renamingIdPhase.setOldId(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewId(DataBase.EMPTY_STRING);
+        renamingIdPhase.setOldPref(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewPref(DataBase.EMPTY_STRING);
         renamingIdPhase.setOldMid(_oldId);
         renamingIdPhase.setNewMid(_newId);
         renamingIdPhase.setMids(_mids);
-        renamingImgNamePhase.setOldId("");
-        renamingImgNamePhase.setNewId("");
+        renamingImgNamePhase.setOldId(DataBase.EMPTY_STRING);
+        renamingImgNamePhase.setNewId(DataBase.EMPTY_STRING);
         renamingImgNamePhase.setRetriever(null);
     }
 
     public void updateRenamingPref(String _oldId, String _newId, StringList _mids) {
-        renamingIdPhase.setOldId("");
-        renamingIdPhase.setNewId("");
+        renamingIdPhase.setOldId(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewId(DataBase.EMPTY_STRING);
         renamingIdPhase.setOldPref(_oldId);
         renamingIdPhase.setNewPref(_newId);
-        renamingIdPhase.setOldMid("");
-        renamingIdPhase.setNewMid("");
+        renamingIdPhase.setOldMid(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewMid(DataBase.EMPTY_STRING);
         renamingIdPhase.setMids(_mids);
-        renamingImgNamePhase.setOldId("");
-        renamingImgNamePhase.setNewId("");
+        renamingImgNamePhase.setOldId(DataBase.EMPTY_STRING);
+        renamingImgNamePhase.setNewId(DataBase.EMPTY_STRING);
         renamingImgNamePhase.setRetriever(null);
     }
 
     public void updateRenamingFileName(String _oldId, String _newId, ImgRetriever _ir) {
-        renamingIdPhase.setOldId("");
-        renamingIdPhase.setNewId("");
-        renamingIdPhase.setOldMid("");
-        renamingIdPhase.setNewMid("");
-        renamingIdPhase.setOldPref("");
-        renamingIdPhase.setNewPref("");
+        renamingIdPhase.setOldId(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewId(DataBase.EMPTY_STRING);
+        renamingIdPhase.setOldMid(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewMid(DataBase.EMPTY_STRING);
+        renamingIdPhase.setOldPref(DataBase.EMPTY_STRING);
+        renamingIdPhase.setNewPref(DataBase.EMPTY_STRING);
         renamingIdPhase.setMids(new StringList());
         renamingImgNamePhase.setOldId(_oldId);
         renamingImgNamePhase.setNewId(_newId);
@@ -225,7 +226,7 @@ public final class SubscribedTranslationList {
     }
     public static String formatTxt(TranslationsFile _tf, String _key) {
         if (_tf == null) {
-            return "";
+            return DataBase.EMPTY_STRING;
         }
         return StringUtil.nullToEmpty(_tf.getMapping().getVal(_key));
     }

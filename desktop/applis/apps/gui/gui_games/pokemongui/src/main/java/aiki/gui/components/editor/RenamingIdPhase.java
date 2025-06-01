@@ -1,15 +1,16 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import code.util.*;
 
 public final class RenamingIdPhase {
     private StringList mids = new StringList();
-    private String oldId = "";
-    private String newId = "";
-    private String oldMid = "";
-    private String newMid = "";
-    private String oldPref = "";
-    private String newPref = "";
+    private String oldId = DataBase.EMPTY_STRING;
+    private String newId = DataBase.EMPTY_STRING;
+    private String oldMid = DataBase.EMPTY_STRING;
+    private String newMid = DataBase.EMPTY_STRING;
+    private String oldPref = DataBase.EMPTY_STRING;
+    private String newPref = DataBase.EMPTY_STRING;
 
     public StringList getMids() {
         return mids;

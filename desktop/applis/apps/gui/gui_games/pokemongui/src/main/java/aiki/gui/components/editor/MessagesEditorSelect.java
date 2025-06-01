@@ -344,7 +344,7 @@ public final class MessagesEditorSelect {
         e_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_THROWER,"The user takes from the target");
         e_.add(DataBase.DEF_EXCHANGE_TYPE_EXCHANGE,"The user and the target switch one each other");
         e_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_CONST,"The target takes an entity");
-        e_.add(DataBase.DEF_EXCHANGE_TYPE_NOTHING,"");
+        e_.add(DataBase.DEF_EXCHANGE_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return e_;
     }
     public static TranslationsFile frExchangeType(){
@@ -353,7 +353,7 @@ public final class MessagesEditorSelect {
         f_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_TO_THROWER,"Le lanceur prend depuis la cible");
         f_.add(DataBase.DEF_EXCHANGE_TYPE_EXCHANGE,"Le lanceur et la cible s'échangent");
         f_.add(DataBase.DEF_EXCHANGE_TYPE_GIVE_CONST,"La cible prend une entité");
-        f_.add(DataBase.DEF_EXCHANGE_TYPE_NOTHING,"");
+        f_.add(DataBase.DEF_EXCHANGE_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return f_;
     }
     public static TranslationsFile enMoveItemType(){
@@ -383,7 +383,7 @@ public final class MessagesEditorSelect {
         e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_THIEF_BONUSES,"The user of this move waits that its target use a \"thievable\" move");
         e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_MIRROR_AGAINST_THROWER,"The owner of this effect counters against the initial user");
         e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_ATTRACT_DAMAGES_MOVES,"The user of this move suffers damage of moves with single choice instead of its partners");
-        e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_NOTHING,"");
+        e_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return e_;
     }
     public static TranslationsFile frPointViewChangementType(){
@@ -391,21 +391,21 @@ public final class MessagesEditorSelect {
         f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_THIEF_BONUSES,"Le lanceur de cette attaque attend que sa cible lance une attaque \"saisissable\"");
         f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_MIRROR_AGAINST_THROWER,"Le possesseur de cet effet contre l'utilisateur initial");
         f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_ATTRACT_DAMAGES_MOVES,"Le lanceur de cette attaque subit les dégâts des attaques à cible unique au lieu de ses partenaires");
-        f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_NOTHING,"");
+        f_.add(DataBase.DEF_POINT_VIEW_CHANGEMENT_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return f_;
     }
     public static TranslationsFile enConstValuesType(){
         TranslationsFile e_ = new TranslationsFile();
         e_.add(DataBase.DEF_CONST_VALUES_TYPE_LANCEUR_ATTAQUES_TYPES,"The user of this move waits that its target use a \"thievable\" move");
         e_.add(DataBase.DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES,"The owner of this effect counters against the initial user");
-        e_.add(DataBase.DEF_CONST_VALUES_TYPE_NOTHING,"");
+        e_.add(DataBase.DEF_CONST_VALUES_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return e_;
     }
     public static TranslationsFile frConstValuesType(){
         TranslationsFile f_ = new TranslationsFile();
         f_.add(DataBase.DEF_CONST_VALUES_TYPE_LANCEUR_ATTAQUES_TYPES,"Le lanceur de cette attaque attend que sa cible lance une attaque \"saisissable\"");
         f_.add(DataBase.DEF_CONST_VALUES_TYPE_TYPES_ATTAQUES_RES,"Le possesseur de cet effet contre l'utilisateur initial");
-        f_.add(DataBase.DEF_CONST_VALUES_TYPE_NOTHING,"");
+        f_.add(DataBase.DEF_CONST_VALUES_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return f_;
     }
     public static TranslationsFile enMoveChoiceRestrictionType(){
@@ -415,7 +415,7 @@ public final class MessagesEditorSelect {
         e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_LANCEUR_ATTAQUES,"The target cannot use the moves that the user owns");
         e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_DER,"The fighter cannot choose consecutively the same move");
         e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_CATEGORIE_AUTRE,"The fighter cannot use not damaging moves anymore");
-        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING,"");
+        e_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return e_;
     }
     public static TranslationsFile frMoveChoiceRestrictionType(){
@@ -425,7 +425,7 @@ public final class MessagesEditorSelect {
         f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_LANCEUR_ATTAQUES,"La cible ne peut pas utiliser les attaques que le lanceur possède");
         f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_DER,"Le combattant ne peut pas choisir consécutivement la même attaque");
         f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_CATEGORIE_AUTRE,"Le combattant ne peut plus utiliser les attaques non offensives");
-        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING,"");
+        f_.add(DataBase.DEF_MOVE_CHOICE_RESTRICTION_TYPE_NOTHING,DataBase.EMPTY_STRING);
         return f_;
     }
     public static TranslationsFile enHerosSex(){

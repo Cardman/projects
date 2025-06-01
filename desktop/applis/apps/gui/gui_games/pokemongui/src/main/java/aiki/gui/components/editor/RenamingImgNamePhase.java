@@ -1,8 +1,10 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
+
 public final class RenamingImgNamePhase {
-    private String oldId = "";
-    private String newId = "";
+    private String oldId = DataBase.EMPTY_STRING;
+    private String newId = DataBase.EMPTY_STRING;
     private ImgRetriever retriever;
 
 

@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -41,7 +42,7 @@ public final class CrudGeneFormTrCst<T> extends CrudGeneFormTrCommon {
                 allId_.getVal(l.getKey()).set(e.getKey(),l.getValue().getText());
             }
         }
-        getSubscribedTranslations().updateRenamingId("","",new StringList());
+        getSubscribedTranslations().updateRenamingId(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING,new StringList());
         getSubscribedTranslations().update();
     }
 }

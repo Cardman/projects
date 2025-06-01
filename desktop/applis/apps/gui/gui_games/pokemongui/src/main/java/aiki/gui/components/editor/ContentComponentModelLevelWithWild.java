@@ -98,14 +98,14 @@ public final class ContentComponentModelLevelWithWild {
         } else if (contentLevel.getLevel().getFacadeGame().getMap().isEmptyForAdding(AbsContentComponentModelLevelLinks.coords(nbPlace,nbLevel,null,pt_))){
             initFormChoices();
         } else {
-            contentLevel.choose("");
+            contentLevel.choose(DataBase.EMPTY_STRING);
             contentLevel.getFore().setNullViewportView();
         }
         getLevel().getFrame().pack();
     }
 
     private void initFormChoices() {
-        contentLevel.choose("");
+        contentLevel.choose(DataBase.EMPTY_STRING);
         StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindWildTr(MessagesPkEditor.getAppliTr(contentLevel.getLevel().getApi().currentLg())).getMapping();
         AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
         AbsPanel form_ = compoFactory_.newPageBox();

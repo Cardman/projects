@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.fight.enums.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.util.*;
@@ -100,10 +101,10 @@ public final class ContentComponentModelEffectGlobal {
         multPowerMoves.initFormWithVal(new DisplayEntryCustSubElementImpl<String, Rate>(_core.getFactory().getFactoryMv(),_core.getProgramInfos(),_core.getFacadeGame(), new StringMap<String>()),buildPart(_core, _core.getFactory().getFactoryMv(),new StringMap<String>()),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_MOVE,MessagesDataEffglobal.M_P_49_RATE_DAMAGE);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_POWER_MOVE,multPowerMoves.getGroup()));
         multStatIfContainsType = new CrudGeneFormSimpleFormSub<StatisticType, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        multStatIfContainsType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Rate>(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
+        multStatIfContainsType.initFormWithVal(new DisplayEntryCustSubElementStatisticType<Rate>(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<StatisticType>(new GeneComponentModelSubscribeStatisticType(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_STATISTIC,MessagesDataEffglobal.M_P_49_POKEMON_TYPE_STAT)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,DataBase.EMPTY_STRING,MessagesDataEffglobal.M_P_49_RATE_POKEMON_STATISTIC);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_MULT_STAT_TYPE,multStatIfContainsType.getGroup()));
         efficiencyMoves = new CrudGeneFormSimpleFormSub<TypesDuo, Rate>(_core.getProgramInfos(), _core.getFacadeGame(), _core.getFactory(), _core.getFrame());
-        efficiencyMoves.initFormWithVal(new DisplayEntryCustSubElementTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,"",MessagesDataEffglobal.M_P_49_EFFICIENCY);
+        efficiencyMoves.initFormWithVal(new DisplayEntryCustSubElementTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory()),new GeneComponentModelSubscribeFactoryDirect<TypesDuo>(new GeneComponentModelSubscribeTypesDuo(_core.getProgramInfos(),_core.getFacadeGame(),_core.getFactory(),MessagesPkBean.EFF_GLOBAL,MessagesDataEffglobal.M_P_49_DAMAGE_TYPE,MessagesDataEffglobal.M_P_49_POKEMON_TYPE)),new GeneComponentModelSubscribeFactoryDirect<Rate>(new GeneComponentModelSubscribeRate(_core.getProgramInfos())),MessagesPkBean.EFF_GLOBAL,DataBase.EMPTY_STRING,MessagesDataEffglobal.M_P_49_EFFICIENCY);
         selected_.add(line(_core,MessagesDataEffglobal.M_P_49_EFFICIENCY_TABLE,efficiencyMoves.getGroup()));
         selected_.setVisible(false);
         form =selected_;

@@ -70,7 +70,7 @@ public final class CrudGeneFormEntImgUniq implements AbsCrudGeneFormTrCstOpen {
     public void apply(ImgFieldRetriever _k) {
         _k.set(facadeGame,fields.getVal(_k).edited(api));
         if (subscribedTranslationList.getImgFieldRetrieverStorage() == _k || subscribedTranslationList.getImgFieldRetrieverTmHm() == _k) {
-            subscribedTranslationList.updateRenamingId("","",new StringList());
+            subscribedTranslationList.updateRenamingId(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING,new StringList());
             subscribedTranslationList.update();
         }
     }

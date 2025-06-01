@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -45,7 +46,7 @@ public final class CrudGeneFormTrItemType extends CrudGeneFormTrCommon {
         if (fctMath) {
             return;
         }
-        getSubscribedTranslations().updateRenamingId("","",new StringList());
+        getSubscribedTranslations().updateRenamingId(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING,new StringList());
         getSubscribedTranslations().update();
     }
 

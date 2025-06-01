@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.map.levels.*;
 import aiki.map.places.*;
@@ -69,14 +70,14 @@ public final class ContentComponentModelLevelLeague {
         } else if (contentLevel.getLevel().getFacadeGame().getMap().isEmptyForAdding(AbsContentComponentModelLevelLinks.coords(nbPlace,nbLevel,null,pt_))){
             initFormChoices();
         } else {
-            contentLevel.choose("");
+            contentLevel.choose(DataBase.EMPTY_STRING);
             contentLevel.getFore().setNullViewportView();
         }
         getLevel().getFrame().pack();
     }
 
     private void initFormChoices() {
-        contentLevel.choose("");
+        contentLevel.choose(DataBase.EMPTY_STRING);
         StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindLeagueTr(MessagesPkEditor.getAppliTr(contentLevel.getLevel().getApi().currentLg())).getMapping();
         AbsCompoFactory compoFactory_ = contentLevel.getLevel().getApi().getCompoFactory();
         AbsPanel form_ = compoFactory_.newPageBox();
@@ -156,7 +157,7 @@ public final class ContentComponentModelLevelLeague {
             edited.setAccessPoint(ConverterCommonMapUtil.copyNullablePoint(accessPoint));
             removeFore();
         }
-        contentLevel.choose("");
+        contentLevel.choose(DataBase.EMPTY_STRING);
         contentLevel.removeTile();
         initFormChoices();
     }
