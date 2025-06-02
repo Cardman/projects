@@ -6,6 +6,6 @@ public final class DisplayKeyOnlyInt implements DisplayEntryCust<Integer, Edited
 
     @Override
     public String display(Integer _k, EditedCrudPair<Integer, String> _v) {
-        return _v.getKey()+":"+_v.getValue();
+        return _v.getKey()+ConverterCommonMapUtil.K_V+_v.getValue();
     }
 }

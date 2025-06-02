@@ -28,6 +28,10 @@ public abstract class GeneComponentModelEvent<E> implements GeneComponentModel<E
         return line_;
     }
 
+    public AbstractProgramInfos getCore() {
+        return core;
+    }
+
     protected abstract AbsCustComponent geneKey(int _select);
 
     @Override

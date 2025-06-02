@@ -6,17 +6,15 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.core.*;
 
 public final class GeneComponentModelEventBoolVal extends GeneComponentModelEvent<BoolVal> {
-    private final AbsCompoFactory compoFactory;
     private AbsCustCheckBox event;
 
     public GeneComponentModelEventBoolVal(AbstractProgramInfos _fact, String _file, String _k, String _v) {
         super(_fact, _file, _k, _v);
-        compoFactory = _fact.getCompoFactory();
     }
 
     @Override
     protected AbsCustComponent geneKey(int _select) {
-        event = compoFactory.newCustCheckBox();
+        event = getCore().getCompoFactory().newCustCheckBox(MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(getCore().currentLg())).getMapping().getVal(MessagesEditorSelect.EVENT_BOOL));
         return event;
     }
 

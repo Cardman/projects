@@ -50,6 +50,7 @@ import code.util.core.*;
 public final class ConverterCommonMapUtil {
 
     public static final String SPACE = " ";
+    public static final String K_V = "\u00A0\u00A0";
 
     private ConverterCommonMapUtil() {
     }
@@ -152,7 +153,7 @@ public final class ConverterCommonMapUtil {
     public static IntMap<String> map(IntMap<String> _map, AbsMap<String,String> _messages) {
         IntMap<String> messages_ = new IntMap<String>();
         for (EntryCust<Integer,String> e: _map.entryList()) {
-            messages_.addEntry(e.getKey(),StringUtil.nullToEmpty(_messages.getVal(e.getValue()))+":"+e.getKey());
+            messages_.addEntry(e.getKey(),StringUtil.nullToEmpty(_messages.getVal(e.getValue()))+K_V+e.getKey());
         }
         return messages_;
     }

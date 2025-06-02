@@ -13,6 +13,6 @@ public final class StatisticLgIntDisplayEntryCust<E> implements DisplayEntryCust
 
     @Override
     public String display(Integer _k, EditedCrudPair<E,LgInt> _v) {
-        return messages.getVal(_v.getKey())+":"+_v.getValue().toNumberString();
+        return messages.getVal(_v.getKey())+ConverterCommonMapUtil.K_V+_v.getValue().toNumberString();
     }
 }

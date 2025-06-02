@@ -63,14 +63,14 @@ public final class ContentComponentModelLeagueLinks {
         int len_ = places_.size();
         for (int i = 0; i < len_; i++) {
             AbsPanel gr_ = _c.getCompoFactory().newPageBox();
-            gr_.setTitledBorder(Long.toString(i));
+            gr_.setTitledBorder(i+"/"+(len_-1));
             CustList<Level> ls_ = places_.get(i).getLevelsList();
             int levs_ = ls_.size();
             for (int j = 0; j < levs_; j++) {
                 FormLevelGridLink g_ = AbsContentComponentModelLevelLinks.build(_c, _fac, _fact, _fr, places_.get(i), AbsContentComponentModelLevelLinks.coords(i, j, null), getTranslationsGrid());
                 levels.add(g_);
                 g_.getGrid().addMouseListener(new SelectOrDeselectAccessLeagueEvent(this, g_));
-                g_.getForm().setTitledBorder(Long.toString(i)+" "+Long.toString(j));
+                g_.getForm().setTitledBorder(i+"/"+(len_-1)+"-"+j+"/"+(levs_-1));
                 gr_.add(g_.getForm());
                 _form.add(gr_);
                 Coords acc_ = new Coords(cave.getAccessCoords());

@@ -6,6 +6,6 @@ public final class DisplayEntryCustString implements DisplayEntryCust<Integer, S
 
     @Override
     public String display(Integer _k, String _v) {
-        return _k+":"+_v;
+        return _k+ConverterCommonMapUtil.K_V+_v;
     }
 }

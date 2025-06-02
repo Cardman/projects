@@ -18,6 +18,6 @@ public final class DisplayEntryCustStatisticType<T> implements DisplayEntryCust<
 
     @Override
     public String display(Integer _k, EditedCrudPair<StatisticType, T> _v) {
-        return StringUtil.nullToEmpty(stats.getVal(_v.getKey().getStatistic()))+" "+ StringUtil.nullToEmpty(types.getVal(_v.getKey().getType()));
+        return StringUtil.nullToEmpty(stats.getVal(_v.getKey().getStatistic()))+ConverterCommonMapUtil.K_V+ StringUtil.nullToEmpty(types.getVal(_v.getKey().getType()));
     }
 }

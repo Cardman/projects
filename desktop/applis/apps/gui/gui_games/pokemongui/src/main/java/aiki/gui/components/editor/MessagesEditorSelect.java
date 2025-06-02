@@ -177,6 +177,13 @@ public final class MessagesEditorSelect {
     public static final String BUTTON_IMG_LINK_LEFT = "14";
     public static final String BUTTON_IMG_LINK_RIGHT = "15";
     public static final String BUTTON_IMG_LINK_BOTH = "16";
+    public static final String EVENT_BOOL = "17";
+    public static final String ACC_COND_VALIDATE = "18";
+    public static final String ACC_COND_CLEAR = "19";
+    public static final String APPEND = "20";
+    public static final String PREPEND = "21";
+    public static final String PLACES_JOIN = "22";
+    public static final String PLACES_UNJOIN = "23";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -746,6 +753,13 @@ public final class MessagesEditorSelect {
         e_.add(BUTTON_IMG_LINK_LEFT,"Choose a image link for left level");
         e_.add(BUTTON_IMG_LINK_RIGHT,"Choose a image link for right level");
         e_.add(BUTTON_IMG_LINK_BOTH,"Choose a image link for both levels");
+        e_.add(EVENT_BOOL,"Enabled");
+        e_.add(ACC_COND_VALIDATE,"Validate access conditions");
+        e_.add(ACC_COND_CLEAR,"Clear access conditions");
+        e_.add(APPEND,"Append");
+        e_.add(PREPEND,"Prepend");
+        e_.add(PLACES_JOIN,"Join places");
+        e_.add(PLACES_UNJOIN,"Unjoin places");
         return e_;
     }
     public static TranslationsFile frButtons() {
@@ -768,6 +782,13 @@ public final class MessagesEditorSelect {
         f_.add(BUTTON_IMG_LINK_LEFT,"Choisir un lien d'image pour niveau gauche");
         f_.add(BUTTON_IMG_LINK_RIGHT,"Choisir un lien d'image pour niveau droit");
         f_.add(BUTTON_IMG_LINK_BOTH,"Choisir un lien d'image pour deux niveaux");
+        f_.add(EVENT_BOOL,"Actif");
+        f_.add(ACC_COND_VALIDATE,"Valider les conditions d'accès");
+        f_.add(ACC_COND_CLEAR,"Supprimer les conditions d'accès");
+        f_.add(APPEND,"Suivre");
+        f_.add(PREPEND,"Précéder");
+        f_.add(PLACES_JOIN,"Joindre lieux");
+        f_.add(PLACES_UNJOIN,"Disjoindre lieux");
         return f_;
     }
 }

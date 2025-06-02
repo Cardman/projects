@@ -18,6 +18,6 @@ public final class DisplayEntryCustStatisticPokemon<T> implements DisplayEntryCu
 
     @Override
     public String display(Integer _k, EditedCrudPair<StatisticPokemon, T> _v) {
-        return StringUtil.nullToEmpty(stats.getVal(_v.getKey().getStatistic()))+" "+ StringUtil.nullToEmpty(pks.getVal(_v.getKey().getPokemon()));
+        return StringUtil.nullToEmpty(stats.getVal(_v.getKey().getStatistic()))+ConverterCommonMapUtil.K_V+ StringUtil.nullToEmpty(pks.getVal(_v.getKey().getPokemon()));
     }
 }

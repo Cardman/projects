@@ -152,10 +152,11 @@ public final class FormLevelGrid extends FormLevelGridCommon {
         form_.add(SubscribedTranslationList.line(getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())),MessagesEditorSelect.ROWS,rows));
         cols = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
         form_.add(SubscribedTranslationList.line(getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getApi().currentLg())),MessagesEditorSelect.COLS,cols));
-        applyPrepend = c_.newPlainButton("<-");
+        StringMap<String> tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(getApi().currentLg())).getMapping();
+        applyPrepend = c_.newPlainButton(tf_.getVal(MessagesEditorSelect.PREPEND));
         applyPrepend.addActionListener(new PrependTileBlockEvent(this));
         form_.add(applyPrepend);
-        applyAppend = c_.newPlainButton("->");
+        applyAppend = c_.newPlainButton(tf_.getVal(MessagesEditorSelect.APPEND));
         applyAppend.addActionListener(new AppendTileBlockEvent(this));
         form_.add(applyAppend);
         grid = c_.newAbsPaintableLabel();

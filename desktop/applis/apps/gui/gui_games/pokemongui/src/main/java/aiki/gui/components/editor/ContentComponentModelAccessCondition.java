@@ -36,12 +36,13 @@ public final class ContentComponentModelAccessCondition {
         frame = _f;
         AbsPanel form_ = _core.getCompoFactory().newPageBox();
         facadeGame = _fac;
-        validateAccess = _core.getCompoFactory().newPlainButton("_");
+        StringMap<String> tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping();
+        validateAccess = _core.getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.ACC_COND_VALIDATE));
         validateAccess.addActionListener(new ValidateAccessConditionEvent(this));
         form_.add(validateAccess);
         if (!beginGame) {
             validateAccess.setEnabled(false);
-            clearAccess = _core.getCompoFactory().newPlainButton("_");
+            clearAccess = _core.getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.ACC_COND_CLEAR));
             clearAccess.addActionListener(new ClearAccessConditionEvent(this));
             form_.add(clearAccess);
         }
@@ -111,7 +112,7 @@ public final class ContentComponentModelAccessCondition {
             int levs_ = ls_.size();
             for (int j = 0; j < levs_; j++) {
                 FormLevelGridLink g_ = AbsContentComponentModelLevelLinks.build(_c, _fac, _fact, _fr, places_.get(i), AbsContentComponentModelLevelLinks.coords(i, j, null), getTranslationsGrid());
-                g_.getForm().setTitledBorder(i+"-"+j);
+                g_.getForm().setTitledBorder(i+"/"+(len_-1)+"-"+j+"/"+(levs_-1));
                 levels.add(g_);
                 g_.getGrid().addMouseListener(new SelectOrDeselectAccessConditionEvent(this, g_));
                 _form.add(g_.getForm());

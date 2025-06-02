@@ -18,6 +18,6 @@ public final class DisplayEntryCustStatisticStatusElt implements DisplayEntryCus
 
     @Override
     public String display(Integer _k, StatisticStatus _v) {
-        return StringUtil.nullToEmpty(stats.getVal(_v.getStatistic()))+" "+ StringUtil.nullToEmpty(status.getVal(_v.getStatus()));
+        return StringUtil.nullToEmpty(stats.getVal(_v.getStatistic()))+ConverterCommonMapUtil.K_V+ StringUtil.nullToEmpty(status.getVal(_v.getStatus()));
     }
 }

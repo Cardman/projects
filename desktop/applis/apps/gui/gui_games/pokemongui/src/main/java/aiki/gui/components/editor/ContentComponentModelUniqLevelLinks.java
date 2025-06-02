@@ -61,15 +61,24 @@ public final class ContentComponentModelUniqLevelLinks {
         messages.clear();
         CustList<Place> places_ = _fac.getMap().getPlaces();
         int len_ = places_.size();
+        int sub_ = 0;
+        for (int i = 0; i < len_; i++) {
+            Place pl_ = places_.get(i);
+            if (pl_ instanceof InitializedPlace) {
+                sub_++;
+            }
+        }
+        int curr_ = 0;
         for (int i = 0; i < len_; i++) {
             CustList<IdMap<Direction,BoolVal>> s_ = new CustList<IdMap<Direction,BoolVal>>();
             Place pl_ = places_.get(i);
             if (pl_ instanceof InitializedPlace) {
-                messages.addEntry(new EditedCrudPair<Coords, InitializedPlace>(AbsContentComponentModelLevelLinks.coords(i,0,null),(InitializedPlace) pl_), i+":"+pl_.getName());
+                messages.addEntry(new EditedCrudPair<Coords, InitializedPlace>(AbsContentComponentModelLevelLinks.coords(i,0,null),(InitializedPlace) pl_), curr_+"/"+(sub_-1)+":"+i+":"+pl_.getName());
                 for (int j = 0; j < len_; j++) {
                     IdMap<Direction, BoolVal> dirs_ = dirs((InitializedPlace) pl_, j);
                     s_.add(dirs_);
                 }
+                curr_++;
             } else {
                 for (int j = 0; j < len_; j++) {
                     IdMap<Direction,BoolVal> dirs_ = new IdMap<Direction, BoolVal>();
@@ -88,11 +97,12 @@ public final class ContentComponentModelUniqLevelLinks {
         lists_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.UNIQ_LEFT,left.buildLs()));
         lists_.add(SubscribedTranslationList.line(_core,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())),MessagesEditorSelect.UNIQ_RIGHT,right.buildLs()));
         form_.add(lists_);
-        joinPlacesButton = _core.getCompoFactory().newPlainButton(">-<");
+        StringMap<String> tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping();
+        joinPlacesButton = _core.getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.PLACES_JOIN));
         joinPlacesButton.addActionListener(new JoinPlacesEvent(this));
         form_.add(joinPlacesButton);
         joinPlacesButton.setEnabled(false);
-        unjoinPlacesButton = _core.getCompoFactory().newPlainButton("<->");
+        unjoinPlacesButton = _core.getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.PLACES_UNJOIN));
         unjoinPlacesButton.addActionListener(new UnJoinPlacesEvent(this));
         form_.add(unjoinPlacesButton);
         left.getSelect().addListener(new ChangePlaceListEvent(this,true));

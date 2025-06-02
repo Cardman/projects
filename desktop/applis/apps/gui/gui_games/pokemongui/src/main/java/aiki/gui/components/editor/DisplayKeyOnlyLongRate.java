@@ -7,6 +7,6 @@ public final class DisplayKeyOnlyLongRate implements DisplayEntryCust<Integer, E
 
     @Override
     public String display(Integer _k, EditedCrudPair<Long, Rate> _v) {
-        return _v.getKey()+":"+_v.getValue().toNumberString();
+        return _v.getKey()+ConverterCommonMapUtil.K_V+_v.getValue().toNumberString();
     }
 }

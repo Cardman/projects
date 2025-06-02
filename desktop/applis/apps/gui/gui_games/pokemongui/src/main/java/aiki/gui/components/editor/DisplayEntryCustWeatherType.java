@@ -17,6 +17,6 @@ public final class DisplayEntryCustWeatherType<T> implements DisplayEntryCust<In
 
     @Override
     public String display(Integer _k, EditedCrudPair<WeatherType, T> _v) {
-        return StringUtil.nullToEmpty(moves.getVal(_v.getKey().getWeather()))+" "+ StringUtil.nullToEmpty(types.getVal(_v.getKey().getType()));
+        return StringUtil.nullToEmpty(moves.getVal(_v.getKey().getWeather()))+ConverterCommonMapUtil.K_V+ StringUtil.nullToEmpty(types.getVal(_v.getKey().getType()));
     }
 }

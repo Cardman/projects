@@ -53,7 +53,7 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
     public static void appendPlace(CustList<FormLevelGridLink> _parts, AbsPanel _form) {
         int len_ = _parts.size();
         for (int i = 0; i < len_; i++) {
-            _parts.get(i).getForm().setTitledBorder(_parts.get(i).getKey().getNumberPlace()+"-"+_parts.get(i).getKey().getLevel().getLevelIndex());
+            _parts.get(i).getForm().setTitledBorder(i+"/"+(len_-1)+":"+_parts.get(i).getKey().getNumberPlace()+"-"+_parts.get(i).getKey().getLevel().getLevelIndex());
             _form.add(_parts.get(i).getForm());
         }
     }

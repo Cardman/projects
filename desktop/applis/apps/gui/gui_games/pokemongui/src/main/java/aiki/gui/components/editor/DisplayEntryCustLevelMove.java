@@ -14,6 +14,6 @@ public final class DisplayEntryCustLevelMove implements DisplayEntryCust<Integer
 
     @Override
     public String display(Integer _k, LevelMove _v) {
-        return _v.getLevel()+" "+ StringUtil.nullToEmpty(messages.getVal(_v.getMove()));
+        return _v.getLevel()+ConverterCommonMapUtil.K_V+ StringUtil.nullToEmpty(messages.getVal(_v.getMove()));
     }
 }

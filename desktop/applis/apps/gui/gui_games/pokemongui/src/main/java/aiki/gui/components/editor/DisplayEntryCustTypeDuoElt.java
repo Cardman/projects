@@ -15,6 +15,6 @@ public final class DisplayEntryCustTypeDuoElt implements DisplayEntryCust<Intege
 
     @Override
     public String display(Integer _k, TypesDuo _v) {
-        return StringUtil.nullToEmpty(types.getVal(_v.getDamageType()))+" "+ StringUtil.nullToEmpty(types.getVal(_v.getPokemonType()));
+        return StringUtil.nullToEmpty(types.getVal(_v.getDamageType()))+ConverterCommonMapUtil.K_V+ StringUtil.nullToEmpty(types.getVal(_v.getPokemonType()));
     }
 }

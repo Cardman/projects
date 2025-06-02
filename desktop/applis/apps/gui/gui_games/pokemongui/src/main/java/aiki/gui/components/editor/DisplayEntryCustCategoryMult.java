@@ -16,6 +16,6 @@ public final class DisplayEntryCustCategoryMult implements DisplayEntryCust<Inte
 
     @Override
     public String display(Integer _k, EditedCrudPair<CategoryMult, Rate> _v) {
-        return StringUtil.nullToEmpty(categories.getVal(_v.getKey().getCategory())) + " "+_v.getKey().getMult();
+        return StringUtil.nullToEmpty(categories.getVal(_v.getKey().getCategory())) + ConverterCommonMapUtil.K_V+_v.getKey().getMult();
     }
 }

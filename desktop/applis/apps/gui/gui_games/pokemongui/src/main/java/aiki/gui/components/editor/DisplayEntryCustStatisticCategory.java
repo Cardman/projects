@@ -18,6 +18,6 @@ public final class DisplayEntryCustStatisticCategory<T> implements DisplayEntryC
 
     @Override
     public String display(Integer _k, EditedCrudPair<StatisticCategory, T> _v) {
-        return StringUtil.nullToEmpty(stats.getVal(_v.getKey().getStatistic()))+" "+ StringUtil.nullToEmpty(types.getVal(_v.getKey().getCategory()));
+        return StringUtil.nullToEmpty(stats.getVal(_v.getKey().getStatistic()))+ConverterCommonMapUtil.K_V+ StringUtil.nullToEmpty(types.getVal(_v.getKey().getCategory()));
     }
 }
