@@ -97,6 +97,36 @@ public final class ContentComponentModelLevelCaveLinks extends AbsContentCompone
     }
 
     @Override
+    protected String addTileLeftLink() {
+        return MessagesEditorSelect.BUTTON_LINK_LEVELS_LEFT;
+    }
+
+    @Override
+    protected String addTileRightLink() {
+        return MessagesEditorSelect.BUTTON_LINK_LEVELS_RIGHT;
+    }
+
+    @Override
+    protected String addTileBothLink() {
+        return MessagesEditorSelect.BUTTON_LINK_LEVELS_BOTH;
+    }
+
+    @Override
+    protected String removeTileLeftLink() {
+        return MessagesEditorSelect.BUTTON_UNLINK_LEVELS_LEFT;
+    }
+
+    @Override
+    protected String removeTileRightLink() {
+        return MessagesEditorSelect.BUTTON_UNLINK_LEVELS_RIGHT;
+    }
+
+    @Override
+    protected String removeTileBothLink() {
+        return MessagesEditorSelect.BUTTON_UNLINK_LEVELS_BOTH;
+    }
+
+    @Override
     protected void appendBoth() {
         FacadeGame facadeGame_ = getFacadeGame();
         Coords coordsFirst_ = getSelectedFirstLevel().build(getSelectedFirst().value());

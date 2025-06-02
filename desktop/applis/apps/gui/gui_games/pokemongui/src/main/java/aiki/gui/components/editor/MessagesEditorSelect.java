@@ -160,6 +160,23 @@ public final class MessagesEditorSelect {
     public static final String NUM_VAR = "65";
     public static final String NUM_VAL = "66";
     public static final String TR_KEY = "67";
+    public static final String BUTTON_LINK_PLACE_CAVE_ONE = "0";
+    public static final String BUTTON_LINK_CAVE_PLACE_ONE = "1";
+    public static final String BUTTON_LINK_PLACE_CAVE_BOTH = "2";
+    public static final String BUTTON_LINK_CAVE_PLACE_BOTH = "3";
+    public static final String BUTTON_UNLINK_PLACE_CAVE_ONE = "4";
+    public static final String BUTTON_UNLINK_CAVE_PLACE_ONE = "5";
+    public static final String BUTTON_UNLINK_PLACE_CAVE_BOTH = "6";
+    public static final String BUTTON_UNLINK_CAVE_PLACE_BOTH = "7";
+    public static final String BUTTON_LINK_LEVELS_LEFT = "8";
+    public static final String BUTTON_LINK_LEVELS_RIGHT = "9";
+    public static final String BUTTON_LINK_LEVELS_BOTH = "10";
+    public static final String BUTTON_UNLINK_LEVELS_LEFT = "11";
+    public static final String BUTTON_UNLINK_LEVELS_RIGHT = "12";
+    public static final String BUTTON_UNLINK_LEVELS_BOTH = "13";
+    public static final String BUTTON_IMG_LINK_LEFT = "14";
+    public static final String BUTTON_IMG_LINK_RIGHT = "15";
+    public static final String BUTTON_IMG_LINK_BOTH = "16";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -708,6 +725,49 @@ public final class MessagesEditorSelect {
         f_.add(NUM_VAR,"chaînes variables littérales");
         f_.add(NUM_VAL,"constantes numériques");
         f_.add(TR_KEY,"valeurs de traduction par clé pour chaque langue");
+        return f_;
+    }
+    public static TranslationsFile enButtons() {
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(BUTTON_LINK_PLACE_CAVE_ONE,"Link a cave to a place with single level");
+        e_.add(BUTTON_LINK_CAVE_PLACE_ONE,"Link a place with single level to a cave");
+        e_.add(BUTTON_LINK_PLACE_CAVE_BOTH,"Link a cave to a place with single level both directions");
+        e_.add(BUTTON_LINK_CAVE_PLACE_BOTH,"Link a place with single level to a cave both directions");
+        e_.add(BUTTON_UNLINK_PLACE_CAVE_ONE,"Unlink a cave to a place with single level");
+        e_.add(BUTTON_UNLINK_CAVE_PLACE_ONE,"Unlink a place with single level to a cave");
+        e_.add(BUTTON_UNLINK_PLACE_CAVE_BOTH,"Unlink a cave to a place with single level both directions");
+        e_.add(BUTTON_UNLINK_CAVE_PLACE_BOTH,"Unlink a place with single level to a cave both directions");
+        e_.add(BUTTON_LINK_LEVELS_LEFT,"Link levels of cave from left to right");
+        e_.add(BUTTON_LINK_LEVELS_RIGHT,"Link levels of cave from right to left");
+        e_.add(BUTTON_LINK_LEVELS_BOTH,"Link levels of cave both directions");
+        e_.add(BUTTON_UNLINK_LEVELS_LEFT,"Unlink levels of cave from left to right");
+        e_.add(BUTTON_UNLINK_LEVELS_RIGHT,"Unlink levels of cave from right to left");
+        e_.add(BUTTON_UNLINK_LEVELS_BOTH,"Unlink levels of cave both directions");
+        e_.add(BUTTON_IMG_LINK_LEFT,"Choose a image link for left level");
+        e_.add(BUTTON_IMG_LINK_RIGHT,"Choose a image link for right level");
+        e_.add(BUTTON_IMG_LINK_BOTH,"Choose a image link for both levels");
+        return e_;
+    }
+    public static TranslationsFile frButtons() {
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(BUTTON_LINK_PLACE_CAVE_ONE,"Lier une cave à un lieu avec niveau unique");
+        f_.add(BUTTON_LINK_CAVE_PLACE_ONE,"Lier un lieu avec niveau unique à une cave");
+        f_.add(BUTTON_LINK_PLACE_CAVE_BOTH,"Lier une cave à un lieu avec niveau unique deux directions");
+        f_.add(BUTTON_LINK_CAVE_PLACE_BOTH,"Lier un lieu avec niveau unique à une cave deux directions");
+        f_.add(BUTTON_UNLINK_PLACE_CAVE_ONE,"Délier une cave à un lieu avec niveau unique");
+        f_.add(BUTTON_UNLINK_CAVE_PLACE_ONE,"Délier un lieu avec niveau unique à une cave");
+        f_.add(BUTTON_UNLINK_PLACE_CAVE_BOTH,"Délier une cave à un lieu avec niveau unique deux directions");
+        f_.add(BUTTON_UNLINK_CAVE_PLACE_BOTH,"Délier un lieu avec niveau unique à une cave deux directions");
+        f_.add(BUTTON_LINK_LEVELS_LEFT,"Délier un lieu avec niveau unique à une cave deux directions");
+        f_.add(BUTTON_LINK_LEVELS_LEFT,"Lier niveaux de cave de gauche à droite");
+        f_.add(BUTTON_LINK_LEVELS_RIGHT,"Lier niveaux de cave de droite à gauche");
+        f_.add(BUTTON_LINK_LEVELS_BOTH,"Lier niveaux de cave deux directions");
+        f_.add(BUTTON_UNLINK_LEVELS_LEFT,"Délier niveaux de cave de gauche à droite");
+        f_.add(BUTTON_UNLINK_LEVELS_RIGHT,"Délier niveaux de cave de droite à gauche");
+        f_.add(BUTTON_UNLINK_LEVELS_BOTH,"Délier niveaux de cave deux directions");
+        f_.add(BUTTON_IMG_LINK_LEFT,"Choisir un lien d'image pour niveau gauche");
+        f_.add(BUTTON_IMG_LINK_RIGHT,"Choisir un lien d'image pour niveau droit");
+        f_.add(BUTTON_IMG_LINK_BOTH,"Choisir un lien d'image pour deux niveaux");
         return f_;
     }
 }

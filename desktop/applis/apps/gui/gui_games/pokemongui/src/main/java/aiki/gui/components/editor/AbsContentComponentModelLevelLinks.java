@@ -8,6 +8,7 @@ import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.scripts.pages.aiki.*;
+import code.sml.util.*;
 import code.util.*;
 
 public abstract class AbsContentComponentModelLevelLinks {
@@ -43,21 +44,22 @@ public abstract class AbsContentComponentModelLevelLinks {
         form_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI_LEFT,linkFileNameFirst.gene()));
         linkFileNameSecond = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverLinksSub());
         form_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI_RIGHT,linkFileNameSecond.gene()));
-        addTileLeft = _core.getCompoFactory().newPlainButton("<-");
+        TranslationsFile tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(_core.currentLg()));
+        addTileLeft = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(addTileLeftLink()));
         addTileLeft.setForeground(GuiConstants.GREEN);
-        addTileRight = _core.getCompoFactory().newPlainButton("->");
+        addTileRight = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(addTileRightLink()));
         addTileRight.setForeground(GuiConstants.GREEN);
-        addTileBoth = _core.getCompoFactory().newPlainButton("<->");
+        addTileBoth = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(addTileBothLink()));
         addTileBoth.setForeground(GuiConstants.GREEN);
-        removeTileLeft = _core.getCompoFactory().newPlainButton("<-");
+        removeTileLeft = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(removeTileLeftLink()));
         removeTileLeft.setForeground(GuiConstants.RED);
-        removeTileRight = _core.getCompoFactory().newPlainButton("->");
+        removeTileRight = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(removeTileRightLink()));
         removeTileRight.setForeground(GuiConstants.RED);
-        removeTileBoth = _core.getCompoFactory().newPlainButton("<->");
+        removeTileBoth = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(removeTileBothLink()));
         removeTileBoth.setForeground(GuiConstants.RED);
-        matchLinkLeft = _core.getCompoFactory().newPlainButton("<-");
-        matchLinkRight = _core.getCompoFactory().newPlainButton("->");
-        matchLinkBoth = _core.getCompoFactory().newPlainButton("<->");
+        matchLinkLeft = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(MessagesEditorSelect.BUTTON_IMG_LINK_LEFT));
+        matchLinkRight = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(MessagesEditorSelect.BUTTON_IMG_LINK_RIGHT));
+        matchLinkBoth = _core.getCompoFactory().newPlainButton(tf_.getMapping().getVal(MessagesEditorSelect.BUTTON_IMG_LINK_BOTH));
         form_.add(addTileLeft);
         form_.add(addTileRight);
         form_.add(addTileBoth);
@@ -283,7 +285,12 @@ public abstract class AbsContentComponentModelLevelLinks {
     public NullablePoint getSelectedSecond() {
         return selectedSecond;
     }
-
+    protected abstract String addTileLeftLink();
+    protected abstract String addTileRightLink();
+    protected abstract String addTileBothLink();
+    protected abstract String removeTileLeftLink();
+    protected abstract String removeTileRightLink();
+    protected abstract String removeTileBothLink();
     protected abstract void appendBoth();
 
     protected abstract void appendRight();

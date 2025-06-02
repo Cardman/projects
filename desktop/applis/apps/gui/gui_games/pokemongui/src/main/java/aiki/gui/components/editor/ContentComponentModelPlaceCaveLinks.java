@@ -145,6 +145,36 @@ public final class ContentComponentModelPlaceCaveLinks extends AbsContentCompone
     }
 
     @Override
+    protected String addTileLeftLink() {
+        return MessagesEditorSelect.BUTTON_LINK_PLACE_CAVE_ONE;
+    }
+
+    @Override
+    protected String addTileRightLink() {
+        return MessagesEditorSelect.BUTTON_LINK_CAVE_PLACE_ONE;
+    }
+
+    @Override
+    protected String addTileBothLink() {
+        return MessagesEditorSelect.BUTTON_LINK_PLACE_CAVE_BOTH;
+    }
+
+    @Override
+    protected String removeTileLeftLink() {
+        return MessagesEditorSelect.BUTTON_UNLINK_PLACE_CAVE_ONE;
+    }
+
+    @Override
+    protected String removeTileRightLink() {
+        return MessagesEditorSelect.BUTTON_UNLINK_CAVE_PLACE_ONE;
+    }
+
+    @Override
+    protected String removeTileBothLink() {
+        return MessagesEditorSelect.BUTTON_UNLINK_PLACE_CAVE_BOTH;
+    }
+
+    @Override
     protected void appendBoth() {
         FacadeGame facadeGame_ = getFacadeGame();
         Coords coordsFirst_ = getSelectedFirstLevel().build(getSelectedFirst().value());
