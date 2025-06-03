@@ -193,6 +193,9 @@ public final class MessagesEditorSelect {
     public static final String LK_CAVE_PLACE_FORM = "30";
     public static final String ACC_COND_BEGIN = "31";
     public static final String ACC_COND_OTHER = "32";
+    public static final String CREATE_BUILDING = "33";
+    public static final String REMOVE_TILE = "34";
+    public static final String MOVE_TILE = "35";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -778,6 +781,9 @@ public final class MessagesEditorSelect {
         e_.add(LK_CAVE_PLACE_FORM,"Form of editing links from a cave to a place with a single level");
         e_.add(ACC_COND_BEGIN,"Condition of access for begin");
         e_.add(ACC_COND_OTHER,"Condition of access for other");
+        e_.add(CREATE_BUILDING,"Create building");
+        e_.add(REMOVE_TILE,"Remove tile");
+        e_.add(MOVE_TILE,"Move tile");
         return e_;
     }
     public static TranslationsFile frButtons() {
@@ -816,6 +822,9 @@ public final class MessagesEditorSelect {
         f_.add(LK_CAVE_PLACE_FORM,"Formulaire d'édition des liens depuis une cave vers un lieu avec un seul niveau");
         f_.add(ACC_COND_BEGIN,"Condition d'accès pour début");
         f_.add(ACC_COND_OTHER,"Condition d'accès pour autre");
+        f_.add(CREATE_BUILDING,"Créer un bâtiment");
+        f_.add(REMOVE_TILE,"Supprimer tuile");
+        f_.add(MOVE_TILE,"Déplacer tuile");
         return f_;
     }
 }

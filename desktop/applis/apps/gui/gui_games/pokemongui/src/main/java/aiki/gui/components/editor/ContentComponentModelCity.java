@@ -79,7 +79,7 @@ public final class ContentComponentModelCity {
             AbsPanel form_ = compoFactory_.newPageBox();
             gym = compoFactory_.newCustCheckBox();
             form_.add(SubscribedTranslationList.line(contentLevelOutdoor.getLevel().getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())),MessagesEditorSelect.GYM_CHECK,gym));
-            createBuilding = compoFactory_.newPlainButton("+");
+            createBuilding = compoFactory_.newPlainButton(MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())).getMapping().getVal(MessagesEditorSelect.CREATE_BUILDING));
             createBuilding.addActionListener(new BuildingKindChoiceEvent(this));
             form_.add(createBuilding);
             contentLevelOutdoor.getFore().setViewportView(form_);

@@ -83,13 +83,14 @@ public final class ContentComponentModelLevel {
 
     public void initRemove(AbsPanel _form) {
         AbsCompoFactory compoFactory_ = level.getApi().getCompoFactory();
-        removeTile = compoFactory_.newPlainButton("-");
+        StringMap<String> tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())).getMapping();
+        removeTile = compoFactory_.newPlainButton(tf_.getVal(MessagesEditorSelect.REMOVE_TILE));
         _form.add(removeTile);
         deltaWidth = compoFactory_.newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
         _form.add(SubscribedTranslationList.line(level.getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())),MessagesEditorSelect.DELTA_WIDTH,deltaWidth));
         deltaHeight = compoFactory_.newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
         _form.add(SubscribedTranslationList.line(level.getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(level.getApi().currentLg())),MessagesEditorSelect.DELTA_HEIGHT,deltaHeight));
-        moveTile = compoFactory_.newPlainButton("=>");
+        moveTile = compoFactory_.newPlainButton(tf_.getVal(MessagesEditorSelect.MOVE_TILE));
         _form.add(moveTile);
     }
 
