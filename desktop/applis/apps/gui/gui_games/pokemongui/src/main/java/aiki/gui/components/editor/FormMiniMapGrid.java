@@ -48,7 +48,7 @@ public final class FormMiniMapGrid {
         form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.ROWS,rows));
         cols = c_.newSpinner(0,0,Integer.MAX_VALUE,1);
         form_.add(SubscribedTranslationList.line(api,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(api.currentLg())),MessagesEditorSelect.COLS,cols));
-        apply = c_.newPlainButton("_");
+        apply = c_.newPlainButton("+");
         apply.addActionListener(new AddCellsMiniMapCoordsListEvent(this));
         form_.add(apply);
         grid = c_.newAbsPaintableLabel();

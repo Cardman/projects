@@ -184,6 +184,10 @@ public final class MessagesEditorSelect {
     public static final String PREPEND = "21";
     public static final String PLACES_JOIN = "22";
     public static final String PLACES_UNJOIN = "23";
+    public static final String TRY_ADD = "24";
+    public static final String TRY_REM = "25";
+    public static final String LK_FORM = "26";
+    public static final String TRY_CHG_DIM = "27";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -760,6 +764,10 @@ public final class MessagesEditorSelect {
         e_.add(PREPEND,"Prepend");
         e_.add(PLACES_JOIN,"Join places");
         e_.add(PLACES_UNJOIN,"Unjoin places");
+        e_.add(TRY_ADD,"Try to add");
+        e_.add(TRY_REM,"Try to remove");
+        e_.add(LK_FORM,"Form of editing links of the level");
+        e_.add(TRY_CHG_DIM,"Try to change dimensions");
         return e_;
     }
     public static TranslationsFile frButtons() {
@@ -789,6 +797,10 @@ public final class MessagesEditorSelect {
         f_.add(PREPEND,"Précéder");
         f_.add(PLACES_JOIN,"Joindre lieux");
         f_.add(PLACES_UNJOIN,"Disjoindre lieux");
+        f_.add(TRY_ADD,"Essayer d'ajouter");
+        f_.add(TRY_REM,"Essayer de supprimer");
+        f_.add(LK_FORM,"Formulaire d'édition des liens du niveau");
+        f_.add(TRY_CHG_DIM,"Essayer de changer les dimensions");
         return f_;
     }
 }

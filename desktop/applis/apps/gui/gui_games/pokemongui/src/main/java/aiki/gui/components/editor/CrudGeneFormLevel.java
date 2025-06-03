@@ -49,7 +49,7 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
             line_.add(but_);
             getAllButtons().add(but_);
             buts_.add(but_);
-            AbsButton link_ = getFactory().getCompoFactory().newPlainButton("<->");
+            AbsButton link_ = getFactory().getCompoFactory().newPlainButton(MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())).getMapping().getVal(MessagesEditorSelect.LK_FORM));
             link_.addActionListener(buildLink(i));
             link_.setEnabled(parent.isEnabledButtons());
             line_.add(link_);

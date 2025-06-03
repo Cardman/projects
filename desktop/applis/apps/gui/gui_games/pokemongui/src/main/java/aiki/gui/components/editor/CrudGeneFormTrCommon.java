@@ -20,7 +20,7 @@ public abstract class CrudGeneFormTrCommon implements AbsCrudGeneFormTrCst {
 
     protected void footer(AbsPanel _content, AbsPanel _page) {
         _content.add(api.getCompoFactory().newAbsScrollPane(_page));
-        changeValues = api.getCompoFactory().newPlainButton("\u2611");
+        changeValues = api.getCompoFactory().newPlainButton("\u21BB");
         changeValues.setForeground(GuiConstants.GREEN);
         changeValues.addActionListener(new CrudGeneFormTrCstEvent(this));
         _content.add(changeValues);

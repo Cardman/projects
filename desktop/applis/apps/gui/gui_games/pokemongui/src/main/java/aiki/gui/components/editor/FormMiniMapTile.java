@@ -6,6 +6,7 @@ import aiki.map.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.scripts.pages.aiki.*;
+import code.util.*;
 
 public final class FormMiniMapTile {
     private GeneComponentModelImgSelect file;
@@ -24,11 +25,12 @@ public final class FormMiniMapTile {
         form.add(SubscribedTranslationList.line(_api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_PLACE,place));
         heros = c_.newCustCheckBox();
         form.add(SubscribedTranslationList.line(_api,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_HEROS,heros));
-        match = c_.newPlainButton("\u2611");
+        StringMap<String> tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(_api.currentLg())).getMapping();
+        match = c_.newPlainButton(tf_.getVal(MessagesEditorSelect.TRY_ADD));
         match.setForeground(GuiConstants.GREEN);
         match.addActionListener(new ApplyTileMiniMapEvent(_grid,this,_f,_x,_y, false));
         form.add(match);
-        remove = c_.newPlainButton("-");
+        remove = c_.newPlainButton(tf_.getVal(MessagesEditorSelect.TRY_REM));
         remove.addActionListener(new ApplyTileMiniMapEvent(_grid,this,_f,_x,_y, true));
         form.add(remove);
     }

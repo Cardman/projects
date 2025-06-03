@@ -7,6 +7,7 @@ import aiki.util.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.scripts.pages.aiki.*;
+import code.util.*;
 
 public final class FormBlockTile {
     private GeneComponentModelImgSelect tileFileName;
@@ -32,17 +33,18 @@ public final class FormBlockTile {
         form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_WIDTH,width));
         height = c_.newSpinner(1,1,Integer.MAX_VALUE,1);
         form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_HEIGHT,height));
-        dims = c_.newPlainButton("|=|");
+        StringMap<String> tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(_grid.getApi().currentLg())).getMapping();
+        dims = c_.newPlainButton(tf_.getVal(MessagesEditorSelect.TRY_CHG_DIM));
         dims.addActionListener(new DimsBlockEvent(_grid));
         form.add(dims);
         feedForm();
         type = ConverterCommonMapUtil.buildEnvironmentType(_grid.getApi(),_grid.getFacadeGame(),_grid.getTranslationList());
         form.add(SubscribedTranslationList.line(_grid.getApi(),MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_TILE_ENV,type.geneEnum()));
-        match = c_.newPlainButton("\u2611");
+        match = c_.newPlainButton(tf_.getVal(MessagesEditorSelect.TRY_ADD));
         match.setForeground(GuiConstants.GREEN);
         match.addActionListener(new ApplyTileBlockEvent(_grid,this,_p, false));
         form.add(match);
-        remove = c_.newPlainButton("-");
+        remove = c_.newPlainButton(tf_.getVal(MessagesEditorSelect.TRY_REM));
         remove.addActionListener(new ApplyTileBlockEvent(_grid,this,_p, true));
         form.add(remove);
     }

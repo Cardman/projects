@@ -139,7 +139,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         levels.clear();
         for (int i = 0; i < len_; i++) {
             Place place_ = places_.get(i);
-            AbsButton but_ = getFactory().getCompoFactory().newPlainButton(i+":"+ place_.getName());
+            AbsButton but_ = getFactory().getCompoFactory().newPlainButton(i+"/"+(len_-1)+":"+ place_.getName());
             but_.addActionListener(new SelectCrudPlaceFormEvent(this, i));
             but_.setEnabled(isEnabledButtons());
             getElements().add(but_);

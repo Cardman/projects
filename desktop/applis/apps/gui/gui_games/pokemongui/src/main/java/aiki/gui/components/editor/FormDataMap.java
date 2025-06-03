@@ -39,7 +39,7 @@ public final class FormDataMap {
         spaceBetweenLeftAndHeros = frames_.getCompoFactory().newSpinner(1,1,Integer.MAX_VALUE, 1);
         spaceBetweenTopAndHeros = frames_.getCompoFactory().newSpinner(1,1,Integer.MAX_VALUE, 1);
         sideLength = frames_.getCompoFactory().newSpinner(1,1,Integer.MAX_VALUE, 1);
-        applyMapModif = frames_.getCompoFactory().newPlainButton("_");
+        applyMapModif = frames_.getCompoFactory().newPlainButton("\u21BB");
         applyMapModif.addActionListener(new ApplyModifDataMapDimsEvent(this));
         crudPlace = new CrudGeneFormEntPlace(_ed.getFrames(),_facade,_subscriptions,window.getCommonFrame());
         form = frames_.getCompoFactory().newPageBox();
