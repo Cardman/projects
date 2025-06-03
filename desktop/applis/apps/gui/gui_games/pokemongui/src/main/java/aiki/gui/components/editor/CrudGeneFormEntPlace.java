@@ -45,15 +45,16 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         getCrudGeneFormSubContent().clearSub();
         gene = new GeneComponentModelPlace(getFactory(), getFrame());
         allHeaders.clear();
-        accessConditionButton = getFactory().getCompoFactory().newPlainButton("?");
+        StringMap<String> tf_ = MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())).getMapping();
+        accessConditionButton = getFactory().getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.ACC_COND_OTHER));
         eventAdd(accessConditionButton, new SelectCrudAccessConditionFormEvent(this, false));
-        beginGameButton = getFactory().getCompoFactory().newPlainButton("******");
+        beginGameButton = getFactory().getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.ACC_COND_BEGIN));
         eventAdd(beginGameButton, new SelectCrudAccessConditionFormEvent(this, true));
-        joinPlacesButton = getFactory().getCompoFactory().newPlainButton("<->");
+        joinPlacesButton = getFactory().getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.LK_PLACES_FORM));
         eventAdd(joinPlacesButton, new SelectCrudJoinFormEvent(this));
-        joinPlaceCaveButton = getFactory().getCompoFactory().newPlainButton("<->");
+        joinPlaceCaveButton = getFactory().getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.LK_PLACE_CAVE_FORM));
         eventAdd(joinPlaceCaveButton, new SelectCrudPlaceCaveFormEvent(this));
-        joinCavePlaceButton = getFactory().getCompoFactory().newPlainButton("<->");
+        joinCavePlaceButton = getFactory().getCompoFactory().newPlainButton(tf_.getVal(MessagesEditorSelect.LK_CAVE_PLACE_FORM));
         eventAdd(joinCavePlaceButton, new SelectCrudCavePlaceFormEvent(this));
     }
 

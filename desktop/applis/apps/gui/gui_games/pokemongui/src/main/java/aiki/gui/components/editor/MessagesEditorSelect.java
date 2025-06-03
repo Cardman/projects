@@ -188,6 +188,11 @@ public final class MessagesEditorSelect {
     public static final String TRY_REM = "25";
     public static final String LK_FORM = "26";
     public static final String TRY_CHG_DIM = "27";
+    public static final String LK_PLACES_FORM = "28";
+    public static final String LK_PLACE_CAVE_FORM = "29";
+    public static final String LK_CAVE_PLACE_FORM = "30";
+    public static final String ACC_COND_BEGIN = "31";
+    public static final String ACC_COND_OTHER = "32";
     private MessagesEditorSelect() {
     }
     public static TranslationsFile enGenderRep(){
@@ -768,6 +773,11 @@ public final class MessagesEditorSelect {
         e_.add(TRY_REM,"Try to remove");
         e_.add(LK_FORM,"Form of editing links of the level");
         e_.add(TRY_CHG_DIM,"Try to change dimensions");
+        e_.add(LK_PLACES_FORM,"Form of editing links of places with a single level");
+        e_.add(LK_PLACE_CAVE_FORM,"Form of editing links from a place with a single level to a cave");
+        e_.add(LK_CAVE_PLACE_FORM,"Form of editing links from a cave to a place with a single level");
+        e_.add(ACC_COND_BEGIN,"Condition of access for begin");
+        e_.add(ACC_COND_OTHER,"Condition of access for other");
         return e_;
     }
     public static TranslationsFile frButtons() {
@@ -801,6 +811,11 @@ public final class MessagesEditorSelect {
         f_.add(TRY_REM,"Essayer de supprimer");
         f_.add(LK_FORM,"Formulaire d'édition des liens du niveau");
         f_.add(TRY_CHG_DIM,"Essayer de changer les dimensions");
+        f_.add(LK_PLACES_FORM,"Formulaire d'édition des liens de lieux avec un seul niveau");
+        f_.add(LK_PLACE_CAVE_FORM,"Formulaire d'édition des liens depuis un lieu avec un seul niveau vers une cave");
+        f_.add(LK_CAVE_PLACE_FORM,"Formulaire d'édition des liens depuis une cave vers un lieu avec un seul niveau");
+        f_.add(ACC_COND_BEGIN,"Condition d'accès pour début");
+        f_.add(ACC_COND_OTHER,"Condition d'accès pour autre");
         return f_;
     }
 }
