@@ -25,6 +25,7 @@ public final class MessagesPkEditor {
     public static final String DATA_MAP_GENE = "data_map_gene";
     public static final String DATA_MAP_LEV = "data_map_lev";
     public static final String BUTTONS = "buttons";
+    public static final String MENUS = "menus";
     private MessagesPkEditor() {
     }
 
@@ -60,6 +61,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectDataMapGene(_lgs,MessagesEditorSelect.enDataMapGene());
         appendMessagesEditorSelectDataMapLev(_lgs,MessagesEditorSelect.enDataMapLev());
         appendMessagesEditorSelectButtons(_lgs,MessagesEditorSelect.enButtons());
+        appendMessagesEditorSelectMenus(_lgs,MessagesEditorSelect.enMenus());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -84,6 +86,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectDataMapGene(_lgs,MessagesEditorSelect.frDataMapGene());
         appendMessagesEditorSelectDataMapLev(_lgs,MessagesEditorSelect.frDataMapLev());
         appendMessagesEditorSelectButtons(_lgs,MessagesEditorSelect.frButtons());
+        appendMessagesEditorSelectMenus(_lgs,MessagesEditorSelect.frMenus());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -154,6 +157,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectButtons(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(BUTTONS, _f);
     }
+    public static void appendMessagesEditorSelectMenus(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(MENUS, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -216,5 +222,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectButtonsTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(BUTTONS);
+    }
+    public static TranslationsFile getMessagesEditorSelectMenusTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(MENUS);
     }
 }
