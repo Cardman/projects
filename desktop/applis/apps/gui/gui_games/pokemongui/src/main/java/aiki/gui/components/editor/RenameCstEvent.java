@@ -4,7 +4,7 @@ import code.gui.AbsCtrlKeyState;
 import code.gui.AbsTextField;
 import code.gui.events.AbsAdvActionListener;
 
-public class RenameCstEvent implements AbsAdvActionListener {
+public final class RenameCstEvent implements AbsAdvActionListener {
     private final CrudGeneFormTrCstList crud;
     private final String key;
     private final AbsTextField field;

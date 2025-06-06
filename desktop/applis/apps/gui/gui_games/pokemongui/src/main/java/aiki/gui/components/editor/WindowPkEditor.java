@@ -15,11 +15,16 @@ import aiki.fight.status.*;
 import aiki.game.params.enums.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
+import aiki.sml.*;
 import code.gui.*;
 import code.gui.events.*;
+import code.gui.files.*;
 import code.gui.initialize.*;
 //import code.stream.*;
+import code.stream.*;
+import code.threads.*;
 import code.util.*;
+import code.util.core.*;
 
 public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final SubscribedTranslationList subscriptions;
@@ -122,9 +127,19 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgHerosBackMenu = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.IMG_HEROS_BACK));
     private final FormDataMap formDataMap;
     private final FacadeGame facade = ConverterCommonMapUtil.facadeInit(getFrames());
+    private final CustList<AbsCrudGeneFormTrCstOpen> allWindows = new CustList<AbsCrudGeneFormTrCstOpen>();
+    private final EnabledMenu newDataSet;
+    private final EnabledMenu loadDataSet;
+    private final EnabledMenu saveDataSet;
+    private final FileSaveFrame fileSaveFrame;
+    private final FileOpenFrame fileOpenRomFrame;
+    private final AbstractAtomicBoolean modal;
 
     public WindowPkEditor(AbstractProgramInfos _list) {
         super(_list);
+        modal = _list.getThreadFactory().newAtomicBoolean();
+        fileSaveFrame = new FileSaveFrame(_list, modal);
+        fileOpenRomFrame = new FileOpenFrame(_list, modal);
         facade.setData(ConverterCommonMapUtil.newData(_list,facade));
         facade.updateTrs();
         subscriptions = new SubscribedTranslationList(_list, facade);
@@ -171,13 +186,15 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         events(crudGeneFormCstDifficultyWinPointsFight.getFrame(), trsCstDifficultyWinPointsFightMenu, crudGeneFormCstDifficultyWinPointsFight, new IdList<SubscribedTranslation>());
         crudGeneFormCstSelectedBoolean = new CrudGeneFormTrCst<SelectedBoolean>(_list,facade,subscriptions,subscriptions.getFactorySelectedBoolean());
         events(crudGeneFormCstSelectedBoolean.getFrame(), trsCstSelectedBooleanMenu, crudGeneFormCstSelectedBoolean, new IdList<SubscribedTranslation>());
-        crudGeneFormTm = new CrudGeneFormNb(_list, facade,subscriptions, frTm_,subscriptions.getFactoryTm(), true);
-        crudGeneFormHm = new CrudGeneFormNb(_list, facade,subscriptions, frHm_,subscriptions.getFactoryHm(), false);
-        crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(_list,facade,subscriptions, abMenu, subscriptions.getFactoryAb());
-        crudGeneFormIt = new CrudGeneFormEntBuilder<Item>().build(_list,facade,subscriptions, itMenu, subscriptions.getFactoryIt());
-        crudGeneFormMv = new CrudGeneFormEntBuilder<MoveData>().build(_list,facade,subscriptions, mvMenu, subscriptions.getFactoryMv());
-        crudGeneFormPk = new CrudGeneFormEntBuilder<PokemonData>().build(_list, facade,subscriptions, pkMenu, subscriptions.getFactoryPk());
-        crudGeneFormSt = new CrudGeneFormEntBuilder<Status>().build(_list, facade,subscriptions, stMenu, subscriptions.getFactorySt());
+        crudGeneFormTm = new CrudGeneFormNb(subscriptions, frTm_,subscriptions.getFactoryTm(), true);
+        allWindows.add(crudGeneFormTm);
+        crudGeneFormHm = new CrudGeneFormNb(subscriptions, frHm_,subscriptions.getFactoryHm(), false);
+        allWindows.add(crudGeneFormHm);
+        crudGeneFormAb = new CrudGeneFormEntBuilder<AbilityData>().build(allWindows,subscriptions, abMenu, subscriptions.getFactoryAb());
+        crudGeneFormIt = new CrudGeneFormEntBuilder<Item>().build(allWindows,subscriptions, itMenu, subscriptions.getFactoryIt());
+        crudGeneFormMv = new CrudGeneFormEntBuilder<MoveData>().build(allWindows,subscriptions, mvMenu, subscriptions.getFactoryMv());
+        crudGeneFormPk = new CrudGeneFormEntBuilder<PokemonData>().build(allWindows,subscriptions, pkMenu, subscriptions.getFactoryPk());
+        crudGeneFormSt = new CrudGeneFormEntBuilder<Status>().build(allWindows,subscriptions, stMenu, subscriptions.getFactorySt());
         crudGeneFormCombos = buildCombos(_list, facade, combosMenu);
         crudGeneFormTypes = buildTypes(_list, facade, typesMenu);
         crudGeneFormMiniPk = buildImg(_list, facade, imgMiniPkMenu,subscriptions.getFactoryMiniPk());
@@ -198,7 +215,17 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         crudGeneFormEntImgHerosFront = buildImgHeros(_list, facade, imgHerosFrontMenu, false, true);
         crudGeneFormEntImgHerosBack = buildImgHeros(_list, facade, imgHerosBackMenu, false, false);
         AbsMenuBar bar_ = getFrames().getCompoFactory().newMenuBar();
-//        EnabledMenu file_ = getFrames().getCompoFactory().newMenu("0");
+        EnabledMenu file_ = getFrames().getCompoFactory().newMenu(mappingMenus.getVal(MessagesEditorSelect.FILE));
+        newDataSet = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_NEW));
+        newDataSet.addActionListener(new NewDataSetEvent(this));
+        file_.addMenuItem(newDataSet);
+        loadDataSet = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_LOAD));
+        loadDataSet.addActionListener(new LoadDataSetEvent(this));
+        file_.addMenuItem(loadDataSet);
+        saveDataSet = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_SAVE));
+        saveDataSet.addActionListener(new SaveDataSetEvent(this));
+        file_.addMenuItem(saveDataSet);
+        bar_.add(file_);
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu(mappingMenus.getVal(MessagesEditorSelect.TRS_ENT));
         trs_.addMenuItem(trsAbMenu);
         trs_.addMenuItem(trsItMenu);
@@ -271,6 +298,54 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         getCommonFrame().setVisible(true);
         getCommonFrame().pack();
     }
+
+    public AbstractAtomicBoolean getModal() {
+        return modal;
+    }
+
+    public void saveDataInPanel() {
+        FileSaveFrame.setFileSaveDialogByFrame(true,DataBase.EMPTY_STRING,getFileSaveFrame(),new DefButtonsSavePanelAct(new PkSaveEdited(this),new PkContinueSavedEdited(this)));
+    }
+
+    public void loadDataInPanel() {
+        FileOpenFrame.setFileSaveDialogByFrame(true, StreamFolderFile.getCurrentPath(getFileCoreStream()), getFileOpenRomFrame(), new DefButtonsOpenPanelAct(new PkContinueLoadedEdited(this)));
+    }
+
+    public FileSaveFrame getFileSaveFrame() {
+        return fileSaveFrame;
+    }
+
+    public FileOpenFrame getFileOpenRomFrame() {
+        return fileOpenRomFrame;
+    }
+
+    public void newData() {
+        dataBase(ConverterCommonMapUtil.newData(getFrames(),facade));
+        refresh();
+    }
+
+    public void loadData(String _file) {
+        dataBase(ConverterCommonMapUtil.loadData(getFrames(),_file,facade));
+        refresh();
+    }
+    private void refresh() {
+        for (AbsCrudGeneFormTrCstOpen f: allWindows) {
+            boolean state_ = f.getFrame().isVisible();
+            f.initFormAll();
+            f.getFrame().setVisible(state_);
+            f.getFrame().pack();
+        }
+        formDataMap.updateValues();
+        getCommonFrame().setContentPane(formDataMap.getForm());
+        getCommonFrame().pack();
+    }
+    public void lastDate() {
+        formDataMap.getForm().setTitledBorder(StringUtil.simpleStringsFormat(MessagesPkGame.getWindowPkContentTr(MessagesPkGame.getAppliTr(getFrames().currentLg())).getMapping().getVal(MessagesRenderWindowPk.LAST_SAVED_GAME), Clock.getDateTimeText(getFrames().getThreadFactory())));
+    }
+    public void saveData(String _fileName) {
+        ConverterCommonMapUtil.saveData(getFrames(),_fileName,facade);
+    }
+
     public void dataBase(DataBase _db) {
         facade.setData(_db);
         facade.updateTrs();
@@ -343,7 +418,8 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         return new EditedCrudPair<AbsCommonFrame, IdList<SubscribedTranslation>>(frTrs_,subs_);
     }
 
-    private static void events(AbsCommonFrame _frame, EnabledMenu _menu, AbsCrudGeneFormTrCstOpen _crud, IdList<SubscribedTranslation> _ls) {
+    private void events(AbsCommonFrame _frame, EnabledMenu _menu, AbsCrudGeneFormTrCstOpen _crud, IdList<SubscribedTranslation> _ls) {
+        allWindows.add(_crud);
         _frame.addWindowListener(new ReinitMenu(_menu, _ls));
         _menu.addActionListener(new PkEditorOpenCrudTrCstEvent(_crud, _menu));
     }
@@ -370,6 +446,18 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
             e.getValue().clear();
         }
         GuiBaseUtil.trEx(this, getFrames());
+    }
+
+    public EnabledMenu getNewDataSet() {
+        return newDataSet;
+    }
+
+    public EnabledMenu getLoadDataSet() {
+        return loadDataSet;
+    }
+
+    public EnabledMenu getSaveDataSet() {
+        return saveDataSet;
     }
 
     public EnabledMenu getAbMenu() {

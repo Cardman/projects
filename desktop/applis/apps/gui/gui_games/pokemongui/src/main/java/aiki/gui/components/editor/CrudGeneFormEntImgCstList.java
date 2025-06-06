@@ -1,5 +1,6 @@
 package aiki.gui.components.editor;
 
+import aiki.db.*;
 import aiki.facade.*;
 import aiki.fight.enums.*;
 import code.gui.*;
@@ -34,7 +35,10 @@ public final class CrudGeneFormEntImgCstList implements AbsCrudGeneFormTrCstOpen
             ContentGeneComponentModelImg cont_ = new ContentGeneComponentModelImg();
             AbsCustComponent line_ = cont_.gene(api,null);
 //            line_.add(cont_.gene(api,null));
-            cont_.updateImg(ConverterCommonMapUtil.copyImageArrayBaseSixtyFour(facadeGame.getData().getAnimStatis().getVal(s.getStatName())),api);
+            ImageArrayBaseSixtyFour val_ = facadeGame.getData().getAnimStatis().getVal(s.getStatName());
+            if (val_ != null) {
+                cont_.updateImg(ConverterCommonMapUtil.copyImageArrayBaseSixtyFour(val_),api);
+            }
             AbsButton but_ = api.getCompoFactory().newPlainButton(s.getStatName());
             but_.addActionListener(new AssociateImgOtherCstEvent(this, s));
             page_.add(line_);

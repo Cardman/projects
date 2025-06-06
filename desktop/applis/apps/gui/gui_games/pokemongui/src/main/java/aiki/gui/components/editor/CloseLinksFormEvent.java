@@ -2,7 +2,7 @@ package aiki.gui.components.editor;
 
 import code.gui.events.*;
 
-public class CloseLinksFormEvent implements AbsActionListener {
+public final class CloseLinksFormEvent implements AbsActionListener {
     private final CrudGeneFormEntPlace crud;
     public CloseLinksFormEvent(CrudGeneFormEntPlace _c) {
         crud = _c;

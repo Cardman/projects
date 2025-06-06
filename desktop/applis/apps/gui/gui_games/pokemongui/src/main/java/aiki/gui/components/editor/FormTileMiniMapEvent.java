@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import code.gui.*;
 import code.gui.events.*;
 
-public class FormTileMiniMapEvent implements AbsMouseListenerIntRel {
+public final class FormTileMiniMapEvent implements AbsMouseListenerIntRel {
     private final FormMiniMapGrid form;
 
     public FormTileMiniMapEvent(FormMiniMapGrid _f) {

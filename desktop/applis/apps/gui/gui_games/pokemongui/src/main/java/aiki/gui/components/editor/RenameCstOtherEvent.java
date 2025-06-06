@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import code.gui.*;
 import code.gui.events.*;
 
-public class RenameCstOtherEvent implements AbsActionListener {
+public final class RenameCstOtherEvent implements AbsActionListener {
     private final CrudGeneFormTrOtherCstList window;
     private final String key;
     private final AbsTextField field;

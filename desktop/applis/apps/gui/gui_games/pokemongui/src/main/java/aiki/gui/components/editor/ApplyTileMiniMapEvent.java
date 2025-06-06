@@ -4,7 +4,7 @@ import aiki.facade.*;
 import aiki.map.util.*;
 import code.gui.events.*;
 
-public class ApplyTileMiniMapEvent implements AbsActionListener {
+public final class ApplyTileMiniMapEvent implements AbsActionListener {
     private final FormMiniMapGrid grid;
     private final FormMiniMapTile form;
     private final FacadeGame facadeGame;

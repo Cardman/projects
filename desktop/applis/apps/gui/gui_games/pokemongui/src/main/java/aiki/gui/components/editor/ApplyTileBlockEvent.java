@@ -6,7 +6,7 @@ import aiki.util.*;
 import code.gui.events.*;
 import code.util.*;
 
-public class ApplyTileBlockEvent implements AbsActionListener {
+public final class ApplyTileBlockEvent implements AbsActionListener {
     private final FormLevelGrid grid;
     private final FormBlockTile form;
     private final Point pt;

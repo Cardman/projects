@@ -24,6 +24,7 @@ import aiki.map.places.*;
 import aiki.map.util.*;
 import aiki.sml.*;
 import code.gui.*;
+import code.gui.files.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -46,6 +47,35 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
         ConverterCommonMapUtil.saveData(api_,"/__/_", f_);
         assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(),f_.getSexList(),ConverterCommonMapUtil.loadData(api_,"/__/_",f_)).isError());
+    }
+    @Test
+    public void saveLoadMenu() {
+        FacadeGame f_ = new FacadeGame();
+        f_.setSexList(new MockLSexList());
+        f_.setData(initDb());
+        MockProgramInfos api_ = initForms();
+        api_.getFileCoreStream().newFile("__").mkdirs();
+        api_.setCurrentPath("/__");
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesPkGame.frTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        WindowPkEditor sub_ = window(api_, f_);
+        tryClick(sub_.getSaveDataSet());
+        sub_.getModal().set(sub_.getModal().get());
+        sub_.getFileSaveFrame().getFileDialogContent().getFolderSystem().select(sub_.getFileSaveFrame().getFileDialogContent().getFolderSystem().getRoot());
+        sub_.getFileSaveFrame().getFileDialogContent().getFolderSystem().select(sub_.getFileSaveFrame().getFileDialogContent().getFolderSystem().getRoot().getFirstChild());
+        sub_.getFileSaveFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) compo(sub_.getFileSaveFrame().getFileDialogContent().getButtons()));
+        sub_.getFacade().getData().getMap().getPlaces().clear();
+        tryClick(sub_.getLoadDataSet());
+        sub_.getFileOpenRomFrame().getFileDialogContent().getFolderSystem().select(sub_.getFileOpenRomFrame().getFileDialogContent().getFolderSystem().getRoot());
+        sub_.getFileOpenRomFrame().getFileDialogContent().getFolderSystem().select(sub_.getFileOpenRomFrame().getFileDialogContent().getFolderSystem().getRoot().getFirstChild());
+        sub_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
+        tryClick((AbsButton) compo(sub_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
+        assertFalse(sub_.getFacade().getData().getMap().getPlaces().isEmpty());
+        assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(),f_.getSexList(),sub_.getFacade().getData()).isError());
     }
     @Test
     public void patchData1() {

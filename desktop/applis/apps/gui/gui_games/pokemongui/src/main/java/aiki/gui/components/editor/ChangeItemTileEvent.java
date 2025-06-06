@@ -2,7 +2,7 @@ package aiki.gui.components.editor;
 
 import code.gui.*;
 
-public class ChangeItemTileEvent implements ListSelection {
+public final class ChangeItemTileEvent implements ListSelection {
     private final ContentComponentModelLevelWithWild form;
     public ChangeItemTileEvent(ContentComponentModelLevelWithWild _g) {
         form = _g;

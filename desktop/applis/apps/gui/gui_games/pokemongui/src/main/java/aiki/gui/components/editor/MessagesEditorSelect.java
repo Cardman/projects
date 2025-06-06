@@ -196,11 +196,15 @@ public final class MessagesEditorSelect {
     public static final String CREATE_BUILDING = "33";
     public static final String REMOVE_TILE = "34";
     public static final String MOVE_TILE = "35";
-    public static final String TRS_ENT = "0";
-    public static final String TM_HM = "1";
-    public static final String ENT = "2";
-    public static final String TRS_CST = "3";
-    public static final String IMG = "4";
+    public static final String FILE = "0";
+    public static final String TRS_ENT = "1";
+    public static final String TM_HM = "2";
+    public static final String ENT = "3";
+    public static final String TRS_CST = "4";
+    public static final String IMG = "5";
+    public static final String FILE_NEW = FILE+"_0";
+    public static final String FILE_LOAD = FILE+"_1";
+    public static final String FILE_SAVE = FILE+"_2";
     public static final String TRS_ENT_AB = TRS_ENT+"_0";
     public static final String TRS_ENT_IT = TRS_ENT+"_1";
     public static final String TRS_ENT_MV = TRS_ENT+"_2";
@@ -889,11 +893,15 @@ public final class MessagesEditorSelect {
     }
     public static TranslationsFile enMenus() {
         TranslationsFile e_ = new TranslationsFile();
+        e_.add(FILE,"File");
         e_.add(TRS_ENT,"Translations of entities");
         e_.add(TM_HM,"Numbered moves");
         e_.add(ENT,"Entities");
         e_.add(TRS_CST,"Translations of const");
         e_.add(IMG,"Images");
+        e_.add(FILE_NEW,"New data set");
+        e_.add(FILE_LOAD,"Load");
+        e_.add(FILE_SAVE,"Save");
         e_.add(TRS_ENT_AB,"Abilities");
         e_.add(TRS_ENT_IT, ITEMS);
         e_.add(TRS_ENT_MV,"Moves");
@@ -946,11 +954,15 @@ public final class MessagesEditorSelect {
     }
     public static TranslationsFile frMenus() {
         TranslationsFile f_ = new TranslationsFile();
+        f_.add(FILE,"Fichier");
         f_.add(TRS_ENT,"Traductions d'entités");
         f_.add(TM_HM,"Attaques numérotées");
         f_.add(ENT,"Entités");
         f_.add(TRS_CST,"Traductions de constantes");
         f_.add(IMG,"Images");
+        f_.add(FILE_NEW,"Nouveau jeu de données");
+        f_.add(FILE_LOAD,"Charger");
+        f_.add(FILE_SAVE,"Sauvegarder");
         f_.add(TRS_ENT_AB,"Capacités");
         f_.add(TRS_ENT_IT, OBJETS);
         f_.add(TRS_ENT_MV,"Attaques");

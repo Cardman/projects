@@ -3,7 +3,6 @@ package aiki.gui.components.editor;
 import aiki.db.*;
 import aiki.facade.*;
 import code.gui.*;
-import code.gui.initialize.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
@@ -17,11 +16,11 @@ public final class CrudGeneFormNb extends CrudGeneFormListSub<EditedCrudPair<Int
     private final boolean tm;
     private GeneComponentModelNb geneComponentModelNb;
 
-    public CrudGeneFormNb(AbstractProgramInfos _fact, FacadeGame _facade, SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto, boolean _t) {
-        super(_fact,_facade,_sub,_fr, null);
+    public CrudGeneFormNb(SubscribedTranslationList _sub, AbsCommonFrame _fr, SubscribedTranslationMessagesNbFactory _facto, boolean _t) {
+        super(_sub.getProgramInfos(),_sub.getFacadeGame(),_sub,_fr, null);
         factoryMessage = _facto;
         subscribedTranslations = _sub;
-        facadeGame = _facade;
+        facadeGame = _sub.getFacadeGame();
         tm = _t;
     }
 

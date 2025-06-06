@@ -14,6 +14,7 @@ import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.LawNumber;
 import code.gui.*;
+import code.gui.files.*;
 import code.maths.*;
 import code.maths.litteral.*;
 import code.maths.montecarlo.*;
@@ -280,6 +281,16 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         CrudGeneFormEnt<PokemonData> c_ = w_.getCrudGeneFormPk();
         tryClick(c_.getAdd());
         tryClick(c_.getValidAddEdit());
+        assertEq(0,w_.getFacade().getData().getPokedex().size());
+    }
+    @Test
+    public void createData() {
+        MockProgramInfos pr_ = initForms();
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(pr_.getTranslations().getMapping().getVal(EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(pr_.getTranslations().getMapping().getVal(FR)));
+        WindowPkEditor w_ = new WindowPkEditor(pr_);
+        crudNumConst(w_);
+        tryClick(w_.getNewDataSet());
         assertEq(0,w_.getFacade().getData().getPokedex().size());
     }
     private GeneComponentModelSubscribeStringList gene() {

@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import aiki.util.*;
 import code.gui.*;
 
-public class ChangeItemLinkTileEvent implements ListSelection {
+public final class ChangeItemLinkTileEvent implements ListSelection {
     private final AbsContentComponentModelLevelLinks form;
     private final GeneComponentModelImgSelect select;
     private final NullablePoint point;

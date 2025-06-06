@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import code.gui.*;
 import code.gui.events.*;
 
-public class RenameCstNumEvent implements AbsAdvActionListener {
+public final class RenameCstNumEvent implements AbsAdvActionListener {
     private final CrudGeneFormTrCstNumList crud;
     private final String key;
     private final GeneComponentModelRate field;

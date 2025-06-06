@@ -3,7 +3,7 @@ package aiki.gui.components.editor;
 import code.gui.*;
 import code.gui.events.*;
 
-public class FormBlockTileEvent implements AbsMouseListenerIntRel {
+public final class FormBlockTileEvent implements AbsMouseListenerIntRel {
     private final FormLevelGrid form;
 
     public FormBlockTileEvent(FormLevelGrid _f) {
