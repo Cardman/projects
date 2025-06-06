@@ -109,7 +109,7 @@ public final class FileSaveDialogContent extends FileDialogContent {
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!getProgramInfos().getValidator().okPath(text_,'/','\\')) {
+        if (!getProgramInfos().getValidator().okPath(PathsUtil.getRelativeRootPath(text_,getProgramInfos().getFileCoreStream()),'/','\\')) {
             String errorContent_ = messages_.getVal(MessagesFileSaveDialog.FORBIDDEN_SPECIAL_CHARS);
             getErrors().setText(errorContent_);
             return;
