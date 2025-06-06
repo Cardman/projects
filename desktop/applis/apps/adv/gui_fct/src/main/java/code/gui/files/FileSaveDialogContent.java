@@ -114,6 +114,10 @@ public final class FileSaveDialogContent extends FileDialogContent {
             getErrors().setText(errorContent_);
             return;
         }
+        if (PathsUtil.isAbsolute(text_,getProgramInfos().getFileCoreStream())) {
+            getPostFileDialogEvent().act(text_);
+            return;
+        }
         //get selected row first table
         String path_ = StringUtil.concat(getCurrentFolder(), text_);
         getPostFileDialogEvent().act(path_);

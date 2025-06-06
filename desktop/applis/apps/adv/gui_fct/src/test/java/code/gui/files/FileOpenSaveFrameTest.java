@@ -174,6 +174,20 @@ public final class FileOpenSaveFrameTest extends EquallableGuiFctUtil {
         assertFalse(saver_.getFrame().isVisible());
     }
     @Test
+    public void input6() {
+        MockProgramInfosSecSample pr_ = init();
+        updateFileOpenSave(pr_);
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        MockBinFact.write(pr_.getStreams().getBinFact(),"txt","inner",false);
+        FileOpenSaveFrame saver_ = saver(pr_);
+        FileOpenSaveFrame.setFileSaveDialogByFrame(true, "/tmp",saver_,new SaveFileSample(),new ContinueFileSample());
+        assertTrue(saver_.getFrame().isVisible());
+        saver_.getFileSaveDialogContent().getFileName().setText("/tmp/txt");
+        ((MockAbstractAction) GuiBaseUtil.getAction(saver_.getFileSaveDialogContent().getFileName(), GuiConstants.VK_ENTER,0)).action();
+        assertTrue(saver_.getFrame().isVisible());
+    }
+    @Test
     public void inputFrame1() {
         MockProgramInfosSecSample pr_ = init();
         updateFileSave(pr_);
