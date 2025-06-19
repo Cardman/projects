@@ -23,13 +23,13 @@ public final class NonIterableBytes {
         return nonIt_;
     }
 
-    public int[] toComposArrByte() {
+    public byte[] toCompos() {
         int size_ = size();
-        int[] arrIt_ = new int[size_];
+        Ints arrIt_ = new Ints(new CollCapacity(size_));
         for (int i = 0; i < size_; i++) {
-            arrIt_[i] = get(i);
+            arrIt_.add(get(i));
         }
-        return arrIt_;
+        return arrIt_.toArrByte();
     }
     public int size() {
         return array.size();

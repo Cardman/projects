@@ -1121,7 +1121,7 @@ public class NumbersTest extends EquallableExUtil {
         n_.remove(0);
         assertEq(0, n_.size());
         NonIterableBytes nbs_ = NonIterableBytes.newCompositeList((byte)5,(byte)1);
-        int[] bytes_ = nbs_.toComposArrByte();
+        byte[] bytes_ = nbs_.toCompos();
         assertEq(2, bytes_.length);
         assertEq(5, bytes_[0]);
         assertEq(1, bytes_[1]);
