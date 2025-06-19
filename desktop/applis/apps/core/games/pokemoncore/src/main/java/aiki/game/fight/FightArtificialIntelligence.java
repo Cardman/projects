@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
@@ -13,7 +13,6 @@ import aiki.game.fight.util.PairListsFighters;
 import aiki.game.fight.util.StatisticsDamageMove;
 import aiki.game.params.Difficulty;
 import aiki.util.*;
-import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
@@ -422,8 +421,7 @@ final class FightArtificialIntelligence {
             for(String m:attaquesUtilisables_){
                 loi_.addQuickEvent(m,DataBase.defElementaryEvent());
             }
-            LgInt maxRd_ = _import.getMaxRd();
-            String attaqueUtilisee_=loi_.editNumber(maxRd_, _import.getGenerator());
+            String attaqueUtilisee_=new PkMonteCarlo<String>(_import,loi_,_fight.getTemp().getEvts()).editNumber();
             setFirstChosenMove(_fight, Fight.toFoeFighter(e.getKey()), attaqueUtilisee_, _diff, _import);
         }
     }

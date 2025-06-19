@@ -243,7 +243,7 @@ final class FightOrder {
         if (FightSuccess.isBadSimulation(_fight, law_)) {
             return new TeamPositionList();
         }
-        boolean permuter_ = FightSuccess.random(_import, law_);
+        boolean permuter_ = FightSuccess.random(_import, law_, _fight.getTemp().getEvts());
         if(permuter_){
             return TeamPositionList.newList(fighter_);
         }

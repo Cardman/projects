@@ -1,6 +1,6 @@
 
 package aiki.game.fight;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
@@ -545,7 +545,7 @@ final class FightEffects {
 
     private static void randomType(MonteCarloString _law, Fight _fight, DataBase _import, Fighter _creatureCible, TeamPosition _cible) {
         if (!FightSuccess.isBadSimulation(_fight, _law)) {
-            String type_ = FightSuccess.random(_import, _law);
+            String type_ = FightSuccess.random(_import, _law, _fight.getTemp().getEvts());
             if (!type_.isEmpty()) {
                 _creatureCible.affecterTypes(type_);
                 _fight.addChangedTypesMessage(_cible, new StringList(type_), _import);
@@ -903,11 +903,10 @@ final class FightEffects {
         MonteCarloNumber loiRand_ = _laws.getRandomRate();
         MonteCarloNumber repetCoup_=_laws.getNumberHits().getVal(_fighter);
         Rate sommeCoups_ = Rate.zero();
-        LgInt maxRd_ = _import.getMaxRd();
         long nbCoups_ = NumberUtil.max(1,randomRate(_fight, _import, repetCoup_, _target).ll());
         boolean coupCritique_ = false;
         for (long i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
-            Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
+            Rate degatsBase_ = new PkMonteCarlo<Rate>(_import,_laws.getBase().getVal(_fighter),_fight.getTemp().getEvts()).editNumber();
             Rate cc_ = randomRate(_fight, _import,_laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
                 coupCritique_ = true;
@@ -940,13 +939,12 @@ final class FightEffects {
         long previousHits_ = damage_.getHits();
         Fighter creatureCible_=_fight.getFighter(_target);
         MonteCarloNumber loiRand_ = _laws.getRandomRate();
-        LgInt maxRd_ = _import.getMaxRd();
-        long nbCoups_ = NumberUtil.max(1, _laws.getNumberHits().getVal(_fighter).editNumber(maxRd_, _import.getGenerator()).ll());
+        long nbCoups_ = NumberUtil.max(1, new PkMonteCarlo<Rate>(_import,_laws.getNumberHits().getVal(_fighter),_fight.getTemp().getEvts()).editNumber().ll());
         boolean coupCritique_ = false;
         boolean keepProcessing_ = true;
         long nbHits_ = 0;
         for (long i = IndexConstants.FIRST_INDEX; i<nbCoups_; i++){
-            Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
+            Rate degatsBase_ = new PkMonteCarlo<Rate>(_import,_laws.getBase().getVal(_fighter),_fight.getTemp().getEvts()).editNumber();
             Rate cc_ = randomRate(_fight, _import, _laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
                 coupCritique_=true;
@@ -1065,7 +1063,6 @@ final class FightEffects {
 
     static Rate randomRate(Fight _fight, DataBase _import,MonteCarloNumber _lawCriticalHitRate,TeamPosition _target) {
         Rate cc_;
-        LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getTemp().getSimulation()){
             if(NumberUtil.eq(_target.getTeam(),Fight.CST_FOE)){
                 cc_=_lawCriticalHitRate.minimum();
@@ -1073,7 +1070,7 @@ final class FightEffects {
                 cc_=_lawCriticalHitRate.maximum();
             }
         }else{
-            cc_=_lawCriticalHitRate.editNumber(maxRd_,_import.getGenerator());
+            cc_=new PkMonteCarlo<Rate>(_import,_lawCriticalHitRate,_fight.getTemp().getEvts()).editNumber();
         }
         return cc_;
     }
@@ -2249,7 +2246,7 @@ final class FightEffects {
             _fight.addIssueRandomMessage(_import);
             return false;
         }
-        return FightSuccess.tirage(_import, _rate);
+        return FightSuccess.tirage(_import, _rate, _fight.getTemp().getEvts());
     }
 
     static void effectStatistic(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,EffectStatistic _effet,IdList<Statistic> _statistiques,DataBase _import){
@@ -2262,7 +2259,7 @@ final class FightEffects {
 //                    loi_.addQuickEvent(e,_effet.getLawBoost().rate(e));
 //                }
 //            }
-            Statistic statistique_ = FightSuccess.random(_import, loi_);
+            Statistic statistique_ = FightSuccess.random(_import, loi_,_fight.getTemp().getEvts());
             long delta_ = deltaBoostStatistic(_fight, _cible, statistique_, varStatisCran_.getVal(statistique_), _import);
             creatureCible_.variationBoostStatistique(statistique_, delta_);
             _fight.addAnimationStatistic(statistique_, delta_, false);
@@ -2639,7 +2636,7 @@ final class FightEffects {
         if (FightSuccess.isBadSimulation(_fight, loiGeneree_)) {
             return;
         }
-        String statut_=FightSuccess.random(_import, loiGeneree_);
+        String statut_=FightSuccess.random(_import, loiGeneree_, _fight.getTemp().getEvts());
         if(!statut_.isEmpty()){
             setStatus(_fight, _lanceur, _cible, statut_, _import);
             _fight.setAnimationStatus(statut_);

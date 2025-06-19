@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
@@ -1331,33 +1331,28 @@ final class FightSuccess {
         return coeff_;
     }
 
-    static boolean tirage(DataBase _db, Rate _probaActif){
-        LgInt maxRd_ = _db.getMaxRd();
-        return tr(MonteCarloUtil.booleanLaw(_probaActif).editNumber(maxRd_,_db.getGenerator()));
+    static boolean tirage(DataBase _db, Rate _probaActif, PkMonteCarloEvts _evts){
+        return tr(new PkMonteCarlo<BoolVal>(_db,MonteCarloUtil.booleanLaw(_probaActif),_evts).editNumber());
     }
-    static Statistic random(DataBase _db, MonteCarloEnum<Statistic> _law) {
-        LgInt maxRd_ = _db.getMaxRd();
-        return _law.editNumber(maxRd_,_db.getGenerator());
+    static Statistic random(DataBase _db, MonteCarloEnum<Statistic> _law, PkMonteCarloEvts _evts) {
+        return new PkMonteCarlo<Statistic>(_db,_law,_evts).editNumber();
     }
 
-    static boolean random(DataBase _db, MonteCarloBoolean _law) {
-        LgInt maxRd_ = _db.getMaxRd();
-        return tr(_law.editNumber(maxRd_,_db.getGenerator()));
+    static boolean random(DataBase _db, MonteCarloBoolean _law, PkMonteCarloEvts _evts) {
+        return tr(new PkMonteCarlo<BoolVal>(_db,_law,_evts).editNumber());
     }
     static boolean tr(BoolVal _b) {
         return _b == BoolVal.TRUE;
     }
-    static String random(DataBase _db, MonteCarloString _law) {
-        LgInt maxRd_ = _db.getMaxRd();
+    static String random(DataBase _db, MonteCarloString _law, PkMonteCarloEvts _evts) {
         if (_law.events().isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
-        return _law.editNumber(maxRd_,_db.getGenerator());
+        return new PkMonteCarlo<String>(_db,_law,_evts).editNumber();
     }
 
-    static Rate random(DataBase _db, MonteCarloNumber _law) {
-        LgInt maxRd_ = _db.getMaxRd();
-        return _law.editNumber(maxRd_,_db.getGenerator());
+    static Rate random(DataBase _db, MonteCarloNumber _law, PkMonteCarloEvts _evts) {
+        return new PkMonteCarlo<Rate>(_db,_law,_evts).editNumber();
     }
 
     static boolean isBadSimulation(Fight _fight,IntMonteCarlo _law) {

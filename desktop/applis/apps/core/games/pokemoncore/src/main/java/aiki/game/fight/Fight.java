@@ -1,6 +1,6 @@
 package aiki.game.fight;
 import aiki.comments.Comment;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectBatonPass;
@@ -403,6 +403,7 @@ public final class Fight {
     private final TransientFight temp;
     public Fight() {
         temp = new TransientFight();
+        temp.setEvts(new PkMonteCarloEvts(new CustList<LgInt>()));
 //        damage.setDamage(Rate.zero());
 //        damage.setDamageClone(Rate.zero());
 //        damage.setDamageCount(Rate.zero());

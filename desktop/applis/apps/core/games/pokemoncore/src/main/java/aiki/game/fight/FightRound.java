@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -711,13 +711,12 @@ final class FightRound {
         StatusBeginRound status_ = (StatusBeginRound) _import.getStatus(_nomStatut);
         MonteCarloBoolean lawUseMove_ = status_.getLawForUsingAMove();
         MonteCarloBoolean lawUseMoveIfFoe_ = status_.getLawForUsingAMoveIfFoe();
-        LgInt maxRd_ = _import.getMaxRd();
         boolean tirageGuerison_ = tirageGuerison(_fight, _combattant, _nomStatut, _import, creature_, status_);
         boolean attaquer_=true;
         if(!tirageGuerison_&&!lawUseMove_.events().isEmpty()){
             String moveName_ = creature_.getFinalChosenMove();
             MoveData move_ = _import.getMove(moveName_);
-            if (StringUtil.contains(move_.getRequiredStatus(), _nomStatut) || StringUtil.contains(move_.getDeletedStatus(), _nomStatut) || tirageGuerison(_fight, _combattant, _import, lawUseMove_, maxRd_)) {
+            if (StringUtil.contains(move_.getRequiredStatus(), _nomStatut) || StringUtil.contains(move_.getDeletedStatus(), _nomStatut) || tirageGuerison(_fight, _combattant, _import, lawUseMove_)) {
                 tirageGuerison_ = true;
             } else {
                 attaquer_ = false;
@@ -738,15 +737,14 @@ final class FightRound {
         }
         _fight.getTemp().setLettingUserAttackWithStatus(attaquer_&&attaquerAdv_);
     }
-    private static boolean tirageGuerison(Fight _fight,TeamPosition _combattant,DataBase _import,MonteCarloBoolean _lawUseMove, LgInt _maxRd) {
+    private static boolean tirageGuerison(Fight _fight, TeamPosition _combattant, DataBase _import, MonteCarloBoolean _lawUseMove) {
         if (_fight.getTemp().getSimulation()) {
             return !NumberUtil.eq(_combattant.getTeam(), Fight.CST_PLAYER);
         }
-        return FightSuccess.tr(_lawUseMove.editNumber(_maxRd, _import.getGenerator()));
+        return FightSuccess.tr(new PkMonteCarlo<BoolVal>(_import,_lawUseMove,_fight.getTemp().getEvts()).editNumber());
     }
 
     private static boolean attaquerAdv(Fight _fight, TeamPosition _combattant, DataBase _import, MonteCarloBoolean _lawUseMoveIfFoe) {
-        LgInt maxRd_ = _import.getMaxRd();
         boolean attaquerAdv_=true;
         if(!_lawUseMoveIfFoe.events().isEmpty()){
             if(_fight.getTemp().getSimulation()){
@@ -754,7 +752,7 @@ final class FightRound {
                     attaquerAdv_=false;
                 }
             } else {
-                attaquerAdv_ = FightSuccess.tr(_lawUseMoveIfFoe.editNumber(maxRd_, _import.getGenerator()));
+                attaquerAdv_ = FightSuccess.tr(new PkMonteCarlo<BoolVal>(_import,_lawUseMoveIfFoe,_fight.getTemp().getEvts()).editNumber());
             }
         }
         return attaquerAdv_;
@@ -813,7 +811,6 @@ final class FightRound {
     }
 
     private static boolean finiStatut(Fight _fight, TeamPosition _combattant, String _nomStatut, DataBase _import, MonteCarloBoolean _loiModif, MoveData _move) {
-        LgInt maxRd_ = _import.getMaxRd();
         boolean fini_;
         if (StringUtil.contains(_move.getDeletedStatus(), _nomStatut)) {
             fini_= true;
@@ -821,7 +818,7 @@ final class FightRound {
             if(_fight.getTemp().getSimulation()){
                 fini_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE);
             } else {
-                fini_=!FightSuccess.tr(_loiModif.editNumber(maxRd_, _import.getGenerator()));
+                fini_=!FightSuccess.tr(new PkMonteCarlo<BoolVal>(_import,_loiModif,_fight.getTemp().getEvts()).editNumber());
             }
         }
         return fini_;
@@ -839,14 +836,13 @@ final class FightRound {
         if (_return) {
             return;
         }
-        LgInt maxRd_ = _import.getMaxRd();
         Fighter creature_=_fight.getFighter(_combattant);
         if(_fight.getTemp().getSimulation()){
             if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE)){
                 creature_.supprimerStatut(_nomStatut);
                 _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
             }
-        }else if(FightSuccess.tr(_lawFullHeal.editNumber(maxRd_,_import.getGenerator()))){
+        }else if(FightSuccess.tr(new PkMonteCarlo<BoolVal>(_import,_lawFullHeal,_fight.getTemp().getEvts()).editNumber())){
             creature_.supprimerStatut(_nomStatut);
             _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
         }
@@ -1123,7 +1119,7 @@ final class FightRound {
                 }
                 success_ = true;
             } else {
-                success_ = FightSuccess.random(_import, law_);
+                success_ = FightSuccess.random(_import, law_, _fight.getTemp().getEvts());
             }
             if (!success_) {
                 _fight.getTemp().setSuccessfulUse(false);

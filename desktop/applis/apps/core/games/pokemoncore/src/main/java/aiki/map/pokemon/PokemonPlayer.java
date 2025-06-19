@@ -1,6 +1,6 @@
 package aiki.map.pokemon;
 import aiki.comments.Comment;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
@@ -221,13 +221,12 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         for(Gender g:repartitionGenre_.getPossibleGenders()){
             loiGenre_.addQuickEvent(g,DataBase.defElementaryEvent());
         }
-        LgInt maxRd_ = _import.getMaxRd();
-        setGender(loiGenre_.editNumber(maxRd_,_import.getGenerator()));
+        setGender(new PkMonteCarlo<Gender>(_import,loiGenre_).editNumber());
         MonteCarloString loiCapac_ = new MonteCarloString();
         for(String e:fPk_.getAbilities()){
             loiCapac_.addQuickEvent(e,DataBase.defElementaryEvent());
         }
-        setAbility(loiCapac_.editNumber(maxRd_,_import.getGenerator()));
+        setAbility(new PkMonteCarlo<String>(_import,loiCapac_).editNumber());
     }
 
     void initAttaques(DataBase _import, boolean _initEv){

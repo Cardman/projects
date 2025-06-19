@@ -1,7 +1,6 @@
 package aiki.game;
 import aiki.comments.Comment;
-import aiki.db.DataBase;
-import aiki.db.ImageHeroKey;
+import aiki.db.*;
 import aiki.facade.SexListInt;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
@@ -922,8 +921,7 @@ public final class Game {
     }
 
     Egg productedEgg(Coords _coords,DataBase _d){
-        LgInt maxRd_ = _d.getMaxRd();
-        return new Egg(lawForProductedEgg(_coords, _d).editNumber(maxRd_,_d.getGenerator()));
+        return new Egg(new PkMonteCarlo<String>(_d,lawForProductedEgg(_coords, _d)).editNumber());
     }
 
     MonteCarloString lawForProductedEgg(Coords _coords,DataBase _d) {
@@ -2491,8 +2489,7 @@ public final class Game {
 
     void newRandomPokemon(MonteCarloWilPkList _law, DataBase _d) {
         MonteCarloWilPkList lawCopy_ = lawCopy(_law, _d);
-        LgInt maxRd_ = _d.getMaxRd();
-        CustList<WildPk> pkAlea_=lawCopy_.editNumber(maxRd_,_d.getGenerator());
+        CustList<WildPk> pkAlea_=new PkMonteCarlo<CustList<WildPk>>(_d,lawCopy_).editNumber();
         if(pkAlea_.isEmpty()){
             return;
         }

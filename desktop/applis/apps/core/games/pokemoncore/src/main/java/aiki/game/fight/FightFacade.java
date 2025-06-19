@@ -1,7 +1,7 @@
 package aiki.game.fight;
 import aiki.comments.Comment;
 import aiki.comparators.*;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
@@ -1518,7 +1518,7 @@ public final class FightFacade {
                 Fighter creatureUt_ = _fight.getFighter(Fight.toUserFighter(ca_.getPlayer()));
                 Fighter creatureSauvage_ = _fight.getFighter(Fight.toFoeFighter(v));
                 Rate proba_=FightRound.calculateCatchingRate(_fight, new FighterPosition(creatureUt_, ca_.getPlayer()), c_, _user.estAttrape(creatureSauvage_.getName()), _diff, _import, creatureSauvage_);
-                if(FightSuccess.tirage(_import, proba_)){
+                if(FightSuccess.tirage(_import, proba_, _fight.getTemp().getEvts())){
                     ca_.setCaught(true);
                 } else {
                     ca_.setCaught(false);
@@ -1546,13 +1546,12 @@ public final class FightFacade {
     public static void attemptFlee(Fight _fight,Difficulty _diff,Player _user,DataBase _import, boolean _enableAnimation){
         cancelCatch(_fight);
         MonteCarloNumber probas_= calculateFleeingRate(_fight,_diff,_import);
-        LgInt maxRd_ = _import.getMaxRd();
-        Rate proba_ = probas_.editNumber(maxRd_, _import.getGenerator());
+        Rate proba_ = new PkMonteCarlo<Rate>(_import,probas_,_fight.getTemp().getEvts()).editNumber();
         if(_fight.getNbFleeAttempt()<255){
             _fight.setNbFleeAttempt(_fight.getNbFleeAttempt()+1);
         }
         _fight.getTemp().setKeepRound(true);
-        if(FightSuccess.tirage(_import, proba_)){
+        if(FightSuccess.tirage(_import, proba_, _fight.getTemp().getEvts())){
             //la fuite est reussie ==> fin de combat
             _fight.getTemp().setKeepRound(false);
             _fight.setState(FightState.REDESSIN_SCENE);

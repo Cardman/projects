@@ -488,6 +488,7 @@ public final class DataBase {
         return e_;
     }
 
+//    public String editStr(MonteCarloString )
     public LgInt getMaxRd() {
         return standardMathFactory.getMaxRandomNb();
     }

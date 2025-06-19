@@ -1,7 +1,7 @@
 package aiki.game.fight;
 
 import aiki.comments.Comment;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.IssueSimulation;
@@ -9,7 +9,7 @@ import aiki.util.NbEffectFighterCoordss;
 import aiki.util.TargetCoordsList;
 import aiki.util.TeamPositionList;
 import aiki.util.TeamPositionsRate;
-import code.maths.Rate;
+import code.maths.*;
 import code.util.*;
 import code.util.comparators.NaturalComparator;
 import code.util.core.BoolVal;
@@ -22,6 +22,7 @@ public final class TransientFight {
 
     /***/
     private boolean simulation;
+    private PkMonteCarloEvts evts;
     private boolean error;
 
     /***/
@@ -269,6 +270,14 @@ public final class TransientFight {
 
     public void setSimulation(boolean _simulation) {
         simulation = _simulation;
+    }
+
+    public PkMonteCarloEvts getEvts() {
+        return evts;
+    }
+
+    public void setEvts(PkMonteCarloEvts _e) {
+        this.evts = _e;
     }
 
     public IssueSimulation getIssue() {

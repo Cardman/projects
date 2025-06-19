@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.EndTurnType;
@@ -32,7 +32,6 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -667,7 +666,7 @@ final class FightEndRound {
         if (FightSuccess.isBadSimulation(_fight, loiSachant_)) {
             return;
         }
-        boolean resterActif_ = FightSuccess.random(_import, loiSachant_);
+        boolean resterActif_ = FightSuccess.random(_import, loiSachant_, _fight.getTemp().getEvts());
         activity_.keepEnabled(resterActif_);
         _fight.addWeatherEndRoundMessage(_move, activity_, _import);
     }
@@ -690,7 +689,7 @@ final class FightEndRound {
         }
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
         boolean testPositif_= _fight.getTemp().getSimulation();
-        if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatusAlly())){
+        if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatusAlly(), _fight.getTemp().getEvts())){
             for(int c:equipe_.getMembers().getKeys()){
                 if(NumberUtil.eq(c,_combattant.getPosition())){
                     continue;
@@ -703,7 +702,7 @@ final class FightEndRound {
                 }
             }
         }
-        if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatus())){
+        if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatus(), _fight.getTemp().getEvts())){
             Fighter creature_=equipe_.refPartMembres(_combattant.getPosition());
             _fight.addAbilityEndRoundMessage(_ability, _combattant, _import);
             for(String c:creature_.getStatusSet()){
@@ -832,7 +831,7 @@ final class FightEndRound {
                     _fight.addDisabledStatusMessage(c, _combattant, _import);
                 }
             }
-        }else if(FightSuccess.tirage(_import, _effet.getDeleteAllStatus())){
+        }else if(FightSuccess.tirage(_import, _effet.getDeleteAllStatus(), _fight.getTemp().getEvts())){
             for(String c:creature_.getStatusSet()){
                 creature_.supprimerStatut(c);
                 _fight.addDisabledStatusMessage(c, _combattant, _import);
@@ -1277,16 +1276,15 @@ final class FightEndRound {
 
     private static boolean resterActif(Fight _fight, DataBase _import, long _nbTour, MonteCarloNumber _loi, int _team, int _cst) {
         MonteCarloBoolean loiSachant_= _loi.knowingGreater(new Rate(_nbTour));
-        LgInt maxRd_ = _import.getMaxRd();
         boolean resterActif_;
         if(_fight.getTemp().getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_= FightSuccess.tr(loiSachant_.editNumber(maxRd_, _import.getGenerator()));
+                resterActif_= FightSuccess.tr(new PkMonteCarlo<BoolVal>(_import,loiSachant_,_fight.getTemp().getEvts()).editNumber());
             }else{
                 resterActif_= NumberUtil.eq(_team, _cst);
             }
         }else{
-            resterActif_=FightSuccess.tr(loiSachant_.editNumber(maxRd_, _import.getGenerator()));
+            resterActif_=FightSuccess.tr(new PkMonteCarlo<BoolVal>(_import,loiSachant_,_fight.getTemp().getEvts()).editNumber());
         }
         return resterActif_;
     }

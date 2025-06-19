@@ -1,6 +1,6 @@
 package aiki.game.fight;
 
-import aiki.db.DataBase;
+import aiki.db.*;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -100,7 +100,7 @@ public class FightSuccessTest extends InitializationDataBase {
         DataBase data_ = initDb();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(Rate.one(), LgInt.one());
-        Rate event_ = FightSuccess.random(data_, law_);
+        Rate event_ = FightSuccess.random(data_, law_,new PkMonteCarloEvts(new CustList<LgInt>()));
         assertEq(Rate.one(), event_);
     }
 
@@ -110,8 +110,53 @@ public class FightSuccessTest extends InitializationDataBase {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(Rate.one(), LgInt.one());
         law_.addQuickEvent(Rate.zero(), LgInt.zero());
-        Rate event_ = FightSuccess.random(data_, law_);
+        Rate event_ = FightSuccess.random(data_, law_,new PkMonteCarloEvts(new CustList<LgInt>()));
         assertEq(Rate.one(), event_);
+    }
+
+    @Test
+    public void random3Test() {
+        DataBase data_ = initDb();
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addQuickEvent(Rate.one(), LgInt.one());
+        law_.addQuickEvent(Rate.zero(), LgInt.zero());
+        assertEq(Rate.one(), FightSuccess.random(data_, law_,new PkMonteCarloEvts(new CustList<LgInt>(LgInt.zero()))));
+    }
+
+    @Test
+    public void random4Test() {
+        DataBase data_ = initDb();
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addQuickEvent(Rate.one(), LgInt.one());
+        law_.addQuickEvent(Rate.zero(), LgInt.one());
+        CustList<LgInt> evts_ = new CustList<LgInt>(LgInt.zero(),LgInt.one());
+        PkMonteCarlo<Rate> h_ = new PkMonteCarlo<Rate>(data_, law_, new PkMonteCarloEvts(evts_));
+        assertEq(Rate.one(), h_.editNumber());
+        assertEq(Rate.zero(), h_.editNumber());
+        assertEq(Rate.one(), h_.editNumber());
+        assertEq(Rate.zero(), h_.editNumber());
+    }
+
+    @Test
+    public void random5Test() {
+        DataBase data_ = initDb();
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addQuickEvent(Rate.one(), LgInt.one());
+        law_.addQuickEvent(Rate.zero(), LgInt.one());
+        CustList<LgInt> evts_ = new CustList<LgInt>(LgInt.one(),LgInt.zero());
+        PkMonteCarlo<Rate> h_ = new PkMonteCarlo<Rate>(data_, law_, new PkMonteCarloEvts(evts_));
+        assertEq(Rate.zero(), h_.editNumber());
+        assertEq(Rate.one(), h_.editNumber());
+        assertEq(Rate.zero(), h_.editNumber());
+        assertEq(Rate.one(), h_.editNumber());
+    }
+
+    @Test
+    public void random6Test() {
+        CustList<LgInt> res_ = PkMonteCarloEvts.parse("0##1");
+        assertEq(2,res_.size());
+        assertEq(LgInt.zero(), res_.get(0));
+        assertEq(LgInt.one(), res_.get(1));
     }
 
     @Test
@@ -219,10 +264,10 @@ public class FightSuccessTest extends InitializationDataBase {
     @Test
     public void tirage1Test() {
         DataBase data_ = initDb();
-        assertTrue(FightSuccess.tirage(data_,Rate.one()));
-        assertTrue(!FightSuccess.tirage(data_,Rate.zero()));
-        assertTrue(FightSuccess.tirage(data_,new Rate("2")));
-        assertTrue(FightSuccess.random(data_,new MonteCarloString()).isEmpty());
+        assertTrue(FightSuccess.tirage(data_,Rate.one(), new PkMonteCarloEvts(new CustList<LgInt>())));
+        assertTrue(!FightSuccess.tirage(data_,Rate.zero(), new PkMonteCarloEvts(new CustList<LgInt>())));
+        assertTrue(FightSuccess.tirage(data_,new Rate("2"), new PkMonteCarloEvts(new CustList<LgInt>())));
+        assertTrue(FightSuccess.random(data_,new MonteCarloString(), new PkMonteCarloEvts(new CustList<LgInt>())).isEmpty());
     }
 
     @Test

@@ -26,7 +26,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo, IntIndexOfEntry<
         return editNumberSeed(MonteCarloUtil.randomNumberSe(MonteCarloUtil.randomNumbersSeed(_lgInt,_gene,_cust,_conv,_rands),_lgInt));
     }
 
-    E editNumberSeed(LgInt _randomNumber) {
+    public E editNumberSeed(LgInt _randomNumber) {
         LgInt sum_ = LgInt.zero();
         int nbEvts_ = nbEvents();
         for (int i = 0; i < nbEvts_; i++) {

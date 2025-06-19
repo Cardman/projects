@@ -83,7 +83,7 @@ final class FightInvoke {
         if (FightSuccess.isBadSimulation(_fight, _loi)) {
             return "";
         }
-        return FightSuccess.random(_import, _loi);
+        return FightSuccess.random(_import, _loi, _fight.getTemp().getEvts());
     }
 
     static StringList invokableMoves(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectInvoke _effet,DataBase _import){
