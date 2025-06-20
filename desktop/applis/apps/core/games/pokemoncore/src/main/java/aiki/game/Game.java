@@ -1994,6 +1994,23 @@ public final class Game {
         return true;
     }
 
+    public void simulerParEtape(DataBase _d) {
+        if (!FightFacade.validate(fight, _d, player, difficulty)) {
+            return;
+        }
+        if (fight.getState() == FightState.ATTAQUES || fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
+            roundAllThrowers(_d,false);
+        } else if (fight.getState() == FightState.SWITCH_PROPOSE) {
+            sendSubstitutes(_d);
+        } else if (fight.getState() == FightState.APPRENDRE_EVOLUER) {
+            learnAndEvolve(_d);
+        } else if (fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
+            roundWhileKoPlayer(_d,false);
+        }
+        if (!fight.getFightType().isExisting()) {
+            fight.setState(FightState.RIEN);
+        }
+    }
 
     public void simuler(FightSimulationActions _fightSimulationActions,
             int _index,

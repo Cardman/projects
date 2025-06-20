@@ -1,6 +1,6 @@
 package aiki.game.fight;
 import aiki.comparators.ComparatorFightRound;
-import aiki.db.DataBase;
+import aiki.db.*;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.NameLevel;
@@ -149,6 +149,7 @@ public class FightSimulation {
     private FightType fightType = FightType.NOTHING;
 
     private int indexFight;
+    private String seed = "";
 
     public FightSimulation(Difficulty _diff, DataBase _import) {
         game = new Game(_import);
@@ -1500,6 +1501,20 @@ public class FightSimulation {
         action_.getChosenTargets().add(_target);
     }
 
+    public void simulateFightIntro(DataBase _d) {
+        setComment(new StringList());
+        game.getPlayer().getTeam().clear();
+        for (PokemonPlayer p: team) {
+            game.getPlayer().getTeam().add(p);
+        }
+        game.getFight().getTemp().setEvts(new PkMonteCarloEvts(PkMonteCarloEvts.parse(getSeed())));
+        intro(_d);
+        setComment(game.getFight().getComment().getMessages());
+    }
+    public void simulateFightStep(DataBase _d) {
+        game.simulerParEtape(_d);
+        getComment().addAllElts(game.getCommentGame().getMessages());
+    }
     public void simulateFight(DataBase _import) {
         ok = true;
         probleme = false;
@@ -1509,25 +1524,8 @@ public class FightSimulation {
             return;
         }
         setComment(new StringList());
-        Player player_ = game.getPlayer();
-        Ints indexes_ = indexesFight(IndexConstants.FIRST_INDEX);
-        player_.swap(indexes_);
-        game.getFight().getComment().clearMessages();
-        int mult_ = multFigtht();
-        int multPl_ = multFigthtPlayer(mult_);
-        Fight fight_ = game.getFight();
-        Difficulty diff_ = game.getDifficulty();
-        FightInitialization.initDefaultFight(fight_, mult_, multPl_);
-        FightInitialization.initEquipeUtilisateur(_import, player_, diff_, multPl_, mult_, allyTeam(), fight_);
-        fightType(fight_);
-        FightInitialization.initEquipeAdversaire(_import, player_, foeTeam(), diff_, fight_);
-        FightFacade.beginFight(fight_, _import);
-//        if (!freeTeams) {
-//            FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
-//        } else {
-//            FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
-//        }
-        FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
+        game.getPlayer().swap(indexesFight(IndexConstants.FIRST_INDEX));
+        intro(_import);
         game.simuler(fightSimulationActions,IndexConstants.FIRST_INDEX, _import);
         setComment(game.getFight().getComment().getMessages());
         if (!game.getFight().getTemp().getAcceptableChoices()) {
@@ -1546,7 +1544,26 @@ public class FightSimulation {
         }
         //If a pokemon has to learn or evolve, then it is never mind that the type of fight is NOTHING or not, because experience had been won
         FightFacade.endFight(game.getFight());
-        player_.affectEndFight(game.getFight(), game.getDifficulty(), _import);
+        game.getPlayer().affectEndFight(game.getFight(), game.getDifficulty(), _import);
+    }
+
+    private void intro(DataBase _d) {
+        game.getFight().getComment().clearMessages();
+        int mult_ = multFigtht();
+        int multPl_ = multFigthtPlayer(mult_);
+        Fight fight_ = game.getFight();
+        Difficulty diff_ = game.getDifficulty();
+        FightInitialization.initDefaultFight(fight_, mult_, multPl_);
+        FightInitialization.initEquipeUtilisateur(_d, game.getPlayer(), diff_, multPl_, mult_, allyTeam(), fight_);
+        fightType(fight_);
+        FightInitialization.initEquipeAdversaire(_d, game.getPlayer(), foeTeam(), diff_, fight_);
+        FightFacade.beginFight(fight_, _d);
+//        if (!freeTeams) {
+//            FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
+//        } else {
+//            FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
+//        }
+        FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _d);
     }
 
     private void fightType(Fight _fight) {
@@ -2110,5 +2127,13 @@ public class FightSimulation {
 
     public void setComment(StringList _comment) {
         comment = _comment;
+    }
+
+    public String getSeed() {
+        return seed;
+    }
+
+    public void setSeed(String _s) {
+        this.seed = _s;
     }
 }
