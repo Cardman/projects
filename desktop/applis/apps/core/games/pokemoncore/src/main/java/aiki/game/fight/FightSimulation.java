@@ -154,6 +154,7 @@ public class FightSimulation {
     public FightSimulation(Difficulty _diff, DataBase _import) {
         game = new Game(_import);
         game.initUtilisateurSimulation(DataBase.EMPTY_STRING, _diff, _import);
+        game.setDifficulty(_diff);
         team = new CustList<PokemonPlayer>();
         items = new CustList<StringList>();
         evolutions = new CustList<CustList<NameLevel>>();
@@ -463,7 +464,7 @@ public class FightSimulation {
             MoveData m_ = _import.getMove(m);
             moves_.put(m, m_.getPp());
         }
-        PokemonPlayer pokemonPlayer_ = new PokemonPlayer(_pokemon, _import, moves_);
+        PokemonPlayer pokemonPlayer_ = new PokemonPlayer(_pokemon, _import, moves_, game.getDifficulty());
         pokemonPlayer_.setHappiness(_happiness);
         pokemonPlayer_.getWonExpSinceLastLevel().affect(_wonPointsExperienceSinceLastLevel);
         team.add(pokemonPlayer_);
@@ -518,6 +519,7 @@ public class FightSimulation {
             for (Statistic s: p.getEv().getKeys()) {
                 p_.getEv().put(s, p.getEv().getVal(s));
             }
+            p_.setUsedBallCatching(p.getUsedBallCatching());
             p_.initIv(game.getDifficulty());
             p_.initPvRestants(_data);
             game.getPlayer().getTeam().add(p_);

@@ -107,7 +107,7 @@ public final class CheckNumericStringsFight {
             _data.setError(true);
             return;
         }
-        PokemonPlayer pkUser_ = new PokemonPlayer(pk_, _data,movesPp_);
+        PokemonPlayer pkUser_ = new PokemonPlayer(pk_, _data,movesPp_, diff_);
         user_.getTeam().add(pkUser_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();

@@ -34,9 +34,7 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 1);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, new Difficulty(), pokemon_);
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Game game_ = new Game(data_);

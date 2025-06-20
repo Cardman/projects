@@ -17,7 +17,7 @@ import aiki.map.levels.*;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.Place;
-import aiki.map.pokemon.PkTrainer;
+import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoordsList;
 import aiki.util.*;
@@ -1957,4 +1957,19 @@ public class InitializationDataBase extends EquallablePkUtil {
         _f.initIvUt(_dif);
         _f.calculateNewLevel(_dif, _d, _ls,new TransientFight());
     }
+
+    protected static PokemonPlayer pkMoves(DataBase _data, Difficulty _diff, Pokemon _pokemon, StringMap<Long> _move) {
+        PokemonPlayer lasPk_ = new PokemonPlayer(_pokemon, _data, _move, _diff);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        return lasPk_;
+    }
+
+    protected static PokemonPlayer pkMoves(DataBase _data, Difficulty _diff, Pokemon _pokemon) {
+        PokemonPlayer lasPk_ = new PokemonPlayer(_pokemon, _data, _diff);
+        lasPk_.initIv(_diff);
+        lasPk_.initPvRestants(_data);
+        return lasPk_;
+    }
+
 }

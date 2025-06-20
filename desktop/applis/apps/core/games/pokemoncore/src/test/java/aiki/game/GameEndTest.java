@@ -161,7 +161,7 @@ public class GameEndTest extends InitializationDataBase {
         game_.beatTrainer(new NbFightCoords(newCoords(2, 0, 11, 4), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(5, 1, 5, 1), 0));
-        game_.getPlayer().getBox().add(new PokemonPlayer(data_.getMap().getFirstPokemon(), data_));
+        game_.getPlayer().getBox().add(pkMoves(data_,game_.getDifficulty(),data_.getMap().getFirstPokemon()));
         PokemonPlayer first_ = (PokemonPlayer) game_.getPlayer().getTeam().first();
         first_.setLevel( data_.getMaxLevel());
         first_.setHappiness( data_.getHappinessMax());

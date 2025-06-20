@@ -31,8 +31,7 @@ public final class FacadeGamePokemonPlayerTest extends InitializationDataBase {
         w_.setLevel( 2);
         w_.setAbility(ABSORB_EAU);
         w_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(w_, data_);
-        game_.getPlayer().getBox().add(pkPlayer_);
+        game_.getPlayer().getBox().add(pkMoves(data_, diff_, w_));
         PokemonPlayer pk_ = (PokemonPlayer) game_.getPlayer().getTeam().get(1);
         pk_.setItem(PIERRE_LUNE);
         FacadeGame facadeGame_ = new FacadeGame();

@@ -1,5 +1,6 @@
 package aiki.map.pokemon;
 
+import aiki.game.params.*;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -275,6 +276,6 @@ public class PokemonPlayerValidationTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        return new PokemonPlayer(base_,_data);
+        return pkMoves(_data,new Difficulty(),base_);
     }
 }

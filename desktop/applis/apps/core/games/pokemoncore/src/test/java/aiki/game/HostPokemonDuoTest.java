@@ -1,6 +1,7 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.game.params.*;
 import org.junit.Test;
 
 import aiki.game.fight.InitializationDataBase;
@@ -526,6 +527,6 @@ public class HostPokemonDuoTest extends InitializationDataBase {
     }
 
     private static PokemonPlayer newPokemonPlayer(Pokemon _pokemon, DataBase _data) {
-        return new PokemonPlayer(_pokemon, _data);
+        return pkMoves(_data,new Difficulty(),_pokemon);
     }
 }

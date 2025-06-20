@@ -101,9 +101,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
@@ -129,9 +127,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         pokemonDonne_ = new WildPk();
@@ -139,9 +135,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(MEW, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
@@ -207,9 +201,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         pokemonDonne_ = new WildPk();
@@ -217,9 +209,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(MEW, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
@@ -335,9 +325,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
@@ -363,9 +351,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();
@@ -396,9 +382,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         pokemonDonne_.setLevel( 1);
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemonDonne_, data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemonDonne_);
         game_.getPlayer().getCaughtPk().put(ARTIKODIN, BoolVal.TRUE);
         game_.getPlayer().getTeam().add(lasPk_);
         DataMap map_ = data_.getMap();

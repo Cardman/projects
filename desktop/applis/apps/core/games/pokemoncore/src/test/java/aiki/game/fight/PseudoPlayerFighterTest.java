@@ -29,8 +29,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -62,8 +61,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -101,8 +99,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -129,8 +126,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -156,8 +152,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -184,8 +179,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -211,8 +205,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -236,8 +229,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -264,8 +256,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -293,8 +284,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -322,8 +312,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         moves_.put(MORPHING,10L);
         moves_.put(BROUHAHA,10L);
         moves_.put(POUV_ANTIQUE,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
         pokemonUser_.getEv().put(Statistic.ATTACK,1L);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
@@ -347,7 +336,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         PseudoPlayerFighter pseudoFighter_ = new PseudoPlayerFighter(pseudoPk_, true, new CustList<NameLevel>());
         pseudoFighter_.setWonExp(new Rate("1000"));
@@ -375,7 +364,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -401,7 +390,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -430,7 +419,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -459,7 +448,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -491,7 +480,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -520,7 +509,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -553,7 +542,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -586,7 +575,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -620,7 +609,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -671,7 +660,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -716,7 +705,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 99);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -770,7 +759,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 99);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();
@@ -803,7 +792,7 @@ public class PseudoPlayerFighterTest extends InitializationDataBase {
         pokemon_.setAbility(METEO);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 100);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_);
         PseudoPokemonPlayer pseudoPk_ = new PseudoPokemonPlayer(pokemonUser_);
         CustList<NameLevel> evos_;
         evos_ = new CustList<NameLevel>();

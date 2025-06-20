@@ -35,7 +35,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -53,7 +53,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -72,7 +72,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -89,7 +89,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -106,7 +106,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -124,7 +124,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -141,7 +141,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -159,7 +159,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(pagination_.match(pkPlayer_));
     }
 
@@ -178,7 +178,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -195,7 +195,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(!pagination_.match(pkPlayer_));
     }
 
@@ -212,7 +212,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(MULTI_EXP);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
+        PokemonPlayer pkPlayer_ = pkMoves(data_, new Difficulty(), pk_);
         assertTrue(pagination_.match(pkPlayer_));
     }
 
@@ -2154,6 +2154,6 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( _level);
         pk_.setAbility(_ability);
         pk_.setItem(_object);
-        return new PokemonPlayer(pk_, _data);
+        return pkMoves(_data,new Difficulty(),pk_);
     }
 }

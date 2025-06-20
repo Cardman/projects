@@ -1783,7 +1783,7 @@ public abstract class InitDbFight extends InitDbBean {
         w_.setAbility(PARATONNERRE);
         w_.setItem(NULL_REF);
         w_.setGender(Gender.NO_GENDER);
-        PokemonPlayer lasPk_ = new PokemonPlayer(w_, _data, _moves);
+        PokemonPlayer lasPk_ = new PokemonPlayer(w_, _data, _moves, _diff);
         lasPk_.initIv(_diff);
         lasPk_.initPvRestants(_data);
         return lasPk_;

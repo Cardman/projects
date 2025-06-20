@@ -1066,8 +1066,7 @@ public class PaginationEggTest extends InitializationDataBase {
         pk_.setLevel( 2);
         pk_.setAbility(ABSORB_EAU);
         pk_.setItem(NULL_REF);
-        PokemonPlayer pkPlayer_ = new PokemonPlayer(pk_, data_);
-        player_.getBox().add(pkPlayer_);
+        player_.getBox().add(pkMoves(data_,diff_,pk_));
         PaginationEgg pagination_;
         pagination_ = new PaginationEgg();
         pagination_.setTranslation(data_, LANGUAGE);

@@ -125,11 +125,11 @@ public abstract class InitDbGuiAiki extends EquallableAikiGuiUtil {
         return pk_;
     }
     public static PokemonPlayer pk(WindowAiki _window) {
-        return new PokemonPlayer(new Egg(PIKACHU), _window.getFacade().getData());
+        return new PokemonPlayer(new Egg(PIKACHU), _window.getFacade().getData(), _window.getFacade().getGame().getDifficulty());
     }
 
     public static PokemonPlayer pkSec(WindowAiki _window) {
-        return new PokemonPlayer(new Egg(RAICHU), _window.getFacade().getData());
+        return new PokemonPlayer(new Egg(RAICHU), _window.getFacade().getData(), _window.getFacade().getGame().getDifficulty());
     }
 
     public static DataBase coreDataBase() {

@@ -157,12 +157,10 @@ public final class Player {
         PokemonData fPk_=_import.getPokemon(_firstPk.getName());
         PokemonPlayer userPk_;
         if (fPk_.getGenderRep() == GenderRepartition.MIXED) {
-            userPk_ = new PokemonPlayer(_firstPk,_import,_sexeHeros);
+            userPk_ = new PokemonPlayer(_firstPk,_import,_sexeHeros, _diff);
         } else {
-            userPk_ = new PokemonPlayer(_firstPk,_import,fPk_.getGenderRep().getPossibleGenders().first());
+            userPk_ = new PokemonPlayer(_firstPk,_import,fPk_.getGenderRep().getPossibleGenders().first(), _diff);
         }
-        userPk_.initIv(_diff);
-        userPk_.initPvRestants(_import);
         team.add(userPk_);
         for(String p:_import.getPokedex().getKeys()){
             caughtPk.put(p, BoolVal.FALSE);
@@ -328,9 +326,8 @@ public final class Player {
             Egg oeuf_=(Egg)usPk_;
             PokemonData fPk_ = _import.getPokemon(oeuf_.getName());
             if (oeuf_.getSteps() >= fPk_.getHatchingSteps().ll()) {
-                PokemonPlayer pk_ = new PokemonPlayer(oeuf_, _import);
-                pk_.initIv(_diff);
-                pk_.initPvRestants(_import);
+                PokemonPlayer pk_ = new PokemonPlayer(oeuf_, _import, _diff);
+
 //            team.set(k, new PokemonPlayer(oeuf_,_import));
                 team.set(k, pk_);
                 StringMap<String> mess_ = _import.getMessagesPlayer();
@@ -350,9 +347,7 @@ public final class Player {
         int pos_= team.size();
         Fossil fossile_=(Fossil)_import.getItem(_nomFossile);
         if(pos_<_import.getNbMaxTeam()){
-            PokemonPlayer lasPk_ = new PokemonPlayer(fossile_,_import);
-            lasPk_.initIv(_diff);
-            lasPk_.initPvRestants(_import);
+            PokemonPlayer lasPk_ = new PokemonPlayer(fossile_,_import, _diff);
             team.add(lasPk_);
             boolean alreadyCaught_ = estAttrape(lasPk_.getName());
             attrapePk(lasPk_.getName());
@@ -360,9 +355,7 @@ public final class Player {
             addMessageNewPk(lasPk_.getName(), alreadyCaught_, _import);
             return;
         }
-        PokemonPlayer lasPk_ = new PokemonPlayer(fossile_,_import);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_import);
+        PokemonPlayer lasPk_ = new PokemonPlayer(fossile_,_import, _diff);
         box.add(lasPk_);
         boolean alreadyCaught_ = estAttrape(lasPk_.getName());
         attrapePk(lasPk_.getName());
@@ -1028,18 +1021,14 @@ public final class Player {
     public void recevoirPokemon(Pokemon _pokemonDonne,Difficulty _diff,DataBase _import){
         int pos_=team.size();
         if(pos_<_import.getNbMaxTeam()){
-            PokemonPlayer lasPk_ = new PokemonPlayer(_pokemonDonne,_import);
-            lasPk_.initIv(_diff);
-            lasPk_.initPvRestants(_import);
+            PokemonPlayer lasPk_ = new PokemonPlayer(_pokemonDonne,_import, _diff);
             boolean alreadyCaught_ = estAttrape(lasPk_.getName());
             attrapePk(lasPk_.getName());
             addMessageNewPk(lasPk_.getName(), alreadyCaught_, _import);
             team.add(lasPk_);
             return;
         }
-        PokemonPlayer lasPk_ = new PokemonPlayer(_pokemonDonne,_import);
-        lasPk_.initIv(_diff);
-        lasPk_.initPvRestants(_import);
+        PokemonPlayer lasPk_ = new PokemonPlayer(_pokemonDonne,_import, _diff);
         boolean alreadyCaught_ = estAttrape(lasPk_.getName());
         attrapePk(lasPk_.getName());
         addMessageNewPk(lasPk_.getName(), alreadyCaught_, _import);
@@ -1434,8 +1423,7 @@ public final class Player {
             pos_ = _import.getNbMaxTeam();
         }
         if(pos_>=_import.getNbMaxTeam()){
-            PokemonPlayer lastPk_ = new PokemonPlayer(_pokemonSauvage,_pseudo,_ballCapture,_import);
-            lastPk_.initIv(_diff);
+            PokemonPlayer lastPk_ = new PokemonPlayer(_pokemonSauvage,_pseudo,_ballCapture,_import, _diff);
             lastPk_.fullHeal(_import);
             box.add(lastPk_);
             boolean alreadyCaught_ = estAttrape(lastPk_.getName());
@@ -1445,8 +1433,7 @@ public final class Player {
             commentGame.addMessage(mess_.getVal(NEW_PK_ADDED_BOX));
             return;
         }
-        PokemonPlayer lastPk_ = new PokemonPlayer(_pokemonSauvage,_pseudo,_ballCapture,_import);
-        lastPk_.initIv(_diff);
+        PokemonPlayer lastPk_ = new PokemonPlayer(_pokemonSauvage,_pseudo,_ballCapture,_import, _diff);
         lastPk_.fullHeal(_import);
         team.add(lastPk_);
         boolean alreadyCaught_ = estAttrape(lastPk_.getName());

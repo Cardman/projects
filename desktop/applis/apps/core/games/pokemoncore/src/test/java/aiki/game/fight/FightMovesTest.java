@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -33,9 +32,7 @@ public class FightMovesTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -77,9 +74,7 @@ public class FightMovesTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -127,8 +122,7 @@ public class FightMovesTest extends InitializationDataBase {
         moves_.put(APRES_VOUS,10L);
         moves_.put(SEISME,10L);
         moves_.put(BROUHAHA,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, data_, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(data_, diff_, pokemon_, moves_);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness( 140);
@@ -168,9 +162,7 @@ public class FightMovesTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -213,9 +205,7 @@ public class FightMovesTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -260,9 +250,7 @@ public class FightMovesTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -307,9 +295,7 @@ public class FightMovesTest extends InitializationDataBase {
         pokemon_.setAbility(PARATONNERRE);
         pokemon_.setGender(Gender.NO_GENDER);
         pokemon_.setLevel( 3);
-        PokemonPlayer lasPk_ = new PokemonPlayer(pokemon_,data_);
-        lasPk_.initIv(diff_);
-        lasPk_.initPvRestants(data_);
+        PokemonPlayer lasPk_ = pkMoves(data_, diff_, pokemon_);
         player_.getTeam().add(lasPk_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
@@ -358,8 +344,7 @@ public class FightMovesTest extends InitializationDataBase {
         moves_.put(APRES_VOUS,10L);
         moves_.put(SEISME,10L);
         moves_.put(BROUHAHA,10L);
-        PokemonPlayer pokemonUser_ = new PokemonPlayer(pokemon_, _data, moves_);
-        pokemonUser_.initIv(new Difficulty());
+        PokemonPlayer pokemonUser_ = pkMoves(_data, diff_, pokemon_, moves_);
         pokemonUser_.setNickname(PIKA);
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness( 140);

@@ -37,7 +37,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        return new PokemonPlayer(base_,_data);
+        return pkMoves(_data,new Difficulty(), base_);
     }
     @Test
     public void new_PokemonPlayer_Base1Test() {
@@ -45,7 +45,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PIKACHU);
         pk_.setLevel( 5);
-        pk_.initAttaques(data_, true);
+        pk_.initAttaques(data_, true, data_.getMaxIv());
         assertEq(2, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
@@ -70,7 +70,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PIKACHU);
         pk_.setLevel( 5);
-        pk_.initAttaques(data_, false);
+        pk_.initAttaques(data_, false, data_.getMaxIv());
         assertEq(2, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
@@ -90,7 +90,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PIKACHU);
         pk_.setLevel( 2);
-        pk_.initAttaques(data_, false);
+        pk_.initAttaques(data_, false, data_.getMaxIv());
         assertEq(1, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
@@ -108,7 +108,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PIKACHU);
         pk_.setLevel( 7);
-        pk_.initAttaques(data_, false);
+        pk_.initAttaques(data_, false, data_.getMaxIv());
         assertEq(3, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
@@ -131,7 +131,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PIKACHU);
         pk_.setLevel( 1);
-        pk_.initAttaques(data_, false);
+        pk_.initAttaques(data_, false, data_.getMaxIv());
         assertEq(1, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
@@ -150,7 +150,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PICHU);
         pk_.setLevel( 1);
-        pk_.initAttaques(data_, false);
+        pk_.initAttaques(data_, false, data_.getMaxIv());
         assertEq(1, pk_.getMoves().size());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getCurrent());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getMax());
@@ -204,6 +204,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         StringMap<Long> moves_ = PokemonPlayer.getMovesAtLevel(PICHU, 1,data_);
         pk_.initMoves(moves_);
         pk_.initEvIv(data_, true);
+        pk_.initIv(new Difficulty());
         assertEq(6, pk_.getEv().size());
         assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
         assertEq(0, pk_.getEv().getVal(Statistic.DEFENSE));
@@ -229,6 +230,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         StringMap<Long> moves_ = PokemonPlayer.getMovesAtLevel(PICHU, 1,data_);
         pk_.initMoves(moves_);
         pk_.initEvIv(data_, false);
+        pk_.initIv(new Difficulty());
         assertEq(0, pk_.getEv().size());
         assertEq(6, pk_.getIv().size());
         assertEq(31, pk_.getIv().getVal(Statistic.ATTACK));
@@ -245,7 +247,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PICHU);
         pk_.setLevel( 1);
-        pk_.initAttaques(data_, false);
+        pk_.initAttaques(data_, false, data_.getMaxIv());
+        pk_.initIv(new Difficulty());
         assertEq(1, pk_.getMoves().size());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getCurrent());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getMax());
@@ -265,7 +268,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonPlayer pk_ = new PokemonPlayer();
         pk_.setName(PICHU);
         pk_.setLevel( 1);
-        pk_.initAttaques(data_, true);
+        pk_.initAttaques(data_, true, data_.getMaxIv());
+        pk_.initIv(new Difficulty());
         assertEq(1, pk_.getMoves().size());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getCurrent());
         assertEq(50, pk_.getMoves().getVal(ECLAIR).getMax());
@@ -294,7 +298,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(3, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getMax());
@@ -339,7 +343,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         StringMap<Long> moves_ = new StringMap<Long>();
         moves_.put(VIVE_ATTAQUE,  40L);
         moves_.put(CHARGE,  50L);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,moves_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_, moves_);
         assertEq(2, pk_.getMoves().size());
         assertEq(40, pk_.getMoves().getVal(VIVE_ATTAQUE).getCurrent());
         assertEq(40, pk_.getMoves().getVal(VIVE_ATTAQUE).getMax());
@@ -377,7 +381,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setLevel( 7);
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Gender.NO_GENDER);
+        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Gender.NO_GENDER, new Difficulty());
         assertEq(Gender.NO_GENDER, pk_.getGender());
     }
     @Test
@@ -388,7 +392,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setLevel( 7);
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Gender.FEMALE);
+        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Gender.FEMALE, new Difficulty());
         assertEq(Gender.FEMALE, pk_.getGender());
     }
     @Test
@@ -399,7 +403,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setLevel( 7);
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Gender.MALE);
+        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Gender.MALE, new Difficulty());
         assertEq(Gender.MALE, pk_.getGender());
     }
     @Test
@@ -410,7 +414,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setLevel( 7);
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Sex.GIRL);
+        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Sex.GIRL, new Difficulty());
         assertEq(Gender.FEMALE, pk_.getGender());
     }
     @Test
@@ -421,7 +425,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setLevel( 7);
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Sex.BOY);
+        PokemonPlayer pk_ = new PokemonPlayer(base_,data_,Sex.BOY, new Difficulty());
         assertEq(Gender.MALE, pk_.getGender());
     }
 
@@ -435,11 +439,12 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonData fPk_ = data_.getPokemon(PIKACHU);
         assertEq(1, fPk_.getGenderRep().getPossibleGenders().size());
         assertEq(1, fPk_.getAbilities().size());
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.initAleaCapaciteGenre(data_);
         assertEq(PARATONNERRE,pk_.getAbility());
         assertEq(Gender.NO_GENDER,pk_.getGender());
     }
+
     @Test
     public void new_PokemonPlayer_Fossile_DataBase_1Test() {
         DataBase data_ = initDb();
@@ -450,7 +455,9 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonData fPk_ = data_.getPokemon(PIKACHU);
         assertEq(1, fPk_.getGenderRep().getPossibleGenders().size());
         assertEq(1, fPk_.getAbilities().size());
-        PokemonPlayer pk_ = new PokemonPlayer(fos_,data_);
+        PokemonPlayer pk_ = new PokemonPlayer(fos_,data_, new Difficulty());
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         assertEq(PIKACHU, pk_.getName());
         assertEq(3, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
@@ -490,7 +497,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         PokemonData fPk_ = data_.getPokemon(PIKACHU);
         assertEq(1, fPk_.getGenderRep().getPossibleGenders().size());
         assertEq(1, fPk_.getAbilities().size());
-        PokemonPlayer pk_ = new PokemonPlayer(new Egg(PIKACHU),data_);
+        PokemonPlayer pk_ = new PokemonPlayer(new Egg(PIKACHU),data_, new Difficulty());
         assertEq(PIKACHU, pk_.getName());
         assertEq(1, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());
@@ -530,7 +537,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         Difficulty diff_;
         diff_ = new Difficulty();
         diff_.setIvPlayer( 20);
@@ -552,7 +559,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.setIv(null);
         Difficulty diff_;
         diff_ = new Difficulty();
@@ -575,7 +582,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         Difficulty diff_;
         diff_ = new Difficulty();
         diff_.setIvPlayer( 20);
@@ -600,7 +607,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.getRemainingHp().affect(new Rate("100"));
         Difficulty diff_;
         diff_ = new Difficulty();
@@ -626,7 +633,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.getRemainingHp().affect(new Rate("1"));
         Difficulty diff_;
         diff_ = new Difficulty();
@@ -652,7 +659,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertTrue(!pk_.isKo());
     }
 
@@ -665,7 +672,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.setRemainingHp(Rate.zero());
         assertTrue(pk_.isKo());
     }
@@ -679,7 +686,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         long increment_ = ((Boost) data_.getItem(MUSCLE)).getEvs().getVal(Statistic.ATTACK);
         assertEq(2, pk_.evGagnes(increment_, Statistic.ATTACK , 20));
         assertEq(1, pk_.evGagnes(increment_, Statistic.ATTACK , 1));
@@ -895,7 +902,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.deplacement(data_);
         assertEq(1, pk_.getNbStepsTeamLead());
         assertEq(70, pk_.getHappiness());
@@ -910,7 +917,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.deplacement(data_);
         pk_.deplacement(data_);
         pk_.deplacement(data_);
@@ -929,7 +936,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.deplacement(data_);
         pk_.deplacement(data_);
         pk_.deplacement(data_);
@@ -953,7 +960,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.deplacement(data_);
         pk_.deplacement(data_);
         pk_.deplacement(data_);
@@ -981,7 +988,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         loopMoving(pk_, 1000, data_);
         assertEq(0, pk_.getNbStepsTeamLead());
         assertEq(170, pk_.getHappiness());
@@ -996,7 +1003,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         loopMoving(pk_, 1500, data_);
         assertEq(0, pk_.getNbStepsTeamLead());
         assertEq(170, pk_.getHappiness());
@@ -1011,7 +1018,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.variationBonheur( 10, data_);
         assertEq(80, pk_.getHappiness());
     }
@@ -1025,7 +1032,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList possibleEvolutions_ = pk_.possibleEvolutions(PIERRE_LUNE, data_);
         assertEq(0, possibleEvolutions_.size());
     }
@@ -1038,7 +1045,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.FEMALE);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList possibleEvolutions_ = pk_.possibleEvolutions(PIERRE_SOLEIL, data_);
         assertEq(0, possibleEvolutions_.size());
     }
@@ -1051,7 +1058,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.MALE);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList possibleEvolutions_ = pk_.possibleEvolutions(PIERRE_SOLEIL, data_);
         assertEq(0, possibleEvolutions_.size());
     }
@@ -1064,7 +1071,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList possibleEvolutions_ = pk_.possibleEvolutions(PIERRE_LUNE, data_);
         assertEq(1, possibleEvolutions_.size());
         assertEq(MELODELFE, possibleEvolutions_.first());
@@ -1078,7 +1085,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList possibleEvolutions_ = pk_.possibleEvolutions(PIERRE_SOLEIL, data_);
         assertEq(1, possibleEvolutions_.size());
         assertEq(MELODELFE_2, possibleEvolutions_.first());
@@ -1093,7 +1100,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList possibleEvolutions_ = pk_.possibleEvolutions(PIERRE_LUNE, data_);
         assertEq(0, possibleEvolutions_.size());
     }
@@ -1107,7 +1114,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList list_ = pk_.directEvolutionsByStone(PTITARD, data_);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, PTITARD));
@@ -1122,7 +1129,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList list_ = pk_.directEvolutionsByStone(MELOFEE, data_);
         assertEq(3, list_.size());
         assertTrue(StringUtil.contains(list_, MELOFEE));
@@ -1176,7 +1183,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.evolve(PIERRE_LUNE, data_);
         assertEq(0, pk_.getNewAbilitiesToBeChosen().size());
         assertEq(0, pk_.getMovesToBeKeptEvo().size());
@@ -1192,7 +1199,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_LUNE, data_);
         assertEq(0, pk_.getNewAbilitiesToBeChosen().size());
@@ -1216,7 +1223,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("1873/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_LUNE, data_);
         assertEq(0, pk_.getNewAbilitiesToBeChosen().size());
@@ -1235,7 +1242,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("1873/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_SOLEIL, data_);
         assertEq(2, pk_.getNewAbilitiesToBeChosen().size());
@@ -1257,7 +1264,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("541/25"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_LUNE, data_);
         assertEq(3, pk_.getMoves().size());
@@ -1281,7 +1288,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("1873/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_SOLEIL, data_);
         pk_.obtainAbilityAfterEvolving(GARDE, data_);
@@ -1301,7 +1308,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_SOLEIL, data_);
         pk_.getMovesToBeKeptEvo().put(ECLAIR, BoolVal.TRUE);
@@ -1329,7 +1336,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_SOLEIL, data_);
         pk_.getMovesToBeKeptEvo().put(ECLAIR, BoolVal.FALSE);
@@ -1364,7 +1371,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_LUNE, data_);
         pk_.getMovesToBeKeptEvo().put(ECLAIR, BoolVal.FALSE);
@@ -1390,7 +1397,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_LUNE, data_);
         pk_.getMovesToBeKeptEvo().put(ECLAIR, BoolVal.TRUE);
@@ -1417,7 +1424,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         assertEq(new Rate("3037/100"), pk_.getRemainingHp());
         pk_.evolve(PIERRE_LUNE, data_);
         pk_.getMovesToBeKeptEvo().put(ECLAIR, BoolVal.TRUE);
@@ -1444,7 +1451,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.setRemainingHp(new Rate("10"));
         pk_.variationPvRestants(new Rate("15"));
         assertEq(new Rate("25"), pk_.getRemainingHp());
@@ -1459,7 +1466,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         pk_.setRemainingHp(Rate.divide(pk_.getRemainingHp(), new Rate("2")));
         pk_.getMoves().getVal(PASSE_PASSE).setCurrent( 0);
         pk_.getMoves().getVal(JACKPOT).setCurrent( 0);
@@ -1487,6 +1494,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Berry berry_ = (Berry) data_.getItem(BAIE_ORAN);
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("22"));
         assertEq(new Rate("837/100"),pk_.pvSoignesBaie(berry_, data_));
     }
@@ -1495,6 +1504,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Berry berry_ = (Berry) data_.getItem(BAIE_ENIGMA);
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("12"));
         assertEq(new Rate("3037/400"),pk_.pvSoignesBaie(berry_, data_));
     }
@@ -1504,6 +1515,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Berry berry_ = (Berry) data_.getItem(BAIE_GOWAV);
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("12"));
         assertEq(new Rate("3037/800"),pk_.pvSoignesBaie(berry_, data_));
     }
@@ -1530,6 +1543,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Berry berry_ = (Berry) data_.getItem(BAIE_ENIGMA);
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("25"));
         assertEq(new Rate("537/100"),pk_.pvSoignesBaie(berry_, data_));
     }
@@ -1539,6 +1554,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Berry berry_ = (Berry) data_.getItem(BAIE_GOWAV);
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("30"));
         assertEq(new Rate("37/100"),pk_.pvSoignesBaie(berry_, data_));
     }
@@ -1549,6 +1566,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         HealingHpStatus healingObject_ = new HealingHpStatus();
         healingObject_.setHealedHpRate(new Rate("1/4"));
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("22"));
         assertEq(new Rate("3037/400"),pk_.pvSoignesAvecStatut(healingObject_, data_));
     }
@@ -1558,6 +1577,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         HealingHpStatus healingObject_ = new HealingHpStatus();
         healingObject_.setHealedHpRate(new Rate("1/2"));
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("22"));
         assertEq(new Rate("837/100"),pk_.pvSoignesAvecStatut(healingObject_, data_));
     }
@@ -1585,6 +1606,8 @@ public class PokemonPlayerTest extends InitializationDataBase {
         HealingHp healingObject_ = new HealingHp();
         healingObject_.setHp(new Rate("10"));
         PokemonPlayer pk_ = pokemonPlayer(data_,7);
+        pk_.initIv(new Difficulty());
+        pk_.initPvRestants(data_);
         pk_.setRemainingHp(new Rate("22"));
         assertEq(new Rate("837/100"),pk_.pvSoignesSansStatut(healingObject_, data_));
     }
@@ -1688,7 +1711,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringMap<Long> evos_ = pk_.getAllEvolutions(data_);
         assertEq(3, evos_.size());
         assertEq(25, evos_.getVal(TETARTE));
@@ -1705,7 +1728,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringMap<Long> evos_ = pk_.getAllEvolutions(data_);
         assertEq(2, evos_.size());
         assertEq(20, evos_.getVal(NINJASK));
@@ -1721,7 +1744,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringMap<Long> evos_ = pk_.getAllEvolutions(data_);
         assertEq(2, evos_.size());
         assertEq(32, evos_.getVal(MEIOS));
@@ -1737,7 +1760,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringMap<Long> evos_ = pk_.getAllEvolutions(data_);
         assertEq(2, evos_.size());
         assertEq(20, evos_.getVal(TARTARD));
@@ -1753,7 +1776,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringMap<Long> evos_ = pk_.getAllEvolutions(data_);
         assertEq(0, evos_.size());
     }
@@ -1811,7 +1834,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList evos_ = pk_.getDirectEvolutions(data_);
         assertEq(0, evos_.size());
     }
@@ -1825,7 +1848,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.FEMALE);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList evos_ = pk_.getDirectEvolutions(data_);
         assertEq(1, evos_.size());
         assertEq(CHENISELLE, evos_.first());
@@ -1840,7 +1863,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         base_.setAbility(STATIK);
         base_.setItem(NULL_REF);
         base_.setGender(Gender.MALE);
-        PokemonPlayer pk_ = new PokemonPlayer(base_,data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(), base_);
         StringList evos_ = pk_.getDirectEvolutions(data_);
         assertEq(1, evos_.size());
         assertEq(PAPILORD, evos_.first());

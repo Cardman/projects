@@ -108,18 +108,26 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         usedBallCatching = DataBase.EMPTY_STRING;
     }
 
-    public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import,Sex _sex) {
-        this(_pokemonDonne,_import, _sex.getGender());
+    public PokemonPlayer(Pokemon _pokemonDonne, DataBase _import, Sex _sex, Difficulty _diff) {
+        this(_pokemonDonne,_import, _sex.getGender(), _diff);
     }
-    public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import,Gender _sex) {
-        this(_pokemonDonne,_import);
+    public PokemonPlayer(Pokemon _pokemonDonne, DataBase _import, Gender _sex, Difficulty _diff) {
+        this(_pokemonDonne,_import, _diff);
         setGender(_sex);
+        initIv(_diff);
+        initEv();
+        initPvRestants(_import);
     }
-    public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import) {
-        this(_pokemonDonne, _import, getMovesAtLevel(_pokemonDonne.getName(),_pokemonDonne.getLevel(),_import));
+    public PokemonPlayer(Pokemon _pokemonDonne, DataBase _import, Difficulty _diff) {
+        this(_pokemonDonne, _import, getMovesAtLevel(_pokemonDonne.getName(),_pokemonDonne.getLevel(),_import), _diff);
     }
 
-    public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import, StringMap<Long> _moves) {
+    public PokemonPlayer(Pokemon _pokemonDonne, DataBase _import, StringMap<Long> _moves, Difficulty _diff) {
+        this(_pokemonDonne,_import,_moves,_diff.getIvPlayer());
+        initIv(_diff);
+        initPvRestants(_import);
+    }
+    public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import, StringMap<Long> _moves, long _maxIv) {
 //        super(_pokemonDonne);
         setName(_pokemonDonne.getName());
         setLevel(_pokemonDonne.getLevel());
@@ -127,7 +135,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         setAbility(_pokemonDonne.getAbility());
         setItem(_pokemonDonne.getItem());
         initMoves(_moves);
-        initEvIv(_import,true);
+        initEvIv(true,_maxIv);
         status = new StringList();
         nickname=getName();
 
@@ -135,9 +143,8 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         PokemonData fPk_ = _import.getPokemon(getName());
         happiness=fPk_.getHappiness();
         obtention();
-        initPvRestants(_import);
     }
-    public PokemonPlayer(Fossil _fossile,DataBase _import){
+    public PokemonPlayer(Fossil _fossile, DataBase _import, Difficulty _diff){
 //        name = DataBase.EMPTY_STRING;
 //        level = 1;
 //        gender = Gender.NO_GENDER;
@@ -148,17 +155,18 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         setLevel(_fossile.getLevel());
         setItem(DataBase.EMPTY_STRING);
         nickname=getName();
-        initAttaques(_import,true);
+        initAttaques(_import,true, _diff.getIvPlayer());
         initAleaCapaciteGenre(_import);
 
         usedBallCatching= _import.getBallDef();
         PokemonData fPk_ = _import.getPokemon(getName());
         happiness=fPk_.getHappiness();
         obtention();
+        initIv(_diff);
         initPvRestants(_import);
     }
 
-    public PokemonPlayer(Egg _oeuf,DataBase _import){
+    public PokemonPlayer(Egg _oeuf, DataBase _import, Difficulty _diff){
 //        name = DataBase.EMPTY_STRING;
 //        level = 1;
 //        gender = Gender.NO_GENDER;
@@ -169,17 +177,18 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         setLevel(_import.getMinLevel());
         setItem(DataBase.EMPTY_STRING);
         nickname=getName();
-        initAttaques(_import,true);
+        initAttaques(_import,true, _diff.getIvPlayer());
         initAleaCapaciteGenre(_import);
 
         usedBallCatching= _import.getBallDef();
         PokemonData fPk_ = _import.getPokemon(getName());
         happiness=fPk_.getHappinessHatch();
         obtention();
+        initIv(_diff);
         initPvRestants(_import);
     }
 
-    public PokemonPlayer(Fighter _pokemonSauvage,String _pseudo,String _ballCapture,DataBase _import){
+    public PokemonPlayer(Fighter _pokemonSauvage, String _pseudo, String _ballCapture, DataBase _import, Difficulty _diff){
 //        name = DataBase.EMPTY_STRING;
 //        level = 1;
 //        gender = Gender.NO_GENDER;
@@ -204,8 +213,9 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         }
         remainingHp = Rate.zero();
         remainingHp.affect(_pokemonSauvage.getRemainingHp());
-        initAttaques(_import,true);
+        initAttaques(_import,true, _diff.getIvPlayer());
         obtention();
+        initIv(_diff);
     }
 
     public static void deplacement(PokemonPlayer _pk, int _nb, DataBase _data) {
@@ -229,9 +239,9 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         setAbility(new PkMonteCarlo<String>(_import,loiCapac_).editNumber());
     }
 
-    void initAttaques(DataBase _import, boolean _initEv){
+    void initAttaques(DataBase _import, boolean _initEv, long _iv){
         initMoves(getMovesAtLevel(getName(), getLevel(), _import));
-        initEvIv(_import, _initEv);
+        initEvIv(_initEv, _iv);
     }
 
     void initMoves(StringMap<Long> _moves) {
@@ -245,6 +255,9 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     }
 
     void initEvIv(DataBase _import, boolean _initEv) {
+        initEvIv(_initEv,_import.getMaxIv());
+    }
+    void initEvIv(boolean _initEv, long _maxIv) {
         if (!trading) {
             iv = new IdMap<Statistic,Long>();
             ev = new IdMap<Statistic,Long>();
@@ -253,10 +266,14 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             if (_initEv) {
                 ev.put(c, 0L);
             }
-            iv.put(c, _import.getMaxIv());
+            iv.put(c, _maxIv);
         }
     }
-
+    void initEv() {
+        for(Statistic c:Statistic.getStatisticsWithBase()){
+            ev.put(c, 0L);
+        }
+    }
     static StringMap<Long> getMovesAtLevel(String _name, long _level, DataBase _import) {
         StringMap<Long> moves_ = new StringMap<Long>();
         PokemonData fPk_=_import.getPokemon(_name);
@@ -420,7 +437,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         moves.clear();
         //For deleting non existing moves
         if (existingMoves_.isEmpty()) {
-            initAttaques(_dateBase,false);
+            initAttaques(_dateBase,false, _dateBase.getMaxIv());
         } else {
             int nb_ = 0;
             for (String m: existingMoves_) {

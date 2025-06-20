@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.game.params.*;
 import org.junit.Test;
 
 import aiki.fight.pokemon.NameLevel;
@@ -23,7 +24,7 @@ public class PseudoPlayerTest extends InitializationDataBase {
         pokemon_.setAbility(ABSORB_EAU);
         pokemon_.setItem(MULTI_EXP);
         pokemon_.setGender(Gender.NO_GENDER);
-        PokemonPlayer pk_ = new PokemonPlayer(pokemon_, data_);
+        PokemonPlayer pk_ = pkMoves(data_, new Difficulty(),pokemon_);
         pk_.setWonExpSinceLastLevel(new Rate("3/2"));
         CustList<CustList<NameLevel>> evolutions_;
         evolutions_ = new CustList<CustList<NameLevel>>();

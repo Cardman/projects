@@ -2281,7 +2281,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static CommonBean editEditSelectedPlayerPk() {
         FacadeGame pk_ = pkDataByFacade(db());
-        CommonBean simu_ = simBean(2, pk_);
+        CommonBean simu_ = simBean2(2, pk_);
         foeTeamsSample(simu_);
         return editPkPlayer(simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
     }
@@ -3245,26 +3245,30 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static CommonBean simu(int _nbTeam, CommonBean _simu) {
         CommonBean simu_ = init(_nbTeam, _simu);
         SimulationBean si_ = ((SimulationBean) simu_);
-        si_.getForm().getRateWinningExpPtsFight().valueRate(si_.getDifficultyCommon().getRateWinningExpPtsFight());
-        si_.getForm().getWinTrainerExp().valueRate(si_.getDifficultyCommon().getWinTrainerExp());
-        si_.getForm().getRateWinMoneyBase().valueRate(si_.getDifficultyCommon().getRateWinMoneyBase());
-        si_.getForm().getRateLooseMoneyWin().valueRate(si_.getDifficultyCommon().getRateLooseMoneyWin());
-        si_.getForm().getWinPointsFight().setupValue(si_.getDifficultyCommon().getDiffWinningExpPtsFight());
-        si_.getForm().getDamageRatePlayer().setupValue(si_.getDifficultyCommon().getDamageRatePlayer());
-        si_.getForm().getDamageRateLawFoe().setupValue(si_.getDifficultyCommon().getDamageRateLawFoe());
-        si_.getForm().getEnabledClosing().setSelected(si_.getDifficultyCommon().getEnabledClosing());
-        si_.getForm().getAllowCatchingKo().setSelected(si_.getDifficultyCommon().getAllowCatchingKo());
-        si_.getForm().getAllowedSwitchPlacesEndRound().setSelected(si_.getDifficultyCommon().getAllowedSwitchPlacesEndRound());
-        si_.getForm().getSkipLearningMovesWhileNotGrowingLevel().setSelected(si_.getDifficultyCommon().getSkipLearningMovesWhileNotGrowingLevel());
-        si_.getForm().getStillPossibleFlee().setSelected(si_.getDifficultyCommon().getStillPossibleFlee());
-        si_.getForm().getRandomWildFight().setSelected(si_.getDifficultyCommon().getRandomWildFight());
-        si_.getForm().getEndFightIfOneTeamKo().setSelected(si_.getDifficultyCommon().getEndFightIfOneTeamKo());
-        si_.getForm().getRestoredMovesEndFight().setSelected(si_.getDifficultyCommon().getRestoredMovesEndFight());
-        si_.getForm().getIvPlayer().valueLong(si_.getDifficultyCommon().getIvPlayer());
-        si_.getForm().getIvFoe().valueLong(si_.getDifficultyCommon().getIvFoe());
-        si_.getNbTeamsField().valueLong(si_.getNbTeams());
-        transitSimu(new SimulationBeanValidateDiffChoice(si_, si_.getForm()), simu_.getBuilder());
-        return simu_;
+        return update(simu_, si_);
+    }
+
+    private static CommonBean update(CommonBean _com, SimulationBean _si) {
+        _si.getForm().getRateWinningExpPtsFight().valueRate(_si.getDifficultyCommon().getRateWinningExpPtsFight());
+        _si.getForm().getWinTrainerExp().valueRate(_si.getDifficultyCommon().getWinTrainerExp());
+        _si.getForm().getRateWinMoneyBase().valueRate(_si.getDifficultyCommon().getRateWinMoneyBase());
+        _si.getForm().getRateLooseMoneyWin().valueRate(_si.getDifficultyCommon().getRateLooseMoneyWin());
+        _si.getForm().getWinPointsFight().setupValue(_si.getDifficultyCommon().getDiffWinningExpPtsFight());
+        _si.getForm().getDamageRatePlayer().setupValue(_si.getDifficultyCommon().getDamageRatePlayer());
+        _si.getForm().getDamageRateLawFoe().setupValue(_si.getDifficultyCommon().getDamageRateLawFoe());
+        _si.getForm().getEnabledClosing().setSelected(_si.getDifficultyCommon().getEnabledClosing());
+        _si.getForm().getAllowCatchingKo().setSelected(_si.getDifficultyCommon().getAllowCatchingKo());
+        _si.getForm().getAllowedSwitchPlacesEndRound().setSelected(_si.getDifficultyCommon().getAllowedSwitchPlacesEndRound());
+        _si.getForm().getSkipLearningMovesWhileNotGrowingLevel().setSelected(_si.getDifficultyCommon().getSkipLearningMovesWhileNotGrowingLevel());
+        _si.getForm().getStillPossibleFlee().setSelected(_si.getDifficultyCommon().getStillPossibleFlee());
+        _si.getForm().getRandomWildFight().setSelected(_si.getDifficultyCommon().getRandomWildFight());
+        _si.getForm().getEndFightIfOneTeamKo().setSelected(_si.getDifficultyCommon().getEndFightIfOneTeamKo());
+        _si.getForm().getRestoredMovesEndFight().setSelected(_si.getDifficultyCommon().getRestoredMovesEndFight());
+        _si.getForm().getIvPlayer().valueLong(_si.getDifficultyCommon().getIvPlayer());
+        _si.getForm().getIvFoe().valueLong(_si.getDifficultyCommon().getIvFoe());
+        _si.getNbTeamsField().valueLong(_si.getNbTeams());
+        transitSimu(new SimulationBeanValidateDiffChoice(_si, _si.getForm()), _com.getBuilder());
+        return _com;
     }
 
     protected static CommonBean goToAddPkTrainer(CommonBean _simu) {
@@ -4111,6 +4115,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static CommonBean simBean(int _n, FacadeGame _facade) {
         return simu(_n, beanToSimu(_facade));
+    }
+
+    private static CommonBean simBean2(int _n, FacadeGame _facade) {
+        CommonBean simu_ = beanToSimu(_facade);
+        init(_n, simu_);
+        ((SimulationBean)simu_).getDifficultyCommon().setIvPlayer(32);
+        SimulationBean si_ = ((SimulationBean) simu_);
+        return update(simu_, si_);
     }
 
     protected static CommonBean simuLeagueVirtual() {
