@@ -203,7 +203,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 1);
         StringMap<Long> moves_ = PokemonPlayer.getMovesAtLevel(PICHU, 1,data_);
         pk_.initMoves(moves_);
-        pk_.initEvIv(data_, true);
+        pk_.initEvIv(true, data_.getMaxIv());
         pk_.initIv(new Difficulty());
         assertEq(6, pk_.getEv().size());
         assertEq(0, pk_.getEv().getVal(Statistic.ATTACK));
@@ -229,7 +229,7 @@ public class PokemonPlayerTest extends InitializationDataBase {
         pk_.setLevel( 1);
         StringMap<Long> moves_ = PokemonPlayer.getMovesAtLevel(PICHU, 1,data_);
         pk_.initMoves(moves_);
-        pk_.initEvIv(data_, false);
+        pk_.initEvIv(false, data_.getMaxIv());
         pk_.initIv(new Difficulty());
         assertEq(0, pk_.getEv().size());
         assertEq(6, pk_.getIv().size());
@@ -456,8 +456,6 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(1, fPk_.getGenderRep().getPossibleGenders().size());
         assertEq(1, fPk_.getAbilities().size());
         PokemonPlayer pk_ = new PokemonPlayer(fos_,data_, new Difficulty());
-        pk_.initIv(new Difficulty());
-        pk_.initPvRestants(data_);
         assertEq(PIKACHU, pk_.getName());
         assertEq(3, pk_.getMoves().size());
         assertEq(20, pk_.getMoves().getVal(JACKPOT).getCurrent());

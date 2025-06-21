@@ -1804,7 +1804,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -1870,7 +1870,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -1926,7 +1926,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -1982,7 +1982,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2035,7 +2035,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2091,7 +2091,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         //fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.setNextEvolutions(1, TARTARD,  25, data_);
@@ -2162,7 +2162,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2226,7 +2226,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2279,7 +2279,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.setNextEvolutions(0, TETARTE,  55, data_);
         fightSimulation_.initializeFrontFighters();
@@ -2347,7 +2347,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.setNextEvolutions(0, TETARTE,  55, data_);
         fightSimulation_.initializeFrontFighters();
@@ -2434,7 +2434,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2518,7 +2518,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2571,7 +2571,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2633,7 +2633,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2695,7 +2695,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2769,7 +2769,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2819,7 +2819,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -2973,7 +2973,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -3166,7 +3166,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -3232,7 +3232,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -3288,7 +3288,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -3344,7 +3344,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -3397,7 +3397,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -3453,7 +3453,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setPokemonPlayerObjectAfterFight(0, 2, PLAQUE_DRACO);
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.setNextEvolutions(1, TARTARD,  25, data_);
@@ -3524,7 +3524,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);
@@ -3588,7 +3588,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pokemon_.setItem(NULL_REF);
         pokemon_.setGender(Gender.NO_GENDER);
         fightSimulation_.addPokemonPlayer(pokemon_, new StringList(CHARGE),  70, Rate.zero(), data_);
-        fightSimulation_.validateTeam(data_);
+        fightSimulation_.validateTeam();
         fightSimulation_.setFirstEvolutions(data_);
         fightSimulation_.initializeFrontFighters();
         fightSimulation_.getFrontFighters().first().first().put(0, 0);

@@ -500,29 +500,26 @@ public class FightSimulation {
         }
     }
 
-    public void validateTeam(DataBase _data) {
+    public void validateTeam() {
         game.getPlayer().getTeam().clear();
         for (PokemonPlayer p: team) {
-            PokemonPlayer p_ = new PokemonPlayer();
-            p_.setAbility(p.getAbility());
-            p_.setName(p.getName());
-            p_.setLevel(p.getLevel());
-            p_.setGender(p.getGender());
-            p_.setItem(p.getItem());
-            p_.setHappiness(p.getHappiness());
-            p_.getWonExpSinceLastLevel().affect(p.getWonExpSinceLastLevel());
-            p_.getRemainingHp().affect(p.getRemainingHp());
-            for (String m: p.getMoves().getKeys()) {
-                UsesOfMove u_ = p.getMoves().getVal(m);
-                p_.getMoves().put(m, new UsesOfMove(u_.getCurrent(), u_.getMax()));
+            PokemonPlayer cp_ = new PokemonPlayer();
+            cp_.setAbility(p.getAbility());
+            cp_.setName(p.getName());
+            cp_.setLevel(p.getLevel());
+            cp_.setGender(p.getGender());
+            cp_.setItem(p.getItem());
+            cp_.setHappiness(p.getHappiness());
+            cp_.getWonExpSinceLastLevel().affect(p.getWonExpSinceLastLevel());
+            cp_.getRemainingHp().affect(p.getRemainingHp());
+            for (EntryCust<String, UsesOfMove> m: p.getMoves().entryList()) {
+                UsesOfMove u_ = m.getValue();
+                cp_.getMoves().put(m.getKey(), new UsesOfMove(u_.getCurrent(), u_.getMax()));
             }
-            for (Statistic s: p.getEv().getKeys()) {
-                p_.getEv().put(s, p.getEv().getVal(s));
-            }
-            p_.setUsedBallCatching(p.getUsedBallCatching());
-            p_.initIv(game.getDifficulty());
-            p_.initPvRestants(_data);
-            game.getPlayer().getTeam().add(p_);
+            cp_.setEv(new IdMap<Statistic, Long>(p.getEv()));
+            cp_.setUsedBallCatching(p.getUsedBallCatching());
+            cp_.setIv(new IdMap<Statistic, Long>(p.getIv()));
+            game.getPlayer().getTeam().add(cp_);
         }
         //game.getPlayer().getTeam().addAll(team);
     }
@@ -1505,10 +1502,7 @@ public class FightSimulation {
 
     public void simulateFightIntro(DataBase _d) {
         setComment(new StringList());
-        game.getPlayer().getTeam().clear();
-        for (PokemonPlayer p: team) {
-            game.getPlayer().getTeam().add(p);
-        }
+        validateTeam();
         game.getFight().getTemp().setEvts(new PkMonteCarloEvts(PkMonteCarloEvts.parse(getSeed())));
         intro(_d);
         setComment(game.getFight().getComment().getMessages());

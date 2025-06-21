@@ -254,9 +254,6 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         }
     }
 
-    void initEvIv(DataBase _import, boolean _initEv) {
-        initEvIv(_initEv,_import.getMaxIv());
-    }
     void initEvIv(boolean _initEv, long _maxIv) {
         if (!trading) {
             iv = new IdMap<Statistic,Long>();

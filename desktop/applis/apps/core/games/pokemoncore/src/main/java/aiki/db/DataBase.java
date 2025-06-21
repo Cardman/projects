@@ -1203,7 +1203,7 @@ public final class DataBase {
         if (getMaxEv() < 0) {
             setError(true);
         }
-        if (getMaxIv() < 31) {
+        if (getMaxIv() < 0) {
             setError(true);
         }
         if (getNbNecStepsIncrHappiness() <= 0) {

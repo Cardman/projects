@@ -1407,8 +1407,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     }
     public void changeFight() {
         ok = true;
-        DataBase data_ = getDataBase();
-        simulation.validateTeam(data_);
+        simulation.validateTeam();
         teamAfterFight.clear();
         getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
         stepNumber--;
@@ -1424,7 +1423,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     public void simulateFight() {
         ok = true;
         DataBase data_ = getDataBase();
-        simulation.validateTeam(data_);
+        simulation.validateTeam();
         simulation.simulateFight(data_);
         if (!simulation.isOk()) {
             ok = false;
