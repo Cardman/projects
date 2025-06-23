@@ -207,7 +207,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         TranslationsAppli ta_ = new TranslationsAppli();
         ta_.getMapping().addEntry(MessagesPkBean.INDEX,new TranslationsFile());
         window_.getFrames().getTranslations().getMapping().getVal(window_.getFrames().getLanguage()).getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA, ta_);
-        IntBeanChgString txt_ = new DefBeanGeneInput(h_, window_.getFrames()).newText();
+        IntBeanChgString txt_ = h_.getGenInput().newText();
         txt_.setupValue(txt_.tryRet());
         WelcomeBean pk_ = new WelcomeBean();
         pk_.setLanguage(window_.getFrames().getLanguage());
@@ -229,6 +229,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         i_.addEntry(0,"");
         IntBeanChgInt chgInt_ = h_.getGenInput().newInt(i_);
         chgInt_.valueInt(chgInt_.valueInt());
+        h_.getGenInput().newLgInt().valueLgInt(h_.getGenInput().newLgInt().valueLgInt());
+        h_.getGenInput().newStringList(new StringMap<String>()).setupValue(h_.getGenInput().newStringList(new StringMap<String>()).tryRet());
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 

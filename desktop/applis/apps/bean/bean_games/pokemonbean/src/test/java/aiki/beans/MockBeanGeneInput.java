@@ -19,8 +19,18 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     }
 
     @Override
+    public IntBeanChgLgInt newLgInt() {
+        return new BeanChgLgInt();
+    }
+
+    @Override
     public IntBeanChgString newString(AbsMap<String,String> _map) {
         return new BeanChgString();
+    }
+
+    @Override
+    public IntBeanChgStringList newStringList(AbsMap<String, String> _map) {
+        return new BeanChgStringList();
     }
 
     @Override
