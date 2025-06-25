@@ -1575,6 +1575,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
         CommonBean simu_ = init(beanToSimu(pk_));
         return navigateData(new SimulationBeanQuit((SimulationBean) simu_),simu_);
     }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsBack() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanResetFight(simu_), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsNext() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanStepFight(simu_), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsCore() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
+        FacadeGame pk_ = pkDataByFacade(db());
+        CommonBean simu_ = simBean2(2, pk_);
+        foeTeamsSample(simu_);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
+        ((SimulationBean)simu_).getSeed().setupValue("0");
+        return (SimulationBean)transitSimu(new SimulationBeanIntroFight((SimulationBean) simu_), simu_.getBuilder());
+    }
+
     protected static CommonBean validateDiff(int _nbTeam){
         FacadeGame pk_ = pkDataByFacade(db());
         return simBean(_nbTeam, pk_);

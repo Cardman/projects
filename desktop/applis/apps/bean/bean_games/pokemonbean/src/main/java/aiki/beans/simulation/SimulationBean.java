@@ -117,6 +117,12 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntBeanChgSubmit validMultEnv;
     private IntBeanChgSubmit addPkTrainer;
     private IntBeanChgSubmit validNpcTeams;
+    private IntBeanChgString seed = new BeanChgString();
+    private IntBeanChgLong nbFleeAttempt;
+    private IntBeanChgLgInt nbRounds;
+    private IntBeanChgRate winningMoney;
+    private IntBeanChgStringList lostObjects;
+    private IntBeanChgStringList caughtEvolutions;
 
     public SimulationBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -156,6 +162,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             movesFight();
         } else if (simu_ == SimulationSteps.SIMULATION) {
             simulation();
+        } else if (simu_ == SimulationSteps.SIMULATION_STEP) {
+            simulationStep();
         } else {
             evoAfterFight();
         }
@@ -262,6 +270,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanCancelTeam(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanValidateTeam(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISABLE_EVOS)).addEvt(new SimulationBeanValidateFoeChoiceSkipEvolutions(this));
+//        seed = DifficultyBeanForm.txt(getBuilder().getGenInput(), this, "");
+//        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP)).addEvt(new SimulationBeanIntroFight(this));
         if (!ok) {
             formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NOT_SELECTED_PLAYER_PK);
         }
@@ -378,6 +388,34 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
             new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
         }
+    }
+
+    private void simulationStep() {
+        initPage();
+        setTitledBorder("");
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NB_FLEE_ATTEMPT);
+        nbFleeAttempt = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, simulation.getGame().getFight().getNbFleeAttempt());
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NB_ROUND);
+        nbRounds = DifficultyBeanForm.lgInt(getBuilder().getGenInput(), this, simulation.getGame().getFight().getNbRounds());
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_WINNING_MONEY);
+        winningMoney = DifficultyBeanForm.rate(getBuilder().getGenInput(), this, simulation.getGame().getFight().getWinningMoney());
+        lostObjects = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildItemsStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getLostObjects());
+        caughtEvolutions = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getCaughtEvolutions());
+        getBuilder().button("\u2611").addEvt(new SimulationBeanValidateFightCoreForm(this));
+        feedParents();
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
+        new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
+    }
+
+    public void validateFightCoreForm() {
+        simulation.getGame().getFight().setNbFleeAttempt(nbFleeAttempt.valueLong());
+        simulation.getGame().getFight().setNbRounds(nbRounds.valueLgInt());
+        simulation.getGame().getFight().setWinningMoney(winningMoney.valueRate());
+        simulation.getGame().getFight().setLostObjects(lostObjects.tryRet());
+        simulation.getGame().getFight().setCaughtEvolutions(caughtEvolutions.tryRet());
     }
     private void evoAfterFight() {
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK_EVOS_AFTER_FIGHT);
@@ -1412,6 +1450,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.MOVES_FIGHT);
         stepNumber--;
     }
+    public void resetFight() {
+        ok = true;
+        getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.TEAM);
+        stepNumber--;
+    }
     public void changeFightWhileEnd() {
         ok = true;
         keptMovesAfterFight.clear();
@@ -1419,6 +1462,17 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.SIMULATION);
         stepNumber--;
+    }
+
+    public void introFight() {
+        simulation.setSeed(seed.tryRet());
+        simulation.simulateFightIntro(getDataBase());
+        getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.SIMULATION_STEP);
+        stepNumber++;
+    }
+
+    public void stepFight() {
+        simulation.simulateFightStep(getDataBase());
     }
     public void simulateFight() {
         ok = true;
@@ -1984,6 +2038,10 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     public CustList<SelectLineMove> getKeptMovesAfterFight() {
         return keptMovesAfterFight;
+    }
+
+    public IntBeanChgString getSeed() {
+        return seed;
     }
 
     public FightSimulation getSimulation() {

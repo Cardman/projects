@@ -14,7 +14,7 @@ import code.util.core.StringUtil;
 public final class FightBean extends CommonFightBean {
     private int mult;
     private NatStringTreeMap<ActivityOfMoveStill> enabledMoves;
-    private int nbFleeAttempt;
+    private long nbFleeAttempt;
     private LgInt nbRounds;
     private Rate winningMoney;
 
@@ -85,7 +85,7 @@ public final class FightBean extends CommonFightBean {
         return nbRounds;
     }
 
-    public int getNbFleeAttempt() {
+    public long getNbFleeAttempt() {
         return nbFleeAttempt;
     }
 

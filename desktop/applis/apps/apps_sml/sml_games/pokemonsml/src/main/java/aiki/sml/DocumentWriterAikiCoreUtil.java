@@ -2743,7 +2743,7 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(setStringMapActivityOfMove(_object.getEnabledMoves(),FIELD_ENABLED_MOVES,_document));
         _element.appendChild(DocumentWriterCoreUtil.setStringMapBoolean(_object.getStillEnabledMoves(),FIELD_STILL_ENABLED_MOVES,_document));
         _element.appendChild(setMapByteTeam(_object.getTeams(),FIELD_TEAMS,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getNbFleeAttempt(),FIELD_NB_FLEE_ATTEMPT,_document));
+        _element.appendChild(DocumentWriterCoreUtil.setLong(_object.getNbFleeAttempt(),FIELD_NB_FLEE_ATTEMPT,_document));
         _element.appendChild(DocumentWriterMathUtil.setLgInt(_object.getNbRounds(),FIELD_NB_ROUNDS,_document));
         _element.appendChild(DocumentWriterMathUtil.setRate(_object.getWinningMoney(),FIELD_WINNING_MONEY,_document));
         _element.appendChild(setListCatchingBallFoeAction(_object.getCatchingBalls(),FIELD_CATCHING_BALL,_document));

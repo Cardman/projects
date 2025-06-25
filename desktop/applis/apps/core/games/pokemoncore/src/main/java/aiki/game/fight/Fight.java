@@ -221,7 +221,7 @@ public final class Fight {
 //    private boolean fullHealing;
 
     /***/
-    private int nbFleeAttempt;
+    private long nbFleeAttempt;
 
     /***/
     private LgInt nbRounds;
@@ -554,11 +554,11 @@ public final class Fight {
         teams = _teams;
     }
 
-    public int getNbFleeAttempt() {
+    public long getNbFleeAttempt() {
         return nbFleeAttempt;
     }
 
-    public void setNbFleeAttempt(int _nbFleeAttempt) {
+    public void setNbFleeAttempt(long _nbFleeAttempt) {
         nbFleeAttempt = _nbFleeAttempt;
     }
 

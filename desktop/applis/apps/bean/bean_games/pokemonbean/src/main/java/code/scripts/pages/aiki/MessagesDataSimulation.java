@@ -91,6 +91,12 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_WINNING_EXP_PTS_FIGHT="winning_exp_pts_fight";
     public static final String M_P_86_WIN_PTS="win_pts";
     public static final String M_P_86_WIN_TRAINER_EXP="win_trainer_exp";
+    public static final String M_P_86_SIMU_BY_STEP="simu_by_step";
+    public static final String M_P_86_NB_FLEE_ATTEMPT="nb_flee_attempt";
+    public static final String M_P_86_NB_ROUND="nb_round";
+    public static final String M_P_86_WINNING_MONEY="winning_money";
+    public static final String M_P_86_LOST_OBJECTS="lost_objects";
+    public static final String M_P_86_CAUGHT_EVOS="caught_evos";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -183,6 +189,10 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_WINNING_EXP_PTS_FIGHT,"Rate of winning experience points");
         e_.add(M_P_86_WIN_PTS,"Difficulty of winning points");
         e_.add(M_P_86_WIN_TRAINER_EXP,"Rate of winning experience points de gain de points while a fight against a foe");
+        e_.add(M_P_86_SIMU_BY_STEP,"Simulate fight round by round with a seed");
+        e_.add(M_P_86_NB_FLEE_ATTEMPT,"The number of attempts of flee is:");
+        e_.add(M_P_86_NB_ROUND,"The number of elapsed rounds is:");
+        e_.add(M_P_86_WINNING_MONEY,"The won money is:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -275,6 +285,10 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_WINNING_EXP_PTS_FIGHT,"Coefficient de gain de points d'expérience");
         f_.add(M_P_86_WIN_PTS,"Difficulté de gain des points");
         f_.add(M_P_86_WIN_TRAINER_EXP,"Coefficient de gain de points d'expérience lors d'un combat contre un dresseur");
+        f_.add(M_P_86_SIMU_BY_STEP,"Simuler le combat tour à tour avec une graine");
+        f_.add(M_P_86_NB_FLEE_ATTEMPT,"Le nombre de tentatives de fuites est de:");
+        f_.add(M_P_86_NB_ROUND,"Le nombre de tours écoulés est de:");
+        f_.add(M_P_86_WINNING_MONEY,"L'argent gagné vaut:");
         return f_;
     }
 }

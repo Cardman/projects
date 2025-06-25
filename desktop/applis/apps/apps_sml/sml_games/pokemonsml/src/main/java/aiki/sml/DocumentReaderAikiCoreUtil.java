@@ -4486,7 +4486,7 @@ public final class DocumentReaderAikiCoreUtil {
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_FLEE_ATTEMPT)) {
-            _object.setNbFleeAttempt(DocumentReaderCoreUtil.getInteger(_element));
+            _object.setNbFleeAttempt(DocumentReaderCoreUtil.getLong(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, DocumentWriterAikiCoreUtil.FIELD_NB_ROUNDS)) {

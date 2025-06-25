@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.CommonBean;
+import aiki.beans.facade.simulation.enums.*;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.game.fight.Fighter;
@@ -1713,6 +1714,22 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void lightReal2() {
         assertEq(71,callSimulationBeanGetLevelAfterFight(simuLeagueRealSec(),1));
+    }
+    @Test
+    public void simuSteps0() {
+        assertSame(SimulationSteps.TEAM,editEditSelectedPlayerPkSimuStepsBack().getForms().getValSimStep(CommonBean.SIMU_CST_SIMULATION_STATE));
+    }
+    @Test
+    public void simuSteps1() {
+        assertEq("0",editEditSelectedPlayerPkSimuSteps().getSeed().tryRet());
+    }
+    @Test
+    public void simuSteps2() {
+        assertEq("0",editEditSelectedPlayerPkSimuStepsNext().getSeed().tryRet());
+    }
+    @Test
+    public void simuSteps3() {
+        assertEq("0",editEditSelectedPlayerPkSimuStepsCore().getSeed().tryRet());
     }
     @Test
     public void exit() {

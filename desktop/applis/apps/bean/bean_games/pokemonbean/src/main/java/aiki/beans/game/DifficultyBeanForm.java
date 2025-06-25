@@ -106,6 +106,13 @@ public final class DifficultyBeanForm {
         return rate_;
     }
 
+    public static IntBeanChgLgInt lgInt(IntBeanGeneInput _genInput, CommonBean _rend, LgInt _value) {
+        IntBeanChgLgInt rate_ = _genInput.newLgInt();
+        rate_.valueLgInt(_value);
+        _rend.getBuilder().nextPart();
+        return rate_;
+    }
+
     public static IntBeanChgLong iv(IntBeanGeneInput _genInput, CommonBean _rend, long _value) {
         IntBeanChgLong ivPlayer_ = _genInput.newLong();
         ivPlayer_.valueLong(_value);
@@ -115,6 +122,13 @@ public final class DifficultyBeanForm {
 
     public static IntBeanChgString select(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<String,String> _map, String _v) {
         IntBeanChgString sel_ = _genInput.newString(_map);
+        sel_.setupValue(_v);
+        _rend.getBuilder().nextPart();
+        return sel_;
+    }
+
+    public static IntBeanChgStringList selectLs(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<String,String> _map, StringList _v) {
+        IntBeanChgStringList sel_ = _genInput.newStringList(_map);
         sel_.setupValue(_v);
         _rend.getBuilder().nextPart();
         return sel_;

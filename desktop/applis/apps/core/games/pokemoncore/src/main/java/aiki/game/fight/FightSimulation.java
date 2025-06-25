@@ -1965,7 +1965,7 @@ public class FightSimulation {
         return game.getFight().getTemp().getIssue();
     }
 
-    Game getGame() {
+    public Game getGame() {
         return game;
     }
 
