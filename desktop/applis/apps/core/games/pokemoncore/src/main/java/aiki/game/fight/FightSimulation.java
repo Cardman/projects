@@ -1505,6 +1505,7 @@ public class FightSimulation {
         validateTeam();
         game.getFight().getTemp().setEvts(new PkMonteCarloEvts(PkMonteCarloEvts.parse(getSeed())));
         intro(_d);
+        game.getFight().getTemp().setSimulation(false);
         setComment(game.getFight().getComment().getMessages());
     }
     public void simulateFightStep(DataBase _d) {

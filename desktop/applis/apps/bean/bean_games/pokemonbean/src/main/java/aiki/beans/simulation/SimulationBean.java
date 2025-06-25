@@ -399,12 +399,14 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         nbRounds = DifficultyBeanForm.lgInt(getBuilder().getGenInput(), this, simulation.getGame().getFight().getNbRounds());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_WINNING_MONEY);
         winningMoney = DifficultyBeanForm.rate(getBuilder().getGenInput(), this, simulation.getGame().getFight().getWinningMoney());
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LOST_OBJECTS);
         lostObjects = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildItemsStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getLostObjects());
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CAUGHT_EVOS);
         caughtEvolutions = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getCaughtEvolutions());
         getBuilder().button("\u2611").addEvt(new SimulationBeanValidateFightCoreForm(this));
         feedParents();
-        posit(simulation.getGame().getFight().getFirstPositPlayerFighters());
-        posit(simulation.getGame().getFight().getFirstPositFoeFighters());
+        posit(simulation.getGame().getFight().getFirstPositPlayerFighters(), formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_PLAYER));
+        posit(simulation.getGame().getFight().getFirstPositFoeFighters(), formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_FOE));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
@@ -412,9 +414,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
     }
 
-    private void posit(IntMap<Integer> _map) {
+    private void posit(IntMap<Integer> _map, String _title) {
         initPage();
-        setTitledBorder("");
+        setTitledBorder(_title);
         initGrid();
         getBuilder().colCount(3);
         for (EntryCust<Integer,Integer> e: _map.entryList()) {

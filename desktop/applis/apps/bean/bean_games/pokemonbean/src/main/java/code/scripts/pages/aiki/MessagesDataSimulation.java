@@ -97,6 +97,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_WINNING_MONEY="winning_money";
     public static final String M_P_86_LOST_OBJECTS="lost_objects";
     public static final String M_P_86_CAUGHT_EVOS="caught_evos";
+    public static final String M_P_86_FIRST_POSIT_PLAYER="first_posit_player";
+    public static final String M_P_86_FIRST_POSIT_FOE="first_posit_foe";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -193,6 +195,10 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_NB_FLEE_ATTEMPT,"The number of attempts of flee is:");
         e_.add(M_P_86_NB_ROUND,"The number of elapsed rounds is:");
         e_.add(M_P_86_WINNING_MONEY,"The won money is:");
+        e_.add(M_P_86_LOST_OBJECTS,"Lost items");
+        e_.add(M_P_86_CAUGHT_EVOS,"Caught evolutions");
+        e_.add(M_P_86_FIRST_POSIT_PLAYER,"First positions for player");
+        e_.add(M_P_86_FIRST_POSIT_FOE,"First positions for foe");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -289,6 +295,10 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_NB_FLEE_ATTEMPT,"Le nombre de tentatives de fuites est de:");
         f_.add(M_P_86_NB_ROUND,"Le nombre de tours écoulés est de:");
         f_.add(M_P_86_WINNING_MONEY,"L'argent gagné vaut:");
+        f_.add(M_P_86_LOST_OBJECTS,"Objets perdus");
+        f_.add(M_P_86_CAUGHT_EVOS,"Evolutions attrapées");
+        f_.add(M_P_86_FIRST_POSIT_PLAYER,"Premières positions pour joueur");
+        f_.add(M_P_86_FIRST_POSIT_FOE,"Premières positions pour ennemi");
         return f_;
     }
 }
