@@ -540,7 +540,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void stateTeam() {
         DataBase data_ = getDataBase();
-        if (!simulation.getTeam().isEmpty()) {
+        if (!getSimulation().getTeam().isEmpty()) {
             ok = true;
         }
         boolean nothing_ = getForms().getValTeamCrud(SIMU_CST_ADDING_TRAINER_PK) == TeamCrud.NOTHING;
@@ -1984,5 +1984,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     public CustList<SelectLineMove> getKeptMovesAfterFight() {
         return keptMovesAfterFight;
+    }
+
+    public FightSimulation getSimulation() {
+        return simulation;
     }
 }
