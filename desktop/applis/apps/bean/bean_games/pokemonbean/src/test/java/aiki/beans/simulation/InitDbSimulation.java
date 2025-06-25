@@ -1591,6 +1591,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanValidateFightPosit(new EntryCust<Integer, Integer>(0,0),new BeanChgInt()), simu_.getBuilder());
+    }
+
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame pk_ = pkDataByFacade(db());
         CommonBean simu_ = simBean2(2, pk_);

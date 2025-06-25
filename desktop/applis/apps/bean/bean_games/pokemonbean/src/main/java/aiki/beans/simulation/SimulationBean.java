@@ -403,11 +403,44 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         caughtEvolutions = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getCaughtEvolutions());
         getBuilder().button("\u2611").addEvt(new SimulationBeanValidateFightCoreForm(this));
         feedParents();
+        posit(simulation.getGame().getFight().getFirstPositPlayerFighters());
+        posit(simulation.getGame().getFight().getFirstPositFoeFighters());
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
         new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
+    }
+
+    private void posit(IntMap<Integer> _map) {
+        initPage();
+        setTitledBorder("");
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<Integer,Integer> e: _map.entryList()) {
+            formatMessageDirCts(Long.toString(e.getKey()));
+            initLine();
+            IntBeanChgInt chgPl_ = DifficultyBeanForm.selectInt(getBuilder().getGenInput(), this, ids(simulation.getGame().getFight().getMult()), e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button("\u2611").addEvt(new SimulationBeanValidateFightPosit(e,chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
+    public static void validateFightPositPlayer(EntryCust<Integer,Integer> _i, IntBeanChgInt _input) {
+        _i.setValue(_input.valueInt());
+    }
+
+    private IntMap<String> ids(int _max) {
+        IntMap<String> m_ = new IntMap<String>();
+        m_.addEntry(Fighter.BACK,Long.toString(Fighter.BACK));
+        for (int i = 0; i < _max; i++) {
+            m_.addEntry(i, Long.toString(i));
+        }
+        return m_;
     }
 
     public void validateFightCoreForm() {

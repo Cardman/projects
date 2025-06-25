@@ -6,7 +6,7 @@ public final class EntryCust<K, V> {
 
     private V value;
 
-    EntryCust(K _k, V _v) {
+    public EntryCust(K _k, V _v) {
         key = _k;
         value = _v;
     }
