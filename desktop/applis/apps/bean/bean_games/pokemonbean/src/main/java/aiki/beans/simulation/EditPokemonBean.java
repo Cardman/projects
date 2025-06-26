@@ -101,7 +101,7 @@ public final class EditPokemonBean extends CommonBean implements BeanRenderWithA
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HEAL_HP);
-        setHeal(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getHeal().isSelected()));
+        setHeal(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getHeal().genericValue()));
         feedParents();
         for (EntryCust<Statistic,EvLine> l:ev.entryList()) {
             initLine();

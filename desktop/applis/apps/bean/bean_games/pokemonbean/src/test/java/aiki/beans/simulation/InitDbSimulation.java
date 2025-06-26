@@ -95,6 +95,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String M_POK_04_TR = "M_POK_04_TR";
     public static final String M_POK_05_TR = "M_POK_05_TR";
     public static final String M_POK_06_TR = "M_POK_06_TR";
+    public static final String M_POK_07_TR = "M_POK_07_TR";
     public static final String I_NOTHING_TR = "I_NOTHING1";
     public static final String I_MULT_EXP_TR = "I_MULT_EXP1";
     public static final String I_STONE_TR = "I_STONE1";
@@ -1591,13 +1592,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
-    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos() {
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos1() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimu(new SimulationBeanValidateFightPosit(new EntryCust<Integer, Integer>(0,0),new BeanChgInt()), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanValidateFightPosit<Integer,Integer>(new EntryCust<Integer, Integer>(0,0),new BeanChgInt()), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos2() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanValidateFightPosit<String,ActivityOfMove>(new EntryCust<String, ActivityOfMove>("",new ActivityOfMove()),new BeanChgActivityOfMove()), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
-        FacadeGame pk_ = pkDataByFacade(db());
+        FacadeGame db_ = db();
+        StatusMoveData mv_ = Instances.newStatusMoveData();
+        EffectGlobal eff_ = Instances.newEffectGlobal();
+        eff_.setWeather(true);
+        mv_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        FacadeGame pk_ = pkDataByFacade(db_);
         CommonBean simu_ = simBean2(2, pk_);
         foeTeamsSample(simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);

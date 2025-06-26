@@ -125,7 +125,7 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_CONTENT_TYPE_WHOLE);
-        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().isSelected()));
+        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().genericValue()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.POKEDEX,MessagesDataPokemonPokedex.M_P_82_NB_EVOS);
@@ -209,7 +209,7 @@ public abstract class WithFilterBean extends CommonBean implements BeanRenderWit
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_CONTENT_TYPE_WHOLE);
-        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().isSelected()));
+        setWholeWord(DifficultyBeanForm.check(getBuilder().getGenInput(), this,getWholeWord().genericValue()));
         feedParents();
         initLine();
         formatMessage(MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_ACCURACY);

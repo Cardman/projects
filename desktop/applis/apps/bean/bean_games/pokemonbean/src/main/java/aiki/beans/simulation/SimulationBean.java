@@ -49,6 +49,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class SimulationBean extends CommonBean  implements WithDifficultyCommon, BeanRenderWithAppName {
+    public static final String CONFIRM = "\u2611";
     private final DifficultyCommon difficultyCommon = new DifficultyCommon();
     private CustList<PlaceIndex> places = new CustList<PlaceIndex>();
 
@@ -355,7 +356,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             new BeanDisplayListGrid<RadioLineMove>(new BeanDisplayRadioLineMove(this)).displayGrid(this,movesSet,MessagesPkBean.MOVES,MessagesDataMovesMoves.M_P_71_MOVES,MessagesDataMovesMoves.M_P_71_NAME_H,MessagesDataMovesMoves.M_P_71_PP_H,MessagesDataMovesMoves.M_P_71_TYPES_H,MessagesDataMovesMoves.M_P_71_CAT_H,MessagesDataMovesMoves.M_P_71_DAMAG_H,MessagesDataMovesMoves.M_P_71_DIREC_H,MessagesDataMovesMoves.M_P_71_PRIO_H,MessagesDataMovesMoves.M_P_71_ACCURACY,MessagesDataMovesMoves.M_P_71_CONST_POWER,MessagesDataSimulation.M_P_86_SELECTED);
             initLine();
             formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ALLY_CHOICE);
-            setAllyChoice(DifficultyBeanForm.check(getBuilder().getGenInput(), this,allyChoice.isSelected()));
+            setAllyChoice(DifficultyBeanForm.check(getBuilder().getGenInput(), this,allyChoice.genericValue()));
             feedParents();
             initLine();
             formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ALLY_CHOICE);
@@ -403,15 +404,33 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         lostObjects = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildItemsStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getLostObjects());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CAUGHT_EVOS);
         caughtEvolutions = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getCaughtEvolutions());
-        getBuilder().button("\u2611").addEvt(new SimulationBeanValidateFightCoreForm(this));
+        getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateFightCoreForm(this));
         feedParents();
         posit(simulation.getGame().getFight().getFirstPositPlayerFighters(), formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_PLAYER));
         posit(simulation.getGame().getFight().getFirstPositFoeFighters(), formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_FOE));
+        stillEnMoves(sorted());
+        enMoves(sortedAc());
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
         new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
+    }
+
+    private NatStringTreeMap<BoolVal> sorted() {
+        NatStringTreeMap<BoolVal> o_ = new NatStringTreeMap<BoolVal>();
+        for (EntryCust<String,BoolVal> e:simulation.getGame().getFight().getStillEnabledMoves().entryList()) {
+            o_.put(getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(e.getKey()),e.getValue());
+        }
+        return o_;
+    }
+
+    private NatStringTreeMap<ActivityOfMove> sortedAc() {
+        NatStringTreeMap<ActivityOfMove> o_ = new NatStringTreeMap<ActivityOfMove>();
+        for (EntryCust<String,ActivityOfMove> e:simulation.getGame().getFight().getEnabledMoves().entryList()) {
+            o_.put(getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(e.getKey()),e.getValue());
+        }
+        return o_;
     }
 
     private void posit(IntMap<Integer> _map, String _title) {
@@ -425,15 +444,49 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             IntBeanChgInt chgPl_ = DifficultyBeanForm.selectInt(getBuilder().getGenInput(), this, ids(simulation.getGame().getFight().getMult()), e.getValue());
             feedParentsCts();
             initLine();
-            getBuilder().button("\u2611").addEvt(new SimulationBeanValidateFightPosit(e,chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateFightPosit<Integer,Integer>(e,chgPl_));
             feedParentsCts();
         }
         feedParents();
         feedParents();
     }
 
-    public static void validateFightPositPlayer(EntryCust<Integer,Integer> _i, IntBeanChgInt _input) {
-        _i.setValue(_input.valueInt());
+    private void stillEnMoves(AbsMap<String, BoolVal> _map) {
+        initPage();
+        setTitledBorder(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STILL_ENABLED_MOVES));
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<String,BoolVal> e: _map.entryList()) {
+            formatMessageDirCts(e.getKey());
+            initLine();
+            IntBeanChgBool chgPl_ = DifficultyBeanForm.check(getBuilder().getGenInput(), this, e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateFightPosit<String,BoolVal>(e,chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
+    private void enMoves(AbsMap<String, ActivityOfMove> _map) {
+        initPage();
+        setTitledBorder(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES));
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<String,ActivityOfMove> e: _map.entryList()) {
+            formatMessageDirCts(e.getKey());
+            initLine();
+            IntBeanChgActivityOfMove chgPl_ = getBuilder().getGenInput().newAc();
+            chgPl_.valueActivity(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateFightPosit<String,ActivityOfMove>(e,chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
     }
 
     private IntMap<String> ids(int _max) {

@@ -12,4 +12,5 @@ public interface IntBeanGeneInput {
     IntBeanChgInt newInt(AbsMap<Integer,String> _map);
     IntBeanChgString newText();
     IntBeanChgSubmit newSubmit(String _text);
+    IntBeanChgActivityOfMove newAc();
 }

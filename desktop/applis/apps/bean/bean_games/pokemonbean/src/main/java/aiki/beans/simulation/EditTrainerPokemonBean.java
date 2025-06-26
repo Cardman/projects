@@ -63,7 +63,7 @@ public final class EditTrainerPokemonBean extends CommonBean implements BeanRend
         if (add) {
             initLine();
             formatMessage(MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_ALLY_PK);
-            setAllyPk(DifficultyBeanForm.check(getBuilder().getGenInput(), this, allyPk.isSelected()));
+            setAllyPk(DifficultyBeanForm.check(getBuilder().getGenInput(), this, allyPk.genericValue()));
             feedParents();
         }
         valid = getBuilder().button(formatMessageRend(MessagesPkBean.SIMU_LEVEL,MessagesDataSimulationLevelsimu.M_P_85_OK));

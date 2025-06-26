@@ -29,7 +29,7 @@ public final class EditPokemonMovesBean extends WithFilterBean {
         if (player) {
             initLine();
             formatMessage(MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_AVAILABLE_MOVES);
-            setAvailableMovesOnly(DifficultyBeanForm.check(getBuilder().getGenInput(),this,getAvailableMovesOnly().isSelected()));
+            setAvailableMovesOnly(DifficultyBeanForm.check(getBuilder().getGenInput(),this,getAvailableMovesOnly().genericValue()));
             feedParents();
         }
         initLine();

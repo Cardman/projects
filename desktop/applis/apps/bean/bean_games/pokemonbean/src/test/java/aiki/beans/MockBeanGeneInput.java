@@ -48,4 +48,8 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
         return new AbsBeanChgSubmit();
     }
 
+    @Override
+    public IntBeanChgActivityOfMove newAc() {
+        return new BeanChgActivityOfMove();
+    }
 }

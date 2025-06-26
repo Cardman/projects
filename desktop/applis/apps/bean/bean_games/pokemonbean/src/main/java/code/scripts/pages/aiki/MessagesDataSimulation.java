@@ -99,6 +99,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_CAUGHT_EVOS="caught_evos";
     public static final String M_P_86_FIRST_POSIT_PLAYER="first_posit_player";
     public static final String M_P_86_FIRST_POSIT_FOE="first_posit_foe";
+    public static final String M_P_86_FIGHT_ENABLED_MOVES="fight_enabled_moves";
+    public static final String M_P_86_FIGHT_STILL_ENABLED_MOVES="fight_still_enabled_moves";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -199,6 +201,8 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_CAUGHT_EVOS,"Caught evolutions");
         e_.add(M_P_86_FIRST_POSIT_PLAYER,"First positions for player");
         e_.add(M_P_86_FIRST_POSIT_FOE,"First positions for foe");
+        e_.add(M_P_86_FIGHT_ENABLED_MOVES,"Global enabled moves");
+        e_.add(M_P_86_FIGHT_STILL_ENABLED_MOVES,"State of activity of global moves");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -299,6 +303,8 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_CAUGHT_EVOS,"Evolutions attrapées");
         f_.add(M_P_86_FIRST_POSIT_PLAYER,"Premières positions pour joueur");
         f_.add(M_P_86_FIRST_POSIT_FOE,"Premières positions pour ennemi");
+        f_.add(M_P_86_FIGHT_ENABLED_MOVES,"Attaques globales actives");
+        f_.add(M_P_86_FIGHT_STILL_ENABLED_MOVES,"Etat de l'activité des attaques globales");
         return f_;
     }
 }

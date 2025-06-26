@@ -5,6 +5,8 @@ import aiki.comparators.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
+import code.util.comparators.*;
+import code.util.core.*;
 
 public final class DifficultyBeanForm {
 
@@ -93,8 +95,12 @@ public final class DifficultyBeanForm {
     }
 
     public static IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, boolean _value) {
+        return check(_genInput, _rend, ComparatorBoolean.of(_value));
+    }
+
+    public static IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, BoolVal _value) {
         IntBeanChgBool check_ = _genInput.newBool();
-        check_.setSelected(_value);
+        check_.setSelected(_value == BoolVal.TRUE);
         _rend.getBuilder().nextPart();
         return check_;
     }
