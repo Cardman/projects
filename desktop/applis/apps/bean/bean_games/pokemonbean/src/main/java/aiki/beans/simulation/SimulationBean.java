@@ -124,6 +124,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntBeanChgRate winningMoney;
     private IntBeanChgStringList lostObjects;
     private IntBeanChgStringList caughtEvolutions;
+    private IntBeanChgInt indexUserTeam;
+    private AbsMap<TeamPosition, String> currentUserList;
 
     public SimulationBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -400,14 +402,16 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         nbRounds = DifficultyBeanForm.lgInt(getBuilder().getGenInput(), this, simulation.getGame().getFight().getNbRounds());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_WINNING_MONEY);
         winningMoney = DifficultyBeanForm.rate(getBuilder().getGenInput(), this, simulation.getGame().getFight().getWinningMoney());
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CURRENT_USER);
+        indexUserTeam = DifficultyBeanForm.selectInt(getBuilder().getGenInput(), this, curUserListIndex(currentUserList), currentUserList.indexOfEntry(simulation.getGame().getFight().getCurrentUser()));
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LOST_OBJECTS);
         lostObjects = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildItemsStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getLostObjects());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CAUGHT_EVOS);
         caughtEvolutions = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getCaughtEvolutions());
         getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateFightCoreForm(this));
         feedParents();
-        posit(simulation.getGame().getFight().getFirstPositPlayerFighters(), formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_PLAYER));
-        posit(simulation.getGame().getFight().getFirstPositFoeFighters(), formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_FOE));
+        posit(simulation.getGame().getFight().getFirstPositPlayerFighters(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_PLAYER));
+        posit(simulation.getGame().getFight().getFirstPositFoeFighters(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_FOE));
         stillEnMoves(sorted());
         enMoves(sortedAc());
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
@@ -415,6 +419,14 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
         new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
+    }
+    private IntMap<String> curUserListIndex(AbsMap<TeamPosition,String> _id) {
+        IntMap<String> m_ = new IntMap<String>();
+        int len_ = _id.size();
+        for (int i = 0; i < len_; i++) {
+            m_.addEntry(i, _id.getValue(i));
+        }
+        return m_;
     }
 
     private NatStringTreeMap<BoolVal> sorted() {
@@ -453,7 +465,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void stillEnMoves(AbsMap<String, BoolVal> _map) {
         initPage();
-        setTitledBorder(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STILL_ENABLED_MOVES));
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STILL_ENABLED_MOVES));
         initGrid();
         getBuilder().colCount(3);
         for (EntryCust<String,BoolVal> e: _map.entryList()) {
@@ -471,7 +483,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void enMoves(AbsMap<String, ActivityOfMove> _map) {
         initPage();
-        setTitledBorder(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES));
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES));
         initGrid();
         getBuilder().colCount(3);
         for (EntryCust<String,ActivityOfMove> e: _map.entryList()) {
@@ -504,6 +516,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         simulation.getGame().getFight().setWinningMoney(winningMoney.valueRate());
         simulation.getGame().getFight().setLostObjects(lostObjects.tryRet());
         simulation.getGame().getFight().setCaughtEvolutions(caughtEvolutions.tryRet());
+        simulation.getGame().getFight().setCurrentUser(currentUserList.getKey(indexUserTeam.valueInt()));
     }
     private void evoAfterFight() {
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK_EVOS_AFTER_FIGHT);
@@ -1555,10 +1568,22 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     public void introFight() {
         simulation.setSeed(seed.tryRet());
         simulation.simulateFightIntro(getDataBase());
+        currentUserList = curUserList();
         getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.SIMULATION_STEP);
         stepNumber++;
     }
 
+    private AbsMap<TeamPosition,String> curUserList() {
+        AbsMap<TeamPosition,String> ls_ = new TeamPositionsString();
+        ls_.addEntry(new TeamPosition(0, Fighter.BACK), "");
+        for (int k: simulation.getGame().getFight().getUserTeam().getMembers().getKeys()) {
+            ls_.addEntry(Fight.toUserFighter(k),Fight.CST_PLAYER+","+k);
+        }
+        for (int k: simulation.getGame().getFight().getFoeTeam().getMembers().getKeys()) {
+            ls_.addEntry(Fight.toFoeFighter(k),Fight.CST_FOE+","+k);
+        }
+        return ls_;
+    }
     public void stepFight() {
         simulation.simulateFightStep(getDataBase());
     }

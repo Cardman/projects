@@ -1589,6 +1589,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCore() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        assertEq("",new TeamPositionsString().def());
         return (SimulationBean)transitSimu(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 

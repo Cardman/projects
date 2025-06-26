@@ -1197,6 +1197,10 @@ public abstract class CommonBean {
         return StringUtil.simpleStringsFormat(builder.file(getAppName(),_file).getMapping().getVal(_key), _values);
     }
 
+    public String messageRend(String _file, String _key) {
+        return builder.file(getAppName(),_file).getMapping().getVal(_key);
+    }
+
     public void formatMessageDirAnc(String _txt, IntBeanAction _b) {
         builder.formatMessageDir(_txt, _b);
     }
