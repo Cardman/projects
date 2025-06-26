@@ -102,6 +102,13 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_FIGHT_ENABLED_MOVES="fight_enabled_moves";
     public static final String M_P_86_FIGHT_STILL_ENABLED_MOVES="fight_still_enabled_moves";
     public static final String M_P_86_CURRENT_USER="current_user";
+    public static final String M_P_86_FIGHT_STATE="fs";
+    public static final String M_P_86_FIGHT_STATE_SWITCH_PROPOSE="fs_switch_propose";
+    public static final String M_P_86_FIGHT_STATE_SWITCH_WHILE_KO_USER="fs_switch_while_ko_player";
+    public static final String M_P_86_FIGHT_STATE_ATTAQUES="fs_attaques";
+    public static final String M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER="fs_apprendre_evoluer";
+    public static final String M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE="fs_switch_apres_attaque";
+    public static final String M_P_86_FIGHT_STATE_RIEN="fs_rien";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -205,6 +212,13 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_FIGHT_ENABLED_MOVES,"Global enabled moves");
         e_.add(M_P_86_FIGHT_STILL_ENABLED_MOVES,"State of activity of global moves");
         e_.add(M_P_86_CURRENT_USER,"Current user");
+        e_.add(M_P_86_FIGHT_STATE,"fight state");
+        e_.add(M_P_86_FIGHT_STATE_SWITCH_PROPOSE,"offered switch");
+        e_.add(M_P_86_FIGHT_STATE_SWITCH_WHILE_KO_USER,"switch while ko player team");
+        e_.add(M_P_86_FIGHT_STATE_ATTAQUES,"moves");
+        e_.add(M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER,"learn and evolve player team");
+        e_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"switch after using move");
+        e_.add(M_P_86_FIGHT_STATE_RIEN,"no fight");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -308,6 +322,13 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_FIGHT_ENABLED_MOVES,"Attaques globales actives");
         f_.add(M_P_86_FIGHT_STILL_ENABLED_MOVES,"Etat de l'activité des attaques globales");
         f_.add(M_P_86_CURRENT_USER,"Lanceur courant");
+        f_.add(M_P_86_FIGHT_STATE,"état du combat");
+        f_.add(M_P_86_FIGHT_STATE_SWITCH_PROPOSE,"échange proposé");
+        f_.add(M_P_86_FIGHT_STATE_SWITCH_WHILE_KO_USER,"échange lors d'un ko d'équipe du joueur");
+        f_.add(M_P_86_FIGHT_STATE_ATTAQUES,"attaques");
+        f_.add(M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER,"apprendre et évoluer pour l'équipe du joueur");
+        f_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"échange après utilisation d'attaque");
+        f_.add(M_P_86_FIGHT_STATE_RIEN,"pas de combat");
         return f_;
     }
 }

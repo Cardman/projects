@@ -21,6 +21,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.*;
+import aiki.game.fight.enums.*;
 import aiki.game.fight.util.AvailableMovesInfos;
 import aiki.game.params.Difficulty;
 import aiki.map.buildings.Building;
@@ -126,6 +127,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntBeanChgStringList caughtEvolutions;
     private IntBeanChgInt indexUserTeam;
     private AbsMap<TeamPosition, String> currentUserList;
+    private IntBeanChgInt indexFightState;
+    private AbsMap<FightState, String> fightState;
 
     public SimulationBean() {
         setAppName(MessagesPkBean.APP_BEAN_DATA);
@@ -404,6 +407,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         winningMoney = DifficultyBeanForm.rate(getBuilder().getGenInput(), this, simulation.getGame().getFight().getWinningMoney());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CURRENT_USER);
         indexUserTeam = DifficultyBeanForm.selectInt(getBuilder().getGenInput(), this, curUserListIndex(currentUserList), currentUserList.indexOfEntry(simulation.getGame().getFight().getCurrentUser()));
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_FIGHT_STATE);
+        indexFightState = DifficultyBeanForm.selectInt(getBuilder().getGenInput(), this, fightStateListIndex(fightState), fightState.indexOfEntry(simulation.getGame().getFight().getState()));
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LOST_OBJECTS);
         lostObjects = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildItemsStrElts(getDataBase(), getLanguage()), simulation.getGame().getFight().getLostObjects());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CAUGHT_EVOS);
@@ -421,14 +426,12 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
     }
     private IntMap<String> curUserListIndex(AbsMap<TeamPosition,String> _id) {
-        IntMap<String> m_ = new IntMap<String>();
-        int len_ = _id.size();
-        for (int i = 0; i < len_; i++) {
-            m_.addEntry(i, _id.getValue(i));
-        }
-        return m_;
+        return new ConverterToIntMapUtil<TeamPosition>().convert(_id);
     }
 
+    private IntMap<String> fightStateListIndex(AbsMap<FightState,String> _id) {
+        return new ConverterToIntMapUtil<FightState>().convert(_id);
+    }
     private NatStringTreeMap<BoolVal> sorted() {
         NatStringTreeMap<BoolVal> o_ = new NatStringTreeMap<BoolVal>();
         for (EntryCust<String,BoolVal> e:simulation.getGame().getFight().getStillEnabledMoves().entryList()) {
@@ -517,6 +520,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         simulation.getGame().getFight().setLostObjects(lostObjects.tryRet());
         simulation.getGame().getFight().setCaughtEvolutions(caughtEvolutions.tryRet());
         simulation.getGame().getFight().setCurrentUser(currentUserList.getKey(indexUserTeam.valueInt()));
+        simulation.getGame().getFight().setState(fightState.getKey(indexFightState.valueInt()));
     }
     private void evoAfterFight() {
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SELECT_PK_EVOS_AFTER_FIGHT);
@@ -1569,6 +1573,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         simulation.setSeed(seed.tryRet());
         simulation.simulateFightIntro(getDataBase());
         currentUserList = curUserList();
+        fightState = fightStateList();
         getForms().put(SIMU_CST_SIMULATION_STATE, SimulationSteps.SIMULATION_STEP);
         stepNumber++;
     }
@@ -1582,6 +1587,17 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         for (int k: simulation.getGame().getFight().getFoeTeam().getMembers().getKeys()) {
             ls_.addEntry(Fight.toFoeFighter(k),Fight.CST_FOE+","+k);
         }
+        return ls_;
+    }
+
+    private AbsMap<FightState,String> fightStateList() {
+        AbsMap<FightState,String> ls_ = new IdMap<FightState, String>();
+        ls_.addEntry(FightState.SWITCH_PROPOSE, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_SWITCH_PROPOSE));
+        ls_.addEntry(FightState.SWITCH_WHILE_KO_USER, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_SWITCH_WHILE_KO_USER));
+        ls_.addEntry(FightState.ATTAQUES, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_ATTAQUES));
+        ls_.addEntry(FightState.APPRENDRE_EVOLUER, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER));
+        ls_.addEntry(FightState.SWITCH_APRES_ATTAQUE, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE));
+        ls_.addEntry(FightState.RIEN, messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STATE_RIEN));
         return ls_;
     }
     public void stepFight() {
