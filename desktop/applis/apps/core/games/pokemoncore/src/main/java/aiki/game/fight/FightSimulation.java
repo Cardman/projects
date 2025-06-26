@@ -1504,7 +1504,7 @@ public class FightSimulation {
         setComment(new StringList());
         validateTeam();
         game.getFight().getTemp().setEvts(new PkMonteCarloEvts(PkMonteCarloEvts.parse(getSeed())));
-        intro(_d);
+        intro(_d, false);
         game.getFight().getTemp().setSimulation(false);
         setComment(game.getFight().getComment().getMessages());
     }
@@ -1522,7 +1522,7 @@ public class FightSimulation {
         }
         setComment(new StringList());
         game.getPlayer().swap(indexesFight(IndexConstants.FIRST_INDEX));
-        intro(_import);
+        intro(_import, true);
         game.simuler(fightSimulationActions,IndexConstants.FIRST_INDEX, _import);
         setComment(game.getFight().getComment().getMessages());
         if (!game.getFight().getTemp().getAcceptableChoices()) {
@@ -1544,11 +1544,12 @@ public class FightSimulation {
         game.getPlayer().affectEndFight(game.getFight(), game.getDifficulty(), _import);
     }
 
-    private void intro(DataBase _d) {
+    private void intro(DataBase _d, boolean _simulate) {
         game.getFight().getComment().clearMessages();
         int mult_ = multFigtht();
         int multPl_ = multFigthtPlayer(mult_);
         Fight fight_ = game.getFight();
+        fight_.getTemp().setSimulation(_simulate);
         Difficulty diff_ = game.getDifficulty();
         FightInitialization.initDefaultFight(fight_, mult_, multPl_);
         FightInitialization.initEquipeUtilisateur(_d, game.getPlayer(), diff_, multPl_, mult_, allyTeam(), fight_);
@@ -1805,6 +1806,7 @@ public class FightSimulation {
     }
 
     private boolean issueFight(DataBase _import, int _i, Fight _fight, Player _player, Ints _indexes) {
+        _fight.getTemp().setSimulation(true);
         FightFacade.beginFight(_fight, _import);
         FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
 //        FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
