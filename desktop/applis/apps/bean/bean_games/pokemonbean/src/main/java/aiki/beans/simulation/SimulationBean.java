@@ -515,7 +515,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void usedItems(AbsMap<String, Long> _map) {
         initPage();
-        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES));
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_USED_ITEMS_WHILE_ROUND));
         initGrid();
         getBuilder().colCount(4);
         for (EntryCust<String,Long> e: _map.entryList()) {
