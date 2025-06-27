@@ -109,6 +109,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER="fs_apprendre_evoluer";
     public static final String M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE="fs_switch_apres_attaque";
     public static final String M_P_86_FIGHT_STATE_RIEN="fs_rien";
+    public static final String M_P_86_USED_ITEMS_WHILE_ROUND="used_items_while_round";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -219,6 +220,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER,"learn and evolve player team");
         e_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"switch after using move");
         e_.add(M_P_86_FIGHT_STATE_RIEN,"no fight");
+        e_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"used items while round");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -329,6 +331,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_FIGHT_STATE_APPRENDRE_EVOLUER,"apprendre et évoluer pour l'équipe du joueur");
         f_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"échange après utilisation d'attaque");
         f_.add(M_P_86_FIGHT_STATE_RIEN,"pas de combat");
+        f_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"objets utilisés lors du tour");
         return f_;
     }
 }

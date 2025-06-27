@@ -6,6 +6,11 @@ public class BeanChgString implements IntBeanChgString {
     private String value = DataBase.EMPTY_STRING;
 
     @Override
+    public String genericValue() {
+        return tryRet();
+    }
+
+    @Override
     public String tryRet() {
         return value;
     }

@@ -1595,12 +1595,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos1() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimu(new SimulationBeanValidateFightPosit<Integer,Integer>(new EntryCust<Integer, Integer>(0,0),new BeanChgInt()), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<Integer,Integer>(new EntryCust<Integer, Integer>(0,0),new BeanChgInt()), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos2() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimu(new SimulationBeanValidateFightPosit<String,ActivityOfMove>(new EntryCust<String, ActivityOfMove>("",new ActivityOfMove()),new BeanChgActivityOfMove()), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,ActivityOfMove>(new EntryCust<String, ActivityOfMove>("",new ActivityOfMove()),new BeanChgActivityOfMove()), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos3() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        StringMap<Long> map_ = simu_.getSimulation().getGame().getFight().getUsedItemsWhileRound();
+        BeanChgString key_ = new BeanChgString();
+        key_.setupValue(I_BALL);
+        CommonBean after_ = transitSimu(new SimulationBeanAddEntry<String, Long>(map_, key_, new BeanChgLong()), simu_.getBuilder());
+        return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_BALL), after_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {

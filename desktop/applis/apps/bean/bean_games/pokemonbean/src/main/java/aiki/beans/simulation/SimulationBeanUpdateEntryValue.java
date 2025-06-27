@@ -3,10 +3,10 @@ package aiki.beans.simulation;
 import aiki.beans.*;
 import code.util.*;
 
-public final class SimulationBeanValidateFightPosit<K,V> implements IntBeanAction {
+public final class SimulationBeanUpdateEntryValue<K,V> implements IntBeanAction {
     private final EntryCust<K,V> index;
     private final IntBeanChgValue<V> input;
-    public SimulationBeanValidateFightPosit(EntryCust<K,V> _k, IntBeanChgValue<V> _ch) {
+    public SimulationBeanUpdateEntryValue(EntryCust<K,V> _k, IntBeanChgValue<V> _ch) {
         index = _k;
         input = _ch;
     }
