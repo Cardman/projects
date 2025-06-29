@@ -51,6 +51,12 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<TranslatedKey, BoostHpRate> buildStatisBoostHpRate() {
         return new DictionaryComparator<TranslatedKey,BoostHpRate>(new ComparingTranslatedKey());
     }
+    public static DictionaryComparator<String,String> buildAbStrElts(DataBase _data, String _language) {
+        StringMap<StringMap<String>> tp_ = _data.getTranslatedAbilities();
+        DictionaryComparator<String, String> d_ = new DictionaryComparator<String, String>(tp_.getVal(_language));
+        d_.putAllMap(tp_.getVal(_language));
+        return d_;
+    }
     public static DictionaryComparator<String,String> buildAbilities(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedAbilities().getVal(_language));
     }
@@ -109,6 +115,13 @@ public final class DictionaryComparatorUtil {
 
     public static DictionaryComparator<TranslatedKey,PokemonData> buildPkData() {
         return new DictionaryComparator<TranslatedKey,PokemonData>(new ComparingTranslatedKey());
+    }
+
+    public static DictionaryComparator<String,String> buildMvStrElts(DataBase _data, String _language) {
+        StringMap<StringMap<String>> tp_ = _data.getTranslatedMoves();
+        DictionaryComparator<String, String> d_ = new DictionaryComparator<String, String>(tp_.getVal(_language));
+        d_.putAllMap(tp_.getVal(_language));
+        return d_;
     }
 
     public static DictionaryComparator<String,String> buildPkStrElts(DataBase _data, String _language) {

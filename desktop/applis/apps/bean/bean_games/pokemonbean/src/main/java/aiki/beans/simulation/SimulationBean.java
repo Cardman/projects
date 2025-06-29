@@ -420,6 +420,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         stillEnMoves(sorted());
         enMoves(sortedAc());
         usedItems(sortedUsedItems());
+        evosChoices();
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
@@ -555,6 +556,46 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             m_.addEntry(i, Long.toString(i));
         }
         return m_;
+    }
+
+    private void evosChoices() {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_USED_ITEMS_WHILE_ROUND));
+        initGrid();
+        getBuilder().colCount(4);
+        DictionaryComparator<String, String> pk_ = DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage());
+        DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        DictionaryComparator<String, String> ab_ = DictionaryComparatorUtil.buildAbStrElts(getDataBase(), getLanguage());
+        for (EntryCust<Integer,ChoiceOfEvolutionAndMoves> e: simulation.getGame().getFight().getChoices().entryList()) {
+            formatMessageDirCts(Long.toString(e.getKey()));
+            initLine();
+            IntBeanChgChoiceOfEvolutionAndMoves choice_ = getBuilder().getGenInput().newChoice(pk_, mv_, ab_);
+            choice_.valueChoice(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<Integer,ChoiceOfEvolutionAndMoves>(e,choice_));
+            feedParentsCts();
+            initLine();
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<Integer,ChoiceOfEvolutionAndMoves>(simulation.getGame().getFight().getChoices(),e.getKey()));
+            feedParentsCts();
+        }
+        int len_ = simulation.getGame().getFight().getUserTeam().getMembers().size();
+        feedParents();
+        AbsMap<Integer,String> map_ = new IntMap<String>();
+        for (int i = 0; i < len_; i++) {
+            int k_ = simulation.getGame().getFight().getUserTeam().getMembers().getKey(i);
+            if (!simulation.getGame().getFight().getChoices().contains(k_)) {
+                map_.addEntry(k_,Long.toString(k_));
+            }
+        }
+        if (!map_.isEmpty()) {
+            IntBeanChgInt key_ = getBuilder().getGenInput().newInt(map_);
+            IntBeanChgChoiceOfEvolutionAndMoves value_ = getBuilder().getGenInput().newChoice(pk_, mv_, ab_);
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<Integer,ChoiceOfEvolutionAndMoves>(simulation.getGame().getFight().getChoices(),key_,value_));
+            getBuilder().nextPart();
+        }
+        feedParents();
     }
 
     public void validateFightCoreForm() {

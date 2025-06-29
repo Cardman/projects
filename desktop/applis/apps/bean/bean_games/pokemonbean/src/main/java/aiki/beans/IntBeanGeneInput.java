@@ -13,4 +13,5 @@ public interface IntBeanGeneInput {
     IntBeanChgString newText();
     IntBeanChgSubmit newSubmit(String _text);
     IntBeanChgActivityOfMove newAc();
+    IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab);
 }

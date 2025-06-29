@@ -1612,6 +1612,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_BALL), after_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos4() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        IntMap<ChoiceOfEvolutionAndMoves> map_ = simu_.getSimulation().getGame().getFight().getChoices();
+        BeanChgInt key_ = new BeanChgInt();
+        key_.valueInt(0);
+        CommonBean after_ = transitSimu(new SimulationBeanAddEntry<Integer, ChoiceOfEvolutionAndMoves>(map_, key_, new BeanChgChoiceOfEvolutionAndMoves()), simu_.getBuilder());
+        return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves>(map_, 0), after_.getBuilder());
+    }
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame db_ = db();
         StatusMoveData mv_ = Instances.newStatusMoveData();

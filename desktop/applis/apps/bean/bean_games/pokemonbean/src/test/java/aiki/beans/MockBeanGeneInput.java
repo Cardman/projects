@@ -52,4 +52,9 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     public IntBeanChgActivityOfMove newAc() {
         return new BeanChgActivityOfMove();
     }
+
+    @Override
+    public IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab) {
+        return new BeanChgChoiceOfEvolutionAndMoves();
+    }
 }

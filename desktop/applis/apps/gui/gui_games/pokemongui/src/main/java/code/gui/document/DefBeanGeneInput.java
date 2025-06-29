@@ -104,4 +104,17 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         helper.feedParent(s_);
         return new DefBeanChgActivityOfMove(ch_,comp_);
     }
+
+    @Override
+    public IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab) {
+        GeneComponentModelElt<String> evo_ = new GeneComponentModelElt<String>(api, _pk,new EmptyDefValue());
+        helper.feedParent(evo_.geneEnum());
+        GeneComponentModelLs<String> kept_ = new GeneComponentModelLs<String>(api, _mv);
+        helper.feedParent(kept_.geneCommon(new CustList<String>()));
+        kept_.getSelect().setVisibleRowCount(8);
+        kept_.getSelect().applyRows();
+        GeneComponentModelElt<String> abName_ = new GeneComponentModelElt<String>(api, _ab,new EmptyDefValue());
+        helper.feedParent(abName_.geneEnum());
+        return new DefBeanChgChoiceOfEvolutionAndMoves(evo_, kept_, abName_);
+    }
 }
