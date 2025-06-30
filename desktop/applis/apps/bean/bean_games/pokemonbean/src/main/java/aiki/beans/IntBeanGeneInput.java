@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.game.fight.util.*;
 import code.util.*;
 
 public interface IntBeanGeneInput {
@@ -14,4 +15,5 @@ public interface IntBeanGeneInput {
     IntBeanChgSubmit newSubmit(String _text);
     IntBeanChgActivityOfMove newAc();
     IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab);
+    IntBeanChgMoveTarget newMt(AbsMap<MoveTarget,String> _pk);
 }

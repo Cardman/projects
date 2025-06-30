@@ -110,6 +110,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE="fs_switch_apres_attaque";
     public static final String M_P_86_FIGHT_STATE_RIEN="fs_rien";
     public static final String M_P_86_USED_ITEMS_WHILE_ROUND="used_items_while_round";
+    public static final String M_P_86_EVO_CHOICES="evo_choices";
+    public static final String M_P_86_ALLY_CHOICES="ally_choices";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -221,6 +223,8 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"switch after using move");
         e_.add(M_P_86_FIGHT_STATE_RIEN,"no fight");
         e_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"used items while round");
+        e_.add(M_P_86_EVO_CHOICES,"choices of moves and evolutions");
+        e_.add(M_P_86_ALLY_CHOICES,"choices of ally moves");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -332,6 +336,8 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_FIGHT_STATE_SWITCH_APRES_ATTAQUE,"échange après utilisation d'attaque");
         f_.add(M_P_86_FIGHT_STATE_RIEN,"pas de combat");
         f_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"objets utilisés lors du tour");
+        f_.add(M_P_86_EVO_CHOICES,"choix d'attaques et d'évolution");
+        f_.add(M_P_86_ALLY_CHOICES,"choix d'attaques alliées");
         return f_;
     }
 }

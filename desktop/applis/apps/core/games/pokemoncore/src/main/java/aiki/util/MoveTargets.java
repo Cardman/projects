@@ -5,7 +5,7 @@ import aiki.game.fight.TargetCoords;
 import aiki.game.fight.util.MoveTarget;
 import code.util.*;
 
-public final class MoveTargets extends AbsBasicMap<MoveTarget,MoveTarget> {
+public final class MoveTargets extends MoveTargetsParam<MoveTarget> {
     public MoveTargets() {
 
     }
@@ -16,11 +16,6 @@ public final class MoveTargets extends AbsBasicMap<MoveTarget,MoveTarget> {
     @Override
     protected MoveTarget def() {
         return new MoveTarget("",new TargetCoords(-1, Fighter.BACK));
-    }
-
-    @Override
-    protected boolean matchKeys(MoveTarget _one, MoveTarget _two) {
-        return _one.eq(_two);
     }
 
 }

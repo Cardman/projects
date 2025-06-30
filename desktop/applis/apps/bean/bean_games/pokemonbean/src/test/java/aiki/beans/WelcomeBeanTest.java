@@ -272,6 +272,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         trs_.getMapping().addEntry(FR, fr_);
         w2_.getBuilder().setTranslations(trs_);
         w2_.build(f_);
+        assertEq("",new MoveTargetsString().def());
 //        pk_.initBeans(null,EN);
     }
 //    @Test

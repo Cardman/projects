@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import aiki.beans.*;
+import aiki.game.fight.util.*;
 import aiki.gui.components.editor.NbDefValue;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -116,5 +117,12 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         GeneComponentModelElt<String> abName_ = new GeneComponentModelElt<String>(api, _ab,new EmptyDefValue());
         helper.feedParent(abName_.geneEnum());
         return new DefBeanChgChoiceOfEvolutionAndMoves(evo_, kept_, abName_);
+    }
+
+    @Override
+    public IntBeanChgMoveTarget newMt(AbsMap<MoveTarget, String> _pk) {
+        GeneComponentModelElt<MoveTarget> ch_ = new GeneComponentModelElt<MoveTarget>(api, _pk, new MoveTargetDefValue());
+        helper.feedParent(ch_.geneEnum());
+        return new DefBeanChgMoveTarget(ch_);
     }
 }

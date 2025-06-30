@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.game.fight.util.*;
 import code.util.*;
 
 public final class MockBeanGeneInput implements IntBeanGeneInput {
@@ -56,5 +57,10 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     @Override
     public IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab) {
         return new BeanChgChoiceOfEvolutionAndMoves();
+    }
+
+    @Override
+    public IntBeanChgMoveTarget newMt(AbsMap<MoveTarget, String> _pk) {
+        return new BeanChgMoveTarget();
     }
 }

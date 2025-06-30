@@ -22,7 +22,7 @@ import aiki.fight.moves.MoveData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.*;
-import aiki.game.fight.util.AvailableMovesInfos;
+import aiki.game.fight.util.*;
 import aiki.game.params.Difficulty;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
@@ -37,9 +37,7 @@ import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
-import aiki.util.LevelPoint;
-import aiki.util.Point;
+import aiki.util.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.pages.aiki.*;
@@ -421,6 +419,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         enMoves(sortedAc());
         usedItems(sortedUsedItems());
         evosChoices();
+        allyChoices();
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
@@ -560,7 +559,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void evosChoices() {
         initPage();
-        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_USED_ITEMS_WHILE_ROUND));
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EVO_CHOICES));
         initGrid();
         getBuilder().colCount(4);
         DictionaryComparator<String, String> pk_ = DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage());
@@ -580,8 +579,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<Integer,ChoiceOfEvolutionAndMoves>(simulation.getGame().getFight().getChoices(),e.getKey()));
             feedParentsCts();
         }
-        int len_ = simulation.getGame().getFight().getUserTeam().getMembers().size();
         feedParents();
+        int len_ = simulation.getGame().getFight().getUserTeam().getMembers().size();
         AbsMap<Integer,String> map_ = new IntMap<String>();
         for (int i = 0; i < len_; i++) {
             int k_ = simulation.getGame().getFight().getUserTeam().getMembers().getKey(i);
@@ -598,6 +597,95 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
+    private void allyChoices() {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EVO_CHOICES));
+        initGrid();
+        getBuilder().colCount(4);
+        CustList<MoveTarget> values_ = allValues();
+        int lenVal_ = values_.size();
+        AbsMap<MoveTarget,String> valuesMap_ = new MoveTargetsString();
+        for (int i = 0; i < lenVal_; i++) {
+            MoveTarget k_ = values_.get(i);
+            valuesMap_.addEntry(k_,k_.display());
+        }
+        for (EntryCust<MoveTarget, MoveTarget> e: simulation.getGame().getFight().getAllyChoice().entryList()) {
+            formatMessageDirCts(e.getKey().display());
+            initLine();
+            IntBeanChgMoveTarget choice_ = getBuilder().getGenInput().newMt(valuesMap_);
+            choice_.valueMt(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<MoveTarget,MoveTarget>(e,choice_));
+            feedParentsCts();
+            initLine();
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<MoveTarget,MoveTarget>(simulation.getGame().getFight().getAllyChoice(),e.getKey()));
+            feedParentsCts();
+        }
+        feedParents();
+        CustList<MoveTarget> keys_ = allKeys();
+        int len_ = keys_.size();
+        AbsMap<MoveTarget,String> map_ = new MoveTargetsString();
+        for (int i = 0; i < len_; i++) {
+            MoveTarget k_ = keys_.get(i);
+            if (!simulation.getGame().getFight().getAllyChoice().contains(k_)) {
+                map_.addEntry(k_,k_.display());
+            }
+        }
+        if (!map_.isEmpty()) {
+            IntBeanChgMoveTarget key_ = getBuilder().getGenInput().newMt(map_);
+            IntBeanChgMoveTarget value_ = getBuilder().getGenInput().newMt(valuesMap_);
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<MoveTarget,MoveTarget>(simulation.getGame().getFight().getAllyChoice(),key_,value_));
+            getBuilder().nextPart();
+        }
+        feedParents();
+    }
+    private CustList<MoveTarget> allKeys() {
+        CustList<MoveTarget> mt_ = new CustList<MoveTarget>();
+        noMoveCase(mt_);
+        for (EntryCust<String, MoveData> m: getDataBase().getMoves().entryList()) {
+            for (TargetCoords t: targets(true)) {
+                mt_.add(new MoveTarget(m.getKey(),t));
+            }
+        }
+        return mt_;
+    }
+    private CustList<MoveTarget> allValues() {
+        CustList<MoveTarget> mt_ = new CustList<MoveTarget>();
+        noMoveCase(mt_);
+        for (EntryCust<String, MoveData> m: getDataBase().getMoves().entryList()) {
+            for (TargetCoords t: targets(m.getValue().getTargetChoice().isWithChoice())) {
+                mt_.add(new MoveTarget(m.getKey(),t));
+            }
+        }
+        return mt_;
+    }
+
+    private void noMoveCase(CustList<MoveTarget> _mt) {
+        for (TargetCoords t: targets(false)) {
+            _mt.add(new MoveTarget(DataBase.EMPTY_STRING,t));
+        }
+    }
+
+    private CustList<TargetCoords> targets(boolean _valid) {
+        CustList<TargetCoords> t_ = new CustList<TargetCoords>();
+        if (!_valid) {
+            t_.add(TargetCoords.def());
+            return t_;
+        }
+        int mult_ = simulation.getGame().getFight().getMult();
+        t_.addAllElts(targetsTeam(Fight.CST_PLAYER,mult_));
+        t_.addAllElts(targetsTeam(Fight.CST_FOE,mult_));
+        return t_;
+    }
+    private static CustList<TargetCoords> targetsTeam(int _cst, int _mult) {
+        CustList<TargetCoords> ls_ = new CustList<TargetCoords>();
+        for (int i = 0; i < _mult; i++) {
+            ls_.add(new TargetCoords(_cst,i));
+        }
+        return ls_;
+    }
     public void validateFightCoreForm() {
         simulation.getGame().getFight().setNbFleeAttempt(nbFleeAttempt.valueLong());
         simulation.getGame().getFight().setNbRounds(nbRounds.valueLgInt());
