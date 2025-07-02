@@ -415,8 +415,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
         posit(simulation.getGame().getFight().getFirstPositPlayerFighters(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_PLAYER));
         posit(simulation.getGame().getFight().getFirstPositFoeFighters(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_FOE));
-        stillEnMoves(sorted());
-        enMoves(sortedAc());
+        stillEnMoves(sorted(),simulation.getGame().getFight().getStillEnabledMoves());
+        enMoves(sortedAc(),simulation.getGame().getFight().getEnabledMoves());
         usedItems(sortedUsedItems());
         evosChoices();
         allyChoices();
@@ -512,7 +512,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
-    private void stillEnMoves(AbsMap<String, BoolVal> _map) {
+    private void stillEnMoves(AbsMap<String, BoolVal> _map, StringMap<BoolVal> _info) {
         initPage();
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STILL_ENABLED_MOVES));
         initGrid();
@@ -523,14 +523,14 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             IntBeanChgBool chgPl_ = DifficultyBeanForm.check(getBuilder().getGenInput(), this, e.getValue());
             feedParentsCts();
             initLine();
-            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,BoolVal>(e,chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,BoolVal>(_info.getEntryByKey(e.getKey()),chgPl_));
             feedParentsCts();
         }
         feedParents();
         feedParents();
     }
 
-    private void enMoves(AbsMap<String, ActivityOfMove> _map) {
+    private void enMoves(AbsMap<String, ActivityOfMove> _map, StringMap<ActivityOfMove> _info) {
         initPage();
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES));
         initGrid();
@@ -543,7 +543,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().nextPart();
             feedParentsCts();
             initLine();
-            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,ActivityOfMove>(e,chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,ActivityOfMove>(_info.getEntryByKey(e.getKey()),chgPl_));
             feedParentsCts();
         }
         feedParents();
@@ -563,7 +563,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().nextPart();
             feedParentsCts();
             initLine();
-            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Long>(e,chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound().getEntryByKey(e.getKey()),chgPl_));
             feedParentsCts();
             initLine();
             getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),e.getKey()));
