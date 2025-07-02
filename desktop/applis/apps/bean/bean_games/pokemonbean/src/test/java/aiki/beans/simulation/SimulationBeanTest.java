@@ -1740,6 +1740,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq("0", editEditSelectedPlayerPkSimuStepsFirstPos5().getSeed().tryRet());
     }
     @Test
+    public void simuSteps5() {
+        assertEq("0", editEditSelectedPlayerPkSimuStepsCoreTeam().getSeed().tryRet());
+    }
+    @Test
     public void exit() {
         assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,quit());
     }

@@ -112,6 +112,12 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_USED_ITEMS_WHILE_ROUND="used_items_while_round";
     public static final String M_P_86_EVO_CHOICES="evo_choices";
     public static final String M_P_86_ALLY_CHOICES="ally_choices";
+    public static final String M_P_86_NB_KO_ROUND="nb_ko_round";
+    public static final String M_P_86_NB_KO_PREVIOUS_ROUND="nb_ko_previous_round";
+    public static final String M_P_86_SUCCESSFUL_MOVES_ROUND="successful_moves_round";
+    public static final String M_P_86_TITLE_FOE="title_foe";
+    public static final String M_P_86_TITLE_PLAYER="title_player";
+    public static final String M_P_86_TEAM_GENERALITY="team_generality";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -225,6 +231,12 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"used items while round");
         e_.add(M_P_86_EVO_CHOICES,"choices of moves and evolutions");
         e_.add(M_P_86_ALLY_CHOICES,"choices of ally moves");
+        e_.add(M_P_86_NB_KO_ROUND,"number of ko while the round");
+        e_.add(M_P_86_NB_KO_PREVIOUS_ROUND,"number of ko while the previous round");
+        e_.add(M_P_86_SUCCESSFUL_MOVES_ROUND,"successful moves while the round");
+        e_.add(M_P_86_TEAM_GENERALITY,"team generality");
+        e_.add(M_P_86_TITLE_FOE,"The foe team");
+        e_.add(M_P_86_TITLE_PLAYER,"The player team");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -338,6 +350,12 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"objets utilisés lors du tour");
         f_.add(M_P_86_EVO_CHOICES,"choix d'attaques et d'évolution");
         f_.add(M_P_86_ALLY_CHOICES,"choix d'attaques alliées");
+        f_.add(M_P_86_NB_KO_ROUND,"nombre de ko lors du tour");
+        f_.add(M_P_86_NB_KO_PREVIOUS_ROUND,"nombre de ko lors du tour précédent");
+        f_.add(M_P_86_SUCCESSFUL_MOVES_ROUND,"attaques réussies lors du tour");
+        f_.add(M_P_86_TEAM_GENERALITY,"généralité de l'équipe");
+        f_.add(M_P_86_TITLE_FOE,"L'équipe ennemie");
+        f_.add(M_P_86_TITLE_PLAYER,"L'équipe du joueur");
         return f_;
     }
 }

@@ -420,11 +420,28 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         usedItems(sortedUsedItems());
         evosChoices();
         allyChoices();
+        team(simulation.getGame().getFight().getUserTeam(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_TITLE_PLAYER));
+        team(simulation.getGame().getFight().getFoeTeam(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_TITLE_FOE));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_PREVIOUS_BUTTON)).addEvt(new SimulationBeanResetFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NEXT_BUTTON)).addEvt(new SimulationBeanStepFight(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISPLAY_COMMENTS)).addEvt(new SimulationBeanDisplayComments(this));
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_HIDE_COMMENTS)).addEvt(new SimulationBeanHideComments(this));
         new BeanDisplayList<String>(new BeanDisplayString()).display(this,comments);
+    }
+    private void team(Team _t, String _title) {
+        initPage();
+        setTitledBorder(_title);
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_TEAM_GENERALITY));
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NB_KO_ROUND);
+        IntBeanChgLong nbKoRound_ = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, _t.getNbKoRound());
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NB_KO_PREVIOUS_ROUND);
+        IntBeanChgLong nbKoPreviousRound_ = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, _t.getNbKoPreviousRound());
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SUCCESSFUL_MOVES_ROUND);
+        IntBeanChgStringList successfulMovesRound_ = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage()), _t.getSuccessfulMovesRound());
+        getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateTeamCoreForm(this,_t,nbKoRound_,nbKoPreviousRound_, successfulMovesRound_));
+        feedParents();
+        feedParents();
     }
     private IntMap<String> curUserListIndex(AbsMap<TeamPosition,String> _id) {
         return new ConverterToIntMapUtil<TeamPosition>().convert(_id);
@@ -599,7 +616,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
 
     private void allyChoices() {
         initPage();
-        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EVO_CHOICES));
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ALLY_CHOICES));
         initGrid();
         getBuilder().colCount(4);
         CustList<MoveTarget> values_ = allValues();
@@ -685,6 +702,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             ls_.add(new TargetCoords(_cst,i));
         }
         return ls_;
+    }
+    public void validateTeamCoreForm(Team _t, IntBeanChgLong _nbKo, IntBeanChgLong _nbKoPrevious, IntBeanChgStringList _successfulMovesRound) {
+        _t.setNbKoRound(_nbKo.valueLong());
+        _t.setNbKoPreviousRound(_nbKoPrevious.valueLong());
+        _t.setSuccessfulMovesRound(_successfulMovesRound.tryRet());
     }
     public void validateFightCoreForm() {
         simulation.getGame().getFight().setNbFleeAttempt(nbFleeAttempt.valueLong());

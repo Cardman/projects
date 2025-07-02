@@ -1758,6 +1758,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven2_), after_.getBuilder());
         return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, d_), after_.getBuilder());
     }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreTeam() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        assertEq("",new TeamPositionsString().def());
+        return (SimulationBean)transitSimu(new SimulationBeanValidateTeamCoreForm(simu_,simu_.getSimulation().getGame().getFight().getUserTeam(),new BeanChgLong(),new BeanChgLong(),new BeanChgStringList()), simu_.getBuilder());
+    }
+
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame db_ = db();
         StatusMoveData mv_ = Instances.newStatusMoveData();
