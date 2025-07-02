@@ -202,9 +202,9 @@ public final class DocumentCoreUtilTest extends EquallableSerialUtil {
     }
     @Test
     public void t28() {
-        IntMap<Ints> inSingle_ = new IntMap<Ints>();
+        IntMap<CustList<Integer>> inSingle_ = new IntMap<CustList<Integer>>();
         inSingle_.addEntry(1,Ints.newList(2));
-        IntMap<Ints> ls_ = saveMapByteListByte(inSingle_);
+        IntMap<CustList<Integer>> ls_ = saveMapByteListByte(inSingle_);
         assertEq(1,ls_.size());
         assertEq(1,ls_.getKey(0));
         assertEq(1,ls_.getValue(0).size());

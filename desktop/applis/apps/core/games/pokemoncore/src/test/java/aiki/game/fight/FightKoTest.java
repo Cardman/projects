@@ -2,7 +2,7 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.util.TeamPositionList;
-import code.util.core.BoolVal;
+import code.util.core.*;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -664,10 +664,10 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ZERO).getRemainingHp());
-        Ints list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0);
+        CustList<Integer> list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0);
         assertEq(2, list_.size());
-        assertTrue(list_.containsObj( 1));
-        assertTrue(list_.containsObj( 2));
+        assertTrue(NumberUtil.containsInt(list_, 1));
+        assertTrue(NumberUtil.containsInt(list_, 2));
         list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1);
         assertEq(0, list_.size());
         list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal(2);
@@ -698,7 +698,7 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Rate.zero(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_ONE).getRemainingHp());
         assertEq(Fighter.BACK, fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getGroundPlace());
         assertEq(Rate.zero(), fight_.getFighter(KEY_FOE, POKEMON_FIGHTER_TWO).getRemainingHp());
-        Ints list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0);
+        CustList<Integer> list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0);
         assertEq(0, list_.size());
         list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1);
         assertEq(0, list_.size());

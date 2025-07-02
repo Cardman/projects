@@ -13,9 +13,7 @@ import code.util.Ints;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
+import code.util.core.*;
 import org.junit.Test;
 
 public class TeamTest extends InitializationDataBase {
@@ -763,11 +761,11 @@ public class TeamTest extends InitializationDataBase {
         assertTrue(team_.getPlayerFightersAgainstFoe().contains( 1));
         assertEq(0, team_.getPlayerFightersAgainstFoe().getVal( 0).size());
         assertEq(1, team_.getPlayerFightersAgainstFoe().getVal( 1).size());
-        assertTrue(team_.getPlayerFightersAgainstFoe().getVal( 1).containsObj( 0));
+        assertTrue(NumberUtil.containsInt(team_.getPlayerFightersAgainstFoe().getVal( 1), 0));
         assertEq(2, team_.getPlayerFightersAgainstFoeSet().size());
         assertEq(0, team_.getPlayerFightersAgainstFoeVal( 0).size());
         assertEq(1, team_.getPlayerFightersAgainstFoeVal( 1).size());
-        assertTrue(team_.getPlayerFightersAgainstFoeVal( 1).containsObj( 0));
+        assertTrue(NumberUtil.containsInt(team_.getPlayerFightersAgainstFoeVal( 1), 0));
     }
 
     @Test

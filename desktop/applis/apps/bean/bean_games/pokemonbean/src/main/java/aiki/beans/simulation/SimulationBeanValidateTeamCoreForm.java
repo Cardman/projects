@@ -8,9 +8,9 @@ public final class SimulationBeanValidateTeamCoreForm implements IntBeanAction {
     private final Team team;
     private final IntBeanChgLong nbKo;
     private final IntBeanChgLong nbKoPrevious;
-    private final IntBeanChgStringList successfulMovesRound;
+    private final IntBeanChgList<String> successfulMovesRound;
 
-    public SimulationBeanValidateTeamCoreForm(SimulationBean _b, Team _t, IntBeanChgLong _k, IntBeanChgLong _p, IntBeanChgStringList _s) {
+    public SimulationBeanValidateTeamCoreForm(SimulationBean _b, Team _t, IntBeanChgLong _k, IntBeanChgLong _p, IntBeanChgList<String> _s) {
         bean = _b;
         team = _t;
         nbKo = _k;

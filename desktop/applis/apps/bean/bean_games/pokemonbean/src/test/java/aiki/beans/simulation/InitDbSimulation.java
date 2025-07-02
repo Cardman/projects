@@ -1762,8 +1762,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreTeam() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         assertEq("",new TeamPositionsString().def());
-        return (SimulationBean)transitSimu(new SimulationBeanValidateTeamCoreForm(simu_,simu_.getSimulation().getGame().getFight().getUserTeam(),new BeanChgLong(),new BeanChgLong(),new BeanChgStringList()), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanValidateTeamCoreForm(simu_,simu_.getSimulation().getGame().getFight().getUserTeam(),new BeanChgLong(),new BeanChgLong(),new BeanChgList<String>()), simu_.getBuilder());
     }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam1() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<Integer,CustList<Integer>>(new EntryCust<Integer,CustList<Integer>>(0,new CustList<Integer>()),new BeanChgList<Integer>()), simu_.getBuilder());
+    }
+
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame db_ = db();

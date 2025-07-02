@@ -262,7 +262,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         tmp_.setFacade(f_);
         w2_.setBuilder(tmp_);
         tmp_.getGenInput().newLgInt().valueLgInt(tmp_.getGenInput().newLgInt().valueLgInt());
-        tmp_.getGenInput().newStringList(new StringMap<String>()).setupValue(tmp_.getGenInput().newStringList(new StringMap<String>()).tryRet());
+//        tmp_.getGenInput().newStringList(new StringMap<String>()).setupValue(tmp_.getGenInput().newStringList(new StringMap<String>()).tryRet());
         Translations trs_ = new Translations();
         TranslationsLg en_ = new TranslationsLg();
         en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.enData());

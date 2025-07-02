@@ -131,7 +131,7 @@ public abstract class EquallableSerialUtil {
         return DocumentReaderCoreUtil.getMapByteByte(DocumentWriterCoreUtil.setMapByteByte(_i,"_",f_));
     }
 
-    public static IntMap<Ints> saveMapByteListByte(IntMap<Ints> _i) {
+    public static IntMap<CustList<Integer>> saveMapByteListByte(IntMap<CustList<Integer>> _i) {
         FullDocument f_ = DocumentBuilder.newDocumentBuilder().newDocument();
         return DocumentReaderCoreUtil.getMapByteListByte(DocumentWriterCoreUtil.setMapByteListByte(_i,"_",f_));
     }

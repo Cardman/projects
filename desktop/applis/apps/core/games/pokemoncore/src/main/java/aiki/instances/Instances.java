@@ -1145,7 +1145,7 @@ public final class Instances {
         object_.setHealAfter(new StringMap<IntMap<StacksOfUses>>(cap_));
         object_.setMovesAnticipation(new StringMap<IntMap<Anticipation>>(cap_));
         object_.setMembers(new IntMap<Fighter>(cap_));
-        object_.setPlayerFightersAgainstFoe(new IntMap<Ints>(cap_));
+        object_.setPlayerFightersAgainstFoe(new IntMap<CustList<Integer>>(cap_));
         object_.setSuccessfulMovesRound(new StringList(cap_));
         return object_;
     }

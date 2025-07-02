@@ -109,7 +109,7 @@ public final class DocumentWriterCoreUtil {
 //        return elt_;
 //    }
 
-    public static Element setListInteger(Ints _object, String _fieldName, Document _document) {
+    public static Element setListInteger(CustList<Integer> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (int s: _object) {
@@ -250,10 +250,10 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setMapByteListByte(IntMap<Ints> _object, String _fieldName, Document _document) {
+    public static Element setMapByteListByte(IntMap<CustList<Integer>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
-        for (EntryCust<Integer,Ints> s: _object.entryList()) {
+        for (EntryCust<Integer,CustList<Integer>> s: _object.entryList()) {
             Element sub_ = setInteger(s.getKey(), ES, _document);
             setKey(sub_);
             elt_.appendChild(sub_);

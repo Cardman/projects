@@ -133,8 +133,15 @@ public final class DifficultyBeanForm {
         return sel_;
     }
 
-    public static IntBeanChgStringList selectLs(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<String,String> _map, StringList _v) {
-        IntBeanChgStringList sel_ = _genInput.newStringList(_map);
+    public static IntBeanChgList<String> selectLs(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<String,String> _map, CustList<String> _v) {
+        IntBeanChgList<String> sel_ = _genInput.newStringList(_map);
+        sel_.setupValue(_v);
+        _rend.getBuilder().nextPart();
+        return sel_;
+    }
+
+    public static IntBeanChgList<Integer> selectLsInts(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<Integer,String> _map, CustList<Integer> _v) {
+        IntBeanChgList<Integer> sel_ = _genInput.newInts(_map);
         sel_.setupValue(_v);
         _rend.getBuilder().nextPart();
         return sel_;

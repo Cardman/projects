@@ -56,7 +56,7 @@ public final class Team {
     private IntMap<Fighter> members;
 
     /***/
-    private IntMap<Ints> playerFightersAgainstFoe;
+    private IntMap<CustList<Integer>> playerFightersAgainstFoe;
 
     /***/
     private long nbKoRound;
@@ -133,7 +133,7 @@ public final class Team {
                                int _maxNumberFrontFighters,
                                int _mult,
             DataBase _import, CustList<PkTrainer> _team) {
-        playerFightersAgainstFoe = new IntMap<Ints>();
+        playerFightersAgainstFoe = new IntMap<CustList<Integer>>();
         int nbPks_= _utilisateur.getTeam().size();
         int i_= IndexConstants.FIRST_INDEX;
         int max_ = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -149,7 +149,7 @@ public final class Team {
             creatureCbt_.initHp();
             max_ = i;
             members.put(i,creatureCbt_);
-            playerFightersAgainstFoe.put(i,new Ints());
+            playerFightersAgainstFoe.put(i,new CustList<Integer>());
         }
         nbPks_= _team.size();
         i_= IndexConstants.FIRST_INDEX;
@@ -197,7 +197,7 @@ public final class Team {
     }
 
     void initPokemonSauvage(Player _utilisateur, Difficulty _diff, CustList<WildPk> _pokemon, DataBase _import){
-        playerFightersAgainstFoe = new IntMap<Ints>();
+        playerFightersAgainstFoe = new IntMap<CustList<Integer>>();
         for (WildPk w: _pokemon) {
             int s_ = members.size();
             Fighter creatureCbt_= new Fighter(w,_import, s_);
@@ -214,7 +214,7 @@ public final class Team {
     }
 
     void initEquipeAdversaire(Player _utilisateur,CustList<PkTrainer> _equipe,Difficulty _diff, int _multiplicite,DataBase _import){
-        playerFightersAgainstFoe = new IntMap<Ints>();
+        playerFightersAgainstFoe = new IntMap<CustList<Integer>>();
         int nbPks_=_equipe.size();
         int back_ = Fighter.BACK;
         for(int i = IndexConstants.FIRST_INDEX; i<nbPks_; i++){
@@ -544,8 +544,11 @@ public final class Team {
     }
 
     void ajouterCombattantsContreAdv(int _membre,int _adv){
-        playerFightersAgainstFoe.getVal(_membre).add(_adv);
-        playerFightersAgainstFoe.getVal(_membre).removeDuplicates();
+        EntryCust<Integer, CustList<Integer>> e_ = playerFightersAgainstFoe.getEntryByKey(_membre);
+        Ints tmp_ = new Ints(e_.getValue());
+        tmp_.add(_adv);
+        tmp_.removeDuplicates();
+        e_.setValue(tmp_);
     }
 
     void toutSupprimerCombattantsContreAdvMembre(int _membre){
@@ -553,8 +556,10 @@ public final class Team {
     }
 
     void toutSupprimerCombattantsContreAdv(int _adv){
-        for(int c:playerFightersAgainstFoe.getKeys()){
-            playerFightersAgainstFoe.getVal(c).removeOneNumber(_adv);
+        for(EntryCust<Integer, CustList<Integer>> c:playerFightersAgainstFoe.entryList()){
+            Ints tmp_ = new Ints(c.getValue());
+            tmp_.removeOneNumber(_adv);
+            c.setValue(tmp_);
         }
     }
 
@@ -945,19 +950,19 @@ public final class Team {
         return playerFightersAgainstFoe.getKeys();
     }
 
-    public Ints getPlayerFightersAgainstFoeVal(int _key) {
+    public CustList<Integer> getPlayerFightersAgainstFoeVal(int _key) {
         return playerFightersAgainstFoe.getVal(_key);
     }
 
     public boolean playerFightersAgainstFoeHas(int _key, int _value) {
-        return playerFightersAgainstFoe.getVal(_key).containsObj(_value);
+        return NumberUtil.containsInt(playerFightersAgainstFoe.getVal(_key),_value);
     }
 
-    public IntMap<Ints> getPlayerFightersAgainstFoe() {
+    public IntMap<CustList<Integer>> getPlayerFightersAgainstFoe() {
         return playerFightersAgainstFoe;
     }
 
-    public void setPlayerFightersAgainstFoe(IntMap<Ints> _playerFightersAgainstFoe) {
+    public void setPlayerFightersAgainstFoe(IntMap<CustList<Integer>> _playerFightersAgainstFoe) {
         playerFightersAgainstFoe = _playerFightersAgainstFoe;
     }
 

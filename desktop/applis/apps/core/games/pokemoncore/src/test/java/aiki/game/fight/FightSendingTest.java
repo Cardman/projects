@@ -2,8 +2,7 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
-import code.util.core.BoolVal;
-import code.util.core.StringUtil;
+import code.util.core.*;
 import org.junit.Test;
 
 import aiki.fight.abilities.AbilityData;
@@ -752,8 +751,8 @@ public class FightSendingTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, data_);
         FightSending.sendBegin(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ONE), data_);
         assertEq(2, fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1).size());
-        assertTrue(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1).containsObj( 0));
-        assertTrue(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1), 0));
+        assertTrue(NumberUtil.containsInt(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1), 1));
     }
 
     @Test
@@ -799,9 +798,9 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, fight_.getFoeTeam().getPlayerFightersAgainstFoe().size());
         assertEq(2, fight_.getUserTeam().getPlayerFightersAgainstFoe().size());
         assertEq(1, fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0).size());
-        assertTrue(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 0),1));
         assertEq(1, fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1).size());
-        assertTrue(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal( 1), 1));
     }
 
     @Test
@@ -1447,10 +1446,10 @@ public class FightSendingTest extends InitializationDataBase {
         TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_TWO);
         FightSending.addFighterAgainstFoeTeam(fight_, fighter_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<CustList<Integer>> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal( 2).size());
-        assertTrue(map_.getVal( 2).containsObj( 0));
-        assertTrue(map_.getVal( 2).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(map_.getVal(2),0));
+        assertTrue(NumberUtil.containsInt(map_.getVal(2),1));
     }
 
     @Test
@@ -1463,11 +1462,11 @@ public class FightSendingTest extends InitializationDataBase {
         TeamPosition fighter_ = tp(KEY_PLAYER, POKEMON_FIGHTER_FOUR);
         FightSending.addFighterAgainstFoeTeam(fight_, fighter_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<CustList<Integer>> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
         assertEq(2, map_.getVal( 0).size());
-        assertTrue(map_.getVal( 0).containsObj( 0));
-        assertTrue(map_.getVal( 0).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(map_.getVal(0),0));
+        assertTrue(NumberUtil.containsInt(map_.getVal(0),1));
         assertEq(0, map_.getVal( 1).size());
         assertEq(0, map_.getVal( 2).size());
     }
@@ -1482,17 +1481,17 @@ public class FightSendingTest extends InitializationDataBase {
         TeamPosition fighter_ = tp(KEY_FOE, POKEMON_FIGHTER_TWO);
         FightSending.addFighterAgainstFoeTeam(fight_, fighter_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<CustList<Integer>> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(3, map_.size());
-        assertTrue(map_.getVal( 0).containsObj( 0));
-        assertTrue(map_.getVal( 0).containsObj( 1));
-        assertTrue(map_.getVal( 0).containsObj( 2));
-        assertTrue(!map_.getVal( 1).containsObj( 0));
-        assertTrue(!map_.getVal( 1).containsObj( 1));
-        assertTrue(!map_.getVal( 1).containsObj( 2));
-        assertTrue(!map_.getVal( 2).containsObj( 0));
-        assertTrue(!map_.getVal( 2).containsObj( 1));
-        assertTrue(!map_.getVal( 2).containsObj( 2));
+        assertTrue(NumberUtil.containsInt(map_.getVal(0),0));
+        assertTrue(NumberUtil.containsInt(map_.getVal(0),1));
+        assertTrue(NumberUtil.containsInt(map_.getVal(0),2));
+        assertTrue(!NumberUtil.containsInt(map_.getVal(1),0));
+        assertTrue(!NumberUtil.containsInt(map_.getVal(1),1));
+        assertTrue(!NumberUtil.containsInt(map_.getVal(1),2));
+        assertTrue(!NumberUtil.containsInt(map_.getVal(2),0));
+        assertTrue(!NumberUtil.containsInt(map_.getVal(2),1));
+        assertTrue(!NumberUtil.containsInt(map_.getVal(2),2));
     }
 
     @Test
@@ -2442,10 +2441,10 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         FightSending.sending(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<CustList<Integer>> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal( 1).size());
-        assertTrue(map_.getVal( 1).containsObj( 0));
-        assertTrue(map_.getVal( 1).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),0));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),1));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICS_TOXIK));
         assertEq(1, fighter_.getStatusNbRound(POISON_ST));
         assertEq(new Rate("3"), fighter_.getWeight());
@@ -2474,10 +2473,10 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.withdrawal(fight_,tp(KEY_PLAYER, POKEMON_FIGHTER_ZERO),data_);
         FightSending.sending(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<CustList<Integer>> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal( 1).size());
-        assertTrue(map_.getVal( 1).containsObj( 0));
-        assertTrue(map_.getVal( 1).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),0));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),1));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICS_TOXIK));
@@ -2502,10 +2501,10 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         FightSending.sending(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<CustList<Integer>> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal( 1).size());
-        assertTrue(map_.getVal( 1).containsObj( 0));
-        assertTrue(map_.getVal( 1).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),0));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),1));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICS_TOXIK));
         assertEq(1, fighter_.getStatusNbRound(POISON_ST));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
@@ -2531,10 +2530,10 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICS_TOXIK);
         FightSending.sending(fight_, thrower_, diff_, data_);
         Team userTeam_ = fight_.getUserTeam();
-        IntMap<Ints> map_ = userTeam_.getPlayerFightersAgainstFoe();
+        IntMap<CustList<Integer>> map_ = userTeam_.getPlayerFightersAgainstFoe();
         assertEq(2, map_.getVal( 1).size());
-        assertTrue(map_.getVal( 1).containsObj( 0));
-        assertTrue(map_.getVal( 1).containsObj( 1));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),0));
+        assertTrue(NumberUtil.containsInt(map_.getVal(1),1));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICS_TOXIK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));

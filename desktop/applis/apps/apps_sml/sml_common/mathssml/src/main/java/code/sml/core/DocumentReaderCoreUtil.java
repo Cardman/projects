@@ -284,13 +284,13 @@ public final class DocumentReaderCoreUtil {
         }
         return map_;
     }
-    public static IntMap<Ints> getMapByteListByte(Element _elt) {
+    public static IntMap<CustList<Integer>> getMapByteListByte(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        IntMap<Ints> map_ = new IntMap<Ints>(cap_);
+        IntMap<CustList<Integer>> map_ = new IntMap<CustList<Integer>>(cap_);
         Ints keys_ = new Ints(cap_);
-        CustList<Ints> values_ = new CustList<Ints>(cap_);
+        CustList<CustList<Integer>> values_ = new CustList<CustList<Integer>>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getInteger(c));

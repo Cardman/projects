@@ -102,7 +102,7 @@ public final class NumberUtil {
         return true;
     }
 
-    private static boolean containsInt(Listable<Integer> _list1, Integer _c) {
+    public static boolean containsInt(Listable<Integer> _list1, Integer _c) {
         boolean contains_ = false;
         for (Integer d: _list1) {
             if (eq(_c, d)) {

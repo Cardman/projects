@@ -61,12 +61,23 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
     }
 
     @Override
-    public IntBeanChgStringList newStringList(AbsMap<String, String> _map) {
+    public IntBeanChgList<String> newStringList(AbsMap<String, String> _map) {
         GeneComponentModelLs<String> sel_ = new GeneComponentModelLs<String>(api, _map);
         AbsCustComponent ch_ = sel_.geneCommon(new CustList<String>());
         sel_.getSelect().setVisibleRowCount(8);
         sel_.getSelect().applyRows();
-        DefBeanChgStringList chg_ = new DefBeanChgStringList(sel_);
+        DefBeanChgList<String> chg_ = new DefBeanChgList<String>(sel_);
+        helper.feedParent(ch_);
+        return chg_;
+    }
+
+    @Override
+    public IntBeanChgList<Integer> newInts(AbsMap<Integer, String> _map) {
+        GeneComponentModelLs<Integer> sel_ = new GeneComponentModelLs<Integer>(api, _map);
+        AbsCustComponent ch_ = sel_.geneCommon(new CustList<Integer>());
+        sel_.getSelect().setVisibleRowCount(8);
+        sel_.getSelect().applyRows();
+        DefBeanChgList<Integer> chg_ = new DefBeanChgList<Integer>(sel_);
         helper.feedParent(ch_);
         return chg_;
     }
