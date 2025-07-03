@@ -13,8 +13,7 @@ import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.game.*;
 import aiki.beans.moves.MovesBean;
-import aiki.comparators.DictionaryComparator;
-import aiki.comparators.DictionaryComparatorUtil;
+import aiki.comparators.*;
 import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.enums.Statistic;
@@ -470,26 +469,26 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntMap<String> fightStateListIndex(AbsMap<FightState,String> _id) {
         return new ConverterToIntMapUtil<FightState>().convert(_id);
     }
-    private NatStringTreeMap<BoolVal> sorted() {
-        NatStringTreeMap<BoolVal> o_ = new NatStringTreeMap<BoolVal>();
+    private DictionaryComparator<TranslatedKey,BoolVal> sorted() {
+        DictionaryComparator<TranslatedKey,BoolVal> o_ = new DictionaryComparator<TranslatedKey, BoolVal>(new ComparingTranslatedKey());
         for (EntryCust<String,BoolVal> e:simulation.getGame().getFight().getStillEnabledMoves().entryList()) {
-            o_.put(getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(e.getKey()),e.getValue());
+            o_.put(buildMv(getFacade(),e.getKey()),e.getValue());
         }
         return o_;
     }
 
-    private NatStringTreeMap<ActivityOfMove> sortedAc() {
-        NatStringTreeMap<ActivityOfMove> o_ = new NatStringTreeMap<ActivityOfMove>();
+    private DictionaryComparator<TranslatedKey,ActivityOfMove> sortedAc() {
+        DictionaryComparator<TranslatedKey,ActivityOfMove> o_ = new DictionaryComparator<TranslatedKey, ActivityOfMove>(new ComparingTranslatedKey());
         for (EntryCust<String,ActivityOfMove> e:simulation.getGame().getFight().getEnabledMoves().entryList()) {
-            o_.put(getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(e.getKey()),e.getValue());
+            o_.put(buildMv(getFacade(),e.getKey()),e.getValue());
         }
         return o_;
     }
 
-    private NatStringTreeMap<Long> sortedUsedItems() {
-        NatStringTreeMap<Long> o_ = new NatStringTreeMap<Long>();
+    private DictionaryComparator<TranslatedKey,Long> sortedUsedItems() {
+        DictionaryComparator<TranslatedKey,Long> o_ = new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
         for (EntryCust<String, Long> e:simulation.getGame().getFight().getUsedItemsWhileRound().entryList()) {
-            o_.put(getDataBase().getTranslatedItems().getVal(getLanguage()).getVal(e.getKey()),e.getValue());
+            o_.put(buildIt(getFacade(),e.getKey()),e.getValue());
         }
         return o_;
     }
@@ -512,61 +511,61 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
-    private void stillEnMoves(AbsMap<String, BoolVal> _map, StringMap<BoolVal> _info) {
+    private void stillEnMoves(AbsMap<TranslatedKey, BoolVal> _map, StringMap<BoolVal> _info) {
         initPage();
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STILL_ENABLED_MOVES));
         initGrid();
         getBuilder().colCount(3);
-        for (EntryCust<String,BoolVal> e: _map.entryList()) {
-            formatMessageDirCts(e.getKey());
+        for (EntryCust<TranslatedKey,BoolVal> e: _map.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
             initLine();
             IntBeanChgBool chgPl_ = DifficultyBeanForm.check(getBuilder().getGenInput(), this, e.getValue());
             feedParentsCts();
             initLine();
-            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,BoolVal>(_info.getEntryByKey(e.getKey()),chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,BoolVal>(_info.getEntryByKey(e.getKey().getKey()),chgPl_));
             feedParentsCts();
         }
         feedParents();
         feedParents();
     }
 
-    private void enMoves(AbsMap<String, ActivityOfMove> _map, StringMap<ActivityOfMove> _info) {
+    private void enMoves(AbsMap<TranslatedKey, ActivityOfMove> _map, StringMap<ActivityOfMove> _info) {
         initPage();
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES));
         initGrid();
         getBuilder().colCount(3);
-        for (EntryCust<String,ActivityOfMove> e: _map.entryList()) {
-            formatMessageDirCts(e.getKey());
+        for (EntryCust<TranslatedKey,ActivityOfMove> e: _map.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
             initLine();
             IntBeanChgActivityOfMove chgPl_ = getBuilder().getGenInput().newAc();
             chgPl_.valueActivity(e.getValue());
             getBuilder().nextPart();
             feedParentsCts();
             initLine();
-            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,ActivityOfMove>(_info.getEntryByKey(e.getKey()),chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,ActivityOfMove>(_info.getEntryByKey(e.getKey().getKey()),chgPl_));
             feedParentsCts();
         }
         feedParents();
         feedParents();
     }
 
-    private void usedItems(AbsMap<String, Long> _map) {
+    private void usedItems(AbsMap<TranslatedKey, Long> _map) {
         initPage();
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_USED_ITEMS_WHILE_ROUND));
         initGrid();
         getBuilder().colCount(4);
-        for (EntryCust<String,Long> e: _map.entryList()) {
-            formatMessageDirCts(e.getKey());
+        for (EntryCust<TranslatedKey,Long> e: _map.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
             initLine();
             IntBeanChgLong chgPl_ = getBuilder().getGenInput().newLong();
             chgPl_.valueLong(e.getValue());
             getBuilder().nextPart();
             feedParentsCts();
             initLine();
-            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound().getEntryByKey(e.getKey()),chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound().getEntryByKey(e.getKey().getKey()),chgPl_));
             feedParentsCts();
             initLine();
-            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),e.getKey()));
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),e.getKey().getKey()));
             feedParentsCts();
         }
         int len_ = simulation.getGame().getFight().getUsedItemsWhileRound().size();
