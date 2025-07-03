@@ -1,8 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
-import aiki.beans.facade.comparators.ComparatorMoves;
-import aiki.beans.facade.comparators.ComparatorRadioLineMoves;
+import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.dto.KeptMovesAfterFight;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
@@ -11,6 +10,7 @@ import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.beans.fight.*;
 import aiki.beans.game.*;
 import aiki.beans.moves.MovesBean;
 import aiki.comparators.*;
@@ -460,8 +460,32 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         IntBeanChgList<String> successfulMovesRound_ = DifficultyBeanForm.selectLs(getBuilder().getGenInput(), this, DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage()), _t.getSuccessfulMovesRound());
         getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateTeamCoreForm(this,_t,nbKoRound_,nbKoPreviousRound_, successfulMovesRound_));
         feedParents();
+        group(_t);
         feedParents();
     }
+
+    private void group(Team _t) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ENBALED_MOVES_GROUPS));
+        ListActivityOfMoves gr_ = _t.getEnabledMovesByGroup();
+        initGrid();
+        getBuilder().colCount(3);
+        int len_ = gr_.size();
+        for (int i = 0; i < len_; i++) {
+            formatMessageDirCts(StringUtil.join(gr_.get(i).getList(), CommonFightBean.MOVES_SEPARATOR));
+            initLine();
+            IntBeanChgActivityOfMove chgPl_ = getBuilder().getGenInput().newAc();
+            chgPl_.valueActivity(gr_.get(i).getCombo());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateValue(gr_,i,chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
     private IntMap<String> curUserListIndex(AbsMap<TeamPosition,String> _id) {
         return new ConverterToIntMapUtil<TeamPosition>().convert(_id);
     }
@@ -568,8 +592,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),e.getKey().getKey()));
             feedParentsCts();
         }
-        int len_ = simulation.getGame().getFight().getUsedItemsWhileRound().size();
         feedParents();
+        int len_ = simulation.getGame().getFight().getUsedItemsWhileRound().size();
         DictionaryComparator<String, String> map_ = DictionaryComparatorUtil.buildItemsStr(getDataBase(), getLanguage());
         StringMap<String> fill_ = new StringMap<String>();
         fill_.putAllMap(getDataBase().getTranslatedItems().getVal(getLanguage()));

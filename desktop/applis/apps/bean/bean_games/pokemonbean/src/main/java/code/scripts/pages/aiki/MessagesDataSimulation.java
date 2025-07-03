@@ -119,6 +119,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_TITLE_PLAYER="title_player";
     public static final String M_P_86_TEAM_GENERALITY="team_generality";
     public static final String M_P_86_PLAYER_FOE="player_foe";
+    public static final String M_P_86_ENBALED_MOVES_GROUPS="enbaled_moves_groups";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -239,6 +240,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_TITLE_FOE,"The foe team");
         e_.add(M_P_86_TITLE_PLAYER,"The player team");
         e_.add(M_P_86_PLAYER_FOE,"Here is for each of your fighters, the foe fighters:");
+        e_.add(M_P_86_ENBALED_MOVES_GROUPS,"Here is the activity of the effects of following groups of moves used by the team:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -359,6 +361,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_TITLE_FOE,"L'équipe ennemie");
         f_.add(M_P_86_TITLE_PLAYER,"L'équipe du joueur");
         f_.add(M_P_86_PLAYER_FOE,"Voici pour chacun de vos combattants, les combattants ennemis:");
+        f_.add(M_P_86_ENBALED_MOVES_GROUPS,"Voici l'activité des effets des groupes d'attaques suivants utilisées par l'équipe:");
         return f_;
     }
 }

@@ -1770,6 +1770,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<Integer,CustList<Integer>>(new EntryCust<Integer,CustList<Integer>>(0,new CustList<Integer>()),new BeanChgList<Integer>()), simu_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam2() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateValue(simu_.getSimulation().getGame().getFight().getUserTeam().getEnabledMovesByGroup(),0,new BeanChgActivityOfMove()), simu_.getBuilder());
+    }
+
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame db_ = db();
@@ -1779,6 +1784,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         mv_.getEffects().add(eff_);
         db_.getData().completeMembers(M_POK_07,mv_);
         db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().getCombos().getEffects().add(new ListEffectCombo(new StringList(M_POK_07),Instances.newEffectCombo()));
         FacadeGame pk_ = pkDataByFacade(db_);
         CommonBean simu_ = simBean2(2, pk_);
         foeTeamsSample(simu_);
