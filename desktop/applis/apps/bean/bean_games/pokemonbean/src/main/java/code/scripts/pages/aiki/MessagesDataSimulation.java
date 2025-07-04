@@ -120,6 +120,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_TEAM_GENERALITY="team_generality";
     public static final String M_P_86_PLAYER_FOE="player_foe";
     public static final String M_P_86_ENBALED_MOVES_GROUPS="enbaled_moves_groups";
+    public static final String M_P_86_TEAM_ENABLED_MOVES ="team_enabled_moves";
+    public static final String M_P_86_ENBALED_MOVES_SEND ="enbaled_moves_send";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -241,6 +243,8 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_TITLE_PLAYER,"The player team");
         e_.add(M_P_86_PLAYER_FOE,"Here is for each of your fighters, the foe fighters:");
         e_.add(M_P_86_ENBALED_MOVES_GROUPS,"Here is the activity of the effects of following groups of moves used by the team:");
+        e_.add(M_P_86_TEAM_ENABLED_MOVES,"Here is the activity of the effects of the following moves on the team:");
+        e_.add(M_P_86_ENBALED_MOVES_SEND,"Here is the uses of the moves by the team while sending a foe pokemon at the front battle:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -362,6 +366,8 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_TITLE_PLAYER,"L'équipe du joueur");
         f_.add(M_P_86_PLAYER_FOE,"Voici pour chacun de vos combattants, les combattants ennemis:");
         f_.add(M_P_86_ENBALED_MOVES_GROUPS,"Voici l'activité des effets des groupes d'attaques suivants utilisées par l'équipe:");
+        f_.add(M_P_86_TEAM_ENABLED_MOVES,"Voici l'activité des effets des attaques suivantes sur l'équipe:");
+        f_.add(M_P_86_ENBALED_MOVES_SEND,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
         return f_;
     }
 }

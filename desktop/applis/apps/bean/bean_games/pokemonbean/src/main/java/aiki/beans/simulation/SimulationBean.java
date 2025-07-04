@@ -414,8 +414,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
         posit(simulation.getGame().getFight().getFirstPositPlayerFighters(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_PLAYER));
         posit(simulation.getGame().getFight().getFirstPositFoeFighters(), messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIRST_POSIT_FOE));
-        stillEnMoves(sorted(),simulation.getGame().getFight().getStillEnabledMoves());
-        enMoves(sortedAc(),simulation.getGame().getFight().getEnabledMoves());
+        stillEnMoves(sorted(simulation.getGame().getFight().getStillEnabledMoves()),simulation.getGame().getFight().getStillEnabledMoves(), MessagesDataSimulation.M_P_86_FIGHT_STILL_ENABLED_MOVES);
+        enMoves(sortedAc(simulation.getGame().getFight().getEnabledMoves()),simulation.getGame().getFight().getEnabledMoves(), MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES);
         usedItems(sortedUsedItems());
         evosChoices();
         allyChoices();
@@ -461,6 +461,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getBuilder().button(CONFIRM).addEvt(new SimulationBeanValidateTeamCoreForm(this,_t,nbKoRound_,nbKoPreviousRound_, successfulMovesRound_));
         feedParents();
         group(_t);
+        enMoves(sortedAc(_t.getEnabledMoves()),_t.getEnabledMoves(), MessagesDataSimulation.M_P_86_TEAM_ENABLED_MOVES);
+        stillEnMoves(sorted(_t.getEnabledMovesWhileSendingFoe()), _t.getEnabledMovesWhileSendingFoe(), MessagesDataSimulation.M_P_86_ENBALED_MOVES_SEND);
         feedParents();
     }
 
@@ -503,17 +505,17 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private IntMap<String> fightStateListIndex(AbsMap<FightState,String> _id) {
         return new ConverterToIntMapUtil<FightState>().convert(_id);
     }
-    private DictionaryComparator<TranslatedKey,BoolVal> sorted() {
+    private DictionaryComparator<TranslatedKey,BoolVal> sorted(StringMap<BoolVal> _from) {
         DictionaryComparator<TranslatedKey,BoolVal> o_ = new DictionaryComparator<TranslatedKey, BoolVal>(new ComparingTranslatedKey());
-        for (EntryCust<String,BoolVal> e:simulation.getGame().getFight().getStillEnabledMoves().entryList()) {
+        for (EntryCust<String,BoolVal> e: _from.entryList()) {
             o_.put(buildMv(getFacade(),e.getKey()),e.getValue());
         }
         return o_;
     }
 
-    private DictionaryComparator<TranslatedKey,ActivityOfMove> sortedAc() {
+    private DictionaryComparator<TranslatedKey,ActivityOfMove> sortedAc(StringMap<ActivityOfMove> _from) {
         DictionaryComparator<TranslatedKey,ActivityOfMove> o_ = new DictionaryComparator<TranslatedKey, ActivityOfMove>(new ComparingTranslatedKey());
-        for (EntryCust<String,ActivityOfMove> e:simulation.getGame().getFight().getEnabledMoves().entryList()) {
+        for (EntryCust<String,ActivityOfMove> e: _from.entryList()) {
             o_.put(buildMv(getFacade(),e.getKey()),e.getValue());
         }
         return o_;
@@ -545,9 +547,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
-    private void stillEnMoves(AbsMap<TranslatedKey, BoolVal> _map, StringMap<BoolVal> _info) {
+    private void stillEnMoves(AbsMap<TranslatedKey, BoolVal> _map, StringMap<BoolVal> _info, String _key) {
         initPage();
-        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_STILL_ENABLED_MOVES));
+        setTitledBorder(messageRend(MessagesPkBean.SIMU, _key));
         initGrid();
         getBuilder().colCount(3);
         for (EntryCust<TranslatedKey,BoolVal> e: _map.entryList()) {
@@ -563,9 +565,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
-    private void enMoves(AbsMap<TranslatedKey, ActivityOfMove> _map, StringMap<ActivityOfMove> _info) {
+    private void enMoves(AbsMap<TranslatedKey, ActivityOfMove> _map, StringMap<ActivityOfMove> _info, String _key) {
         initPage();
-        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_FIGHT_ENABLED_MOVES));
+        setTitledBorder(messageRend(MessagesPkBean.SIMU, _key));
         initGrid();
         getBuilder().colCount(3);
         for (EntryCust<TranslatedKey,ActivityOfMove> e: _map.entryList()) {
