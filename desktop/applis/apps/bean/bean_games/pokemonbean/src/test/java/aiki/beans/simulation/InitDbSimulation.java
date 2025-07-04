@@ -1772,7 +1772,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam2() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimu(new SimulationBeanUpdateValue(simu_.getSimulation().getGame().getFight().getUserTeam().getEnabledMovesByGroup(),0,new BeanChgActivityOfMove()), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateValue(simu_.getSimulation().getGame().getFight().getUserTeam().getEnabledMovesByGroup(),new StringList(M_POK_07),new BeanChgActivityOfMove()), simu_.getBuilder());
     }
 
 

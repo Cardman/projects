@@ -471,15 +471,25 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         initGrid();
         getBuilder().colCount(3);
         int len_ = gr_.size();
+        DictionaryComparator<StringList, ListActivityOfMove> sorted_ = new DictionaryComparator<StringList, ListActivityOfMove>(new ComparatorStringList());
         for (int i = 0; i < len_; i++) {
-            formatMessageDirCts(StringUtil.join(gr_.get(i).getList(), CommonFightBean.MOVES_SEPARATOR));
+            StringList key_ = new StringList();
+            for (String m: gr_.get(i).getList()) {
+                key_.add(getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(m));
+            }
+            key_.sort();
+            sorted_.put(key_,gr_.get(i));
+        }
+        int mapLen_ = sorted_.size();
+        for (int i = 0; i < mapLen_; i++) {
+            formatMessageDirCts(StringUtil.join(sorted_.getKey(i), CommonFightBean.MOVES_SEPARATOR));
             initLine();
             IntBeanChgActivityOfMove chgPl_ = getBuilder().getGenInput().newAc();
-            chgPl_.valueActivity(gr_.get(i).getCombo());
+            chgPl_.valueActivity(sorted_.getValue(i).getCombo());
             getBuilder().nextPart();
             feedParentsCts();
             initLine();
-            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateValue(gr_,i,chgPl_));
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateValue(gr_,sorted_.getValue(i).getList(),chgPl_));
             feedParentsCts();
         }
         feedParents();

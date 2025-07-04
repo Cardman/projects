@@ -15,12 +15,20 @@ public final class ListActivityOfMoves extends CustList<ListActivityOfMove> {
     }
 
     public ActivityOfMove getVal(StringList _key) {
-        for (ListActivityOfMove l:this) {
-            if (_key.eq(l.getList())) {
-                return l.getCombo();
+        int index_ = index(_key);
+        if (index_ < 0) {
+            return new ActivityOfMove();
+        }
+        return get(index_).getCombo();
+    }
+    public int index(StringList _key) {
+        int s_ = size();
+        for (int i = 0; i < s_; i++) {
+            if (_key.eq(get(i).getList())) {
+                return i;
             }
         }
-        return new ActivityOfMove();
+        return -1;
     }
 
     public CustList<StringList> getKeys() {
