@@ -5,6 +5,12 @@ import code.maths.*;
 public class BeanChgLgInt implements IntBeanChgLgInt {
 
     private LgInt value = LgInt.zero();
+
+    @Override
+    public LgInt genericValue() {
+        return valueLgInt();
+    }
+
     @Override
     public LgInt valueLgInt() {
         return value;

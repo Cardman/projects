@@ -463,6 +463,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         group(_t);
         enMoves(sortedAc(_t.getEnabledMoves()),_t.getEnabledMoves(), MessagesDataSimulation.M_P_86_TEAM_ENABLED_MOVES);
         stillEnMoves(sorted(_t.getEnabledMovesWhileSendingFoe()), _t.getEnabledMovesWhileSendingFoe(), MessagesDataSimulation.M_P_86_ENBALED_MOVES_SEND);
+        enabledMovesWhileSendingFoeUses(_t);
         feedParents();
     }
 
@@ -498,6 +499,28 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
+    private void enabledMovesWhileSendingFoeUses(Team _t) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ENBALED_MOVES_USES));
+        initGrid();
+        getBuilder().colCount(3);
+        StringMap<StringMap<String>> tp_ = getDataBase().getTranslatedMoves();
+        DictionaryComparator<String, LgInt> pk_ = new DictionaryComparator<String, LgInt>(tp_.getVal(getLanguage()));
+        pk_.putAllMap(_t.getEnabledMovesWhileSendingFoeUses());
+        for (EntryCust<String,LgInt> e: pk_.entryList()) {
+            formatMessageDirCts(tp_.getVal(getLanguage()).getVal(e.getKey()));
+            initLine();
+            IntBeanChgLgInt choice_ = getBuilder().getGenInput().newLgInt();
+            choice_.valueLgInt(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,LgInt>(_t.getEnabledMovesWhileSendingFoeUses().getEntryByKey(e.getKey()),choice_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
     private IntMap<String> curUserListIndex(AbsMap<TeamPosition,String> _id) {
         return new ConverterToIntMapUtil<TeamPosition>().convert(_id);
     }

@@ -49,6 +49,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String M_POK_05 = "M_POK05";
     public static final String M_POK_06 = "M_POK06";
     public static final String M_POK_07 = "M_POK07";
+    public static final String M_POK_08 = "M_POK08";
 
     public static final String P_POK_00 = "P_POK00";
     public static final String P_POK_01 = "P_POK01";
@@ -97,6 +98,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String M_POK_05_TR = "M_POK_05_TR";
     public static final String M_POK_06_TR = "M_POK_06_TR";
     public static final String M_POK_07_TR = "M_POK_07_TR";
+    public static final String M_POK_08_TR = "M_POK_08_TR";
     public static final String I_NOTHING_TR = "I_NOTHING1";
     public static final String I_MULT_EXP_TR = "I_MULT_EXP1";
     public static final String I_STONE_TR = "I_STONE1";
@@ -1724,6 +1726,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
         MoveTarget seven2_ = new MoveTarget(M_POK_07, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(seven2_);
         transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        MoveTarget eight0_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_PLAYER,0));
+        key_.valueMt(eight0_);
+        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        MoveTarget eight01_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_PLAYER,1));
+        key_.valueMt(eight01_);
+        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        MoveTarget eight1_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_FOE,0));
+        key_.valueMt(eight1_);
+        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        MoveTarget eight2_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_FOE,1));
+        key_.valueMt(eight2_);
+        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
         transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero0_), after_.getBuilder());
         transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero01_), after_.getBuilder());
         transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero1_), after_.getBuilder());
@@ -1756,6 +1770,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven01_), after_.getBuilder());
         transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven1_), after_.getBuilder());
         transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven2_), after_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight0_), after_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight01_), after_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight1_), after_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight2_), after_.getBuilder());
         return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, d_), after_.getBuilder());
     }
 
@@ -1775,6 +1793,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanUpdateValue(simu_.getSimulation().getGame().getFight().getUserTeam().getEnabledMovesByGroup(),new StringList(M_POK_07),new BeanChgActivityOfMove()), simu_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam3() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,LgInt>(new EntryCust<String, LgInt>("",LgInt.zero()),new BeanChgLgInt()), simu_.getBuilder());
+    }
+
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame db_ = db();
@@ -1785,6 +1808,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         db_.getData().completeMembers(M_POK_07,mv_);
         db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
         db_.getData().getCombos().getEffects().add(new ListEffectCombo(new StringList(M_POK_07),Instances.newEffectCombo()));
+        StatusMoveData mvSend_ = Instances.newStatusMoveData();
+        mvSend_.getEffects().add(Instances.newEffectTeamWhileSendFoe());
+        db_.getData().completeMembers(M_POK_08,mvSend_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_08, M_POK_08_TR);
         FacadeGame pk_ = pkDataByFacade(db_);
         CommonBean simu_ = simBean2(2, pk_);
         foeTeamsSample(simu_);
