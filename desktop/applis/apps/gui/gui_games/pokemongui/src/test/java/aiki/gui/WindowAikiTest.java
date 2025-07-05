@@ -2,6 +2,7 @@ package aiki.gui;
 
 import aiki.beans.*;
 import aiki.game.Game;
+import aiki.game.fight.*;
 import aiki.game.fight.util.*;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -234,6 +235,8 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.getGenInput().newStringList(new StringMap<String>()).setupValue(h_.getGenInput().newStringList(new StringMap<String>()).tryRet());
         h_.getGenInput().newInts(new IntMap<String>()).setupValue(h_.getGenInput().newInts(new IntMap<String>()).tryRet());
         h_.getGenInput().newAc().valueActivity(h_.getGenInput().newAc().valueActivity());
+        h_.getGenInput().newStack().valueStack(h_.getGenInput().newStack().valueStack());
+        h_.getGenInput().newAnt(new IdMap<TargetCoords, String>()).valueAnt(h_.getGenInput().newAnt(new IdMap<TargetCoords, String>()).valueAnt());
         h_.getGenInput().newChoice(new StringMap<String>(),new StringMap<String>(),new StringMap<String>()).valueChoice(h_.getGenInput().newChoice(new StringMap<String>(),new StringMap<String>(),new StringMap<String>()).valueChoice());
         h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt(h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt());
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);

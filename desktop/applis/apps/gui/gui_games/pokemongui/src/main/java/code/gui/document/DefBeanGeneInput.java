@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import aiki.beans.*;
+import aiki.game.fight.*;
 import aiki.game.fight.util.*;
 import aiki.gui.components.editor.NbDefValue;
 import code.gui.*;
@@ -115,6 +116,31 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         AbsSpinner s_ = comp_.geneLong();
         helper.feedParent(s_);
         return new DefBeanChgActivityOfMove(ch_,comp_);
+    }
+
+    @Override
+    public IntBeanChgStackOfUses newStack() {
+        AbsCustCheckBox first_ = api.getCompoFactory().newCustCheckBox();
+        helper.feedParent(first_);
+        AbsCustCheckBox last_ = api.getCompoFactory().newCustCheckBox();
+        helper.feedParent(last_);
+        GeneComponentModelLong comp_ = new GeneComponentModelLong(api);
+        AbsSpinner s_ = comp_.geneLong();
+        helper.feedParent(s_);
+        return new DefBeanChgStackOfUses(first_,last_,comp_);
+    }
+
+    @Override
+    public IntBeanChgAnticipation newAnt(AbsMap<TargetCoords, String> _pk) {
+        AbsCustCheckBox inc_ = api.getCompoFactory().newCustCheckBox();
+        helper.feedParent(inc_);
+        GeneComponentModelRate d_ = new GeneComponentModelRate(api);
+        helper.feedParent(d_.geneRate());
+        GeneComponentModelLong r_ = new GeneComponentModelLong(api);
+        helper.feedParent(r_.geneLong());
+        GeneComponentModelElt<TargetCoords> t_ = new GeneComponentModelElt<TargetCoords>(api,_pk,new TargetCoordsDefValue());
+        helper.feedParent(t_.geneEnum());
+        return new DefBeanChgAnticipation(inc_,d_, r_, t_);
     }
 
     @Override

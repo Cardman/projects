@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.game.fight.*;
 import aiki.game.fight.util.*;
 import code.util.*;
 
@@ -57,6 +58,16 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     @Override
     public IntBeanChgActivityOfMove newAc() {
         return new BeanChgActivityOfMove();
+    }
+
+    @Override
+    public IntBeanChgStackOfUses newStack() {
+        return new BeanChgStackOfUses();
+    }
+
+    @Override
+    public IntBeanChgAnticipation newAnt(AbsMap<TargetCoords, String> _pk) {
+        return new BeanChgAnticipation();
     }
 
     @Override

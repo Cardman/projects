@@ -1803,6 +1803,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,LgInt>(new EntryCust<String, LgInt>("",LgInt.zero()),new BeanChgLgInt()), simu_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam5() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsHealAfter();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<Integer,StacksOfUses>(new EntryCust<Integer, StacksOfUses>(0,new StacksOfUses()),new BeanChgStackOfUses()), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam6() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsAnt();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<Integer,Anticipation>(new EntryCust<Integer, Anticipation>(0,new Anticipation()),new BeanChgAnticipation()), simu_.getBuilder());
+    }
+
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame db_ = dbInc();
@@ -1828,6 +1838,28 @@ public abstract class InitDbSimulation extends InitDbConstr {
         EffectDamage eff_ = Instances.newEffectDamage();
         eff_.setPower(MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+MessagesDataBaseConstants.DEF_EQUIPE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+M_POK_07);
         mv_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsHealAfter() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData mv_ = Instances.newStatusMoveData();
+        mv_.getEffects().add(Instances.newEffectEndRoundPositionRelation());
+        db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsAnt() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData mv_ = Instances.newStatusMoveData();
+        mv_.getEffects().add(Instances.newEffectEndRoundPositionTargetRelation());
         db_.getData().completeMembers(M_POK_07,mv_);
         db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
         db_.getData().completeVariables();

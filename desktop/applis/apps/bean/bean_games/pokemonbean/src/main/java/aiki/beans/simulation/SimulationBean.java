@@ -466,6 +466,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         enabledMovesWhileSendingFoeUses(_t);
         usedItemsFix(sortedLg(_t.getNbUsesMoves()), _t.getNbUsesMoves());
         usedItemsFix(sortedLg(_t.getNbUsesMovesRound()), _t.getNbUsesMovesRound());
+        healAfter(_t);
+        ant(_t);
         feedParents();
     }
 
@@ -670,6 +672,74 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         }
         feedParents();
         feedParents();
+    }
+
+    private void healAfter(Team _t) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_HEAL_AFTER));
+        initGrid();
+        DictionaryComparator<TranslatedKey, IntMap<StacksOfUses>> map_ = new DictionaryComparator<TranslatedKey, IntMap<StacksOfUses>>(new ComparingTranslatedKey());
+        for (EntryCust<String, IntMap<StacksOfUses>> e:_t.getHealAfter().entryList()) {
+            map_.put(buildMv(getFacade(),e.getKey()),e.getValue());
+        }
+        getBuilder().colCount(4);
+        for (EntryCust<TranslatedKey, IntMap<StacksOfUses>> e: map_.entryList()) {
+            for (EntryCust<Integer,StacksOfUses> f:e.getValue().entryList()) {
+                formatMessageDirCts(e.getKey().getTranslation());
+                formatMessageDirCts(Long.toString(f.getKey()));
+                initLine();
+                IntBeanChgStackOfUses chgPl_ = getBuilder().getGenInput().newStack();
+                chgPl_.valueStack(f.getValue());
+                getBuilder().nextPart();
+                feedParentsCts();
+                initLine();
+                getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<Integer,StacksOfUses>(_t.getHealAfter().getVal(e.getKey().getKey()).getEntryByKey(f.getKey()),chgPl_));
+                feedParentsCts();
+            }
+        }
+        feedParents();
+        feedParents();
+    }
+
+    private void ant(Team _t) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_MOVE_ANT));
+        initGrid();
+        DictionaryComparator<TranslatedKey, IntMap<Anticipation>> map_ = new DictionaryComparator<TranslatedKey, IntMap<Anticipation>>(new ComparingTranslatedKey());
+        for (EntryCust<String, IntMap<Anticipation>> e:_t.getMovesAnticipation().entryList()) {
+            map_.put(buildMv(getFacade(),e.getKey()),e.getValue());
+        }
+        getBuilder().colCount(4);
+        CustList<TargetCoords> targetCoords_ = allValuesTarget();
+        AbsMap<TargetCoords,String> valuesMap_ = new TargetCoordssString();
+        int lenVal_ = targetCoords_.size();
+        for (int i = 0; i < lenVal_; i++) {
+            TargetCoords k_ = targetCoords_.get(i);
+            valuesMap_.addEntry(k_,k_.display());
+        }
+        for (EntryCust<TranslatedKey, IntMap<Anticipation>> e: map_.entryList()) {
+            for (EntryCust<Integer,Anticipation> f:e.getValue().entryList()) {
+                formatMessageDirCts(e.getKey().getTranslation());
+                formatMessageDirCts(Long.toString(f.getKey()));
+                initLine();
+                IntBeanChgAnticipation chgPl_ = getBuilder().getGenInput().newAnt(valuesMap_);
+                chgPl_.valueAnt(f.getValue());
+                getBuilder().nextPart();
+                feedParentsCts();
+                initLine();
+                getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<Integer,Anticipation>(_t.getMovesAnticipation().getVal(e.getKey().getKey()).getEntryByKey(f.getKey()),chgPl_));
+                feedParentsCts();
+            }
+        }
+        feedParents();
+        feedParents();
+    }
+
+    private CustList<TargetCoords> allValuesTarget() {
+        CustList<TargetCoords> mt_ = new CustList<TargetCoords>();
+        mt_.addAllElts(targets(false));
+        mt_.addAllElts(targets(true));
+        return mt_;
     }
     private IntMap<String> ids(int _max) {
         IntMap<String> m_ = new IntMap<String>();

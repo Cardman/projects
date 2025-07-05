@@ -123,6 +123,9 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_TEAM_ENABLED_MOVES ="team_enabled_moves";
     public static final String M_P_86_ENBALED_MOVES_SEND ="enbaled_moves_send";
     public static final String M_P_86_ENBALED_MOVES_USES="enbaled_moves_uses";
+    public static final String M_P_86_HEAL_AFTER = "heal_after";
+    public static final String M_P_86_MOVE_ANT = "move_ant";
+
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -247,6 +250,8 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_TEAM_ENABLED_MOVES,"Here is the activity of the effects of the following moves on the team:");
         e_.add(M_P_86_ENBALED_MOVES_SEND,"Here is the uses of the moves by the team while sending a foe pokemon at the front battle:");
         e_.add(M_P_86_ENBALED_MOVES_USES,"Here is the uses of the moves by the team while sending a foe pokemon at the front battle:");
+        e_.add(M_P_86_HEAL_AFTER,"Here is the uses of the moves healing at the end of the round after using by the team:");
+        e_.add(M_P_86_MOVE_ANT,"Here is the uses of the moves achieving a cible two rounds after using the move by a member of the team:");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -371,6 +376,8 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_TEAM_ENABLED_MOVES,"Voici l'activité des effets des attaques suivantes sur l'équipe:");
         f_.add(M_P_86_ENBALED_MOVES_SEND,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
         f_.add(M_P_86_ENBALED_MOVES_USES,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
+        f_.add(M_P_86_HEAL_AFTER,"Voici les utilisations des attaques soignant à la fin du tour suivant l'utilisation par l'équipe:");
+        f_.add(M_P_86_MOVE_ANT,"Voici les utilisations des attaques touchant une cible deux tours après le lancer de l'attaque par un membre de l'équipe:");
         return f_;
     }
 }
