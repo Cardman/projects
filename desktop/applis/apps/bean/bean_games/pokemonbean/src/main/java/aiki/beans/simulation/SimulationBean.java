@@ -464,6 +464,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         enMoves(sortedAc(_t.getEnabledMoves()),_t.getEnabledMoves(), MessagesDataSimulation.M_P_86_TEAM_ENABLED_MOVES);
         stillEnMoves(sorted(_t.getEnabledMovesWhileSendingFoe()), _t.getEnabledMovesWhileSendingFoe(), MessagesDataSimulation.M_P_86_ENBALED_MOVES_SEND);
         enabledMovesWhileSendingFoeUses(_t);
+        usedItemsFix(sortedLg(_t.getNbUsesMoves()), _t.getNbUsesMoves());
+        usedItemsFix(sortedLg(_t.getNbUsesMovesRound()), _t.getNbUsesMovesRound());
         feedParents();
     }
 
@@ -531,6 +533,13 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private DictionaryComparator<TranslatedKey,BoolVal> sorted(StringMap<BoolVal> _from) {
         DictionaryComparator<TranslatedKey,BoolVal> o_ = new DictionaryComparator<TranslatedKey, BoolVal>(new ComparingTranslatedKey());
         for (EntryCust<String,BoolVal> e: _from.entryList()) {
+            o_.put(buildMv(getFacade(),e.getKey()),e.getValue());
+        }
+        return o_;
+    }
+    private DictionaryComparator<TranslatedKey,Long> sortedLg(StringMap<Long> _from) {
+        DictionaryComparator<TranslatedKey,Long> o_ = new DictionaryComparator<TranslatedKey, Long>(new ComparingTranslatedKey());
+        for (EntryCust<String,Long> e: _from.entryList()) {
             o_.put(buildMv(getFacade(),e.getKey()),e.getValue());
         }
         return o_;
@@ -643,6 +652,25 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
+    private void usedItemsFix(AbsMap<TranslatedKey, Long> _map, StringMap<Long> _info) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU, MessagesDataSimulation.M_P_86_ENBALED_MOVES_USES));
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<TranslatedKey,Long> e: _map.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgLong chgPl_ = getBuilder().getGenInput().newLong();
+            chgPl_.valueLong(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Long>(_info.getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
     private IntMap<String> ids(int _max) {
         IntMap<String> m_ = new IntMap<String>();
         m_.addEntry(Fighter.BACK,Long.toString(Fighter.BACK));

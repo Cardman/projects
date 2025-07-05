@@ -1798,9 +1798,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,LgInt>(new EntryCust<String, LgInt>("",LgInt.zero()),new BeanChgLgInt()), simu_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam4() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsNbUses();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,LgInt>(new EntryCust<String, LgInt>("",LgInt.zero()),new BeanChgLgInt()), simu_.getBuilder());
+    }
+
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
-        FacadeGame db_ = db();
+        FacadeGame db_ = dbInc();
         StatusMoveData mv_ = Instances.newStatusMoveData();
         EffectGlobal eff_ = Instances.newEffectGlobal();
         eff_.setWeather(true);
@@ -1812,7 +1817,26 @@ public abstract class InitDbSimulation extends InitDbConstr {
         mvSend_.getEffects().add(Instances.newEffectTeamWhileSendFoe());
         db_.getData().completeMembers(M_POK_08,mvSend_);
         db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_08, M_POK_08_TR);
-        FacadeGame pk_ = pkDataByFacade(db_);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsNbUses() {
+        FacadeGame db_ = dbInc();
+        DamagingMoveData mv_ = Instances.newDamagingMoveData();
+        EffectDamage eff_ = Instances.newEffectDamage();
+        eff_.setPower(MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+MessagesDataBaseConstants.DEF_EQUIPE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+M_POK_07);
+        mv_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+
+    private static SimulationBean intro(FacadeGame _db) {
+        FacadeGame pk_ = pkDataByFacade(_db);
         CommonBean simu_ = simBean2(2, pk_);
         foeTeamsSample(simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
@@ -3698,6 +3722,79 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().setCombos(Instances.newCombos());
         facade_.getData().completeVariables();
         facade_.getData().completeMembersCombos();
+//        _db.setBallDef(_ballDef);
+//        _db.setRateCatching(_rateCatching);
+//        _db.setRateFleeing(_rateFleeing);
+        facade_.getData().setRateBoost("1");
+        facade_.getData().setRateBoostCriticalHit("2");
+        facade_.getData().setDamageFormula("21");
+//        _db.setDefMove(_defMove);
+//        _db.setDefaultEggGroup(_defaultEggGoup);
+//        _db.setDefCategory("AUTRE");
+        facade_.getData().addConstNumTest(DataBase.PP_MAX,new Rate(20));
+        facade_.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_ECLOSION,new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_MAX,new Rate(255));
+        facade_.getData().addConstNumTest(DataBase.DEF_PKEQ,new Rate(4));
+        facade_.getData().addConstNumTest(DataBase.MAX_BONHEUR,new Rate(128));
+        facade_.getData().addConstNumTest(DataBase.MAX_IV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.MAX_EV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.GAIN_BONHEUR_NIV, new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, new Rate(0));
+        facade_.getData().addConstNumTest(DataBase.MAX_BOOST, new Rate(6));
+        facade_.getData().addConstNumTest(DataBase.MIN_BOOST, new Rate(-6));
+        facade_.getData().addConstNumTest(DataBase.MIN_HP, new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.BONUS_BOOST, new Rate("3/2"));
+        facade_.getData().addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
+        facade_.getData().setMap(dm());
+        trCore(facade_);
+        return facade_;
+    }
+    private static FacadeGame dbInc() {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(M_POK_00,power(T_SIM_1, C_SIM_1, "10"));
+        facade_.getData().completeMembers(M_POK_01,power(T_SIM_1, C_SIM_1, "64"));
+        facade_.getData().completeMembers(M_POK_02,power(T_SIM_2, C_SIM_2, "192"));
+        facade_.getData().completeMembers(M_POK_03,power(T_SIM_2, C_SIM_2, "256"));
+        facade_.getData().completeMembers(M_POK_04,powerBad());
+        facade_.getData().completeMembers(M_POK_05,noEff());
+        facade_.getData().completeMembers(M_POK_06,noEff());
+        facade_.getData().completeMembers(P_POK_00,specPk(P_POK_00,P_POK_01,20, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_00),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_01,specPk(P_POK_00, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_03),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_02,specPk(P_POK_02,P_POK_03,40, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_00),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_03,specPk(P_POK_02, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_03),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_04,specPk(P_POK_04,P_POK_05, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_00),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_05,specPk(P_POK_04, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_03),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_06,specLeg(P_POK_06, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(P_POK_07,specLeg(P_POK_07, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(P_POK_08,specPk(P_POK_08, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(P_POK_09,specPk(P_POK_09, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(I_STONE,Instances.newEvolvingStone());
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,VAR_PREFIX+ MessagesDataBaseConstants.DEF_NIVEAU);
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),4));
+        TypesDuos t_ = new TypesDuos();
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_2),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_2),Rate.one());
+        facade_.getData().setTableTypes(t_);
+        facade_.getData().setTypes(new StringList(T_SIM_1,T_SIM_2));
+        ItemForBattle it_ = Instances.newItemForBattle();
+        it_.setBoostExp(true);
+        facade_.getData().completeMembers(I_MULT_EXP,it_);
+        facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
+        facade_.getData().completeMembers(I_BALL,Instances.newBall());
+        facade_.getData().completeMembers(A_SIM_1,Instances.newAbilityData());
+        facade_.getData().completeMembers(A_SIM_2,Instances.newAbilityData());
+        facade_.getData().setCombos(Instances.newCombos());
 //        _db.setBallDef(_ballDef);
 //        _db.setRateCatching(_rateCatching);
 //        _db.setRateFleeing(_rateFleeing);
