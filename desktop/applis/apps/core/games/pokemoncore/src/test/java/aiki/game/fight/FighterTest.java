@@ -7307,6 +7307,35 @@ public class FighterTest extends InitializationDataBase {
         assertEq(0,fighter_.getChosenTargets().size());
     }
 
+    @Test
+    public void patch8() {
+        DataBase data_ = initDb();
+        Pokemon pokemon_ = new WildPk();
+        pokemon_.setName(TARINOR);
+        pokemon_.setItem(NULL_REF);
+        pokemon_.setAbility(METEO);
+        pokemon_.setGender(Gender.NO_GENDER);
+        pokemon_.setLevel( 32);
+        StringMap<Long> moves_ = new StringMap<Long>();
+        moves_.put(DETECTION,10L);
+        moves_.put(ULTRASON,10L);
+        moves_.put(BROUHAHA,10L);
+        moves_.put(POURSUITE,10L);
+        PokemonPlayer pokemonUser_ = pkMoves(data_, new Difficulty(), pokemon_, moves_);
+        pokemonUser_.getEv().put(Statistic.ATTACK,1L);
+        pokemonUser_.setNickname(PIKA);
+        pokemonUser_.setUsedBallCatching(SUPER_BALL);
+        pokemonUser_.setHappiness( 140);
+        pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
+        Fighter fighter_ = new Fighter(pokemonUser_, data_,  0);
+        ActionMove act_ = new ActionMove();
+        act_.setFirstChosenMove(SEISME);
+        act_.setChosenTargets(TargetCoordsList.newList(TargetCoords.def()));
+        fighter_.setAction(act_);
+        fighter_.patch(data_);
+        assertEq(SEISME,fighter_.getFirstChosenMove());
+        assertEq(0,fighter_.getChosenTargets().size());
+    }
     private void learnMoves(Fighter _f, StringList _a, DataBase _data) {
         _f.learnMoves(_a, _data, new TransientFight());
     }

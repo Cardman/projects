@@ -2433,6 +2433,17 @@ public final class Fighter {
             cancelActions();
         }
         if (action_ instanceof ActionMove) {
+            TargetCoordsList targets_ = ((ActionMove) action_).getChosenTargets();
+            if (targets_ == null) {
+                targets_ = new TargetCoordsList();
+            }
+            TargetCoordsList filter_ = new TargetCoordsList();
+            for (TargetCoords t: targets_) {
+                if (!TargetCoords.koTeam(t.getTeam())) {
+                    filter_.add(t);
+                }
+            }
+            ((ActionMove) action_).setChosenTargets(filter_);
             String move_ = getFirstChosenMove();
             MoveData fAtt_ = _data.getMove(move_);
             if (fAtt_ == null) {
