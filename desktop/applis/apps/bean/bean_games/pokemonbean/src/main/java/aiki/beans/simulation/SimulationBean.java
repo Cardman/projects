@@ -20,6 +20,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.*;
+import aiki.game.fight.actions.*;
 import aiki.game.fight.enums.*;
 import aiki.game.fight.util.*;
 import aiki.game.params.Difficulty;
@@ -468,7 +469,115 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         usedItemsFix(sortedLg(_t.getNbUsesMovesRound()), _t.getNbUsesMovesRound());
         healAfter(_t);
         ant(_t);
+        int max_ = -1;
+        for (EntryCust<Integer,Fighter> f:_t.getMembers().entryList()) {
+            max_ = NumberUtil.max(f.getKey(),max_);
+        }
+        for (EntryCust<Integer,Fighter> f:_t.getMembers().entryList()) {
+            initPage();
+            setTitledBorder(Long.toString(f.getKey()));
+            fighter(f.getValue(),max_+1);
+            feedParents();
+        }
         feedParents();
+    }
+
+    private void fighter(Fighter _f, int _max) {
+        initPage();
+        setTitledBorder("");
+        IdMap<KindAction,String> ka_ = new IdMap<KindAction, String>();
+        ka_.addEntry(KindAction.NO,messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_NO));
+        ka_.addEntry(KindAction.MOVE,messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_MOVE));
+        ka_.addEntry(KindAction.SWITCH,messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_SWITCH));
+        ka_.addEntry(KindAction.HEAL,messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_HEAL));
+        ka_.addEntry(KindAction.HEAL_MOVE,messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_HEAL_MOVE));
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION);
+        IntBeanChgKindAction chgAc_ = getBuilder().getGenInput().newKa(ka_);
+        chgAc_.valueKa(kindAction(_f.getAction()));
+        DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        mv_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        DictionaryComparator<String, String> it_ = DictionaryComparatorUtil.buildItemsStr(getDataBase(), getLanguage());
+        it_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_FIRST);
+        IntBeanChgString first_ = getBuilder().getGenInput().newString(mv_);
+        first_.setupValue(first(_f.getAction()));
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_FINAL);
+        IntBeanChgString last_ = getBuilder().getGenInput().newString(mv_);
+        last_.setupValue(last(_f.getAction()));
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_ITEM);
+        IntBeanChgString healIt_ = getBuilder().getGenInput().newString(it_);
+        healIt_.setupValue(item(_f.getAction()));
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_SUB);
+        IntBeanChgInt sub_ = getBuilder().getGenInput().newInt(ids(_max));
+        sub_.valueInt(sub(_f.getAction()));
+        CustList<TargetCoords> targetCoords_ = allValuesTarget();
+        AbsMap<TargetCoords,String> valuesMap_ = new TargetCoordssString();
+        int lenVal_ = targetCoords_.size();
+        for (int i = 0; i < lenVal_; i++) {
+            TargetCoords k_ = targetCoords_.get(i);
+            valuesMap_.addEntry(k_,k_.display());
+        }
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_TAR);
+        IntBeanChgTargetCoords targets_ = getBuilder().getGenInput().newTc(valuesMap_);
+        targets_.valueTc(targetChoice(_f.getAction()));
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_TEAM);
+        IntBeanChgBool team_ = getBuilder().getGenInput().newBool();
+        team_.setSelected(team(_f.getAction()));
+        getBuilder().getGenInput().newSubmit(CONFIRM).addEvt(new SimulationBeanAbstractAction(_f,new IntBeanChgAction(chgAc_, first_, last_, healIt_, sub_, targets_, team_)));
+        feedParents();
+    }
+
+    private KindAction kindAction(AbstractAction _a) {
+        if (_a == null) {
+            return KindAction.NO;
+        }
+        return _a.getKindAction();
+    }
+
+    private TargetCoords targetChoice(AbstractAction _a) {
+        TargetCoordsList tl_ = new TargetCoordsList();
+        if (_a instanceof ActionMove) {
+            tl_ = ((ActionMove)_a).getChosenTargets();
+        }
+        if (tl_.size() != 1) {
+            return TargetCoords.def();
+        }
+        return tl_.first();
+    }
+
+    private String item(AbstractAction _a) {
+        if (!(_a instanceof ChosenHealing)) {
+            return DataBase.EMPTY_STRING;
+        }
+        return ((ChosenHealing)_a).getChosenHealingItem();
+    }
+
+    private String first(AbstractAction _a) {
+        if (!(_a instanceof ChosenMove)) {
+            return DataBase.EMPTY_STRING;
+        }
+        return ((ChosenMove)_a).getFirstChosenMove();
+    }
+
+    private String last(AbstractAction _a) {
+        if (!(_a instanceof ActionMove)) {
+            return DataBase.EMPTY_STRING;
+        }
+        return ((ActionMove)_a).getFinalChosenMove();
+    }
+
+    private int sub(AbstractAction _a) {
+        if (!(_a instanceof ChosenReplacing)) {
+            return Fighter.BACK;
+        }
+        return ((ChosenReplacing)_a).getSubstitute();
+    }
+
+    private boolean team(AbstractAction _a) {
+        if (!(_a instanceof ActionHeal)) {
+            return false;
+        }
+        return ((ActionHeal)_a).isTeam();
     }
 
     private void group(Team _t) {

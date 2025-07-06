@@ -125,6 +125,18 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_ENBALED_MOVES_USES="enbaled_moves_uses";
     public static final String M_P_86_HEAL_AFTER = "heal_after";
     public static final String M_P_86_MOVE_ANT = "move_ant";
+    public static final String M_P_86_KIND_ACTION = "ka";
+    public static final String M_P_86_KIND_ACTION_NO = "ka_no";
+    public static final String M_P_86_KIND_ACTION_HEAL = "ka_heal";
+    public static final String M_P_86_KIND_ACTION_HEAL_MOVE = "ka_heal_move";
+    public static final String M_P_86_KIND_ACTION_MOVE = "ka_move";
+    public static final String M_P_86_KIND_ACTION_SWITCH = "ka_switch";
+    public static final String M_P_86_KIND_ACTION_FIELD_FIRST = "ka_first";
+    public static final String M_P_86_KIND_ACTION_FIELD_FINAL = "ka_final";
+    public static final String M_P_86_KIND_ACTION_FIELD_ITEM = "ka_item";
+    public static final String M_P_86_KIND_ACTION_FIELD_SUB = "ka_sub";
+    public static final String M_P_86_KIND_ACTION_FIELD_TAR = "ka_tar";
+    public static final String M_P_86_KIND_ACTION_FIELD_TEAM = "ka_team";
 
     private MessagesDataSimulation(){
     }
@@ -252,6 +264,18 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_ENBALED_MOVES_USES,"Here is the uses of the moves by the team while sending a foe pokemon at the front battle:");
         e_.add(M_P_86_HEAL_AFTER,"Here is the uses of the moves healing at the end of the round after using by the team:");
         e_.add(M_P_86_MOVE_ANT,"Here is the uses of the moves achieving a cible two rounds after using the move by a member of the team:");
+        e_.add(M_P_86_KIND_ACTION,"action");
+        e_.add(M_P_86_KIND_ACTION_NO,"no action");
+        e_.add(M_P_86_KIND_ACTION_HEAL,"simple heal action");
+        e_.add(M_P_86_KIND_ACTION_HEAL_MOVE,"heal action move");
+        e_.add(M_P_86_KIND_ACTION_MOVE,"action move");
+        e_.add(M_P_86_KIND_ACTION_SWITCH,"switch");
+        e_.add(M_P_86_KIND_ACTION_FIELD_FIRST,"first chosen move");
+        e_.add(M_P_86_KIND_ACTION_FIELD_FINAL,"final chosen move");
+        e_.add(M_P_86_KIND_ACTION_FIELD_ITEM,"chosen healing item");
+        e_.add(M_P_86_KIND_ACTION_FIELD_SUB,"chosen substitute");
+        e_.add(M_P_86_KIND_ACTION_FIELD_TAR,"chosen target");
+        e_.add(M_P_86_KIND_ACTION_FIELD_TEAM,"healing team");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -378,6 +402,18 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_ENBALED_MOVES_USES,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
         f_.add(M_P_86_HEAL_AFTER,"Voici les utilisations des attaques soignant à la fin du tour suivant l'utilisation par l'équipe:");
         f_.add(M_P_86_MOVE_ANT,"Voici les utilisations des attaques touchant une cible deux tours après le lancer de l'attaque par un membre de l'équipe:");
+        f_.add(M_P_86_KIND_ACTION,"action");
+        f_.add(M_P_86_KIND_ACTION_NO,"pas d'action");
+        f_.add(M_P_86_KIND_ACTION_HEAL,"simple action de soin");
+        f_.add(M_P_86_KIND_ACTION_HEAL_MOVE,"action de soin d'attaque");
+        f_.add(M_P_86_KIND_ACTION_MOVE,"action d'attaque");
+        f_.add(M_P_86_KIND_ACTION_SWITCH,"échange");
+        f_.add(M_P_86_KIND_ACTION_FIELD_FIRST,"première attaque choisie");
+        f_.add(M_P_86_KIND_ACTION_FIELD_FINAL,"finale attaque choisie");
+        f_.add(M_P_86_KIND_ACTION_FIELD_ITEM,"objet de soin choisi");
+        f_.add(M_P_86_KIND_ACTION_FIELD_SUB,"remplaçant choisi");
+        f_.add(M_P_86_KIND_ACTION_FIELD_TAR,"cible choisie");
+        f_.add(M_P_86_KIND_ACTION_FIELD_TEAM,"soin d'équipe");
         return f_;
     }
 }

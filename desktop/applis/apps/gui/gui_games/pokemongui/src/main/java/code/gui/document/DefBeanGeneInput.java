@@ -2,6 +2,7 @@ package code.gui.document;
 
 import aiki.beans.*;
 import aiki.game.fight.*;
+import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
 import aiki.gui.components.editor.NbDefValue;
 import code.gui.*;
@@ -144,6 +145,13 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
     }
 
     @Override
+    public IntBeanChgTargetCoords newTc(AbsMap<TargetCoords, String> _pk) {
+        GeneComponentModelElt<TargetCoords> t_ = new GeneComponentModelElt<TargetCoords>(api,_pk,new TargetCoordsDefValue());
+        helper.feedParent(t_.geneEnum());
+        return new DefBeanChgTargetCoords(t_);
+    }
+
+    @Override
     public IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab) {
         GeneComponentModelElt<String> evo_ = new GeneComponentModelElt<String>(api, _pk,new EmptyDefValue());
         helper.feedParent(evo_.geneEnum());
@@ -161,5 +169,12 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         GeneComponentModelElt<MoveTarget> ch_ = new GeneComponentModelElt<MoveTarget>(api, _pk, new MoveTargetDefValue());
         helper.feedParent(ch_.geneEnum());
         return new DefBeanChgMoveTarget(ch_);
+    }
+
+    @Override
+    public IntBeanChgKindAction newKa(AbsMap<KindAction, String> _map) {
+        GeneComponentModelElt<KindAction> ch_ = new GeneComponentModelElt<KindAction>(api, _map, new KindActionDefValue());
+        helper.feedParent(ch_.geneEnum());
+        return new DefBeanChgKindAction(ch_);
     }
 }

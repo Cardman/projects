@@ -17,6 +17,7 @@ import aiki.fight.pokemon.enums.*;
 import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.*;
 import aiki.game.fight.*;
+import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
 import aiki.game.params.enums.*;
 import aiki.instances.*;
@@ -1813,6 +1814,28 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<Integer,Anticipation>(new EntryCust<Integer, Anticipation>(0,new Anticipation()),new BeanChgAnticipation()), simu_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction _ka) {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
+        BeanChgKindAction k_ = new BeanChgKindAction();
+        k_.valueKa(_ka);
+        return (SimulationBean)transitSimu(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), new BeanChgTargetCoords(), new BeanChgBool())), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighterCa() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
+        BeanChgKindAction k_ = new BeanChgKindAction();
+        k_.valueKa(KindAction.MOVE);
+        BeanChgTargetCoords tard_ = new BeanChgTargetCoords();
+        tard_.valueTc(TargetCoords.toFoeTarget(0));
+        return (SimulationBean)transitSimu(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), tard_, new BeanChgBool())), simu_.getBuilder());
+    }
+
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLow() {
+        FacadeGame db_ = dbInc();
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuSteps() {
         FacadeGame db_ = dbInc();

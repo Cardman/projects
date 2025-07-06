@@ -10,6 +10,10 @@ public final class ActionHealMove extends ActionHeal implements ChosenMove{
     /***/
     private String firstChosenMove;
 
+    public ActionHealMove() {
+        super(KindAction.HEAL_MOVE);
+    }
+
     @Override
     public String getChosenHealingItem() {
         return chosenHealingItem;

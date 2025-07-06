@@ -6,8 +6,8 @@ public abstract class ActionHeal extends AbstractAction implements ChosenHealing
     /***/
     private boolean team;
 
-    protected ActionHeal() {
-        super(KindAction.HEAL);
+    protected ActionHeal(KindAction _k) {
+        super(_k);
     }
 
     @Override

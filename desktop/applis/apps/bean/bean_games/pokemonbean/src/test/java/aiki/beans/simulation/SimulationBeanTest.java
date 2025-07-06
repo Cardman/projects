@@ -5,6 +5,7 @@ import aiki.beans.facade.simulation.enums.*;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.game.fight.Fighter;
+import aiki.game.fight.actions.*;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
@@ -1766,6 +1767,15 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void simuSteps11() {
         assertEq("0", editEditSelectedPlayerPkSimuStepsTeam6().getSeed().tryRet());
+    }
+    @Test
+    public void simuSteps12() {
+        assertEq("0", editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction.NO).getSeed().tryRet());
+        assertEq("0", editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction.HEAL).getSeed().tryRet());
+        assertEq("0", editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction.MOVE).getSeed().tryRet());
+        assertEq("0", editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction.HEAL_MOVE).getSeed().tryRet());
+        assertEq("0", editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction.SWITCH).getSeed().tryRet());
+        assertEq("0", editEditSelectedPlayerPkSimuStepsCoreFighterCa().getSeed().tryRet());
     }
     @Test
     public void exit() {

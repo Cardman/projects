@@ -1,5 +1,5 @@
 package aiki.game.fight.actions;
 
 public enum KindAction {
-    HEAL,MOVE,SWITCH
+    NO,HEAL,HEAL_MOVE,MOVE,SWITCH
 }

@@ -6,6 +6,10 @@ public final class ActionSimpleHeal extends ActionHeal {
     /***/
     private String chosenHealingItem;
 
+    public ActionSimpleHeal() {
+        super(KindAction.HEAL);
+    }
+
     @Override
     public String getChosenHealingItem() {
         return chosenHealingItem;
