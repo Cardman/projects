@@ -3,6 +3,7 @@ package aiki.beans;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
+import aiki.map.pokemon.enums.*;
 import code.util.*;
 
 public final class MockBeanGeneInput implements IntBeanGeneInput {
@@ -89,5 +90,10 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     @Override
     public IntBeanChgKindAction newKa(AbsMap<KindAction, String> _map) {
         return new BeanChgKindAction();
+    }
+
+    @Override
+    public IntBeanChgGender newGender(AbsMap<Gender, String> _pk) {
+        return new BeanChgGender();
     }
 }

@@ -485,6 +485,141 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     private void fighter(Fighter _f, int _max) {
         initPage();
         setTitledBorder("");
+        getBuilder().getGenInput().newSubmit(CONFIRM).addEvt(new SimulationBeanAbstractAction(_f,new IntBeanChgFighter(one(_f,getBuilder().getGenInput()),two(_f,getBuilder().getGenInput()),three(_f,getBuilder().getGenInput()),four(_f,getBuilder().getGenInput()),five(_f,getBuilder().getGenInput()),six(_f,getBuilder().getGenInput(),_max))));
+        feedParents();
+    }
+
+    private IntBeanChgFighter1 one(Fighter _f, IntBeanGeneInput _inputGene) {
+        AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
+        DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
+        genders_.putAllMap(translatedGenders_);
+        DictionaryComparator<String, String> pk_ = DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage());
+        IntBeanChgString name_ = _inputGene.newString(pk_);
+        name_.setupValue(_f.getName());
+        IntBeanChgString nickname_ = _inputGene.newText();
+        nickname_.setupValue(_f.getNickname());
+        IntBeanChgGender gender_ = _inputGene.newGender(genders_);
+        gender_.valGender(_f.getGender());
+        IntBeanChgRate weight_ = _inputGene.newRate();
+        weight_.valueRate(_f.getWeight());
+        IntBeanChgRate height_ = _inputGene.newRate();
+        height_.valueRate(_f.getHeight());
+        IntBeanChgString currentName_ = _inputGene.newString(pk_);
+        currentName_.setupValue(_f.getCurrentName());
+        IntBeanChgGender currentGender_ = _inputGene.newGender(genders_);
+        currentGender_.valGender(_f.getCurrentGender());
+        return new IntBeanChgFighter1(name_, nickname_, gender_, weight_, height_, currentName_, currentGender_);
+    }
+
+    private IntBeanChgFighter2 two(Fighter _f, IntBeanGeneInput _inputGene) {
+        AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
+        DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
+        genders_.putAllMap(translatedGenders_);
+        DictionaryComparator<String, String> ab_ = DictionaryComparatorUtil.buildAbStrElts(getDataBase(), getLanguage());
+        ab_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        DictionaryComparator<String, String> it_ = DictionaryComparatorUtil.buildItemsStrElts(getDataBase(), getLanguage());
+        it_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        DictionaryComparator<String, String> ty_ = DictionaryComparatorUtil.buildTyStrElts(getDataBase(), getLanguage());
+        IntBeanChgString lastUsedItem_ = _inputGene.newString(it_);
+        lastUsedItem_.setupValue(_f.getLastUsedItem());
+        IntBeanChgString item_ = _inputGene.newString(it_);
+        item_.setupValue(_f.getItem());
+        IntBeanChgString currentAbility_ = _inputGene.newString(ab_);
+        currentAbility_.setupValue(_f.getCurrentAbility());
+        IntBeanChgLgInt nbRounds_ = _inputGene.newLgInt();
+        nbRounds_.valueLgInt(_f.getNbRounds());
+        IntBeanChgList<String> types_ = _inputGene.newStringList(ty_);
+        types_.setupValue(_f.getTypes());
+        IntBeanChgString ability_ = _inputGene.newString(ab_);
+        ability_.setupValue(_f.getAbility());
+        IntBeanChgRate remainingHp_ = _inputGene.newRate();
+        remainingHp_.valueRate(_f.getRemainingHp());
+        return new IntBeanChgFighter2(lastUsedItem_, item_, currentAbility_, nbRounds_, types_, ability_, remainingHp_);
+    }
+
+    private IntBeanChgFighter3 three(Fighter _f, IntBeanGeneInput _inputGene) {
+        AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
+        DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
+        genders_.putAllMap(translatedGenders_);
+        DictionaryComparator<String, String> ty_ = DictionaryComparatorUtil.buildTyStrElts(getDataBase(), getLanguage());
+        IntBeanChgBool acted_ = _inputGene.newBool();
+        acted_.setSelected(_f.isActed());
+        IntMap<String> ids_ = ids(simulation.getGame().getFight().getMult());
+        IntBeanChgInt groundPlace_ = _inputGene.newInt(ids_);
+        groundPlace_.valueInt(_f.getGroundPlace());
+        IntBeanChgInt groundPlaceSubst_ = _inputGene.newInt(ids_);
+        groundPlaceSubst_.valueInt(_f.getGroundPlaceSubst());
+        IntBeanChgRate wonExp_ = _inputGene.newRate();
+        wonExp_.valueRate(_f.getWonExp());
+        IntBeanChgList<String> protectedAgainstMoveTypes_ = _inputGene.newStringList(ty_);
+        protectedAgainstMoveTypes_.setupValue(_f.getProtectedAgainstMoveTypes());
+        IntBeanChgRate wonExpSinceLastLevel_ = _inputGene.newRate();
+        wonExpSinceLastLevel_.valueRate(_f.getWonExpSinceLastLevel());
+        IntBeanChgRate clone_ = _inputGene.newRate();
+        clone_.valueRate(_f.getClone());
+        return new IntBeanChgFighter3(acted_, groundPlace_, groundPlaceSubst_, wonExp_, protectedAgainstMoveTypes_, wonExpSinceLastLevel_, clone_);
+    }
+
+    private IntBeanChgFighter4 four(Fighter _f, IntBeanGeneInput _inputGene) {
+        AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
+        DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
+        genders_.putAllMap(translatedGenders_);
+        DictionaryComparator<String, String> it_ = DictionaryComparatorUtil.buildItemsStrElts(getDataBase(), getLanguage());
+        it_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        mv_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        IntBeanChgString usedBallCatching_ = _inputGene.newString(it_);
+        usedBallCatching_.setupValue(_f.getUsedBallCatching());
+        IntBeanChgLong level_ = _inputGene.newLong();
+        level_.valueLong(_f.getLevel());
+        IntBeanChgLong happiness_ = _inputGene.newLong();
+        happiness_.valueLong(_f.getHappiness());
+        IntBeanChgLong nbPrepaRound_ = _inputGene.newLong();
+        nbPrepaRound_.valueLong(_f.getNbPrepaRound());
+        IntBeanChgBool disappeared_ = _inputGene.newBool();
+        disappeared_.setSelected(_f.isDisappeared());
+        IntBeanChgBool needingToRecharge_ = _inputGene.newBool();
+        needingToRecharge_.setSelected(_f.isNeedingToRecharge());
+        IntBeanChgString lastSufferedMove_ = _inputGene.newString(mv_);
+        lastSufferedMove_.setupValue(_f.getLastSufferedMove());
+        return new IntBeanChgFighter4(usedBallCatching_, level_, happiness_, nbPrepaRound_, disappeared_, needingToRecharge_, lastSufferedMove_);
+    }
+
+    private IntBeanChgFighter5 five(Fighter _f, IntBeanGeneInput _inputGene) {
+        AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
+        DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
+        genders_.putAllMap(translatedGenders_);
+        DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        mv_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
+        DictionaryComparator<String, String> ty_ = DictionaryComparatorUtil.buildTyStrElts(getDataBase(), getLanguage());
+        IntBeanChgList<String> lastSufferedMoveTypes_ = _inputGene.newStringList(ty_);
+        lastSufferedMoveTypes_.setupValue(_f.getTypes());
+        IntBeanChgList<String> alreadyInvokedMovesRound_ = _inputGene.newStringList(ty_);
+        alreadyInvokedMovesRound_.setupValue(_f.getAlreadyInvokedMovesRound());
+        IntBeanChgString lastSuccessfulMove_ = _inputGene.newString(mv_);
+        lastSuccessfulMove_.setupValue(_f.getLastSuccessfulMove());
+        IntBeanChgLgInt nbRepeatingSuccessfulMoves_ = _inputGene.newLgInt();
+        nbRepeatingSuccessfulMoves_.valueLgInt(_f.getNbRepeatingSuccessfulMoves());
+        IntBeanChgBool usingItem_ = _inputGene.newBool();
+        usingItem_.setSelected(_f.isUsingItem());
+        IntBeanChgString usedMoveLastRound_ = _inputGene.newString(mv_);
+        usedMoveLastRound_.setupValue(_f.getUsedMoveLastRound());
+        IntBeanChgString lastUsedMove_ = _inputGene.newString(mv_);
+        lastUsedMove_.setupValue(_f.getLastUsedMove());
+        return new IntBeanChgFighter5(lastSufferedMoveTypes_, alreadyInvokedMovesRound_, lastSuccessfulMove_, nbRepeatingSuccessfulMoves_, usingItem_, usedMoveLastRound_, lastUsedMove_);
+    }
+
+    private IntBeanChgFighter6 six(Fighter _f, IntBeanGeneInput _inputGene, int _max) {
+        AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
+        DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
+        genders_.putAllMap(translatedGenders_);
+        DictionaryComparator<String, String> mvList_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        IntBeanChgList<String> movesToBeLearnt_ = _inputGene.newStringList(mvList_);
+        movesToBeLearnt_.setupValue(_f.getTypes());
+        IntBeanChgBool successfulMove_ = _inputGene.newBool();
+        successfulMove_.setSelected(_f.isSuccessfulMove());
+        IntBeanChgBool changed_ = _inputGene.newBool();
+        changed_.setSelected(_f.isChanged());
         IdMap<KindAction,String> ka_ = new IdMap<KindAction, String>();
         ka_.addEntry(KindAction.NO,messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_NO));
         ka_.addEntry(KindAction.MOVE,messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_MOVE));
@@ -523,8 +658,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_TEAM);
         IntBeanChgBool team_ = getBuilder().getGenInput().newBool();
         team_.setSelected(team(_f.getAction()));
-        getBuilder().getGenInput().newSubmit(CONFIRM).addEvt(new SimulationBeanAbstractAction(_f,new IntBeanChgAction(chgAc_, first_, last_, healIt_, sub_, targets_, team_)));
-        feedParents();
+        IntBeanChgAction action_ = new IntBeanChgAction(chgAc_, first_, last_, healIt_, sub_, targets_, team_);
+        return new IntBeanChgFighter6(movesToBeLearnt_, action_, successfulMove_, changed_);
     }
 
     private KindAction kindAction(AbstractAction _a) {

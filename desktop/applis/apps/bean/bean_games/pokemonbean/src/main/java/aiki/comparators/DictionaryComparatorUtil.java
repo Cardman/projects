@@ -131,6 +131,13 @@ public final class DictionaryComparatorUtil {
         return d_;
     }
 
+    public static DictionaryComparator<String,String> buildTyStrElts(DataBase _data, String _language) {
+        StringMap<StringMap<String>> tp_ = _data.getTranslatedTypes();
+        DictionaryComparator<String, String> d_ = new DictionaryComparator<String, String>(tp_.getVal(_language));
+        d_.putAllMap(tp_.getVal(_language));
+        return d_;
+    }
+
     public static DictionaryComparator<String,String> buildPkStr(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedPokemon().getVal(_language));
     }

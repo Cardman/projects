@@ -5,6 +5,7 @@ import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
 import aiki.gui.components.editor.NbDefValue;
+import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
@@ -176,5 +177,12 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         GeneComponentModelElt<KindAction> ch_ = new GeneComponentModelElt<KindAction>(api, _map, new KindActionDefValue());
         helper.feedParent(ch_.geneEnum());
         return new DefBeanChgKindAction(ch_);
+    }
+
+    @Override
+    public IntBeanChgGender newGender(AbsMap<Gender, String> _map) {
+        GeneComponentModelElt<Gender> ch_ = new GeneComponentModelElt<Gender>(api, _map, new GenderDefValue());
+        helper.feedParent(ch_.geneEnum());
+        return new DefBeanChgGender(ch_);
     }
 }

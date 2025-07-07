@@ -1816,20 +1816,39 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction _ka) {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
-        BeanChgKindAction k_ = new BeanChgKindAction();
-        k_.valueKa(_ka);
-        return (SimulationBean)transitSimu(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), new BeanChgTargetCoords(), new BeanChgBool())), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),sample(_ka)), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighterCa() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
+        return (SimulationBean)transitSimu(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),sampleCa()), simu_.getBuilder());
+    }
+
+    private static IntBeanChgFighter sample(KindAction _ka) {
+        BeanChgKindAction k_ = new BeanChgKindAction();
+        k_.valueKa(_ka);
+        return new IntBeanChgFighter(
+                new IntBeanChgFighter1(new BeanChgString(),new BeanChgString(),new BeanChgGender(), new BeanChgRate(),new BeanChgRate(),new BeanChgString(),new BeanChgGender()),
+                new IntBeanChgFighter2(new BeanChgString(),new BeanChgString(), new BeanChgString(), new BeanChgLgInt(), new BeanChgList<String>(), new BeanChgString(), new BeanChgRate()),
+                new IntBeanChgFighter3(new BeanChgBool(),new BeanChgInt(), new BeanChgInt(), new BeanChgRate(), new BeanChgList<String>(),new BeanChgRate(),new BeanChgRate()),
+                new IntBeanChgFighter4(new BeanChgString(),new BeanChgLong(),new BeanChgLong(),new BeanChgLong(),new BeanChgBool(),new BeanChgBool(),new BeanChgString()),
+                new IntBeanChgFighter5(new BeanChgList<String>(),new BeanChgList<String>(),new BeanChgString(),new BeanChgLgInt(),new BeanChgBool(),new BeanChgString(),new BeanChgString()),
+                new IntBeanChgFighter6(new BeanChgList<String>(),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), new BeanChgTargetCoords(), new BeanChgBool()),new BeanChgBool(),new BeanChgBool()));
+    }
+
+    private static IntBeanChgFighter sampleCa() {
         BeanChgKindAction k_ = new BeanChgKindAction();
         k_.valueKa(KindAction.MOVE);
         BeanChgTargetCoords tard_ = new BeanChgTargetCoords();
         tard_.valueTc(TargetCoords.toFoeTarget(0));
-        return (SimulationBean)transitSimu(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), tard_, new BeanChgBool())), simu_.getBuilder());
+        return new IntBeanChgFighter(
+                new IntBeanChgFighter1(new BeanChgString(),new BeanChgString(),new BeanChgGender(), new BeanChgRate(),new BeanChgRate(),new BeanChgString(),new BeanChgGender()),
+                new IntBeanChgFighter2(new BeanChgString(),new BeanChgString(), new BeanChgString(), new BeanChgLgInt(), new BeanChgList<String>(), new BeanChgString(), new BeanChgRate()),
+                new IntBeanChgFighter3(new BeanChgBool(),new BeanChgInt(), new BeanChgInt(), new BeanChgRate(), new BeanChgList<String>(),new BeanChgRate(),new BeanChgRate()),
+                new IntBeanChgFighter4(new BeanChgString(),new BeanChgLong(),new BeanChgLong(),new BeanChgLong(),new BeanChgBool(),new BeanChgBool(),new BeanChgString()),
+                new IntBeanChgFighter5(new BeanChgList<String>(),new BeanChgList<String>(),new BeanChgString(),new BeanChgLgInt(),new BeanChgBool(),new BeanChgString(),new BeanChgString()),
+                new IntBeanChgFighter6(new BeanChgList<String>(),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), tard_, new BeanChgBool()),new BeanChgBool(),new BeanChgBool()));
     }
-
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsLow() {
         FacadeGame db_ = dbInc();
         db_.getData().completeVariables();

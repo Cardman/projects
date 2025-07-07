@@ -12,6 +12,7 @@ import aiki.gui.dialogs.*;
 import aiki.gui.listeners.DefTaskEnabled;
 import aiki.instances.Instances;
 import aiki.main.PkNonModalEvent;
+import aiki.map.pokemon.enums.*;
 import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
 import aiki.sml.MessagesRenderPkSoftParams;
@@ -242,6 +243,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.getGenInput().newKa(new IdMap<KindAction, String>()).valueKa(h_.getGenInput().newKa(new IdMap<KindAction, String>()).valueKa());
         h_.getGenInput().newChoice(new StringMap<String>(),new StringMap<String>(),new StringMap<String>()).valueChoice(h_.getGenInput().newChoice(new StringMap<String>(),new StringMap<String>(),new StringMap<String>()).valueChoice());
         h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt(h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt());
+        h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender(h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender());
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 
