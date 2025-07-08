@@ -490,7 +490,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         movesFighter(dict(_f), _f.getStatus(), MessagesDataSimulation.M_P_86_STATUS);
         movesFighter(nbUses(_f), _f.getNbUsesMoves(), MessagesDataSimulation.M_P_86_NB_USES);
         typesFighter(typesFighter(_f.getDamageRateInflictedByType()), _f.getDamageRateInflictedByType(), MessagesDataSimulation.M_P_86_DAMAGE_POWER_TYPES_INF);
-        typesFighter(typesFighter(_f.getDamageRateSufferedByType()), _f.getDamageRateSufferedByType(), MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_SUF);
+        typesFighter(typesFighter(_f.getDamageRateSufferedByType()), _f.getDamageRateSufferedByType(), MessagesDataSimulation.M_P_86_DAMAGE_POWER_TYPES_SUF);
+        typesFighter(catFighter(_f.getDamageSufferedCateg()), _f.getDamageSufferedCateg(), MessagesDataSimulation.M_P_86_SUFFERING_DAMAGE);
+        typesFighter(catFighter(_f.getDamageSufferedCategRound()), _f.getDamageSufferedCategRound(), MessagesDataSimulation.M_P_86_SUFFERING_DAMAGE);
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -513,6 +515,14 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         DictionaryComparator<TranslatedKey,Rate> st_ = new DictionaryComparator<TranslatedKey, Rate>(new ComparingTranslatedKey());
         for (EntryCust<String,Rate> e: _info.entryList()) {
             st_.put(buildTy(getFacade(),e.getKey()),e.getValue());
+        }
+        return st_;
+    }
+
+    private DictionaryComparator<TranslatedKey, Rate> catFighter(StringMap<Rate> _info) {
+        DictionaryComparator<TranslatedKey,Rate> st_ = new DictionaryComparator<TranslatedKey, Rate>(new ComparingTranslatedKey());
+        for (EntryCust<String,Rate> e: _info.entryList()) {
+            st_.put(buildCa(getFacade(),e.getKey()),e.getValue());
         }
         return st_;
     }

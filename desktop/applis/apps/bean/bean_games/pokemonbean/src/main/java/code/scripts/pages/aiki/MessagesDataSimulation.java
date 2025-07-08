@@ -152,8 +152,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_CURRENT_MOVES_VALUE_ONE="current_moves_value_one";
     public static final String M_P_86_CURRENT_MOVES_VALUE_TWO="current_moves_value_two";
     public static final String M_P_86_CURRENT_NAME="current_name";
-    public static final String M_P_86_DAMAGE_POWER_TYPES_INF="damage_power_types";
-    public static final String M_P_86_DAMAGE_POWER_TYPES_SUF="damage_power_types";
+    public static final String M_P_86_DAMAGE_POWER_TYPES_INF="damage_power_types_inf";
+    public static final String M_P_86_DAMAGE_POWER_TYPES_SUF="damage_power_types_suf";
     public static final String M_P_86_DAMAGE_POWER_TYPES_KEY="damage_power_types_key";
     public static final String M_P_86_DAMAGE_POWER_TYPES_VALUE_ONE="damage_power_types_value_one";
     public static final String M_P_86_DAMAGE_POWER_TYPES_VALUE_TWO="damage_power_types_value_two";
