@@ -19,6 +19,7 @@ public interface IntBeanGeneInput {
     IntBeanChgSubmit newSubmit(String _text);
     IntBeanChgActivityOfMove newAc();
     IntBeanChgStackOfUses newStack();
+    IntBeanChgUsesOfMove newUse();
     IntBeanChgAnticipation newAnt(AbsMap<TargetCoords,String> _pk);
     IntBeanChgTargetCoords newTc(AbsMap<TargetCoords,String> _pk);
     IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab);

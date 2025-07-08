@@ -16,6 +16,7 @@ import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.pokemon.evolution.*;
 import aiki.fight.util.*;
+import aiki.game.*;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
@@ -1611,10 +1612,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos3() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         StringMap<Long> map_ = simu_.getSimulation().getGame().getFight().getUsedItemsWhileRound();
-        BeanChgString key_ = new BeanChgString();
-        key_.setupValue(I_BALL);
-        CommonBean after_ = transitSimu(new SimulationBeanAddEntry<String, Long>(map_, key_, new BeanChgLong()), simu_.getBuilder());
-        return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_BALL), after_.getBuilder());
+        CommonBean after_ = transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_BALL), new BeanChgLong()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_MULT_EXP), new BeanChgLong()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_NOTHING), new BeanChgLong()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_STONE), new BeanChgLong()), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_BALL), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_MULT_EXP), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_NOTHING), simu_.getBuilder());
+        return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_STONE), after_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos4() {
@@ -1838,6 +1843,28 @@ public abstract class InitDbSimulation extends InitDbConstr {
         BeanChgBool chg_ = new BeanChgBool();
         chg_.setSelected(true);
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String, BoolVal>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getEnabledMovesForAlly().getEntry(0), chg_), simu_.getBuilder());
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter4() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
+        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_01), new BeanChgUsesOfMove()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_02), new BeanChgUsesOfMove()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_03), new BeanChgUsesOfMove()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_04), new BeanChgUsesOfMove()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_05), new BeanChgUsesOfMove()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_06), new BeanChgUsesOfMove()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_07), new BeanChgUsesOfMove()), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_01), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_02), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_03), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_04), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_05), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_07), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+    }
+    private static IntBeanChgString chgStr(String _v) {
+        BeanChgString k_ = new BeanChgString();
+        k_.setupValue(_v);
+        return k_;
     }
     private static IntBeanChgFighter sample(KindAction _ka) {
         BeanChgKindAction k_ = new BeanChgKindAction();

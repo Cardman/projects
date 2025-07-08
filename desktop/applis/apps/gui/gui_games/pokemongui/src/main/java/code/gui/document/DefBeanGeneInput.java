@@ -133,6 +133,15 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
     }
 
     @Override
+    public IntBeanChgUsesOfMove newUse() {
+        GeneComponentModelLong u_ = new GeneComponentModelLong(api);
+        helper.feedParent(u_.geneLong());
+        GeneComponentModelLong m_ = new GeneComponentModelLong(api);
+        helper.feedParent(m_.geneLong());
+        return new DefBeanChgUsesOfMove(u_,m_);
+    }
+
+    @Override
     public IntBeanChgAnticipation newAnt(AbsMap<TargetCoords, String> _pk) {
         AbsCustCheckBox inc_ = api.getCompoFactory().newCustCheckBox();
         helper.feedParent(inc_);

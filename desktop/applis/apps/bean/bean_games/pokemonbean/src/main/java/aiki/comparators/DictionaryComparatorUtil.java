@@ -117,6 +117,10 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<TranslatedKey,PokemonData>(new ComparingTranslatedKey());
     }
 
+    public static DictionaryComparator<String,String> buildMvStr(DataBase _data, String _language) {
+        StringMap<StringMap<String>> tp_ = _data.getTranslatedMoves();
+        return new DictionaryComparator<String, String>(tp_.getVal(_language));
+    }
     public static DictionaryComparator<String,String> buildMvStrElts(DataBase _data, String _language) {
         StringMap<StringMap<String>> tp_ = _data.getTranslatedMoves();
         DictionaryComparator<String, String> d_ = new DictionaryComparator<String, String>(tp_.getVal(_language));

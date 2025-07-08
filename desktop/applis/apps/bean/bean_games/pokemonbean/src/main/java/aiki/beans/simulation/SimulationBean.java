@@ -494,6 +494,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         typesFighter(catFighter(_f.getDamageSufferedCateg()), _f.getDamageSufferedCateg(), MessagesDataSimulation.M_P_86_SUFFERING_DAMAGE);
         typesFighter(catFighter(_f.getDamageSufferedCategRound()), _f.getDamageSufferedCategRound(), MessagesDataSimulation.M_P_86_SUFFERING_DAMAGE);
         accFighter(_f);
+        useFighter(_f.getMoves(),MessagesDataSimulation.M_P_86_MOVES);
+        useFighter(_f.getCurrentMoves(),MessagesDataSimulation.M_P_86_CURRENT_MOVES);
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -584,6 +586,46 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             feedParentsCts();
         }
         feedParents();
+        feedParents();
+    }
+
+    private void useFighter(StringMap<UsesOfMove> _us, String _key) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,_key));
+        initGrid();
+        getBuilder().colCount(4);
+        DictionaryComparator<TranslatedKey,UsesOfMove> st_ = new DictionaryComparator<TranslatedKey, UsesOfMove>(new ComparingTranslatedKey());
+        for (EntryCust<String,UsesOfMove> e: _us.entryList()) {
+            st_.put(buildMv(getFacade(),e.getKey()),e.getValue());
+        }
+        for (EntryCust<TranslatedKey,UsesOfMove> e:st_.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgUsesOfMove chgPl_ = getBuilder().getGenInput().newUse();
+            chgPl_.valueUse(e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,UsesOfMove>(_us.getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+            initLine();
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,UsesOfMove>(_us,e.getKey().getKey()));
+            feedParentsCts();
+        }
+        feedParents();
+        int len_ = _us.size();
+        DictionaryComparator<String, String> map_ = DictionaryComparatorUtil.buildMvStr(getDataBase(), getLanguage());
+        StringMap<String> fill_ = new StringMap<String>();
+        fill_.putAllMap(getDataBase().getTranslatedMoves().getVal(getLanguage()));
+        for (int i = 0; i < len_; i++) {
+            fill_.removeKey(_us.getKey(i));
+        }
+        map_.putAllMap(fill_);
+        if (!map_.isEmpty()) {
+            IntBeanChgString key_ = getBuilder().getGenInput().newString(map_);
+            IntBeanChgUsesOfMove value_ = getBuilder().getGenInput().newUse();
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,UsesOfMove>(_us,key_,value_));
+            getBuilder().nextPart();
+        }
         feedParents();
     }
 
@@ -1026,10 +1068,12 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             fill_.removeKey(simulation.getGame().getFight().getUsedItemsWhileRound().getKey(i));
         }
         map_.putAllMap(fill_);
-        IntBeanChgString key_ = getBuilder().getGenInput().newString(map_);
-        IntBeanChgLong value_ = getBuilder().getGenInput().newLong();
-        getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),key_,value_));
-        getBuilder().nextPart();
+        if (!map_.isEmpty()) {
+            IntBeanChgString key_ = getBuilder().getGenInput().newString(map_);
+            IntBeanChgLong value_ = getBuilder().getGenInput().newLong();
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),key_,value_));
+            getBuilder().nextPart();
+        }
         feedParents();
     }
 

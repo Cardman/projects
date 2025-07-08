@@ -68,6 +68,11 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     }
 
     @Override
+    public IntBeanChgUsesOfMove newUse() {
+        return new BeanChgUsesOfMove();
+    }
+
+    @Override
     public IntBeanChgAnticipation newAnt(AbsMap<TargetCoords, String> _pk) {
         return new BeanChgAnticipation();
     }
