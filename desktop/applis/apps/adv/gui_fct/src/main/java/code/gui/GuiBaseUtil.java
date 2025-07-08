@@ -616,7 +616,7 @@ public final class GuiBaseUtil {
         if (_curr.isEmpty()) {
             return new MetaDimension(256,_visible * 16);
         }
-        return new MetaDimension(_prefWidth, _curr.get(0).getHeight() * NumberUtil.min(_curr.size(), _visible));
+        return new MetaDimension(NumberUtil.max(32, _prefWidth), _curr.get(0).getHeight() * NumberUtil.min(_curr.size(), _visible));
     }
     public static String getSelectedItem(ScrollCustomCombo _c) {
         RowGraphicList<String> r_ = _c.getList().getRow(_c.getSelectedIndex());

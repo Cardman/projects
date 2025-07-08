@@ -764,7 +764,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         IntBeanChgList<String> lastSufferedMoveTypes_ = _inputGene.newStringList(ty_);
         lastSufferedMoveTypes_.setupValue(_f.getLastSufferedMoveTypes());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_INVOKED_MOVES);
-        IntBeanChgList<String> alreadyInvokedMovesRound_ = _inputGene.newStringList(ty_);
+        IntBeanChgList<String> alreadyInvokedMovesRound_ = _inputGene.newStringList(DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage()));
         alreadyInvokedMovesRound_.setupValue(_f.getAlreadyInvokedMovesRound());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LAST_SUCCESSFUL_MOVE);
         IntBeanChgString lastSuccessfulMove_ = _inputGene.newString(mv_);
