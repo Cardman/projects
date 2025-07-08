@@ -1778,6 +1778,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq("0", editEditSelectedPlayerPkSimuStepsCoreFighterCa().getSeed().tryRet());
     }
     @Test
+    public void simuSteps13() {
+        assertEq("0", editEditSelectedPlayerPkSimuStepsFighter1().getSeed().tryRet());
+    }
+    @Test
+    public void simuSteps14() {
+        assertEq("0", editEditSelectedPlayerPkSimuStepsFighter2().getSeed().tryRet());
+    }
+    @Test
     public void exit() {
         assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,quit());
     }

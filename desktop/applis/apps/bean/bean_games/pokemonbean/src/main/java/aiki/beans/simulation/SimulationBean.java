@@ -487,6 +487,70 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         setTitledBorder(messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_TITLE_GEN));
         getBuilder().getGenInput().newSubmit(CONFIRM).addEvt(new SimulationBeanAbstractAction(_f,new IntBeanChgFighter(one(_f,getBuilder().getGenInput()),two(_f,getBuilder().getGenInput()),three(_f,getBuilder().getGenInput()),four(_f,getBuilder().getGenInput()),five(_f,getBuilder().getGenInput()),six(_f,getBuilder().getGenInput(),_max))));
         feedParents();
+        movesFighter(dict(_f), _f.getStatus(), MessagesDataSimulation.M_P_86_STATUS);
+        movesFighter(nbUses(_f), _f.getNbUsesMoves(), MessagesDataSimulation.M_P_86_NB_USES);
+        typesFighter(typesFighter(_f.getDamageRateInflictedByType()), _f.getDamageRateInflictedByType(), MessagesDataSimulation.M_P_86_DAMAGE_POWER_TYPES_INF);
+        typesFighter(typesFighter(_f.getDamageRateSufferedByType()), _f.getDamageRateSufferedByType(), MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_SUF);
+    }
+
+    private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
+        DictionaryComparator<TranslatedKey,Long> st_ = new DictionaryComparator<TranslatedKey, Long>(new ComparingTranslatedKey());
+        for (EntryCust<String,Long> e: _f.getStatus().entryList()) {
+            st_.put(buildSt(getFacade(),e.getKey()),e.getValue());
+        }
+        return st_;
+    }
+
+    private DictionaryComparator<TranslatedKey, Long> nbUses(Fighter _f) {
+        DictionaryComparator<TranslatedKey,Long> st_ = new DictionaryComparator<TranslatedKey, Long>(new ComparingTranslatedKey());
+        for (EntryCust<String,Long> e: _f.getNbUsesMoves().entryList()) {
+            st_.put(buildMv(getFacade(),e.getKey()),e.getValue());
+        }
+        return st_;
+    }
+
+    private DictionaryComparator<TranslatedKey, Rate> typesFighter(StringMap<Rate> _info) {
+        DictionaryComparator<TranslatedKey,Rate> st_ = new DictionaryComparator<TranslatedKey, Rate>(new ComparingTranslatedKey());
+        for (EntryCust<String,Rate> e: _info.entryList()) {
+            st_.put(buildTy(getFacade(),e.getKey()),e.getValue());
+        }
+        return st_;
+    }
+    private void movesFighter(AbsMap<TranslatedKey,Long> _d, AbsMap<String,Long> _i, String _key) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,_key));
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<TranslatedKey,Long> e:_d.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgLong chgPl_ = DifficultyBeanForm.iv(getBuilder().getGenInput(), this, e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Long>(_i.getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
+    private void typesFighter(AbsMap<TranslatedKey,Rate> _d, AbsMap<String,Rate> _i, String _key) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,_key));
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<TranslatedKey,Rate> e:_d.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgRate chgPl_ = getBuilder().getGenInput().newRate();
+            chgPl_.valueRate(e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Rate>(_i.getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
     }
 
     private IntBeanChgFighter1 one(Fighter _f, IntBeanGeneInput _inputGene) {
@@ -679,7 +743,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_ITEM);
         IntBeanChgString healIt_ = getBuilder().getGenInput().newString(it_);
         healIt_.setupValue(item(_f.getAction()));
-        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_SUB);
+        DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_SUF);
         IntBeanChgInt sub_ = getBuilder().getGenInput().newInt(ids(_max));
         sub_.valueInt(sub(_f.getAction()));
         CustList<TargetCoords> targetCoords_ = allValuesTarget();

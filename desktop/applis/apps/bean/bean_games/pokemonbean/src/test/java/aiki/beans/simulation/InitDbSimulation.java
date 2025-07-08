@@ -1824,6 +1824,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return (SimulationBean)transitSimu(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),sampleCa()), simu_.getBuilder());
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter1() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowNbUses();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter2() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowStatusSimple();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+    }
     private static IntBeanChgFighter sample(KindAction _ka) {
         BeanChgKindAction k_ = new BeanChgKindAction();
         k_.valueKa(_ka);
@@ -1848,6 +1856,27 @@ public abstract class InitDbSimulation extends InitDbConstr {
                 new IntBeanChgFighter4(new BeanChgString(),new BeanChgLong(),new BeanChgLong(),new BeanChgLong(),new BeanChgBool(),new BeanChgBool(),new BeanChgString()),
                 new IntBeanChgFighter5(new BeanChgList<String>(),new BeanChgList<String>(),new BeanChgString(),new BeanChgLgInt(),new BeanChgBool(),new BeanChgString(),new BeanChgString()),
                 new IntBeanChgFighter6(new BeanChgList<String>(),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), tard_, new BeanChgBool()),new BeanChgBool(),new BeanChgBool()));
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowNbUses() {
+        FacadeGame db_ = dbInc();
+        DamagingMoveData mv_ = Instances.newDamagingMoveData();
+        EffectDamage eff_ = Instances.newEffectDamage();
+        eff_.setPower(MessagesDataBaseConstants.VAR_DEF+DataBase.SEP_BETWEEN_KEYS+MessagesDataBaseConstants.DEF_LANCEUR_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+M_POK_07);
+        mv_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowStatusSimple() {
+        FacadeGame db_ = dbInc();
+        db_.getData().completeMembers(M_POK_07,Instances.newStatusSimple());
+        db_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
+        db_.getData().getTranslatedStatus().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsLow() {
         FacadeGame db_ = dbInc();

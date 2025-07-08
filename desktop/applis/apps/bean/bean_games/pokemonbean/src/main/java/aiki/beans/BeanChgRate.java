@@ -5,6 +5,12 @@ import code.maths.*;
 public class BeanChgRate implements IntBeanChgRate {
 
     private Rate value = Rate.zero();
+
+    @Override
+    public Rate genericValue() {
+        return valueRate();
+    }
+
     @Override
     public Rate valueRate() {
         return value;

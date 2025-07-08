@@ -134,7 +134,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_KIND_ACTION_FIELD_FIRST = "ka_first";
     public static final String M_P_86_KIND_ACTION_FIELD_FINAL = "ka_final";
     public static final String M_P_86_KIND_ACTION_FIELD_ITEM = "ka_item";
-    public static final String M_P_86_KIND_ACTION_FIELD_SUB = "ka_sub";
+    public static final String M_P_86_KIND_ACTION_FIELD_SUF = "ka_sub";
     public static final String M_P_86_KIND_ACTION_FIELD_TAR = "ka_tar";
     public static final String M_P_86_KIND_ACTION_FIELD_TEAM = "ka_team";
     public static final String M_P_86_TITLE_GEN="title_gen";
@@ -152,7 +152,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_CURRENT_MOVES_VALUE_ONE="current_moves_value_one";
     public static final String M_P_86_CURRENT_MOVES_VALUE_TWO="current_moves_value_two";
     public static final String M_P_86_CURRENT_NAME="current_name";
-    public static final String M_P_86_DAMAGE_POWER_TYPES="damage_power_types";
+    public static final String M_P_86_DAMAGE_POWER_TYPES_INF="damage_power_types";
+    public static final String M_P_86_DAMAGE_POWER_TYPES_SUF="damage_power_types";
     public static final String M_P_86_DAMAGE_POWER_TYPES_KEY="damage_power_types_key";
     public static final String M_P_86_DAMAGE_POWER_TYPES_VALUE_ONE="damage_power_types_value_one";
     public static final String M_P_86_DAMAGE_POWER_TYPES_VALUE_TWO="damage_power_types_value_two";
@@ -372,7 +373,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_KIND_ACTION_FIELD_FIRST,"first chosen move");
         e_.add(M_P_86_KIND_ACTION_FIELD_FINAL,"final chosen move");
         e_.add(M_P_86_KIND_ACTION_FIELD_ITEM,"chosen healing item");
-        e_.add(M_P_86_KIND_ACTION_FIELD_SUB,"chosen substitute");
+        e_.add(M_P_86_KIND_ACTION_FIELD_SUF,"chosen substitute");
         e_.add(M_P_86_KIND_ACTION_FIELD_TAR,"chosen target");
         e_.add(M_P_86_KIND_ACTION_FIELD_TEAM,"healing team");
         e_.add(M_P_86_ABILITY,"The base ability of the fighter is:");
@@ -389,7 +390,8 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_CURRENT_MOVES_VALUE_ONE, CURRENT_PP);
         e_.add(M_P_86_CURRENT_MOVES_VALUE_TWO,"Full pp");
         e_.add(M_P_86_CURRENT_NAME,"The current name of the fighter is:");
-        e_.add(M_P_86_DAMAGE_POWER_TYPES,"Here is the table of the rates of the powers of the moves inflicted or suffered by the fighter in function by the types:");
+        e_.add(M_P_86_DAMAGE_POWER_TYPES_INF,"Here is the table of the rates of the powers of the moves inflicted by the fighter in function by the types:");
+        e_.add(M_P_86_DAMAGE_POWER_TYPES_SUF,"Here is the table of the rates of the powers of the moves suffered by the fighter in function by the types:");
         e_.add(M_P_86_DAMAGE_POWER_TYPES_KEY,"Type");
         e_.add(M_P_86_DAMAGE_POWER_TYPES_VALUE_ONE,"Rate of the power of the inflicted move");
         e_.add(M_P_86_DAMAGE_POWER_TYPES_VALUE_TWO,"Rate of the power of the suffered move");
@@ -604,7 +606,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_KIND_ACTION_FIELD_FIRST,"première attaque choisie");
         f_.add(M_P_86_KIND_ACTION_FIELD_FINAL,"finale attaque choisie");
         f_.add(M_P_86_KIND_ACTION_FIELD_ITEM,"objet de soin choisi");
-        f_.add(M_P_86_KIND_ACTION_FIELD_SUB,"remplaçant choisi");
+        f_.add(M_P_86_KIND_ACTION_FIELD_SUF,"remplaçant choisi");
         f_.add(M_P_86_KIND_ACTION_FIELD_TAR,"cible choisie");
         f_.add(M_P_86_KIND_ACTION_FIELD_TEAM,"soin d'équipe");
         f_.add(M_P_86_ABILITY,"La capacité de base du combattant est:");
@@ -621,7 +623,8 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_CURRENT_MOVES_VALUE_ONE, PP_COURANT);
         f_.add(M_P_86_CURRENT_MOVES_VALUE_TWO,"Pp max");
         f_.add(M_P_86_CURRENT_NAME,"Le nom courant du combattant est:");
-        f_.add(M_P_86_DAMAGE_POWER_TYPES,"Voici le tableau des coefficients des puissances des attaques infligées ou subies par le combattant en fonction des types:");
+        f_.add(M_P_86_DAMAGE_POWER_TYPES_INF,"Voici le tableau des coefficients des puissances des attaques infligées par le combattant en fonction des types:");
+        f_.add(M_P_86_DAMAGE_POWER_TYPES_SUF,"Voici le tableau des coefficients des puissances des attaques subies par le combattant en fonction des types:");
         f_.add(M_P_86_DAMAGE_POWER_TYPES_KEY,"Type");
         f_.add(M_P_86_DAMAGE_POWER_TYPES_VALUE_ONE,"Coefficient de la puissance de l'attaque infligée");
         f_.add(M_P_86_DAMAGE_POWER_TYPES_VALUE_TWO,"Coefficient de la puissance de l'attaque subie");
