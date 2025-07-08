@@ -762,7 +762,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         DictionaryComparator<String, String> ty_ = DictionaryComparatorUtil.buildTyStrElts(getDataBase(), getLanguage());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LAST_SUFFERED_MOVE_TYPES);
         IntBeanChgList<String> lastSufferedMoveTypes_ = _inputGene.newStringList(ty_);
-        lastSufferedMoveTypes_.setupValue(_f.getTypes());
+        lastSufferedMoveTypes_.setupValue(_f.getLastSufferedMoveTypes());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_INVOKED_MOVES);
         IntBeanChgList<String> alreadyInvokedMovesRound_ = _inputGene.newStringList(ty_);
         alreadyInvokedMovesRound_.setupValue(_f.getAlreadyInvokedMovesRound());
@@ -790,7 +790,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         genders_.putAllMap(translatedGenders_);
         DictionaryComparator<String, String> mvList_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
         IntBeanChgList<String> movesToBeLearnt_ = _inputGene.newStringList(mvList_);
-        movesToBeLearnt_.setupValue(_f.getTypes());
+        movesToBeLearnt_.setupValue(_f.getMovesToBeLearnt());
         DifficultyBeanForm.formatMessage(this,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SUCCESSFUL_MOVE);
         IntBeanChgBool successfulMove_ = _inputGene.newBool();
         successfulMove_.setSelected(_f.isSuccessfulMove());
