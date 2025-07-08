@@ -15,6 +15,7 @@ import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.pokemon.evolution.*;
+import aiki.fight.status.*;
 import aiki.fight.util.*;
 import aiki.game.*;
 import aiki.game.fight.*;
@@ -1861,6 +1862,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_07), simu_.getBuilder());
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
     }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter5() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowStatusRel();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+    }
     private static IntBeanChgString chgStr(String _v) {
         BeanChgString k_ = new BeanChgString();
         k_.setupValue(_v);
@@ -1906,6 +1911,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowStatusSimple() {
         FacadeGame db_ = dbInc();
         db_.getData().completeMembers(M_POK_07,Instances.newStatusSimple());
+        db_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
+        db_.getData().getTranslatedStatus().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowStatusRel() {
+        FacadeGame db_ = dbInc();
+        StatusBeginRoundSimple status_ = Instances.newStatusBeginRoundSimple();
+        status_.setStatusType(StatusType.RELATION_UNIQUE);
+        db_.getData().completeMembers(M_POK_07, status_);
         db_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         db_.getData().getTranslatedStatus().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
         db_.getData().completeVariables();

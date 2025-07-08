@@ -496,6 +496,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         accFighter(_f);
         useFighter(_f.getMoves(),MessagesDataSimulation.M_P_86_MOVES);
         useFighter(_f.getCurrentMoves(),MessagesDataSimulation.M_P_86_CURRENT_MOVES);
+        statusRel(_f);
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -629,6 +630,31 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
+    private void statusRel(Fighter _f) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_STATUS_REL));
+        initGrid();
+        getBuilder().colCount(4);
+        DictionaryComparator<MoveTeamPositionFighterName, Long> map_ = DictionaryComparatorUtil.buildMoveTeamPositionShort();
+        for (EntryCust<MoveTeamPosition, Long> e: _f.getStatusRelat().entryList()) {
+            String move_ = getDataBase().getTranslatedStatus().getVal(getLanguage()).getVal(e.getKey().getMove());
+            MoveTeamPosition m_ = new MoveTeamPosition(move_, e.getKey().getTeamPosition());
+            map_.put(new MoveTeamPositionFighterName(m_,e.getKey().getMove()),e.getValue());
+        }
+        for (EntryCust<MoveTeamPositionFighterName, Long> e:map_.entryList()) {
+            formatMessageDirCts(e.getKey().getMoveTeamPosition().getMove());
+            formatMessageDirCts(e.getKey().getMoveTeamPosition().getTeamPosition().display());
+            initLine();
+            IntBeanChgLong chgPl_ = getBuilder().getGenInput().newLong();
+            chgPl_.valueLong(e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<MoveTeamPosition,Long>(_f.getStatusRelat().getEntryByKey(new MoveTeamPosition(e.getKey().getName(),e.getKey().getMoveTeamPosition().getTeamPosition())),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
     private IntBeanChgFighter1 one(Fighter _f, IntBeanGeneInput _inputGene) {
         AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
