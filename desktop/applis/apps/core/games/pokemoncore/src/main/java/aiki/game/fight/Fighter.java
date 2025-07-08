@@ -839,7 +839,7 @@ public final class Fighter {
                 return true;
             }
         }
-        for (StringList k: privateMoves.values()) {
+        for (CustList<String> k: privateMoves.values()) {
             for (String m: k) {
                 if (!_data.getMoves().contains(m)) {
                     return true;

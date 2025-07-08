@@ -69,7 +69,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setStringList(StringList _object, String _fieldName, Document _document) {
+    public static Element setStringList(CustList<String> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(ANON_TAG);
         setFieldName(elt_, _fieldName);
         for (String s: _object) {

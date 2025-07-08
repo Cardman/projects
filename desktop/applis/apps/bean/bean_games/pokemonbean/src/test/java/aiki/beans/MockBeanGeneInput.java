@@ -68,6 +68,11 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     }
 
     @Override
+    public IntBeanChgCopiedMove newCp(AbsMap<String, String> _mv) {
+        return new BeanChgCopiedMove();
+    }
+
+    @Override
     public IntBeanChgStackOfUses newStack() {
         return new BeanChgStackOfUses();
     }
@@ -90,6 +95,11 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     @Override
     public IntBeanChgChoiceOfEvolutionAndMoves newChoice(AbsMap<String,String> _pk,AbsMap<String,String> _mv,AbsMap<String,String> _ab) {
         return new BeanChgChoiceOfEvolutionAndMoves();
+    }
+
+    @Override
+    public IntBeanChgMovesAbilities newEvo(AbsMap<String, String> _mv, AbsMap<String, String> _ab) {
+        return new BeanChgMovesAbilities();
     }
 
     @Override

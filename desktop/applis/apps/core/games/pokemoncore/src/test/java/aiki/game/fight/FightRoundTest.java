@@ -2571,7 +2571,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getTemp().setChangeThrower(true);
         processEffectTargets(fight_, thrower_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         fighter_ = fight_.getFighter(target_);
-        StringList fobiddenMoves_ = fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF, tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
+        CustList<String> fobiddenMoves_ = fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF, tp(KEY_PLAYER, POKEMON_FIGHTER_THREE)));
         assertEq(2, fobiddenMoves_.size());
         assertTrue(StringUtil.contains(fobiddenMoves_, PAR_ICI));
         assertTrue(StringUtil.contains(fobiddenMoves_, JACKPOT));

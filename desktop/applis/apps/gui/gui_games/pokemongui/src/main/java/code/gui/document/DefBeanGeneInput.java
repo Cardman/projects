@@ -125,11 +125,19 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         AbsCustCheckBox ch_ = api.getCompoFactory().newCustCheckBox();
         helper.feedParent(ch_);
         GeneComponentModelLong comp_ = new GeneComponentModelLong(api);
-        AbsSpinner s_ = comp_.geneLong();
-        helper.feedParent(s_);
+        helper.feedParent(comp_.geneLong());
         GeneComponentModelElt<String> kept_ = new GeneComponentModelElt<String>(api, _mv, new EmptyDefValue());
         helper.feedParent(kept_.geneEnum());
         return new DefBeanChgAffectedMove(kept_, ch_, comp_);
+    }
+
+    @Override
+    public IntBeanChgCopiedMove newCp(AbsMap<String, String> _mv) {
+        GeneComponentModelLong comp_ = new GeneComponentModelLong(api);
+        helper.feedParent(comp_.geneLong());
+        GeneComponentModelElt<String> kept_ = new GeneComponentModelElt<String>(api, _mv, new EmptyDefValue());
+        helper.feedParent(kept_.geneEnum());
+        return new DefBeanChgCopiedMove(kept_, comp_);
     }
 
     @Override
@@ -184,6 +192,19 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         GeneComponentModelElt<String> abName_ = new GeneComponentModelElt<String>(api, _ab,new EmptyDefValue());
         helper.feedParent(abName_.geneEnum());
         return new DefBeanChgChoiceOfEvolutionAndMoves(evo_, kept_, abName_);
+    }
+
+    @Override
+    public IntBeanChgMovesAbilities newEvo(AbsMap<String, String> _mv, AbsMap<String, String> _ab) {
+        GeneComponentModelLs<String> kept_ = new GeneComponentModelLs<String>(api, _mv);
+        helper.feedParent(kept_.geneCommon(new CustList<String>()));
+        kept_.getSelect().setVisibleRowCount(8);
+        kept_.getSelect().applyRows();
+        GeneComponentModelLs<String> abName_ = new GeneComponentModelLs<String>(api, _ab);
+        helper.feedParent(abName_.geneCommon(new CustList<String>()));
+        abName_.getSelect().setVisibleRowCount(8);
+        abName_.getSelect().applyRows();
+        return new DefBeanChgMovesAbilities(kept_, abName_);
     }
 
     @Override

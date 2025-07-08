@@ -4297,7 +4297,7 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setMapMoveTeamPositionStringList(MoveTeamPositionsStringList _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(DocumentWriterCoreUtil.ANON_TAG);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<MoveTeamPosition, StringList> s: _object.entryList()) {
+        for (EntryCust<MoveTeamPosition, CustList<String>> s: _object.entryList()) {
             Element sub_ = setMoveTeamPosition(s.getKey(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

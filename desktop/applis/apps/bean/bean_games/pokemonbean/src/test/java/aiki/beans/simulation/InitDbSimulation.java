@@ -1881,6 +1881,36 @@ public abstract class InitDbSimulation extends InitDbConstr {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowTrap();
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<MoveTeamPosition,ActivityOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getTrappingMoves().getEntry(0), new BeanChgActivityOfMove()), simu_.getBuilder());
     }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter9() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowPrivate();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<MoveTeamPosition,CustList<String>>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getPrivateMoves().getEntry(0), new BeanChgList<String>()), simu_.getBuilder());
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter10() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowCp();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,CopiedMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getCopiedMoves().getEntry(0), new BeanChgCopiedMove()), simu_.getBuilder());
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter11() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_00), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_01), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_02), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_03), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_04), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_05), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_06), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_07), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_08), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_09), new BeanChgMovesAbilities()), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_00), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_01), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_02), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_03), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_04), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_05), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_07), simu_.getBuilder());
+        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_08), simu_.getBuilder());
+        return (SimulationBean)transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_09), simu_.getBuilder());
+    }
     private static IntBeanChgString chgStr(String _v) {
         BeanChgString k_ = new BeanChgString();
         k_.setupValue(_v);
@@ -1980,6 +2010,30 @@ public abstract class InitDbSimulation extends InitDbConstr {
         DamagingMoveData mv_ = Instances.newDamagingMoveData();
         mv_.getEffects().add(Instances.newEffectAlly());
         db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowPrivate() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData status_ = Instances.newStatusMoveData();
+        EffectRestriction eff_ = Instances.newEffectRestriction();
+        eff_.setChoiceRestriction(MoveChoiceRestrictionType.LANCEUR_ATTAQUES);
+        status_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07, status_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowCp() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData status_ = Instances.newStatusMoveData();
+        EffectCopyMove eff_ = Instances.newEffectCopyMove();
+        eff_.setCopyingMoveForUser(1);
+        status_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07, status_);
         db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
         db_.getData().completeVariables();
         db_.getData().completeMembersCombos();

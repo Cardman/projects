@@ -500,6 +500,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         incrAcc(_f);
         affected(_f);
         trap(_f);
+        privateMoves(_f);
+        cpMoves(_f);
+        evos(_f);
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -732,6 +735,97 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             feedParentsCts();
         }
         feedParents();
+        feedParents();
+    }
+    private void privateMoves(Fighter _f) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_PRIVATE_MOVES));
+        initGrid();
+        getBuilder().colCount(4);
+        DictionaryComparator<MoveTeamPositionFighterName, CustList<String>> map_ = new DictionaryComparator<MoveTeamPositionFighterName, CustList<String>>(new ComparatorMoveTeamPosition());
+        for (EntryCust<MoveTeamPosition, CustList<String>> e: _f.getPrivateMoves().entryList()) {
+            String move_ = getDataBase().getTranslatedMoves().getVal(getLanguage()).getVal(e.getKey().getMove());
+            MoveTeamPosition m_ = new MoveTeamPosition(move_, e.getKey().getTeamPosition());
+            map_.put(new MoveTeamPositionFighterName(m_,e.getKey().getMove()), e.getValue());
+        }
+        DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        for (EntryCust<MoveTeamPositionFighterName, CustList<String>> e:map_.entryList()) {
+            formatMessageDirCts(e.getKey().getMoveTeamPosition().getMove());
+            formatMessageDirCts(e.getKey().getMoveTeamPosition().getTeamPosition().display());
+            initLine();
+            IntBeanChgList<String> chgPl_ = getBuilder().getGenInput().newStringList(mv_);
+            chgPl_.setupValue(e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<MoveTeamPosition,CustList<String>>(_f.getPrivateMoves().getEntryByKey(new MoveTeamPosition(e.getKey().getName(),e.getKey().getMoveTeamPosition().getTeamPosition())),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+    private void cpMoves(Fighter _f) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_COPIED_MOVES));
+        initGrid();
+        getBuilder().colCount(3);
+        DictionaryComparator<TranslatedKey, CopiedMove> map_ = new DictionaryComparator<TranslatedKey, CopiedMove>(new ComparingTranslatedKey());
+        for (EntryCust<String, CopiedMove> e: _f.getCopiedMoves().entryList()) {
+            map_.put(buildMv(getFacade(),e.getKey()), e.getValue());
+        }
+        DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        for (EntryCust<TranslatedKey, CopiedMove> e:map_.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgCopiedMove chgPl_ = getBuilder().getGenInput().newCp(mv_);
+            chgPl_.valCp(e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,CopiedMove>(_f.getCopiedMoves().getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
+    private void evos(Fighter _f) {
+        initPage();
+//        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.MOVES));
+        initGrid();
+        getBuilder().colCount(4);
+        DictionaryComparator<TranslatedKey,MovesAbilities> st_ = new DictionaryComparator<TranslatedKey, MovesAbilities>(new ComparingTranslatedKey());
+        for (EntryCust<String, MovesAbilities> e: _f.getMovesAbilitiesEvos().entryList()) {
+            st_.put(buildPk(getFacade(),e.getKey()),e.getValue());
+        }
+        DictionaryComparator<String, String> ab_ = DictionaryComparatorUtil.buildAbStrElts(getDataBase(), getLanguage());
+        DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getDataBase(), getLanguage());
+        for (EntryCust<TranslatedKey,MovesAbilities> e:st_.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgMovesAbilities chgPl_ = getBuilder().getGenInput().newEvo(mv_,ab_);
+            chgPl_.valEvo(e.getValue());
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,MovesAbilities>(_f.getMovesAbilitiesEvos().getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+            initLine();
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),e.getKey().getKey()));
+            feedParentsCts();
+        }
+        feedParents();
+        int len_ = _f.getMovesAbilitiesEvos().size();
+        DictionaryComparator<String, String> map_ = DictionaryComparatorUtil.buildMvStr(getDataBase(), getLanguage());
+        StringMap<String> fill_ = new StringMap<String>();
+        fill_.putAllMap(getDataBase().getTranslatedPokemon().getVal(getLanguage()));
+        for (int i = 0; i < len_; i++) {
+            fill_.removeKey(_f.getMovesAbilitiesEvos().getKey(i));
+        }
+        map_.putAllMap(fill_);
+        if (!map_.isEmpty()) {
+            IntBeanChgString key_ = getBuilder().getGenInput().newString(map_);
+            IntBeanChgMovesAbilities value_ = getBuilder().getGenInput().newEvo(mv_,ab_);
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),key_,value_));
+            getBuilder().nextPart();
+        }
         feedParents();
     }
     private IntBeanChgFighter1 one(Fighter _f, IntBeanGeneInput _inputGene) {

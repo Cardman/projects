@@ -1,16 +1,15 @@
 package aiki.util;
 
-import code.util.CollCapacity;
-import code.util.StringList;
+import code.util.*;
 
-public final class MoveTeamPositionsStringList extends MoveTeamPositions<StringList> {
+public final class MoveTeamPositionsStringList extends MoveTeamPositions<CustList<String>> {
     public MoveTeamPositionsStringList(){
     }
     public MoveTeamPositionsStringList(CollCapacity _cap){
         super(_cap);
     }
     @Override
-    protected StringList def() {
+    protected CustList<String> def() {
         return new StringList();
     }
 }

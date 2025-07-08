@@ -609,7 +609,7 @@ public class FightEffectsTest extends InitializationDataBase {
         FightEffects.effectRestriction(fight_, thrower_, target_, effect_, POSSESSIF, data_);
         Fighter fighter_ = fight_.getUserTeam().getMembers().getVal(thrower_.getPosition());
         MoveTeamPositionsStringList map_ = fighter_.getPrivateMoves();
-        StringList value_;
+        CustList<String> value_;
         value_ = map_.getVal(new MoveTeamPosition(POSSESSIF, target_));
         assertEq(1, value_.size());
         assertTrue(StringUtil.contains(value_, COPIE));

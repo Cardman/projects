@@ -236,6 +236,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.getGenInput().newLgInt().valueLgInt(h_.getGenInput().newLgInt().valueLgInt());
         h_.getGenInput().newStringList(new StringMap<String>()).setupValue(h_.getGenInput().newStringList(new StringMap<String>()).tryRet());
         h_.getGenInput().newAff(new StringMap<String>()).valAff(h_.getGenInput().newAff(new StringMap<String>()).valAff());
+        h_.getGenInput().newCp(new StringMap<String>()).valCp(h_.getGenInput().newCp(new StringMap<String>()).valCp());
         h_.getGenInput().newInts(new IntMap<String>()).setupValue(h_.getGenInput().newInts(new IntMap<String>()).tryRet());
         h_.getGenInput().newAc().valueActivity(h_.getGenInput().newAc().valueActivity());
         h_.getGenInput().newStack().valueStack(h_.getGenInput().newStack().valueStack());
@@ -244,6 +245,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.getGenInput().newTc(new IdMap<TargetCoords, String>()).valueTc(h_.getGenInput().newTc(new IdMap<TargetCoords, String>()).valueTc());
         h_.getGenInput().newKa(new IdMap<KindAction, String>()).valueKa(h_.getGenInput().newKa(new IdMap<KindAction, String>()).valueKa());
         h_.getGenInput().newChoice(new StringMap<String>(),new StringMap<String>(),new StringMap<String>()).valueChoice(h_.getGenInput().newChoice(new StringMap<String>(),new StringMap<String>(),new StringMap<String>()).valueChoice());
+        h_.getGenInput().newEvo(new StringMap<String>(),new StringMap<String>()).valEvo(h_.getGenInput().newEvo(new StringMap<String>(),new StringMap<String>()).valEvo());
         h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt(h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt());
         h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender(h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender());
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
