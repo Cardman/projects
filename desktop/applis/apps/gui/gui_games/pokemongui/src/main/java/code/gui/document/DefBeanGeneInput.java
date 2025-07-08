@@ -121,6 +121,18 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
     }
 
     @Override
+    public IntBeanChgAffectedMove newAff(AbsMap<String, String> _mv) {
+        AbsCustCheckBox ch_ = api.getCompoFactory().newCustCheckBox();
+        helper.feedParent(ch_);
+        GeneComponentModelLong comp_ = new GeneComponentModelLong(api);
+        AbsSpinner s_ = comp_.geneLong();
+        helper.feedParent(s_);
+        GeneComponentModelElt<String> kept_ = new GeneComponentModelElt<String>(api, _mv, new EmptyDefValue());
+        helper.feedParent(kept_.geneEnum());
+        return new DefBeanChgAffectedMove(kept_, ch_, comp_);
+    }
+
+    @Override
     public IntBeanChgStackOfUses newStack() {
         AbsCustCheckBox first_ = api.getCompoFactory().newCustCheckBox();
         helper.feedParent(first_);

@@ -235,6 +235,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         chgInt_.valueInt(chgInt_.valueInt());
         h_.getGenInput().newLgInt().valueLgInt(h_.getGenInput().newLgInt().valueLgInt());
         h_.getGenInput().newStringList(new StringMap<String>()).setupValue(h_.getGenInput().newStringList(new StringMap<String>()).tryRet());
+        h_.getGenInput().newAff(new StringMap<String>()).valAff(h_.getGenInput().newAff(new StringMap<String>()).valAff());
         h_.getGenInput().newInts(new IntMap<String>()).setupValue(h_.getGenInput().newInts(new IntMap<String>()).tryRet());
         h_.getGenInput().newAc().valueActivity(h_.getGenInput().newAc().valueActivity());
         h_.getGenInput().newStack().valueStack(h_.getGenInput().newStack().valueStack());

@@ -63,6 +63,11 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     }
 
     @Override
+    public IntBeanChgAffectedMove newAff(AbsMap<String, String> _mv) {
+        return new BeanChgAffectedMove();
+    }
+
+    @Override
     public IntBeanChgStackOfUses newStack() {
         return new BeanChgStackOfUses();
     }

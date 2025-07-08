@@ -11,6 +11,7 @@ import aiki.fight.enums.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
+import aiki.fight.moves.effects.enums.*;
 import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
@@ -1866,6 +1867,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowStatusRel();
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
     }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter6() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowIncrAcc();
+        BeanChgBool chg_ = new BeanChgBool();
+        chg_.setSelected(true);
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<MoveTeamPosition,BoolVal>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getIncrUserAccuracy().getEntry(0), chg_), simu_.getBuilder());
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter7() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAff();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<MoveTeamPosition,AffectedMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getTrackingMoves().getEntry(0), new BeanChgAffectedMove()), simu_.getBuilder());
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter8() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowTrap();
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<MoveTeamPosition,ActivityOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getTrappingMoves().getEntry(0), new BeanChgActivityOfMove()), simu_.getBuilder());
+    }
     private static IntBeanChgString chgStr(String _v) {
         BeanChgString k_ = new BeanChgString();
         k_.setupValue(_v);
@@ -1924,6 +1939,38 @@ public abstract class InitDbSimulation extends InitDbConstr {
         db_.getData().completeMembers(M_POK_07, status_);
         db_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         db_.getData().getTranslatedStatus().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowIncrAcc() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData status_ = Instances.newStatusMoveData();
+        status_.getEffects().add(Instances.newEffectAccuracy());
+        db_.getData().completeMembers(M_POK_07, status_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowAff() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData status_ = Instances.newStatusMoveData();
+        EffectRestriction eff_ = Instances.newEffectRestriction();
+        eff_.setChoiceRestriction(MoveChoiceRestrictionType.FORCE);
+        status_.getEffects().add(eff_);
+        db_.getData().completeMembers(M_POK_07, status_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowTrap() {
+        FacadeGame db_ = dbInc();
+        StatusMoveData status_ = Instances.newStatusMoveData();
+        status_.getEffects().add(Instances.newEffectEndRoundSingleRelation());
+        db_.getData().completeMembers(M_POK_07, status_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
         db_.getData().completeVariables();
         db_.getData().completeMembersCombos();
         return intro(db_);
