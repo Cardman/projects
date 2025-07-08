@@ -493,6 +493,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         typesFighter(typesFighter(_f.getDamageRateSufferedByType()), _f.getDamageRateSufferedByType(), MessagesDataSimulation.M_P_86_DAMAGE_POWER_TYPES_SUF);
         typesFighter(catFighter(_f.getDamageSufferedCateg()), _f.getDamageSufferedCateg(), MessagesDataSimulation.M_P_86_SUFFERING_DAMAGE);
         typesFighter(catFighter(_f.getDamageSufferedCategRound()), _f.getDamageSufferedCategRound(), MessagesDataSimulation.M_P_86_SUFFERING_DAMAGE);
+        accFighter(_f);
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -557,6 +558,29 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             feedParentsCts();
             initLine();
             getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Rate>(_i.getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
+    private void accFighter(Fighter _f) {
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ENBALED_MOVES_ALLY));
+        initGrid();
+        getBuilder().colCount(3);
+        DictionaryComparator<TranslatedKey,BoolVal> st_ = new DictionaryComparator<TranslatedKey, BoolVal>(new ComparingTranslatedKey());
+        for (EntryCust<String,BoolVal> e: _f.getEnabledMovesForAlly().entryList()) {
+            st_.put(buildMv(getFacade(),e.getKey()),e.getValue());
+        }
+        for (EntryCust<TranslatedKey,BoolVal> e:st_.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgBool chgPl_ = getBuilder().getGenInput().newBool();
+            chgPl_.setSelected(e.getValue() == BoolVal.TRUE);
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,BoolVal>(_f.getEnabledMovesForAlly().getEntryByKey(e.getKey().getKey()),chgPl_));
             feedParentsCts();
         }
         feedParents();

@@ -40,6 +40,7 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import aiki.beans.facade.map.dto.*;
 import code.util.*;
+import code.util.core.*;
 
 public abstract class InitDbSimulation extends InitDbConstr {
     public static final String M_POK_00 = "M_POK00";
@@ -1832,6 +1833,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowStatusSimple();
         return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
     }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter3() {
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAlly();
+        BeanChgBool chg_ = new BeanChgBool();
+        chg_.setSelected(true);
+        return (SimulationBean)transitSimu(new SimulationBeanUpdateEntryValue<String, BoolVal>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getEnabledMovesForAlly().getEntry(0), chg_), simu_.getBuilder());
+    }
     private static IntBeanChgFighter sample(KindAction _ka) {
         BeanChgKindAction k_ = new BeanChgKindAction();
         k_.valueKa(_ka);
@@ -1874,6 +1881,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         db_.getData().completeMembers(M_POK_07,Instances.newStatusSimple());
         db_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         db_.getData().getTranslatedStatus().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
+        db_.getData().completeVariables();
+        db_.getData().completeMembersCombos();
+        return intro(db_);
+    }
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowAlly() {
+        FacadeGame db_ = dbInc();
+        DamagingMoveData mv_ = Instances.newDamagingMoveData();
+        mv_.getEffects().add(Instances.newEffectAlly());
+        db_.getData().completeMembers(M_POK_07,mv_);
+        db_.getData().getTranslatedMoves().getVal(EN).addEntry(M_POK_07, M_POK_07_TR);
         db_.getData().completeVariables();
         db_.getData().completeMembersCombos();
         return intro(db_);
