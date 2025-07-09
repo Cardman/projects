@@ -510,6 +510,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         enFighter(_f.getEnabledMovesConstChoices(),getDataBase().getMovesConstChoices());
         enFighter(_f.getEnabledChangingTypesMoves(),getDataBase().getMovesChangingTypes());
         enFighter(_f.getEnabledCounteringMoves(),getDataBase().getMovesCountering());
+        stat(_f);
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -855,6 +856,54 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
         feedParents();
     }
+    private void stat(Fighter _f) {
+        IdMap<Statistic, String> stat_ = getDataBase().getTranslatedStatistics().getVal(getLanguage());
+        longs(_f.getEv(), stat_);
+        longs(_f.getIv(), stat_);
+        longs(_f.getStatisBoost(), stat_);
+        rate(_f.getStatisBase(), stat_);
+    }
+
+    private void longs(IdMap<Statistic, Long> _f, IdMap<Statistic, String> _stat) {
+        initPage();
+        setTitledBorder("");
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<Statistic,Long> e: _f.entryList()) {
+            formatMessageDirCts(_stat.getVal(e.getKey()));
+            initLine();
+            IntBeanChgLong chgPl_ = getBuilder().getGenInput().newLong();
+            chgPl_.valueLong(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(SimulationBean.CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<Statistic,Long>(e,chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
+    private void rate(IdMap<Statistic, Rate> _f, IdMap<Statistic, String> _stat) {
+        initPage();
+        setTitledBorder("");
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<Statistic,Rate> e: _f.entryList()) {
+            formatMessageDirCts(_stat.getVal(e.getKey()));
+            initLine();
+            IntBeanChgRate chgPl_ = getBuilder().getGenInput().newRate();
+            chgPl_.valueRate(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(SimulationBean.CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<Statistic,Rate>(e,chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
+        feedParents();
+    }
+
     private IntBeanChgFighter1 one(Fighter _f, IntBeanGeneInput _inputGene) {
         AbsMap<Gender, String> translatedGenders_ = getDataBase().getTranslatedGenders().getVal(getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
