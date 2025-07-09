@@ -112,12 +112,17 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
 
     @Override
     public IntBeanChgActivityOfMove newAc() {
+        return newAc(true);
+    }
+
+    @Override
+    public IntBeanChgActivityOfMove newAc(boolean _incrCount) {
         AbsCustCheckBox ch_ = api.getCompoFactory().newCustCheckBox();
         helper.feedParent(ch_);
         GeneComponentModelLong comp_ = new GeneComponentModelLong(api);
         AbsSpinner s_ = comp_.geneLong();
         helper.feedParent(s_);
-        return new DefBeanChgActivityOfMove(ch_,comp_);
+        return new DefBeanChgActivityOfMove(ch_,comp_, _incrCount);
     }
 
     @Override

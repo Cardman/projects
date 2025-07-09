@@ -6,7 +6,10 @@ public class BeanChgActivityOfMove implements IntBeanChgActivityOfMove {
 
     private boolean enabled;
     private long nbTurn;
-
+    private final boolean incrementCount;
+    public BeanChgActivityOfMove(boolean _incrCount) {
+        incrementCount = _incrCount;
+    }
     @Override
     public ActivityOfMove genericValue() {
         return valueActivity();
@@ -14,7 +17,7 @@ public class BeanChgActivityOfMove implements IntBeanChgActivityOfMove {
 
     @Override
     public ActivityOfMove valueActivity() {
-        ActivityOfMove ac_ = new ActivityOfMove();
+        ActivityOfMove ac_ = new ActivityOfMove(incrementCount);
         ac_.setEnabled(enabled);
         ac_.setNbTurn(nbTurn);
         return ac_;

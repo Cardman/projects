@@ -59,7 +59,12 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
 
     @Override
     public IntBeanChgActivityOfMove newAc() {
-        return new BeanChgActivityOfMove();
+        return newAc(true);
+    }
+
+    @Override
+    public IntBeanChgActivityOfMove newAc(boolean _incrCount) {
+        return new BeanChgActivityOfMove(_incrCount);
     }
 
     @Override

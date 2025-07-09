@@ -503,6 +503,13 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         privateMoves(_f);
         cpMoves(_f);
         evos(_f);
+        enFighter(_f.getEnabledMoves(),getDataBase().getMovesEffectIndivIncr());
+        enFighter(_f.getEnabledMovesProt(),getDataBase().getMovesEffectIndivIncr());
+        enFighter(_f.getEnabledMovesUnprot(),getDataBase().getMovesEffectIndivIncr());
+        enFighter(_f.getEnabledMovesEndRound(),getDataBase().getMovesEffEndRoundIndivIncr());
+        enFighter(_f.getEnabledMovesConstChoices(),getDataBase().getMovesConstChoices());
+        enFighter(_f.getEnabledChangingTypesMoves(),getDataBase().getMovesChangingTypes());
+        enFighter(_f.getEnabledCounteringMoves(),getDataBase().getMovesCountering());
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -826,6 +833,26 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),key_,value_));
             getBuilder().nextPart();
         }
+        feedParents();
+    }
+    private void enFighter(StringMap<ActivityOfMove> _moves, CustList<String> _incr) {
+        DictionaryComparator<TranslatedKey, ActivityOfMove> sorted_ = sortedAc(_moves);
+        initPage();
+        setTitledBorder(messageRend(MessagesPkBean.SIMU, MessagesFightFighter.M_P_91_ENBALED_MOVES));
+        initGrid();
+        getBuilder().colCount(3);
+        for (EntryCust<TranslatedKey,ActivityOfMove> e: sorted_.entryList()) {
+            formatMessageDirCts(e.getKey().getTranslation());
+            initLine();
+            IntBeanChgActivityOfMove chgPl_ = getBuilder().getGenInput().newAc(StringUtil.contains(_incr,e.getKey().getKey()));
+            chgPl_.valueActivity(e.getValue());
+            getBuilder().nextPart();
+            feedParentsCts();
+            initLine();
+            getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,ActivityOfMove>(_moves.getEntryByKey(e.getKey().getKey()),chgPl_));
+            feedParentsCts();
+        }
+        feedParents();
         feedParents();
     }
     private IntBeanChgFighter1 one(Fighter _f, IntBeanGeneInput _inputGene) {

@@ -18,6 +18,7 @@ public interface IntBeanGeneInput {
     IntBeanChgString newText();
     IntBeanChgSubmit newSubmit(String _text);
     IntBeanChgActivityOfMove newAc();
+    IntBeanChgActivityOfMove newAc(boolean _incrCount);
     IntBeanChgAffectedMove newAff(AbsMap<String,String> _mv);
     IntBeanChgCopiedMove newCp(AbsMap<String,String> _mv);
     IntBeanChgStackOfUses newStack();

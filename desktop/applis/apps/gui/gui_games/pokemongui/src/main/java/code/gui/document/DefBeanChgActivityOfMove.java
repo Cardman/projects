@@ -7,7 +7,8 @@ import code.gui.*;
 public final class DefBeanChgActivityOfMove extends BeanChgActivityOfMove {
     private final AbsCustCheckBox check;
     private final GeneComponentModelLong spinner;
-    public DefBeanChgActivityOfMove(AbsCustCheckBox _c,GeneComponentModelLong _d) {
+    public DefBeanChgActivityOfMove(AbsCustCheckBox _c, GeneComponentModelLong _d, boolean _incrCount) {
+        super(_incrCount);
         check = _c;
         spinner = _d;
     }
