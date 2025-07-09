@@ -243,6 +243,9 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
             name_ = "";
         }
         BeanRenderWithAppName target_ = getRenders().getVal(page_);
+        if (target_ == null) {
+            return;
+        }
         clearAnchors();
         reset();
         initPage();

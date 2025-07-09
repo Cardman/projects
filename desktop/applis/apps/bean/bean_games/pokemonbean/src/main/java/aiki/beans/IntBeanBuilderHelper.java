@@ -38,6 +38,9 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
     }
     public void build(String _dest) {
         BeanRenderWithAppName target_ = getRenders().getVal(_dest);
+        if (target_ == null) {
+            return;
+        }
         clearAnchors();
         getOrderedLists().clear();
         initPage();

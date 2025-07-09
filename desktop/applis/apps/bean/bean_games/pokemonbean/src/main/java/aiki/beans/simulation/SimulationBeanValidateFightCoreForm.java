@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
+import aiki.db.*;
 
 public final class SimulationBeanValidateFightCoreForm implements IntBeanAction {
     private final SimulationBean bean;
@@ -12,7 +13,7 @@ public final class SimulationBeanValidateFightCoreForm implements IntBeanAction 
     @Override
     public String actionBean() {
         bean.validateFightCoreForm();
-        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return DataBase.EMPTY_STRING;
     }
 
 }

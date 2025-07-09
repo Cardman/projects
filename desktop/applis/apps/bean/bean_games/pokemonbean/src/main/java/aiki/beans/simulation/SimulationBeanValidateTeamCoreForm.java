@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
+import aiki.db.*;
 import aiki.game.fight.*;
 
 public final class SimulationBeanValidateTeamCoreForm implements IntBeanAction {
@@ -21,7 +22,7 @@ public final class SimulationBeanValidateTeamCoreForm implements IntBeanAction {
     @Override
     public String actionBean() {
         bean.validateTeamCoreForm(team,nbKo,nbKoPrevious, successfulMovesRound);
-        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return DataBase.EMPTY_STRING;
     }
 
 }

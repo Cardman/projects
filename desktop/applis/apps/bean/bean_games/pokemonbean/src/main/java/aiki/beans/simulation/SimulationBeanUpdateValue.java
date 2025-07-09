@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
+import aiki.db.*;
 import aiki.game.fight.*;
 import aiki.game.fight.util.*;
 import code.util.*;
@@ -18,6 +19,6 @@ public final class SimulationBeanUpdateValue implements IntBeanAction {
     @Override
     public String actionBean() {
         list.set(list.index(key),new ListActivityOfMove(key,input.genericValue()));
-        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return DataBase.EMPTY_STRING;
     }
 }

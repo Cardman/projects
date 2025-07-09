@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
+import aiki.db.*;
 import code.util.*;
 
 public final class SimulationBeanUpdateEntryValue<K,V> implements IntBeanAction {
@@ -14,6 +15,6 @@ public final class SimulationBeanUpdateEntryValue<K,V> implements IntBeanAction 
     @Override
     public String actionBean() {
         index.setValue(input.genericValue());
-        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return DataBase.EMPTY_STRING;
     }
 }

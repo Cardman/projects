@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
+import aiki.db.*;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.util.*;
@@ -101,6 +102,6 @@ public final class SimulationBeanAbstractAction implements IntBeanAction {
         fighter.setSuccessfulMove(act6.getSuccessfulMove().isSelected());
         fighter.setChanged(act6.getChanged().isSelected());
         fighter.setMovesToBeLearnt(new StringList(act6.getMovesToBeLearnt().tryRet()));
-        return CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML;
+        return DataBase.EMPTY_STRING;
     }
 }
