@@ -604,9 +604,22 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         feedParents();
     }
 
+    public PageFormSimu resetFormSimu(PageFormSimu _page) {
+        PageFormSimu formLocal_ = getBuilder().reset(_page);
+        formLocal_.init();
+        return formLocal_;
+    }
+    public PageFormSimu endReset(PageFormSimu _page) {
+        return getBuilder().end(_page);
+    }
     private void useFighter(StringMap<UsesOfMove> _us, String _key) {
-        initPage();
+        PageFormSimu formLocal_ = getBuilder().initPageForm(this);
         setTitledBorder(messageRend(MessagesPkBean.SIMULATION,_key));
+        useFighterContent(_us, formLocal_);
+        getBuilder().feedParentForm();
+    }
+
+    public void useFighterContent(StringMap<UsesOfMove> _us, PageFormSimu _form) {
         initGrid();
         getBuilder().colCount(4);
         DictionaryComparator<TranslatedKey,UsesOfMove> st_ = new DictionaryComparator<TranslatedKey, UsesOfMove>(new ComparingTranslatedKey());
@@ -623,7 +636,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,UsesOfMove>(_us.getEntryByKey(e.getKey().getKey()),chgPl_));
             feedParentsCts();
             initLine();
-            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,UsesOfMove>(_us,e.getKey().getKey()));
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,UsesOfMove>(_us,e.getKey().getKey(), new UpdateFormUsesOfMove(this,_us), _form));
             feedParentsCts();
         }
         feedParents();
@@ -638,10 +651,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         if (!map_.isEmpty()) {
             IntBeanChgString key_ = getBuilder().getGenInput().newString(map_);
             IntBeanChgUsesOfMove value_ = getBuilder().getGenInput().newUse();
-            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,UsesOfMove>(_us,key_,value_));
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,UsesOfMove>(_us,key_,value_, new UpdateFormUsesOfMove(this,_us), _form));
             getBuilder().nextPart();
         }
-        feedParents();
     }
 
     private void statusRel(Fighter _f) {
@@ -796,8 +808,13 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     }
 
     private void evos(Fighter _f) {
-        initPage();
+        PageFormSimu formLocal_ = getBuilder().initPageForm(this);
 //        setTitledBorder(messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.MOVES));
+        evosContent(_f, formLocal_);
+        getBuilder().feedParentForm();
+    }
+
+    public void evosContent(Fighter _f, PageFormSimu _form) {
         initGrid();
         getBuilder().colCount(4);
         DictionaryComparator<TranslatedKey,MovesAbilities> st_ = new DictionaryComparator<TranslatedKey, MovesAbilities>(new ComparingTranslatedKey());
@@ -816,7 +833,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,MovesAbilities>(_f.getMovesAbilitiesEvos().getEntryByKey(e.getKey().getKey()),chgPl_));
             feedParentsCts();
             initLine();
-            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),e.getKey().getKey()));
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),e.getKey().getKey(), new UpdateFormEvosFighter(this,_f), _form));
             feedParentsCts();
         }
         feedParents();
@@ -831,11 +848,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         if (!map_.isEmpty()) {
             IntBeanChgString key_ = getBuilder().getGenInput().newString(map_);
             IntBeanChgMovesAbilities value_ = getBuilder().getGenInput().newEvo(mv_,ab_);
-            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),key_,value_));
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),key_,value_, new UpdateFormEvosFighter(this,_f), _form));
             getBuilder().nextPart();
         }
-        feedParents();
     }
+
     private void enFighter(StringMap<ActivityOfMove> _moves, CustList<String> _incr) {
         DictionaryComparator<TranslatedKey, ActivityOfMove> sorted_ = sortedAc(_moves);
         initPage();
@@ -1251,7 +1268,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         return o_;
     }
 
-    private DictionaryComparator<TranslatedKey,Long> sortedUsedItems() {
+    public DictionaryComparator<TranslatedKey,Long> sortedUsedItems() {
         DictionaryComparator<TranslatedKey,Long> o_ = new DictionaryComparator<TranslatedKey,Long>(new ComparingTranslatedKey());
         for (EntryCust<String, Long> e:simulation.getGame().getFight().getUsedItemsWhileRound().entryList()) {
             o_.put(buildIt(getFacade(),e.getKey()),e.getValue());
@@ -1316,8 +1333,13 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     }
 
     private void usedItems(AbsMap<TranslatedKey, Long> _map) {
-        initPage();
+        PageFormSimu formLocal_ = getBuilder().initPageForm(this);
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_USED_ITEMS_WHILE_ROUND));
+        usedItemsContent(_map, formLocal_);
+        getBuilder().feedParentForm();
+    }
+
+    public void usedItemsContent(AbsMap<TranslatedKey, Long> _map, PageFormSimu _form) {
         initGrid();
         getBuilder().colCount(4);
         for (EntryCust<TranslatedKey,Long> e: _map.entryList()) {
@@ -1331,7 +1353,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound().getEntryByKey(e.getKey().getKey()),chgPl_));
             feedParentsCts();
             initLine();
-            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),e.getKey().getKey()));
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),e.getKey().getKey(), new UpdateFormUsedItem(this), _form));
             feedParentsCts();
         }
         feedParents();
@@ -1346,10 +1368,9 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         if (!map_.isEmpty()) {
             IntBeanChgString key_ = getBuilder().getGenInput().newString(map_);
             IntBeanChgLong value_ = getBuilder().getGenInput().newLong();
-            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),key_,value_));
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,Long>(simulation.getGame().getFight().getUsedItemsWhileRound(),key_,value_, new UpdateFormUsedItem(this), _form));
             getBuilder().nextPart();
         }
-        feedParents();
     }
 
     private void usedItemsFix(AbsMap<TranslatedKey, Long> _map, StringMap<Long> _info) {
@@ -1449,8 +1470,13 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
     }
 
     private void evosChoices() {
-        initPage();
+        PageFormSimu formLocal_ = getBuilder().initPageForm(this);
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_EVO_CHOICES));
+        evosChoicesContent(formLocal_);
+        getBuilder().feedParentForm();
+    }
+
+    public void evosChoicesContent(PageFormSimu _form) {
         initGrid();
         getBuilder().colCount(4);
         DictionaryComparator<String, String> pk_ = DictionaryComparatorUtil.buildPkStrElts(getDataBase(), getLanguage());
@@ -1467,7 +1493,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<Integer,ChoiceOfEvolutionAndMoves>(e,choice_));
             feedParentsCts();
             initLine();
-            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<Integer,ChoiceOfEvolutionAndMoves>(simulation.getGame().getFight().getChoices(),e.getKey()));
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<Integer,ChoiceOfEvolutionAndMoves>(simulation.getGame().getFight().getChoices(),e.getKey(), new UpdateFormEvosChoices(this), _form));
             feedParentsCts();
         }
         feedParents();
@@ -1482,15 +1508,19 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         if (!map_.isEmpty()) {
             IntBeanChgInt key_ = getBuilder().getGenInput().newInt(map_);
             IntBeanChgChoiceOfEvolutionAndMoves value_ = getBuilder().getGenInput().newChoice(pk_, mv_, ab_);
-            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<Integer,ChoiceOfEvolutionAndMoves>(simulation.getGame().getFight().getChoices(),key_,value_));
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<Integer,ChoiceOfEvolutionAndMoves>(simulation.getGame().getFight().getChoices(),key_,value_, new UpdateFormEvosChoices(this), _form));
             getBuilder().nextPart();
         }
-        feedParents();
     }
 
     private void allyChoices() {
-        initPage();
+        PageFormSimu formLocal_ = getBuilder().initPageForm(this);
         setTitledBorder(messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_ALLY_CHOICES));
+        allyChoicesContent(formLocal_);
+        getBuilder().feedParentForm();
+    }
+
+    public void allyChoicesContent(PageFormSimu _form) {
         initGrid();
         getBuilder().colCount(4);
         CustList<MoveTarget> values_ = allValues();
@@ -1511,7 +1541,7 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
             getBuilder().button(CONFIRM).addEvt(new SimulationBeanUpdateEntryValue<MoveTarget,MoveTarget>(e,choice_));
             feedParentsCts();
             initLine();
-            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<MoveTarget,MoveTarget>(simulation.getGame().getFight().getAllyChoice(),e.getKey()));
+            getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<MoveTarget,MoveTarget>(simulation.getGame().getFight().getAllyChoice(),e.getKey(), new UpdateFormAllyChoices(this), _form));
             feedParentsCts();
         }
         feedParents();
@@ -1527,11 +1557,11 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         if (!map_.isEmpty()) {
             IntBeanChgMoveTarget key_ = getBuilder().getGenInput().newMt(map_);
             IntBeanChgMoveTarget value_ = getBuilder().getGenInput().newMt(valuesMap_);
-            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<MoveTarget,MoveTarget>(simulation.getGame().getFight().getAllyChoice(),key_,value_));
+            getBuilder().button("+").addEvt(new SimulationBeanAddEntry<MoveTarget,MoveTarget>(simulation.getGame().getFight().getAllyChoice(),key_,value_, new UpdateFormAllyChoices(this), _form));
             getBuilder().nextPart();
         }
-        feedParents();
     }
+
     private CustList<MoveTarget> allKeys() {
         CustList<MoveTarget> mt_ = new CustList<MoveTarget>();
         noMoveCase(mt_);

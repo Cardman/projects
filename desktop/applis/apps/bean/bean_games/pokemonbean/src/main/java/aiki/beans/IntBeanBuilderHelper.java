@@ -1,7 +1,9 @@
 package aiki.beans;
 
+import aiki.beans.simulation.*;
 import aiki.facade.*;
 import code.bean.*;
+import code.formathtml.render.*;
 import code.util.*;
 
 public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
@@ -22,7 +24,54 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
         String txt_ = formatMessageRend(_with,_file, _key, _values);
         formatMessageDir(txt_,_e);
     }
-
+    public PageFormSimu reset(PageFormSimu _page) {
+        CustList<MetaSearchableContent> n_ = new CustList<MetaSearchableContent>();
+        for (MetaSearchableContent o: getContent().getMetaSearchableContents()) {
+            if (o.getFormGroup() != _page.getFormGroup()) {
+                n_.add(o);
+            }
+        }
+        setFormGroup(_page.getFormGroup());
+        getContent().getMetaSearchableContents().clear();
+        getContent().getMetaSearchableContents().addAllElts(n_);
+        return _page;
+    }
+    public PageFormSimu end(PageFormSimu _page) {
+        CustList<MetaSearchableContent> n_ = new CustList<MetaSearchableContent>();
+        for (MetaSearchableContent o: getContent().getMetaSearchableContents()) {
+            if (o.getFormGroup() < _page.getFormGroup()) {
+                n_.add(o);
+            }
+        }
+        for (MetaSearchableContent o: getContent().getMetaSearchableContents()) {
+            if (o.getFormGroup() == _page.getFormGroup()) {
+                n_.add(o);
+            }
+        }
+        for (MetaSearchableContent o: getContent().getMetaSearchableContents()) {
+            if (o.getFormGroup() > _page.getFormGroup()) {
+                n_.add(o);
+            }
+        }
+        getContent().getMetaSearchableContents().clear();
+        getContent().getMetaSearchableContents().addAllElts(n_);
+        return _page;
+    }
+    public PageFormSimu initPageForm(SimulationBean _s) {
+        super.initPage();
+        getContent().setFormGroup(getContent().getFormGroup()+1);
+        getContent().setRowGroup(0);
+        getContent().setPartGroup(0);
+        PageFormSimu p_ = new PageFormSimu(_s);
+        p_.setFormGroup(getFormGroup());
+        return p_;
+    }
+    public void feedParentForm() {
+        feedParents();
+        setFormGroup(getFormGroup()+1);
+        setRowGroup(0);
+        setPartGroup(0);
+    }
     @Override
     public String getLanguage() {
         return getFacade().getLanguage();
@@ -35,6 +84,9 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
 
     public void build(IntBeanAction _action) {
         build(_action.actionBean());
+        if (_action instanceof IntBeanActionPart) {
+            ((IntBeanActionPart)_action).special();
+        }
     }
     public void build(String _dest) {
         BeanRenderWithAppName target_ = getRenders().getVal(_dest);

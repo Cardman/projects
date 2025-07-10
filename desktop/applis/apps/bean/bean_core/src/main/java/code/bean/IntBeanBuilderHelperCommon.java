@@ -43,7 +43,7 @@ public abstract class IntBeanBuilderHelperCommon {
         nextPart();
     }
     public void nextPart() {
-        content.getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        content.getMetaSearchableContents().add(new MetaSearchableContent(null,getFormGroup(), getPartGroup(), getRowGroup()));
         content.setPartGroup(content.getPartGroup()+1);
         content.setRowGroup(0);
     }
@@ -82,6 +82,12 @@ public abstract class IntBeanBuilderHelperCommon {
 
     public void colCount(int _c) {
         getContent().colCount(_c);
+    }
+    public int getFormGroup() {
+        return getContent().getFormGroup();
+    }
+    public void setFormGroup(int _p) {
+        this.getContent().setFormGroup(_p);
     }
     public int getPartGroup() {
         return getContent().getPartGroup();

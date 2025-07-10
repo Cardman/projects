@@ -1,6 +1,7 @@
 package aiki.gui;
 
 import aiki.beans.*;
+import aiki.beans.simulation.*;
 import aiki.game.Game;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
@@ -250,6 +251,11 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.getGenInput().newEvo(new StringMap<String>(),new StringMap<String>()).valEvo(h_.getGenInput().newEvo(new StringMap<String>(),new StringMap<String>()).valEvo());
         h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt(h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt());
         h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender(h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender());
+        SimulationBean s_ = new SimulationBean();
+        s_.setBuilder(h_);
+        PageFormSimu page_ = h_.initPageForm(s_);
+        h_.feedParentForm();
+        h_.end(s_.resetFormSimu(page_));
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 

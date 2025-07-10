@@ -29,6 +29,7 @@ public class IntBeanBuilderHelperContentTest extends EquallableBeanCoreUtil {
         content_.setHeader(content_.getHeader());
         content_.setRefLk(content_.getRefLk());
         content_.setPartGroup(content_.getPartGroup());
+        content_.setFormGroup(content_.getFormGroup());
         content_.setRowGroup(content_.getRowGroup());
         content_.getOrderedLists().clear();
         content_.setIndent(content_.getIndent());

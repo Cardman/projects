@@ -12,6 +12,7 @@ public final class FindNextElement {
     private boolean setup;
     private int row;
     private int group;
+    private int form;
     private MetaSearchableContent cur;
     private final IdMap<MetaSearchableContent, CustList<SegmentPart>> segments = new IdMap<MetaSearchableContent, CustList<SegmentPart>>();
 
@@ -100,6 +101,13 @@ public final class FindNextElement {
     private boolean fetchedGroupRow(MetaSearchableContent _meta) {
         if (_meta.getText() == null) {
             return false;
+        }
+        if (_meta.getFormGroup() != form) {
+            form = _meta.getFormGroup();
+            group = _meta.getPartGroup();
+            row = _meta.getRowGroup();
+            reset();
+            return true;
         }
         if (_meta.getPartGroup() != group) {
             group = _meta.getPartGroup();

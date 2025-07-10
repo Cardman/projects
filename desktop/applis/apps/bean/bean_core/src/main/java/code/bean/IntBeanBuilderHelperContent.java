@@ -5,6 +5,7 @@ import code.sml.util.*;
 import code.util.*;
 
 public final class IntBeanBuilderHelperContent {
+    private int formGroup;
     private int partGroup;
     private int rowGroup;
     private final Ints colCount = new Ints();
@@ -30,6 +31,15 @@ public final class IntBeanBuilderHelperContent {
     public Ints getColIndex() {
         return colIndex;
     }
+
+    public int getFormGroup() {
+        return formGroup;
+    }
+
+    public void setFormGroup(int _f) {
+        this.formGroup = _f;
+    }
+
     public int getPartGroup() {
         return partGroup;
     }

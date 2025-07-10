@@ -1,12 +1,11 @@
 package code.formathtml.render;
 
 import code.sml.RendKeyWordsGroup;
-import code.util.CustList;
+import code.util.*;
 import org.junit.Test;
 
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
-import code.util.IdMap;
 
 public final class FindNextElementTest extends EquallableRenderAdvUtil {
 
@@ -213,7 +212,17 @@ public final class FindNextElementTest extends EquallableRenderAdvUtil {
         assertEq(0, segs_.size());
         assertNull(f_.getLabel());
     }
-
+    @Test
+    public void next12Test() {
+        IdList<MetaSearchableContent> parts_ = new IdList<MetaSearchableContent>();
+        parts_.add(new MetaSearchableContent("ta",0,0,0));
+        parts_.add(new MetaSearchableContent("ta",1,0,0));
+        FindNextElement f_ = new FindNextElement(parts_);
+        f_.next("t");
+        assertEq(1, f_.getSegments().size());
+        f_.next("t");
+        assertEq(1, f_.getSegments().size());
+    }
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
         return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new SampleCharacterCaseConverter());

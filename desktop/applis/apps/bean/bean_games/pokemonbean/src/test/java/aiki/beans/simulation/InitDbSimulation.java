@@ -1614,14 +1614,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos3() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         StringMap<Long> map_ = simu_.getSimulation().getGame().getFight().getUsedItemsWhileRound();
-        CommonBean after_ = transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_BALL), new BeanChgLong()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_MULT_EXP), new BeanChgLong()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_NOTHING), new BeanChgLong()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_STONE), new BeanChgLong()), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_BALL), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_MULT_EXP), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_NOTHING), simu_.getBuilder());
-        return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<String, Long>(map_, I_STONE), after_.getBuilder());
+        PageFormSimu page_ = new PageFormSimu(simu_);
+        CommonBean after_ = transitSimuQuickChg(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_BALL), new BeanChgLong(), new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_MULT_EXP), new BeanChgLong(), new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_NOTHING), new BeanChgLong(), new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_STONE), new BeanChgLong(), new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, Long>(map_, I_BALL, new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, Long>(map_, I_MULT_EXP, new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, Long>(map_, I_NOTHING, new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        return (SimulationBean) transitSimuQuickChg(new SimulationBeanRemoveEntry<String, Long>(map_, I_STONE, new UpdateFormUsedItem(simu_), page_), after_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos4() {
@@ -1629,8 +1630,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         IntMap<ChoiceOfEvolutionAndMoves> map_ = simu_.getSimulation().getGame().getFight().getChoices();
         BeanChgInt key_ = new BeanChgInt();
         key_.valueInt(0);
-        CommonBean after_ = transitSimu(new SimulationBeanAddEntry<Integer, ChoiceOfEvolutionAndMoves>(map_, key_, new BeanChgChoiceOfEvolutionAndMoves()), simu_.getBuilder());
-        return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves>(map_, 0), after_.getBuilder());
+        CommonBean after_ = transitSimuQuickChg(new SimulationBeanAddEntry<Integer, ChoiceOfEvolutionAndMoves>(map_, key_, new BeanChgChoiceOfEvolutionAndMoves(), new UpdateFormEvosChoices(simu_), new PageFormSimu(simu_)), simu_.getBuilder());
+        return (SimulationBean) transitSimuQuickChg(new SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves>(map_, 0, new UpdateFormEvosChoices(simu_), new PageFormSimu(simu_)), after_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos5() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
@@ -1638,152 +1639,153 @@ public abstract class InitDbSimulation extends InitDbConstr {
         BeanChgMoveTarget key_ = new BeanChgMoveTarget();
         MoveTarget d_ = MoveTarget.def();
         key_.valueMt(d_);
-        CommonBean after_ = transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        PageFormSimu page_ = new PageFormSimu(simu_);
+        CommonBean after_ = transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget zero0_ = new MoveTarget(M_POK_00, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(zero0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget zero01_ = new MoveTarget(M_POK_00, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(zero01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget zero1_ = new MoveTarget(M_POK_00, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(zero1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget zero2_ = new MoveTarget(M_POK_00, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(zero2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget one0_ = new MoveTarget(M_POK_01, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(one0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget one01_ = new MoveTarget(M_POK_01, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(one01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget one1_ = new MoveTarget(M_POK_01, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(one1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget one2_ = new MoveTarget(M_POK_01, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(one2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget two0_ = new MoveTarget(M_POK_02, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(two0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget two01_ = new MoveTarget(M_POK_02, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(two01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget two1_ = new MoveTarget(M_POK_02, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(two1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget two2_ = new MoveTarget(M_POK_02, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(two2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget three0_ = new MoveTarget(M_POK_03, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(three0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget three01_ = new MoveTarget(M_POK_03, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(three01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget three1_ = new MoveTarget(M_POK_03, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(three1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget three2_ = new MoveTarget(M_POK_03, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(three2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget four0_ = new MoveTarget(M_POK_04, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(four0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget four01_ = new MoveTarget(M_POK_04, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(four01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget four1_ = new MoveTarget(M_POK_04, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(four1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget four2_ = new MoveTarget(M_POK_04, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(four2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget five0_ = new MoveTarget(M_POK_05, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(five0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget five01_ = new MoveTarget(M_POK_05, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(five01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget five1_ = new MoveTarget(M_POK_05, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(five1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget five2_ = new MoveTarget(M_POK_05, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(five2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget six0_ = new MoveTarget(M_POK_06, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(six0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget six01_ = new MoveTarget(M_POK_06, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(six01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget six1_ = new MoveTarget(M_POK_06, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(six1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget six2_ = new MoveTarget(M_POK_06, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(six2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget seven0_ = new MoveTarget(M_POK_07, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(seven0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget seven01_ = new MoveTarget(M_POK_07, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(seven01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget seven1_ = new MoveTarget(M_POK_07, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(seven1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget seven2_ = new MoveTarget(M_POK_07, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(seven2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget eight0_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_PLAYER,0));
         key_.valueMt(eight0_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget eight01_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_PLAYER,1));
         key_.valueMt(eight01_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget eight1_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_FOE,0));
         key_.valueMt(eight1_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
         MoveTarget eight2_ = new MoveTarget(M_POK_08, new TargetCoords(Fight.CST_FOE,1));
         key_.valueMt(eight2_);
-        transitSimu(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget()), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven2_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight0_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight01_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight1_), after_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight2_), after_.getBuilder());
-        return (SimulationBean) transitSimu(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, d_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, key_, new BeanChgMoveTarget(), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, zero2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, one2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, two2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, three2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, four2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, five2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, six2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, seven2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight0_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight01_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight1_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, eight2_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
+        return (SimulationBean) transitSimuQuickChg(new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(map_, d_, new UpdateFormAllyChoices(simu_), page_), after_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreTeam() {
@@ -1824,12 +1826,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction _ka) {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),sample(_ka)), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(fighter(simu_),sample(_ka)), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighterCa() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(simu_.getSimulation().getGame().getFight().getFighter(0,0),sampleCa()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(fighter(simu_),sampleCa()), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter1() {
@@ -1844,25 +1846,32 @@ public abstract class InitDbSimulation extends InitDbConstr {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAlly();
         BeanChgBool chg_ = new BeanChgBool();
         chg_.setSelected(true);
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String, BoolVal>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getEnabledMovesForAlly().getEntry(0), chg_), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String, BoolVal>(fighter(simu_).getEnabledMovesForAlly().getEntry(0), chg_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter4() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
-        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_01), new BeanChgUsesOfMove()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_02), new BeanChgUsesOfMove()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_03), new BeanChgUsesOfMove()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_04), new BeanChgUsesOfMove()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_05), new BeanChgUsesOfMove()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_06), new BeanChgUsesOfMove()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), chgStr(M_POK_07), new BeanChgUsesOfMove()), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_01), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_02), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_03), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_04), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_05), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, UsesOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMoves(), M_POK_07), simu_.getBuilder());
+        PageFormSimu page_ = new PageFormSimu(simu_);
+        page_.setFormGroup(7);
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_01), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_02), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_03), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_04), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_05), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_06), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_07), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_01, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_02, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_03, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_04, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_05, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_07, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
         return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
     }
+
+    private static StringMap<UsesOfMove> moves(SimulationBean _simu) {
+        return fighter(_simu).getMoves();
+    }
+
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter5() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowStatusRel();
         return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
@@ -1871,47 +1880,53 @@ public abstract class InitDbSimulation extends InitDbConstr {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowIncrAcc();
         BeanChgBool chg_ = new BeanChgBool();
         chg_.setSelected(true);
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,BoolVal>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getIncrUserAccuracy().getEntry(0), chg_), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,BoolVal>(fighter(simu_).getIncrUserAccuracy().getEntry(0), chg_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter7() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAff();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,AffectedMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getTrackingMoves().getEntry(0), new BeanChgAffectedMove()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,AffectedMove>(fighter(simu_).getTrackingMoves().getEntry(0), new BeanChgAffectedMove()), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter8() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowTrap();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,ActivityOfMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getTrappingMoves().getEntry(0), new BeanChgActivityOfMove(true)), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,ActivityOfMove>(fighter(simu_).getTrappingMoves().getEntry(0), new BeanChgActivityOfMove(true)), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter9() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowPrivate();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,CustList<String>>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getPrivateMoves().getEntry(0), new BeanChgList<String>()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,CustList<String>>(fighter(simu_).getPrivateMoves().getEntry(0), new BeanChgList<String>()), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter10() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowCp();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,CopiedMove>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getCopiedMoves().getEntry(0), new BeanChgCopiedMove()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,CopiedMove>(fighter(simu_).getCopiedMoves().getEntry(0), new BeanChgCopiedMove()), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter11() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_00), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_01), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_02), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_03), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_04), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_05), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_06), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_07), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_08), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanAddEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), chgStr(P_POK_09), new BeanChgMovesAbilities()), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_00), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_01), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_02), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_03), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_04), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_05), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_07), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_08), simu_.getBuilder());
-        transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_09), simu_.getBuilder());
-        return (SimulationBean)transitSimu(new SimulationBeanRemoveEntry<String, MovesAbilities>(simu_.getSimulation().getGame().getFight().getFighter(0,0).getMovesAbilitiesEvos(), P_POK_09), simu_.getBuilder());
+        PageFormSimu page_ = new PageFormSimu(simu_);
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_00), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_01), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_02), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_03), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_04), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_05), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_06), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_07), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_08), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_09), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_00, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_01, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_02, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_03, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_04, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_05, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_07, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_08, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_09, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_09, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
     }
+
+    private static Fighter fighter(SimulationBean _simu) {
+        return _simu.getSimulation().getGame().getFight().getFighter(0, 0);
+    }
+
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter12() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAct();
         return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
@@ -3860,6 +3875,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         String url_ = _caller.actionBean();
         _builder.build(url_);
         _builder.build(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML);
+//        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
+//        setFormsBy((CommonBean) ((PokemonBeanStruct)dest_).getBean(),_caller.getBean());
+//        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();
+//        s_.build(_stds.getDataBase(), s_.getForms());
+        return (CommonBean) _builder.getRenders().getVal(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML);// _all.getVal(_mapping.getVal(url_));
+    }
+
+    public static CommonBean transitSimuQuickChg(IntBeanAction _caller, IntBeanBuilderHelper _builder) {
+//        String url_ = _caller.actionBean();
+//        _builder.build(url_);
+        _builder.build(_caller);
 //        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
 //        setFormsBy((CommonBean) ((PokemonBeanStruct)dest_).getBean(),_caller.getBean());
 //        CommonBean s_ = (CommonBean) ((BeanStruct) dest_).getBean();

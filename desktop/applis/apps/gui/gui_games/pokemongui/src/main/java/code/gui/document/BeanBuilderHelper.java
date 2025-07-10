@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import aiki.beans.*;
+import aiki.beans.simulation.*;
 import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.images.*;
@@ -13,7 +14,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 //    private AbsScrollPane scrollPane;
 //    private final AbstractProgramInfos content.getApi();
     private final FindBeanEvent finder;
-    private final BeanBuilderHelperContent content;
+    private final BeanBuilderHelperContent helper;
 //    private final IdMap<MetaSearchableContent,AbsTextPane> refsSearch = new IdMap<MetaSearchableContent,AbsTextPane>();
 //    private final StringMap<AbsTextPane> refsSearchDir = new StringMap<AbsTextPane>();
 //    private final IdList<MetaSearchableContent> metaSearchableContents = new IdList<MetaSearchableContent>();
@@ -25,11 +26,11 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     public BeanBuilderHelper(AbstractProgramInfos _a, FindBeanEvent _f) {
 //        this.content.getApi() = _a;
         this.finder = _f;
-        content = new BeanBuilderHelperContent(_a);
-        content.getColours().add(GuiConstants.BLACK);
-        content.getColours().add(GuiConstants.RED);
-        content.getColours().add(GuiConstants.GREEN);
-        content.getColours().add(GuiConstants.BLUE);
+        helper = new BeanBuilderHelperContent(_a);
+        helper.getColours().add(GuiConstants.BLACK);
+        helper.getColours().add(GuiConstants.RED);
+        helper.getColours().add(GuiConstants.GREEN);
+        helper.getColours().add(GuiConstants.BLUE);
         setGenInput(new DefBeanGeneInput(this,_a));
     }
 
@@ -39,7 +40,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         getRefsSearch().clear();
         getRefsSearchDir().clear();
         getOrderedLists().clear();
-        content.getFonts().clear();
+        helper.getFonts().clear();
         setPartGroup(0);
         setRowGroup(0);
     }
@@ -47,21 +48,53 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     @Override
     public void initLine() {
         super.initLine();
-        stack.add(content.getApi().getCompoFactory().newLineBox());
+        stack.add(helper.getApi().getCompoFactory().newLineBox());
         setBackgroundBody();
+    }
+
+    @Override
+    public PageFormSimu reset(PageFormSimu _page) {
+        DefPageFormSimu p_ = new DefPageFormSimu(_page.getSimulationBean(), ((DefPageFormSimu) _page).getPanel(), this);
+        p_.setFormGroup(_page.getFormGroup());
+        super.reset(_page);
+        return p_;
+    }
+
+    @Override
+    public PageFormSimu end(PageFormSimu _page) {
+        PageFormSimu p_ = super.end(_page);
+        getFinder().setFinding(this);
+        stack.clear();
+        getContent().getColCount().clear();
+        getContent().getColIndex().clear();
+        return p_;
+    }
+
+    @Override
+    public PageFormSimu initPageForm(SimulationBean _s) {
+        super.initPage();
+        getContent().setFormGroup(getContent().getFormGroup()+1);
+        getContent().setRowGroup(0);
+        getContent().setPartGroup(0);
+        AbsPanel panel_ = helper.getApi().getCompoFactory().newPageBox();
+        stack.add(panel_);
+        setBackgroundBody();
+        DefPageFormSimu p_ = new DefPageFormSimu(_s, panel_, this);
+        p_.setFormGroup(getFormGroup());
+        return p_;
     }
 
     @Override
     public void initPage() {
         super.initPage();
-        stack.add(content.getApi().getCompoFactory().newPageBox());
+        stack.add(helper.getApi().getCompoFactory().newPageBox());
         setBackgroundBody();
     }
 
     @Override
     public void initGrid() {
         super.initGrid();
-        stack.add(content.getApi().getCompoFactory().newGrid());
+        stack.add(helper.getApi().getCompoFactory().newGrid());
         setBackgroundBody();
     }
 
@@ -106,7 +139,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     }
 
     private void evt(IntBeanAction _e, AbsTextPane _tx) {
-        anchor(content.getApi(), _tx);
+        anchor(helper.getApi(), _tx);
         evtCompo(_e, _tx);
     }
 
@@ -134,7 +167,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         txt_.setLineBorder(GuiConstants.BLACK);
         feedParentCts(txt_);
         hierarchy(_txt, txt_);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        getMetaSearchableContents().add(new MetaSearchableContent(null,getFormGroup(), getPartGroup(), getRowGroup()));
         txt_.setBackground(GuiConstants.YELLOW);
     }
     public void formatMessageDirCts(String _txt) {
@@ -142,7 +175,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         ch_.setLineBorder(GuiConstants.BLACK);
         feedParentCts(ch_);
         hierarchy(_txt, ch_);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        getMetaSearchableContents().add(new MetaSearchableContent(null, getFormGroup(),getPartGroup(), getRowGroup()));
     }
 
     @Override
@@ -151,15 +184,15 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         ch_.setLineBorder(GuiConstants.BLACK);
         feedParentCts(ch_);
         hierarchy(_txt, ch_);
-        getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
+        getMetaSearchableContents().add(new MetaSearchableContent(null, getFormGroup(),getPartGroup(), getRowGroup()));
         evt(_e, ch_);
     }
 
     public AbsTextPane message(String _txt) {
-        AbsTextPane tp_ = content.getApi().getCompoFactory().newTextPane();
+        AbsTextPane tp_ = helper.getApi().getCompoFactory().newTextPane();
         tp_.setBackground(GuiConstants.WHITE);
-        tp_.setForeground(content.getColours().get(getHeader()));
-        AbstractThread th_ = content.getApi().getThreadFactory().newThread(new SetTextThread(tp_, StringUtil.nullToEmpty(_txt)));
+        tp_.setForeground(helper.getColours().get(getHeader()));
+        AbstractThread th_ = helper.getApi().getThreadFactory().newThread(new SetTextThread(tp_, StringUtil.nullToEmpty(_txt)));
         th_.start();
         th_.join();
         tp_.setEditable(false);
@@ -168,41 +201,41 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     @Override
     public void paintIndent() {
-        AbstractImage img_ = content.getApi().getImageFactory().newImageArgb(16, 16);
+        AbstractImage img_ = helper.getApi().getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, 16, 16);
-        stack.last().add(content.getApi().getCompoFactory().newPreparedLabel(img_));
+        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
         img_.dispose();
     }
 
     @Override
     public void paintNb(int _nb) {
-        AbstractImage img_ = content.getApi().getImageFactory().newImageArgb(16, 16);
+        AbstractImage img_ = helper.getApi().getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, 16, 16);
         img_.setColor(GuiConstants.BLACK);
         img_.drawString(Long.toString(_nb),0,16);
-        stack.last().add(content.getApi().getCompoFactory().newPreparedLabel(img_));
+        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
         img_.dispose();
     }
 
     public void paintMetaLabelDisk() {
-        AbstractImage img_ = content.getApi().getImageFactory().newImageArgb(16, 16);
+        AbstractImage img_ = helper.getApi().getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, 16, 16);
         img_.setColor(GuiConstants.BLACK);
         img_.fillOval(0, 0, 16, 16);
-        stack.last().add(content.getApi().getCompoFactory().newPreparedLabel(img_));
+        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
         img_.dispose();
     }
 
     public void addImg(int[][] _img) {
-        stack.last().add(content.getApi().getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(content.getApi().getImageFactory(), _img)));
+        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(helper.getApi().getImageFactory(), _img)));
     }
 
     @Override
     public void addImgCts(int[][] _img, String _tip) {
-        AbsPreparedLabel lab_ = content.getApi().getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(content.getApi().getImageFactory(), _img));
+        AbsPreparedLabel lab_ = helper.getApi().getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(helper.getApi().getImageFactory(), _img));
         lab_.setToolTipText(_tip);
         stack.last().add(lab_, cts());
         incColIndex();
@@ -210,7 +243,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     @Override
     public void addImgCtsAnc(int[][] _img, String _tip, IntBeanAction _e) {
-        AbsPreparedLabel lab_ = content.getApi().getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(content.getApi().getImageFactory(), _img));
+        AbsPreparedLabel lab_ = helper.getApi().getCompoFactory().newPreparedLabel(ConverterGraphicBufferedImage.decodeToImage(helper.getApi().getImageFactory(), _img));
         lab_.setToolTipText(_tip);
         stack.last().add(lab_, cts());
         incColIndex();
@@ -218,8 +251,8 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     }
 
     public void hierarchy(String _txt, AbsTextPane _ch) {
-        MetaSearchableContent s_ = new MetaSearchableContent(_txt, getPartGroup(), getRowGroup());
-        content.getMetaSearchableContents().add(s_);
+        MetaSearchableContent s_ = new MetaSearchableContent(_txt,getFormGroup(), getPartGroup(), getRowGroup());
+        helper.getMetaSearchableContents().add(s_);
         getRefsSearch().addEntry(s_,_ch);
         if (!getRefLk().isEmpty()) {
             getRefsSearchDir().addEntry(getRefLk(),_ch);
@@ -270,7 +303,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
 
     private AbsGridConstraints cts() {
-        AbsGridConstraints cts_ = content.getApi().getCompoFactory().newGridCts();
+        AbsGridConstraints cts_ = helper.getApi().getCompoFactory().newGridCts();
         if (colIndex() +1 == colCount()) {
             cts_.gridwidth(GuiConstants.REMAINDER);
         }
@@ -282,15 +315,15 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         att_.addUnderline(true);
         att_.addForeground(GuiConstants.BLUE);
         _tx.setCharacterAttributes(0, _tx.getText().length(), att_, false);
-        content.getFonts().addEntry(_tx,att_);
+        helper.getFonts().addEntry(_tx,att_);
     }
 
     public IdMap<AbsTextPane,AbsAttrSet> getFonts() {
-        return content.getFonts();
+        return helper.getFonts();
     }
 
     public IdList<MetaSearchableContent> getMetaSearchableContents() {
-        return content.getMetaSearchableContents();
+        return helper.getMetaSearchableContents();
     }
 
     public IdMap<AbsCustComponent, AbsCustComponent> getParents() {
@@ -298,27 +331,27 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     }
 
     public IdMap<MetaSearchableContent, AbsTextPane> getRefsSearch() {
-        return content.getRefsSearch();
+        return helper.getRefsSearch();
     }
 
     public StringMap<AbsTextPane> getRefsSearchDir() {
-        return content.getRefsSearchDir();
+        return helper.getRefsSearchDir();
     }
 
     public AbsScrollPane getScrollPane() {
-        return content.getScrollPane();
+        return helper.getScrollPane();
     }
 
     public void setScrollPane(AbsScrollPane _s) {
-        this.content.setScrollPane(_s);
+        this.helper.setScrollPane(_s);
     }
 
     public AbsCommonFrame getFrame() {
-        return content.getFrame();
+        return helper.getFrame();
     }
 
     public void setFrame(AbsCommonFrame _f) {
-        this.content.setFrame(_f);
+        this.helper.setFrame(_f);
     }
 
 }
