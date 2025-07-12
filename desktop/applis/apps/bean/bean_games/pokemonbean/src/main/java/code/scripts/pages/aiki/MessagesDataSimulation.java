@@ -263,6 +263,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_KEY_FIGHTER="key_fighter";
     public static final String M_P_86_ITEM_USE="item_use";
     public static final String M_P_86_ITEM_USE_NB="item_use_nb";
+    public static final String M_P_86_SEED="seed";
     private static final String ENABLED = "Enabled";
     private static final String ACTIF = "Actif";
     private static final String CURRENT_PP = "Current pp";
@@ -535,6 +536,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_KEY_FIGHTER,"Id");
         e_.add(M_P_86_ITEM_USE,"Item");
         e_.add(M_P_86_ITEM_USE_NB,"Quantity");
+        e_.add(M_P_86_SEED,"Seed");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -799,6 +801,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_KEY_FIGHTER,"Id");
         f_.add(M_P_86_ITEM_USE,"Objet");
         f_.add(M_P_86_ITEM_USE_NB,"Quantité");
+        f_.add(M_P_86_SEED,"Graine");
         return f_;
     }
 }
