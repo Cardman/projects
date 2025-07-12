@@ -57,6 +57,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         DefPageFormSimu p_ = new DefPageFormSimu(_page.getSimulationBean(), ((DefPageFormSimu) _page).getPanel(), this);
         p_.setFormGroup(_page.getFormGroup());
         super.reset(_page);
+        super.initPage();
         return p_;
     }
 

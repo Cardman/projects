@@ -13,7 +13,6 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
     private FacadeGame facade;
     private final IdList<IntBeanAction> anchors = new IdList<IntBeanAction>();
     private final StringMapObject forms = new StringMapObject();
-    private boolean formsAct;
     protected IntBeanBuilderHelper() {
     }
 
@@ -59,8 +58,6 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
         return _page;
     }
     public PageFormSimu initPageForm(SimulationBean _s) {
-        setFormsAct(true);
-        setFormsAct(isFormsAct());
         super.initPage();
         getContent().setFormGroup(getContent().getFormGroup()+1);
         getContent().setRowGroup(0);
@@ -74,8 +71,6 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
         setFormGroup(getFormGroup()+1);
         setRowGroup(0);
         setPartGroup(0);
-        setFormsAct(false);
-        setFormsAct(isFormsAct());
     }
     @Override
     public String getLanguage() {
@@ -140,13 +135,5 @@ public abstract class IntBeanBuilderHelper extends IntBeanBuilderHelperCommon {
 
     public IdList<IntBeanAction> getAnchors() {
         return anchors;
-    }
-
-    public boolean isFormsAct() {
-        return formsAct;
-    }
-
-    public void setFormsAct(boolean _f) {
-        this.formsAct = _f;
     }
 }
