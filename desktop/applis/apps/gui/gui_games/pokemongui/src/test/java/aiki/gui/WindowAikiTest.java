@@ -256,6 +256,26 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         PageFormSimu page_ = h_.initPageForm(s_);
         h_.feedParentForm();
         h_.end(s_.resetFormSimu(page_));
+        h_.getStack().clear();
+        h_.getStack().add(window_.getFrames().getCompoFactory().newPageBox());
+        h_.getStack().add(window_.getFrames().getCompoFactory().newPageBox());
+        h_.getColCount().clear();
+        h_.getColIndex().clear();
+        h_.getColCount().add(0);
+        h_.getColIndex().add(0);
+        h_.feedParentsCts();
+        h_.getStack().clear();
+        h_.getStack().add(window_.getFrames().getCompoFactory().newPageBox());
+        h_.getStack().add(window_.getFrames().getCompoFactory().newPageBox());
+        h_.getColCount().clear();
+        h_.getColIndex().clear();
+        h_.getColCount().add(1);
+        h_.getColIndex().add(0);
+        h_.feedParentsCts();
+        h_.getStack().clear();
+        h_.getStack().add(window_.getFrames().getCompoFactory().newPageBox());
+        h_.getStack().add(window_.getFrames().getCompoFactory().newPageBox());
+        h_.hasCount();
 //        WindowAiki.getMessagesFromLocaleClass(LANGUAGE);
     }
 

@@ -17,7 +17,14 @@ public final class IntBeanBuilderHelperContent {
     private final Ints orderedLists = new Ints();
     private final IdList<MetaSearchableContent> metaSearchableContents = new IdList<MetaSearchableContent>();
     public void incColIndex() {
-        colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % colCount());
+        if (getColCount().isEmpty()) {
+            return;
+        }
+        int col_ = colCount();
+        if (col_ == 0) {
+            return;
+        }
+        colIndex.set(getColIndex().getLastIndex(),(colIndex() + 1) % col_);
     }
 
     public IdList<MetaSearchableContent> getMetaSearchableContents() {

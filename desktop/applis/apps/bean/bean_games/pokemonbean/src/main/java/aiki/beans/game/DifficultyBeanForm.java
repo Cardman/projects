@@ -1,6 +1,7 @@
 package aiki.beans.game;
 
 import aiki.beans.*;
+import aiki.beans.simulation.*;
 import aiki.comparators.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
@@ -95,12 +96,15 @@ public final class DifficultyBeanForm {
     }
 
     public static IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, boolean _value) {
-        return check(_genInput, _rend, ComparatorBoolean.of(_value));
+        IntBeanChgBool check_ = _genInput.newBool();
+        SimulationBean.selectCheck(check_, ComparatorBoolean.of(_value));
+        _rend.getBuilder().nextPart();
+        return check_;
     }
 
     public static IntBeanChgBool check(IntBeanGeneInput _genInput, CommonBean _rend, BoolVal _value) {
         IntBeanChgBool check_ = _genInput.newBool();
-        check_.setSelected(_value == BoolVal.TRUE);
+        SimulationBean.selectCheck(check_,_value);
         _rend.getBuilder().nextPart();
         return check_;
     }

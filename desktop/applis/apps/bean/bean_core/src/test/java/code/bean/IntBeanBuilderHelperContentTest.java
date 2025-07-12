@@ -36,5 +36,9 @@ public class IntBeanBuilderHelperContentTest extends EquallableBeanCoreUtil {
         content_.setTranslations(content_.getTranslations());
         content_.setTitledBorder("");
         assertEq(3,content_.colIndex());
+        content_.getColCount().set(content_.getColCount().getLastIndex(),0);
+        content_.incColIndex();
+        content_.getColCount().clear();
+        content_.incColIndex();
     }
 }

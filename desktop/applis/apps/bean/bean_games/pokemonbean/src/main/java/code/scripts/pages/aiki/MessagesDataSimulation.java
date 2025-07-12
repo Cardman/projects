@@ -92,6 +92,9 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_WIN_PTS="win_pts";
     public static final String M_P_86_WIN_TRAINER_EXP="win_trainer_exp";
     public static final String M_P_86_SIMU_BY_STEP="simu_by_step";
+    public static final String M_P_86_ACTION="action_but";
+    public static final String M_P_86_PLAYER_HEADER="player_header";
+    public static final String M_P_86_FOE_HEADER="foe_header";
     public static final String M_P_86_NB_FLEE_ATTEMPT="nb_flee_attempt";
     public static final String M_P_86_NB_ROUND="nb_round";
     public static final String M_P_86_WINNING_MONEY="winning_money";
@@ -112,6 +115,8 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_USED_ITEMS_WHILE_ROUND="used_items_while_round";
     public static final String M_P_86_EVO_CHOICES="evo_choices";
     public static final String M_P_86_ALLY_CHOICES="ally_choices";
+    public static final String M_P_86_ALLY_CHOICES_KEY="ally_choices_key";
+    public static final String M_P_86_ALLY_CHOICES_VALUE="ally_choices_value";
     public static final String M_P_86_NB_KO_ROUND="nb_ko_round";
     public static final String M_P_86_NB_KO_PREVIOUS_ROUND="nb_ko_previous_round";
     public static final String M_P_86_SUCCESSFUL_MOVES_ROUND="successful_moves_round";
@@ -123,6 +128,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_TEAM_ENABLED_MOVES ="team_enabled_moves";
     public static final String M_P_86_ENBALED_MOVES_SEND ="enbaled_moves_send";
     public static final String M_P_86_ENBALED_MOVES_USES="enbaled_moves_uses";
+    public static final String M_P_86_ENBALED_MOVES_USES_NB="enbaled_moves_uses_nb";
     public static final String M_P_86_HEAL_AFTER = "heal_after";
     public static final String M_P_86_MOVE_ANT = "move_ant";
     public static final String M_P_86_KIND_ACTION = "ka";
@@ -160,6 +166,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_DISAPPEARED="disappeared";
     public static final String M_P_86_ENBALED_MOVES="enbaled_moves";
     public static final String M_P_86_ENBALED_MOVES_ALLY="enbaled_moves_ally";
+    public static final String M_P_86_ENBALED_MOVES_ALLY_KEY="enbaled_moves_ally_key";
     public static final String M_P_86_ENBALED_MOVES_ALLY_ENABLED="enbaled_moves_ally_enabled";
     public static final String M_P_86_ENBALED_MOVES_ENABLED="enbaled_moves_enabled";
     public static final String M_P_86_ENBALED_MOVES_NB_ROUND="enbaled_moves_nb_round";
@@ -168,6 +175,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_GENDER="gender";
     public static final String M_P_86_GROUND_PLACE="ground_place";
     public static final String M_P_86_GROUND_SUBSTIT="ground_substit";
+    public static final String M_P_86_GROUND="ground";
     public static final String M_P_86_HAPPINESS="happiness";
     public static final String M_P_86_HEIGHT="height";
     public static final String M_P_86_INC_ACCURACY="inc_accuracy";
@@ -181,6 +189,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_LAST_USED_MOVE="last_used_move";
     public static final String M_P_86_LEVEL="level";
     public static final String M_P_86_MOVES="moves_set";
+    public static final String M_P_86_MOVES_KEY ="moves_key";
     public static final String M_P_86_MOVES_VALUE_ONE="moves_value_one";
     public static final String M_P_86_MOVES_VALUE_TWO="moves_value_two";
     public static final String M_P_86_NAME="name";
@@ -188,6 +197,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_NB_ROUND_PREPA="nb_round_prepa";
     public static final String M_P_86_NB_SUCCESS_MOVES="nb_success_moves";
     public static final String M_P_86_NB_USES="nb_uses";
+    public static final String M_P_86_NB_USES_KEY="nb_uses_key";
     public static final String M_P_86_NB_USES_VALUE="nb_uses_value";
     public static final String M_P_86_NECESSARY_PTS="necessary_pts";
     public static final String M_P_86_NEEDING_RECHARGE="needing_recharge";
@@ -202,6 +212,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_STATISTICS_EV="statistics_ev";
     public static final String M_P_86_STATISTICS_IV="statistics_iv";
     public static final String M_P_86_STATISTICS_KEY="statistics_key";
+    public static final String M_P_86_STATISTICS_VALUE="statistics_value";
     public static final String M_P_86_STATUS="status";
     public static final String M_P_86_STATUS_KEY="status_key";
     public static final String M_P_86_STATUS_REL="status_rel";
@@ -232,12 +243,34 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_WEIGHT="weight";
     public static final String M_P_86_WON_EXP="won_exp";
     public static final String M_P_86_WON_EXP_LAST_LEVEL="won_exp_last_level";
+    public static final String M_P_86_HEAL_AFTER_KEY_RD="heal_after_key_rd";
+    public static final String M_P_86_HEAL_AFTER_KEY_USED_CURRENT="heal_after_key_used_current";
+    public static final String M_P_86_HEAL_AFTER_KEY_USED_LAST="heal_after_key_used_last";
+    public static final String M_P_86_MOVE_ANT_DAMAGE="move_ant_damage";
+    public static final String M_P_86_MOVE_ANT_FOE="move_ant_foe";
+    public static final String M_P_86_MOVE_ANT_GROUND="move_ant_ground";
+    public static final String M_P_86_MOVE_ANT_NB_ROUND="move_ant_nb_round";
+    public static final String M_P_86_MOVE_ANT_NO="move_ant_no";
+    public static final String M_P_86_MOVE_ANT_PLAYER="move_ant_player";
+    public static final String M_P_86_MOVE_ANT_TEAM="move_ant_team";
+    public static final String M_P_86_TARGET="target";
+    public static final String M_P_86_MOVE="move";
+    public static final String M_P_86_MOVES_GR="moves_gr";
+    public static final String M_P_86_ENABLED="enabled";
+    public static final String M_P_86_EVO_PK="evo_pk";
+    public static final String M_P_86_EVO_PK_MOVES="evo_pk_moves";
+    public static final String M_P_86_EVO_PK_ABILITIES="evo_pk_abilities";
+    public static final String M_P_86_KEY_FIGHTER="key_fighter";
+    public static final String M_P_86_ITEM_USE="item_use";
+    public static final String M_P_86_ITEM_USE_NB="item_use_nb";
     private static final String ENABLED = "Enabled";
     private static final String ACTIF = "Actif";
     private static final String CURRENT_PP = "Current pp";
     private static final String PP_COURANT = "Pp courant";
     private static final String NUMBER_OF_ROUNDS = "Number of rounds";
     private static final String NOMBRE_DE_TOURS = "Nombre de tours";
+    private static final String ATTAQUE = "Attaque";
+    private static final String MOVE = "Move";
     private MessagesDataSimulation(){
     }
     public static TranslationsFile en(){
@@ -330,6 +363,9 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_WINNING_EXP_PTS_FIGHT,"Rate of winning experience points");
         e_.add(M_P_86_WIN_PTS,"Difficulty of winning points");
         e_.add(M_P_86_WIN_TRAINER_EXP,"Rate of winning experience points de gain de points while a fight against a foe");
+        e_.add(M_P_86_ACTION,"Actions");
+        e_.add(M_P_86_PLAYER_HEADER,"Player index");
+        e_.add(M_P_86_FOE_HEADER,"Foe index");
         e_.add(M_P_86_SIMU_BY_STEP,"Simulate fight round by round with a seed");
         e_.add(M_P_86_NB_FLEE_ATTEMPT,"The number of attempts of flee is:");
         e_.add(M_P_86_NB_ROUND,"The number of elapsed rounds is:");
@@ -351,6 +387,8 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"used items while round");
         e_.add(M_P_86_EVO_CHOICES,"choices of moves and evolutions");
         e_.add(M_P_86_ALLY_CHOICES,"choices of ally moves");
+        e_.add(M_P_86_ALLY_CHOICES_KEY,"Your choice of move and target");
+        e_.add(M_P_86_ALLY_CHOICES_VALUE,"Choice of move and target of the ally trainer");
         e_.add(M_P_86_NB_KO_ROUND,"number of ko while the round");
         e_.add(M_P_86_NB_KO_PREVIOUS_ROUND,"number of ko while the previous round");
         e_.add(M_P_86_SUCCESSFUL_MOVES_ROUND,"successful moves while the round");
@@ -362,6 +400,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_TEAM_ENABLED_MOVES,"Here is the activity of the effects of the following moves on the team:");
         e_.add(M_P_86_ENBALED_MOVES_SEND,"Here is the uses of the moves by the team while sending a foe pokemon at the front battle:");
         e_.add(M_P_86_ENBALED_MOVES_USES,"Here is the uses of the moves by the team while sending a foe pokemon at the front battle:");
+        e_.add(M_P_86_ENBALED_MOVES_USES_NB,"Count");
         e_.add(M_P_86_HEAL_AFTER,"Here is the uses of the moves healing at the end of the round after using by the team:");
         e_.add(M_P_86_MOVE_ANT,"Here is the uses of the moves achieving a cible two rounds after using the move by a member of the team:");
         e_.add(M_P_86_KIND_ACTION,"action");
@@ -398,6 +437,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_DISAPPEARED,"The fighter has disappeared.");
         e_.add(M_P_86_ENBALED_MOVES,"Here is the activity of the effects of the following moves against the fighter:");
         e_.add(M_P_86_ENBALED_MOVES_ALLY,"Here is the activity of the effects of the following moves on the allies of the fighter:");
+        e_.add(M_P_86_ENBALED_MOVES_ALLY_KEY, MOVE);
         e_.add(M_P_86_ENBALED_MOVES_ALLY_ENABLED, ENABLED);
         e_.add(M_P_86_ENBALED_MOVES_ENABLED, ENABLED);
         e_.add(M_P_86_ENBALED_MOVES_NB_ROUND, NUMBER_OF_ROUNDS);
@@ -406,6 +446,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_GENDER,"The base gender of the fighter is:");
         e_.add(M_P_86_GROUND_PLACE,"The fighter has by beginning by the left for current place:");
         e_.add(M_P_86_GROUND_SUBSTIT,"The fighter has by beginning by the left for place of substituting:");
+        e_.add(M_P_86_GROUND,"Place or back");
         e_.add(M_P_86_HAPPINESS,"The happiness level of the fighter is:");
         e_.add(M_P_86_HEIGHT,"The height of the fighter is:");
         e_.add(M_P_86_INC_ACCURACY,"Here is the moves increasing the accuracy of the fighter against the other fighters:");
@@ -419,6 +460,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_LAST_USED_MOVE,"The last used move is:");
         e_.add(M_P_86_LEVEL,"The experience level of the fighter is:");
         e_.add(M_P_86_MOVES,"The base moves (before fight, modifiable by a growing of level or a use of move) are the following one:");
+        e_.add(M_P_86_MOVES_KEY, MOVE);
         e_.add(M_P_86_MOVES_VALUE_ONE, CURRENT_PP);
         e_.add(M_P_86_MOVES_VALUE_TWO,"Full pp");
         e_.add(M_P_86_NAME,"The base name of the fighter is:");
@@ -440,8 +482,10 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_STATISTICS_EV,"Ev");
         e_.add(M_P_86_STATISTICS_IV,"Iv");
         e_.add(M_P_86_STATISTICS_KEY,"Statistic");
+        e_.add(M_P_86_STATISTICS_VALUE,"Value");
         e_.add(M_P_86_STATUS,"The number of rounds of each status is the following one:");
         e_.add(M_P_86_STATUS_KEY,"Status");
+        e_.add(M_P_86_NB_USES_KEY, MOVE);
         e_.add(M_P_86_STATUS_REL,"The activity of each suffered status by each fighter is the following one:");
         e_.add(M_P_86_STATUS_REL_ENABLED, ENABLED);
         e_.add(M_P_86_STATUS_VALUE, NUMBER_OF_ROUNDS);
@@ -471,6 +515,26 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_WEIGHT,"The weight of the fighter is:");
         e_.add(M_P_86_WON_EXP,"Won experience points to add:");
         e_.add(M_P_86_WON_EXP_LAST_LEVEL,"Won experience points since the last grow of level:");
+        e_.add(M_P_86_HEAL_AFTER_KEY_RD,"Number of rounds since last using");
+        e_.add(M_P_86_HEAL_AFTER_KEY_USED_CURRENT,"Used during this round");
+        e_.add(M_P_86_HEAL_AFTER_KEY_USED_LAST,"Used during the last round");
+        e_.add(M_P_86_MOVE_ANT_DAMAGE,"Damage");
+        e_.add(M_P_86_MOVE_ANT_FOE,"Foe");
+        e_.add(M_P_86_MOVE_ANT_GROUND,"Place of the target from the left");
+        e_.add(M_P_86_MOVE_ANT_NB_ROUND, NUMBER_OF_ROUNDS);
+        e_.add(M_P_86_MOVE_ANT_NO,"-");
+        e_.add(M_P_86_MOVE_ANT_PLAYER,"Player");
+        e_.add(M_P_86_MOVE_ANT_TEAM,"Team");
+        e_.add(M_P_86_TARGET,"Target");
+        e_.add(M_P_86_MOVE,MOVE);
+        e_.add(M_P_86_MOVES_GR,"Moves");
+        e_.add(M_P_86_ENABLED,ENABLED);
+        e_.add(M_P_86_EVO_PK,"Evolution");
+        e_.add(M_P_86_EVO_PK_MOVES,"Moves to be learnt");
+        e_.add(M_P_86_EVO_PK_ABILITIES,"Abilities");
+        e_.add(M_P_86_KEY_FIGHTER,"Id");
+        e_.add(M_P_86_ITEM_USE,"Item");
+        e_.add(M_P_86_ITEM_USE_NB,"Quantity");
         return e_;
     }
     public static TranslationsFile fr(){
@@ -563,6 +627,9 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_WINNING_EXP_PTS_FIGHT,"Coefficient de gain de points d'expérience");
         f_.add(M_P_86_WIN_PTS,"Difficulté de gain des points");
         f_.add(M_P_86_WIN_TRAINER_EXP,"Coefficient de gain de points d'expérience lors d'un combat contre un dresseur");
+        f_.add(M_P_86_ACTION,"Actions");
+        f_.add(M_P_86_PLAYER_HEADER,"Joueur indice");
+        f_.add(M_P_86_FOE_HEADER,"Ennemi indice");
         f_.add(M_P_86_SIMU_BY_STEP,"Simuler le combat tour à tour avec une graine");
         f_.add(M_P_86_NB_FLEE_ATTEMPT,"Le nombre de tentatives de fuites est de:");
         f_.add(M_P_86_NB_ROUND,"Le nombre de tours écoulés est de:");
@@ -584,6 +651,8 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_USED_ITEMS_WHILE_ROUND,"objets utilisés lors du tour");
         f_.add(M_P_86_EVO_CHOICES,"choix d'attaques et d'évolution");
         f_.add(M_P_86_ALLY_CHOICES,"choix d'attaques alliées");
+        f_.add(M_P_86_ALLY_CHOICES_KEY,"Votre choix d'attaque et cible");
+        f_.add(M_P_86_ALLY_CHOICES_VALUE,"Choix d'attaque et cible du dresseur allié");
         f_.add(M_P_86_NB_KO_ROUND,"nombre de ko lors du tour");
         f_.add(M_P_86_NB_KO_PREVIOUS_ROUND,"nombre de ko lors du tour précédent");
         f_.add(M_P_86_SUCCESSFUL_MOVES_ROUND,"attaques réussies lors du tour");
@@ -595,6 +664,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_TEAM_ENABLED_MOVES,"Voici l'activité des effets des attaques suivantes sur l'équipe:");
         f_.add(M_P_86_ENBALED_MOVES_SEND,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
         f_.add(M_P_86_ENBALED_MOVES_USES,"Voici les utilisations des attaques par l'équipe lors d'une entrée d'un pokemon adverse sur le terrain:");
+        f_.add(M_P_86_ENBALED_MOVES_USES_NB,"Nombre");
         f_.add(M_P_86_HEAL_AFTER,"Voici les utilisations des attaques soignant à la fin du tour suivant l'utilisation par l'équipe:");
         f_.add(M_P_86_MOVE_ANT,"Voici les utilisations des attaques touchant une cible deux tours après le lancer de l'attaque par un membre de l'équipe:");
         f_.add(M_P_86_KIND_ACTION,"action");
@@ -631,6 +701,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_DISAPPEARED,"Le combattant a disparu.");
         f_.add(M_P_86_ENBALED_MOVES,"Voici l'activité des effets des attaques suivantes sur le combattant:");
         f_.add(M_P_86_ENBALED_MOVES_ALLY,"Voici l'activité des effets des attaques suivantes sur les alliés du combattant:");
+        f_.add(M_P_86_ENBALED_MOVES_ALLY_KEY, ATTAQUE);
         f_.add(M_P_86_ENBALED_MOVES_ALLY_ENABLED, ACTIF);
         f_.add(M_P_86_ENBALED_MOVES_ENABLED, ACTIF);
         f_.add(M_P_86_ENBALED_MOVES_NB_ROUND, NOMBRE_DE_TOURS);
@@ -639,6 +710,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_GENDER,"Le genre de base du combattant est:");
         f_.add(M_P_86_GROUND_PLACE,"Le combattant a en partant de la gauche pour place actuelle:");
         f_.add(M_P_86_GROUND_SUBSTIT,"Le combattant a en partant de la gauche pour place de remplacement:");
+        f_.add(M_P_86_GROUND,"Place ou arrière");
         f_.add(M_P_86_HAPPINESS,"Le niveau de bonheur du combattant est de:");
         f_.add(M_P_86_HEIGHT,"La taille du combattant est:");
         f_.add(M_P_86_INC_ACCURACY,"Voici les attaques augmentant la précision du combattant contre les autres combattants:");
@@ -652,6 +724,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_LAST_USED_MOVE,"La dernière attaque utilisée est:");
         f_.add(M_P_86_LEVEL,"Le niveau d'expérience du combattant est de:");
         f_.add(M_P_86_MOVES,"Les attaques de base (avant combat, modifiable via une montée de niveau ou une utilisation d'attaque) sont les suivantes:");
+        f_.add(M_P_86_MOVES_KEY, ATTAQUE);
         f_.add(M_P_86_MOVES_VALUE_ONE, PP_COURANT);
         f_.add(M_P_86_MOVES_VALUE_TWO,"Pp max");
         f_.add(M_P_86_NAME,"Le nom de base du combattant est:");
@@ -673,8 +746,10 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_STATISTICS_EV,"Ev");
         f_.add(M_P_86_STATISTICS_IV,"Iv");
         f_.add(M_P_86_STATISTICS_KEY,"Statistique");
+        f_.add(M_P_86_STATISTICS_VALUE,"Valeur");
         f_.add(M_P_86_STATUS,"Le nombre de tours de chaque statut est le suivant:");
         f_.add(M_P_86_STATUS_KEY,"Statut");
+        f_.add(M_P_86_NB_USES_KEY, ATTAQUE);
         f_.add(M_P_86_STATUS_REL,"L'activité de chaque statut subi par chaque combattant est le suivant:");
         f_.add(M_P_86_STATUS_REL_ENABLED, ACTIF);
         f_.add(M_P_86_STATUS_VALUE,"Nombre de tour");
@@ -704,6 +779,26 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_WEIGHT,"La masse du combattant est:");
         f_.add(M_P_86_WON_EXP,"Points d'expérience gagnés à ajouter:");
         f_.add(M_P_86_WON_EXP_LAST_LEVEL,"Points d'expérience gagnés depuis la dernière montée de niveau:");
+        f_.add(M_P_86_HEAL_AFTER_KEY_RD,"Nombre de tours depuis le dernier lancer");
+        f_.add(M_P_86_HEAL_AFTER_KEY_USED_CURRENT,"Lancé pendant ce tour");
+        f_.add(M_P_86_HEAL_AFTER_KEY_USED_LAST,"Lancé au tour précédent");
+        f_.add(M_P_86_MOVE_ANT_DAMAGE,"Dégâts");
+        f_.add(M_P_86_MOVE_ANT_FOE,"Ennemi");
+        f_.add(M_P_86_MOVE_ANT_GROUND,"Place de la cible à partir de la gauche");
+        f_.add(M_P_86_MOVE_ANT_NB_ROUND, NOMBRE_DE_TOURS);
+        f_.add(M_P_86_MOVE_ANT_NO,"-");
+        f_.add(M_P_86_MOVE_ANT_PLAYER,"Joueur");
+        f_.add(M_P_86_MOVE_ANT_TEAM,"Equipe");
+        f_.add(M_P_86_TARGET,"Cible");
+        f_.add(M_P_86_MOVE,ATTAQUE);
+        f_.add(M_P_86_MOVES_GR,"Attaques");
+        f_.add(M_P_86_ENABLED,ATTAQUE);
+        f_.add(M_P_86_EVO_PK,"Évolution");
+        f_.add(M_P_86_EVO_PK_MOVES,"Attaques à apprendre");
+        f_.add(M_P_86_EVO_PK_ABILITIES,"Capacité");
+        f_.add(M_P_86_KEY_FIGHTER,"Id");
+        f_.add(M_P_86_ITEM_USE,"Objet");
+        f_.add(M_P_86_ITEM_USE_NB,"Quantité");
         return f_;
     }
 }

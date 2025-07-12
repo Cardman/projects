@@ -67,6 +67,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         stack.clear();
         getContent().getColCount().clear();
         getContent().getColIndex().clear();
+        getFrame().pack();
         return p_;
     }
 
@@ -100,14 +101,15 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     @Override
     public void feedParentsCts() {
-        AbsPanel current_ = stack.get(stack.size()-2);
-        AbsPanel ch_ = stack.last();
-        ch_.setLineBorder(GuiConstants.BLACK);
-        super.feedParentsCts();
-        current_.add(ch_, cts());
-        getParents().addEntry(ch_, current_);
-        stack.removeQuicklyLast();
-        incColIndex();
+//        AbsPanel current_ = stack.get(stack.size()-2);
+//        AbsPanel ch_ = stack.last();
+//        ch_.setLineBorder(GuiConstants.BLACK);
+//        super.feedParentsCts();
+//        current_.add(ch_, cts());
+//        getParents().addEntry(ch_, current_);
+//        stack.removeQuicklyLast();
+//        incColIndex();
+        feedParents();
     }
     public void setBackgroundBody() {
         stack.last().setBackground(GuiConstants.WHITE);
@@ -119,23 +121,45 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     public void feedParents() {
         AbsPanel current_ = stack.get(stack.size()-2);
         AbsPanel ch_ = stack.last();
-        current_.add(ch_);
-        getParents().addEntry(ch_, current_);
-        stack.removeQuicklyLast();
-        super.feedParents();
+        super.feedParentsCts();
+        if (hasCount()) {
+            ch_.setLineBorder(GuiConstants.BLACK);
+            current_.add(ch_, cts());
+            getParents().addEntry(ch_, current_);
+            stack.removeQuicklyLast();
+            incColIndex();
+        } else {
+            current_.add(ch_);
+            getParents().addEntry(ch_, current_);
+            stack.removeQuicklyLast();
+        }
     }
 
     public void feedParentCts(AbsCustComponent _ch) {
-        AbsPanel current_ = stack.last();
-        current_.add(_ch, cts());
-        getParents().addEntry(_ch, current_);
-        incColIndex();
+//        _ch.setLineBorder(GuiConstants.BLACK);
+//        AbsPanel current_ = stack.last();
+//        current_.add(_ch, cts());
+//        getParents().addEntry(_ch, current_);
+//        incColIndex();
+        feedParent(_ch);
     }
 
     public void feedParent(AbsCustComponent _ch) {
-        AbsPanel current_ = stack.last();
-        current_.add(_ch);
-        getParents().addEntry(_ch, current_);
+        if (hasCount()) {
+            _ch.setLineBorder(GuiConstants.BLACK);
+            AbsPanel current_ = stack.last();
+            current_.add(_ch, cts());
+            getParents().addEntry(_ch, current_);
+            incColIndex();
+        } else {
+            AbsPanel current_ = stack.last();
+            current_.add(_ch);
+            getParents().addEntry(_ch, current_);
+        }
+    }
+
+    public boolean hasCount() {
+        return !getColCount().isEmpty() && colCount() != 0;
     }
 
     private void evt(IntBeanAction _e, AbsTextPane _tx) {
@@ -164,7 +188,6 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     public void formatMessageDirCtsHeader(String _txt) {
         AbsTextPane txt_ = message(_txt);
-        txt_.setLineBorder(GuiConstants.BLACK);
         feedParentCts(txt_);
         hierarchy(_txt, txt_);
         getMetaSearchableContents().add(new MetaSearchableContent(null,getFormGroup(), getPartGroup(), getRowGroup()));
@@ -172,7 +195,6 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     }
     public void formatMessageDirCts(String _txt) {
         AbsTextPane ch_ = message(_txt);
-        ch_.setLineBorder(GuiConstants.BLACK);
         feedParentCts(ch_);
         hierarchy(_txt, ch_);
         getMetaSearchableContents().add(new MetaSearchableContent(null, getFormGroup(),getPartGroup(), getRowGroup()));
@@ -181,7 +203,6 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
     @Override
     public void formatMessageDirCts(String _txt, IntBeanAction _e) {
         AbsTextPane ch_ = message(_txt);
-        ch_.setLineBorder(GuiConstants.BLACK);
         feedParentCts(ch_);
         hierarchy(_txt, ch_);
         getMetaSearchableContents().add(new MetaSearchableContent(null, getFormGroup(),getPartGroup(), getRowGroup()));
