@@ -234,7 +234,8 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         AbstractImage img_ = helper.getApi().getImageFactory().newImageArgb(16, 16);
         img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, 16, 16);
-        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
+//        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
+        feed(helper.getApi().getCompoFactory().newPreparedLabel(img_),stack.last());
         img_.dispose();
     }
 
@@ -245,7 +246,8 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         img_.fillRect(0, 0, 16, 16);
         img_.setColor(GuiConstants.BLACK);
         img_.drawString(Long.toString(_nb),0,16);
-        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
+        feed(helper.getApi().getCompoFactory().newPreparedLabel(img_),stack.last());
+//        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
         img_.dispose();
     }
 
@@ -255,7 +257,8 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         img_.fillRect(0, 0, 16, 16);
         img_.setColor(GuiConstants.BLACK);
         img_.fillOval(0, 0, 16, 16);
-        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
+        feed(helper.getApi().getCompoFactory().newPreparedLabel(img_),stack.last());
+//        stack.last().add(helper.getApi().getCompoFactory().newPreparedLabel(img_));
         img_.dispose();
     }
 
