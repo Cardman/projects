@@ -123,8 +123,9 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
         AbsPanel current_ = stack.get(stack.size()-2);
         AbsPanel ch_ = stack.last();
         super.feedParentsCts();
-        possibleBorder(ch_);
-        feed(ch_,current_);
+        feedParent(ch_,current_);
+//        possibleBorder(ch_);
+//        feed(ch_,current_);
 //        if (hasCount()) {
 //            current_.add(ch_, cts());
 //            getParents().addEntry(ch_, current_);
@@ -133,7 +134,7 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 //            current_.add(ch_);
 //            getParents().addEntry(ch_, current_);
 //        }
-        getParents().addEntry(ch_, current_);
+//        getParents().addEntry(ch_, current_);
         stack.removeQuicklyLast();
     }
 
@@ -148,9 +149,13 @@ public final class BeanBuilderHelper extends IntBeanBuilderHelper {
 
     public void feedParent(AbsCustComponent _ch) {
         AbsPanel current_ = stack.last();
+        feedParent(_ch, current_);
+    }
+
+    private void feedParent(AbsCustComponent _ch, AbsPanel _current) {
         possibleBorder(_ch);
-        feed(_ch, current_);
-        getParents().addEntry(_ch, current_);
+        feed(_ch, _current);
+        getParents().addEntry(_ch, _current);
     }
 
     private void feed(AbsCustComponent _ch, AbsPanel _current) {
