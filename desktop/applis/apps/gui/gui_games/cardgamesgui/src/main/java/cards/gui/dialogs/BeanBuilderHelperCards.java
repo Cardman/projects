@@ -103,7 +103,7 @@ public final class BeanBuilderHelperCards extends IntBeanBuilderHelperCommon {
         AbsTextPane ch_ = messageCards(_txt);
         feedParent(ch_);
         MetaSearchableContent s_ = new MetaSearchableContent(_txt, getPartGroup(), getRowGroup());
-        content.getMetaSearchableContents().add(s_);
+        getContent().getMetaSearchableContents().add(s_);
         content.getRefsSearch().addEntry(s_,ch_);
         getMetaSearchableContents().add(new MetaSearchableContent(null, getPartGroup(), getRowGroup()));
     }
@@ -186,7 +186,7 @@ public final class BeanBuilderHelperCards extends IntBeanBuilderHelperCommon {
     }
 
     public IdList<MetaSearchableContent> getMetaSearchableContents() {
-        return content.getMetaSearchableContents();
+        return getContent().getMetaSearchableContents();
     }
     public IdMap<AbsCustComponent, AbsCustComponent> getParentsCards() {
         return parentsCards;

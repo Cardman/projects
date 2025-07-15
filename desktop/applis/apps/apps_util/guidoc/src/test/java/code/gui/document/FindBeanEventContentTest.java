@@ -7,7 +7,7 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
-import code.util.IdMap;
+import code.util.*;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -24,10 +24,10 @@ public final class FindBeanEventContentTest extends EquallableGuiDocUtil {
         ev_.setScrollPane(builder_.getScrollPane());
         ev_.setParents(new IdMap<AbsCustComponent, AbsCustComponent>());
         MetaSearchableContent s_ = new MetaSearchableContent("ta",0,0);
-        builder_.getMetaSearchableContents().add(s_);
+        IdList<MetaSearchableContent> ls_ = new IdList<MetaSearchableContent>(s_);
         builder_.getRefsSearch().addEntry(s_,a_.getCompoFactory().newTextPane());
-        builder_.getMetaSearchableContents().add(new MetaSearchableContent(null, 0,1));
-        ev_.setFinding(new FindNextElement(builder_.getMetaSearchableContents()));
+        ls_.add(new MetaSearchableContent(null, 0,1));
+        ev_.setFinding(new FindNextElement(ls_));
         ev_.action();
         assertFalse(ev_.getLabels().isEmpty());
     }
@@ -43,10 +43,10 @@ public final class FindBeanEventContentTest extends EquallableGuiDocUtil {
         ev_.setScrollPane(builder_.getScrollPane());
         ev_.setParents(new IdMap<AbsCustComponent, AbsCustComponent>());
         MetaSearchableContent s_ = new MetaSearchableContent("ta",0,0);
-        builder_.getMetaSearchableContents().add(s_);
+        IdList<MetaSearchableContent> ls_ = new IdList<MetaSearchableContent>(s_);
         builder_.getRefsSearch().addEntry(s_,a_.getCompoFactory().newTextPane());
-        builder_.getMetaSearchableContents().add(new MetaSearchableContent(null, 0,1));
-        ev_.setFinding(new FindNextElement(builder_.getMetaSearchableContents()));
+        ls_.add(new MetaSearchableContent(null, 0,1));
+        ev_.setFinding(new FindNextElement(ls_));
         ev_.action();
         assertTrue(ev_.getLabels().isEmpty());
     }
@@ -61,14 +61,14 @@ public final class FindBeanEventContentTest extends EquallableGuiDocUtil {
         ev_.setFonts(builder_.getFonts());
         ev_.setScrollPane(builder_.getScrollPane());
         MetaSearchableContent s_ = new MetaSearchableContent("ta",0,0);
-        builder_.getMetaSearchableContents().add(s_);
+        IdList<MetaSearchableContent> ls_ = new IdList<MetaSearchableContent>(s_);
         AbsTextPane tp_ = a_.getCompoFactory().newTextPane();
         builder_.getRefsSearch().addEntry(s_, tp_);
         builder_.getFonts().addEntry(tp_,a_.getCompoFactory().newAttrSet());
-        builder_.getMetaSearchableContents().add(new MetaSearchableContent(null, 0,1));
+        ls_.add(new MetaSearchableContent(null, 0,1));
         builder_.getParents().addEntry(tp_,builder_.getScrollPane());
         ev_.setParents(builder_.getParents());
-        ev_.setFinding(new FindNextElement(builder_.getMetaSearchableContents()));
+        ev_.setFinding(new FindNextElement(ls_));
         ev_.action();
         ev_.action();
         assertTrue(ev_.getLabels().isEmpty());
@@ -85,10 +85,10 @@ public final class FindBeanEventContentTest extends EquallableGuiDocUtil {
         ev_.setScrollPane(builder_.getScrollPane());
         ev_.setParents(new IdMap<AbsCustComponent, AbsCustComponent>());
         MetaSearchableContent s_ = new MetaSearchableContent("ta",0,0);
-        builder_.getMetaSearchableContents().add(s_);
+        IdList<MetaSearchableContent> ls_ = new IdList<MetaSearchableContent>(s_);
         builder_.getRefsSearch().addEntry(s_,a_.getCompoFactory().newTextPane());
-        builder_.getMetaSearchableContents().add(new MetaSearchableContent(null, 0,1));
-        ev_.setFinding(new FindNextElement(builder_.getMetaSearchableContents()));
+        ls_.add(new MetaSearchableContent(null, 0,1));
+        ev_.setFinding(new FindNextElement(ls_));
         ev_.action();
         assertTrue(ev_.getLabels().isEmpty());
         builder_.getFrame();

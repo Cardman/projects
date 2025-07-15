@@ -10,7 +10,6 @@ public final class BeanBuilderHelperContent {
     private final AbstractProgramInfos api;
     private final IdMap<MetaSearchableContent,AbsTextPane> refsSearch = new IdMap<MetaSearchableContent,AbsTextPane>();
     private final StringMap<AbsTextPane> refsSearchDir = new StringMap<AbsTextPane>();
-    private final IdList<MetaSearchableContent> metaSearchableContents = new IdList<MetaSearchableContent>();
     private AbsCommonFrame frame;
     private final IdMap<AbsCustComponent,AbsCustComponent> parents = new IdMap<AbsCustComponent,AbsCustComponent>();
     private final Ints colours = new Ints();
@@ -42,10 +41,6 @@ public final class BeanBuilderHelperContent {
 
     public StringMap<AbsTextPane> getRefsSearchDir() {
         return refsSearchDir;
-    }
-
-    public IdList<MetaSearchableContent> getMetaSearchableContents() {
-        return metaSearchableContents;
     }
 
     public AbsCommonFrame getFrame() {
