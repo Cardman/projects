@@ -21,6 +21,7 @@ import aiki.map.enums.Direction;
 import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
 import aiki.map.places.*;
+import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.sml.*;
 import code.gui.*;
@@ -35,7 +36,7 @@ import org.junit.Test;
 public final class EditorAppFormTest extends InitEditorPkForm {
     @Test
     public void validateCopy() {
-        DataBase dataBase_ = ConverterCommonMapUtil.validateData(initDb(), new ConcreteInteger(), new ConcreteBoolean(), new MockLSexList());
+        DataBase dataBase_ = ConverterCommonMapUtil.validateData(initDb(),new ConcreteBoolean(), new ConcreteInteger(), new ConcreteBoolean(true), new MockLSexList()).getData();
         assertFalse(dataBase_.isError());
     }
     @Test
@@ -45,8 +46,10 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         f_.setData(initDb());
         MockProgramInfos api_ = initForms();
         MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        f_.setLanguage(LANGUAGE);
+        f_.setLanguages(api_.getLanguages());
         ConverterCommonMapUtil.saveData(api_,"/__/_", f_);
-        assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(),f_.getSexList(),ConverterCommonMapUtil.loadData(api_,"/__/_",f_)).isError());
+        assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(true),f_.getSexList(),ConverterCommonMapUtil.loadData(api_,"/__/_",f_)).getData().isError());
     }
     @Test
     public void saveLoadMenu() {
@@ -62,6 +65,7 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
         MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
         WindowPkEditor sub_ = window(api_, f_);
+        sub_.getFacade().setSexList(f_.getSexList());
         tryClick(sub_.getSaveDataSet());
         sub_.getModal().set(sub_.getModal().get());
         sub_.getFileSaveFrame().getFileDialogContent().getFolderSystem().select(sub_.getFileSaveFrame().getFileDialogContent().getFolderSystem().getRoot());
@@ -75,7 +79,79 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         sub_.getFileOpenRomFrame().getFileDialogContent().getFileName().setText("_");
         tryClick((AbsButton) compo(sub_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         assertFalse(sub_.getFacade().getData().getMap().getPlaces().isEmpty());
-        assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(),f_.getSexList(),sub_.getFacade().getData()).isError());
+        assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(true),f_.getSexList(),sub_.getFacade().getData()).getData().isError());
+    }
+    @Test
+    public void validate1() {
+        MockProgramInfos api_ = initForms();
+        api_.getFileCoreStream().newFile("__").mkdirs();
+        api_.setCurrentPath("/__");
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesPkGame.frTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        WindowPkEditor sub_ = windowNew(api_);
+        tryClick(sub_.getValidateDataSet());
+        tryAn((MockThreadFactory) sub_.getFrames().getThreadFactory());
+        assertFalse(sub_.getDataWeb().isEnabled());
+        assertFalse(sub_.getDataWebSimu().isEnabled());
+    }
+    @Test
+    public void validate2() {
+        FacadeGame f_ = new FacadeGame();
+        f_.setSexList(new MockLSexList());
+        f_.setData(initDb());
+        MockProgramInfos api_ = initForms();
+        api_.getFileCoreStream().newFile("__").mkdirs();
+        api_.setCurrentPath("/__");
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesPkGame.frTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        WindowPkEditor sub_ = window(api_,f_);
+        sub_.getFacade().setSexList(f_.getSexList());
+        tryClick(sub_.getValidateDataSet());
+        tryAn((MockThreadFactory) sub_.getFrames().getThreadFactory());
+        assertTrue(sub_.getDataWeb().isEnabled());
+        assertTrue(sub_.getDataWebSimu().isEnabled());
+    }
+    @Test
+    public void validate3() {
+        FacadeGame f_ = new FacadeGame();
+        f_.setSexList(new MockLSexList());
+        f_.setData(initDb());
+        MockProgramInfos api_ = initForms();
+        api_.getFileCoreStream().newFile("__").mkdirs();
+        api_.setCurrentPath("/__");
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesPkGame.frTr(MessagesPkGame.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(api_.getTranslations().getMapping().getVal(FR)));
+        WindowPkEditor sub_ = window(api_,f_);
+        sub_.getFacade().setSexList(f_.getSexList());
+        tryClick(sub_.getValidateDataSet());
+        tryAn((MockThreadFactory) sub_.getFrames().getThreadFactory());
+        tryClick(sub_.getDataWeb());
+        tryClick(sub_.getDataWebSimu());
+        tryClick(sub_.getValidateDataSet());
+        tryAn((MockThreadFactory) sub_.getFrames().getThreadFactory());
+        assertFalse(sub_.getDataWeb().isEnabled());
+        assertFalse(sub_.getDataWebSimu().isEnabled());
+    }
+    @Test
+    public void patchData0() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        db_.getTranslatedClassesDescriptions().clear();
+        db_.getTranslatedClassesDescriptions().addEntry(EN,new StringMap<String>());
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedClassesDescriptions().size());
     }
     @Test
     public void patchData1() {
@@ -596,6 +672,30 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         assertEq(2,res_.getTranslatedTypes().size());
         assertEq(3,res_.getTranslatedTypes().getValue(0).size());
         assertEq(3,res_.getTranslatedTypes().getValue(1).size());
+    }
+    @Test
+    public void patchData21() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        db_.getTranslatedGenders().clear();
+        db_.getTranslatedGenders().addEntry(EN,new IdMap<Gender, String>());
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedGenders().size());
+    }
+    @Test
+    public void patchData22() {
+        MockProgramInfos api_ = initForms();
+        FacadeGame f_ = ConverterCommonMapUtil.facadeInit(api_);
+        f_.setSexList(new MockLSexList());
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        DataBase db_ = DocumentReaderAikiCoreUtil.initData(api_.getGenerator(), f_);
+        db_.getTranslatedPokemon().clear();
+        db_.getTranslatedPokemon().addEntry(EN,new StringMap<String>());
+        DataBase res_ = ConverterCommonMapUtil.patchData(api_, db_);
+        assertEq(2,res_.getTranslatedPokemon().size());
     }
     @Test
     public void crudMc1() {

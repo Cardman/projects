@@ -26,6 +26,7 @@ public final class MessagesPkEditor {
     public static final String DATA_MAP_LEV = "data_map_lev";
     public static final String BUTTONS = "buttons";
     public static final String MENUS = "menus";
+    public static final String TITLES = "titles";
     private MessagesPkEditor() {
     }
 
@@ -62,6 +63,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectDataMapLev(_lgs,MessagesEditorSelect.enDataMapLev());
         appendMessagesEditorSelectButtons(_lgs,MessagesEditorSelect.enButtons());
         appendMessagesEditorSelectMenus(_lgs,MessagesEditorSelect.enMenus());
+        appendMessagesEditorSelectTitles(_lgs,MessagesEditorSelect.enTitles());
     }
 
     public static void frTr(TranslationsAppli _lgs) {
@@ -87,6 +89,7 @@ public final class MessagesPkEditor {
         appendMessagesEditorSelectDataMapLev(_lgs,MessagesEditorSelect.frDataMapLev());
         appendMessagesEditorSelectButtons(_lgs,MessagesEditorSelect.frButtons());
         appendMessagesEditorSelectMenus(_lgs,MessagesEditorSelect.frMenus());
+        appendMessagesEditorSelectTitles(_lgs,MessagesEditorSelect.frTitles());
     }
 
     public static void appendMessagesEditorSelectGenderRep(TranslationsAppli _lgs, TranslationsFile _f) {
@@ -160,6 +163,9 @@ public final class MessagesPkEditor {
     public static void appendMessagesEditorSelectMenus(TranslationsAppli _lgs, TranslationsFile _f) {
         _lgs.getMapping().addEntry(MENUS, _f);
     }
+    public static void appendMessagesEditorSelectTitles(TranslationsAppli _lgs, TranslationsFile _f) {
+        _lgs.getMapping().addEntry(TITLES, _f);
+    }
     public static TranslationsFile getMessagesEditorSelectGenderRepTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(GENDER_REP);
     }
@@ -225,5 +231,8 @@ public final class MessagesPkEditor {
     }
     public static TranslationsFile getMessagesEditorSelectMenusTr(TranslationsAppli _lgs) {
         return _lgs.getMapping().getVal(MENUS);
+    }
+    public static TranslationsFile getMessagesEditorSelectTitlesTr(TranslationsAppli _lgs) {
+        return _lgs.getMapping().getVal(TITLES);
     }
 }

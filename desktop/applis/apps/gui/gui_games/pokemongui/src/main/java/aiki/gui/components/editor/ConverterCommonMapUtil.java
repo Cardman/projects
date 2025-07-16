@@ -1631,8 +1631,20 @@ public final class ConverterCommonMapUtil {
     public static void saveData(AbstractProgramInfos _api, String _fileName, FacadeGame _f) {
         DefDataBaseStream.exportRom(_api,_f,_fileName);
     }
-    public static DataBase validateData(DataBase _db, AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i) {
+    public static FacadeGame validateData(FacadeGame _db, AbstractAtomicBooleanCore _modal, AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading) {
+        FacadeGame next_ = validateData(_db.getData(), _modal, _perCentLoading, _loading, _db.getSexList());
+        next_.setLanguages(_db.getLanguages());
+        next_.setDisplayLanguages(_db.getDisplayLanguages());
+        next_.setSimplyLanguage(_db.getLanguage());
+        if (next_.getData() != null) {
+            next_.initializePaginatorTranslations();
+            next_.updateTrs();
+        }
+        return next_;
+    }
+    public static FacadeGame validateData(DataBase _db, AbstractAtomicBooleanCore _modal, AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i) {
         DataBase data_ = copyData(_db);
+        _modal.set(false);
         return endValidate(_perCentLoading, _loading, _i, data_);
     }
 
@@ -1715,6 +1727,7 @@ public final class ConverterCommonMapUtil {
         data_.getTranslatedStatus().addAllEntries(backUp(_db.getTranslatedStatus()));
         data_.getTranslatedTypes().addAllEntries(backUp(_db.getTranslatedTypes()));
         data_.getTranslatedFctMath().addAllEntries(backUp(_db.getTranslatedFctMath()));
+        data_.getTranslatedClassesDescriptions().addAllEntries(backUp(_db.getTranslatedClassesDescriptions()));
         for (EntryCust<String,IdMap<Gender, String>> f: _db.getTranslatedGenders().entryList()) {
             data_.getTranslatedGenders().addEntry(f.getKey(),new IdMap<Gender, String>(f.getValue()));
         }
@@ -1739,7 +1752,7 @@ public final class ConverterCommonMapUtil {
         return data_;
     }
 
-    public static DataBase endValidate(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {
+    public static FacadeGame endValidate(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {
         _data.updateInfos();
         _data.calculateAvgPound();
         _data.completeVariables();
@@ -1748,11 +1761,12 @@ public final class ConverterCommonMapUtil {
         return check(_perCentLoading, _loading, _i, _data);
     }
 
-    private static DataBase check(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {
+    private static FacadeGame check(AbstractAtomicIntegerCoreAdd _perCentLoading, AbstractAtomicBooleanCore _loading, SexListInt _i, DataBase _data) {
         FacadeGame fac_ = new FacadeGame();
+        fac_.setSimplyLanguage("");
         fac_.setSexList(_i);
         GamesPk.postLoad(fac_,DataBase.EMPTY_STRING,_perCentLoading,_loading,GamesPk.tryInitLinks(_data));
-        return _data;
+        return fac_;
     }
 
     private static ImageHeroKeys copyImageHeroKeys(ImageHeroKeys _e) {

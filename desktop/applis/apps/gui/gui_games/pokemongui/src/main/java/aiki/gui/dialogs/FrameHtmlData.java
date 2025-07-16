@@ -19,7 +19,6 @@ import aiki.beans.simulation.*;
 import aiki.beans.solution.*;
 import aiki.facade.FacadeGame;
 import aiki.sml.*;
-import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.*;
 import code.gui.events.ClosingChildFrameEvent;
@@ -39,10 +38,10 @@ public final class FrameHtmlData extends GroupFrame implements AbsChildFrame {
 
 //    private final ProgressingWebDialog dialog;
     private final EnabledMenu menuItem;
-    private final WindowAiki window;
+    private final GroupFrame window;
     private final WrapBeanRender wrapBeanRender;
 
-    public FrameHtmlData(WindowAiki _parent, EnabledMenu _m) {
+    public FrameHtmlData(GroupFrame _parent, EnabledMenu _m) {
         super(_parent.getFrames());
         window = _parent;
 //        setAccessFile(DIALOG_ACCESS);

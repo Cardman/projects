@@ -146,6 +146,12 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         w_.dataBase(_facade.getData());
         return w_;
     }
+
+    protected WindowPkEditor windowNew(AbstractProgramInfos _core) {
+        WindowPkEditor w_ = new WindowPkEditor(_core);
+        w_.newData();
+        return w_;
+    }
     protected MockProgramInfos initForms() {
         MockProgramInfos pr_ = build("/__/", "/_/", dbs(0.75));
         pr_.setLanguages(new StringList(EN,FR));
@@ -474,6 +480,7 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         data_.getMaxiPkBack().addEntry(PIKACHU, inst(new int[][]{new int[]{2}}));
         data_.getMaxiPkFront().addEntry(PIKACHU, inst(new int[][]{new int[]{2}}));
         data_.getMiniItems().addEntry(POKE_BALL, inst(new int[][]{new int[]{2}}));
+        data_.getAnimStatus().addEntry(PERSON, inst(new int[][]{new int[]{3}}));
         data_.getAnimStatis().addEntry(Statistic.ATTACK.getStatName(), inst(new int[][]{new int[]{3}}));
         data_.getAnimStatis().addEntry(Statistic.SPECIAL_ATTACK.getStatName(), inst(new int[][]{new int[]{3}}));
         data_.getAnimStatis().addEntry(Statistic.DEFENSE.getStatName(), inst(new int[][]{new int[]{3}}));
@@ -865,6 +872,10 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
         tile_.setFile(MINI2);
         tile_.setPlace(2);
         map_.getMiniMap().addEntry(new MiniMapCoords(0,2), tile_);
+        tile_ = new TileMiniMap();
+        tile_.setFile(MINI3);
+        tile_.setPlace(3);
+        map_.getMiniMap().addEntry(new MiniMapCoords(0,3), tile_);
         map_.setUnlockedCity(MINI5);
     }
 

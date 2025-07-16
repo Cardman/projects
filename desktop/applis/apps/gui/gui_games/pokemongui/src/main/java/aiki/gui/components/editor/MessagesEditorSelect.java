@@ -205,6 +205,9 @@ public final class MessagesEditorSelect {
     public static final String FILE_NEW = FILE+"_0";
     public static final String FILE_LOAD = FILE+"_1";
     public static final String FILE_SAVE = FILE+"_2";
+    public static final String FILE_VALIDATE = FILE+"_3";
+    public static final String FILE_DATA_WEB = FILE+"_4";
+    public static final String FILE_SIMULATION = FILE+"_5";
     public static final String TRS_ENT_AB = TRS_ENT+"_0";
     public static final String TRS_ENT_IT = TRS_ENT+"_1";
     public static final String TRS_ENT_MV = TRS_ENT+"_2";
@@ -259,6 +262,7 @@ public final class MessagesEditorSelect {
     public static final String STATUS = "Status";
     public static final String OBJETS = "Objets";
     public static final String STATUTS = "Statuts";
+    public static final String TITLE_WEB = "0";
 
     private MessagesEditorSelect() {
     }
@@ -902,6 +906,9 @@ public final class MessagesEditorSelect {
         e_.add(FILE_NEW,"New data set");
         e_.add(FILE_LOAD,"Load");
         e_.add(FILE_SAVE,"Save");
+        e_.add(FILE_VALIDATE,"Validate");
+        e_.add(FILE_DATA_WEB,"See data game");
+        e_.add(FILE_SIMULATION,"Simulation of fights");
         e_.add(TRS_ENT_AB,"Abilities");
         e_.add(TRS_ENT_IT, ITEMS);
         e_.add(TRS_ENT_MV,"Moves");
@@ -963,6 +970,9 @@ public final class MessagesEditorSelect {
         f_.add(FILE_NEW,"Nouveau jeu de données");
         f_.add(FILE_LOAD,"Charger");
         f_.add(FILE_SAVE,"Sauvegarder");
+        f_.add(FILE_VALIDATE,"Valider");
+        f_.add(FILE_DATA_WEB,"Voir les données du jeu");
+        f_.add(FILE_SIMULATION,"Simulation de combats");
         f_.add(TRS_ENT_AB,"Capacités");
         f_.add(TRS_ENT_IT, OBJETS);
         f_.add(TRS_ENT_MV,"Attaques");
@@ -1011,6 +1021,16 @@ public final class MessagesEditorSelect {
         f_.add(IMG_HEROS_FRONT, "Héros face");
         f_.add(IMG_HEROS_BACK, "Héros dos");
         f_.add(IMG_OTHER, "Autre");
+        return f_;
+    }
+    public static TranslationsFile enTitles() {
+        TranslationsFile e_ = new TranslationsFile();
+        e_.add(TITLE_WEB,"Data for the current loaded archive");
+        return e_;
+    }
+    public static TranslationsFile frTitles() {
+        TranslationsFile f_ = new TranslationsFile();
+        f_.add(TITLE_WEB,"Données pour l'archive chargée courante");
         return f_;
     }
 }

@@ -13,6 +13,7 @@ import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.status.*;
 import aiki.game.params.enums.*;
+import aiki.gui.dialogs.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import aiki.sml.*;
@@ -127,17 +128,34 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
     private final EnabledMenu imgHerosBackMenu = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.IMG_HEROS_BACK));
     private final FormDataMap formDataMap;
     private final FacadeGame facade = ConverterCommonMapUtil.facadeInit(getFrames());
+    private FacadeGame result;
     private final CustList<AbsCrudGeneFormTrCstOpen> allWindows = new CustList<AbsCrudGeneFormTrCstOpen>();
     private final EnabledMenu newDataSet;
     private final EnabledMenu loadDataSet;
     private final EnabledMenu saveDataSet;
+    private final EnabledMenu validateDataSet;
     private final FileSaveFrame fileSaveFrame;
     private final FileOpenFrame fileOpenRomFrame;
     private final AbstractAtomicBoolean modal;
+    private final AbstractAtomicBooleanCore loadFlag;
+    private final FrameHtmlData renderDataWeb;
+    private final FrameHtmlData renderDataWebSimu;
+
+    private final EnabledMenu dataWeb;
+    private final EnabledMenu dataWebSimu;
 
     public WindowPkEditor(AbstractProgramInfos _list) {
         super(_list);
         modal = _list.getThreadFactory().newAtomicBoolean();
+        loadFlag = _list.getThreadFactory().newAtomicBoolean();
+        dataWeb = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_DATA_WEB));
+        dataWebSimu = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_SIMULATION));
+        renderDataWeb = new FrameHtmlData(this, dataWeb);
+        renderDataWeb.initDataBeans();
+        dataWeb.addActionListener(new EditorShowDataWebEvent(this,renderDataWeb));
+        renderDataWebSimu = new FrameHtmlData(this, dataWebSimu);
+        renderDataWebSimu.initSimuBeans();
+        dataWebSimu.addActionListener(new EditorShowDataWebEvent(this,renderDataWebSimu));
         fileSaveFrame = new FileSaveFrame(_list, modal);
         fileOpenRomFrame = new FileOpenFrame(_list, modal);
         facade.setData(ConverterCommonMapUtil.newData(_list,facade));
@@ -225,6 +243,11 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         saveDataSet = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_SAVE));
         saveDataSet.addActionListener(new SaveDataSetEvent(this));
         file_.addMenuItem(saveDataSet);
+        validateDataSet = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_VALIDATE));
+        validateDataSet.addActionListener(new EditorValidateDataEvent(this));
+        file_.addMenuItem(validateDataSet);
+        file_.addMenuItem(dataWeb);
+        file_.addMenuItem(dataWebSimu);
         bar_.add(file_);
         EnabledMenu trs_ = getFrames().getCompoFactory().newMenu(mappingMenus.getVal(MessagesEditorSelect.TRS_ENT));
         trs_.addMenuItem(trsAbMenu);
@@ -324,10 +347,29 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
         refresh();
     }
 
+    public FacadeGame getResult() {
+        return result;
+    }
+
     public void loadData(String _file) {
         dataBase(ConverterCommonMapUtil.loadData(getFrames(),_file,facade));
         refresh();
     }
+    public void validateData(AbstractAtomicIntegerCoreAdd _perCentLoading) {
+        dataWeb.setEnabled(false);
+        dataWebSimu.setEnabled(false);
+        FacadeGame next_ = ConverterCommonMapUtil.validateData(facade, modal, _perCentLoading, loadFlag);
+        if (next_.getData() != null) {
+            result = next_;
+            dataWeb.setEnabled(true);
+            dataWebSimu.setEnabled(true);
+        }
+    }
+
+    public AbstractAtomicBooleanCore getLoadFlag() {
+        return loadFlag;
+    }
+
     private void refresh() {
         for (AbsCrudGeneFormTrCstOpen f: allWindows) {
             boolean state_ = f.getFrame().isVisible();
@@ -458,6 +500,10 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public EnabledMenu getSaveDataSet() {
         return saveDataSet;
+    }
+
+    public EnabledMenu getValidateDataSet() {
+        return validateDataSet;
     }
 
     public EnabledMenu getAbMenu() {
@@ -650,6 +696,14 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public EnabledMenu getImgHerosBackMenu() {
         return imgHerosBackMenu;
+    }
+
+    public EnabledMenu getDataWebSimu() {
+        return dataWebSimu;
+    }
+
+    public EnabledMenu getDataWeb() {
+        return dataWeb;
     }
 
     public CrudGeneFormEnt<AbilityData> getCrudGeneFormAb() {
@@ -846,6 +900,14 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     public FormDataMap getFormDataMap() {
         return formDataMap;
+    }
+
+    public FrameHtmlData getRenderDataWebSimu() {
+        return renderDataWebSimu;
+    }
+
+    public FrameHtmlData getRenderDataWeb() {
+        return renderDataWeb;
     }
 
     public FacadeGame getFacade() {

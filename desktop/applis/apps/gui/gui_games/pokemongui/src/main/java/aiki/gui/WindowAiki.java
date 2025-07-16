@@ -1130,10 +1130,17 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt,AbsOpe
 //        getSelectTm().getPaginatorMove().refreshLang();
     }
 
+    public StringMap<String> getMessages() {
+        return messages;
+    }
+
     //EDT (mouse event, key event, ...) can not happen at the same time
     public void showDataWeb(FrameHtmlData _renderDataWeb) {
-        _renderDataWeb.setTitle(messages.getVal(MessagesRenderBattle.TITLE));
-        _renderDataWeb.initSession(getFacade());
+        showDataWeb(_renderDataWeb,getMessages(),getFacade(), MessagesRenderBattle.TITLE);
+    }
+    public static void showDataWeb(FrameHtmlData _renderDataWeb, StringMap<String> _messages, FacadeGame _facade, String _title) {
+        _renderDataWeb.setTitle(_messages.getVal(_title));
+        _renderDataWeb.initSession(_facade);
         _renderDataWeb.pack();
 //        if (getRenderDataWeb() == _renderDataWeb) {
 //            getRenderDataWeb().setTitle(messages.getVal(MessagesRenderBattle.TITLE));
