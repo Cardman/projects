@@ -239,6 +239,18 @@ public final class SubscribedTranslationList {
         return line_;
     }
 
+    public void replaceSubs(AbsCommonFrame _fr, CustList<SubscribedTranslation> _ls, CustList<SubscribedTranslation> _next) {
+        removeSubs(_fr, _ls);
+        _ls.addAllElts(_next);
+        addSubs(_fr, _next);
+    }
+    public void addSubs(AbsCommonFrame _fr, CustList<SubscribedTranslation> _ls) {
+        getSubscribedTranslations().getVal(_fr).addAllElts(_ls);
+    }
+    public void removeSubs(AbsCommonFrame _fr, CustList<SubscribedTranslation> _ls) {
+        getSubscribedTranslations().getVal(_fr).removeAllElements(_ls);
+        _ls.clear();
+    }
     public FacadeGame getFacadeGame() {
         return facadeGame;
     }

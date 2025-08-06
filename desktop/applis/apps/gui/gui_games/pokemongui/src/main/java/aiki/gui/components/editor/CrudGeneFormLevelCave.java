@@ -4,7 +4,6 @@ import aiki.facade.*;
 import aiki.instances.Instances;
 import aiki.map.places.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 
 public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
@@ -18,7 +17,7 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
         links = new ContentComponentModelLevelCaveLinks();
     }
 
-    public GeneComponentModelSubscribeLevelCave getGenePair() {
+    public AbsGeneComponentModelSubscribeLevel getGenePair() {
         return genePair;
     }
 
@@ -36,34 +35,8 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
     }
 
     @Override
-    public AbsActionListener buildLink(int _i) {
-        return new DisplayLinksCaveEvent(this,_i);
-    }
-
-    @Override
-    public void displayGrid(int _index) {
-        getElement().removeAll();
+    public void setupPlace(int _index) {
         links.selectIndexes(getCave(),getSelectedPlace(),_index);
-        getElement().add(links.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame()));
-        links.getClose().addActionListener(new CloseLinksFormEvent(getParent()));
-        disable(getParent());
-        getFrame().pack();
-    }
-
-    public static void disable(CrudGeneFormEntPlace _a) {
-        _a.setEnabledButtons(false);
-        for (CrudGeneFormLevel c: _a.getLevels()) {
-            disableForm(c);
-        }
-        disableForm(_a);
-        _a.enable(false);
-    }
-
-    public static void disableForm(AbsCrudGeneForm _a) {
-        _a.getValidAddEdit().setEnabled(false);
-        _a.getValidRemove().setEnabled(false);
-        _a.getCancel().setEnabled(false);
-        _a.getAdd().setEnabled(false);
     }
     @Override
     public void setupLevel(int _s) {
@@ -83,7 +56,7 @@ public final class CrudGeneFormLevelCave extends CrudGeneFormLevel {
         this.cave = _c;
     }
 
-    public ContentComponentModelLevelCaveLinks getLinks() {
+    public AbsSubLevelLinks getLinks() {
         return links;
     }
 }

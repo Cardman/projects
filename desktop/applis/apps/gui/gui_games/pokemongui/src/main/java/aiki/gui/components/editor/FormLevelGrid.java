@@ -266,10 +266,11 @@ public final class FormLevelGrid extends FormLevelGridCommon {
     }
 
     public void subs(IdList<SubscribedTranslation> _ls) {
-        IdList<SubscribedTranslation> subs_ = getTranslationList().getSubscribedTranslations().getVal(getFrame());
-        subs_.removeAllElements(translations);
-        subs_.addAllElts(_ls);
-        translations.addAllElts(_ls);
+        getTranslationList().replaceSubs(getFrame(),translations,_ls);
+//        IdList<SubscribedTranslation> subs_ = getTranslationList().getSubscribedTranslations().getVal(getFrame());
+//        subs_.removeAllElements(translations);
+//        subs_.addAllElts(_ls);
+//        translations.addAllElts(_ls);
     }
 
     public FormBlockTile getFormBlockTile() {

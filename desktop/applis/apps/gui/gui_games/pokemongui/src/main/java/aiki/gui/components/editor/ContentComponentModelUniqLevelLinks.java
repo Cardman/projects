@@ -108,13 +108,14 @@ public final class ContentComponentModelUniqLevelLinks {
         left.getSelect().addListener(new ChangePlaceListEvent(this,true));
         right.getSelect().addListener(new ChangePlaceListEvent(this,false));
         close = _core.getCompoFactory().newPlainButton("\u23F9");
-        close.addActionListener(new CloseLinksFormEvent(_par));
+        close.addActionListener(new CloseLinksFormEvent(_par, _fact, translationsGrid, _f));
         form_.add(getClose());
         AbsPanel viewLeft_ = _core.getCompoFactory().newPageBox();
         AbsPanel viewRight_ = _core.getCompoFactory().newPageBox();
         AbsPanel views_ = _core.getCompoFactory().newLineBox();
         viewLeft_.add(_core.getCompoFactory().newPlainLabel(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.UNIQ_VIEW_LEFT)));
         viewRight_.add(_core.getCompoFactory().newPlainLabel(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.UNIQ_VIEW_RIGHT)));
+        translationList.removeSubs(frame,getTranslationsGrid());
         leftScroll = _core.getCompoFactory().newAbsScrollPane();
         rightScroll = _core.getCompoFactory().newAbsScrollPane();
         viewLeft_.add(leftScroll);
@@ -158,6 +159,7 @@ public final class ContentComponentModelUniqLevelLinks {
         CustList<EditedCrudPair<Coords, InitializedPlace>> selRight_ = right.tryRet();
         CustList<EditedCrudPair<Coords, InitializedPlace>> sel_;
         CustList<EditedCrudPair<Coords, InitializedPlace>> selOther_;
+        translationList.removeSubs(frame,getTranslationsGrid());
         if (_left) {
             sel_ = selLeft_;
             selOther_ = selRight_;
@@ -338,6 +340,7 @@ public final class ContentComponentModelUniqLevelLinks {
         }
         linked.get(selLeft_.getKey().getNumberPlace()).get(selRight_.getKey().getNumberPlace()).set(firstDirection,BoolVal.TRUE);
         linked.get(selRight_.getKey().getNumberPlace()).get(selLeft_.getKey().getNumberPlace()).set(secondDirection,BoolVal.TRUE);
+        translationList.removeSubs(frame,getTranslationsGrid());
         leftScroll.setNullViewportView();
         rightScroll.setNullViewportView();
         firstSelected = new NullablePoint();
@@ -362,6 +365,7 @@ public final class ContentComponentModelUniqLevelLinks {
         for (EntryCust<Direction,BoolVal> e:linked.get(selRight_.getKey().getNumberPlace()).get(selLeft_.getKey().getNumberPlace()).entryList()) {
             e.setValue(BoolVal.FALSE);
         }
+        translationList.removeSubs(frame,getTranslationsGrid());
         leftScroll.setNullViewportView();
         rightScroll.setNullViewportView();
         firstSelected = new NullablePoint();

@@ -18,6 +18,9 @@ public final class ContentComponentModelRoad {
         return form_;
     }
 
+    public void removeSubs() {
+        levelWithWild.removeSubs();
+    }
     public GeneComponentModelEltEnumSub<String> getItems() {
         return getLevelWithWild().getItems();
     }

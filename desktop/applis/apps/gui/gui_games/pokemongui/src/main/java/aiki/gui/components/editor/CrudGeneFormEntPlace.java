@@ -74,27 +74,27 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
         } else {
             getElement().add(SubscribedTranslationList.line(getFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())),MessagesEditorSelect.ACC_COND_FORM,accessCondition.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this)));
         }
-        CrudGeneFormLevelCave.disable(this);
+        CrudGeneFormLevel.disable(this);
         getFrame().pack();
     }
     public void displayJoinPlaces() {
         getElement().removeAll();
         getElement().add(SubscribedTranslationList.line(getFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())),MessagesEditorSelect.JOIN_UNIQ,joinPlaces.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame(),this)));
-        CrudGeneFormLevelCave.disable(this);
+        CrudGeneFormLevel.disable(this);
         getFrame().pack();
     }
     public void displayAllLinksPlaceCave() {
         getElement().removeAll();
         getElement().add(SubscribedTranslationList.line(getFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())),MessagesEditorSelect.JOIN_CAVE_UNIQ,links.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame())));
-        links.getClose().addActionListener(new CloseLinksFormEvent(this));
-        CrudGeneFormLevelCave.disable(this);
+        links.getClose().addActionListener(new CloseLinksFormEvent(this, getCrudGeneFormSubContent().getSubscription(), links.getTranslationsGrid(), getFrame()));
+        CrudGeneFormLevel.disable(this);
         getFrame().pack();
     }
     public void displayAllLinksCavePlace() {
         getElement().removeAll();
         getElement().add(SubscribedTranslationList.line(getFactory(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())),MessagesEditorSelect.JOIN_CAVE_UNIQ_REV,linksRev.form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame())));
-        linksRev.getClose().addActionListener(new CloseLinksFormEvent(this));
-        CrudGeneFormLevelCave.disable(this);
+        linksRev.getClose().addActionListener(new CloseLinksFormEvent(this, getCrudGeneFormSubContent().getSubscription(), linksRev.getTranslationsGrid(), getFrame()));
+        CrudGeneFormLevel.disable(this);
         getFrame().pack();
     }
     public void selectPlace(int _i) {
@@ -131,6 +131,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     }
 
     public void refPlaces() {
+        removeSubsPlace();
         FacadeGame facadeGame_ = getCrudGeneFormSubContent().getFacadeGame();
         CustList<Place> places_ = facadeGame_.getData().getMap().getPlaces();
         getElements().removeAll();
@@ -166,6 +167,15 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
             }
         }
         getAllButtonsMerge().addAllElts(allHeaders);
+    }
+
+    private void removeSubsPlace() {
+        if (city != null) {
+            city.removeSubs();
+        }
+        if (road != null) {
+            road.removeSubs();
+        }
     }
 
     @Override
@@ -232,6 +242,7 @@ public final class CrudGeneFormEntPlace extends AbsCrudGeneForm implements AbsCr
     @Override
     public void cancel() {
         setEnabledButtons(true);
+        removeSubsPlace();
         super.cancel();
         enable(true);
     }

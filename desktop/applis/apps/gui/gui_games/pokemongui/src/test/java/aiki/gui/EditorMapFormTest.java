@@ -1928,8 +1928,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        tryClicks(((GeneComponentModelSubscribeLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
     }
@@ -1945,8 +1945,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        tryClicks(((GeneComponentModelSubscribeLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
     }
@@ -2013,7 +2013,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getAddTileBoth());
         tryClick(link(sub_.getFormDataMap().getCrudPlace(),0).getClose());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClicks(((GeneComponentModelSubscribeLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         assertEq(1,cave_.getLevels().get(0).getLinksOtherLevels().size());
         assertEq(0,cave_.getLevels().get(0).getLinksOtherLevels().getKey(0).getx());
@@ -2434,8 +2434,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
     }
@@ -2451,8 +2451,8 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAdd());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         assertEq(0, facade_.getData().getMap().getPlace(0).getLevelsList().get(0).getBlocks().size());
     }
@@ -2465,13 +2465,13 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(l_);
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        selectDims(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile(), 2,2);
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        selectDims(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile(), 2,2);
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
@@ -2489,19 +2489,19 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(l_);
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        selectDims(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile(), 2,2);
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        selectDims(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile(), 2,2);
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getRemoveTile());
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getRemoveTile());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getRemoveTile());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getRemoveTile());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getTrainerCoords().isDefined());
         assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getAccessPoint().isDefined());
@@ -2523,9 +2523,9 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(l_);
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(2));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        selectDims(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile(), 2,2);
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        selectDims(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile(), 2,2);
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         assertEq(1,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(1).getBlocks().size());
     }
@@ -2538,17 +2538,17 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(l_);
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        selectDims(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile(), 3,3);
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getFormBlockTile().getMatch());
-        tryClicks(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
-        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getContentLevel().getDeltaWidth().setValue(2);
-        ((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getContentLevel().getDeltaHeight().setValue(2);
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getMoveTile());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        selectDims(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile(), 3,3);
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_TRAINER));
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),facade_.getMap().getSideLength(),facade_.getMap().getSideLength());
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getTiles().getVal(MessagesEditorSelect.LEAGUE_ACCESS));
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getFormBlockTile().getMatch());
+        tryClicks(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
+        ((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getContentLevel().getDeltaWidth().setValue(2);
+        ((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getContentLevel().getDeltaHeight().setValue(2);
+        tryClick(((GeneComponentModelSubscribeLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getMoveTile());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getValidAddEdit());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
@@ -2573,7 +2573,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(l_);
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((ContentComponentModelLevelLeagueLinks)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getLinks()).getLevel().getGrid(),0,0);
         tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
         assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().getPoint().getx());
         assertEq(0,((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().getPoint().gety());
@@ -2595,7 +2595,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(l_);
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((ContentComponentModelLevelLeagueLinks)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getLinks()).getLevel().getGrid(),0,0);
         tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
         assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().isDefined());
     }
@@ -2615,10 +2615,10 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         facade_.getData().getMap().addPlace(l_);
         WindowPkEditor sub_ = window(pr_, facade_);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((ContentComponentModelLevelLeagueLinks)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getLinks()).getLevel().getGrid(),0,0);
         tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(1));
-        tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getLevel().getGrid(),0,0);
+        tryClick(((ContentComponentModelLevelLeagueLinks)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getLinks()).getLevel().getGrid(),0,0);
         tryClick(((CrudGeneFormLevelLeague)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getLinks().getClose());
         assertFalse(((League)facade_.getData().getMap().getPlace(0)).getRooms().get(0).getNextLevelTarget().isDefined());
     }
@@ -2678,7 +2678,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getAddTileBoth());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLinks().getClose());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClicks(((GeneComponentModelSubscribeLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         InitializedPlace road_ = (InitializedPlace) facade_.getMap().getPlace(0);
         Cave cave_ = (Cave) facade_.getMap().getPlace(1);
@@ -3039,7 +3039,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
         tryClick(sub_.getFormDataMap().getCrudPlace().getLinksRev().getAddTileBoth());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLinksRev().getClose());
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getAllButtons().get(0));
-        tryClicks(((CrudGeneFormLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0)).getGenePair().getWild().getLevel().getGrid(),0,0);
+        tryClicks(((GeneComponentModelSubscribeLevelCave)sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getGenePair()).getWild().getLevel().getGrid(),0,0);
         tryClick(sub_.getFormDataMap().getCrudPlace().getLevels().get(0).getCancel());
         InitializedPlace road_ = (InitializedPlace) facade_.getMap().getPlace(0);
         Cave cave_ = (Cave) facade_.getMap().getPlace(1);
@@ -4699,7 +4699,7 @@ public final class EditorMapFormTest extends InitEditorPkForm {
     }
 
     public static ContentComponentModelLevelCaveLinks link(CrudGeneFormEntPlace _c, int _i) {
-        return ((CrudGeneFormLevelCave)_c.getLevels().get(_i)).getLinks();
+        return (ContentComponentModelLevelCaveLinks)((CrudGeneFormLevelCave)_c.getLevels().get(_i)).getLinks();
     }
     private static LevelCave blockLinksLevelCave() {
         LevelCave lc_ = Instances.newLevelCave();

@@ -10,13 +10,13 @@ import code.gui.initialize.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 
-public abstract class AbsContentComponentModelLevelLinks {
+public abstract class AbsContentComponentModelLevelLinks implements AbsSubLevelLinks {
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
     public static final int BOTH = 2;
     private GeneComponentModelImgSelect linkFileNameFirst;
     private GeneComponentModelImgSelect linkFileNameSecond;
-    private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
+//    private final IdList<SubscribedTranslation> translations = new IdList<SubscribedTranslation>();
     private final IdList<SubscribedTranslation> translationsGrid = new IdList<SubscribedTranslation>();
     private final NullablePoint selectedFirst = new NullablePoint();
     private final NullablePoint selectedSecond = new NullablePoint();
@@ -106,11 +106,13 @@ public abstract class AbsContentComponentModelLevelLinks {
     }
 
     private void common(AbsCommonFrame _f, SubscribedTranslationList _fact, GeneComponentModelImgSelect _sel) {
-        IdList<SubscribedTranslation> subs_ = _fact.getSubscribedTranslations().getVal(_f);
-        subs_.removeAllElements(translations);
+//        IdList<SubscribedTranslation> subs_ = _fact.getSubscribedTranslations().getVal(_f);
+//        subs_.removeAllElements(translations);
         IdList<SubscribedTranslation> next_ = _sel.subs();
-        subs_.addAllElts(next_);
-        translations.addAllElts(next_);
+        _fact.addSubs(_f,next_);
+        translationsGrid.addAllElts(next_);
+//        subs_.addAllElts(next_);
+//        translations.addAllElts(next_);
     }
     protected static FormLevelGridLink build(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f, Place _cave, Coords _coords, IdList<SubscribedTranslation> _translationsGrid) {
         FormLevelGridLink level_ = new FormLevelGridLink(_core,_fac, _f,_fact);
@@ -119,11 +121,11 @@ public abstract class AbsContentComponentModelLevelLinks {
         Points<Block> blocks_ = levelCave_.getBlocks();
         level_.getTranslationList().setFormLevelGridUniq(null);
         level_.setupGridDims(blocks_, _coords, _cave,levelCave_);
-        IdList<SubscribedTranslation> subs_ = level_.getTranslationList().getSubscribedTranslations().getVal(level_.getFrame());
-        subs_.removeAllElements(_translationsGrid);
+//        IdList<SubscribedTranslation> subs_ = level_.getTranslationList().getSubscribedTranslations().getVal(level_.getFrame());
+//        subs_.removeAllElements(_translationsGrid);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
         next_.add(new RefreshGridLinkSubscription(level_.getFacadeGame(),level_, _coords,_cave,levelCave_));
-        subs_.addAllElts(next_);
+        level_.getTranslationList().addSubs(level_.getFrame(),next_);
         _translationsGrid.addAllElts(next_);
         return level_;
     }

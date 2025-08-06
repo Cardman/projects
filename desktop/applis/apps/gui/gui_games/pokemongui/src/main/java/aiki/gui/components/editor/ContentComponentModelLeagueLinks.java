@@ -35,7 +35,7 @@ public final class ContentComponentModelLeagueLinks {
         }
         form_.setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_core.currentLg())).getMapping().getVal(MessagesEditorSelect.LK_PLACE));
         close = _core.getCompoFactory().newPlainButton("\u23F9");
-        close.addActionListener(new CloseLinksFormEvent(_par));
+        close.addActionListener(new CloseLinksFormEvent(_par, _fact, translationsGrid, _f));
         form_.add(getClose());
         linkFileName = new GeneComponentModelImgSelect(_core,_fac,_fact.getImgRetrieverLinksSub());
         form_.add(SubscribedTranslationList.line(_core,MessagesPkBean.NPC,MessagesDataMapPokemonKey.M_P_34_MINI,linkFileName.gene()));

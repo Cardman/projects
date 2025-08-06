@@ -11,7 +11,7 @@ import code.gui.initialize.*;
 import code.util.*;
 import code.util.core.*;
 
-public final class ContentComponentModelLevelWithWild {
+public final class ContentComponentModelLevelWithWild implements ContentComponentModelLevelRemovableSubs {
     private GeneComponentModelEltEnumSub<String> items;
     private GeneComponentModelEltEnumSub<Integer> hm;
     private GeneComponentModelEltEnumSub<Integer> tm;
@@ -51,6 +51,10 @@ public final class ContentComponentModelLevelWithWild {
         contentLevel.getLevel().getForm().setTitledBorder(MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(contentLevel.getLevel().getApi().currentLg())).getMapping().getVal(MessagesEditorSelect.CONTENT_LEVEL));
         scrollPane.setViewportView(contentLevel.getLevel().getForm());
         getAreas().setBlocks(contentLevel.getLevel().getEdited());
+    }
+
+    public void removeSubs() {
+        contentLevel.removeSubs();
     }
     public void buildEntity(LevelWithWildPokemon _lev) {
         _lev.setBlocks(getLevel().getEdited());

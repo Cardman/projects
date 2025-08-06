@@ -11,7 +11,7 @@ import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
 
-public final class ContentComponentModelLevelLeague {
+public final class ContentComponentModelLevelLeague implements ContentComponentModelLevelRemovableSubs {
 
     private NullablePoint trainerCoords = new NullablePoint();
 
@@ -31,6 +31,10 @@ public final class ContentComponentModelLevelLeague {
         AbsCustComponent splitter_ = _core.getCompoFactory().newHorizontalSplitPane(scrollPane, _core.getCompoFactory().newAbsScrollPane(form_));
         contentLevel.getLevel().getTranslationList().setFormLevelGridUniq(null);
         return splitter_;
+    }
+
+    public void removeSubs() {
+        contentLevel.removeSubs();
     }
     public void setupGridDims(Coords _coords, Place _pl, LevelLeague _wild) {
         edited = _wild;

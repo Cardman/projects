@@ -19,7 +19,7 @@ public final class ContentComponentModelCity {
     private AbsButton createBuilding;
     private final ContentComponentModelLevel contentLevelOutdoor = new ContentComponentModelLevel();
     private final ContentComponentModelLevel contentLevelBuilding = new ContentComponentModelLevel();
-    private AbsCustComponent splitter;
+//    private AbsCustComponent splitter;
     private City edited;
     private Building editedBuilding;
     private Points<Building> editedBuildings;
@@ -39,14 +39,18 @@ public final class ContentComponentModelCity {
         setupGridDims(_coords.getNumberPlace(), _pl);
         return form_;
     }
+    public void removeSubs() {
+        contentLevelOutdoor.removeSubs();
+        contentLevelBuilding.removeSubs();
+    }
     public AbsCustComponent form(AbstractProgramInfos _core, FacadeGame _fac, SubscribedTranslationList _fact, AbsCommonFrame _f) {
         scrollPane = _core.getCompoFactory().newAbsScrollPane();
-        AbsScrollPane map_ = scrollPane;
+//        AbsScrollPane map_ = scrollPane;
         contentLevelOutdoor.setLevel(new FormLevelGrid(_core, _fac, _f, _fact));
-        AbsPanel form_ = _core.getCompoFactory().newPageBox();
-        splitter = _core.getCompoFactory().newHorizontalSplitPane(map_,_core.getCompoFactory().newAbsScrollPane(form_));
+//        AbsPanel form_ = _core.getCompoFactory().newPageBox();
+//        splitter = _core.getCompoFactory().newHorizontalSplitPane(map_,_core.getCompoFactory().newAbsScrollPane(form_));
         contentLevelOutdoor.getLevel().getTranslationList().setFormLevelGridUniq(null);
-        return splitter;
+        return scrollPane;
     }
     public void setupGridDims(int _nbPlace, City _pl) {
         edited = _pl;
@@ -57,6 +61,7 @@ public final class ContentComponentModelCity {
         contentLevelOutdoor.setupGridDims(coords_,_pl,_pl.getLevelOutdoor());
         contentLevelOutdoor.getLevel().getGrid().addMouseListener(new BuildingKindEvent(this));
         scrollPane.setViewportView(contentLevelOutdoor.getLevel().getForm());
+        contentLevelBuilding.removeSubs();
     }
     public void buildEntity() {
         edited.getLevelOutdoor().setBlocks(getLevel().getEdited());
@@ -65,7 +70,7 @@ public final class ContentComponentModelCity {
     }
 
     public AbsCustComponent getSplitter() {
-        return splitter;
+        return scrollPane;
     }
 
     public void viewForeground(int _x, int _y) {
@@ -83,6 +88,7 @@ public final class ContentComponentModelCity {
             createBuilding.addActionListener(new BuildingKindChoiceEvent(this));
             form_.add(createBuilding);
             contentLevelOutdoor.getFore().setViewportView(form_);
+            contentLevelBuilding.removeSubs();
             editedBuilding = null;
         }
         if (contentLevelBuilding.getFore() != null) {
@@ -104,7 +110,7 @@ public final class ContentComponentModelCity {
         AbsCompoFactory compoFactory_ = contentLevelOutdoor.getLevel().getApi().getCompoFactory();
         contentLevelBuilding.setLevel(new FormLevelGrid(contentLevelOutdoor.getLevel().getApi(), contentLevelOutdoor.getLevel().getFacadeGame(), contentLevelOutdoor.getLevel().getFrame(), contentLevelOutdoor.getLevel().getTranslationList()));
         Coords coords_ = AbsContentComponentModelLevelLinks.coords(nbPlace, 0, contentLevelOutdoor.getSelected());
-        IdList<SubscribedTranslation> next_ = contentLevelBuilding.setupTranslationsGrid(coords_,edited,editedBuilding.getLevel());
+        contentLevelBuilding.setupTranslationsGrid(coords_,edited,editedBuilding.getLevel());
         contentLevelBuilding.setAccessCondition(ConverterCommonMapUtil.copyCoordsLists(contentLevelOutdoor.getAccessCondition()));
         contentLevelBuilding.getLevel().getGrid().addMouseListener(new BuildingTileKindEvent(this));
         AbsPanel form_ = compoFactory_.newLineBox();
@@ -125,7 +131,7 @@ public final class ContentComponentModelCity {
             storage = ConverterCommonMapUtil.copyNullablePoint(((PokemonCenter)editedBuilding).getIndoor().getStorageCoords());
             exitBuilding = ConverterCommonMapUtil.copyNullablePoint(editedBuilding.getExitCity());
         }
-        contentLevelOutdoor.getTranslations().addAllElts(next_);
+//        contentLevelOutdoor.getTranslations().addAllElts(next_);
         contentLevelBuilding.setFore(contentLevelOutdoor.getLevel().getApi().getCompoFactory().newAbsScrollPane());
         contentLevelBuilding.getLevel().getForm().add(contentLevelBuilding.getFore());
         form_.add(SubscribedTranslationList.line(contentLevelOutdoor.getLevel().getApi(),MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())),MessagesEditorSelect.DETAIL_TILE_BUILDING,contentLevelBuilding.getLevel().getForm()));
@@ -133,7 +139,6 @@ public final class ContentComponentModelCity {
         contentLevelOutdoor.getMoveTile().addActionListener(new MoveBuildingTileEvent(this));
         contentLevelOutdoor.getRemoveTile().addActionListener(new RemoveBuildingTileEvent(this));
         contentLevelOutdoor.getFore().setViewportView(form_);
-        contentLevelBuilding.getFore().setNullViewportView();
     }
 
     public void viewForegroundBuilding(int _x, int _y) {
@@ -184,13 +189,11 @@ public final class ContentComponentModelCity {
     }
 
     private void initFormChoicesGym() {
-        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindGymTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())).getMapping();
-        choices(messages_);
+        choices(MessagesPkEditor.getMessagesEditorSelectTileKindGymTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())).getMapping());
     }
 
     private void initFormChoicesPc() {
-        StringMap<String> messages_ = MessagesPkEditor.getMessagesEditorSelectTileKindPcTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())).getMapping();
-        choices(messages_);
+        choices(MessagesPkEditor.getMessagesEditorSelectTileKindPcTr(MessagesPkEditor.getAppliTr(contentLevelOutdoor.getLevel().getApi().currentLg())).getMapping());
     }
 
     private void choices(StringMap<String> _messages) {
@@ -204,8 +207,8 @@ public final class ContentComponentModelCity {
             form_.add(but_);
             contentLevelOutdoor.getTiles().addEntry(e.getKey(),but_);
         }
-        contentLevelOutdoor.getFore().setViewportView(form_);
-        contentLevelBuilding.getFore().setNullViewportView();
+        contentLevelBuilding.getFore().setViewportView(form_);
+//        contentLevelBuilding.getFore().setNullViewportView();
     }
 
     public void choose(String _k) {

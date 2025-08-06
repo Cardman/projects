@@ -47,7 +47,7 @@ public final class ContentComponentModelAccessCondition {
             form_.add(clearAccess);
         }
         close = _core.getCompoFactory().newPlainButton("\u23F9");
-        close.addActionListener(new CloseLinksFormEvent(_parent));
+        close.addActionListener(new CloseLinksFormEvent(_parent, _fact, translationsGrid, _f));
         form_.add(getClose());
         if (beginGame) {
             buildParts(form_,_core, _fac, _fact, _f);

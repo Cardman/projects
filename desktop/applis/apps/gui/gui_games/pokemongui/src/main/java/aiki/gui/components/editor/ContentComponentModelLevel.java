@@ -37,17 +37,17 @@ public final class ContentComponentModelLevel {
         this.accessCondition = _a;
     }
 
-    public IdList<SubscribedTranslation> setupTranslationsGrid(Coords _coords, Place _pl, Level _wild) {
+    public void setupTranslationsGrid(Coords _coords, Place _pl, Level _wild) {
         Points<Block> blocks_ = ConverterCommonMapUtil.copyPointsBlock(_wild.getBlocks());
         level.setupGridDims(blocks_, _coords, _pl, _wild);
         level.setSelectedPlace(_coords);
-        IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
-        subs_.removeAllElements(translationsGrid);
+//        IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
+//        subs_.removeAllElements(translationsGrid);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>();
         next_.add(new RefreshGridSubscription(level.getFacadeGame(),level, _coords, _pl, _wild));
-        subs_.addAllElts(next_);
-        translationsGrid.addAllElts(next_);
-        return subs_;
+//        subs_.addAllElts(next_);
+        level.getTranslationList().replaceSubs(level.getFrame(), translationsGrid, next_);
+//        translationsGrid.addAllElts(next_);
     }
 
     public boolean canContains() {
@@ -73,12 +73,21 @@ public final class ContentComponentModelLevel {
     }
 
     public void refreshSubs(IdList<SubscribedTranslation> _subs, ScrollCustomComboInt _select) {
-        IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
-        subs_.removeAllElements(translations);
+//        IdList<SubscribedTranslation> subs_ = level.getTranslationList().getSubscribedTranslations().getVal(level.getFrame());
+//        subs_.removeAllElements(translations);
         IdList<SubscribedTranslation> next_ = new IdList<SubscribedTranslation>(_subs);
         next_.add(new SubscribedTranslationSelectChangeEvtsText(_select));
-        subs_.addAllElts(next_);
-        translations.addAllElts(next_);
+        level.getTranslationList().replaceSubs(level.getFrame(), translations, next_);
+//        subs_.addAllElts(next_);
+//        translations.addAllElts(next_);
+    }
+
+    public void removeSubs() {
+        if (level == null) {
+            return;
+        }
+        level.getTranslationList().removeSubs(level.getFrame(), translations);
+        level.getTranslationList().removeSubs(level.getFrame(), translationsGrid);
     }
 
     public void initRemove(AbsPanel _form) {
@@ -158,9 +167,9 @@ public final class ContentComponentModelLevel {
         return key;
     }
 
-    public IdList<SubscribedTranslation> getTranslations() {
-        return translations;
-    }
+//    public IdList<SubscribedTranslation> getTranslations() {
+//        return translations;
+//    }
 
     public AbsSpinner getDeltaHeight() {
         return deltaHeight;

@@ -6,7 +6,7 @@ import aiki.map.levels.*;
 import code.gui.*;
 import code.gui.initialize.*;
 
-public final class GeneComponentModelSubscribeLevelLeague {
+public final class GeneComponentModelSubscribeLevelLeague implements AbsGeneComponentModelSubscribeLevel {
     private final AbstractProgramInfos api;
     private final FacadeGame facadeGame;
     private final SubscribedTranslationList factory;
@@ -45,6 +45,11 @@ public final class GeneComponentModelSubscribeLevelLeague {
         edited = lc_;
     }
 
+
+    @Override
+    public ContentComponentModelLevelRemovableSubs retGeneWild() {
+        return getWild();
+    }
 
     public ContentComponentModelLevelLeague getWild() {
         return wild;

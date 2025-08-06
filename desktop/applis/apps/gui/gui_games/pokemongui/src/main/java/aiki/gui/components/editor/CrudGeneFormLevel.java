@@ -4,7 +4,6 @@ import aiki.facade.*;
 import aiki.map.levels.*;
 import aiki.map.places.*;
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.initialize.*;
 import code.util.*;
 
@@ -23,6 +22,22 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
         parent = _crud;
     }
 
+    public static void disable(CrudGeneFormEntPlace _a) {
+        _a.setEnabledButtons(false);
+        for (CrudGeneFormLevel c: _a.getLevels()) {
+            disableForm(c);
+        }
+        disableForm(_a);
+        _a.enable(false);
+    }
+
+    public static void disableForm(AbsCrudGeneForm _a) {
+        _a.getValidAddEdit().setEnabled(false);
+        _a.getValidRemove().setEnabled(false);
+        _a.getCancel().setEnabled(false);
+        _a.getAdd().setEnabled(false);
+    }
+
     public void selectLevel(int _i) {
         selectedLevel = _i;
         getElement().removeAll();
@@ -32,6 +47,7 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
     }
     @Override
     public void refresh() {
+        getGenePair().retGeneWild().removeSubs();
         parent.refPlaces();
     }
 
@@ -50,7 +66,7 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
             getAllButtons().add(but_);
             buts_.add(but_);
             AbsButton link_ = getFactory().getCompoFactory().newPlainButton(MessagesPkEditor.getMessagesEditorSelectButtonsTr(MessagesPkEditor.getAppliTr(getFactory().currentLg())).getMapping().getVal(MessagesEditorSelect.LK_FORM));
-            link_.addActionListener(buildLink(i));
+            link_.addActionListener(new DisplayLinksCaveEvent(this,i));
             link_.setEnabled(parent.isEnabledButtons());
             line_.add(link_);
             getAllButtons().add(link_);
@@ -59,8 +75,6 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
         }
         return buts_;
     }
-
-    public abstract AbsActionListener buildLink(int _i);
 
     @Override
     public void formAdd() {
@@ -122,10 +136,20 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
     }
     @Override
     public void cancel() {
+        getGenePair().retGeneWild().removeSubs();
         parent.setEnabledButtons(true);
         super.cancel();
         parent.enable(true);
         parent.getAdd().setEnabled(true);
+    }
+
+    public void displayGrid(int _index) {
+        setupPlace(_index);
+        getElement().removeAll();
+        getElement().add(getLinks().form(getFactory(),getCrudGeneFormSubContent().getFacadeGame(),getCrudGeneFormSubContent().getSubscription(),getFrame()));
+        getLinks().getClose().addActionListener(new CloseLinksFormEvent(getParent(), getCrudGeneFormSubContent().getSubscription(), getLinks().getTranslationsGrid(), getFrame()));
+        disable(getParent());
+        getFrame().pack();
     }
 
     public CrudGeneFormEntPlace getParent() {
@@ -154,5 +178,7 @@ public abstract class CrudGeneFormLevel extends AbsCrudGeneForm {
         return crudGeneFormSubContent;
     }
 
-    public abstract void displayGrid(int _index);
+    public abstract void setupPlace(int _index);
+    public abstract AbsSubLevelLinks getLinks();
+    public abstract AbsGeneComponentModelSubscribeLevel getGenePair();
 }

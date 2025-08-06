@@ -7,7 +7,7 @@ import code.gui.*;
 import code.gui.initialize.*;
 import code.util.*;
 
-public final class ContentComponentModelLevelLeagueLinks {
+public final class ContentComponentModelLevelLeagueLinks implements AbsSubLevelLinks{
 
     private final IdList<SubscribedTranslation> translationsGrid = new IdList<SubscribedTranslation>();
     private AbsButton close;
@@ -45,6 +45,10 @@ public final class ContentComponentModelLevelLeagueLinks {
         level = AbsContentComponentModelLevelLinks.build(_c, _fac, _fact, _fr, cave, AbsContentComponentModelLevelLinks.coords(selectedPlace,next_,null), translationsGrid);
         level.getGrid().addMouseListener(new SelectOrDeselectNextPtEvent(this));
         _form.add(SubscribedTranslationList.line(_c,MessagesPkEditor.getMessagesEditorSelectDataMapLevTr(MessagesPkEditor.getAppliTr(_c.currentLg())),MessagesEditorSelect.INTRA_LV_LK_NEXT,level.getForm()));
+    }
+
+    public IdList<SubscribedTranslation> getTranslationsGrid() {
+        return translationsGrid;
     }
 
     public AbsButton getClose() {
