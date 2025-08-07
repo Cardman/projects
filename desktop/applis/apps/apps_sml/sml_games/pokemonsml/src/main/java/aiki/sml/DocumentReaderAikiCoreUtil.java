@@ -53,10 +53,22 @@ public final class DocumentReaderAikiCoreUtil {
     public static final String MAIN_TAG = "4";
     public static final String LOADING_GAME = "0";
     public static final String GAME = "1";
+    public static final String EDITOR = "2";
 
     private DocumentReaderAikiCoreUtil() {
     }
 
+    public static String getEditingRom(Document _string) {
+        if (_string == null) {
+            return "";
+        }
+        Element documentElement_ = _string.getDocumentElement();
+        String tagName_ = documentElement_.getTagName();
+        if (StringUtil.quickEq(tagName_, MAIN_TAG) && StringUtil.quickEq(documentElement_.getAttribute(DocumentWriterCoreUtil.FIELD), EDITOR)) {
+            return documentElement_.getAttribute(DocumentWriterCoreUtil.VALUE);
+        }
+        return "";
+    }
     public static void loadRom(DataBase _d, StringMap<String> _files, AbstractAtomicIntegerCoreAdd _perCentLoading, SexListInt _sexList, String _base) {
         _perCentLoading.set(0);
         prepare(_d);

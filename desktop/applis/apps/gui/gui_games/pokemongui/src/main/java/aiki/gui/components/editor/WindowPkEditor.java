@@ -143,9 +143,12 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     private final EnabledMenu dataWeb;
     private final EnabledMenu dataWebSimu;
+    private final LanguagesButtonsPair mainButton;
 
-    public WindowPkEditor(AbstractProgramInfos _list) {
+    public WindowPkEditor(AbstractProgramInfos _list, LanguagesButtonsPair _m) {
         super(_list);
+        mainButton = _m;
+        GuiBaseUtil.choose(this, _list);
         modal = _list.getThreadFactory().newAtomicBoolean();
         loadFlag = _list.getThreadFactory().newAtomicBoolean();
         dataWeb = getFrames().getCompoFactory().newMenuItem(mappingMenus.getVal(MessagesEditorSelect.FILE_DATA_WEB));
@@ -482,11 +485,13 @@ public final class WindowPkEditor extends GroupFrame implements AbsOpenQuit {
 
     @Override
     public void quit() {
+        LanguageDialogButtons.enable(mainButton.getMainButton(),true);
         getCommonFrame().setVisible(false);
         for (EntryCust<AbsCommonFrame, IdList<SubscribedTranslation>> e: subscriptions.getSubscribedTranslations().entryList()) {
             e.getKey().setVisible(false);
             e.getValue().clear();
         }
+        getModal().set(false);
         GuiBaseUtil.trEx(this, getFrames());
     }
 

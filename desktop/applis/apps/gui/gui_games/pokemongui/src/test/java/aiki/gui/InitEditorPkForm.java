@@ -31,6 +31,7 @@ import aiki.map.util.*;
 import aiki.sml.*;
 import aiki.util.*;
 import code.gui.*;
+import code.gui.events.*;
 import code.gui.initialize.*;
 import code.images.*;
 import code.maths.*;
@@ -142,13 +143,13 @@ public abstract class InitEditorPkForm extends EquallableAikiGuiUtil {
     }
 
     protected WindowPkEditor window(AbstractProgramInfos _core, FacadeGame _facade) {
-        WindowPkEditor w_ = new WindowPkEditor(_core);
+        WindowPkEditor w_ = new WindowPkEditor(_core, new LanguagesButtonsPair(null,new MockPlainButton(),new LanguageComponentButtons(_core,new AlwaysActionListenerAct())));
         w_.dataBase(_facade.getData());
         return w_;
     }
 
     protected WindowPkEditor windowNew(AbstractProgramInfos _core) {
-        WindowPkEditor w_ = new WindowPkEditor(_core);
+        WindowPkEditor w_ = new WindowPkEditor(_core, new LanguagesButtonsPair(null,new MockPlainButton(),new LanguageComponentButtons(_core,new AlwaysActionListenerAct())));
         w_.newData();
         return w_;
     }

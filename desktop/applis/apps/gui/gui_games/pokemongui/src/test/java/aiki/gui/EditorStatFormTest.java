@@ -14,6 +14,7 @@ import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.LawNumber;
 import code.gui.*;
+import code.gui.events.*;
 import code.gui.files.*;
 import code.maths.*;
 import code.maths.litteral.*;
@@ -276,7 +277,7 @@ public final class EditorStatFormTest extends InitEditorPkForm {
     @Test
     public void noKey() {
         MockProgramInfos pr_ = initForms();
-        WindowPkEditor w_ = new WindowPkEditor(pr_);
+        WindowPkEditor w_ = new WindowPkEditor(pr_, new LanguagesButtonsPair(null,new MockPlainButton(),new LanguageComponentButtons(pr_,new AlwaysActionListenerAct())));
         tryClick(w_.getPkMenu());
         CrudGeneFormEnt<PokemonData> c_ = w_.getCrudGeneFormPk();
         tryClick(c_.getAdd());
@@ -288,7 +289,7 @@ public final class EditorStatFormTest extends InitEditorPkForm {
         MockProgramInfos pr_ = initForms();
         MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(pr_.getTranslations().getMapping().getVal(EN)));
         MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(pr_.getTranslations().getMapping().getVal(FR)));
-        WindowPkEditor w_ = new WindowPkEditor(pr_);
+        WindowPkEditor w_ = new WindowPkEditor(pr_, new LanguagesButtonsPair(null,new MockPlainButton(),new LanguageComponentButtons(pr_,new AlwaysActionListenerAct())));
         crudNumConst(w_);
         tryClick(w_.getNewDataSet());
         assertEq(0,w_.getFacade().getData().getPokedex().size());

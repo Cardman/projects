@@ -5,6 +5,7 @@ import aiki.facade.*;
 import aiki.game.*;
 import aiki.game.player.enums.*;
 import aiki.gui.*;
+import aiki.gui.components.editor.*;
 import aiki.main.*;
 import aiki.sml.*;
 import applications.code.expressionlanguage.adv.*;
@@ -40,6 +41,7 @@ import code.netw.*;
 import code.player.gui.*;
 import code.renders.*;
 import code.renders.utilcompo.LgNamesRenderUtils;
+import code.scripts.pages.aiki.*;
 import code.sml.*;
 import code.sml.core.*;
 import code.sml.util.*;
@@ -57,6 +59,7 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
     public static final String LANGUAGE = "/coucou/langue.xml";
     public static final String EXPORT = "/anti_aerien_2";
     public static final String SAVED_GAME = "/anti_aerien_3";
+    public static final String EDITOR_PK_CONF = "/croiseur_aerien";
 
     @Test
     public void rts1() {
@@ -234,6 +237,45 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         la_.loadLanguage(new String[]{ARG});
         ((WindowAiki)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
         ((MockThreadFactory)p_.getThreadFactory()).getAllThreads().get(0).join();
+        assertEq(2,p_.getFrames().size());
+    }
+    @Test
+    public void pkEd() {
+        MockProgramInfos p_ = build();
+        TranslationsLg en_ = p_.lg(EN);
+        p_.setLanguage(EN);
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(p_.getTranslations()));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(p_.getTranslations().getMapping().getVal(EN)));
+        MessagesPkEditor.enTr(MessagesPkEditor.initAppliTr(en_));
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.enData());
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(p_.getTranslations().getMapping().getVal(EN)));
+        p_.setLanguages(new StringList(EN));
+        p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
+        DataBase res_ = InitDbValidApp.initDb();
+        res_.getMap().initializeLinks();
+        res_.getMap().initInteractiveElements();
+        res_.getMap().initializeTree();
+        res_.getMap().initializeAccessibility();
+        FacadeGame f_ = new FacadeGame();
+        f_.setData(res_);
+        f_.setLanguages(indexes());
+        f_.setSimplyLanguage(EN);
+        f_.setSexList(new MockLSexList());
+        DefDataBaseStream ins_ = new DefDataBaseStream();
+        LoadingGame loadingGame_ = new LoadingGame();
+        loadingGame_.setExport(EXPORT);
+        ins_.exportRom(p_,f_, loadingGame_);
+        StreamTextFile.saveTextFile(EDITOR_PK_CONF,"<" + DocumentReaderAikiCoreUtil.MAIN_TAG+" "+ DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.EDITOR + "\""+DocumentWriterCoreUtil.VALUE+"=\""+ EXPORT + "\""+"/>",p_.getStreams());
+        FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
+        Element elt_ = lg_.createElement("_");
+        Element locale_ = lg_.createElement(LOCALE);
+        locale_.setAttribute(LOCALE, EN);
+        elt_.appendChild(locale_);
+        lg_.appendChild(elt_);
+        StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
+        LaunchingApplications la_ = la(p_, MessagesPkEditor.PK_EDITOR);
+        la_.loadLanguage(new String[]{EDITOR_PK_CONF});
+        ((WindowPkEditor)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
         assertEq(2,p_.getFrames().size());
     }
     @Test
@@ -634,6 +676,46 @@ public final class ApplicationsTest extends EquallableApplicationsUtil {
         la_.loadLanguage(new String[]{});
         ((WindowApps)p_.getFrames().get(0)).getButtonPokemon().getActionListeners().get(0).action();
         ((WindowAiki)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
+        assertEq(2,p_.getFrames().size());
+    }
+    @Test
+    public void pkEdBut() {
+        MockProgramInfos p_ = build();
+        TranslationsLg en_ = p_.lg(EN);
+        p_.setLanguage(EN);
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(p_.getTranslations()));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(p_.getTranslations().getMapping().getVal(EN)));
+        MessagesPkEditor.enTr(MessagesPkEditor.initAppliTr(en_));
+        en_.getMapping().addEntry(MessagesPkBean.APP_BEAN_DATA,MessagesPkBean.enData());
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(p_.getTranslations().getMapping().getVal(EN)));
+        p_.setLanguages(new StringList(EN));
+        p_.getFileCoreStream().newFile(TEMP_FOLDER).mkdirs();
+        DataBase res_ = InitDbValidApp.initDb();
+        res_.getMap().initializeLinks();
+        res_.getMap().initInteractiveElements();
+        res_.getMap().initializeTree();
+        res_.getMap().initializeAccessibility();
+        FacadeGame f_ = new FacadeGame();
+        f_.setData(res_);
+        f_.setLanguages(indexes());
+        f_.setSimplyLanguage(EN);
+        f_.setSexList(new MockLSexList());
+        DefDataBaseStream ins_ = new DefDataBaseStream();
+        LoadingGame loadingGame_ = new LoadingGame();
+        loadingGame_.setExport(EXPORT);
+        ins_.exportRom(p_,f_, loadingGame_);
+        StreamTextFile.saveTextFile(EDITOR_PK_CONF,"<" + DocumentReaderAikiCoreUtil.MAIN_TAG+" "+ DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.EDITOR + "\""+DocumentWriterCoreUtil.VALUE+"=\""+ EXPORT + "\""+"/>",p_.getStreams());
+        FullDocument lg_ = DocumentBuilder.newDocumentBuilder().newDocument();
+        Element elt_ = lg_.createElement("_");
+        Element locale_ = lg_.createElement(LOCALE);
+        locale_.setAttribute(LOCALE, EN);
+        elt_.appendChild(locale_);
+        lg_.appendChild(elt_);
+        StreamTextFile.saveTextFile(LANGUAGE, lg_.export(),p_.getStreams());
+        LaunchingApplications la_ = la(p_, MessagesPkEditor.PK_EDITOR);
+        la_.loadLanguage(new String[]{});
+        ((WindowApps)p_.getFrames().get(0)).getButtonPokemonEditor().getActionListeners().get(0).action();
+        ((WindowPkEditor)p_.getFrames().get(1)).getFacade().setSexList(f_.getSexList());
         assertEq(2,p_.getFrames().size());
     }
     @Test

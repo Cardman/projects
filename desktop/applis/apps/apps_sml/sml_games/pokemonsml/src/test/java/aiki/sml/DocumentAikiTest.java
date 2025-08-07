@@ -43,8 +43,10 @@ import org.junit.Test;
 
 public final class DocumentAikiTest extends EquallableAikiSerialUtil {
 
+    public static final String TXT = "____";
     public static final String LOADING_GAME_MINI = "<" +DocumentReaderAikiCoreUtil.MAIN_TAG+" "+DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.LOADING_GAME + "\"/>";
     public static final String GAME_MINI = "<" + DocumentReaderAikiCoreUtil.MAIN_TAG+" "+DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.GAME + "\"/>";
+    public static final String EDITOR_MINI = "<" + DocumentReaderAikiCoreUtil.MAIN_TAG+" "+DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.EDITOR + "\""+DocumentWriterCoreUtil.VALUE+"=\""+ TXT + "\""+"/>";
     public static final String OTHER_MINI = "<" + DocumentReaderAikiCoreUtil.MAIN_TAG + "/>";
     public static final String OTHER_SEC_MINI = "<" + DocumentReaderAikiCoreUtil.MAIN_TAG + "_/>";
 
@@ -862,6 +864,30 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
         FacadeGame s_ = saveQuick(f_);
         assertEq(1,s_.getData().getPokedex().size());
     }
+    @Test
+    public void t70() {
+        assertEq("",getEditingRom(""));
+    }
+    @Test
+    public void t71() {
+        assertEq("",getEditingRom(LOADING_GAME_MINI));
+    }
+    @Test
+    public void t72() {
+        assertEq("",getEditingRom(OTHER_MINI));
+    }
+    @Test
+    public void t73() {
+        assertEq("",getEditingRom(GAME_MINI));
+    }
+    @Test
+    public void t74() {
+        assertEq("",getEditingRom(OTHER_SEC_MINI));
+    }
+    @Test
+    public void t75() {
+        assertEq(TXT,getEditingRom(EDITOR_MINI));
+    }
     private StringMap<String> one() {
         StringMap<String> o_ = new StringMap<String>();
         o_.addEntry("_","_");
@@ -880,6 +906,10 @@ public final class DocumentAikiTest extends EquallableAikiSerialUtil {
 
     private LoadingGame getLoadingGameOrNull(String _str) {
         return DocumentReaderAikiCoreUtil.getLoadingGameOrNull(DocumentBuilder.parseNoTextDocument(_str));
+    }
+
+    private String getEditingRom(String _str) {
+        return DocumentReaderAikiCoreUtil.getEditingRom(DocumentBuilder.parseNoTextDocument(_str));
     }
 
     private static void updateLg(DataBase _db) {

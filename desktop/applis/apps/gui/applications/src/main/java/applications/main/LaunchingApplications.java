@@ -87,6 +87,13 @@ public class LaunchingApplications extends SoftApplicationCore {
             launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
             return;
         }
+        String editingRom_ = DocumentReaderAikiCoreUtil.getEditingRom(_args.getDocument());
+        if (!editingRom_.isEmpty()) {
+            AbsButton bu_ = launchWindow(getFactories()).getButtonPokemonEditor();
+            LaunchingPokemonEditor launch_ = new LaunchingPokemonEditor(getFactories());
+            launch_.launchWithoutLanguage(_language, _args, bu_, new LanguagesButtonsPair(_pair.getLgMenu(),bu_,_pair.getButtons()));
+            return;
+        }
         Document doc_ = _args.getDocument();
         if (doc_ != null) {
             if (StringUtil.quickEq(WindowPlayer.SMIL, doc_.getDocumentElement().getTagName())) {

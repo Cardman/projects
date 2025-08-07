@@ -25,10 +25,13 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.sml.*;
 import code.gui.*;
+import code.gui.events.*;
 import code.gui.files.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
+import code.sml.core.*;
+import code.stream.*;
 import code.threads.*;
 import code.util.*;
 import org.junit.Test;
@@ -80,6 +83,26 @@ public final class EditorAppFormTest extends InitEditorPkForm {
         tryClick((AbsButton) compo(sub_.getFileOpenRomFrame().getFileDialogContent().getButtons()));
         assertFalse(sub_.getFacade().getData().getMap().getPlaces().isEmpty());
         assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(true),f_.getSexList(),sub_.getFacade().getData()).getData().isError());
+    }
+    @Test
+    public void launch1() {
+        FacadeGame f_ = new FacadeGame();
+        f_.setSexList(new MockLSexList());
+        f_.setData(initDb());
+        MockProgramInfos api_ = initForms();
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        f_.setLanguage(LANGUAGE);
+        f_.setLanguages(api_.getLanguages());
+        String fileName_ = "/__/_";
+        ConverterCommonMapUtil.saveData(api_, fileName_, f_);
+        StreamTextFile.saveTextFile("/__/__","<" + DocumentReaderAikiCoreUtil.MAIN_TAG+" "+ DocumentWriterCoreUtil.FIELD+"=\""+ DocumentReaderAikiCoreUtil.EDITOR + "\""+DocumentWriterCoreUtil.VALUE+"=\""+ fileName_ + "\""+"/>",api_.getStreams());
+        assertFalse(ConverterCommonMapUtil.endValidate(new ConcreteInteger(), new ConcreteBoolean(true),f_.getSexList(),launcher(api_,"/__/__", f_.getSexList()).getWindow().getFacade().getData()).getData().isError());
+    }
+    @Test
+    public void launch2() {
+        MockProgramInfos api_ = initForms();
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(api_.getTranslations()));
+        assertTrue(launcher(api_,"", new MockLSexList()).getWindow().getCommonFrame().isVisible());
     }
     @Test
     public void validate1() {
@@ -813,5 +836,16 @@ public final class EditorAppFormTest extends InitEditorPkForm {
     private static void update(CrudGeneFormMonteCarlo<Rate> _form, Rate _key, LgInt _value) {
         ((GeneComponentModelEventRate)_form.getGene()).getEvent().valueRate(_key);
         ((GeneComponentModelEventRate)_form.getGene()).getProba().valueLgInt(_value);
+    }
+
+    private static CreateMainWindowPkEditor launcher(MockProgramInfos _pr, String _file, SexListInt _s) {
+        MessagesPkGame.sys(MessagesPkGame.initAppliFilesTr(_pr.getTranslations()));
+        MessagesPkGame.enTr(MessagesPkGame.initAppliTr(_pr.getTranslations().getMapping().getVal(EN)));
+        MessagesPkGame.frTr(MessagesPkGame.initAppliTr(_pr.getTranslations().getMapping().getVal(FR)));
+        MessagesGuiFct.enTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(EN)));
+        MessagesGuiFct.frTr(MessagesGuiFct.initAppliTr(_pr.getTranslations().getMapping().getVal(FR)));
+        CreateMainWindowPkEditor cr_ = new CreateMainWindowPkEditor(DocumentReaderAikiCoreUtil.getEditingRom(new InterpretedFile(_pr, new String[]{_file}).getDocument()), _pr, _pr.getImageFactory().newImageRgb(1, 1), _s, new LanguagesButtonsPair(null,new MockPlainButton(),new LanguageComponentButtons(_pr,new AlwaysActionListenerAct())));
+        cr_.run();
+        return cr_;
     }
 }

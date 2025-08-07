@@ -20,6 +20,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //    private static final String APPLICATIONS = "Applications";
 
     private final AbsButton buttonPokemon;
+    private final AbsButton buttonPokemonEditor;
 
     private final AbsButton buttonCards;
     private final AbsButton buttonApps;
@@ -43,14 +44,13 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
         setFocusableWindowState(true);
         setTitle(MessagesApplications.getAppliTr(_list.getProgramInfos().currentLg()).getMapping().getVal(MessagesApplications.MAIN_GAME).getMapping().getVal(MessagesApplications.MAIN_TITLE));
         AbsPanel panel_ = getCompoFactory().newPageBox();
+        buttons = new LanguageComponentButtons(_list.getProgramInfos(), new AlwaysActionListenerAct());
         AbsPanel linePokemon_ = getCompoFactory().newLineBox();
         buttonPokemon = _list.getProgramInfos().getCompoFactory().newImgButton(ConverterGraphicBufferedImage.decodeToImage(getFrames().getImageFactory(), MessagesApplications.pk()));
-        buttons = new LanguageComponentButtons(_list.getProgramInfos(), new AlwaysActionListenerAct());
-        LanguageComponentButtons buttons_ = buttons;
 //        AbstractAtomicInteger at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowAiki.APPS_AIKI, at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowAiki.APPS_AIKI, buttonPokemon);
-        buttonPokemon.addActionListener(new PokemonEvent(this, buttonPokemon, new LanguagesButtonsPair(null,buttonPokemon,buttons_)));
+        buttonPokemon.addActionListener(new PokemonEvent(this, buttonPokemon, new LanguagesButtonsPair(null,buttonPokemon,buttons)));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         AbsPanel lineCards_ = getCompoFactory().newLineBox();
@@ -58,7 +58,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowCards.APP_CARDS,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowCards.APP_CARDS, buttonCards);
-        buttonCards.addActionListener(new CardsEvent(this, buttonCards, new LanguagesButtonsPair(null,buttonCards,buttons_)));
+        buttonCards.addActionListener(new CardsEvent(this, buttonCards, new LanguagesButtonsPair(null,buttonCards,buttons)));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         AbsPanel lineTests_ = getCompoFactory().newLineBox();
@@ -66,7 +66,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowUnit.APPS_UNIT,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowUnit.APPS_UNIT, buttonTests);
-        buttonTests.addActionListener(new AppUnitEvent(this, buttonTests, new LanguagesButtonsPair(null,buttonTests,buttons_)));
+        buttonTests.addActionListener(new AppUnitEvent(this, buttonTests, new LanguagesButtonsPair(null,buttonTests,buttons)));
         lineTests_.add(buttonTests);
         panel_.add(lineTests_);
         AbsPanel lineRenders_ = getCompoFactory().newLineBox();
@@ -74,7 +74,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowRenders.APPS_RENDERS_SITES,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowRenders.APPS_RENDERS_SITES, buttonRenders);
-        buttonRenders.addActionListener(new RenderEvent(this, buttonRenders, new LanguagesButtonsPair(null,buttonRenders,buttons_)));
+        buttonRenders.addActionListener(new RenderEvent(this, buttonRenders, new LanguagesButtonsPair(null,buttonRenders,buttons)));
         lineRenders_.add(buttonRenders);
         panel_.add(lineRenders_);
         AbsPanel lineDemo_ = getCompoFactory().newLineBox();
@@ -82,7 +82,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowRts.APPS_RTS,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowRts.APPS_RTS, buttonDemo);
-        buttonDemo.addActionListener(new DemoEvent(this, buttonDemo, new LanguagesButtonsPair(null,buttonDemo,buttons_)));
+        buttonDemo.addActionListener(new DemoEvent(this, buttonDemo, new LanguagesButtonsPair(null,buttonDemo,buttons)));
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
         AbsPanel linePlayer_ = getCompoFactory().newLineBox();
@@ -90,7 +90,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowPlayer.APPS_MUSICPLAYER,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowPlayer.APPS_MUSICPLAYER, buttonPlayer);
-        buttonPlayer.addActionListener(new PlayerEvent(this, buttonPlayer, new LanguagesButtonsPair(null,buttonPlayer,buttons_)));
+        buttonPlayer.addActionListener(new PlayerEvent(this, buttonPlayer, new LanguagesButtonsPair(null,buttonPlayer,buttons)));
         linePlayer_.add(buttonPlayer);
         panel_.add(linePlayer_);
         AbsPanel lineConverter_ = getCompoFactory().newLineBox();
@@ -98,7 +98,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowConverter.APPS_CONVERTER,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowConverter.APPS_CONVERTER,buttonConverter);
-        buttonConverter.addActionListener(new ConverterEvent(this, buttonConverter, new LanguagesButtonsPair(null,buttonConverter,buttons_)));
+        buttonConverter.addActionListener(new ConverterEvent(this, buttonConverter, new LanguagesButtonsPair(null,buttonConverter,buttons)));
         lineConverter_.add(buttonConverter);
         panel_.add(lineConverter_);
         AbsPanel lineApp_ = getCompoFactory().newLineBox();
@@ -106,7 +106,7 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowFull.APPS_LAUNCHER,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowFull.APPS_LAUNCHER, buttonApps);
-        buttonApps.addActionListener(new AppsEvent(this, buttonApps, new LanguagesButtonsPair(null,buttonApps,buttons_)));
+        buttonApps.addActionListener(new AppsEvent(this, buttonApps, new LanguagesButtonsPair(null,buttonApps,buttons)));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);
         AbsPanel lineNet_ = getCompoFactory().newLineBox();
@@ -114,9 +114,14 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //        at_ = _list.getProgramInfos().getThreadFactory().newAtomicInteger(0);
 //        _list.getProgramInfos().getCounts().addEntry(WindowNetWork.APPS_NETWORK,at_);
 //        _list.getProgramInfos().getButtons().addEntry(WindowNetWork.APPS_NETWORK, buttonNet);
-        buttonNet.addActionListener(new NetWorkEvent(this, buttonNet, new LanguagesButtonsPair(null,buttonNet,buttons_)));
+        buttonNet.addActionListener(new NetWorkEvent(this, buttonNet, new LanguagesButtonsPair(null,buttonNet,buttons)));
         lineNet_.add(buttonNet);
         panel_.add(lineNet_);
+        AbsPanel linePokemonEd_ = getCompoFactory().newLineBox();
+        buttonPokemonEditor = getCompoFactory().newPlainButton("10");
+        buttonPokemonEditor.addActionListener(new PokemonEditorEvent(this, buttonPokemonEditor, new LanguagesButtonsPair(null,buttonPokemonEditor,buttons)));
+        linePokemonEd_.add(buttonPokemonEditor);
+        panel_.add(linePokemonEd_);
         panel_.add(new Clock(_list.getProgramInfos()).getComponent());
 //        for (String l: Constants.getAvailableLanguages()) {
 //            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
@@ -126,8 +131,8 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 //            panel_.add(radio_);
 //            radios.add(radio_);
 //        }
-        buttons_.init(_list.getProgramInfos(), null,this);
-        panel_.add(buttons_.getPanel());
+        buttons.init(_list.getProgramInfos(), null,this);
+        panel_.add(buttons.getPanel());
 //        panel_.setPreferredSize(new MetaDimension(256, 192));
         setContentPane(panel_);
 //        exitMode(_list);
@@ -208,6 +213,10 @@ public final class WindowApps extends GroupFrame implements AbsOpenQuit {
 
     public AbsButton getButtonPokemon() {
         return buttonPokemon;
+    }
+
+    public AbsButton getButtonPokemonEditor() {
+        return buttonPokemonEditor;
     }
 
     public AbsButton getButtonCards() {
