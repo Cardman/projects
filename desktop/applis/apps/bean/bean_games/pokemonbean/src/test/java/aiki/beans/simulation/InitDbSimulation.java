@@ -1603,12 +1603,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos1() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<Integer,Integer>(new EntryCust<Integer, Integer>(0,0),new BeanChgInt()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos2() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,ActivityOfMove>(new EntryCust<String, ActivityOfMove>("",new ActivityOfMove()),new BeanChgActivityOfMove(true)), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFirstPos3() {
@@ -1791,37 +1791,38 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreTeam() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         assertEq("",new TeamPositionsString().def());
-        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateTeamCoreForm(simu_,simu_.getSimulation().getGame().getFight().getUserTeam(),new BeanChgLong(),new BeanChgLong(),new BeanChgList<String>()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam1() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<Integer,CustList<Integer>>(new EntryCust<Integer,CustList<Integer>>(0,new CustList<Integer>()),new BeanChgList<Integer>()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam2() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateValue(simu_.getSimulation().getGame().getFight().getUserTeam().getEnabledMovesByGroup(),new StringList(M_POK_07),new BeanChgActivityOfMove(true)), simu_.getBuilder());
+//        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateValue(simu_.getSimulation().getGame().getFight().getUserTeam().getEnabledMovesByGroup(),new StringList(M_POK_07),new BeanChgActivityOfMove(true)), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam3() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,LgInt>(new EntryCust<String, LgInt>("",LgInt.zero()),new BeanChgLgInt()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam4() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsNbUses();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,LgInt>(new EntryCust<String, LgInt>("",LgInt.zero()),new BeanChgLgInt()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam5() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsHealAfter();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<Integer,StacksOfUses>(new EntryCust<Integer, StacksOfUses>(0,new StacksOfUses()),new BeanChgStackOfUses()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsTeam6() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsAnt();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<Integer,Anticipation>(new EntryCust<Integer, Anticipation>(0,new Anticipation()),new BeanChgAnticipation()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction _ka) {
@@ -1836,36 +1837,38 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter1() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowNbUses();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter2() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowStatusSimple();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter3() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAlly();
-        BeanChgBool chg_ = new BeanChgBool();
-        chg_.setSelected(true);
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String, BoolVal>(fighter(simu_).getEnabledMovesForAlly().getEntry(0), chg_), simu_.getBuilder());
+        ((BeanChgBool)simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getEnabledMovesForAlly().getInput().getValue(0)).setSelected(true);
+//        BeanChgBool chg_ = new BeanChgBool();
+//        chg_.setSelected(true);
+//        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String, BoolVal>(fighter(simu_).getEnabledMovesForAlly().getEntry(0), chg_), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter4() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
         PageFormSimu page_ = new PageFormSimu(simu_);
         page_.setFormGroup(7);
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_01), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_02), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_03), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_04), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_05), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_06), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_07), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_01, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_02, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_03, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_04, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_05, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_07, new UpdateFormUsesOfMove(simu_,moves(simu_)), page_), simu_.getBuilder());
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_01), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_02), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_03), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_04), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_05), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_06), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, UsesOfMove>(moves(simu_), chgStr(M_POK_07), new BeanChgUsesOfMove(), new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_01, new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_02, new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_03, new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_04, new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_05, new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, UsesOfMove>(moves(simu_), M_POK_07, new UpdateFormUsesOfMove(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),moves(simu_),MessagesDataSimulation.M_P_86_MOVES), page_), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     private static StringMap<UsesOfMove> moves(SimulationBean _simu) {
@@ -1874,53 +1877,56 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter5() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowStatusRel();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter6() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowIncrAcc();
-        BeanChgBool chg_ = new BeanChgBool();
-        chg_.setSelected(true);
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,BoolVal>(fighter(simu_).getIncrUserAccuracy().getEntry(0), chg_), simu_.getBuilder());
+        ((BeanChgBool)simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getIncrUserAccuracy().getInput().getValue(0)).setSelected(true);
+//        BeanChgBool chg_ = new BeanChgBool();
+//        chg_.setSelected(true);
+//        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,BoolVal>(fighter(simu_).getIncrUserAccuracy().getEntry(0), chg_), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter7() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAff();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,AffectedMove>(fighter(simu_).getTrackingMoves().getEntry(0), new BeanChgAffectedMove()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter8() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowTrap();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,ActivityOfMove>(fighter(simu_).getTrappingMoves().getEntry(0), new BeanChgActivityOfMove(true)), simu_.getBuilder());
+//        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,ActivityOfMove>(fighter(simu_).getTrappingMoves().getEntry(0), new BeanChgActivityOfMove(true)), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter9() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowPrivate();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<MoveTeamPosition,CustList<String>>(fighter(simu_).getPrivateMoves().getEntry(0), new BeanChgList<String>()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter10() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowCp();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,CopiedMove>(fighter(simu_).getCopiedMoves().getEntry(0), new BeanChgCopiedMove()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter11() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
         PageFormSimu page_ = new PageFormSimu(simu_);
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_00), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_01), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_02), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_03), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_04), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_05), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_06), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_07), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_08), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_09), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_00, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_01, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_02, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_03, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_04, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_05, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_07, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_08, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_09, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
-        return (SimulationBean)transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_09, new UpdateFormEvosFighter(simu_,fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_00), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_01), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_02), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_03), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_04), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_05), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_06), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_07), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_08), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), chgStr(P_POK_09), new BeanChgMovesAbilities(), new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_00, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_01, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_02, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_03, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_04, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_05, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_07, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_08, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_09, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuickChg(new SimulationBeanRemoveEntry<String, MovesAbilities>(fighter(simu_).getMovesAbilitiesEvos(), P_POK_09, new UpdateFormEvosFighter(simu_,simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0),fighter(simu_)), page_), simu_.getBuilder());
     }
 
     private static Fighter fighter(SimulationBean _simu) {
@@ -1929,7 +1935,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter12() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLowAct();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanUpdateEntryValue<String,Rate>(new EntryCust<String, Rate>("",Rate.zero()),new BeanChgRate()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
     }
 
     private static IntBeanChgString chgStr(String _v) {

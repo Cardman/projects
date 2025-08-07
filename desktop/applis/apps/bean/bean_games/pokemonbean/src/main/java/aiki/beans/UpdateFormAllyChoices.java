@@ -10,7 +10,7 @@ public final class UpdateFormAllyChoices extends IntBeanActionPartForm{
 
     @Override
     public PageFormSimu actionBean(PageFormSimu _form) {
-        getSimu().allyChoicesContent(_form);
+        getSimu().getFightForm().allyChoicesContent(_form);
         return _form;
     }
 }

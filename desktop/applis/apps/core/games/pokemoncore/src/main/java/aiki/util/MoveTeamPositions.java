@@ -3,8 +3,8 @@ package aiki.util;
 import aiki.game.fight.MoveTeamPosition;
 import code.util.*;
 
-public abstract class MoveTeamPositions<T> extends AbsBasicMap<MoveTeamPosition,T> {
-    protected MoveTeamPositions(){
+public class MoveTeamPositions<T> extends AbsBasicMap<MoveTeamPosition,T> {
+    public MoveTeamPositions(){
     }
     protected MoveTeamPositions(CollCapacity _cap){
         super(_cap);

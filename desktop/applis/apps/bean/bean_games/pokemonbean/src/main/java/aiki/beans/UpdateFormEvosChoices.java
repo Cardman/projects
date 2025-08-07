@@ -10,7 +10,7 @@ public final class UpdateFormEvosChoices extends IntBeanActionPartForm{
 
     @Override
     public PageFormSimu actionBean(PageFormSimu _form) {
-        getSimu().evosChoicesContent(_form);
+        getSimu().getFightForm().evosChoicesContent(_form);
         return _form;
     }
 }

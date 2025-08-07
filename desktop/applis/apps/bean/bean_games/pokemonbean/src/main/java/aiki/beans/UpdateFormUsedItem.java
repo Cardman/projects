@@ -10,7 +10,7 @@ public final class UpdateFormUsedItem extends IntBeanActionPartForm{
 
     @Override
     public PageFormSimu actionBean(PageFormSimu _form) {
-        getSimu().usedItemsContent(getSimu().sortedUsedItems(), _form);
+        getSimu().getFightForm().usedItemsContent(getSimu().getFightForm().sortedUsedItems(), _form);
         return _form;
     }
 }
