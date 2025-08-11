@@ -225,6 +225,9 @@ final class FightEndRound {
             Team equipe_=_fight.getTeams().getVal(c);
             equipe_.useItemsEndRound(_import,_fight.getTemp());
         }
+        for (TeamPosition t: FightOrder.frontFighters(_fight)) {
+            _fight.getFighter(t).getNbRounds().increment();
+        }
     }
 
     private static boolean exitEndRound(Fight _fight, Difficulty _diff, DataBase _import, CustList<EndRoundMainElements> _liste, int _i) {

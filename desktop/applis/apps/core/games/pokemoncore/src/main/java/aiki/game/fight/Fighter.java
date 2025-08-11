@@ -1438,6 +1438,7 @@ public final class Fighter {
     }
     void exitFrontBattle(){
         groundPlace=BACK;
+        getNbRounds().affectZero();
     }
 
     void exitFrontBattleForBeingSubstitued(){
