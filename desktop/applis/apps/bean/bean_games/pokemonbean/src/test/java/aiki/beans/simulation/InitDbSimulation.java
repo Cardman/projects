@@ -1590,6 +1590,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getFightForm().getNbFleeAttempt().valueLong();
     }
+    protected static long editEditSelectedPlayerPkSimuStepsIndexUserTeam(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getIndexUserTeam().valueInt(1);
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getFightForm().getIndexUserTeam().valueInt();
+    }
+    protected static long editEditSelectedPlayerPkSimuStepsIndexFightState(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getIndexFightState().valueInt(1);
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getFightForm().getIndexFightState().valueInt();
+    }
     protected static LgInt editEditSelectedPlayerPkSimuStepsNbRounds(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         simu_.getFightForm().getNbRounds().valueLgInt(new LgInt(2));

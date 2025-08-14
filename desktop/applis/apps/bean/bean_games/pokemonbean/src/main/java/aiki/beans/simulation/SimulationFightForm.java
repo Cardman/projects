@@ -273,4 +273,12 @@ public final class SimulationFightForm extends SimulationCommonForm {
     public IntBeanChgRate getWinningMoney() {
         return winningMoney;
     }
+
+    public IntBeanChgInt getIndexUserTeam() {
+        return indexUserTeam;
+    }
+
+    public IntBeanChgInt getIndexFightState() {
+        return indexFightState;
+    }
 }
