@@ -281,4 +281,12 @@ public final class SimulationFightForm extends SimulationCommonForm {
     public IntBeanChgInt getIndexFightState() {
         return indexFightState;
     }
+
+    public SimulationBeanUpdateEntryValues<Integer, Integer> getFirstPositFoeFighters() {
+        return firstPositFoeFighters;
+    }
+
+    public SimulationBeanUpdateEntryValues<Integer, Integer> getFirstPositPlayerFighters() {
+        return firstPositPlayerFighters;
+    }
 }

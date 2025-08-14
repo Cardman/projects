@@ -1728,6 +1728,12 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsLostObjects(I_BALL).get(0));
         assertEq(1,editEditSelectedPlayerPkSimuStepsCaughtEvolutions(P_POK_00).size());
         assertEq(P_POK_00,editEditSelectedPlayerPkSimuStepsCaughtEvolutions(P_POK_00).get(0));
+        assertEq(1,editEditSelectedPlayerPkSimuStepsFirstPositPlayerFighters().size());
+        assertEq(0,editEditSelectedPlayerPkSimuStepsFirstPositPlayerFighters().getKey(0));
+        assertEq(Fighter.BACK,editEditSelectedPlayerPkSimuStepsFirstPositPlayerFighters().getValue(0));
+        assertEq(4,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().size());
+        assertEq(0,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().getKey(0));
+        assertEq(Fighter.BACK,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().getValue(0));
     }
     @Test
     public void simuSteps1() {
