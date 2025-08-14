@@ -4,6 +4,7 @@ import aiki.beans.CommonBean;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.fight.enums.Statistic;
+import aiki.game.fight.enums.*;
 import aiki.util.Coords;
 //import code.formathtml.structs.Message;
 import code.util.StringMap;
@@ -30,6 +31,9 @@ public abstract class EquallablePkBeanUtil {
 //        Assert.assertSame(((PokemonBeanStruct)_expected).getBean(), ((PokemonBeanStruct)_result).getBean());
 //    }
     public static void assertSame(CommonBean _expected, CommonBean _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(FightState _expected, FightState _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(Statistic _expected, Statistic _result) {

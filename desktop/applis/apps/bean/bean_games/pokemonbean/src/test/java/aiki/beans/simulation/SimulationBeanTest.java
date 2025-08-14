@@ -4,14 +4,15 @@ import aiki.beans.CommonBean;
 import aiki.beans.facade.simulation.enums.*;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
-import aiki.game.fight.Fighter;
+import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
+import aiki.game.fight.enums.*;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.StringList;
+import code.util.*;
 import org.junit.Test;
 
 public final class SimulationBeanTest extends InitDbSimulation {
@@ -1720,8 +1721,9 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void simuSteps0() {
         assertSame(SimulationSteps.TEAM,editEditSelectedPlayerPkSimuStepsBack().getForms().getValSimStep(CommonBean.SIMU_CST_SIMULATION_STATE));
         assertEq(2,editEditSelectedPlayerPkSimuStepsNbFleeAttempt());
-        assertEq(1,editEditSelectedPlayerPkSimuStepsIndexUserTeam());
-        assertEq(1,editEditSelectedPlayerPkSimuStepsIndexFightState());
+        assertEq(Fight.toFoeFighter(0).getTeam(),editEditSelectedPlayerPkSimuStepsIndexUserTeam().getTeam());
+        assertEq(Fight.toFoeFighter(0).getPosition(),editEditSelectedPlayerPkSimuStepsIndexUserTeam().getPosition());
+        assertSame(FightState.APPRENDRE_EVOLUER,editEditSelectedPlayerPkSimuStepsIndexFightState());
         assertEq(new LgInt(2),editEditSelectedPlayerPkSimuStepsNbRounds());
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsWinningMoney());
         assertEq(1,editEditSelectedPlayerPkSimuStepsLostObjects(I_BALL).size());

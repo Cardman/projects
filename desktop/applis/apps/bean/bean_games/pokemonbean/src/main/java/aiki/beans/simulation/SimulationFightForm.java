@@ -278,6 +278,14 @@ public final class SimulationFightForm extends SimulationCommonForm {
         return indexUserTeam;
     }
 
+    public AbsMap<TeamPosition, String> getCurrentUserList() {
+        return currentUserList;
+    }
+
+    public AbsMap<FightState, String> getFightState() {
+        return fightState;
+    }
+
     public IntBeanChgInt getIndexFightState() {
         return indexFightState;
     }

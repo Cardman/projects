@@ -21,6 +21,7 @@ import aiki.fight.util.*;
 import aiki.game.*;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
+import aiki.game.fight.enums.*;
 import aiki.game.fight.util.*;
 import aiki.game.params.enums.*;
 import aiki.instances.*;
@@ -1590,17 +1591,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getNbFleeAttempt();
     }
-    protected static long editEditSelectedPlayerPkSimuStepsIndexUserTeam(){
+    protected static TeamPosition editEditSelectedPlayerPkSimuStepsIndexUserTeam(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getIndexUserTeam().valueInt(1);
+        simu_.getFightForm().getIndexUserTeam().valueInt(simu_.getFightForm().getCurrentUserList().indexOfEntry(Fight.toFoeFighter(0)));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
-        return simu_.getFightForm().getIndexUserTeam().valueInt();
+        return simu_.getSimulation().getGame().getFight().getCurrentUser();
     }
-    protected static long editEditSelectedPlayerPkSimuStepsIndexFightState(){
+    protected static FightState editEditSelectedPlayerPkSimuStepsIndexFightState(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getIndexFightState().valueInt(1);
+        simu_.getFightForm().getIndexFightState().valueInt(simu_.getFightForm().getFightState().indexOfEntry(FightState.APPRENDRE_EVOLUER));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
-        return simu_.getFightForm().getIndexFightState().valueInt();
+        return simu_.getSimulation().getGame().getFight().getState();
     }
     protected static LgInt editEditSelectedPlayerPkSimuStepsNbRounds(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
