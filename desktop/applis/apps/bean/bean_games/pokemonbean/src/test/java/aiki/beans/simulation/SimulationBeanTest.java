@@ -1719,6 +1719,13 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void simuSteps0() {
         assertSame(SimulationSteps.TEAM,editEditSelectedPlayerPkSimuStepsBack().getForms().getValSimStep(CommonBean.SIMU_CST_SIMULATION_STATE));
+        assertEq(2,editEditSelectedPlayerPkSimuStepsNbFleeAttempt());
+        assertEq(new LgInt(2),editEditSelectedPlayerPkSimuStepsNbRounds());
+        assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsWinningMoney());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsLostObjects(I_BALL).size());
+        assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsLostObjects(I_BALL).get(0));
+        assertEq(1,editEditSelectedPlayerPkSimuStepsCaughtEvolutions(P_POK_00).size());
+        assertEq(P_POK_00,editEditSelectedPlayerPkSimuStepsCaughtEvolutions(P_POK_00).get(0));
     }
     @Test
     public void simuSteps1() {

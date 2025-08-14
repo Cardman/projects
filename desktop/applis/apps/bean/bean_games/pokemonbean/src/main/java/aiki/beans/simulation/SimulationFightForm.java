@@ -253,4 +253,24 @@ public final class SimulationFightForm extends SimulationCommonForm {
     public CustList<SimulationTeamForm> getTeamsForm() {
         return teamsForm;
     }
+
+    public IntBeanChgLgInt getNbRounds() {
+        return nbRounds;
+    }
+
+    public IntBeanChgLong getNbFleeAttempt() {
+        return nbFleeAttempt;
+    }
+
+    public IntBeanChgList<String> getLostObjects() {
+        return lostObjects;
+    }
+
+    public IntBeanChgList<String> getCaughtEvolutions() {
+        return caughtEvolutions;
+    }
+
+    public IntBeanChgRate getWinningMoney() {
+        return winningMoney;
+    }
 }

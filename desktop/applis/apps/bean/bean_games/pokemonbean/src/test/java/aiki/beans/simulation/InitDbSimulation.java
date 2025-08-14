@@ -1584,7 +1584,36 @@ public abstract class InitDbSimulation extends InitDbConstr {
         CommonBean simu_ = init(beanToSimu(pk_));
         return navigateData(new SimulationBeanQuit((SimulationBean) simu_),simu_);
     }
-
+    protected static long editEditSelectedPlayerPkSimuStepsNbFleeAttempt(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getNbFleeAttempt().valueLong(2);
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getFightForm().getNbFleeAttempt().valueLong();
+    }
+    protected static LgInt editEditSelectedPlayerPkSimuStepsNbRounds(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getNbRounds().valueLgInt(new LgInt(2));
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getFightForm().getNbRounds().valueLgInt();
+    }
+    protected static Rate editEditSelectedPlayerPkSimuStepsWinningMoney(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getWinningMoney().valueRate(new Rate(2));
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getFightForm().getWinningMoney().valueRate();
+    }
+    protected static CustList<String> editEditSelectedPlayerPkSimuStepsLostObjects(String... _args){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getLostObjects().setupValue(ls(_args));
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getFightForm().getLostObjects().tryRet();
+    }
+    protected static CustList<String> editEditSelectedPlayerPkSimuStepsCaughtEvolutions(String... _args){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getCaughtEvolutions().setupValue(ls(_args));
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getFightForm().getCaughtEvolutions().tryRet();
+    }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsBack() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         return (SimulationBean)transitSimu(new SimulationBeanResetFight(simu_), simu_.getBuilder());
@@ -5095,5 +5124,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     public static int[][] line(int _c, int _d) {
         return new int[][]{new int[]{_c, _d}};
+    }
+    protected static StringList ls(String... _args) {
+        return new StringList(_args);
     }
 }
