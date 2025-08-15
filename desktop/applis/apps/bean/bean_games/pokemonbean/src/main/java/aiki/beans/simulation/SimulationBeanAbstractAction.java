@@ -104,4 +104,28 @@ public final class SimulationBeanAbstractAction implements IntBeanAction {
         fighter.setMovesToBeLearnt(new StringList(act6.getMovesToBeLearnt().tryRet()));
         return DataBase.EMPTY_STRING;
     }
+
+    public IntBeanChgFighter1 getAct1() {
+        return act1;
+    }
+
+    public IntBeanChgFighter2 getAct2() {
+        return act2;
+    }
+
+    public IntBeanChgFighter3 getAct3() {
+        return act3;
+    }
+
+    public IntBeanChgFighter4 getAct4() {
+        return act4;
+    }
+
+    public IntBeanChgFighter5 getAct5() {
+        return act5;
+    }
+
+    public IntBeanChgFighter6 getAct6() {
+        return act6;
+    }
 }

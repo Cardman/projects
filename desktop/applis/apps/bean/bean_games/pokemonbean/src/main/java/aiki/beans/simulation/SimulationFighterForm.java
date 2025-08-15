@@ -41,11 +41,11 @@ public final class SimulationFighterForm extends SimulationCommonForm {
     private final SimulationBeanUpdateEntryValues<String, ActivityOfMove> enabledMovesConstChoices;
     private final SimulationBeanUpdateEntryValues<String, ActivityOfMove> enabledChangingTypesMoves;
     private final SimulationBeanUpdateEntryValues<String, ActivityOfMove> enabledCounteringMoves;
+    private final SimulationBeanUpdateEntryValues<Statistic, Long> ev;
+    private final SimulationBeanUpdateEntryValues<Statistic, Long> iv;
+    private final SimulationBeanUpdateEntryValues<Statistic, Long> statisBoost;
+    private final SimulationBeanUpdateEntryValues<Statistic, Rate> statisBase;
     private SimulationBeanUpdateEntryValues<String, MovesAbilities> movesAbilitiesEvos;
-    private SimulationBeanUpdateEntryValues<Statistic, Long> ev;
-    private SimulationBeanUpdateEntryValues<Statistic, Long> iv;
-    private SimulationBeanUpdateEntryValues<Statistic, Long> statisBoost;
-    private SimulationBeanUpdateEntryValues<Statistic, Rate> statisBase;
 
 
     public SimulationFighterForm(SimulationBean _b, Fighter _f, int _max) {
@@ -77,7 +77,11 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         enabledMovesConstChoices = enFighter(_f.getEnabledMovesConstChoices(), getBean().getDataBase().getMovesConstChoices());
         enabledChangingTypesMoves = enFighter(_f.getEnabledChangingTypesMoves(), getBean().getDataBase().getMovesChangingTypes());
         enabledCounteringMoves = enFighter(_f.getEnabledCounteringMoves(), getBean().getDataBase().getMovesCountering());
-        stat(_f);
+        IdMap<Statistic, String> stat_ = getBean().getDataBase().getTranslatedStatistics().getVal(getBean().getLanguage());
+        ev = longs(_f.getEv(), stat_, MessagesDataSimulation.M_P_86_STATISTICS_EV);
+        iv = longs(_f.getIv(), stat_, MessagesDataSimulation.M_P_86_STATISTICS_IV);
+        statisBoost = longs(_f.getStatisBoost(), stat_, MessagesDataSimulation.M_P_86_STATISTICS_BOOST);
+        statisBase = rate(_f.getStatisBase(), stat_);
     }
 
     private DictionaryComparator<TranslatedKey, Long> dict(Fighter _f) {
@@ -447,13 +451,6 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         getBean().feedParents();
         return new SimulationBeanUpdateEntryValues<String, ActivityOfMove>(_moves, o_);
     }
-    private void stat(Fighter _f) {
-        IdMap<Statistic, String> stat_ = getBean().getDataBase().getTranslatedStatistics().getVal(getBean().getLanguage());
-        ev = longs(_f.getEv(), stat_, MessagesDataSimulation.M_P_86_STATISTICS_EV);
-        iv = longs(_f.getIv(), stat_, MessagesDataSimulation.M_P_86_STATISTICS_IV);
-        statisBoost = longs(_f.getStatisBoost(), stat_, MessagesDataSimulation.M_P_86_STATISTICS_BOOST);
-        statisBase = rate(_f.getStatisBase(), stat_);
-    }
 
     private SimulationBeanUpdateEntryValues<Statistic,Long> longs(IdMap<Statistic, Long> _f, IdMap<Statistic, String> _stat, String _title) {
         getBean().initPage();
@@ -706,7 +703,7 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         return new IntBeanChgFighter6(movesToBeLearnt_, action_, successfulMove_, changed_);
     }
 
-    private KindAction kindAction(AbstractAction _a) {
+    public static KindAction kindAction(AbstractAction _a) {
         if (_a == null) {
             return KindAction.NO;
         }
@@ -797,4 +794,101 @@ public final class SimulationFighterForm extends SimulationCommonForm {
     public SimulationBeanUpdateEntryValues<String, BoolVal> getEnabledMovesForAlly() {
         return enabledMovesForAlly;
     }
+
+    public SimulationBeanUpdateEntryValues<String, Long> getStatus() {
+        return status;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, Long> getNbUsesMoves() {
+        return nbUsesMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, Rate> getDamageRateInflictedByType() {
+        return damageRateInflictedByType;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, Rate> getDamageRateSufferedByType() {
+        return damageRateSufferedByType;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, Rate> getDamageSufferedCateg() {
+        return damageSufferedCateg;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, Rate> getDamageSufferedCategRound() {
+        return damageSufferedCategRound;
+    }
+
+    public StringMap<SimulationBeanUpdateEntryValues<String, UsesOfMove>> getMoves() {
+        return moves;
+    }
+
+    public SimulationBeanUpdateEntryValues<MoveTeamPosition, Long> getStatusRelat() {
+        return statusRelat;
+    }
+
+    public SimulationBeanUpdateEntryValues<MoveTeamPosition, AffectedMove> getTrackingMoves() {
+        return trackingMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<MoveTeamPosition, ActivityOfMove> getTrappingMoves() {
+        return trappingMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<MoveTeamPosition, CustList<String>> getPrivateMoves() {
+        return privateMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, CopiedMove> getCopiedMoves() {
+        return copiedMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledMoves() {
+        return enabledMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledMovesProt() {
+        return enabledMovesProt;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledMovesUnprot() {
+        return enabledMovesUnprot;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledMovesEndRound() {
+        return enabledMovesEndRound;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledMovesConstChoices() {
+        return enabledMovesConstChoices;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledChangingTypesMoves() {
+        return enabledChangingTypesMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledCounteringMoves() {
+        return enabledCounteringMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<Statistic, Long> getEv() {
+        return ev;
+    }
+
+    public SimulationBeanUpdateEntryValues<Statistic, Long> getIv() {
+        return iv;
+    }
+
+    public SimulationBeanUpdateEntryValues<Statistic, Long> getStatisBoost() {
+        return statisBoost;
+    }
+
+    public SimulationBeanUpdateEntryValues<Statistic, Rate> getStatisBase() {
+        return statisBase;
+    }
+
+    public SimulationBeanAbstractAction getCoreAction() {
+        return coreAction;
+    }
+
 }
