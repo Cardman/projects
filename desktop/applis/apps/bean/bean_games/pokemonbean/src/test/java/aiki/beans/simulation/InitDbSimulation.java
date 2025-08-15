@@ -1659,6 +1659,36 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUsedItemsWhileRound();
     }
+    protected static AbsMap<Integer,ChoiceOfEvolutionAndMoves> editEditSelectedPlayerPkSimuStepsChoices(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        PageFormSimu page_ = new PageFormSimu(simu_);
+        AbsMap<Integer,ChoiceOfEvolutionAndMoves> map_ = simu_.getSimulation().getGame().getFight().getChoices();
+        BeanChgChoiceOfEvolutionAndMoves evMv_ = new BeanChgChoiceOfEvolutionAndMoves();
+        ChoiceOfEvolutionAndMoves ch_ = new ChoiceOfEvolutionAndMoves();
+        ch_.setKeptMoves(ls(M_POK_07));
+        ch_.setName(P_POK_04);
+        ch_.setAbility(A_SIM_1);
+        evMv_.valueChoice(ch_);
+        transitSimuQuickChg(new SimulationBeanAddEntry<Integer, ChoiceOfEvolutionAndMoves>(map_, chgInt(2), evMv_, new UpdateFormEvosChoices(simu_), page_), simu_.getBuilder());
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getChoices();
+    }
+    protected static MoveTargets editEditSelectedPlayerPkSimuStepsAllyChoice(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        PageFormSimu page_ = new PageFormSimu(simu_);
+        MoveTargets map_ = simu_.getSimulation().getGame().getFight().getAllyChoice();
+        transitSimuQuickChg(new SimulationBeanAddEntry<MoveTarget, MoveTarget>(map_, chgMt(M_POK_03,0,1), chgMt(M_POK_04,1,0), new UpdateFormAllyChoices(simu_), page_), simu_.getBuilder());
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getAllyChoice();
+    }
+    protected static AbsMap<Integer,CustList<Integer>> editEditSelectedPlayerPkSimuStepsPlayerFightersAgainstFoe(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        BeanChgList<Integer> v_ = new BeanChgList<Integer>();
+        v_.setupValue(Ints.newList(1));
+        simu_.getFightForm().getPlayerFightersAgainstFoe().getInput().set(0, v_);
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getUserTeam().getPlayerFightersAgainstFoe();
+    }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsBack() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         return (SimulationBean)transitSimu(new SimulationBeanResetFight(simu_), simu_.getBuilder());
@@ -2031,6 +2061,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         IntBeanChgLong k_ = new BeanChgLong();
         k_.valueLong(_v);
         return k_;
+    }
+
+    private static IntBeanChgInt chgInt(int _v) {
+        IntBeanChgInt k_ = new BeanChgInt();
+        k_.valueInt(_v);
+        return k_;
+    }
+    private static IntBeanChgMoveTarget chgMt(String _m, int _t, int _f) {
+        BeanChgMoveTarget chg_ = new BeanChgMoveTarget();
+        chg_.valueMt(new MoveTarget(_m,new TargetCoords(_t,_f)));
+        return chg_;
     }
     private static IntBeanChgFighter sample(KindAction _ka) {
         BeanChgKindAction k_ = new BeanChgKindAction();

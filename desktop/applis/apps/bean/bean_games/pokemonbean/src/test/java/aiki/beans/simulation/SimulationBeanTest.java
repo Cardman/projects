@@ -1740,6 +1740,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(1,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().size());
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getKey(0));
         assertEq(2,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getValue(0));
+        assertEq(1,editEditSelectedPlayerPkSimuStepsChoices().size());
+        assertEq(2,editEditSelectedPlayerPkSimuStepsChoices().getKey(0));
+        assertEq(1,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getKeptMoves().size());
+        assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getKeptMoves().get(0));
+        assertEq(A_SIM_1,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getAbility());
+        assertEq(P_POK_04,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getName());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().size());
+        assertEq(M_POK_03,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getMove());
+        assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getTarget().getTeam());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getTarget().getPosition());
+        assertEq(M_POK_04,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getMove());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getTarget().getTeam());
+        assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getTarget().getPosition());
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).size());
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).getNbTurn());
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).isEnabled());
@@ -1750,6 +1763,9 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMoves(true).getVal(M_POK_07).getNbTurn());
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMoves(true).getVal(M_POK_07).isEnabled());
         assertEq(1,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(true).size());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsPlayerFightersAgainstFoe().size());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsPlayerFightersAgainstFoe().getVal(0).size());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsPlayerFightersAgainstFoe().getVal(0).get(0));
     }
     @Test
     public void simuSteps1() {

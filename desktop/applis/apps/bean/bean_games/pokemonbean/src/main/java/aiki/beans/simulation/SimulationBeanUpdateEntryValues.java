@@ -15,8 +15,8 @@ public final class SimulationBeanUpdateEntryValues<K,V> {
         for (EntryCust<K,V> e: index.entryList()) {
             e.setValue(input.getVal(e.getKey()).genericValue());
         }
-    }
 
+    }
     public AbsMap<K, IntBeanChgValue<V>> getInput() {
         return input;
     }

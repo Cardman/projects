@@ -306,4 +306,7 @@ public final class SimulationFightForm extends SimulationCommonForm {
         return enabledMoves;
     }
 
+    public SimulationBeanUpdateEntryValues<Integer, CustList<Integer>> getPlayerFightersAgainstFoe() {
+        return playerFightersAgainstFoe;
+    }
 }
