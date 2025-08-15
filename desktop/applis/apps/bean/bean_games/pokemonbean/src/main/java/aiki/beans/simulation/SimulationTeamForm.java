@@ -25,7 +25,7 @@ public final class SimulationTeamForm extends SimulationCommonForm {
     private final StringMap<SimulationBeanUpdateEntryValues<Integer, StacksOfUses>> healAfter;
     private final StringMap<SimulationBeanUpdateEntryValues<Integer, Anticipation>> movesAnticipation;
     private final DictionaryComparator<StringList, ListActivityOfMove> group = new DictionaryComparator<StringList, ListActivityOfMove>(new ComparatorStringList());
-    private final CustList<IntBeanChgActivityOfMove> groupInputs = new CustList<IntBeanChgActivityOfMove>();
+    private final CustList<IntBeanChgActivityOfMove> enabledMovesByGroup = new CustList<IntBeanChgActivityOfMove>();
     private final CustList<SimulationFighterForm> members = new CustList<SimulationFighterForm>();
     public SimulationTeamForm(SimulationBean _b, Team _t, String _title) {
         super(_b);
@@ -85,7 +85,7 @@ public final class SimulationTeamForm extends SimulationCommonForm {
             getBean().formatMessageDirCts(StringUtil.join(group.getKey(i), CommonFightBean.MOVES_SEPARATOR));
             IntBeanChgActivityOfMove chgPl_ = getBean().getBuilder().getGenInput().newAc();
             chgPl_.valueActivity(group.getValue(i).getCombo());
-            groupInputs.add(chgPl_);
+            enabledMovesByGroup.add(chgPl_);
             getBean().getBuilder().nextPart();
         }
         getBean().feedParents();
@@ -221,9 +221,9 @@ public final class SimulationTeamForm extends SimulationCommonForm {
         for (SimulationBeanUpdateEntryValues<Integer, Anticipation> v:movesAnticipation.values()) {
             v.actionBean();
         }
-        int nbGr_ = groupInputs.size();
+        int nbGr_ = enabledMovesByGroup.size();
         for (int i = 0; i < nbGr_; i++) {
-            team.getEnabledMovesByGroup().set(team.getEnabledMovesByGroup().index(group.getValue(i).getList()),new ListActivityOfMove(group.getValue(i).getList(),groupInputs.get(i).genericValue()));
+            team.getEnabledMovesByGroup().set(team.getEnabledMovesByGroup().index(group.getValue(i).getList()),new ListActivityOfMove(group.getValue(i).getList(), enabledMovesByGroup.get(i).genericValue()));
         }
         for (SimulationFighterForm s: members) {
             s.update();
@@ -232,5 +232,49 @@ public final class SimulationTeamForm extends SimulationCommonForm {
 
     public CustList<SimulationFighterForm> getMembers() {
         return members;
+    }
+
+    public IntBeanChgLong getNbKoPreviousRound() {
+        return nbKoPreviousRound;
+    }
+
+    public IntBeanChgLong getNbKoRound() {
+        return nbKoRound;
+    }
+
+    public IntBeanChgList<String> getSuccessfulMovesRound() {
+        return successfulMovesRound;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, Long> getNbUsesMoves() {
+        return nbUsesMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, Long> getNbUsesMovesRound() {
+        return nbUsesMovesRound;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, BoolVal> getEnabledMovesWhileSendingFoe() {
+        return enabledMovesWhileSendingFoe;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, LgInt> getEnabledMovesWhileSendingFoeUses() {
+        return enabledMovesWhileSendingFoeUses;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledMoves() {
+        return enabledMoves;
+    }
+
+    public StringMap<SimulationBeanUpdateEntryValues<Integer, StacksOfUses>> getHealAfter() {
+        return healAfter;
+    }
+
+    public StringMap<SimulationBeanUpdateEntryValues<Integer, Anticipation>> getMovesAnticipation() {
+        return movesAnticipation;
+    }
+
+    public CustList<IntBeanChgActivityOfMove> getEnabledMovesByGroup() {
+        return enabledMovesByGroup;
     }
 }
