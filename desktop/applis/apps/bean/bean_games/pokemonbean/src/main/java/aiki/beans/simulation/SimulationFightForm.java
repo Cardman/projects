@@ -297,4 +297,13 @@ public final class SimulationFightForm extends SimulationCommonForm {
     public SimulationBeanUpdateEntryValues<Integer, Integer> getFirstPositPlayerFighters() {
         return firstPositPlayerFighters;
     }
+
+    public SimulationBeanUpdateEntryValues<String, BoolVal> getStillEnabledMoves() {
+        return stillEnabledMoves;
+    }
+
+    public SimulationBeanUpdateEntryValues<String, ActivityOfMove> getEnabledMoves() {
+        return enabledMoves;
+    }
+
 }

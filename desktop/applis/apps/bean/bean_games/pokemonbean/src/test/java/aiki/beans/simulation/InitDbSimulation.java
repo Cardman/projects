@@ -1639,6 +1639,26 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getFirstPositFoeFighters();
     }
+    protected static AbsMap<String,ActivityOfMove> editEditSelectedPlayerPkSimuStepsEnabledMoves(boolean _en){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getEnabledMoves().getInput().set(M_POK_07,chgAct(2, _en));
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getEnabledMoves();
+    }
+    protected static AbsMap<String,BoolVal> editEditSelectedPlayerPkSimuStepsStillEnabledMoves(boolean _b){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        ((IntBeanChgBool)simu_.getFightForm().getStillEnabledMoves().getInput().getVal(M_POK_07)).setSelected(_b);
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getStillEnabledMoves();
+    }
+    protected static AbsMap<String,Long> editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        PageFormSimu page_ = new PageFormSimu(simu_);
+        StringMap<Long> map_ = simu_.getSimulation().getGame().getFight().getUsedItemsWhileRound();
+        transitSimuQuickChg(new SimulationBeanAddEntry<String, Long>(map_, chgStr(I_BALL), chgLg(2), new UpdateFormUsedItem(simu_), page_), simu_.getBuilder());
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getUsedItemsWhileRound();
+    }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsBack() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         return (SimulationBean)transitSimu(new SimulationBeanResetFight(simu_), simu_.getBuilder());
@@ -1995,6 +2015,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static IntBeanChgString chgStr(String _v) {
         BeanChgString k_ = new BeanChgString();
         k_.setupValue(_v);
+        return k_;
+    }
+
+    private static IntBeanChgActivityOfMove chgAct(long _v, boolean _en) {
+        BeanChgActivityOfMove k_ = new BeanChgActivityOfMove(true);
+        ActivityOfMove v_ = new ActivityOfMove();
+        v_.setEnabled(_en);
+        v_.setNbTurn(_v);
+        k_.valueActivity(v_);
+        return k_;
+    }
+
+    private static IntBeanChgLong chgLg(long _v) {
+        IntBeanChgLong k_ = new BeanChgLong();
+        k_.valueLong(_v);
         return k_;
     }
     private static IntBeanChgFighter sample(KindAction _ka) {

@@ -13,6 +13,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class SimulationBeanTest extends InitDbSimulation {
@@ -1736,6 +1737,19 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(4,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().size());
         assertEq(0,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().getKey(0));
         assertEq(Fighter.BACK,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().getValue(0));
+        assertEq(1,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().size());
+        assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getKey(0));
+        assertEq(2,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getValue(0));
+        assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).size());
+        assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).getNbTurn());
+        assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).isEnabled());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMoves(true).size());
+        assertEq(BoolVal.TRUE,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(true).getVal(M_POK_07));
+        assertEq(1,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(false).size());
+        assertEq(BoolVal.FALSE,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(false).getVal(M_POK_07));
+        assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMoves(true).getVal(M_POK_07).getNbTurn());
+        assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMoves(true).getVal(M_POK_07).isEnabled());
+        assertEq(1,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(true).size());
     }
     @Test
     public void simuSteps1() {

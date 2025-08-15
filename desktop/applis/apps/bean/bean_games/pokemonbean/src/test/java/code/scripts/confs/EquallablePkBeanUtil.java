@@ -8,6 +8,7 @@ import aiki.game.fight.enums.*;
 import aiki.util.Coords;
 //import code.formathtml.structs.Message;
 import code.util.StringMap;
+import code.util.core.*;
 import org.junit.Assert;
 
 public abstract class EquallablePkBeanUtil {
@@ -47,6 +48,10 @@ public abstract class EquallablePkBeanUtil {
         Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(String _expected, String _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertEquals(_expected, _result);
+    }
+    public static void assertEq(BoolVal _expected, BoolVal _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
     }
