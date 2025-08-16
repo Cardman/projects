@@ -1792,241 +1792,241 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterName(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct1().getName().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getName().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getName();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterNickname(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct1().getNickname().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getNickname().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getNickname();
     }
     protected static Gender editEditSelectedPlayerPkSimuStepsFighterGender(Gender _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct1().getGender().valGender(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getGender().valGender(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getGender();
     }
     protected static Rate editEditSelectedPlayerPkSimuStepsFighterWeight(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct1().getWeight().valueRate(new Rate(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getWeight().valueRate(new Rate(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getWeight();
     }
     protected static Rate editEditSelectedPlayerPkSimuStepsFighterHeight(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct1().getHeight().valueRate(new Rate(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getHeight().valueRate(new Rate(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getHeight();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterCurrentName(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct1().getCurrentName().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCurrentName().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getCurrentName();
     }
     protected static Gender editEditSelectedPlayerPkSimuStepsFighterCurrentGender(Gender _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct1().getCurrentGender().valGender(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCurrentGender().valGender(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getCurrentGender();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterLastUsedItem(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct2().getLastUsedItem().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getLastUsedItem().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getLastUsedItem();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterItem(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct2().getItem().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getItem().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getItem();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterAbility(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct2().getAbility().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAbility().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getAbility();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterCurrentAbility(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct2().getCurrentAbility().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCurrentAbility().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getCurrentAbility();
     }
     protected static LgInt editEditSelectedPlayerPkSimuStepsFighterNbRounds(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct2().getNbRounds().valueLgInt(new LgInt(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getNbRounds().valueLgInt(new LgInt(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getNbRounds();
     }
     protected static CustList<String> editEditSelectedPlayerPkSimuStepsFighterTypes(String... _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct2().getTypes().setupValue(ls(_args));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getTypes().setupValue(ls(_args));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getTypes();
     }
     protected static Rate editEditSelectedPlayerPkSimuStepsFighterRemainingHp(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct2().getRemainingHp().valueRate(new Rate(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getRemainingHp().valueRate(new Rate(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getRemainingHp();
     }
     protected static Rate editEditSelectedPlayerPkSimuStepsFighterClone(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct3().getClone().valueRate(new Rate(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getClone().valueRate(new Rate(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getClone();
     }
     protected static CustList<String> editEditSelectedPlayerPkSimuStepsFighterProtectedAgainstMoveTypes(String... _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct3().getProtectedAgainstMoveTypes().setupValue(ls(_args));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getProtectedAgainstMoveTypes().setupValue(ls(_args));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getProtectedAgainstMoveTypes();
     }
     protected static boolean editEditSelectedPlayerPkSimuStepsFighterActed(boolean _b){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct3().getActed().setSelected(_b);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getActed().setSelected(_b);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).isActed();
     }
     protected static long editEditSelectedPlayerPkSimuStepsFighterGroundPlace(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct3().getGroundPlace().valueInt(2);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getGroundPlace().valueInt(2);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getGroundPlace();
     }
     protected static long editEditSelectedPlayerPkSimuStepsFighterGroundPlaceSubst(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct3().getGroundPlaceSubst().valueInt(2);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getGroundPlaceSubst().valueInt(2);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getGroundPlaceSubst();
     }
     protected static Rate editEditSelectedPlayerPkSimuStepsFighterWonExp(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct3().getWonExp().valueRate(new Rate(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getWonExp().valueRate(new Rate(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getWonExp();
     }
     protected static Rate editEditSelectedPlayerPkSimuStepsFighterWonExpSinceLastLevel(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct3().getWonExpSinceLastLevel().valueRate(new Rate(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getWonExpSinceLastLevel().valueRate(new Rate(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getWonExpSinceLastLevel();
     }
     protected static long editEditSelectedPlayerPkSimuStepsFighterLevel(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct4().getLevel().valueLong(2);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getLevel().valueLong(2);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getLevel();
     }
     protected static long editEditSelectedPlayerPkSimuStepsFighterHappiness(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct4().getHappiness().valueLong(2);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getHappiness().valueLong(2);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getHappiness();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterUsedBallCatching(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct4().getUsedBallCatching().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getUsedBallCatching().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getUsedBallCatching();
     }
     protected static long editEditSelectedPlayerPkSimuStepsFighterNbPrepaRound(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct4().getNbPrepaRound().valueLong(2);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getNbPrepaRound().valueLong(2);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getNbPrepaRound();
     }
     protected static boolean editEditSelectedPlayerPkSimuStepsFighterDisappeared(boolean _b){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct4().getDisappeared().setSelected(_b);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getDisappeared().setSelected(_b);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).isDisappeared();
     }
     protected static boolean editEditSelectedPlayerPkSimuStepsFighterNeedingToRecharge(boolean _b){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct4().getNeedingToRecharge().setSelected(_b);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getNeedingToRecharge().setSelected(_b);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).isNeedingToRecharge();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterLastSufferedMove(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct4().getLastSufferedMove().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getLastSufferedMove().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getLastSufferedMove();
     }
     protected static CustList<String> editEditSelectedPlayerPkSimuStepsFighterLastSufferedMoveTypes(String... _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct5().getLastSufferedMoveTypes().setupValue(ls(_args));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getLastSufferedMoveTypes().setupValue(ls(_args));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getLastSufferedMoveTypes();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterLastUsedMove(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct5().getLastUsedMove().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getLastUsedMove().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getLastUsedMove();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterUsedMoveLastRound(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct5().getUsedMoveLastRound().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getUsedMoveLastRound().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getUsedMoveLastRound();
     }
     protected static CustList<String> editEditSelectedPlayerPkSimuStepsFighterAlreadyInvokedMovesRound(String... _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct5().getAlreadyInvokedMovesRound().setupValue(ls(_args));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAlreadyInvokedMovesRound().setupValue(ls(_args));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getAlreadyInvokedMovesRound();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterLastSuccessfulMove(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct5().getLastSuccessfulMove().setupValue(_args);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getLastSuccessfulMove().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getLastSuccessfulMove();
     }
     protected static LgInt editEditSelectedPlayerPkSimuStepsFighterNbRepeatingSuccessfulMoves(){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct5().getNbRepeatingSuccessfulMoves().valueLgInt(new LgInt(2));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getNbRepeatingSuccessfulMoves().valueLgInt(new LgInt(2));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getNbRepeatingSuccessfulMoves();
     }
     protected static boolean editEditSelectedPlayerPkSimuStepsFighterUsingItem(boolean _b){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct5().getUsingItem().setSelected(_b);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getUsingItem().setSelected(_b);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).isUsingItem();
     }
     protected static boolean editEditSelectedPlayerPkSimuStepsFighterSuccessfulMove(boolean _b){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getSuccessfulMove().setSelected(_b);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getSuccessfulMove().setSelected(_b);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).isSuccessfulMove();
     }
     protected static boolean editEditSelectedPlayerPkSimuStepsFighterChanged(boolean _b){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getChanged().setSelected(_b);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getChanged().setSelected(_b);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).isChanged();
     }
     protected static CustList<String> editEditSelectedPlayerPkSimuStepsFighterMovesToBeLearnt(String... _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getMovesToBeLearnt().setupValue(ls(_args));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getMovesToBeLearnt().setupValue(ls(_args));
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getMovesToBeLearnt();
     }
     protected static AbstractAction editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction _kind, String _f, String _l, boolean _s, int _t, int _p, String _i, int _sub){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getAction().getKindAction().valueKa(_kind);
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getAction().getFirst().setupValue(_f);
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getAction().getLast().setupValue(_l);
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getAction().getTeam().setSelected(_s);
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getAction().getTarget().valueTc(new TargetCoords(_t, _p));
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getAction().getItem().setupValue(_i);
-        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getCoreAction().getAct6().getAction().getSub().valueInt(_sub);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAction().getKindAction().valueKa(_kind);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAction().getFirst().setupValue(_f);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAction().getLast().setupValue(_l);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAction().getTeam().setSelected(_s);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAction().getTarget().valueTc(new TargetCoords(_t, _p));
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAction().getItem().setupValue(_i);
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getAction().getSub().valueInt(_sub);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getAction();
     }
@@ -2513,12 +2513,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighter(KindAction _ka) {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(fighter(simu_),sample(_ka)), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(fighter(simu_), simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0), sample(_ka)), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsCoreFighterCa() {
         SimulationBean simu_ = editEditSelectedPlayerPkSimuStepsLow();
-        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(fighter(simu_),sampleCa()), simu_.getBuilder());
+        return (SimulationBean)transitSimuQuick(new SimulationBeanAbstractAction(fighter(simu_), simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0), sampleCa()), simu_.getBuilder());
     }
 
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsFighter1() {
@@ -2734,30 +2734,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return new MoveTarget(_m, new TargetCoords(_t, _f));
     }
 
-    private static IntBeanChgFighter sample(KindAction _ka) {
+    private static IntBeanChgAction sample(KindAction _ka) {
         BeanChgKindAction k_ = new BeanChgKindAction();
         k_.valueKa(_ka);
-        return new IntBeanChgFighter(
-                new IntBeanChgFighter1(new BeanChgString(),new BeanChgString(),new BeanChgGender(), new BeanChgRate(),new BeanChgRate(),new BeanChgString(),new BeanChgGender()),
-                new IntBeanChgFighter2(new BeanChgString(),new BeanChgString(), new BeanChgString(), new BeanChgLgInt(), new BeanChgList<String>(), new BeanChgString(), new BeanChgRate()),
-                new IntBeanChgFighter3(new BeanChgBool(),new BeanChgInt(), new BeanChgInt(), new BeanChgRate(), new BeanChgList<String>(),new BeanChgRate(),new BeanChgRate()),
-                new IntBeanChgFighter4(new BeanChgString(),new BeanChgLong(),new BeanChgLong(),new BeanChgLong(),new BeanChgBool(),new BeanChgBool(),new BeanChgString()),
-                new IntBeanChgFighter5(new BeanChgList<String>(),new BeanChgList<String>(),new BeanChgString(),new BeanChgLgInt(),new BeanChgBool(),new BeanChgString(),new BeanChgString()),
-                new IntBeanChgFighter6(new BeanChgList<String>(),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), new BeanChgTargetCoords(), new BeanChgBool()),new BeanChgBool(),new BeanChgBool()));
+        return new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), new BeanChgTargetCoords(), new BeanChgBool());
     }
 
-    private static IntBeanChgFighter sampleCa() {
+    private static IntBeanChgAction sampleCa() {
         BeanChgKindAction k_ = new BeanChgKindAction();
         k_.valueKa(KindAction.MOVE);
         BeanChgTargetCoords tard_ = new BeanChgTargetCoords();
         tard_.valueTc(TargetCoords.toFoeTarget(0));
-        return new IntBeanChgFighter(
-                new IntBeanChgFighter1(new BeanChgString(),new BeanChgString(),new BeanChgGender(), new BeanChgRate(),new BeanChgRate(),new BeanChgString(),new BeanChgGender()),
-                new IntBeanChgFighter2(new BeanChgString(),new BeanChgString(), new BeanChgString(), new BeanChgLgInt(), new BeanChgList<String>(), new BeanChgString(), new BeanChgRate()),
-                new IntBeanChgFighter3(new BeanChgBool(),new BeanChgInt(), new BeanChgInt(), new BeanChgRate(), new BeanChgList<String>(),new BeanChgRate(),new BeanChgRate()),
-                new IntBeanChgFighter4(new BeanChgString(),new BeanChgLong(),new BeanChgLong(),new BeanChgLong(),new BeanChgBool(),new BeanChgBool(),new BeanChgString()),
-                new IntBeanChgFighter5(new BeanChgList<String>(),new BeanChgList<String>(),new BeanChgString(),new BeanChgLgInt(),new BeanChgBool(),new BeanChgString(),new BeanChgString()),
-                new IntBeanChgFighter6(new BeanChgList<String>(),new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), tard_, new BeanChgBool()),new BeanChgBool(),new BeanChgBool()));
+        return new IntBeanChgAction(k_,new BeanChgString(),new BeanChgString(),new BeanChgString(),new BeanChgInt(), tard_, new BeanChgBool());
     }
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsLowNbUses() {
         FacadeGame db_ = dbInc();

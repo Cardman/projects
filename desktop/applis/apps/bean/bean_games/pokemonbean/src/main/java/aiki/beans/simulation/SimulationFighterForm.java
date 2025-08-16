@@ -50,13 +50,58 @@ public final class SimulationFighterForm extends SimulationCommonForm {
     private final StringMap<StringMap<SimulationBeanRemoveEntry<String,UsesOfMove>>> movesRem = new StringMap<StringMap<SimulationBeanRemoveEntry<String, UsesOfMove>>>();
     private SimulationBeanAddEntry<String, MovesAbilities> movesAbilitiesEvosAdd;
     private StringMap<SimulationBeanRemoveEntry<String, MovesAbilities>> movesAbilitiesEvosRem = new StringMap<SimulationBeanRemoveEntry<String, MovesAbilities>>();
+    private IntBeanChgString name;
+    private IntBeanChgString nickname;
+    private IntBeanChgGender gender;
+    private IntBeanChgRate weight;
+    private IntBeanChgRate height;
+    private IntBeanChgString currentName;
+    private IntBeanChgGender currentGender;
+    private IntBeanChgString lastUsedItem;
+    private IntBeanChgString item;
+    private IntBeanChgString currentAbility;
+    private IntBeanChgLgInt nbRounds;
+    private IntBeanChgList<String> types;
+    private IntBeanChgString ability;
+    private IntBeanChgRate remainingHp;
+    private IntBeanChgAction action;
+    private IntBeanChgBool acted;
+    private IntBeanChgInt groundPlace;
+    private IntBeanChgInt groundPlaceSubst;
+    private IntBeanChgRate wonExp;
+    private IntBeanChgList<String> protectedAgainstMoveTypes;
+    private IntBeanChgRate wonExpSinceLastLevel;
+    private IntBeanChgRate clone;
+    private IntBeanChgString usedBallCatching;
+    private IntBeanChgLong level;
+    private IntBeanChgLong happiness;
+    private IntBeanChgLong nbPrepaRound;
+    private IntBeanChgBool disappeared;
+    private IntBeanChgBool needingToRecharge;
+    private IntBeanChgString lastSufferedMove;
+    private IntBeanChgList<String> lastSufferedMoveTypes;
+    private IntBeanChgList<String> alreadyInvokedMovesRound;
+    private IntBeanChgString lastSuccessfulMove;
+    private IntBeanChgLgInt nbRepeatingSuccessfulMoves;
+    private IntBeanChgBool usingItem;
+    private IntBeanChgString usedMoveLastRound;
+    private IntBeanChgString lastUsedMove;
+    private IntBeanChgList<String> movesToBeLearnt;
+    private IntBeanChgBool successfulMove;
+    private IntBeanChgBool changed;
 
 
     public SimulationFighterForm(SimulationBean _b, Fighter _f, int _max) {
         super(_b);
         getBean().initPage();
         getBean().setTitledBorder(getBean().messageRend(MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_TITLE_GEN));
-        coreAction = new SimulationBeanAbstractAction(_f, new IntBeanChgFighter(one(_f, getBean().getBuilder().getGenInput()), two(_f, getBean().getBuilder().getGenInput()), three(_f, getBean().getBuilder().getGenInput()), four(_f, getBean().getBuilder().getGenInput()), five(_f, getBean().getBuilder().getGenInput()), six(_f, getBean().getBuilder().getGenInput(), _max)));
+        one(_f, getBean().getBuilder().getGenInput());
+        two(_f, getBean().getBuilder().getGenInput());
+        three(_f, getBean().getBuilder().getGenInput());
+        four(_f, getBean().getBuilder().getGenInput());
+        five(_f, getBean().getBuilder().getGenInput());
+        six(_f, getBean().getBuilder().getGenInput(), _max);
+        coreAction = new SimulationBeanAbstractAction(_f,this, action);
         getBean().feedParents();
         status = movesFighter(dict(_f), _f.getStatus(), MessagesDataSimulation.M_P_86_STATUS, MessagesDataSimulation.M_P_86_STATUS_KEY, MessagesDataSimulation.M_P_86_STATUS_VALUE);
         nbUsesMoves = movesFighter(nbUses(_f), _f.getNbUsesMoves(), MessagesDataSimulation.M_P_86_NB_USES, MessagesDataSimulation.M_P_86_NB_USES_KEY, MessagesDataSimulation.M_P_86_NB_USES_VALUE);
@@ -510,36 +555,35 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         return new SimulationBeanUpdateEntryValues<Statistic,Rate>(_f, o_);
     }
 
-    private IntBeanChgFighter1 one(Fighter _f, IntBeanGeneInput _inputGene) {
+    private void one(Fighter _f, IntBeanGeneInput _inputGene) {
         AbsMap<Gender, String> translatedGenders_ = getBean().getDataBase().getTranslatedGenders().getVal(getBean().getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
         genders_.putAllMap(translatedGenders_);
         DictionaryComparator<String, String> pk_ = DictionaryComparatorUtil.buildPkStrElts(getBean().getDataBase(), getBean().getLanguage());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NAME);
-        IntBeanChgString name_ = _inputGene.newString(pk_);
-        name_.setupValue(_f.getName());
+        name = _inputGene.newString(pk_);
+        name.setupValue(_f.getName());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NICKNAME);
-        IntBeanChgString nickname_ = _inputGene.newText();
-        nickname_.setupValue(_f.getNickname());
+        nickname = _inputGene.newText();
+        nickname.setupValue(_f.getNickname());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_GENDER);
-        IntBeanChgGender gender_ = _inputGene.newGender(genders_);
-        gender_.valGender(_f.getGender());
+        gender = _inputGene.newGender(genders_);
+        gender.valGender(_f.getGender());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_WEIGHT);
-        IntBeanChgRate weight_ = _inputGene.newRate();
-        weight_.valueRate(_f.getWeight());
+        weight = _inputGene.newRate();
+        weight.valueRate(_f.getWeight());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_HEIGHT);
-        IntBeanChgRate height_ = _inputGene.newRate();
-        height_.valueRate(_f.getHeight());
+        height = _inputGene.newRate();
+        height.valueRate(_f.getHeight());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CURRENT_NAME);
-        IntBeanChgString currentName_ = _inputGene.newString(pk_);
-        currentName_.setupValue(_f.getCurrentName());
+        currentName = _inputGene.newString(pk_);
+        currentName.setupValue(_f.getCurrentName());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CURRENT_GENDER);
-        IntBeanChgGender currentGender_ = _inputGene.newGender(genders_);
-        currentGender_.valGender(_f.getCurrentGender());
-        return new IntBeanChgFighter1(name_, nickname_, gender_, weight_, height_, currentName_, currentGender_);
+        currentGender = _inputGene.newGender(genders_);
+        currentGender.valGender(_f.getCurrentGender());
     }
 
-    private IntBeanChgFighter2 two(Fighter _f, IntBeanGeneInput _inputGene) {
+    private void two(Fighter _f, IntBeanGeneInput _inputGene) {
         AbsMap<Gender, String> translatedGenders_ = getBean().getDataBase().getTranslatedGenders().getVal(getBean().getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
         genders_.putAllMap(translatedGenders_);
@@ -549,60 +593,58 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         it_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
         DictionaryComparator<String, String> ty_ = DictionaryComparatorUtil.buildTyStrElts(getBean().getDataBase(), getBean().getLanguage());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LAST_USED_ITEM);
-        IntBeanChgString lastUsedItem_ = _inputGene.newString(it_);
-        lastUsedItem_.setupValue(_f.getLastUsedItem());
+        lastUsedItem = _inputGene.newString(it_);
+        lastUsedItem.setupValue(_f.getLastUsedItem());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ITEM);
-        IntBeanChgString item_ = _inputGene.newString(it_);
-        item_.setupValue(_f.getItem());
+        item = _inputGene.newString(it_);
+        item.setupValue(_f.getItem());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CURRENT_ABILITY);
-        IntBeanChgString currentAbility_ = _inputGene.newString(ab_);
-        currentAbility_.setupValue(_f.getCurrentAbility());
+        currentAbility = _inputGene.newString(ab_);
+        currentAbility.setupValue(_f.getCurrentAbility());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NB_ROUNDS);
-        IntBeanChgLgInt nbRounds_ = _inputGene.newLgInt();
-        nbRounds_.valueLgInt(_f.getNbRounds());
+        nbRounds = _inputGene.newLgInt();
+        nbRounds.valueLgInt(_f.getNbRounds());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_TYPES);
-        IntBeanChgList<String> types_ = _inputGene.newStringList(ty_);
-        types_.setupValue(_f.getTypes());
+        types = _inputGene.newStringList(ty_);
+        types.setupValue(_f.getTypes());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ABILITY);
-        IntBeanChgString ability_ = _inputGene.newString(ab_);
-        ability_.setupValue(_f.getAbility());
+        ability = _inputGene.newString(ab_);
+        ability.setupValue(_f.getAbility());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_REMAIN_HP);
-        IntBeanChgRate remainingHp_ = _inputGene.newRate();
-        remainingHp_.valueRate(_f.getRemainingHp());
-        return new IntBeanChgFighter2(lastUsedItem_, item_, currentAbility_, nbRounds_, types_, ability_, remainingHp_);
+        remainingHp = _inputGene.newRate();
+        remainingHp.valueRate(_f.getRemainingHp());
     }
 
-    private IntBeanChgFighter3 three(Fighter _f, IntBeanGeneInput _inputGene) {
+    private void three(Fighter _f, IntBeanGeneInput _inputGene) {
         AbsMap<Gender, String> translatedGenders_ = getBean().getDataBase().getTranslatedGenders().getVal(getBean().getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
         genders_.putAllMap(translatedGenders_);
         DictionaryComparator<String, String> ty_ = DictionaryComparatorUtil.buildTyStrElts(getBean().getDataBase(), getBean().getLanguage());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ACTED);
-        IntBeanChgBool acted_ = _inputGene.newBool();
-        acted_.setSelected(_f.isActed());
+        acted = _inputGene.newBool();
+        acted.setSelected(_f.isActed());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_GROUND_PLACE);
         IntMap<String> ids_ = SimulationCommonForm.ids(getBean().getSimulation().getGame().getFight().getMult());
-        IntBeanChgInt groundPlace_ = _inputGene.newInt(ids_);
-        groundPlace_.valueInt(_f.getGroundPlace());
+        groundPlace = _inputGene.newInt(ids_);
+        groundPlace.valueInt(_f.getGroundPlace());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_GROUND_SUBSTIT);
-        IntBeanChgInt groundPlaceSubst_ = _inputGene.newInt(ids_);
-        groundPlaceSubst_.valueInt(_f.getGroundPlaceSubst());
+        groundPlaceSubst = _inputGene.newInt(ids_);
+        groundPlaceSubst.valueInt(_f.getGroundPlaceSubst());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_WON_EXP);
-        IntBeanChgRate wonExp_ = _inputGene.newRate();
-        wonExp_.valueRate(_f.getWonExp());
+        wonExp = _inputGene.newRate();
+        wonExp.valueRate(_f.getWonExp());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_TYPES_PROTECTED);
-        IntBeanChgList<String> protectedAgainstMoveTypes_ = _inputGene.newStringList(ty_);
-        protectedAgainstMoveTypes_.setupValue(_f.getProtectedAgainstMoveTypes());
+        protectedAgainstMoveTypes = _inputGene.newStringList(ty_);
+        protectedAgainstMoveTypes.setupValue(_f.getProtectedAgainstMoveTypes());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_WON_EXP_LAST_LEVEL);
-        IntBeanChgRate wonExpSinceLastLevel_ = _inputGene.newRate();
-        wonExpSinceLastLevel_.valueRate(_f.getWonExpSinceLastLevel());
+        wonExpSinceLastLevel = _inputGene.newRate();
+        wonExpSinceLastLevel.valueRate(_f.getWonExpSinceLastLevel());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CLONE);
-        IntBeanChgRate clone_ = _inputGene.newRate();
-        clone_.valueRate(_f.getClone());
-        return new IntBeanChgFighter3(acted_, groundPlace_, groundPlaceSubst_, wonExp_, protectedAgainstMoveTypes_, wonExpSinceLastLevel_, clone_);
+        clone = _inputGene.newRate();
+        clone.valueRate(_f.getClone());
     }
 
-    private IntBeanChgFighter4 four(Fighter _f, IntBeanGeneInput _inputGene) {
+    private void four(Fighter _f, IntBeanGeneInput _inputGene) {
         AbsMap<Gender, String> translatedGenders_ = getBean().getDataBase().getTranslatedGenders().getVal(getBean().getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
         genders_.putAllMap(translatedGenders_);
@@ -611,30 +653,29 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         DictionaryComparator<String, String> mv_ = DictionaryComparatorUtil.buildMvStrElts(getBean().getDataBase(), getBean().getLanguage());
         mv_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_USED_BALL_CATCHING);
-        IntBeanChgString usedBallCatching_ = _inputGene.newString(it_);
-        usedBallCatching_.setupValue(_f.getUsedBallCatching());
+        usedBallCatching = _inputGene.newString(it_);
+        usedBallCatching.setupValue(_f.getUsedBallCatching());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LEVEL);
-        IntBeanChgLong level_ = _inputGene.newLong();
-        level_.valueLong(_f.getLevel());
+        level = _inputGene.newLong();
+        level.valueLong(_f.getLevel());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_HAPPINESS);
-        IntBeanChgLong happiness_ = _inputGene.newLong();
-        happiness_.valueLong(_f.getHappiness());
+        happiness = _inputGene.newLong();
+        happiness.valueLong(_f.getHappiness());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NB_ROUND_PREPA);
-        IntBeanChgLong nbPrepaRound_ = _inputGene.newLong();
-        nbPrepaRound_.valueLong(_f.getNbPrepaRound());
+        nbPrepaRound = _inputGene.newLong();
+        nbPrepaRound.valueLong(_f.getNbPrepaRound());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_DISAPPEARED);
-        IntBeanChgBool disappeared_ = _inputGene.newBool();
-        disappeared_.setSelected(_f.isDisappeared());
+        disappeared = _inputGene.newBool();
+        disappeared.setSelected(_f.isDisappeared());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NEEDING_RECHARGE);
-        IntBeanChgBool needingToRecharge_ = _inputGene.newBool();
-        needingToRecharge_.setSelected(_f.isNeedingToRecharge());
+        needingToRecharge = _inputGene.newBool();
+        needingToRecharge.setSelected(_f.isNeedingToRecharge());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LAST_SUFFERED_MOVE);
-        IntBeanChgString lastSufferedMove_ = _inputGene.newString(mv_);
-        lastSufferedMove_.setupValue(_f.getLastSufferedMove());
-        return new IntBeanChgFighter4(usedBallCatching_, level_, happiness_, nbPrepaRound_, disappeared_, needingToRecharge_, lastSufferedMove_);
+        lastSufferedMove = _inputGene.newString(mv_);
+        lastSufferedMove.setupValue(_f.getLastSufferedMove());
     }
 
-    private IntBeanChgFighter5 five(Fighter _f, IntBeanGeneInput _inputGene) {
+    private void five(Fighter _f, IntBeanGeneInput _inputGene) {
         AbsMap<Gender, String> translatedGenders_ = getBean().getDataBase().getTranslatedGenders().getVal(getBean().getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
         genders_.putAllMap(translatedGenders_);
@@ -642,43 +683,42 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         mv_.put(DataBase.EMPTY_STRING,DataBase.EMPTY_STRING);
         DictionaryComparator<String, String> ty_ = DictionaryComparatorUtil.buildTyStrElts(getBean().getDataBase(), getBean().getLanguage());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LAST_SUFFERED_MOVE_TYPES);
-        IntBeanChgList<String> lastSufferedMoveTypes_ = _inputGene.newStringList(ty_);
-        lastSufferedMoveTypes_.setupValue(_f.getLastSufferedMoveTypes());
+        lastSufferedMoveTypes = _inputGene.newStringList(ty_);
+        lastSufferedMoveTypes.setupValue(_f.getLastSufferedMoveTypes());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_INVOKED_MOVES);
-        IntBeanChgList<String> alreadyInvokedMovesRound_ = _inputGene.newStringList(DictionaryComparatorUtil.buildMvStrElts(getBean().getDataBase(), getBean().getLanguage()));
-        alreadyInvokedMovesRound_.setupValue(_f.getAlreadyInvokedMovesRound());
+        alreadyInvokedMovesRound = _inputGene.newStringList(DictionaryComparatorUtil.buildMvStrElts(getBean().getDataBase(), getBean().getLanguage()));
+        alreadyInvokedMovesRound.setupValue(_f.getAlreadyInvokedMovesRound());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LAST_SUCCESSFUL_MOVE);
-        IntBeanChgString lastSuccessfulMove_ = _inputGene.newString(mv_);
-        lastSuccessfulMove_.setupValue(_f.getLastSuccessfulMove());
+        lastSuccessfulMove = _inputGene.newString(mv_);
+        lastSuccessfulMove.setupValue(_f.getLastSuccessfulMove());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_NB_SUCCESS_MOVES);
-        IntBeanChgLgInt nbRepeatingSuccessfulMoves_ = _inputGene.newLgInt();
-        nbRepeatingSuccessfulMoves_.valueLgInt(_f.getNbRepeatingSuccessfulMoves());
+        nbRepeatingSuccessfulMoves = _inputGene.newLgInt();
+        nbRepeatingSuccessfulMoves.valueLgInt(_f.getNbRepeatingSuccessfulMoves());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_USING_ITEM);
-        IntBeanChgBool usingItem_ = _inputGene.newBool();
-        usingItem_.setSelected(_f.isUsingItem());
+        usingItem = _inputGene.newBool();
+        usingItem.setSelected(_f.isUsingItem());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_USED_MOVE_LAST_ROUND);
-        IntBeanChgString usedMoveLastRound_ = _inputGene.newString(mv_);
-        usedMoveLastRound_.setupValue(_f.getUsedMoveLastRound());
+        usedMoveLastRound = _inputGene.newString(mv_);
+        usedMoveLastRound.setupValue(_f.getUsedMoveLastRound());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LAST_USED_MOVE);
-        IntBeanChgString lastUsedMove_ = _inputGene.newString(mv_);
-        lastUsedMove_.setupValue(_f.getLastUsedMove());
-        return new IntBeanChgFighter5(lastSufferedMoveTypes_, alreadyInvokedMovesRound_, lastSuccessfulMove_, nbRepeatingSuccessfulMoves_, usingItem_, usedMoveLastRound_, lastUsedMove_);
+        lastUsedMove = _inputGene.newString(mv_);
+        lastUsedMove.setupValue(_f.getLastUsedMove());
     }
 
-    private IntBeanChgFighter6 six(Fighter _f, IntBeanGeneInput _inputGene, int _max) {
+    private void six(Fighter _f, IntBeanGeneInput _inputGene, int _max) {
         AbsMap<Gender, String> translatedGenders_ = getBean().getDataBase().getTranslatedGenders().getVal(getBean().getLanguage());
         DictionaryComparator<Gender, String> genders_ = new DictionaryComparator<Gender, String>(translatedGenders_);
         genders_.putAllMap(translatedGenders_);
         DictionaryComparator<String, String> mvList_ = DictionaryComparatorUtil.buildMvStrElts(getBean().getDataBase(), getBean().getLanguage());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_EVO_PK_MOVES);
-        IntBeanChgList<String> movesToBeLearnt_ = _inputGene.newStringList(mvList_);
-        movesToBeLearnt_.setupValue(_f.getMovesToBeLearnt());
+        movesToBeLearnt = _inputGene.newStringList(mvList_);
+        movesToBeLearnt.setupValue(_f.getMovesToBeLearnt());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_SUCCESSFUL_MOVE);
-        IntBeanChgBool successfulMove_ = _inputGene.newBool();
-        successfulMove_.setSelected(_f.isSuccessfulMove());
+        successfulMove = _inputGene.newBool();
+        successfulMove.setSelected(_f.isSuccessfulMove());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CHANGED);
-        IntBeanChgBool changed_ = _inputGene.newBool();
-        changed_.setSelected(_f.isChanged());
+        changed = _inputGene.newBool();
+        changed.setSelected(_f.isChanged());
         IdMap<KindAction,String> ka_ = new IdMap<KindAction, String>();
         ka_.addEntry(KindAction.NO,getBean().messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_NO));
         ka_.addEntry(KindAction.MOVE,getBean().messageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_KIND_ACTION_MOVE));
@@ -717,8 +757,7 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_KIND_ACTION_FIELD_TEAM);
         IntBeanChgBool team_ = getBean().getBuilder().getGenInput().newBool();
         team_.setSelected(team(_f.getAction()));
-        IntBeanChgAction action_ = new IntBeanChgAction(chgAc_, first_, last_, healIt_, sub_, targets_, team_);
-        return new IntBeanChgFighter6(movesToBeLearnt_, action_, successfulMove_, changed_);
+        action = new IntBeanChgAction(chgAc_, first_, last_, healIt_, sub_, targets_, team_);
     }
 
     public static KindAction kindAction(AbstractAction _a) {
@@ -905,10 +944,6 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         return statisBase;
     }
 
-    public SimulationBeanAbstractAction getCoreAction() {
-        return coreAction;
-    }
-
     public StringMap<SimulationBeanAddEntry<String, UsesOfMove>> getMovesAdd() {
         return movesAdd;
     }
@@ -923,5 +958,161 @@ public final class SimulationFighterForm extends SimulationCommonForm {
 
     public StringMap<SimulationBeanRemoveEntry<String, MovesAbilities>> getMovesAbilitiesEvosRem() {
         return movesAbilitiesEvosRem;
+    }
+
+    public IntBeanChgString getName() {
+        return name;
+    }
+
+    public IntBeanChgString getNickname() {
+        return nickname;
+    }
+
+    public IntBeanChgGender getGender() {
+        return gender;
+    }
+
+    public IntBeanChgRate getWeight() {
+        return weight;
+    }
+
+    public IntBeanChgRate getHeight() {
+        return height;
+    }
+
+    public IntBeanChgString getCurrentName() {
+        return currentName;
+    }
+
+    public IntBeanChgGender getCurrentGender() {
+        return currentGender;
+    }
+
+    public IntBeanChgLgInt getNbRounds() {
+        return nbRounds;
+    }
+
+    public IntBeanChgString getCurrentAbility() {
+        return currentAbility;
+    }
+
+    public IntBeanChgString getLastUsedItem() {
+        return lastUsedItem;
+    }
+
+    public IntBeanChgList<String> getTypes() {
+        return types;
+    }
+
+    public IntBeanChgRate getRemainingHp() {
+        return remainingHp;
+    }
+
+    public IntBeanChgString getAbility() {
+        return ability;
+    }
+
+    public IntBeanChgString getItem() {
+        return item;
+    }
+
+    public IntBeanChgAction getAction() {
+        return action;
+    }
+
+    public IntBeanChgInt getGroundPlace() {
+        return groundPlace;
+    }
+
+    public IntBeanChgBool getActed() {
+        return acted;
+    }
+
+    public IntBeanChgInt getGroundPlaceSubst() {
+        return groundPlaceSubst;
+    }
+
+    public IntBeanChgRate getWonExp() {
+        return wonExp;
+    }
+
+    public IntBeanChgList<String> getProtectedAgainstMoveTypes() {
+        return protectedAgainstMoveTypes;
+    }
+
+    public IntBeanChgRate getClone() {
+        return clone;
+    }
+
+    public IntBeanChgRate getWonExpSinceLastLevel() {
+        return wonExpSinceLastLevel;
+    }
+
+    public IntBeanChgBool getDisappeared() {
+        return disappeared;
+    }
+
+    public IntBeanChgLong getNbPrepaRound() {
+        return nbPrepaRound;
+    }
+
+    public IntBeanChgBool getNeedingToRecharge() {
+        return needingToRecharge;
+    }
+
+    public IntBeanChgLong getHappiness() {
+        return happiness;
+    }
+
+    public IntBeanChgLong getLevel() {
+        return level;
+    }
+
+    public IntBeanChgString getLastSufferedMove() {
+        return lastSufferedMove;
+    }
+
+    public IntBeanChgString getUsedBallCatching() {
+        return usedBallCatching;
+    }
+
+    public IntBeanChgList<String> getLastSufferedMoveTypes() {
+        return lastSufferedMoveTypes;
+    }
+
+    public IntBeanChgBool getUsingItem() {
+        return usingItem;
+    }
+
+    public IntBeanChgList<String> getAlreadyInvokedMovesRound() {
+        return alreadyInvokedMovesRound;
+    }
+
+    public IntBeanChgLgInt getNbRepeatingSuccessfulMoves() {
+        return nbRepeatingSuccessfulMoves;
+    }
+
+    public IntBeanChgString getLastSuccessfulMove() {
+        return lastSuccessfulMove;
+    }
+
+    public IntBeanChgString getLastUsedMove() {
+        return lastUsedMove;
+    }
+
+    public IntBeanChgString getUsedMoveLastRound() {
+        return usedMoveLastRound;
+    }
+
+    public IntBeanChgBool getChanged() {
+        return changed;
+    }
+
+    public IntBeanChgBool getSuccessfulMove() {
+        return successfulMove;
+    }
+
+    public IntBeanChgList<String> getMovesToBeLearnt() {
+        return movesToBeLearnt;
     }
 }
