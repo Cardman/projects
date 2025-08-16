@@ -3,8 +3,8 @@ package aiki.util;
 import aiki.game.fight.util.*;
 import code.util.*;
 
-public abstract class MoveTargetsParam<V> extends AbsBasicMap<MoveTarget,V> {
-    protected MoveTargetsParam() {
+public class MoveTargetsParam<V> extends AbsBasicMap<MoveTarget,V> {
+    public MoveTargetsParam() {
     }
     protected MoveTargetsParam(CollCapacity _cap) {
         super(_cap);

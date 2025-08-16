@@ -6,6 +6,7 @@ import aiki.comparators.*;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.*;
 import aiki.game.fight.util.*;
+import aiki.util.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
 import code.util.core.*;
@@ -29,6 +30,12 @@ public final class SimulationFightForm extends SimulationCommonForm {
     private SimulationBeanUpdateEntryValues<String, Long> usedItemsWhileRound;
     private SimulationBeanUpdateEntryValues<Integer, ChoiceOfEvolutionAndMoves> choices;
     private SimulationBeanUpdateEntryValues<MoveTarget, MoveTarget> allyChoice;
+    private SimulationBeanAddEntry<String, Long> usedItemsWhileRoundAdd;
+    private StringMap<SimulationBeanRemoveEntry<String, Long>> usedItemsWhileRoundRem;
+    private SimulationBeanAddEntry<Integer, ChoiceOfEvolutionAndMoves> choicesAdd;
+    private IntMap<SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves>> choicesRem;
+    private SimulationBeanAddEntry<MoveTarget, MoveTarget> allyChoiceAdd;
+    private MoveTargetsParam<SimulationBeanRemoveEntry<MoveTarget, MoveTarget>> allyChoiceRem;
 
     public SimulationFightForm(SimulationBean _s, AbsMap<TeamPosition, String> _c, AbsMap<FightState, String> _f){
         super(_s);
@@ -107,19 +114,25 @@ public final class SimulationFightForm extends SimulationCommonForm {
         if (!map_.isEmpty()) {
             IntBeanChgString key_ = getBean().getBuilder().getGenInput().newString(map_);
             IntBeanChgLong value_ = getBean().getBuilder().getGenInput().newLong();
-            getBean().getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,Long>(getBean().getSimulation().getGame().getFight().getUsedItemsWhileRound(),key_,value_, new UpdateFormUsedItem(getBean()), _form));
+            usedItemsWhileRoundAdd = new SimulationBeanAddEntry<String, Long>(getBean().getSimulation().getGame().getFight().getUsedItemsWhileRound(), key_, value_, new UpdateFormUsedItem(getBean()), _form);
+            getBean().getBuilder().button("+").addEvt(usedItemsWhileRoundAdd);
             getBean().getBuilder().nextPart();
+        } else {
+            usedItemsWhileRoundAdd = null;
         }
         StringMap<IntBeanChgValue<Long>> o_ = new StringMap<IntBeanChgValue<Long>>();
+        usedItemsWhileRoundRem = new StringMap<SimulationBeanRemoveEntry<String, Long>>();
         for (EntryCust<TranslatedKey,Long> e: _map.entryList()) {
             getBean().formatMessageDirCts(e.getKey().getTranslation());
             IntBeanChgLong chgPl_ = getBean().getBuilder().getGenInput().newLong();
             chgPl_.valueLong(e.getValue());
             getBean().getBuilder().nextPart();
             getBean().initLine();
-            getBean().getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,Long>(getBean().getSimulation().getGame().getFight().getUsedItemsWhileRound(),e.getKey().getKey(), new UpdateFormUsedItem(getBean()), _form));
+            SimulationBeanRemoveEntry<String, Long> rem_ = new SimulationBeanRemoveEntry<String, Long>(getBean().getSimulation().getGame().getFight().getUsedItemsWhileRound(), e.getKey().getKey(), new UpdateFormUsedItem(getBean()), _form);
+            getBean().getBuilder().button("-").addEvt(rem_);
             getBean().feedParentsCts();
             o_.addEntry(e.getKey().getKey(),chgPl_);
+            usedItemsWhileRoundRem.addEntry(e.getKey().getKey(),rem_);
         }
         getBean().feedParents();
         usedItemsWhileRound = new SimulationBeanUpdateEntryValues<String, Long>(getBean().getSimulation().getGame().getFight().getUsedItemsWhileRound(), o_);
@@ -154,9 +167,13 @@ public final class SimulationFightForm extends SimulationCommonForm {
         if (!map_.isEmpty()) {
             IntBeanChgInt key_ = getBean().getBuilder().getGenInput().newInt(map_);
             IntBeanChgChoiceOfEvolutionAndMoves value_ = getBean().getBuilder().getGenInput().newChoice(pk_, mv_, ab_);
-            getBean().getBuilder().button("+").addEvt(new SimulationBeanAddEntry<Integer,ChoiceOfEvolutionAndMoves>(getBean().getSimulation().getGame().getFight().getChoices(),key_,value_, new UpdateFormEvosChoices(getBean()), _form));
+            choicesAdd = new SimulationBeanAddEntry<Integer, ChoiceOfEvolutionAndMoves>(getBean().getSimulation().getGame().getFight().getChoices(), key_, value_, new UpdateFormEvosChoices(getBean()), _form);
+            getBean().getBuilder().button("+").addEvt(choicesAdd);
             getBean().getBuilder().nextPart();
+        } else {
+            choicesAdd = null;
         }
+        choicesRem = new IntMap<SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves>>();
         IntMap<IntBeanChgValue<ChoiceOfEvolutionAndMoves>> o_ = new IntMap<IntBeanChgValue<ChoiceOfEvolutionAndMoves>>();
         for (EntryCust<Integer,ChoiceOfEvolutionAndMoves> e: getBean().getSimulation().getGame().getFight().getChoices().entryList()) {
             getBean().formatMessageDirCts(Long.toString(e.getKey()));
@@ -166,9 +183,11 @@ public final class SimulationFightForm extends SimulationCommonForm {
             getBean().getBuilder().nextPart();
             getBean().feedParentsCts();
             getBean().initLine();
-            getBean().getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<Integer,ChoiceOfEvolutionAndMoves>(getBean().getSimulation().getGame().getFight().getChoices(),e.getKey(), new UpdateFormEvosChoices(getBean()), _form));
+            SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves> rem_ = new SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves>(getBean().getSimulation().getGame().getFight().getChoices(), e.getKey(), new UpdateFormEvosChoices(getBean()), _form);
+            getBean().getBuilder().button("-").addEvt(rem_);
             getBean().feedParentsCts();
             o_.addEntry(e.getKey(),choice_);
+            choicesRem.addEntry(e.getKey(),rem_);
         }
         getBean().feedParents();
         choices = new SimulationBeanUpdateEntryValues<Integer, ChoiceOfEvolutionAndMoves>(getBean().getSimulation().getGame().getFight().getChoices(), o_);
@@ -206,19 +225,25 @@ public final class SimulationFightForm extends SimulationCommonForm {
         if (!map_.isEmpty()) {
             IntBeanChgMoveTarget key_ = getBean().getBuilder().getGenInput().newMt(map_);
             IntBeanChgMoveTarget value_ = getBean().getBuilder().getGenInput().newMt(valuesMap_);
-            getBean().getBuilder().button("+").addEvt(new SimulationBeanAddEntry<MoveTarget,MoveTarget>(getBean().getSimulation().getGame().getFight().getAllyChoice(),key_,value_, new UpdateFormAllyChoices(getBean()), _form));
+            allyChoiceAdd = new SimulationBeanAddEntry<MoveTarget, MoveTarget>(getBean().getSimulation().getGame().getFight().getAllyChoice(), key_, value_, new UpdateFormAllyChoices(getBean()), _form);
+            getBean().getBuilder().button("+").addEvt(allyChoiceAdd);
             getBean().getBuilder().nextPart();
+        } else {
+            allyChoiceAdd = null;
         }
-        MoveTargetsChgString o_ = new MoveTargetsChgString();
+        allyChoiceRem = new MoveTargetsParam<SimulationBeanRemoveEntry<MoveTarget, MoveTarget>>();
+        MoveTargetsParam<IntBeanChgValue<MoveTarget>> o_ = new MoveTargetsParam<IntBeanChgValue<MoveTarget>>();
         for (EntryCust<MoveTarget, MoveTarget> e: getBean().getSimulation().getGame().getFight().getAllyChoice().entryList()) {
             getBean().formatMessageDirCts(e.getKey().display());
             IntBeanChgMoveTarget choice_ = getBean().getBuilder().getGenInput().newMt(valuesMap_);
             choice_.valueMt(e.getValue());
             getBean().getBuilder().nextPart();
             getBean().initLine();
-            getBean().getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<MoveTarget,MoveTarget>(getBean().getSimulation().getGame().getFight().getAllyChoice(),e.getKey(), new UpdateFormAllyChoices(getBean()), _form));
+            SimulationBeanRemoveEntry<MoveTarget, MoveTarget> rem_ = new SimulationBeanRemoveEntry<MoveTarget, MoveTarget>(getBean().getSimulation().getGame().getFight().getAllyChoice(), e.getKey(), new UpdateFormAllyChoices(getBean()), _form);
+            getBean().getBuilder().button("-").addEvt(rem_);
             getBean().feedParentsCts();
             o_.addEntry(e.getKey(),choice_);
+            allyChoiceRem.addEntry(e.getKey(),rem_);
         }
         getBean().feedParents();
         allyChoice = new SimulationBeanUpdateEntryValues<MoveTarget, MoveTarget>(getBean().getSimulation().getGame().getFight().getAllyChoice(), o_);
@@ -308,5 +333,29 @@ public final class SimulationFightForm extends SimulationCommonForm {
 
     public SimulationBeanUpdateEntryValues<Integer, CustList<Integer>> getPlayerFightersAgainstFoe() {
         return playerFightersAgainstFoe;
+    }
+
+    public SimulationBeanAddEntry<String, Long> getUsedItemsWhileRoundAdd() {
+        return usedItemsWhileRoundAdd;
+    }
+
+    public StringMap<SimulationBeanRemoveEntry<String, Long>> getUsedItemsWhileRoundRem() {
+        return usedItemsWhileRoundRem;
+    }
+
+    public SimulationBeanAddEntry<Integer, ChoiceOfEvolutionAndMoves> getChoicesAdd() {
+        return choicesAdd;
+    }
+
+    public IntMap<SimulationBeanRemoveEntry<Integer, ChoiceOfEvolutionAndMoves>> getChoicesRem() {
+        return choicesRem;
+    }
+
+    public SimulationBeanAddEntry<MoveTarget, MoveTarget> getAllyChoiceAdd() {
+        return allyChoiceAdd;
+    }
+
+    public MoveTargetsParam<SimulationBeanRemoveEntry<MoveTarget, MoveTarget>> getAllyChoiceRem() {
+        return allyChoiceRem;
     }
 }

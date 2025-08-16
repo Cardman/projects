@@ -46,6 +46,10 @@ public final class SimulationFighterForm extends SimulationCommonForm {
     private final SimulationBeanUpdateEntryValues<Statistic, Long> statisBoost;
     private final SimulationBeanUpdateEntryValues<Statistic, Rate> statisBase;
     private SimulationBeanUpdateEntryValues<String, MovesAbilities> movesAbilitiesEvos;
+    private final StringMap<SimulationBeanAddEntry<String,UsesOfMove>> movesAdd = new StringMap<SimulationBeanAddEntry<String, UsesOfMove>>();
+    private final StringMap<StringMap<SimulationBeanRemoveEntry<String,UsesOfMove>>> movesRem = new StringMap<StringMap<SimulationBeanRemoveEntry<String, UsesOfMove>>>();
+    private SimulationBeanAddEntry<String, MovesAbilities> movesAbilitiesEvosAdd;
+    private StringMap<SimulationBeanRemoveEntry<String, MovesAbilities>> movesAbilitiesEvosRem = new StringMap<SimulationBeanRemoveEntry<String, MovesAbilities>>();
 
 
     public SimulationFighterForm(SimulationBean _b, Fighter _f, int _max) {
@@ -203,19 +207,27 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         if (!map_.isEmpty()) {
             IntBeanChgString key_ = getBean().getBuilder().getGenInput().newString(map_);
             IntBeanChgUsesOfMove value_ = getBean().getBuilder().getGenInput().newUse();
-            getBean().getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,UsesOfMove>(_us,key_,value_, new UpdateFormUsesOfMove(getBean(),this,_us,_key), _form));
+            SimulationBeanAddEntry<String, UsesOfMove> add_ = new SimulationBeanAddEntry<String, UsesOfMove>(_us, key_, value_, new UpdateFormUsesOfMove(getBean(), this, _us, _key), _form);
+            getBean().getBuilder().button("+").addEvt(add_);
             getBean().getBuilder().nextPart();
+            movesAdd.put(_key,add_);
+        } else {
+            movesAdd.removeKey(_key);
         }
         StringMap<IntBeanChgValue<UsesOfMove>> o_ = new StringMap<IntBeanChgValue<UsesOfMove>>();
+        StringMap<SimulationBeanRemoveEntry<String,UsesOfMove>> rems_ = new StringMap<SimulationBeanRemoveEntry<String, UsesOfMove>>();
         for (EntryCust<TranslatedKey,UsesOfMove> e:st_.entryList()) {
             getBean().formatMessageDirCts(e.getKey().getTranslation());
             IntBeanChgUsesOfMove chgPl_ = getBean().getBuilder().getGenInput().newUse();
             chgPl_.valueUse(e.getValue());
             getBean().initLine();
-            getBean().getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,UsesOfMove>(_us,e.getKey().getKey(), new UpdateFormUsesOfMove(getBean(),this,_us,_key), _form));
+            SimulationBeanRemoveEntry<String, UsesOfMove> rem_ = new SimulationBeanRemoveEntry<String, UsesOfMove>(_us, e.getKey().getKey(), new UpdateFormUsesOfMove(getBean(), this, _us, _key), _form);
+            getBean().getBuilder().button("-").addEvt(rem_);
             getBean().feedParentsCts();
             o_.addEntry(e.getKey().getKey(),chgPl_);
+            rems_.addEntry(e.getKey().getKey(),rem_);
         }
+        movesRem.put(_key,rems_);
         getBean().feedParents();
         moves.put(_key,new SimulationBeanUpdateEntryValues<String, UsesOfMove>(_us,o_));
     }
@@ -411,9 +423,13 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         if (!map_.isEmpty()) {
             IntBeanChgString key_ = getBean().getBuilder().getGenInput().newString(map_);
             IntBeanChgMovesAbilities value_ = getBean().getBuilder().getGenInput().newEvo(mv_,ab_);
-            getBean().getBuilder().button("+").addEvt(new SimulationBeanAddEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),key_,value_, new UpdateFormEvosFighter(getBean(),this,_f), _form));
+            movesAbilitiesEvosAdd = new SimulationBeanAddEntry<String, MovesAbilities>(_f.getMovesAbilitiesEvos(), key_, value_, new UpdateFormEvosFighter(getBean(), this, _f), _form);
+            getBean().getBuilder().button("+").addEvt(movesAbilitiesEvosAdd);
             getBean().getBuilder().nextPart();
+        } else {
+            movesAbilitiesEvosAdd = null;
         }
+        movesAbilitiesEvosRem = new StringMap<SimulationBeanRemoveEntry<String, MovesAbilities>>();
         StringMap<IntBeanChgValue<MovesAbilities>> o_ = new StringMap<IntBeanChgValue<MovesAbilities>>();
         for (EntryCust<TranslatedKey,MovesAbilities> e:st_.entryList()) {
             getBean().formatMessageDirCts(e.getKey().getTranslation());
@@ -423,8 +439,10 @@ public final class SimulationFighterForm extends SimulationCommonForm {
             getBean().feedParentsCts();
             getBean().initLine();
             o_.addEntry(e.getKey().getKey(),chgPl_);
-            getBean().getBuilder().button("-").addEvt(new SimulationBeanRemoveEntry<String,MovesAbilities>(_f.getMovesAbilitiesEvos(),e.getKey().getKey(), new UpdateFormEvosFighter(getBean(),this,_f), _form));
+            SimulationBeanRemoveEntry<String, MovesAbilities> rem_ = new SimulationBeanRemoveEntry<String, MovesAbilities>(_f.getMovesAbilitiesEvos(), e.getKey().getKey(), new UpdateFormEvosFighter(getBean(), this, _f), _form);
+            getBean().getBuilder().button("-").addEvt(rem_);
             getBean().feedParentsCts();
+            movesAbilitiesEvosRem.addEntry(e.getKey().getKey(),rem_);
         }
         getBean().feedParents();
         movesAbilitiesEvos = new SimulationBeanUpdateEntryValues<String, MovesAbilities>(_f.getMovesAbilitiesEvos(), o_);
@@ -891,4 +909,19 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         return coreAction;
     }
 
+    public StringMap<SimulationBeanAddEntry<String, UsesOfMove>> getMovesAdd() {
+        return movesAdd;
+    }
+
+    public StringMap<StringMap<SimulationBeanRemoveEntry<String, UsesOfMove>>> getMovesRem() {
+        return movesRem;
+    }
+
+    public SimulationBeanAddEntry<String, MovesAbilities> getMovesAbilitiesEvosAdd() {
+        return movesAbilitiesEvosAdd;
+    }
+
+    public StringMap<SimulationBeanRemoveEntry<String, MovesAbilities>> getMovesAbilitiesEvosRem() {
+        return movesAbilitiesEvosRem;
+    }
 }

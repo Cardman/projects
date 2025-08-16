@@ -1741,12 +1741,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(1,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().size());
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getKey(0));
         assertEq(2,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getValue(0));
+        assertEq(0,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRoundRem().size());
         assertEq(1,editEditSelectedPlayerPkSimuStepsChoices().size());
         assertEq(2,editEditSelectedPlayerPkSimuStepsChoices().getKey(0));
         assertEq(1,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getKeptMoves().size());
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getKeptMoves().get(0));
         assertEq(A_SIM_1,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getAbility());
         assertEq(P_POK_04,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getName());
+        assertEq(0,editEditSelectedPlayerPkSimuStepsChoicesRem().size());
         assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().size());
         assertEq(M_POK_03,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getMove());
         assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getTarget().getTeam());
@@ -1754,6 +1756,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(M_POK_04,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getMove());
         assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getTarget().getTeam());
         assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getTarget().getPosition());
+        assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoiceRem().size());
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).size());
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).getNbTurn());
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).isEnabled());
@@ -1950,8 +1953,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(5,editEditSelectedPlayerPkSimuStepsFighterMovesCurr().getVal(M_POK_00).getMax());
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterMovesAdd().getVal(M_POK_07).getCurrent());
         assertEq(5,editEditSelectedPlayerPkSimuStepsFighterMovesAdd().getVal(M_POK_07).getMax());
+        assertFalse(editEditSelectedPlayerPkSimuStepsFighterMovesRem().contains(M_POK_07));
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterMovesCurrAdd().getVal(M_POK_07).getCurrent());
         assertEq(5,editEditSelectedPlayerPkSimuStepsFighterMovesCurrAdd().getVal(M_POK_07).getMax());
+        assertFalse(editEditSelectedPlayerPkSimuStepsFighterMovesCurrRem().contains(M_POK_07));
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterStatusRelat().getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))));
         assertEq(BoolVal.FALSE,editEditSelectedPlayerPkSimuStepsFighterIncrUserAccuracy(false).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))));
         assertEq(BoolVal.TRUE,editEditSelectedPlayerPkSimuStepsFighterIncrUserAccuracy(true).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))));
@@ -1972,6 +1977,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(A_SIM_2,editEditSelectedPlayerPkSimuStepsFighterEvo().getVal(P_POK_02).getAbilities().get(0));
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEvo().getVal(P_POK_02).getMoves().size());
         assertEq(M_POK_02,editEditSelectedPlayerPkSimuStepsFighterEvo().getVal(P_POK_02).getMoves().get(0));
+        assertEq(0,editEditSelectedPlayerPkSimuStepsFighterEvoRem().size());
     }
     @Test
     public void simuSteps1() {

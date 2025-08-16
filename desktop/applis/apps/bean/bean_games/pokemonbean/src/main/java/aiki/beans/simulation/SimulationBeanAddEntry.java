@@ -28,4 +28,12 @@ public final class SimulationBeanAddEntry<K,V> implements IntBeanAction, IntBean
     public PageFormSimu special() {
         return form.getSimulationBean().endReset(alter.actionBean(form.getSimulationBean().resetFormSimu(form)));
     }
+
+    public IntBeanChgValue<K> getKey() {
+        return key;
+    }
+
+    public IntBeanChgValue<V> getValue() {
+        return value;
+    }
 }
