@@ -1,6 +1,6 @@
 package code.scripts.confs;
 
-import aiki.beans.CommonBean;
+import aiki.beans.*;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.db.ImageArrayBaseSixtyFour;
 import aiki.fight.enums.Statistic;
@@ -33,6 +33,9 @@ public abstract class EquallablePkBeanUtil {
 //    public static void assertSame(NaSt _expected, NaSt _result) {
 //        Assert.assertSame(((PokemonBeanStruct)_expected).getBean(), ((PokemonBeanStruct)_result).getBean());
 //    }
+    public static void assertNull(IntBeanAction _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertSame(CommonBean _expected, CommonBean _result) {
         Assert.assertSame(_expected, _result);
     }

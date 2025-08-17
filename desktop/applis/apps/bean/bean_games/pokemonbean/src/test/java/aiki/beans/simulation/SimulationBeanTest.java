@@ -1720,266 +1720,1066 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(71,callSimulationBeanGetLevelAfterFight(simuLeagueRealSec(),1));
     }
     @Test
+    public void simuSteps() {
+        assertEq("",new TeamPositionsString().def());
+    }
+    @Test
     public void simuSteps0() {
         assertSame(SimulationSteps.TEAM,editEditSelectedPlayerPkSimuStepsBack().getForms().getValSimStep(CommonBean.SIMU_CST_SIMULATION_STATE));
+    }
+    @Test
+    public void simuSteps1() {
+        assertEq("0",editEditSelectedPlayerPkSimuSteps().getSeed().tryRet());
+    }
+    @Test
+    public void simuSteps2() {
+        assertEq("0",editEditSelectedPlayerPkSimuStepsNext().getSeed().tryRet());
+    }
+    @Test
+    public void simuSteps3() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsNbFleeAttempt());
+    }
+    @Test
+    public void simuSteps4() {
         assertEq(Fight.toFoeFighter(0).getTeam(),editEditSelectedPlayerPkSimuStepsIndexUserTeam().getTeam());
+    }
+    @Test
+    public void simuSteps5() {
         assertEq(Fight.toFoeFighter(0).getPosition(),editEditSelectedPlayerPkSimuStepsIndexUserTeam().getPosition());
+    }
+    @Test
+    public void simuSteps6() {
         assertSame(FightState.APPRENDRE_EVOLUER,editEditSelectedPlayerPkSimuStepsIndexFightState());
+    }
+    @Test
+    public void simuSteps7() {
         assertEq(new LgInt(2),editEditSelectedPlayerPkSimuStepsNbRounds());
+    }
+    @Test
+    public void simuSteps8() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsWinningMoney());
+    }
+    @Test
+    public void simuSteps9() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsLostObjects(I_BALL).size());
+    }
+    @Test
+    public void simuSteps10() {
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsLostObjects(I_BALL).get(0));
+    }
+    @Test
+    public void simuSteps11() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsCaughtEvolutions(P_POK_00).size());
+    }
+    @Test
+    public void simuSteps12() {
         assertEq(P_POK_00,editEditSelectedPlayerPkSimuStepsCaughtEvolutions(P_POK_00).get(0));
+    }
+    @Test
+    public void simuSteps13() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFirstPositPlayerFighters().size());
+    }
+    @Test
+    public void simuSteps14() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsFirstPositPlayerFighters().getKey(0));
+    }
+    @Test
+    public void simuSteps15() {
         assertEq(Fighter.BACK,editEditSelectedPlayerPkSimuStepsFirstPositPlayerFighters().getValue(0));
+    }
+    @Test
+    public void simuSteps16() {
         assertEq(4,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().size());
+    }
+    @Test
+    public void simuSteps17() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().getKey(0));
+    }
+    @Test
+    public void simuSteps18() {
         assertEq(Fighter.BACK,editEditSelectedPlayerPkSimuStepsFirstPositFoeFighters().getValue(0));
+    }
+    @Test
+    public void simuSteps19() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().size());
+    }
+    @Test
+    public void simuSteps20() {
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getKey(0));
+    }
+    @Test
+    public void simuSteps21() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRound().getValue(0));
+    }
+    @Test
+    public void simuSteps22() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsUsedItemsWhileRoundRem().size());
+    }
+    @Test
+    public void simuSteps23() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsChoices().size());
+    }
+    @Test
+    public void simuSteps24() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsChoices().getKey(0));
+    }
+    @Test
+    public void simuSteps25() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getKeptMoves().size());
+    }
+    @Test
+    public void simuSteps26() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getKeptMoves().get(0));
+    }
+    @Test
+    public void simuSteps27() {
         assertEq(A_SIM_1,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getAbility());
+    }
+    @Test
+    public void simuSteps28() {
         assertEq(P_POK_04,editEditSelectedPlayerPkSimuStepsChoices().getValue(0).getName());
+    }
+    @Test
+    public void simuSteps29() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsChoicesRem().size());
+    }
+    @Test
+    public void simuSteps30() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().size());
+    }
+    @Test
+    public void simuSteps31() {
         assertEq(M_POK_03,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getMove());
+    }
+    @Test
+    public void simuSteps32() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getTarget().getTeam());
+    }
+    @Test
+    public void simuSteps33() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().getKey(0).getTarget().getPosition());
+    }
+    @Test
+    public void simuSteps34() {
         assertEq(M_POK_04,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getMove());
+    }
+    @Test
+    public void simuSteps35() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getTarget().getTeam());
+    }
+    @Test
+    public void simuSteps36() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoice().getValue(0).getTarget().getPosition());
+    }
+    @Test
+    public void simuSteps37() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsAllyChoiceRem().size());
+    }
+    @Test
+    public void simuSteps38() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).size());
+    }
+    @Test
+    public void simuSteps39() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps40() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMoves(false).getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps41() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMoves(true).size());
+    }
+    @Test
+    public void simuSteps42() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMoves(true).getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps43() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMoves(true).getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps44() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(false).size());
+    }
+    @Test
+    public void simuSteps45() {
         assertEq(BoolVal.FALSE,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(false).getVal(M_POK_07));
+    }
+    @Test
+    public void simuSteps46() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(true).size());
+    }
+    @Test
+    public void simuSteps47() {
         assertEq(BoolVal.TRUE,editEditSelectedPlayerPkSimuStepsStillEnabledMoves(true).getVal(M_POK_07));
+    }
+    @Test
+    public void simuSteps48() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsPlayerFightersAgainstFoe().size());
+    }
+    @Test
+    public void simuSteps49() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsPlayerFightersAgainstFoe().getVal(0).size());
+    }
+    @Test
+    public void simuSteps50() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsPlayerFightersAgainstFoe().getVal(0).get(0));
+    }
+    @Test
+    public void simuSteps51() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsNbKoRoundTeam());
+    }
+    @Test
+    public void simuSteps52() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsNbKoPreviousRoundTeam());
+    }
+    @Test
+    public void simuSteps53() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsSuccessfulMovesRoundTeam(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps54() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsSuccessfulMovesRoundTeam(M_POK_07).get(0));
+    }
+    @Test
+    public void simuSteps55() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsNbUsesMovesTeam().size());
+    }
+    @Test
+    public void simuSteps56() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsNbUsesMovesTeam().getKey(0));
+    }
+    @Test
+    public void simuSteps57() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsNbUsesMovesTeam().getValue(0));
+    }
+    @Test
+    public void simuSteps58() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsNbUsesMovesRoundTeam().size());
+    }
+    @Test
+    public void simuSteps59() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsNbUsesMovesRoundTeam().getKey(0));
+    }
+    @Test
+    public void simuSteps60() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsNbUsesMovesRoundTeam().getValue(0));
+    }
+    @Test
+    public void simuSteps61() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeam(false).size());
+    }
+    @Test
+    public void simuSteps62() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeam(false).getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps63() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMovesTeam(false).getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps64() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeam(true).size());
+    }
+    @Test
+    public void simuSteps65() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeam(true).getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps66() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMovesTeam(true).getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps67() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesWhileSendingFoeTeam(false).size());
+    }
+    @Test
+    public void simuSteps68() {
         assertEq(BoolVal.FALSE,editEditSelectedPlayerPkSimuStepsEnabledMovesWhileSendingFoeTeam(false).getVal(M_POK_07));
+    }
+    @Test
+    public void simuSteps69() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesWhileSendingFoeTeam(true).size());
+    }
+    @Test
+    public void simuSteps70() {
         assertEq(BoolVal.TRUE,editEditSelectedPlayerPkSimuStepsEnabledMovesWhileSendingFoeTeam(true).getVal(M_POK_07));
+    }
+    @Test
+    public void simuSteps71() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesWhileSendingFoeUsesTeam().size());
+    }
+    @Test
+    public void simuSteps72() {
         assertEq(new LgInt(2),editEditSelectedPlayerPkSimuStepsEnabledMovesWhileSendingFoeUsesTeam().getVal(M_POK_07));
+    }
+    @Test
+    public void simuSteps73() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(false).size());
+    }
+    @Test
+    public void simuSteps74() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(false).getVal(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps75() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(false).getVal(M_POK_07).getValue(0).getNbRounds());
+    }
+    @Test
+    public void simuSteps76() {
         assertEq(new Rate(3),editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(false).getVal(M_POK_07).getValue(0).getDamage());
+    }
+    @Test
+    public void simuSteps77() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(false).getVal(M_POK_07).getValue(0).getTargetPosition().getTeam());
+    }
+    @Test
+    public void simuSteps78() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(false).getVal(M_POK_07).getValue(0).getTargetPosition().getPosition());
+    }
+    @Test
+    public void simuSteps79() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(false).getVal(M_POK_07).getValue(0).isIncrementing());
+    }
+    @Test
+    public void simuSteps80() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(true).size());
+    }
+    @Test
+    public void simuSteps81() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(true).getVal(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps82() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(true).getVal(M_POK_07).getValue(0).getNbRounds());
+    }
+    @Test
+    public void simuSteps83() {
         assertEq(new Rate(3),editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(true).getVal(M_POK_07).getValue(0).getDamage());
+    }
+    @Test
+    public void simuSteps84() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(true).getVal(M_POK_07).getValue(0).getTargetPosition().getTeam());
+    }
+    @Test
+    public void simuSteps85() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(true).getVal(M_POK_07).getValue(0).getTargetPosition().getPosition());
+    }
+    @Test
+    public void simuSteps86() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamAnt(true).getVal(M_POK_07).getValue(0).isIncrementing());
+    }
+    @Test
+    public void simuSteps87() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, false).size());
+    }
+    @Test
+    public void simuSteps88() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, false).getVal(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps89() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, false).getVal(M_POK_07).getValue(0).isFirstStacked());
+    }
+    @Test
+    public void simuSteps90() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, false).getVal(M_POK_07).getValue(0).isLastStacked());
+    }
+    @Test
+    public void simuSteps91() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, false).getVal(M_POK_07).getValue(0).getNbRounds());
+    }
+    @Test
+    public void simuSteps92() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, false).size());
+    }
+    @Test
+    public void simuSteps93() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, false).getVal(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps94() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, false).getVal(M_POK_07).getValue(0).isFirstStacked());
+    }
+    @Test
+    public void simuSteps95() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, false).getVal(M_POK_07).getValue(0).isLastStacked());
+    }
+    @Test
+    public void simuSteps96() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, false).getVal(M_POK_07).getValue(0).getNbRounds());
+    }
+    @Test
+    public void simuSteps97() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, true).size());
+    }
+    @Test
+    public void simuSteps98() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, true).getVal(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps99() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, true).getVal(M_POK_07).getValue(0).isFirstStacked());
+    }
+    @Test
+    public void simuSteps100() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, true).getVal(M_POK_07).getValue(0).isLastStacked());
+    }
+    @Test
+    public void simuSteps101() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(false, true).getVal(M_POK_07).getValue(0).getNbRounds());
+    }
+    @Test
+    public void simuSteps102() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, true).size());
+    }
+    @Test
+    public void simuSteps103() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, true).getVal(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps104() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, true).getVal(M_POK_07).getValue(0).isFirstStacked());
+    }
+    @Test
+    public void simuSteps105() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, true).getVal(M_POK_07).getValue(0).isLastStacked());
+    }
+    @Test
+    public void simuSteps106() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamSou(true, true).getVal(M_POK_07).getValue(0).getNbRounds());
+    }
+    @Test
+    public void simuSteps107() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamCombo(false).size());
+    }
+    @Test
+    public void simuSteps108() {
         assertEq(4,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamCombo(false).get(0).getCombo().getNbTurn());
+    }
+    @Test
+    public void simuSteps109() {
         assertFalse(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamCombo(false).get(0).getCombo().isEnabled());
+    }
+    @Test
+    public void simuSteps110() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamCombo(true).size());
+    }
+    @Test
+    public void simuSteps111() {
         assertEq(4,editEditSelectedPlayerPkSimuStepsEnabledMovesTeamCombo(true).get(0).getCombo().getNbTurn());
+    }
+    @Test
+    public void simuSteps112() {
         assertTrue(editEditSelectedPlayerPkSimuStepsEnabledMovesTeamCombo(true).get(0).getCombo().isEnabled());
+    }
+    @Test
+    public void simuSteps113() {
         assertEq(P_POK_00,editEditSelectedPlayerPkSimuStepsFighterName(P_POK_00));
+    }
+    @Test
+    public void simuSteps114() {
         assertEq("",editEditSelectedPlayerPkSimuStepsFighterNickname(""));
+    }
+    @Test
+    public void simuSteps115() {
         assertSame(Gender.NO_GENDER,editEditSelectedPlayerPkSimuStepsFighterGender(Gender.NO_GENDER));
+    }
+    @Test
+    public void simuSteps116() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterWeight());
+    }
+    @Test
+    public void simuSteps117() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterHeight());
+    }
+    @Test
+    public void simuSteps118() {
         assertEq(P_POK_00,editEditSelectedPlayerPkSimuStepsFighterCurrentName(P_POK_00));
+    }
+    @Test
+    public void simuSteps119() {
         assertSame(Gender.NO_GENDER,editEditSelectedPlayerPkSimuStepsFighterCurrentGender(Gender.NO_GENDER));
+    }
+    @Test
+    public void simuSteps120() {
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsFighterLastUsedItem(I_BALL));
+    }
+    @Test
+    public void simuSteps121() {
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsFighterItem(I_BALL));
+    }
+    @Test
+    public void simuSteps122() {
         assertEq(A_SIM_1,editEditSelectedPlayerPkSimuStepsFighterAbility(A_SIM_1));
+    }
+    @Test
+    public void simuSteps123() {
         assertEq(A_SIM_1,editEditSelectedPlayerPkSimuStepsFighterCurrentAbility(A_SIM_1));
+    }
+    @Test
+    public void simuSteps124() {
         assertEq(new LgInt(2),editEditSelectedPlayerPkSimuStepsFighterNbRounds());
+    }
+    @Test
+    public void simuSteps125() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterTypes(T_SIM_1).size());
+    }
+    @Test
+    public void simuSteps126() {
         assertEq(T_SIM_1,editEditSelectedPlayerPkSimuStepsFighterTypes(T_SIM_1).get(0));
+    }
+    @Test
+    public void simuSteps127() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterRemainingHp());
+    }
+    @Test
+    public void simuSteps128() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterClone());
+    }
+    @Test
+    public void simuSteps129() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterProtectedAgainstMoveTypes(T_SIM_1).size());
+    }
+    @Test
+    public void simuSteps130() {
         assertEq(T_SIM_1,editEditSelectedPlayerPkSimuStepsFighterProtectedAgainstMoveTypes(T_SIM_1).get(0));
+    }
+    @Test
+    public void simuSteps131() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterActed(false));
+    }
+    @Test
+    public void simuSteps132() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterActed(true));
+    }
+    @Test
+    public void simuSteps133() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterGroundPlace());
+    }
+    @Test
+    public void simuSteps134() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterGroundPlaceSubst());
+    }
+    @Test
+    public void simuSteps135() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterWonExp());
+    }
+    @Test
+    public void simuSteps136() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterWonExpSinceLastLevel());
+    }
+    @Test
+    public void simuSteps137() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterLevel());
+    }
+    @Test
+    public void simuSteps138() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterHappiness());
+    }
+    @Test
+    public void simuSteps139() {
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsFighterUsedBallCatching(I_BALL));
+    }
+    @Test
+    public void simuSteps140() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterNbPrepaRound());
+    }
+    @Test
+    public void simuSteps141() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterDisappeared(false));
+    }
+    @Test
+    public void simuSteps142() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterDisappeared(true));
+    }
+    @Test
+    public void simuSteps143() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterNeedingToRecharge(false));
+    }
+    @Test
+    public void simuSteps144() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterNeedingToRecharge(true));
+    }
+    @Test
+    public void simuSteps145() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsFighterLastSufferedMove(M_POK_07));
+    }
+    @Test
+    public void simuSteps146() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterLastSufferedMoveTypes(T_SIM_1).size());
+    }
+    @Test
+    public void simuSteps147() {
         assertEq(T_SIM_1,editEditSelectedPlayerPkSimuStepsFighterLastSufferedMoveTypes(T_SIM_1).get(0));
+    }
+    @Test
+    public void simuSteps148() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsFighterLastUsedMove(M_POK_07));
+    }
+    @Test
+    public void simuSteps149() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsFighterUsedMoveLastRound(M_POK_07));
+    }
+    @Test
+    public void simuSteps150() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterAlreadyInvokedMovesRound(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps151() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsFighterAlreadyInvokedMovesRound(M_POK_07).get(0));
+    }
+    @Test
+    public void simuSteps152() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsFighterLastSuccessfulMove(M_POK_07));
+    }
+    @Test
+    public void simuSteps153() {
         assertEq(new LgInt(2),editEditSelectedPlayerPkSimuStepsFighterNbRepeatingSuccessfulMoves());
+    }
+    @Test
+    public void simuSteps154() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterUsingItem(false));
+    }
+    @Test
+    public void simuSteps155() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterUsingItem(true));
+    }
+    @Test
+    public void simuSteps156() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterSuccessfulMove(false));
+    }
+    @Test
+    public void simuSteps157() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterSuccessfulMove(true));
+    }
+    @Test
+    public void simuSteps158() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterChanged(false));
+    }
+    @Test
+    public void simuSteps159() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterChanged(true));
+    }
+    @Test
+    public void simuSteps160() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterMovesToBeLearnt(M_POK_07).size());
+    }
+    @Test
+    public void simuSteps161() {
         assertEq(M_POK_07,editEditSelectedPlayerPkSimuStepsFighterMovesToBeLearnt(M_POK_07).get(0));
+    }
+    @Test
+    public void simuSteps162() {
         assertSame(KindAction.MOVE,SimulationFighterForm.kindAction(editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)));
+    }
+    @Test
+    public void simuSteps163() {
         assertEq(M_POK_07,((ActionMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getFirstChosenMove());
+    }
+    @Test
+    public void simuSteps164() {
         assertEq(M_POK_06,((ActionMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getFinalChosenMove());
+    }
+    @Test
+    public void simuSteps165() {
         assertEq(1,((ActionMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getSubstitute());
+    }
+    @Test
+    public void simuSteps166() {
         assertEq(0,((ActionMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,TargetCoords.def().getTeam(),TargetCoords.def().getPosition(),I_BALL,1)).getChosenTargets().size());
+    }
+    @Test
+    public void simuSteps167() {
         assertEq(1,((ActionMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getChosenTargets().size());
+    }
+    @Test
+    public void simuSteps168() {
         assertEq(0,((ActionMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getChosenTargets().get(0).getTeam());
+    }
+    @Test
+    public void simuSteps169() {
         assertEq(2,((ActionMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getChosenTargets().get(0).getPosition());
+    }
+    @Test
+    public void simuSteps170() {
         assertSame(KindAction.HEAL_MOVE,SimulationFighterForm.kindAction(editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL_MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)));
+    }
+    @Test
+    public void simuSteps171() {
         assertFalse(((ActionHealMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL_MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).isTeam());
+    }
+    @Test
+    public void simuSteps172() {
         assertTrue(((ActionHealMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL_MOVE,M_POK_07,M_POK_06,true,0,2,I_BALL,1)).isTeam());
+    }
+    @Test
+    public void simuSteps173() {
         assertEq(M_POK_07,((ActionHealMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL_MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getFirstChosenMove());
+    }
+    @Test
+    public void simuSteps174() {
         assertEq(I_BALL,((ActionHealMove)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL_MOVE,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getChosenHealingItem());
+    }
+    @Test
+    public void simuSteps175() {
         assertSame(KindAction.HEAL,SimulationFighterForm.kindAction(editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL,M_POK_07,M_POK_06,false,0,2,I_BALL,1)));
+    }
+    @Test
+    public void simuSteps176() {
         assertFalse(((ActionSimpleHeal)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).isTeam());
+    }
+    @Test
+    public void simuSteps177() {
         assertTrue(((ActionSimpleHeal)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL,M_POK_07,M_POK_06,true,0,2,I_BALL,1)).isTeam());
+    }
+    @Test
+    public void simuSteps178() {
         assertEq(I_BALL,((ActionSimpleHeal)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.HEAL,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getChosenHealingItem());
+    }
+    @Test
+    public void simuSteps179() {
         assertSame(KindAction.SWITCH,SimulationFighterForm.kindAction(editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.SWITCH,M_POK_07,M_POK_06,false,0,2,I_BALL,1)));
+    }
+    @Test
+    public void simuSteps180() {
         assertEq(1,((ActionSwitch)editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.SWITCH,M_POK_07,M_POK_06,false,0,2,I_BALL,1)).getSubstitute());
+    }
+    @Test
+    public void simuSteps181() {
         assertSame(KindAction.NO,SimulationFighterForm.kindAction(editEditSelectedPlayerPkSimuStepsFighterActionMove(KindAction.NO,M_POK_07,M_POK_06,false,0,2,I_BALL,1)));
+    }
+    @Test
+    public void simuSteps182() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterStatus().size());
+    }
+    @Test
+    public void simuSteps183() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterStatus().getValue(0));
+    }
+    @Test
+    public void simuSteps184() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterNbUsesMoves().size());
+    }
+    @Test
+    public void simuSteps185() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterNbUsesMoves().getValue(0));
+    }
+    @Test
+    public void simuSteps186() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesForAlly(false).size());
+    }
+    @Test
+    public void simuSteps187() {
         assertEq(BoolVal.FALSE,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesForAlly(false).getVal(M_POK_07));
+    }
+    @Test
+    public void simuSteps188() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesForAlly(true).size());
+    }
+    @Test
+    public void simuSteps189() {
         assertEq(BoolVal.TRUE,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesForAlly(true).getVal(M_POK_07));
+    }
+    @Test
+    public void simuSteps190() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesProt().size());
+    }
+    @Test
+    public void simuSteps191() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesProt().getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps192() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterEnabledMovesProt().getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps193() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesConstChoices().size());
+    }
+    @Test
+    public void simuSteps194() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesConstChoices().getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps195() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterEnabledMovesConstChoices().getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps196() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesEndRound().size());
+    }
+    @Test
+    public void simuSteps197() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesEndRound().getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps198() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterEnabledMovesEndRound().getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps199() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesUnprot().size());
+    }
+    @Test
+    public void simuSteps200() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledMovesUnprot().getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps201() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterEnabledMovesUnprot().getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps202() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledChangingTypesMoves().size());
+    }
+    @Test
+    public void simuSteps203() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledChangingTypesMoves().getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps204() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterEnabledChangingTypesMoves().getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps205() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEnabledCounteringMoves().size());
+    }
+    @Test
+    public void simuSteps206() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledCounteringMoves().getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps207() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterEnabledCounteringMoves().getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps208() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterCopiedMoves().size());
+    }
+    @Test
+    public void simuSteps209() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterCopiedMoves().getVal(M_POK_07).getPp());
+    }
+    @Test
+    public void simuSteps210() {
         assertEq(M_POK_06,editEditSelectedPlayerPkSimuStepsFighterCopiedMoves().getVal(M_POK_07).getMove());
+    }
+    @Test
+    public void simuSteps211() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledMoves().size());
+    }
+    @Test
+    public void simuSteps212() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEnabledMoves().getVal(M_POK_07).getNbTurn());
+    }
+    @Test
+    public void simuSteps213() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterEnabledMoves().getVal(M_POK_07).isEnabled());
+    }
+    @Test
+    public void simuSteps214() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsFighterEnabledMoves().getVal(M_POK_08).getNbTurn());
+    }
+    @Test
+    public void simuSteps215() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterEnabledMoves().getVal(M_POK_08).isEnabled());
+    }
+    @Test
+    public void simuSteps216() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterDamageRateInflictedByType().size());
+    }
+    @Test
+    public void simuSteps217() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterDamageRateInflictedByType().getVal(T_SIM_1));
+    }
+    @Test
+    public void simuSteps218() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterDamageRateSufferedByType().size());
+    }
+    @Test
+    public void simuSteps219() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterDamageRateSufferedByType().getVal(T_SIM_1));
+    }
+    @Test
+    public void simuSteps220() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterDamageSufferedCateg().size());
+    }
+    @Test
+    public void simuSteps221() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterDamageSufferedCateg().getVal(C_SIM_1));
+    }
+    @Test
+    public void simuSteps222() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterDamageSufferedCategRound().size());
+    }
+    @Test
+    public void simuSteps223() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterDamageSufferedCategRound().getVal(C_SIM_1));
+    }
+    @Test
+    public void simuSteps224() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterEv().getVal(Statistic.SPEED));
+    }
+    @Test
+    public void simuSteps225() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterIv().getVal(Statistic.SPEED));
+    }
+    @Test
+    public void simuSteps226() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterStatisBoost().getVal(Statistic.SPEED));
+    }
+    @Test
+    public void simuSteps227() {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsFighterStatisBase().getVal(Statistic.SPEED));
+    }
+    @Test
+    public void simuSteps228() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterMoves().getVal(M_POK_00).getCurrent());
+    }
+    @Test
+    public void simuSteps229() {
         assertEq(5,editEditSelectedPlayerPkSimuStepsFighterMoves().getVal(M_POK_00).getMax());
+    }
+    @Test
+    public void simuSteps230() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterMovesCurr().getVal(M_POK_00).getCurrent());
+    }
+    @Test
+    public void simuSteps231() {
         assertEq(5,editEditSelectedPlayerPkSimuStepsFighterMovesCurr().getVal(M_POK_00).getMax());
+    }
+    @Test
+    public void simuSteps232() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterMovesAdd().getVal(M_POK_07).getCurrent());
+    }
+    @Test
+    public void simuSteps233() {
         assertEq(5,editEditSelectedPlayerPkSimuStepsFighterMovesAdd().getVal(M_POK_07).getMax());
+    }
+    @Test
+    public void simuSteps234() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterMovesRem().contains(M_POK_07));
+    }
+    @Test
+    public void simuSteps235() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterMovesCurrAdd().getVal(M_POK_07).getCurrent());
+    }
+    @Test
+    public void simuSteps236() {
         assertEq(5,editEditSelectedPlayerPkSimuStepsFighterMovesCurrAdd().getVal(M_POK_07).getMax());
+    }
+    @Test
+    public void simuSteps237() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterMovesCurrRem().contains(M_POK_07));
+    }
+    @Test
+    public void simuSteps238() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterStatusRelat().getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))));
+    }
+    @Test
+    public void simuSteps239() {
         assertEq(BoolVal.FALSE,editEditSelectedPlayerPkSimuStepsFighterIncrUserAccuracy(false).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))));
+    }
+    @Test
+    public void simuSteps240() {
         assertEq(BoolVal.TRUE,editEditSelectedPlayerPkSimuStepsFighterIncrUserAccuracy(true).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))));
+    }
+    @Test
+    public void simuSteps241() {
         assertEq(M_POK_06,editEditSelectedPlayerPkSimuStepsFighterTrackingMoves(false).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getMove());
+    }
+    @Test
+    public void simuSteps242() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterTrackingMoves(false).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getActivity().getNbTurn());
+    }
+    @Test
+    public void simuSteps243() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterTrackingMoves(false).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getActivity().isEnabled());
+    }
+    @Test
+    public void simuSteps244() {
         assertEq(M_POK_06,editEditSelectedPlayerPkSimuStepsFighterTrackingMoves(true).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getMove());
+    }
+    @Test
+    public void simuSteps245() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterTrackingMoves(true).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getActivity().getNbTurn());
+    }
+    @Test
+    public void simuSteps246() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterTrackingMoves(true).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getActivity().isEnabled());
+    }
+    @Test
+    public void simuSteps247() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterTrappingMoves(false).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getNbTurn());
+    }
+    @Test
+    public void simuSteps248() {
         assertFalse(editEditSelectedPlayerPkSimuStepsFighterTrappingMoves(false).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).isEnabled());
+    }
+    @Test
+    public void simuSteps249() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsFighterTrappingMoves(true).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).getNbTurn());
+    }
+    @Test
+    public void simuSteps250() {
         assertTrue(editEditSelectedPlayerPkSimuStepsFighterTrappingMoves(true).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).isEnabled());
+    }
+    @Test
+    public void simuSteps251() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterPrivateMoves(M_POK_06).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).size());
+    }
+    @Test
+    public void simuSteps252() {
         assertEq(M_POK_06,editEditSelectedPlayerPkSimuStepsFighterPrivateMoves(M_POK_06).getVal(new MoveTeamPosition(M_POK_07,Fight.toFoeFighter(0))).get(0));
+    }
+    @Test
+    public void simuSteps253() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEvo().size());
+    }
+    @Test
+    public void simuSteps254() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEvo().getVal(P_POK_02).getAbilities().size());
+    }
+    @Test
+    public void simuSteps255() {
         assertEq(A_SIM_2,editEditSelectedPlayerPkSimuStepsFighterEvo().getVal(P_POK_02).getAbilities().get(0));
+    }
+    @Test
+    public void simuSteps256() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsFighterEvo().getVal(P_POK_02).getMoves().size());
+    }
+    @Test
+    public void simuSteps257() {
         assertEq(M_POK_02,editEditSelectedPlayerPkSimuStepsFighterEvo().getVal(P_POK_02).getMoves().get(0));
+    }
+    @Test
+    public void simuSteps258() {
         assertEq(0,editEditSelectedPlayerPkSimuStepsFighterEvoRem().size());
     }
     @Test
+    public void simuSteps_0() {
+        assertNull(editEditSelectedPlayerPkSimuStepsFirstPos3());
+    }
+    @Test
+    public void simuSteps_1() {
+        assertNull(editEditSelectedPlayerPkSimuStepsFirstPos4());
+    }
+    @Test
+    public void simuSteps_2() {
+        assertNull(editEditSelectedPlayerPkSimuStepsFirstPos5());
+    }
+    @Test
+    public void simuSteps_3() {
+        assertNull(editEditSelectedPlayerPkSimuStepsFighter4());
+    }
+    @Test
+    public void simuSteps_4() {
+        assertNull(editEditSelectedPlayerPkSimuStepsFighter11());
+    }
+    /*@Test
     public void simuSteps1() {
         assertEq("0",editEditSelectedPlayerPkSimuSteps().getSeed().tryRet());
     }
@@ -2083,7 +2883,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void simuSteps24() {
         assertEq("0", editEditSelectedPlayerPkSimuStepsFighter12().getSeed().tryRet());
-    }
+    }*/
     @Test
     public void exit() {
         assertEq(CommonBean.REN_ADD_WEB_HTML_SIMULATION_SIMULATION_HTML,quit());

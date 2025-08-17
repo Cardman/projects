@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.simulation.*;
 import aiki.facade.*;
 import aiki.facade.enums.*;
 import aiki.fight.enums.Statistic;
