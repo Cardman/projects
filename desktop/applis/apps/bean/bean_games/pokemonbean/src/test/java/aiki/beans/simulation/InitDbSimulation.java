@@ -1615,6 +1615,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getWinningMoney();
     }
+    protected static EnvironmentType editEditSelectedPlayerPkSimuStepsEnvType(){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getEnvType().valueEt(EnvironmentType.ROAD);
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getEnvType();
+    }
     protected static CustList<String> editEditSelectedPlayerPkSimuStepsLostObjects(String... _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
         simu_.getFightForm().getLostObjects().setupValue(ls(_args));
@@ -1843,6 +1849,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getItem().setupValue(_args);
         transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
         return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getItem();
+    }
+    protected static String editEditSelectedPlayerPkSimuStepsFighterExpItem(String _args){
+        SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();
+        simu_.getFightForm().getTeamsForm().get(0).getMembers().get(0).getExpItem().setupValue(_args);
+        transitSimuQuick(new SimulationBeanValidateFightCoreForm(simu_), simu_.getBuilder());
+        return simu_.getSimulation().getGame().getFight().getUserTeam().getMembers().getValue(0).getExpItem();
     }
     protected static String editEditSelectedPlayerPkSimuStepsFighterAbility(String _args){
         SimulationBean simu_ = editEditSelectedPlayerPkSimuSteps();

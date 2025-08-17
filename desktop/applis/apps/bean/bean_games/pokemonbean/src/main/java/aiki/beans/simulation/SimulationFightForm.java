@@ -19,6 +19,7 @@ public final class SimulationFightForm extends SimulationCommonForm {
     private final IntBeanChgList<String> caughtEvolutions;
     private final IntBeanChgInt indexUserTeam;
     private final IntBeanChgInt indexFightState;
+    private final IntBeanChgEnvironmentType envType;
     private final CustList<SimulationTeamForm> teamsForm = new CustList<SimulationTeamForm>();
     private final AbsMap<TeamPosition, String> currentUserList;
     private final AbsMap<FightState, String> fightState;
@@ -53,6 +54,8 @@ public final class SimulationFightForm extends SimulationCommonForm {
         indexUserTeam = DifficultyBeanForm.selectInt(_s.getBuilder().getGenInput(), _s, curUserListIndex(_c), _c.indexOfEntry(_s.getSimulation().getGame().getFight().getCurrentUser()));
         DifficultyBeanForm.formatMessage(_s,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_FIGHT_STATE);
         indexFightState = DifficultyBeanForm.selectInt(_s.getBuilder().getGenInput(), _s, fightStateListIndex(_f), _f.indexOfEntry(_s.getSimulation().getGame().getFight().getState()));
+        DifficultyBeanForm.formatMessage(_s,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ENV_FIGHT);
+        envType = DifficultyBeanForm.selectEnv(_s.getBuilder().getGenInput(), _s, DictionaryComparatorUtil.buildEnvStrElts(_s.getDataBase(), _s.getLanguage()), _s.getSimulation().getGame().getFight().getEnvType());
         DifficultyBeanForm.formatMessage(_s,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_LOST_OBJECTS);
         lostObjects = DifficultyBeanForm.selectLs(_s.getBuilder().getGenInput(), _s, DictionaryComparatorUtil.buildItemsStrElts(_s.getDataBase(), _s.getLanguage()), _s.getSimulation().getGame().getFight().getLostObjects());
         DifficultyBeanForm.formatMessage(_s,MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CAUGHT_EVOS);
@@ -263,6 +266,7 @@ public final class SimulationFightForm extends SimulationCommonForm {
         getBean().getSimulation().getGame().getFight().setCaughtEvolutions(new StringList(caughtEvolutions.tryRet()));
         getBean().getSimulation().getGame().getFight().setCurrentUser(currentUserList.getKey(indexUserTeam.valueInt()));
         getBean().getSimulation().getGame().getFight().setState(fightState.getKey(indexFightState.valueInt()));
+        getBean().getSimulation().getGame().getFight().setEnvType(envType.valueEt());
         firstPositPlayerFighters.actionBean();
         firstPositFoeFighters.actionBean();
         stillEnabledMoves.actionBean();
@@ -297,6 +301,10 @@ public final class SimulationFightForm extends SimulationCommonForm {
 
     public IntBeanChgRate getWinningMoney() {
         return winningMoney;
+    }
+
+    public IntBeanChgEnvironmentType getEnvType() {
+        return envType;
     }
 
     public IntBeanChgInt getIndexUserTeam() {

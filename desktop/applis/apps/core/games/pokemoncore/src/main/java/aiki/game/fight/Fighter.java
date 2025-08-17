@@ -263,9 +263,9 @@ public final class Fighter {
 
     /**Never mind*/
     private boolean changed;
-
-    /***/
-    private StringMap<BoolVal> enabledImmuAbilities;
+//
+//    /***/
+//    private StringMap<BoolVal> enabledImmuAbilities;
 
     /**Never mind*/
     private MoveTeamPositionsStringList privateMoves;
@@ -3049,14 +3049,14 @@ public final class Fighter {
     public void setChanged(boolean _changed) {
         changed = _changed;
     }
-
-    public StringMap<BoolVal> getEnabledImmuAbilities() {
-        return enabledImmuAbilities;
-    }
-
-    public void setEnabledImmuAbilities(StringMap<BoolVal> _enabledImmuAbilities) {
-        enabledImmuAbilities = _enabledImmuAbilities;
-    }
+//
+//    public StringMap<BoolVal> getEnabledImmuAbilities() {
+//        return enabledImmuAbilities;
+//    }
+//
+//    public void setEnabledImmuAbilities(StringMap<BoolVal> _enabledImmuAbilities) {
+//        enabledImmuAbilities = _enabledImmuAbilities;
+//    }
 
     public MoveTeamPositionsStringList getPrivateMoves() {
         return privateMoves;

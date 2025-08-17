@@ -3,6 +3,7 @@ package aiki.beans.game;
 import aiki.beans.*;
 import aiki.beans.simulation.*;
 import aiki.comparators.*;
+import aiki.map.levels.enums.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.util.*;
@@ -154,6 +155,13 @@ public final class DifficultyBeanForm {
     public static IntBeanChgInt selectInt(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<Integer,String> _map, int _v) {
         IntBeanChgInt sel_ = _genInput.newInt(_map);
         sel_.valueInt(_v);
+        _rend.getBuilder().nextPart();
+        return sel_;
+    }
+
+    public static IntBeanChgEnvironmentType selectEnv(IntBeanGeneInput _genInput, CommonBean _rend, AbsMap<EnvironmentType,String> _map, EnvironmentType _v) {
+        IntBeanChgEnvironmentType sel_ = _genInput.newEt(_map);
+        sel_.valueEt(_v);
         _rend.getBuilder().nextPart();
         return sel_;
     }

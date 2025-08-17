@@ -59,6 +59,7 @@ public final class SimulationFighterForm extends SimulationCommonForm {
     private final IntBeanChgGender currentGender;
     private final IntBeanChgString lastUsedItem;
     private final IntBeanChgString item;
+    private final IntBeanChgString expItem;
     private final IntBeanChgString currentAbility;
     private final IntBeanChgLgInt nbRounds;
     private final IntBeanChgList<String> types;
@@ -126,6 +127,9 @@ public final class SimulationFighterForm extends SimulationCommonForm {
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_ITEM);
         item = getBean().getBuilder().getGenInput().newString(itemsDef());
         item.setupValue(_f.getItem());
+        DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_EXP_ITEM);
+        expItem = getBean().getBuilder().getGenInput().newString(itemsDef());
+        expItem.setupValue(_f.getExpItem());
         DifficultyBeanForm.formatMessage(getBean(),MessagesPkBean.SIMULATION,MessagesDataSimulation.M_P_86_CURRENT_ABILITY);
         currentAbility = getBean().getBuilder().getGenInput().newString(abilitiesDef());
         currentAbility.setupValue(_f.getCurrentAbility());
@@ -977,6 +981,10 @@ public final class SimulationFighterForm extends SimulationCommonForm {
 
     public IntBeanChgString getItem() {
         return item;
+    }
+
+    public IntBeanChgString getExpItem() {
+        return expItem;
     }
 
     public IntBeanChgAction getAction() {

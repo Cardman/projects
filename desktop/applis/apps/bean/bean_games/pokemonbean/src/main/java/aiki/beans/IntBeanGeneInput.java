@@ -3,6 +3,7 @@ package aiki.beans;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
+import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.util.*;
 
@@ -15,6 +16,7 @@ public interface IntBeanGeneInput {
     IntBeanChgList<String> newStringList(AbsMap<String,String> _map);
     IntBeanChgList<Integer> newInts(AbsMap<Integer,String> _map);
     IntBeanChgInt newInt(AbsMap<Integer,String> _map);
+    IntBeanChgEnvironmentType newEt(AbsMap<EnvironmentType,String> _map);
     IntBeanChgString newText();
     IntBeanChgSubmit newSubmit(String _text);
     IntBeanChgActivityOfMove newAc();

@@ -63,6 +63,7 @@ public final class SimulationBeanAbstractAction implements IntBeanAction {
         fighter.setCurrentGender(fighterCgh.getCurrentGender().valGender());
         fighter.setLastUsedItem(fighterCgh.getLastUsedItem().tryRet());
         fighter.setItem(fighterCgh.getItem().tryRet());
+        fighter.setExpItem(fighterCgh.getExpItem().tryRet());
         fighter.setAbility(fighterCgh.getAbility().tryRet());
         fighter.setCurrentAbility(fighterCgh.getCurrentAbility().tryRet());
         fighter.setNbRounds(fighterCgh.getNbRounds().valueLgInt());

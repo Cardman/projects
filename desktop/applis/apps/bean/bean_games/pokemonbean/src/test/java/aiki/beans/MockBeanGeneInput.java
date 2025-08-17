@@ -3,6 +3,7 @@ package aiki.beans;
 import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
+import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.util.*;
 
@@ -45,6 +46,11 @@ public final class MockBeanGeneInput implements IntBeanGeneInput {
     @Override
     public IntBeanChgInt newInt(AbsMap<Integer, String> _map) {
         return new BeanChgInt();
+    }
+
+    @Override
+    public IntBeanChgEnvironmentType newEt(AbsMap<EnvironmentType, String> _map) {
+        return new BeanChgEnvironmentType();
     }
 
     @Override

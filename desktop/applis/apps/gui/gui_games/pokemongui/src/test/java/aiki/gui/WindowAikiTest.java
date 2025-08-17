@@ -13,6 +13,7 @@ import aiki.gui.dialogs.*;
 import aiki.gui.listeners.DefTaskEnabled;
 import aiki.instances.Instances;
 import aiki.main.PkNonModalEvent;
+import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import aiki.sml.MessagesPkGame;
 import aiki.sml.MessagesRenderPkGameDetail;
@@ -251,6 +252,7 @@ public final class WindowAikiTest extends InitDbGuiAiki {
         h_.getGenInput().newEvo(new StringMap<String>(),new StringMap<String>()).valEvo(h_.getGenInput().newEvo(new StringMap<String>(),new StringMap<String>()).valEvo());
         h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt(h_.getGenInput().newMt(new IdMap<MoveTarget, String>()).valueMt());
         h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender(h_.getGenInput().newGender(new IdMap<Gender, String>()).valGender());
+        h_.getGenInput().newEt(new IdMap<EnvironmentType, String>()).valueEt(h_.getGenInput().newEt(new IdMap<EnvironmentType, String>()).valueEt());
         SimulationBean s_ = new SimulationBean();
         s_.setBuilder(h_);
         PageFormSimu page_ = h_.initPageForm(s_);

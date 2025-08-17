@@ -1760,6 +1760,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(new Rate(2),editEditSelectedPlayerPkSimuStepsWinningMoney());
     }
     @Test
+    public void simuSteps_8() {
+        assertSame(EnvironmentType.ROAD,editEditSelectedPlayerPkSimuStepsEnvType());
+    }
+    @Test
     public void simuSteps9() {
         assertEq(1,editEditSelectedPlayerPkSimuStepsLostObjects(I_BALL).size());
     }
@@ -2210,6 +2214,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void simuSteps121() {
         assertEq(I_BALL,editEditSelectedPlayerPkSimuStepsFighterItem(I_BALL));
+    }
+    @Test
+    public void simuSteps__121() {
+        assertEq(I_MULT_EXP,editEditSelectedPlayerPkSimuStepsFighterExpItem(I_MULT_EXP));
     }
     @Test
     public void simuSteps122() {

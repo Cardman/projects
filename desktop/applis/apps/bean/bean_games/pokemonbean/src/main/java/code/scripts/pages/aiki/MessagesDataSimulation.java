@@ -182,6 +182,7 @@ public final class MessagesDataSimulation {
     public static final String M_P_86_INC_ACCURACY_ENABLED="inc_accuracy_enabled";
     public static final String M_P_86_INVOKED_MOVES="invoked_moves";
     public static final String M_P_86_ITEM="item";
+    public static final String M_P_86_EXP_ITEM="exp_item";
     public static final String M_P_86_LAST_SUCCESSFUL_MOVE="last_successful_move";
     public static final String M_P_86_LAST_SUFFERED_MOVE="last_suffered_move";
     public static final String M_P_86_LAST_SUFFERED_MOVE_TYPES="last_suffered_move_types";
@@ -454,6 +455,7 @@ public final class MessagesDataSimulation {
         e_.add(M_P_86_INC_ACCURACY_ENABLED, ENABLED);
         e_.add(M_P_86_INVOKED_MOVES,"The already invoked moves while this round by the fighter are the following one:");
         e_.add(M_P_86_ITEM,"The item of the fighter is:");
+        e_.add(M_P_86_EXP_ITEM,"The experience item of the fighter is:");
         e_.add(M_P_86_LAST_SUCCESSFUL_MOVE,"The last successful move is:");
         e_.add(M_P_86_LAST_SUFFERED_MOVE,"The last suffered move is:");
         e_.add(M_P_86_LAST_SUFFERED_MOVE_TYPES,"The types of the last suffered move are the following one:");
@@ -719,6 +721,7 @@ public final class MessagesDataSimulation {
         f_.add(M_P_86_INC_ACCURACY_ENABLED, ACTIF);
         f_.add(M_P_86_INVOKED_MOVES,"Les attaques déjà invoquées lors de ce tour par le combattant sont les suivantes:");
         f_.add(M_P_86_ITEM,"L'objet du combattant est:");
+        f_.add(M_P_86_EXP_ITEM,"L'objet d'expérience du combattant est:");
         f_.add(M_P_86_LAST_SUCCESSFUL_MOVE,"La dernière attaque réussie est:");
         f_.add(M_P_86_LAST_SUFFERED_MOVE,"La dernière attaque subie est:");
         f_.add(M_P_86_LAST_SUFFERED_MOVE_TYPES,"Les types de la dernière attaque subie sont les suivants:");

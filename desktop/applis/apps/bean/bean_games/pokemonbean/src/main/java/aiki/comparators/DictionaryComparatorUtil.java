@@ -293,6 +293,13 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,String>(translated_);
     }
 
+    public static DictionaryComparator<EnvironmentType,String> buildEnvStrElts(DataBase _data, String _language) {
+        AbsMap<EnvironmentType, String> tr_ = _data.getTranslatedEnvironment().getVal(_language);
+        DictionaryComparator<EnvironmentType, String> dic_ = new DictionaryComparator<EnvironmentType, String>(tr_);
+        dic_.putAllMap(tr_);
+        return dic_;
+    }
+
     public static DictionaryComparator<TranslatedKey,TranslatedKey> buildEnvStr() {
         return new DictionaryComparator<TranslatedKey,TranslatedKey>(new ComparingTranslatedKey());
     }

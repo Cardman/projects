@@ -2992,7 +2992,7 @@ public final class FightFacade {
         savedFighter_.setUsingItem(_currentFighter.isUsingItem());
         savedFighter_.setSuccessfulMove(_currentFighter.isSuccessfulMove());
         savedFighter_.setChanged(_currentFighter.isChanged());
-        savedFighter_.setEnabledImmuAbilities(_currentFighter.getEnabledImmuAbilities());
+//        savedFighter_.setEnabledImmuAbilities(_currentFighter.getEnabledImmuAbilities());
         savedFighter_.setPrivateMoves(_currentFighter.getPrivateMoves());
         savedFighter_.setBelongingToPlayer(_currentFighter.isBelongingToPlayer());
         savedFighter_.setAction(_currentFighter.getAction());

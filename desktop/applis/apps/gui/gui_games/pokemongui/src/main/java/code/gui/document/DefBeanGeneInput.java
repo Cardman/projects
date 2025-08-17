@@ -5,6 +5,7 @@ import aiki.game.fight.*;
 import aiki.game.fight.actions.*;
 import aiki.game.fight.util.*;
 import aiki.gui.components.editor.NbDefValue;
+import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
 import code.gui.*;
 import code.gui.initialize.*;
@@ -90,6 +91,15 @@ public final class DefBeanGeneInput implements IntBeanGeneInput{
         GeneComponentModelElt<Integer> sel_ = new GeneComponentModelElt<Integer>(api, _map,new NbDefValue<Integer>(0));
         AbsCustComponent ch_ = sel_.geneEnum();
         DefBeanChgInt chg_ = new DefBeanChgInt(sel_);
+        helper.feedParent(ch_);
+        return chg_;
+    }
+
+    @Override
+    public IntBeanChgEnvironmentType newEt(AbsMap<EnvironmentType, String> _map) {
+        GeneComponentModelElt<EnvironmentType> sel_ = new GeneComponentModelElt<EnvironmentType>(api, _map, new EnvironmentTypeDefValue());
+        AbsCustComponent ch_ = sel_.geneEnum();
+        DefBeanChgEnvironmentType chg_ = new DefBeanChgEnvironmentType(sel_);
         helper.feedParent(ch_);
         return chg_;
     }
