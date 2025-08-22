@@ -276,8 +276,8 @@ public final class SimulationBean extends CommonBean  implements WithDifficultyC
         getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_DISABLE_EVOS)).addEvt(new SimulationBeanValidateFoeChoiceSkipEvolutions(this));
         formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SEED);
         seed = DifficultyBeanForm.txt(getBuilder().getGenInput(), this, "");
-        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP)).addEvt(new SimulationBeanIntroFight(this));
-        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP_WILD), enabledWild()).addEvt(new SimulationBeanIntroFightWild(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP), !simulation.getTeam().isEmpty()).addEvt(new SimulationBeanIntroFight(this));
+        getBuilder().button(formatMessageRend(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_SIMU_BY_STEP_WILD), !simulation.getTeam().isEmpty()&&enabledWild()).addEvt(new SimulationBeanIntroFightWild(this));
         if (!ok) {
             formatMessage(MessagesPkBean.SIMU,MessagesDataSimulation.M_P_86_NOT_SELECTED_PLAYER_PK);
         }

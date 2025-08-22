@@ -1752,6 +1752,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq("0",editEditSelectedPlayerPkSimuStepsWildTwoTeams().getSeed().tryRet());
     }
     @Test
+    public void simuSteps__6() {
+        assertEq("0",editEditSelectedPlayerPkSimuStepsWildNoTeam().getSeed().tryRet());
+    }
+    @Test
     public void simuSteps3() {
         assertEq(2,editEditSelectedPlayerPkSimuStepsNbFleeAttempt());
     }

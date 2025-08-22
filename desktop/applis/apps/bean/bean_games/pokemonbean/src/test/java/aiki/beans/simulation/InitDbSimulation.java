@@ -3115,6 +3115,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return introWildMany(db_);
     }
 
+    protected static SimulationBean editEditSelectedPlayerPkSimuStepsWildNoTeam() {
+        FacadeGame db_ = dbIncWild();
+        return introWildNoTeam(db_);
+    }
+
     protected static SimulationBean editEditSelectedPlayerPkSimuStepsWildTwoTeams() {
         FacadeGame db_ = dbIncWild();
         return introWildTwoTeams(db_);
@@ -3241,6 +3246,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, simu_, 4);
         ((SimulationBean)simu_).getSeed().setupValue("0");
         assertFalse(((SimulationBean)simu_).enabledWild());
+        return (SimulationBean)simu_;
+    }
+
+    private static SimulationBean introWildNoTeam(FacadeGame _db) {
+        FacadeGame pk_ = pkDataByFacade(_db);
+        CommonBean simu_ = simBean2(1, pk_);
+        foeTeamSampleMany(simu_);
+        ((SimulationBean)simu_).getSeed().setupValue("0");
+        assertTrue(((SimulationBean)simu_).getSimulation().getTeam().isEmpty());
         return (SimulationBean)simu_;
     }
 
